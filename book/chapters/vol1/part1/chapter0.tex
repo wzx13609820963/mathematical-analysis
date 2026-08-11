@@ -1,0 +1,762 @@
+\chapter{数学语言与证明基础}
+
+\begin{chapterguide}
+分析学的困难通常不在于公式比高等数学更复杂，而在于它要求精确处理“任意”“存在”“从某处以后”“同时对所有对象成立”等语句。极限、连续、一致收敛、紧致性和完备性的定义，归根到底都由逻辑结构、集合运算和映射构成。
+
+本章建立全书共同使用的语言。重点不是孤立地学习数理逻辑或集合论，而是掌握分析证明中反复出现的操作：辨认量词依赖，否定命题，追踪像与原像，使用等价类构造新对象，处理可数过程，以及判断一个定义是否良好。
+\end{chapterguide}
+
+本章默认读者已经在通常意义下使用过实数、函数和数列。这里讨论的是这些对象的表达方式，而不是提前使用实数完备性。涉及实数不可数性等依赖后续理论的问题，将只作预告。
+
+\section{数学命题与逻辑联结词}
+
+\subsection{命题及其真值}
+
+能够明确判断真假的陈述句称为\term{命题}。例如
+\[
+  2+3=5,
+  \qquad
+  \text{每个收敛数列都有界}
+\]
+都是命题；前者的真假可以直接计算，后者则需要证明。相反，“取一个充分大的整数”不是命题；含有未指定变量的式子 \(x^2<2\) 也不是完整命题，除非给出变量范围并对 \(x\) 加以量化。
+
+设 \(P,Q\) 为命题。常用逻辑联结词为
+\[
+  \neg P,\qquad P\land Q,\qquad P\lor Q,\qquad
+  P\Rightarrow Q,\qquad P\Leftrightarrow Q.
+\]
+它们依次表示“非 \(P\)”“\(P\) 且 \(Q\)”“\(P\) 或 \(Q\)”“若 \(P\)，则 \(Q\)”以及“\(P\) 当且仅当 \(Q\)”。数学中的“或”通常是相容或，即允许 \(P,Q\) 同时为真。
+
+蕴含 \(P\Rightarrow Q\) 只有在 \(P\) 为真而 \(Q\) 为假时才为假。这使它适合表达定理：定理排除的恰好是“满足全部假设却不满足结论”的情形。
+
+\begin{warningbox}
+命题 \(P\Rightarrow Q\) 表示逻辑蕴含，并不自动表示 \(P\) 是 \(Q\) 的原因。若研究范围中没有对象满足 \(P\)，则 \(P\Rightarrow Q\) 仍为真，这称为\term{空真}。空真在形式上正确，但通常不提供关于具体对象的信息。
+\end{warningbox}
+
+\subsection{充分条件、必要条件与等价条件}
+
+若 \(P\Rightarrow Q\)，则称 \(P\) 是 \(Q\) 的\term{充分条件}，称 \(Q\) 是 \(P\) 的\term{必要条件}。若两个方向同时成立，则记为 \(P\Leftrightarrow Q\)。
+
+与 \(P\Rightarrow Q\) 相关的三个命题为
+\[
+\begin{array}{ccl}
+  Q\Rightarrow P &:& \text{逆命题},\\
+  \neg P\Rightarrow\neg Q &:& \text{否命题},\\
+  \neg Q\Rightarrow\neg P &:& \text{逆否命题}.
+\end{array}
+\]
+原命题与逆否命题等价；逆命题与否命题等价。原命题通常不与逆命题等价。
+
+\begin{example}
+在实数范围内，\(x>1\Rightarrow x^2>1\)。其逆命题不成立，因为 \(x=-2\) 满足 \(x^2>1\)，却不满足 \(x>1\)。原命题的逆否形式为
+\[
+  x^2\le 1\Rightarrow x\le 1,
+\]
+它与原命题等价。
+\end{example}
+
+逻辑等价允许把一个难以直接处理的命题换成结构更清楚的命题。例如
+\[
+  \neg(P\land Q)\Leftrightarrow(\neg P)\lor(\neg Q),\qquad
+  \neg(P\lor Q)\Leftrightarrow(\neg P)\land(\neg Q).
+\]
+这就是命题逻辑中的 De Morgan 律。
+
+\section{全称量词、存在量词及其否定}
+
+\subsection{量词与论域}
+
+设 \(P(x)\) 是依赖变量 \(x\) 的陈述。表达式
+\[
+  \forall x\in X,\ P(x)
+\]
+表示“对每个 \(x\in X\)，\(P(x)\) 成立”；表达式
+\[
+  \exists x\in X,\ P(x)
+\]
+表示“至少存在一个 \(x\in X\)，使 \(P(x)\) 成立”。集合 \(X\) 称为变量的\term{论域}。论域不是可以省略的装饰：同一公式在不同论域中可能具有不同真值。
+
+“存在唯一的 \(x\)”记为 \(\exists!x\in X,\ P(x)\)。其证明通常分为两部分：
+\begin{enumerate}
+  \item \term{存在性}：构造或证明至少有一个对象满足要求；
+  \item \term{唯一性}：证明任意两个满足要求的对象必相等。
+\end{enumerate}
+
+\subsection{量词的否定}
+
+量词否定遵循
+\[
+\begin{aligned}
+  \neg\bigl(\forall x\in X,\ P(x)\bigr)
+    &\Leftrightarrow \exists x\in X,\ \neg P(x),\\
+  \neg\bigl(\exists x\in X,\ P(x)\bigr)
+    &\Leftrightarrow \forall x\in X,\ \neg P(x).
+\end{aligned}
+\]
+因此，推翻一个全称命题只需一个反例；证明一个对象不存在，则必须排除每一个候选对象。
+
+\begin{example}
+命题
+\[
+  \forall x\in\mathbb R,\quad x^2+1>0
+\]
+的否定是
+\[
+  \exists x\in\mathbb R,\quad x^2+1\le 0,
+\]
+而不是“对所有 \(x\)，都有 \(x^2+1\le0\)”。否定时，量词要改变，内部不等式也要取逻辑补集。
+\end{example}
+
+\subsection{量词顺序与依赖关系}
+
+多重量词一般不能交换顺序。比较
+\[
+  \forall x\in\mathbb R\ \exists y\in\mathbb R,\quad y>x
+\]
+和
+\[
+  \exists y\in\mathbb R\ \forall x\in\mathbb R,\quad y>x.
+\]
+前者允许 \(y\) 依赖于 \(x\)；后者要求同一个 \(y\) 大于所有实数。两者含义完全不同。
+
+分析学中的极限定义正是多重量词结构。数列 \(a_n\) 收敛到 \(a\) 的形式将在第7章写成
+\[
+  \forall\varepsilon>0\ \exists N\in\mathbb N\ \forall n\ge N,
+  \quad |a_n-a|<\varepsilon.
+\]
+这里 \(N\) 可以依赖于 \(\varepsilon\)，但选定以后必须同时控制所有 \(n\ge N\)。
+
+\begin{warningbox}
+写出“令 \(N\) 充分大”并未说明量词依赖。严格证明至少要能够回答三个问题：\(N\) 在哪些量之后选择？它允许依赖哪些量？选定后需要同时控制哪些对象？
+\end{warningbox}
+
+\section{集合、集合族与公理化约定}
+
+\subsection{外延性、子集与受限概括}
+
+在通常的公理化集合论中，变量的论域是全体集合，但“全体集合”本身不构成一个集合。集合由其元素确定；这由\term{外延公理}表达为
+\[
+  A=B\quad\Longleftrightarrow\quad
+  \bigl(\forall x,\ x\in A\Leftrightarrow x\in B\bigr).
+\]
+若 \(A\) 的每个元素都是 \(B\) 的元素，则记 \(A\subseteq B\)。于是
+\[
+  A=B\quad\Longleftrightarrow\quad A\subseteq B\text{ 且 }B\subseteq A.
+\]
+
+集合构造式必须区分\term{受限概括}
+\[
+  \{x\in X:P(x)\}
+\]
+和没有给出母集的形式表达式 \(\{x:P(x)\}\)。前者表示从一个已经存在的集合 \(X\) 中分离出满足性质 \(P\) 的元素；在 Zermelo--Fraenkel 集合论中，其存在性由分离公理模式保证。后者一般不能直接断言为集合。
+
+这一限制并非形式上的洁癖。若任意性质都能定义一个集合，则可令
+\[
+  R=\{x:x\notin x\}.
+\]
+于是
+\[
+  R\in R\quad\Longleftrightarrow\quad R\notin R,
+\]
+产生矛盾。这就是 Russell 悖论。公理化集合论并不禁止书写性质“\(x\notin x\)”，而是禁止未经已有集合限制便把所有满足该性质的对象收集成集合。
+
+\begin{warningbox}[不存在默认的全集]
+补集必须相对于一个已经指定的母集 \(X\) 定义。符号 \(A^c\) 只有在语境已经固定 \(X\) 时才有意义；本书不会把“所有集合”当作一个全集。
+\end{warningbox}
+
+\subsection{基本集合运算与集合族}
+
+设 \(A,B\subseteq X\)。并、交、差和补集定义为
+\[
+\begin{aligned}
+ A\cup B&=\{x\in X:x\in A\text{ 或 }x\in B\},\\
+ A\cap B&=\{x\in X:x\in A\text{ 且 }x\in B\},\\
+ A\setminus B&=\{x\in X:x\in A\text{ 且 }x\notin B\},\\
+ A^c&=X\setminus A.
+\end{aligned}
+\]
+集合 \(A\) 的所有子集组成的集合称为\term{幂集}，记为 \(\mathcal P(A)\)。
+
+严格地说，以 \(I\) 为指标集、以 \(X\) 的子集为成员的\term{集合族}可以看成一个映射 \(I\to\mathcal P(X)\)，其在 \(i\) 处的值记为 \(A_i\)。于是
+\[
+  \bigcup_{i\in I}A_i=\{x:\exists i\in I,\ x\in A_i\},\qquad
+  \bigcap_{i\in I}A_i=\{x:\forall i\in I,\ x\in A_i\}.
+\]
+第一式右端实际可限制在 \(x\in X\)。当 \(I=\varnothing\) 时，相对于固定母集 \(X\)，本书约定空并为 \(\varnothing\)，空交为 \(X\)。离开固定母集谈论空交没有确定含义。
+
+\begin{proposition}[集合族的 De Morgan 律]
+\[
+  \left(\bigcup_{i\in I}A_i\right)^c=\bigcap_{i\in I}A_i^c,
+  \qquad
+  \left(\bigcap_{i\in I}A_i\right)^c=\bigcup_{i\in I}A_i^c.
+\]
+\end{proposition}
+
+\begin{proof}
+对任意 \(x\in X\)，
+\[
+\begin{aligned}
+x\in\left(\bigcup_{i\in I}A_i\right)^c
+&\Leftrightarrow x\notin\bigcup_{i\in I}A_i\\
+&\Leftrightarrow \neg(\exists i\in I,\ x\in A_i)\\
+&\Leftrightarrow \forall i\in I,\ x\notin A_i\\
+&\Leftrightarrow x\in\bigcap_{i\in I}A_i^c.
+\end{aligned}
+\]
+由集合外延性得到第一个等式；第二个等式同理。
+\end{proof}
+
+\subsection{本书的集合论基础}
+
+本书在经典一阶逻辑与 Zermelo--Fraenkel 集合论加选择公理（ZFC）的通常背景下工作。正文不从零建立形式集合论，但会区分下列三种层次：
+\begin{enumerate}
+  \item \term{逻辑推理规则}，例如排中律、反证法和量词否定；
+  \item \term{集合存在公理}，例如配对、并集、幂集、无穷、分离和替代公理；
+  \item \term{分析学公理或定理}，例如实数的确界性质，它不是集合论公理的简单改写，而是所构造实数系统的结构性质。
+\end{enumerate}
+实数的 Dedekind 分割构造和 Cauchy 列构造将在后文给出；这些构造说明，在固定的集合论背景中，具有所需性质的实数系统确实存在。选择公理、Zorn 引理和良序原理的等价性，以及本书哪些结论需要选择原则，统一放在附录A中说明。正文若使用了非平凡的选择原则，会在首次使用处标明。
+
+\begin{connectionbox}[为什么不在开篇罗列全部 ZFC 公理]
+分析证明通常只使用少量集合构造，逐条展开其集合论编码会遮蔽主要思想；完全不说明基础，又会把受限概括、幂集和选择过程误当作无条件操作。本章建立足够严格的使用规则，附录A保存完整的公理化说明，后文则在依赖真正出现时指出它。
+\end{connectionbox}
+
+\section{映射、像与原像}
+
+\subsection{有序对、笛卡儿积与映射}
+
+有序对可以在集合论中编码为 Kuratowski 有序对
+\[
+  (x,y):=\bigl\{\{x\},\{x,y\}\bigr\}.
+\]
+这个定义的关键性质是
+\[
+  (x,y)=(x',y')\quad\Longleftrightarrow\quad x=x'\text{ 且 }y=y'.
+\]
+事实上，由 \(p=(x,y)\) 可以恢复
+\[
+  \bigcap p=\{x\},\qquad \bigcup p=\{x,y\}.
+\]
+因此等式 \((x,y)=(x',y')\) 先给出 \(x=x'\)。若 \(\bigcup p\setminus\{x\}\) 非空，它恰为 \(\{y\}\)；若为空，则 \(y=x\)。两种情形都能恢复第二个分量，故 \(y=y'\)。反向蕴含由外延性直接得到。
+集合 \(X,Y\) 的笛卡儿积定义为
+\[
+  X\times Y=\{(x,y):x\in X,\ y\in Y\}.
+\]
+
+从集合 \(X\) 到集合 \(Y\) 的\term{映射}是三元组 \(f=(X,Y,G_f)\)，其中 \(G_f\subseteq X\times Y\)，并且
+\[
+  \forall x\in X\ \exists!y\in Y,\quad (x,y)\in G_f.
+\]
+唯一的 \(y\) 记为 \(f(x)\)，映射记作 \(f:X\to Y\)。集合 \(X\) 是定义域，\(Y\) 是陪域，而
+\[
+  f(X)=\{f(x):x\in X\}
+\]
+是值域。陪域和值域不应混淆。
+
+采用三元组定义时，两个映射相等意味着定义域、陪域和图像集合都相同。日常书写中的“公式”或“对应规则”只是指定图像集合的一种方式；在称其为映射以前，仍须验证每个定义域元素都对应且只对应一个陪域元素。
+
+映射称为单射，如果 \(f(x_1)=f(x_2)\Rightarrow x_1=x_2\)；称为满射，如果每个 \(y\in Y\) 都等于某个 \(f(x)\)；既单又满时称为双射。只有双射才存在从整个 \(Y\) 到 \(X\) 的反函数。
+
+同一个公式配以不同定义域、陪域，可以得到不同的映射。例如 \(x\mapsto x^2\) 作为 \(\mathbb R\to\mathbb R\) 的映射既非单射也非满射；作为 \([0,\infty)\to[0,\infty)\) 的映射则是双射。
+
+\subsection{像与原像}
+
+对 \(A\subseteq X\)，定义像
+\[
+  f(A)=\{f(x):x\in A\}.
+\]
+对 \(B\subseteq Y\)，定义原像
+\[
+  f^{-1}(B)=\{x\in X:f(x)\in B\}.
+\]
+这里的 \(f^{-1}(B)\) 对任意映射都有意义，不要求 \(f\) 存在反函数。
+
+\begin{proposition}[像与原像的集合运算]
+设 \(f:X\to Y\)。对适当的集合族，有
+\[
+\begin{aligned}
+ f\left(\bigcup_i A_i\right)&=\bigcup_i f(A_i),&
+ f\left(\bigcap_i A_i\right)&\subseteq\bigcap_i f(A_i),\\
+ f^{-1}\left(\bigcup_i B_i\right)&=\bigcup_i f^{-1}(B_i),&
+ f^{-1}\left(\bigcap_i B_i\right)&=\bigcap_i f^{-1}(B_i),\\
+ f^{-1}(Y\setminus B)&=X\setminus f^{-1}(B).
+\end{aligned}
+\]
+若 \(f\) 为单射且指标集非空，则像对交集的包含式也取等号。
+\end{proposition}
+
+\begin{proof}
+以原像对交集的等式为例：
+\[
+\begin{aligned}
+x\in f^{-1}\left(\bigcap_i B_i\right)
+&\Leftrightarrow f(x)\in\bigcap_i B_i\\
+&\Leftrightarrow \forall i,\ f(x)\in B_i\\
+&\Leftrightarrow \forall i,\ x\in f^{-1}(B_i)\\
+&\Leftrightarrow x\in\bigcap_i f^{-1}(B_i).
+\end{aligned}
+\]
+其他原像等式同理。
+
+对像的交集，只能先得到包含。\(y\in\cap_i f(A_i)\) 只保证对每个 \(i\) 分别存在 \(x_i\in A_i\) 使 \(f(x_i)=y\)，这些 \(x_i\) 未必相同。单射性保证它们相同，从而得到反向包含。
+\end{proof}
+
+\begin{counterexample}
+令 \(f:\mathbb R\to\mathbb R\) 为 \(f(x)=x^2\)，取 \(A_1=\{-1\}\)、\(A_2=\{1\}\)。则
+\[
+  f(A_1\cap A_2)=\varnothing,\qquad
+  f(A_1)\cap f(A_2)=\{1\}.
+\]
+所以像一般不保持交集。
+\end{counterexample}
+
+\begin{connectionbox}
+连续性可以用开集的原像定义，可测性可以用可测集的原像定义。原像严格保持并、交、补，正是这些定义能够稳定工作的集合论原因。
+\end{connectionbox}
+
+\section{关系、等价关系与商集}
+
+\subsection{等价关系与分割}
+
+集合 \(X\) 上的二元关系可以理解为 \(X\times X\) 的一个子集。用 \(x\sim y\) 表示 \(x\) 与 \(y\) 具有该关系。若它满足
+\begin{enumerate}
+  \item 自反性：\(x\sim x\)；
+  \item 对称性：\(x\sim y\Rightarrow y\sim x\)；
+  \item 传递性：\(x\sim y,\ y\sim z\Rightarrow x\sim z\)，
+\end{enumerate}
+则称 \(\sim\) 为\term{等价关系}。给定 \(x\in X\)，其等价类为
+\[
+  [x]=\{y\in X:y\sim x\}.
+\]
+
+\begin{theorem}[等价类与分割]
+等价关系的等价类满足：
+\begin{enumerate}
+  \item 每个等价类非空；
+  \item 任意两个等价类或者相等，或者不相交；
+  \item 所有等价类之并为 \(X\)。
+\end{enumerate}
+反过来，集合 \(X\) 的任一分割都确定一个等价关系。
+\end{theorem}
+
+\begin{proof}
+由自反性 \(x\sim x\)，所以 \(x\in[x]\)，等价类非空且覆盖 \(X\)。
+
+设 \([x]\cap[y]\ne\varnothing\)，取 \(z\in[x]\cap[y]\)。于是 \(z\sim x\) 且 \(z\sim y\)。由对称性和传递性得到 \(x\sim y\)。若 \(u\in[x]\)，则 \(u\sim x\sim y\)，故 \(u\in[y]\)，所以 \([x]\subseteq[y]\)。交换 \(x,y\) 得反向包含，于是 \([x]=[y]\)。
+
+反过来，设 \(\mathcal A\) 是 \(X\) 的一个分割。定义 \(x\sim y\) 当且仅当 \(x,y\) 属于同一个分块。该关系直接满足自反性、对称性和传递性。
+\end{proof}
+
+全体等价类组成的集合
+\[
+  X/{\sim}=\{[x]:x\in X\}
+\]
+称为 \(X\) 对该关系的\term{商集}。商集把被认为“没有本质区别”的对象合并成一个新对象。
+
+\subsection{等价类上运算的良定义性}
+
+在商集上定义运算时，必须证明结果不依赖代表元的选择。例如，若想定义
+\[
+  [x]\star[y]=[x\circ y],
+\]
+就必须证明只要 \(x\sim x'\)、\(y\sim y'\)，便有
+\[
+  x\circ y\sim x'\circ y'.
+\]
+这一性质称为运算在等价类上\term{良定义}。只写出一个看似自然的公式并不构成定义。
+
+\begin{example}[模 \(m\) 同余]
+固定正整数 \(m\)。在 \(\mathbb Z\) 上定义
+\[
+  a\sim b\quad\Longleftrightarrow\quad m\mid(a-b).
+\]
+这是等价关系。若 \(a\sim a'\)、\(b\sim b'\)，则
+\[
+  (a+b)-(a'+b')=(a-a')+(b-b')
+\]
+仍被 \(m\) 整除，因此 \([a]+[b]=[a+b]\) 良定义。乘法同理，因为
+\[
+  ab-a'b'=a(b-b')+b'(a-a').
+\]
+\end{example}
+
+\begin{connectionbox}
+第5章将把彼此之差趋于零的有理 Cauchy 列视为同一个实数；第86章将把几乎处处相等的函数视为同一个 \(L^p\) 元素。这两种构造都是商集构造。运算和范数是否良定义，是构造能否成立的首要检查。
+\end{connectionbox}
+
+\section{有限、可数与不可数}
+
+\subsection{可数性的定义}
+
+本书约定
+\[
+  \mathbb N=\{1,2,3,\ldots\}.
+\]
+对 \(n\in\mathbb N\)，记
+\[
+  [n]=\{1,2,\ldots,n\},\qquad [0]=\varnothing.
+\]
+若存在 \(n\in\mathbb N_0\) 使集合 \(X\) 与 \([n]\) 双射，则称 \(X\) 为\term{有限集}；否则称为无限集。若存在双射 \(\mathbb N\to X\)，则称 \(X\) 为\term{可数无限集}。有限集和可数无限集统称为\term{至多可数集}，不至多可数的集合称为不可数集。
+
+\begin{proposition}[至多可数的等价刻画]
+对任意集合 \(X\)，下列条件等价：
+\begin{enumerate}
+  \item \(X\) 至多可数；
+  \item 存在单射 \(X\to\mathbb N\)；
+  \item \(X=\varnothing\)，或存在满射 \(\mathbb N\to X\)。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+若 \(X\) 有限或可数无限，分别把它嵌入 \(\mathbb N\)，得到 (1)\(\Rightarrow\)(2)。若 \(j:X\to\mathbb N\) 为单射，则 \(X\) 与子集 \(j(X)\subseteq\mathbb N\) 双射。非空子集 \(j(X)\) 可按自然数的通常次序从小到大枚举；枚举若终止则 \(X\) 有限，否则 \(X\) 可数无限，故 (2)\(\Rightarrow\)(1)。
+
+若 \(X\ne\varnothing\) 至多可数，则有限情形可周期性重复一个有限列表，可数无限情形直接使用双射，从而得到满射 \(\mathbb N\to X\)。反之，若 \(s:\mathbb N\to X\) 满射，对每个 \(x\in X\) 定义
+\[
+  j(x)=\min\{n\in\mathbb N:s(n)=x\}.
+\]
+自然数的良序性保证最小值存在，且 \(j\) 为单射，所以 \(X\) 至多可数。
+\end{proof}
+
+\begin{proposition}
+至多可数集的任意子集仍至多可数。
+\end{proposition}
+
+\begin{proof}
+只需考虑 \(X\) 可数无限而 \(A\subseteq X\) 无限的情形。取枚举 \(X=\{x_1,x_2,\ldots\}\)。令 \(n_1\) 是满足 \(x_{n_1}\in A\) 的最小指标；选定 \(n_k\) 后，令 \(n_{k+1}>n_k\) 是满足 \(x_{n_{k+1}}\in A\) 的最小指标。因为 \(A\) 无限，这一过程不会停止，并且
+\[
+  A=\{x_{n_1},x_{n_2},\ldots\}.
+\]
+故 \(A\) 可数无限。
+\end{proof}
+
+\subsection{有限乘积与可数并}
+
+\begin{proposition}
+\(\mathbb N\times\mathbb N\) 是可数集。
+\end{proposition}
+
+\begin{proof}
+定义
+\[
+  \pi(m,n)=\frac{(m+n-2)(m+n-1)}2+m.
+\]
+对固定的 \(m+n\)，\(\pi\) 沿一条有限对角线连续编号；不同对角线对应互不相交的连续整数段。因此 \(\pi:\mathbb N\times\mathbb N\to\mathbb N\) 为双射。这给出了“沿对角线排列”的显式形式。
+\end{proof}
+
+\begin{theorem}[可数并定理]
+设 \(A_1,A_2,\ldots\) 均为至多可数集，并且每个非空 \(A_n\) 已给定一个有限列表或可数枚举。则
+\[
+  \bigcup_{n=1}^{\infty}A_n
+\]
+至多可数。
+\end{theorem}
+
+\begin{proof}
+把每个非空 \(A_n\) 写成序列
+\[
+  A_n=\{a_{n1},a_{n2},\ldots\},
+\]
+有限集合可以在末尾重复最后一个元素。于是并集中的每个元素都出现在二维表 \((a_{nk})_{n,k\in\mathbb N}\) 中。按照 \(\mathbb N\times\mathbb N\) 的对角线次序读取这张表，并跳过重复项，便得到并集的有限或可数枚举。
+
+若题设只说“每个 \(A_n\) 都至多可数”，却没有同时给出枚举，那么从每个集合的众多可能枚举中选取一个需要可数选择的一种形式。在本书采用的 ZFC 背景下，通常所说的可数并定理包含这一选择步骤；本定理把步骤写入假设，是为了显示证明的确切依赖。
+\end{proof}
+
+\begin{corollary}
+\(\mathbb Z\)、\(\mathbb Q\) 和任意有限维有理向量空间 \(\mathbb Q^d\) 都是可数集。
+\end{corollary}
+
+\begin{proof}
+整数可按
+\[
+  0,1,-1,2,-2,\ldots
+\]
+排列。每个有理数都可写成 \(p/q\)，其中 \(p\in\mathbb Z\)、\(q\in\mathbb N\)。映射
+\[
+  \mathbb Z\times\mathbb N\longrightarrow\mathbb Q,\qquad
+  (p,q)\longmapsto\frac pq
+\]
+是满射，所以 \(\mathbb Q\) 至多可数；又因 \(\mathbb N\subseteq\mathbb Q\)，故它可数无限。有限个可数集的笛卡儿积仍可数，于是 \(\mathbb Q^d\) 可数。
+\end{proof}
+
+\begin{warningbox}
+“每个 \(A_i\) 都可数”不能推出任意指标并 \(\bigcup_{i\in I}A_i\) 可数。可数并定理要求指标集至多可数。例如
+\[
+  \mathbb R=\bigcup_{x\in\mathbb R}\{x\}
+\]
+是不可数多个单点集的并。
+\end{warningbox}
+
+\section{Cantor 对角线方法、幂集与不可数性}
+
+可数性表示一个集合的元素原则上可以依次编号。Cantor 的发现是：即使允许无限编号，仍有许多集合无法被一列元素穷尽。
+
+\begin{theorem}[Cantor 定理]
+对任意集合 \(X\)，不存在从 \(X\) 到其幂集 \(\mathcal P(X)\) 的满射。因此 \(X\) 与 \(\mathcal P(X)\) 不可能等势。
+\end{theorem}
+
+\begin{proof}
+反设存在满射 \(f:X\to\mathcal P(X)\)。定义对角集合
+\[
+  D=\{x\in X:x\notin f(x)\}.
+\]
+这里 \(D\) 是从已经存在的集合 \(X\) 中按性质 \(x\notin f(x)\) 分离出的子集，因而其存在性由分离公理模式保证。因为 \(D\subseteq X\)，所以 \(D\in\mathcal P(X)\)。由满射性，存在 \(d\in X\) 使 \(f(d)=D\)。于是
+\[
+  d\in D
+  \ \Leftrightarrow\ d\notin f(d)
+  \ \Leftrightarrow\ d\notin D,
+\]
+产生矛盾。因此不存在这样的满射。
+\end{proof}
+
+取 \(X=\mathbb N\)，立即得到 \(\mathcal P(\mathbb N)\) 不可数。每个子集 \(A\subseteq\mathbb N\) 都对应一个 \(0\)-\(1\) 序列
+\[
+  \chi_A(n)=
+  \begin{cases}
+    1,&n\in A,\\
+    0,&n\notin A.
+  \end{cases}
+\]
+所以所有无限 \(0\)-\(1\) 序列组成的集合也不可数。
+
+对角线证明的核心不是“无限集合很大”这一含混直觉，而是针对任意候选枚举，构造一个必定不在枚举中的对象。若第 \(n\) 个序列为 \(a^{(n)}\)，定义新序列
+\[
+  b_n=1-a_n^{(n)}.
+\]
+则 \(b\) 与第 \(n\) 个序列在第 \(n\) 位不同，故不等于列表中的任何序列。
+
+\begin{remark}
+第3章将在实数系统建立后证明 \(\mathbb R\) 不可数。使用小数展开时必须处理 \(0.4999\ldots=0.5000\ldots\) 一类表示不唯一问题，因此抽象的幂集证明更能显示对角线方法的本质。
+\end{remark}
+
+\section{直接证明、反证法、归纳法与构造法}
+
+\subsection{直接证明与逆否证明}
+
+直接证明从假设 \(P\) 出发，通过定义和已知命题推出结论 \(Q\)：
+\[
+  P\Rightarrow P_1\Rightarrow P_2\Rightarrow\cdots\Rightarrow Q.
+\]
+每一个箭头都必须有定义、已知定理或明确计算作为依据。当结论的否定更容易利用时，可以证明等价的逆否命题 \(\neg Q\Rightarrow\neg P\)。
+
+\begin{example}
+若整数 \(n^2\) 为偶数，则 \(n\) 为偶数。证明其逆否命题：若 \(n=2k+1\) 为奇数，则
+\[
+  n^2=4k^2+4k+1=2(2k^2+2k)+1
+\]
+仍为奇数。因此原命题成立。
+\end{example}
+
+\subsection{反证法}
+
+要证明命题 \(P\)，反证法先假设 \(\neg P\)，再推出矛盾。矛盾可以是同时得到 \(Q\) 与 \(\neg Q\)，也可以是与已知定理或基本公理冲突。反证法特别适合证明不存在性、唯一性以及某些非构造性存在结论。
+
+\begin{warningbox}
+反证法不是写出“显然矛盾”便结束。证明必须指出矛盾的两个具体方面，或者明确指出它违反了哪一条已经建立的结论。
+\end{warningbox}
+
+\subsection{数学归纳法}
+
+设 \(P(n)\) 是关于 \(n\in\mathbb N\) 的命题。若
+\begin{enumerate}
+  \item \(P(1)\) 成立；
+  \item 对每个 \(n\in\mathbb N\)，由 \(P(n)\) 可以推出 \(P(n+1)\)，
+\end{enumerate}
+则 \(P(n)\) 对所有 \(n\in\mathbb N\) 成立。第二步是在证明条件命题，并不是循环地假设最终结论。
+
+归纳法的有效性来自自然数的结构。等价地说，若集合 \(S\subseteq\mathbb N\) 包含 \(1\)，并且 \(n\in S\Rightarrow n+1\in S\)，则 \(S=\mathbb N\)。这不是由有限次逻辑推演自动产生的结论，而是自然数系统的归纳原理；在集合论构造中，它可由无穷公理和自然数的最小归纳集刻画得到。
+
+\begin{example}
+对每个 \(n\in\mathbb N\)，
+\[
+  1+2+\cdots+n=\frac{n(n+1)}2.
+\]
+当 \(n=1\) 时成立。若对 \(n\) 成立，则
+\[
+  1+\cdots+n+(n+1)
+  =\frac{n(n+1)}2+(n+1)
+  =\frac{(n+1)(n+2)}2.
+\]
+故对 \(n+1\) 也成立。
+\end{example}
+
+\subsection{构造法、分类讨论与反例}
+
+存在性命题 \(\exists x\in X,\ P(x)\) 的最直接证明是给出候选 \(x_0\)，再验证 \(P(x_0)\)。对象也可以通过递推、极限、上确界或选择过程构造；只要规则明确并能证明所得对象存在，就属于构造法。
+
+若对象在不同情形下具有不同结构，可以分类讨论，但分类必须互斥且穷尽。推翻全称命题只需一个反例。合格的反例必须同时满足：
+\begin{enumerate}
+  \item 它属于命题规定的对象范围；
+  \item 它满足全部假设；
+  \item 它违反结论。
+\end{enumerate}
+
+证明集合相等通常使用双包含；证明两个映射相等，除了逐点证明函数值相同，还必须确认定义域和陪域相同；证明唯一性通常设两个对象都满足要求，再推出二者相等。
+
+\section{本书的记号、约定与定理引用方式}
+
+\subsection{数集、区间与空运算}
+
+本书采用
+\[
+  \mathbb N=\{1,2,3,\ldots\},\qquad
+  \mathbb N_0=\{0,1,2,\ldots\},
+\]
+并用 \(\mathbb Z,\mathbb Q,\mathbb R,\mathbb C\) 表示整数、有理数、实数和复数。区间采用
+\[
+  (a,b),\quad [a,b],\quad (a,b],\quad [a,b)
+\]
+等标准记号；无穷端点永不包含在区间中。
+
+符号 \(a:=b\) 表示“把 \(a\) 定义为 \(b\)”。当指标集为空时，约定空和为 \(0\)、空积为 \(1\)，使递推公式在边界情形仍保持统一。
+
+\subsection{常数的依赖与一致性}
+
+证明中的常数 \(C\) 可以在不同行改变数值，但若依赖关系重要，会写成 \(C(p,d,\Omega)\)。语句“存在与 \(n\) 无关的常数 \(C\)”意味着
+\[
+  \exists C\ \forall n,
+\]
+而不是 \(\forall n\ \exists C_n\)。这一区别是一致估计的核心。
+
+“不失一般性”只能在各情形能够通过对称性、重命名或等价变换彼此转化时使用。若其余情形需要新的论证，就不能用这一短语跳过。
+
+\subsection{定理环境与交叉引用}
+
+“定义”规定术语含义；“定理”陈述结构性主要结论；“命题”和“引理”分别用于局部结论和证明工具；“推论”表示由前述结果直接导出的结论。后文引用时将区分“由定义直接得到”“由已证明定理得到”和“需要后置理论完成”，以避免循环论证。
+
+\section*{本章常见误解}
+\addcontentsline{toc}{section}{本章常见误解}
+
+\begin{warningbox}[量词可以任意交换]
+\(\forall x\exists y\) 允许 \(y\) 随 \(x\) 改变，而 \(\exists y\forall x\) 要求统一的 \(y\)。一致连续与逐点连续、一致收敛与逐点收敛之间的差别，都来自这种依赖关系。
+\end{warningbox}
+
+\begin{warningbox}[原命题成立，逆命题也成立]
+若要写“当且仅当”，必须分别证明充分性和必要性。寻找逆命题的反例，是理解定理条件的有效方法。
+\end{warningbox}
+
+\begin{warningbox}[像与原像具有相同性质]
+原像严格保持并、交、补；像严格保持并，但一般不保持交和补。连续性与可测性使用原像定义，正是利用了这一差别。
+\end{warningbox}
+
+\begin{warningbox}[等价类上的公式自动构成定义]
+商集上的运算、距离或范数必须证明与代表元无关。没有良定义性，后续计算没有确定含义。
+\end{warningbox}
+
+\begin{warningbox}[任意性质都能定义一个集合]
+本书只把 \(\{x\in X:P(x)\}\) 作为从已有集合 \(X\) 中分离子集的构造。没有母集限制的 \(\{x:P(x)\}\) 可能导致 Russell 悖论，不能作为一般集合存在原则。
+\end{warningbox}
+
+\begin{summarybox}
+\begin{enumerate}
+  \item 分析命题的核心是量词及其依赖；否定时必须同时改变量词和内部条件。
+  \item \(P\Rightarrow Q\) 与逆否命题等价，但通常不与逆命题等价。
+  \item 集合构造必须受已有母集或集合论公理控制；不存在由所有集合组成的全集。
+  \item 集合相等用双包含证明；映射由定义域、陪域和图像集合共同确定。
+  \item 原像严格保持并、交、补；像只无条件保持并。
+  \item 等价关系产生分割和商集；商集上的结构必须验证良定义性。
+  \item 可数集合可以顺序编号；可数并仍可数，但从一族集合同时选择枚举可能使用选择原则。
+  \item Cantor 对角线方法针对任意候选枚举构造遗漏对象。
+  \item 本书在 ZFC 背景下工作，完整公理与选择原理的说明集中于附录A。
+\end{enumerate}
+\end{summarybox}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章为预备与过渡章，习题按IV级配置，共19题，建议总用时为4至5小时。标为“必做”的题目构成后续章节所需的最低逻辑与集合论训练；项目题和开放题可在完成主线后选做。详细解答收入独立的《数学分析习题解答》。
+
+\subsection*{A组　概念与基本证明}
+
+\begin{enumerate}[label=\textbf{0.\arabic*.}]
+  \item \mustdo 写出下列命题的否定，并把否定号推进到最内层：
+  \begin{enumerate}[label=(\arabic*)]
+    \item \(\forall x\in\mathbb R,\ \exists n\in\mathbb N,\ n>x\)；
+    \item \(\exists M>0,\ \forall n\in\mathbb N,\ |a_n|\le M\)；
+    \item \(\forall\varepsilon>0,\ \exists N\in\mathbb N,\ \forall n\ge N,\ |a_n-a|<\varepsilon\)。
+  \end{enumerate}
+
+  \item \mustdo 写出命题“若整数 \(n\) 能被 \(6\) 整除，则 \(n\) 能被 \(3\) 整除”的逆命题、否命题和逆否命题，并判断真假。
+
+  \item \mustdo 用逐元素方法证明
+  \[
+    A\setminus(B\cup C)=(A\setminus B)\cap(A\setminus C).
+  \]
+
+  \item \mustdo 设 \(f:X\to Y\)，证明
+  \[
+    A\subseteq f^{-1}(f(A)),\qquad f(f^{-1}(B))\subseteq B,
+  \]
+  并分别给出等号成立的充分必要条件。
+
+  \item \mustdo 判断下列关系是否为等价关系：
+  \begin{enumerate}[label=(\arabic*)]
+    \item 在 \(\mathbb R\) 上，\(x\sim y\) 当且仅当 \(x-y\in\mathbb Q\)；
+    \item 在 \(\mathbb R\) 上，\(x\sim y\) 当且仅当 \(x\le y\)；
+    \item 在 \(\mathbb R^2\) 上，\(x\sim y\) 当且仅当 \(\|x\|=\|y\|\)。
+  \end{enumerate}
+
+  \item \mustdo 证明 \(\mathbb Z\times\mathbb Z\) 可数。
+  \item \mustdo 证明有限个可数集的笛卡儿积仍可数。
+\end{enumerate}
+
+\subsection*{B组　结构性问题}
+
+\begin{enumerate}[label=\textbf{0.\arabic*.},resume]
+  \item \mustdo 证明：\(f:X\to Y\) 为单射，当且仅当对每个 \(A\subseteq X\)，有 \(f^{-1}(f(A))=A\)；\(f\) 为满射，当且仅当对每个 \(B\subseteq Y\)，有 \(f(f^{-1}(B))=B\)。
+
+  \item \optionaldo 设 \(\pi:X\to X/{\sim}\) 定义为 \(\pi(x)=[x]\)。证明 \(\pi\) 是满射，并刻画它何时为单射。
+
+  \item \mustdo 在 \(\mathbb Z\times(\mathbb Z\setminus\{0\})\) 上定义
+  \[
+    (p,q)\sim(r,s)\quad\Longleftrightarrow\quad ps=rq.
+  \]
+  证明这是等价关系，并证明
+  \[
+    [(p,q)]+[(r,s)]:=[(ps+rq,qs)]
+  \]
+  良定义。
+
+  \item \optionaldo 证明全体有限整数序列组成的集合 \(\bigcup_{n=1}^{\infty}\mathbb Z^n\) 可数。
+
+  \item \mustdo 复数若为某个非零整系数多项式的根，则称为代数数。证明全体代数数可数。
+
+  \item \mustdo 证明 \(\mathcal P(\mathbb N)\) 中全体有限子集可数，并推出 \(\mathbb N\) 的无限子集有不可数多个。
+\end{enumerate}
+
+\subsection*{C组　拓展与反思}
+
+\begin{enumerate}[label=\textbf{0.\arabic*.},resume]
+  \item \projectdo Cantor--Schröder--Bernstein 定理断言：若存在单射 \(X\to Y\) 和单射 \(Y\to X\)，则存在双射 \(X\to Y\)。尝试在两个单射形成的有向图上分析各连通分支并构造双射。
+
+  \item \optionaldo 证明不存在由所有集合组成的集合。提示：若存在这样的集合 \(U\)，则比较 \(U\) 与 \(\mathcal P(U)\)。
+
+  \item \opendo 讨论“任意无限集合都含有可数无限子集”与选择原理的关系。
+
+  \item \opendo 找出本章中三个看似只是记号问题、实际上会影响命题真假的地方，并分别给出例子。
+
+  \item \mustdo 分别判断下列集合构造是否已经指定了合法的母集；若没有，应如何改写：
+  \begin{enumerate}[label=(\arabic*)]
+    \item \(\{x\in\mathbb R:x^2<2\}\)；
+    \item \(\{x:x=x\}\)；
+    \item \(\{A\in\mathcal P(\mathbb N):A\text{ 为有限集}\}\)。
+  \end{enumerate}
+  再令 \(R_X=\{x\in X:x\notin x\}\)，证明 \(R_X\notin X\)，并说明这为何排除了全集的存在。
+
+  \item \optionaldo 从 Kuratowski 定义
+  \[
+    (x,y)=\bigl\{\{x\},\{x,y\}\bigr\}
+  \]
+  出发，完整证明 \((x,y)=(x',y')\) 当且仅当 \(x=x'\) 且 \(y=y'\)。讨论 \(x=y\) 的退化情形为什么不能省略。
+\end{enumerate}
+
+\section*{部分习题提示}
+
+\begin{itemize}
+  \item 习题0.4：两个等号分别对应单射性和满射性。
+  \item 习题0.10：检查代表元变化后交叉乘积是否仍相等。
+  \item 习题0.11：先按序列长度分层，每一层 \(\mathbb Z^n\) 可数，再使用可数并定理。
+  \item 习题0.12：整系数多项式可按次数和系数编码；每个非零多项式只有有限多个复根。
+  \item 习题0.13：大小为 \(k\) 的有限子集可编码为严格递增的 \(k\) 元自然数序列。
+  \item 习题0.15：若 \(U\) 包含所有集合，则它包含自身的每个子集；结合 Cantor 定理导出矛盾。
+  \item 习题0.18：若反设 \(R_X\in X\)，把 \(R_X\) 代入其定义中的变量 \(x\)。
+  \item 习题0.19：先由 \(\bigcap(x,y)=\{x\}\) 恢复第一分量，再由并集恢复第二分量；分别处理 \(x=y\) 与 \(x\ne y\)。
+\end{itemize}

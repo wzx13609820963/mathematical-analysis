@@ -1,0 +1,176 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{analysisbook}[2026/08/11 Mathematics analysis textbook style]
+
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+\RequirePackage{geometry}
+\RequirePackage{xcolor}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{fancyhdr}
+\RequirePackage{hyperref}
+\RequirePackage[most]{tcolorbox}
+
+\geometry{a4paper,inner=30mm,outer=25mm,top=28mm,bottom=30mm,headheight=15pt}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.25em}
+\linespread{1.22}
+\allowdisplaybreaks[3]
+
+\definecolor{AnalysisBlue}{HTML}{234A73}
+\definecolor{AnalysisLightBlue}{HTML}{EDF4FA}
+\definecolor{AnalysisGold}{HTML}{9A6A16}
+\definecolor{AnalysisLightGold}{HTML}{FFF8E8}
+\definecolor{AnalysisRed}{HTML}{8E3030}
+\definecolor{AnalysisLightRed}{HTML}{FFF1F1}
+\definecolor{AnalysisGray}{HTML}{5F6770}
+\definecolor{AnalysisLightGray}{HTML}{F5F6F7}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=AnalysisBlue,
+  citecolor=AnalysisGold,
+  urlcolor=AnalysisBlue,
+  bookmarksnumbered=true,
+  pdfauthor={数学分析教材编写项目},
+  pdftitle={从高等数学到数学分析：严格基础、经典理论与现代视野}
+}
+
+\ctexset{
+  part={
+    name={第,编},
+    number=\chinese{part},
+    format=\centering\Huge\bfseries\color{AnalysisBlue}
+  },
+  chapter={
+    name={第,章},
+    number=\arabic{chapter},
+    format=\huge\bfseries\color{AnalysisBlue},
+    beforeskip=12pt,
+    afterskip=28pt
+  },
+  section={
+    format=\Large\bfseries\color{AnalysisBlue}
+  },
+  subsection={
+    format=\large\bfseries
+  }
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{AnalysisGray}\thepage\quad 数学分析}
+\fancyhead[RO]{\small\color{AnalysisGray}\leftmark\quad\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[C]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+\setlist[itemize]{leftmargin=2.2em,itemsep=0.25em,topsep=0.4em}
+\setlist[enumerate]{leftmargin=2.5em,itemsep=0.35em,topsep=0.4em}
+
+\newtheoremstyle{analysisplain}
+  {0.8em}{0.8em}{\itshape}{}% space above/below, body, indent
+  {\bfseries\color{AnalysisBlue}}{.}{0.5em}{}
+\newtheoremstyle{analysisdefinition}
+  {0.8em}{0.8em}{\normalfont}{}% space above/below, body, indent
+  {\bfseries\color{AnalysisBlue}}{.}{0.5em}{}
+\theoremstyle{analysisplain}
+\newtheorem{theorem}{定理}[chapter]
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{proposition}[theorem]{命题}
+\newtheorem{corollary}[theorem]{推论}
+\theoremstyle{analysisdefinition}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{example}[theorem]{例}
+\newtheorem{counterexample}[theorem]{反例}
+\newtheorem{remark}[theorem]{注}
+
+\renewcommand{\proofname}{证明}
+
+\newtcolorbox{chapterguide}{
+  breakable,
+  colback=AnalysisLightBlue,
+  colframe=AnalysisBlue,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=本章导引,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{motivationbox}[1][概念动机]{
+  breakable,
+  colback=AnalysisLightGold,
+  colframe=AnalysisGold,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{warningbox}[1][常见误解]{
+  breakable,
+  colback=AnalysisLightRed,
+  colframe=AnalysisRed,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{connectionbox}[1][与后文的联系]{
+  breakable,
+  colback=AnalysisLightGray,
+  colframe=AnalysisGray,
+  boxrule=0.7pt,
+  arc=1mm,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{summarybox}{
+  breakable,
+  colback=AnalysisLightBlue,
+  colframe=AnalysisBlue,
+  boxrule=0.9pt,
+  arc=1mm,
+  title=本章小结,
+  fonttitle=\bfseries
+}
+
+\newcommand{\term}[1]{\textbf{#1}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newenvironment{solution}[1]
+  {\par\medskip\noindent{\bfseries\color{AnalysisBlue}习题 #1}\quad}
+  {\par\medskip}
+
+\newcommand{\mustdo}{\textcolor{AnalysisRed}{\bfseries [必做]}}
+\newcommand{\optionaldo}{\textcolor{AnalysisBlue}{\bfseries [选做]}}
+\newcommand{\projectdo}{\textcolor{AnalysisGold}{\bfseries [项目]}}
+\newcommand{\opendo}{\textcolor{AnalysisGray}{\bfseries [开放]}}
+
+\makeatletter
+\providecommand*{\toclevel@volume}{-2}
+\newcommand*\l@volume{\@dottedtocline{-1}{0em}{0em}}
+\newcommand{\volume}[1]{%
+  \cleardoublepage
+  \phantomsection
+  \addcontentsline{toc}{volume}{#1}
+  \thispagestyle{empty}
+  \vspace*{0.2\textheight}
+  \begin{center}
+    {\Huge\bfseries\color{AnalysisBlue}#1\par}
+  \end{center}
+  \vfill
+  \cleardoublepage
+}
+\makeatother

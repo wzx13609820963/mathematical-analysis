@@ -1,0 +1,359 @@
+\chapter{数学语言与证明基础：习题解答}
+
+\begin{chapterguide}
+本章解答与正文第0章的19道习题逐题对应。证明题给出完整逻辑，开放题给出一种可行方案及其所依赖的集合论背景。建议先独立完成习题，再按题号查阅。
+\end{chapterguide}
+
+\section*{A组　概念与基本证明}
+\addcontentsline{toc}{section}{A组　概念与基本证明}
+
+\begin{solution}{0.1}
+\begin{enumerate}[label=(\arabic*)]
+  \item 原命题为
+  \[
+    \forall x\in\mathbb R\ \exists n\in\mathbb N,\quad n>x.
+  \]
+  逐层否定量词，得到
+  \[
+    \exists x\in\mathbb R\ \forall n\in\mathbb N,\quad n\le x.
+  \]
+
+  \item 原命题表示数列有界。其否定为
+  \[
+    \forall M>0\ \exists n\in\mathbb N,\quad |a_n|>M.
+  \]
+  注意最后是不等式 \(>\)，不是 \(\ge\)。
+
+  \item 原命题的否定为
+  \[
+    \exists\varepsilon_0>0\ \forall N\in\mathbb N\
+    \exists n\ge N,\quad |a_n-a|\ge\varepsilon_0.
+  \]
+  其中同一个 \(\varepsilon_0\) 必须对所有 \(N\) 有效，而反例指标 \(n\) 可以依赖于 \(N\)。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{0.2}
+令
+\[
+  P:\ 6\mid n,\qquad Q:\ 3\mid n.
+\]
+原命题 \(P\Rightarrow Q\) 为真。
+
+逆命题是 \(Q\Rightarrow P\)，即“若 \(3\mid n\)，则 \(6\mid n\)”；它为假，反例为 \(n=3\)。
+
+否命题是 \(\neg P\Rightarrow\neg Q\)，即“若 \(6\nmid n\)，则 \(3\nmid n\)”；它同样为假，反例仍可取 \(n=3\)。
+
+逆否命题是 \(\neg Q\Rightarrow\neg P\)，即“若 \(3\nmid n\)，则 \(6\nmid n\)”；它为真，并且与原命题逻辑等价。
+\end{solution}
+
+\begin{solution}{0.3}
+对任意元素 \(x\)，有
+\[
+\begin{aligned}
+x\in A\setminus(B\cup C)
+&\Leftrightarrow x\in A\ \text{且}\ x\notin B\cup C\\
+&\Leftrightarrow x\in A,\ x\notin B,\ x\notin C\\
+&\Leftrightarrow x\in A\setminus B\ \text{且}\ x\in A\setminus C\\
+&\Leftrightarrow x\in(A\setminus B)\cap(A\setminus C).
+\end{aligned}
+\]
+由集合外延性，两集合相等。
+\end{solution}
+
+\begin{solution}{0.4}
+若 \(x\in A\)，则 \(f(x)\in f(A)\)，所以 \(x\in f^{-1}(f(A))\)。因此
+\[
+  A\subseteq f^{-1}(f(A)).
+\]
+对给定集合 \(A\)，等号成立当且仅当 \(A\) 是所有与其元素具有相同函数值的点的并，即
+\[
+  a\in A,\ f(x)=f(a)\quad\Longrightarrow\quad x\in A.
+\]
+换言之，\(A\) 必须是映射 \(f\) 的若干纤维的并。若要求该等式对每个 \(A\subseteq X\) 都成立，则其充要条件是 \(f\) 为单射。
+
+另一方面，
+\[
+\begin{aligned}
+y\in f(f^{-1}(B))
+&\Leftrightarrow \exists x\in X,\ f(x)=y\ \text{且}\ f(x)\in B\\
+&\Leftrightarrow y\in f(X)\cap B.
+\end{aligned}
+\]
+所以恒有
+\[
+  f(f^{-1}(B))=B\cap f(X)\subseteq B.
+\]
+对给定 \(B\)，等号成立当且仅当 \(B\subseteq f(X)\)。若要求它对每个 \(B\subseteq Y\) 成立，则其充要条件是 \(f\) 为满射。
+\end{solution}
+
+\begin{solution}{0.5}
+\begin{enumerate}[label=(\arabic*)]
+  \item 关系 \(x\sim y\Longleftrightarrow x-y\in\mathbb Q\) 是等价关系。自反性来自 \(x-x=0\in\mathbb Q\)；若 \(x-y\in\mathbb Q\)，则 \(y-x=-(x-y)\in\mathbb Q\)，故对称；若 \(x-y,y-z\in\mathbb Q\)，则
+  \[
+    x-z=(x-y)+(y-z)\in\mathbb Q,
+  \]
+  故传递。等价类为 \(x+\mathbb Q\)。
+
+  \item 关系 \(x\le y\) 不是等价关系。它虽然自反且传递，但不对称，例如 \(0\le1\) 而 \(1\le0\) 不成立。
+
+  \item 关系 \(\|x\|=\|y\|\) 是等价关系，因为实数相等关系具有自反性、对称性和传递性。非零点的等价类是以原点为圆心的圆，原点的等价类是单点集。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{0.6}
+定义
+\[
+  h:\mathbb Z\longrightarrow\mathbb N,\qquad
+  h(z)=
+  \begin{cases}
+    2z+1,&z\ge0,\\
+    -2z,&z<0.
+  \end{cases}
+\]
+它把 \(0,1,-1,2,-2,\ldots\) 依次送到 \(1,3,2,5,4,\ldots\)，是一个双射。于是
+\[
+  H:\mathbb Z\times\mathbb Z\longrightarrow\mathbb N\times\mathbb N,
+  \qquad H(m,n)=(h(m),h(n))
+\]
+也是双射。正文已经证明 \(\mathbb N\times\mathbb N\) 可数，因此 \(\mathbb Z\times\mathbb Z\) 可数。
+\end{solution}
+
+\begin{solution}{0.7}
+先用归纳法证明 \(\mathbb N^k\) 对每个正整数 \(k\) 都可数。\(k=1\) 时显然。若 \(\mathbb N^k\) 可数，则
+\[
+  \mathbb N^{k+1}=\mathbb N^k\times\mathbb N
+\]
+是两个可数集的笛卡儿积，因而可数。
+
+若 \(A_1,\ldots,A_k\) 均至多可数，分别取单射
+\[
+  f_j:A_j\longrightarrow\mathbb N.
+\]
+则
+\[
+  (a_1,\ldots,a_k)\longmapsto
+  (f_1(a_1),\ldots,f_k(a_k))
+\]
+给出 \(A_1\times\cdots\times A_k\) 到 \(\mathbb N^k\) 的单射。因此有限个至多可数集的笛卡儿积仍至多可数。
+\end{solution}
+
+\section*{B组　结构性问题}
+\addcontentsline{toc}{section}{B组　结构性问题}
+
+\begin{solution}{0.8}
+先证单射部分。若 \(f\) 为单射，正文已知 \(A\subseteq f^{-1}(f(A))\)。反过来，若 \(x\in f^{-1}(f(A))\)，则存在 \(a\in A\) 使 \(f(x)=f(a)\)。由单射性 \(x=a\in A\)，故
+\[
+  f^{-1}(f(A))=A.
+\]
+
+反之，若该等式对每个 \(A\subseteq X\) 成立，设 \(f(x_1)=f(x_2)\)。取 \(A=\{x_1\}\)，则 \(x_2\in f^{-1}(f(A))=A\)，所以 \(x_2=x_1\)，故 \(f\) 为单射。
+
+再证满射部分。恒有
+\[
+  f(f^{-1}(B))=B\cap f(X).
+\]
+若 \(f\) 为满射，则 \(f(X)=Y\)，右端等于 \(B\)。反之，若等式对每个 \(B\subseteq Y\) 成立，取 \(B=Y\)，得到 \(f(X)=Y\)，所以 \(f\) 为满射。
+\end{solution}
+
+\begin{solution}{0.9}
+对任意等价类 \([x]\in X/{\sim}\)，有 \(\pi(x)=[x]\)，所以 \(\pi\) 为满射。
+
+若 \(\pi\) 为单射，且 \(x\sim y\)，则 \([x]=[y]\)，即 \(\pi(x)=\pi(y)\)，所以 \(x=y\)。因此每个等价类都是单点集。
+
+反之，若每个等价类都是单点集，且 \(\pi(x)=\pi(y)\)，则 \(x\sim y\)，从而 \(x=y\)，故 \(\pi\) 为单射。其充要条件是原等价关系恰为相等关系。
+\end{solution}
+
+\begin{solution}{0.10}
+因为 \(q\ne0\)，有 \(pq=pq\)，故关系自反。若 \(ps=rq\)，则 \(rq=ps\)，故对称。
+
+设
+\[
+  (p,q)\sim(r,s),\qquad (r,s)\sim(t,u).
+\]
+于是 \(ps=rq\)、\(ru=ts\)。第一式乘 \(u\)，第二式乘 \(q\)，得到
+\[
+  psu=rqu=tsq.
+\]
+因 \(s\ne0\)，消去 \(s\) 得 \(pu=tq\)，所以关系传递。
+
+验证加法良定义。设
+\[
+  pq'=p'q,\qquad rs'=r's.
+\]
+则
+\[
+\begin{aligned}
+(ps+rq)q's'
+&=p q' s s'+r s' q q'\\
+&=p' q s s'+r' s q q'\\
+&=(p's'+r'q')qs.
+\end{aligned}
+\]
+这正说明
+\[
+  (ps+rq,qs)\sim(p's'+r'q',q's'),
+\]
+故加法不依赖代表元选择。
+\end{solution}
+
+\begin{solution}{0.11}
+对每个固定 \(n\)，\(\mathbb Z^n\) 是有限个可数集的笛卡儿积，因而可数。所有有限整数序列组成
+\[
+  \bigcup_{n=1}^{\infty}\mathbb Z^n,
+\]
+这是可数个可数集的并，所以可数。若把空序列也包括在内，只需再并入一个单点集。
+\end{solution}
+
+\begin{solution}{0.12}
+对每个 \(d\in\mathbb N_0\)，次数不超过 \(d\) 的整系数多项式由系数向量
+\[
+  (a_0,a_1,\ldots,a_d)\in\mathbb Z^{d+1}
+\]
+确定，所以至多可数。全体整系数多项式是这些集合对 \(d\) 的可数并，仍至多可数。
+
+每个非零次数为 \(d\) 的复多项式至多有 \(d\) 个复根。因此全体代数数是可数个有限根集的并，至多可数。另一方面，每个整数都是 \(x-n\) 的根，所以代数数有无限多个，故它是可数无限集。
+\end{solution}
+
+\begin{solution}{0.13}
+对固定 \(k\)，每个含 \(k\) 个元素的有限子集可唯一写成
+\[
+  \{n_1<n_2<\cdots<n_k\},
+\]
+从而编码为 \(\mathbb N^k\) 中的严格递增元组。因此含 \(k\) 个元素的子集至多可数。再对 \(k\) 作可数并并加入空集，得到全体有限子集组成的集合 \(\mathcal F\) 可数。
+
+若全体无限子集组成的集合 \(\mathcal I\) 也至多可数，则
+\[
+  \mathcal P(\mathbb N)=\mathcal F\cup\mathcal I
+\]
+至多可数，与 Cantor 定理矛盾。因此 \(\mathcal I\) 不可数。
+\end{solution}
+
+\section*{C组　拓展与反思}
+\addcontentsline{toc}{section}{C组　拓展与反思}
+
+\begin{solution}{0.14}
+设 \(f:X\to Y\) 和 \(g:Y\to X\) 均为单射。定义
+\[
+  A_0=X\setminus g(Y),\qquad
+  A_{n+1}=g(f(A_n)),\qquad
+  A=\bigcup_{n=0}^{\infty}A_n.
+\]
+在 \(A\) 上使用 \(f\)，在 \(X\setminus A\) 上沿 \(g\) 反向配对：
+\[
+  h(x)=
+  \begin{cases}
+    f(x),&x\in A,\\
+    g^{-1}(x),&x\notin A.
+  \end{cases}
+\]
+若 \(x\notin A\)，则 \(x\notin A_0=X\setminus g(Y)\)，所以 \(x\in g(Y)\)。由于 \(g\) 单射，\(g^{-1}(x)\) 唯一，故 \(h\) 良定义。
+
+证明单射性。两点都在 \(A\) 时使用 \(f\) 的单射性；两点都不在 \(A\) 时使用 \(g^{-1}\) 的单射性。若 \(x\in A\)、\(x'\notin A\) 而 \(h(x)=h(x')\)，则
+\[
+  f(x)=g^{-1}(x'),\qquad x'=g(f(x)).
+\]
+由 \(x\in A_n\) 对某个 \(n\) 成立，得到 \(x'\in A_{n+1}\subseteq A\)，矛盾。
+
+证明满射性。任取 \(y\in Y\)。若 \(g(y)\notin A\)，则
+\[
+  h(g(y))=g^{-1}(g(y))=y.
+\]
+若 \(g(y)\in A\)，由于 \(g(y)\notin A_0\)，它必属于某个 \(A_{n+1}=g(f(A_n))\)。于是存在 \(a\in A_n\) 使
+\[
+  g(y)=g(f(a)).
+\]
+由 \(g\) 单射得 \(y=f(a)=h(a)\)。所以 \(h\) 为满射。
+
+因此 \(h:X\to Y\) 是双射，Cantor--Schröder--Bernstein 定理得证。
+\end{solution}
+
+\begin{solution}{0.15}
+反设存在由所有集合组成的集合 \(U\)。那么 \(U\) 的每个子集本身也是集合，所以
+\[
+  \mathcal P(U)\subseteq U.
+\]
+包含映射给出单射 \(\mathcal P(U)\to U\)。另一方面，
+\[
+  U\longrightarrow\mathcal P(U),\qquad x\longmapsto\{x\}
+\]
+也是单射。由习题0.14，\(U\) 与 \(\mathcal P(U)\) 之间存在双射，这与 Cantor 定理矛盾。因此不存在由所有集合组成的集合。
+
+还可以定义 Russell 型对角集合
+\[
+  R=\{x\in U:x\notin x\}
+\]
+并由 \(R\in R\Leftrightarrow R\notin R\) 直接得到矛盾。
+\end{solution}
+
+\begin{solution}{0.16}
+在 ZFC 中，任意集合都可以良序化。设 \(X\) 为无限集，固定 \(X\) 的一个良序。令 \(x_1\) 为 \(X\) 的最小元；选出 \(x_1,\ldots,x_n\) 后，令 \(x_{n+1}\) 为
+\[
+  X\setminus\{x_1,\ldots,x_n\}
+\]
+的最小元。由于 \(X\) 无限，删除有限多个元素后仍非空，所以该过程可以无限进行。映射 \(n\mapsto x_n\) 是 \(\mathbb N\to X\) 的单射，其像就是可数无限子集。
+
+这里需要能够在无限多个阶段作出相容选择。完整选择公理足以保证这一点，某些较弱的选择原则也足够；但纯 ZF 中可能存在无限而没有可数无限子集的集合，称为 Dedekind 有限集。因此该命题不能在不说明集合论背景时视为无条件事实。
+\end{solution}
+
+\begin{solution}{0.17}
+以下给出五个例子。
+
+\begin{enumerate}
+  \item \textbf{定义域和陪域。} \(f(x)=x^2\) 作为 \(\mathbb R\to\mathbb R\) 的映射既非单射也非满射；作为 \([0,\infty)\to[0,\infty)\) 的映射则为双射。
+
+  \item \textbf{原像与反函数。} 对任意映射 \(f:X\to Y\)，集合原像 \(f^{-1}(B)\) 都有意义；反函数 \(f^{-1}:Y\to X\) 只有在 \(f\) 双射时才存在。
+
+  \item \textbf{自然数是否含零。} 这一约定影响数列首项、归纳起点和级数指标。本书以 \(\mathbb N\) 表示正整数，以 \(\mathbb N_0\) 表示非负整数。
+
+  \item \textbf{量词顺序。} \(\forall x\exists y\) 允许 \(y\) 依赖于 \(x\)，而 \(\exists y\forall x\) 要求统一的 \(y\)。这不是排版差别。
+
+  \item \textbf{包含与真包含。} 本书中 \(A\subseteq B\) 允许 \(A=B\)。若误读为真包含，会错误排除许多边界情形。
+\end{enumerate}
+
+这些例子说明，数学记号压缩了对象范围和逻辑关系；忽略约定可能改变命题真假。
+\end{solution}
+
+\begin{solution}{0.18}
+第(1)式已经指定母集 \(\mathbb R\)，它是由分离原则得到的 \(\mathbb R\) 的子集。第(2)式没有母集限制；性质 \(x=x\) 对每个集合都成立，因此若把该表达式无条件视为集合，就会得到由所有集合组成的全集，这是不允许的。若只需讨论某个已有集合 \(X\) 中的对象，应改写为
+\[
+  \{x\in X:x=x\}=X.
+\]
+第(3)式的母集是已经存在的幂集 \(\mathcal P(\mathbb N)\)，因而是合法的受限分离；它表示 \(\mathbb N\) 的全体有限子集组成的集合。
+
+对任意集合 \(X\)，分离原则保证
+\[
+  R_X=\{x\in X:x\notin x\}
+\]
+存在。反设 \(R_X\in X\)。把 \(x=R_X\) 代入定义，得到
+\[
+  R_X\in R_X\quad\Longleftrightarrow\quad R_X\notin R_X,
+\]
+矛盾。因此 \(R_X\notin X\)。若存在全集 \(U\)，则每个集合都属于 \(U\)，特别应有 \(R_U\in U\)，与刚才的结论矛盾。因此不存在全集。
+\end{solution}
+
+\begin{solution}{0.19}
+反向蕴含显然：若 \(x=x'\) 且 \(y=y'\)，由外延性立即有 \((x,y)=(x',y')\)。下面证明正向蕴含。
+
+令
+\[
+  p=(x,y)=\bigl\{\{x\},\{x,y\}\bigr\}.
+\]
+无论 \(x=y\) 与否，均有
+\[
+  \bigcap p=\{x\}.
+\]
+确实，当 \(x\ne y\) 时，\(\{x\}\cap\{x,y\}=\{x\}\)；当 \(x=y\) 时，\(p=\{\{x\}\}\)，其唯一成员的交仍为 \(\{x\}\)。因此若 \((x,y)=(x',y')\)，对两边取交得到 \(\{x\}=\{x'\}\)，从而 \(x=x'\)。
+
+再注意
+\[
+  \bigcup p=\{x,y\}.
+\]
+若 \(y=x\)，则该并集为 \(\{x\}\)；等式另一边具有相同的第一分量和相同的并集，故也只能有 \(y'=x\)。若 \(y\ne x\)，则
+\[
+  \left(\bigcup p\right)\setminus\{x\}=\{y\}.
+\]
+对等式另一边作同样运算得到 \(\{y\}=\{y'\}\)，故 \(y=y'\)。两种情形合并即得结论。
+
+退化情形不能省略，因为此时 Kuratowski 有序对从一个二元集合退化为单元素集合 \(\{\{x\}\}\)；若证明未经检查便假定它始终有两个不同成员，论证本身就使用了尚未证明的 \(x\ne y\)。
+\end{solution}

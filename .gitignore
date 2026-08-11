@@ -1,0 +1,26 @@
+# LaTeX intermediate files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex
+*.synctex.gz
+*.toc
+
+# PDFs produced beside TeX sources; release copies live in output/pdf/
+/book/main.pdf
+/book/solutions.pdf
+
+# Temporary render and inspection files
+/tmp/
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+*.swp
+*~
