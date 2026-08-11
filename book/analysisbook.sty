@@ -1,6 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{analysisbook}[2026/08/11 Mathematics analysis textbook style]
 
+\newif\ifanalysisprint
+\DeclareOption{screen}{\analysisprintfalse}
+\DeclareOption{print}{\analysisprinttrue}
+\ExecuteOptions{screen}
+\ProcessOptions\relax
+
 \RequirePackage{amsmath,amssymb,amsthm,mathtools}
 \RequirePackage{geometry}
 \RequirePackage{xcolor}
@@ -26,30 +32,45 @@
 \definecolor{AnalysisLightGray}{HTML}{F5F6F7}
 
 \hypersetup{
-  colorlinks=true,
-  linkcolor=AnalysisBlue,
-  citecolor=AnalysisGold,
-  urlcolor=AnalysisBlue,
   bookmarksnumbered=true,
   pdfauthor={数学分析教材编写项目},
-  pdftitle={从高等数学到数学分析：严格基础、经典理论与现代视野}
+  pdftitle={从高等数学到数学分析：严格基础、经典理论与现代分析}
 }
+
+\ifanalysisprint
+  \colorlet{AnalysisBlue}{black}
+  \colorlet{AnalysisLightBlue}{AnalysisLightGray}
+  \colorlet{AnalysisGold}{AnalysisGray}
+  \colorlet{AnalysisLightGold}{white}
+  \colorlet{AnalysisRed}{black}
+  \colorlet{AnalysisLightRed}{AnalysisLightGray}
+  \colorlet{AnalysisHeading}{black}
+  \hypersetup{hidelinks}
+\else
+  \colorlet{AnalysisHeading}{AnalysisBlue}
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=AnalysisBlue,
+    citecolor=AnalysisGold,
+    urlcolor=AnalysisBlue
+  }
+\fi
 
 \ctexset{
   part={
     name={第,编},
     number=\chinese{part},
-    format=\centering\Huge\bfseries\color{AnalysisBlue}
+    format=\centering\Huge\bfseries\color{AnalysisHeading}
   },
   chapter={
     name={第,章},
     number=\arabic{chapter},
-    format=\huge\bfseries\color{AnalysisBlue},
+    format=\huge\bfseries\color{AnalysisHeading},
     beforeskip=12pt,
     afterskip=28pt
   },
   section={
-    format=\Large\bfseries\color{AnalysisBlue}
+    format=\Large\bfseries\color{AnalysisHeading}
   },
   subsection={
     format=\large\bfseries
@@ -72,10 +93,10 @@
 
 \newtheoremstyle{analysisplain}
   {0.8em}{0.8em}{\itshape}{}% space above/below, body, indent
-  {\bfseries\color{AnalysisBlue}}{.}{0.5em}{}
+  {\bfseries\color{AnalysisHeading}}{.}{0.5em}{}
 \newtheoremstyle{analysisdefinition}
   {0.8em}{0.8em}{\normalfont}{}% space above/below, body, indent
-  {\bfseries\color{AnalysisBlue}}{.}{0.5em}{}
+  {\bfseries\color{AnalysisHeading}}{.}{0.5em}{}
 \theoremstyle{analysisplain}
 \newtheorem{theorem}{定理}[chapter]
 \newtheorem{lemma}[theorem]{引理}
@@ -150,7 +171,7 @@
 \newcommand{\C}{\mathbb{C}}
 
 \newenvironment{solution}[1]
-  {\par\medskip\noindent{\bfseries\color{AnalysisBlue}习题 #1}\quad}
+  {\par\medskip\noindent{\bfseries\color{AnalysisHeading}习题 #1}\quad}
   {\par\medskip}
 
 \newcommand{\mustdo}{\textcolor{AnalysisRed}{\bfseries [必做]}}
@@ -168,7 +189,7 @@
   \thispagestyle{empty}
   \vspace*{0.2\textheight}
   \begin{center}
-    {\Huge\bfseries\color{AnalysisBlue}#1\par}
+    {\Huge\bfseries\color{AnalysisHeading}#1\par}
   \end{center}
   \vfill
   \cleardoublepage

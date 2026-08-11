@@ -1,6 +1,6 @@
 # LaTeX 书稿说明
 
-主文件为 `main.tex`，书名为《从高等数学到数学分析：严格基础、经典理论与现代视野》。建议使用 XeLaTeX 编译：
+主文件为 `main.tex`，书名为《从高等数学到数学分析：严格基础、经典理论与现代分析》。建议使用 XeLaTeX 编译：
 
 ```powershell
 xelatex main.tex
@@ -22,6 +22,13 @@ xelatex main.tex
 ```
 
 需要连续编译两次以生成完整目录。当前试编本只载入第一卷第一编和第0章。
+
+`analysisbook` 提供两种色彩模式：
+
+- `\usepackage[screen]{analysisbook}`：屏幕阅读版，目录链接和层级标题使用深蓝色；省略选项时采用此模式。
+- `\usepackage[print]{analysisbook}`：印刷版，章、节、定理标题及内部链接按黑色处理；提示框仍保留浅色底纹和边框层次。
+
+主文件当前使用默认的屏幕阅读模式。输出印刷版时，在主文件中为样式包加入 `print` 选项。
 
 工程结构：
 
