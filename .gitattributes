@@ -1,0 +1,5 @@
+*.md text eol=lf
+*.tex text eol=lf
+*.sty text eol=lf
+*.ps1 text eol=crlf
+*.pdf binary
