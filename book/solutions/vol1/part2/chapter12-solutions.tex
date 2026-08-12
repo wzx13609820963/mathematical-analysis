@@ -1,0 +1,244 @@
+\chapter{聚点、部分极限、上极限与下极限：习题解答}
+
+\begin{chapterguide}
+本章解答默认上下极限取值于扩充实数；涉及加法和乘法的题目按题设有界性避免未定义的无穷运算。
+\end{chapterguide}
+
+\section*{A组　部分极限与尾部确界}
+\addcontentsline{toc}{section}{A组　部分极限与尾部确界}
+
+\begin{solution}{12.1}
+若 \(a_{n_k}\to L\)，给定 \(\varepsilon,N\)，取 \(k\) 使
+\(n_k\ge N\) 且 \(\abs{a_{n_k}-L}<\varepsilon\)。反之递归选
+\[
+ n_{k+1}>n_k,\qquad \abs{a_{n_{k+1}}-L}<\frac1{k+1},
+\]
+第一步任取满足误差 \(1\) 的指标。于是子列收敛到 \(L\)。
+\end{solution}
+
+\begin{solution}{12.2}
+\((-1)^n\) 的部分极限为 \(\{-1,1\}\)。加入 \(1/n\) 不改变奇偶子列极限，也不会产生新极限，故仍为 \(\{-1,1\}\)。
+\(\sin(n\pi/2)\) 周期取值 \(0,1,0,-1\)，部分极限为 \(\{-1,0,1\}\)；任意收敛子列因值集有限而最终只能取一个值。
+\end{solution}
+
+\begin{solution}{12.3}
+常值列 \(a_n=c\) 的部分极限为 \(c\)，因为原列本身收敛到 \(c\)。其值集是单点集 \(\{c\}\)，任意删心邻域不含该集合的点，所以没有聚点。差异来自同一数值在无穷多个指标处重复。
+\end{solution}
+
+\begin{solution}{12.4}
+Bolzano--Weierstrass 定理保证至少一个部分极限。原列有界使所有部分极限位于同一闭区间。正文的子列刻画证明上、下极限本身可由子列实现，而任意部分极限夹在二者之间，因此它们分别是最大元和最小元。
+\end{solution}
+
+\begin{solution}{12.5}
+若 \(n=2m\)，尾部最大项是 \(a_n=1+1/(2m)\)，故
+\(\beta_{2m}=1+1/(2m)\)；尾部最小的奇数项为
+\(a_{2m+1}=-1+1/(2m+1)\)，故
+\(\alpha_{2m}=-1+1/(2m+1)\)。
+若 \(n=2m-1\)，有
+\[
+ \beta_{2m-1}=1+\frac1{2m},\qquad
+ \alpha_{2m-1}=-1+\frac1{2m-1}.
+\]
+令 \(m\to\infty\)，得上极限 \(1\)、下极限 \(-1\)。
+\end{solution}
+
+\begin{solution}{12.6}
+尾部集合 \(A_{n+1}\subseteq A_n\)。子集的上确界不大于母集上确界，故 \(\beta_{n+1}\le\beta_n\)；子集下确界不小于母集下确界，故 \(\alpha_{n+1}\ge\alpha_n\)。
+\end{solution}
+
+\begin{solution}{12.7}
+\begin{enumerate}[label=(\arabic*)]
+ \item 偶数项趋于 \(+\infty\)，奇数项趋于 \(-\infty\)，故上下极限分别为 \(+\infty,-\infty\)。
+ \item 指标 \(4k+1\) 的项趋于 \(+\infty\)，\(4k+3\) 的项趋于 \(-\infty\)，故结论相同；偶数项为零不改变端点。
+ \item 整列收敛到 \(1\)，故上下极限都为 \(1\)。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{12.8}
+若有子列趋于 \(+\infty\)，每个尾部上确界均为 \(+\infty\)，所以上极限为 \(+\infty\)。反之，若上极限为 \(+\infty\)，则每个尾部无上界。递归选
+\[
+ n_{j+1}>n_j,\qquad a_{n_j}>j,
+\]
+得到趋于 \(+\infty\) 的子列。
+\end{solution}
+
+\section*{B组　子列刻画与运算}
+\addcontentsline{toc}{section}{B组　子列刻画与运算}
+
+\begin{solution}{12.9}
+令 \(s=\limsup a_n\)。取 \(m_1=1\)，由尾部上确界近似性选 \(n_1\ge m_1\)，使
+\(a_{n_1}>\beta_{m_1}-1\)。选好 \(n_j\) 后令 \(m_{j+1}=n_j+1\)，再选
+\[
+ n_{j+1}\ge m_{j+1},\qquad
+ a_{n_{j+1}}>\beta_{m_{j+1}}-\frac1{j+1}.
+\]
+同时 \(a_{n_j}\le\beta_{m_j}\)，而因 \(m_j\to\infty\)，
+\(\beta_{m_j}\to s\)。夹逼得 \(a_{n_j}\to s\)，且指标严格递增。
+\end{solution}
+
+\begin{solution}{12.10}
+若 \(a_{n_j}\to L\)，固定 \(m\)。充分大时 \(n_j\ge m\)，所以
+\(\alpha_m\le a_{n_j}\le\beta_m\)。令 \(j\to\infty\)，得
+\(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，即得
+\(\liminf a_n\le L\le\limsup a_n\)。
+\end{solution}
+
+\begin{solution}{12.11}
+对每个尾部，
+\[
+ \sup_{k\ge n}(-a_k)=-\inf_{k\ge n}a_k.
+\]
+对 \(n\) 取下确界，得到
+\[
+ \limsup(-a_n)
+ =\inf_n(-\alpha_n)
+ =-\sup_n\alpha_n
+ =-\liminf a_n.
+\]
+\end{solution}
+
+\begin{solution}{12.12}
+删去有限首项不改变上下极限。此后对每个尾部都有
+\[
+ \inf_{k\ge n}a_k\le\inf_{k\ge n}b_k,\qquad
+ \sup_{k\ge n}a_k\le\sup_{k\ge n}b_k.
+\]
+分别取相应极限即得结论。
+\end{solution}
+
+\begin{solution}{12.13}
+对每个 \(n\)，
+\[
+ \sup_{k\ge n}(a_k+b_k)
+ \le \sup_{k\ge n}a_k+\sup_{k\ge n}b_k.
+\]
+令 \(n\to\infty\) 得所需不等式。严格例取
+\(a_n=(-1)^n,b_n=-(-1)^n\)：两上极限均为 \(1\)，和恒为 \(0\)。
+\end{solution}
+
+\begin{solution}{12.14}
+给定 \(\varepsilon>0\)，最终
+\[
+ a-\varepsilon+b_n\le a_n+b_n\le a+\varepsilon+b_n.
+\]
+由上下极限的单调性与平移公式，
+\[
+ a-\varepsilon+\limsup b_n
+ \le\limsup(a_n+b_n)
+ \le a+\varepsilon+\limsup b_n.
+\]
+令 \(\varepsilon\downarrow0\) 得等式。
+\end{solution}
+
+\begin{solution}{12.15}
+对每个尾部，非负性给出
+\[
+ \sup_{k\ge n}(a_kb_k)
+ \le\left(\sup_{k\ge n}a_k\right)
+   \left(\sup_{k\ge n}b_k\right).
+\]
+两侧均为有限非负数，令 \(n\to\infty\) 并使用乘积极限定理，即得结论。
+\end{solution}
+
+\begin{solution}{12.16}
+对每个尾部有精确恒等式
+\[
+ \sup_{k\ge n}\max\{a_k,b_k\}
+ =\max\left\{\sup_{k\ge n}a_k,\sup_{k\ge n}b_k\right\}.
+\]
+对 \(n\to\infty\) 取极限，并使用有限最大值保持极限，得到所求等式。
+\end{solution}
+
+\begin{solution}{12.17}
+不总成立；取 \(a_n=(-1)^n\)，左端为 \(1\)，右端也是1，此例不否定；改取部分极限为 \(-2,1\) 的交错列，则左端为 \(2\)，而
+\(\abs{\limsup a_n}=1\)。对有界实数列，正确关系为
+\[
+ \limsup\abs{a_n}
+ =\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}.
+\]
+这是因为绝对值在区间 \([\liminf a_n,\limsup a_n]\) 上的最大值出现在端点，且两个端点都由子列实现。
+\end{solution}
+
+\begin{solution}{12.18}
+设共同有限值为 \(L\)。尾部下确界 \(\alpha_n\uparrow L\)，上确界
+\(\beta_n\downarrow L\)。给定 \(\varepsilon>0\)，取 \(N\) 使
+\[
+ L-\varepsilon<\alpha_N\le\beta_N<L+\varepsilon.
+\]
+对所有 \(n\ge N\)，\(\alpha_N\le a_n\le\beta_N\)，故
+\(\abs{a_n-L}<\varepsilon\)。
+\end{solution}
+
+\section*{C组　综合与项目}
+\addcontentsline{toc}{section}{C组　综合与项目}
+
+\begin{solution}{12.19}
+若 \(a_n\to L\)，则任给 \(\varepsilon>0\)，充分大的尾部全部位于
+\((L-\varepsilon/2,L+\varepsilon/2)\)，故振幅不超过 \(\varepsilon\)。反之若 \(\omega_n\to0\)，则
+\[
+ \limsup a_n-\liminf a_n
+ =\lim_n\omega_n=0.
+\]
+两者有限且相等，由\exerciseref{12.18}原列收敛。
+\end{solution}
+
+\begin{solution}{12.20}
+周期重复 \(-1,0,2\)：令
+\(a_{3k-2}=-1,a_{3k-1}=0,a_{3k}=2\)。三条常值子列说明三点都是部分极限；任何收敛子列因值集有限而最终含某个常值进一步子列，极限只能是三者之一。上下极限为 \(2,-1\)。
+\end{solution}
+
+\begin{solution}{12.21}
+令 \(u_n\) 在偶数时为 \(1\)、奇数时为 \(0\)。三种安排为：
+\[
+ (a_n,b_n)=(u_n,-u_n+1)
+\]
+时两者上极限均为1且和恒为1；
+\[
+ (a_n,b_n)=(2u_n-1,1-2u_n)
+\]
+时两者上极限均为1且和恒为0；
+\[
+ (a_n,b_n)=(u_n,u_n)
+\]
+时两上极限均为1且和的上极限为2。
+\end{solution}
+
+\begin{solution}{12.22}
+非空性由 Bolzano--Weierstrass。设部分极限 \(L_j\to L\)。对每个 \(j\)，选原列子列中一个指标 \(n_j>n_{j-1}\)，使
+\(\abs{a_{n_j}-L_j}<1/j\)；同时取 \(j\) 足够大使 \(\abs{L_j-L}<1/j\)。则
+\(\abs{a_{n_j}-L}<2/j\)，所以 \(L\) 也是部分极限，集合闭。最大、最小元由\exerciseref{12.9}、12.10分别识别为上下极限。
+\end{solution}
+
+\begin{solution}{12.23}
+不存在无条件等式。取
+\[
+ a_{2k}=1,\qquad a_{2k-1}=2^{-2k}.
+\]
+则 \(\limsup a_n^{1/n}=1\)。但从奇项到偶项的比值趋于 \(+\infty\)，所以
+\(\limsup a_{n+1}/a_n=+\infty\)。根式判别与比值判别需要额外的规则性条件，不能直接交换。
+\end{solution}
+
+\begin{solution}{12.24}
+选 \(r\) 使
+\[
+ \limsup\abs{a_n}<r<1.
+\]
+由上极限的尾部刻画，存在 \(N\) 使
+\[
+ \sup_{k\ge N}\abs{a_k}<r.
+\]
+于是 \(\abs{a_n}\le r\) 对所有 \(n\ge N\) 成立。
+\end{solution}
+
+\begin{solution}{12.25}
+可以。闭子集 \(F\subseteq\R\) 至多可分：对每个有理端点区间与 \(F\) 的非空交选一点，可得可数稠密子集 \(D=\{d_j\}\)。把有限块
+\(d_1;\ d_1,d_2;\ldots\) 依次连接，则每个 \(D\) 中点出现无穷次，且 \(F\) 中任一点可由 \(D\) 中点逼近并进一步抽成原列子列。任何子列极限属于 \(\overline D=F\)，所以部分极限集合恰为 \(F\)。有界性只使整列有界；无界闭集也可用同一分块方案。
+\end{solution}
+
+\begin{solution}{12.26}
+尾部闭包
+\[
+ K_n=\overline{\{a_k:k\ge n\}}
+\]
+递减。对有界列，交集正是部分极限集合；其最大、最小点分别由尾部确界极限给出。集合表达适合证明闭性与嵌套性，尾部确界表达适合运算不等式和定量界，子列表达适合实现端点、构造反例和把量词否定转化为对象。三种语言描述同一尾部结构，但各自压缩的证明步骤不同。
+\end{solution}

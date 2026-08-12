@@ -1,0 +1,227 @@
+\chapter{子列与 Bolzano--Weierstrass 定理}
+\label{chap:subsequences-bw}
+
+\begin{chapterguide}
+子列保留原数列的相对次序，同时允许只观察某一组指标。它既能提取隐藏的收敛结构，也能通过互不相容的尾部行为证明原列发散。本章严格定义子列，完整证明有界数列存在收敛子列，并给出单调子列定理。两种证明分别体现区间二分与指标分类的方法。
+\end{chapterguide}
+
+\section{严格递增指标列与子列}
+
+\begin{definition}
+设 \((a_n)\) 为数列。若正整数列
+\[
+ n_1<n_2<\cdots
+\]
+严格递增，则 \((a_{n_k})_{k\ge1}\) 称为 \((a_n)\) 的一个\term{子列}。映射 \(k\mapsto n_k\) 是 \(\N\) 到 \(\N\) 的严格递增映射。
+\end{definition}
+
+严格递增保证两点：子列保持原来的先后次序，并且指标趋于无穷。事实上由归纳有 \(n_k\ge k\)。只要求 \(n_k\) 互异而不递增会允许重排；只要求非递减则可能无限重复某一固定项，不能反映原列尾部。
+
+\begin{example}
+偶数项 \((a_{2k})\)、平方指标项 \((a_{k^2})\) 都是子列。序列
+\((a_1,a_1,a_1,\ldots)\) 一般不是子列，因为对应指标不严格递增。
+\end{example}
+
+\begin{proposition}[子列的子列]
+若 \((a_{n_k})\) 是 \((a_n)\) 的子列，而 \((a_{n_{k_j}})\) 是前者的子列，则它仍是 \((a_n)\) 的子列。
+\end{proposition}
+
+\begin{proof}
+\(j\mapsto k_j\) 与 \(k\mapsto n_k\) 都严格递增，其复合 \(j\mapsto n_{k_j}\) 仍严格递增。
+\end{proof}
+
+\section{子列继承原列极限}
+
+\begin{theorem}
+若 \(a_n\to a\)，则每个子列 \(a_{n_k}\to a\)。若 \(a_n\to+\infty\) 或 \(-\infty\)，相应结论也成立。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时
+\(\abs{a_n-a}<\varepsilon\)。由于 \(n_k\ge k\)，当 \(k\ge N\) 时 \(n_k\ge N\)，故
+\(\abs{a_{n_k}-a}<\varepsilon\)。无穷极限只需把误差条件换成阈值条件，证明相同。
+\end{proof}
+
+\begin{corollary}
+若原列有收敛子列，则原列不可能趋于与该子列极限不同的有限值，也不可能趋于 \(+\infty\) 或 \(-\infty\)。
+\end{corollary}
+
+逆命题不成立：存在一个收敛子列不保证原列收敛。例如 \((-1)^n\) 的偶数子列收敛到 \(1\)，原列却发散。要从子列恢复原列，需要额外条件，例如原列为 Cauchy 列或单调列。
+
+\section{用子列证明原列不收敛}
+
+\begin{theorem}[子列判别的反面]
+若存在两条子列分别收敛到 \(a,b\)，且 \(a\ne b\)，则原数列发散。
+\end{theorem}
+
+\begin{proof}
+若原列收敛到 \(L\)，两条子列都应收敛到 \(L\)。极限唯一性迫使 \(a=L=b\)，矛盾。
+\end{proof}
+
+\begin{example}
+对 \(a_n=(-1)^n+1/n\)，偶数子列趋于 \(1\)，奇数子列趋于 \(-1\)，所以原列发散。项 \(1/n\) 的趋零扰动不消除主振荡。
+\end{example}
+
+\begin{proposition}
+实数列 \((a_n)\) 不收敛到 \(a\)，当且仅当存在 \(\varepsilon_0>0\) 与一条子列 \((a_{n_k})\)，使
+\[
+ \abs{a_{n_k}-a}\ge\varepsilon_0\qquad(k\in\N).
+\]
+\end{proposition}
+
+\begin{proof}
+若不收敛到 \(a\)，严格否定给出 \(\varepsilon_0>0\)，使每个尾部都有坏项。先选 \(n_1\) 为某个坏指标；选好 \(n_k\) 后，对尾部起点 \(n_k+1\) 选坏指标 \(n_{k+1}\)，便得到严格递增指标列。反向若存在这样的子列，则任意尾部都含误差至少为 \(\varepsilon_0\) 的项，故不能收敛到 \(a\)。
+\end{proof}
+
+该命题把量词否定转化为可操作的反例子列，是\chapterref{chap:heine-cauchy}证明函数极限序列刻画时的主要构造。
+
+\section{二分区间法证明 Bolzano--Weierstrass 定理}
+
+\begin{theorem}[Bolzano--Weierstrass 定理]
+每个有界实数列都存在收敛子列。
+\end{theorem}
+
+\begin{proof}
+设所有项都位于闭区间 \(I_0=[A,B]\)。若 \(A=B\)，数列恒为 \(A\)，结论直接成立。以下设 \(A<B\)。
+
+把 \(I_0\) 二分成两个闭半区间。至少一个半区间含无穷多个数列项；否则两边都只含有限多个指标，其并也只含有限多个指标，与数列有无穷多个指标矛盾。选定一个含无穷多项的半区间为 \(I_1\)。递归进行，得到
+\[
+ I_k=[\alpha_k,\beta_k],\qquad
+ I_{k+1}\subseteq I_k,\qquad
+ \beta_k-\alpha_k=2^{-k}(B-A),
+\]
+且每个 \(I_k\) 含无穷多个数列项。
+
+由 Archimedes 性质，区间长度趋于零；区间套定理给出唯一交点 \(x\in\bigcap_kI_k\)。递归选指标 \(n_k>n_{k-1}\)，使
+\(a_{n_k}\in I_k\)。这是可能的，因为 \(I_k\) 含无穷多个指标，删除前 \(n_{k-1}\) 个指标后仍有可选项。由于 \(a_{n_k},x\in I_k\)，
+\[
+ \abs{a_{n_k}-x}\le\beta_k-\alpha_k
+ =2^{-k}(B-A)\longrightarrow0.
+\]
+故所得子列收敛到 \(x\)。
+\end{proof}
+
+“区间含无穷多个数列项”按指标计数，而不是按不同数值计数。若常值列所有项都等于 \(c\)，任何含 \(c\) 的区间都含无穷多个项，尽管值集只有一个元素。
+
+\begin{corollary}
+每个有界实数列至少有一个部分极限。每个无限有界实数集至少有一个聚点。
+\end{corollary}
+
+第二个结论先从集合中选取互异点形成数列，再对该数列应用定理。互异性保证极限点的每个邻域含集合中不同于它的点。
+
+\section{单调子列定理及另一种证明}
+
+\begin{definition}
+若指标 \(n\) 满足
+\[
+ a_n\ge a_m\qquad(m>n),
+\]
+则称 \(n\) 为数列的一个\term{峰指标}。峰指标处的项不小于其后全部项。
+\end{definition}
+
+\begin{theorem}[单调子列定理]
+每个实数列都有一个单调子列。
+\end{theorem}
+
+\begin{proof}
+分两种情形。
+
+若峰指标有无穷多个，把它们按递增顺序记为
+\(n_1<n_2<\cdots\)。由峰指标定义，
+\[
+ a_{n_1}\ge a_{n_2}\ge\cdots,
+\]
+得到单调递减子列。
+
+若峰指标只有有限多个，取 \(N\) 大于所有峰指标。对每个 \(n\ge N\)，\(n\) 不是峰指标，所以存在 \(m>n\) 使 \(a_m>a_n\)。从任意 \(n_1\ge N\) 开始，递归选
+\[
+ n_{k+1}>n_k,\qquad a_{n_{k+1}}>a_{n_k},
+\]
+得到严格递增子列。
+\end{proof}
+
+若原列有界，所得单调子列仍有界，因而由单调有界收敛定理收敛。这给出 Bolzano--Weierstrass 定理的第二种证明。反过来，用 Bolzano--Weierstrass 定理只能直接得到收敛子列，而收敛子列未必单调；单调子列定理包含不同的组合结构。
+
+\section{有界性与收敛性的区别}
+
+有界性控制数列所在的整体区间，收敛性要求尾部集中到单点。紧致性原型定理介于二者之间：
+\[
+ \text{收敛}\Longrightarrow\text{有界}
+ \Longrightarrow\text{存在收敛子列},
+\]
+第二个箭头在实数中成立，而两个逆箭头均不成立。
+
+\begin{counterexample}
+\((-1)^n\) 有界且有收敛子列，但原列不收敛。数列
+\[
+ 0,1,0,1/2,0,1/3,\ldots
+\]
+有唯一的非零项子列极限 \(0\)，同时零项子列也趋于 \(0\)，事实上原列收敛到 \(0\)；这说明出现多个排列模式并不自动导致发散，关键是所有尾部是否集中到同一点。
+\end{counterexample}
+
+\begin{proposition}
+有界实数列收敛到 \(L\)，当且仅当它的每个收敛子列都收敛到 \(L\)，并且每个子列都含有进一步收敛子列。
+\end{proposition}
+
+\begin{proof}
+若原列收敛到 \(L\)，子列继承性给出正向结论。反之，若原列不收敛到 \(L\)，由第三节命题存在 \(\varepsilon_0>0\) 以及子列 \((a_{n_k})\)，使
+\[
+ \abs{a_{n_k}-L}\ge\varepsilon_0\qquad(k\in\N).
+\]
+按假设，它含进一步收敛子列；该进一步子列的极限与 \(L\) 的距离至少为 \(\varepsilon_0\)，与所有收敛子列极限均为 \(L\) 矛盾。
+\end{proof}
+
+在实数中，有界性自动保证“每个子列都含进一步收敛子列”。进入一般度量空间以后，这一性质将成为相对紧致性的序列形式。
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+子列由严格递增指标映射定义，因而必进入原列任意尾部。原列极限传给所有子列；不收敛的量词否定可以递归抽成始终远离候选值的子列。Bolzano--Weierstrass 定理通过嵌套二分区间提取收敛子列，单调子列定理则通过峰指标分类提取单调结构。有界性提供可提取性，不提供原列的尾部集中。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共23道编号题，含40个独立训练单元，建议总用时5至7小时。\exerciserange{11.1}{11.15}为核心必做范围。
+
+\subsection*{A组　子列定义与继承}
+\begin{enumerate}[label=\textbf{11.\arabic*.}]
+ \exerciseitem{11.1} \mustdo 证明严格递增正整数列满足 \(n_k\ge k\)，并推出 \(n_k\to+\infty\)。
+ \exerciseitem{11.2} \mustdo 判断 \(a_{2k}\)、\(a_{k^2}\)、\(a_{2-k}\)、\(a_{\lfloor\sqrt k\rfloor+1}\) 哪些构成子列，并说明理由。
+ \exerciseitem{11.3} \mustdo 证明子列的子列仍是原列子列。
+ \exerciseitem{11.4} \mustdo 从定义证明有限极限和无穷极限都由原列传给子列。
+ \exerciseitem{11.5} \mustdo 证明：若原列的每个子列都有进一步子列收敛到 \(L\)，则原列收敛到 \(L\)。
+ \exerciseitem{11.6} \mustdo 把“不收敛到 \(L\)”的量词否定递归构造成始终远离 \(L\) 的子列。
+\end{enumerate}
+
+\subsection*{B组　抽取与紧致性原型}
+\begin{enumerate}[label=\textbf{11.\arabic*.},resume]
+ \exerciseitem{11.7} \mustdo 用奇偶子列判断 \((-1)^n+1/n\) 的收敛性。
+ \exerciseitem{11.8} \mustdo 补全二分区间证明中“至少一个半区间含无穷多项”和“可以选 \(n_k>n_{k-1}\)”两步。
+ \exerciseitem{11.9} \mustdo 证明任意有界数列都有 Cauchy 子列，并给出第 \(k\) 步的距离估计。
+ \exerciseitem{11.10} \mustdo 从无限有界集合中抽取互异数列，证明该集合有聚点。
+ \exerciseitem{11.11} \mustdo 证明峰指标无穷时得到递减子列，峰指标有限时得到严格递增子列。
+ \exerciseitem{11.12} \mustdo 用单调子列定理重新证明 Bolzano--Weierstrass 定理。
+ \exerciseitem{11.13} \mustdo 证明：有界数列若只有一个部分极限，则原列收敛。
+ \exerciseitem{11.14} \mustdo 给出无界数列具有收敛子列的例子，并说明这不与 Bolzano--Weierstrass 定理矛盾。
+ \exerciseitem{11.15} \mustdo 证明若数列的值只取有限多个实数，则至少有一个常值子列；刻画原列何时收敛。
+\end{enumerate}
+
+\subsection*{C组　结构与项目}
+\begin{enumerate}[label=\textbf{11.\arabic*.},resume]
+ \exerciseitem{11.16} \mustdo 构造有界数列，使其部分极限恰为给定的两个实数 \(a<b\)。
+ \exerciseitem{11.17} \mustdo 构造有界数列，其部分极限集合为 \([0,1]\)。允许使用有理数在区间中的可数稠密枚举。
+ \exerciseitem{11.18} \projectdo\ 【前置：\chapterref{chap:equivalent-completeness}区间套；预计用时：75分钟】完整重建 Bolzano--Weierstrass 定理的二分区间证明，并给出子列误差不超过 \(2^{-k}(B-A)\) 的定量版本。
+ \exerciseitem{11.19} \optionaldo 证明任意实数列都有单调子列，并讨论在偏序集值数列中该结论为何可能失败。
+ \exerciseitem{11.20} \optionaldo 若 \(a_{n+1}-a_n\to0\)，两条收敛子列的极限是否必须相同？给出反例。
+ \exerciseitem{11.21} \optionaldo 证明有界数列收敛到 \(L\) 当且仅当每条子列都含有进一步子列收敛到 \(L\)。
+ \exerciseitem{11.22} \opendo 比较“值集有聚点”与“数列有部分极限”。说明重复取值为何使两概念不能简单等同。
+ \exerciseitem{11.23} \projectdo\ 【前置：\chapterref{chap:consequences-completeness}可数性；预计用时：60分钟】给定可数闭集的若干具体例子，设计数列使其部分极限集合等于该集合；分析构造中每个点需出现的逼近频率。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{11.5}：反设不收敛，使用\exerciseref{11.6}构造坏子列。
+ \item \exerciseref{11.13}：反设不收敛到唯一部分极限，再抽取远离它的子列并应用 Bolzano--Weierstrass。
+ \item \exerciseref{11.17}：把 \(\Q\cap[0,1]\) 的前 \(m\) 个数依次组成第 \(m\) 个有限块。
+ \item \exerciseref{11.20}：可使用步长逐渐缩小、往返于两个端点的三角形块。
+\end{itemize}

@@ -1,0 +1,320 @@
+\chapter{函数极限的严格定义与基本运算}
+\label{chap:function-limit-definition}
+
+\begin{chapterguide}
+数列极限只有一个离散指标趋向无穷；函数极限还要区分定义域、自变量接近的方式以及考察点是否属于定义域。本章把数列极限的量词结构移到实函数上，建立有限点处有限极限的定义、否定形式和局部性质，并说明代数运算与复合运算中各项条件的用途。
+\end{chapterguide}
+
+\section{定义域、聚点与删心邻域}
+
+设 \(D\subset\R\)，\(a\in\R\)。函数 \(f:D\to\R\) 在 \(a\) 附近的行为只涉及集合
+\[
+ D\cap\{x:0<\abs{x-a}<\delta\}.
+\]
+这里排除了 \(x=a\)，因为极限描述的是邻近点的函数值，而非点值 \(f(a)\)。
+
+\begin{definition}[聚点]
+若对每个 \(\delta>0\)，集合
+\[
+ D\cap\{x:0<\abs{x-a}<\delta\}
+\]
+均非空，则称 \(a\) 是 \(D\) 的\term{聚点}。集合
+\[
+ U^\circ(a,\delta)=\{x\in\R:0<\abs{x-a}<\delta\}
+\]
+称为 \(a\) 的半径为 \(\delta\) 的\term{删心邻域}。
+\end{definition}
+
+聚点不必属于 \(D\)。例如 \(0\) 是 \((0,1)\) 的聚点，却不属于该区间；孤立点不是聚点。若不要求 \(a\) 为聚点，在充分小的删心邻域中可能没有定义域点，极限条件便会对任意候选值自动成立，从而破坏唯一性。
+
+\begin{example}
+令 \(D=\{0\}\cup[1,2]\)。点 \(0\) 属于 \(D\)，但不是 \(D\) 的聚点；点 \(1\) 既属于 \(D\) 又是聚点；点 \(2\) 是单侧聚集形成的聚点；点 \(3\) 既不属于 \(D\)，也不是聚点。
+\end{example}
+
+\section{有限点处有限极限的严格定义}
+
+\begin{definition}[函数极限]
+设 \(f:D\to\R\)，\(a\) 是 \(D\) 的聚点，\(L\in\R\)。若
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in D,\qquad
+ 0<\abs{x-a}<\delta\Longrightarrow\abs{f(x)-L}<\varepsilon,
+\]
+则称 \(f(x)\) 在 \(x\to a\) 时趋于 \(L\)，记作
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L.
+\]
+定义域明确时简记为 \(\lim_{x\to a}f(x)=L\)。
+\end{definition}
+
+定义中没有要求 \(a\in D\)，也没有使用 \(f(a)\)。因此改变或补定义 \(f(a)\) 不影响极限。若 \(f\) 在 \(a\) 附近仅定义于稀疏集合，例如
+\[
+ D=\{0\}\cup\{1/n:n\in\N\},
+\]
+定义仍按 \(x\in D\) 检验，不能擅自把量词扩展到整个实数邻域。
+
+\begin{example}[点值与极限相互独立]
+定义
+\[
+ f(x)=
+ \begin{cases}
+ 3x+1,&x\ne2,\\
+ 100,&x=2.
+ \end{cases}
+\]
+则 \(\lim_{x\to2}f(x)=7\)，而 \(f(2)=100\)。若删去 \(x=2\) 处的定义，极限仍为 \(7\)。
+\end{example}
+
+\section{量词顺序与 \texorpdfstring{\(\delta\)}{delta} 对 \texorpdfstring{\(\varepsilon\)}{epsilon} 的依赖}
+
+极限定义先给定输出精度 \(\varepsilon\)，再允许选择输入尺度 \(\delta\)。因此 \(\delta\) 可以依赖 \(\varepsilon\)、考察点 \(a\) 以及函数 \(f\)，但不能依赖随后任取的 \(x\)。
+
+\begin{proposition}[缩小半径]
+若某个 \(\delta_0>0\) 对给定 \(\varepsilon\) 有效，则每个 \(0<\delta\le\delta_0\) 也有效。
+\end{proposition}
+
+\begin{proof}
+若 \(0<\abs{x-a}<\delta\le\delta_0\)，便有 \(0<\abs{x-a}<\delta_0\)，故沿用原估计即可。
+\end{proof}
+
+\begin{example}[线性函数]
+证明 \(\lim_{x\to a}(mx+b)=ma+b\)。给定 \(\varepsilon>0\)。若 \(m=0\)，任取 \(\delta>0\)；若 \(m\ne0\)，取
+\[
+ \delta=\frac{\varepsilon}{\abs m}.
+\]
+于是 \(0<\abs{x-a}<\delta\) 蕴含
+\[
+ \abs{(mx+b)-(ma+b)}=\abs m\,\abs{x-a}<\varepsilon.
+\]
+\end{example}
+
+\begin{counterexample}[让半径依赖于 \(x\)]
+语句“对每个 \(x\ne a\)，存在 \(\delta_x>\abs{x-a}\) 使某性质成立”不能证明极限。它没有给出一个对邻域内所有 \(x\) 同时有效的半径。逐点选择与统一控制的区别将在一致连续性中再次出现。
+\end{counterexample}
+
+\section{极限不存在的否定形式}
+
+把定义中的量词逐层否定，得到
+\[
+ \lim_{x\to a}f(x)\ne L
+\]
+当且仅当
+\[
+ \exists\varepsilon_0>0\ \forall\delta>0\ \exists x\in D,\qquad
+ 0<\abs{x-a}<\delta,\quad
+ \abs{f(x)-L}\ge\varepsilon_0.
+\]
+见证点 \(x\) 可以依赖 \(\delta\)。固定的 \(\varepsilon_0\) 表示无论观察尺度多小，总能找到离候选值保持确定距离的函数值。
+
+\begin{example}[Dirichlet 型振荡]
+令
+\[
+ f(x)=
+ \begin{cases}
+ 1,&x\in\Q,\\
+ 0,&x\notin\Q.
+ \end{cases}
+\]
+任取 \(a,L\in\R\)。在任意删心邻域内均有有理数和无理数。若 \(L\le1/2\)，选择有理点可使 \(\abs{f(x)-L}\ge1/2\)；若 \(L>1/2\)，选择无理点得到同样结论。因此 \(f\) 在任何点都没有极限。
+\end{example}
+
+否定某个候选极限与证明“极限不存在”有区别。后者要排除全部 \(L\in\R\)。\chapterref{chap:heine-cauchy}将用序列方法显著简化这一工作。
+
+\section{函数极限的唯一性、局部有界性与局部保号性}
+
+\begin{theorem}[唯一性]
+若 \(a\) 是 \(D\) 的聚点，且
+\[
+ \lim_{x\to a}f(x)=L,\qquad \lim_{x\to a}f(x)=M,
+\]
+则 \(L=M\)。
+\end{theorem}
+
+\begin{proof}
+若 \(L\ne M\)，取 \(\varepsilon=\abs{L-M}/3\)。分别由两个极限取得半径 \(\delta_1,\delta_2\)，令 \(\delta=\min\{\delta_1,\delta_2\}\)。由于 \(a\) 是聚点，可取 \(x\in D\) 满足 \(0<\abs{x-a}<\delta\)。于是
+\[
+ \abs{L-M}\le\abs{L-f(x)}+\abs{f(x)-M}
+ <\frac23\abs{L-M},
+\]
+矛盾。聚点条件用于保证共同删心邻域中存在可检验的 \(x\)。
+\end{proof}
+
+\begin{theorem}[局部有界性与局部保号性]
+设 \(\lim_{x\to a}f(x)=L\)。
+\begin{enumerate}
+ \item 存在 \(\delta>0\) 与 \(M>0\)，使 \(x\in D\)、\(0<\abs{x-a}<\delta\) 时 \(\abs{f(x)}\le M\)；
+ \item 若 \(L>0\)，则存在 \(\delta>0\)，使上述 \(x\) 均满足 \(f(x)>0\)；\(L<0\) 时有对称结论；
+ \item 若 \(L\ne0\)，则在某删心邻域内
+ \[
+  \abs{f(x)}\ge\frac{\abs L}{2}.
+ \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+第一项在定义中取 \(\varepsilon=1\)，得到 \(\abs{f(x)}\le\abs L+1\)。若 \(L>0\)，取 \(\varepsilon=L/2\)，则 \(f(x)>L/2>0\)。第三项取 \(\varepsilon=\abs L/2\)，由反三角不等式得
+\[
+ \abs{f(x)}\ge\abs L-\abs{f(x)-L}>\frac{\abs L}{2}.
+\]
+\end{proof}
+
+\begin{proposition}[保序性]
+设 \(f,g:D\to\R\)，并且在 \(a\) 的某个删心邻域内 \(f(x)\le g(x)\)。若两极限均存在，则
+\[
+ \lim_{x\to a}f(x)\le\lim_{x\to a}g(x).
+\]
+\end{proposition}
+
+\begin{proof}
+记两极限为 \(L,M\)。若 \(L>M\)，取 \(\varepsilon=(L-M)/3\)。在充分小的共同删心邻域内，
+\[
+ f(x)>L-\varepsilon>M+\varepsilon>g(x),
+\]
+与局部次序矛盾。
+\end{proof}
+
+\section{四则运算与复合极限}
+
+\begin{theorem}[代数运算]
+若 \(f(x)\to L\)、\(g(x)\to M\)（\(x\to a\)），则
+\[
+ f+g\to L+M,\qquad cf\to cL,\qquad fg\to LM.
+\]
+若另有 \(M\ne0\)，则 \(g\) 在某删心邻域内非零，且
+\[
+ \frac{f}{g}\longrightarrow\frac LM.
+\]
+\end{theorem}
+
+\begin{proof}
+和与数乘直接分配误差。乘积使用恒等式
+\[
+ fg-LM=f(g-M)+M(f-L).
+\]
+由 \(f\to L\) 的局部有界性，存在 \(K\) 使 \(\abs{f(x)}\le K\)。给定 \(\varepsilon>0\)，令 \(g\) 的误差小于 \(\varepsilon/(2K)\)，令 \(f\) 的误差小于 \(\varepsilon/(2(\abs M+1))\)，并取各半径的最小值，即得乘积极限。
+
+对商，局部保离零性给出 \(\abs{g(x)}\ge\abs M/2\)。于是
+\[
+ \abs{\frac1{g(x)}-\frac1M}
+ =\frac{\abs{g(x)-M}}{\abs{g(x)}\abs M}
+ \le\frac{2}{\abs M^2}\abs{g(x)-M}\to0.
+\]
+再用乘积结论。条件 \(M\ne0\) 同时保证候选商有定义并提供分母的统一下界。
+\end{proof}
+
+\begin{theorem}[复合极限]
+设 \(g:D\to E\subset\R\)，\(a\) 是 \(D\) 的聚点，\(b\) 是 \(E\) 的聚点，并且
+\[
+ g(x)\to b\quad(x\to a),\qquad f(y)\to L\quad(y\to b,\ y\in E).
+\]
+若在 \(a\) 的某个删心邻域内 \(g(x)\ne b\)，则
+\[
+ f(g(x))\to L\quad(x\to a).
+\]
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，由外层极限取得 \(\eta>0\)，使
+\[
+ y\in E,\quad0<\abs{y-b}<\eta
+ \Longrightarrow\abs{f(y)-L}<\varepsilon.
+\]
+由 \(g(x)\to b\) 取得 \(\delta_1>0\)，使 \(0<\abs{x-a}<\delta_1\) 时 \(\abs{g(x)-b}<\eta\)。再把 \(\delta_1\) 与保证 \(g(x)\ne b\) 的半径取最小值，便可把 \(y=g(x)\) 代入外层极限定义。
+\end{proof}
+
+若 \(f\) 在 \(b\) 处有定义且连续，即 \(\lim_{y\to b}f(y)=f(b)\)，则无需假设 \(g(x)\ne b\)。删心极限的复合之所以需要额外条件，是因为外层定义没有控制 \(y=b\) 处的函数值。
+
+\begin{counterexample}
+令 \(g(x)\equiv0\)，并令 \(f(y)=1\)（\(y\ne0\)）、\(f(0)=2\)。有
+\[
+ g(x)\to0,\qquad \lim_{y\to0}f(y)=1,
+\]
+但 \(f(g(x))\equiv2\)。这说明复合定理中的避开条件不能省略。
+\end{counterexample}
+
+\section{从定义进行误差估计的典型方法}
+
+证明函数极限时，常先在草算中从目标不等式反推对 \(\abs{x-a}\) 的要求，再加入一个固定局部限制以控制可变因子。
+
+\begin{example}[平方函数]
+证明 \(\lim_{x\to a}x^2=a^2\)。分解
+\[
+ \abs{x^2-a^2}=\abs{x-a}\abs{x+a}.
+\]
+先限制 \(\abs{x-a}<1\)，则 \(\abs x<\abs a+1\)，从而
+\[
+ \abs{x+a}\le2\abs a+1.
+\]
+给定 \(\varepsilon>0\)，取
+\[
+ \delta=\min\left\{1,\frac{\varepsilon}{2\abs a+1}\right\}
+\]
+即可。固定限制 \(1\) 只用于把 \(\abs{x+a}\) 化成与 \(x\) 无关的常数。
+\end{example}
+
+\begin{example}[根式有理化]
+设 \(a>0\)。证明 \(\sqrt{x}\to\sqrt a\)（\(x\to a,\ x\ge0\)）。有
+\[
+ \abs{\sqrt x-\sqrt a}
+ =\frac{\abs{x-a}}{\sqrt x+\sqrt a}
+ \le\frac{\abs{x-a}}{\sqrt a}.
+\]
+故取 \(\delta=\varepsilon\sqrt a\) 即可。条件 \(a>0\) 提供了固定的正分母；在 \(a=0\) 时应直接由 \(\sqrt x<\varepsilon\Longleftrightarrow x<\varepsilon^2\) 处理。
+\end{example}
+
+\begin{example}[多项式与有理函数]
+由常值函数、恒等函数的极限和代数运算，可归纳得到任意多项式 \(p\) 满足
+\[
+ \lim_{x\to a}p(x)=p(a).
+\]
+若 \(q(a)\ne0\)，则商法则给出
+\[
+ \lim_{x\to a}\frac{p(x)}{q(x)}=\frac{p(a)}{q(a)}.
+\]
+若 \(q(a)=0\)，不能直接使用商法则；约去公因子、分析无穷极限或证明不存在，取决于具体结构。
+\end{example}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+函数极限在定义域的删心邻域上陈述，考察点必须是定义域的聚点以保证唯一性。量词次序允许 \(\delta\) 依赖给定的 \(\varepsilon\)，但要求同一 \(\delta\) 控制邻域内全部定义域点。唯一性、局部有界与局部保号是代数运算的技术基础；复合极限还要处理内层函数是否取到外层删心极限的中心值。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共24道编号题，含约43个独立训练单元，建议总用时5至7小时。\exerciserange{14.1}{14.20}为核心必做范围。
+
+\subsection*{A组　定义、量词与基本性质}
+\begin{enumerate}[label=\textbf{14.\arabic*.}]
+ \exerciseitem{14.1} \mustdo 分别求集合 \(\{1/n:n\in\N\}\)、\(\Q\cap[0,1]\)、\(\Z\) 的全部聚点，并证明结论。
+ \exerciseitem{14.2} \mustdo 说明为什么孤立定义域点处不能按本章定义讨论删心极限；若强行删去聚点条件，会出现什么逻辑问题？
+ \exerciseitem{14.3} \mustdo 用定义证明改变 \(f(a)\) 不影响 \(\lim_{x\to a}f(x)\)。
+ \exerciseitem{14.4} \mustdo 写出 \(\lim_{x\to a}f(x)=L\) 的严格量词形式，并逐层写出其否定。
+ \exerciseitem{14.5} \mustdo 用定义证明 \(\lim_{x\to3}(2x-5)=1\)，给出一个明确的 \(\delta(\varepsilon)\)。
+ \exerciseitem{14.6} \mustdo 用定义证明 \(\lim_{x\to a}x^3=a^3\)。
+ \exerciseitem{14.7} \mustdo 设 \(f(x)\to L\)。证明 \(\abs{f(x)}\to\abs L\)。
+ \exerciseitem{14.8} \mustdo 设 \(f(x)\to L>0\)。证明存在删心邻域使 \(f(x)>L/2\)。
+\end{enumerate}
+
+\subsection*{B组　运算、估计与反例}
+\begin{enumerate}[label=\textbf{14.\arabic*.},resume]
+ \exerciseitem{14.9} \mustdo 证明夹逼定理的函数版本。
+ \exerciseitem{14.10} \mustdo 若 \(f(x)\le g(x)\) 只在趋近 \(a\) 的一个点列上成立，保序结论是否仍成立？给出反例。
+ \exerciseitem{14.11} \mustdo 用定义证明 \(\lim_{x\to2}(x^2+3x)=10\)，并使半径公式中不含可变量 \(x\)。
+ \exerciseitem{14.12} \mustdo 用有理化证明 \(\lim_{x\to4}\sqrt x=2\)。
+ \exerciseitem{14.13} \mustdo 证明若 \(f(x)\to0\)，且 \(g\) 在 \(a\) 的某删心邻域内有界，则 \(f(x)g(x)\to0\)。
+ \exerciseitem{14.14} \mustdo 构造 \(f(x)\to0\)、无界的 \(g(x)\)，使 \(f(x)g(x)\) 分别趋于 \(0\)、趋于非零常数、没有极限。
+ \exerciseitem{14.15} \mustdo 完整证明倒数极限定理，并指出极限非零条件在何处使用。
+ \exerciseitem{14.16} \mustdo 设 \(p,q\) 为多项式。分类讨论 \(q(a)\ne0\)、\(q(a)=0\) 且可约、\(q(a)=0\) 且不可约时商的局部行为，各给一例。
+ \exerciseitem{14.17} \mustdo 给出复合极限定理中 \(g(x)\ne b\) 最终成立这一条件不可删去的另一个反例。
+ \exerciseitem{14.18} \mustdo 证明：若外层函数 \(f\) 在 \(b\) 连续，则复合极限不需要避开 \(b\)。
+\end{enumerate}
+
+\subsection*{C组　结构、边界与项目}
+\begin{enumerate}[label=\textbf{14.\arabic*.},resume]
+ \exerciseitem{14.19} \mustdo 设 \(D=\{0\}\cup\{1/n:n\in\N\}\)，\(f(1/n)=(-1)^n\)。证明 \(0\) 是 \(D\) 的聚点，并证明 \(f\) 在 \(0\) 处没有极限。
+ \exerciseitem{14.20} \mustdo 证明若 \(\lim_{x\to a}f(x)=L\)，则对每个趋于 \(a\) 的定义域点族，函数值都最终落入任意给定的 \(L\) 邻域；不得引用\chapterref{chap:heine-cauchy}的 Heine 定理。
+ \exerciseitem{14.21} \optionaldo 若 \(f^2(x)\to L^2\)，是否必有 \(f(x)\to L\) 或 \(f(x)\to-L\)？给出充分条件与反例。
+ \exerciseitem{14.22} \optionaldo 证明 \(\max\{f,g\}\) 与 \(\min\{f,g\}\) 的极限运算法则。
+ \exerciseitem{14.23} \projectdo\ 【前置：本章局部性质；预计用时：60分钟】整理一份“函数极限定义证明模板”，分别覆盖因式分解、有理化、局部有界因子和分母保离零四种机制；每种机制给出定理、实例和失败边界。
+ \exerciseitem{14.24} \opendo 设定义域在 \(a\) 的每个删心邻域中都非空，但只从某个指定子集方向逼近。讨论极限如何依赖所选定义域，并构造同一公式在不同定义域限制下具有不同极限的例子。
+\end{enumerate}

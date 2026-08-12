@@ -1,0 +1,335 @@
+\chapter{完备性的基本后果}
+\label{chap:consequences-completeness}
+
+\begin{chapterguide}
+确界公理首先控制无限整数尺度：自然数不能在实数中有上界。由此可把任意实数夹在相邻整数之间，再得到有理数与无理数的稠密性、十进制逼近和不可数性。本章所有无限逼近都用确界或显式误差表述，不预先调用\chapterref{chap:sequence-limit-definition}的数列极限定义。
+\end{chapterguide}
+
+\section{Archimedes 性质及其证明}
+
+\begin{theorem}[Archimedes 性质]
+对每个 \(x\in\R\)，存在 \(n\in\N\) 使 \(n>x\)。
+\end{theorem}
+
+\begin{proof}
+反设 \(\N\) 在 \(\R\) 中有上界，令 \(s=\sup\N\)。数 \(s-1\) 不是上界，所以存在 \(n\in\N\) 使 \(n>s-1\)。于是 \(n+1>s\)，而 \(n+1\in\N\)，与 \(s\) 为上界矛盾。
+\end{proof}
+
+证明的实质性步骤是取得 \(\sup\N\)；其余只用自然数对后继封闭。在非 Archimedes 有序域中可能存在大于每个自然数的元素，所以该结论不是有序域公理的形式后果。
+
+\begin{proposition}[Archimedes 性质的等价表述]
+在有序域中，以下命题等价：
+\begin{enumerate}
+ \item 对每个 \(x\)，存在 \(n\in\N\) 使 \(n>x\)；
+ \item 对每个 \(\varepsilon>0\)，存在 \(n\in\N\) 使 \(1/n<\varepsilon\)；
+ \item 对任意 \(x>0,y>0\)，存在 \(n\in\N\) 使 \(nx>y\)。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+第一项用于 \(1/\varepsilon\) 即得第二项。第二项用于 \(\varepsilon=x/y\)，取倒数并整理得第三项。第三项令 \(x=1\)，再把任意非正 \(y\) 单独处理，即得第一项。
+\end{proof}
+
+因此 Archimedes 性质排除了非零无穷小和正无穷大元素：若 \(\eta>0\) 且 \(\eta<1/n\) 对所有 \(n\) 成立，第二项会对 \(\varepsilon=\eta\) 产生矛盾；若 \(H>n\) 对所有 \(n\) 成立，则第一项对 \(H\) 失败。
+
+\section{自然数无上界与任意小正数的存在}
+
+\begin{corollary}
+若 \(\varepsilon>0\)，则存在 \(n\in\N\) 使
+\[
+ 0<\frac1n<\varepsilon.
+\]
+更一般地，对 \(a>0\) 存在 \(n\in\N\) 使 \(n\varepsilon>a\)。
+\end{corollary}
+
+\begin{proof}
+对 \(1/\varepsilon\) 应用 Archimedes 性质，取 \(n>1/\varepsilon\)，再利用正数取倒数反向。第二式对 \(a/\varepsilon\) 应用同一定理。
+\end{proof}
+
+“任意小正数”表示对每个预先给定的正阈值都能找到更小的正数，并不存在一个大于零且小于所有正实数的固定实数。
+
+\begin{corollary}[网格可达到任意精度]
+给定区间长度 \(\ell>0\) 与目标误差 \(\varepsilon>0\)，存在 \(n\in\N\) 使
+\[
+ \frac{\ell}{n}<\varepsilon.
+\]
+因此有限区间可以用有限个长度小于 \(\varepsilon\) 的等长小区间覆盖。
+\end{corollary}
+
+\begin{proof}
+取 \(n>\ell/\varepsilon\)。若以步长 \(\ell/n\) 从左端点划分，共需 \(n\) 个小区间。
+\end{proof}
+
+\section{整数部分定理}
+
+\begin{theorem}[整数部分定理]
+对每个 \(x\in\R\)，存在唯一 \(m\in\Z\) 使
+\[
+ m\le x<m+1.
+\]
+该整数记为 \(\lfloor x\rfloor\)。
+\end{theorem}
+
+\begin{proof}
+由 Archimedes 性质，集合 \(A=\{n\in\N:n>x\}\) 非空。取其最小元 \(n_0\)。若 \(x\ge0\)，最小性给出 \(n_0-1\le x<n_0\)，可取 \(m=n_0-1\)。若 \(x<0\)，对 \(-x\) 取正整数 \(N>-x\)，于是 \(-N<x\)。集合
+\[
+ B=\{k\in\Z:k\le x\}
+\]
+非空，并被任意整数 \(n_0>x\) 从上方控制。把有限区间 \([-N,n_0]\cap\Z\) 中属于 \(B\) 的整数取最大者，得到 \(m\)，其最大性给出 \(x<m+1\)。
+
+若 \(m,m'\) 都满足条件且 \(m<m'\)，则整数差给出 \(m+1\le m'\le x\)，与 \(x<m+1\) 矛盾。故唯一。
+\end{proof}
+
+等价地，
+\[
+ \lfloor x\rfloor\le x<\lfloor x\rfloor+1,\qquad
+ \{x\}:=x-\lfloor x\rfloor\in[0,1),
+\]
+其中 \(\{x\}\) 称为小数部分。
+
+\begin{proposition}[整数部分的基本运算]
+对 \(x,y\in\R\)、\(m\in\Z\)，有
+\[
+ \lfloor x+m\rfloor=\lfloor x\rfloor+m,
+\]
+\[
+ \lfloor x\rfloor+\lfloor y\rfloor
+ \le\lfloor x+y\rfloor
+ \le\lfloor x\rfloor+\lfloor y\rfloor+1.
+\]
+上式右侧的 \(1\) 不能统一删去。
+\end{proposition}
+
+\begin{proof}
+第一式把
+\(\lfloor x\rfloor\le x<\lfloor x\rfloor+1\)
+整体加 \(m\)，再用唯一性。写
+\[
+ x=\lfloor x\rfloor+\{x\},\qquad
+ y=\lfloor y\rfloor+\{y\},
+\]
+且 \(0\le\{x\}+\{y\}<2\)，便得第二组不等式。取 \(x=y=3/4\) 时右侧修正项确实出现。
+\end{proof}
+
+\section{有理数在实数中的稠密性}
+
+\begin{theorem}
+若 \(x<y\)，则存在 \(q\in\Q\) 使 \(x<q<y\)。
+\end{theorem}
+
+\begin{proof}
+取 \(n\in\N\) 使 \(1/n<y-x\)。令 \(m=\lfloor nx\rfloor+1\)。于是
+\[
+ nx<m\le nx+1<ny.
+\]
+除以正整数 \(n\)，得到 \(x<m/n<y\)。
+\end{proof}
+
+重复在较小区间中应用该定理可得任意开区间含无穷多个有理数。稠密性不意味着有理数“占据大多数”实数；\chapterref{chap:mathematical-language}已证明 \(\Q\) 可数无限，本章末将证明 \(\R\) 不可数。
+
+\begin{proposition}[定量有理逼近]
+对任意 \(x\in\R\) 与 \(n\in\N\)，存在 \(m\in\Z\) 使
+\[
+ \frac mn\le x<\frac{m+1}{n}.
+\]
+特别地，存在分母为 \(n\) 的有理数 \(q\) 使
+\[
+ \abs{x-q}<\frac1n.
+\]
+\end{proposition}
+
+\begin{proof}
+取 \(m=\lfloor nx\rfloor\)，第一式由整数部分定理除以 \(n>0\) 得到。可取 \(q=m/n\)；若采用最近网格点，还可把误差改进到 \(1/(2n)\)，但中点处需要约定取哪一侧。
+\end{proof}
+
+\section{无理数在实数中的稠密性}
+
+\begin{theorem}
+若 \(x<y\)，则存在无理数 \(\alpha\) 使 \(x<\alpha<y\)。
+\end{theorem}
+
+\begin{proof}
+先取 \(q\in\Q\cap(x,y)\)。由任意小正数性质，取 \(n\in\N\) 使 \(\sqrt2/n<y-q\)。则
+\[
+ x<q<q+\frac{\sqrt2}{n}<y.
+\]
+若 \(q+\sqrt2/n\) 为有理数，减去 \(q\) 再乘 \(n\) 将推出 \(\sqrt2\in\Q\)，矛盾。
+\end{proof}
+
+因此有理数与无理数都在每个非空开区间中出现。两者在序上的稠密程度相同，可数性却不同。
+
+\section{十进制逼近与实数的有限精度表示}
+
+对 \(x\in\R\)、\(n\in\N_0\)，定义
+\[
+ d_n(x)=\frac{\lfloor10^n x\rfloor}{10^n}.
+\]
+
+\begin{proposition}
+对每个 \(x\in\R\) 与 \(n\in\N_0\)，
+\[
+ d_n(x)\le x<d_n(x)+10^{-n},
+\qquad d_n(x)\le d_{n+1}(x).
+\]
+\end{proposition}
+
+\begin{proof}
+第一式由整数部分定理除以 \(10^n\) 得到。\(d_n(x)\) 是分母为 \(10^{n+1}\) 且不超过 \(x\) 的候选数，而 \(d_{n+1}(x)\) 是此类候选中的最大者，故第二式成立。
+\end{proof}
+
+这给出向下截断误差 \(<10^{-n}\)。四舍五入可把绝对误差改进为不超过 \(\frac12 10^{-n}\)，但在恰好位于两个网格点中点时必须另行约定舍入规则。
+
+对负数，\(d_n(x)\) 始终是从下方逼近的网格点。例如
+\[
+ d_n(-\sqrt2)=-\frac{\lceil10^n\sqrt2\rceil}{10^n},
+\]
+它通常比“直接删去绝对值的小数尾再加负号”更小。采用向零截断会破坏统一的 \(d_n(x)\le x\) 关系，因此后续上确界论证固定使用向下截断。
+
+\begin{proposition}
+对每个 \(x\in\R\)，截断满足
+\[
+ 0\le x-d_n(x)<10^{-n},\qquad
+ 0\le d_{n+1}(x)-d_n(x)\le9\cdot10^{-(n+1)}.
+\]
+\end{proposition}
+
+\begin{proof}
+第一式已证。相邻网格细分后，\(d_{n+1}(x)-d_n(x)\) 是
+\[
+ 0,10^{-(n+1)},\ldots,9\cdot10^{-(n+1)}
+\]
+之一，故得第二式。
+\end{proof}
+
+\section{无限小数表示、循环小数与表示不唯一性}
+
+给定整数 \(m\) 和数字 \(a_k\in\{0,\ldots,9\}\)，令
+\[
+ s_n=m+\sum_{k=1}^n a_k10^{-k}.
+\]
+部分和集合有上界 \(m+1\)，故可定义无限小数的值为
+\[
+ m.a_1a_2\cdots:=\sup\{s_n:n\in\N\}.
+\]
+对任意 \(p>n\)，有限等比和给出
+\[
+ 0\le s_p-s_n
+ \le \sum_{k=n+1}^{p}9\cdot10^{-k}
+ <10^{-n}.
+\]
+对 \(p\) 取上确界，得到 \(0\le \sup_k s_k-s_n\le10^{-n}\)。这一论证只使用有限和与上确界，没有预先调用无穷级数的定义。
+
+\begin{theorem}
+每个 \(x\ge0\) 都有十进制表示。若禁止数字从某一位起恒为 \(9\)，则表示唯一。允许尾随 \(9\) 时，唯一的重复来自
+\[
+ m.a_1\cdots a_{k-1}a_k000\cdots
+ =
+ m.a_1\cdots a_{k-1}(a_k-1)999\cdots
+\]
+（右式要求 \(a_k\ge1\)）。
+\end{theorem}
+
+\begin{proof}
+用 \(d_n(x)\) 的相邻差确定第 \(n\) 位数字，有限误差估计表明所得部分小数的上确界为 \(x\)。若两种表示在第 \(k\) 位首次不同，较大数字至少多 \(10^{-k}\)，而后续全部位能够补偿的总量至多为 \(10^{-k}\)。只有该差恰为一位且较小一侧以后全为 \(9\)、较大一侧以后全为 \(0\) 时可能相等。禁止尾随 \(9\) 即排除该情形。
+\end{proof}
+
+\begin{theorem}
+实数的十进制表示从某位起循环，当且仅当该实数为有理数。
+\end{theorem}
+
+\begin{proof}
+对有理数作长除法，余数只有有限多种；余数为零时表示终止，否则某个余数重复，后续数字遂循环。反之，循环节长度为 \(p\) 的尾部乘 \(10^p\) 后与自身相减，循环部分消去，得到该数是整数之比。
+\end{proof}
+
+\section{实数集不可数}
+
+\begin{theorem}
+\(\R\) 不可数。
+\end{theorem}
+
+\begin{proof}
+\chapterref{chap:mathematical-language}已经证明 \(\mathcal P(\N)\) 不可数。对 \(A\subseteq\N\) 定义
+\[
+ \Phi(A)=\sup_n\sum_{k=1}^n\frac{2\chi_A(k)}{3^k}\in[0,1].
+\]
+若 \(A\ne B\)，令 \(m\) 为二者首次不同的指标，并设 \(m\in A\setminus B\)。则第 \(m\) 位贡献差为 \(2\cdot3^{-m}\)。对每个 \(p>m\)，以后各位的有限反向补偿不超过
+\[
+ \sum_{k=m+1}^{p}2\cdot3^{-k}<3^{-m}.
+\]
+对相应有限和取上确界，仍有 \(\Phi(A)-\Phi(B)\ge3^{-m}>0\)。所以 \(\Phi\) 是 \(\mathcal P(\N)\) 到 \(\R\) 的单射，\(\R\) 不可数。
+\end{proof}
+
+使用三进制数字 \(0,2\) 避开了十进制尾随 \(9\) 的表示歧义。证明还表明不可数性已经出现在区间 \([0,1]\) 内。
+
+另一个常用证明是 Cantor 对角线法：若把 \([0,1]\) 中实数列成 \(x_1,x_2,\ldots\)，统一选取不以 \(9\) 为尾的十进制表示，再构造第 \(n\) 位既不等于 \(x_n\) 的第 \(n\) 位、又只取数字 \(1,2\) 的小数。所得实数与每个 \(x_n\) 至少在一位不同，故不在枚举中。限制新数字避开 \(0,9\) 可以排除双重表示造成的歧义。
+
+\begin{corollary}
+每个非退化区间都不可数，而每个区间中的有理数仍至多可数。因此任意非空开区间都含不可数多个无理数。
+\end{corollary}
+
+\begin{proof}
+仿射双射 \(t\mapsto a+(b-a)t\) 把 \([0,1]\) 映到 \([a,b]\)。任意非退化区间包含某个非退化闭子区间，故不可数。若其中无理数至多可数，则它与至多可数的有理数并仍至多可数，与区间不可数矛盾。
+\end{proof}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+确界公理推出自然数无上界，进而得到任意小正数和整数部分定理。整数网格的缩放给出有理数稠密性与十进制误差控制；加上固定无理增量得到无理数稠密性。无限小数可用有限截断的上确界定义，循环性刻画有理数。最后，幂集到区间的显式单射证明了实数不可数。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共24道编号题，含43个独立训练单元，建议总用时7至10小时。
+
+\subsection*{A组　Archimedes 性与稠密性}
+\begin{enumerate}[label=\textbf{3.\arabic*.}]
+ \exerciseitem{3.1} \mustdo 证明对任意 \(x\in\R\)，存在 \(n\in\N\) 使 \(n>|x|\)。
+ \exerciseitem{3.2} \mustdo 证明对任意 \(\varepsilon>0\) 与 \(a>0\)，存在 \(n\in\N\) 使 \(a/n<\varepsilon\)。
+ \exerciseitem{3.3} \mustdo 证明整数部分的恒等式
+ \[
+ \lfloor x+m\rfloor=\lfloor x\rfloor+m\quad(m\in\Z),
+ \qquad \lfloor-x\rfloor=-\lceil x\rceil.
+ \]
+ \exerciseitem{3.4} \mustdo 证明任意非空开区间含无穷多个有理数和无穷多个无理数。
+ \exerciseitem{3.5} \mustdo 对任意 \(x\in\R\) 与 \(n\in\N\)，构造 \(q\in\Q\) 使 \(|x-q|<1/n\)。
+\end{enumerate}
+
+\subsection*{B组　表示与计数}
+\begin{enumerate}[label=\textbf{3.\arabic*.},resume]
+ \exerciseitem{3.6} \mustdo 计算 \(d_n(-\sqrt2)\)，并说明向下截断对负数为何不是简单删除小数尾。
+ \exerciseitem{3.7} \mustdo 证明 \(d_n(x)\le d_{n+1}(x)\le d_n(x)+9\cdot10^{-(n+1)}\)。
+ \exerciseitem{3.8} \mustdo 用上确界计算 \(0.999\ldots\) 与 \(0.272727\ldots\)。
+ \exerciseitem{3.9} \mustdo 证明任意最终循环小数为有理数，并给出循环节长度为 \(p\) 时的通式。
+\exerciseitem{3.10} \mustdo 分别证明有限小数全体与最终循环小数全体均为可数无限集。
+ \exerciseitem{3.11} \optionaldo 证明代数数的补集在每个非空开区间中不可数。
+\end{enumerate}
+
+\subsection*{C组　项目与边界}
+\begin{enumerate}[label=\textbf{3.\arabic*.},resume]
+ \exerciseitem{3.12} \projectdo\ 【前置：\exerciseref{3.7}；预计用时：60分钟】对整数基数 \(b\ge2\) 建立 \(b\) 进制表示，证明误差界、表示不唯一的唯一形式以及“有理数当且仅当最终循环”。
+ \exerciseitem{3.13} \mustdo 在实数不可数性的证明中补全尾和上确界的计算，并证明 \(\Phi\) 的像由只含三进制数字 \(0,2\) 的数构成。
+ \exerciseitem{3.14} \optionaldo 证明任意非退化闭区间 \([a,b]\) 与 \([0,1]\) 之间存在双射，并推出每个非退化区间不可数。
+ \exerciseitem{3.15} \opendo 给出一个非 Archimedes 有序域的形式模型或参考构造，并指出本章哪些结论首先失效。
+ \exerciseitem{3.16} \mustdo 证明 Archimedes 性质的三种表述：自然数无上界、存在任意小的 \(1/n\)、任意正量的整数倍可超过另一正量，彼此等价。
+ \exerciseitem{3.17} \mustdo 证明
+ \[
+  \lfloor x\rfloor+\lfloor y\rfloor
+  \le\lfloor x+y\rfloor
+  \le\lfloor x\rfloor+\lfloor y\rfloor+1,
+ \]
+ 并刻画何时出现右端的 \(+1\)。
+ \exerciseitem{3.18} \mustdo 对任意固定 \(n\) 证明存在 \(m\in\Z\) 使 \(m/n\le x<(m+1)/n\)，并解释这比单纯稠密性多给了什么信息。
+ \exerciseitem{3.19} \mustdo 用 Cantor 对角线法证明 \([0,1]\) 不可数，明确处理十进制双重表示。
+ \exerciseitem{3.20} \mustdo 证明任意非空开区间含不可数多个无理数。
+ \exerciseitem{3.21} \mustdo 设 \(D=\{d_n(x):n\in\N\}\)。求 \(\sup D\)，并讨论 \(x\) 为有限小数时 \(D\) 是否有最大元。
+\exerciseitem{3.22} \optionaldo 证明全体实代数数可数无限，并推出超越数在每个非空开区间中不可数。
+ \exerciseitem{3.23} \projectdo\ 【前置：本章表示与可数性；预计用时：90分钟】比较二进制、十进制、三进制表示在唯一性、循环性与不可数性证明中的作用；给出一套避免表示歧义的统一约定。
+ \exerciseitem{3.24} \opendo 分析浮点数有限集合与实数连续统之间的差别，区分舍入误差、表示误差和运算误差；只讨论数学模型，不依赖具体硬件标准。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{3.6}：\(\lfloor-10^n\sqrt2\rfloor=-\lceil10^n\sqrt2\rceil\)。
+ \item \exerciseref{3.11}：从区间中删去可数代数数，剩余集合不能至多可数。
+ \item \exerciseref{3.14}：使用仿射映射 \(t\mapsto a+(b-a)t\)。
+\end{itemize}

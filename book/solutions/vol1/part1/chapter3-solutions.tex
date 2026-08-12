@@ -1,0 +1,211 @@
+\chapter{完备性的基本后果：习题解答}
+
+\begin{chapterguide}
+本章解答使用\chapterref{chap:ordered-field-completeness}的确界公理和本章已经证明的 Archimedes 性质、整数部分定理与稠密性。
+\end{chapterguide}
+
+\section*{A组　Archimedes 性与稠密性}
+\addcontentsline{toc}{section}{A组　Archimedes 性与稠密性}
+
+\begin{solution}{3.1}
+对实数 \(|x|\) 应用 Archimedes 性质，存在 \(n\in\N\) 使 \(n>|x|\)。于是同时有 \(-n<x<n\)。
+\end{solution}
+
+\begin{solution}{3.2}
+对正数 \(a/\varepsilon\) 取 \(n>a/\varepsilon\)。乘以 \(\varepsilon/n>0\)，得到 \(a/n<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{3.3}
+令 \(k=\lfloor x\rfloor\)，则 \(k\le x<k+1\)。加 \(m\in\Z\) 后
+\[
+ k+m\le x+m<k+m+1,
+\]
+由唯一性得 \(\lfloor x+m\rfloor=k+m\)。
+
+定义 \(\lceil x\rceil\) 为满足 \(r-1<x\le r\) 的唯一整数。该不等式取相反数得
+\[
+ -r\le -x<-r+1,
+\]
+故 \(\lfloor-x\rfloor=-r=-\lceil x\rceil\)。
+\end{solution}
+
+\begin{solution}{3.4}
+先取 \(q_1\in\Q\cap(a,b)\)。递归地在 \((q_k,b)\) 中取 \(q_{k+1}\in\Q\)，得到严格递增的无限有理数列。对无理数同样递归使用正文的无理稠密性定理。严格递增保证各项互异。
+\end{solution}
+
+\begin{solution}{3.5}
+取 \(m=\lfloor nx\rfloor\)，令 \(q=m/n\)。则
+\[
+ 0\le x-q<\frac1n,
+\]
+所以 \(|x-q|<1/n\)。若要求严格从另一侧逼近，可取 \((m+1)/n\)。
+\end{solution}
+
+\section*{B组　表示与计数}
+\addcontentsline{toc}{section}{B组　表示与计数}
+
+\begin{solution}{3.6}
+\[
+ d_n(-\sqrt2)=\frac{\lfloor-10^n\sqrt2\rfloor}{10^n}
+ =-\frac{\lceil10^n\sqrt2\rceil}{10^n}.
+\]
+例如 \(d_1(-\sqrt2)=-1.5\)、\(d_2(-\sqrt2)=-1.42\)。简单删除 \(-1.414\ldots\) 的尾部会得到 \(-1.4\)，它大于原数；向下截断必须取不超过原数的网格点。
+\end{solution}
+
+\begin{solution}{3.7}
+正文已证左侧单调性。由于
+\[
+ d_n(x)=\frac{10\lfloor10^nx\rfloor}{10^{n+1}},
+\]
+而 \(\lfloor10^{n+1}x\rfloor\) 至多比该整数大 \(9\)，故
+\[
+ d_{n+1}(x)-d_n(x)\le\frac9{10^{n+1}}.
+\]
+\end{solution}
+
+\begin{solution}{3.8}
+\(0.999\ldots\) 的第 \(n\) 个部分和为 \(1-10^{-n}\)。其上确界为 \(1\)：\(1\) 是上界，而对任意 \(\varepsilon>0\)，取 \(10^{-n}<\varepsilon\) 即有 \(1-10^{-n}>1-\varepsilon\)。
+
+令 \(x=0.272727\ldots\)。有限部分和或位移计算给出 \(100x=27+x\)，所以 \(x=27/99=3/11\)。严格地说，可先对有限偶数位部分和计算，再用余项不超过 \(10^{-2n}\) 取上确界。
+\end{solution}
+
+\begin{solution}{3.9}
+设非循环前缀长度为 \(r\)，循环节表示的整数为 \(C\in\{0,\ldots,10^p-1\}\)，前缀对应有限小数 \(A/10^r\)。则
+\[
+ x=\frac A{10^r}+\frac C{10^r}\sum_{j=1}^{\infty}10^{-pj}
+ =\frac A{10^r}+\frac C{10^r(10^p-1)}.
+\]
+右端为有理数。公式也覆盖 \(C=0\) 的终止情形。
+\end{solution}
+
+\begin{solution}{3.10}
+有限小数由一个整数、有限位数和有限数字串编码，是可数族有限集的并，故至多可数；因其包含所有整数，所以可数无限。最终循环小数可由符号、整数部分、非循环前缀和循环节四个有限字符串编码，故至多可数；它同样包含所有整数，所以可数无限。
+\end{solution}
+
+\begin{solution}{3.11}
+实代数数全体可数无限。若某开区间 \(I\) 中的超越数至多可数，则 \(I\) 是“区间中的代数数”与“区间中的超越数”两个至多可数集之并，因而至多可数。但 \(I\) 与 \((0,1)\) 通过仿射映射双射，而正文的三进制构造证明 \((0,1)\) 不可数，矛盾。
+\end{solution}
+
+\section*{C组　项目与边界}
+\addcontentsline{toc}{section}{C组　项目与边界}
+
+\begin{solution}{3.12}
+定义
+\[
+ d_n^{(b)}(x)=\frac{\lfloor b^nx\rfloor}{b^n}.
+\]
+则 \(d_n^{(b)}(x)\le x<d_n^{(b)}(x)+b^{-n}\)，相邻差确定数字 \(a_n\in\{0,\ldots,b-1\}\)。有限部分和集合的上确界即为 \(x\)。
+
+若两种表示在第 \(k\) 位首次不同，较大数字至少多 \(b^{-k}\)，后续最大补偿为
+\[
+ \sum_{j=k+1}^\infty(b-1)b^{-j}=b^{-k}.
+\]
+故只有较大侧以后全为 \(0\)、较小侧以后全为 \(b-1\) 时可能相等。
+
+对有理数作基数 \(b\) 的长除法，有限余数必终止或重复；最终循环表示按\exerciseref{3.9}的计算把 \(10\) 换成 \(b\)，得到分母 \(b^p-1\) 的有理数。三项结论全部成立。
+\end{solution}
+
+\begin{solution}{3.13}
+有限尾和为
+\[
+ \sum_{k=m+1}^{N}\frac2{3^k}
+ =\frac1{3^m}\left(1-\frac1{3^{N-m}}\right),
+\]
+其上确界为 \(3^{-m}\)。因此首次不同位的净差至少为
+\[
+ 2\cdot3^{-m}-3^{-m}=3^{-m}>0.
+\]
+每个 \(\Phi(A)\) 的第 \(k\) 位按 \(k\in A\) 取 \(2\)，否则取 \(0\)；反之，任意只含 \(0,2\) 的三进制表示由这些取 \(2\) 的位置唯一确定一个子集。故像恰为该类数。
+\end{solution}
+
+\begin{solution}{3.14}
+映射
+\[
+ f:[0,1]\to[a,b],\qquad f(t)=a+(b-a)t
+\]
+有逆映射 \(f^{-1}(x)=(x-a)/(b-a)\)，故为双射。于是 \([a,b]\) 与不可数的 \([0,1]\) 等势。开区间与半开区间也可由显式分段双射或 Cantor--Schröder--Bernstein 定理得到不可数性；仅推出不可数时，包含一个非退化闭子区间已经足够。
+\end{solution}
+
+\begin{solution}{3.15}
+一种标准参考模型是实系数有理函数域 \(\R(t)\)，按“\(t\) 大于每个实常数”的最终首项符号排序。于是 \(t>n\) 对所有 \(n\in\N\) 成立，Archimedes 性质首先失效；随之任意小倒数、整数部分定理以及用整数网格证明的稠密性论证也不能照搬。构造全序需按有理函数在充分大实参数处的符号定义，并验证与域运算相容。
+\end{solution}
+
+\begin{solution}{3.16}
+自然数无上界用于 \(1/\varepsilon\) 即得某个 \(n>1/\varepsilon\)，从而 \(1/n<\varepsilon\)。反之，若存在任意小的 \(1/n\)，给定 \(x>0\)，对 \(\varepsilon=1/x\) 取 \(1/n<1/x\)，便有 \(n>x\)；\(x\le0\) 时任取正整数。第三种表述由
+\[
+ nx>y\Longleftrightarrow n>y/x
+\]
+与第一种表述等价。
+\end{solution}
+
+\begin{solution}{3.17}
+写
+\[
+ x=\lfloor x\rfloor+\{x\},\qquad
+ y=\lfloor y\rfloor+\{y\},
+\]
+其中两个小数部分都在 \([0,1)\)。因此
+\[
+ \lfloor x+y\rfloor
+ =\lfloor x\rfloor+\lfloor y\rfloor
+ +\lfloor\{x\}+\{y\}\rfloor,
+\]
+最后一项只能为 \(0\) 或 \(1\)。恰在 \(\{x\}+\{y\}\ge1\) 时出现 \(+1\)。
+\end{solution}
+
+\begin{solution}{3.18}
+取 \(m=\lfloor nx\rfloor\)。整数部分定理给出
+\[
+ m\le nx<m+1,
+\]
+除以 \(n>0\) 即得所需夹逼。普通稠密性只断言区间中存在某个有理数；这里还指定分母网格，并给出误差严格小于 \(1/n\) 的定量结论。
+\end{solution}
+
+\begin{solution}{3.19}
+反设 \([0,1]\) 可枚举为 \(x_1,x_2,\ldots\)，并为每个数选取不以 \(9\) 为尾的十进制表示。构造
+\[
+ y=0.y_1y_2\cdots,\qquad
+ y_n=
+ \begin{cases}
+ 1,&x_n\text{ 的第 }n\text{ 位不是 }1,\\
+ 2,&x_n\text{ 的第 }n\text{ 位是 }1.
+ \end{cases}
+\]
+新表示只用 \(1,2\)，不会以 \(9\) 为尾，也不会产生终止式与尾随 \(9\) 的歧义。它与 \(x_n\) 在第 \(n\) 位不同，故不等于任何 \(x_n\)，矛盾。
+\end{solution}
+
+\begin{solution}{3.20}
+任意非空开区间 \((a,b)\) 包含非退化闭区间，例如
+\[
+ [a+(b-a)/3,\ a+2(b-a)/3].
+\]
+该闭区间与 \([0,1]\) 仿射双射，故不可数。区间内有理数至多可数；若无理数也至多可数，则二者并仍可数，与区间不可数矛盾。
+\end{solution}
+
+\begin{solution}{3.21}
+由
+\[
+ d_n(x)\le x<d_n(x)+10^{-n}
+\]
+知 \(x\) 是 \(D\) 的上界，且对每个 \(\varepsilon>0\)，取 \(n\) 使 \(10^{-n}<\varepsilon\)，便有 \(d_n(x)>x-\varepsilon\)。故 \(\sup D=x\)。
+
+若 \(x\) 是有限小数，则从某位起 \(d_n(x)=x\)，所以 \(D\) 有最大元 \(x\)。反之，若某个 \(d_n(x)=x\)，则 \(x\) 的分母可取 \(10^n\)，是有限小数。
+\end{solution}
+
+\begin{solution}{3.22}
+对每个次数 \(n\) 与系数整数向量 \((a_0,\ldots,a_n)\)，多项式只有有限多个实根。整系数多项式全体是可数族有限整数序列的并，故至多可数；其有限根集的可数并仍至多可数。每个整数都是实代数数，所以全体实代数数可数无限。
+
+任意非空开区间不可数。删去其中至多可数的代数数后，剩余集合不可能至多可数，否则原区间会成为两个至多可数集之并。因此每个开区间含不可数多个超越数。
+\end{solution}
+
+\begin{solution}{3.23}
+对整数基数 \(b\ge2\)，统一约定禁止从某位起恒为 \(b-1\)，可获得唯一表示；最终循环恰刻画有理数。二进制适合与有限位编码比较，十进制适合日常数值表示，三进制只用数字 \(0,2\) 可在不可数性注入中留下严格尾差并避开双重表示。统一误差为
+\[
+ 0\le x-d_n^{(b)}(x)<b^{-n},
+\]
+统一歧义仅为终止表示与尾随 \(b-1\) 表示成对出现。
+\end{solution}
+
+\begin{solution}{3.24}
+固定字长和指数范围后，浮点数集合是有限集，而任一实区间不可数，因此绝大多数实数不能被精确表示。把实数替换成邻近浮点数产生表示或舍入误差；对已表示数执行有限精度运算并再次舍入产生运算误差；算法中这些误差传播并累积。数学分析中的实数模型提供理想连续量，浮点模型则是有限网格，二者不能因小数记号相似而混同。
+\end{solution}

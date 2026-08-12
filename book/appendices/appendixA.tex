@@ -1,0 +1,146 @@
+\chapter{集合论基础与选择原理}
+\label{chap:appendix-set-theory}
+
+\begin{chapterguide}
+本附录说明全书采用的经典一阶逻辑与 ZFC 背景，列出 Zermelo--Fraenkel 公理的功能，并区分普通集合构造、递归选择与完整选择公理。分析正文通常只需使用这些原则的结论，不需要展开对象的底层编码。
+\end{chapterguide}
+
+\section{一阶语言、经典逻辑与集合论的论域}
+
+集合论的一阶语言以等号和二元关系符号 \(\in\) 为基本非逻辑符号。变量遍历集合，公式由原子公式 \(x=y\)、\(x\in y\) 经逻辑联结词和量词生成。经典逻辑采用排中律
+\[
+ P\lor\neg P
+\]
+及其等价的双重否定消去。量词只遍历集合；“全体集合”是论域的口头说明，并不是一个集合常量。
+
+公理是关于任意集合的句子或公式模式。定理是在逻辑规则下由公理推出的句子。对象如有序对、函数、自然数和实数都可编码为集合，但数学叙述通常按结构使用它们；同构的不同编码不影响分析结论。
+
+\section{Zermelo--Fraenkel 公理体系概览}
+
+ZF 通常包括下列公理或公理模式：
+\begin{description}[style=nextline,leftmargin=3em]
+ \item[外延] 具有相同元素的集合相等。
+ \item[空集] 存在没有元素的集合 \(\varnothing\)。
+ \item[配对] 对集合 \(x,y\)，存在 \(\{x,y\}\)。
+ \item[并集] 对集合族 \(A\)，存在 \(\bigcup A\)。
+ \item[幂集] 对集合 \(A\)，存在由 \(A\) 的全部子集组成的 \(\mathcal P(A)\)。
+ \item[无穷] 存在包含 \(\varnothing\) 且对后继 \(x\mapsto x\cup\{x\}\) 封闭的集合。
+ \item[分离模式] 对公式 \(\varphi\) 与已有集合 \(A\)，存在 \(\{x\in A:\varphi(x)\}\)。
+ \item[替代模式] 若公式在 \(A\) 上定义唯一值，则这些值组成集合。
+ \item[正则] 每个非空集合 \(A\) 含有与 \(A\) 不交的元素。
+\end{description}
+
+ZFC 是 ZF 再加选择公理。不同教材可能把空集公理作为分离与无穷公理的推论，或采用等价的正则、替代形式；这些差异不改变通常数学中的可用结论。
+
+\section{外延、分离、替代与 Russell 悖论}
+
+外延公理给出证明集合相等的双包含方法。分离模式只能从已有集合中筛选元素，不能把任意性质的所有满足者直接收集成集合。若允许无条件概括，令
+\[
+ R=\{x:x\notin x\},
+\]
+便得到 \(R\in R\Longleftrightarrow R\notin R\)。ZF 以受限分离避免这一矛盾。
+
+替代模式处理“把集合中的每个元素送到唯一新对象”形成的像集。例如若 \(F\) 是定义在集合 \(A\) 上的函数式关系，则
+\[
+ F[A]=\{F(a):a\in A\}
+\]
+是集合。分离从固定母集中取子集，替代则允许像落在事先没有给定的共同母集中。
+
+\begin{proposition}
+不存在由所有集合组成的集合。
+\end{proposition}
+
+\begin{proof}
+若 \(U\) 包含所有集合，则分离给出 \(R_U=\{x\in U:x\notin x\}\)。因为 \(R_U\) 也是集合，应有 \(R_U\in U\)。代入定义得到
+\[
+ R_U\in R_U\Longleftrightarrow R_U\notin R_U,
+\]
+矛盾。
+\end{proof}
+
+\section{配对、并集、幂集、无穷与正则公理}
+
+配对与并集给出单点集、有序有限集合和有限并。幂集公理提供函数图、关系族、拓扑和 \(\sigma\)-代数的常用母集。无穷公理保证归纳集存在；取所有归纳子集之交得到 von Neumann 自然数集 \(\omega\)，其中
+\[
+ 0=\varnothing,\qquad n+1=n\cup\{n\}.
+\]
+归纳原理来自 \(\omega\) 的最小性，递归定理则由替代和分离建立。
+
+正则公理排除无限下降成员链
+\[
+ \cdots\in x_2\in x_1\in x_0
+\]
+及 \(x\in x\) 等非良基情形。普通分析很少直接调用正则公理，但它使集合宇宙按累积层级组织。
+
+\section{关系、函数和商结构的集合论编码}
+
+采用 Kuratowski 编码
+\[
+ (x,y)=\{\{x\},\{x,y\}\}.
+\]
+笛卡儿积 \(X\times Y\) 是 \(\mathcal P(\mathcal P(X\cup Y))\) 的受限子集。二元关系是笛卡儿积的子集；函数是满足单值性和全定义性的关系，并连同定义域、陪域使用。
+
+若 \(\sim\) 是 \(X\) 上的等价关系，则每个等价类
+\[
+ [x]=\{y\in X:y\sim x\}
+\]
+由分离得到，商集 \(X/{\sim}\) 是映射 \(x\mapsto[x]\) 的像，存在性可由替代得到。商结构上的运算仍须另外验证与代表元无关；集合存在性不替代良定义性。
+
+\section{选择公理、Zorn 引理和良序原理}
+
+\begin{definition}[选择公理]
+若 \(\mathcal A\) 是由非空集合组成的集合，则存在函数 \(f:\mathcal A\to\bigcup\mathcal A\)，使 \(f(A)\in A\) 对每个 \(A\in\mathcal A\) 成立。
+\end{definition}
+
+\begin{definition}[Zorn 引理]
+若偏序集 \(P\) 的每条链都有 \(P\) 中的上界，则 \(P\) 有极大元。
+\end{definition}
+
+\begin{definition}[良序原理]
+每个集合都能赋予一个良序，即每个非空子集都有最小元的全序。
+\end{definition}
+
+\begin{theorem}
+在 ZF 中，选择公理、Zorn 引理和良序原理相互等价。
+\end{theorem}
+
+\begin{proof}[证明纲要]
+良序原理推出选择公理：给每个成员集合取其良序最小元。
+
+选择公理推出 Zorn 引理：反设没有极大元，用选择函数为每个 \(p\in P\) 选取严格更大的元素；对链按超限递归不断扩张，并在极限阶段取链的上界。这一过程若永不终止，会产生严格长于 \(P\) 基数的互异元素列，与 Hartogs 引理矛盾，故必须在极大元处停止。
+
+Zorn 引理推出良序原理：考虑 \(X\) 的所有“已良序子集”，按保持原良序的初段扩张排序。链的并仍是已良序子集，故 Zorn 引理给出极大者。若其定义域不是 \(X\)，加入一个新元素作为最大元便得到真扩张，矛盾。因此该极大良序覆盖 \(X\)。
+\end{proof}
+
+可数选择、依赖选择和完整选择公理强度不同。可数选择只处理可数族；依赖选择允许按二元可继续关系递归选出序列；完整选择公理可处理任意集合指标族。
+
+\section{本书哪些结论使用了选择原理}
+
+有限选择、从显式给定序列中取最小指标、从 \(\N\) 的非空子集取最小元都不需要选择公理。下列情形需特别区分：
+\begin{itemize}
+ \item 可数并定理若每个枚举未预先给定，通常使用可数选择；
+ \item 从“每一步存在后继对象”构造无限序列，常使用依赖选择；
+ \item 任意向量空间存在 Hamel 基、Hahn--Banach 的某些一般版本以及极大理想存在性常由 Zorn 引理证明；
+ \item 任意乘积紧致的 Tychonoff 定理与完整选择公理等价；
+ \item 可分度量空间中的许多逐层选择只需可数选择，有限维分析中的显式构造通常不需要非平凡选择。
+\end{itemize}
+
+正文采用 ZFC，因此这些选择均合法；在依赖强度有数学意义时，会标出较弱原则已经足够。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本附录按IV级预备附录配置，共10道编号题，含18个训练单元。
+
+\begin{enumerate}[label=\textbf{A.\arabic*.}]
+ \exerciseitem{A.1} \mustdo 用外延公理证明空集唯一，并由配对公理构造单点集。
+ \exerciseitem{A.2} \mustdo 区分下列构造使用分离还是替代：偶数集、函数像 \(f[A]\)、等价类 \([x]\)、商集 \(X/{\sim}\)。
+ \exerciseitem{A.3} \mustdo 从 Kuratowski 编码证明有序对的坐标唯一性。
+ \exerciseitem{A.4} \mustdo 证明不存在全集，并说明该证明没有断言性质 \(x\notin x\) 本身非法。
+ \exerciseitem{A.5} \mustdo 证明一个分割对应的等价关系及一个等价关系对应的分割均形成集合。
+ \exerciseitem{A.6} \mustdo 证明良序原理推出选择公理。
+ \exerciseitem{A.7} \projectdo\ 【前置：偏序与超限递归；预计用时：90分钟】补全 Zorn 引理推出良序原理的链并论证。
+\exerciseitem{A.8} \optionaldo 分析“可数族至多可数集之并仍至多可数”的证明中选择函数出现的位置。
+ \exerciseitem{A.9} \optionaldo 证明若每个成员集合都已指定一个元素，则形成选择函数不再需要选择公理。
+ \exerciseitem{A.10} \opendo 查阅一个不能在 ZF 中证明、但在 ZFC 中成立的分析命题，说明其选择强度。
+\end{enumerate}

@@ -170,8 +170,18 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 
+% Stable cross-reference helpers.  The visible number is always supplied by
+% LaTeX; the argument is a semantic label key, not a printed chapter number.
+\newcommand{\chapterref}[1]{第~\ref{#1}~章}
+\newcommand{\sectionref}[1]{第~\ref{#1}~节}
+\newcommand{\theoremref}[1]{定理~\ref{#1}}
+\newcommand{\equationref}[1]{式~\eqref{#1}}
+\newcommand{\exerciseitem}[1]{\item\label{ex:#1}}
+\newcommand{\exerciseref}[1]{习题~\ref{ex:#1}\allowbreak}
+\newcommand{\exerciserange}[2]{习题~\ref{ex:#1}--\ref{ex:#2}\allowbreak}
+
 \newenvironment{solution}[1]
-  {\par\medskip\noindent{\bfseries\color{AnalysisHeading}习题 #1}\quad}
+  {\par\medskip\phantomsection\label{sol:#1}\noindent{\bfseries\color{AnalysisHeading}\exerciseref{#1}}\quad}
   {\par\medskip}
 
 \newcommand{\mustdo}{\textcolor{AnalysisRed}{\bfseries [必做]}}

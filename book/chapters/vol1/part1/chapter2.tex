@@ -1,0 +1,301 @@
+\chapter{有序域与实数的完备性公理}
+\label{chap:ordered-field-completeness}
+
+\begin{chapterguide}
+\chapterref{chap:rational-defects}表明，有序域结构能够支持代数运算和大小比较，却不能保证有界集合存在边界点。本章先列出域、全序及二者的相容性，再以确界公理补入缺失的存在性。此后暂以“实数系”表示一个完备有序域；第4、5章将给出具体构造。
+\end{chapterguide}
+
+\section{域的代数结构}
+
+\begin{definition}
+集合 \(F\) 连同运算 \(+\) 与 \(\cdot\) 称为一个\term{域}，如果加法、乘法分别满足交换律和结合律，乘法对加法满足分配律，并且存在互异元素 \(0,1\in F\)，使每个 \(x\in F\) 有加法逆元 \(-x\)，每个非零 \(x\in F\) 有乘法逆元 \(x^{-1}\)。
+\end{definition}
+
+减法定义为 \(x-y=x+(-y)\)，除法定义为 \(x/y=xy^{-1}\)（\(y\ne0\)）。
+
+\begin{proposition}
+在域中，两个单位元和每个逆元都是唯一的；此外
+\[
+ 0x=0,\qquad (-x)y=-(xy),\qquad (-x)(-y)=xy.
+\]
+若 \(xy=0\)，则 \(x=0\) 或 \(y=0\)。
+\end{proposition}
+
+\begin{proof}
+若 \(0,0'\) 都是加法单位元，则 \(0=0+0'=0'\)；其他唯一性同理。由
+\[
+ 0x=(0+0)x=0x+0x
+\]
+消去 \(0x\) 得 \(0x=0\)，其余符号法则由逆元唯一性推出。若 \(xy=0\) 且 \(x\ne0\)，两边乘 \(x^{-1}\) 得 \(y=0\)。
+\end{proof}
+
+\(\Q,\R,\C\) 都是域，\(\Z\) 不是域。本章讨论还带有相容全序的域；\(\C\) 不存在这种全序。
+
+\section{序与域运算的相容性}
+
+\begin{definition}
+域 \(F\) 上的关系 \(\le\) 称为与域运算相容的\term{全序}，如果它满足自反性、反对称性、传递性和任意两元素可比较，并且
+\begin{enumerate}
+ \item \(x\le y\Rightarrow x+z\le y+z\)；
+ \item \(0\le x,\ 0\le y\Rightarrow0\le xy\)。
+\end{enumerate}
+带有这种全序的域称为\term{有序域}。
+\end{definition}
+
+\begin{proposition}
+在有序域中，\(1>0\)；对 \(x\ne0\)，有 \(x^2>0\)；若 \(0<x<y\)，则 \(0<y^{-1}<x^{-1}\)。
+\end{proposition}
+
+\begin{proof}
+若 \(1<0\)，则 \(-1>0\)，从而 \(1=(-1)^2>0\)，矛盾，故 \(1>0\)。对非零 \(x\)，\(x\) 与 \(-x\) 中恰有一个为正，故 \(x^2>0\)。若 \(x>0\)，其逆元也为正；由 \(x<y\) 乘正数 \(x^{-1}y^{-1}\)，得到 \(y^{-1}<x^{-1}\)。
+\end{proof}
+
+有序域的特征为零，因为每个有限和 \(n\cdot1\) 都为正。因此其中含有 \(\Q\) 的一个保持运算与次序的副本。
+
+\section{有序域中的区间、绝对值与基本不等式}
+
+对 \(a<b\) 定义通常的开、闭、半开区间。绝对值定义为
+\[
+ |x|=\begin{cases}x,&x\ge0,\\-x,&x<0.\end{cases}
+\]
+
+\begin{theorem}[绝对值不等式]
+对任意 \(x,y\in F\)，
+\[
+ |xy|=|x||y|,\qquad |x+y|\le|x|+|y|,\qquad
+ \bigl||x|-|y|\bigr|\le|x-y|.
+\]
+\end{theorem}
+
+\begin{proof}
+乘积式按符号分类。由 \(-|x|\le x\le|x|\) 与对应的 \(y\) 不等式相加，得到
+\[
+ -(|x|+|y|)\le x+y\le|x|+|y|,
+\]
+即三角不等式。由 \(x=(x-y)+y\) 得 \(|x|-|y|\le|x-y|\)；交换 \(x,y\) 并合并两式，得到反三角不等式。
+\end{proof}
+
+对 \(r>0\)，\(|x-a|<r\) 等价于 \(a-r<x<a+r\)。后续极限定义将用这一关系把误差估计改写为区间邻域。
+
+\section{上界、下界、最大元与最小元}
+
+\begin{definition}
+设 \(A\subseteq F\)。若 \(M\in F\) 满足 \(a\le M\) 对所有 \(a\in A\) 成立，则 \(M\) 是 \(A\) 的\term{上界}。若 \(m\in A\) 且 \(a\le m\) 对所有 \(a\in A\) 成立，则 \(m\) 是 \(A\) 的\term{最大元}。下界、最小元对称定义。
+\end{definition}
+
+最大元与最小元若存在则唯一。空集的每个域元素都是上界和下界，但空集没有最大元或最小元。确界公理因此显式要求集合非空。
+
+\begin{example}
+区间 \((0,1)\) 有上界 \(1\)，却没有最大元：若 \(0<x<1\)，则 \(x<(x+1)/2<1\)。区间 \((0,1]\) 的最大元为 \(1\)。
+\end{example}
+
+记上界集为
+\[
+ \operatorname{UB}(A)=\{M\in F:\forall a\in A,\ a\le M\}.
+\]
+若 \(\operatorname{UB}(A)\) 非空，它向上封闭：\(M\) 是上界且 \(M'\ge M\) 时，\(M'\) 仍是上界。类似地，下界集 \(\operatorname{LB}(A)\) 向下封闭。上确界若存在，就是上界集的最小元；下确界则是下界集的最大元。这个改写把确界问题转化为“界的集合有没有端点”。
+
+\begin{proposition}
+设 \(A,B\subseteq F\) 非空。
+\begin{enumerate}
+ \item 若 \(A\subseteq B\)，则 \(\operatorname{UB}(B)\subseteq\operatorname{UB}(A)\)；
+ \item \(M\) 是 \(A\cup B\) 的上界，当且仅当它同时是 \(A,B\) 的上界；
+ \item 若 \(A\) 有最大元，则该最大元是上确界；但上确界不必属于 \(A\)。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+前两项直接展开全称量词。第三项中，最大元属于 \(A\) 且控制全部元素，所以是上界；任意上界还必须不小于这个属于 \(A\) 的元素，故它是最小上界。开区间给出最后一句的反例。
+\end{proof}
+
+\section{上确界与下确界}
+
+\begin{definition}
+设非空集合 \(A\subseteq F\) 有上界。若 \(s\) 是 \(A\) 的上界，并且 \(s\le M\) 对每个上界 \(M\) 成立，则称 \(s\) 为 \(A\) 的\term{上确界}，记为 \(s=\sup A\)。下确界 \(\inf A\) 对称定义。
+\end{definition}
+
+\begin{theorem}[上确界的近似刻画]
+\(s=\sup A\) 当且仅当
+\begin{enumerate}
+ \item \(a\le s\) 对所有 \(a\in A\) 成立；
+ \item 对每个 \(\varepsilon>0\)，存在 \(a_\varepsilon\in A\) 使 \(s-\varepsilon<a_\varepsilon\le s\)。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+若第二项对某个 \(\varepsilon>0\) 失败，则 \(s-\varepsilon\) 是更小的上界，矛盾。反之，第一项说明 \(s\) 是上界。若有上界 \(M<s\)，取 \(\varepsilon=s-M\)，第二项给出 \(a_\varepsilon>M\)，仍矛盾。
+\end{proof}
+
+\begin{proposition}
+若相应确界存在，则
+\[
+ \inf A=-\sup(-A),\qquad
+ \sup(A+c)=\sup A+c,\qquad
+ \sup(\lambda A)=\lambda\sup A\quad(\lambda>0).
+\]
+\end{proposition}
+
+\begin{proof}
+下界在取相反数后对应上界；平移和正数乘法则分别给出保持大小关系的双射。逐项核对上界性与最小性即可。
+\end{proof}
+
+\begin{proposition}[误差刻画的变体]
+若 \(s\) 是 \(A\) 的上界，则以下条件等价：
+\begin{enumerate}
+ \item \(s=\sup A\)；
+ \item 对每个 \(t<s\)，存在 \(a\in A\) 使 \(t<a\)；
+ \item 对每个正数 \(\eta\)，都有 \(A\cap(s-\eta,s]\ne\varnothing\)。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+第一项与第二项的等价只需在上确界近似刻画中令 \(\varepsilon=s-t\)。第二项说明任何小于 \(s\) 的数都不是上界，也正是“\(s\) 是最小上界”。第三项是同一陈述的邻域形式。
+\end{proof}
+
+\section{确界公理与完备有序域}
+
+\begin{definition}
+有序域 \(F\) 称为\term{完备有序域}，如果它的每个非空且有上界的子集都在 \(F\) 中有上确界。
+\end{definition}
+
+由取相反数可知，下确界原理与确界公理等价。\chapterref{chap:rational-defects}的集合 \(S\subseteq\Q\) 说明 \(\Q\) 不完备。
+
+\begin{theorem}[正数平方根]
+在完备有序域 \(F\) 中，对每个 \(a>0\)，存在唯一的 \(s>0\) 使 \(s^2=a\)。
+\end{theorem}
+
+\begin{proof}
+令 \(A=\{x\in F:x\ge0,\ x^2\le a\}\)。它含 \(0\)，且 \(a+1\) 是上界。令 \(s=\sup A\)。因 \(a/(a+1)\in A\)，故 \(s>0\)。
+
+若 \(s^2<a\)，令 \(d=a-s^2>0\)，取
+\[
+ 0<h<\min\left\{1,\frac d{2s+1}\right\}.
+\]
+则 \((s+h)^2-s^2<(2s+1)h<d\)，所以 \(s+h\in A\)，与上界性矛盾。若 \(s^2>a\)，令 \(d=s^2-a>0\)，取
+\[
+ 0<h<\min\left\{s,\frac d{2s}\right\}.
+\]
+则 \((s-h)^2>a\)。任何 \(x\in A\) 都不能大于 \(s-h\)，故 \(s-h\) 是更小的上界，矛盾。因此 \(s^2=a\)。
+
+若 \(t>0\) 且 \(t^2=s^2\)，则 \((t-s)(t+s)=0\)。因 \(t+s>0\)，有 \(t=s\)。
+\end{proof}
+
+确界公理只用于产生候选 \(s\)；两个有理扰动分别排除 \(s^2<a\) 与 \(s^2>a\)。这填补了\chapterref{chap:rational-defects}由 \(x^2=2\) 产生的缺口。
+
+\section{上确界与最大值的区别}
+
+若 \(A\) 有最大元 \(m\)，则 \(m=\sup A\)。逆命题不成立：\((0,1)\) 的上确界是 \(1\)，但 \(1\notin(0,1)\)。
+
+\begin{proposition}
+非空有上界集合 \(A\) 有最大元，当且仅当 \(\sup A\in A\)；此时最大元等于上确界。
+\end{proposition}
+
+\begin{proof}
+最大元既是上界，又不大于任何上界，所以等于上确界。反之，属于 \(A\) 的上确界支配 \(A\) 的全部元素，因而是最大元。
+\end{proof}
+
+\begin{example}[边界位置与边界归属]
+令
+\[
+ A=(0,1),\qquad B=(0,1/2),\qquad C=(0,1]\!.
+\]
+前两个集合都没有最大元，但上确界分别为 \(1\) 与 \(1/2\)；集合 \(A,C\) 有同一个上确界，只有 \(C\) 包含边界并具有最大元。确界记录边界位置，最大元还记录边界是否属于集合。
+\end{example}
+
+\begin{proposition}[确界的稳定比较]
+设 \(A,B\subseteq F\) 非空且有上界。若对每个 \(a\in A\) 都存在 \(b\in B\) 使 \(a\le b\)，则
+\[
+ \sup A\le\sup B.
+\]
+\end{proposition}
+
+\begin{proof}
+\(\sup B\) 控制每个 \(b\in B\)，因而按假设也控制每个 \(a\in A\)，所以它是 \(A\) 的上界。最小上界性给出结论。这个命题常用于比较删去有限项、平移或逐点放大后的集合边界。
+\end{proof}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+域公理控制四则运算，全序及相容性控制不等式；二者仍不足以产生最小上界。确界公理补入集合层面的存在性，并等价地给出下确界原理。上确界只有属于原集合时才是最大元。平方根定理展示了完备性如何把边界转化为方程的解。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共26道编号题，含45个独立训练单元，建议总用时7至10小时。
+
+\subsection*{A组　结构与不等式}
+\begin{enumerate}[label=\textbf{2.\arabic*.}]
+ \exerciseitem{2.1} \mustdo 从域公理证明 \(0x=0\)、\((-1)x=-x\) 与 \((-x)(-y)=xy\)。
+ \exerciseitem{2.2} \mustdo 证明 \(x<y\Longleftrightarrow y-x>0\)，并推导不等式加法法则与负数乘法反向法则。
+ \exerciseitem{2.3} \mustdo 证明 \(x^2\ge0\)，且 \(x^2=0\Longleftrightarrow x=0\)。
+ \exerciseitem{2.4} \mustdo 证明对 \(r>0\)，
+ \[
+ |x-a|<r\Longleftrightarrow a-r<x<a+r,
+ \quad
+ |x-a|\le r\Longleftrightarrow a-r\le x\le a+r.
+ \]
+ \exerciseitem{2.5} \mustdo 证明反三角不等式，并给出取等的简单情形。
+ \exerciseitem{2.6} \mustdo 证明不存在使 \(\C\) 成为有序域的全序。
+\end{enumerate}
+
+\subsection*{B组　界与确界}
+\begin{enumerate}[label=\textbf{2.\arabic*.},resume]
+ \exerciseitem{2.7} \mustdo 分别求下列实数集合的上界全体、下界全体、上下确界及最大最小元：
+ \begin{enumerate}[label=(\arabic*)]
+  \item \((0,1)\)；
+  \item \([0,1)\)；
+  \item \(\{x\in\R:x\ge0,\ x^2<2\}\)。
+ \end{enumerate}
+ \exerciseitem{2.8} \mustdo 证明上确界若存在则唯一，并写出下确界的近似刻画。
+ \exerciseitem{2.9} \mustdo 若 \(\varnothing\ne A\subseteq B\subseteq\R\) 均有上界，证明 \(\sup A\le\sup B\)，并给出严格不等与等号的例子。
+ \exerciseitem{2.10} \mustdo 对非空有上界集合 \(A,B\subseteq\R\)，证明
+ \[
+ \sup(A+B)=\sup A+\sup B,
+ \quad A+B=\{a+b:a\in A,b\in B\}.
+ \]
+ \exerciseitem{2.11} \mustdo 对非空有界集合 \(A,B\subseteq\R\)，证明
+ \[
+ \sup(A\cup B)=\max\{\sup A,\sup B\},\quad
+ \inf(A\cup B)=\min\{\inf A,\inf B\}.
+ \]
+ \exerciseitem{2.12} \optionaldo 构造 \(A,B\subseteq\R\)，使 \(A\cap B\ne\varnothing\) 且
+ \[
+ \sup(A\cap B)<\min\{\sup A,\sup B\}.
+ \]
+\end{enumerate}
+
+\subsection*{C组　完备性与项目}
+\begin{enumerate}[label=\textbf{2.\arabic*.},resume]
+ \exerciseitem{2.13} \mustdo 由确界公理推出下确界原理，并证明反向蕴含。
+ \exerciseitem{2.14} \mustdo 在平方根定理中给出 \(h\) 的显式公式，避免使用尚未证明的 Archimedes 性质。
+ \exerciseitem{2.15} \mustdo 证明若 \(a<b\) 与 \(0<t<1\)，则
+ \[
+ a<(1-t)a+tb<b,
+ \]
+ 并说明该结论不使用完备性。
+ \exerciseitem{2.16} \projectdo\ 【前置：\exerciseref{2.8}、2.13；预计用时：60分钟】证明嵌套闭区间 \([a_n,b_n]\) 若满足
+ \[
+ a_n\le a_{n+1}\le b_{n+1}\le b_n,
+ \]
+ 则交集非空。此处不要求交集为单点。
+ \exerciseitem{2.17} \optionaldo 若 \(A\subseteq\R\) 非空有上界且 \(c<\sup A\)，证明存在 \(a\in A\) 使 \(c<a\le\sup A\)。
+ \exerciseitem{2.18} \opendo 列出平方根存在性证明中分别使用的域、序、确界三类性质，并说明在 \(\Q\) 中哪一步失败。
+ \exerciseitem{2.19} \mustdo 证明上界集向上封闭、下界集向下封闭，并把 \(\sup A\) 表述为 \(\operatorname{UB}(A)\) 的最小元。
+ \exerciseitem{2.20} \mustdo 证明上确界近似刻画中可把“对每个 \(\varepsilon>0\)”等价改写为“对每个 \(t<s\)”。
+ \exerciseitem{2.21} \mustdo 设 \(A,B\) 非空有上界，且每个 \(a\in A\) 都不超过某个 \(b\in B\)。证明 \(\sup A\le\sup B\)，并构造严格不等与等号例。
+ \exerciseitem{2.22} \mustdo 求 \(\sup\{x/(1+x):x>0\}\)，不得使用微分。
+ \exerciseitem{2.23} \mustdo 设 \(A\) 非空有界，证明
+ \[
+  \sup\{\abs a:a\in A\}=\max\{\sup A,-\inf A\}.
+ \]
+ \exerciseitem{2.24} \mustdo 讨论从非空集合中删除有限个元素后上确界何时保持不变；给出一个充分条件和两个边界反例。
+ \exerciseitem{2.25} \optionaldo 设 \(\lambda<0\)。推导 \(\sup(\lambda A)\) 与 \(\inf A\) 的关系，并证明。
+ \exerciseitem{2.26} \projectdo\ 【前置：本章确界运算；预计用时：75分钟】建立非空有界集合在平移、正负伸缩、并集、Minkowski 和与乘积下的确界计算表；每个公式注明必要的符号条件。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{2.6}：有序域中平方非负，而 \(i^2=-1\)。
+ \item \exerciseref{2.10}：先证右端是上界，再用两个近似元从下方逼近。
+ \item \exerciseref{2.16}：令 \(s=\sup\{a_n:n\in\N\}\)，证明每个 \(b_n\) 都是该集合的上界。
+\end{itemize}

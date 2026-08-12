@@ -1,0 +1,318 @@
+\chapter{Cauchy 列构造实数}
+\label{chap:cauchy-construction}
+
+\begin{chapterguide}
+Dedekind 构造以次序缺口为对象。本章改用逼近过程：两个有理 Cauchy 列若差趋于零，就表示同一个新数。等价类上的逐项运算较为自然，主要困难是证明运算与代表元无关、非零类存在乘法逆元，以及由“Cauchy 列的 Cauchy 列”构造单个极限类。
+\end{chapterguide}
+
+\section{有理 Cauchy 列与零列}
+
+记 \(\mathcal C\) 为全体有理 Cauchy 列组成的集合。定义沿用\chapterref{chap:rational-defects}：
+\[
+ \forall\varepsilon\in\Q_{>0}\ \exists N\in\N\
+ \forall m,n\ge N,\quad |a_m-a_n|<\varepsilon.
+\]
+
+\begin{definition}
+有理数列 \((z_n)\) 称为\term{零列}，如果对每个正有理数 \(\varepsilon\)，从某项起都有 \(|z_n|<\varepsilon\)。
+\end{definition}
+
+\begin{proposition}
+有理 Cauchy 列有界；零列的和、差仍为零列；有界有理数列与零列的逐项乘积仍为零列。
+\end{proposition}
+
+\begin{proof}
+对 Cauchy 列取 \(\varepsilon=1\)，从第 \(N\) 项起有 \(|a_n|\le|a_N|+1\)，再把前 \(N-1\) 项并入有限最大值。零列的加减由 \(\varepsilon/2\) 控制。若 \(|a_n|\le M\)，对 \(M>0\) 取 \(|z_n|<\varepsilon/M\)；\(M=0\) 时结论直接成立。
+\end{proof}
+
+\section{等价关系及等价类}
+
+对 \((a_n),(b_n)\in\mathcal C\)，定义
+\[
+ (a_n)\sim(b_n)\quad\Longleftrightarrow\quad(a_n-b_n)\text{ 是零列}.
+\]
+
+\begin{proposition}
+\(\sim\) 是 \(\mathcal C\) 上的等价关系。
+\end{proposition}
+
+\begin{proof}
+\((a_n-a_n)\) 为零列，给出自反性；取相反数给出对称性；若 \(a_n-b_n\) 与 \(b_n-c_n\) 均为零列，则其和 \(a_n-c_n\) 仍为零列，给出传递性。
+\end{proof}
+
+商集
+\[
+ \widehat{\R}:=\mathcal C/{\sim}
+\]
+的元素记为 \([a_n]\)。一个类包含所有误差最终可任意小的有理逼近过程。
+
+等价类而非单条序列才代表一个数。例如，把任一代表列的前有限项任意修改，或加上零列 \(z_n\)，都不改变其类。相反，仅有相同有界性或相同单调性并不足以判定等价；判定标准是差在每个有理精度下最终趋零。
+
+\begin{proposition}
+常值列 \((q)\) 与有理 Cauchy 列 \((a_n)\) 等价，当且仅当 \((a_n)\) 在 \(\Q\) 中收敛到 \(q\)。因此新商集中没有把已有有理数重复成多个点。
+\end{proposition}
+
+\begin{proof}
+两种陈述都逐字表示：对每个正有理数 \(\varepsilon\)，最终有
+\[
+ \abs{a_n-q}<\varepsilon.
+\]
+\end{proof}
+
+\section{等价类上运算的良定义性}
+
+定义
+\[
+ [a_n]+[b_n]=[a_n+b_n],\qquad
+ [a_n][b_n]=[a_nb_n].
+\]
+
+\begin{theorem}
+上述运算良定义，并使 \(\widehat{\R}\) 成为交换环，零元与单位元分别为常值列 \([0]\)、\([1]\)。
+\end{theorem}
+
+\begin{proof}
+有理 Cauchy 列的和仍为 Cauchy 列。积的差写成
+\[
+ a_mb_m-a_nb_n=a_m(b_m-b_n)+b_n(a_m-a_n),
+\]
+利用两列有界性和 Cauchy 性可使右端任意小，故积仍为 Cauchy 列。
+
+若 \(a\sim a'\)、\(b\sim b'\)，则
+\[
+ (a_n+b_n)-(a'_n+b'_n)=(a_n-a'_n)+(b_n-b'_n)
+\]
+是零列。对乘法，
+\[
+ a_nb_n-a'_nb'_n=a_n(b_n-b'_n)+b'_n(a_n-a'_n),
+\]
+两项均为“有界列乘零列”，故为零列。环公理由有理数逐项运算继承。
+\end{proof}
+
+\begin{lemma}[非零类远离零]
+若 \([a_n]\ne[0]\)，则存在正有理数 \(\delta\) 与 \(N\)，使
+\[
+ |a_n|\ge\delta\qquad(n\ge N),
+\]
+并且尾部符号恒定。
+\end{lemma}
+
+\begin{proof}
+\((a_n)\) 不是零列，故存在 \(\varepsilon>0\)，使任意尾部都有一项绝对值至少为 \(\varepsilon\)。取 \(N\) 使 \(m,n\ge N\) 时 \(|a_m-a_n|<\varepsilon/2\)，再在该尾部选 \(|a_k|\ge\varepsilon\)。于是所有 \(n\ge N\) 都满足 \(|a_n|\ge\varepsilon/2\)，并与 \(a_k\) 同号。
+\end{proof}
+
+\begin{theorem}
+每个非零类有乘法逆元，因而 \(\widehat{\R}\) 是域。
+\end{theorem}
+
+\begin{proof}
+按引理取 \(N,\delta\)，定义 \(b_n=1/a_n\)（\(n\ge N\)），前面有限项任意取为 \(1\)。尾部有
+\[
+ |b_m-b_n|=\frac{|a_m-a_n|}{|a_ma_n|}
+ \le\delta^{-2}|a_m-a_n|,
+\]
+故 \((b_n)\) 是 Cauchy 列。逐项乘积从第 \(N\) 项起等于 \(1\)，所以 \([a_n][b_n]=[1]\)。
+\end{proof}
+
+\section{序关系与有理数的常值列嵌入}
+
+\begin{definition}
+称 \([a_n]>[0]\)，如果存在 \(\delta>0,N\in\N\)，使 \(a_n\ge\delta\) 对所有 \(n\ge N\) 成立。定义
+\[
+ [a_n]<[b_n]\Longleftrightarrow[b_n-a_n]>[0],
+\]
+并以相等补成 \(\le\)。
+\end{definition}
+
+该定义与代表元无关：零列扰动不可能改变一个与零保持固定正距离的尾部符号。
+
+\begin{theorem}
+上述次序是与域运算相容的全序。
+\end{theorem}
+
+\begin{proof}
+对任意 Cauchy 列 \(a\)，若其类非零，“远离零”引理说明尾部恒正或恒负，故三歧性成立。传递性由两个最终正下界相加得到；平移相容性来自差不变；两个正类的代表元最终均有正下界，其乘积也有正下界。反对称性和其余次序公理由定义得到。
+\end{proof}
+
+定义
+\[
+ \jmath:\Q\to\widehat{\R},\qquad
+ \jmath(q)=[q,q,\ldots].
+\]
+常值列运算说明 \(\jmath\) 保持四则运算；定义直接说明它保持严格次序，因而是单射。以下把 \(\Q\) 与其像识别。
+
+\section{构造所得数系的 Cauchy 完备性}
+
+类 \(x=[a_n]\) 可由其任一足够靠后的有理项逼近：给定 \(\varepsilon>0\)，Cauchy 性给出 \(N\)，使
+\[
+ |x-a_N|=[\,|a_n-a_N|\,]<\varepsilon.
+\]
+因此 \(\Q\) 在 \(\widehat{\R}\) 中稠密。
+
+每个有理 Cauchy 列有有理界，故每个 \(x\in\widehat{\R}\) 都被某个正整数控制；因此 \(\widehat{\R}\) 具有 Archimedes 性质。特别地，对任意 \(\varepsilon>0\) 可取 \(k\) 使 \(1/k<\varepsilon\)。
+
+\begin{theorem}
+\(\widehat{\R}\) 中每个 Cauchy 列都收敛。
+\end{theorem}
+
+\begin{proof}
+设 \((x_k)\) 是 \(\widehat{\R}\) 中的 Cauchy 列。对每个 \(k\)，由有理数稠密性选 \(r_k\in\Q\) 使
+\[
+ |x_k-r_k|<\frac1k.
+\]
+先证 \((r_k)\) 是有理 Cauchy 列。给定 \(\varepsilon>0\)，取 \(K\) 使 \(2/K<\varepsilon/2\)，并使 \(m,n\ge K\) 时 \(|x_m-x_n|<\varepsilon/2\)。于是
+\[
+ |r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|<\varepsilon.
+\]
+令 \(x=[r_k]\)。再由
+\[
+ |x_k-x|\le|x_k-r_k|+|r_k-x|
+\]
+以及类 \([r_k]\) 被第 \(k\) 个有理项逼近的性质，得到 \(x_k\to x\)。
+\end{proof}
+
+最后一步可展开如下。由 \((r_k)\) 的 Cauchy 性，给定 \(\varepsilon>0\)，存在 \(K\) 使 \(j\ge k\ge K\) 时
+\[
+ \abs{r_j-r_k}<\varepsilon/2.
+\]
+这说明构造数 \(x=[r_j]\) 与常值类 \(r_k\) 的距离不超过 \(\varepsilon/2\)：代表差列从第 \(k\) 个位置以后都满足该界。再使
+\[
+ \abs{x_k-r_k}<1/k<\varepsilon/2,
+\]
+便有 \(\abs{x_k-x}<\varepsilon\)。这里的两个“尾部”分别属于外层类数列和内层有理代表，不能混用指标。
+
+\begin{proposition}[构造域中有理数的稠密性]
+若 \(x<y\) 属于 \(\widehat{\R}\)，则存在 \(q\in\Q\) 使
+\[
+ x<q<y.
+\]
+\end{proposition}
+
+\begin{proof}
+令 \(d=y-x>0\)。正类定义给出正有理数 \(\delta\)，使 \(d\) 的某代表尾部不小于 \(\delta\)。取正整数 \(n\) 使 \(1/n<\delta/3\)，再以 \(1/n\) 网格逼近 \(x\) 的一个有理代表后项，可选 \(q\in\Q\) 使 \(x<q<x+\delta<y\)。等价地，也可先由每个类能被有理数任意逼近，再把误差预算为 \((y-x)/3\)。
+\end{proof}
+
+构造把双重指标族对角化为单个有理序列：
+\[
+ \bigl(a_n^{(k)}\bigr)_{n,k}\longmapsto(r_k)_k.
+\]
+完备性用于值域自身的 Cauchy 列，而非预先借用外部实数极限。
+
+\section{Dedekind 构造与 Cauchy 构造的同构}
+
+对 \(x\in\widehat{\R}\)，定义其有理左部
+\[
+ \Phi(x)=\{q\in\Q:q<x\}.
+\]
+
+\begin{theorem}
+\(\Phi:\widehat{\R}\to\mathbb D\) 是保持次序与四则运算的域同构，并固定每个有理数。
+\end{theorem}
+
+\begin{proof}
+有理数在 \(\widehat{\R}\) 中稠密且 Archimedes，因此 \(\Phi(x)\) 非空、非全体、向下封闭且无最大元，是分割。若 \(x<y\)，取有理数 \(q\) 使 \(x<q<y\)，便有严格包含 \(\Phi(x)\subsetneq\Phi(y)\)，所以 \(\Phi\) 保序且单射。
+
+任取分割 \(\alpha\)。从一个左部元素与右部元素开始二分；第 \(n\) 步得到 \(a_n\in\alpha,b_n\notin\alpha\)，且
+\[
+ 0<b_n-a_n<2^{-n}C.
+\]
+于是 \((a_n)\) 为有理 Cauchy 列。若 \(x=[a_n]\)，则 \(q\in\alpha\) 当且仅当 \(q<x\)：左到右使用 \(\alpha\) 无最大元并取足够小区间，右到左使用右部向上封闭。故 \(\Phi(x)=\alpha\)，证明满射。
+
+对有理数 \(q\)，\(\Phi(q)=q^*\)。加法与乘法可由有理稠密性验证其左部恰与\chapterref{chap:dedekind-construction}定义相同；负号和逆元由唯一性随之保持。因此 \(\Phi\) 是域同构。
+\end{proof}
+
+运算保持可用左部逐项核对。例如
+\[
+ q<x+y
+\]
+当且仅当存在有理数 \(r<x,s<y\) 使 \(q<r+s\)。正向先在 \(q\) 与 \(x+y\) 之间留出有理误差，再把误差分配给 \(x,y\) 的有理近似；反向由次序相容性立即得到。因此
+\[
+ \Phi(x+y)=\Phi(x)+\Phi(y).
+\]
+正数乘法同理先给两个因子留出相对误差，负号与倒数再由域中逆元唯一性传递。这样可避免把“保序双射自动保持运算”误当作一般事实；运算保持必须独立验证。
+
+\begin{corollary}
+\chapterref{chap:rational-defects}任意两条正的有理 Cauchy 列，只要平方都逼近 \(2\)，就在 \(\widehat{\R}\) 中代表同一个元素；该元素经 \(\Phi\) 映到\chapterref{chap:dedekind-construction}的 \(\sqrt2\) 分割。
+\end{corollary}
+
+\begin{proof}
+若 \(a_n,b_n\) 最终为正，且 \(a_n^2,b_n^2\) 与常值列 \(2\) 等价，则两列最终有固定正下界，并且
+\[
+ \abs{a_n-b_n}
+ =\frac{\abs{a_n^2-b_n^2}}{a_n+b_n}
+\]
+是零列，所以 \([a_n]=[b_n]\)。其有理左部恰由 \(q<0\) 或 \(q^2<2\) 的有理数构成。
+\end{proof}
+
+\section{完备有序域的同构唯一性}
+
+\begin{theorem}
+任意两个完备有序域 \(F,G\) 之间存在唯一的保序域同构；该同构固定其中的有理数副本。
+\end{theorem}
+
+\begin{proof}
+每个有序域同态必须把 \(1\) 送到 \(1\)，因而固定整数及其商。由\chapterref{chap:consequences-completeness}的论证，完备有序域都是 Archimedes 的，且 \(\Q\) 稠密。映射
+\[
+ x\longmapsto\{q\in\Q:q<x\}
+\]
+分别把 \(F,G\) 同构到 \(\mathbb D\)，复合一个映射的逆与另一个映射即得所需同构。
+
+若 \(T:F\to G\) 是保序域同构，则它固定 \(\Q\)，从而
+\[
+ q<x\Longleftrightarrow q<T(x).
+\]
+所以 \(x\) 与 \(T(x)\) 决定同一分割；分割表示的单射性迫使 \(T\) 等于上述同构，故唯一。
+\end{proof}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+有理 Cauchy 列按“差为零列”取商，逐项运算在等价类上良定义。非零类的代表元最终远离零，由此可取倒数；尾部固定符号给出全序。对类的 Cauchy 列选择逐项有理近似，可对角化为单个有理 Cauchy 列。每个类的有理左部建立了与 Dedekind 分割域的同构，并给出完备有序域的同构唯一性。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共24道编号题，含44个独立训练单元，建议总用时8至12小时。
+
+\subsection*{A组　零列与商结构}
+\begin{enumerate}[label=\textbf{5.\arabic*.}]
+ \exerciseitem{5.1} \mustdo 证明有理 Cauchy 列有界，并给出界对前有限项的显式处理。
+ \exerciseitem{5.2} \mustdo 证明零列的和、积分别仍为零列；说明“任意数列乘零列仍为零列”为何错误。
+ \exerciseitem{5.3} \mustdo 完整证明 \(\sim\) 的三条等价关系性质。
+ \exerciseitem{5.4} \mustdo 若 \(a\sim a'\)、\(b\sim b'\)，证明 \(ab\sim a'b'\)，并标明有界性的使用处。
+ \exerciseitem{5.5} \mustdo 证明有限项修改不改变等价类。
+\end{enumerate}
+
+\subsection*{B组　域、序与完备性}
+\begin{enumerate}[label=\textbf{5.\arabic*.},resume]
+ \exerciseitem{5.6} \mustdo 证明“非零类远离零”引理，并给出尾部符号恒定的量化表述。
+ \exerciseitem{5.7} \mustdo 验证倒数列是 Cauchy 列，且更换原代表元后所得倒数列属于同一类。
+ \exerciseitem{5.8} \mustdo 证明正类定义与代表元无关，并证明三歧律。
+ \exerciseitem{5.9} \mustdo 证明常值列嵌入保持序与四则运算。
+ \exerciseitem{5.10} \mustdo 补全构造域的 Cauchy 完备性证明中 \(x_k\to[r_k]\) 的最后估计。
+\end{enumerate}
+
+\subsection*{C组　同构与项目}
+\begin{enumerate}[label=\textbf{5.\arabic*.},resume]
+ \exerciseitem{5.11} \projectdo\ 【前置：\exerciserange{5.6}{5.10}；预计用时：90分钟】从定义完整证明 \(\widehat{\R}\) 是完备有序域，不引用\chapterref{chap:dedekind-construction}。
+ \exerciseitem{5.12} \mustdo 对\chapterref{chap:rational-defects}逼近 \(\sqrt2\) 的十进制列，证明其类的平方等于常值类 \(2\)。
+ \exerciseitem{5.13} \optionaldo 补全 \(\Phi([a_n])=\{q:q<[a_n]\}\) 的满射性证明，明确二分序列的 Cauchy 性与左右部判别。
+ \exerciseitem{5.14} \opendo 比较 Cauchy 完备化对一般度量空间的推广：哪些步骤只用距离，哪些步骤依赖域运算与序。
+ \exerciseitem{5.15} \mustdo 证明有理 Cauchy 列等价于常值列 \(q\) 当且仅当它在 \(\Q\) 中收敛到 \(q\)。
+ \exerciseitem{5.16} \mustdo 补全构造域完备性证明中的双重尾部估计，严格区分外层指标 \(k\) 与代表列指标 \(j\)。
+ \exerciseitem{5.17} \mustdo 证明构造域中的有理常值类稠密，并给出对给定 \(x<y\) 选择有理 \(q\) 的定量步骤。
+ \exerciseitem{5.18} \mustdo 证明若 \([a_n]>0\)，则该正性对所有等价代表都成立；写出正下界如何减半传递。
+ \exerciseitem{5.19} \mustdo 设 \([a_n]\le[b_n]\)。证明对每个正有理 \(\varepsilon\)，最终有 \(a_n<b_n+\varepsilon\)；讨论反向是否成立。
+ \exerciseitem{5.20} \mustdo 完整证明 \(\Phi(x+y)=\Phi(x)+\Phi(y)\)，不得只引用“保序性”。
+ \exerciseitem{5.21} \optionaldo 对正元素补全 \(\Phi(xy)=\Phi(x)\Phi(y)\) 的两个包含方向，再用符号扩张处理一般情形。
+ \exerciseitem{5.22} \mustdo 证明任意两条最终为正且平方逼近 \(2\) 的有理 Cauchy 列等价。
+ \exerciseitem{5.23} \projectdo\ 【前置：第4、5章；预计用时：120分钟】逐项比较 Dedekind 分割与 Cauchy 商构造中的对象相等、次序、加法、乘法、确界和完备性证明。
+ \exerciseitem{5.24} \opendo 讨论把“有理 Cauchy 列”替换为“有理收敛列”为什么不能补出新点；再讨论替换为任意有界列为什么等价关系与运算会失去控制。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{5.2}：反例可取零列 \(1/n\) 与无界列 \(n\)。
+ \item \exerciseref{5.7}：尾部下界 \(\delta\) 给出倒数差的分母下界 \(\delta^2\)。
+ \item \exerciseref{5.10}：把 \(|[r_j]-r_k|\) 先对 \(j\to\infty\) 作统一尾部估计。
+\end{itemize}

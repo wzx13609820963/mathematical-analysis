@@ -1,0 +1,265 @@
+\chapter{有理数系的缺陷与实数问题}
+\label{chap:rational-defects}
+
+\begin{chapterguide}
+有理数在四则运算和大小比较下封闭，任意两个不同有理数之间仍有有理数。这些性质不能保证逼近过程在数系内产生结果。本章用方程 \(x^2=2\) 展示三种相关缺陷：有理数轴有不能由有理点填补的分割，有界集合可能没有有理上确界，有理 Cauchy 列可能没有有理极限。
+
+本章只使用\chapterref{chap:mathematical-language}的逻辑、集合和可数性语言，以及整数、有理数的初等代数和次序性质；不调用实数完备性。
+\end{chapterguide}
+
+\section{从自然数、整数到有理数的代数扩张}
+
+自然数适合计数，但减法不总能在其中进行；整数补入加法逆元，但除法仍可能离开整数。把整数对 \((p,q)\)（\(q\ne0\)）按
+\[
+ (p,q)\sim(r,s)\quad\Longleftrightarrow\quad ps=rq
+\]
+分类，并把等价类记为 \(p/q\)，便得到有理数域 \(\Q\)。
+
+\begin{proposition}
+有理数集 \(\Q\) 在加、减、乘以及除以非零元素的运算下封闭，并带有与这些运算相容的全序。特别地，若 \(a<b\)，则
+\[
+ a<\frac{a+b}{2}<b.
+\]
+\end{proposition}
+
+\begin{proof}
+四则运算由
+\[
+ \frac pq+\frac rs=\frac{ps+rq}{qs},\qquad
+ \frac pq\frac rs=\frac{pr}{qs},\qquad
+ \left(\frac pq\right)^{-1}=\frac qp\quad(p\ne0)
+\]
+给出，右端仍由整数对表示；交叉相乘可验证结果不依赖代表元。把分母化为正数后，定义 \(p/q<r/s\) 当且仅当 \(ps<rq\)。整数次序的相容性保证该定义良定，并给出全序。最后，
+\[
+ \frac{a+b}{2}-a=\frac{b-a}{2}>0,\qquad
+ b-\frac{a+b}{2}=\frac{b-a}{2}>0.
+\]
+\end{proof}
+
+因此 \(\Q\) 是稠密有序域。这里的稠密只说明两点之间还能插入点，并未说明每个由逼近确定的位置都已有点占据。
+
+\section{不可公度量与 \texorpdfstring{\(\sqrt2\notin\Q\)}{sqrt(2) 不属于 Q}}
+
+边长为 \(1\) 的正方形对角线若能用同一单位作整数比表示，就会存在正整数 \(p,q\) 满足 \((p/q)^2=2\)。
+
+\begin{theorem}
+不存在有理数 \(r\) 满足 \(r^2=2\)。
+\end{theorem}
+
+\begin{proof}
+反设 \(r=p/q\)，其中 \(p\in\Z\)、\(q\in\N\)，且 \(p,q\) 互素。由 \(p^2=2q^2\) 知 \(p^2\) 为偶数，故 \(p\) 为偶数，写成 \(p=2k\)。代回得 \(q^2=2k^2\)，所以 \(q\) 也为偶数，与互素性矛盾。
+\end{proof}
+
+符号 \(\sqrt2\) 在构造实数以后表示方程 \(x^2=2\) 的正根。本节结论表示这个待构造的点不能由有理数表示，并未预先假定实数系统已经存在。
+
+\begin{remark}
+若正整数 \(m\) 不是整数平方，则不存在 \(r\in\Q\) 使 \(r^2=m\)。可比较素因数分解中各素数的指数奇偶性。
+\end{remark}
+
+这个论证揭示了方程在数系中的可解性缺失。有理数域对四则运算封闭，却不对取平方根封闭。即使补入 \(\sqrt2\)，还会遇到 \(\sqrt3\)、三次方程的根以及不由代数方程产生的极限点。因而逐个补根不能替代对全部逼近过程的统一完备化。
+
+\begin{proposition}
+若素数 \(p\) 整除整数 \(n^2\)，则 \(p\) 整除 \(n\)。因此，若正整数 \(m\) 的素因数分解中有某个指数为奇数，则 \(x^2=m\) 在 \(\Q\) 中无解。
+\end{proposition}
+
+\begin{proof}
+由算术基本定理，\(n^2\) 的每个素因子指数都是偶数。若 \(p\mid n^2\)，则 \(p\) 在 \(n\) 的分解中指数为正，故 \(p\mid n\)。若 \(r=u/v\) 为最简正有理数且 \(r^2=m\)，则
+\[
+ u^2=mv^2.
+\]
+比较任一在 \(m\) 中指数为奇数的素数两边的指数奇偶性，即得矛盾。
+\end{proof}
+
+\section{有理数轴上的 Dedekind 缺口}
+
+令
+\[
+ L=\{q\in\Q:q<0\text{ 或 }q^2<2\},\qquad U=\Q\setminus L.
+\]
+对非负有理数，\(U\) 恰由满足 \(q^2>2\) 的数构成。
+
+\begin{proposition}
+集合 \(L,U\) 均非空；每个 \(l\in L\) 都小于每个 \(u\in U\)；并且 \(L\) 没有最大元，\(U\) 没有最小元。
+\end{proposition}
+
+\begin{proof}
+有 \(-1,1\in L\) 且 \(2\in U\)。若 \(l<0\)，则 \(l<0\le u\)；若 \(l\ge0\)，则 \(l^2<2<u^2\)，故 \(l<u\)。
+
+对 \(q\ge0\) 定义
+\[
+ T(q)=\frac{2q+2}{q+2}.
+\]
+直接计算得
+\[
+ T(q)-q=\frac{2-q^2}{q+2},\qquad
+ T(q)^2-2=\frac{2(q^2-2)}{(q+2)^2}.
+\]
+若 \(q\in L\) 且 \(q\ge0\)，则 \(q<T(q)\) 且 \(T(q)\in L\)；若 \(q<0\)，则 \(q/2\in L\) 且 \(q/2>q\)。故 \(L\) 无最大元。若 \(q\in U\)，则 \(q>0\)、\(q^2>2\)，两式给出 \(T(q)<q\) 且 \(T(q)\in U\)，故 \(U\) 无最小元。
+\end{proof}
+
+集合 \(L\) 向下封闭：\(l\in L\) 且 \(r<l\) 蕴含 \(r\in L\)。它与 \(U\) 之间的边界不属于 \(\Q\)。\chapterref{chap:dedekind-construction}将把这类左部本身作为新数。
+
+\section{在 \texorpdfstring{\(\Q\)}{Q} 中有界却没有上确界的集合}
+
+\begin{definition}
+设 \(A\subseteq\Q\)。若 \(M\in\Q\) 满足 \(a\le M\) 对所有 \(a\in A\) 成立，则 \(M\) 是 \(A\) 在 \(\Q\) 中的上界。若上界 \(s\in\Q\) 还不大于任何其他有理上界，则称 \(s\) 为 \(A\) 在 \(\Q\) 中的上确界。
+\end{definition}
+
+\begin{theorem}
+集合
+\[
+ S=\{q\in\Q:q\ge0,\ q^2<2\}
+\]
+非空且在 \(\Q\) 中有上界，但没有 \(\Q\) 中的上确界。
+\end{theorem}
+
+\begin{proof}
+\(1\in S\)，而 \(2\) 是上界。反设 \(s\in\Q\) 是上确界。由 \(S\) 含正数知 \(s>0\)，且上一节排除了 \(s^2=2\)。
+
+若 \(s^2<2\)，则 \(T(s)>s\) 且 \(T(s)\in S\)，与 \(s\) 为上界矛盾。若 \(s^2>2\)，则 \(0<T(s)<s\) 且 \(T(s)^2>2\)。若 \(x\in S\) 且 \(x\ge T(s)\)，非负数平方保持次序，从而 \(x^2\ge T(s)^2>2\)，矛盾。因此 \(T(s)\) 是小于 \(s\) 的上界，与 \(s\) 的最小性矛盾。
+\end{proof}
+
+“有上界”只要求至少一个控制量；“有上确界”还要求全体上界中存在最小者。两者不能混同。
+
+\begin{proposition}[同一缺口的两侧]
+集合 \(S\) 在 \(\Q\) 中的上界全体恰为
+\[
+ \{u\in\Q:u>0,\ u^2>2\}.
+\]
+因此“\(S\) 没有上确界”与“右部 \(U\) 没有最小元”是同一事实的两种表述。
+\end{proposition}
+
+\begin{proof}
+若 \(u\) 是上界，则 \(u\ge1>0\)。若 \(u^2<2\)，变换 \(T(u)\) 给出大于 \(u\) 的 \(S\) 中元素，矛盾；等号又不可能，故 \(u^2>2\)。反之，若 \(u>0\)、\(u^2>2\)，则每个 \(s\in S\) 都满足 \(s^2<2<u^2\)，由非负数平方的严格保序性得 \(s<u\)，所以 \(u\) 是上界。
+\end{proof}
+
+\section{在 \texorpdfstring{\(\Q\)}{Q} 中没有极限的 Cauchy 列}
+
+\begin{definition}
+有理数列 \((a_n)\) 称为有理 Cauchy 列，如果
+\[
+ \forall\varepsilon\in\Q,\ \varepsilon>0,\ \exists N\in\N,\
+ \forall m,n\ge N,\quad |a_m-a_n|<\varepsilon.
+\]
+若存在 \(a\in\Q\)，使对每个正有理数 \(\varepsilon\)，从某项起均有 \(|a_n-a|<\varepsilon\)，则称它在 \(\Q\) 中收敛到 \(a\)。
+\end{definition}
+
+对 \(n\in\N\)，令 \(a_n=k_n/10^n\)，其中 \(k_n\) 是满足 \(k_n\ge0\) 且 \((k_n/10^n)^2<2\) 的最大整数。候选整数至少含 \(0\)，并且均小于 \(2\cdot10^n\)，所以最大值存在。
+
+\begin{theorem}
+数列 \((a_n)\) 是有理 Cauchy 列，但不在 \(\Q\) 中收敛。
+\end{theorem}
+
+\begin{proof}
+由最大性，
+\[
+ a_n^2<2\le(a_n+10^{-n})^2.
+\]
+若 \(m\ge n\)，则 \(a_n\) 也能写成分母为 \(10^m\) 的候选数，故 \(a_m\ge a_n\)；而 \(a_m\ge a_n+10^{-n}\) 将推出 \(a_m^2\ge2\)。所以
+\[
+ 0\le a_m-a_n<10^{-n}.
+\]
+给定正有理数 \(\varepsilon\)，直接按其分数表示选取 \(N\) 使 \(10^{-N}<\varepsilon\)，便得 Cauchy 性。
+
+反设 \(a_n\to a\in\Q\)。由 \(0\le a_n<2\)，三角不等式给出
+\[
+ |a_n^2-a^2|=|a_n-a||a_n+a|\longrightarrow0.
+\]
+另一方面，
+\[
+ 0<2-a_n^2\le 2a_n10^{-n}+10^{-2n}
+ <4\cdot10^{-n}+10^{-2n},
+\]
+故 \(a_n^2\) 逼近 \(2\)。于是对任意正有理数 \(\varepsilon\)，都有 \(|a^2-2|<\varepsilon\)。若 \(a^2\ne2\)，取 \(\varepsilon=|a^2-2|/2\) 即矛盾。因此 \(a^2=2\)，与第二节定理矛盾。
+\end{proof}
+
+十进制并非关键。以任意整数 \(b\ge2\) 为基数，令
+\[
+ a_n^{(b)}=\frac{k_n}{b^n},
+\]
+其中 \(k_n\) 是使 \((k_n/b^n)^2<2\) 的最大非负整数，便有
+\[
+ 0\le a_m^{(b)}-a_n^{(b)}<b^{-n}\qquad(m\ge n).
+\]
+所有这些列都从缺口左侧逼近同一边界。若取两个基数构造的列 \((a_n^{(b)})\)、\((a_n^{(c)})\)，可由各自网格宽度证明它们的差趋于零；\chapterref{chap:cauchy-construction}将把这种“差为零”的列识别为同一个新数。
+
+\begin{proposition}
+有理 Cauchy 列一定有界，但有界有理数列未必是 Cauchy 列；相邻项之差趋于零也不足以推出 Cauchy 性。
+\end{proposition}
+
+\begin{proof}
+对 Cauchy 列在定义中取 \(\varepsilon=1\)，尾部由某一固定项加 \(1\) 控制，前有限项再取绝对值最大值。数列 \((-1)^n\) 有界但不是 Cauchy 列。调和部分和
+\[
+ H_n=\sum_{k=1}^n\frac1k
+\]
+满足 \(H_{n+1}-H_n\to0\)，但例如
+\[
+ H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac1k\ge\frac12,
+\]
+故不是 Cauchy 列。
+\end{proof}
+
+\section{分析学对数系提出的完备性要求}
+
+上述三种失败对应三种修补语言：分割应有边界点，有上界的非空集合应有上确界，Cauchy 列应有极限。它们在实数中将成为等价的完备性原理；在 \(\Q\) 中则同时失败。
+
+仅补入 \(x^2=2\) 的正根并不充分，还要处理其他代数方程以及一般逼近过程产生的缺口。所需扩张应保留 \(\Q\) 的有序域运算，填补全部 Dedekind 缺口，并使内部 Cauchy 逼近具有极限。\chapterref{chap:ordered-field-completeness}把这些要求公理化，第4、5章给出两种构造。
+
+三项目标之间还需要相容性。新加入的点必须可与有理数比较，运算应与有理数原有运算一致，并且不同构造方式得到的边界不应被重复计数。Dedekind 构造以“相同左部”判定同一点，Cauchy 构造以“差为零列”判定同一点。两种等价关系都服务于同一要求：由所有有理精度无法区分的逼近对象应表示同一个数。
+
+此外，完备性是关于数系内部的封闭性。若用一个更大但尚未说明性质的数系作为外部容器，再宣称所有 Cauchy 列在其中有极限，并没有完成实数构造；必须证明极限对象组成有序域，且对其自身的 Cauchy 列仍然封闭。
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+有理数的序稠密性不能排除缺口。集合 \(S=\{q\in\Q:q\ge0,q^2<2\}\) 同时给出 Dedekind 缺口和无上确界的例子；逐位逼近该缺口得到的有理 Cauchy 列没有有理极限。三种现象具有同一边界，并为后续完备性理论提供问题来源。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按III级常规章配置，共20道编号题，含34个独立训练单元，建议总用时5至7小时。
+
+\subsection*{A组　定义与基本论证}
+\begin{enumerate}[label=\textbf{1.\arabic*.}]
+ \exerciseitem{1.1} \mustdo 证明任意两个不同有理数之间有无穷多个有理数。
+ \exerciseitem{1.2} \mustdo 证明：若整数 \(n^2\) 被素数 \(p\) 整除，则 \(n\) 被 \(p\) 整除；据此证明非平方正整数 \(m\) 的平方根不是有理数。
+ \exerciseitem{1.3} \mustdo 验证正文中关于 \(T(q)\) 的两个恒等式，并分别说明 \(q^2<2\) 与 \(q^2>2\) 时像点所在的位置。
+ \exerciseitem{1.4} \mustdo 证明 \(L\) 向下封闭、\(U\) 向上封闭，并证明二者都没有端点。
+ \exerciseitem{1.5} \mustdo 判断真伪并证明：
+ \begin{enumerate}[label=(\arabic*)]
+  \item \(S\) 的每个元素都小于 \(S\) 的某个元素；
+  \item \(S\) 的上界全体有最小元；
+  \item \(S\) 的任意两个上界中较小者仍是上界。
+ \end{enumerate}
+\end{enumerate}
+
+\subsection*{B组　缺口与逼近}
+\begin{enumerate}[label=\textbf{1.\arabic*.},resume]
+ \exerciseitem{1.6} \mustdo 若 \(r\in\Q\)、\(r>0\) 且 \(r^2<2\)，证明存在 \(n\in\N\) 使 \((r+1/n)^2<2\)。不得引用实数的 Archimedes 性质。
+ \exerciseitem{1.7} \mustdo 设 \(S_3=\{q\in\Q:q\ge0,q^2<3\}\)。仿照正文证明 \(S_3\) 在 \(\Q\) 中有上界但无上确界。
+ \exerciseitem{1.8} \mustdo 对正文数列 \(a_n\) 证明 \(a_n\le a_{n+1}<a_n+10^{-n}\)，并求 \(a_1,a_2,a_3\)。
+ \exerciseitem{1.9} \mustdo 证明任意在 \(\Q\) 中收敛的有理数列都是 Cauchy 列，并指出证明没有使用完备性。
+ \exerciseitem{1.10} \mustdo 构造一个在 \(\Q\) 中不收敛的有理 Cauchy 列，使其偶数项与奇数项都严格单调。
+ \exerciseitem{1.11} \optionaldo 证明两个没有有理极限的有理 Cauchy 列之和可能有有理极限，也可能没有有理极限，各给一例。
+\end{enumerate}
+
+\subsection*{C组　结构与项目}
+\begin{enumerate}[label=\textbf{1.\arabic*.},resume]
+ \exerciseitem{1.12} \projectdo\ 【前置：\exerciseref{1.2}；预计用时：45分钟】对非平方正整数 \(m\)，定义 \(L_m=\{q\in\Q:q<0\text{ 或 }q^2<m\}\)。证明它给出无有理端点的分割，并构造分母为 \(10^n\) 的 Cauchy 逼近列。
+ \exerciseitem{1.13} \optionaldo 设 \(F\) 为有序域。说明“任意两点之间有第三点”可由域公理推出，因而不能作为完备性公理；再给出一个 \(\Q\) 失败而 \(\R\) 将满足的命题。
+ \exerciseitem{1.14} \opendo 比较“补入所有代数数”与“补全所有 Cauchy 列”两种扩张目标。可把\chapterref{chap:consequences-completeness}的不可数性结论作为条件性说明。
+ \exerciseitem{1.15} \mustdo 证明 \(S\) 的上界全体恰为 \(\{u\in\Q:u>0,u^2>2\}\)，并由此重新推出 \(S\) 无上确界。
+ \exerciseitem{1.16} \mustdo 以任意整数 \(b\ge2\) 为底构造 \(\sqrt2\) 的有理网格逼近列，并证明它是 Cauchy 列。
+ \exerciseitem{1.17} \mustdo 设 \((a_n)\)、\((b_n)\) 分别是底数 \(2\) 与底数 \(10\) 的上述逼近列。证明 \(a_n-b_n\to0\)。
+ \exerciseitem{1.18} \mustdo 证明有理 Cauchy 列有界；分别给出有界非 Cauchy 列和相邻差趋零但非 Cauchy 的例子。
+ \exerciseitem{1.19} \optionaldo 设有理 Cauchy 列 \((q_n)\) 满足 \(q_n^2\to2\) 且最终为正。证明任意两条此类列的差趋于零。
+ \exerciseitem{1.20} \projectdo\ 【前置：本章全部内容；预计用时：75分钟】围绕集合 \(S\) 建立“分割无端点—无有理上确界—存在无有理极限的 Cauchy 列”的三向联系图；每个箭头给出严格证明并标明是否使用十进制表示。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{1.6}：直接使 \(1/n<(2-r^2)/(2r+1)\)。
+ \item \exerciseref{1.10}：从十进制逼近列抽取严格递增子列。
+ \item \exerciseref{1.11}：比较 \(a_n+(-a_n)\) 与 \(a_n+a_n\)。
+ \item \exerciseref{1.12}：可用足够小的显式有理增量代替正文的变换 \(T\)。
+\end{itemize}

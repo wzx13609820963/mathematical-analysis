@@ -1,0 +1,250 @@
+\chapter{数列极限的 \texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义}
+\label{chap:sequence-limit-definition}
+
+\begin{chapterguide}
+高等数学中的极限计算通常从若干已知极限和运算法则出发。本章回到这些法则的逻辑起点：数列收敛要求给定任意误差以后，能够找到一个只依赖于该误差的尾部起点，并由同一个起点控制整个尾部。\chapterref{chap:equivalent-completeness}曾临时使用这一记号；本章给出正式定义、严格否定、邻域表述及无穷极限，并区分有限个例外与尾部性质。
+\end{chapterguide}
+
+\section{数列是定义在自然数集上的函数}
+
+\begin{definition}
+设 (X) 为集合。一个\term{(X) 中的数列}是映射
+\[
+ a:\N\longrightarrow X,
+\]
+其在 \(n\) 处的值记为 \(a_n\)，整个数列记为 \((a_n)_{n\ge1}\) 或简记为 \((a_n)\)。本编主要取 \(X=\R\)。
+\end{definition}
+
+把数列视为映射可以明确三个容易混淆的对象：指标 \(n\)、第 \(n\) 项 \(a_n\) 与值集 \({a_n:n\in\N}\)。不同指标可以取得同一数值，因此值集不能恢复数列的排列和重复次数。例如常值列的值集只有一个元素，而数列仍有无穷多个项。
+
+数列的性质常分为两类。断言“\(a_n\ne0\) 对所有 \(n\) 成立”涉及每一项；断言“从某项起 \(a_n\ne0\)”允许有限个例外。极限只取决于后一类尾部信息。
+
+\begin{definition}
+若命题 \(P(n)\) 存在 \(N\in\N\)，使得对每个 \(n\ge N\) 都成立，则称 \(P(n)\) \term{最终成立}或\term{从某项起成立}。
+\end{definition}
+
+最终成立的两个命题的合取仍最终成立：分别取得起点 \(N_1,N_2\)，再令
+\[
+ N=\max\{N_1,N_2\}.
+\]
+这一取最大值的步骤将在极限运算中反复出现。
+
+\section{“任意精度”与“从某项以后”}
+
+设目标值为 \(a\)。误差 \(\abs{a_n-a}\) 描述第 \(n\) 项与 \(a\) 的距离。单独验证某个固定误差，例如最终有 \(\abs{a_n-a}<10^{-3}\)，不能推出收敛；收敛要求这一结论对每个正误差都成立。
+
+\begin{definition}[数列极限]
+设 \((a_n)\) 为实数列，\(a\in\R\)。若
+\[
+ \forall\varepsilon>0\ \exists N\in\N\ \forall n\in\N,
+ \quad n\ge N\Longrightarrow\abs{a_n-a}<\varepsilon,
+\]
+则称 \((a_n)\) \term{收敛到} \(a\)，记为
+\[
+ a_n\longrightarrow a,
+ \qquad\text{或}\qquad
+ \lim_{n\to\infty}a_n=a.
+\]
+若不存在这样的 \(a\)，则称该数列发散。
+\end{definition}
+
+定义中的 \(N\) 可以依赖 \(\varepsilon\) 以及正在研究的数列，但不能依赖于随后出现的 \(n\)。选定 \(N\) 后，所有 \(n\ge N\) 必须同时满足误差要求。严格不等号不是实质性的；把 \(\abs{a_n-a}<\varepsilon\) 改成 \(\abs{a_n-a}\le\varepsilon\) 得到等价定义，因为可以先使用 \(\varepsilon/2\)。
+
+\begin{example}
+证明 \(1/n\to0\)。给定 \(\varepsilon>0\)，由 Archimedes 性质可取 \(N>1/\varepsilon\)。若 \(n\ge N\)，则
+\[
+ \abs{\frac1n-0}=\frac1n\le\frac1N<\varepsilon.
+\]
+这里先由 \(\varepsilon\) 选择 \(N\)，再处理任意 \(n\ge N\)。
+\end{example}
+
+\begin{example}
+设 \(a_n=c\) 为常值列。对任意 \(\varepsilon>0\)，取 \(N=1\)，便有 \(\abs{a_n-c}=0<\varepsilon\)，故 \(a_n\to c\)。同一个 \(N\) 对所有误差都有效，是允许但并非必需的特殊情形。
+\end{example}
+
+\section{\texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义的量词结构}
+
+极限定义的逻辑骨架为
+\[
+ \forall\varepsilon>0\quad
+ \exists N=N(\varepsilon)\quad
+ \forall n\ge N.
+\]
+交换前两个量词会得到远强于收敛的命题：若存在同一个 \(N\) 对所有 \(\varepsilon>0\) 都有 \(\abs{a_n-a}<\varepsilon\)，则每个 \(n\ge N\) 都满足 \(a_n=a\)，数列最终恒等于极限。
+
+\begin{proposition}[只检验一列精度]
+实数列 \((a_n)\) 收敛到 \(a\)，当且仅当对每个 \(k\in\N\)，存在 \(N_k\)，使
+\[
+ n\ge N_k\quad\Longrightarrow\quad
+ \abs{a_n-a}<\frac1k.
+\]
+还可把 \(1/k\) 换成任意趋于零的正数列 \((\eta_k)\)。
+\end{proposition}
+
+\begin{proof}
+正向由定义直接得到。反向给定 \(\varepsilon>0\)，由 Archimedes 性质取 \(k\) 使 \(1/k<\varepsilon\)，再使用对应的 \(N_k\)。一般情形只需假定：对每个 \(\varepsilon>0\)，存在 \(k\) 使 \(0<\eta_k<\varepsilon\)。
+\end{proof}
+
+\begin{proposition}[最终误差函数]
+若存在非负数列 \(r_n\to0\)，并且从某项起
+\[
+ \abs{a_n-a}\le r_n,
+\]
+则 \(a_n\to a\)。
+\end{proposition}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，取 \(N_1\) 使 \(n\ge N_1\) 时 \(r_n<\varepsilon\)，再取 \(N_2\) 使估计式对 \(n\ge N_2\) 成立。令 \(N=\max\{N_1,N_2\}\)，则所需结论成立。
+\end{proof}
+
+该命题把收敛证明转化为寻找可控的上界，但上界必须自身趋于零。只知道 \(\abs{a_n-a}\le1\) 无法说明误差能达到任意精度。
+
+\section{极限定义的邻域表述}
+
+对 \(a\in\R\)、\(\varepsilon>0\)，开区间
+\[
+ U_\varepsilon(a)=(a-\varepsilon,a+\varepsilon)
+\]
+称为 \(a\) 的一个\term{开邻域}。由绝对值与区间的等价关系，\(\abs{a_n-a}<\varepsilon\) 等价于 \(a_n\in U_\varepsilon(a)\)。
+
+\begin{theorem}[邻域刻画]
+数列 \(a_n\to a\) 当且仅当 \(a\) 的每个开邻域都包含数列的一个完整尾部；也就是说，对每个含 \(a\) 的开集 \(U\subseteq\R\)，存在 \(N\) 使
+\[
+ \{a_n:n\ge N\}\subseteq U.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(a_n\to a\)，且 \(U\) 是含 \(a\) 的开集，则按开集定义存在 \(\varepsilon>0\) 使 \(U_\varepsilon(a)\subseteq U\)。极限定义给出最终 \(a_n\in U_\varepsilon(a)\subseteq U\)。反之只需把 \(U\) 取为任意 \(U_\varepsilon(a)\)。
+\end{proof}
+
+这里使用“完整尾部”而非“无穷多项”。数列 \((-1)^n\) 的任意小的 \(1\) 的邻域可能含无穷多个项，却从不包含完整尾部；这不足以说明收敛到 \(1\)。
+
+\section{不收敛的严格否定形式}
+
+固定候选 \(a\)。命题“\(a_n\) 不收敛到 \(a\)”是极限定义的逐层否定：
+\[
+ \exists\varepsilon_0>0\ \forall N\in\N\ \exists n\ge N,
+ \quad \abs{a_n-a}\ge\varepsilon_0.
+\]
+同一个 \(\varepsilon_0\) 对每个尾部都有效，而见证失败的 \(n\) 可以随 \(N\) 改变。
+
+\begin{proposition}
+若存在两条子列分别收敛到不同实数 \(a\ne b\)，则原数列发散。
+\end{proposition}
+
+\begin{proof}
+若原列收敛到 \(L\)，则任意子列也收敛到 \(L\)：给定误差，只要子列指标进入原列所要求的尾部即可。\chapterref{chap:sequence-limit-properties}将证明极限唯一性，于是应有 \(a=L=b\)，矛盾。也可直接取 \(\varepsilon_0=\abs{a-b}/3\)，两条子列最终分别落在两个不交区间中，完整尾部不可能同时落入候选极限的任意小邻域。
+\end{proof}
+
+\begin{example}
+数列 \(a_n=(-1)^n\) 发散。若候选 \(a\ge0\)，所有奇数项 \(-1\) 与 \(a\) 的距离至少为 \(1\)；若 \(a<0\)，所有偶数项 \(1\) 与 \(a\) 的距离大于 \(1\)。因此可统一取 \(\varepsilon_0=1\)，每个尾部都含违反误差要求的项。
+\end{example}
+
+证明一个数列发散并不等同于证明它不收敛到某个显眼候选值。必须排除所有实数候选，或使用能够一次排除所有候选的结构，例如两个不同的子列极限、无界性或振荡。
+
+\section{有限项修改与极限不变性}
+
+\begin{theorem}[尾部不变性]
+设实数列 \((a_n)\)、\((b_n)\) 满足：存在 \(N_0\)，使 \(a_n=b_n\) 对所有 \(n\ge N_0\) 成立。则对任意 \(a\in\R\)，
+\[
+ a_n\to a\quad\Longleftrightarrow\quad b_n\to a.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N_1\) 控制 \(a_n\) 的误差。令 \(N=\max\{N_0,N_1\}\)，则 \(n\ge N\) 时
+\[
+ \abs{b_n-a}=\abs{a_n-a}<\varepsilon.
+\]
+反向完全相同。
+\end{proof}
+
+删除有限项、增加有限个首项、改变有限项以及把起始指标从 \(1\) 改成任意固定整数，均不改变极限。相反，改变无穷多项可能仍不改变极限，也可能破坏极限；关键不在修改项数是否无限，而在修改后的误差是否仍最终可任意小。例如把 \(1/n\) 的偶数项改为 \(2/n\) 仍收敛到 \(0\)，把偶数项改为 \(1\) 则不收敛到 \(0\)。
+
+\section{数列趋于 \texorpdfstring{\(+\infty\)}{+infinity} 或 \texorpdfstring{\(-\infty\)}{-infinity} 的定义}
+
+\begin{definition}
+设 \((a_n)\) 为实数列。若
+\[
+ \forall M\in\R\ \exists N\in\N\ \forall n\ge N,
+ \quad a_n>M,
+\]
+则称 \(a_n\to+\infty\)。若
+\[
+ \forall M\in\R\ \exists N\in\N\ \forall n\ge N,
+ \quad a_n<M,
+\]
+则称 \(a_n\to-\infty\)。
+\end{definition}
+
+符号 \(+\infty\) 与 \(-\infty\) 在这里不是实数，因而无穷极限不属于“收敛到某个实数”。它描述数列最终越过每个有限阈值。命题 \(a_n\not\to+\infty\) 的否定形式为
+\[
+ \exists M_0\in\R\ \forall N\in\N\ \exists n\ge N,
+ \quad a_n\le M_0.
+\]
+
+\begin{example}
+\(a_n=n^2\to+\infty\)。给定 \(M\)，若 \(M<0\) 可取 \(N=1\)；若 \(M\ge0\)，取整数 \(N>\sqrt M\)，则 \(n\ge N\) 时 \(n^2>M\)。数列 \(a_n=(-1)^n n\) 无界，却既不趋于 \(+\infty\) 也不趋于 \(-\infty\)，因为每个尾部同时含很大的正项和很小的负项。
+\end{example}
+
+\begin{proposition}
+若 \((a_n)\) 单调递增，则它或者有上界，或者趋于 \(+\infty\)。递减情形对称成立。
+\end{proposition}
+
+\begin{proof}
+若无上界，给定 \(M\)，存在 \(N\) 使 \(a_N>M\)。单调性保证 \(n\ge N\) 时 \(a_n\ge a_N>M\)。有上界时不能趋于 \(+\infty\)。
+\end{proof}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+数列极限的逻辑顺序为“任意误差—选择尾部起点—控制整个尾部”。邻域表述把误差区间改写为包含尾部；严格否定则固定一个无法克服的正误差。有限项不影响极限，因为极限是尾部性质。无穷极限沿用相同量词结构，但把误差阈值换成任意有限高度。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按III级常规章配置，共20道编号题，含36个独立训练单元，建议总用时4至5小时。\exerciserange{7.1}{7.12}为核心必做范围。
+
+\subsection*{A组　定义与量词}
+\begin{enumerate}[label=\textbf{7.\arabic*.}]
+ \exerciseitem{7.1} \mustdo 写出 \(a_n\to a\)、\(a_n\not\to a\)、\(a_n\to+\infty\) 和 \(a_n\not\to+\infty\) 的完整量词形式。
+ \exerciseitem{7.2} \mustdo 证明把极限定义中的 \(<\varepsilon\) 改为 \(\le\varepsilon\) 不改变概念。
+ \exerciseitem{7.3} \mustdo 证明只检验误差 \(2^{-k}\)（\(k\in\N\)）足以判定收敛。
+ \exerciseitem{7.4} \mustdo 证明若存在 \(N\) 使对所有 \(\varepsilon>0\) 及所有 \(n\ge N\) 都有 \(\abs{a_n-a}<\varepsilon\)，则 \(a_n=a\) 对所有 \(n\ge N\) 成立。
+ \exerciseitem{7.5} \mustdo 判断“每个 \(a\) 的邻域都含无穷多个 \(a_n\)”能否推出 \(a_n\to a\)，并给出证明或反例。
+ \exerciseitem{7.6} \mustdo 证明两个最终成立的命题之合取最终成立；说明可数多个最终成立的命题不必同时从某项起成立。
+\end{enumerate}
+
+\subsection*{B组　从定义证明}
+\begin{enumerate}[label=\textbf{7.\arabic*.},resume]
+ \exerciseitem{7.7} \mustdo 从定义证明
+ \[
+ \frac{3n-1}{2n+5}\longrightarrow\frac32.
+ \]
+ \exerciseitem{7.8} \mustdo 证明 \(1/\sqrt n\to0\)，并给出可用的整数 \(N(\varepsilon)\)。
+ \exerciseitem{7.9} \mustdo 设 \(\abs{a_n-a}\le C/n^p\)，其中 \(C>0,p>0\)。证明 \(a_n\to a\)，并给出误差达到 \(\varepsilon\) 所需的指标估计。
+ \exerciseitem{7.10} \mustdo 证明有限项修改不改变有限极限，也不改变趋于 \(+\infty\) 或 \(-\infty\) 的性质。
+ \exerciseitem{7.11} \mustdo 用严格否定证明 \((-1)^n\) 不收敛到任何实数。
+ \exerciseitem{7.12} \mustdo 证明 \(n+(-1)^n\to+\infty\)，而 \((-1)^n n\) 没有无穷极限。
+ \exerciseitem{7.13} \mustdo 若 \(a_n\to a\) 且 \(n_k\) 为严格递增正整数列，直接从定义证明 \(a_{n_k}\to a\)。
+ \exerciseitem{7.14} \optionaldo 构造一个每个有理数都在其中出现无穷多次的实数列，并证明它没有有限或无穷极限。
+\end{enumerate}
+
+\subsection*{C组　结构、反例与项目}
+\begin{enumerate}[label=\textbf{7.\arabic*.},resume]
+ \exerciseitem{7.15} \mustdo 证明：若对每个 \(\varepsilon>0\)，只有有限多个 \(n\) 满足 \(\abs{a_n-a}\ge\varepsilon\)，则 \(a_n\to a\)；并证明逆向。
+ \exerciseitem{7.16} \mustdo 构造两个数列，它们在无穷多个指标处不同但具有相同极限；再构造一对只在无穷多个指标处不同且一个收敛、一个发散的数列。
+ \exerciseitem{7.17} \projectdo\ 【前置：本章定义；预计用时：45分钟】设 \(E\subseteq\N\)。证明示性数列 \(\chi_E(n)\) 收敛当且仅当 \(E\) 或其补集为有限集，并确定极限。
+ \exerciseitem{7.18} \optionaldo 设 \(a_n\to+\infty\)。证明任取实数 \(c\)，都有 \(a_n+c\to+\infty\)；若另有 \(b_n\ge a_n\) 最终成立，则 \(b_n\to+\infty\)。
+ \exerciseitem{7.19} \optionaldo 证明单调数列若有一个收敛子列，则原列收敛到同一极限。
+ \exerciseitem{7.20} \opendo 把“最终成立”看成 \(N\) 上忽略有限集的逻辑。讨论这一观点怎样解释极限对有限项修改不敏感，并指出它不能替代误差估计的原因。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{7.6}：第 \(k\) 个命题可取“\(n\ne k\)”。
+ \item \exerciseref{7.7}：先把差化成常数除以 \(2n+5\)。
+ \item \exerciseref{7.14}：先枚举 \(\Q\)，再按有限对角块重复。
+ \item \exerciseref{7.17}：示性数列只取 \(0,1\)，可使用误差 \(1/3\)。
+\end{itemize}

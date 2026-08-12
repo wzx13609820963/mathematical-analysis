@@ -1,0 +1,189 @@
+\chapter{极限定义中的误差控制：习题解答}
+
+\begin{chapterguide}
+本章解答优先给出可验证的误差上界。指标估计不追求最优，但必须标明常数和参数依赖。
+\end{chapterguide}
+
+\section*{A组　误差估计}
+\addcontentsline{toc}{section}{A组　误差估计}
+
+\begin{solution}{8.1}
+有
+\[
+ \abs{\frac{5n-2}{3n+7}-\frac53}
+ =\frac{41}{3(3n+7)}<\frac{41}{9n}.
+\]
+给定 \(\varepsilon>0\)，取整数 \(N>41/(9\varepsilon)\)。对 \(n\ge N\)，误差小于 \(\varepsilon\)，故极限为 \(5/3\)。
+\end{solution}
+
+\begin{solution}{8.2}
+\[
+ \abs{\frac{n^2+1}{n^2+n}-1}
+ =\frac{n-1}{n^2+n}\le\frac1n.
+\]
+取 \(N>1/\varepsilon\)，则 \(n\ge N\) 时误差小于 \(\varepsilon\)。
+\end{solution}
+
+\begin{solution}{8.3}
+令 \(t=3/n\)。有
+\[
+ \sqrt{n^2+3n}-n=\frac3{\sqrt{1+t}+1}.
+\]
+因而
+\[
+\begin{aligned}
+\abs{\frac3{\sqrt{1+t}+1}-\frac32}
+&=\frac{3(\sqrt{1+t}-1)}{2(\sqrt{1+t}+1)}\\
+&=\frac{3t}{2(\sqrt{1+t}+1)^2}
+\le\frac{3t}{8}=\frac9{8n}.
+\end{aligned}
+\]
+取 \(N>9/(8\varepsilon)\) 即可。
+\end{solution}
+
+\begin{solution}{8.4}
+设次数均为 \(d\)，
+\[
+ p(n)=a_dn^d+\cdots+a_0,\qquad
+ q(n)=b_dn^d+\cdots+b_0,\quad b_d\ne0.
+\]
+除以 \(n^d\)，记
+\(u_n=\sum_{j<d}a_jn^{j-d}\)、
+\(v_n=\sum_{j<d}b_jn^{j-d}\)。有限和估计给出 \(u_n,v_n\to0\)。最终
+\(\abs{b_d+v_n}\ge\abs{b_d}/2\)，且
+\[
+ \frac{p(n)}{q(n)}-\frac{a_d}{b_d}
+ =\frac{b_du_n-a_dv_n}{b_d(b_d+v_n)}.
+\]
+分子绝对值趋零，分母最终有固定正下界，故差趋零。每个 \(n^{j-d}\) 的误差可由 \(1/n\) 控制，从而整个证明可写成显式 \(C/n\) 估计。
+\end{solution}
+
+\begin{solution}{8.5}
+\[
+ \abs{\frac{u_n}{n^\alpha}}\le\frac M{n^\alpha}.
+\]
+给定 \(\varepsilon>0\)，若 \(M=0\) 取 \(N=1\)；若 \(M>0\)，取
+\[
+ N>\left(\frac M\varepsilon\right)^{1/\alpha}.
+\]
+此 \(N\) 依赖 \(M,\alpha,\varepsilon\)，不依赖 \(n\)。
+\end{solution}
+
+\begin{solution}{8.6}
+取 \(m\in\N\) 使 \(1/q>1+1/m\)。由 Bernoulli 不等式，
+\[
+ q^{-n}>\left(1+\frac1m\right)^n\ge1+\frac nm.
+\]
+故
+\[
+ 0<q^n\le\frac{m}{m+n}<\frac mn.
+\]
+右端趋于零，所以 \(q^n\to0\)。该证明没有使用无穷级数。
+\end{solution}
+
+\section*{B组　参数与夹逼}
+\addcontentsline{toc}{section}{B组　参数与夹逼}
+
+\begin{solution}{8.7}
+对 \(abs t\le A\)，
+\[
+ \abs{\frac{t}{n+t^2}}\le\frac A n.
+\]
+给定 \(\varepsilon>0\)，取 \(N>A/\varepsilon\)，则同一个 \(N\) 对所有 \(t\in[-A,A]\) 有效。若 \(A=0\)，任取 \(N\) 即可。
+\end{solution}
+
+\begin{solution}{8.8}
+固定 \(t<1\) 时，若 \(t=0\) 结论直接成立；若 \(0<t<1\)，由\exerciseref{8.6}有 \(t^n\to0\)。若存在对整个 \([0,1)\) 统一的 \(N\)，取 \(\varepsilon=1/2\)。对该 \(N\)，选 \(t\in(2^{-1/N},1)\)，则 \(t^N>1/2\)，与统一估计矛盾。
+\end{solution}
+
+\begin{solution}{8.9}
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时 \(b_n<\varepsilon\)。由
+\(0\le a_n\le b_n\)，有
+\(\abs{a_n}=a_n<\varepsilon\)，故 \(a_n\to0\)。
+\end{solution}
+
+\begin{solution}{8.10}
+由正文“几何衰减快于多项式增长”结论，\(n^2q^n\to0\)。又
+\[
+ \abs{a_nq^n}\le n^2q^n,
+\]
+所以夹逼定理给出 \(a_nq^n\to0\)。
+\end{solution}
+
+\begin{solution}{8.11}
+当前可以直接得到
+\[
+ \frac12=\frac n{2n}
+ \le\sum_{k=n+1}^{2n}\frac1k
+ \le\frac n{n+1}<1.
+\]
+还可以把各项写成
+\[
+ \frac1n\frac1{1+k/n},\qquad k=1,\ldots,n,
+\]
+看出它是函数 \(1/(1+x)\) 的一种 Riemann 和。要严格识别极限为
+\(int_0^1(1+x)^{-1}\,dx=\log2\)，需要定积分理论和对数函数的严格建立，当前章节尚未给出。因此本题只能先记录界与后续证明位置，不能循环引用积分结论。
+\end{solution}
+
+\begin{solution}{8.12}
+原论证先固定 \(N\) 再让 \(\varepsilon\) 依赖 \(N\)，量词顺序相反；而且 \(n>N\) 只得到 \(1/n<1/N\)，并没有处理预先给定的误差。正确证明为：给定 \(\varepsilon>0\)，取整数 \(N>1/\varepsilon\)。若 \(n\ge N\)，则
+\(1/n\le1/N<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{8.13}
+取 \(T=(0,\infty)\)，令
+\[
+ a_n(t)=\frac tn,\qquad a(t)=0,\qquad C(t)=t.
+\]
+对每个固定 \(t\)，有 \(\abs{a_n(t)}\le C(t)/n\to0\)。但对任意固定 \(n\)，令 \(t=n\)，就有 \(a_n(t)=1\)。所以在误差 \(1/2\) 下不存在统一 \(N\)。失败来自 \(C(t)\) 在参数集上无统一上界。
+\end{solution}
+
+\section*{C组　发散与项目}
+\addcontentsline{toc}{section}{C组　发散与项目}
+
+\begin{solution}{8.14}
+因 \(n+\sin n\ge n-1\)，给定 \(M\) 取 \(N>M+1\)，则 \(n\ge N\) 时
+\(n+\sin n>M\)，故趋于 \(+\infty\)。它因此无界，而收敛实数列必有界，所以没有有限极限。
+\end{solution}
+
+\begin{solution}{8.15}
+当 \(n=4k\) 时 \(\sin(n\pi/2)=0\)；当 \(n=4k+1\) 时其值为 \(1\)。两条常值子列的极限不同，因此原列发散。
+\end{solution}
+
+\begin{solution}{8.16}
+把下列有限块依次连接：第 \(k\) 个块先从 \(-1\) 以步长 \(1/k\) 上升到 \(1\)，再以步长 \(1/k\) 下降到 \(-1\)。所得数列始终位于 \([-1,1]\)，且第 \(k\) 个块内相邻差为 \(1/k\)，块的连接点差为 \(0\)，故相邻差趋于零。每个块都含 \(1\) 和 \(-1\)，所以存在分别恒取这两个值的子列，原列发散。
+\end{solution}
+
+\begin{solution}{8.17}
+先设 \(p=m\in\N\)。选 \(r\) 使 \(q<r<1\)，令 \(c=r/q-1>0\)。二项式定理给出
+\[
+ \left(\frac rq\right)^n=(1+c)^n
+ \ge\binom n{m+1}c^{m+1}.
+\]
+对 \(n\ge2(m+1)\)，组合数不小于常数 \(C_0n^{m+1}\)，故
+\[
+ n^mq^n\le C_1\frac{r^n}{n}\le\frac{C_1}{n}\to0.
+\]
+若 \(p>0\) 非整数，取整数 \(m\ge p\)。对 \(n\ge1\)，\(n^p\le n^m\)，由夹逼得结论。
+\end{solution}
+
+\begin{solution}{8.18}
+设从 \(N_0\) 起 \(a_{n+1}\le qa_n\)。归纳得到
+\[
+ 0\le a_n\le a_{N_0}q^{n-N_0}\qquad(n\ge N_0).
+\]
+右端为常数乘几何数列并趋于零，故 \(a_n\to0\)。这同时给出几何误差界。
+\end{solution}
+
+\begin{solution}{8.19}
+给定 \(\varepsilon>0\)，分别取 \(N_1,N_2\) 使
+\(r_n<\varepsilon/2\)、\(s_n<\varepsilon/2\) 在相应尾部成立。若再把原估计成立的起点取入最大值，则
+\[
+ \abs{a_n-a}\le r_n+s_n<\varepsilon.
+\]
+\(\varepsilon/2\) 把总误差预算分配给两个独立来源；任意正分配 \(\theta\varepsilon+(1-\theta)\varepsilon\) 也可。
+\end{solution}
+
+\begin{solution}{8.20}
+定性收敛只要求对每个误差找到某个有限起点，较粗上界往往能更清楚地显示参数依赖和证明结构。若研究算法成本、收敛阶或达到给定精度的计算量，最优或近优的 \(N(\varepsilon)\) 才具有直接意义。选择标准由问题目标决定，但两种情形都必须保证估计方向正确、常数依赖明确。
+\end{solution}

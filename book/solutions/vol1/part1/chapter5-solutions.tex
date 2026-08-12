@@ -1,0 +1,234 @@
+\chapter{Cauchy 列构造实数：习题解答}
+
+\begin{chapterguide}
+本章解答强调商结构中的代表元独立性。凡声称某个类为正或非零，均给出对整个尾部有效的统一下界。
+\end{chapterguide}
+
+\section*{A组　零列与商结构}
+\addcontentsline{toc}{section}{A组　零列与商结构}
+
+\begin{solution}{5.1}
+对 Cauchy 列 \((a_n)\) 取 \(\varepsilon=1\)，存在 \(N\) 使 \(n\ge N\) 时
+\[
+ |a_n-a_N|<1,\qquad |a_n|<|a_N|+1.
+\]
+令
+\[
+ M=\max\{|a_1|,\ldots,|a_{N-1}|,|a_N|+1\}.
+\]
+则 \(|a_n|\le M\) 对所有 \(n\) 成立。有限前项必须并入最大值，Cauchy 条件只控制尾部。
+\end{solution}
+
+\begin{solution}{5.2}
+若 \(z_n,w_n\to0\)，给定 \(\varepsilon>0\)，从某项起有 \(|z_n|,|w_n|<\min\{1,\sqrt{\varepsilon}\}\)，故 \(|z_nw_n|<\varepsilon\)；和的证明用 \(\varepsilon/2\)。命题“任意数列乘零列仍为零列”错误：\(z_n=1/n\) 是零列，\(a_n=n\) 无界，而 \(a_nz_n=1\) 不是零列。
+\end{solution}
+
+\begin{solution}{5.3}
+自反性：\(a_n-a_n=0\) 是零列。对称性：若 \(a_n-b_n\) 是零列，其相反数 \(b_n-a_n\) 也是零列。传递性：若 \(a_n-b_n\) 与 \(b_n-c_n\) 是零列，则
+\[
+ a_n-c_n=(a_n-b_n)+(b_n-c_n)
+\]
+是两个零列之和，故仍为零列。
+\end{solution}
+
+\begin{solution}{5.4}
+写成
+\[
+ a_nb_n-a'_nb'_n=a_n(b_n-b'_n)+b'_n(a_n-a'_n).
+\]
+四个 Cauchy 列均有界；特别地，\(a_n,b'_n\) 有统一界。括号内两列为零列，所以右端两项都是“有界列乘零列”，其和仍为零列。故 \(ab\sim a'b'\)。
+\end{solution}
+
+\begin{solution}{5.5}
+若两列只在前 \(N-1\) 项不同，则其差从第 \(N\) 项起恒为零。对每个 \(\varepsilon>0\)，同一个 \(N\) 已保证尾部差小于 \(\varepsilon\)，所以差为零列，两列等价。
+\end{solution}
+
+\section*{B组　域、序与完备性}
+\addcontentsline{toc}{section}{B组　域、序与完备性}
+
+\begin{solution}{5.6}
+若 \([a_n]\ne[0]\)，则存在 \(\varepsilon>0\)，使对每个 \(N\) 都有某个 \(k\ge N\) 满足 \(|a_k|\ge\varepsilon\)。由 Cauchy 性取 \(N_0\)，使 \(m,n\ge N_0\) 时 \(|a_m-a_n|<\varepsilon/2\)。选 \(k\ge N_0\) 且 \(|a_k|\ge\varepsilon\)。于是对所有 \(n\ge N_0\)，
+\[
+ |a_n|\ge|a_k|-|a_n-a_k|>\varepsilon/2.
+\]
+若 \(a_k>0\)，则 \(a_n>a_k-\varepsilon/2\ge\varepsilon/2\)；若 \(a_k<0\)，则 \(a_n<-\varepsilon/2\)。故尾部符号恒定。
+\end{solution}
+
+\begin{solution}{5.7}
+若尾部 \(|a_n|\ge\delta\)，则
+\[
+ \left|\frac1{a_m}-\frac1{a_n}\right|
+ \le\delta^{-2}|a_m-a_n|,
+\]
+所以倒数列为 Cauchy 列。
+
+若 \(a\sim a'\)，两者非零且代表同一类，则在共同尾部有 \(|a_n|,|a'_n|\ge\delta\)。于是
+\[
+ \left|\frac1{a_n}-\frac1{a'_n}\right|
+ \le\delta^{-2}|a_n-a'_n|\longrightarrow0.
+\]
+故倒数类与代表元选择无关。
+\end{solution}
+
+\begin{solution}{5.8}
+若 \(a\sim a'\) 且 \(a_n\ge\delta>0\) 从某项起成立，取更后指标使 \(|a_n-a'_n|<\delta/2\)，则 \(a'_n\ge\delta/2\)，故正性与代表元无关。
+
+对任意类 \(x=[a_n]\)，若 \(x=0\) 已完成。若非零，\exerciseref{5.6}给出尾部恒正或恒负，分别得到 \(x>0\) 或 \(-x>0\)。三种情形互斥，因为正类不可能同时是零类，且 \(x,-x\) 不可能都最终有正下界。
+\end{solution}
+
+\begin{solution}{5.9}
+常值列满足
+\[
+ [q]+[r]=[q+r],\quad [q][r]=[qr],\quad
+ -[q]=[-q],\quad [q]^{-1}=[q^{-1}]\ (q\ne0).
+\]
+若 \(q<r\)，常值差 \(r-q>0\) 本身就是统一正下界，故 \([q]<[r]\)。反向由三歧律得到，所以嵌入保持并反映次序。
+\end{solution}
+
+\begin{solution}{5.10}
+令 \(x=[r_j]\)。给定 \(\varepsilon>0\)，先取 \(K_1\) 使 \(1/k<\varepsilon/3\)（\(k\ge K_1\)），再由 \(r_j\) 的 Cauchy 性取 \(K_2\)，使 \(j,k\ge K_2\) 时 \(|r_j-r_k|<\varepsilon/3\)。对 \(k\ge K=\max\{K_1,K_2\}\)，类 \(x-r_k=[r_j-r_k]\) 的代表元从 \(j\ge K_2\) 起绝对值小于 \(\varepsilon/3\)，故 \(|x-r_k|\le\varepsilon/3\)。于是
+\[
+ |x_k-x|\le|x_k-r_k|+|r_k-x|<\frac{2\varepsilon}{3}<\varepsilon.
+\]
+\end{solution}
+
+\section*{C组　同构与项目}
+\addcontentsline{toc}{section}{C组　同构与项目}
+
+\begin{solution}{5.11}
+集合 \(\mathcal C/\sim\) 的加法和乘法良定义性由\exerciseref{5.3}、5.4给出，环公理由逐项有理运算继承。\exerciseref{5.6}、5.7为每个非零类构造良定义倒数，所以得到域。\exerciseref{5.8}给出三歧律；正下界的相加、相乘分别证明序的传递性以及正数乘积为正，故得到有序域。
+
+有理常值类稠密，因为代表 Cauchy 列的某个后项可在任意给定误差内逼近该类。任意类被代表列的有理界控制，故构造域 Archimedean。最后对其中的 Cauchy 列 \(x_k\) 选 \(|x_k-r_k|<1/k\)，\exerciseref{5.10}证明 \([r_k]\) 是其极限。由此完整得到完备有序域，未使用\chapterref{chap:dedekind-construction}。
+\end{solution}
+
+\begin{solution}{5.12}
+\chapterref{chap:rational-defects}数列满足
+\[
+ 0<2-a_n^2<4\cdot10^{-n}+10^{-2n}.
+\]
+右端为零列，所以 \((a_n^2-2)\) 是零列，即
+\[
+ [a_n]^2=[a_n^2]=[2].
+\]
+正类的平方根唯一性还说明该类就是构造域中的正平方根。
+\end{solution}
+
+\begin{solution}{5.13}
+取 \(a_0\in\alpha,b_0\notin\alpha\)。每步以中点 \(c_n\) 二分：若 \(c_n\in\alpha\)，令其为新左端；否则令其为新右端。得到嵌套区间且
+\[
+ a_n\in\alpha,\quad b_n\notin\alpha,\quad
+ b_n-a_n=2^{-n}(b_0-a_0).
+\]
+左端单调且任意两项之差不超过较早区间长度，故 \((a_n)\) 为 Cauchy 列。
+
+若 \(q\in\alpha\)，取 \(q'\in\alpha\) 且 \(q'>q\)。区间长度最终小于 \(q'-q\)，此时不可能仍有 \(a_n\le q<q'\le b_n\)，故从某项起 \(a_n>q\)，于是 \(q<[a_n]\)。若 \(q\notin\alpha\)，则每个 \(a_n<q\)，所以不可能有 \(q<[a_n]\)。因此 \(\Phi([a_n])=\alpha\)。
+\end{solution}
+
+\begin{solution}{5.14}
+一般度量空间的 Cauchy 完备化仍可使用“Cauchy 列之差的距离趋于零”定义等价关系；等价性的验证、常值点嵌入、稠密性以及用对角选择证明完备性只依赖距离与三角不等式。
+
+逐项加法、乘法、倒数和正负号需要原空间的代数与序结构。若这些运算对距离连续，它们可延拓到完备化；倒数还需远离零的论证。一般度量空间没有乘法逆元或全序，因此这些步骤没有对应物。
+\end{solution}
+
+\begin{solution}{5.15}
+\((a_n)\sim(q)\) 按定义表示 \((a_n-q)\) 是零列，即
+\[
+ \forall\varepsilon\in\Q_{>0}\ \exists N\
+ \forall n\ge N,\quad\abs{a_n-q}<\varepsilon.
+\]
+这正是 \((a_n)\) 在 \(\Q\) 中收敛到 \(q\) 的定义。
+\end{solution}
+
+\begin{solution}{5.16}
+由 \((r_k)\) 是有理 Cauchy 列，给定 \(\varepsilon>0\)，取 \(K_1\) 使 \(j\ge k\ge K_1\) 时
+\[
+ \abs{r_j-r_k}<\varepsilon/2.
+\]
+对固定 \(k\ge K_1\)，这说明代表 \(x=[r_j]\) 与常值类 \(r_k\) 的差列最终小于 \(\varepsilon/2\)。再取 \(K_2\) 使 \(k\ge K_2\) 时
+\[
+ \abs{x_k-r_k}<1/k<\varepsilon/2.
+\]
+于是 \(k\ge\max\{K_1,K_2\}\) 时
+\[
+ \abs{x_k-x}\le\abs{x_k-r_k}+\abs{r_k-x}<\varepsilon.
+\]
+\end{solution}
+
+\begin{solution}{5.17}
+令 \(d=y-x>0\)。正类定义给出 \(\delta>0\)，使 \(d\) 的某代表从一项起不小于 \(\delta\)。利用类可由有理代表后项任意逼近，选 \(q\in\Q\) 使
+\[
+ \abs{q-x}<\delta/3
+\]
+并从上方逼近 \(x\)。于是 \(x<q<x+\delta<y\)。更形式地，可先取有理 \(r\) 满足 \(\abs{x-r}<\delta/4\)，再在有理区间 \((x,y)\) 的代表估计中加一个小有理增量。
+\end{solution}
+
+\begin{solution}{5.18}
+设 \(a_n\ge\delta>0\) 最终成立，且 \((a_n')\sim(a_n)\)。差为零列，所以最终
+\[
+ \abs{a_n'-a_n}<\delta/2.
+\]
+于是
+\[
+ a_n'\ge a_n-\abs{a_n'-a_n}>\delta/2.
+\]
+故任何等价代表都最终有正下界，正性定义良好。
+\end{solution}
+
+\begin{solution}{5.19}
+若 \([a_n]\le[b_n]\)，等号情形差为零列，严格小于情形则 \(b_n-a_n\) 最终有正下界。两种情形都推出对每个 \(\varepsilon>0\)，最终
+\[
+ a_n<b_n+\varepsilon.
+\]
+反向也成立：若上述不等式对每个正有理 \(\varepsilon\) 最终成立，则不可能有 \([a_n]>[b_n]\)，因为后者会使 \(a_n-b_n\) 最终至少为某个 \(\delta>0\)，取 \(\varepsilon=\delta/2\) 矛盾。由全序性只能 \([a_n]\le[b_n]\)。
+\end{solution}
+
+\begin{solution}{5.20}
+若 \(q\in\Phi(x)+\Phi(y)\)，则 \(q=r+s\) 对某些 \(r<x,s<y\) 成立，故 \(q<x+y\)，所以 \(q\in\Phi(x+y)\)。
+
+反之，若 \(q<x+y\)，令 \(d=x+y-q>0\)。由有理稠密性选正有理 \(\eta<d/2\)，再选有理 \(r,s\) 使
+\[
+ x-\eta<r<x,\qquad y-\eta<s<y.
+\]
+则
+\[
+ r+s>x+y-2\eta>q.
+\]
+由于分割和向下封闭，\(q\in\Phi(x)+\Phi(y)\)。故两个左部相等。
+\end{solution}
+
+\begin{solution}{5.21}
+设 \(x,y>0\)。若 \(q\in\Phi(x)\Phi(y)\) 且 \(q>0\)，则存在 \(0<r<x,0<s<y\) 使 \(q<rs<xy\)，故 \(q\in\Phi(xy)\)。
+
+反之，若 \(0<q<xy\)，先取有理 \(r<x\) 充分接近 \(x\)，使 \(q/r<y\)，再取有理 \(s\) 满足
+\[
+ q/r<s<y.
+\]
+于是 \(q<rs\)，故 \(q\in\Phi(x)\Phi(y)\)。非正有理数自动属于正分割乘积。负号和零由构造中的符号扩张以及同态对逆元的唯一性处理。
+\end{solution}
+
+\begin{solution}{5.22}
+设两列为 \(a_n,b_n\)。最终存在 \(c>0\) 使 \(a_n+b_n\ge c\)。又
+\[
+ \abs{a_n^2-b_n^2}
+ \le\abs{a_n^2-2}+\abs{b_n^2-2}
+\]
+是零列，所以
+\[
+ \abs{a_n-b_n}
+ =\frac{\abs{a_n^2-b_n^2}}{a_n+b_n}
+ \le c^{-1}\abs{a_n^2-b_n^2}
+\]
+也是零列。因此二者等价。
+\end{solution}
+
+\begin{solution}{5.23}
+Dedekind 模型以左部集合相等判定对象相等，Cauchy 模型以差为零列判定；前者次序是包含，后者次序是尾部正下界；加法与乘法分别是集合下闭运算和逐项运算取商。Dedekind 完备性由有界分割族的并集直接给出，Cauchy 完备性由有理近似的对角列给出。映射
+\[
+ [a_n]\longmapsto\{q\in\Q:q<[a_n]\}
+\]
+把这些结构逐项对应，说明不同技术路线构造的是同一个完备有序域。
+\end{solution}
+
+\begin{solution}{5.24}
+若只取在 \(\Q\) 中收敛的列，每条都等价于某个有理常值列，商集不会产生任何新元素。若放宽到任意有界列，则尾部不必内部稳定；例如 \((-1)^n\) 无法与单个候选值保持任意小距离。逐项乘法虽有界，但“非零类最终远离零并固定符号”会失败，因而不能统一定义倒数与全序。Cauchy 条件恰好提供延拓运算所需的尾部稳定性。
+\end{solution}

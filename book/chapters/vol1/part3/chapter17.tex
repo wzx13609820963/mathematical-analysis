@@ -1,0 +1,303 @@
+\chapter{连续性与间断点}
+\label{chap:continuity-discontinuity}
+
+\begin{chapterguide}
+连续性把函数在一点的极限与该点函数值连接起来。它既可用邻域量词表述，也可用序列保持表述，并在代数运算和复合下稳定。对区间端点必须采用相对定义域。单调函数虽未必连续，但其左右极限始终存在，间断点具有跳跃结构且至多可数；严格单调函数在其像集上具有相对连续的逆映射，原函数连续时像集还是区间。
+\end{chapterguide}
+
+\section{点连续的定义及极限形式}
+
+\begin{definition}[点连续]
+设 \(f:D\to\R\)，\(a\in D\)。若
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in D,\qquad
+ \abs{x-a}<\delta\Longrightarrow\abs{f(x)-f(a)}<\varepsilon,
+\]
+则称 \(f\) 在 \(a\) 处连续。
+\end{definition}
+
+与删心极限相比，连续性允许 \(x=a\)，但此时误差自动为零。若 \(a\) 是 \(D\) 的聚点，则
+\[
+ f\text{ 在 }a\text{ 连续}
+ \quad\Longleftrightarrow\quad
+ \lim_{\substack{x\to a\\x\in D}}f(x)=f(a).
+\]
+若 \(a\) 是孤立点，任意函数都在 \(a\) 连续，因为可取小邻域使其中唯一的定义域点是 \(a\)。
+
+\begin{definition}[集合上的连续性]
+若 \(f\) 在 \(D\) 的每一点连续，则称 \(f\) 在 \(D\) 上连续。若 \(D\) 是区间，端点连续性始终相对于 \(D\) 理解。
+\end{definition}
+
+\begin{example}[可去补值]
+设 \(f(x)=(x^2-1)/(x-1)\)（\(x\ne1\)）。因删心极限为 \(2\)，定义 \(f(1)=2\) 可得到连续延拓；定义为其他值则在 \(1\) 处不连续。
+\end{example}
+
+\section{连续性的序列刻画}
+
+\begin{theorem}[序列连续性]
+设 \(a\in D\)。函数 \(f:D\to\R\) 在 \(a\) 连续，当且仅当对每条 \((x_n)\subset D\) 满足 \(x_n\to a\)，都有
+\[
+ f(x_n)\to f(a).
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(f\) 连续，给定 \(\varepsilon>0\)，先取连续性半径 \(\delta\)，再用 \(x_n\to a\) 使 \(\abs{x_n-a}<\delta\)，即得像列收敛。
+
+反之，若 \(f\) 在 \(a\) 不连续，则存在 \(\varepsilon_0>0\)，使对每个 \(n\) 可选 \(x_n\in D\) 满足
+\[
+ \abs{x_n-a}<1/n,\qquad
+ \abs{f(x_n)-f(a)}\ge\varepsilon_0.
+\]
+于是 \(x_n\to a\)，但 \(f(x_n)\not\to f(a)\)，与序列条件矛盾。
+\end{proof}
+
+\begin{corollary}
+连续函数把收敛数列映为收敛数列，并保持极限：
+\[
+ x_n\to a\in D\Longrightarrow f(x_n)\to f(a).
+\]
+\end{corollary}
+
+条件 \(a\in D\) 不可省略，因为 \(f(a)\) 必须有定义。若只研究 \(a\notin D\) 的邻近行为，应使用函数极限而非点连续。
+
+\section{连续函数的代数运算与复合}
+
+\begin{theorem}
+若 \(f,g:D\to\R\) 在 \(a\in D\) 连续，\(c\in\R\)，则
+\[
+ f+g,\quad cf,\quad fg,\quad\abs f,\quad
+ \max\{f,g\},\quad\min\{f,g\}
+\]
+均在 \(a\) 连续。若 \(g(a)\ne0\)，则 \(f/g\) 在 \(a\) 连续。
+\end{theorem}
+
+\begin{proof}
+把函数极限的代数法则与
+\[
+ \lim_{x\to a}f(x)=f(a),\qquad
+ \lim_{x\to a}g(x)=g(a)
+\]
+结合即可。最大值与最小值使用
+\[
+ \max\{u,v\}=\frac{u+v+\abs{u-v}}2,\qquad
+ \min\{u,v\}=\frac{u+v-\abs{u-v}}2.
+\]
+商的非零条件保证 \(g\) 在 \(a\) 附近非零。
+\end{proof}
+
+\begin{theorem}[复合连续性]
+若 \(g:D\to E\) 在 \(a\) 连续，\(f:E\to\R\) 在 \(g(a)\) 连续，则 \(f\circ g\) 在 \(a\) 连续。
+\end{theorem}
+
+\begin{proof}
+若 \(x_n\to a\)，则 \(g(x_n)\to g(a)\)，继而
+\[
+ f(g(x_n))\to f(g(a)).
+\]
+由序列连续性，\(f\circ g\) 在 \(a\) 连续。
+\end{proof}
+
+\begin{corollary}
+多项式在 \(\R\) 上连续；有理函数在分母非零处连续；根式、绝对值及由有限次代数运算和复合得到的初等表达式在其自然定义域内连续。
+\end{corollary}
+
+\section{相对拓扑下的端点连续性}
+
+若 \(f:[a,b]\to\R\)，则在左端点 \(a\) 连续的量词条件为
+\[
+ \forall\varepsilon>0\ \exists\delta>0,\qquad
+ x\in[a,b],\ a\le x<a+\delta
+ \Longrightarrow\abs{f(x)-f(a)}<\varepsilon.
+\]
+它等价于右极限 \(\lim_{x\to a+}f(x)=f(a)\)。右端点相应使用左极限。
+
+\begin{example}
+\(f(x)=\sqrt x\) 在定义域 \([0,\infty)\) 的端点 \(0\) 连续，因为给定 \(\varepsilon>0\)，取 \(\delta=\varepsilon^2\)，则
+\[
+ 0\le x<\delta\Longrightarrow\abs{\sqrt x-\sqrt0}<\varepsilon.
+\]
+没有必要把函数延拓到负半轴后再讨论。
+\end{example}
+
+\begin{proposition}[限制与粘合]
+连续函数限制到任意子集仍连续。设 \(D=A\cup B\)，函数 \(f\) 在 \(A\) 与 \(B\) 上的限制分别连续；若对每个 \(x\in A\cap B\) 两个定义相同，并且在交界点的相对极限一致，则粘合函数在交界点连续。
+\end{proposition}
+
+“分段公式各自连续”不足以自动推出分段函数连续；必须另行核对交界点的函数值与两侧极限。
+
+\section{可去、跳跃与第二类间断点}
+
+设 \(a\) 是定义域内点，并假定两侧都是聚集方向。
+\begin{definition}[间断点分类]
+\begin{enumerate}
+ \item 若左右有限极限存在且相等为 \(L\)，但 \(f(a)\ne L\) 或点值未定义，则称 \(a\) 为\term{可去间断点}；
+ \item 若左右有限极限都存在但不相等，则称 \(a\) 为\term{跳跃间断点}；
+ \item 若至少一个单侧有限极限不存在，则称 \(a\) 为\term{第二类间断点}。
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+\[
+ \frac{x^2-1}{x-1}\quad(x\ne1)
+\]
+在 \(1\) 处具有可去间断；取整函数在每个整数处具有跳跃间断；\(\sin(1/x)\) 在 \(0\) 处是第二类间断。函数 \(1/x\) 在 \(0\) 处的左右扩充实极限存在但不是有限数，按上述有限极限分类也归入第二类。
+\end{example}
+
+分类依赖定义域的趋近方向。在半闭区间端点只检验存在的单侧方向，因此不能机械套用双侧分类。
+
+\section{单调函数的左右极限}
+
+\begin{theorem}[单调函数的单侧极限]
+设 \(f:I\to\R\) 在区间 \(I\) 上单调递增，\(a\) 是 \(I\) 的内点。则有限左右极限存在，并且
+\[
+ f(a-)=\sup\{f(x):x\in I,\ x<a\},
+\]
+\[
+ f(a+)=\inf\{f(x):x\in I,\ x>a\}.
+\]
+此外
+\[
+ f(a-)\le f(a)\le f(a+).
+\]
+\end{theorem}
+
+\begin{proof}
+记左侧值集上确界为 \(L_-\)。它非空，且由任取 \(y>a\) 有 \(f(x)\le f(y)\)（\(x<a\)），故有上界。给定 \(\varepsilon>0\)，按上确界定义取 \(x_0<a\) 使
+\[
+ L_--\varepsilon<f(x_0)\le L_-.
+\]
+当 \(x_0<x<a\) 时，单调性给出
+\[
+ L_--\varepsilon<f(x_0)\le f(x)\le L_-,
+\]
+故 \(f(x)\to L_-\)（\(x\to a-\)）。右侧用下确界同理。最后的不等式直接来自单调性并取上确界、下确界。
+\end{proof}
+
+递减函数有对称结论，上确界与下确界的位置互换。区间端点若存在相应侧聚集，也可得到单侧极限，有限性由区间内任一另一点的函数值控制。
+
+\begin{corollary}
+单调函数的每个内点间断都是跳跃间断；它在 \(a\) 连续当且仅当
+\[
+ f(a-)=f(a)=f(a+).
+\]
+\end{corollary}
+
+\section{单调函数的间断点至多可数}
+
+\begin{theorem}
+区间上的单调函数的间断点集合至多可数。
+\end{theorem}
+
+\begin{proof}
+只证递增情形。对每个内点间断 \(a\)，上一节给出
+\[
+ f(a-)<f(a+).
+\]
+从非空开区间 \(J_a=(f(a-),f(a+))\) 中选一个有理数 \(q_a\)。
+
+若 \(a<b\)，则对任意 \(x,y\) 满足 \(a<x<y<b\)，有 \(f(x)\le f(y)\)。令 \(x\to a+\)、\(y\to b-\)，得到
+\[
+ f(a+)\le f(b-).
+\]
+因此 \(J_a\) 与 \(J_b\) 不相交，所选有理数不同。映射 \(a\mapsto q_a\) 是从间断点集到 \(\Q\) 的单射，故内点间断至多可数。区间端点至多增加两个点。
+\end{proof}
+
+\begin{corollary}
+单调函数在区间上除至多可数个点外处处连续。
+\end{corollary}
+
+“至多可数”不能加强为“有限”。例如在 \([0,1]\) 上取可数点列 \(a_n\) 与正数 \(c_n\) 满足 \(\sum c_n<\infty\)，函数
+\[
+ f(x)=\sum_{a_n\le x}c_n
+\]
+单调递增，并可在每个 \(a_n\) 产生跳跃。
+
+\section{严格单调函数在像集上的连续逆映射}
+
+\begin{theorem}[连续逆映射]
+设 \(I\) 是区间，\(f:I\to\R\) 严格单调，令 \(J=f(I)\)。则 \(f:I\to J\) 为双射，并且逆函数
+\[
+ f^{-1}:J\to I
+\]
+严格单调，并且相对于子空间 \(J\) 连续。若再假设 \(f\) 连续，则 \(J\) 是区间。
+\end{theorem}
+
+\begin{proof}
+严格单调性给出单射；按 \(J=f(I)\) 的定义得到满射。以下直接证明逆映射连续，不使用后文的介值定理。
+
+设 \(f\) 严格递增，取 \(y_0=f(x_0)\in J\)。先设 \(x_0\) 是 \(I\) 的内点。给定 \(\varepsilon>0\)，选择 \(x_-,x_+\in I\) 使
+\[
+ x_0-\varepsilon<x_-<x_0<x_+<x_0+\varepsilon.
+\]
+严格递增给出
+\[
+ f(x_-)<y_0<f(x_+).
+\]
+令
+\[
+ \delta=\min\{y_0-f(x_-),\,f(x_+)-y_0\}>0.
+\]
+若 \(y\in J\) 且 \(\abs{y-y_0}<\delta\)，则
+\[
+ f(x_-)<y<f(x_+),
+\]
+从而 \(x_-<f^{-1}(y)<x_+\)，故
+\[
+ \abs{f^{-1}(y)-x_0}<\varepsilon.
+\]
+端点按相对邻域只选可用的一侧。递减情形把不等号方向反转即可。
+\end{proof}
+
+若 \(f\) 有跳跃，像集 \(J\) 可能有缺口，但上述相对连续性仍成立。只有在还要断言 \(J\) 为区间时，才需要 \(f\) 的连续性；这将在\chapterref{chap:compact-connected-real-line}由介值定理推出。
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+点连续等价于函数极限等于点值，也等价于保持所有趋近该点的数列极限。连续性在代数运算、绝对值、最大最小和复合下稳定；端点使用相对定义域。单调函数由实数完备性获得左右极限，其间断只能是跳跃型，并可把每个跳跃注入有理数集，从而间断点至多可数。严格单调函数在其像集上具有相对连续的逆映射；原函数连续时，像集还是区间。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共26道编号题，含约42个独立训练单元，建议总用时5至7小时。\exerciserange{17.1}{17.20}为核心必做范围。
+
+\subsection*{A组　连续性的定义与运算}
+\begin{enumerate}[label=\textbf{17.\arabic*.}]
+ \exerciseitem{17.1} \mustdo 证明孤立定义域点处的任意函数都连续。
+ \exerciseitem{17.2} \mustdo 证明点连续与“极限等于点值”的等价性。
+ \exerciseitem{17.3} \mustdo 用量词否定构造数列，证明序列连续性判据的充分性。
+ \exerciseitem{17.4} \mustdo 证明连续函数保持绝对值、最大值与最小值运算。
+ \exerciseitem{17.5} \mustdo 证明若 \(f\) 在 \(a\) 连续且 \(f(a)\ne0\)，则 \(1/f\) 在 \(a\) 连续。
+ \exerciseitem{17.6} \mustdo 证明复合连续性，并分别用量词法和序列法完成。
+ \exerciseitem{17.7} \mustdo 证明 \(\sqrt x\) 在 \([0,\infty)\) 上连续，特别处理端点 \(0\)。
+ \exerciseitem{17.8} \mustdo 说明连续函数限制到任意子集后仍连续。
+\end{enumerate}
+
+\subsection*{B组　间断与单调函数}
+\begin{enumerate}[label=\textbf{17.\arabic*.},resume]
+ \exerciseitem{17.9} \mustdo 对下列函数在指定点分类：\((x^2-1)/(x-1)\) 于 \(1\)，\(\lfloor x\rfloor\) 于整数，\(\sin(1/x)\) 于 \(0\)，\(1/x\) 于 \(0\)。
+ \exerciseitem{17.10} \mustdo 构造一个分段函数，使两段各自连续但交界点不连续；给出使其连续的参数条件。
+ \exerciseitem{17.11} \mustdo 证明递增函数的左极限等于左侧值集上确界。
+ \exerciseitem{17.12} \mustdo 写出递减函数的左右极限公式并证明。
+ \exerciseitem{17.13} \mustdo 证明单调函数的内点间断必为跳跃间断。
+ \exerciseitem{17.14} \mustdo 证明单调函数的跳跃区间两两不交。
+ \exerciseitem{17.15} \mustdo 完整证明单调函数间断点至多可数。
+ \exerciseitem{17.16} \mustdo 构造在可数无穷多个指定点发生跳跃的有界递增函数。
+ \exerciseitem{17.17} \mustdo 给出有可数稠密间断点集的单调函数。
+ \exerciseitem{17.18} \mustdo 严格单调函数若有一个跳跃，证明其像集不是区间。
+\end{enumerate}
+
+\subsection*{C组　逆映射、结构与项目}
+\begin{enumerate}[label=\textbf{17.\arabic*.},resume]
+ \exerciseitem{17.19} \mustdo 证明严格单调连续函数的逆函数连续，单独说明区间端点。
+ \exerciseitem{17.20} \mustdo 证明若 \(f:I\to J\) 是严格递增双射且 \(I,J\) 都是区间，则 \(f\) 自动连续。
+ \exerciseitem{17.21} \optionaldo 研究“连续双射的逆函数连续”在非紧区间上何时成立，并与单调性联系。
+ \exerciseitem{17.22} \optionaldo 构造处处不连续但在每一点左右极限都存在的函数是否可能？给出证明。
+ \exerciseitem{17.23} \projectdo\ 【前置：\chapterref{chap:cauchy-construction}可数性；预计用时：75分钟】重建单调函数间断点至多可数的证明，并进一步证明跳跃大于 \(1/n\) 的间断点在有界值域内只有有限多个。
+ \exerciseitem{17.24} \opendo 比较可去、跳跃、第二类分类与函数振荡量
+ \[
+ \omega_f(a)=\inf_{\delta>0}\sup\{\abs{f(x)-f(y)}:x,y\in D,\ \abs{x-a},\abs{y-a}<\delta\}.
+ \]
+ \exerciseitem{17.25} \mustdo 证明连续函数的零点集是闭集。
+ \exerciseitem{17.26} \optionaldo 设 \(f_n\) 都在 \(a\) 连续且 \(f_n\to f\) 一致。证明 \(f\) 在 \(a\) 连续；一致收敛的定义可先按\chapterref{chap:uniform-continuity}预读。
+\end{enumerate}

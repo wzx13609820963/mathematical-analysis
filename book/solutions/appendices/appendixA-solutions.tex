@@ -1,0 +1,59 @@
+\chapter{集合论基础与选择原理：习题解答}
+
+\begin{solution}{A.1}
+若 \(E,E'\) 都没有元素，则对每个 \(x\)，\(x\in E\) 与 \(x\in E'\) 同为假，故由外延公理 \(E=E'\)。对任意集合 \(a\)，配对公理给出 \(\{a,a\}\)，外延性说明它恰为单点集 \(\{a\}\)。
+\end{solution}
+
+\begin{solution}{A.2}
+偶数集从 \(\omega\) 中按“存在 \(k\in\omega\) 使 \(n=2k\)”分离；等价类 \([x]\) 从母集 \(X\) 中分离。函数像 \(f[A]\) 把每个 \(a\in A\) 替换为唯一值 \(f(a)\)，使用替代；商集是映射 \(x\mapsto[x]\) 的像，也使用替代。若已知共同母集，也可在替代之后再用分离描述。
+\end{solution}
+
+\begin{solution}{A.3}
+令 \(p=(x,y)\)。有 \(\bigcap p=\{x\}\)，故从 \(p\) 唯一恢复 \(x\)。若 \(\bigcup p=\{x\}\)，则 \(y=x\)；否则
+\[
+ (\bigcup p)\setminus\{x\}=\{y\},
+\]
+恢复 \(y\)。因此 \((x,y)=(x',y')\) 蕴含 \(x=x',y=y'\)；反向由外延性直接成立。
+\end{solution}
+
+\begin{solution}{A.4}
+反设全集 \(U\) 存在。分离模式允许在已有母集 \(U\) 内形成
+\[
+ R=\{x\in U:x\notin x\}.
+\]
+因 \(R\) 是集合，全集性给出 \(R\in U\)，于是 \(R\in R\Longleftrightarrow R\notin R\)，矛盾。公式 \(x\notin x\) 是合法公式；非法的是在没有母集和公理依据时把全部满足者直接收集成集合。
+\end{solution}
+
+\begin{solution}{A.5}
+若 \(\mathcal P\subseteq\mathcal P(X)\) 是分割，关系
+\[
+ R=\{(x,y)\in X\times X:\exists A\in\mathcal P,\ x,y\in A\}
+\]
+由 \(X\times X\) 中的分离得到。反之，等价关系 \(R\subseteq X\times X\) 给出映射 \(x\mapsto[x]\)；每个类由分离得到，类的集合由替代得到，并由等价关系性质验证它是 \(X\) 的分割。
+\end{solution}
+
+\begin{solution}{A.6}
+由良序原理，为 \(U=\bigcup\mathcal A\) 选择一个良序 \(\preceq\)。对每个非空 \(A\in\mathcal A\)，令 \(f(A)\) 为 \(A\) 的 \(\preceq\)-最小元。替代模式给出函数图，且 \(f(A)\in A\)，所以 \(f\) 是选择函数。
+\end{solution}
+
+\begin{solution}{A.7}
+令 \(P\) 为所有二元组 \((A,\preceq_A)\)，其中 \(A\subseteq X\) 且 \(\preceq_A\) 良序 \(A\)。规定 \((A,\preceq_A)\le(B,\preceq_B)\) 当且仅当 \(A\) 是 \(B\) 的初段且后者限制到 \(A\) 等于前者。
+
+任意链的定义域并 \(C\) 上，各良序因初段相容而可合并为唯一关系；任一非空 \(D\subseteq C\) 含某个链成员中的元素，在首次覆盖 \(D\) 的相应初段中取得最小元，故合并关系良序 \(C\)。于是链有上界。Zorn 引理给出极大 \((M,\preceq_M)\)。若 \(x\in X\setminus M\)，把 \(x\) 加为新最大元便得到真扩张，矛盾。故 \(M=X\)，得到 \(X\) 的良序。
+\end{solution}
+
+\begin{solution}{A.8}
+若只知道每个非空 \(A_n\) 至多可数，则对每个 \(n\) 至少存在一个满射枚举 \(e_n:\N\to A_n\)。要形成统一的二维表 \(a_{n,k}=e_n(k)\)，必须从每个非空“枚举集合”中选择一个 \(e_n\)；这是可数选择。若题设已经给出每个 \(e_n\)，随后的对角枚举不再使用选择。
+\end{solution}
+
+\begin{solution}{A.9}
+若对每个 \(A\in\mathcal A\) 已指定元素 \(a_A\in A\)，则公式
+\[
+ f=\{(A,a_A):A\in\mathcal A\}
+\]
+已经唯一确定函数图，替代给出该图为集合。这里没有从多个候选中作未指定选择，故不调用选择公理。
+\end{solution}
+
+\begin{solution}{A.10}
+参考例为“每个向量空间都有 Hamel 基”，它在 ZF 中与选择公理的某些形式密切相关，标准证明对线性无关集按包含关系应用 Zorn 引理。另一例是完整 Tychonoff 定理，它与选择公理等价。作答应说明所用版本：可数乘积、紧 Hausdorff 空间乘积和任意拓扑空间乘积所需的选择强度可能不同，并列出可靠集合论或拓扑学资料。
+\end{solution}

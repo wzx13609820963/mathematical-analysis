@@ -1,0 +1,200 @@
+\chapter[函数极限的序列刻画与 Cauchy 准则]{函数极限的序列刻画\\与 Cauchy 准则}
+
+\section*{A组　序列刻画与基本应用}
+\addcontentsline{toc}{section}{A组　序列刻画与基本应用}
+
+\begin{solution}{15.1}
+若 \(a\) 是聚点，对每个 \(n\) 从
+\[
+ D\cap\{x:0<\abs{x-a}<1/n\}
+\]
+中选一点 \(x_n\)，即得 \(x_n\ne a\) 且 \(x_n\to a\)。反之，若有此点列，则给定 \(\delta>0\)，由收敛性可取充分大 \(n\) 使 \(0<\abs{x_n-a}<\delta\)，故每个删心邻域都含定义域点。
+\end{solution}
+
+\begin{solution}{15.2}
+删心极限不控制 \(f(a)\)。若允许点列恒取 \(x_n=a\)，Heine 条件会强迫 \(f(a)=L\)，从而把连续性条件误加到极限上。例如 \(f(x)=0\)（\(x\ne0\)）、\(f(0)=1\) 的删心极限为 \(0\)，但常值点列 \(x_n=0\) 的像恒为 \(1\)。
+\end{solution}
+
+\begin{solution}{15.3}
+由聚点性选 \(x_n\in D\setminus\{a\}\) 且 \(x_n\to a\)。若函数极限同时为 \(L,M\)，Heine 定理使同一数列 \(f(x_n)\) 同时趋于 \(L,M\)。数列极限唯一性给出 \(L=M\)。
+\end{solution}
+
+\begin{solution}{15.4}
+否定形式给出某个 \(\varepsilon_0>0\)，使每个 \(\delta>0\) 内都有坏点。对第 \(n\) 步代入 \(\delta=1/n\)，选
+\[
+ x_n\in D,\quad0<\abs{x_n-a}<1/n,\quad
+ \abs{f(x_n)-L}\ge\varepsilon_0.
+\]
+第一组不等式推出 \(x_n\to a\)，最后一组不等式表明像数列不可能趋于 \(L\)。
+\end{solution}
+
+\begin{solution}{15.5}
+若 \(x_n\to a\)，则任意子列 \(x_{n_k}\to a\)，且仍有 \(x_{n_k}\in D\setminus\{a\}\)。对全部逼近点列成立的假设可直接用于这条子列，故 \(f(x_{n_k})\to L\)。也可先由假设得 \(f(x_n)\to L\)，再用数列极限的子列继承性。
+\end{solution}
+
+\begin{solution}{15.6}
+取 \(x_n=1/n\)、\(y_n=-1/n\)。两列都趋于 \(0\)，但
+\[
+ \frac{\abs{x_n}}{x_n}=1,\qquad
+ \frac{\abs{y_n}}{y_n}=-1.
+\]
+像数列极限不同，故双侧极限不存在。
+\end{solution}
+
+\begin{solution}{15.7}
+取
+\[
+ x_n=\frac1{2\pi n},\qquad y_n=\frac1{(2n+1)\pi}.
+\]
+则 \(x_n,y_n\to0\)，而
+\[
+ \cos(1/x_n)=1,\qquad \cos(1/y_n)=-1.
+\]
+由双路径判别，极限不存在。
+\end{solution}
+
+\begin{solution}{15.8}
+若 \(x_n,y_n\to a\)，Heine 定理给出
+\[
+ f(x_n)\to L,\qquad f(y_n)\to L.
+\]
+数列极限的差法则于是给出 \(f(x_n)-f(y_n)\to0\)。
+\end{solution}
+
+\section*{B组　Cauchy 准则与限制定义域}
+\addcontentsline{toc}{section}{B组　Cauchy 准则与限制定义域}
+
+\begin{solution}{15.9}
+必要性只使用 \(x_n\in D\) 与 \(x_n\to a\)，不要求点列之间填满区间。充分性中若极限失败，每个删心邻域与 \(D\) 的交都含坏点，按半径 \(1/n\) 选取即可。因此证明仅依赖聚点性，适用于任意子集 \(D\subset\R\)。
+\end{solution}
+
+\begin{solution}{15.10}
+若 \(E\subset D\) 且 \(a\) 是 \(E\) 的聚点，\(E\) 中每条逼近点列也是 \(D\) 中的逼近点列，故限制极限保持。反向取
+\[
+ f(x)=\frac{\abs x}{x},\qquad D=\R\setminus\{0\},\qquad E=(0,\infty).
+\]
+限制到 \(E\) 后 \(x\to0\) 的极限为 \(1\)，但在 \(D\) 上双侧极限不存在。
+\end{solution}
+
+\begin{solution}{15.11}
+给定 \(\varepsilon>0\)，取局部 Cauchy 半径 \(\delta\)。由 \(x_n\to a\)，存在 \(N\) 使 \(m,n\ge N\) 时
+\[
+ 0<\abs{x_m-a}<\delta,\qquad0<\abs{x_n-a}<\delta.
+\]
+于是 \(\abs{f(x_m)-f(x_n)}<\varepsilon\)，所以像数列是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{15.12}
+反设局部 Cauchy 条件失败。则存在 \(\varepsilon_0>0\)，使对每个 \(n\) 可选
+\[
+ x_n,y_n\in D,\quad
+ 0<\abs{x_n-a},\abs{y_n-a}<1/n,
+\]
+且 \(\abs{f(x_n)-f(y_n)}\ge\varepsilon_0\)。交错定义
+\[
+ z_{2n-1}=x_n,\qquad z_{2n}=y_n.
+\]
+则 \(z_n\to a\)。若 \((f(z_n))\) 是 Cauchy 列，它的相邻配对之差最终应小于 \(\varepsilon_0\)，与构造矛盾。
+\end{solution}
+
+\begin{solution}{15.13}
+先用聚点性选 \(x_n\to a\)。局部 Cauchy 条件使 \(f(x_n)\) 成为实 Cauchy 列；在此处使用实数完备性，得到 \(f(x_n)\to L\in\R\)。给定 \(\varepsilon>0\)，取局部 Cauchy 条件对 \(\varepsilon/2\) 的半径 \(\delta\)，再固定充分大的 \(n_0\)，使 \(x_{n_0}\) 位于该邻域且
+\[
+ \abs{f(x_{n_0})-L}<\varepsilon/2.
+\]
+对任意同一删心邻域内的 \(x\)，
+\[
+ \abs{f(x)-L}
+ \le\abs{f(x)-f(x_{n_0})}+\abs{f(x_{n_0})-L}
+ <\varepsilon.
+\]
+故 \(f(x)\to L\)。
+\end{solution}
+
+\begin{solution}{15.14}
+取有理数列 \(q_n\to\sqrt2\)，例如把 \(\sqrt2\) 的十进制小数截断到第 \(n\) 位，并设
+\[
+ D=\{0\}\cup\{1/n:n\in\N\},\qquad f(1/n)=q_n.
+\]
+因 \((q_n)\) 是有理 Cauchy 列，靠近 \(0\) 的两个定义域点对应充分靠后的两项，故局部 Cauchy 条件成立。若存在有理极限 \(r\)，则沿 \(1/n\to0\) 应有 \(q_n\to r\)，而实数中的唯一极限为 \(\sqrt2\notin\Q\)，矛盾。
+\end{solution}
+
+\begin{solution}{15.15}
+若 \(f(x)\to L\) 且 \(f(x)-g(x)\to0\)，则
+\[
+ g(x)=f(x)-(f(x)-g(x))\to L.
+\]
+反向交换 \(f,g\) 即可。极限相同来自差趋于零，或直接由极限唯一性得到。
+\end{solution}
+
+\begin{solution}{15.16}
+在 Cauchy 条件中取 \(\varepsilon=1\)，得到半径 \(\delta\)。由聚点性选一个固定
+\[
+ x_0\in D,\qquad0<\abs{x_0-a}<\delta.
+\]
+对任意同一删心邻域内的 \(x\)，有
+\[
+ \abs{f(x)}\le\abs{f(x)-f(x_0)}+\abs{f(x_0)}
+ <1+\abs{f(x_0)}.
+\]
+故局部有界。
+\end{solution}
+
+\section*{C组　反例、结构与项目}
+\addcontentsline{toc}{section}{C组　反例、结构与项目}
+
+\begin{solution}{15.17}
+取 \(f(x)=\sin(1/x)\)（\(x\ne0\)）。给定 \(c\in[-1,1]\)，选 \(\theta\) 使 \(\sin\theta=c\)，并令
+\[
+ x_n=\frac1{\theta+2\pi n}
+\]
+（舍去可能使分母为零的有限项）。则 \(x_n\to0\)，且 \(f(x_n)=c\)。另一方面，取对应 \(c=1\) 与 \(c=-1\) 的两条点列，像极限不同，故函数极限不存在。
+\end{solution}
+
+\begin{solution}{15.18}
+先选任意一条 \(x_n\to a\)。由条件，取 \(y_n=x_{n+1}\) 可知相邻差趋零，但这还不足以单独证明收敛。更有效的是证明 \(f\) 满足局部 Cauchy 条件。若不满足，存在 \(\varepsilon_0>0\) 及两列 \(u_n,v_n\to a\)，使
+\[
+ \abs{f(u_n)-f(v_n)}\ge\varepsilon_0
+\]
+对所有 \(n\) 成立，这与题设的差趋零矛盾。由函数 Cauchy 准则，有限极限存在。
+\end{solution}
+
+\begin{solution}{15.19}
+若局部 Cauchy 条件失败，上一题构造出 \(u_n,v_n\to a\) 且配对像差不趋零。将两列交错为
+\[
+ z_{2n-1}=u_n,\qquad z_{2n}=v_n.
+\]
+则 \(z_n\to a\)。若题设对任意两列成立，可分别取交错列的奇偶子列，仍得到二者像差应趋零，与构造矛盾。于是局部 Cauchy 条件成立，再用准则。
+\end{solution}
+
+\begin{solution}{15.20}
+Heine 定理不需要值域完备。其必要性只把邻域定义传给数列，充分性只从极限失败构造坏点列；在任意度量值域中都成立。函数 Cauchy 准则的必要性也不需要完备性，但充分性必须把一条像 Cauchy 列收敛到值域中的某点，因此需要完备性，或至少需要所产生的像列确实有值域内极限。
+\end{solution}
+
+\begin{solution}{15.21}
+平行结构如下：
+\begin{enumerate}
+ \item 收敛推出 Cauchy：两种准则都用三角不等式把两项经共同极限连接。
+ \item Cauchy 推出有界：固定一个尾项或固定一个删心邻域中的参考点。
+ \item 构造候选极限：数列准则直接用完备性；函数准则先借聚点性选逼近点列，再对其像列使用完备性。
+ \item 推广到全部对象：数列情形把某个收敛子列极限推广到全列；函数情形把参考点列的像极限推广到整个删心邻域。两步都再次用三角不等式。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{15.22}
+在区间定义域中，只检验从左、从右分别单调趋于 \(a\) 的点列已经足够。若极限失败，坏点数列可按距离递减抽取，使其绝对距离单调趋零；再从左右两侧之一抽取无限子列，得到单调趋近点列。
+
+对一般稀疏定义域，仍可从任意坏点列抽取距离严格递减的子列，但点值本身未必单调；然而它必有全在左侧或全在右侧的无限子列，在单侧上距离递减就意味着点值单调。因此在实直线上，只要允许左右两个方向并要求点列严格逼近，检验全部单调逼近点列仍足够。若额外限制为某一种固定单调方向，则会漏掉另一侧。
+\end{solution}
+
+\begin{solution}{15.23}
+\(\mathbf1_{\Q}\) 的振荡来自两个稠密集，选有理列与无理列即可。Thomae 型函数在无理点取零、在约分分母为 \(q\) 的有理点取 \(1/q\)；证明连续点处趋零需要控制有限个小分母有理数，证明有理点处不连续则用无理列。函数 \(\sin(1/x)\) 的振荡来自相位 \(1/x\) 无界，可精确选相位恒落在正峰与负峰的两列。三者依次体现稠密分割、分母分层和高频振荡。
+\end{solution}
+
+\begin{solution}{15.24}
+设 \(Y\) 序列完备。由局部 Cauchy 条件选择 \(x_n\to a\)，像列 \(f(x_n)\) 是 \(Y\) 中的 Cauchy 列，故按序列完备性收敛到某个 \(L\in Y\)。随后用
+\[
+ d(f(x),L)\le d(f(x),f(x_{n_0}))+d(f(x_{n_0}),L)
+\]
+把参考列极限推广到整个删心邻域。证明只涉及序列，因此序列完备足够；在度量空间中，完备与序列完备等价。
+\end{solution}

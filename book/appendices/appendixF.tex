@@ -1,0 +1,407 @@
+\chapter{代数结构与复数预备}
+\label{app:algebra-complex}
+\label{chap:appendix-algebra-complex}
+
+\begin{chapterguide}
+后续复分析、微分几何、泛函分析和方程理论会反复使用群、环、商结构、复数、张量与外代数。本附录只建立阅读这些章节所需的最小代数语言，重点放在运算良定义、同态与商对象。需要较深代数或复分析证明的结论明确标注依赖。
+\end{chapterguide}
+
+\section{群、环、域与同态的最小知识}
+
+\begin{definition}[群]
+集合 \(G\) 连同二元运算 \((g,h)\mapsto gh\) 称为群，如果运算结合，存在单位元 \(e\)，且每个 \(g\in G\) 有逆元 \(g^{-1}\)。若 \(gh=hg\) 对所有元素成立，则称为交换群。
+\end{definition}
+
+单位元和逆元由公理自动唯一。子集 \(H\subset G\) 若含单位元、对乘法和逆元封闭，则称为子群，记作 \(H\le G\)。交换群常把运算写成加法，单位元写成 \(0\)，逆元写成 \(-g\)。
+
+\begin{example}
+\((\Z,+)\)、\((\R^n,+)\) 是交换群；非零实数在乘法下成交换群；可逆 \(n\times n\) 矩阵组成一般非交换群 \(\operatorname{GL}_n(F)\)。
+\end{example}
+
+\begin{definition}[环与域]
+集合 \(R\) 带有加法与乘法。若 \((R,+)\) 是交换群，乘法结合并对加法分配，则称 \(R\) 为环。本书默认环有乘法单位元 \(1\)，环同态保持 \(1\)。若乘法交换，称交换环。交换环中每个非零元素均可逆时称为域。
+\end{definition}
+
+\(\Z\) 是交换环而不是域；\(\Q,\R,\C\) 是域；矩阵环 \(M_n(F)\) 在 \(n\ge2\) 时非交换，并含非零零因子。
+
+\begin{definition}[同态、核与像]
+群同态 \(\varphi:G\to H\) 满足
+\[
+ \varphi(g_1g_2)=\varphi(g_1)\varphi(g_2).
+\]
+环同态还保持加法、乘法和单位元。定义
+\[
+ \ker\varphi=\{g:\varphi(g)=e_H\},\qquad
+ \operatorname{im}\varphi=\{\varphi(g):g\in G\}.
+\]
+双射同态称为同构。
+\end{definition}
+
+\begin{proposition}
+群同态保持单位元与逆元；其核是正规子群，像是子群。环同态的核是理想，像是子环。群同态为单射当且仅当其核只有单位元。
+\end{proposition}
+
+\begin{proof}
+由
+\[
+ \varphi(e)=\varphi(e)^2
+\]
+在群中消去得 \(\varphi(e)=e\)，继而
+\[
+ e=\varphi(gg^{-1})=\varphi(g)\varphi(g^{-1})
+\]
+给出逆元保持。核与像的封闭性直接验证。对任意 \(g\in G,k\in\ker\varphi\)，
+\[
+ \varphi(gkg^{-1})=e,
+\]
+故核正规。若 \(\varphi\) 单射，则 \(\varphi(g)=e=\varphi(e)\) 只可能在 \(g=e\) 时发生，所以核平凡；反之，\(\varphi(g)=\varphi(h)\) 蕴含 \(h^{-1}g\in\ker\varphi\)，故 \(g=h\)。
+\end{proof}
+
+\begin{definition}[理想]
+交换环 \(R\) 的加法子群 \(I\) 若满足
+\[
+ r\in R,\ a\in I\Longrightarrow ra\in I,
+\]
+则称 \(I\) 为理想，记作 \(I\lhd R\)。理想是构造环商所需的封闭条件。
+\end{definition}
+
+\section{商结构与同构定理的基本形式}
+
+设 \(N\) 是群 \(G\) 的正规子群。左陪集集合
+\[
+ G/N=\{gN:g\in G\}
+\]
+上定义
+\[
+ (gN)(hN)=(gh)N.
+\]
+正规性保证结果不依赖代表元。
+
+\begin{theorem}[群的第一同构定理]
+若 \(\varphi:G\to H\) 是群同态，则映射
+\[
+ \overline\varphi:G/\ker\varphi\to\operatorname{im}\varphi,\qquad
+ g\ker\varphi\longmapsto\varphi(g)
+\]
+是群同构。
+\end{theorem}
+
+\begin{proof}
+若 \(g\ker\varphi=h\ker\varphi\)，则 \(h^{-1}g\in\ker\varphi\)，故 \(\varphi(g)=\varphi(h)\)，所以映射良定义。又有
+\[
+ \overline\varphi((g\ker\varphi)(h\ker\varphi))
+ =\varphi(gh)=\varphi(g)\varphi(h),
+\]
+故它保持乘法；陪域取为 \(\operatorname{im}\varphi\)，所以它满射到像。若 \(\overline\varphi(g\ker\varphi)=e\)，则 \(g\in\ker\varphi\)，该陪集就是商群单位元，故映射单射。
+\end{proof}
+
+环版本完全平行。若 \(I\lhd R\)，在加法陪集上定义
+\[
+ (r+I)+(s+I)=(r+s)+I,\qquad
+ (r+I)(s+I)=rs+I.
+\]
+
+\begin{theorem}[环的第一同构定理]
+若 \(\varphi:R\to S\) 是环同态，则
+\[
+ R/\ker\varphi\cong\operatorname{im}\varphi.
+\]
+\end{theorem}
+
+\begin{proof}
+定义
+\[
+ \overline\varphi:R/\ker\varphi\longrightarrow\operatorname{im}\varphi,
+ \qquad r+\ker\varphi\longmapsto\varphi(r).
+\]
+若两个陪集相等，则 \(r-s\in\ker\varphi\)，从而 \(\varphi(r)=\varphi(s)\)，故映射良定义。由环同态性质，
+\[
+ \overline\varphi((r+K)+(s+K))=\varphi(r)+\varphi(s),
+ \qquad
+ \overline\varphi((r+K)(s+K))=\varphi(r)\varphi(s),
+\]
+其中 \(K=\ker\varphi\)。因此它是环同态，并按陪域定义满射。若 \(\overline\varphi(r+K)=0\)，则 \(r\in K\)，所以 \(r+K=K\)；核平凡说明它单射，故为环同构。
+\end{proof}
+
+\begin{example}
+映射 \(\varphi:\Z\to\Z/n\Z\)、\(k\mapsto[k]\) 的核为 \(n\Z\)，故
+\[
+ \Z/n\Z\cong\operatorname{im}\varphi=\Z/n\Z.
+\]
+更有内容的例子是求值同态
+\[
+ \operatorname{ev}_a:F[x]\to F,\qquad p\mapsto p(a).
+\]
+其核为理想 \((x-a)\)，并且满射，所以
+\[
+ F[x]/(x-a)\cong F.
+\]
+\end{example}
+
+\begin{remark}[商对象的核对顺序]
+构造商结构应依次验证：等价关系；运算对代表元选择无关；商运算满足公理；自然投影是同态；所需泛性质或同构。省略第二步会使后续公式没有确定含义。
+\end{remark}
+
+\section{复数域、复向量空间与复化}
+
+\begin{definition}[复数]
+复数写作 \(z=x+iy\)，其中 \(x,y\in\R\)、\(i^2=-1\)。运算为
+\[
+ (x+iy)+(u+iv)=(x+u)+i(y+v),
+\]
+\[
+ (x+iy)(u+iv)=(xu-yv)+i(xv+yu).
+\]
+\end{definition}
+
+定义实部、虚部、共轭与模：
+\[
+ \Re z=x,\qquad \Im z=y,\qquad
+ \overline z=x-iy,\qquad
+ \abs z=\sqrt{x^2+y^2}.
+\]
+
+\begin{proposition}
+对 \(z,w\in\C\)，
+\[
+ \overline{z+w}=\overline z+\overline w,\qquad
+ \overline{zw}=\overline z\,\overline w,
+\]
+\[
+ z\overline z=\abs z^2,\qquad
+ \abs{zw}=\abs z\,\abs w,\qquad
+ \abs{z+w}\le\abs z+\abs w.
+\]
+若 \(z\ne0\)，则
+\[
+ z^{-1}=\frac{\overline z}{\abs z^2}.
+\]
+\end{proposition}
+
+\begin{proof}
+共轭公式直接展开。乘法模公式由
+\[
+ \abs{zw}^2=zw\overline{zw}
+ =z\overline z\,w\overline w
+\]
+和非负平方根唯一性得到。三角不等式由
+\[
+ \abs{z+w}^2
+ =\abs z^2+\abs w^2+2\Re(z\overline w)
+ \le(\abs z+\abs w)^2
+\]
+得到，其中 \(\Re(z\overline w)\le\abs z\,\abs w\) 可由坐标 Cauchy--Schwarz 不等式验证。逆元公式由 \(z\overline z=\abs z^2\) 得到。
+\end{proof}
+
+每个非零复数可写成极形式
+\[
+ z=r(\cos\theta+i\sin\theta)=re^{i\theta},
+\qquad r=\abs z>0.
+\]
+辐角 \(\theta\) 只确定到 \(2\pi\Z\)。乘法使模相乘、辐角相加；由 de Moivre 公式，
+\[
+ (re^{i\theta})^n=r^ne^{in\theta}.
+\]
+
+\begin{proposition}[复数的 \(n\) 次根]
+若 \(w=\rho e^{i\phi}\ne0\)，则方程 \(z^n=w\) 有恰好 \(n\) 个不同根：
+\[
+ z_k=\rho^{1/n}
+ e^{i(\phi+2\pi k)/n},
+ \qquad k=0,\ldots,n-1.
+\]
+\end{proposition}
+
+\begin{proof}
+直接计算得 \(z_k^n=\rho e^{i(\phi+2k\pi)}=w\)。若 \(z_j=z_k\)，则
+\(e^{2\pi i(j-k)/n}=1\)，从而 \(n\mid(j-k)\)；在 \(0\le j,k<n\) 时只能有 \(j=k\)，故这些根互异。反之，若 \(z=re^{i\theta}\) 满足 \(z^n=w\)，则 \(r^n=\rho\) 且 \(n\theta-\phi\in2\pi\Z\)，所以 \(z\) 必为上述某个 \(z_k\)。
+\end{proof}
+
+\begin{definition}[复向量空间与复化]
+复向量空间允许标量来自 \(\C\)。若 \(V\) 是实向量空间，其复化可写为
+\[
+ V_\C=V\oplus iV,
+\]
+其中
+\[
+ (a+ib)(v+iw)=(av-bw)+i(bv+aw).
+\]
+实线性映射 \(T:V\to W\) 唯一延拓为复线性映射
+\[
+ T_\C(v+iw)=T(v)+iT(w).
+\]
+\end{definition}
+
+复化常用于把实矩阵的共轭特征值、振荡解和频率分解放在统一标量域中。若问题最终要求实对象，还需核对复共轭对称性。
+
+\section{多项式、形式幂级数与代数基本定理}
+
+域 \(F\) 上的多项式环记为 \(F[x]\)。多项式
+\[
+ p(x)=a_0+a_1x+\cdots+a_nx^n,\qquad a_n\ne0,
+\]
+的次数为 \(n\)。零多项式的次数通常不定义或约定为 \(-\infty\)，使用时需说明。
+
+\begin{theorem}[带余除法]
+若 \(f,g\in F[x]\) 且 \(g\ne0\)，则存在唯一 \(q,r\in F[x]\)，使
+\[
+ f=qg+r,\qquad \deg r<\deg g
+\]
+（允许 \(r=0\)）。
+\end{theorem}
+
+\begin{proof}
+按 \(f\) 与 \(g\) 的最高项逐次消去构造 \(q\)，次数每步下降，有限步终止。若另有 \(f=q'g+r'\)，则
+\[
+ (q-q')g=r'-r.
+\]
+若 \(q\ne q'\)，左侧次数至少为 \(\deg g\)，右侧次数小于 \(\deg g\)，矛盾，故唯一。
+\end{proof}
+
+\begin{corollary}[因式定理]
+\[
+ p(a)=0\quad\Longleftrightarrow\quad(x-a)\mid p(x).
+\]
+因此域上非零 \(n\) 次多项式至多有 \(n\) 个不同根。
+\end{corollary}
+
+\begin{theorem}[代数基本定理]
+每个非常值复系数多项式在 \(\C\) 中至少有一个根；等价地，每个 \(n\) 次复多项式可分解为
+\[
+ p(z)=a_n\prod_{k=1}^{n}(z-z_k),
+\]
+其中根按重数计。
+\end{theorem}
+
+\begin{remark}[证明依赖]
+代数基本定理的完整证明安排在第七编复分析。常见证明使用 Liouville 定理、辐角原理或拓扑度；在这些工具建立前，本附录只记录准确陈述和由它推出的代数后果，不把定理当作前三编内部结果。
+\end{remark}
+
+实系数多项式的非实根成共轭对。结合代数基本定理，它可在 \(\R[x]\) 中分解为一次因子与判别式为负的二次因子之积。
+
+\begin{definition}[形式幂级数]
+形式幂级数
+\[
+ A(x)=\sum_{n=0}^{\infty}a_nx^n
+\]
+是系数序列的代数记号，不预设任何收敛。加法逐项定义，乘法为 Cauchy 卷积：
+\[
+ \left(\sum_{n\ge0}a_nx^n\right)
+ \left(\sum_{n\ge0}b_nx^n\right)
+ =
+ \sum_{n\ge0}\left(\sum_{k=0}^na_kb_{n-k}\right)x^n.
+\]
+\end{definition}
+
+内层和有限，所以乘法在纯代数层面良定义。形式级数可逐项形式求导：
+\[
+ \left(\sum_{n\ge0}a_nx^n\right)'
+ =\sum_{n\ge1}na_nx^{n-1}.
+\]
+形式恒等式与函数恒等式必须区分；把 \(x\) 代成数值后能否运算，取决于收敛半径等分析条件。
+
+\begin{proposition}
+形式幂级数 \(A(x)\in F[[x]]\) 可逆，当且仅当常数项 \(a_0\ne0\)。
+\end{proposition}
+
+\begin{proof}
+若 \(A(x)B(x)=1\)，常数项满足 \(a_0b_0=1\)，故 \(a_0\ne0\)。反之，递归令
+\[
+ b_0=a_0^{-1},\qquad
+ b_n=-a_0^{-1}\sum_{k=1}^na_kb_{n-k},
+\]
+便使乘积的零次系数为 \(1\)、每个正次系数为 \(0\)。
+\end{proof}
+
+\section{外代数与张量代数记号}
+
+设 \(V,W\) 是域 \(F\) 上向量空间。双线性映射 \(B:V\times W\to U\) 对每个变量分别线性。张量积 \(V\otimes W\) 连同双线性映射
+\[
+ (v,w)\longmapsto v\otimes w
+\]
+满足泛性质：每个双线性映射 \(B:V\times W\to U\) 唯一分解为线性映射
+\[
+ \widetilde B:V\otimes W\to U,\qquad
+ \widetilde B(v\otimes w)=B(v,w).
+\]
+
+纯张量满足
+\[
+ (v_1+v_2)\otimes w=v_1\otimes w+v_2\otimes w,
+\]
+\[
+ v\otimes(w_1+w_2)=v\otimes w_1+v\otimes w_2,\qquad
+ (\lambda v)\otimes w=v\otimes(\lambda w).
+\]
+一般张量是有限个纯张量之和，不必本身是单个纯张量。
+
+\begin{definition}[张量代数]
+\[
+ T(V)=\bigoplus_{k=0}^{\infty}V^{\otimes k},
+\qquad V^{\otimes0}=F.
+\]
+乘法由张量拼接给出。它是包含 \(V\) 的自由结合代数。
+\end{definition}
+
+\begin{definition}[外代数]
+外代数 \(\Lambda(V)\) 是张量代数对关系
+\[
+ v\otimes v=0\qquad(v\in V)
+\]
+取商得到的代数。像记为楔积 \(v\wedge w\)。当底域特征不为 \(2\) 时，
+\[
+ v\wedge w=-w\wedge v.
+\]
+\end{definition}
+
+若 \(e_1,\ldots,e_n\) 是 \(V\) 的基，则
+\[
+ e_{i_1}\wedge\cdots\wedge e_{i_k},
+\qquad i_1<\cdots<i_k,
+\]
+构成 \(\Lambda^k(V)\) 的基，所以
+\[
+ \dim\Lambda^k(V)=\binom nk,\qquad
+ \dim\Lambda(V)=2^n.
+\]
+最高次外幂 \(\Lambda^n(V)\) 为一维，行列式可理解为线性映射在最高次外幂上诱导的标量。
+
+\begin{example}[二维面积因子]
+若 \(V\) 有基 \(e_1,e_2\)，且
+\[
+ v=ae_1+be_2,\qquad w=ce_1+de_2,
+\]
+则
+\[
+ v\wedge w=(ad-bc)e_1\wedge e_2.
+\]
+系数正是二维行列式。
+\end{example}
+
+\begin{remark}
+本节只固定代数记号。张量场、微分形式、外微分、拉回与积分安排在微分几何卷；拓扑张量积和完备张量范数安排在泛函分析卷。
+\end{remark}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\begin{enumerate}[label=\textbf{F.\arabic*.}]
+ \exerciseitem{F.1} \mustdo 证明群的单位元和每个元素的逆元唯一。
+ \exerciseitem{F.2} \mustdo 证明群同态保持单位元和逆元，并证明单射等价于核平凡。
+ \exerciseitem{F.3} \mustdo 验证环同态的核是理想、像是子环。
+ \exerciseitem{F.4} \mustdo 证明正规性正是陪集乘法良定义所需的条件。
+ \exerciseitem{F.5} \mustdo 完整证明群的第一同构定理。
+ \exerciseitem{F.6} \mustdo 对求值同态 \(F[x]\to F\) 证明核为 \((x-a)\)，并写出对应商同构。
+ \exerciseitem{F.7} \mustdo 证明复共轭、模乘法和复三角不等式。
+ \exerciseitem{F.8} \mustdo 求 \(z^n=1\) 的全部根，并证明它们组成乘法循环群。
+ \exerciseitem{F.9} \mustdo 证明实线性映射的复化延拓存在且唯一。
+ \exerciseitem{F.10} \mustdo 证明带余除法和因式定理。
+ \exerciseitem{F.11} \mustdo 证明域上非零 \(n\) 次多项式至多有 \(n\) 个不同根。
+ \exerciseitem{F.12} \mustdo 假设代数基本定理，证明实多项式可分解为实一次因子与不可约实二次因子。
+ \exerciseitem{F.13} \mustdo 验证形式幂级数 Cauchy 乘积结合律的每个系数只涉及有限和。
+ \exerciseitem{F.14} \mustdo 证明形式幂级数可逆当且仅当常数项非零，并计算 \(1/(1-x)\) 的形式逆。
+ \exerciseitem{F.15} \mustdo 说明形式恒等式 \((1-x)\sum_{n\ge0}x^n=1\) 与数值级数收敛是两个不同命题。
+ \exerciseitem{F.16} \mustdo 用张量积泛性质说明双线性型等价于 \(V\otimes V\) 上的线性泛函。
+ \exerciseitem{F.17} \mustdo 证明外积反对称，并计算 \(\dim\Lambda^k(F^n)\)。
+ \exerciseitem{F.18} \projectdo\ 【前置：附录B与本附录；预计用时：90分钟】用最高次外幂重建行列式的乘法性、换基公式和定向体积解释。
+\end{enumerate}

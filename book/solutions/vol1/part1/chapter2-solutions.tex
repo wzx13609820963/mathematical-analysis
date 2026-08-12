@@ -1,0 +1,224 @@
+\chapter{有序域与实数的完备性公理：习题解答}
+
+\begin{chapterguide}
+本章解答以确界公理为唯一完备性假设，不预先使用\chapterref{chap:consequences-completeness}的 Archimedes 性质。
+\end{chapterguide}
+
+\section*{A组　结构与不等式}
+\addcontentsline{toc}{section}{A组　结构与不等式}
+
+\begin{solution}{2.1}
+由 \(0x=(0+0)x=0x+0x\) 消去 \(0x\)，得 \(0x=0\)。又
+\[
+ x+(-1)x=(1-1)x=0,
+\]
+所以逆元唯一性给出 \((-1)x=-x\)。进而
+\[
+ (-x)(-y)=((-1)x)((-1)y)=(-1)^2xy=xy.
+\]
+\end{solution}
+
+\begin{solution}{2.2}
+由平移相容性，\(x<y\) 两边加 \(-x\) 等价于 \(0<y-x\)。若 \(x<y\) 且 \(u<v\)，则
+\[
+ x+u<y+u<y+v.
+\]
+若 \(c<0\)，则 \(-c>0\)。由 \(x<y\) 乘 \(-c\) 后再取相反数，得到 \(cx>cy\)。
+\end{solution}
+
+\begin{solution}{2.3}
+若 \(x\ge0\)，则 \(x^2\ge0\)；若 \(x<0\)，则 \(-x>0\) 且 \(x^2=(-x)^2>0\)。若 \(x=0\)，平方为零；若 \(x\ne0\)，上述讨论给出 \(x^2>0\)，故逆向也成立。
+\end{solution}
+
+\begin{solution}{2.4}
+\(|x-a|<r\) 等价于 \(-r<x-a<r\)，两端加 \(a\) 即得第一式。反向步骤可逆。把严格不等号改为非严格不等号，同样得到第二式。
+\end{solution}
+
+\begin{solution}{2.5}
+由 \(x=(x-y)+y\) 得 \(|x|-|y|\le|x-y|\)。交换 \(x,y\) 后有 \(|y|-|x|\le|x-y|\)，合并即
+\[
+ \bigl||x|-|y|\bigr|\le|x-y|.
+\]
+当 \(x,y\) 同号或至少一个为零时取等。
+\end{solution}
+
+\begin{solution}{2.6}
+若 \(\C\) 能成为有序域，则 \(1>0\)，故 \(-1<0\)，同时每个平方非负。但 \(i^2=-1<0\)，矛盾。
+\end{solution}
+
+\section*{B组　界与确界}
+\addcontentsline{toc}{section}{B组　界与确界}
+
+\begin{solution}{2.7}
+\begin{enumerate}[label=(\arabic*)]
+ \item \((0,1)\) 的上界全体为 \([1,\infty)\)，下界全体为 \((-\infty,0]\)，上、下确界为 \(1,0\)，没有最大元和最小元。
+ \item \([0,1)\) 的上下界全体和上下确界同上；最小元为 \(0\)，没有最大元。
+ \item 记 \(s=\sqrt2\)。非负数平方保持次序，故集合等于 \([0,s)\)。上界全体为 \([s,\infty)\)，下界全体为 \((-\infty,0]\)，上下确界为 \(s,0\)，最小元为 \(0\)，没有最大元。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{2.8}
+若 \(s,t\) 都是上确界，则 \(s\le t\) 且 \(t\le s\)，故 \(s=t\)。
+
+\(m=\inf A\) 的近似刻画为：\(m\le a\) 对所有 \(a\in A\) 成立；对每个 \(\varepsilon>0\)，存在 \(a_\varepsilon\in A\) 使
+\[
+ m\le a_\varepsilon<m+\varepsilon.
+\]
+若第二项失败，\(m+\varepsilon\) 是更大的下界；反之，任何大于 \(m\) 的下界都与第二项矛盾。
+\end{solution}
+
+\begin{solution}{2.9}
+\(\sup B\) 是 \(B\) 的上界，因而也是 \(A\) 的上界，所以 \(\sup A\le\sup B\)。取 \(A=(0,1)\)、\(B=(0,2)\) 得严格不等；取 \(A=(0,1)\)、\(B=(0,1]\) 得等号。
+\end{solution}
+
+\begin{solution}{2.10}
+令 \(\alpha=\sup A,\ \beta=\sup B\)。对 \(a\in A,b\in B\)，有 \(a+b\le\alpha+\beta\)，故右端是上界。给定 \(\varepsilon>0\)，取
+\[
+ a>\alpha-\varepsilon/2,\qquad b>\beta-\varepsilon/2.
+\]
+则 \(a+b>\alpha+\beta-\varepsilon\)。由上确界近似刻画，结论成立。
+\end{solution}
+
+\begin{solution}{2.11}
+令 \(s=\max\{\sup A,\sup B\}\)。它同时支配 \(A,B\)，故支配 \(A\cup B\)。任何 \(A\cup B\) 的上界都是 \(A,B\) 的上界，因而不小于 \(s\)。下确界式按同一论证反向处理。
+\end{solution}
+
+\begin{solution}{2.12}
+取
+\[
+ A=(0,2),\qquad B=(0,1)\cup(3,4).
+\]
+则 \(A\cap B=(0,1)\)，所以
+\[
+ \sup(A\cap B)=1<2=\min\{\sup A,\sup B\}.
+\]
+\end{solution}
+
+\section*{C组　完备性与项目}
+\addcontentsline{toc}{section}{C组　完备性与项目}
+
+\begin{solution}{2.13}
+若 \(A\ne\varnothing\) 有下界，则 \(-A\) 非空有上界。令 \(s=\sup(-A)\)，逐项变号可知 \(-s\) 是 \(A\) 的最大下界。故确界公理推出下确界原理。
+
+反之，若下确界原理成立，对非空有上界的 \(A\) 取 \(m=\inf(-A)\)，则 \(-m\) 是 \(A\) 的最小上界。
+\end{solution}
+
+\begin{solution}{2.14}
+若 \(d=a-s^2>0\)，可取
+\[
+ h=\frac{d}{2(2s+1+d)}.
+\]
+则 \(0<h<1\) 且 \((2s+1)h<d\)，所以 \((s+h)^2<a\)。若 \(d=s^2-a>0\)，可取
+\[
+ h=\frac{sd}{2(2s^2+d)}.
+\]
+则 \(0<h<s/2\) 且 \(2sh<d\)，所以 \((s-h)^2>a\)。两式只用域运算。
+\end{solution}
+
+\begin{solution}{2.15}
+由 \(0<t<1\) 与 \(b-a>0\)，
+\[
+ 0<t(b-a)<b-a.
+\]
+两边加 \(a\)，得到
+\[
+ a<a+t(b-a)=(1-t)a+tb<b.
+\]
+这只使用有序域的相容性。
+\end{solution}
+
+\begin{solution}{2.16}
+令 \(A=\{a_n:n\in\N\}\)。它非空，且 \(b_1\) 是上界。取 \(s=\sup A\)。固定 \(n\)。若 \(k\le n\)，则 \(a_k\le a_n\le b_n\)；若 \(k\ge n\)，则 \(a_k\le b_k\le b_n\)。所以 \(b_n\) 是 \(A\) 的上界，因而
+\[
+ a_n\le s\le b_n.
+\]
+故 \(s\in\bigcap_n[a_n,b_n]\)。没有长度条件时交集可含多个点。
+\end{solution}
+
+\begin{solution}{2.17}
+令 \(s=\sup A\) 且 \(c<s\)，取 \(\varepsilon=s-c\)。上确界近似刻画给出 \(a\in A\) 使
+\[
+ c=s-\varepsilon<a\le s.
+\]
+\end{solution}
+
+\begin{solution}{2.18}
+域性质用于展开平方、除法及唯一性分解；序性质用于比较平方、保持不等式方向并保证扰动为正；确界公理用于从非空有上界集合取得候选 \(s\)。在 \(\Q\) 中，失败发生在取得 \(s=\sup A\in\Q\) 这一步；其余代数和序估计均合法。
+\end{solution}
+
+\begin{solution}{2.19}
+若 \(M\in\operatorname{UB}(A)\) 且 \(M'\ge M\)，则对每个 \(a\in A\) 有 \(a\le M\le M'\)，故 \(M'\) 仍是上界。下界情形对称。按定义，\(s=\sup A\) 恰好表示
+\[
+ s\in\operatorname{UB}(A),\qquad
+ s\le M\quad(M\in\operatorname{UB}(A)),
+\]
+即 \(s=\min\operatorname{UB}(A)\)。
+\end{solution}
+
+\begin{solution}{2.20}
+若 \(s=\sup A\)，任取 \(t<s\)，令 \(\varepsilon=s-t\)。近似刻画给出 \(a\in A\) 使 \(t<a\le s\)。反之，若 \(s\) 是上界且每个 \(t<s\) 都不是上界，那么任何上界 \(M\) 都不能满足 \(M<s\)，故 \(s\le M\)，所以 \(s\) 是最小上界。
+\end{solution}
+
+\begin{solution}{2.21}
+\(\sup B\) 是 \(B\) 的上界。对每个 \(a\in A\)，选择 \(b\in B\) 使 \(a\le b\le\sup B\)，故 \(\sup B\) 也是 \(A\) 的上界，于是 \(\sup A\le\sup B\)。取 \(A=(0,1)\)、\(B=(0,2)\) 得严格不等；取 \(A=(0,1)\)、\(B=(0,1]\) 得等号。
+\end{solution}
+
+\begin{solution}{2.22}
+对 \(x>0\)，有
+\[
+ 0<\frac{x}{1+x}<1,
+\]
+所以 \(1\) 是上界。给定 \(0<\varepsilon<1\)，取
+\[
+ x>\frac{1-\varepsilon}{\varepsilon},
+\]
+便有 \(x/(1+x)>1-\varepsilon\)；当 \(\varepsilon\ge1\) 时任取 \(x>0\)。由近似刻画，上确界为 \(1\)，且不取得。
+\end{solution}
+
+\begin{solution}{2.23}
+记 \(s=\sup A\)、\(m=\inf A\)。对每个 \(a\in A\)，有 \(a\le s\) 与 \(-a\le-m\)，故
+\[
+ \abs a=\max\{a,-a\}\le\max\{s,-m\}.
+\]
+另一方面，从 \(A\) 中可任意逼近 \(s\)，对应绝对值上界必须不小于 \(s\)；从 \(A\) 中可任意逼近 \(m\)，对应 \(-a\) 可任意逼近 \(-m\)，故绝对值上界也不小于 \(-m\)。因此公式成立。
+\end{solution}
+
+\begin{solution}{2.24}
+若 \(A\) 无最大元，则删除任意有限集 \(F\subset A\) 后上确界不变。给定 \(t<\sup A\)，先取 \(a_1\in A\) 且 \(t<a_1\)。若 \(a_1\in F\)，因 \(a_1\) 不是最大元可再取更大的 \(a_2\in A\)；重复有限次后必得到不在 \(F\) 中的元素，故剩余集合仍从下方逼近原确界。
+
+边界例一：\(A=(0,1)\cup\{2\}\)，删除 \(2\) 后上确界从 \(2\) 变为 \(1\)。边界例二：删除单点集的唯一元素后得到空集，本章的非空确界定义不再适用。
+\end{solution}
+
+\begin{solution}{2.25}
+乘负数反转次序。\(\lambda\inf A\) 是 \(\lambda A\) 的上界。若 \(M\) 是 \(\lambda A\) 的上界，则
+\[
+ \lambda a\le M\quad(a\in A)
+\]
+推出 \(a\ge M/\lambda\)，所以 \(M/\lambda\) 是 \(A\) 的下界，\(M/\lambda\le\inf A\)。再乘 \(\lambda<0\) 得 \(M\ge\lambda\inf A\)。因此
+\[
+ \sup(\lambda A)=\lambda\inf A.
+\]
+\end{solution}
+
+\begin{solution}{2.26}
+基本公式为
+\[
+ \sup(A+c)=\sup A+c,\qquad
+ \sup(\lambda A)=
+ \begin{cases}
+ \lambda\sup A,&\lambda>0,\\
+ \lambda\inf A,&\lambda<0,
+ \end{cases}
+\]
+\[
+ \sup(A\cup B)=\max\{\sup A,\sup B\},\qquad
+ \sup(A+B)=\sup A+\sup B.
+\]
+若 \(A,B\subset[0,\infty)\)，则
+\[
+ \sup(AB)=(\sup A)(\sup B).
+\]
+允许混合符号时，应比较四个端点积；这些端点分别来自 \(A,B\) 的上下确界。
+
+每个公式都先验证候选是上界，再用确界近似元从下方任意逼近候选。乘积公式中符号决定不等式方向，不能省略。
+\end{solution}

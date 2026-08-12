@@ -13,8 +13,7 @@
 *.toc
 
 # PDFs produced beside TeX sources; release copies live in output/pdf/
-/book/main.pdf
-/book/solutions.pdf
+/book/*.pdf
 
 # Temporary render and inspection files
 /tmp/

@@ -1,0 +1,272 @@
+\chapter{极限定义中的误差控制}
+\label{chap:sequence-error-control}
+
+\begin{chapterguide}
+\chapterref{chap:sequence-limit-definition}给出了收敛的量词结构。本章讨论如何从具体表达式构造尾部指标：先把目标误差化为便于控制的量，再由 Archimedes 性质选择整数。重点不在重复极限计算，而在辨认常数依赖、分母下界、参数范围和辅助估计，并据此判断一份证明是否真正满足定义。
+\end{chapterguide}
+
+\section{从目标不等式反向寻找 \texorpdfstring{\(N\)}{N}}
+
+证明 \(a_n\to a\) 时，通常先暂时把 \(n\) 看作正实变量，从目标
+\[
+ \abs{a_n-a}<\varepsilon
+\]
+反向寻找一个足够强且容易验证的条件 \(n>G(\varepsilon)\)。正式证明则恢复正向次序：给定 \(\varepsilon\)，取整数 \(N>G(\varepsilon)\)，再验证所有 \(n\ge N\) 的误差。
+
+\begin{example}
+对 \(a_n=(2n+3)/(n+4)\)，有
+\[
+ \abs{a_n-2}=\frac5{n+4}<\frac5n.
+\]
+要使右端小于 \(\varepsilon\)，取 \(N>5/\varepsilon\) 即可。估计 \(\frac5{n+4}<\frac5n\) 牺牲了一点精度，却使指标选择更透明。
+\end{example}
+
+\begin{proposition}[误差上界原则]
+设 \(r_n\ge0\)、\(r_n\to0\)。若存在 \(N_0\) 使
+\[
+ \abs{a_n-a}\le r_n\qquad(n\ge N_0),
+\]
+则 \(a_n\to a\)。若还知道 \(r_n\le C\phi(n)\)，其中 \(phi(n)\downarrow0\)，则任何保证 \(C\phi(N)<\varepsilon\) 的 \(N\ge N_0\) 都可作为误差起点。
+\end{proposition}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，由 \(r_n\to0\) 取 \(N_1\) 使 \(n\ge N_1\) 时 \(r_n<\varepsilon\)。取 \(N=\max\{N_0,N_1\}\) 即得结论。第二句话只是把 \(r_n\) 的控制进一步显式化。
+\end{proof}
+
+反向推导只是寻找 \(N\) 的草稿过程，不能把“由 \(\abs{a_n-a}<\varepsilon\) 解得 \(n>G(\varepsilon)\)”当作证明，因为前件正是尚待证明的目标。正式论证必须从选定的 \(N\) 出发推出误差不等式。
+
+\section{线性式、有理式与根式数列}
+
+线性分式的极限证明可统一化。设 \(c\ne0\)，则
+\[
+ \frac{an+b}{cn+d}-\frac ac
+ =\frac{bc-ad}{c(cn+d)}.
+\]
+困难只在给分母建立最终的线性下界。
+
+\begin{lemma}[分母远离零]
+若 \(c\ne0\)，则存在 \(N_0\) 使
+\[
+ \abs{cn+d}\ge\frac{\abs c}{2}n\qquad(n\ge N_0).
+\]
+\end{lemma}
+
+\begin{proof}
+由反三角不等式，
+\[
+ \abs{cn+d}\ge\abs c\,n-\abs d.
+\]
+取 \(N_0\ge2\abs d/\abs c\)，右端便不小于 \(abs c n/2\)。
+\end{proof}
+
+所以
+\[
+ \abs{\frac{an+b}{cn+d}-\frac ac}
+ \le\frac{2\abs{bc-ad}}{\abs c^2 n}
+\]
+最终成立。常数依赖于 \(a,b,c,d\)，但不依赖于 \(n\) 或 \(\varepsilon\)。
+
+\begin{example}[根式的有理化]
+证明
+\[
+ \sqrt{n^2+n}-n\longrightarrow\frac12.
+\]
+令 \(t=1/n\)。有
+\[
+ \sqrt{n^2+n}-n=\frac1{\sqrt{1+t}+1}.
+\]
+再计算
+\[
+ \abs{\frac1{\sqrt{1+t}+1}-\frac12}
+ =\frac{t}{2(\sqrt{1+t}+1)^2}\le\frac{t}{8}=\frac1{8n}.
+\]
+因而可取 \(N>1/(8\varepsilon)\)。有理化同时消除了两个大数相减造成的结构遮蔽。
+\end{example}
+
+\begin{example}[分母可能接近零]
+表达式
+\(\frac{a_n}{b_n}\) 的误差不能仅分别估计分子与分母。即使 \(b_n\to0\)，也不能把 \(1/b_n\) 当作有界量。商极限定理必须要求分母极限非零，并先证明分母最终远离零；\chapterref{chap:sequence-limit-properties}将系统处理这一点。
+\end{example}
+
+\section{含参数数列中的一致误差估计}
+
+设参数 \(t\) 取自集合 \(T\)，对每个 \(t\) 有一个数列 \(a_n(t)\) 及候选极限 \(a(t)\)。若对每个 \(\varepsilon>0\)，能选同一个 \(N\) 使
+\[
+ n\ge N, t\in T
+ \quad\Longrightarrow\quad
+ \abs{a_n(t)-a(t)}<\varepsilon,
+\]
+则称该误差估计\term{关于参数 \(t\) 一致}。这里尚不建立函数列一致收敛的一般理论，只记录量词差异。
+
+逐参数收敛的量词为
+\[
+ \forall t\in T\ \forall\varepsilon>0\ \exists N(t,\varepsilon)\ \forall n\ge N,
+\]
+而一致估计把 \(\forall t\) 放到 \(\exists N\) 之后。后一条件更强。
+
+\begin{example}
+对 \(t\in[0,A]\) 与 \(a_n(t)=t/(n+t)\)，有
+\[
+ 0\le a_n(t)\le\frac A n.
+\]
+故取 \(N>A/\varepsilon\) 可同时控制全部 \(t\in[0,A]\)。若允许 \(t\in[0,\infty)\)，则对每个固定 \(n\)，当 \(t\to\infty\) 时 \(t/(n+t)\to1\)，不存在统一的 \(N\)。参数有界性正是该一致估计的条件。
+\end{example}
+
+\begin{proposition}
+若存在与 \(t\) 无关的非负数列 \(r_n\to0\)，使
+\[
+ \abs{a_n(t)-a(t)}\le r_n
+\]
+对所有 \(t\in T\) 和充分大的 \(n\) 同时成立，则误差关于 \(t\) 一致。
+\end{proposition}
+
+该结论中的“充分大”也必须一致；若起点仍依赖 \(t\)，则不能直接取一个统一尾部。
+
+\section{夹逼结构与辅助估计}
+
+\begin{theorem}[夹逼的定义版本]
+设从某项起
+\[
+ b_n\le a_n\le c_n,
+\]
+且 \(b_n\to L\)、\(c_n\to L\)。则 \(a_n\to L\)。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，分别取 \(N_1,N_2\) 使
+\[
+ L-\varepsilon<b_n,\qquad c_n<L+\varepsilon
+\]
+在相应尾部成立。令
+\[
+ N=\max\{N_0,N_1,N_2\}.
+\]
+于是对每个 \(n\ge N\)，有
+\[
+ L-\varepsilon<a_n<L+\varepsilon.
+\]
+\end{proof}
+
+常用的绝对值形式是：若最终有
+\[
+ \abs{a_n-L}\le r_n,\qquad r_n\to0,
+\]
+则 \(a_n\to L\)。辅助估计的任务是把复杂误差压到已知趋零量之下。
+
+\begin{example}
+若 \(\abs{u_n}\le M\)，则
+\[
+ \abs{\frac{u_n}{n}}\le\frac Mn\longrightarrow0.
+\]
+这里不要求 \(u_n\) 本身有极限；有界性与衰减因子已经足够。反例 \(u_n=n\) 表明不能删除统一界。
+\end{example}
+
+\begin{example}[几何衰减快于多项式增长]
+设 \(0<q<1\)、\(p\in\N\)。则 \(n^p q^n\to0\)。取 \(r\) 满足 \(q<r<1\)。由二项式定理，
+\[
+ \left(\frac rq\right)^n
+ \ge \binom n{p+1}\left(\frac rq-1\right)^{p+1},
+\]
+右端最终不小于常数乘 \(n^{p+1}\)。故 \(n^p(q/r)^n\le C/n\) 最终成立，从而
+\[
+ n^pq^n\le C\frac{r^n}{n}\le\frac Cn\to0.
+\]
+证明只需给出某个趋零上界，不必追求最优常数。
+\end{example}
+
+\section{“先取 \texorpdfstring{\(N\)}{N} 后取 \texorpdfstring{\(\varepsilon\)}{epsilon}”等量词错误}
+
+以下三类错误在形式上相近，但失败原因不同。
+
+\begin{enumerate}
+ \item \term{先固定 \(N\)。} 证明开头任取 \(N\)，随后把 \(\varepsilon\) 选成依赖 \(N\) 的量，只说明某个误差可被该尾部控制；极限要求先给任意误差。
+ \item \term{让 \(N\) 依赖于 \(n\)。} 写成“对每个 \(n\) 取 \(N=n\)”没有产生一个控制所有后续项的固定起点。
+ \item \term{用待证结论选择参数。} 从目标误差不等式反向变形可以发现充分条件，但正式证明必须从该充分条件正向验证目标。
+\end{enumerate}
+
+\begin{counterexample}
+对任意固定 \(N\)，都可以取 \(\varepsilon=2/N\)，使 \(1/N<\varepsilon\)。这并未证明任意数列收敛，也没有证明 \(1/n\) 对预先给定的任意 \(\varepsilon\) 从某项起受控。正确证明须在 \(\varepsilon\) 已给定后取 \(N>1/\varepsilon\)。
+\end{counterexample}
+
+含参数问题中还有一种常见错误：先固定 \(t\) 得到 \(N(t,\varepsilon)\)，随后省略参数依赖并声称估计一致。若参数集合无界，所需起点往往随参数无限增大。
+
+\section{从定义证明发散与不存在极限}
+
+要证明 \((a_n)\) 没有有限极限，可以使用以下方法，但每种方法都必须最终落实到定义或已证明定理。
+
+\begin{enumerate}
+ \item 构造两个不同的子列极限；
+ \item 证明数列无界，因为收敛数列必有界；
+ \item 对任意候选 \(a\) 找到统一的失败尺度 \(\varepsilon_0(a)>0\)；
+ \item 证明若存在极限便与某个最终性质矛盾。
+\end{enumerate}
+
+\begin{example}
+数列 \(a_n=n\sin(n\pi/2)\) 发散。指标 \(n=4k\) 的子列恒为 \(0\)，而 \(n=4k+1\) 的子列等于 \(4k+1\)，无界。它既没有有限极限，也没有正、负无穷极限。
+\end{example}
+
+\begin{proposition}
+若实数列存在有限极限，则它有界。
+\end{proposition}
+
+\begin{proof}
+对 \(\varepsilon=1\) 取 \(N\)，尾部满足
+\(\abs{a_n}\le\abs a+1\)。把前 \(N-1\) 项的有限个绝对值与 \(abs a+1\) 取最大值，即得全列界。
+\end{proof}
+
+无界性只是发散的充分条件，不是必要条件；\((-1)^n\) 有界而发散。类似地，不趋于 \(+\infty\) 不能推出有有限极限。
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+误差证明的规范流程是：化简差值、建立不依赖尾部指标的常数和分母下界、由目标误差确定 \(N\)，最后正向验证。参数问题必须标明 \(N\) 是否允许依赖参数。夹逼和辅助上界把复杂表达式归约到趋零误差；发散证明则要给出固定失败尺度或可验证的结构障碍。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按III级常规章配置，共20道编号题，含34个独立训练单元，建议总用时4至5小时。\exerciserange{8.1}{8.13}为核心必做范围。
+
+\subsection*{A组　误差估计}
+\begin{enumerate}[label=\textbf{8.\arabic*.}]
+ \exerciseitem{8.1} \mustdo 对 \(a_n=(5n-2)/(3n+7)\) 从定义证明极限为 \(5/3\)，并给出 \(N(\varepsilon)\)。
+ \exerciseitem{8.2} \mustdo 从定义证明 \((n^2+1)/(n^2+n)\to1\)。
+ \exerciseitem{8.3} \mustdo 证明 \(\sqrt{n^2+3n}-n\to3/2\)，要求给出显式误差上界。
+ \exerciseitem{8.4} \mustdo 若 \(p(n),q(n)\) 是同次数多项式且 \(q\) 的首项系数非零，用误差估计证明 \(p(n)/q(n)\) 趋于首项系数之比。
+ \exerciseitem{8.5} \mustdo 设 \(\abs{u_n}\le M\)。证明 \(u_n/n^\alpha\to0\)（\(alpha>0\)），并说明 \(N\) 对 \(M,\alpha\) 的依赖。
+ \exerciseitem{8.6} \mustdo 证明若 \(0<q<1\)，则 \(q^n\to0\)，不得引用级数收敛。
+\end{enumerate}
+
+\subsection*{B组　参数与夹逼}
+\begin{enumerate}[label=\textbf{8.\arabic*.},resume]
+ \exerciseitem{8.7} \mustdo 对 \(t\in[-A,A]\) 证明 \(t/(n+t^2)\to0\) 的误差可关于 \(t\) 一致选择。
+ \exerciseitem{8.8} \mustdo 证明 \(t^n\to0\) 对每个固定 \(t\in[0,1)\) 成立，但在整个 \([0,1)\) 上不能统一选择 \(N\)。
+ \exerciseitem{8.9} \mustdo 若 \(0\le a_n\le b_n\) 且 \(b_n\to0\)，从定义证明 \(a_n\to0\)。
+ \exerciseitem{8.10} \mustdo 设 \(\abs{a_n}\le n^2\)、\(0<q<1\)。证明 \(a_nq^n\to0\)。
+ \exerciseitem{8.11} \mustdo 证明
+ \[
+ \frac1{n+1}+\frac1{n+2}+\cdots+\frac1{2n}\longrightarrow\log2
+ \]
+不能在当前章节由已有结果直接完成；指出可以严格证明的上下界及尚缺的理论。
+ \exerciseitem{8.12} \mustdo 找出并修正下述证明的量词错误：“给定 \(N\)，取 \(\varepsilon=1/N\)，则 \(n>N\) 时 \(1/n<\varepsilon\)，故 \(1/n\to0\)。”
+ \exerciseitem{8.13} \mustdo 证明若对每个参数 \(t\) 有 \(\abs{a_n(t)-a(t)}\le C(t)/n\)，这一般不足以得到参数一致估计；构造 \(C(t)\) 无界的例子。
+\end{enumerate}
+
+\subsection*{C组　发散与项目}
+\begin{enumerate}[label=\textbf{8.\arabic*.},resume]
+ \exerciseitem{8.14} \mustdo 用无界性证明 \(a_n=n+\sin n\) 没有有限极限，并直接证明它趋于 \(+\infty\)。
+ \exerciseitem{8.15} \mustdo 用两个子列证明 \(\sin(n\pi/2)\) 发散。
+ \exerciseitem{8.16} \mustdo 构造有界发散数列，使其相邻两项之差趋于 \(0\)。
+ \exerciseitem{8.17} \projectdo\ 【前置：二项式定理；预计用时：60分钟】对任意 \(p>0\)、\(0<q<1\)，证明 \(n^p q^n\to0\)。允许先处理整数 \(p\)，再比较一般 \(p\)。
+ \exerciseitem{8.18} \optionaldo 设 \(a_n\ge0\) 且 \(a_{n+1}/a_n\le q<1\) 最终成立。证明 \(a_n\to0\)，并给出几何误差界。
+ \exerciseitem{8.19} \optionaldo 若 \(\abs{a_n-a}\le r_n+s_n\)，其中 \(r_n,s_n\to0\)，证明 \(a_n\to a\)，并说明 \(\varepsilon/2\) 的作用。
+ \exerciseitem{8.20} \opendo 比较一个精确但复杂的 \(N(\varepsilon)\) 与一个较粗但结构清楚的 \(N(\varepsilon)\)。说明在定性收敛和定量复杂度问题中选择标准为何不同。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{8.3}：有理化后再与 \(3/2\) 作差。
+ \item \exerciseref{8.6}：取整数 \(m\) 使 \(q^{-1}>1+1/m\)，再用 Bernoulli 不等式。
+ \item \exerciseref{8.8}：固定 \(n\) 后令 \(t\) 充分接近 \(1\)。
+ \item \exerciseref{8.11}：当前尚未建立积分或对数的严格定义，可先夹在两个 Riemann 和之间并预留到积分章。
+ \item \exerciseref{8.16}：可考虑 \(a_n=\sin\sqrt n\)。
+\end{itemize}

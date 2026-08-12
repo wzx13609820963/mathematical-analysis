@@ -1,0 +1,180 @@
+\chapter{数列极限的 \texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义：习题解答}
+
+\begin{chapterguide}
+本章解答逐项写明量词顺序。凡给出 \(N\)，均说明它允许依赖哪些量，并验证同一 \(N\) 控制全部后续指标。
+\end{chapterguide}
+
+\section*{A组　定义与量词}
+\addcontentsline{toc}{section}{A组　定义与量词}
+
+\begin{solution}{7.1}
+四个命题依次为
+\[
+\begin{aligned}
+a_n\to a
+&\Longleftrightarrow
+\forall\varepsilon>0\ \exists N\ \forall n\ge N,
+ \abs{a_n-a}<\varepsilon,\\
+a_n\not\to a
+&\Longleftrightarrow
+\exists\varepsilon_0>0\ \forall N\ \exists n\ge N,
+ \abs{a_n-a}\ge\varepsilon_0,\\
+a_n\to+\infty
+&\Longleftrightarrow
+\forall M\in\R\ \exists N\ \forall n\ge N,
+ a_n>M,\\
+a_n\not\to+\infty
+&\Longleftrightarrow
+\exists M_0\in\R\ \forall N\ \exists n\ge N,
+ a_n\le M_0.
+\end{aligned}
+\]
+所有 \(N,n\) 均取自 \(N\)。
+\end{solution}
+
+\begin{solution}{7.2}
+若严格不等式版本成立，给定 \(\varepsilon>0\)，对 \(\varepsilon/2\) 取 \(N\)，便有
+\(\abs{a_n-a}<\varepsilon/2\le\varepsilon\)。反之，若非严格版本成立，对 \(\varepsilon/2\) 取 \(N\)，则
+\(\abs{a_n-a}\le\varepsilon/2<\varepsilon\)。两种定义等价。
+\end{solution}
+
+\begin{solution}{7.3}
+若 \(a_n\to a\)，结论直接来自定义。反之，给定 \(\varepsilon>0\)，由 Archimedes 性质取 \(k\) 使 \(2^{-k}<\varepsilon\)。按假设存在 \(N_k\)，使 \(n\ge N_k\) 时
+\[
+ \abs{a_n-a}<2^{-k}<\varepsilon.
+\]
+故满足完整定义。
+\end{solution}
+
+\begin{solution}{7.4}
+固定任意 \(n\ge N\)。若 \(a_n\ne a\)，令
+\(\varepsilon=\abs{a_n-a}/2>0\)。假设却给出
+\(\abs{a_n-a}<\varepsilon=\abs{a_n-a}/2\)，矛盾。因此每个 \(n\ge N\) 都有 \(a_n=a\)。
+\end{solution}
+
+\begin{solution}{7.5}
+不能。取
+\[
+ a_n=\begin{cases}0,&n\text{ 为偶数},\\1,&n\text{ 为奇数}.
+ \end{cases}
+\]
+点 \(0\) 的每个邻域都含无穷多个偶数项，但取半径 \(1/2\) 时，任何尾部仍含值为 \(1\) 的奇数项，所以没有完整尾部包含在该邻域中，数列不收敛到 \(0\)。
+\end{solution}
+
+\begin{solution}{7.6}
+若 \(P\) 从 \(N_1\) 起成立、\(\Q\) 从 \(N_2\) 起成立，则从
+\(N=\max\{N_1,N_2\}\) 起二者同时成立。
+
+对每个 \(k\in\N\)，令 \(P_k(n)\) 为命题 \(n\ne k\)。它从第 \(k+1\) 项起成立；但不存在 \(N\) 使所有 \(P_k(n)\) 对每个 \(k\) 和每个 \(n\ge N\) 同时成立，因为取 \(k=n=N\) 即失败。
+\end{solution}
+
+\section*{B组　从定义证明}
+\addcontentsline{toc}{section}{B组　从定义证明}
+
+\begin{solution}{7.7}
+计算得
+\[
+ \abs{\frac{3n-1}{2n+5}-\frac32}
+ =\frac{17}{2(2n+5)}<\frac{17}{4n}.
+\]
+给定 \(\varepsilon>0\)，取整数 \(N>17/(4\varepsilon)\)。则 \(n\ge N\) 时右端小于 \(\varepsilon\)，故极限为 \(3/2\)。
+\end{solution}
+
+\begin{solution}{7.8}
+给定 \(\varepsilon>0\)，取整数 \(N>\varepsilon^{-2}\)。若 \(n\ge N\)，则
+\[
+ 0<\frac1{\sqrt n}\le\frac1{\sqrt N}<\varepsilon.
+\]
+可取 \(N=\lfloor\varepsilon^{-2}\rfloor+1\)。
+\end{solution}
+
+\begin{solution}{7.9}
+给定 \(\varepsilon>0\)，取
+\[
+ N>\left(\frac C\varepsilon\right)^{1/p}.
+\]
+则 \(n\ge N\) 时
+\[
+ \abs{a_n-a}\le\frac C{n^p}
+ \le\frac C{N^p}<\varepsilon.
+\]
+因此 \(a_n\to a\)。指标量级为 \(N(\varepsilon)=O(\varepsilon^{-1/p})\)，常数依赖于 \(C,p\)。
+\end{solution}
+
+\begin{solution}{7.10}
+设两列从 \(N_0\) 起相同。有限极限的证明取原列误差起点 \(N_1\)，再令
+\[
+ N=\max\{N_0,N_1\}.
+\]
+若原列趋于 \(+\infty\)，对任意 \(M\) 取越过 \(M\) 的起点 \(N_1\)，同样取最大值；\(-\infty\) 对称。反向交换两列即可。
+\end{solution}
+
+\begin{solution}{7.11}
+任取候选 \(a\in\R\)。若 \(a\ge0\)，对每个 \(N\) 可取奇数 \(n\ge N\)，此时
+\(\abs{(-1)^n-a}=1+a\ge1\)。若 \(a<0\)，取偶数 \(n\ge N\)，则
+\(\abs{1-a}>1\)。因此统一的 \(\varepsilon_0=1\) 满足不收敛到 \(a\) 的否定式。候选 \(a\) 任意，故数列发散。
+\end{solution}
+
+\begin{solution}{7.12}
+给定 \(M\)，取 \(N>M+1\)。若 \(n\ge N\)，则
+\[
+ n+(-1)^n\ge n-1\ge N-1>M,
+\]
+故趋于 \(+\infty\)。对 \((-1)^nn\)，每个尾部含负的奇数项和正的偶数项；取 \(M=0\) 即否定趋于 \(+\infty\)，同样否定趋于 \(-\infty\)。它也不可能有有限极限，因为它无界。
+\end{solution}
+
+\begin{solution}{7.13}
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时
+\(\abs{a_n-a}<\varepsilon\)。严格递增正整数列满足 \(n_k\ge k\)。因此 \(k\ge N\) 时 \(n_k\ge N\)，从而
+\(\abs{a_{n_k}-a}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{7.14}
+枚举 \(\Q=\{q_1,q_2,\ldots\}\)，依次连接有限块
+\[
+ q_1;\quad q_1,q_2;\quad q_1,q_2,q_3;\quad\cdots.
+\]
+所得数列中每个 \(q_j\) 在所有长度至少为 \(j\) 的块中出现，故出现无穷多次。它含恒等于 \(0\) 的子列和恒等于 \(1\) 的子列，所以没有有限极限；同时含无穷多个 \(0\)，否定趋于 \(+\infty\) 和 \(-\infty\)。
+\end{solution}
+
+\section*{C组　结构、反例与项目}
+\addcontentsline{toc}{section}{C组　结构、反例与项目}
+
+\begin{solution}{7.15}
+若对每个 \(\varepsilon>0\)，坏指标集
+\(B_\varepsilon=\{n:\abs{a_n-a}\ge\varepsilon\}\) 有限，则当它非空时取
+\(N=1+\max B_\varepsilon\)，空时取 \(N=1\)。于是 \(n\ge N\) 都不是坏指标，故收敛。
+
+反之，若 \(a_n\to a\)，由定义存在 \(N\) 使坏指标只能位于
+\(\{1,\ldots,N-1\}\)，所以它有限。
+\end{solution}
+
+\begin{solution}{7.16}
+取 \(a_n=0\)，并令 \(b_n=1/n\)。两列在每个指标处不同，但都收敛到 \(0\)。再取 \(c_n=0\)，令
+\[
+ d_n=\begin{cases}1,&n\text{ 为偶数},\\0,&n\text{ 为奇数}.
+ \end{cases}
+\]
+两列在无穷多个偶数指标处不同，\(c_n\) 收敛而 \(d_n\) 由奇偶子列极限不同而发散。
+\end{solution}
+
+\begin{solution}{7.17}
+若 \(E\) 有限，则从某项起 \(\chi_E(n)=0\)，故极限为 \(0\)。若 \(N\setminus E\) 有限，则最终恒为 \(1\)，故极限为 \(1\)。
+
+反之，若 \(\chi_E(n)\to L\)，取 \(\varepsilon=1/3\)。尾部所有项都在
+\((L-1/3,L+1/3)\) 中。该区间不可能同时含 \(0,1\)，所以尾部示性值恒为 \(0\) 或恒为 \(1\)。前者说明 \(E\) 有限，后者说明补集有限；相应极限分别为 \(0,1\)。
+\end{solution}
+
+\begin{solution}{7.18}
+给定 \(M\)，由 \(a_n\to+\infty\) 取 \(N\) 使 \(n\ge N\) 时
+\(a_n>M-c\)。于是 \(a_n+c>M\)。若最终 \(b_n\ge a_n\)，再把该比较成立的起点并入最大值，便有最终 \(b_n>M\)。
+\end{solution}
+
+\begin{solution}{7.19}
+设单调递增列有子列 \(a_{n_k}\to L\)。固定 \(n\)，选 \(k\) 使 \(n_k\ge n\)，则 \(a_n\le a_{n_k}\)。由极限的序保持（也可直接反证）得 \(a_n\le L\)，故原列以上界 \(L\) 控制。对 \(\varepsilon>0\)，取 \(k\) 使 \(L-\varepsilon<a_{n_k}\le L\)。单调性给出 \(n\ge n_k\) 时
+\(L-\varepsilon<a_n\le L\)，所以 \(a_n\to L\)。递减情形对称。
+\end{solution}
+
+\begin{solution}{7.20}
+“最终成立”把只相差有限个指标的命题视为同一尾部信息。因此有限项修改不会影响任何只由尾部量化的极限断言。它仍不能替代误差估计，因为极限同时要求对每个 \(\varepsilon\) 建立一个尾部，而不同误差的起点通常不同；还必须证明这些起点确实存在，并保持量词次序。
+\end{solution}

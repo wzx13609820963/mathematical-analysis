@@ -1,0 +1,30 @@
+# 活术语表
+
+本文件登记编写阶段已经采用的中英文术语。正文首次出现专业术语时仍须解释；附录G的出版版术语对照据本表整理。
+
+| 中文 | 英文 | 本书约定与禁用歧义 |
+|---|---|---|
+| 定义域 | domain | 映射数据的一部分 |
+| 陪域 | codomain | 不写成“值域” |
+| 像、像集 | image, range | `f(A)` 为 `A` 的像；整定义域的像为 `f(X)` |
+| 原像 | preimage, inverse image | `f^{-1}(B)` 不要求可逆 |
+| 逆映射 | inverse map | 只对双射使用 |
+| 可数无限 | countably infinite | 与 `\N` 双射 |
+| 至多可数 | at most countable | 有限或可数无限 |
+| 上确界 | supremum | 与最大元区分；记 `\sup` |
+| 下确界 | infimum | 与最小元区分；记 `\inf` |
+| 完备有序域 | complete ordered field | 本卷主要指满足确界公理的有序域 |
+| Cauchy 列 | Cauchy sequence | 人名保留拉丁字母；不与“基本列”混用 |
+| 聚点 | accumulation point | 函数极限处使用删心邻域定义 |
+| 子列 | subsequence | 指标严格递增 |
+| 上极限、下极限 | limit superior, limit inferior | 分别写 `\limsup`、`\liminf` |
+| 一致连续 | uniformly continuous | 与“连续函数族一致”无关 |
+| 连续模 | modulus of continuity | 定义域非空；允许取 `+\infty` |
+| 紧致 | compact | 当前实线章节先以有限覆盖性质出现，后续度量空间中给一般定义 |
+
+## 风格约定
+
+- “真值域”不作为 `range` 的译名；需要强调像时写“像集”。
+- “可数”不作为正式分类词单独使用。
+- 同一定理的不同版本在名称后写明空间或假设，不用名称相同掩盖条件差异。
+- 外文人名的连字符、重音符号和大小写以通行数学写法为准，如 Bolzano--Weierstrass、Heine--Cantor、Arzelà--Ascoli。

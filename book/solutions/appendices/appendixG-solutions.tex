@@ -1,0 +1,63 @@
+\chapter{历史注记、术语对照与阅读指南：习题解答}
+
+\begin{solution}{G.1}
+以数列极限为例，$a_n\to L$ 的量词结构为
+\[
+ \forall\varepsilon>0\ \exists N\in\N\ \forall n\ge N,
+ \qquad \abs{a_n-L}<\varepsilon.
+\]
+$\varepsilon$ 指定函数值或数列项允许的误差，$N$ 控制数列指标何时进入尾部。函数在 $a$ 点的极限 $f(x)\to L$ 写成
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in D,
+ \qquad 0<\abs{x-a}<\delta\Longrightarrow\abs{f(x)-L}<\varepsilon.
+\]
+其中 $\delta$ 控制自变量与 $a$ 的距离。两种定义都先接受任意精度要求，再选择一个只依赖既定数据和该精度的控制量，最后对整个尾部或整个去心邻域作统一保证。
+\end{solution}
+
+\begin{solution}{G.2}
+定理名称是教学与文献传统的产物，可能纪念推广者、系统整理者或使该结果广为人知的人；同一结果在不同语言传统中也可能有不同名称。因此名称本身既不能确定首次陈述，也不能确定首次严格证明。
+
+核查优先权至少需要两类材料。第一类是带有可核日期的原始文献，如论文、专著、通信或讲义，应核对其中命题的实际表述与证明。第二类是经过文献考证的数学史研究，用来处理版本、术语差异、未发表材料和相互影响。仅引用现代教材中的名称不足以完成核查。
+\end{solution}
+
+\begin{solution}{G.3}
+\emph{Sequence} 是按自然数或其他有序指标排列的对象族，对应德语 \emph{Folge}；\emph{subsequence} 是按严格递增指标抽取出的序列，对应 \emph{Teilfolge}；\emph{series} 是序列各项的形式和或其部分和序列，对应德语 \emph{Reihe}。例如 $(a_n)$ 是序列，$(a_{2n})$ 是子列，而 $\sum_{n=1}^{\infty}a_n$ 是级数。把 \emph{Folge} 与 \emph{Reihe} 混译会把“项的收敛”与“部分和的收敛”混在一起。
+\end{solution}
+
+\begin{solution}{G.4}
+在 $\R$ 中，Heine--Borel 定理和序列刻画给出
+\[
+ \text{紧致}\Longleftrightarrow\text{序列紧致}
+ \Longleftrightarrow\text{闭且有界}.
+\]
+在一般度量空间中，紧致与序列紧致仍等价，但闭且有界通常只是必要条件，不是充分条件。例如无限维赋范空间的闭单位球一般不紧致。
+
+在一般拓扑空间中，紧致通常指每个开覆盖有有限子覆盖；序列紧致与紧致可能互不推出。此时“有界”甚至没有不依赖额外结构的统一定义。因此，只有在明确空间类别后，才能替换这三个表述。
+\end{solution}
+
+\begin{solution}{G.5}
+例如可写：Terence Tao, \emph{Analysis I}, 3rd ed., Springer, 2016。其数字标识另起一行写为
+\[
+ \text{DOI: }\texttt{10.1007/978-981-10-1789-6}.
+\]
+
+版本号区分内容可能不同的修订本；DOI 为特定出版物提供相对稳定的数字标识，避免书名相同或网页迁移造成混淆；访问日期记录读者实际查阅一个可变网页或在线版本的时间。对于具有 DOI 的固定版本，访问日期通常不是核心书目信息；对于持续更新的网页，它则十分重要。
+\end{solution}
+
+\begin{solution}{G.6}
+以“连续函数”为例，一页学习地图可以组织为：
+\[
+ \begin{array}{c}
+ \text{函数极限：去心邻域定义；Heine 定理；振荡函数反例}\\
+ \downarrow\\
+ \text{点态连续：极限值等于函数值；四则运算；可去与跳跃间断点}\\
+ \downarrow\\
+ \text{区间连通性：区间不能分离；介值定理；非区间集合上的反例}\\
+ \downarrow\\
+ \text{紧致性：有限子覆盖；最值定理；开区间上的无界连续函数}\\
+ \downarrow\\
+ \text{一致连续：统一的 }\delta\text{；Heine--Cantor 定理；}x^{-1}\text{ 在 }(0,1)\text{ 上的反例}.
+ \end{array}
+\]
+每个箭头都应注明用途：函数极限给出连续定义；连通性控制连续像的中间值；紧致性把局部控制化为有限个控制；有限化再导出一致连续。微分、积分和函数列的节点只标为“待第四、五编完成后补入”，不提前引用尚未建立的定理。
+\end{solution}

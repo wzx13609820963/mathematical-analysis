@@ -1,0 +1,285 @@
+\chapter{Cauchy 数列与收敛准则：习题解答}
+
+\begin{chapterguide}
+本章解答明确区分 Cauchy 性本身与“Cauchy 列在所在空间中有极限”。后一结论必须标出完备性的使用。
+\end{chapterguide}
+
+\section*{A组　定义与基本性质}
+\addcontentsline{toc}{section}{A组　定义与基本性质}
+
+\begin{solution}{13.1}
+否定式为
+\[
+ \exists\varepsilon_0>0\ \forall N\ \exists m,n\ge N,\quad
+ \abs{a_m-a_n}\ge\varepsilon_0.
+\]
+对 \(a_n=(-1)^n\)，取 \(\varepsilon_0=1\)。任给 \(N\)，在 \(N\) 以后各取一个奇指标和偶指标，相应两项距离为 \(2\ge1\)，故不是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{13.2}
+若 \(a_n\to a\)，对给定 \(\varepsilon>0\) 使
+\(\abs{a_n-a}<\varepsilon/2\) 最终成立。于是任意 \(m,n\) 位于该尾部时，
+\[
+ \abs{a_m-a_n}\le\abs{a_m-a}+\abs{a_n-a}<\varepsilon.
+\]
+\(\varepsilon/2\) 把总误差分给两段距离。
+\end{solution}
+
+\begin{solution}{13.3}
+取 Cauchy 误差 \(1\)，得到 \(N\)。固定第 \(N\) 项，则
+\(\abs{a_n}\le\abs{a_N}+1\) 对 \(n\ge N\) 成立。令
+\[
+ M=\max\{\abs{a_1},\ldots,\abs{a_{N-1}},\abs{a_N}+1\},
+\]
+便控制全部项。
+\end{solution}
+
+\begin{solution}{13.4}
+给定 \(\varepsilon\)，取 \(N\) 控制原列尾部。因 \(n_k\ge k\)，当
+\(k,\ell\ge N\) 时，\(n_k,n_\ell\ge N\)，故
+\(\abs{a_{n_k}-a_{n_\ell}}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{13.5}
+设 \(a_{n_k}\to a\)。给定 \(\varepsilon>0\)，用 Cauchy 性取 \(N\)，使尾部任意两项距离小于 \(\varepsilon/2\)。再取 \(k\) 使
+\(n_k\ge N\) 且 \(\abs{a_{n_k}-a}<\varepsilon/2\)。则对所有 \(n\ge N\)，
+\[
+ \abs{a_n-a}\le\abs{a_n-a_{n_k}}+\abs{a_{n_k}-a}<\varepsilon.
+\]
+\end{solution}
+
+\begin{solution}{13.6}
+若为 Cauchy 列，对 \(\varepsilon/2\) 取尾部，则该尾部所有两点距离小于 \(\varepsilon/2\)，从而其距离集合上确界不超过 \(\varepsilon/2<\varepsilon\)。反之，\(d_N\to0\) 时取 \(d_N<\varepsilon\) 的尾部，任意两项距离均不超过 \(d_N\)。
+\end{solution}
+
+\begin{solution}{13.7}
+取调和部分和 \(H_n\)。相邻差为 \(1/(n+1)\to0\)。但对每个 \(N\)，取
+\(n\ge N\) 并令 \(m=2n\)，则
+\[
+ H_m-H_n=\sum_{k=n+1}^{2n}\frac1k\ge\frac12.
+\]
+所以 Cauchy 否定式可取 \(\varepsilon_0=1/2\)。
+\end{solution}
+
+\section*{B组　运算、判据与不完备性}
+\addcontentsline{toc}{section}{B组　运算、判据与不完备性}
+
+\begin{solution}{13.8}
+和的差由
+\[
+ \abs{(a_m+b_m)-(a_n+b_n)}
+ \le\abs{a_m-a_n}+\abs{b_m-b_n}
+\]
+控制。乘积写成
+\[
+ a_mb_m-a_nb_n=a_m(b_m-b_n)+b_n(a_m-a_n).
+\]
+两列有界，设共同界不超过 \(M\ge1\)，再分别把两个 Cauchy 误差取为 \(\varepsilon/(2M)\)。
+\end{solution}
+
+\begin{solution}{13.9}
+在共同尾部 \(\abs{a_n}\ge\delta\)，于是
+\[
+ \abs{\frac1{a_m}-\frac1{a_n}}
+ =\frac{\abs{a_m-a_n}}{\abs{a_ma_n}}
+ \le\delta^{-2}\abs{a_m-a_n}.
+\]
+原列的 Cauchy 性使右端任意小。
+\end{solution}
+
+\begin{solution}{13.10}
+若 \(m>n\)，
+\[
+ \abs{a_m-a_n}
+ \le\sum_{k=n}^{m-1}2^{-k}<2^{1-n}.
+\]
+给定 \(\varepsilon\)，取 \(N\) 使 \(2^{1-N}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{13.11}
+对 \(m>n\)，三角不等式给出
+\[
+ \abs{a_m-a_n}\le\sum_{k=n}^{m-1}r_k.
+\]
+题设说明右端对所有 \(m>n\) 的上确界随 \(n\) 趋零，所以可用同一个 \(N\) 同时控制全部 \(m,n\ge N\)。
+\end{solution}
+
+\begin{solution}{13.12}
+Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref{13.5}把该子列极限推广为原列极限。反向由\exerciseref{13.2}。完备性通过 Bolzano--Weierstrass 定理进入反向证明。
+\end{solution}
+
+\begin{solution}{13.13}
+\chapterref{chap:rational-defects}估计给出 \(m\ge n\) 时
+\[
+ 0\le a_m-a_n<10^{-n},
+\]
+故为 Cauchy 列。若在 \(\Q\) 中收敛到 \(q\)，由平方极限定理及
+\(a_n^2\to2\) 得 \(q^2=2\)，与 \(\sqrt2\notin\Q\) 矛盾。
+\end{solution}
+
+\begin{solution}{13.14}
+取 \(a_n=1/n\in(0,1)\)。它在 \(\R\) 中收敛到 \(0\)，故是 Cauchy 列；但在子空间 \((0,1)\) 中没有极限，因为实数极限唯一且 \(0\notin(0,1)\)。
+\end{solution}
+
+\begin{solution}{13.15}
+闭区间中的 Cauchy 列在 \(\R\) 中收敛到 \(L\)。由
+\(a\le a_n\le b\) 取极限得 \(a\le L\le b\)，故极限仍在区间内。开区间 \((a,b)\) 若非空，取
+\(a_n=a+(b-a)/(n+1)\)，它是区间中的 Cauchy 列，却收敛到不属于区间的 \(a\)。
+\end{solution}
+
+\begin{solution}{13.16}
+两命题都假。第一项反例为 \((-1)^n\)。第二项仍可用同一数列：它有恒为 \(1\) 的偶数收敛子列，却不是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{13.17}
+设 \((a_n)\) 为 Cauchy 列。给定 \(\varepsilon>0\)，取 \(N\) 使尾部任意两项距离小于 \(\varepsilon\)。于是
+\[
+ \sup_{k\ge N}a_k-\inf_{k\ge N}a_k\le\varepsilon.
+\]
+令 \(N\to\infty\)，得到
+\(\limsup a_n-\liminf a_n=0\)。两者有限是因为 Cauchy 列有界；\chapterref{chap:limsup-liminf}判据遂给出收敛。
+\end{solution}
+
+\section*{C组　结构与项目}
+\addcontentsline{toc}{section}{C组　结构与项目}
+
+\begin{solution}{13.18}
+递归取 \(n_{k+1}>n_k\)，使
+\(\abs{a_m-a_n}<2^{-k}\) 对所有 \(m,n\ge n_k\) 成立。于是相邻抽取项差小于 \(2^{-k}\)。令
+\(d_k=a_{n_{k+1}}-a_{n_k}\)。部分和
+\(\sum_{j=1}^m\abs{d_j}\) 单调且被几何和控制，故收敛；于是
+\[
+ a_{n_k}=a_{n_1}+\sum_{j=1}^{k-1}d_j
+\]
+收敛。再用\exerciseref{13.5}推出原列收敛。此路线使用单调有界收敛，但不使用 Bolzano--Weierstrass。
+\end{solution}
+
+\begin{solution}{13.19}
+若 \(F\) 是完备空间 \(X\) 的闭子集，\(F\) 中 Cauchy 列先在 \(X\) 中收敛，闭性保证极限在 \(F\)。反之，若 \(F\) 完备而 \(x_n\in F\) 在 \(X\) 中收敛到 \(x\)，则它为 Cauchy 列，在 \(F\) 中收敛到某个 \(y\in F\)。母空间极限唯一，故 \(x=y\in F\)，所以 \(F\) 闭。
+\end{solution}
+
+\begin{solution}{13.20}
+取通常实数列 \(a_n=1/n\)，它在通常距离下收敛，故为 Cauchy 列。离散距离定义为
+\[
+ d(x,y)=\begin{cases}0,&x=y,\\1,&x\ne y.\end{cases}
+\]
+取 \(\varepsilon=1/2\)。因 \(1/n\) 的各项互异，任意尾部都有两项距离为 \(1\)，所以不是离散距离下的 Cauchy 列。
+\end{solution}
+
+\begin{solution}{13.21}
+若 \(a_n\) 为 Cauchy 列，给定 \(\varepsilon\)，使
+\(\abs{a_n-b_n}<\varepsilon/3\) 最终成立，并使
+\(\abs{a_m-a_n}<\varepsilon/3\) 对尾部成立。则
+\[
+ \abs{b_m-b_n}
+ \le\abs{b_m-a_m}+\abs{a_m-a_n}+\abs{a_n-b_n}<\varepsilon.
+\]
+反向交换两列。
+\end{solution}
+
+\begin{solution}{13.22}
+有限线性组合由三角不等式和有限个尾部起点取最大值得到。无穷线性组合若逐项选择起点，通常不存在控制全部项的有限最大值；还需绝对可和、一致尾和或其他允许交换求和与极限的条件。
+\end{solution}
+
+\begin{solution}{13.23}
+在 Archimedes 有序域中，确界完备、单调完备、区间套与 Cauchy 完备可按\chapterref{chap:equivalent-completeness}的链条互推。一般度量空间没有序和区间，因而只保留 Cauchy 完备；紧致性或闭球交性质需另作定义，且不再自动等价。非 Archimedes 有序域中，二分宽度未必趋零，等价链也会断裂。
+\end{solution}
+
+\begin{solution}{13.24}
+四个模块为：
+\begin{enumerate}
+ \item 以“差为零列”定义有理 Cauchy 列的等价关系；
+ \item 把 \(q\in\Q\) 嵌入为常值列类，并验证运算与距离保持；
+ \item 用代表列的某个后项在任意误差内逼近其类，证明 \(\Q\) 稠密；
+ \item 对类的 Cauchy 列选择有理代表，并逐步提高精度。沿对角线组成单个有理 Cauchy 列，再证明其类为极限。
+\end{enumerate}
+商运算的良定义性和非零类远离零分别承担域结构中的主要技术步骤。
+\end{solution}
+
+\section*{第二编综合作业}
+\addcontentsline{toc}{section}{第二编综合作业}
+
+\begin{solution}{II.1}
+定义与否定分别见\exerciseref{7.1}。邻域形式为：每个 \(a\) 的开邻域包含某个完整尾部。若只修改前 \(N_0-1\) 项，把极限定义给出的起点与 \(N_0\) 取最大值，后续误差完全相同，故结论不变。
+\end{solution}
+
+\begin{solution}{II.2}
+\[
+ \frac{n+\alpha}{n+\beta}-1=\frac{\alpha-\beta}{n+\beta}.
+\]
+对固定参数，分母最终非零且绝对值与 \(n\) 同阶，所以极限为 \(1\)。若
+\(\abs\alpha\le A,\abs\beta\le B\)，对 \(n\ge2B+1\) 有
+\(\abs{n+\beta}\ge n/2\)，从而统一估计
+\[
+ \abs{\frac{n+\alpha}{n+\beta}-1}
+ \le\frac{2(A+B)}n.
+\]
+取 \(N>\max\{2B,2(A+B)/\varepsilon\}\) 即可。
+\end{solution}
+
+\begin{solution}{II.3}
+线性组合使用三角不等式，乘积使用收敛列有界性，商先由非零分母极限得到尾部下界，绝对值使用反三角不等式，最大值使用
+\(\max(x,y)=(x+y+\abs{x-y})/2\)。删去分母极限非零条件，\(1/(1/n)=n\)；把有限次运算换成随 \(n\) 增长的次数，\((1+1/n)^n\) 不服从固定幂法则；绝对值逆向以 \((-1)^n\) 为反例。
+\end{solution}
+
+\begin{solution}{II.4}
+算术--几何平均给出
+\[
+ a_{n+1}=\frac12\left(a_n+\frac3{a_n}\right)\ge\sqrt3.
+\]
+从第二项起
+\[
+ a_{n+1}-a_n=\frac{3-a_n^2}{2a_n}\le0,
+\]
+故尾列递减并以下界 \(\sqrt3\) 控制。极限 \(L>0\) 满足
+\(L=(L+3/L)/2\)，所以 \(L=\sqrt3\)。进一步计算
+\[
+ a_{n+1}-\sqrt3
+ =\frac{(a_n-\sqrt3)^2}{2a_n},
+\]
+显示误差在靠近根时呈平方衰减。
+\end{solution}
+
+\begin{solution}{II.5}
+收敛子列由二分区间和区间套得到，输出极限与显式区间误差；单调子列由峰指标分类得到，不要求原列有界；趋于上极限的子列由尾部上确界近似性得到，并把极限指定为最大的部分极限。三者分别突出紧致性、全序组合结构和尾部边界。
+\end{solution}
+
+\begin{solution}{II.6}
+周期重复 \(-2,0,1\)。部分极限恰为这三点，上极限为 \(1\)、下极限为 \(-2\)，尾部振幅恒为 \(3\)，所以不是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{II.7}
+收敛蕴含每个子列及进一步子列同趋于 \(L\)，也蕴含上下极限同为 \(L\) 和振幅趋零。每个子列都有进一步子列趋于 \(L\) 可用“坏子列”反证原列收敛。上下极限相等有限由\chapterref{chap:limsup-liminf}判据推出收敛。振幅趋零等价于上下极限之差为零，也推出同一结论。
+\end{solution}
+
+\begin{solution}{II.8}
+令
+\[
+ s_n=\sum_{k=1}^n2^{-k}u_k.
+\]
+则 \(\abs{s_n}\le\sum_{k=1}^n2^{-k}<1\)。若 \(m>n\)，
+\[
+ \abs{s_m-s_n}\le\sum_{k=n+1}^m2^{-k}<2^{-n}.
+\]
+故部分和为 Cauchy 列并收敛，且误差尾界不超过 \(2^{-n}\)。系数的绝对可和性吸收了 \(u_k\) 的振荡，所以 \(u_k\) 无需收敛。
+\end{solution}
+
+\begin{solution}{II.9}
+确界原理先把单调递增有界列的值集上确界识别为极限；左端点单调、右端点单调给出区间套；对有界列反复二分并抽取指标得到 Bolzano--Weierstrass；Cauchy 列有界，从而有收敛子列，再由 Cauchy 性提升为全列收敛。每一步的完整证明分别见第6、10、11、13章。
+\end{solution}
+
+\begin{solution}{II.10}
+同一有理列的 Cauchy 性只比较有理项距离，在 \(\Q,\R\) 中完全相同。在 \(\R\) 中它收敛到 \(\sqrt2\)；在 \(\Q\) 中没有极限。作为 \(\R\) 的子空间，\(\Q\) 不是闭集，缺少的边界点也是其不完备性的见证；\(\R\) 则包含该极限并且完备。
+\end{solution}
+
+\begin{solution}{II.11}
+一个部分极限：取 \(a_n=(-1)^n,b_n=-(-1)^n\)，和恒为0。两个部分极限：取 \(a_n=b_n=(-1)^n\)，和的部分极限为 \(\{-2,2\}\)。三个部分极限：周期安排数对
+\[
+ (a_n,b_n)=(0,0),(0,1),(1,1)
+\]
+并重复；两列各自部分极限均为 \(\{0,1\}\)，和的部分极限为 \(\{0,1,2\}\)。
+\end{solution}
+
+\begin{solution}{II.12}
+“最终性质”忽略有限首项；“完整尾部”表达极限邻域必须同时容纳所有后项；“尾部值集”保留后续可能取值；“尾部确界”压缩其上下边界并产生上下极限；“尾部直径”测量剩余整体振荡并刻画 Cauchy 性。完整尾部可恢复尾部值集，值集可计算确界与直径；只保留确界会丢失内部排列和频率，因而不能反向恢复全部尾部信息。
+\end{solution}

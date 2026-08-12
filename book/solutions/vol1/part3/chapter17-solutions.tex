@@ -1,0 +1,260 @@
+\chapter{连续性与间断点}
+
+\section*{A组　连续性的定义与运算}
+\addcontentsline{toc}{section}{A组　连续性的定义与运算}
+
+\begin{solution}{17.1}
+若 \(a\) 是 \(D\) 的孤立点，存在 \(\delta>0\) 使 \(D\cap(a-\delta,a+\delta)=\{a\}\)。于是满足 \(x\in D\)、\(\abs{x-a}<\delta\) 的点只能是 \(a\)，从而
+\[
+ \abs{f(x)-f(a)}=0<\varepsilon
+\]
+对每个 \(\varepsilon>0\) 成立。
+\end{solution}
+
+\begin{solution}{17.2}
+若 \(a\) 是聚点，连续性条件与删心极限条件只差 \(x=a\)；在该点误差为零，故二者等价。若 \(a\) 是孤立点，连续性自动成立，而删心极限按本书约定不定义，所以等价式只在聚点情形陈述。
+\end{solution}
+
+\begin{solution}{17.3}
+若 \(f\) 在 \(a\) 不连续，则存在 \(\varepsilon_0>0\)，使每个 \(\delta>0\) 中都有 \(x\in D\) 满足
+\[
+ \abs{x-a}<\delta,\qquad\abs{f(x)-f(a)}\ge\varepsilon_0.
+\]
+令 \(\delta=1/n\) 逐项选 \(x_n\)。则 \(x_n\to a\)，但像列与 \(f(a)\) 始终至少相距 \(\varepsilon_0\)，违背序列条件。
+\end{solution}
+
+\begin{solution}{17.4}
+若 \(f,g\) 在 \(a\) 连续，则 \(f-g\) 连续。由
+\[
+ \bigl|\abs u-\abs v\bigr|\le\abs{u-v}
+\]
+知绝对值函数连续，故 \(\abs f\) 连续。再用恒等式
+\[
+ \max\{f,g\}=\frac{f+g+\abs{f-g}}2,\quad
+ \min\{f,g\}=\frac{f+g-\abs{f-g}}2
+\]
+以及代数运算的连续性。
+\end{solution}
+
+\begin{solution}{17.5}
+由 \(f(a)\ne0\) 和连续性，存在邻域使 \(\abs{f(x)}\ge\abs{f(a)}/2\)。于是
+\[
+ \abs{\frac1{f(x)}-\frac1{f(a)}}
+ \le\frac2{\abs{f(a)}^2}\abs{f(x)-f(a)}\to0.
+\]
+因此倒数在 \(a\) 连续。
+\end{solution}
+
+\begin{solution}{17.6}
+量词法：给定 \(\varepsilon>0\)，由 \(f\) 在 \(g(a)\) 连续取 \(\eta>0\)，再由 \(g\) 在 \(a\) 连续取 \(\delta>0\)，使
+\[
+ \abs{x-a}<\delta\Rightarrow\abs{g(x)-g(a)}<\eta
+\Rightarrow\abs{f(g(x))-f(g(a))}<\varepsilon.
+\]
+序列法：\(x_n\to a\) 推出 \(g(x_n)\to g(a)\)，再推出 \(f(g(x_n))\to f(g(a))\)，由序列判据完成。
+\end{solution}
+
+\begin{solution}{17.7}
+若 \(a>0\)，有
+\[
+ \abs{\sqrt x-\sqrt a}
+ =\frac{\abs{x-a}}{\sqrt x+\sqrt a}
+ \le\frac{\abs{x-a}}{\sqrt a},
+\]
+故连续。若 \(a=0\)，给定 \(\varepsilon>0\)，取 \(\delta=\varepsilon^2\)，则 \(x\in[0,\infty)\)、\(\abs{x}<\delta\) 推出 \(\sqrt x<\varepsilon\)。这里使用的是定义域的右侧相对邻域。
+\end{solution}
+
+\begin{solution}{17.8}
+设 \(E\subset D\)，\(a\in E\)。原函数连续性给出的 \(\delta\) 对所有 \(x\in D\) 有效，当然也对较小范围 \(x\in E\) 有效。因此限制函数在 \(a\) 连续。
+\end{solution}
+
+\section*{B组　间断与单调函数}
+\addcontentsline{toc}{section}{B组　间断与单调函数}
+
+\begin{solution}{17.9}
+\((x^2-1)/(x-1)\) 在 \(1\) 处删心极限为 \(2\)，未定义或补成其他值时为可去间断。取整函数在整数 \(m\) 处左右极限为 \(m-1,m\)，是跳跃间断。\(\sin(1/x)\) 在 \(0\) 处单侧极限也不存在，是第二类间断。\(1/x\) 在 \(0\) 处左右分别趋于 \(-\infty,+\infty\)，没有有限单侧极限，按本章分类为第二类。
+\end{solution}
+
+\begin{solution}{17.10}
+例如
+\[
+ f(x)=
+ \begin{cases}
+ ax+1,&x<0,\\
+ x+b,&x\ge0.
+ \end{cases}
+\]
+两段在各自区间连续。交界处左极限为 \(1\)，右极限及点值为 \(b\)，故恰在 \(b=1\) 时连续；参数 \(a\) 不影响交界值匹配。
+\end{solution}
+
+\begin{solution}{17.11}
+令 \(L=\sup\{f(x):x<a\}\)。给定 \(\varepsilon>0\)，由上确界定义取 \(x_0<a\) 使 \(f(x_0)>L-\varepsilon\)。当 \(x_0<x<a\) 时，递增性给出
+\[
+ L-\varepsilon<f(x_0)\le f(x)\le L.
+\]
+故 \(f(x)\to L\)（\(x\to a-\)）。
+\end{solution}
+
+\begin{solution}{17.12}
+若 \(f\) 递减，则
+\[
+ f(a-)=\inf_{x<a}f(x),\qquad
+ f(a+)=\sup_{x>a}f(x),
+\]
+且 \(f(a-)\ge f(a)\ge f(a+)\)。证明与递增情形相同：左侧用下确界逼近，靠近 \(a\) 时函数值被夹在下确界与某个已选左点值之间；右侧对称。
+\end{solution}
+
+\begin{solution}{17.13}
+单调函数在内点的有限左右极限都存在。若递增，则
+\[
+ f(a-)\le f(a)\le f(a+).
+\]
+若左右极限相等为 \(L\)，夹逼给出 \(f(a)=L\)，且双侧极限为 \(L\)，函数连续。因此一旦不连续，必有 \(f(a-)<f(a+)\)，即跳跃间断。递减情形对称。
+\end{solution}
+
+\begin{solution}{17.14}
+设递增函数的两个间断点 \(a<b\)。任取 \(a<x<y<b\)，有 \(f(x)\le f(y)\)。令 \(x\to a+\)、\(y\to b-\)，得
+\[
+ f(a+)\le f(b-).
+\]
+因此开区间 \((f(a-),f(a+))\) 完全位于 \((-\infty,f(b-)]\) 左侧，与 \((f(b-),f(b+))\) 不交。
+\end{solution}
+
+\begin{solution}{17.15}
+对每个间断点 \(a\)，跳跃区间
+\[
+ J_a=(f(a-),f(a+))
+\]
+非空。由有理数稠密性选 \(q_a\in J_a\)。上一题表明不同间断点的跳跃区间不交，故 \(a\mapsto q_a\) 为到 \(\Q\) 的单射。于是内点间断集至多可数，端点至多再添两个。
+\end{solution}
+
+\begin{solution}{17.16}
+给定互异点 \(a_n\in[0,1]\)，取 \(c_n=2^{-n}\)，定义
+\[
+ f(x)=\sum_{a_n\le x}c_n.
+\]
+级数绝对收敛且 \(0\le f(x)\le1\)。若 \(x<y\)，求和指标集合只会增加，故 \(f\) 递增。在 \(a_n\) 处至少出现大小 \(c_n\) 的跳跃；其他项不会抵消，因为所有系数非负。
+\end{solution}
+
+\begin{solution}{17.17}
+枚举 \(\Q\cap(0,1)=\{q_n:n\in\N\}\)，定义
+\[
+ f(x)=\sum_{q_n\le x}2^{-n},\qquad x\in[0,1].
+\]
+它有界递增，并在每个 \(q_n\) 处有至少 \(2^{-n}\) 的跳跃。因此间断点集包含稠密的可数无限集 \(\Q\cap(0,1)\)。事实上恰在这些点跳跃：对非枚举点，利用级数尾部小、前有限项可由小邻域避开，可证明连续。
+\end{solution}
+
+\begin{solution}{17.18}
+设严格递增函数在 \(a\) 有跳跃，即 \(f(a-)<f(a+)\)。区间
+\[
+ (f(a-),f(a+))
+\]
+中的值除可能的 \(f(a)\) 外均不被取得：\(x<a\) 时 \(f(x)\le f(a-)\)，\(x>a\) 时 \(f(x)\ge f(a+)\)。非空区间中去掉至多一点仍有遗漏值，所以像集不具区间性。
+\end{solution}
+
+\section*{C组　逆映射、结构与项目}
+\addcontentsline{toc}{section}{C组　逆映射、结构与项目}
+
+\begin{solution}{17.19}
+设 \(f\) 严格递增，\(y_0=f(x_0)\)。内点处给定 \(\varepsilon>0\)，在 \(I\) 中选
+\[
+ x_0-\varepsilon<x_-<x_0<x_+<x_0+\varepsilon.
+\]
+取
+\[
+ \delta=\min\{y_0-f(x_-),f(x_+)-y_0\}>0.
+\]
+若 \(y\in f(I)\) 且 \(\abs{y-y_0}<\delta\)，单调性给出
+\[
+ x_-<f^{-1}(y)<x_+,
+\]
+故逆像误差小于 \(\varepsilon\)。在左端点只选 \(x_+\)，在右端点只选 \(x_-\)，按像区间的相对邻域证明。递减情形相同。
+\end{solution}
+
+\begin{solution}{17.20}
+若 \(f\) 在某内点 \(a\) 不连续，严格递增性与单调函数定理给出跳跃
+\[
+ f(a-)<f(a+).
+\]
+上一组第18题说明像集会遗漏二者之间的值，与 \(J=f(I)\) 是区间且 \(f\) 满射矛盾。端点处若相对连续性失败，也会在像区间端部造成缺口。故 \(f\) 连续。
+\end{solution}
+
+\begin{solution}{17.21}
+连续双射在一般拓扑空间之间未必有连续逆。但实区间之间的连续单射必严格单调，因此本章定理保证逆连续，不要求区间紧。紧致情形还有更一般的结论：紧空间到 Hausdorff 空间的连续双射是同胚；这将在后续拓扑章节系统处理。
+\end{solution}
+
+\begin{solution}{17.22}
+不可能。以下把“左右极限存在”解释为有限单侧极限。定义点 \(x\) 处的振荡量
+\[
+ \omega_f(x)=\inf_{r>0}
+ \sup\{\abs{f(u)-f(v)}:u,v\in(x-r,x+r)\}.
+\]
+这里邻域包含 \(x\)，所以 \(f\) 在 \(x\) 连续当且仅当 \(\omega_f(x)=0\)。
+
+固定正整数 \(k,m\)，令
+\[
+ E_{k,m}=\{x\in[-m,m]:\omega_f(x)\ge 1/k\}.
+\]
+若 \(E_{k,m}\) 无限，Bolzano--Weierstrass 定理给出互异点列
+\(x_n\in E_{k,m}\) 及 \(x_n\to x\)。抽取子列后可设 \(x_n>x\) 对所有 \(n\) 成立，或 \(x_n<x\) 对所有 \(n\) 成立；两种情形对称。设 \(x_n>x\)。由有限右极限 \(f(x+)\) 存在，存在 \(\delta>0\)，使
+\[
+ x<y<x+\delta
+ \quad\Longrightarrow\quad
+ \abs{f(y)-f(x+)}<\frac1{4k}.
+\]
+充分大的 \(n\) 满足 \(x<x_n<x+\delta\)。再取 \(r_n>0\) 使
+\[
+ (x_n-r_n,x_n+r_n)\subset(x,x+\delta).
+\]
+这个邻域内任意 \(u,v\) 都满足
+\[
+ \abs{f(u)-f(v)}<\frac1{2k},
+\]
+从而 \(\omega_f(x_n)\le1/(2k)\)，与 \(x_n\in E_{k,m}\) 矛盾。故每个 \(E_{k,m}\) 都是有限集。
+
+任一间断点 \(x\) 都有 \(\omega_f(x)>0\)，因而属于某个 \(E_{k,m}\)。所以间断点集包含于可数并
+\[
+ \bigcup_{m=1}^{\infty}\bigcup_{k=1}^{\infty}E_{k,m},
+\]
+至多可数，不可能等于不可数集 \(\R\)。若把“极限存在”允许为扩充实极限，以上有限振荡估计不再直接适用，需另行规定题意。
+\end{solution}
+
+\begin{solution}{17.23}
+对递增函数，给每个间断点选跳跃区间中的有理数即可建立可数注入。若函数值位于 \([m,M]\)，且跳跃大于 \(1/n\)，这些两两不交开区间的总长度不超过 \(M-m\)，故此类点数至多为 \(n(M-m)+1\) 的整数上界。全体间断点是
+\[
+ \bigcup_{n=1}^{\infty}\{a:f(a+)-f(a-)>1/n\},
+\]
+因此也是至多可数集。
+\end{solution}
+
+\begin{solution}{17.24}
+振荡量满足 \(\omega_f(a)=0\) 当且仅当 \(f\) 在 \(a\) 连续（把点值也纳入局部点集）。可去间断在删去或改正点值后邻域函数值振荡趋零；跳跃间断的振荡至少为左右极限差；第二类间断通常表现为某侧振荡不消失或无界。该量把“局部所有函数值能否集中”编码成一个非负数。
+\end{solution}
+
+\begin{solution}{17.25}
+设 \(Z=\{x\in D:f(x)=0\}\)，并设 \(x_n\in Z\)、\(x_n\to x\in D\)。连续性给出
+\[
+ f(x)=\lim_{n\to\infty}f(x_n)=0,
+\]
+故 \(x\in Z\)。由闭集的序列刻画，\(Z\) 在 \(D\) 的相对拓扑中闭。若 \(D=\R\)，它就是实线中的闭集。
+\end{solution}
+
+\begin{solution}{17.26}
+给定 \(\varepsilon>0\)，由一致收敛取 \(N\)，使所有 \(x\) 都满足
+\[
+ \abs{f_N(x)-f(x)}<\varepsilon/3.
+\]
+由 \(f_N\) 在 \(a\) 连续，取 \(\delta>0\)，使 \(\abs{x-a}<\delta\) 时
+\[
+ \abs{f_N(x)-f_N(a)}<\varepsilon/3.
+\]
+于是
+\[
+ \abs{f(x)-f(a)}
+ \le\abs{f(x)-f_N(x)}
+ +\abs{f_N(x)-f_N(a)}
+ +\abs{f_N(a)-f(a)}
+ <\varepsilon.
+\]
+统一选择的 \(N\) 同时控制 \(x\) 与 \(a\)，这是结论成立的关键。
+\end{solution}

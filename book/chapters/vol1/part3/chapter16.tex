@@ -1,0 +1,294 @@
+\chapter{单侧极限、无穷极限与无穷远处极限}
+\label{chap:generalized-function-limits}
+
+\begin{chapterguide}
+有限点处有限极限只是函数极限的一种类型。定义域可能只从一侧接近考察点，函数值可能无界增长，自变量也可能离开每个有界区间。本章分别给出这些极限的量词定义，再用扩充实数和邻域语言统一表述；序列刻画与变量代换说明不同类型之间的联系及其适用边界。
+\end{chapterguide}
+
+\section{左极限与右极限}
+
+\begin{definition}[单侧聚点与单侧极限]
+若对每个 \(\delta>0\)，\(D\cap(a-\delta,a)\ne\varnothing\)，则称 \(a\) 是 \(D\) 的左聚点。此时若
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in D,\qquad
+ a-\delta<x<a\Longrightarrow\abs{f(x)-L}<\varepsilon,
+\]
+则记
+\[
+ \lim_{x\to a-}f(x)=L.
+\]
+右聚点与右极限 \(\lim_{x\to a+}f(x)=L\) 对称定义。
+\end{definition}
+
+单侧极限仍是相对于定义域的。若 \(D=[a,\infty)\)，则只可讨论右极限；若 \(D\) 在 \(a\) 左侧只有有限多个点，\(a\) 不是左聚点。
+
+\begin{example}
+符号函数
+\[
+ \operatorname{sgn}(x)=
+ \begin{cases}
+ -1,&x<0,\\
+ 0,&x=0,\\
+ 1,&x>0
+ \end{cases}
+\]
+满足
+\[
+ \lim_{x\to0-}\operatorname{sgn}(x)=-1,\qquad
+ \lim_{x\to0+}\operatorname{sgn}(x)=1.
+\]
+点值 \(\operatorname{sgn}(0)\) 不参与这两个极限。
+\end{example}
+
+\section{双侧极限存在的充要条件}
+
+\begin{theorem}[双侧与单侧极限]
+设 \(a\) 同时是 \(D\) 的左聚点和右聚点。则
+\[
+ \lim_{x\to a}f(x)=L
+\]
+当且仅当
+\[
+ \lim_{x\to a-}f(x)=L
+ \quad\text{且}\quad
+ \lim_{x\to a+}f(x)=L.
+\]
+\end{theorem}
+
+\begin{proof}
+双侧极限存在时，把量词限制到左半邻域或右半邻域即得两个单侧极限。
+
+反之，给定 \(\varepsilon>0\)，分别取左、右半径 \(\delta_-,\delta_+\)，令
+\[
+ \delta=\min\{\delta_-,\delta_+\}.
+\]
+若 \(0<\abs{x-a}<\delta\)，则 \(x<a\) 或 \(x>a\)，相应单侧估计均给出 \(\abs{f(x)-L}<\varepsilon\)。故双侧极限为 \(L\)。
+\end{proof}
+
+若定义域只在一侧聚集，则双侧删心极限按定义已经等同于该侧的相对极限；上述定理明确要求两侧都是可检验方向，以避免把空缺方向误当成额外条件。
+
+\begin{corollary}
+当两侧均聚集时，双侧有限极限存在当且仅当左右极限都存在且相等。
+\end{corollary}
+
+\section{函数值趋于 \texorpdfstring{\(\pm\infty\)}{infinity}}
+
+\begin{definition}[无穷极限]
+设 \(a\) 是 \(D\) 的聚点。若
+\[
+ \forall M>0\ \exists\delta>0\ \forall x\in D,\qquad
+ 0<\abs{x-a}<\delta\Longrightarrow f(x)>M,
+\]
+则称 \(f(x)\to+\infty\)（\(x\to a\)）。若把末项改为 \(f(x)<-M\)，则称 \(f(x)\to-\infty\)。
+\end{definition}
+
+\(+\infty\) 和 \(-\infty\) 不是实数，因而这里所说的“极限”表示确定的无界趋势，不表示函数值趋近某个实数点。定义中的阈值也可写成任意 \(A\in\R\)；用 \(M>0\) 便于与绝对值估计配合。
+
+\begin{example}
+\[
+ \lim_{x\to0}\frac1{x^2}=+\infty.
+\]
+给定 \(M>0\)，取 \(\delta=1/\sqrt M\)。若 \(0<\abs x<\delta\)，则 \(1/x^2>M\)。
+\end{example}
+
+\begin{counterexample}
+\(1/x\) 在 \(x\to0\) 时没有双侧无穷极限，因为右侧趋于 \(+\infty\)，左侧趋于 \(-\infty\)。它的绝对值趋于 \(+\infty\)，不能据此决定原函数的符号趋势。
+\end{counterexample}
+
+\begin{proposition}[倒数联系]
+若 \(f(x)>0\) 在 \(a\) 的某删心邻域内成立，则
+\[
+ f(x)\to0
+ \quad\Longleftrightarrow\quad
+ \frac1{f(x)}\to+\infty.
+\]
+若 \(f(x)\to+\infty\)，则 \(1/f(x)\to0+\)。
+\end{proposition}
+
+\begin{proof}
+在第一个等价中，把 \(\varepsilon\) 与 \(M\) 通过 \(M=1/\varepsilon\) 对换。第二项中给定 \(\varepsilon>0\)，令阈值 \(M=1/\varepsilon\)，在相应邻域有 \(0<1/f(x)<\varepsilon\)。
+\end{proof}
+
+\section{自变量趋于 \texorpdfstring{\(\pm\infty\)}{infinity}}
+
+\begin{definition}[无穷远处的有限极限]
+设 \(D\subset\R\) 向上无界。若
+\[
+ \forall\varepsilon>0\ \exists A\in\R\ \forall x\in D,\qquad
+ x>A\Longrightarrow\abs{f(x)-L}<\varepsilon,
+\]
+则记 \(\lim_{x\to+\infty}f(x)=L\)。当 \(D\) 向下无界时，以 \(x<A\) 定义 \(x\to-\infty\)。
+\end{definition}
+
+\begin{definition}[无穷远处的无穷极限]
+例如
+\[
+ \lim_{x\to+\infty}f(x)=+\infty
+\]
+表示
+\[
+ \forall M>0\ \exists A\in\R\ \forall x\in D,\qquad
+ x>A\Longrightarrow f(x)>M.
+\]
+其余三种符号组合对称定义。
+\end{definition}
+
+\begin{example}
+对 \(p>0\)，有
+\[
+ x^{-p}\to0\quad(x\to+\infty),\qquad
+ x^p\to+\infty\quad(x\to+\infty).
+\]
+前者给定 \(\varepsilon>0\) 取 \(A>\varepsilon^{-1/p}\)，后者给定 \(M>0\) 取 \(A>M^{1/p}\)。
+\end{example}
+
+当定义域为 \(\N\) 时，\(x\to+\infty\) 的函数极限恰好退化为数列极限。阈值 \(A\) 与数列定义中的指标起点 \(N\) 承担相同作用。
+
+\section{扩充实数中的统一表述}
+
+记
+\[
+ \overline{\R}=\R\cup\{-\infty,+\infty\}.
+\]
+在序拓扑的邻域语言中：
+\begin{itemize}
+ \item 有限点 \(a\) 的邻域含某个 \((a-\delta,a+\delta)\)；
+ \item \(+\infty\) 的邻域含某个 \((A,+\infty]\)；
+ \item \(-\infty\) 的邻域含某个 \([-\infty,A)\)。
+\end{itemize}
+于是 \(x\to\alpha\)、\(f(x)\to\beta\)（\(\alpha,\beta\in\overline{\R}\)）可以统一表述为：
+\[
+ \text{对 \(\beta\) 的每个邻域 \(V\)，存在 \(\alpha\) 的邻域 \(U\)，使}
+\]
+\[
+ x\in D\cap U,\quad x\ne\alpha
+ \Longrightarrow f(x)\in V,
+\]
+其中 \(\alpha=\pm\infty\) 时“\(x\ne\alpha\)”自动成立。
+
+\begin{remark}[无穷运算的限制]
+扩充实数中的次序是明确的，但并非所有代数运算都有定义。例如
+\[
+ +\infty-\infty,\qquad0\cdot\infty,\qquad\frac{\infty}{\infty}
+\]
+都是未定式标签，不是可直接代入的数值。它们提示仅凭各部分的粗略极限还不足以决定组合极限，必须进一步比较增长或衰减。
+\end{remark}
+
+\begin{proposition}[无穷极限的保序]
+若在某个相应尾部或删心邻域内 \(f(x)\le g(x)\)，且 \(f(x)\to+\infty\)，则 \(g(x)\to+\infty\)。若 \(g(x)\to-\infty\)，则 \(f(x)\to-\infty\)。
+\end{proposition}
+
+\begin{proof}
+对任意 \(M>0\)，先使 \(f(x)>M\)，再用 \(g(x)\ge f(x)\)。负无穷情形对称。
+\end{proof}
+
+\section{各类极限的序列刻画}
+
+\begin{theorem}[扩展 Heine 定理]
+设 \(\alpha,\beta\in\overline{\R}\)，定义域允许从相应方向趋于 \(\alpha\)。则
+\[
+ f(x)\to\beta\quad(x\to\alpha)
+\]
+当且仅当对每条满足 \(x_n\in D\)、\(x_n\to\alpha\) 且在有限 \(\alpha\) 时 \(x_n\ne\alpha\) 的点列，都有
+\[
+ f(x_n)\to\beta
+\]
+（极限在 \(\overline{\R}\) 中理解）。
+\end{theorem}
+
+\begin{proof}
+必要性把目标邻域对应的输入邻域传给数列。若充分性失败，则存在目标邻域 \(V\)，使每个依次缩小或远移的输入邻域中都有坏点。有限 \(\alpha\) 时在半径 \(1/n\) 内选 \(x_n\)；\(\alpha=+\infty\) 时在 \(x>n\) 中选坏点；\(\alpha=-\infty\) 时在 \(x<-n\) 中选坏点。所得点列趋于 \(\alpha\)，而像列始终不在 \(V\) 中，与假设矛盾。
+\end{proof}
+
+\begin{example}
+证明 \(f(x)\not\to+\infty\)（\(x\to+\infty\)），只需找到一条 \(x_n\to+\infty\) 使 \(f(x_n)\) 不趋于 \(+\infty\)。例如 \(\sin x\) 沿 \(x_n=2\pi n\) 恒为零，故不趋于任何无穷方向。
+\end{example}
+
+\section{变量代换与不同极限类型的转化}
+
+\begin{proposition}[倒数代换]
+设 \(F\) 在相应定义域上有定义，则
+\[
+ \lim_{x\to+\infty}F(x)=L
+ \quad\Longleftrightarrow\quad
+ \lim_{t\to0+}F(1/t)=L.
+\]
+类似地，
+\[
+ x\to-\infty\quad\Longleftrightarrow\quad t=1/x\to0-.
+\]
+\end{proposition}
+
+\begin{proof}
+条件 \(x>A\) 在 \(x=1/t\)、\(t>0\) 下等价于 \(0<t<1/A\)（可先把 \(A\) 增大到正数）。两边的量词因此可相互翻译。
+\end{proof}
+
+\begin{proposition}[平移与尺度代换]
+若 \(u=\phi(x)\) 在 \(x\to\alpha\) 时趋于 \(\gamma\)，且 \(\phi(x)\ne\gamma\) 最终成立，则
+\[
+ \lim_{u\to\gamma}F(u)=L
+ \Longrightarrow
+ \lim_{x\to\alpha}F(\phi(x))=L.
+\]
+\end{proposition}
+
+这就是复合极限定理在各种极限类型中的统一形式。反向等价还需要代换能够覆盖 \(\gamma\) 附近的全部相关方向。若 \(\phi\) 只取一侧值，复合只检验相应单侧极限。
+
+\begin{counterexample}
+令 \(\phi(x)=x^2\)。当 \(x\to0\) 时 \(\phi(x)\to0+\)。因此
+\[
+ F(x^2)\to L
+\]
+只反映 \(F(u)\) 在 \(u\to0+\) 时的行为，不能推出 \(F\) 的双侧极限。例如 \(F(u)=\operatorname{sgn}(u)\) 有 \(F(x^2)=1\)（\(x\ne0\)），但 \(F\) 在 \(0\) 处双侧极限不存在。
+\end{counterexample}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+左右极限通过限制趋近方向得到；两侧都聚集时，双侧极限存在等价于左右极限存在且相等。函数值趋于无穷用阈值描述，自变量趋于无穷用远端尾部描述。扩充实数的邻域语言统一了各种类型，但未定式仍需额外估计。扩展 Heine 定理与变量代换是不同极限类型之间的主要传递工具。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按III级常规章配置，共24道编号题，含约43个独立训练单元，建议总用时4至6小时。\exerciserange{16.1}{16.18}为核心必做范围。
+
+\subsection*{A组　定义与单侧极限}
+\begin{enumerate}[label=\textbf{16.\arabic*.}]
+ \exerciseitem{16.1} \mustdo 写出右极限、左无穷极限、\(x\to+\infty\) 时有限极限的完整量词定义。
+ \exerciseitem{16.2} \mustdo 证明双侧极限存在的充要条件，并指出两侧聚点假设的用途。
+ \exerciseitem{16.3} \mustdo 求取整函数 \(\lfloor x\rfloor\) 在整数 \(m\) 处的左右极限。
+ \exerciseitem{16.4} \mustdo 讨论 \(\abs{x}/x\) 在 \(0\) 处的左右极限与双侧极限。
+ \exerciseitem{16.5} \mustdo 用定义证明 \(\lim_{x\to0+}1/x=+\infty\)。
+ \exerciseitem{16.6} \mustdo 用定义证明 \(\lim_{x\to-\infty}(3x+1)=-\infty\)。
+ \exerciseitem{16.7} \mustdo 证明 \(f(x)\to+\infty\) 当且仅当对每个 \(A\in\R\)，最终有 \(f(x)>A\)。
+ \exerciseitem{16.8} \mustdo 证明若 \(f(x)\to+\infty\)，则 \(\abs{f(x)}\to+\infty\)，并说明反向为何不成立。
+\end{enumerate}
+
+\subsection*{B组　序列刻画、运算与代换}
+\begin{enumerate}[label=\textbf{16.\arabic*.},resume]
+ \exerciseitem{16.9} \mustdo 给出 \(f(x)\not\to+\infty\)（\(x\to a\)）的量词否定和序列否定。
+ \exerciseitem{16.10} \mustdo 证明 \(1/x^2\to+\infty\)（\(x\to0\)），而 \(1/x\) 没有双侧扩充实极限。
+ \exerciseitem{16.11} \mustdo 若 \(f(x)\to+\infty\)、\(g(x)\to L\in\R\)，证明 \(f(x)+g(x)\to+\infty\)。
+ \exerciseitem{16.12} \mustdo 若 \(f(x)\to+\infty\)、\(g(x)\to M>0\)，证明 \(f(x)g(x)\to+\infty\)。
+ \exerciseitem{16.13} \mustdo 构造 \(f,g\to+\infty\)，使 \(f-g\) 分别趋于有限数、趋于 \(+\infty\)、没有极限。
+ \exerciseitem{16.14} \mustdo 构造 \(f\to0\)、\(g\to+\infty\)，使 \(fg\) 分别趋于 \(0\)、有限非零值、\(+\infty\) 及无极限。
+ \exerciseitem{16.15} \mustdo 用序列刻画证明下述等价关系：
+ \[
+  \lim_{x\to+\infty}f(x)=L
+  \quad\Longleftrightarrow\quad
+  \bigl(x_n\to+\infty\Rightarrow f(x_n)\to L\bigr).
+ \]
+ \exerciseitem{16.16} \mustdo 严格证明倒数代换 \(x=1/t\) 在 \(+\infty\) 与 \(0+\) 之间的极限等价。
+\end{enumerate}
+
+\subsection*{C组　统一形式、边界与项目}
+\begin{enumerate}[label=\textbf{16.\arabic*.},resume]
+ \exerciseitem{16.17} \mustdo 证明若 \(f(x)>0\) 最终成立，则 \(f(x)\to0\) 当且仅当 \(1/f(x)\to+\infty\)。
+ \exerciseitem{16.18} \mustdo 分析 \(F(x^2)\) 在 \(x\to0\) 的极限与 \(F(u)\) 在 \(u\to0+\) 的极限之间的等价关系。
+ \exerciseitem{16.19} \optionaldo 给出扩充实数邻域体系，并用它统一写出九种 \(\alpha\to\beta\) 极限。
+ \exerciseitem{16.20} \optionaldo 证明扩展 Heine 定理，分别写出 \(\alpha\) 有限、\(\alpha=+\infty\)、\(\alpha=-\infty\) 时的坏点构造。
+ \exerciseitem{16.21} \projectdo\ 【前置：本章全部内容；预计用时：75分钟】制作极限类型转换表，覆盖平移、倒数、指数式重参数化和单侧限制；每个箭头注明是等价还是单向蕴含。
+ \exerciseitem{16.22} \opendo 研究怎样为扩充实数定义一个与其序拓扑相容的度量，并用该度量重写本章的序列极限。
+ \exerciseitem{16.23} \mustdo 证明若 \(f\) 单调递增且在 \((A,\infty)\) 上有上界，则 \(\lim_{x\to+\infty}f(x)\) 存在且有限。
+ \exerciseitem{16.24} \optionaldo 给出“\(\infty-\infty\)”与“\(0\cdot\infty\)”各三种不同结果的例子，说明未定式只是分类标签。
+\end{enumerate}

@@ -1,0 +1,203 @@
+\chapter{有理数系的缺陷与实数问题：习题解答}
+
+\begin{chapterguide}
+本章解答与正文\chapterref{chap:rational-defects}的20道习题逐题对应。开放题中出现的实数不可数性只用于条件性比较。
+\end{chapterguide}
+
+\section*{A组　定义与基本论证}
+\addcontentsline{toc}{section}{A组　定义与基本论证}
+
+\begin{solution}{1.1}
+设 \(a<b\)。对 \(n\ge2\) 令
+\[
+ q_n=a+\frac{b-a}{n}.
+\]
+则 \(a<q_n<b\)，且 \(q_m=q_n\) 蕴含 \(m=n\)。故 \((a,b)\cap\Q\) 含无穷多个元素。
+\end{solution}
+
+\begin{solution}{1.2}
+由算术基本定理，非零整数可写成 \(n=\pm\prod_q q^{\alpha_q}\)。平方 \(n^2\) 中素数 \(p\) 的指数是 \(2\alpha_p\)。若 \(p\mid n^2\)，则 \(\alpha_p>0\)，所以 \(p\mid n\)；\(n=0\) 时也成立。
+
+若 \((a/b)^2=m\)，其中 \(a,b\) 互素，则 \(a^2=mb^2\)。非平方正整数 \(m\) 的素因数分解中至少有一个奇数指数。该素数在等式左边的指数为偶数，在右边为奇数加偶数，矛盾。
+\end{solution}
+
+\begin{solution}{1.3}
+通分得
+\[
+ T(q)-q=\frac{2-q^2}{q+2},\qquad
+ T(q)^2-2=\frac{(2q+2)^2-2(q+2)^2}{(q+2)^2}
+ =\frac{2(q^2-2)}{(q+2)^2}.
+\]
+当 \(q\ge0\) 时分母为正。若 \(q^2<2\)，则 \(T(q)>q\) 且 \(T(q)^2<2\)；若 \(q^2>2\)，则 \(T(q)<q\) 且 \(T(q)^2>2\)。
+\end{solution}
+
+\begin{solution}{1.4}
+若 \(l\in L\) 且 \(r<l\)，当 \(l<0\) 时 \(r<0\)；当 \(l\ge0\) 时，若 \(r\ge0\)，则 \(r^2<l^2<2\)。故总有 \(r\in L\)。取补集可得 \(U\) 向上封闭。
+
+正文已构造大于任给 \(l\in L\) 的左部元素：非负时用 \(T(l)\)，负数时用 \(l/2\)。对 \(u\in U\)，\(T(u)\in U\) 且 \(T(u)<u\)。所以两部均无端点。
+\end{solution}
+
+\begin{solution}{1.5}
+\begin{enumerate}[label=(\arabic*)]
+ \item 真。对 \(s\in S\)，正文的 \(T(s)\) 仍非负，且 \(s<T(s)\in S\)。
+ \item 假。上界全体若有最小元，该元就是 \(S\) 在 \(\Q\) 中的上确界，与正文定理矛盾。
+ \item 真。若 \(M_1,M_2\) 均支配 \(S\)，则每个 \(s\in S\) 都不大于 \(\min\{M_1,M_2\}\)。
+\end{enumerate}
+\end{solution}
+
+\section*{B组　缺口与逼近}
+\addcontentsline{toc}{section}{B组　缺口与逼近}
+
+\begin{solution}{1.6}
+令 \(d=2-r^2>0\)。把 \((2r+1)/d\) 写成有理数后，可直接取大于它的整数 \(n\)，并使 \(n\ge2\)。于是
+\[
+ (r+1/n)^2-r^2=\frac{2r}{n}+\frac1{n^2}
+ <\frac{2r+1}{n}<d,
+\]
+所以 \((r+1/n)^2<2\)。这里只使用了有理数的分数表示。
+\end{solution}
+
+\begin{solution}{1.7}
+\(1\in S_3\)，而 \(2\) 是上界。若 \(s\in\Q\) 是上确界，则 \(s>0\) 且 \(s^2\ne3\)。若 \(s^2<3\)，\exerciseref{1.6}的估计给出 \(h\in\Q\)、\(h>0\)，使 \((s+h)^2<3\)，与上界性矛盾。若 \(s^2>3\)，取
+\[
+ 0<h<\min\left\{s,\frac{s^2-3}{2s}\right\}.
+\]
+则 \((s-h)^2>3\)，并且任何 \(x\in S_3\) 都小于 \(s-h\)，所以 \(s-h\) 是更小的上界。两种情形都矛盾。
+\end{solution}
+
+\begin{solution}{1.8}
+\(a_n\) 写成分母 \(10^{n+1}\) 的数后仍是候选，故 \(a_n\le a_{n+1}\)。若 \(a_{n+1}\ge a_n+10^{-n}\)，则
+\[
+ a_{n+1}^2\ge(a_n+10^{-n})^2\ge2,
+\]
+矛盾。逐位检验得
+\[
+ a_1=1.4,\qquad a_2=1.41,\qquad a_3=1.414.
+\]
+其中 \(1.414^2=1.999396<2<2.002225=1.415^2\)。
+\end{solution}
+
+\begin{solution}{1.9}
+若 \(a_n\to a\in\Q\)，给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时 \(|a_n-a|<\varepsilon/2\)。则 \(m,n\ge N\) 时
+\[
+ |a_m-a_n|\le|a_m-a|+|a_n-a|<\varepsilon.
+\]
+证明只用收敛定义和三角不等式，没有断言任意 Cauchy 列存在极限。
+\end{solution}
+
+\begin{solution}{1.10}
+正文的 \(a_n\) 单调不减且不可能从某项起恒定，否则其常值 \(c\in\Q\) 会由误差估计满足 \(c^2=2\)。故可递归选取
+\[
+ n_1<n_2<\cdots,\qquad a_{n_{k+1}}>a_{n_k}.
+\]
+令 \(b_k=a_{n_k}\)。它是 Cauchy 列的子列，且严格递增，所以奇、偶子列均严格递增。若 \(b_k\) 有有理极限，正文的平方估计仍推出该极限平方为 \(2\)，矛盾。
+\end{solution}
+
+\begin{solution}{1.11}
+正文的 \(a_n\) 与 \(-a_n\) 都是无有理极限的 Cauchy 列，而其和恒为 \(0\)。另一方面，\(a_n+a_n=2a_n\) 没有有理极限；否则若 \(2a_n\to r\in\Q\)，便有 \(a_n\to r/2\in\Q\)。
+\end{solution}
+
+\section*{C组　结构与项目}
+\addcontentsline{toc}{section}{C组　结构与项目}
+
+\begin{solution}{1.12}
+由\exerciseref{1.2}，\(q^2=m\) 在 \(\Q\) 中无解。\(L_m\) 非空且不等于 \(\Q\)，并按\exerciseref{1.4}的论证向下封闭。
+
+若 \(q\ge0\)、\(q^2<m\)，令 \(d=m-q^2\)，取
+\[
+ h=\frac{d}{2(2q+1+d)}.
+\]
+则 \(0<h<1\) 且 \(2qh+h^2<d\)，所以 \(q+h\in L_m\)。负数用 \(q/2\)。若 \(q>0\)、\(q^2>m\)，令 \(d=q^2-m\)，仍取上述 \(h\)，则 \(0<h<q\) 且 \(2qh<d\)，故 \((q-h)^2>m\)。所以两部均无端点。
+
+对每个 \(n\)，令 \(a_n=k_n/10^n\)，其中 \(k_n\) 是满足 \(k_n\ge0\)、\((k_n/10^n)^2<m\) 的最大整数。则
+\[
+ a_n^2<m\le(a_n+10^{-n})^2,\qquad
+ 0\le a_\ell-a_n<10^{-n}\quad(\ell\ge n).
+\]
+因此 \((a_n)\) 是有理 Cauchy 列；若有有理极限，平方估计将给出其平方为 \(m\)，矛盾。
+\end{solution}
+
+\begin{solution}{1.13}
+任意有序域中 \(2=1+1>0\)。若 \(a<b\)，则
+\[
+ a<\frac{a+b}{2}<b.
+\]
+所以序稠密性已由有序域公理推出，不能区分 \(\Q\) 与 \(\R\)。可以采用的完备性命题是“每个非空且有上界的集合都有上确界”或“每个 Cauchy 列都收敛”。\chapterref{chap:rational-defects}已经给出它们在 \(\Q\) 中的失败例。
+\end{solution}
+
+\begin{solution}{1.14}
+全体实代数数至多可数。实数构造完成且\chapterref{chap:consequences-completeness}证明 \(\R\) 不可数后，可取超越数 \(t\)。集合
+\[
+ \{a:a\text{ 为实代数数且 }a<t\}
+\]
+在实代数数域中形成由 \(t\) 决定的缺口，却没有该域中的边界点。因此补入全部代数数仍不能得到次序完备性。
+
+Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并把差趋于零的逼近列识别为同一点。\chapterref{chap:cauchy-construction}将以等价类实现这一目标。本解答的不可数性比较依赖后文，只说明两种方案的范围。
+\end{solution}
+
+\begin{solution}{1.15}
+若 \(u\) 是 \(S\) 的上界，则 \(u\ge1>0\)。等式 \(u^2=2\) 在 \(\Q\) 中不可能；若 \(u^2<2\)，正文变换 \(T(u)\) 给出 \(T(u)>u\) 且 \(T(u)\in S\)，矛盾。因此 \(u^2>2\)。反之，\(u>0,u^2>2\) 时，对任意 \(s\in S\)，由 \(0\le s\) 及 \(s^2<u^2\) 得 \(s<u\)，故 \(u\) 是上界。
+
+若上界全体有最小元 \(u\)，则正文变换给出 \(0<T(u)<u\) 且 \(T(u)^2>2\)，所以 \(T(u)\) 仍是上界，矛盾。故 \(S\) 无有理上确界。
+\end{solution}
+
+\begin{solution}{1.16}
+令
+\[
+ a_n=\frac{k_n}{b^n},\qquad
+ k_n=\max\{k\in\Z_{\ge0}:(k/b^n)^2<2\}.
+\]
+候选集合非空且有限。由最大性，
+\[
+ a_n^2<2\le(a_n+b^{-n})^2.
+\]
+若 \(m\ge n\)，则 \(a_n\) 也是分母 \(b^m\) 网格上的候选点，故 \(a_m\ge a_n\)；若 \(a_m\ge a_n+b^{-n}\)，又与右侧不等式冲突。因此
+\[
+ 0\le a_m-a_n<b^{-n},
+\]
+而 \(b^{-n}\to0\)，所以该列是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{1.17}
+两列都最终位于 \([1,2]\)，且满足
+\[
+ 0<2-a_n^2\to0,\qquad0<2-b_n^2\to0.
+\]
+于是
+\[
+ \abs{a_n-b_n}
+ =\frac{\abs{a_n^2-b_n^2}}{a_n+b_n}
+ \le\abs{a_n^2-2}+\abs{b_n^2-2}\to0,
+\]
+其中分母 \(a_n+b_n\ge1\) 从某项起成立。不同网格只改变逼近速度，不改变所确定的边界。
+\end{solution}
+
+\begin{solution}{1.18}
+对 Cauchy 列取精度 \(1\)，存在 \(N\) 使 \(n\ge N\) 时
+\[
+ \abs{a_n}\le\abs{a_N}+1.
+\]
+把前 \(N-1\) 项的绝对值与该界取有限最大值，即得全列有界。数列 \((-1)^n\) 有界但不是 Cauchy。调和部分和 \(H_n\) 满足 \(H_{n+1}-H_n\to0\)，而
+\[
+ H_{2n}-H_n\ge n\frac1{2n}=\frac12,
+\]
+故不是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{1.19}
+设两列为 \(a_n,b_n\)。从某项起 \(a_n,b_n\ge1\)。由
+\[
+ \abs{a_n-b_n}
+ =\frac{\abs{a_n^2-b_n^2}}{a_n+b_n}
+ \le\frac12\bigl(\abs{a_n^2-2}+\abs{b_n^2-2}\bigr)
+\]
+知其差趋于零。最终为正用于给分母固定正下界；若不限定符号，逼近正根与负根的两列之差不会趋零。
+\end{solution}
+
+\begin{solution}{1.20}
+可把三种对象统一围绕
+\[
+ S=\{q\in\Q:q\ge0,q^2<2\}
+\]
+组织。左部无最大元、右部无最小元直接给出分割缺口；右部恰是上界集，故无最小元等价于无上确界；从网格中取不超过边界的最大候选得到 Cauchy 列，若它有有理极限，平方估计会产生有理解 \(r^2=2\)。反向从任意正的平方逼近 Cauchy 列可恢复同一左部：\(q\in S\) 当且仅当 \(q\) 最终小于该列。十进制只用于给出显式网格，三种缺陷的逻辑联系不依赖特定进位制。
+\end{solution}

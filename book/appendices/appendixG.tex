@@ -1,0 +1,162 @@
+\chapter{历史注记、术语对照与阅读指南}
+\label{chap:appendix-history-terminology}
+
+数学分析的概念、记号与证明标准是在多个时期逐步形成的。历史材料有助于解释术语来源与方法演变，但不能替代正文中的逻辑推导。本附录只整理前三编已经出现的概念；依赖后续各编的专题史、术语和文献条目保留位置，待相应理论完成后补写。
+
+\section{核心概念的历史来源}
+
+古典微积分首先发展出切线、求积、无穷级数和微分方程等有效算法。十八世纪的论证常借助无穷小量、形式级数与几何直观，严格性标准与现代教材并不完全相同。十九世纪以后，极限、连续、实数与集合概念逐渐被系统整理，分析学因而获得能够逐项核查的逻辑基础。
+
+\subsection*{极限与收敛语言}
+
+Cauchy 的著作使变量趋近、极限、连续性与级数收敛成为分析课程的组织中心。后来以 Weierstrass 学派为代表的工作把极限论证进一步写成量词明确的不等式估计。今天使用的 $\varepsilon$--$N$ 与 $\varepsilon$--$\delta$ 表述，是这一严格化过程的成熟形式。它们不依赖量的运动图像，而把“任意精度都最终达到”翻译为可检验的量词命题。
+
+“Cauchy 列”一名纪念 Cauchy 对收敛准则的系统使用。不过，某一概念以数学家命名，并不表示现代定义及其全部推广都由一人在一次工作中完成。历史归属应区分早期用法、严格定义、推广和教材定型几个层次。
+
+\subsection*{实数与完备性}
+
+有理数不能填满数轴；无理极限和连续变化要求更完备的数系。十九世纪后期出现了多种严格构造。Dedekind 以有理数分割描述实数，Cantor 等人的工作则推动了以基本列构造完备化的方法。两种构造选取的对象不同，却给出同构的完备有序域。这说明实数理论所依赖的是结构性质，而不是某一种表示法。
+
+上确界原理、单调收敛、区间套、Bolzano--Weierstrass 定理与 Cauchy 收敛准则，在实数范围内彼此等价。历史上这些命题并非同时以同一语言出现；现代教材把它们组织为等价命题，是为了显露共同的完备性来源。
+
+\subsection*{集合、基数与点集方法}
+
+Cantor 对点集、导集和基数的研究改变了分析学处理“无限”的方式。可数性使“逐个安排”成为严格概念，对角线论证则揭示实数集合不可数。Bolzano--Weierstrass 定理、闭区间紧致性和聚点方法都属于点集语言进入分析的结果。
+
+“紧致”一词及其现代拓扑定义形成得晚于闭区间上的许多经典定理。在 $\R$ 中，Heine--Borel 定理把开覆盖定义与闭有界条件联系起来；离开有限维欧氏空间后，闭有界一般不再等价于紧致，因此不能把这两个条件当作紧致性的普遍定义。
+
+\subsection*{连续性与一致性}
+
+连续函数的早期描述常借助曲线不断裂的图像。严格的点态定义使用局部的 $\varepsilon$--$\delta$ 条件；一致连续则要求同一个 $\delta$ 对定义域内所有点同时有效。Heine--Cantor 定理表明，紧致定义域上的连续性自动具有这种一致性。此处的两个姓氏反映历史传统，具体命名在不同文献中可能有差异。
+
+\begin{remark}[历史注记的使用边界]
+历史顺序与逻辑顺序通常不同。正文依赖定理之间的证明关系，本节只提供概念形成的背景。涉及原创权、首次发表或精确年代时，应查阅原始文献和专门的数学史研究，不宜仅凭定理名称作判断。
+\end{remark}
+
+\section{中、英、法、德常用术语对照}
+
+下表列出前三编最常用的术语。法语名词通常带有阴阳性，德语名词首字母大写；实际阅读中还会出现形容词变形和复合词。
+
+\begin{center}
+\small
+\begin{tabular}{llll}
+\toprule
+中文 & English & fran\c{c}ais & Deutsch\\
+\midrule
+极限 & limit & limite & Grenzwert\\
+收敛 & convergence & convergence & Konvergenz\\
+发散 & divergence & divergence & Divergenz\\
+数列 & sequence & suite & Folge\\
+子列 & subsequence & sous-suite & Teilfolge\\
+Cauchy 列 & Cauchy sequence & suite de Cauchy & Cauchy-Folge\\
+上确界 & supremum & borne sup\'erieure & Supremum\\
+下确界 & infimum & borne inf\'erieure & Infimum\\
+邻域 & neighborhood & voisinage & Umgebung\\
+聚点 & accumulation point & point d'accumulation & H\"aufungspunkt\\
+连续 & continuity & continuit\'e & Stetigkeit\\
+一致连续 & uniform continuity & continuit\'e uniforme & gleichm\"a\ss ige Stetigkeit\\
+单调 & monotone & monotone & monoton\\
+有界 & bounded & born\'e & beschr\"ankt\\
+完备 & complete & complet & vollst\"andig\\
+紧致 & compact & compact & kompakt\\
+连通 & connected & connexe & zusammenh\"angend\\
+开覆盖 & open cover & recouvrement ouvert & offene \"Uberdeckung\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+术语对照不能按字面机械翻译。例如，英语 \emph{range} 在不同文献中可能指值域，也可能指像；\emph{domain} 有时专指函数定义域，有时泛指研究对象所在区域。德语 \emph{Folge} 通常指数列或一般序列，\emph{Reihe} 才指级数。阅读时应结合定义和上下文确认。
+
+后续各编将分别补充微分、积分、测度、复分析、拓扑、概率、泛函分析和微分方程术语。尚未进入正文的术语不在本版预先固定译名。
+
+\section{经典教材与现代专著导读}
+
+阅读材料可以按用途分为三类。第一类用于建立证明习惯，应逐题核对量词和反例；第二类用于扩大理论视野，可在掌握主线后选择阅读；第三类是历史文献，用于理解概念演变，不宜代替现代严格教材。
+
+\begin{description}
+ \item[Tao, \emph{Analysis I}.] 从数系构造开始建立极限、级数、连续、微分与 Riemann 积分，适合把计算背景转化为证明语言。其章节和习题把集合论、实数构造与一元分析连成一条较完整的基础路线。
+ \item[Abbott, \emph{Understanding Analysis}.] 围绕完备性、序列、拓扑、函数极限、导数、函数列和积分展开，重视问题动机、反例和证明策略，适合作为前三编到后续一元分析之间的伴读材料。
+ \item[Pugh, \emph{Real Mathematical Analysis}.] 覆盖实数、拓扑、函数空间、多元微分和 Lebesgue 理论，几何直观与严格证明并重。读完本书前三编后，可选读其中实数与度量空间部分；其余章节需等待相应前置理论。
+ \item[Hardy, \emph{A Course of Pure Mathematics}.] 这是一部具有历史影响的经典分析教材，集中讨论实变量函数、极限、级数和初等超越函数。其表述反映较早时期的教材传统，适合与现代量词语言对照阅读。
+\end{description}
+
+这些书的范围、记号与定理顺序并不相同。“读完一本”不应作为学习目标的唯一尺度。较有效的方法是选定一个主题，比较定义、证明依赖和反例，再独立重写关键论证。
+
+\begin{remark}[版本说明]
+教材与专著会修订再版。引用时应写明作者、书名、版本、出版社和年份；本附录末尾列出的 DOI 用于识别所据版本，而不声称它们是所有读者都应使用的唯一版本。
+\end{remark}
+
+\section{各专题的先修依赖与阅读路线}
+
+前三编的基本依赖关系可压缩为
+\[
+ \text{逻辑与集合语言}
+ \longrightarrow \text{实数完备性}
+ \longrightarrow \text{数列极限}
+ \longrightarrow \text{函数极限与连续性}.
+\]
+箭头表示主要的证明依赖，不表示必须一次读完左侧全部内容才能接触右侧例子。
+
+\begin{description}
+ \item[严格基础路线] \chapterref{chap:mathematical-language} $\to$ 第1--6章 $\to$ 第7--13章 $\to$ 第14--19章。适合第一次系统学习证明的读者。实数构造中较技术性的等价证明可以先掌握结论，再在完成数列极限后回读。
+ \item[极限专题路线] \chapterref{chap:mathematical-language}量词与证明方法 $\to$ \chapterref{chap:ordered-field-completeness}确界 $\to$ \chapterref{chap:equivalent-completeness}完备性 $\to$ 第7--13章 $\to$ 第14--16章。该路线突出估计、子列与 Cauchy 准则。
+ \item[连续性专题路线] \chapterref{chap:consequences-completeness}稠密性和可数性 $\to$ \chapterref{chap:limsup-liminf}子列 $\to$ 第14--16章函数极限 $\to$ 第17--19章连续、紧致与一致连续。该路线适合集中重建介值、最值和 Heine--Cantor 定理。
+ \item[结构比较路线] 第4--6章 $\to$ \chapterref{chap:cauchy-criterion} $\to$ \chapterref{chap:compact-connected-real-line}。重点比较有序域、完备度量思想、闭集、紧致和连通，适合准备拓扑与泛函分析。
+\end{description}
+
+后续专题的精确路线依赖尚未完成的正文。此处预留如下位置：
+\begin{itemize}
+ \item 微分、积分与函数项级数路线：待第四、五编完成后补写；
+ \item 多元分析、测度与实分析路线：待相应各编完成后补写；
+ \item 复分析、拓扑、概率、调和分析、泛函分析、几何分析与微分方程路线：待相关定义和定理编号稳定后补写。
+\end{itemize}
+
+\section{记号传统的差异}
+
+同一概念常有多种记号。阅读陌生文献时，第一步应辨认定义，而不是仅凭符号猜测。
+
+\begin{description}
+ \item[自然数] 有的作者取 $\N=\{1,2,\ldots\}$，有的取 $\N=\{0,1,2,\ldots\}$。本书在首次使用时明确约定；涉及递归起点时不省略说明。
+ \item[区间] 欧美文献常用 $(a,b)$ 表示开区间；部分法语文献也使用 $]a,b[$。无穷端点永不属于区间，因此 $(-\infty,a]$ 中的圆括号不是可选格式。
+ \item[函数的像] $f(A)$ 通常表示集合 $A$ 的像，$f^{-1}(B)$ 表示原像。后者不要求 $f$ 可逆，不应与反函数混淆。
+ \item[补集] $A^c$、$X\setminus A$ 与 $\complement_X A$ 都可表示相对于全集 $X$ 的补集；省略全集可能导致歧义。
+ \item[整数部分] $\lfloor x\rfloor$ 通常表示不超过 $x$ 的最大整数。旧文献中的 $[x]$ 也可能表示整数部分，但现代文献还用方括号表示等价类、闭区间或交换子。
+ \item[无穷上下极限] $\limsup a_n$ 与 $\overline{\lim}a_n$、$\liminf a_n$ 与 $\underline{\lim}a_n$ 分别同义。本书采用前一种写法。
+ \item[邻域] 有的文献把邻域定义为含某个开球的集合，有的只把开邻域称为邻域。使用邻域语言证明时，应先核对采用哪种约定。
+ \item[单调性] “递增”有时表示非严格递增，有时表示严格递增。本书优先写“单调不减”与“严格递增”以避免歧义。
+ \item[紧致性] 在一般拓扑空间中，紧致通常由有限子覆盖定义；序列紧致未必与之等价。在度量空间中二者等价，在 $\R^n$ 中又等价于闭且有界。不同范围内不可随意替换。
+\end{description}
+
+记号选择应满足两项原则：同一论证内保持一致；跨章节改变约定时明确声明。为了追求符号简短而隐藏定义域、量词范围或相对补集的全集，通常会增加而非减少阅读负担。
+
+\section{参考文献与引用规范}
+
+数学写作中的引用至少承担三种功能：标明所用结果的来源，指引读者查找证明或背景，区分作者的新论证与已有材料。引用不能代替必要证明；当正文声称某命题由现有假设推出时，仍需给出证明，或明确指出可调用的前置定理。
+
+书籍条目通常包括作者、书名、版本、出版社和年份；论文条目包括作者、题名、期刊、卷期、年份、页码和 DOI；网页或持续更新的电子文献还应给出稳定链接和访问日期。引用译本时，宜同时记录原著版本与译者信息。历史性主张若涉及优先权，优先查原始文献或可靠的数学史研究，并避免仅凭二手教材作绝对断言。
+
+本附录导读所据版本如下：
+\begin{enumerate}
+ \item Terence Tao, \emph{Analysis I}, 3rd ed., Springer, 2016.\\
+ DOI: \nolinkurl{10.1007/978-981-10-1789-6}.
+ \item Stephen Abbott, \emph{Understanding Analysis}, 2nd ed., Springer, 2015.\\
+ DOI: \nolinkurl{10.1007/978-1-4939-2712-8}.
+ \item Charles C. Pugh, \emph{Real Mathematical Analysis}, 2nd ed., Springer, 2015.\\
+ DOI: \nolinkurl{10.1007/978-3-319-17771-7}.
+ \item G. H. Hardy, \emph{A Course of Pure Mathematics}, Cambridge University Press, centenary edition, 2008.\\
+ DOI: \nolinkurl{10.1017/CBO9780511989469}.
+\end{enumerate}
+
+全书后续各编的专题参考文献将在相应正文完成后补入。预留条目不提前编号，以免章节调整造成交叉引用失配。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\begin{enumerate}[label=\textbf{G.\arabic*.}]
+ \exerciseitem{G.1} \mustdo 从\chapterref{chap:sequence-limit-definition}或\chapterref{chap:function-limit-definition}任选一个极限定理，把其量词结构完整写出，并说明 $\varepsilon$--$N$ 与 $\varepsilon$--$\delta$ 语言各自控制的变量。
+ \exerciseitem{G.2} \mustdo 说明为何“定理以某人命名”不能单独证明历史优先权，并列出核查一项优先权主张所需的两类材料。
+ \exerciseitem{G.3} \mustdo 查表解释英语 \emph{sequence}、\emph{series}、\emph{subsequence} 的区别，并给出相应德语术语。
+ \exerciseitem{G.4} \mustdo 比较“紧致”“序列紧致”“闭且有界”三个表述在 $\R$、度量空间和一般拓扑空间中的关系。
+ \exerciseitem{G.5} \mustdo 为一本数学专著写出完整书目条目，并说明 DOI、版本号和访问日期各自解决什么识别问题。
+ \exerciseitem{G.6} \projectdo\ 【前置：前三编；预计用时：60分钟】选择“实数完备性”或“连续函数”专题，按本附录的阅读路线列出一页学习地图：每个节点写明定义、一个主要定理、一个反例以及对下一节点的依赖。涉及后续正文的节点只标注预留位置。
+\end{enumerate}

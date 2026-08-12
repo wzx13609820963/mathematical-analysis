@@ -1,0 +1,200 @@
+\chapter{代数结构与复数预备：习题解答}
+
+\begin{solution}{F.1}
+若 \(e,e'\) 都是单位元，则
+\[
+ e=ee'=e'.
+\]
+若 \(h,k\) 都是 \(g\) 的逆元，则
+\[
+ h=he=h(gk)=(hg)k=ek=k.
+\]
+\end{solution}
+
+\begin{solution}{F.2}
+\(\varphi(e)=\varphi(e)^2\)，在目标群中消去 \(\varphi(e)\) 得 \(\varphi(e)=e\)。又
+\[
+ e=\varphi(gg^{-1})=\varphi(g)\varphi(g^{-1}),
+\]
+故 \(\varphi(g^{-1})=\varphi(g)^{-1}\)。单射显然给出平凡核；若核平凡且 \(\varphi(g)=\varphi(h)\)，则
+\[
+ \varphi(h^{-1}g)=e,
+\]
+所以 \(h^{-1}g=e\)，即 \(g=h\)。
+\end{solution}
+
+\begin{solution}{F.3}
+若 \(a,b\in\ker\varphi\)，则
+\[
+ \varphi(a-b)=\varphi(a)-\varphi(b)=0,
+\]
+故核是加法子群。对 \(r\in R,a\in\ker\varphi\)，
+\[
+ \varphi(ra)=\varphi(r)\varphi(a)=0,
+\]
+故是理想。像对加、减、乘和单位元封闭，所以是子环。
+\end{solution}
+
+\begin{solution}{F.4}
+若换代表 \(g'=gn_1,h'=hn_2\)（\(n_1,n_2\in N\)），则
+\[
+ g'h'=gh(h^{-1}n_1h)n_2.
+\]
+当 \(N\) 正规时，括号内元素仍在 \(N\)，故 \(g'h'N=ghN\)。反之，若陪集乘法良定义，则
+\[
+ (gN)(nN)(g^{-1}N)=gg^{-1}N=N,
+\]
+从而 \(gng^{-1}\in N\) 对所有 \(g,n\) 成立，即 \(N\) 正规。
+\end{solution}
+
+\begin{solution}{F.5}
+定义
+\[
+ \overline\varphi(g\ker\varphi)=\varphi(g).
+\]
+陪集相等蕴含 \(h^{-1}g\in\ker\varphi\)，故像相等，映射良定义。它保持乘法，按像的定义满射。若像为单位元，则 \(g\in\ker\varphi\)，相应陪集为商群单位元，故核平凡并因此单射。
+\end{solution}
+
+\begin{solution}{F.6}
+带余除法对 \(p(x)\) 除以 \(x-a\) 给出
+\[
+ p(x)=q(x)(x-a)+r,
+\]
+其中余式 \(r\) 为常数。代入 \(x=a\) 得 \(r=p(a)\)，所以
+\[
+ p(a)=0\Longleftrightarrow p\in(x-a).
+\]
+求值同态显然满射，因为常值多项式可取任意值。第一同构定理给出
+\[
+ F[x]/(x-a)\cong F.
+\]
+\end{solution}
+
+\begin{solution}{F.7}
+共轭的加法与乘法公式直接按实虚部展开。由
+\[
+ \abs{zw}^2=zw\overline{zw}
+ =z\overline z\,w\overline w
+ =\abs z^2\abs w^2
+\]
+及非负性得模乘法。又
+\[
+ \abs{z+w}^2
+ =\abs z^2+\abs w^2+2\Re(z\overline w)
+ \le(\abs z+\abs w)^2,
+\]
+开平方即得三角不等式。
+\end{solution}
+
+\begin{solution}{F.8}
+全部根为
+\[
+ \zeta_k=e^{2\pi ik/n},\qquad k=0,\ldots,n-1.
+\]
+它们不同，且 \(\zeta_j\zeta_k=\zeta_{j+k\pmod n}\)。元素 \(\zeta_1\) 的幂依次给出全部根，且最小正周期为 \(n\)，所以该群是阶 \(n\) 的循环群。
+\end{solution}
+
+\begin{solution}{F.9}
+定义
+\[
+ T_\C(v+iw)=T(v)+iT(w).
+\]
+按复标量乘法展开可验证它复线性，并在 \(V\) 上等于 \(T\)。若 \(S\) 是另一复线性延拓，则
+\[
+ S(v+iw)=S(v)+iS(w)=T(v)+iT(w),
+\]
+故 \(S=T_\C\)，唯一性成立。
+\end{solution}
+
+\begin{solution}{F.10}
+若 \(\deg f\ge\deg g\)，用 \(f\) 的最高项除以 \(g\) 的最高项所得单项式乘 \(g\)，从 \(f\) 中减去即可降低次数。重复有限次得到余式次数小于 \(\deg g\)。唯一性由
+\[
+ (q-q')g=r'-r
+\]
+两侧次数不可能同时满足“至少 \(\deg g\)”与“小于 \(\deg g\)”得到。取 \(g=x-a\)，余式为常数 \(p(a)\)，即得因式定理。
+\end{solution}
+
+\begin{solution}{F.11}
+用次数归纳。一次情形显然。若 \(p\) 有根 \(a\)，因式定理给出
+\[
+ p(x)=(x-a)q(x),\qquad \deg q=n-1.
+\]
+除 \(a\) 外的根都是 \(q\) 的根，由归纳假设至多 \(n-1\) 个。若 \(p\) 无根，结论更直接。
+\end{solution}
+
+\begin{solution}{F.12}
+代数基本定理把实系数多项式在 \(\C\) 中分解为线性因子。实系数保证
+\[
+ p(z)=0\Longrightarrow p(\overline z)=\overline{p(z)}=0,
+\]
+且重数相同。每对非实共轭根产生实二次因子
+\[
+ (x-z)(x-\overline z)
+ =x^2-2(\Re z)x+\abs z^2,
+\]
+其判别式为 \(-4(\Im z)^2<0\)。实根给出实一次因子。
+\end{solution}
+
+\begin{solution}{F.13}
+三个形式级数乘积的 \(x^n\) 系数都是
+\[
+ \sum_{i+j+k=n}a_ib_jc_k.
+\]
+满足 \(i,j,k\ge0\)、和为 \(n\) 的三元组只有有限多个，因此可以合法地重新分组有限和，得到
+\[
+ (AB)C=A(BC).
+\]
+这里不涉及无穷级数换序。
+\end{solution}
+
+\begin{solution}{F.14}
+若 \(AB=1\)，常数项给出 \(a_0b_0=1\)，故 \(a_0\ne0\)。反向按
+\[
+ b_0=a_0^{-1},\qquad
+ b_n=-a_0^{-1}\sum_{k=1}^na_kb_{n-k}
+\]
+递归构造。对 \(A=1-x\)，递归得到 \(b_n=1\)，所以
+\[
+ (1-x)^{-1}=\sum_{n\ge0}x^n
+\]
+作为形式级数成立。
+\end{solution}
+
+\begin{solution}{F.15}
+形式恒等式逐次系数核对：乘积常数项为 \(1\)，每个正次系数为 \(1-1=0\)，对抽象符号 \(x\) 恒成立。若把 \(x\) 换成实数，\(\sum x^n\) 只有在 \(\abs x<1\) 时按通常级数收敛；在 \(x=2\) 时形式恒等式仍合法，但数值级数发散，不能解释为实数等式。
+\end{solution}
+
+\begin{solution}{F.16}
+张量积的泛性质给出双射
+\[
+ \operatorname{Bil}(V\times V,F)
+ \longleftrightarrow
+ \operatorname{Hom}(V\otimes V,F).
+\]
+双线性型 \(B\) 对应唯一线性泛函 \(\widetilde B\)，满足
+\[
+ \widetilde B(v\otimes w)=B(v,w).
+\]
+反向由任意线性泛函 \(\ell\) 定义 \(B(v,w)=\ell(v\otimes w)\)，张量映射的双线性保证 \(B\) 双线性。
+\end{solution}
+
+\begin{solution}{F.17}
+由 \((v+w)\wedge(v+w)=0\) 展开得
+\[
+ v\wedge w+w\wedge v=0,
+\]
+故 \(v\wedge w=-w\wedge v\)。任意重复基向量的楔积为零，换序只改变符号，所以严格递增指标的楔积张成 \(\Lambda^k(F^n)\)。这些元素线性无关，可由交替坐标泛性质验证。共有 \(\binom nk\) 个指标子集，故维数为该二项式系数。
+\end{solution}
+
+\begin{solution}{F.18}
+线性映射 \(T:V\to V\) 在最高次外幂上诱导
+\[
+ \Lambda^nT(v_1\wedge\cdots\wedge v_n)
+ =Tv_1\wedge\cdots\wedge Tv_n.
+\]
+因 \(\Lambda^nV\) 一维，该映射是乘某标量，定义为 \(\det T\)。复合满足
+\[
+ \Lambda^n(ST)=(\Lambda^nS)(\Lambda^nT),
+\]
+故 \(\det(ST)=\det S\det T\)。换基对应共轭矩阵，乘法性使两侧换基行列式抵消。楔积系数测量定向体积的伸缩，基向量交换导致符号反转。
+\end{solution}

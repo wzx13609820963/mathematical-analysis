@@ -1,0 +1,179 @@
+\chapter{数列极限的一般性质：习题解答}
+
+\begin{chapterguide}
+本章解答只使用第7、8章的定义与估计工具。后文连续性语言不用于替代极限运算的直接证明。
+\end{chapterguide}
+
+\section*{A组　唯一性、有界性与符号}
+\addcontentsline{toc}{section}{A组　唯一性、有界性与符号}
+
+\begin{solution}{9.1}
+若 \(a\ne b\)，取 \(r=\abs{a-b}/3\)。邻域 \(U_r(a)\) 与 \(U_r(b)\) 不交，否则某个 \(x\) 同属二者将给出
+\(\abs{a-b}\le\abs{a-x}+\abs{x-b}<2r\)。若数列同时收敛到 \(a,b\)，两个邻域都包含完整尾部；取两起点最大值便得到同一项同时属于两个不交邻域，矛盾。
+\end{solution}
+
+\begin{solution}{9.2}
+若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N\) 控制原列。严格递增指标列满足 \(n_k\ge k\)，所以 \(k\ge N\) 时 \(n_k\ge N\)，从而 \(\abs{a_{n_k}-a}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{9.3}
+由收敛列有界性，存在 \(M\) 使 \(\abs{a_n}\le M\) 对所有 \(n\) 成立。因此
+\(A=\{\abs{a_n}:n\in\N\}\) 非空且有上界。实数的确界公理保证 \(\sup A\in\R\) 存在且不大于 \(M\)。若只需某个有限界，不需确界公理；取得最小上界才使用完备性。
+\end{solution}
+
+\begin{solution}{9.4}
+取 \(a_n=(-1)^n\)。它满足 \(\abs{a_n}\le1\)。偶数子列恒为 \(1\)，奇数子列恒为 \(-1\)，两条子列极限不同；若原列收敛，所有子列应收敛到同一极限，矛盾。
+\end{solution}
+
+\begin{solution}{9.5}
+取 \(\varepsilon=a/2\)，最终 \(\abs{a_n-a}<a/2\)，从而 \(a_n>a/2\)。可令 \(\delta=a/2\)。若 \(a=0\)，数列 \((-1)^n/n\to0\) 却无限次为正和为负，不存在最终正下界。
+\end{solution}
+
+\begin{solution}{9.6}
+若 \(a<0\)，取 \(\varepsilon=-a/2\)。最终 \(a_n<a+\varepsilon=a/2<0\)，与最终 \(a_n\ge0\) 矛盾。因此 \(a\ge0\)。
+\end{solution}
+
+\begin{solution}{9.7}
+取 \(a_n=0\)、\(b_n=1/n\)，则每项严格不等而两极限都为 \(0\)。若存在 \(\delta>0\)，使
+\(b_n-a_n\ge\delta\) 最终成立，则取极限得到 \(b-a\ge\delta\)，故 \(a<b\)。
+\end{solution}
+
+\section*{B组　运算与估计}
+\addcontentsline{toc}{section}{B组　运算与估计}
+
+\begin{solution}{9.8}
+给定 \(\varepsilon>0\)，分别使
+\(\abs{a_n-a}<\varepsilon/2\)、
+\(\abs{b_n-b}<\varepsilon/2\)。在共同尾部，
+\[
+ \abs{(a_n-b_n)-(a-b)}
+ \le\abs{a_n-a}+\abs{b_n-b}<\varepsilon.
+\]
+\end{solution}
+
+\begin{solution}{9.9}
+收敛性给出最终 \(\abs{a_n-a}<1\)、\(\abs{b_n-b}<1\)。再把两个误差分别取得足够小，使
+\[
+ \abs{a_n-a}\abs{b_n-b}<\varepsilon/3,\quad
+ \abs a\abs{b_n-b}<\varepsilon/3,\quad
+ \abs b\abs{a_n-a}<\varepsilon/3.
+\]
+由题给分解和三角不等式，乘积误差小于 \(\varepsilon\)。当 \(a\) 或 \(b\) 为零时，相应项直接消失。
+\end{solution}
+
+\begin{solution}{9.10}
+由 \(a_n\to a\ne0\)，最终
+\(\abs{a_n-a}<\abs a/2\)，故
+\(\abs{a_n}\ge\abs a/2>0\)。于是倒数最终有定义，且
+\[
+ \abs{\frac1{a_n}-\frac1a}
+ \le\frac{2}{\abs a^2}\abs{a_n-a}\to0.
+\]
+\end{solution}
+
+\begin{solution}{9.11}
+给定 \(L\in\R\)，取 \(a_n=L/n,b_n=1/n\)，商恒为 \(L\)。取
+\(a_n=1/\sqrt n,b_n=1/n\)，商为 \(\sqrt n\to+\infty\)。取
+\(a_n=(-1)^n/n,b_n=1/n\)，商为 \((-1)^n\) 并发散。
+\end{solution}
+
+\begin{solution}{9.12}
+若 \(\abs{b_n}\le M\)，则
+\(\abs{a_nb_n}\le M\abs{a_n}\to0\)。无界例子为
+\[
+ \frac1n\sqrt n\to0,\qquad
+ \frac1n n=1,\qquad
+ \frac1n((-1)^nn)=(-1)^n.
+\]
+\end{solution}
+
+\begin{solution}{9.13}
+对 \(k\) 归纳。\(k=1\) 直接成立。若 \(a_n^k\to a^k\)，乘积极限定理给出
+\[
+ a_n^{k+1}=a_n^ka_n\longrightarrow a^ka=a^{k+1}.
+\]
+这里 \(k\) 固定，归纳步数不随 \(n\) 变化。
+\end{solution}
+
+\begin{solution}{9.14}
+若 \(a>0\)，则
+\[
+ \abs{\sqrt{a_n}-\sqrt a}
+ =\frac{\abs{a_n-a}}{\sqrt{a_n}+\sqrt a}
+ \le\frac{\abs{a_n-a}}{\sqrt a}\to0.
+\]
+若 \(a=0\)，给定 \(\varepsilon>0\)，最终 \(0\le a_n<\varepsilon^2\)，故
+\(0\le\sqrt{a_n}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{9.15}
+使用
+\[
+ \max\{x,y\}=\frac{x+y+\abs{x-y}}2,\qquad
+ \min\{x,y\}=\frac{x+y-\abs{x-y}}2,
+\]
+再依次应用和、差、绝对值及常数倍的极限定理。
+\end{solution}
+
+\begin{solution}{9.16}
+给定 \(\varepsilon>0\)，取共同起点使比较成立且
+\(a_n>L-\varepsilon\)、\(c_n<L+\varepsilon\)。于是
+\[
+ L-\varepsilon<a_n\le b_n\le c_n<L+\varepsilon,
+\]
+故 \(b_n\to L\)。
+\end{solution}
+
+\section*{C组　反例与综合项目}
+\addcontentsline{toc}{section}{C组　反例与综合项目}
+
+\begin{solution}{9.17}
+\begin{enumerate}[label=(\arabic*)]
+ \item 真，因为 \(\abs{a_n-0}=\abs{a_n}\to0\)。
+ \item 假，取 \(a_n=(-1)^n\)。
+ \item 假。固定 \(a=1\)，仍取 \(a_n=(-1)^n\)，则 \(a_n^2=a^2=1\)，但 \(a_n\not\to1\)。若再假定 \(a_n,a\ge0\)，平方根极限定理可以恢复结论。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{9.18}
+能推出。把所有满足 \(a_n\le b_n\) 的指标排成严格递增列 \(n_k\)。由原列收敛，
+\(a_{n_k}\to a\)、\(b_{n_k}\to b\)。对子列应用序关系的闭性，得到 \(a\le b\)。
+\end{solution}
+
+\begin{solution}{9.19}
+对表达式的构造层数归纳。变量层极限已知；和、差、积、常数倍由代数极限定理通过；绝对值、最大值、最小值由相应定理通过；商节点在分母极限非零时通过。表达式树有限，归纳在有限步后结束。
+\end{solution}
+
+\begin{solution}{9.20}
+按自然解释 \(p_{2k}=a_k,p_{2k-1}=b_k\)。若 \(p_n\to L\)，两条奇偶子列给出 \(a_k,b_k\to L\)。反之，若两列同趋于 \(L\)，对给定误差取两起点最大值，则交错列从相应位置起的奇偶项都在误差区间中。因此充要条件是两列收敛到同一极限。
+\end{solution}
+
+\begin{solution}{9.21}
+取 \(\varepsilon=\abs a/2\)，最终 \(a_n\) 与 \(a\) 同号，故符号函数值相等。在 \(0\) 处，\(a_n=(-1)^n/n\to0\)，但
+\(\operatorname{sgn}(a_n)=(-1)^n\) 发散。
+\end{solution}
+
+\begin{solution}{9.22}
+由
+\[
+ a_n-b_n=b_n\left(\frac{a_n}{b_n}-1\right),
+\]
+若 \((b_n)\) 有界，则有界列乘零列给出差趋零。无此条件取
+\(a_n=n+1,b_n=n\)，则 \(a_n/b_n\to1\)，但 \(a_n-b_n=1\)。
+\end{solution}
+
+\begin{solution}{9.23}
+本章逐项证明的内容正是后文“连续映射保持数列极限”的具体原型。若现在直接引用连续性定理，就会使用尚未建立且证明依赖本章结果的结论，形成循环。当前证明还明确显示了分母极限非零等条件的作用。
+\end{solution}
+
+\begin{solution}{9.24}
+设 \(x_n=(x_n^{(1)},\ldots,x_n^{(d)})\)、\(x=(x^{(1)},\ldots,x^{(d)})\)，并令
+\(\norm{y}_\infty=\max_j\abs{y^{(j)}}\)。若
+\(\norm{x_n-x}_\infty\to0\)，每个分量误差不超过该范数，故逐分量收敛。
+
+反之，若每个分量收敛，对给定 \(\varepsilon\) 分别取起点 \(N_j\)，再令
+\[
+ N=\max_{1\le j\le d}N_j.
+\]
+此后所有分量误差同时小于 \(\varepsilon\)，故最大范数误差小于 \(\varepsilon\)。若使用欧氏范数，可把每个分量误差预算为 \(\varepsilon/\sqrt d\)。
+\end{solution}

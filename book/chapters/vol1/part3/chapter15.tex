@@ -1,0 +1,261 @@
+\chapter[函数极限的序列刻画与 Cauchy 准则]{函数极限的序列刻画\\与 Cauchy 准则}
+\label{chap:heine-cauchy}
+
+\begin{chapterguide}
+函数极限的定义同时控制一个删心邻域中的全部点。序列刻画把这种局部统一陈述转化为对每条逼近数列的要求，并可借助两条取值行为不同的数列证明极限不存在。进一步消去候选极限，就得到函数极限的 Cauchy 准则；其充分性依赖值域的完备性。
+\end{chapterguide}
+
+\section{Heine 定理的陈述}
+
+下文中“\(x_n\to a\) 的定义域点列”总是指
+\[
+ x_n\in D\setminus\{a\},\qquad x_n\to a.
+\]
+排除 \(x_n=a\) 是为了与删心极限一致。
+
+\begin{theorem}[Heine 定理]
+设 \(f:D\to\R\)，\(a\) 是 \(D\) 的聚点，\(L\in\R\)。则
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L
+\]
+当且仅当对每条趋于 \(a\) 的定义域点列 \((x_n)\)，都有
+\[
+ f(x_n)\to L.
+\]
+\end{theorem}
+
+定理中的全称量词不可换成“存在一条点列”。单条点列只能抽取一种趋近路径，函数在其他定义域点上仍可能具有不同的行为。
+
+\begin{counterexample}
+令 \(f(x)=\sin(1/x)\)（\(x\ne0\)）。沿 \(x_n=1/(\pi n)\) 有 \(f(x_n)=0\)，但这不说明 \(x\to0\) 时存在极限。沿另一些点列，函数值可恒为 \(1\) 或 \(-1\)。
+\end{counterexample}
+
+\section{从 \texorpdfstring{\(\varepsilon\)-\(\delta\)}{epsilon-delta} 极限推出序列极限}
+
+\begin{proof}[Heine 定理的必要性]
+设 \(f(x)\to L\)，并任取 \(x_n\in D\setminus\{a\}\)、\(x_n\to a\)。给定 \(\varepsilon>0\)，由函数极限取得 \(\delta>0\)，使
+\[
+ x\in D,\quad0<\abs{x-a}<\delta
+ \Longrightarrow\abs{f(x)-L}<\varepsilon.
+\]
+又由 \(x_n\to a\)，存在 \(N\) 使 \(n\ge N\) 时 \(\abs{x_n-a}<\delta\)。结合 \(x_n\ne a\)，得到
+\[
+ \abs{f(x_n)-L}<\varepsilon\qquad(n\ge N).
+\]
+故 \(f(x_n)\to L\)。
+\end{proof}
+
+这个方向只是把函数极限给出的半径输入数列极限定义。函数极限的半径对邻域内所有点有效，因此自然适用于任意选定的逼近数列。
+
+\begin{corollary}
+函数极限的唯一性可由数列极限唯一性推出。
+\end{corollary}
+
+\begin{proof}
+因 \(a\) 是聚点，可递归选择
+\[
+ x_n\in D,\qquad0<\abs{x_n-a}<1/n.
+\]
+于是 \(x_n\to a\)。若函数极限同时为 \(L,M\)，必要性说明 \(f(x_n)\) 同时趋于 \(L,M\)，故 \(L=M\)。
+\end{proof}
+
+\section{用否定命题构造反例数列}
+
+若 \(f(x)\not\to L\)，则存在 \(\varepsilon_0>0\)，使对每个 \(\delta>0\) 都能选到坏点。令 \(\delta=1/n\)，依次选择
+\[
+ x_n\in D,\qquad
+ 0<\abs{x_n-a}<\frac1n,\qquad
+ \abs{f(x_n)-L}\ge\varepsilon_0.
+\]
+于是 \(x_n\to a\)，但 \(f(x_n)\not\to L\)。这一构造把量词否定中的每个尺度转换为一个数列指标。
+
+\begin{lemma}[坏点数列]
+下列两项等价：
+\begin{enumerate}
+ \item \(f(x)\not\to L\)（\(x\to a\)）；
+ \item 存在定义域点列 \(x_n\to a\)，使 \(f(x_n)\not\to L\)。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第一项推出第二项即上述选择。第二项若成立，而函数极限为 \(L\)，则 Heine 定理的必要性会给出 \(f(x_n)\to L\)，矛盾。
+\end{proof}
+
+\begin{remark}
+构造中用 \(1/n\) 只是方便。任意正数列 \(\delta_n\to0\) 都可充当逐步缩小的尺度。关键是每一步从全部坏点中选取一个见证点。
+\end{remark}
+
+\section{Heine 定理的完整证明}
+
+\begin{proof}[Heine 定理的充分性]
+假设对每条定义域点列 \(x_n\to a\) 都有 \(f(x_n)\to L\)。若函数极限不为 \(L\)，坏点数列引理给出一条 \(x_n\to a\)，使 \(f(x_n)\not\to L\)，与假设矛盾。因此函数极限为 \(L\)。
+\end{proof}
+
+充分性也可以直接写成反证构造：先固定否定命题提供的 \(\varepsilon_0\)，再在半径 \(1/n\) 内选坏点。这里使用了依赖选择的一个最简单可数形式；每一步只需从已知非空集合中取一点。
+
+\begin{proposition}[定义域限制]
+若 \(E\subset D\)，且 \(a\) 是 \(E\) 的聚点，则
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L
+ \Longrightarrow
+ \lim_{\substack{x\to a\\x\in E}}f(x)=L.
+\]
+反向一般不成立。
+\end{proposition}
+
+\begin{proof}
+任意 \(E\) 中趋于 \(a\) 的点列也是 \(D\) 中的此类点列，故由 Heine 定理得到限制函数的极限。反向失败可由左右半轴限制或有理、无理限制给出。
+\end{proof}
+
+\section{用两条数列证明极限不存在}
+
+\begin{proposition}[双路径判别]
+若存在两条定义域点列 \(x_n\to a\)、\(y_n\to a\)，使
+\[
+ f(x_n)\to L,\qquad f(y_n)\to M,\qquad L\ne M,
+\]
+则 \(\lim_{x\to a}f(x)\) 不存在。
+\end{proposition}
+
+\begin{proof}
+若函数极限存在并等于 \(A\)，Heine 定理必要性迫使两条像数列都趋于 \(A\)。数列极限唯一性给出 \(L=A=M\)，矛盾。
+\end{proof}
+
+\begin{example}
+对 \(f(x)=\sin(1/x)\)，取
+\[
+ x_n=\frac1{\frac\pi2+2\pi n},\qquad
+ y_n=\frac1{\frac{3\pi}2+2\pi n}.
+\]
+两列都趋于 \(0\)，而 \(f(x_n)=1\)、\(f(y_n)=-1\)，故函数极限不存在。
+\end{example}
+
+\begin{example}[有理与无理路径]
+令 \(f=\mathbf1_{\Q}\)。对任意 \(a\)，可在每个 \(1/n\) 邻域内分别选择有理数 \(r_n\ne a\) 与无理数 \(s_n\ne a\)。则
+\[
+ r_n,s_n\to a,\qquad f(r_n)=1,\quad f(s_n)=0.
+\]
+故 \(f\) 处处无极限。
+\end{example}
+
+两条路径给出不同极限是充分条件，但不是证明不存在的唯一方式。像数列无界，或同一条像数列不收敛，也足以否定函数极限。
+
+\section{函数极限的 Cauchy 准则}
+
+\begin{definition}[局部 Cauchy 条件]
+称 \(f:D\to\R\) 在 \(a\) 附近满足 Cauchy 条件，如果
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x,y\in D,
+\]
+\[
+ 0<\abs{x-a}<\delta,\quad0<\abs{y-a}<\delta
+ \Longrightarrow\abs{f(x)-f(y)}<\varepsilon.
+\]
+\end{definition}
+
+\begin{theorem}[函数极限的 Cauchy 准则]
+设 \(a\) 是 \(D\) 的聚点。函数 \(f:D\to\R\) 在 \(x\to a\) 时有有限极限，当且仅当它在 \(a\) 附近满足局部 Cauchy 条件。
+\end{theorem}
+
+\begin{proof}
+若 \(f(x)\to L\)，给定 \(\varepsilon>0\)，取半径使
+\[
+ \abs{f(x)-L}<\varepsilon/2,\qquad
+ \abs{f(y)-L}<\varepsilon/2
+\]
+同时对删心邻域内所有点成立。三角不等式即给出 Cauchy 条件。
+
+反之，假设局部 Cauchy 条件成立。由聚点性可选 \(x_n\in D\) 满足
+\[
+ 0<\abs{x_n-a}<1/n.
+\]
+对给定 \(\varepsilon>0\)，取 Cauchy 半径 \(\delta\)。当 \(m,n\) 充分大时，\(x_m,x_n\) 都落在该删心邻域，故
+\[
+ \abs{f(x_m)-f(x_n)}<\varepsilon.
+\]
+于是 \((f(x_n))\) 是实 Cauchy 列，由实数完备性存在 \(L\in\R\) 使 \(f(x_n)\to L\)。
+
+最后证明 \(f(x)\to L\)。给定 \(\varepsilon>0\)，先取局部 Cauchy 条件对 \(\varepsilon/2\) 的半径 \(\delta\)。再选一个固定的充分大指标 \(n_0\)，使
+\[
+ 0<\abs{x_{n_0}-a}<\delta,\qquad
+ \abs{f(x_{n_0})-L}<\varepsilon/2.
+\]
+对任意 \(x\in D\) 满足 \(0<\abs{x-a}<\delta\)，有
+\[
+ \abs{f(x)-L}
+ \le\abs{f(x)-f(x_{n_0})}+\abs{f(x_{n_0})-L}
+ <\varepsilon.
+\]
+故极限存在。
+\end{proof}
+
+\section{Cauchy 准则对值域完备性的依赖}
+
+上述充分性证明只有一步超出局部估计：从 \((f(x_n))\) 是 Cauchy 列推出它在值域中收敛。若值域不完备，这一步可能失败。
+
+\begin{counterexample}[有理值函数]
+取有理 Cauchy 列 \((q_n)\) 在 \(\R\) 中趋于 \(\sqrt2\)，并令
+\[
+ D=\{0\}\cup\{1/n:n\in\N\},\qquad f(1/n)=q_n,\quad f(0)=0.
+\]
+把 \(f\) 看作 \(\Q\)-值函数。因 \((q_n)\) 是 Cauchy 列，\(f\) 在 \(0\) 附近满足局部 Cauchy 条件；但不存在 \(L\in\Q\) 使 \(f(x)\to L\)。若把值域扩大为 \(\R\)，极限就是 \(\sqrt2\)。
+\end{counterexample}
+
+\begin{theorem}[完备值域版本]
+设 \((Y,d)\) 是完备度量空间，\(f:D\to Y\)，\(a\) 是 \(D\) 的聚点。则 \(f\) 在 \(a\) 处存在 \(Y\)-值极限，当且仅当
+\[
+ \forall\varepsilon>0\ \exists\delta>0,\quad
+ x,y\in D\cap U^\circ(a,\delta)
+ \Longrightarrow d(f(x),f(y))<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+把实数绝对值换成距离，前一节证明逐字成立。三角不等式用于必要性和最后的传递；完备性用于像序列的收敛。
+\end{proof}
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+Heine 定理把删心邻域中的全体点控制等价地表为对全部逼近数列的控制。极限定义的否定可逐尺度抽取坏点数列，因而两条具有不同像极限的路径足以证明函数极限不存在。局部 Cauchy 条件进一步消去候选极限；从该条件恢复极限时，值域完备性不可缺少。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共24道编号题，含约40个独立训练单元，建议总用时5至7小时。\exerciserange{15.1}{15.18}为核心必做范围。
+
+\subsection*{A组　序列刻画与基本应用}
+\begin{enumerate}[label=\textbf{15.\arabic*.}]
+ \exerciseitem{15.1} \mustdo 证明 \(a\) 是 \(D\) 的聚点当且仅当存在互异于 \(a\) 的点列 \((x_n)\subset D\) 趋于 \(a\)。
+ \exerciseitem{15.2} \mustdo 在 Heine 定理中说明条件 \(x_n\ne a\) 的必要性。
+ \exerciseitem{15.3} \mustdo 不引用函数极限唯一性，利用 Heine 定理证明唯一性。
+ \exerciseitem{15.4} \mustdo 从 \(f(x)\not\to L\) 的否定形式逐步构造坏点数列。
+ \exerciseitem{15.5} \mustdo 证明若对每条 \(x_n\to a\) 都有 \(f(x_n)\to L\)，则对每条子列式重编号 \(x_{n_k}\) 结论仍成立。
+ \exerciseitem{15.6} \mustdo 用两条数列证明 \(\lim_{x\to0}\abs{x}/x\) 不存在。
+ \exerciseitem{15.7} \mustdo 用数列证明 \(\lim_{x\to0}\cos(1/x)\) 不存在。
+ \exerciseitem{15.8} \mustdo 证明函数极限存在时，任意两条逼近点列的函数值之差趋于零。
+\end{enumerate}
+
+\subsection*{B组　Cauchy 准则与限制定义域}
+\begin{enumerate}[label=\textbf{15.\arabic*.},resume]
+ \exerciseitem{15.9} \mustdo 证明 Heine 定理对任意子集定义域 \(D\subset\R\) 成立，不需要 \(D\) 包含区间。
+ \exerciseitem{15.10} \mustdo 证明限制定义域保持已有极限，并构造反向失败的例子。
+ \exerciseitem{15.11} \mustdo 设 \(f\) 在 \(a\) 附近满足局部 Cauchy 条件。证明对任意 \(x_n\to a\)，像数列 \(f(x_n)\) 是 Cauchy 列。
+ \exerciseitem{15.12} \mustdo 反过来，若每条 \(x_n\to a\) 的像数列都是 Cauchy 列，证明 \(f\) 满足局部 Cauchy 条件。
+ \exerciseitem{15.13} \mustdo 完整重建函数极限 Cauchy 准则的充分性证明，注明实数完备性的使用位置。
+ \exerciseitem{15.14} \mustdo 构造有理值函数满足局部 Cauchy 条件但没有有理值极限。
+ \exerciseitem{15.15} \mustdo 证明若 \(f(x)-g(x)\to0\)，则 \(f\) 有有限极限当且仅当 \(g\) 有有限极限，并且极限相同。
+ \exerciseitem{15.16} \mustdo 设 \(f\) 在 \(a\) 附近满足局部 Cauchy 条件。证明 \(f\) 在某删心邻域内有界。
+\end{enumerate}
+
+\subsection*{C组　反例、结构与项目}
+\begin{enumerate}[label=\textbf{15.\arabic*.},resume]
+ \exerciseitem{15.17} \mustdo 构造函数，使它沿某条趋于 \(0\) 的数列收敛到每个预先指定的 \(c\in[-1,1]\)，但函数在 \(0\) 处无极限。
+ \exerciseitem{15.18} \mustdo 证明：若对每两条 \(x_n,y_n\to a\) 都有 \(f(x_n)-f(y_n)\to0\)，则 \(f\) 在 \(a\) 处有有限极限。
+ \exerciseitem{15.19} \optionaldo 把两条点列交错成一条点列，借此给出上一题的另一证明。
+ \exerciseitem{15.20} \optionaldo 设值域是度量空间 \(Y\)。分析 Heine 定理是否需要 \(Y\) 完备，并与 Cauchy 准则比较。
+ \exerciseitem{15.21} \projectdo\ 【前置：\chapterref{chap:cauchy-criterion}与本章；预计用时：75分钟】给出“数列 Cauchy 准则—函数 Cauchy 准则—完备度量值域版本”的平行证明表，逐项标明三角不等式、聚点性和完备性的位置。
+ \exerciseitem{15.22} \opendo 研究只对单调逼近点列检验 Heine 条件是否足以推出函数极限。分别在区间定义域与一般稀疏定义域中讨论。
+ \exerciseitem{15.23} \projectdo\ 【前置：可数稠密集；预计用时：60分钟】对 \(\mathbf1_{\Q}\)、Thomae 型函数和 \(\sin(1/x)\) 分别设计两条或一条见证数列，比较它们的振荡机制。
+ \exerciseitem{15.24} \optionaldo 证明完备值域版本的 Cauchy 准则，并说明若 \(Y\) 只序列完备，证明仍然成立。
+\end{enumerate}

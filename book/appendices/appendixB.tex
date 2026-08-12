@@ -1,0 +1,154 @@
+\chapter{有限维线性代数、二次型与行列式复习}
+\label{chap:appendix-linear-algebra}
+
+\begin{chapterguide}
+本附录汇总后续多元分析、微分形式和算子理论反复使用的有限维线性代数。默认读者已学过矩阵运算；重点放在不依赖坐标的对象、基变换下的公式以及有限维假设的使用位置。
+\end{chapterguide}
+
+\section{线性映射、矩阵与基变换}
+
+设 \(V,W\) 是域 \(F\) 上有限维向量空间。映射 \(T:V\to W\) 线性是指
+\[
+ T(\alpha x+\beta y)=\alpha T(x)+\beta T(y).
+\]
+给定 \(V\) 的基 \(\mathcal B=(e_1,\ldots,e_n)\) 与 \(W\) 的基 \(\mathcal C=(f_1,\ldots,f_m)\)，矩阵 \(A=[T]_{\mathcal C\leftarrow\mathcal B}\) 的第 \(j\) 列是 \(T(e_j)\) 的 \(\mathcal C\)-坐标，因此
+\[
+ [T(x)]_{\mathcal C}=A[x]_{\mathcal B}.
+\]
+
+若 \(P\) 的列是新基 \(\mathcal B'\) 在旧基 \(\mathcal B\) 中的坐标，则
+\[
+ [x]_{\mathcal B}=P[x]_{\mathcal B'},\qquad
+ [T]_{\mathcal B'\leftarrow\mathcal B'}=P^{-1}[T]_{\mathcal B\leftarrow\mathcal B}P.
+\]
+相似矩阵表示同一线性算子在不同基下的坐标。
+
+\begin{theorem}[秩--零化度]
+若 \(T:V\to W\) 线性且 \(\dim V=n\)，则
+\[
+ \dim\ker T+\dim\operatorname{im}T=n.
+\]
+\end{theorem}
+
+\begin{proof}
+取 \(\ker T\) 的基 \(e_1,\ldots,e_k\)，扩充为 \(V\) 的基。则 \(T(e_{k+1}),\ldots,T(e_n)\) 张成像空间；若其线性组合为零，对应原向量落在核中，与基的线性无关性比较可知全部系数为零。故它们是像空间的基。
+\end{proof}
+
+\section{线性泛函、对偶基与转置映射}
+
+对偶空间 \(V^*=\operatorname{Hom}(V,F)\)。基 \((e_i)\) 的对偶基 \((e^i)\) 由
+\[
+ e^i(e_j)=\delta^i_j
+\]
+确定；若 \(x=\sum_i x^ie_i\)，则 \(x^i=e^i(x)\)。
+
+线性映射 \(T:V\to W\) 的转置或对偶映射
+\[
+ T^*:W^*\to V^*,\qquad T^*(\varphi)=\varphi\circ T
+\]
+满足 \((S\circ T)^*=T^*\circ S^*\)。在对偶基下，\(T^*\) 的矩阵是 \(T\) 矩阵的转置。有限维时自然映射
+\[
+ V\to V^{**},\qquad x\mapsto(\varphi\mapsto\varphi(x))
+\]
+是同构；无限维代数对偶中它一般不是满射。
+
+\section{行列式与定向体积}
+
+行列式是唯一满足下列条件的函数 \(\det:F^{n\times n}\to F\)：对各列分别线性，交换两列变号，且 \(\det I=1\)。Leibniz 公式为
+\[
+ \det A=\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)
+ \prod_{i=1}^n a_{i,\sigma(i)}.
+\]
+
+\begin{theorem}
+\[
+ \det(AB)=\det A\det B.
+\]
+因此 \(A\) 可逆当且仅当 \(\det A\ne0\)，且相似矩阵行列式相同。
+\end{theorem}
+
+\begin{proof}
+固定 \(B\)，函数 \(A\mapsto\det(AB)\) 对 \(A\) 的列具有交替多线性结构；按 \(B\) 的列展开或先验证初等矩阵，可得比例因子 \(\det B\)。令 \(A=I\) 确定比例，得到乘法公式。若 \(A\) 可逆，则 \(1=\det A\det A^{-1}\)。若 \(\det A\ne0\)，其列线性无关，方阵对应映射为双射。
+\end{proof}
+
+在实向量空间中，\(|\det A|\) 是定向平行体体积的缩放因子，符号记录定向是否反转。变量代换公式中的 Jacobian 行列式取绝对值，正是因为普通体积不带定向。
+
+\section{特征值、正交对角化与谱定理}
+
+若 \(T(v)=\lambda v\) 且 \(v\ne0\)，则 \(\lambda\) 是特征值。有限维矩阵的特征值满足
+\[
+ \det(A-\lambda I)=0.
+\]
+实矩阵未必有实特征值，也未必可对角化；例如平面非平凡旋转没有实特征向量，Jordan 块只有一个特征方向。
+
+\begin{theorem}[实对称谱定理]
+若 \(A=A^{\mathsf T}\in\R^{n\times n}\)，则存在正交矩阵 \(Q\) 与实对角矩阵 \(\Lambda\)，使
+\[
+ A=Q\Lambda Q^{\mathsf T}.
+\]
+\end{theorem}
+
+\begin{proof}
+连续函数 \(x\mapsto x^{\mathsf T}Ax\) 在单位球面上取得最大值 \(\lambda\)。对单位最大点 \(v\) 与任意 \(h\perp v\)，考察归一化曲线 \((v+th)/\|v+th\|\)，在 \(t=0\) 的导数为零，得到 \(h^{\mathsf T}Av=0\)。故 \(Av\) 与 \(v\) 平行，且 \(Av=\lambda v\)。
+
+对称性保证 \(v^\perp\) 在 \(A\) 下不变，因为 \(v^{\mathsf T}Ax=(Av)^{\mathsf T}x=0\)。在 \(v^\perp\) 上归纳，得到一组标准正交特征向量。把它们作为 \(Q\) 的列即得结论。这里使用了有限维单位球面的紧致性；无限维情形不能直接沿用。
+\end{proof}
+
+不同特征值对应的特征向量正交，因为
+\[
+ \lambda\langle x,y\rangle=\langle Ax,y\rangle
+ =\langle x,Ay\rangle=\mu\langle x,y\rangle.
+\]
+
+\section{二次型、正定性与 Sylvester 判据}
+
+实二次型可写为 \(q(x)=x^{\mathsf T}Ax\)，其中只需取对称部分 \((A+A^{\mathsf T})/2\)。称 \(A\) 正定，如果 \(x^{\mathsf T}Ax>0\) 对所有 \(x\ne0\) 成立。
+
+\begin{theorem}
+对实对称矩阵 \(A\)，下列条件等价：
+\begin{enumerate}
+ \item \(A\) 正定；
+ \item \(A\) 的全部特征值为正；
+ \item 存在可逆 \(R\) 使 \(A=R^{\mathsf T}R\)；
+ \item 所有顺序主子式 \(\Delta_k=\det A_{1:k,1:k}\) 均为正。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+谱分解给出 \(q(x)=\sum_i\lambda_i y_i^2\)，故前两项等价。正特征值取平方根得到 \(A=R^{\mathsf T}R\)；反向由 \(\|Rx\|^2>0\) 得正定。最后一项是 Sylvester 判据：无主元交换的对称消元给出
+\[
+ A=LDL^{\mathsf T},\qquad
+ d_k=\Delta_k/\Delta_{k-1}.
+\]
+全部 \(\Delta_k>0\) 当且仅当全部 \(d_k>0\)，又等价于正定。
+\end{proof}
+
+\section{多线性映射与张量记号初步}
+
+映射 \(T:V_1\times\cdots\times V_k\to W\) 若对每个变量分别线性，称为 \(k\)-线性映射。双线性型在基下写成 \(B(x,y)=B_{ij}x^iy^j\)。Einstein 求和约定把重复的一上一下指标自动求和。
+
+张量积 \(V\otimes W\) 由双线性映射的泛性质刻画：任意双线性 \(B:V\times W\to U\) 唯一分解为线性映射 \(\widetilde B:V\otimes W\to U\)。有限维时 \(e_i\otimes f_j\) 构成基，故
+\[
+ \dim(V\otimes W)=\dim V\,\dim W.
+\]
+坐标变换时，每个逆变指标随基变换，每个协变指标随对偶基变换；张量记号的价值在于把这种变换律编码进指标位置。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本附录按III级复习附录配置，共12道编号题，含20个训练单元。
+
+\begin{enumerate}[label=\textbf{B.\arabic*.}]
+ \exerciseitem{B.1} \mustdo 证明同一线性算子在两组基下的矩阵相似。
+ \exerciseitem{B.2} \mustdo 证明秩--零化度定理，并推出有限维空间上的单射线性自映射必为满射。
+ \exerciseitem{B.3} \mustdo 计算基变换下对偶基的变换矩阵。
+ \exerciseitem{B.4} \mustdo 证明 \((S\circ T)^*=T^*\circ S^*\) 及 \(\operatorname{rank}T^*=\operatorname{rank}T\)。
+ \exerciseitem{B.5} \mustdo 从交替多线性定义推出相同行的方阵行列式为零。
+ \exerciseitem{B.6} \mustdo 证明 \(\det(P^{-1}AP)=\det A\) 及迹的相似不变性。
+ \exerciseitem{B.7} \mustdo 给出不可对角化实矩阵及没有实特征值的实矩阵，并验证。
+ \exerciseitem{B.8} \mustdo 证明实对称矩阵不同特征值的特征空间正交。
+ \exerciseitem{B.9} \mustdo 证明正定矩阵的全部顺序主子式为正。
+ \exerciseitem{B.10} \projectdo\ 【前置：正交投影；预计用时：60分钟】补全实对称谱定理的极值证明。
+ \exerciseitem{B.11} \optionaldo 证明双线性型只由矩阵的对称部分决定其二次型，并用极化恒等式恢复对称双线性型。
+ \exerciseitem{B.12} \optionaldo 构造 \(V\otimes W\) 的基并证明其线性无关性。
+\end{enumerate}

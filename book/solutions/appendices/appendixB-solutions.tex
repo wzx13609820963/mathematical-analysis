@@ -1,0 +1,100 @@
+\chapter{有限维线性代数、二次型与行列式复习：习题解答}
+
+\begin{solution}{B.1}
+设 \(P\) 的列为新基在旧基下的坐标，则 \([x]_{\mathcal B}=P[x]_{\mathcal B'}\)。若旧矩阵为 \(A\)，则
+\[
+ P[T x]_{\mathcal B'}=A P[x]_{\mathcal B'},
+\]
+故新矩阵为 \(P^{-1}AP\)。
+\end{solution}
+
+\begin{solution}{B.2}
+取核的基并扩充为定义域基，其余基向量的像构成像空间基，故
+\[
+ \dim\ker T+\dim\operatorname{im}T=\dim V.
+\]
+若自映射单射，则核维数为零，所以像维数等于 \(\dim V\)；像是 \(V\) 的同维子空间，只能等于 \(V\)，故满射。
+\end{solution}
+
+\begin{solution}{B.3}
+若 \(e'_j=e_iP^i{}_j\)，设对偶基满足 \(e'^j=Q^j{}_ke^k\)。条件 \(e'^j(e'_\ell)=\delta^j_\ell\) 给出 \(QP=I\)，故 \(Q=P^{-1}\)。按列向量记对偶坐标时，对偶变换矩阵写作 \(P^{-\mathsf T}\)。
+\end{solution}
+
+\begin{solution}{B.4}
+对 \(\varphi\in U^*\)，
+\[
+ (S\circ T)^*(\varphi)=\varphi\circ S\circ T
+ =T^*(S^*\varphi).
+\]
+在对偶基下 \(T^*\) 的矩阵是 \(A^{\mathsf T}\)，而矩阵与其转置行秩、列秩相同，所以 \(\operatorname{rank}T^*=\operatorname{rank}T\)。
+\end{solution}
+
+\begin{solution}{B.5}
+若矩阵两行相同，则转置矩阵两列相同。交换这两列既不改变矩阵，又按交替性使行列式变号，因此 \(\det A=-\det A\)。在特征不为 \(2\) 的实、复数域中得到 \(\det A=0\)。也可直接在 Leibniz 和中把置换按交换两指标配对抵消。
+\end{solution}
+
+\begin{solution}{B.6}
+乘法公式给出
+\[
+ \det(P^{-1}AP)=\det(P^{-1})\det A\det P=\det A.
+\]
+迹满足 \(\operatorname{tr}(XY)=\operatorname{tr}(YX)\)，因为
+\[
+ \sum_{i,j}x_{ij}y_{ji}=\sum_{j,i}y_{ji}x_{ij}.
+\]
+故 \(\operatorname{tr}(P^{-1}AP)=\operatorname{tr}(APP^{-1})=\operatorname{tr}A\)。
+\end{solution}
+
+\begin{solution}{B.7}
+Jordan 块
+\[
+ \begin{pmatrix}1&1\\0&1\end{pmatrix}
+\]
+只有特征值 \(1\)，其特征空间由 \((1,0)^{\mathsf T}\) 张成，维数小于 \(2\)，故不可对角化。旋转矩阵
+\[
+ \begin{pmatrix}0&-1\\1&0\end{pmatrix}
+\]
+的特征多项式为 \(\lambda^2+1\)，在 \(\R\) 中无根，故没有实特征值。
+\end{solution}
+
+\begin{solution}{B.8}
+若 \(Ax=\lambda x\)、\(Ay=\mu y\) 且 \(\lambda\ne\mu\)，由对称性
+\[
+ \lambda\langle x,y\rangle=\langle Ax,y\rangle
+ =\langle x,Ay\rangle=\mu\langle x,y\rangle.
+\]
+所以 \((\lambda-\mu)\langle x,y\rangle=0\)，从而 \(x\perp y\)。对各特征空间任取向量即得空间正交。
+\end{solution}
+
+\begin{solution}{B.9}
+正定矩阵 \(A\) 的左上 \(k\times k\) 主块 \(A_k\) 也正定：把 \(x\in\R^k\setminus\{0\}\) 补零嵌入 \(\R^n\)，有 \(x^{\mathsf T}A_kx>0\)。谱定理说明 \(A_k\) 的特征值全正，故
+\[
+ \Delta_k=\det A_k=\prod_{j=1}^k\lambda_j(A_k)>0.
+\]
+\end{solution}
+
+\begin{solution}{B.10}
+单位球面紧致，故 Rayleigh 商 \(x^{\mathsf T}Ax\) 在其上有最大点 \(v\)。对 \(h\perp v\)，曲线
+\[
+ \gamma(t)=\frac{v+th}{\|v+th\|}
+\]
+留在球面；在 \(t=0\) 求导得 \(2h^{\mathsf T}Av=0\)。所以 \(Av\) 与 \(v\) 正交补中的每个向量正交，即 \(Av=\lambda v\)。对称性使 \(v^\perp\) 不变，在该 \((n-1)\) 维空间归纳，得到标准正交特征基。以这些向量为列的 \(Q\) 正交，且 \(Q^{\mathsf T}AQ\) 对角。
+\end{solution}
+
+\begin{solution}{B.11}
+写 \(A=S+K\)，其中 \(S=(A+A^{\mathsf T})/2\) 对称，\(K=(A-A^{\mathsf T})/2\) 反对称。因标量 \(x^{\mathsf T}Kx\) 等于其转置 \(-x^{\mathsf T}Kx\)，故为零，所以 \(x^{\mathsf T}Ax=x^{\mathsf T}Sx\)。
+
+若 \(q(x)=B(x,x)\) 且 \(B\) 对称双线性，则
+\[
+ B(x,y)=\frac12\bigl(q(x+y)-q(x)-q(y)\bigr)
+ =\frac14\bigl(q(x+y)-q(x-y)\bigr).
+\]
+\end{solution}
+
+\begin{solution}{B.12}
+若 \((e_i)\)、\((f_j)\) 分别为 \(V,W\) 的基，张量积的生成关系把任意纯张量展开为
+\[
+ v\otimes w=\sum_{i,j}v^iw^j(e_i\otimes f_j),
+\]
+故这些元素张成。对每对 \((i,j)\)，双线性型 \((v,w)\mapsto e^i(v)f^j(w)\) 诱导线性泛函，作用在 \(e_k\otimes f_\ell\) 上得到 \(\delta^i_k\delta^j_\ell\)。对线性组合逐一作用便知全部系数为零，故线性无关。
+\end{solution}

@@ -1,0 +1,378 @@
+\chapter{一致连续及其定量形式}
+
+\section*{A组　定义、判据与典型例}
+\addcontentsline{toc}{section}{A组　定义、判据与典型例}
+
+\begin{solution}{19.1}
+逐点连续的量词为
+\[
+ \forall a\in D\ \forall\varepsilon>0\ \exists\delta(a,\varepsilon)>0
+\ \forall x\in D,
+\]
+而一致连续要求
+\[
+ \forall\varepsilon>0\ \exists\delta(\varepsilon)>0
+\ \forall x,y\in D.
+\]
+后者的同一半径控制全部点对。固定 \(y=a\) 后，一致连续的半径立即给出 \(a\) 处连续性。
+\end{solution}
+
+\begin{solution}{19.2}
+必要性：输入距离趋零后最终小于统一半径，故像距趋零。充分性用反证：若不一致连续，存在 \(\varepsilon_0>0\)，对每个 \(n\) 选
+\[
+ \abs{x_n-y_n}<1/n,\qquad
+ \abs{f(x_n)-f(y_n)}\ge\varepsilon_0.
+\]
+输入距离趋零而像距不趋零，违背序列条件。
+\end{solution}
+
+\begin{solution}{19.3}
+取 \(x_n=n\)、\(y_n=n+1/n\)。则输入距离为 \(1/n\to0\)，但
+\[
+ y_n^2-x_n^2=2+1/n^2\to2.
+\]
+由双序列判据，平方函数在 \(\R\) 上不一致连续。
+\end{solution}
+
+\begin{solution}{19.4}
+在 \((0,1)\) 上取 \(x_n=1/n\)、\(y_n=1/(n+1)\)，输入距离趋零而倒数值之差恒为 \(1\)，故不一致连续。在 \([a,\infty)\) 上，
+\[
+ \abs{\frac1x-\frac1y}
+ =\frac{\abs{x-y}}{xy}
+ \le\frac1{a^2}\abs{x-y},
+\]
+所以它是 \(1/a^2\)-Lipschitz 连续。
+\end{solution}
+
+\begin{solution}{19.5}
+不妨 \(x\ge y\ge0\)。由
+\[
+ (\sqrt x-\sqrt y)^2
+ =x+y-2\sqrt{xy}\le x-y
+\]
+得
+\[
+ \abs{\sqrt x-\sqrt y}\le\sqrt{\abs{x-y}}.
+\]
+给定 \(\varepsilon>0\)，取 \(\delta=\varepsilon^2\) 即得一致连续。
+\end{solution}
+
+\begin{solution}{19.6}
+取一致连续性对精度 \(1\) 的半径 \(\delta\)。有界区间可用有限个长度小于 \(\delta\) 的小区间覆盖。每个与定义域相交的小区间选参考点 \(x_j\)。任意 \(x\) 与某个 \(x_j\) 距离小于 \(\delta\)，故
+\[
+ \abs{f(x)}\le\abs{f(x)-f(x_j)}+\abs{f(x_j)}
+ <1+\max_j\abs{f(x_j)}.
+\]
+\end{solution}
+
+\begin{solution}{19.7}
+恒等函数 \(f(x)=x\) 在 \(\R\) 上是 \(1\)-Lipschitz 连续，因而一致连续，但它无界。定义域有界性是上一题推出函数有界的必要背景。
+\end{solution}
+
+\begin{solution}{19.8}
+序列法反设不一致连续，得到距离趋零但像距不趋零的两列。紧致性从第一列抽出收敛子列，第二列因与它距离趋零而收敛到同一点；连续性使两条像子列同极限，矛盾。
+
+覆盖法在每点取控制 \(\varepsilon/2\) 的加倍邻域，用半径减半的邻域覆盖紧集，取有限子覆盖，并取有限个半径的最小值。任意足够近的点对可通过某个覆盖中心连接，两个误差各小于 \(\varepsilon/2\)。
+\end{solution}
+
+\begin{solution}{19.9}
+有界但不闭：\(1/x\) 在 \((0,1)\) 上连续而不一致连续，坏行为集中到缺失端点。闭但无界：\(x^2\) 在 \(\R\) 上连续而不一致连续，坏点对共同逃向无穷远。这两个反例对应紧致性失败的两种不同机制。
+\end{solution}
+
+\section*{B组　定量连续性与 Cauchy 列}
+\addcontentsline{toc}{section}{B组　定量连续性与 Cauchy 列}
+
+\begin{solution}{19.10}
+若
+\[
+ \abs{f(x)-f(y)}\le C\abs{x-y}^{\alpha},
+\]
+给定 \(\varepsilon>0\)，当 \(C>0\) 时取
+\[
+ \delta=(\varepsilon/C)^{1/\alpha}.
+\]
+输入距离小于 \(\delta\) 即使像距小于 \(\varepsilon\)。\(C=0\) 时函数为常值。
+\end{solution}
+
+\begin{solution}{19.11}
+对 \(x\ge y\ge0\)，凹函数幂的次可加性给出
+\[
+ x^\alpha=(y+(x-y))^\alpha\le y^\alpha+(x-y)^\alpha,
+\]
+故
+\[
+ \abs{x^\alpha-y^\alpha}\le\abs{x-y}^\alpha.
+\]
+若它是 Lipschitz 的，则对 \(y=0\) 有
+\[
+ x^\alpha\le Lx,
+\]
+即 \(x^{\alpha-1}\le L\) 对所有 \(x>0\) 成立；令 \(x\to0+\) 矛盾。
+\end{solution}
+
+\begin{solution}{19.12}
+若常数分别为 \(L_f,L_g\)，则
+\[
+ \abs{(f+g)(x)-(f+g)(y)}
+ \le(L_f+L_g)\abs{x-y}.
+\]
+若 \(f:D\to E\)、\(g:E\to\R\)，则
+\[
+ \abs{g(f(x))-g(f(y))}
+ \le L_g\abs{f(x)-f(y)}
+ \le L_gL_f\abs{x-y}.
+\]
+\end{solution}
+
+\begin{solution}{19.13}
+在 \(\R\) 上取 \(f(x)=g(x)=x\)。二者都是 \(1\)-Lipschitz，但乘积 \(x^2\) 不一致连续，因而不可能 Lipschitz。若
+\[
+ \abs f\le M_f,\quad\abs g\le M_g,
+\]
+则
+\[
+ \abs{f(x)g(x)-f(y)g(y)}
+ \le(M_fL_g+M_gL_f)\abs{x-y}.
+\]
+\end{solution}
+
+\begin{solution}{19.14}
+给定 \(\varepsilon>0\)，取一致连续半径 \(\delta\)。若 \((x_n)\) 是 Cauchy 列，则存在 \(N\) 使 \(m,n\ge N\) 时 \(\abs{x_m-x_n}<\delta\)。于是
+\[
+ \abs{f(x_m)-f(x_n)}<\varepsilon,
+\]
+所以像列也是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{19.15}
+取 \(D=(0,1)\)、\(f(x)=1/x\) 与 \(x_n=1/n\)。原列在实数中是 Cauchy 列，且各项属于 \(D\)；像列 \(f(x_n)=n\) 无界，因而不是 Cauchy 列。函数 \(f\) 在 \(D\) 上逐点连续。
+\end{solution}
+
+\begin{solution}{19.16}
+连续模
+\[
+ \omega_f(t)=\sup_{\abs{x-y}\le t}\abs{f(x)-f(y)}
+\]
+单调不减且 \(\omega_f(0)=0\)。若 \(f\) 一致连续，给定 \(\varepsilon>0\)，用精度 \(\varepsilon\) 的统一半径可使充分小 \(t\) 下所有相关像距小于 \(\varepsilon\)，故连续模趋零。反之，选 \(\delta\) 使 \(\omega_f(\delta)<\varepsilon\)，则 \(\abs{x-y}<\delta\) 时像距不超过该连续模。
+\end{solution}
+
+\begin{solution}{19.17}
+设 \(D\) 是区间，\(\abs{x-y}\le s+t\)。若 \(\abs{x-y}\le s\) 结论直接成立。否则在 \(x,y\) 之间选 \(z\in D\)，使 \(\abs{x-z}=s\)，则 \(\abs{z-y}\le t\)。因此
+\[
+ \abs{f(x)-f(y)}
+ \le\omega_f(s)+\omega_f(t).
+\]
+对所有此类 \(x,y\) 取上确界，得到
+\[
+ \omega_f(s+t)\le\omega_f(s)+\omega_f(t).
+\]
+\end{solution}
+
+\begin{solution}{19.18}
+对 \(f(x)=x\)（\(D=\R\)），恰有
+\[
+ \omega_f(t)=t.
+\]
+对 \(f(x)=\sqrt x\)（\(D=[0,\infty)\)），有
+\[
+ \abs{\sqrt x-\sqrt y}\le\sqrt{\abs{x-y}},
+\]
+且取 \(x=t,y=0\) 达到等号，所以
+\[
+ \omega_f(t)=\sqrt t.
+\]
+\end{solution}
+
+\section*{C组　延拓、结构与项目}
+\addcontentsline{toc}{section}{C组　延拓、结构与项目}
+
+\begin{solution}{19.19}
+对 \(x\in X\)，取 \(x_n\in D\)、\(x_n\to x\)。一致连续性保持 Cauchy 列，故 \(f(x_n)\) 是实 Cauchy 列并收敛，定义其极限为 \(\widetilde f(x)\)。若 \(y_n\to x\)，则 \(\abs{x_n-y_n}\to0\)，双序列判据说明两条像列之差趋零，故定义良好。
+
+在 \(D\) 中用常值列可知延拓保持原值。对 \(x,y\in X\) 足够近，分别以 \(D\) 中点 \(u,v\) 逼近，并把三段像误差各控制在 \(\varepsilon/3\)，即可证明 \(\widetilde f\) 一致连续。任何连续延拓在 \(x_n\to x\) 上都必须取极限 \(\lim f(x_n)\)，故唯一。
+\end{solution}
+
+\begin{solution}{19.20}
+稠密性用于对每个新点选择定义域内逼近列；一致连续性用于把逼近 Cauchy 列映成 Cauchy 列，并证明不同逼近列给出同一极限；值域完备性用于保证像 Cauchy 列在值域中确有极限。唯一性最后只需延拓连续与稠密性。
+\end{solution}
+
+\begin{solution}{19.21}
+由恒等式
+\[
+ \abs{\sin x-\sin y}
+ =2\abs{\cos\frac{x+y}{2}\sin\frac{x-y}{2}}
+ \le\abs{x-y},
+\]
+\(\sin x\) 在 \(\R\) 上 \(1\)-Lipschitz，故其在 \(\Q\) 上的限制一致连续。延拓定理给出唯一连续延拓。原来的实正弦函数就是一个这样的延拓，所以唯一性说明延拓恰为 \(\sin x\)。
+\end{solution}
+
+\begin{solution}{19.22}
+在 \(\Q\) 上定义
+\[
+ f(q)=
+ \begin{cases}
+ 0,&q^2<2,\\
+ 1,&q^2>2.
+ \end{cases}
+\]
+因 \(\sqrt2\notin\Q\)，每个有理点都与分界集合保持某个正距离，故 \(f\) 在 \(\Q\) 的相对拓扑中连续。但若能连续延拓到 \(\R\)，从小于 \(\sqrt2\) 与大于 \(\sqrt2\) 的有理列逼近该点会分别迫使延拓值为 \(0,1\)，矛盾。
+\end{solution}
+
+\begin{solution}{19.23}
+取任意 \(x_n\to a+\)。它是 \((a,b)\) 中的 Cauchy 列，一致连续性使 \(f(x_n)\) 成为实 Cauchy 列，故收敛。任意两条趋于 \(a+\) 的点列交错后仍趋于 \(a+\)，双序列判据说明像极限相同。因此右极限 \(L_a\) 存在；同理左端得到 \(L_b\)。定义 \(f(a)=L_a,f(b)=L_b\)，由序列判据得到闭区间上的连续延拓，且原一致连续半径可通过逼近传给端点。
+\end{solution}
+
+\begin{solution}{19.24}
+证明链为：紧致性把连续函数的局部半径有限化，得到 Heine--Cantor；一致连续性把输入 Cauchy 列映成像 Cauchy 列；值域完备性把像列变成极限；稠密性把这些极限定义为完备化上的延拓。删去紧致性可用 \(x^2\) 或 \(1/x\) 反驳连续推出一致连续；删去一致连续性用 \(1/n\mapsto n\) 反驳保持 Cauchy；删去值域完备性用趋于 \(\sqrt2\) 的有理 Cauchy 列；删去稠密性则新点附近没有原定义域信息，延拓不唯一。
+\end{solution}
+
+\begin{solution}{19.25}
+任意连续函数都保持收敛到定义域内点的数列，这是点连续的序列判据，因而不能刻画一致连续。例如 \(1/x\) 在 \((0,1)\) 上保持每条收敛到区间内点的数列，却不一致连续。保持所有定义域内 Cauchy 列则更强；对实值函数，它可检测趋向缺失边界的列。结合适当条件可用它刻画一致连续，但单独“把 Cauchy 列映为 Cauchy 列”在某些离散或结构特殊定义域上还需分析，双序列判据是无附加条件的精确刻画。
+\end{solution}
+
+\begin{solution}{19.26}
+若 \(f:X\to Y\) 与 \(f^{-1}:Y\to X\) 都一致连续，则 \(X\) 中 Cauchy 列经 \(f\) 成为 \(Y\) 中 Cauchy 列，反向亦然。若 \(X\) 完备，任取 \(Y\) 中 Cauchy 列 \((y_n)\)，其逆像 \(x_n=f^{-1}(y_n)\) 收敛到某 \(x\in X\)；连续性给出 \(y_n=f(x_n)\to f(x)\)，故 \(Y\) 完备。反向对称，所以一致同胚保持完备性。
+\end{solution}
+
+\section*{第三编综合作业}
+\addcontentsline{toc}{section}{第三编综合作业}
+
+\begin{solution}{III.1}
+\begin{enumerate}
+ \item 聚点要求每个删心邻域都含定义域点；极限定义为
+ \[
+  \forall\varepsilon>0\ \exists\delta>0,\quad
+  x\in D,\ 0<\abs{x-a}<\delta
+  \Rightarrow\abs{f(x)-L}<\varepsilon.
+ \]
+ \item 否定为存在固定 \(\varepsilon_0>0\)，使每个 \(\delta>0\) 内都有像误差至少为 \(\varepsilon_0\) 的坏点。
+ \item 依次取 \(\delta=1/n\) 并选坏点，得到 \(x_n\to a\) 而 \(f(x_n)\not\to L\)。
+ \item 孤立点存在空的充分小删心邻域，蕴含式会对每个 \(L\) 空泛成立，破坏唯一性。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.2}
+\begin{enumerate}
+ \item 用
+ \[
+  fg-LM=f(g-M)+M(f-L)
+ \]
+ 并以 \(f\) 的局部有界性控制第一项。
+ \item \(M\ne0\) 给出 \(\abs g\ge\abs M/2\)，先证 \(1/g\to1/M\)，再用乘积法则。
+ \item 当 \(x\to0\) 时，取 \(f=g=x\) 得商为 \(1\)；取 \(f=1,g=x^2\) 得商趋 \(+\infty\)；取 \(f=\sin(1/x),g=1\) 可得无极限，也可令分子分母都趋零取 \(f=x\sin(1/x),g=x\)。
+ \item 外层删心极限不控制中心点值；若内层函数反复取中心，复合值可能由该未受控点值决定。外层连续时可取消避开条件。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.3}
+\begin{enumerate}
+ \item Heine 必要性把函数极限半径传给任意逼近列；充分性反设极限失败，按半径 \(1/n\) 选坏点列。
+ \item Cauchy 必要性用共同极限和三角不等式；充分性先选 \(x_n\to a\)，由局部 Cauchy 得像 Cauchy 列，再用完备性得到 \(L\)，最后以一个固定像项为桥梁推广到整个删心邻域。
+ \item 有理值反例取 \(f(1/n)=q_n\to\sqrt2\)，其中 \(q_n\in\Q\)。
+ \item 在完备度量值域中把绝对值换成距离，证明逐步不变。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.4}
+\begin{enumerate}
+ \item 定义为
+ \[
+  \forall M>0\ \exists\delta>0,\quad
+  a<x<a+\delta\Rightarrow f(x)<-M.
+ \]
+ \item 定义为
+ \[
+  \forall\varepsilon>0\ \exists A\in\R,\quad
+  x<A\Rightarrow\abs{f(x)-L}<\varepsilon.
+ \]
+ \item 必要性把相应半邻域或尾部传给点列；充分性失败时分别在 \((a,a+1/n)\) 或 \((-\infty,-n)\) 中选坏点。
+ \item 令 \(t=1/x\)。\(x\to+\infty\) 对应 \(t\to0+\)，\(x\to-\infty\) 对应 \(t\to0-\)，量词阈值 \(A\) 与半径 \(1/A\) 相互转换。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.5}
+\begin{enumerate}
+ \item 连续推出序列保持；反向失败时按 \(1/n\) 邻域选与点值保持固定误差的点。
+ \item 可去型：未补值的 \((x^2-1)/(x-1)\)、改错点值的常值函数；跳跃型：取整函数、符号函数；第二类：\(\sin(1/x)\)、\(1/x\) 在零点。
+ \item 两段内部连续只控制交界点两侧；全局连续还要求左右极限与交界点值相等。
+ \item 端点只检验定义域存在的一侧。例如 \(\sqrt x\) 在 \([0,\infty)\) 的 \(0\) 处连续，无需负侧定义。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.6}
+\begin{enumerate}
+ \item 递增函数的左极限是左侧值集上确界，右极限是右侧值集下确界；由上确界、下确界的逼近性质证明。
+ \item 次序给出 \(f(a-)\le f(a)\le f(a+)\)。若两侧相等，函数连续；故间断必有严格跳跃。
+ \item 若 \(a<b\)，单调性给出 \(f(a+)\le f(b-)\)，故两个开跳跃区间不交。
+ \item 每个非空跳跃区间选一有理数，得到间断点集到 \(\Q\) 的单射。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.7}
+\begin{enumerate}
+ \item 以“从左端起可有限覆盖到哪里”为集合，取其上确界；覆盖成员的开性使可覆盖范围越过该上确界，迫使它等于右端点。
+ \item 闭且有界集嵌入闭区间，并把补集加入覆盖；反向用 \((-n,n)\) 检测无界，用避开缺失聚点的开集检测不闭。
+ \item 闭区间中的点列由 Bolzano--Weierstrass 有收敛子列；反向若覆盖无有限子覆盖，可构造逃离逐个有限子族的点列并以收敛子列导致矛盾。
+ \item \((0,1)\) 非闭且覆盖 \((1/n,1)\) 无有限子覆盖；\(\R\) 无界且覆盖 \((-n,n)\) 无有限子覆盖。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.8}
+\begin{enumerate}
+ \item 每点局部有界邻域构成覆盖，取有限子覆盖并对有限个中心值取最大。
+ \item 对值集上确界选逼近点列，从闭区间抽收敛子列，连续性使上确界取得。
+ \item 对负值点集取上确界，连续性排除上确界处严格正或严格负。
+ \item 区间连通，连续像仍连通；实线中的连通集是区间，所以像包含端点函数值之间的全部数。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.9}
+\begin{enumerate}
+ \item \(x^2\) 在每个点连续，在有界闭区间上一致连续，在 \(\R\) 上不一致连续；坏点取 \(n,n+1/n\)。
+ \item \(\sqrt x\) 在 \([0,\infty)\) 上 \(1/2\)-Hölder，连续模为 \(\sqrt t\)，一致连续但非 Lipschitz。
+ \item \(1/x\) 在 \((0,\infty)\) 连续，在 \([a,\infty)\) 上 Lipschitz，在 \((0,1)\) 上不一致连续；坏点取 \(1/n,1/(n+1)\)。
+ \item \(\sin x\) 在 \(\R\) 上 \(1\)-Lipschitz，故一致连续，可取连续模上界 \(t\)。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.10}
+\begin{enumerate}
+ \item 对每个新点 \(x\) 用稠密性选 \(x_n\in D\)、\(x_n\to x\)。
+ \item 一致连续保持 Cauchy 列，值域完备性给出像极限；两条逼近列相互距离趋零，故像极限相同。
+ \item 以三段 \(\varepsilon/3\) 误差证明延拓一致连续；任何连续延拓都必须在稠密逼近列上取同一极限，故唯一。
+ \item 仅连续不能保证逼近缺失边界的 Cauchy 列被映成 Cauchy 列，例如 \(1/n\mapsto n\)。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{III.11}
+一种依赖链为
+\[
+ \text{实数上确界性质}
+ \Longrightarrow
+ \text{单调收敛与套区间}
+ \Longrightarrow
+ \text{Bolzano--Weierstrass}
+ \Longrightarrow
+ \text{序列紧致}.
+\]
+另一条由上确界法直接得到闭区间有限覆盖。序列紧致或有限覆盖分别推出连续函数有界、取得极值和 Heine--Cantor。区间的上确界分割证明连通与零点定理，继而得到介值。最后
+\[
+ \text{一致连续}\Longrightarrow\text{保持 Cauchy 列}
+\]
+与值域完备性、定义域稠密性结合，得到完备化延拓。图中每条边都应标明相应证明中调用的定理，而不能把互相等价的完备性结论循环引用。
+\end{solution}
+
+\begin{solution}{III.12}
+可选六类互不重复的边界例：
+\begin{enumerate}
+ \item 删去闭端点：\(x\) 在 \((0,1)\) 不取极值；
+ \item 删去有界性：\(x^2\) 在 \(\R\) 连续但不一致连续；
+ \item 值域改为 \(\Q\)：有理 Cauchy 值函数无有理极限；
+ \item 输入趋于扩充实数：\(1/x\) 在 \(0\) 左右趋于不同无穷；
+ \item 仅连续不一致连续：\(1/x\) 把 \(1/n\) 映成非 Cauchy 列；
+ \item 复合删心极限不避开中心：内层恒等于中心、外层点值与删心极限不同；
+ \item 定义域只保留右侧：\(\abs x/x\) 在 \(0+\) 极限存在而双侧极限不存在；
+ \item 非连通定义域：连续整数值函数可在不同连通分支取不同常值。
+\end{enumerate}
+这些例子分别改变定义域几何、值域完备性、极限类型或量词统一性，不能互相替代。
+\end{solution}

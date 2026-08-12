@@ -1,0 +1,357 @@
+\chapter{聚点、部分极限、上极限与下极限}
+\label{chap:limsup-liminf}
+
+\begin{chapterguide}
+发散数列仍可能具有稳定的尾部边界。部分极限记录可由子列实现的极限值；上极限与下极限则通过尾部集合的确界和下确界，分别描述最终可反复达到的最高层次与最低层次。本章区分数列的重复指标与值集聚点，建立扩充实数语言，并证明上下极限的子列刻画、运算不等式和收敛判据。
+\end{chapterguide}
+
+\section{数列值集的聚点与数列的部分极限}
+
+\begin{definition}
+设 \(E\subseteq\R\)。若对每个 \(\varepsilon>0\)，删心邻域
+\[
+ (x-\varepsilon,x+\varepsilon)\setminus\{x\}
+\]
+都含 \(E\) 中的点，则称 \(x\) 为 \(E\) 的\term{聚点}。
+\end{definition}
+
+\begin{definition}
+若实数列 \((a_n)\) 有子列 \(a_{n_k}\to L\in\R\)，则称 \(L\) 为该数列的一个\term{部分极限}或\term{子列极限}。
+\end{definition}
+
+聚点属于集合的概念，部分极限属于带指标的数列。常值列 \(a_n=c\) 的值集是单点集，没有聚点；但 \(c\) 是该数列的部分极限。若一个数值只出现有限次，则它要成为部分极限，必须有其他数列值从附近逼近它。
+
+\begin{proposition}
+实数 \(L\) 是 \((a_n)\) 的部分极限，当且仅当对每个 \(\varepsilon>0\) 和每个 \(N\in\N\)，都存在 \(n\ge N\) 使
+\[
+ \abs{a_n-L}<\varepsilon.
+\]
+\end{proposition}
+
+\begin{proof}
+若 \(a_{n_k}\to L\)，给定 \(\varepsilon,N\)，取 \(k\) 足够大使
+\(n_k\ge N\) 且 \(\abs{a_{n_k}-L}<\varepsilon\)。
+
+反之，先在 \(N=1\)、误差 \(1\) 下选 \(n_1\)。选好 \(n_k\) 后，在尾部起点 \(n_k+1\)、误差 \(1/(k+1)\) 下选 \(n_{k+1}\)。于是指标严格递增且
+\(\abs{a_{n_k}-L}<1/k\)，故子列收敛到 \(L\)。
+\end{proof}
+
+\section{部分极限的子列刻画}
+
+上一命题也可写成：每个邻域 \(U\) 与每个尾部值集
+\[
+ A_N=\{a_n:n\ge N\}
+\]
+都有非空交。于是部分极限集合为
+\[
+ \bigcap_{N=1}^{\infty}\overline{A_N},
+\]
+其中闭包符号在本章只表示“集合连同其全部聚点”；\chapterref{chap:compact-connected-real-line}将给出闭集语言。
+
+\begin{theorem}
+若 \((a_n)\) 有界，则其部分极限集合非空且有界。若部分极限只有一个 \(L\)，则原列收敛到 \(L\)。
+\end{theorem}
+
+\begin{proof}
+非空性由 Bolzano--Weierstrass 定理。每个子列仍受原列的共同界控制，序关系取极限后说明部分极限也位于同一闭区间内。
+
+若原列不收敛到 \(L\)，可抽取始终与 \(L\) 保持固定正距离的子列。它仍有界，故有收敛的进一步子列；该新部分极限不同于 \(L\)，矛盾。
+\end{proof}
+
+无界数列可能没有有限部分极限，例如 \(a_n=n\)；也可能同时有有限部分极限和无穷方向，例如 \(a_{2n}=0\)、\(a_{2n-1}=n\)。
+
+\section{扩充实数系 \texorpdfstring{\([-\infty,+\infty]\)}{[-infinity,+infinity]}}
+
+在集合 \(\R\) 中加入两个符号 \(-\infty,+\infty\)，得到\term{扩充实数系}
+\[
+ \overline{\R}=[-\infty,+\infty].
+\]
+规定
+\[
+ -\infty<x<+\infty\qquad(x\in\R).
+\]
+扩充实数是全序集，但不是域。表达式
+\[
+ (+\infty)+(-\infty),\qquad 0\cdot(+\infty),\qquad
+ \frac{\infty}{\infty}
+\]
+不作定义，因为不同逼近方式会产生不同结果。只有不会造成歧义的运算才使用，例如 \(x+(+\infty)=+\infty\) 对有限 \(x\) 成立。
+
+\begin{definition}
+在 \(\overline{\R}\) 中，若数列趋于 \(+\infty\) 或 \(-\infty\)，也把相应符号称为其扩充实数极限。
+\end{definition}
+
+任意集合 \(E\subseteq\R\) 在扩充实数中都有上确界与下确界：若 \(E\) 在实数中无上界，规定 \(\sup E=+\infty\)；若 \(E=\varnothing\)，为统一尾部公式规定
+\[
+ \sup\varnothing=-\infty,\qquad
+ \inf\varnothing=+\infty.
+\]
+本章尾部值集均非空，因此空集约定不会直接进入数列计算。
+
+\section{尾部上确界与下确界}
+
+对实数列 \((a_n)\)，定义扩充实数
+\[
+ \beta_n=\sup_{k\ge n}a_k,\qquad
+ \alpha_n=\inf_{k\ge n}a_k.
+\]
+称它们为第 \(n\) 个尾部的上确界和下确界。
+
+\begin{proposition}
+\((\beta_n)\) 在 \(\overline{\R}\) 中单调递减，\((\alpha_n)\) 单调递增，并且
+\[
+ \alpha_n\le a_n\le\beta_n.
+\]
+若原列有界，则两列均为有限实数列并分别收敛。
+\end{proposition}
+
+\begin{proof}
+尾部集合满足 \(A_{n+1}\subseteq A_n\)，所以其上确界不增、下确界不减。因 \(a_n\in A_n\)，中间不等式成立。有界时 \(\beta_n,\alpha_n\) 有共同有限界，单调有界收敛定理给出极限。
+\end{proof}
+
+\begin{example}
+若 \(a_n=(-1)^n+1/n\)，则每个尾部仍含趋近 \(1\) 的偶数项和趋近 \(-1\) 的奇数项。直接计算尾部确界的细节依赖首个偶指标，但有
+\[
+ \beta_n\downarrow1,\qquad \alpha_n\uparrow-1.
+\]
+\end{example}
+
+\section{\texorpdfstring{\(\limsup\)}{limsup} 与 \texorpdfstring{\(\liminf\)}{liminf} 的定义和基本性质}
+
+\begin{definition}
+实数列 \((a_n)\) 的\term{上极限}与\term{下极限}定义为
+\[
+ \limsup_{n\to\infty}a_n
+ :=\inf_{n\ge1}\sup_{k\ge n}a_k
+ =\inf_n\beta_n,
+\]
+\[
+ \liminf_{n\to\infty}a_n
+ :=\sup_{n\ge1}\inf_{k\ge n}a_k
+ =\sup_n\alpha_n.
+\]
+二者取值于 \(\overline{\R}\)。
+\end{definition}
+
+有界时，它们分别是单调列 \(\beta_n,\alpha_n\) 的实数极限。定义中的顺序不能交换：先对每个尾部取确界，再对尾部起点取下确界，表达“删去任意有限多项后仍可能达到的最高层次”。
+
+\begin{theorem}[基本序关系]
+对任意实数列，
+\[
+ \liminf a_n\le\limsup a_n.
+\]
+若 \(a_n\le b_n\) 最终成立，则
+\[
+ \liminf a_n\le\liminf b_n,\qquad
+ \limsup a_n\le\limsup b_n.
+\]
+\end{theorem}
+
+\begin{proof}
+对任意 \(m,n\)，取 \(k\ge\max\{m,n\}\)，有
+\[
+ \alpha_m\le a_k\le\beta_n.
+\]
+所以 \(\alpha_m\le\beta_n\)。先对 \(m\) 取上确界、再对 \(n\) 取下确界得到第一式。最终比较允许删去有限首项；在共同尾部上，尾部上下确界保持相应序关系，取极限即得第二组不等式。
+\end{proof}
+
+\begin{proposition}
+\[
+ \limsup(-a_n)=-\liminf a_n,\qquad
+ \liminf(-a_n)=-\limsup a_n.
+\]
+对常数 \(c\in\R\)，
+\[
+ \limsup(a_n+c)=\limsup a_n+c,
+\quad
+ \liminf(a_n+c)=\liminf a_n+c.
+\]
+\end{proposition}
+
+\section{上下极限的子列刻画}
+
+\begin{theorem}[有界数列的子列刻画]
+设 \((a_n)\) 有界，记
+\[
+ s=\limsup a_n,\qquad \ell=\liminf a_n.
+\]
+则：
+\begin{enumerate}
+ \item 存在子列收敛到 \(s\)，也存在子列收敛到 \(\ell\)；
+ \item 任意部分极限 \(L\) 都满足 \(\ell\le L\le s\)；
+ \item \(s\) 是所有部分极限中的最大者，\(\ell\) 是最小者。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+设 \(\beta_n=\sup_{k\ge n}a_k\downarrow s\)。对每个 \(j\)，由上确界近似性可在尾部 \(k\ge j\) 中选指标 \(n_j\ge j\)，使
+\[
+ \beta_j-\frac1j<a_{n_j}\le\beta_j.
+\]
+为了保证严格递增，可在第 \(j\) 步把尾部起点改为 \(n_{j-1}+1\)，并使用该尾部的上确界；所得上确界仍趋于 \(s\)。夹逼给出 \(a_{n_j}\to s\)。下极限情形对 \(-a_n\) 应用同一论证。
+
+若 \(a_{n_j}\to L\)，固定尾部起点 \(m\)。充分大时 \(n_j\ge m\)，故
+\[
+ \alpha_m\le a_{n_j}\le\beta_m.
+\]
+取 \(j\to\infty\) 得 \(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，得到 \(\ell\le L\le s\)。前一步已经说明端点本身是部分极限，所以它们分别为最小和最大部分极限。
+\end{proof}
+
+对无界数列，相应端点可能为无穷。例如 \(\limsup a_n=+\infty\) 当且仅当存在子列趋于 \(+\infty\)；证明仍用尾部上确界或逐级选择超过整数 \(j\) 的项。
+
+\section{上下极限与四则运算中的等式和不等式}
+
+上极限不把加法普遍变成等式，因为两个数列的高峰可能出现在不同指标。
+
+\begin{theorem}[和的上下极限不等式]
+设 \((a_n)\)、\((b_n)\) 都有界，则
+\[
+ \limsup(a_n+b_n)
+ \le\limsup a_n+\limsup b_n,
+\]
+\[
+ \liminf(a_n+b_n)
+ \ge\liminf a_n+\liminf b_n.
+\]
+若 \(a_n\to a\)，则两式中与 \(a_n\) 有关的对应关系成为等式：
+\[
+ \limsup(a_n+b_n)=a+\limsup b_n,
+\quad
+ \liminf(a_n+b_n)=a+\liminf b_n.
+\]
+\end{theorem}
+
+\begin{proof}
+对每个尾部，
+\[
+ \sup_{k\ge n}(a_k+b_k)
+ \le\sup_{k\ge n}a_k+\sup_{k\ge n}b_k.
+\]
+令 \(n\to\infty\) 得第一式；下确界同理。若 \(a_n\to a\)，给定 \(\varepsilon>0\)，最终
+\[
+ a-\varepsilon\le a_n\le a+\varepsilon.
+\]
+于是把 \(a_n+b_n\) 夹在 \(b_n+a\pm\varepsilon\) 之间，对上下极限使用单调性，再令 \(\varepsilon\downarrow0\) 即得等式。
+\end{proof}
+
+\begin{counterexample}
+令 \(a_n=(-1)^n\)、\(b_n=-(-1)^n\)。则
+\[
+ \limsup a_n=\limsup b_n=1,
+\]
+但 \(a_n+b_n=0\)，所以
+\[
+ \limsup(a_n+b_n)=0<2.
+\]
+两个高峰从不在同一指标出现。
+\end{counterexample}
+
+对非负有界数列有
+\[
+ \limsup(a_nb_n)\le(\limsup a_n)(\limsup b_n).
+\]
+若其中一列收敛到非负数，则可得到相应等式。带符号乘法需同时考虑上下极限，不能直接套用同一公式。
+
+\section{数列收敛的上下极限判据}
+
+\begin{theorem}
+实数列 \((a_n)\) 收敛到 \(L\in\R\)，当且仅当
+\[
+ \liminf a_n=\limsup a_n=L.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(a_n\to L\)，给定 \(\varepsilon>0\)，充分大时整个尾部位于
+\((L-\varepsilon,L+\varepsilon)\)，故相应尾部上下确界也在闭区间
+\([L-\varepsilon,L+\varepsilon]\) 中。于是上下极限均为 \(L\)。
+
+反之，设共同值为 \(L\)。尾部下确界 \(\alpha_n\uparrow L\)，尾部上确界 \(\beta_n\downarrow L\)。给定 \(\varepsilon>0\)，取 \(N\) 使
+\[
+ L-\varepsilon<\alpha_N\le\beta_N<L+\varepsilon.
+\]
+对所有 \(n\ge N\)，有
+\(\alpha_N\le a_n\le\beta_N\)，所以 \(\abs{a_n-L}<\varepsilon\)。
+\end{proof}
+
+因此振幅
+\[
+ \omega_n:=\sup_{k\ge n}a_k-\inf_{k\ge n}a_k
+\]
+对有界数列满足
+\[
+ a_n\text{ 收敛}\quad\Longleftrightarrow\quad\omega_n\to0.
+\]
+这一量度量尾部剩余的整体振荡，而不只比较相邻两项。
+
+\section*{本章小结}
+\addcontentsline{toc}{section}{本章小结}
+
+部分极限要求每个邻域在任意尾部中仍被命中。尾部上确界单调下降，尾部下确界单调上升；其极限定义上、下极限。对有界数列，上下极限分别是部分极限集合的最大元和最小元。它们对加法一般只满足不等式，高峰错位解释了严格性；二者相等且有限恰好刻画数列收敛。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\noindent\textbf{配置说明：}本章按II级核心章配置，共26道编号题，含48个独立训练单元，建议总用时6至8小时。\exerciserange{12.1}{12.18}为核心必做范围。
+
+\subsection*{A组　部分极限与尾部确界}
+\begin{enumerate}[label=\textbf{12.\arabic*.}]
+ \exerciseitem{12.1} \mustdo 证明部分极限的“每个邻域命中任意尾部”刻画。
+ \exerciseitem{12.2} \mustdo 分别求 \((-1)^n\)、\((-1)^n+1/n\)、\(\sin(n\pi/2)\) 的全部部分极限。
+ \exerciseitem{12.3} \mustdo 给出数列部分极限但不是其值集聚点的例子，并解释差异。
+ \exerciseitem{12.4} \mustdo 证明有界数列的部分极限集合非空且有最大元、最小元。
+ \exerciseitem{12.5} \mustdo 对 \(a_n=(-1)^n+1/n\) 写出 \(\alpha_n,\beta_n\) 的奇偶公式，并求上下极限。
+ \exerciseitem{12.6} \mustdo 证明尾部上确界递减、尾部下确界递增。
+ \exerciseitem{12.7} \mustdo 计算下列数列的上下极限：
+ \begin{enumerate}[label=(\arabic*)]
+  \item \(a_n=(-1)^n n\)；
+  \item \(a_n=n\sin(n\pi/2)\)；
+  \item \(a_n=1+(-1)^n/n\)。
+ \end{enumerate}
+ \exerciseitem{12.8} \mustdo 证明 \(\limsup a_n=+\infty\) 当且仅当存在子列趋于 \(+\infty\)。
+\end{enumerate}
+
+\subsection*{B组　子列刻画与运算}
+\begin{enumerate}[label=\textbf{12.\arabic*.},resume]
+ \exerciseitem{12.9} \mustdo 完整证明有界数列存在收敛到其上极限的子列，确保指标严格递增。
+ \exerciseitem{12.10} \mustdo 证明任意部分极限位于 \([\liminf a_n,\limsup a_n]\)。
+ \exerciseitem{12.11} \mustdo 证明 \(\limsup(-a_n)=-\liminf a_n\)。
+ \exerciseitem{12.12} \mustdo 证明最终 \(a_n\le b_n\) 蕴含上下极限的相应单调性。
+ \exerciseitem{12.13} \mustdo 证明和的上极限不等式，并给出严格不等的例子。
+ \exerciseitem{12.14} \mustdo 若 \(a_n\to a\)，证明
+ \[
+ \limsup(a_n+b_n)=a+\limsup b_n
+ \]
+ 对有界 \((b_n)\) 成立。
+ \exerciseitem{12.15} \mustdo 对非负有界列证明
+ \[
+ \limsup(a_nb_n)\le(\limsup a_n)(\limsup b_n).
+ \]
+ \exerciseitem{12.16} \mustdo 证明
+ \[
+ \limsup\max\{a_n,b_n\}
+ =\max\{\limsup a_n,\limsup b_n\}.
+ \]
+ \exerciseitem{12.17} \mustdo 判断 \(\limsup\abs{a_n}=\abs{\limsup a_n}\) 是否总成立，并给出正确关系。
+ \exerciseitem{12.18} \mustdo 证明上下极限相等且有限蕴含原列收敛。
+\end{enumerate}
+
+\subsection*{C组　综合与项目}
+\begin{enumerate}[label=\textbf{12.\arabic*.},resume]
+ \exerciseitem{12.19} \mustdo 证明有界数列收敛当且仅当尾部振幅 \(\omega_n\to0\)。
+ \exerciseitem{12.20} \mustdo 构造数列，使其部分极限集合恰为 \(\{-1,0,2\}\)，并计算上下极限。
+ \exerciseitem{12.21} \mustdo 构造有界数列 \(a_n,b_n\)，使两个上极限都为 \(1\)，而和的上极限分别可以为 \(0,1,2\)。
+ \exerciseitem{12.22} \projectdo\ 【前置：\chapterref{chap:subsequences-bw}Bolzano--Weierstrass；预计用时：90分钟】证明有界数列的部分极限集合是非空闭集，且其最大、最小元分别为上下极限。
+ \exerciseitem{12.23} \optionaldo 设 \(a_n>0\)。比较 \(\limsup a_{n+1}/a_n\) 与 \(a_n^{1/n}\) 的可能关系，给出至少一个不能直接交换的反例。
+ \exerciseitem{12.24} \optionaldo 证明若 \(\limsup\abs{a_n}<1\)，则存在 \(q<1\) 使 \(\abs{a_n}\le q\) 最终成立。
+ \exerciseitem{12.25} \opendo 研究任意非空闭集 \(F\subseteq\R\) 是否能成为某个数列的部分极限集合；对有界 \(F\) 给出构造方案。
+ \exerciseitem{12.26} \projectdo\ 【前置：本章全部；预计用时：60分钟】把上、下极限写成尾部闭包交集的最大、最小点，并比较“集合表达”“尾部确界表达”“子列表达”三种证明工具。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{12.5}：分别找尾部中最大的第一个偶项与最小的第一个奇项。
+ \item \exerciseref{12.16}：利用 \(\max\) 与尾部上确界可交换。
+ \item \exerciseref{12.17}：正确关系涉及 \(\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}\)。
+ \item \exerciseref{12.21}：通过让两个数列的高峰同位、错位或部分同位安排结果。
+\end{itemize}
