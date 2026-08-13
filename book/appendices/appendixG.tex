@@ -98,10 +98,10 @@ Cauchy 列 & Cauchy sequence & suite de Cauchy & Cauchy-Folge\\
 箭头表示主要的证明依赖，不表示必须一次读完左侧全部内容才能接触右侧例子。
 
 \begin{description}
- \item[严格基础路线] \chapterref{chap:mathematical-language} $\to$ 第1--6章 $\to$ 第7--13章 $\to$ 第14--19章。适合第一次系统学习证明的读者。实数构造中较技术性的等价证明可以先掌握结论，再在完成数列极限后回读。
- \item[极限专题路线] \chapterref{chap:mathematical-language}量词与证明方法 $\to$ \chapterref{chap:ordered-field-completeness}确界 $\to$ \chapterref{chap:equivalent-completeness}完备性 $\to$ 第7--13章 $\to$ 第14--16章。该路线突出估计、子列与 Cauchy 准则。
- \item[连续性专题路线] \chapterref{chap:consequences-completeness}稠密性和可数性 $\to$ \chapterref{chap:limsup-liminf}子列 $\to$ 第14--16章函数极限 $\to$ 第17--19章连续、紧致与一致连续。该路线适合集中重建介值、最值和 Heine--Cantor 定理。
- \item[结构比较路线] 第4--6章 $\to$ \chapterref{chap:cauchy-criterion} $\to$ \chapterref{chap:compact-connected-real-line}。重点比较有序域、完备度量思想、闭集、紧致和连通，适合准备拓扑与泛函分析。
+ \item[严格基础路线] \chapterref{chap:mathematical-language} $\to$ \chapterref{chap:real-number-system} $\to$ \chapterref{chap:dedekind-construction}或\chapterref{chap:cauchy-construction} $\to$ \chapterref{chap:equivalent-completeness} $\to$ 第二、三编。实数构造中较技术性的证明可以在完成数列极限后回读。
+ \item[极限专题路线] \chapterref{chap:mathematical-language}量词与证明方法 $\to$ \chapterref{chap:real-number-system}确界 $\to$ \chapterref{chap:equivalent-completeness}完备性 $\to$ \chapterref{chap:sequence-limits}至\chapterref{chap:cauchy-criterion} $\to$ \chapterref{chap:function-limits}。该路线突出估计、子列与 Cauchy 准则。
+ \item[连续性专题路线] \chapterref{chap:real-number-system}稠密性和可数性 $\to$ \chapterref{chap:subsequences-cluster-points}与\chapterref{chap:limsup-liminf} $\to$ \chapterref{chap:function-limits} $\to$ \chapterref{chap:continuity-discontinuity}至\chapterref{chap:uniform-continuity}。
+ \item[结构比较路线] \chapterref{chap:dedekind-construction}至\chapterref{chap:equivalent-completeness} $\to$ \chapterref{chap:cauchy-criterion} $\to$ \chapterref{chap:continuous-functions-closed-interval}。重点比较有序域、完备度量思想、紧致和连通。
 \end{description}
 
 后续专题的精确路线依赖尚未完成的正文。此处预留如下位置：
@@ -116,7 +116,7 @@ Cauchy 列 & Cauchy sequence & suite de Cauchy & Cauchy-Folge\\
 同一概念常有多种记号。阅读陌生文献时，第一步应辨认定义，而不是仅凭符号猜测。
 
 \begin{description}
- \item[自然数] 有的作者取 $\N=\{1,2,\ldots\}$，有的取 $\N=\{0,1,2,\ldots\}$。本书在首次使用时明确约定；涉及递归起点时不省略说明。
+ \item[自然数] 有的作者取 $\N=\{1,2,\ldots\}$，有的取 $\N=\{0,1,2,\ldots\}$。本书固定采用后一约定，并写 $\Npos=\{1,2,3,\ldots\}$；涉及分母或递归起点时不省略正整数限制。
  \item[区间] 欧美文献常用 $(a,b)$ 表示开区间；部分法语文献也使用 $]a,b[$。无穷端点永不属于区间，因此 $(-\infty,a]$ 中的圆括号不是可选格式。
  \item[函数的像] $f(A)$ 通常表示集合 $A$ 的像，$f^{-1}(B)$ 表示原像。后者不要求 $f$ 可逆，不应与反函数混淆。
  \item[补集] $A^c$、$X\setminus A$ 与 $\complement_X A$ 都可表示相对于全集 $X$ 的补集；省略全集可能导致歧义。
@@ -153,10 +153,10 @@ Cauchy 列 & Cauchy sequence & suite de Cauchy & Cauchy-Folge\\
 \addcontentsline{toc}{section}{习题}
 
 \begin{enumerate}[label=\textbf{G.\arabic*.}]
- \exerciseitem{G.1} \mustdo 从\chapterref{chap:sequence-limit-definition}或\chapterref{chap:function-limit-definition}任选一个极限定理，把其量词结构完整写出，并说明 $\varepsilon$--$N$ 与 $\varepsilon$--$\delta$ 语言各自控制的变量。
- \exerciseitem{G.2} \mustdo 说明为何“定理以某人命名”不能单独证明历史优先权，并列出核查一项优先权主张所需的两类材料。
- \exerciseitem{G.3} \mustdo 查表解释英语 \emph{sequence}、\emph{series}、\emph{subsequence} 的区别，并给出相应德语术语。
- \exerciseitem{G.4} \mustdo 比较“紧致”“序列紧致”“闭且有界”三个表述在 $\R$、度量空间和一般拓扑空间中的关系。
- \exerciseitem{G.5} \mustdo 为一本数学专著写出完整书目条目，并说明 DOI、版本号和访问日期各自解决什么识别问题。
- \exerciseitem{G.6} \projectdo\ 【前置：前三编；预计用时：60分钟】选择“实数完备性”或“连续函数”专题，按本附录的阅读路线列出一页学习地图：每个节点写明定义、一个主要定理、一个反例以及对下一节点的依赖。涉及后续正文的节点只标注预留位置。
+ \exerciseitem{G.1} 从\chapterref{chap:sequence-limits}或\chapterref{chap:function-limits}任选一个极限定理，把其量词结构完整写出，并说明 $\varepsilon$--$N$ 与 $\varepsilon$--$\delta$ 语言各自控制的变量。
+ \exerciseitem{G.2} 说明为何“定理以某人命名”不能单独证明历史优先权，并列出核查一项优先权主张所需的两类材料。
+ \exerciseitem{G.3} 查表解释英语 \emph{sequence}、\emph{series}、\emph{subsequence} 的区别，并给出相应德语术语。
+ \exerciseitem{G.4} 比较“紧致”“序列紧致”“闭且有界”三个表述在 $\R$、度量空间和一般拓扑空间中的关系。
+ \exerciseitem{G.5} 为一本数学专著写出完整书目条目，并说明 DOI、版本号和访问日期各自解决什么识别问题。
+ \projectexerciseitem{G.6} \ 【前置：前三编；预计用时：60分钟】选择“实数完备性”或“连续函数”专题，按本附录的阅读路线列出一页学习地图：每个节点写明定义、一个主要定理、一个反例以及对下一节点的依赖。涉及后续正文的节点只标注预留位置。
 \end{enumerate}

@@ -6,8 +6,8 @@
 
 | 源码 | 含义 | 约定 |
 |---|---|---|
-| `\N` | 正整数集 | `\{1,2,3,\ldots\}` |
-| `\mathbb N_0` | 非负整数集 | `\{0,1,2,\ldots\}` |
+| `\N` | 自然数集 | `\{0,1,2,\ldots\}`，包含 `0` |
+| `\Npos` | 正整数集 | `\mathbb N_{>0}=\{1,2,3,\ldots\}` |
 | `\Z,\Q,\R,\C` | 整数、有理数、实数、复数 | 使用样式命令 |
 | `\varnothing` | 空集 | 不使用 `\emptyset` |
 | `A\subseteq B` | 允许相等的包含 | 严格包含写 `A\subsetneq B` |
@@ -30,7 +30,7 @@
 
 | 中文术语 | 精确定义 |
 |---|---|
-| 有限 | 与某个 `\{1,\ldots,n\}` 等势，允许空集 |
+| 有限 | 与某个 `[n]=\{1,\ldots,n\}` 等势，其中 `n\in\N` 且 `[0]=\varnothing` |
 | 可数无限 | 与 `\N` 双射 |
 | 至多可数 | 有限或可数无限；等价地可单射到 `\N` |
 | 不可数 | 不是至多可数 |
@@ -45,8 +45,8 @@
 | `\sectionref{sec:...}` | 跨节引用 |
 | `\theoremref{thm:...}` | 定理引用 |
 | `\equationref{eq:...}` | 公式引用 |
-| `\exerciseitem{0.1}` | 正文正式习题及其稳定键 |
-| `\exerciseref{0.1}` | 正文中的习题引用 |
-| `\begin{solution}{0.1}` | 解答册中与正文标签自动配对的解答 |
+| `\exerciseitem{dedekind-cut-basic-check}` | 正文正式习题及其语义稳定键 |
+| `\exerciseref{dedekind-cut-basic-check}` | 正文中的习题引用 |
+| `\begin{solution}{dedekind-cut-basic-check}` | 解答册中与正文标签自动配对的解答 |
 
-稳定键只承担工程身份，不得手工决定最终显示号。
+稳定键只承担工程身份，不得手工决定最终显示号。新稳定键不得含当前章号或题号；现有数字键仅作3.0版目录迁移期兼容。

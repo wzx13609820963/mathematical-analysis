@@ -1,7 +1,7 @@
 ﻿$ErrorActionPreference = 'Stop'
 
-function Find-XeLaTeX {
-    $command = Get-Command xelatex -ErrorAction SilentlyContinue
+function Find-LuaLaTeX {
+    $command = Get-Command lualatex -ErrorAction SilentlyContinue
     if ($command) {
         return $command.Source
     }
@@ -10,7 +10,7 @@ function Find-XeLaTeX {
     if (Test-Path -LiteralPath $texLiveRoot) {
         $candidate = Get-ChildItem -LiteralPath $texLiveRoot -Directory |
             Sort-Object Name -Descending |
-            ForEach-Object { Join-Path $_.FullName 'bin\windows\xelatex.exe' } |
+            ForEach-Object { Join-Path $_.FullName 'bin\windows\lualatex.exe' } |
             Where-Object { Test-Path -LiteralPath $_ } |
             Select-Object -First 1
         if ($candidate) {
@@ -18,14 +18,10 @@ function Find-XeLaTeX {
         }
     }
 
-    throw 'xelatex was not found in PATH or under C:\texlive.'
+    throw 'lualatex was not found in PATH or under C:\texlive.'
 }
 
-$engine = Find-XeLaTeX
-$xdvipdfmx = Join-Path (Split-Path $engine -Parent) 'xdvipdfmx.exe'
-if (-not (Test-Path -LiteralPath $xdvipdfmx)) {
-    throw 'xdvipdfmx was not found beside xelatex.'
-}
+$engine = Find-LuaLaTeX
 
 & (Join-Path $PSScriptRoot 'check-project.ps1')
 
@@ -38,27 +34,30 @@ $repositoryRoot = Split-Path $PSScriptRoot -Parent
 $taskId = 'build-solutions-{0}-{1}' -f (Get-Date -Format 'yyyyMMdd-HHmmss'), $PID
 $taskDirectory = Join-Path $repositoryRoot "tmp\tasks\$taskId"
 $candidateDirectory = Join-Path $taskDirectory 'publish-pending'
+$fontCacheDirectory = Join-Path $taskDirectory 'texmf-var'
 New-Item -ItemType Directory -Force -Path $candidateDirectory | Out-Null
-$xdvPath = Join-Path $PSScriptRoot 'solutions.xdv'
+New-Item -ItemType Directory -Force -Path $fontCacheDirectory | Out-Null
+$previousTexmfVar = [Environment]::GetEnvironmentVariable('TEXMFVAR', 'Process')
+$previousTexmfCache = [Environment]::GetEnvironmentVariable('TEXMFCACHE', 'Process')
+$env:TEXMFVAR = $fontCacheDirectory
+$env:TEXMFCACHE = $fontCacheDirectory
+$retainTaskDirectory = $false
 
 Push-Location -LiteralPath $PSScriptRoot
 try {
     1..2 | ForEach-Object {
-        & $engine -no-pdf -interaction=nonstopmode -halt-on-error solutions.tex
+        & $engine -interaction=nonstopmode -halt-on-error solutions.tex
         if ($LASTEXITCODE -ne 0) {
-            throw "XeLaTeX compilation failed on pass $_."
+            throw "LuaLaTeX compilation failed on pass $_."
         }
     }
 
     $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-习题解答-第一卷第一至三编及附录A至G.pdf'
-    $savedErrorPreference = $ErrorActionPreference
-    $ErrorActionPreference = 'Continue'
-    & $xdvipdfmx -o $candidatePath $xdvPath
-    $conversionExitCode = $LASTEXITCODE
-    $ErrorActionPreference = $savedErrorPreference
-    if ($conversionExitCode -ne 0 -or -not (Test-Path -LiteralPath $candidatePath)) {
-        throw 'XDV to PDF conversion failed.'
+    $builtPdf = Join-Path $PSScriptRoot 'solutions.pdf'
+    if (-not (Test-Path -LiteralPath $builtPdf)) {
+        throw 'LuaLaTeX did not produce solutions.pdf.'
     }
+    Copy-Item -LiteralPath $builtPdf -Destination $candidatePath -Force
 
     $outputDirectory = Join-Path $repositoryRoot 'output\pdf'
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
@@ -67,14 +66,25 @@ try {
         Copy-Item -LiteralPath $candidatePath -Destination $releasePath -Force
     }
     catch {
+        $retainTaskDirectory = $true
         throw "发布文件可能正被占用：$releasePath。候选文件保留在 $candidatePath；请关闭占用后重新运行，勿创建带后缀的替代 PDF。"
     }
-
-    Remove-Item -LiteralPath $taskDirectory -Recurse -Force
 }
 finally {
-    if (Test-Path -LiteralPath $xdvPath) {
-        Remove-Item -LiteralPath $xdvPath -Force
+    if ($null -eq $previousTexmfVar) {
+        Remove-Item Env:TEXMFVAR -ErrorAction SilentlyContinue
+    }
+    else {
+        $env:TEXMFVAR = $previousTexmfVar
+    }
+    if ($null -eq $previousTexmfCache) {
+        Remove-Item Env:TEXMFCACHE -ErrorAction SilentlyContinue
+    }
+    else {
+        $env:TEXMFCACHE = $previousTexmfCache
     }
     Pop-Location
+    if (-not $retainTaskDirectory -and (Test-Path -LiteralPath $taskDirectory)) {
+        Remove-Item -LiteralPath $taskDirectory -Recurse -Force
+    }
 }

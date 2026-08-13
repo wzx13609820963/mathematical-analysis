@@ -1,11 +1,7 @@
-\chapter{有理数系的缺陷与实数问题：习题解答}
+\chapter{实数系：习题解答}
 
-\begin{chapterguide}
-本章解答与正文\chapterref{chap:rational-defects}的20道习题逐题对应。开放题中出现的实数不可数性只用于条件性比较。
-\end{chapterguide}
-
-\section*{A组　定义与基本论证}
-\addcontentsline{toc}{section}{A组　定义与基本论证}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
 \begin{solution}{1.1}
 设 \(a<b\)。对 \(n\ge2\) 令
@@ -45,8 +41,81 @@
 \end{enumerate}
 \end{solution}
 
-\section*{B组　缺口与逼近}
-\addcontentsline{toc}{section}{B组　缺口与逼近}
+\begin{solution}{2.1}
+由 \(0x=(0+0)x=0x+0x\) 消去 \(0x\)，得 \(0x=0\)。又
+\[
+ x+(-1)x=(1-1)x=0,
+\]
+所以逆元唯一性给出 \((-1)x=-x\)。进而
+\[
+ (-x)(-y)=((-1)x)((-1)y)=(-1)^2xy=xy.
+\]
+\end{solution}
+
+\begin{solution}{2.2}
+由平移相容性，\(x<y\) 两边加 \(-x\) 等价于 \(0<y-x\)。若 \(x<y\) 且 \(u<v\)，则
+\[
+ x+u<y+u<y+v.
+\]
+若 \(c<0\)，则 \(-c>0\)。由 \(x<y\) 乘 \(-c\) 后再取相反数，得到 \(cx>cy\)。
+\end{solution}
+
+\begin{solution}{2.3}
+若 \(x\ge0\)，则 \(x^2\ge0\)；若 \(x<0\)，则 \(-x>0\) 且 \(x^2=(-x)^2>0\)。若 \(x=0\)，平方为零；若 \(x\ne0\)，上述讨论给出 \(x^2>0\)，故逆向也成立。
+\end{solution}
+
+\begin{solution}{2.4}
+\(|x-a|<r\) 等价于 \(-r<x-a<r\)，两端加 \(a\) 即得第一式。反向步骤可逆。把严格不等号改为非严格不等号，同样得到第二式。
+\end{solution}
+
+\begin{solution}{2.5}
+由 \(x=(x-y)+y\) 得 \(|x|-|y|\le|x-y|\)。交换 \(x,y\) 后有 \(|y|-|x|\le|x-y|\)，合并即
+\[
+ \bigl||x|-|y|\bigr|\le|x-y|.
+\]
+当 \(x,y\) 同号或至少一个为零时取等。
+\end{solution}
+
+\begin{solution}{2.6}
+若 \(\C\) 能成为有序域，则 \(1>0\)，故 \(-1<0\)，同时每个平方非负。但 \(i^2=-1<0\)，矛盾。
+\end{solution}
+
+\begin{solution}{3.1}
+对实数 \(|x|\) 应用 Archimedes 性质，存在 \(n\in\N\) 使 \(n>|x|\)。于是同时有 \(-n<x<n\)。
+\end{solution}
+
+\begin{solution}{3.2}
+对正数 \(a/\varepsilon\) 取 \(n>a/\varepsilon\)。乘以 \(\varepsilon/n>0\)，得到 \(a/n<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{3.3}
+令 \(k=\lfloor x\rfloor\)，则 \(k\le x<k+1\)。加 \(m\in\Z\) 后
+\[
+ k+m\le x+m<k+m+1,
+\]
+由唯一性得 \(\lfloor x+m\rfloor=k+m\)。
+
+定义 \(\lceil x\rceil\) 为满足 \(r-1<x\le r\) 的唯一整数。该不等式取相反数得
+\[
+ -r\le -x<-r+1,
+\]
+故 \(\lfloor-x\rfloor=-r=-\lceil x\rceil\)。
+\end{solution}
+
+\begin{solution}{3.4}
+先取 \(q_1\in\Q\cap(a,b)\)。递归地在 \((q_k,b)\) 中取 \(q_{k+1}\in\Q\)，得到严格递增的无限有理数列。对无理数同样递归使用正文的无理稠密性定理。严格递增保证各项互异。
+\end{solution}
+
+\begin{solution}{3.5}
+取 \(m=\lfloor nx\rfloor\)，令 \(q=m/n\)。则
+\[
+ 0\le x-q<\frac1n,
+\]
+所以 \(|x-q|<1/n\)。若要求严格从另一侧逼近，可取 \((m+1)/n\)。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
 
 \begin{solution}{1.6}
 令 \(d=2-r^2>0\)。把 \((2r+1)/d\) 写成有理数后，可直接取大于它的整数 \(n\)，并使 \(n\ge2\)。于是
@@ -97,8 +166,95 @@
 正文的 \(a_n\) 与 \(-a_n\) 都是无有理极限的 Cauchy 列，而其和恒为 \(0\)。另一方面，\(a_n+a_n=2a_n\) 没有有理极限；否则若 \(2a_n\to r\in\Q\)，便有 \(a_n\to r/2\in\Q\)。
 \end{solution}
 
-\section*{C组　结构与项目}
-\addcontentsline{toc}{section}{C组　结构与项目}
+\begin{solution}{2.7}
+\begin{enumerate}[label=(\arabic*)]
+ \item \((0,1)\) 的上界全体为 \([1,\infty)\)，下界全体为 \((-\infty,0]\)，上、下确界为 \(1,0\)，没有最大元和最小元。
+ \item \([0,1)\) 的上下界全体和上下确界同上；最小元为 \(0\)，没有最大元。
+ \item 记 \(s=\sqrt2\)。非负数平方保持次序，故集合等于 \([0,s)\)。上界全体为 \([s,\infty)\)，下界全体为 \((-\infty,0]\)，上下确界为 \(s,0\)，最小元为 \(0\)，没有最大元。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{2.8}
+若 \(s,t\) 都是上确界，则 \(s\le t\) 且 \(t\le s\)，故 \(s=t\)。
+
+\(m=\inf A\) 的近似刻画为：\(m\le a\) 对所有 \(a\in A\) 成立；对每个 \(\varepsilon>0\)，存在 \(a_\varepsilon\in A\) 使
+\[
+ m\le a_\varepsilon<m+\varepsilon.
+\]
+若第二项失败，\(m+\varepsilon\) 是更大的下界；反之，任何大于 \(m\) 的下界都与第二项矛盾。
+\end{solution}
+
+\begin{solution}{2.9}
+\(\sup B\) 是 \(B\) 的上界，因而也是 \(A\) 的上界，所以 \(\sup A\le\sup B\)。取 \(A=(0,1)\)、\(B=(0,2)\) 得严格不等；取 \(A=(0,1)\)、\(B=(0,1]\) 得等号。
+\end{solution}
+
+\begin{solution}{2.10}
+令 \(\alpha=\sup A,\ \beta=\sup B\)。对 \(a\in A,b\in B\)，有 \(a+b\le\alpha+\beta\)，故右端是上界。给定 \(\varepsilon>0\)，取
+\[
+ a>\alpha-\varepsilon/2,\qquad b>\beta-\varepsilon/2.
+\]
+则 \(a+b>\alpha+\beta-\varepsilon\)。由上确界近似刻画，结论成立。
+\end{solution}
+
+\begin{solution}{2.11}
+令 \(s=\max\{\sup A,\sup B\}\)。它同时支配 \(A,B\)，故支配 \(A\cup B\)。任何 \(A\cup B\) 的上界都是 \(A,B\) 的上界，因而不小于 \(s\)。下确界式按同一论证反向处理。
+\end{solution}
+
+\begin{solution}{2.12}
+取
+\[
+ A=(0,2),\qquad B=(0,1)\cup(3,4).
+\]
+则 \(A\cap B=(0,1)\)，所以
+\[
+ \sup(A\cap B)=1<2=\min\{\sup A,\sup B\}.
+\]
+\end{solution}
+
+\begin{solution}{3.6}
+\[
+ d_n(-\sqrt2)=\frac{\lfloor-10^n\sqrt2\rfloor}{10^n}
+ =-\frac{\lceil10^n\sqrt2\rceil}{10^n}.
+\]
+例如 \(d_1(-\sqrt2)=-1.5\)、\(d_2(-\sqrt2)=-1.42\)。简单删除 \(-1.414\ldots\) 的尾部会得到 \(-1.4\)，它大于原数；向下截断必须取不超过原数的网格点。
+\end{solution}
+
+\begin{solution}{3.7}
+正文已证左侧单调性。由于
+\[
+ d_n(x)=\frac{10\lfloor10^nx\rfloor}{10^{n+1}},
+\]
+而 \(\lfloor10^{n+1}x\rfloor\) 至多比该整数大 \(9\)，故
+\[
+ d_{n+1}(x)-d_n(x)\le\frac9{10^{n+1}}.
+\]
+\end{solution}
+
+\begin{solution}{3.8}
+\(0.999\ldots\) 的第 \(n\) 个部分和为 \(1-10^{-n}\)。其上确界为 \(1\)：\(1\) 是上界，而对任意 \(\varepsilon>0\)，取 \(10^{-n}<\varepsilon\) 即有 \(1-10^{-n}>1-\varepsilon\)。
+
+令 \(x=0.272727\ldots\)。有限部分和或位移计算给出 \(100x=27+x\)，所以 \(x=27/99=3/11\)。严格地说，可先对有限偶数位部分和计算，再用余项不超过 \(10^{-2n}\) 取上确界。
+\end{solution}
+
+\begin{solution}{3.9}
+设非循环前缀长度为 \(r\)，循环节表示的整数为 \(C\in\{0,\ldots,10^p-1\}\)，前缀对应有限小数 \(A/10^r\)。则
+\[
+ x=\frac A{10^r}+\frac C{10^r}\sum_{j=1}^{\infty}10^{-pj}
+ =\frac A{10^r}+\frac C{10^r(10^p-1)}.
+\]
+右端为有理数。公式也覆盖 \(C=0\) 的终止情形。
+\end{solution}
+
+\begin{solution}{3.10}
+有限小数由一个整数、有限位数和有限数字串编码，是可数族有限集的并，故至多可数；因其包含所有整数，所以可数无限。最终循环小数可由符号、整数部分、非循环前缀和循环节四个有限字符串编码，故至多可数；它同样包含所有整数，所以可数无限。
+\end{solution}
+
+\begin{solution}{3.11}
+实代数数全体可数无限。若某开区间 \(I\) 中的超越数至多可数，则 \(I\) 是“区间中的代数数”与“区间中的超越数”两个至多可数集之并，因而至多可数。但 \(I\) 与 \((0,1)\) 通过仿射映射双射，而正文的三进制构造证明 \((0,1)\) 不可数，矛盾。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
 
 \begin{solution}{1.12}
 由\exerciseref{1.2}，\(q^2=m\) 在 \(\Q\) 中无解。\(L_m\) 非空且不等于 \(\Q\)，并按\exerciseref{1.4}的论证向下封闭。
@@ -122,11 +278,11 @@
 \[
  a<\frac{a+b}{2}<b.
 \]
-所以序稠密性已由有序域公理推出，不能区分 \(\Q\) 与 \(\R\)。可以采用的完备性命题是“每个非空且有上界的集合都有上确界”或“每个 Cauchy 列都收敛”。\chapterref{chap:rational-defects}已经给出它们在 \(\Q\) 中的失败例。
+所以序稠密性已由有序域公理推出，不能区分 \(\Q\) 与 \(\R\)。可以采用的完备性命题是“每个非空且有上界的集合都有上确界”或“每个 Cauchy 列都收敛”。\chapterref{chap:real-number-system}已经给出它们在 \(\Q\) 中的失败例。
 \end{solution}
 
 \begin{solution}{1.14}
-全体实代数数至多可数。实数构造完成且\chapterref{chap:consequences-completeness}证明 \(\R\) 不可数后，可取超越数 \(t\)。集合
+全体实代数数至多可数。实数构造完成且\chapterref{chap:real-number-system}证明 \(\R\) 不可数后，可取超越数 \(t\)。集合
 \[
  \{a:a\text{ 为实代数数且 }a<t\}
 \]
@@ -201,3 +357,251 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \]
 组织。左部无最大元、右部无最小元直接给出分割缺口；右部恰是上界集，故无最小元等价于无上确界；从网格中取不超过边界的最大候选得到 Cauchy 列，若它有有理极限，平方估计会产生有理解 \(r^2=2\)。反向从任意正的平方逼近 Cauchy 列可恢复同一左部：\(q\in S\) 当且仅当 \(q\) 最终小于该列。十进制只用于给出显式网格，三种缺陷的逻辑联系不依赖特定进位制。
 \end{solution}
+
+\begin{solution}{2.13}
+若 \(A\ne\varnothing\) 有下界，则 \(-A\) 非空有上界。令 \(s=\sup(-A)\)，逐项变号可知 \(-s\) 是 \(A\) 的最大下界。故确界公理推出下确界原理。
+
+反之，若下确界原理成立，对非空有上界的 \(A\) 取 \(m=\inf(-A)\)，则 \(-m\) 是 \(A\) 的最小上界。
+\end{solution}
+
+\begin{solution}{2.14}
+若 \(d=a-s^2>0\)，可取
+\[
+ h=\frac{d}{2(2s+1+d)}.
+\]
+则 \(0<h<1\) 且 \((2s+1)h<d\)，所以 \((s+h)^2<a\)。若 \(d=s^2-a>0\)，可取
+\[
+ h=\frac{sd}{2(2s^2+d)}.
+\]
+则 \(0<h<s/2\) 且 \(2sh<d\)，所以 \((s-h)^2>a\)。两式只用域运算。
+\end{solution}
+
+\begin{solution}{2.15}
+由 \(0<t<1\) 与 \(b-a>0\)，
+\[
+ 0<t(b-a)<b-a.
+\]
+两边加 \(a\)，得到
+\[
+ a<a+t(b-a)=(1-t)a+tb<b.
+\]
+这只使用有序域的相容性。
+\end{solution}
+
+\begin{solution}{2.16}
+令 \(A=\{a_n:n\in\N\}\)。它非空，且 \(b_1\) 是上界。取 \(s=\sup A\)。固定 \(n\)。若 \(k\le n\)，则 \(a_k\le a_n\le b_n\)；若 \(k\ge n\)，则 \(a_k\le b_k\le b_n\)。所以 \(b_n\) 是 \(A\) 的上界，因而
+\[
+ a_n\le s\le b_n.
+\]
+故 \(s\in\bigcap_n[a_n,b_n]\)。没有长度条件时交集可含多个点。
+\end{solution}
+
+\begin{solution}{2.17}
+令 \(s=\sup A\) 且 \(c<s\)，取 \(\varepsilon=s-c\)。上确界近似刻画给出 \(a\in A\) 使
+\[
+ c=s-\varepsilon<a\le s.
+\]
+\end{solution}
+
+\begin{solution}{2.18}
+域性质用于展开平方、除法及唯一性分解；序性质用于比较平方、保持不等式方向并保证扰动为正；确界公理用于从非空有上界集合取得候选 \(s\)。在 \(\Q\) 中，失败发生在取得 \(s=\sup A\in\Q\) 这一步；其余代数和序估计均合法。
+\end{solution}
+
+\begin{solution}{2.19}
+若 \(M\in\operatorname{UB}(A)\) 且 \(M'\ge M\)，则对每个 \(a\in A\) 有 \(a\le M\le M'\)，故 \(M'\) 仍是上界。下界情形对称。按定义，\(s=\sup A\) 恰好表示
+\[
+ s\in\operatorname{UB}(A),\qquad
+ s\le M\quad(M\in\operatorname{UB}(A)),
+\]
+即 \(s=\min\operatorname{UB}(A)\)。
+\end{solution}
+
+\begin{solution}{2.20}
+若 \(s=\sup A\)，任取 \(t<s\)，令 \(\varepsilon=s-t\)。近似刻画给出 \(a\in A\) 使 \(t<a\le s\)。反之，若 \(s\) 是上界且每个 \(t<s\) 都不是上界，那么任何上界 \(M\) 都不能满足 \(M<s\)，故 \(s\le M\)，所以 \(s\) 是最小上界。
+\end{solution}
+
+\begin{solution}{2.21}
+\(\sup B\) 是 \(B\) 的上界。对每个 \(a\in A\)，选择 \(b\in B\) 使 \(a\le b\le\sup B\)，故 \(\sup B\) 也是 \(A\) 的上界，于是 \(\sup A\le\sup B\)。取 \(A=(0,1)\)、\(B=(0,2)\) 得严格不等；取 \(A=(0,1)\)、\(B=(0,1]\) 得等号。
+\end{solution}
+
+\begin{solution}{2.22}
+对 \(x>0\)，有
+\[
+ 0<\frac{x}{1+x}<1,
+\]
+所以 \(1\) 是上界。给定 \(0<\varepsilon<1\)，取
+\[
+ x>\frac{1-\varepsilon}{\varepsilon},
+\]
+便有 \(x/(1+x)>1-\varepsilon\)；当 \(\varepsilon\ge1\) 时任取 \(x>0\)。由近似刻画，上确界为 \(1\)，且不取得。
+\end{solution}
+
+\begin{solution}{2.23}
+记 \(s=\sup A\)、\(m=\inf A\)。对每个 \(a\in A\)，有 \(a\le s\) 与 \(-a\le-m\)，故
+\[
+ \abs a=\max\{a,-a\}\le\max\{s,-m\}.
+\]
+另一方面，从 \(A\) 中可任意逼近 \(s\)，对应绝对值上界必须不小于 \(s\)；从 \(A\) 中可任意逼近 \(m\)，对应 \(-a\) 可任意逼近 \(-m\)，故绝对值上界也不小于 \(-m\)。因此公式成立。
+\end{solution}
+
+\begin{solution}{2.24}
+若 \(A\) 无最大元，则删除任意有限集 \(F\subset A\) 后上确界不变。给定 \(t<\sup A\)，先取 \(a_1\in A\) 且 \(t<a_1\)。若 \(a_1\in F\)，因 \(a_1\) 不是最大元可再取更大的 \(a_2\in A\)；重复有限次后必得到不在 \(F\) 中的元素，故剩余集合仍从下方逼近原确界。
+
+边界例一：\(A=(0,1)\cup\{2\}\)，删除 \(2\) 后上确界从 \(2\) 变为 \(1\)。边界例二：删除单点集的唯一元素后得到空集，本章的非空确界定义不再适用。
+\end{solution}
+
+\begin{solution}{2.25}
+乘负数反转次序。\(\lambda\inf A\) 是 \(\lambda A\) 的上界。若 \(M\) 是 \(\lambda A\) 的上界，则
+\[
+ \lambda a\le M\quad(a\in A)
+\]
+推出 \(a\ge M/\lambda\)，所以 \(M/\lambda\) 是 \(A\) 的下界，\(M/\lambda\le\inf A\)。再乘 \(\lambda<0\) 得 \(M\ge\lambda\inf A\)。因此
+\[
+ \sup(\lambda A)=\lambda\inf A.
+\]
+\end{solution}
+
+\begin{solution}{2.26}
+基本公式为
+\[
+ \sup(A+c)=\sup A+c,\qquad
+ \sup(\lambda A)=
+ \begin{cases}
+ \lambda\sup A,&\lambda>0,\\
+ \lambda\inf A,&\lambda<0,
+ \end{cases}
+\]
+\[
+ \sup(A\cup B)=\max\{\sup A,\sup B\},\qquad
+ \sup(A+B)=\sup A+\sup B.
+\]
+若 \(A,B\subset[0,\infty)\)，则
+\[
+ \sup(AB)=(\sup A)(\sup B).
+\]
+允许混合符号时，应比较四个端点积；这些端点分别来自 \(A,B\) 的上下确界。
+
+每个公式都先验证候选是上界，再用确界近似元从下方任意逼近候选。乘积公式中符号决定不等式方向，不能省略。
+\end{solution}
+
+\begin{solution}{3.12}
+定义
+\[
+ d_n^{(b)}(x)=\frac{\lfloor b^nx\rfloor}{b^n}.
+\]
+则 \(d_n^{(b)}(x)\le x<d_n^{(b)}(x)+b^{-n}\)，相邻差确定数字 \(a_n\in\{0,\ldots,b-1\}\)。有限部分和集合的上确界即为 \(x\)。
+
+若两种表示在第 \(k\) 位首次不同，较大数字至少多 \(b^{-k}\)，后续最大补偿为
+\[
+ \sum_{j=k+1}^\infty(b-1)b^{-j}=b^{-k}.
+\]
+故只有较大侧以后全为 \(0\)、较小侧以后全为 \(b-1\) 时可能相等。
+
+对有理数作基数 \(b\) 的长除法，有限余数必终止或重复；最终循环表示按\exerciseref{3.9}的计算把 \(10\) 换成 \(b\)，得到分母 \(b^p-1\) 的有理数。三项结论全部成立。
+\end{solution}
+
+\begin{solution}{3.13}
+有限尾和为
+\[
+ \sum_{k=m+1}^{N}\frac2{3^k}
+ =\frac1{3^m}\left(1-\frac1{3^{N-m}}\right),
+\]
+其上确界为 \(3^{-m}\)。因此首次不同位的净差至少为
+\[
+ 2\cdot3^{-m}-3^{-m}=3^{-m}>0.
+\]
+每个 \(\Phi(A)\) 的第 \(k\) 位按 \(k\in A\) 取 \(2\)，否则取 \(0\)；反之，任意只含 \(0,2\) 的三进制表示由这些取 \(2\) 的位置唯一确定一个子集。故像恰为该类数。
+\end{solution}
+
+\begin{solution}{3.14}
+映射
+\[
+ f:[0,1]\to[a,b],\qquad f(t)=a+(b-a)t
+\]
+有逆映射 \(f^{-1}(x)=(x-a)/(b-a)\)，故为双射。于是 \([a,b]\) 与不可数的 \([0,1]\) 等势。开区间与半开区间也可由显式分段双射或 Cantor--Schröder--Bernstein 定理得到不可数性；仅推出不可数时，包含一个非退化闭子区间已经足够。
+\end{solution}
+
+\begin{solution}{3.15}
+一种标准参考模型是实系数有理函数域 \(\R(t)\)，按“\(t\) 大于每个实常数”的最终首项符号排序。于是 \(t>n\) 对所有 \(n\in\N\) 成立，Archimedes 性质首先失效；随之任意小倒数、整数部分定理以及用整数网格证明的稠密性论证也不能照搬。构造全序需按有理函数在充分大实参数处的符号定义，并验证与域运算相容。
+\end{solution}
+
+\begin{solution}{3.16}
+自然数无上界用于 \(1/\varepsilon\) 即得某个 \(n>1/\varepsilon\)，从而 \(1/n<\varepsilon\)。反之，若存在任意小的 \(1/n\)，给定 \(x>0\)，对 \(\varepsilon=1/x\) 取 \(1/n<1/x\)，便有 \(n>x\)；\(x\le0\) 时任取正整数。第三种表述由
+\[
+ nx>y\Longleftrightarrow n>y/x
+\]
+与第一种表述等价。
+\end{solution}
+
+\begin{solution}{3.17}
+写
+\[
+ x=\lfloor x\rfloor+\{x\},\qquad
+ y=\lfloor y\rfloor+\{y\},
+\]
+其中两个小数部分都在 \([0,1)\)。因此
+\[
+ \lfloor x+y\rfloor
+ =\lfloor x\rfloor+\lfloor y\rfloor
+ +\lfloor\{x\}+\{y\}\rfloor,
+\]
+最后一项只能为 \(0\) 或 \(1\)。恰在 \(\{x\}+\{y\}\ge1\) 时出现 \(+1\)。
+\end{solution}
+
+\begin{solution}{3.18}
+取 \(m=\lfloor nx\rfloor\)。整数部分定理给出
+\[
+ m\le nx<m+1,
+\]
+除以 \(n>0\) 即得所需夹逼。普通稠密性只断言区间中存在某个有理数；这里还指定分母网格，并给出误差严格小于 \(1/n\) 的定量结论。
+\end{solution}
+
+\begin{solution}{3.19}
+反设 \([0,1]\) 可枚举为 \(x_1,x_2,\ldots\)，并为每个数选取不以 \(9\) 为尾的十进制表示。构造
+\[
+ y=0.y_1y_2\cdots,\qquad
+ y_n=
+ \begin{cases}
+ 1,&x_n\text{ 的第 }n\text{ 位不是 }1,\\
+ 2,&x_n\text{ 的第 }n\text{ 位是 }1.
+ \end{cases}
+\]
+新表示只用 \(1,2\)，不会以 \(9\) 为尾，也不会产生终止式与尾随 \(9\) 的歧义。它与 \(x_n\) 在第 \(n\) 位不同，故不等于任何 \(x_n\)，矛盾。
+\end{solution}
+
+\begin{solution}{3.20}
+任意非空开区间 \((a,b)\) 包含非退化闭区间，例如
+\[
+ [a+(b-a)/3,\ a+2(b-a)/3].
+\]
+该闭区间与 \([0,1]\) 仿射双射，故不可数。区间内有理数至多可数；若无理数也至多可数，则二者并仍可数，与区间不可数矛盾。
+\end{solution}
+
+\begin{solution}{3.21}
+由
+\[
+ d_n(x)\le x<d_n(x)+10^{-n}
+\]
+知 \(x\) 是 \(D\) 的上界，且对每个 \(\varepsilon>0\)，取 \(n\) 使 \(10^{-n}<\varepsilon\)，便有 \(d_n(x)>x-\varepsilon\)。故 \(\sup D=x\)。
+
+若 \(x\) 是有限小数，则从某位起 \(d_n(x)=x\)，所以 \(D\) 有最大元 \(x\)。反之，若某个 \(d_n(x)=x\)，则 \(x\) 的分母可取 \(10^n\)，是有限小数。
+\end{solution}
+
+\begin{solution}{3.22}
+对每个次数 \(n\) 与系数整数向量 \((a_0,\ldots,a_n)\)，多项式只有有限多个实根。整系数多项式全体是可数族有限整数序列的并，故至多可数；其有限根集的可数并仍至多可数。每个整数都是实代数数，所以全体实代数数可数无限。
+
+任意非空开区间不可数。删去其中至多可数的代数数后，剩余集合不可能至多可数，否则原区间会成为两个至多可数集之并。因此每个开区间含不可数多个超越数。
+\end{solution}
+
+\begin{solution}{3.23}
+对整数基数 \(b\ge2\)，统一约定禁止从某位起恒为 \(b-1\)，可获得唯一表示；最终循环恰刻画有理数。二进制适合与有限位编码比较，十进制适合日常数值表示，三进制只用数字 \(0,2\) 可在不可数性注入中留下严格尾差并避开双重表示。统一误差为
+\[
+ 0\le x-d_n^{(b)}(x)<b^{-n},
+\]
+统一歧义仅为终止表示与尾随 \(b-1\) 表示成对出现。
+\end{solution}
+
+\begin{solution}{3.24}
+固定字长和指数范围后，浮点数集合是有限集，而任一实区间不可数，因此绝大多数实数不能被精确表示。把实数替换成邻近浮点数产生表示或舍入误差；对已表示数执行有限精度运算并再次舍入产生运算误差；算法中这些误差传播并累积。数学分析中的实数模型提供理想连续量，浮点模型则是有限网格，二者不能因小数记号相似而混同。
+\end{solution}
+

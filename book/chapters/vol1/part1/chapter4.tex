@@ -1,317 +1,284 @@
-\chapter{Dedekind 分割构造实数}
-\label{chap:dedekind-construction}
+\chapter{实数的完备性}
+\label{chap:equivalent-completeness}
 
-\begin{chapterguide}
-第2、3章暂以完备有序域作为实数模型。本章从 \(\Q\) 出发，把每个有理数轴缺口的左部视为一个新数。集合包含关系给出次序，集合运算给出四则运算，而一族分割的并集直接给出上确界。构造的重点是运算的封闭性、逆元以及分配律；这些步骤保证所得对象不只是一条补点后的直线，而且是完备有序域。
-\end{chapterguide}
+确界原理谈的是任意有界集合，单调收敛和 Cauchy 准则谈的却是数列，区间套与 Bolzano--Weierstrass 定理又采用不同的形式。它们之所以都能支撑极限论，是因为在 Archimedes 有序域中可以互相推出。下面选取一条不循环的证明路线，把这些命题连成闭环。
 
-\section{分割的动机与严格定义}
+\section{确界原理与单调有界收敛}
 
-\begin{definition}
-有理数集的子集 \(\alpha\subseteq\Q\) 称为一个 \term{Dedekind 分割}，如果
-\begin{enumerate}
- \item \(\alpha\ne\varnothing\) 且 \(\alpha\ne\Q\)；
- \item 若 \(x\in\alpha\) 且 \(y<x\)，则 \(y\in\alpha\)；
- \item \(\alpha\) 没有最大元。
-\end{enumerate}
-全体分割组成的集合记为 \(\mathbb D\)。
-\end{definition}
+\subsection{各种完备性命题及其依赖图}
 
-分割只记录左部；右部是 \(\Q\setminus\alpha\)。向下封闭性保证每个左部元素小于每个右部元素，无最大元则统一处理“边界为有理数”和“边界为无理数”两种情形。
 
-对 \(r\in\Q\)，定义主分割
+考虑以下命题：
+\begin{description}[style=nextline,leftmargin=3em]
+ \item[(S) 确界原理] 每个非空有上界实数集有上确界。
+ \item[(M) 单调有界收敛] 每个单调递增且有上界的实数列收敛；递减情形对称。
+ \item[(N) 区间套] 若闭区间 \(I_n=[a_n,b_n]\) 嵌套且 \(b_n-a_n\to0\)，则交集恰含一个点。
+ \item[(B) Bolzano--Weierstrass] 每个有界实数列都有收敛子列。
+ \item[(C) Cauchy 完备] 每个实 Cauchy 列都收敛。
+\end{description}
+
+这些命题回答的是同一个缺口的不同表现，但量化对象并不相同。(S) 对任意非空有界集合作断言，(M)、(B)、(C) 只考察数列，(N) 考察一列闭区间。把它们列在一起，是为了说明在实数的序和 Archimedes 尺度下，集合边界可以编码成数列，数列又可以装入逐渐缩小的区间。
+
+证明按下列次序进行：
 \[
- r^*=\{q\in\Q:q<r\}.
+ \mathrm{(S)}\Longrightarrow\mathrm{(M)}
+ \Longrightarrow\mathrm{(N)}
+ \Longrightarrow\mathrm{(B)}
+ \Longrightarrow\mathrm{(C)}
+ \Longrightarrow\mathrm{(S)}.
 \]
-\chapterref{chap:rational-defects}的集合 \(L=\{q:q<0\text{ 或 }q^2<2\}\) 也是分割，但不等于任何 \(r^*\)。
+最后一个方向以及二分区间长度趋零这一步会用到 Archimedes 性质。
 
-\section{分割的相等关系与序关系}
+依赖图中的箭头表示一种无循环证明路线，不表示每个结论只能这样证明。例如可由确界原理直接证明 Bolzano--Weierstrass，也可从区间套经二分得到；可由 Cauchy 完备性与 Archimedes 网格直接重建单调收敛。比较不同路线时，必须把“有序域公理”“Archimedes 性质”和待证明的完备性命题分开记账。
 
-分割是集合，因此相等按集合相等定义。规定
-\[
- \alpha\le\beta\quad\Longleftrightarrow\quad\alpha\subseteq\beta.
-\]
-
-\begin{proposition}
-包含关系使 \(\mathbb D\) 成为全序集。
+\begin{proposition}[有理数中的失败]
+\(\Q\) 满足有序域公理和 Archimedes 性质，却不满足 (S)、(M)、(N)、(B)、(C) 的实数版本。因而 Archimedes 性质只负责尺度趋零，不能单独提供缺失极限。
 \end{proposition}
 
 \begin{proof}
-只需证明任意两个分割可比较。若 \(\alpha\nsubseteq\beta\)，取 \(a\in\alpha\setminus\beta\)。对任意 \(b\in\beta\)，不可能有 \(a<b\)，否则由 \(\beta\) 向下封闭得 \(a\in\beta\)。故 \(b\le a\)。又 \(a\in\alpha\)，所以 \(b\in\alpha\)（若 \(b=a\) 会有 \(a\in\beta\)，故实际为 \(b<a\)）。因此 \(\beta\subseteq\alpha\)。
+\chapterref{chap:real-number-system}的有理 Cauchy 列直接否定 (C)。其单调有界十进制逼近列没有有理极限，否定 (M)；相应左右有理端点构成长度趋零而交集在 \(\Q\) 中为空的闭区间套，否定 (N)。无有理上确界的集合否定 (S)。若 (B) 在 \(\Q\) 中成立，该有理逼近列会有有理收敛子列，但平方误差迫使子列极限平方为 \(2\)，矛盾。
 \end{proof}
 
-严格包含对应严格次序。对有理数 \(r,s\)，有
+\subsection{确界原理与单调有界收敛定理}
+
+
+\begin{theorem}[单调有界收敛]
+若 \((a_n)\) 单调递增且有上界，则
 \[
- r<s\quad\Longleftrightarrow\quad r^*\subsetneq s^*.
+a_n\to\sup\{a_n:n\in\Npos\}.
 \]
+若单调递减且有下界，则它收敛到项集的下确界。
+\end{theorem}
 
-\section{分割的加法、零元与负元}
-
-定义
+\begin{proof}
+令 \(s=\sup\{a_n:n\in\Npos\}\)。给定 \(\varepsilon>0\)，\(s-\varepsilon\) 不是上界，所以存在 \(N\) 使 \(a_N>s-\varepsilon\)。单调性给出
 \[
- \alpha+\beta=\{a+b:a\in\alpha,\ b\in\beta\},\qquad
- 0_{\mathbb D}=0^*.
+ s-\varepsilon<a_N\le a_n\le s\qquad(n\ge N),
 \]
+即 \(|a_n-s|<\varepsilon\)。递减情形对 \((-a_n)\) 应用递增结论。
+\end{proof}
 
-\begin{proposition}
-\(\alpha+\beta\) 是分割；加法在 \(\mathbb D\) 上满足交换律、结合律，零元为 \(0^*\)。
+\begin{insightbox}[两个假设各自做了什么]
+有界性保证存在有限确界；单调性把某一项进入误差区间的事实传递给整个尾部。删除任一条件结论都可能失败：\(a_n=n\) 单调但无界，\(a_n=(-1)^n\) 有界但不收敛。
+\end{insightbox}
+
+\section{区间套定理及长度条件}
+
+
+\begin{theorem}[区间套定理]
+设 \(I_n=[a_n,b_n]\) 满足 \(I_{n+1}\subseteq I_n\)，且对每个 \(\varepsilon>0\)，从某项起 \(b_n-a_n<\varepsilon\)。则
+\[
+ \bigcap_{n=1}^{\infty}I_n=\{x\}
+\]
+恰含一个点。
+\end{theorem}
+
+\begin{proof}
+左端点 \(a_n\) 单调递增且以上界 \(b_1\) 控制，故收敛到 \(x=\sup\{a_n\}\)。固定 \(n\)，每个 \(a_k\le b_n\)：当 \(k\le n\) 用 \(a_k\le a_n\le b_n\)，当 \(k\ge n\) 用 \(a_k\le b_k\le b_n\)。所以 \(x\le b_n\)，又 \(a_n\le x\)，故 \(x\in I_n\) 对所有 \(n\) 成立。
+
+若 \(x,y\) 都在全部区间中，则 \(|x-y|\le b_n-a_n\) 对所有 \(n\) 成立。若 \(x\ne y\)，取 \(\varepsilon=|x-y|/2\)，长度条件给出矛盾，故唯一。
+\end{proof}
+
+若删除长度趋零条件，只能保证交集非空，不能保证单点。例如 \(I_n=[0,1]\) 的交仍为整个区间。若删除闭性，\((0,1/n)\) 的交为空。
+
+\begin{proposition}[不要求长度趋零的闭区间套]
+若非空闭区间 \(I_n=[a_n,b_n]\) 嵌套，则
+\[
+ \bigcap_{n=1}^{\infty}I_n
+ =
+ \left[\sup_n a_n,\inf_n b_n\right],
+\]
+右端可能退化为单点，但一定非空。
 \end{proposition}
 
 \begin{proof}
-取 \(a\in\alpha,b\in\beta\)，则 \(a+b\) 说明非空。取 \(u\notin\alpha,v\notin\beta\)，则每个 \(a<u,b<v\)，故 \(a+b<u+v\)，所以 \(u+v\) 不属于该集合，证得它不等于 \(\Q\)。若 \(x=a+b\) 且 \(y<x\)，令 \(a'=a+(y-x)\)，则 \(a'<a\)、\(a'\in\alpha\)，且 \(y=a'+b\)。若 \(a+b\) 已给定，取 \(a'>a\) 且 \(a'\in\alpha\)，便有 \(a'+b>a+b\)，故无最大元。
-
-交换律、结合律由有理数相应法则逐元素得到。对任意 \(a\in\alpha\)、\(q<0\)，有 \(a+q<a\)，故 \(\alpha+0^*\subseteq\alpha\)。反之，对 \(x\in\alpha\)，取 \(a\in\alpha\) 且 \(a>x\)，则 \(x=a+(x-a)\) 且 \(x-a<0\)，故 \(x\in\alpha+0^*\)。
+嵌套性使 \(a_n\) 递增、\(b_n\) 递减，并且每个 \(a_n\le b_m\)。故
+\[
+ a:=\sup_n a_n\le b:=\inf_n b_n.
+\]
+点 \(x\) 属于全部 \(I_n\) 当且仅当对每个 \(n\) 有 \(a_n\le x\le b_n\)，这等价于 \(a\le x\le b\)。
 \end{proof}
 
-定义加法逆元
-\[
- -\alpha=\{q\in\Q:\text{存在 }r\notin\alpha\text{ 使 }q<-r\}.
-\]
+\section{Bolzano--Weierstrass 定理}
 
-\begin{theorem}
-\(-\alpha\) 是分割，且 \(\alpha+(-\alpha)=0^*\)。
+有界性不能迫使一列数收敛，\((-1)^n\) 已经给出反例。它能保证的是：无论数列怎样振荡，总有一个位置被无穷多项反复靠近。二分区间法把“无穷多项仍留在某个范围内”逐级保存下来，再利用区间长度趋零得到一个极限点。
+
+
+\begin{theorem}[Bolzano--Weierstrass]
+每个有界实数列都有收敛子列。
 \end{theorem}
 
 \begin{proof}
-取 \(r\notin\alpha\)，任意 \(q<-r\) 表明集合非空；取 \(a\in\alpha\)，则任何 \(q\in-\alpha\) 都满足 \(q<-r<-a\)，故 \(-a\notin-\alpha\)，所以它不等于 \(\Q\)。向下封闭和无最大元由严格不等式及有理数稠密性直接得到。
+设 \(a_n\in[A,B]\)。把 \([A,B]\) 二分，至少一个半闭区间含有无穷多个序列项；选定这样的半区间为 \(I_1\)。继续二分，得到嵌套闭区间
+\[
+ I_k=[\alpha_k,\beta_k],\qquad
+ \beta_k-\alpha_k=\frac{B-A}{2^k},
+\]
+每个都含无穷多个序列项。Archimedes 性质保证长度趋于零，区间套定理给出唯一交点 \(x\)。
 
-若 \(a\in\alpha\)、\(q\in-\alpha\)，取 \(r\notin\alpha\) 使 \(q<-r\)。由 \(a<r\)，得 \(a+q<a-r<0\)，所以 \(\alpha+(-\alpha)\subseteq0^*\)。
-
-反之，取 \(x<0\)。先取 \(a_0\in\alpha\)、\(r_0\notin\alpha\)。反复二分 \([a_0,r_0]\)：中点在 \(\alpha\) 时替换左端，否则替换右端。取 \(n\) 使 \((r_0-a_0)/2^n<-x\)，便得到 \(a\in\alpha,r\notin\alpha\) 且 \(r-a<-x\)。于是 \(q=x-a<-r\)，故 \(q\in-\alpha\)，且 \(x=a+q\)。所以 \(0^*\subseteq\alpha+(-\alpha)\)。
+递归选 \(n_k>n_{k-1}\) 且 \(a_{n_k}\in I_k\)，因为 \(I_k\) 含无穷多项。由于 \(x,a_{n_k}\in I_k\)，
+\[
+ |a_{n_k}-x|\le\beta_k-\alpha_k\longrightarrow0.
+\]
+故所得子列收敛到 \(x\)。
 \end{proof}
 
-\section{正分割的乘法及符号扩张}
+“含无穷多个项”按指标计数，而非只看不同取值。常值数列的值集只有一个点，却有无穷多个指标可供抽取。
 
-称 \(\alpha>0^*\) 为正分割，记 \(\alpha_+=\alpha\cap(0,\infty)\)。对正分割定义
-\[
- \alpha\beta=
- \{q\in\Q:q\le0\text{，或存在 }a\in\alpha_+,b\in\beta_+
- \text{ 使 }q<ab\}.
-\]
-若一因子为 \(0^*\)，积定义为 \(0^*\)。其余符号按
-\[
- \alpha\beta=-((-\alpha)\beta)\quad(\alpha<0^*<\beta),\qquad
- \alpha\beta=(-\alpha)(-\beta)\quad(\alpha,\beta<0^*)
-\]
-扩张，并使用交换性处理对称情形。
-
-\begin{lemma}[正分割乘法演算]
-若 \(\alpha,\beta,\gamma>0^*\)，则 \(\alpha\beta\) 是正分割，并且
-\[
- \alpha\beta=\beta\alpha,\qquad
- (\alpha\beta)\gamma=\alpha(\beta\gamma),\qquad
- \alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma.
-\]
-\end{lemma}
-
-\begin{proof}
-非空性来自所有非正有理数。取正的右部元素 \(u\notin\alpha,v\notin\beta\)，则每个 \(a\in\alpha_+,b\in\beta_+\) 满足 \(ab<uv\)，故 \(uv\) 不在积中。向下封闭由定义立即得到；若 \(q<ab\)，可在 \(a\) 与 \(\alpha\) 的更大正元素之间作微小有理扰动，使 \(q<a'b\)，由此排除最大元。
-
-交换律、结合律由有理数乘法和存在量词的重新分组得到。分配律的一侧由 \(a(b+c)=ab+ac\) 直接包含。反向包含中，给定 \(x<ab+a'c\)，利用 \(\alpha\) 无最大元取共同的 \(d\in\alpha_+\) 且 \(d>\max\{a,a'\}\)；于是 \(x<d(b+c)\)，故 \(x\in\alpha(\beta+\gamma)\)。非正元素按定义也包含。两侧因向下封闭而得到相等。
-\end{proof}
-
-对正分割 \(\alpha\)，定义
-\[
- \alpha^{-1}=
- \{q\in\Q:q\le0\text{，或存在 }r>0,\ r\notin\alpha,\ q<r^{-1}\}.
-\]
-
-\begin{theorem}
-若 \(\alpha>0^*\)，则 \(\alpha^{-1}\) 是正分割且
-\[
- \alpha\alpha^{-1}=1^*.
-\]
-\end{theorem}
-
-\begin{proof}
-分割三条件按定义与倒数反序逐项验证。若 \(a\in\alpha_+\)、\(q<r^{-1}\) 且 \(r\notin\alpha\)，则 \(a<r\)，故 \(aq<1\)；所以积包含于 \(1^*\)。
-
-反之，给定 \(0<x<1\)，取 \(a_0\in\alpha_+\)、\(r_0\notin\alpha\)，并可令 \(r_0>a_0\)。用二分法取得 \(a\in\alpha_+\)、\(r\notin\alpha\)，使
-\[
- r-a<\frac{1-x}{x}a_0\le\frac{1-x}{x}a.
-\]
-于是 \(a/r>x\)，即 \(x/a<1/r\)。由有理数稠密性取 \(q\) 使 \(x/a<q<1/r\)。则 \(q\in\alpha^{-1}\) 且 \(x<aq\)，由积的向下封闭性得 \(x\in\alpha\alpha^{-1}\)。负数和零本来就在积中，故 \(1^*\subseteq\alpha\alpha^{-1}\)。
-\end{proof}
-
-负分割的逆元由 \(\alpha^{-1}=-((-\alpha)^{-1})\) 定义。所有符号组合的结合律与分配律归结为正分割情形和 \((-x)y=-(xy)\)。
-
-\section{分割全体构成有序域}
-
-\begin{theorem}
-\((\mathbb D,+,\cdot,\subseteq)\) 是有序域。其零元、单位元分别为 \(0^*,1^*\)。
-\end{theorem}
-
-\begin{proof}
-前三节已经证明：加法使 \(\mathbb D\) 成为交换群；正分割的乘法封闭，并满足交换律、结合律和分配律；每个非零分割有乘法逆元。还需说明从正分割到任意符号的扩张没有遗漏域公理。
-
-先固定 \(\alpha>0^*\)。若 \(\beta,\gamma>0^*\)，分配律已由正分割乘法演算得到。若 \(\beta>0^*\)、\(\gamma=-\delta<0^*\)，则当 \(\beta\ge\delta\) 时，对正分割使用
-\[
- \alpha\beta=\alpha(\beta-\delta)+\alpha\delta
-\]
-并在加法群中消去 \(\alpha\delta\)，得到
-\[
- \alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma.
-\]
-当 \(\beta<\delta\) 时交换两项作同样计算。两项都为负时，把 \(\beta+\gamma=-(-\beta-\gamma)\) 化为正分割的分配律。若 \(\alpha<0^*\)，再由定义 \(\alpha\eta=-(( -\alpha)\eta)\) 归结到刚才的情形；零因子情形直接成立。因而分配律对所有符号组合成立。交换律和结合律也由相同的符号规则及正分割情形得到。
-
-最后，若 \(\alpha,\beta>0^*\)，正分割乘法的定义给出 \(\alpha\beta>0^*\)；含零情形给出非负性。由此全序与乘法相容。结合已证的单位元和逆元性质，\(\mathbb D\) 是有序域。
-\end{proof}
-
-这里没有把关键的良定义问题隐藏在代表元之后：\(\mathbb D\) 的元素本身就是集合，所有运算均直接生成唯一集合。技术负担转移到了验证生成集合仍为分割以及逆元恒等式。
-
-\begin{proposition}[序与运算的相容性细化]
-对任意分割 \(\alpha,\beta,\gamma\)，有
-\[
- \alpha\subseteq\beta
- \Longrightarrow
- \alpha+\gamma\subseteq\beta+\gamma.
-\]
-若 \(0^*\subseteq\gamma\)，则
-\[
- \alpha\subseteq\beta
- \Longrightarrow
- \alpha\gamma\subseteq\beta\gamma.
-\]
-加法在严格包含下仍严格保序；乘法只有在 \(0^*\subsetneq\gamma\) 时严格保序。若 \(\gamma=0^*\)，两边乘积都等于 \(0^*\)。
-\end{proposition}
-
-\begin{proof}
-加法的非严格包含直接由定义中的代表 \(a\in\alpha\subseteq\beta\) 得到。若 \(\alpha\subsetneq\beta\)，加上 \(-\alpha\) 后得
-\[
- 0^*\subsetneq\beta+(-\alpha),
-\]
-再平移回去可知严格性不会消失。
-
-当三者非负时，乘法包含由正部代表的包含直接得到；一般的 \(\alpha,\beta\) 可先平移一个足够大的主分割，使两者变为正，再用分配律消去共同平移项。若 \(\gamma>0^*\) 且 \(\alpha<\beta\)，则
-\[
- (\beta-\alpha)\gamma>0^*,
-\]
-所以 \(\alpha\gamma<\beta\gamma\)。\(\gamma=0^*\) 时只能得到等号，故严格性表述要排除零因子。
-\end{proof}
-
-把全部域公理逐项列出可以看出，交换律和结合律主要继承自有理数运算；封闭性、加法逆元、乘法逆元和分配律需要分割条件与稠密性。尤其倒数构造必须使用右部信息，单靠正左部的逐项倒数会反转次序且不再向下封闭。
-
-\section{确界性质的证明}
-
-\begin{theorem}
-有序域 \(\mathbb D\) 满足确界公理。
-\end{theorem}
-
-\begin{proof}
-设 \(\mathcal A\subseteq\mathbb D\) 非空且有上界 \(\beta\in\mathbb D\)。令
-\[
- \sigma=\bigcup_{\alpha\in\mathcal A}\alpha.
-\]
-非空性来自 \(\mathcal A\) 的任一成员；由于每个 \(\alpha\subseteq\beta\)，有 \(\sigma\subseteq\beta\ne\Q\)。并集保持向下封闭。若 \(x\in\sigma\)，则 \(x\in\alpha\) 对某个 \(\alpha\in\mathcal A\)；该 \(\alpha\) 无最大元，所以存在 \(y\in\alpha\subseteq\sigma\) 且 \(y>x\)。故 \(\sigma\) 是分割。
-
-每个 \(\alpha\in\mathcal A\) 都包含于 \(\sigma\)，所以 \(\sigma\) 是上界。若 \(\gamma\) 是另一上界，则每个 \(\alpha\subseteq\gamma\)，从而其并 \(\sigma\subseteq\gamma\)。故 \(\sigma=\sup\mathcal A\)。
-\end{proof}
-
-\begin{proposition}
-分割域中 \(1^*>0^*\)，每个非零分割的平方为正，并且不存在正分割小于所有正主分割 \(1/n^*\)。
-\end{proposition}
-
-\begin{proof}
-前两项是任意有序域的形式后果。确界性质已经证明，因此可以应用\chapterref{chap:consequences-completeness}由确界原理推出的 Archimedes 性质：对任意正元素 \(\alpha\)，存在 \(n\in\N\) 使 \(1/n^*<\alpha\)。故不存在小于所有正主分割 \(1/n^*\) 的正分割。
-\end{proof}
-
-\section{有理数的嵌入及原有运算的保持}
-
-定义 \(\iota:\Q\to\mathbb D\) 为 \(\iota(r)=r^*\)。
-
-\begin{theorem}
-\(\iota\) 是单射，并保持次序、加法与乘法：
-\[
- \iota(r+s)=\iota(r)+\iota(s),\qquad
- \iota(rs)=\iota(r)\iota(s),\qquad
- r<s\Longleftrightarrow\iota(r)<\iota(s).
-\]
-\end{theorem}
-
-\begin{proof}
-次序保持已在第二节验证，故也给出单射。若 \(x<r+s\)，由有理数稠密性可写 \(x=a+b\)，其中 \(a<r,b<s\)；反向包含由 \(a+b<r+s\) 得到，故加法保持。正有理数乘法按积定义和稠密性验证；一般符号由符号扩张得到。
-\end{proof}
-
-正数乘法中的两个集合包含值得明确写出。若 \(q\in r^*s^*\) 且 \(q>0\)，则存在 \(a<r,b<s\) 且 \(q<ab<rs\)，所以 \(q\in(rs)^*\)。反之，若 \(0<q<rs\)，先选正有理数 \(a<r\) 充分接近 \(r\)，使 \(q/a<s\)，再由稠密性选
-\[
- \frac qa<b<s.
-\]
-于是 \(q<ab\)，故 \(q\in r^*s^*\)。非正 \(q\) 自动属于两个正分割的积。零与负号情形再由符号扩张得到。
-
-\begin{corollary}
-嵌入后的有理数在 \(\mathbb D\) 中稠密：若 \(\alpha<\beta\)，则存在 \(q\in\Q\) 使
-\[
- \alpha<q^*<\beta.
-\]
+\begin{corollary}[有界无限集的聚点]
+每个无限有界实数集 \(E\) 至少有一个聚点。
 \end{corollary}
 
 \begin{proof}
-取 \(b\in\beta\setminus\alpha\)。由 \(\beta\) 无最大元，选 \(q\in\beta\) 且 \(q>b\)。因为 \(b\notin\alpha\)，每个 \(a\in\alpha\) 都满足 \(a<b<q\)，故 \(\alpha\subset q^*\)。严格性来自 \(b\in q^*\setminus\alpha\)。又 \(q\in\beta\) 且 \(\beta\) 向下封闭，所以 \(q^*\subset\beta\)；因 \(q\in\beta\setminus q^*\)，包含严格。
+从 \(E\) 中递归选取互异点 \(x_n\)。该有界数列有收敛子列 \(x_{n_k}\to x\)。因子列各项互异，任意 \(x\) 的邻域都含异于 \(x\) 的 \(E\) 中点，故 \(x\) 是聚点。
 \end{proof}
 
-因此可把 \(\Q\) 与其像识别。第2、3章中从完备有序域公理推出的全部结论现在都有了具体模型。
+\section{Cauchy 完备性}
 
-\section*{本章小结}
-\addcontentsline{toc}{section}{本章小结}
+前几种完备性表述都显式制造候选极限：确界、区间交点或收敛子列。Cauchy 条件则只比较尾部中的两项。许多近似算法可以估计任意两次后期计算的差，却不知道极限的闭式表达；实数完备性保证这种内部稳定最终对应于实数中的一点。
 
-分割以左部记录数的位置，包含关系给出全序。Minkowski 型集合和给出加法，正分割的下闭乘积给出乘法，负号与倒数通过右部定义。全体分割构成有序域；任意有界非空分割族的并集就是上确界。主分割嵌入保持 \(\Q\) 的原有结构。
+
+\begin{definition}
+实数列 \((a_n)\) 称为 Cauchy 列，如果
+\[
+\forall\varepsilon>0\ \exists N\in\Npos\
+ \forall m,n\ge N,\quad |a_m-a_n|<\varepsilon.
+\]
+\end{definition}
+
+\begin{proposition}
+Cauchy 列有界。若 Cauchy 列有一个收敛到 \(a\) 的子列，则原列收敛到 \(a\)。
+\end{proposition}
+
+\begin{proof}
+有界性证明与\chapterref{chap:cauchy-construction}相同。若 \(a_{n_k}\to a\)，给定 \(\varepsilon>0\)，先取 \(N\) 使 \(m,n\ge N\) 时 \(|a_m-a_n|<\varepsilon/2\)，再取 \(k\) 使 \(n_k\ge N\) 且 \(|a_{n_k}-a|<\varepsilon/2\)。对 \(n\ge N\)，
+\[
+ |a_n-a|\le|a_n-a_{n_k}|+|a_{n_k}-a|<\varepsilon.
+\]
+\end{proof}
+
+\begin{theorem}[Cauchy 收敛准则]
+实数列收敛当且仅当它是 Cauchy 列。
+\end{theorem}
+
+\begin{proof}
+收敛蕴含 Cauchy 由三角不等式和 \(\varepsilon/2\) 得到。反之，Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列；上一命题把子列极限提升为原列极限。
+\end{proof}
+
+\begin{proposition}[尾部直径]
+对数列 \((a_n)\) 定义
+\[
+ d_N=\sup\{\abs{a_m-a_n}:m,n\ge N\},
+\]
+允许 \(d_N=+\infty\)。则 \((a_n)\) 是 Cauchy 列当且仅当 \(d_N\) 最终有限且
+\[
+ d_N\to0.
+\]
+\end{proposition}
+
+\begin{proof}
+集合尾部随 \(N\) 增大而缩小，所以 \(d_N\) 单调不增。Cauchy 定义正是说：对每个 \(\varepsilon>0\)，存在 \(N\) 使该尾部中所有两项距离小于 \(\varepsilon\)，即 \(d_N\le\varepsilon\)（使用严格界时可先取 \(\varepsilon/2\)）。反向同理。
+\end{proof}
+
+尾部直径把双指标量词压缩为一个单调非负数列。对区间套端点，可取 \(d_N\le b_N-a_N\)；对快速误差算法，它直接给出停止准则。
+
+\section{从各形式返回确界原理}
+
+\subsection{从 Cauchy 完备性返回确界原理}
+
+
+\begin{theorem}
+设 \(F\) 是 Archimedes 有序域。若 \(F\) 中每个 Cauchy 列都收敛，则 \(F\) 满足确界原理。
+\end{theorem}
+
+\begin{proof}
+设 \(\varnothing\ne A\subseteq F\) 有上界。取 \(l_0\) 不是上界、\(u_0\) 是上界。已给 \(l_n,u_n\) 后令 \(m_n=(l_n+u_n)/2\)：若 \(m_n\) 是上界，取
+\[
+ l_{n+1}=l_n,\quad u_{n+1}=m_n;
+\]
+否则取
+\[
+ l_{n+1}=m_n,\quad u_{n+1}=u_n.
+\]
+始终有 \(l_n\) 不是上界、\(u_n\) 是上界，且
+\[
+ u_n-l_n=2^{-n}(u_0-l_0).
+\]
+Archimedes 性质使右端趋于零，所以两列都是 Cauchy 列。设 \(l_n\to l\)、\(u_n\to u\)。由 \(u_n-l_n\to0\) 得 \(l=u=:s\)。
+
+若存在 \(a\in A\) 且 \(a>s\)，取 \(\varepsilon=(a-s)/2\)。充分大时 \(u_n<s+\varepsilon<a\)，与 \(u_n\) 是上界矛盾，故 \(s\) 是上界。若 \(c<s\)，充分大时 \(l_n>c\)；因 \(l_n\) 不是上界，存在 \(a\in A\) 使 \(a>l_n>c\)，所以 \(c\) 不是上界。故 \(s=\sup A\)。
+\end{proof}
+
+\subsection{Archimedes 条件在等价证明中的作用}
+
+
+在实数中，Archimedes 性质已由确界原理推出，因此前述命题无须反复把它写入假设。反向从 Cauchy 完备性出发时，情况不同：二分宽度
+\[
+ 2^{-n}(u_0-l_0)
+\]
+趋于零依赖自然数尺度能超过任意域元素。在非 Archimedes 有序域中，可能存在正无穷小 \(\eta\)，使 \(2^{-n}>\eta\) 对所有 \(n\) 成立；这时二分列未必逼近唯一边界。
+
+准确地说，在 Archimedes 有序域中，(S)、(M)、(N)、(B)、(C) 等价；而 (S) 本身还能推出 Archimedes 性质。若略去有序域和 Archimedes 假设，“Cauchy 完备等价于确界完备”便不再是这里已经证明的命题。
+
+\begin{remark}[序列完备与序完备]
+Cauchy 完备只检验可数序列的距离稳定性，确界原理检验任意非空有界子集的序边界。在 Archimedes 有序域中，可用二分网格把集合边界编码成序列，二者因而等价；在非 Archimedes 环境中，这种可数网格未必能穿透无穷小尺度，所以两种完备性可以分离。
+\end{remark}
+
+\begin{proposition}
+在 Archimedes 有序域中，只要每个单调递增有界数列收敛，就可推出确界原理。
+\end{proposition}
+
+\begin{proof}
+对非空有上界集合 \(A\)，先取非上界 \(l_0\) 与上界 \(u_0\)，按正文二分构造 \(l_n,u_n\)。左端点单调递增有界，故收敛到 \(s\)；区间宽度趋零使右端点也趋于 \(s\)。正文最后两段只用“左端不是上界、右端是上界”即可证明 \(s=\sup A\)。
+\end{proof}
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\noindent\textbf{配置说明：}本章按II级核心章配置，共24道编号题，含43个独立训练单元，建议总用时8至11小时。
-
-\subsection*{A组　分割与次序}
-\begin{enumerate}[label=\textbf{4.\arabic*.}]
- \exerciseitem{4.1} \mustdo 判断下列集合是否为分割，并说明失败条件：
- \begin{enumerate}[label=(\arabic*)]
-  \item \(\{q:q\le0\}\)；\item \(\{q:q<0\}\)；\item \(\Q\)；\item \(\{q:q<0\text{ 或 }q^2<2\}\)。
- \end{enumerate}
- \exerciseitem{4.2} \mustdo 证明分割的右部非空且向上封闭，并刻画右部何时有最小元。
- \exerciseitem{4.3} \mustdo 证明任意两个分割可比较，并说明证明中无最大元条件的作用。
- \exerciseitem{4.4} \mustdo 证明 \(r\mapsto r^*\) 保持严格次序且为单射。
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{6.1} 从定义证明收敛数列是 Cauchy 列。
+ \exerciseitem{6.2} 证明单调递增列若无上界，则对每个 \(M\in\R\) 从某项起 \(a_n>M\)。
+ \exerciseitem{6.3} 给出有界但不收敛数列、单调但不收敛数列，并指出各自缺少的条件。
+ \exerciseitem{6.4} 证明区间套定理中若只知交集非空而无长度条件，交集必为闭区间。
+ \exerciseitem{6.5} 分别给出删除嵌套性、闭性、长度趋零条件后结论失败的例子。
 \end{enumerate}
 
-\subsection*{B组　运算与完备性}
-\begin{enumerate}[label=\textbf{4.\arabic*.},resume]
- \exerciseitem{4.5} \mustdo 完整验证 \(\alpha+\beta\) 的分割三条件。
- \exerciseitem{4.6} \mustdo 对主分割直接计算 \(-r^*=(-r)^*\)。
- \exerciseitem{4.7} \mustdo 对正有理数 \(r\) 直接计算 \((r^*)^{-1}=(r^{-1})^*\)。
- \exerciseitem{4.8} \mustdo 证明若 \(\alpha\le\beta\)，则 \(\alpha+\gamma\le\beta+\gamma\)；若 \(0^*\le\gamma\)，则 \(\alpha\gamma\le\beta\gamma\)。
- \exerciseitem{4.9} \mustdo 证明有界非空分割族的并是上确界，并解释交集为何一般不是下确界分割。
- \exerciseitem{4.10} \mustdo 给出分割族，其交集有最大元；再写出修正后的下确界。
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{6.6} 证明有界数列若只有一个可能的子列极限，则原列收敛。
+ \exerciseitem{6.7} 证明 Cauchy 列的任意子列仍是 Cauchy 列；若某子列收敛，则所有收敛子列极限相同。
+ \exerciseitem{6.8} 用二分区间法证明每个无限有界实数集至少有一个聚点。
+ \exerciseitem{6.9} 证明若 \(|a_{n+1}-a_n|\le2^{-n}\)，则 \((a_n)\) 是 Cauchy 列。
+ \optionalexerciseitem{6.10} 构造 \(|a_{n+1}-a_n|\to0\) 但不是 Cauchy 列的数列。
+ \exerciseitem{6.11} 证明有限多个 Cauchy 列的线性组合仍为 Cauchy 列。
 \end{enumerate}
 
-\subsection*{C组　项目与比较}
-\begin{enumerate}[label=\textbf{4.\arabic*.},resume]
- \exerciseitem{4.11} \projectdo\ 【前置：\exerciserange{4.5}{4.8}；预计用时：90分钟】补全正分割乘法结合律、分配律及倒数恒等式中省略的稠密性细节。
- \exerciseitem{4.12} \mustdo 令 \(\alpha=\{q:q<0\text{ 或 }q^2<2\}\)。证明 \(\alpha^2=2^*\)。
- \exerciseitem{4.13} \optionaldo 证明 \(\mathbb D\) 中任意非空有下界集合有下确界，并用上界或取负号给出两种表达。
- \exerciseitem{4.14} \opendo 比较“分割没有最大元”和允许左部含边界的另一套约定；说明若不统一约定，有理数会出现两个表示。
- \exerciseitem{4.15} \mustdo 证明分割加法严格保序；证明乘以正分割严格保序，并说明零因子边界。
- \exerciseitem{4.16} \mustdo 补全主分割正数乘法
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \projectexerciseitem{6.12} \ 【前置：本章全部主定理；预计用时：90分钟】不经过 Bolzano--Weierstrass 定理，直接用快速 Cauchy 子列与级数型误差证明 Cauchy 完备性。
+ \exerciseitem{6.13} 补全从 Cauchy 完备性构造上确界时 \(l_n,u_n\) 的 Cauchy 性和共同极限证明。
+ \exerciseitem{6.14} 证明“每个有界数列都有 Cauchy 子列”与 Bolzano--Weierstrass 定理在 Cauchy 完备的有序域中等价。
+ \optionalexerciseitem{6.15} 证明闭区间的可数开覆盖若具有 Lebesgue 数，则可抽取有限子覆盖；说明区间套思想的作用。
+ \openexerciseitem{6.16} 调查一个非 Archimedes 有序域，说明 Cauchy 完备、序完备与球完备三种概念的区别。
+ \exerciseitem{6.17} 证明在 \(\Q\) 中 (S)、(M)、(N)、(B)、(C) 均失败，并尽量使用\chapterref{chap:real-number-system}同一个 \(\sqrt2\) 缺口。
+ \exerciseitem{6.18} 对不要求长度趋零的嵌套闭区间证明
  \[
-  r^*s^*=(rs)^*\qquad(r,s>0)
+  \bigcap_n[a_n,b_n]=[\sup_n a_n,\inf_n b_n].
  \]
- 的两个集合包含方向。
- \exerciseitem{4.17} \mustdo 证明主分割在 \(\mathbb D\) 中稠密，即 \(\alpha<\beta\) 间存在 \(q^*\)。
- \exerciseitem{4.18} \mustdo 证明若 \(\alpha<\beta\)，则存在正主分割 \(r^*>0^*\) 使 \(\alpha+r^*<\beta\)。
- \exerciseitem{4.19} \mustdo 分别说明加法逆元与乘法逆元定义中为何使用右部元素，并构造一个“逐项取相反数或倒数”后不向下封闭的错误候选。
- \exerciseitem{4.20} \mustdo 对非空有上界分割族 \(\mathcal A\)，验证并集上确界证明的每一条分割条件；再分析若删去共同上界假设哪一步失败。
- \exerciseitem{4.21} \optionaldo 证明
- \[
-  \inf\mathcal A=\bigcup\{\gamma\in\mathbb D:
-  \gamma\subseteq\alpha\text{ 对所有 }\alpha\in\mathcal A\},
- \]
- 并与“交集后必要时删端点”的公式比较。
- \exerciseitem{4.22} \projectdo\ 【前置：本章全部运算；预计用时：120分钟】制作 Dedekind 构造的域公理核对表，逐项给出封闭性、单位元、逆元、结合律、分配律与序相容性的证明位置。
- \exerciseitem{4.23} \opendo 比较以左部分割、右部分割和上下集合对三种方式构造实数的技术差异，说明三者怎样避免有理边界的双重表示。
- \exerciseitem{4.24} \optionaldo 证明\chapterref{chap:rational-defects}所有逼近 \(\sqrt2\) 的有理 Cauchy 列在分割模型中都收敛到同一个分割 \(\alpha\)；可用有理左右夹逼表述。
+ \exerciseitem{6.19} 从 Bolzano--Weierstrass 定理推出每个无限有界实数集有聚点，并解释互异点选择的必要性。
+ \exerciseitem{6.20} 定义尾部直径 \(d_N\)，证明 Cauchy 性等价于 \(d_N\to0\)。
+ \exerciseitem{6.21} 证明若 \((a_n)\) 是 Cauchy 列且有子列趋于 \(+\infty\)，则产生矛盾；说明 Cauchy 列不能有不同的扩充实子列极限。
+ \exerciseitem{6.22} 只用单调有界收敛与 Archimedes 性质重建确界原理。
+ \exerciseitem{6.23} 证明若每个长度趋零的闭区间套交集非空，则交集自动为单点；据此区分“存在性”与“唯一性”的条件来源。
+ \optionalexerciseitem{6.24} 给出从 (C) 直接推出 (B) 的证明方案，避免先使用确界原理；可先构造 Cauchy 子列。
+ \projectexerciseitem{6.25} \ 【前置：本章全部内容；预计用时：120分钟】为依赖图中每条箭头写一份条件清单和反例清单，确保不循环引用等价命题。
+ \openexerciseitem{6.26} 比较可数区间套与任意全序嵌套闭区间族的交性质，说明为何后者会导向比序列完备更强的完备概念。
 \end{enumerate}
 
 \section*{部分习题提示}
 \begin{itemize}
- \item \exerciseref{4.7}：把 \(q<1/r\) 与存在 \(s\ge r\) 使 \(q<1/s\) 对照。
- \item \exerciseref{4.10}：若交集有最大元 \(c\)，应删除 \(c\) 以恢复分割条件。
- \item \exerciseref{4.12}：先证每个正乘积 \(ab<2\)，再从 \(x<2\) 构造足够接近缺口的 \(a,b\) 使 \(x<ab\)。
+ \item \exerciseref{6.6}：反设不收敛，抽取一条始终远离候选极限的子列，再应用收敛子列定理。
+ \item \exerciseref{6.10}：取调和部分和 \(a_n=\sum_{k=1}^n1/k\)。
+ \item \exerciseref{6.12}：抽取 \(n_k\) 使尾部项两两距离 \(<2^{-k}\)，证明它收敛后再控制原列。
 \end{itemize}

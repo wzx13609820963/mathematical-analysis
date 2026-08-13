@@ -1,301 +1,351 @@
-\chapter{有序域与实数的完备性公理}
-\label{chap:ordered-field-completeness}
+\chapter{Dedekind 分割}
+\label{chap:dedekind-construction}
 
-\begin{chapterguide}
-\chapterref{chap:rational-defects}表明，有序域结构能够支持代数运算和大小比较，却不能保证有界集合存在边界点。本章先列出域、全序及二者的相容性，再以确界公理补入缺失的存在性。此后暂以“实数系”表示一个完备有序域；第4、5章将给出具体构造。
-\end{chapterguide}
+\chapterref{chap:real-number-system}中的每个有理缺口都有一个确定的左部。Dedekind 的办法是把这个左部本身当作新数。这样得到的对象只有在加法、乘法和次序均有定义，并且全部域公理与确界性质都得到验证以后，才能称为实数系。
 
-\section{域的代数结构}
+\section{分割的定义、序与有理数嵌入}
 
-\begin{definition}
-集合 \(F\) 连同运算 \(+\) 与 \(\cdot\) 称为一个\term{域}，如果加法、乘法分别满足交换律和结合律，乘法对加法满足分配律，并且存在互异元素 \(0,1\in F\)，使每个 \(x\in F\) 有加法逆元 \(-x\)，每个非零 \(x\in F\) 有乘法逆元 \(x^{-1}\)。
-\end{definition}
+\subsection{分割的动机与严格定义}
 
-减法定义为 \(x-y=x+(-y)\)，除法定义为 \(x/y=xy^{-1}\)（\(y\ne0\)）。
-
-\begin{proposition}
-在域中，两个单位元和每个逆元都是唯一的；此外
-\[
- 0x=0,\qquad (-x)y=-(xy),\qquad (-x)(-y)=xy.
-\]
-若 \(xy=0\)，则 \(x=0\) 或 \(y=0\)。
-\end{proposition}
-
-\begin{proof}
-若 \(0,0'\) 都是加法单位元，则 \(0=0+0'=0'\)；其他唯一性同理。由
-\[
- 0x=(0+0)x=0x+0x
-\]
-消去 \(0x\) 得 \(0x=0\)，其余符号法则由逆元唯一性推出。若 \(xy=0\) 且 \(x\ne0\)，两边乘 \(x^{-1}\) 得 \(y=0\)。
-\end{proof}
-
-\(\Q,\R,\C\) 都是域，\(\Z\) 不是域。本章讨论还带有相容全序的域；\(\C\) 不存在这种全序。
-
-\section{序与域运算的相容性}
 
 \begin{definition}
-域 \(F\) 上的关系 \(\le\) 称为与域运算相容的\term{全序}，如果它满足自反性、反对称性、传递性和任意两元素可比较，并且
+有理数集的子集 \(\alpha\subseteq\Q\) 称为一个 \term{Dedekind 分割}，如果
 \begin{enumerate}
- \item \(x\le y\Rightarrow x+z\le y+z\)；
- \item \(0\le x,\ 0\le y\Rightarrow0\le xy\)。
+ \item \(\alpha\ne\varnothing\) 且 \(\alpha\ne\Q\)；
+ \item 若 \(x\in\alpha\) 且 \(y<x\)，则 \(y\in\alpha\)；
+ \item \(\alpha\) 没有最大元。
 \end{enumerate}
-带有这种全序的域称为\term{有序域}。
+全体分割组成的集合记为 \(\mathbb D\)。
 \end{definition}
 
+分割只记录左部；右部是 \(\Q\setminus\alpha\)。向下封闭性保证每个左部元素小于每个右部元素，无最大元则统一处理“边界为有理数”和“边界为无理数”两种情形。
+
+三个条件各自排除一种退化。若允许空集或全体 \(\Q\)，所谓边界便落在所有有理数之外；若没有向下封闭性，集合中保留的就不是边界左侧的全部信息；若允许最大元，则同一个有理边界 \(r\) 会同时产生 \(\{q:q<r\}\) 与 \(\{q:q\le r\}\) 两种表示。规定左部没有最大元，是为了只保留前一种标准表示。
+
+对 \(r\in\Q\)，定义主分割
+\[
+ r^*=\{q\in\Q:q<r\}.
+\]
+\chapterref{chap:real-number-system}的集合 \(L=\{q:q<0\text{ 或 }q^2<2\}\) 也是分割，但不等于任何 \(r^*\)。
+
+这两个例子说明分割比有理数增加了什么。主分割的边界是已有的有理数 \(r\)，而 \(L\) 的左右两部在 \(\Q\) 中没有共同边界。构造并不先给缺口命名；它把每个符合条件的左部都作为一个数，随后再由域运算和完备性判断这些对象是否组成所需的实数系。
+
+\subsection{分割的相等关系与序关系}
+
+
+分割是集合，因此相等按集合相等定义。规定
+\[
+ \alpha\le\beta\quad\Longleftrightarrow\quad\alpha\subseteq\beta.
+\]
+
 \begin{proposition}
-在有序域中，\(1>0\)；对 \(x\ne0\)，有 \(x^2>0\)；若 \(0<x<y\)，则 \(0<y^{-1}<x^{-1}\)。
+包含关系使 \(\mathbb D\) 成为全序集。
 \end{proposition}
 
 \begin{proof}
-若 \(1<0\)，则 \(-1>0\)，从而 \(1=(-1)^2>0\)，矛盾，故 \(1>0\)。对非零 \(x\)，\(x\) 与 \(-x\) 中恰有一个为正，故 \(x^2>0\)。若 \(x>0\)，其逆元也为正；由 \(x<y\) 乘正数 \(x^{-1}y^{-1}\)，得到 \(y^{-1}<x^{-1}\)。
+只需证明任意两个分割可比较。若 \(\alpha\nsubseteq\beta\)，取 \(a\in\alpha\setminus\beta\)。对任意 \(b\in\beta\)，不可能有 \(a<b\)，否则由 \(\beta\) 向下封闭得 \(a\in\beta\)。故 \(b\le a\)。又 \(a\in\alpha\)，所以 \(b\in\alpha\)（若 \(b=a\) 会有 \(a\in\beta\)，故实际为 \(b<a\)）。因此 \(\beta\subseteq\alpha\)。
 \end{proof}
 
-有序域的特征为零，因为每个有限和 \(n\cdot1\) 都为正。因此其中含有 \(\Q\) 的一个保持运算与次序的副本。
-
-\section{有序域中的区间、绝对值与基本不等式}
-
-对 \(a<b\) 定义通常的开、闭、半开区间。绝对值定义为
+严格包含对应严格次序。对有理数 \(r,s\)，有
 \[
- |x|=\begin{cases}x,&x\ge0,\\-x,&x<0.\end{cases}
+ r<s\quad\Longleftrightarrow\quad r^*\subsetneq s^*.
 \]
 
-\begin{theorem}[绝对值不等式]
-对任意 \(x,y\in F\)，
+\subsection{有理数的嵌入}
+
+
+定义 \(\iota:\Q\to\mathbb D\) 为 \(\iota(r)=r^*\)。
+
+\begin{theorem}
+\(\iota\) 是保序单射：
 \[
- |xy|=|x||y|,\qquad |x+y|\le|x|+|y|,\qquad
- \bigl||x|-|y|\bigr|\le|x-y|.
+ r<s\Longleftrightarrow\iota(r)<\iota(s).
 \]
 \end{theorem}
 
 \begin{proof}
-乘积式按符号分类。由 \(-|x|\le x\le|x|\) 与对应的 \(y\) 不等式相加，得到
-\[
- -(|x|+|y|)\le x+y\le|x|+|y|,
-\]
-即三角不等式。由 \(x=(x-y)+y\) 得 \(|x|-|y|\le|x-y|\)；交换 \(x,y\) 并合并两式，得到反三角不等式。
+前面已经证明 \(r<s\) 当且仅当 \(r^*\subsetneq s^*\)。因此 \(\iota\) 保持严格次序。若 \(\iota(r)=\iota(s)\)，则既不可能 \(r<s\)，也不可能 \(s<r\)，故 \(r=s\)。
 \end{proof}
 
-对 \(r>0\)，\(|x-a|<r\) 等价于 \(a-r<x<a+r\)。后续极限定义将用这一关系把误差估计改写为区间邻域。
-
-\section{上界、下界、最大元与最小元}
-
-\begin{definition}
-设 \(A\subseteq F\)。若 \(M\in F\) 满足 \(a\le M\) 对所有 \(a\in A\) 成立，则 \(M\) 是 \(A\) 的\term{上界}。若 \(m\in A\) 且 \(a\le m\) 对所有 \(a\in A\) 成立，则 \(m\) 是 \(A\) 的\term{最大元}。下界、最小元对称定义。
-\end{definition}
-
-最大元与最小元若存在则唯一。空集的每个域元素都是上界和下界，但空集没有最大元或最小元。确界公理因此显式要求集合非空。
-
-\begin{example}
-区间 \((0,1)\) 有上界 \(1\)，却没有最大元：若 \(0<x<1\)，则 \(x<(x+1)/2<1\)。区间 \((0,1]\) 的最大元为 \(1\)。
-\end{example}
-
-记上界集为
+\begin{corollary}
+嵌入后的有理数在 \(\mathbb D\) 中稠密：若 \(\alpha<\beta\)，则存在 \(q\in\Q\) 使
 \[
- \operatorname{UB}(A)=\{M\in F:\forall a\in A,\ a\le M\}.
+ \alpha<q^*<\beta.
 \]
-若 \(\operatorname{UB}(A)\) 非空，它向上封闭：\(M\) 是上界且 \(M'\ge M\) 时，\(M'\) 仍是上界。类似地，下界集 \(\operatorname{LB}(A)\) 向下封闭。上确界若存在，就是上界集的最小元；下确界则是下界集的最大元。这个改写把确界问题转化为“界的集合有没有端点”。
+\end{corollary}
+
+\begin{proof}
+取 \(b\in\beta\setminus\alpha\)。由 \(\beta\) 无最大元，选 \(q\in\beta\) 且 \(q>b\)。因为 \(b\notin\alpha\)，每个 \(a\in\alpha\) 都满足 \(a<b<q\)，故 \(\alpha\subset q^*\)。严格性来自 \(b\in q^*\setminus\alpha\)。又 \(q\in\beta\) 且 \(\beta\) 向下封闭，所以 \(q^*\subset\beta\)；因 \(q\in\beta\setminus q^*\)，包含严格。
+\end{proof}
+
+因此可把 \(\Q\) 与其像识别。加法和乘法尚未定义；嵌入保持运算的性质将在相应定义之后证明。
+
+\section{加法和零元}
+
+若 \(\alpha,\beta\) 分别表示两个数的全部有理下近似，那么它们的和应由所有 \(a+b\)（\(a\in\alpha,b\in\beta\)）从下方逼近。这一想法直接给出定义，但仍须验证所得集合没有遗漏下方点，也没有产生最大元。
+
+
+定义
+\[
+ \alpha+\beta=\{a+b:a\in\alpha,\ b\in\beta\},\qquad
+ 0_{\mathbb D}=0^*.
+\]
 
 \begin{proposition}
-设 \(A,B\subseteq F\) 非空。
-\begin{enumerate}
- \item 若 \(A\subseteq B\)，则 \(\operatorname{UB}(B)\subseteq\operatorname{UB}(A)\)；
- \item \(M\) 是 \(A\cup B\) 的上界，当且仅当它同时是 \(A,B\) 的上界；
- \item 若 \(A\) 有最大元，则该最大元是上确界；但上确界不必属于 \(A\)。
-\end{enumerate}
+\(\alpha+\beta\) 是分割；加法在 \(\mathbb D\) 上满足交换律、结合律，零元为 \(0^*\)。
 \end{proposition}
 
 \begin{proof}
-前两项直接展开全称量词。第三项中，最大元属于 \(A\) 且控制全部元素，所以是上界；任意上界还必须不小于这个属于 \(A\) 的元素，故它是最小上界。开区间给出最后一句的反例。
+取 \(a\in\alpha,b\in\beta\)，则 \(a+b\) 说明非空。取 \(u\notin\alpha,v\notin\beta\)，则每个 \(a<u,b<v\)，故 \(a+b<u+v\)，所以 \(u+v\) 不属于该集合，证得它不等于 \(\Q\)。若 \(x=a+b\) 且 \(y<x\)，令 \(a'=a+(y-x)\)，则 \(a'<a\)、\(a'\in\alpha\)，且 \(y=a'+b\)。若 \(a+b\) 已给定，取 \(a'>a\) 且 \(a'\in\alpha\)，便有 \(a'+b>a+b\)，故无最大元。
+
+交换律、结合律由有理数相应法则逐元素得到。对任意 \(a\in\alpha\)、\(q<0\)，有 \(a+q<a\)，故 \(\alpha+0^*\subseteq\alpha\)。反之，对 \(x\in\alpha\)，取 \(a\in\alpha\) 且 \(a>x\)，则 \(x=a+(x-a)\) 且 \(x-a<0\)，故 \(x\in\alpha+0^*\)。
 \end{proof}
 
-\section{上确界与下确界}
+\begin{proposition}
+对任意 \(r,s\in\Q\)，有 \(r^*+s^*=(r+s)^*\)。
+\end{proposition}
 
-\begin{definition}
-设非空集合 \(A\subseteq F\) 有上界。若 \(s\) 是 \(A\) 的上界，并且 \(s\le M\) 对每个上界 \(M\) 成立，则称 \(s\) 为 \(A\) 的\term{上确界}，记为 \(s=\sup A\)。下确界 \(\inf A\) 对称定义。
-\end{definition}
+\begin{proof}
+若 \(x=a+b\)，其中 \(a<r,b<s\)，则 \(x<r+s\)。反之，若 \(x<r+s\)，取有理数 \(a\) 满足 \(x-s<a<r\)，令 \(b=x-a\)，便有 \(a<r\)、\(b<s\) 且 \(x=a+b\)。
+\end{proof}
 
-\begin{theorem}[上确界的近似刻画]
-\(s=\sup A\) 当且仅当
-\begin{enumerate}
- \item \(a\le s\) 对所有 \(a\in A\) 成立；
- \item 对每个 \(\varepsilon>0\)，存在 \(a_\varepsilon\in A\) 使 \(s-\varepsilon<a_\varepsilon\le s\)。
-\end{enumerate}
+\section{负元与加法群}
+
+把 \(\alpha\) 中每个有理数直接取相反数会得到向上封闭的集合，不能作为分割。负元的左部应由原分割右部的相反数从下方生成；定义中的严格不等式同时保证向下封闭和无最大元。
+
+定义加法逆元
+\[
+ -\alpha=\{q\in\Q:\text{存在 }r\notin\alpha\text{ 使 }q<-r\}.
+\]
+
+\begin{theorem}
+\(-\alpha\) 是分割，且 \(\alpha+(-\alpha)=0^*\)。
 \end{theorem}
 
 \begin{proof}
-若第二项对某个 \(\varepsilon>0\) 失败，则 \(s-\varepsilon\) 是更小的上界，矛盾。反之，第一项说明 \(s\) 是上界。若有上界 \(M<s\)，取 \(\varepsilon=s-M\)，第二项给出 \(a_\varepsilon>M\)，仍矛盾。
+取 \(r\notin\alpha\)，任意 \(q<-r\) 表明集合非空；取 \(a\in\alpha\)，则任何 \(q\in-\alpha\) 都满足 \(q<-r<-a\)，故 \(-a\notin-\alpha\)，所以它不等于 \(\Q\)。向下封闭和无最大元由严格不等式及有理数稠密性直接得到。
+
+若 \(a\in\alpha\)、\(q\in-\alpha\)，取 \(r\notin\alpha\) 使 \(q<-r\)。由 \(a<r\)，得 \(a+q<a-r<0\)，所以 \(\alpha+(-\alpha)\subseteq0^*\)。
+
+反之，取 \(x<0\)。先取 \(a_0\in\alpha\)、\(r_0\notin\alpha\)。反复二分 \([a_0,r_0]\)：中点在 \(\alpha\) 时替换左端，否则替换右端。取 \(n\) 使 \((r_0-a_0)/2^n<-x\)，便得到 \(a\in\alpha,r\notin\alpha\) 且 \(r-a<-x\)。于是 \(q=x-a<-r\)，故 \(q\in-\alpha\)，且 \(x=a+q\)。所以 \(0^*\subseteq\alpha+(-\alpha)\)。
+\end{proof}
+
+于是 \((\mathbb D,+)\) 是交换群，而且 \(-(r^*)=(-r)^*\)。有理数嵌入保持加法和相反数。
+
+\section{正分割的乘法}
+
+乘法比加法多一个符号问题。只有在两个数均为正时，“下近似的乘积仍是下近似”才保持次序，因此先在正分割上定义乘法，再用符号法则扩张。非正有理数自动放入积的左部，是因为正数的每个非正数都位于其左侧。
+
+
+称 \(\alpha>0^*\) 为正分割，记 \(\alpha_+=\alpha\cap(0,\infty)\)。对正分割定义
+\[
+ \alpha\beta=
+ \{q\in\Q:q\le0\text{，或存在 }a\in\alpha_+,b\in\beta_+
+ \text{ 使 }q<ab\}.
+\]
+\begin{lemma}[正分割乘法演算]
+若 \(\alpha,\beta,\gamma>0^*\)，则 \(\alpha\beta\) 是正分割，并且
+\[
+ \alpha\beta=\beta\alpha,\qquad
+ (\alpha\beta)\gamma=\alpha(\beta\gamma),\qquad
+ \alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma.
+\]
+\end{lemma}
+
+\begin{proof}
+非空性来自所有非正有理数。取正的右部元素 \(u\notin\alpha,v\notin\beta\)，则每个 \(a\in\alpha_+,b\in\beta_+\) 满足 \(ab<uv\)，故 \(uv\) 不在积中。向下封闭由定义立即得到；若 \(q<ab\)，可在 \(a\) 与 \(\alpha\) 的更大正元素之间作微小有理扰动，使 \(q<a'b\)，由此排除最大元。
+
+交换律、结合律由有理数乘法和存在量词的重新分组得到。分配律的一侧由 \(a(b+c)=ab+ac\) 直接包含。反向包含中，给定 \(x<ab+a'c\)，利用 \(\alpha\) 无最大元取共同的 \(d\in\alpha_+\) 且 \(d>\max\{a,a'\}\)；于是 \(x<d(b+c)\)，故 \(x\in\alpha(\beta+\gamma)\)。非正元素按定义也包含。两侧因向下封闭而得到相等。
 \end{proof}
 
 \begin{proposition}
-若相应确界存在，则
+若 \(r,s>0\) 为有理数，则 \(r^*s^*=(rs)^*\)。
+\end{proposition}
+
+\begin{proof}
+若 \(q\in r^*s^*\) 且 \(q>0\)，则存在 \(a<r,b<s\) 使 \(q<ab<rs\)，所以 \(q\in(rs)^*\)。反之，若 \(0<q<rs\)，先取正有理数 \(a<r\) 使 \(q/a<s\)，再取 \(b\) 满足 \(q/a<b<s\)。于是 \(q<ab\)。非正有理数按定义属于两个分割。
+\end{proof}
+
+\section{乘法的符号扩张}
+
+若一因子为 \(0^*\)，定义其积为 \(0^*\)。对非零分割先置
 \[
- \inf A=-\sup(-A),\qquad
- \sup(A+c)=\sup A+c,\qquad
- \sup(\lambda A)=\lambda\sup A\quad(\lambda>0).
+ |\alpha|=\begin{cases}
+ \alpha,&\alpha>0^*,\\
+ -\alpha,&\alpha<0^*,
+ \end{cases}
 \]
-\end{proposition}
+再规定同号相乘取 \(|\alpha||\beta|\)，异号相乘取 \(-(|\alpha||\beta|)\)。正分割乘法的交换律和结合律连同符号法则表明，扩张后的乘法仍满足交换律与结合律。上一命题及零与负号情形给出
+\[
+ r^*s^*=(rs)^*\qquad(r,s\in\Q).
+\]
 
-\begin{proof}
-下界在取相反数后对应上界；平移和正数乘法则分别给出保持大小关系的双射。逐项核对上界性与最小性即可。
-\end{proof}
+\section{分配律}
 
-\begin{proposition}[误差刻画的变体]
-若 \(s\) 是 \(A\) 的上界，则以下条件等价：
-\begin{enumerate}
- \item \(s=\sup A\)；
- \item 对每个 \(t<s\)，存在 \(a\in A\) 使 \(t<a\)；
- \item 对每个正数 \(\eta\)，都有 \(A\cap(s-\eta,s]\ne\varnothing\)。
-\end{enumerate}
-\end{proposition}
+正分割乘法演算已经证明三项均为正时的分配律。固定 \(\alpha>0^*\)。若 \(\beta>0^*\)、\(\gamma=-\delta<0^*\)，且 \(\beta\ge\delta\)，则
+\[
+ \alpha\beta=\alpha(\beta-\delta)+\alpha\delta.
+\]
+在加法群中消去 \(\alpha\delta\)，得到 \(\alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma\)。当 \(\beta<\delta\) 时交换两项；两项都为负时先提出负号。若 \(\alpha<0^*\)，由 \(\alpha=-(-\alpha)\) 归结到上述情形。零因子情形直接成立。因此分配律对任意三个分割成立。
 
-\begin{proof}
-第一项与第二项的等价只需在上确界近似刻画中令 \(\varepsilon=s-t\)。第二项说明任何小于 \(s\) 的数都不是上界，也正是“\(s\) 是最小上界”。第三项是同一陈述的邻域形式。
-\end{proof}
+\section{乘法逆元}
 
-\section{确界公理与完备有序域}
+倒数会反转正数的次序。若只对 \(a\in\alpha_+\) 取 \(1/a\)，得到的是从上方逼近倒数的集合；因此定义必须使用 \(\alpha\) 的右部。对每个右部元素 \(r\)，数 \(1/r\) 位于目标倒数的左侧，再对这些数向下封闭便得到下式。
 
-\begin{definition}
-有序域 \(F\) 称为\term{完备有序域}，如果它的每个非空且有上界的子集都在 \(F\) 中有上确界。
-\end{definition}
+对正分割 \(\alpha\)，定义
+\[
+ \alpha^{-1}=
+ \{q\in\Q:q\le0\text{，或存在 }r>0,\ r\notin\alpha,\ q<r^{-1}\}.
+\]
 
-由取相反数可知，下确界原理与确界公理等价。\chapterref{chap:rational-defects}的集合 \(S\subseteq\Q\) 说明 \(\Q\) 不完备。
-
-\begin{theorem}[正数平方根]
-在完备有序域 \(F\) 中，对每个 \(a>0\)，存在唯一的 \(s>0\) 使 \(s^2=a\)。
+\begin{theorem}
+若 \(\alpha>0^*\)，则 \(\alpha^{-1}\) 是正分割且
+\[
+ \alpha\alpha^{-1}=1^*.
+\]
 \end{theorem}
 
 \begin{proof}
-令 \(A=\{x\in F:x\ge0,\ x^2\le a\}\)。它含 \(0\)，且 \(a+1\) 是上界。令 \(s=\sup A\)。因 \(a/(a+1)\in A\)，故 \(s>0\)。
+先验证 \(\alpha^{-1}\) 是分割。它包含所有非正有理数，因而非空。由于 \(\alpha>0^*\) 且 \(\alpha\ne\Q\)，可取 \(a\in\alpha_+\)。若 \(a^{-1}\in\alpha^{-1}\)，则存在 \(r>0\) 满足 \(r\notin\alpha\) 且 \(a^{-1}<r^{-1}\)，从而 \(r<a\)。这与 \(a\in\alpha\) 及 \(\alpha\) 向下封闭矛盾。因此 \(a^{-1}\notin\alpha^{-1}\)，该集合不是 \(\Q\)。
 
-若 \(s^2<a\)，令 \(d=a-s^2>0\)，取
-\[
- 0<h<\min\left\{1,\frac d{2s+1}\right\}.
-\]
-则 \((s+h)^2-s^2<(2s+1)h<d\)，所以 \(s+h\in A\)，与上界性矛盾。若 \(s^2>a\)，令 \(d=s^2-a>0\)，取
-\[
- 0<h<\min\left\{s,\frac d{2s}\right\}.
-\]
-则 \((s-h)^2>a\)。任何 \(x\in A\) 都不能大于 \(s-h\)，故 \(s-h\) 是更小的上界，矛盾。因此 \(s^2=a\)。
+若 \(q\in\alpha^{-1}\) 且 \(t<q\)，则 \(q\le 0\) 时有 \(t\le0\)；\(q>0\) 时，可取 \(r\notin\alpha\) 使 \(q<r^{-1}\)，于是 \(t<r^{-1}\)。两种情形都给出 \(t\in\alpha^{-1}\)，故它向下封闭。最后说明它没有最大元。对 \(q\le0\)，先取任意正数 \(r\notin\alpha\)，再取 \(0<t<r^{-1}\)，便有 \(q<t\in\alpha^{-1}\)；对 \(q>0\)，由定义取 \(r\notin\alpha\) 使 \(q<r^{-1}\)，再在二者之间取有理数 \(t\)。因此 \(\alpha^{-1}\) 确为正分割。
 
-若 \(t>0\) 且 \(t^2=s^2\)，则 \((t-s)(t+s)=0\)。因 \(t+s>0\)，有 \(t=s\)。
+若 \(a\in\alpha_+\)、\(q<r^{-1}\) 且 \(r\notin\alpha\)，则 \(a<r\)，故 \(aq<1\)；所以积包含于 \(1^*\)。
+
+反之，给定 \(0<x<1\)，取 \(a_0\in\alpha_+\)、\(r_0\notin\alpha\)，并可令 \(r_0>a_0\)。用二分法取得 \(a\in\alpha_+\)、\(r\notin\alpha\)，使
+\[
+ r-a<\frac{1-x}{x}a_0\le\frac{1-x}{x}a.
+\]
+于是 \(a/r>x\)，即 \(x/a<1/r\)。由有理数稠密性取 \(q\) 使 \(x/a<q<1/r\)。则 \(q\in\alpha^{-1}\) 且 \(x<aq\)，由积的向下封闭性得 \(x\in\alpha\alpha^{-1}\)。负数和零本来就在积中，故 \(1^*\subseteq\alpha\alpha^{-1}\)。
 \end{proof}
 
-确界公理只用于产生候选 \(s\)；两个有理扰动分别排除 \(s^2<a\) 与 \(s^2>a\)。这填补了\chapterref{chap:rational-defects}由 \(x^2=2\) 产生的缺口。
+负分割的逆元由 \(\alpha^{-1}=-((-\alpha)^{-1})\) 定义。
 
-\section{上确界与最大值的区别}
+\section{顺序与域运算的相容性}
 
-若 \(A\) 有最大元 \(m\)，则 \(m=\sup A\)。逆命题不成立：\((0,1)\) 的上确界是 \(1\)，但 \(1\notin(0,1)\)。
+\begin{theorem}
+\((\mathbb D,+,\cdot,\subseteq)\) 是有序域。其零元、单位元分别为 \(0^*,1^*\)。
+\end{theorem}
+
+\begin{proof}
+加法群、乘法交换律和结合律、分配律、单位元以及非零元的逆元已经分别证明。若 \(\alpha,\beta>0^*\)，正分割乘法的定义给出 \(\alpha\beta>0^*\)；含零情形给出非负性。由此全序与乘法相容，所以 \(\mathbb D\) 是有序域。
+\end{proof}
+
+这里没有把关键的良定义问题隐藏在代表元之后：\(\mathbb D\) 的元素本身就是集合，所有运算均直接生成唯一集合。技术负担转移到了验证生成集合仍为分割以及逆元恒等式。
+
+\begin{proposition}[序与运算的相容性细化]
+对任意分割 \(\alpha,\beta,\gamma\)，有
+\[
+ \alpha\subseteq\beta
+ \Longrightarrow
+ \alpha+\gamma\subseteq\beta+\gamma.
+\]
+若 \(0^*\subseteq\gamma\)，则
+\[
+ \alpha\subseteq\beta
+ \Longrightarrow
+ \alpha\gamma\subseteq\beta\gamma.
+\]
+加法在严格包含下仍严格保序；乘法只有在 \(0^*\subsetneq\gamma\) 时严格保序。若 \(\gamma=0^*\)，两边乘积都等于 \(0^*\)。
+\end{proposition}
+
+\begin{proof}
+加法的非严格包含直接由定义中的代表 \(a\in\alpha\subseteq\beta\) 得到。若 \(\alpha\subsetneq\beta\)，加上 \(-\alpha\) 后得
+\[
+ 0^*\subsetneq\beta+(-\alpha),
+\]
+再平移回去可知严格性不会消失。
+
+当三者非负时，乘法包含由正部代表的包含直接得到；一般的 \(\alpha,\beta\) 可先平移一个足够大的主分割，使两者变为正，再用分配律消去共同平移项。若 \(\gamma>0^*\) 且 \(\alpha<\beta\)，则
+\[
+ (\beta-\alpha)\gamma>0^*,
+\]
+所以 \(\alpha\gamma<\beta\gamma\)。\(\gamma=0^*\) 时只能得到等号，故严格性表述要排除零因子。
+\end{proof}
+
+把全部域公理逐项列出可以看出，交换律和结合律主要继承自有理数运算；封闭性、加法逆元、乘法逆元和分配律需要分割条件与稠密性。尤其倒数构造必须使用右部信息，单靠正左部的逐项倒数会反转次序且不再向下封闭。
+
+\section{确界性质}
+
+至此已经得到一个有序域，但有序域仍可能像 \(\Q\) 那样带有缺口。分割构造的便利在这里显现：一族分割的最小上界无需另行逼近，它就是所有左部的并集。下面的证明也解释了为何最初选择“左部”作为新数的表示。
+
+
+\begin{theorem}
+有序域 \(\mathbb D\) 满足确界公理。
+\end{theorem}
+
+\begin{proof}
+设 \(\mathcal A\subseteq\mathbb D\) 非空且有上界 \(\beta\in\mathbb D\)。令
+\[
+ \sigma=\bigcup_{\alpha\in\mathcal A}\alpha.
+\]
+非空性来自 \(\mathcal A\) 的任一成员；由于每个 \(\alpha\subseteq\beta\)，有 \(\sigma\subseteq\beta\ne\Q\)。并集保持向下封闭。若 \(x\in\sigma\)，则 \(x\in\alpha\) 对某个 \(\alpha\in\mathcal A\)；该 \(\alpha\) 无最大元，所以存在 \(y\in\alpha\subseteq\sigma\) 且 \(y>x\)。故 \(\sigma\) 是分割。
+
+每个 \(\alpha\in\mathcal A\) 都包含于 \(\sigma\)，所以 \(\sigma\) 是上界。若 \(\gamma\) 是另一上界，则每个 \(\alpha\subseteq\gamma\)，从而其并 \(\sigma\subseteq\gamma\)。故 \(\sigma=\sup\mathcal A\)。
+\end{proof}
 
 \begin{proposition}
-非空有上界集合 \(A\) 有最大元，当且仅当 \(\sup A\in A\)；此时最大元等于上确界。
+分割域中 \(1^*>0^*\)，每个非零分割的平方为正，并且不存在正分割小于所有正主分割 \(1/n^*\)。
 \end{proposition}
 
 \begin{proof}
-最大元既是上界，又不大于任何上界，所以等于上确界。反之，属于 \(A\) 的上确界支配 \(A\) 的全部元素，因而是最大元。
+前两项是任意有序域的形式后果。确界性质已经证明，因此可以应用\chapterref{chap:real-number-system}由确界原理推出的 Archimedes 性质：对任意正元素 \(\alpha\)，存在 \(n\in\Npos\) 使 \(1/n^*<\alpha\)。故不存在小于所有正主分割 \(1/n^*\) 的正分割。
 \end{proof}
-
-\begin{example}[边界位置与边界归属]
-令
-\[
- A=(0,1),\qquad B=(0,1/2),\qquad C=(0,1]\!.
-\]
-前两个集合都没有最大元，但上确界分别为 \(1\) 与 \(1/2\)；集合 \(A,C\) 有同一个上确界，只有 \(C\) 包含边界并具有最大元。确界记录边界位置，最大元还记录边界是否属于集合。
-\end{example}
-
-\begin{proposition}[确界的稳定比较]
-设 \(A,B\subseteq F\) 非空且有上界。若对每个 \(a\in A\) 都存在 \(b\in B\) 使 \(a\le b\)，则
-\[
- \sup A\le\sup B.
-\]
-\end{proposition}
-
-\begin{proof}
-\(\sup B\) 控制每个 \(b\in B\)，因而按假设也控制每个 \(a\in A\)，所以它是 \(A\) 的上界。最小上界性给出结论。这个命题常用于比较删去有限项、平移或逐点放大后的集合边界。
-\end{proof}
-
-\section*{本章小结}
-\addcontentsline{toc}{section}{本章小结}
-
-域公理控制四则运算，全序及相容性控制不等式；二者仍不足以产生最小上界。确界公理补入集合层面的存在性，并等价地给出下确界原理。上确界只有属于原集合时才是最大元。平方根定理展示了完备性如何把边界转化为方程的解。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\noindent\textbf{配置说明：}本章按II级核心章配置，共26道编号题，含45个独立训练单元，建议总用时7至10小时。
-
-\subsection*{A组　结构与不等式}
-\begin{enumerate}[label=\textbf{2.\arabic*.}]
- \exerciseitem{2.1} \mustdo 从域公理证明 \(0x=0\)、\((-1)x=-x\) 与 \((-x)(-y)=xy\)。
- \exerciseitem{2.2} \mustdo 证明 \(x<y\Longleftrightarrow y-x>0\)，并推导不等式加法法则与负数乘法反向法则。
- \exerciseitem{2.3} \mustdo 证明 \(x^2\ge0\)，且 \(x^2=0\Longleftrightarrow x=0\)。
- \exerciseitem{2.4} \mustdo 证明对 \(r>0\)，
- \[
- |x-a|<r\Longleftrightarrow a-r<x<a+r,
- \quad
- |x-a|\le r\Longleftrightarrow a-r\le x\le a+r.
- \]
- \exerciseitem{2.5} \mustdo 证明反三角不等式，并给出取等的简单情形。
- \exerciseitem{2.6} \mustdo 证明不存在使 \(\C\) 成为有序域的全序。
-\end{enumerate}
-
-\subsection*{B组　界与确界}
-\begin{enumerate}[label=\textbf{2.\arabic*.},resume]
- \exerciseitem{2.7} \mustdo 分别求下列实数集合的上界全体、下界全体、上下确界及最大最小元：
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{4.1} 判断下列集合是否为分割，并说明失败条件：
  \begin{enumerate}[label=(\arabic*)]
-  \item \((0,1)\)；
-  \item \([0,1)\)；
-  \item \(\{x\in\R:x\ge0,\ x^2<2\}\)。
+  \item \(\{q:q\le0\}\)；\item \(\{q:q<0\}\)；\item \(\Q\)；\item \(\{q:q<0\text{ 或 }q^2<2\}\)。
  \end{enumerate}
- \exerciseitem{2.8} \mustdo 证明上确界若存在则唯一，并写出下确界的近似刻画。
- \exerciseitem{2.9} \mustdo 若 \(\varnothing\ne A\subseteq B\subseteq\R\) 均有上界，证明 \(\sup A\le\sup B\)，并给出严格不等与等号的例子。
- \exerciseitem{2.10} \mustdo 对非空有上界集合 \(A,B\subseteq\R\)，证明
- \[
- \sup(A+B)=\sup A+\sup B,
- \quad A+B=\{a+b:a\in A,b\in B\}.
- \]
- \exerciseitem{2.11} \mustdo 对非空有界集合 \(A,B\subseteq\R\)，证明
- \[
- \sup(A\cup B)=\max\{\sup A,\sup B\},\quad
- \inf(A\cup B)=\min\{\inf A,\inf B\}.
- \]
- \exerciseitem{2.12} \optionaldo 构造 \(A,B\subseteq\R\)，使 \(A\cap B\ne\varnothing\) 且
- \[
- \sup(A\cap B)<\min\{\sup A,\sup B\}.
- \]
+ \exerciseitem{4.2} 证明分割的右部非空且向上封闭，并刻画右部何时有最小元。
+ \exerciseitem{4.3} 证明任意两个分割可比较，并说明证明中无最大元条件的作用。
+ \exerciseitem{4.4} 证明 \(r\mapsto r^*\) 保持严格次序且为单射。
 \end{enumerate}
 
-\subsection*{C组　完备性与项目}
-\begin{enumerate}[label=\textbf{2.\arabic*.},resume]
- \exerciseitem{2.13} \mustdo 由确界公理推出下确界原理，并证明反向蕴含。
- \exerciseitem{2.14} \mustdo 在平方根定理中给出 \(h\) 的显式公式，避免使用尚未证明的 Archimedes 性质。
- \exerciseitem{2.15} \mustdo 证明若 \(a<b\) 与 \(0<t<1\)，则
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{4.5} 完整验证 \(\alpha+\beta\) 的分割三条件。
+ \exerciseitem{4.6} 对主分割直接计算 \(-r^*=(-r)^*\)。
+ \exerciseitem{4.7} 对正有理数 \(r\) 直接计算 \((r^*)^{-1}=(r^{-1})^*\)。
+ \exerciseitem{4.8} 证明若 \(\alpha\le\beta\)，则 \(\alpha+\gamma\le\beta+\gamma\)；若 \(0^*\le\gamma\)，则 \(\alpha\gamma\le\beta\gamma\)。
+ \exerciseitem{4.9} 证明有界非空分割族的并是上确界，并解释交集为何一般不是下确界分割。
+ \exerciseitem{4.10} 给出分割族，其交集有最大元；再写出修正后的下确界。
+\end{enumerate}
+
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \projectexerciseitem{4.11} \ 【前置：\exerciserange{4.5}{4.8}；预计用时：90分钟】补全正分割乘法结合律、分配律及倒数恒等式中省略的稠密性细节。
+ \exerciseitem{4.12} 令 \(\alpha=\{q:q<0\text{ 或 }q^2<2\}\)。证明 \(\alpha^2=2^*\)。
+ \optionalexerciseitem{4.13} 证明 \(\mathbb D\) 中任意非空有下界集合有下确界，并用上界或取负号给出两种表达。
+ \openexerciseitem{4.14} 比较“分割没有最大元”和允许左部含边界的另一套约定；说明若不统一约定，有理数会出现两个表示。
+ \exerciseitem{4.15} 证明分割加法严格保序；证明乘以正分割严格保序，并说明零因子边界。
+ \exerciseitem{4.16} 补全主分割正数乘法
  \[
- a<(1-t)a+tb<b,
+  r^*s^*=(rs)^*\qquad(r,s>0)
  \]
- 并说明该结论不使用完备性。
- \exerciseitem{2.16} \projectdo\ 【前置：\exerciseref{2.8}、2.13；预计用时：60分钟】证明嵌套闭区间 \([a_n,b_n]\) 若满足
+ 的两个集合包含方向。
+ \exerciseitem{4.17} 证明主分割在 \(\mathbb D\) 中稠密，即 \(\alpha<\beta\) 间存在 \(q^*\)。
+ \exerciseitem{4.18} 证明若 \(\alpha<\beta\)，则存在正主分割 \(r^*>0^*\) 使 \(\alpha+r^*<\beta\)。
+ \exerciseitem{4.19} 分别说明加法逆元与乘法逆元定义中为何使用右部元素，并构造一个“逐项取相反数或倒数”后不向下封闭的错误候选。
+ \exerciseitem{4.20} 对非空有上界分割族 \(\mathcal A\)，验证并集上确界证明的每一条分割条件；再分析若删去共同上界假设哪一步失败。
+ \optionalexerciseitem{4.21} 证明
  \[
- a_n\le a_{n+1}\le b_{n+1}\le b_n,
+  \inf\mathcal A=\bigcup\{\gamma\in\mathbb D:
+  \gamma\subseteq\alpha\text{ 对所有 }\alpha\in\mathcal A\},
  \]
- 则交集非空。此处不要求交集为单点。
- \exerciseitem{2.17} \optionaldo 若 \(A\subseteq\R\) 非空有上界且 \(c<\sup A\)，证明存在 \(a\in A\) 使 \(c<a\le\sup A\)。
- \exerciseitem{2.18} \opendo 列出平方根存在性证明中分别使用的域、序、确界三类性质，并说明在 \(\Q\) 中哪一步失败。
- \exerciseitem{2.19} \mustdo 证明上界集向上封闭、下界集向下封闭，并把 \(\sup A\) 表述为 \(\operatorname{UB}(A)\) 的最小元。
- \exerciseitem{2.20} \mustdo 证明上确界近似刻画中可把“对每个 \(\varepsilon>0\)”等价改写为“对每个 \(t<s\)”。
- \exerciseitem{2.21} \mustdo 设 \(A,B\) 非空有上界，且每个 \(a\in A\) 都不超过某个 \(b\in B\)。证明 \(\sup A\le\sup B\)，并构造严格不等与等号例。
- \exerciseitem{2.22} \mustdo 求 \(\sup\{x/(1+x):x>0\}\)，不得使用微分。
- \exerciseitem{2.23} \mustdo 设 \(A\) 非空有界，证明
- \[
-  \sup\{\abs a:a\in A\}=\max\{\sup A,-\inf A\}.
- \]
- \exerciseitem{2.24} \mustdo 讨论从非空集合中删除有限个元素后上确界何时保持不变；给出一个充分条件和两个边界反例。
- \exerciseitem{2.25} \optionaldo 设 \(\lambda<0\)。推导 \(\sup(\lambda A)\) 与 \(\inf A\) 的关系，并证明。
- \exerciseitem{2.26} \projectdo\ 【前置：本章确界运算；预计用时：75分钟】建立非空有界集合在平移、正负伸缩、并集、Minkowski 和与乘积下的确界计算表；每个公式注明必要的符号条件。
+ 并与“交集后必要时删端点”的公式比较。
+ \projectexerciseitem{4.22} \ 【前置：本章全部运算；预计用时：120分钟】制作 Dedekind 构造的域公理核对表，逐项给出封闭性、单位元、逆元、结合律、分配律与序相容性的证明位置。
+ \openexerciseitem{4.23} 比较以左部分割、右部分割和上下集合对三种方式构造实数的技术差异，说明三者怎样避免有理边界的双重表示。
+ \optionalexerciseitem{4.24} 证明\chapterref{chap:real-number-system}所有逼近 \(\sqrt2\) 的有理 Cauchy 列在分割模型中都收敛到同一个分割 \(\alpha\)；可用有理左右夹逼表述。
 \end{enumerate}
 
 \section*{部分习题提示}
 \begin{itemize}
- \item \exerciseref{2.6}：有序域中平方非负，而 \(i^2=-1\)。
- \item \exerciseref{2.10}：先证右端是上界，再用两个近似元从下方逼近。
- \item \exerciseref{2.16}：令 \(s=\sup\{a_n:n\in\N\}\)，证明每个 \(b_n\) 都是该集合的上界。
+ \item \exerciseref{4.7}：把 \(q<1/r\) 与存在 \(s\ge r\) 使 \(q<1/s\) 对照。
+ \item \exerciseref{4.10}：若交集有最大元 \(c\)，应删除 \(c\) 以恢复分割条件。
+ \item \exerciseref{4.12}：先证每个正乘积 \(ab<2\)，再从 \(x<2\) 构造足够接近缺口的 \(a,b\) 使 \(x<ab\)。
 \end{itemize}

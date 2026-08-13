@@ -1,11 +1,12 @@
-\chapter{一致连续及其定量形式}
+\chapter{一致连续}
 \label{chap:uniform-continuity}
 
-\begin{chapterguide}
-点连续允许输入尺度随考察点变化；一致连续要求同一尺度在整个定义域上有效。差别只在量词次序，却决定函数能否保持 Cauchy 列、能否延拓到定义域的完备化。紧致性把逐点半径有限化，得到 Heine--Cantor 定理；Lipschitz、Hölder 条件和连续模进一步给出可计算的统一误差控制。
-\end{chapterguide}
+逐点连续时，控制误差所需的邻域可以随基点缩小；若定义域很大或缺少端点，这些邻域可能没有共同的正下界。一致连续排除这种退化：给定输出误差后，同一个输入尺度对定义域中的任意两点都有效。由此可以判断函数何时保持 Cauchy 列，并得到从稠密子集向完备空间的延拓。
 
-\section{点态选择 \texorpdfstring{\(\delta\)}{delta} 与统一选择 \texorpdfstring{\(\delta\)}{delta}}
+\section{一致连续的定义与序列判据}
+
+\subsection{点态选择 \texorpdfstring{\(\delta\)}{delta} 与统一选择 \texorpdfstring{\(\delta\)}{delta}}
+
 
 函数 \(f:D\to\R\) 在每一点连续意味着
 \[
@@ -14,7 +15,7 @@
 \[
  \abs{x-a}<\delta\Longrightarrow\abs{f(x)-f(a)}<\varepsilon.
 \]
-这里 \(\delta\) 可以依赖 \(a\)。若希望一个尺度同时适用于任意两个定义域点，就要交换前两层量词的位置。
+其中 \(\delta\) 可以依赖基点 \(a\)。若要求一个尺度同时适用于定义域的所有位置，\(\delta\) 的选择就必须先于基点，因而得到下面的量词次序。
 
 \begin{definition}[一致连续]
 若
@@ -27,11 +28,14 @@
 
 一致连续立即推出每点连续：固定 \(a\in D\)，令 \(y=a\) 即可。反向一般不成立，因为逐点得到的半径可能在定义域某些区域趋于零。
 
+这里交换的不是两个无关量词。逐点连续允许观察位置 \(a\) 先确定，再为该位置选择半径；一致连续必须在看见任何位置之前给出同一个半径。因此，证明不一致连续时要构造两列彼此越来越近的点，而不必让它们各自收敛到定义域中的同一点。
+
 \begin{example}
 线性函数 \(f(x)=mx+b\) 在 \(\R\) 上一致连续。给定 \(\varepsilon>0\)，当 \(m\ne0\) 时取 \(\delta=\varepsilon/\abs m\)；\(m=0\) 时任取正半径。
 \end{example}
 
-\section{一致连续的定义和序列判据}
+\subsection{一致连续的定义和序列判据}
+
 
 \begin{theorem}[序列判据]
 函数 \(f:D\to\R\) 一致连续，当且仅当对任意两列 \((x_n),(y_n)\subset D\)，
@@ -53,13 +57,14 @@
 前一不等式使输入距离趋零，后一不等式使像距不趋零，与序列条件矛盾。
 \end{proof}
 
-两列自身不必收敛。它们可以共同逃向无穷远，也可以共同逼近定义域外的缺失边界点。这正好捕捉连续但不一致连续的两种常见机制。
+两列自身不必收敛：它们可以共同逃向无穷远，也可以共同逼近定义域外的缺失端点。后面的两个反例分别属于这两种情形。
 
 \begin{corollary}
 若 \(f\) 一致连续且 \(\abs{x_n-y_n}\to0\)，则只要一条像列 \(f(x_n)\) 收敛，另一条 \(f(y_n)\) 也收敛到同一极限。
 \end{corollary}
 
-\section{连续但不一致连续的典型机制}
+\section{非紧定义域上的反例}
+
 
 \paragraph{无穷远处增长加速。}
 函数 \(f(x)=x^2\) 在 \(\R\) 上连续，但取
@@ -88,7 +93,7 @@
 \[
  \abs{\sqrt x-\sqrt y}\le\sqrt{\abs{x-y}}.
 \]
-所以给定 \(\varepsilon>0\) 可取 \(\delta=\varepsilon^2\)。这说明导数或差商在端点附近无界不是本章范围内的充分否定条件；应回到两点误差估计。
+所以给定 \(\varepsilon>0\) 可取 \(\delta=\varepsilon^2\)。端点附近的差商虽然无界，两点像距仍有统一的平方根估计；仅凭局部斜率无界不能否定一致连续性。
 
 \begin{proposition}
 若 \(f\) 在有界区间 \(I\) 上一致连续，则 \(f\) 在 \(I\) 上有界，即使 \(I\) 不是闭区间。
@@ -102,6 +107,9 @@
 \end{proof}
 
 \section{Heine--Cantor 定理}
+
+连续函数在紧集上不会出现前节的两种逃逸：点列既不能跑向无穷远，也不能逼近一个不在定义域内的缺失边界。若统一半径不存在，序列判据会产生一对距离趋零而像距不趋零的点列；紧致性让其中一列收敛到定义域内，另一列便被迫收敛到同一点，与连续性矛盾。
+
 
 \begin{theorem}[Heine--Cantor]
 紧集 \(K\subset\R\) 上的连续函数 \(f:K\to\R\) 一致连续。
@@ -149,9 +157,14 @@
 \]
 \end{proof}
 
-紧致性不可替换为单纯有界或单纯闭。开区间上的 \(1/x\) 与闭但无界集合上的 \(x^2\) 分别给出反例。
+\begin{insightbox}[定义域为什么取紧集]
+紧致性不可替换为单纯有界或单纯闭。开区间上的 \(1/x\) 与闭但无界集合上的 \(x^2\) 分别给出反例。Heine--Cantor 定理需要的是能从局部控制中抽取有限个控制尺度的性质。
+\end{insightbox}
 
-\section{Lipschitz 连续与 Hölder 连续}
+\section{Lipschitz、Hölder 与连续模}
+
+\subsection{Lipschitz 连续与 Hölder 连续}
+
 
 \begin{definition}
 设 \(f:D\to\R\)。
@@ -205,7 +218,8 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 若 \(\abs f\le M_f\)、\(\abs g\le M_g\)，且 Lipschitz 常数为 \(L_f,L_g\)，则乘积常数可取 \(M_fL_g+M_gL_f\)。
 \end{proof}
 
-\section{各种连续性的蕴含关系和反例}
+\subsection{各种连续性的蕴含关系和反例}
+
 
 在任意定义域上有
 \[
@@ -235,27 +249,8 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 在无界定义域上不能直接使用这一全局比较。
 \end{remark}
 
-\section{一致连续函数对 Cauchy 列的保持}
+\subsection{连续模及一致连续性的定量描述}
 
-\begin{theorem}
-若 \(f:D\to\R\) 一致连续，且 \((x_n)\subset D\) 是 Cauchy 列，则 \((f(x_n))\) 也是 Cauchy 列。
-\end{theorem}
-
-\begin{proof}
-给定 \(\varepsilon>0\)，由一致连续性取 \(\delta>0\)。由 \((x_n)\) 的 Cauchy 性，存在 \(N\) 使 \(m,n\ge N\) 时
-\[
- \abs{x_m-x_n}<\delta.
-\]
-于是 \(\abs{f(x_m)-f(x_n)}<\varepsilon\)。
-\end{proof}
-
-点连续不足以保证这一结论。数列 \(x_n=1/n\) 是 \((0,1)\) 中的 Cauchy 列，而连续函数 \(f(x)=1/x\) 把它映成 \(n\)，不是 Cauchy 列。失败原因是原列趋向定义域外的缺失端点，点连续无法在那里提供控制。
-
-\begin{corollary}
-若 \(D\) 稠密于某集合 \(X\)，一致连续函数 \(f:D\to\R\) 对每个 \(x\in X\) 的任意逼近列给出同一个候选极限。
-\end{corollary}
-
-\section{连续模及一致连续性的定量描述}
 
 \begin{definition}[连续模]
 设 \(D\ne\varnothing\)，\(f:D\to\R\)。定义
@@ -296,7 +291,33 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 连续模保留了比“一致连续”更精确的误差传播速度。
 \end{example}
 
-\section{一致连续映射向完备化的延拓}
+\section{Cauchy 列的保持与完备化延拓}
+
+点连续只控制收敛到定义域内某点的数列，一致连续则直接控制任意 Cauchy 列。这个差别决定了函数能否穿过定义域中的缺口：在稠密子集上取逼近列时，极限点可能尚未属于原定义域，只有一致连续性保证所有逼近方式产生同一个 Cauchy 像列。
+
+\subsection{一致连续函数对 Cauchy 列的保持}
+
+
+\begin{theorem}
+若 \(f:D\to\R\) 一致连续，且 \((x_n)\subset D\) 是 Cauchy 列，则 \((f(x_n))\) 也是 Cauchy 列。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，由一致连续性取 \(\delta>0\)。由 \((x_n)\) 的 Cauchy 性，存在 \(N\) 使 \(m,n\ge N\) 时
+\[
+ \abs{x_m-x_n}<\delta.
+\]
+于是 \(\abs{f(x_m)-f(x_n)}<\varepsilon\)。
+\end{proof}
+
+点连续不足以保证这一结论。数列 \(x_n=1/n\) 是 \((0,1)\) 中的 Cauchy 列，而连续函数 \(f(x)=1/x\) 把它映成 \(n\)，不是 Cauchy 列。失败原因是原列趋向定义域外的缺失端点，点连续无法在那里提供控制。
+
+\begin{corollary}
+若 \(D\) 稠密于某集合 \(X\)，一致连续函数 \(f:D\to\R\) 对每个 \(x\in X\) 的任意逼近列给出同一个候选极限。
+\end{corollary}
+
+\subsection{一致连续映射向完备化的延拓}
+
 
 先陈述实数子集版本。设 \(D\subset X\subset\R\)，且 \(D\) 在 \(X\) 中稠密。
 
@@ -343,128 +364,122 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 函数 \(f(x)=1/x\) 在 \(D=(0,1)\) 上连续却不一致连续，不能连续延拓到 \(X=[0,1]\)。因此“稠密集上的连续函数”不足以保证向闭包延拓。
 \end{counterexample}
 
-\section*{本章小结}
-\addcontentsline{toc}{section}{本章小结}
-
-一致连续把半径从依赖点的局部选择提升为全定义域统一选择，其序列判据允许两列共同移动而只要求相互距离趋零。紧集上的连续函数由 Heine--Cantor 定理自动一致连续。Lipschitz、Hölder 条件和连续模提供定量控制；保持 Cauchy 列则揭示一致连续与完备化延拓之间的联系。
-
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\noindent\textbf{配置说明：}本章按I级枢纽章配置，共26道编号题，含约44个独立训练单元，建议总用时6至8小时。\exerciserange{19.1}{19.21}为核心必做范围；本章之后另设第三编综合作业。
-
-\subsection*{A组　定义、判据与典型例}
-\begin{enumerate}[label=\textbf{19.\arabic*.}]
- \exerciseitem{19.1} \mustdo 对比连续与一致连续的量词次序，并证明一致连续推出连续。
- \exerciseitem{19.2} \mustdo 完整证明一致连续的双序列判据。
- \exerciseitem{19.3} \mustdo 用双序列判据证明 \(x^2\) 在 \(\R\) 上不一致连续。
- \exerciseitem{19.4} \mustdo 证明 \(1/x\) 在 \((0,1)\) 上不一致连续，但在 \([a,\infty)\)（\(a>0\)）上一致连续。
- \exerciseitem{19.5} \mustdo 证明 \(\sqrt x\) 在 \([0,\infty)\) 上一致连续。
- \exerciseitem{19.6} \mustdo 证明有界区间上的一致连续函数必有界。
- \exerciseitem{19.7} \mustdo 举例说明无界区间上的一致连续函数可以无界。
- \exerciseitem{19.8} \mustdo 证明紧集上的连续函数一致连续，分别给出序列证明和覆盖证明。
- \exerciseitem{19.9} \mustdo 为 Heine--Cantor 定理中删去紧致性的情形给出两个机制不同的反例。
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{19.1} 对比连续与一致连续的量词次序，并证明一致连续推出连续。
+ \exerciseitem{19.2} 完整证明一致连续的双序列判据。
+ \exerciseitem{19.3} 用双序列判据证明 \(x^2\) 在 \(\R\) 上不一致连续。
+ \exerciseitem{19.4} 证明 \(1/x\) 在 \((0,1)\) 上不一致连续，但在 \([a,\infty)\)（\(a>0\)）上一致连续。
+ \exerciseitem{19.5} 证明 \(\sqrt x\) 在 \([0,\infty)\) 上一致连续。
+ \exerciseitem{19.6} 证明有界区间上的一致连续函数必有界。
+ \exerciseitem{19.7} 举例说明无界区间上的一致连续函数可以无界。
+ \exerciseitem{19.8} 证明紧集上的连续函数一致连续，分别给出序列证明和覆盖证明。
+ \exerciseitem{19.9} 为 Heine--Cantor 定理中删去紧致性的情形给出两个失效原因不同的反例。
 \end{enumerate}
 
-\subsection*{B组　定量连续性与 Cauchy 列}
-\begin{enumerate}[label=\textbf{19.\arabic*.},resume]
- \exerciseitem{19.10} \mustdo 证明 Hölder 连续推出一致连续。
- \exerciseitem{19.11} \mustdo 证明 \(x^\alpha\)（\(0<\alpha<1\)）在 \([0,\infty)\) 上是 \(\alpha\)-Hölder 连续但不是 Lipschitz 连续。
- \exerciseitem{19.12} \mustdo 证明 Lipschitz 函数之和与复合仍 Lipschitz，并估计常数。
- \exerciseitem{19.13} \mustdo 给出两个全局 Lipschitz 函数之积不再全局 Lipschitz 的例子，并给出有界条件下的充分估计。
- \exerciseitem{19.14} \mustdo 证明一致连续函数保持 Cauchy 列。
- \exerciseitem{19.15} \mustdo 构造连续函数把某条定义域内 Cauchy 列映成非 Cauchy 列。
- \exerciseitem{19.16} \mustdo 定义连续模并证明一致连续的连续模判据。
- \exerciseitem{19.17} \mustdo 在区间定义域上证明连续模的次可加性。
- \exerciseitem{19.18} \mustdo 计算 \(f(x)=x\)、\(f(x)=\sqrt x\) 在相应定义域上的最小自然连续模上界。
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{19.10} 证明 Hölder 连续推出一致连续。
+ \exerciseitem{19.11} 证明 \(x^\alpha\)（\(0<\alpha<1\)）在 \([0,\infty)\) 上是 \(\alpha\)-Hölder 连续但不是 Lipschitz 连续。
+ \exerciseitem{19.12} 证明 Lipschitz 函数之和与复合仍 Lipschitz，并估计常数。
+ \exerciseitem{19.13} 给出两个全局 Lipschitz 函数之积不再全局 Lipschitz 的例子，并给出有界条件下的充分估计。
+ \exerciseitem{19.14} 证明一致连续函数保持 Cauchy 列。
+ \exerciseitem{19.15} 构造连续函数把某条定义域内 Cauchy 列映成非 Cauchy 列。
+ \exerciseitem{19.16} 定义连续模并证明一致连续的连续模判据。
+ \exerciseitem{19.17} 在区间定义域上证明连续模的次可加性。
+ \exerciseitem{19.18} 计算 \(f(x)=x\)、\(f(x)=\sqrt x\) 在相应定义域上的最小自然连续模上界。
 \end{enumerate}
 
-\subsection*{C组　延拓、结构与项目}
-\begin{enumerate}[label=\textbf{19.\arabic*.},resume]
- \exerciseitem{19.19} \mustdo 完整证明稠密子集上一致连续函数的唯一延拓定理。
- \exerciseitem{19.20} \mustdo 说明延拓证明中稠密性、一致连续性和值域完备性分别用于何处。
- \exerciseitem{19.21} \mustdo 证明 \(\sin x\) 在 \(\Q\) 上的限制唯一延拓为 \(\R\) 上的 \(\sin x\)。
- \exerciseitem{19.22} \optionaldo 构造在 \(\Q\) 上连续但不能连续延拓到 \(\R\) 的函数。
- \exerciseitem{19.23} \optionaldo 证明若 \(f\) 在 \((a,b)\) 上一致连续，则左右有限极限存在，因而可连续延拓到 \([a,b]\)。
- \exerciseitem{19.24} \projectdo\ 【前置：第13、18、19章；预计用时：90分钟】建立“紧致性—Heine--Cantor—保持 Cauchy 列—完备化延拓”的证明链，并给每个箭头配置一个删条件反例。
- \exerciseitem{19.25} \opendo 研究一致连续是否由“保持收敛列”刻画，并比较它与“保持 Cauchy 列”的强弱。
- \exerciseitem{19.26} \optionaldo 若 \(f\) 是双射且 \(f,f^{-1}\) 都一致连续，称其为一致同胚。证明一致同胚保持 Cauchy 性与完备性。
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{19.19} 完整证明稠密子集上一致连续函数的唯一延拓定理。
+ \exerciseitem{19.20} 说明延拓证明中稠密性、一致连续性和值域完备性分别用于何处。
+ \exerciseitem{19.21} 证明 \(\sin x\) 在 \(\Q\) 上的限制唯一延拓为 \(\R\) 上的 \(\sin x\)。
+ \optionalexerciseitem{19.22} 构造在 \(\Q\) 上连续但不能连续延拓到 \(\R\) 的函数。
+ \optionalexerciseitem{19.23} 证明若 \(f\) 在 \((a,b)\) 上一致连续，则左右有限极限存在，因而可连续延拓到 \([a,b]\)。
+ \projectexerciseitem{19.24} \ 【前置：\chapterref{chap:cauchy-criterion}、\chapterref{chap:continuous-functions-closed-interval}与本章；预计用时：90分钟】建立“紧致性—Heine--Cantor—保持 Cauchy 列—完备化延拓”的证明链，并给每个箭头配置一个删条件反例。
+ \openexerciseitem{19.25} 研究一致连续是否由“保持收敛列”刻画，并比较它与“保持 Cauchy 列”的强弱。
+ \optionalexerciseitem{19.26} 若 \(f\) 是双射且 \(f,f^{-1}\) 都一致连续，称其为一致同胚。证明一致同胚保持 Cauchy 性与完备性。
 \end{enumerate}
 
-\section*{第三编综合作业}
-\addcontentsline{toc}{section}{第三编综合作业}
+\section*{本编综合习题}
+\addcontentsline{toc}{section}{本编综合习题}
 
-\begin{enumerate}[label=\textbf{III.\arabic*.}]
- \exerciseitem{III.1} \mustdo\textbf{（定义链）} 对函数在有限点的有限极限完成下列任务：
+\begin{enumerate}[label=\textbf{综.\arabic*.}]
+ \exerciseitem{III.1} \textbf{（定义链）} 对函数在有限点的有限极限完成下列任务：
  \begin{enumerate}
   \item 写出聚点条件和删心极限定义；
   \item 写出极限失败的量词否定；
   \item 从否定构造坏点数列；
   \item 说明为何孤立点会使删心极限空泛成立。
  \end{enumerate}
- \exerciseitem{III.2} \mustdo\textbf{（运算边界）} 设 \(f\to L\)、\(g\to M\)：
+ \exerciseitem{III.2} \textbf{（运算边界）} 设 \(f\to L\)、\(g\to M\)：
  \begin{enumerate}
   \item 证明乘积法则；
   \item 证明 \(M\ne0\) 时的商法则；
   \item 分别构造 \(M=0\) 时商趋于有限数、无穷和不存在的例子；
   \item 解释复合极限的避开中心条件。
  \end{enumerate}
- \exerciseitem{III.3} \mustdo\textbf{（Heine 与 Cauchy）}
+ \exerciseitem{III.3} \textbf{（Heine 与 Cauchy）}
  \begin{enumerate}
   \item 完整证明 Heine 定理；
   \item 完整证明函数极限的 Cauchy 准则；
   \item 给出不完备值域中的失败例；
   \item 推广到完备度量值域。
  \end{enumerate}
- \exerciseitem{III.4} \mustdo\textbf{（扩充实极限）}
+ \exerciseitem{III.4} \textbf{（扩充实极限）}
  \begin{enumerate}
   \item 写出 \(x\to a+\) 时 \(f(x)\to-\infty\) 的定义；
   \item 写出 \(x\to-\infty\) 时 \(f(x)\to L\) 的定义；
   \item 证明相应的序列刻画；
   \item 用倒数代换把无穷远极限转成单侧零点极限。
  \end{enumerate}
- \exerciseitem{III.5} \mustdo\textbf{（连续与间断）}
+ \exerciseitem{III.5} \textbf{（连续与间断）}
  \begin{enumerate}
   \item 证明连续性的序列判据；
   \item 对三类间断各构造两个例子；
   \item 证明分段函数连续必须核对交界值；
   \item 说明相对定义域对端点连续性的影响。
  \end{enumerate}
- \exerciseitem{III.6} \mustdo\textbf{（单调函数）}
+ \exerciseitem{III.6} \textbf{（单调函数）}
  \begin{enumerate}
   \item 证明递增函数的左右极限公式；
   \item 推出内点间断必为跳跃；
   \item 证明跳跃区间两两不交；
   \item 由有理数注入证明间断点至多可数。
  \end{enumerate}
- \exerciseitem{III.7} \mustdo\textbf{（紧致性三种语言）}
+ \exerciseitem{III.7} \textbf{（紧致性三种语言）}
  \begin{enumerate}
   \item 证明闭区间有限覆盖定理；
   \item 证明闭且有界等价于实线中的紧致；
   \item 建立序列紧致与有限覆盖性质的联系；
   \item 各给一个非闭与无界反例。
  \end{enumerate}
- \exerciseitem{III.8} \mustdo\textbf{（连续函数的全局定理）}
+ \exerciseitem{III.8} \textbf{（连续函数的全局定理）}
  \begin{enumerate}
   \item 证明有界性定理；
   \item 证明极值定理；
   \item 证明零点定理；
   \item 从连通性角度解释介值定理。
  \end{enumerate}
- \exerciseitem{III.9} \mustdo\textbf{（一致连续判别）} 对 \(x^2\)、\(\sqrt x\)、\(1/x\)、\(\sin x\) 在若干自然定义域上：
+ \exerciseitem{III.9} \textbf{（一致连续判别）} 对 \(x^2\)、\(\sqrt x\)、\(1/x\)、\(\sin x\) 在若干自然定义域上：
  \begin{enumerate}
   \item 判定连续与一致连续；
   \item 给出有效的统一半径或反例点列；
   \item 判断是否 Hölder 或 Lipschitz；
   \item 写出可用的连续模上界。
  \end{enumerate}
- \exerciseitem{III.10} \mustdo\textbf{（完备化延拓）}
+ \exerciseitem{III.10} \textbf{（完备化延拓）}
  \begin{enumerate}
   \item 由稠密性选择逼近列；
   \item 证明像列收敛且极限与选择无关；
   \item 证明延拓一致连续且唯一；
   \item 说明仅有连续性时哪一步失败。
  \end{enumerate}
- \exerciseitem{III.11} \projectdo\textbf{（定理依赖图）}【预计用时：120分钟】以“实数完备性”为根节点，绘制从 Bolzano--Weierstrass、闭区间有限覆盖、极值与介值、Heine--Cantor 到一致连续延拓的依赖图；每条边附一段证明摘要。
- \exerciseitem{III.12} \opendo\textbf{（边界综合）} 系统比较定义域删去端点、值域改为 \(\Q\)、输入改为扩充实数、连续改为一致连续时，第三编各主定理的结论如何改变；至少给出六个相互不重复的反例。
+ \projectexerciseitem{III.11} \textbf{（定理依赖图）}【预计用时：120分钟】以“实数完备性”为根节点，绘制从 Bolzano--Weierstrass、闭区间有限覆盖、极值与介值、Heine--Cantor 到一致连续延拓的依赖图；每条边附一段证明摘要。
+ \openexerciseitem{III.12} \textbf{（边界综合）} 系统比较定义域删去端点、值域改为 \(\Q\)、输入改为扩充实数、连续改为一致连续时，第三编各主定理的结论如何改变；至少给出六个相互不重复的反例。
 \end{enumerate}
+

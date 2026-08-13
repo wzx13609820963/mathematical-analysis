@@ -1,11 +1,7 @@
-\chapter{数学语言与证明基础：习题解答}
+\chapter{数学语言：习题解答}
 
-\begin{chapterguide}
-本章解答与正文\chapterref{chap:mathematical-language}的19道习题逐题对应。证明题给出完整逻辑，开放题给出一种可行方案及其所依赖的集合论背景。建议先独立完成习题，再按题号查阅。
-\end{chapterguide}
-
-\section*{A组　概念与基本证明}
-\addcontentsline{toc}{section}{A组　概念与基本证明}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
 \begin{solution}{0.1}
 \begin{enumerate}[label=(\arabic*)]
@@ -107,11 +103,11 @@ y\in f(f^{-1}(B))
   h:\mathbb Z\longrightarrow\mathbb N,\qquad
   h(z)=
   \begin{cases}
-    2z+1,&z\ge0,\\
-    -2z,&z<0.
+    2z,&z\ge0,\\
+    -2z-1,&z<0.
   \end{cases}
 \]
-它把 \(0,1,-1,2,-2,\ldots\) 依次送到 \(1,3,2,5,4,\ldots\)，是一个双射。于是
+它把 \(0,1,-1,2,-2,\ldots\) 依次送到 \(0,2,1,4,3,\ldots\)，是一个双射。于是
 \[
   H:\mathbb Z\times\mathbb Z\longrightarrow\mathbb N\times\mathbb N,
   \qquad H(m,n)=(h(m),h(n))
@@ -138,8 +134,8 @@ y\in f(f^{-1}(B))
 给出 \(A_1\times\cdots\times A_k\) 到 \(\mathbb N^k\) 的单射。因此有限个至多可数集的笛卡儿积仍至多可数。若 \(k\ge1\)、每个 \(A_j\) 可数无限，则从任一因子固定其余坐标可把 \(\mathbb N\) 单射到乘积；结合至多可数性，Cantor--Schröder--Bernstein 定理给出乘积可数无限。若有因子为空，乘积为空集。
 \end{solution}
 
-\section*{B组　结构性问题}
-\addcontentsline{toc}{section}{B组　结构性问题}
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
 
 \begin{solution}{0.8}
 先证单射部分。若 \(f\) 为单射，正文已知 \(A\subseteq f^{-1}(f(A))\)。反过来，若 \(x\in f^{-1}(f(A))\)，则存在 \(a\in A\) 使 \(f(x)=f(a)\)。由单射性 \(x=a\in A\)，故
@@ -198,7 +194,7 @@ y\in f(f^{-1}(B))
 \end{solution}
 
 \begin{solution}{0.11}
-对每个固定 \(n\)，\(\mathbb Z^n\) 是有限个可数无限集的笛卡儿积，因而可数无限。所有有限整数序列组成
+对每个固定的正整数 \(n\)，\(\mathbb Z^n\) 是有限个可数无限集的笛卡儿积，因而可数无限。所有有限整数序列组成
 \[
   \bigcup_{n=1}^{\infty}\mathbb Z^n,
 \]
@@ -206,7 +202,7 @@ y\in f(f^{-1}(B))
 \end{solution}
 
 \begin{solution}{0.12}
-对每个 \(d\in\mathbb N_0\)，次数不超过 \(d\) 的整系数多项式由系数向量
+对每个 \(d\in\mathbb N\)，次数不超过 \(d\) 的整系数多项式由系数向量
 \[
   (a_0,a_1,\ldots,a_d)\in\mathbb Z^{d+1}
 \]
@@ -231,8 +227,8 @@ y\in f(f^{-1}(B))
 至多可数，与 Cantor 定理矛盾。因此 \(\mathcal I\) 不可数。
 \end{solution}
 
-\section*{C组　拓展与反思}
-\addcontentsline{toc}{section}{C组　拓展与反思}
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
 
 \begin{solution}{0.14}
 设 \(f:X\to Y\) 和 \(g:Y\to X\) 均为单射。定义
@@ -355,3 +351,4 @@ y\in f(f^{-1}(B))
 
 退化情形不能省略，因为此时 Kuratowski 有序对从一个二元集合退化为单元素集合 \(\{\{x\}\}\)；若证明未经检查便假定它始终有两个不同成员，论证本身就使用了尚未证明的 \(x\ne y\)。
 \end{solution}
+

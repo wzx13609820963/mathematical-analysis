@@ -36,7 +36,7 @@ function Add-Matches {
 $exerciseKeys = [System.Collections.Generic.List[string]]::new()
 foreach ($file in $bodyFiles) {
     $text = [System.IO.File]::ReadAllText($file.FullName)
-    foreach ($match in [regex]::Matches($text, '\\exerciseitem\{([^}]+)\}')) {
+    foreach ($match in [regex]::Matches($text, '\\(?:exerciseitem|optionalexerciseitem|projectexerciseitem|openexerciseitem)\{([^}]+)\}')) {
         $exerciseKeys.Add($match.Groups[1].Value)
     }
     if ($text -notmatch '\\label\{(?:chap|app):[^}]+\}') {
@@ -67,6 +67,8 @@ foreach ($key in $solutionOnly) { $errors.Add("Solution has no exercise: $key") 
 
 Add-Matches $bodyFiles '^\s*\\item\s*(?=\\(?:mustdo|optionaldo|projectdo|opendo))' `
     'Formal exercise does not use \exerciseitem' $errors
+Add-Matches $bodyFiles '\\exerciseitem\{[^}]+\}\s*\\(?:mustdo|optionaldo|projectdo|opendo)' `
+    'Legacy exercise marker follows the item number' $errors
 Add-Matches $allTexFiles '\u7B2C\d+\u7AE0' 'Hard-coded chapter number' $errors
 Add-Matches $allTexFiles '\u4E60\u9898(?:II|III|[A-G]|\d+)\.\d+' 'Hard-coded exercise reference' $errors
 

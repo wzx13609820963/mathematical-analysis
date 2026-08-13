@@ -1,202 +1,203 @@
-\chapter{Dedekind 分割构造实数：习题解答}
+\chapter{实数的完备性：习题解答}
 
-\begin{chapterguide}
-本章解答逐项检查集合构造。运算题中的“相等”均指分割作为有理数子集的相等。
-\end{chapterguide}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
-\section*{A组　分割与次序}
-\addcontentsline{toc}{section}{A组　分割与次序}
-
-\begin{solution}{4.1}
-\begin{enumerate}[label=(\arabic*)]
- \item \(\{q:q\le0\}\) 非空、非全体且向下封闭，但有最大元 \(0\)，不是分割。
- \item \(\{q:q<0\}=0^*\) 满足三条件，是分割。
- \item \(\Q\) 违反“真子集”条件，不是分割。
- \item 这是\chapterref{chap:rational-defects}的 \(L\)。正文已证它非空、非全体、向下封闭且无最大元，故为分割。
-\end{enumerate}
-\end{solution}
-
-\begin{solution}{4.2}
-右部 \(R=\Q\setminus\alpha\) 非空，因为 \(\alpha\ne\Q\)。若 \(r\in R\) 且 \(s>r\)，若 \(s\in\alpha\)，向下封闭将给出 \(r\in\alpha\)，矛盾，故 \(s\in R\)。
-
-\(R\) 有最小元 \(c\) 当且仅当 \(\alpha=c^*\)。若 \(c=\min R\)，则每个 \(q<c\) 不在 \(R\)，故在 \(\alpha\)；每个 \(q\ge c\) 在 \(R\)，故 \(\alpha=\{q:q<c\}\)。反向结论直接成立。无最大元条件并不排除右部有最小元。
-\end{solution}
-
-\begin{solution}{4.3}
-若 \(\alpha\nsubseteq\beta\)，取 \(a\in\alpha\setminus\beta\)。任意 \(b\in\beta\) 必有 \(b<a\)：\(a<b\) 会由向下封闭推出 \(a\in\beta\)，而 \(a=b\) 也不可能。因此 \(b\in\alpha\)，即 \(\beta\subseteq\alpha\)。可比较性主要使用向下封闭；无最大元用于保证分割统一表示边界，但不是本项全序证明的必要条件。
-\end{solution}
-
-\begin{solution}{4.4}
-若 \(r<s\)，则每个 \(q<r\) 也满足 \(q<s\)，故 \(r^*\subseteq s^*\)；取 \(q\in(r,s)\cap\Q\)，有 \(q\in s^*\setminus r^*\)，所以包含严格。反之，若 \(r^*\subsetneq s^*\)，全序排除 \(s\le r\)，故 \(r<s\)。于是不同有理数像不同，映射为单射。
-\end{solution}
-
-\section*{B组　运算与完备性}
-\addcontentsline{toc}{section}{B组　运算与完备性}
-
-\begin{solution}{4.5}
-取 \(a\in\alpha,b\in\beta\)，则 \(a+b\) 证明非空。取 \(u\notin\alpha,v\notin\beta\)，所有 \(a<u,b<v\)，故 \(u+v\) 不在和中，证明非全体。若 \(x=a+b\) 且 \(y<x\)，令 \(a'=a+y-x<a\)，则 \(a'\in\alpha\) 且 \(y=a'+b\)，证明向下封闭。最后取 \(a'>a\) 且 \(a'\in\alpha\)，便有 \(a'+b>a+b\)，所以无最大元。
-\end{solution}
-
-\begin{solution}{4.6}
-按定义，
+\begin{solution}{6.1}
+若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时 \(|a_n-a|<\varepsilon/2\)。则 \(m,n\ge N\) 时
 \[
- q\in-r^*
- \Longleftrightarrow \exists s\ge r,\ q<-s.
-\]
-若右式成立，则 \(q<-r\)。若 \(q<-r\)，取 \(s=r\) 即满足右式。因此
-\[
- -r^*=\{q:q<-r\}=(-r)^*.
+ |a_m-a_n|\le|a_m-a|+|a_n-a|<\varepsilon.
 \]
 \end{solution}
 
-\begin{solution}{4.7}
-设 \(r>0\)。对 \(q>0\)，
-\[
- q\in(r^*)^{-1}
- \Longleftrightarrow \exists s\ge r,\ q<s^{-1}.
-\]
-右式蕴含 \(q<r^{-1}\)；反之若 \(q<r^{-1}\)，取 \(s=r\)。再加上所有非正有理数，得到 \((r^*)^{-1}=(r^{-1})^*\)。
+\begin{solution}{6.2}
+若单调递增列无上界，给定 \(M\)，存在 \(N\) 使 \(a_N>M\)，否则 \(M\) 就是上界。对 \(n\ge N\)，单调性给出 \(a_n\ge a_N>M\)。
 \end{solution}
 
-\begin{solution}{4.8}
-若 \(x\in\alpha+\gamma\)，写成 \(x=a+c\)，其中 \(a\in\alpha\subseteq\beta,c\in\gamma\)，故 \(x\in\beta+\gamma\)。
-
-若 \(\gamma=0^*\)，两积相等。若 \(\gamma>0^*\) 且 \(\alpha,\beta\ge0^*\)，积定义中的正代表元包含关系立即给出 \(\alpha\gamma\subseteq\beta\gamma\)。一般符号可把 \(\beta=\alpha+(\beta-\alpha)\) 与 \(\beta-\alpha\ge0^*\) 代入分配律，得到
-\[
- \beta\gamma=\alpha\gamma+(\beta-\alpha)\gamma\ge\alpha\gamma.
-\]
+\begin{solution}{6.3}
+\(a_n=(-1)^n\) 有界但不收敛，缺少单调性；\(a_n=n\) 单调递增但不收敛于有限实数，缺少有界性。前者的奇偶子列极限不同，后者超过任意给定上界。
 \end{solution}
 
-\begin{solution}{4.9}
-设 \(\mathcal A\) 非空且以上界 \(\beta\) 控制。并集 \(\sigma=\bigcup\mathcal A\) 非空、包含于 \(\beta\ne\Q\)、向下封闭；若 \(x\in\sigma\)，它属于某个无最大元的 \(\alpha\in\mathcal A\)，故 \(\sigma\) 中有更大元素。于是 \(\sigma\) 是分割。它包含每个 \(\alpha\)，而任何共同上界也包含并集，所以是最小上界。
-
-交集可能为空；即使族有下界，交集也可能有最大元，因而不一定是分割。故不能无条件把交集写成下确界。
+\begin{solution}{6.4}
+设 \(I_n=[a_n,b_n]\) 嵌套且交非空。令
+\[
+ a=\sup_n a_n,\qquad b=\inf_n b_n.
+\]
+任一交中点同时满足 \(a_n\le x\le b_n\)，故 \(a\le b\)。若 \(y\) 属于全部 \(I_n\)，则 \(a\le y\le b\)；反之 \(a_n\le a\le y\le b\le b_n\)，故 \(y\in I_n\)。所以交集为闭区间 \([a,b]\)，可能退化为单点。
 \end{solution}
 
-\begin{solution}{4.10}
-取 \(\alpha_n=(1/n)^*\)。则
-\[
- \bigcap_{n=1}^{\infty}\alpha_n=\{q\in\Q:q\le0\},
-\]
-其最大元为 \(0\)。删去该最大元得到 \(0^*=\{q:q<0\}\)，它正是分割族的下确界。一般有下界族的交若有最大元，应删除该元；若无最大元，交本身即为下确界。
+\begin{solution}{6.5}
+删除嵌套性：令偶数项区间为 \([0,1/n]\)，奇数项为 \([1,1+1/n]\)，它们闭且长度趋零，交为空。删除闭性：\((0,1/n)\) 嵌套、长度趋零，交为空。删除长度条件：\(I_n=[0,1]\) 嵌套闭且交非空，但交不是单点。
 \end{solution}
 
-\section*{C组　项目与比较}
-\addcontentsline{toc}{section}{C组　项目与比较}
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
 
-\begin{solution}{4.11}
-对正分割，积的封闭性已在正文逐项验证。结合律方面，正元素 \(x\) 属于 \((\alpha\beta)\gamma\) 当且仅当存在 \(a\in\alpha_+,b\in\beta_+,c\in\gamma_+\) 使 \(x<(ab)c\)；利用有理数乘法结合律，这等价于 \(x<a(bc)\)，即属于 \(\alpha(\beta\gamma)\)。
-
-分配律的一侧由 \(a(b+c)=ab+ac\) 得到。反向取
-\[
- x<u+v,\quad u<ab,\quad v<a'c.
-\]
-在 \(\alpha\) 中取 \(d>\max\{a,a'\}\)，则 \(x<d(b+c)\)，故 \(x\in\alpha(\beta+\gamma)\)。
-
-倒数方面，若 \(a\in\alpha_+\)、\(q<1/r\) 且 \(r\notin\alpha\)，则 \(a<r\)，故 \(aq<1\)。反向对 \(0<x<1\)，二分取得 \(a\in\alpha_+,r\notin\alpha\) 且 \(a/r>x\)，再取
-\[
- \frac xa<q<\frac1r.
-\]
-于是 \(q\in\alpha^{-1}\) 且 \(x<aq\)。这些论证补足两个集合包含方向。
+\begin{solution}{6.6}
+由有界性和 Bolzano--Weierstrass 定理，至少有一个收敛子列，设其极限为 \(L\)。若原列不收敛到 \(L\)，则存在 \(\varepsilon>0\) 和子列 \(a_{n_k}\) 使 \(|a_{n_k}-L|\ge\varepsilon\)。该子列仍有界，故有收敛子列 \(a_{n_{k_j}}\to M\)。反三角不等式给出 \(|M-L|\ge\varepsilon\)，于是出现第二个子列极限，矛盾。
 \end{solution}
 
-\begin{solution}{4.12}
-若 \(a,b\in\alpha\) 为正数，设 \(a\le b\)，则 \(ab\le b^2<2\)。所以 \(\alpha^2\subseteq2^*\)。
+\begin{solution}{6.7}
+若原列为 Cauchy，给定 \(\varepsilon>0\)，取 \(N\) 控制所有指标不小于 \(N\) 的项。因 \(n_k\ge k\)，对充分大 \(k,\ell\) 有 \(n_k,n_\ell\ge N\)，故子列也是 Cauchy。
 
-反之，若 \(x<2\) 且 \(x\le0\)，按定义 \(x\in\alpha^2\)。若 \(0<x<2\)，取\chapterref{chap:rational-defects}十进制逼近 \(a_n\in\alpha_+\)。因
-\[
- 0<2-a_n^2<4\cdot10^{-n}+10^{-2n},
-\]
-可取 \(n\) 使右端 \(<2-x\)，从而 \(x<a_n^2\)。积的向下闭定义给出 \(x\in\alpha^2\)。故 \(\alpha^2=2^*\)。
+若两个子列分别收敛到 \(a,b\)，原 Cauchy 列由其中任一收敛子列及正文命题已经收敛到相同极限；极限唯一性给出 \(a=b\)。
 \end{solution}
 
-\begin{solution}{4.13}
-对非空有下界族 \(\mathcal A\)，取
-\[
- \inf\mathcal A=-\sup\{-\alpha:\alpha\in\mathcal A\}.
-\]
-这由有序域中的变号反序立即验证。另一表达是先取 \(I=\bigcap_{\alpha\in\mathcal A}\alpha\)：若 \(I\) 无最大元，则 \(\inf\mathcal A=I\)；若 \(I\) 有最大元 \(c\)，则 \(\inf\mathcal A=I\setminus\{c\}\)。
+\begin{solution}{6.8}
+从无限有界集合 \(E\) 中递归选取互不相同的点 \(x_n\)。数列有界，故有子列 \(x_{n_k}\to x\)。任给 \(\varepsilon>0\)，从某项起 \(x_{n_k}\in(x-\varepsilon,x+\varepsilon)\)。因所选点互异，该邻域含 \(E\) 中不同于 \(x\) 的点，所以 \(x\) 是聚点。
 \end{solution}
 
-\begin{solution}{4.14}
-若允许左部含边界，则有理边界 \(r\) 可由 \(\{q:q<r\}\) 与 \(\{q:q\le r\}\) 两个不同集合表示。若二者都保留，嵌入不再单射地对应“一个位置一个数”。可以改为统一要求左部无最大元，或统一要求右部无最小元；任一约定都可工作，但必须始终一致。本书采用前者。
+\begin{solution}{6.9}
+若 \(m>n\)，则
+\[
+ |a_m-a_n|\le\sum_{k=n}^{m-1}|a_{k+1}-a_k|
+ \le\sum_{k=n}^{\infty}2^{-k}=2^{1-n}.
+\]
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(2^{1-N}<\varepsilon\)，即得 Cauchy 性。
 \end{solution}
 
-\begin{solution}{4.15}
-若 \(\alpha\subseteq\beta\)，则每个 \(a+c\)（\(a\in\alpha,c\in\gamma\)）也以 \(a\in\beta\) 表示，故 \(\alpha+\gamma\subseteq\beta+\gamma\)。若原包含严格，加上 \(-\alpha-\gamma\) 后等价于
+\begin{solution}{6.10}
+取调和部分和
 \[
- 0^*<\beta-\alpha,
+ a_n=\sum_{k=1}^n\frac1k.
 \]
-所以严格性保持。
-
-当 \(\gamma>0^*\) 时，
+则 \(|a_{n+1}-a_n|=1/(n+1)\to0\)。但
 \[
- \beta\gamma-\alpha\gamma=(\beta-\alpha)\gamma>0^*,
+ a_{2n}-a_n=\sum_{k=n+1}^{2n}\frac1k\ge\frac n{2n}=\frac12,
 \]
-故乘法严格保序。若 \(\gamma=0^*\)，两积都为 \(0^*\)，严格性消失。
+故它不是 Cauchy 列。
 \end{solution}
 
-\begin{solution}{4.16}
-若 \(q\in r^*s^*\) 且 \(q>0\)，存在 \(0<a<r,0<b<s\) 使 \(q<ab<rs\)，故 \(q\in(rs)^*\)；非正数自动包含。
-
-反之，若 \(0<q<rs\)，先选 \(a<r\) 且充分接近 \(r\)，使 \(q/a<s\)，再由有理稠密性选 \(b\) 满足
+\begin{solution}{6.11}
+设 \(a^{(j)}_n\)（\(1\le j\le r\)）均为 Cauchy 列，系数为 \(c_j\)。给定 \(\varepsilon>0\)，对每个非零 \(c_j\) 取尾部使
 \[
- q/a<b<s.
+ |a^{(j)}_m-a^{(j)}_n|<\frac{\varepsilon}{r|c_j|}.
 \]
-则 \(a\in r^*,b\in s^*\) 且 \(q<ab\)，所以 \(q\in r^*s^*\)。因此两分割相等。
-\end{solution}
-
-\begin{solution}{4.17}
-取 \(b\in\beta\setminus\alpha\)，再由 \(\beta\) 无最大元取 \(q\in\beta\) 且 \(q>b\)。因为 \(b\notin\alpha\)，每个 \(a\in\alpha\) 都小于 \(b<q\)，所以
+取这些指标的最大值，则
 \[
- \alpha\subsetneq q^*.
-\]
-又 \(q\in\beta\) 且 \(\beta\) 向下封闭，故 \(q^*\subsetneq\beta\)。于是 \(\alpha<q^*<\beta\)。
-\end{solution}
-
-\begin{solution}{4.18}
-由上一题在 \(0^*<\beta-\alpha\) 之间选正主分割 \(r^*\)，使
-\[
- 0^*<r^*<\beta-\alpha.
-\]
-两边加 \(\alpha\)，得到
-\[
- \alpha<\alpha+r^*<\beta.
+ \left|\sum_jc_ja^{(j)}_m-\sum_jc_ja^{(j)}_n\right|<\varepsilon.
 \]
 \end{solution}
 
-\begin{solution}{4.19}
-若直接取 \(\{-a:a\in\alpha\}\)，原来向下封闭的左部会变成向上封闭集合，故不能作为分割；加法逆元必须从右部取反并再取严格下闭包。正左部逐项取倒数也会反转次序，形成向上倾向的集合。例如 \(\alpha=2^*\) 的正部倒数为 \(\{1/a:0<a<2\}\)，其中含大于 \(1/2\) 的数，却不含较小的某些非正数，既不向下封闭也不含所有负有理数。正文定义使用右部倒数并补入非正数，正好恢复左部结构。
-\end{solution}
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
 
-\begin{solution}{4.20}
-并集非空来自族中任一分割；共同上界 \(\beta\) 保证并集包含于 \(\beta\ne\Q\)，所以它不是全体有理数；任意并保持向下封闭；并集中一点属于某个成员，该成员无最大元，故并集也无最大元。若删去共同上界假设，并集可能等于 \(\Q\)，例如取全体主分割 \(n^*\)（\(n\in\N\)），其并为 \(\Q\)，不再是分割。
-\end{solution}
-
-\begin{solution}{4.21}
-令 \(\mathcal L\) 为 \(\mathcal A\) 的全部下界分割。它非空，且每个 \(\gamma\in\mathcal L\) 都包含于任一固定 \(\alpha_0\in\mathcal A\)，所以 \(\mathcal L\) 有上界。其并
+\begin{solution}{6.12}
+设 \((a_n)\) 为 Cauchy 列。递归取 \(n_{k+1}>n_k\)，使
 \[
- \sigma=\bigcup_{\gamma\in\mathcal L}\gamma
+ |a_m-a_n|<2^{-k}\qquad(m,n\ge n_k).
 \]
-是 \(\mathcal L\) 的上确界。因为每个 \(\alpha\in\mathcal A\) 都是 \(\mathcal L\) 的上界，有 \(\sigma\subseteq\alpha\)，故 \(\sigma\) 是 \(\mathcal A\) 的下界；任何其他下界属于 \(\mathcal L\) 并包含于 \(\sigma\)，所以它是最大下界。交集公式若恰有最大元，必须删去该元以恢复“无最大元”条件。
-\end{solution}
-
-\begin{solution}{4.22}
-核对表应至少包括：加法与乘法生成集合仍是分割；\(0^*,1^*\) 的单位元恒等式；右部定义给出 \(-\alpha\) 与 \(\alpha^{-1}\)；加法结合交换由集合和继承；正乘法结合交换由有理乘法继承；分配律反向包含用共同放大左部代表；符号扩张覆盖其余情形；包含关系为全序，并与平移及正数乘法相容。每一项都需注明使用向下封闭、无最大元或有理稠密性的具体位置。
-\end{solution}
-
-\begin{solution}{4.23}
-左部分割适合用包含关系定义次序，并以并集直接构造上确界；右部分割对称地适合交集和下确界；上下集合对同时保留两侧信息，但需要额外的互补与无端点条件。对有理边界 \(r\)，必须统一选择
+于是 \(|a_{n_{k+1}}-a_{n_k}|<2^{-k}\)。令 \(d_k=a_{n_{k+1}}-a_{n_k}\)。级数 \(\sum|d_k|\) 的部分和单调且被几何和控制，由单调有界收敛定理收敛；因此
 \[
- \{q:q<r\}\quad\text{或}\quad\{q:q\le r\}
+ a_{n_k}=a_{n_1}+\sum_{j=1}^{k-1}d_j
 \]
-中的一种。左部无最大元、右部无最小元分别实现两种统一约定；若上下集合对同时使用，则需规定边界落在哪一侧。
+收敛到某个 \(a\)。原列为 Cauchy 且有收敛子列，正文命题推出 \(a_n\to a\)。该证明没有使用 Bolzano--Weierstrass，但使用了由确界原理得到的单调有界收敛。
 \end{solution}
 
-\begin{solution}{4.24}
-设 \((a_n)\) 是最终为正、满足 \(a_n^2\to2\) 的有理 Cauchy 列。若 \(q\in\alpha\)，则 \(q<0\) 时显然最终 \(q<a_n\)；若 \(q\ge0,q^2<2\)，由
+\begin{solution}{6.13}
+由构造，
 \[
- 2-q^2>0
+ 0\le l_m-l_n\le u_n-l_n,\qquad
+ 0\le u_n-u_m\le u_n-l_n\quad(m\ge n).
 \]
-及平方误差趋零，最终有 \(a_n^2>q^2\)，故 \(a_n>q\)。若 \(q\notin\alpha\)，则 \(q>0,q^2>2\)，同理最终 \(a_n<q\)。因此该列从所有有理精度看都被同一左右部分割夹住，所确定的分割恰为 \(\alpha\)。
+而 \(u_n-l_n=2^{-n}(u_0-l_0)\to0\)，故两列都是 Cauchy。设其极限为 \(l,u\)。差的极限定理可由三角不等式直接验证，给出
+\[
+ u-l=\lim_n(u_n-l_n)=0.
+\]
+所以共同极限为 \(s=l=u\)。正文随后分别利用“\(u_n\) 是上界”和“\(l_n\) 不是上界”证明 \(s\) 是最小上界。
 \end{solution}
+
+\begin{solution}{6.14}
+若 Bolzano--Weierstrass 成立，有界列有收敛子列，而收敛列必为 Cauchy，故有 Cauchy 子列。
+
+反之，设每个有界列都有 Cauchy 子列，并假定所在有序域 Cauchy 完备。该子列收敛，所以原有界列有收敛子列，即 Bolzano--Weierstrass 成立。Cauchy 完备性只用于第二个方向。
+\end{solution}
+
+\begin{solution}{6.15}
+设 \(\delta>0\) 是开覆盖的 Lebesgue 数，即直径小于 \(\delta\) 的任意子集包含于某个覆盖成员。取 \(N\) 使 \((b-a)/N<\delta\)，用网格点把 \([a,b]\) 分成 \(N\) 个闭小区间。每个小区间直径小于 \(\delta\)，故包含于某个覆盖成员。为有限个小区间各选一个成员，所得有限族覆盖整个 \([a,b]\)。区间套或 Archimedes 网格保证有限细分能够达到指定尺度。
+\end{solution}
+
+\begin{solution}{6.16}
+可参考 Hahn 级数域 \(\R((t^\Gamma))\)。其中序由最低指数的首项系数决定，\(t\) 可作为正无穷小。序完备要求每个有界集合有确界；Cauchy 完备只控制由给定序拓扑或赋值产生的 Cauchy 列；球完备要求任意全序嵌套闭球族有非空交。三者在非 Archimedes 环境中一般不等价，且结论依赖所选赋值群与支集条件。该题属于开放查阅题，完整构造需超出本章的集合论与赋值论预备。
+\end{solution}
+
+\begin{solution}{6.17}
+令 \(S=\{q\in\Q:q\ge0,q^2<2\}\)。它无有理上确界，否定 (S)。\chapterref{chap:real-number-system}十进制列 \(a_n\) 单调有界却无有理极限，否定 (M)。令
+\[
+ I_n=[a_n,a_n+10^{-n}]\cap\Q;
+\]
+适当改用同步嵌套网格后可使 \(I_{n+1}\subset I_n\)、长度趋零，而共同点若存在其平方必须为 \(2\)，故 (N) 失败。若该有界列有有理收敛子列，平方误差仍迫使子列极限平方为 \(2\)，所以 (B) 失败。原列本身是无有理极限的 Cauchy 列，否定 (C)。
+\end{solution}
+
+\begin{solution}{6.18}
+嵌套性给出 \(a_n\) 递增、\(b_n\) 递减，且任意 \(a_n\le b_m\)。令
+\[
+ a=\sup_n a_n,\qquad b=\inf_n b_n.
+\]
+则 \(a\le b\)。点 \(x\) 属于全部区间，当且仅当对所有 \(n\) 有 \(a_n\le x\le b_n\)，这又等价于 \(a\le x\le b\)。故交集为 \([a,b]\)。
+\end{solution}
+
+\begin{solution}{6.19}
+从无限集 \(E\) 中递归选互异点 \(x_n\)。有界性使该数列有收敛子列 \(x_{n_k}\to x\)。任意 \(\delta>0\) 内最终含某个 \(x_{n_k}\)，且因各项互异可取该点异于 \(x\)，故 \(x\) 是聚点。若不保证互异，常值选择只能证明所选点自身被重复，不能反映 \(E\) 的无限性。
+\end{solution}
+
+\begin{solution}{6.20}
+尾部集合随 \(N\) 增大而缩小，所以 \(d_N\) 单调不增。若数列是 Cauchy 列，给定 \(\varepsilon>0\)，取起点使尾部任意两项距离小于 \(\varepsilon/2\)，则 \(d_N\le\varepsilon/2<\varepsilon\)。反之，若 \(d_N\to0\)，给定 \(\varepsilon>0\) 取 \(d_N<\varepsilon\)，便有所有 \(m,n\ge N\) 的距离小于 \(\varepsilon\)。
+\end{solution}
+
+\begin{solution}{6.21}
+Cauchy 列有界，而趋于 \(+\infty\) 的子列无界，已经矛盾。也可直接取 Cauchy 精度 \(1\)，固定一个充分靠后的原列项 \(a_N\)；全部后项都落在 \((a_N-1,a_N+1)\)，任何子列尾部也不能越过任意大阈值。类似地，Cauchy 列不能有 \(-\infty\) 子列；若有两个有限收敛子列，它们的极限由 Cauchy 性必须相同。
+\end{solution}
+
+\begin{solution}{6.22}
+对非空有上界集合 \(A\)，取非上界 \(l_0\) 与上界 \(u_0\)，按中点是否为上界递归二分。左端点 \(l_n\) 单调递增且被 \(u_0\) 控制，故由 (M) 收敛到 \(s\)。Archimedes 性质给出
+\[
+ u_n-l_n=2^{-n}(u_0-l_0)\to0,
+\]
+所以 \(u_n\to s\)。若某 \(a\in A\) 大于 \(s\)，最终上界 \(u_n<a\)，矛盾；若 \(c<s\)，最终非上界 \(l_n>c\)，故存在 \(a\in A\) 大于 \(c\)。所以 \(s=\sup A\)。
+\end{solution}
+
+\begin{solution}{6.23}
+存在性由题设直接给出。若 \(x,y\) 都在全部区间内，则
+\[
+ \abs{x-y}\le b_n-a_n
+\]
+对每个 \(n\) 成立。长度趋零后，若 \(x\ne y\)，取精度 \(\abs{x-y}/2\) 即矛盾。因此唯一性只使用长度趋零；闭性、嵌套性和完备性主要用于存在性。
+\end{solution}
+
+\begin{solution}{6.24}
+对有界列递归构造子列。把其值域所在区间不断二分，每步选含无穷多项的半区间，并选递增指标落在其中。这样得到的子列满足：对每个 \(k\)，从第 \(k\) 项起全部位于长度 \(2^{-k}(B-A)\) 的区间中，所以是 Cauchy 列。由 (C) 它收敛，因而原列有收敛子列。该路线实质上仍用 Archimedes 性质保证二分长度趋零。
+\end{solution}
+
+\begin{solution}{6.25}
+清单可概括为：
+\[
+ (S)\to(M)
+\]
+用项集上确界；
+\[
+ (M)\to(N)
+\]
+用端点单调收敛与长度唯一性；
+\[
+ (N)\to(B)
+\]
+用二分与无穷指标；
+\[
+ (B)\to(C)
+\]
+用 Cauchy 有界及“收敛子列提升全列”；
+\[
+ (C)\to(S)
+\]
+用上界—非上界二分和 Archimedes 长度趋零。每个箭头的反例应针对删去的单调性、有界性、闭性、嵌套性、Cauchy 性或 Archimedes 背景，不能调用待证箭头反向的结论。
+\end{solution}
+
+\begin{solution}{6.26}
+可数区间套只处理序列
+\[
+ I_1\supset I_2\supset\cdots.
+\]
+若要求任意按全序排列的嵌套闭区间族都有非空交，索引族可能不可数，无法由选取 \(I_n\) 的对角过程穷尽全部尺度。在一般非 Archimedes 或赋值结构中，这会导向球完备、Cantor 完备等更强概念。实数中的紧致性可处理任意具有有限交性质的闭集族，但证明依赖比单个 Cauchy 序列更全局的有限覆盖结构。
+\end{solution}
+

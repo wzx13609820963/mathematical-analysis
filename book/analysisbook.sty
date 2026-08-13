@@ -16,28 +16,45 @@
 \RequirePackage{hyperref}
 \RequirePackage[most]{tcolorbox}
 
+% ctex's LuaLaTeX Fandol preset does not declare a bold-italic CJK face.
+% Complete the existing main-family declaration with that shape so that
+% emphasized description labels do not trigger a font substitution warning.
+\ifLuaTeX
+  \DeclareFontShape{LTJY3}{FandolSong-Regular(0)}{bx}{it}
+    {<-> ssub * FandolSong-Regular(0)/m/it}{}
+\fi
+
 \geometry{a4paper,inner=30mm,outer=25mm,top=28mm,bottom=30mm,headheight=15pt}
 \setlength{\parindent}{2em}
 \setlength{\parskip}{0.25em}
 \linespread{1.22}
 \allowdisplaybreaks[3]
 
-\definecolor{AnalysisBlue}{HTML}{234A73}
-\definecolor{AnalysisLightBlue}{HTML}{EDF4FA}
-\definecolor{AnalysisGold}{HTML}{9A6A16}
-\definecolor{AnalysisLightGold}{HTML}{FFF8E8}
-\definecolor{AnalysisRed}{HTML}{8E3030}
-\definecolor{AnalysisLightRed}{HTML}{FFF1F1}
-\definecolor{AnalysisGray}{HTML}{5F6770}
-\definecolor{AnalysisLightGray}{HTML}{F5F6F7}
+% Screen palette: restrained blue-green headings and low-saturation panels.
+% Ordinary cross-references remain black; color is reserved for hierarchy and
+% a small number of semantic boxes.  Print mode reduces everything to gray.
+\definecolor{AnalysisBlue}{HTML}{315D66}
+\definecolor{AnalysisLightBlue}{HTML}{EEF4F4}
+\definecolor{AnalysisGold}{HTML}{876A37}
+\definecolor{AnalysisLightGold}{HTML}{FAF6EA}
+\definecolor{AnalysisRed}{HTML}{874646}
+\definecolor{AnalysisLightRed}{HTML}{FAF0F0}
+\definecolor{AnalysisGray}{HTML}{5D666B}
+\definecolor{AnalysisLightGray}{HTML}{F3F5F5}
+% Compatibility names used by the existing exercise and note commands.
+\colorlet{AnalysisPurple}{AnalysisBlue}
+\colorlet{AnalysisLightPurple}{AnalysisLightBlue}
 
 \hypersetup{
   bookmarksnumbered=true,
+  bookmarksdepth=1,
   pdfauthor={数学分析教材编写项目},
   pdftitle={从高等数学到数学分析：严格基础、经典理论与现代分析}
 }
 
 \ifanalysisprint
+  \colorlet{AnalysisPurple}{black}
+  \colorlet{AnalysisLightPurple}{AnalysisLightGray}
   \colorlet{AnalysisBlue}{black}
   \colorlet{AnalysisLightBlue}{AnalysisLightGray}
   \colorlet{AnalysisGold}{AnalysisGray}
@@ -50,11 +67,17 @@
   \colorlet{AnalysisHeading}{AnalysisBlue}
   \hypersetup{
     colorlinks=true,
-    linkcolor=AnalysisBlue,
+    linkcolor=black,
+    filecolor=black,
     citecolor=AnalysisGold,
     urlcolor=AnalysisBlue
   }
 \fi
+
+% Keep the front-matter contents and PDF bookmarks at section level.  Body
+% subsections remain numbered, but no longer make the contents unwieldy.
+\setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{2}
 
 \ctexset{
   part={
@@ -150,6 +173,26 @@
   fonttitle=\bfseries
 }
 
+\newtcolorbox{insightbox}[1][提示]{
+  breakable,
+  colback=AnalysisLightPurple,
+  colframe=AnalysisPurple,
+  boxrule=0.65pt,
+  arc=1.5mm,
+  title=#1,
+  fonttitle=\bfseries
+}
+
+\newtcolorbox{notationbox}[1][记号]{
+  breakable,
+  colback=AnalysisLightGold,
+  colframe=AnalysisGold,
+  boxrule=0.65pt,
+  arc=1.5mm,
+  title=#1,
+  fonttitle=\bfseries
+}
+
 \newtcolorbox{summarybox}{
   breakable,
   colback=AnalysisLightBlue,
@@ -165,6 +208,7 @@
 \newcommand{\abs}[1]{\left|#1\right|}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Npos}{\mathbb{N}_{>0}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
@@ -177,17 +221,27 @@
 \newcommand{\theoremref}[1]{定理~\ref{#1}}
 \newcommand{\equationref}[1]{式~\eqref{#1}}
 \newcommand{\exerciseitem}[1]{\item\label{ex:#1}}
+\newcommand{\optionalexerciseitem}[1]{%
+  \item\label{ex:#1}\textcolor{AnalysisPurple}{\textsuperscript{\ensuremath{\star}}}\nobreakspace}
+\newcommand{\projectexerciseitem}[1]{%
+  \item\label{ex:#1}\textcolor{AnalysisPurple}{\textsuperscript{\ensuremath{\star}}}\nobreakspace%
+  \textcolor{AnalysisGold}{\bfseries [项目]}\nobreakspace}
+\newcommand{\openexerciseitem}[1]{%
+  \item\label{ex:#1}\textcolor{AnalysisPurple}{\textsuperscript{\ensuremath{\star}}}\nobreakspace%
+  \textcolor{AnalysisGray}{\bfseries [开放]}\nobreakspace}
 \newcommand{\exerciseref}[1]{习题~\ref{ex:#1}\allowbreak}
 \newcommand{\exerciserange}[2]{习题~\ref{ex:#1}--\ref{ex:#2}\allowbreak}
 
 \newenvironment{solution}[1]
-  {\par\medskip\phantomsection\label{sol:#1}\noindent{\bfseries\color{AnalysisHeading}\exerciseref{#1}}\quad}
+  {\par\medskip\phantomsection\label{sol:#1}\noindent{\bfseries\color{black}\exerciseref{#1}}\quad}
   {\par\medskip}
 
-\newcommand{\mustdo}{\textcolor{AnalysisRed}{\bfseries [必做]}}
-\newcommand{\optionaldo}{\textcolor{AnalysisBlue}{\bfseries [选做]}}
-\newcommand{\projectdo}{\textcolor{AnalysisGold}{\bfseries [项目]}}
-\newcommand{\opendo}{\textcolor{AnalysisGray}{\bfseries [开放]}}
+% Compatibility shims for unmigrated sources; new exercises use the four item
+% commands above so that the optional star can sit next to the printed number.
+\newcommand{\mustdo}{}
+\newcommand{\optionaldo}{\textcolor{AnalysisPurple}{\ensuremath{\star}}\nobreakspace}
+\newcommand{\projectdo}{\textcolor{AnalysisGold}{\bfseries [项目]}\nobreakspace}
+\newcommand{\opendo}{\textcolor{AnalysisGray}{\bfseries [开放]}\nobreakspace}
 
 \makeatletter
 \providecommand*{\toclevel@volume}{-2}

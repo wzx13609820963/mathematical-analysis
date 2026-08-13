@@ -1,10 +1,10 @@
 # LaTeX 书稿说明
 
-主文件为 `main.tex`，书名为《从高等数学到数学分析：严格基础、经典理论与现代分析》。建议使用 XeLaTeX 编译：
+主文件为 `main.tex`，书名为《从高等数学到数学分析：严格基础、经典理论与现代分析》。建议使用 LuaLaTeX 编译：
 
 ```powershell
-xelatex main.tex
-xelatex main.tex
+lualatex main.tex
+lualatex main.tex
 ```
 
 也可以在本目录运行：
@@ -13,7 +13,7 @@ xelatex main.tex
 .\build.ps1
 ```
 
-脚本会自动在 `PATH` 或 `C:\texlive` 中查找 XeLaTeX，并把稳定命名的成品复制到工作区根目录的 `output/pdf/`。
+脚本会自动在 `PATH` 或 `C:\texlive` 中查找 LuaLaTeX，并把稳定命名的成品复制到工作区根目录的 `output/pdf/`。Fandol 中文字体由 TeX Live 提供；LuaLaTeX 生成的字体子集带 ToUnicode 映射，可供 PDFium 等内置阅读器可靠显示和提取中文。
 
 习题详细解答使用独立主文件 `solutions.tex`，可运行：
 
@@ -21,7 +21,7 @@ xelatex main.tex
 .\build-solutions.ps1
 ```
 
-需要连续编译两次以生成完整目录。当前试编本只载入第一卷第一编和第0章。
+需要连续编译两次以生成完整目录。当前主文件载入第一卷前三编3.0版第0—13章及附录A—G；旧版第0—19章已经按新版章界完成首轮重构。
 
 `analysisbook` 提供两种色彩模式：
 
@@ -35,8 +35,8 @@ xelatex main.tex
 - `main.tex`：全书入口、卷编结构和当前载入范围；
 - `frontmatter/preface.tex`：前言；
 - `analysisbook.sty`：版面、定理环境、提示框和通用命令；
-- `chapters/vol1/part1/chapter0.tex`：第0章正文。
+- `chapters/vol1/`：当前已载入的第一卷前三编正文；路径使用3.0版第0—13章编号。
 - `solutions.tex`：习题解答册入口，不由教材正文默认载入；
-- `solutions/vol1/part1/chapter0-solutions.tex`：第0章全部习题的详细解答。
+- `solutions/vol1/`：当前第一卷前三编全部正式习题的详细解答；路径与3.0版正文平行。
 
 全书正文必须遵守工作区根目录的 `教材写作规范.md`。新增章节前应先完成其中的依赖检查，交付前按单章验收清单复核。

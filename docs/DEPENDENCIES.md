@@ -1,41 +1,49 @@
 # 当前正文依赖登记表
 
+> 3.0版目录处于章级候选定稿阶段。第一卷前三编正文已经迁移为新版第0—13章；下表记录当前实际文件、稳定标签和直接依赖。旧版章标签只作为临时兼容别名保留，不再用于新增引用。
+
+## 3.0版目录的全书级前置约束
+
+- 一般拓扑的基、乘积、分离、紧致、Tychonoff 定理、网和滤子前置到第二卷第36—40章；第四卷的弱拓扑和弱星拓扑可引用这些结果。
+- 第78章 Banach--Alaoglu 定理采用一般乘积紧致性的证明；其直接前置至少包括第38章 Tychonoff 乘积定理、第42章局部凸拓扑和第77章 Hahn--Banach 与对偶性。若以后改用只适用于可分对偶球的度量化证明，必须明确降格为特殊版本，不得冒充一般定理。
+- 第79章反射性和弱紧致性位于 Banach--Alaoglu 之后；Eberlein--Šmulian 只在已经区分拓扑紧致和序列紧致后使用。
+- 第95章复分析中的 Vitali--Porter 收敛定理依赖正规族；第66章实分析中的 Vitali 收敛定理依赖一致可积性。两个定理不得共用未限定的简称或标签。
+- 第50章只证明欧氏空间及参数化子流形上的 Stokes 公式和星形域 Poincaré 引理；第100章在第98章单位分解和第99章抽象微分形式之后证明流形上的一般 Stokes 定理。两层结果不得相互替代或重复完整展开。
+- 第72章只建立 Lebesgue 微分定理所需的一维或最低局部极大估计；第121章系统建立 \(\mathbb R^n\) 中 Hardy--Littlewood 极大算子的弱型、强型和微分定理。后者可以引用前者的动机，但须重新证明高维系统结果。
+- 第101章先建立奇异链、奇异同调、奇异上同调、同伦不变性和 Mayer--Vietoris 序列；第102章随后以积分配对和 Mayer--Vietoris 方法证明 de Rham 定理。不得在第102章调用未建立的奇异上同调语言。
+- 第96章 Riemann 映射定理可引用第95章正规族和 Montel 定理；第97章调和函数与 Dirichlet 问题不再与共形映射共用同一章闭环。
+- 附录A若给出选择公理、Zorn 引理和良序原理的等价性证明，须先建立序数、超限递归和 Hartogs 引理；否则必须标明哪些等价性仅陈述并给出参考文献。
+
 本文件记录已写范围的直接前置与稳定章标签。它服务于编写和校核，不代替正文证明。新增跨章依赖、移动定理或改变允许引用范围时，应同步更新本表。
 
 ## 第一卷第一编
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 0 数学语言与证明基础 | `chap:mathematical-language` | 无；集合论存在性细节可查附录A | 量词、受限概括、映射、商集、至多可数、证明方法 |
-| 1 有理数的结构与缺陷 | `chap:rational-defects` | 0 | 有理数序与代数结构、缺口和缺失极限 |
-| 2 有序域与完备性公理 | `chap:ordered-field-completeness` | 0--1 | 有序域、确界、完备有序域工作框架 |
-| 3 完备性的基本后果 | `chap:consequences-completeness` | 2 | Archimedes 性质、稠密性、表示与不可数性 |
-| 4 Dedekind 分割构造 | `chap:dedekind-construction` | 0--3；集合存在性查附录A | 完备有序域的分割模型 |
-| 5 Cauchy 列构造 | `chap:cauchy-construction` | 0--3 | 完备有序域的 Cauchy 等价类模型 |
-| 6 完备性的等价形式 | `chap:equivalent-completeness` | 2--5 | 确界、区间套、单调收敛、BW、Cauchy 完备性的等价链 |
+| 0 数学语言 | `chap:mathematical-language` | 无；集合存在性细节可查附录A | 量词、受限概括、映射、商集、至多可数、证明方法 |
+| 1 实数系 | `chap:real-number-system` | 0 | 有理数缺口、有序域、确界公理、Archimedes 性质、稠密性与不可数性 |
+| 2 Dedekind 分割 | `chap:dedekind-construction` | 0--1；集合存在性查附录A | 以分割构造完备有序域，逐项验证运算与顺序 |
+| 3 Cauchy 列构造 | `chap:cauchy-construction` | 0--1 | 以有理 Cauchy 列的商集构造完备有序域 |
+| 4 实数的完备性 | `chap:equivalent-completeness` | 1--3 | 确界、区间套、单调收敛、Bolzano--Weierstrass 与 Cauchy 完备性的等价链 |
 
 ## 第一卷第二编
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 7 数列极限定义 | `chap:sequence-limit-definition` | 0、2--3 | `\varepsilon-N` 定义和量词结构 |
-| 8 数列极限的误差控制 | `chap:sequence-error-control` | 7 | 定义驱动的估计方法 |
-| 9 数列极限性质 | `chap:sequence-limit-properties` | 7--8 | 唯一性、有界性、保号与代数运算 |
-| 10 单调与递推数列 | `chap:monotone-recursive-sequences` | 3、6--9 | 单调有界收敛、不动点型递推 |
-| 11 子列与 BW | `chap:subsequences-bw` | 6--10 | 子列刻画、收敛子列、聚点 |
-| 12 上下极限 | `chap:limsup-liminf` | 9、11 | `\limsup`、`\liminf` 及部分极限结构 |
-| 13 Cauchy 准则 | `chap:cauchy-criterion` | 6--12 | 实数 Cauchy 收敛准则及 `\Q` 中失败 |
+| 5 数列极限 | `chap:sequence-limits` | 0--1、4 | `\varepsilon-N` 定义、误差估计、基本性质和运算法则 |
+| 6 单调数列与迭代 | `chap:monotone-iteration` | 4--5 | 单调有界收敛、递推数列和局部压缩估计 |
+| 7 子列与聚点 | `chap:subsequences-cluster-points` | 4--6 | 子列刻画、抽取定理、聚点与部分极限 |
+| 8 上极限与下极限 | `chap:limsup-liminf` | 5、7 | 尾部确界、上下极限、子列刻画和运算不等式 |
+| 9 Cauchy 数列 | `chap:cauchy-criterion` | 4--8 | 实数 Cauchy 准则、有理反例、快速子列和级数增量 |
 
 ## 第一卷第三编
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 14 函数极限定义与运算 | `chap:function-limit-definition` | 0、7--9 | `\varepsilon-\delta` 定义、局部性质和运算 |
-| 15 Heine 与 Cauchy 判据 | `chap:heine-cauchy` | 11、13--14 | 函数极限的序列刻画与 Cauchy 判据 |
-| 16 广义函数极限 | `chap:generalized-function-limits` | 14--15 | 单侧、无穷和无穷远极限 |
-| 17 连续与间断 | `chap:continuity-discontinuity` | 3、14--16 | 连续性、间断分类、单调函数跳跃、逆映射相对连续 |
-| 18 实线紧致与连通 | `chap:compact-connected-real-line` | 2--3、6、17 | 有限覆盖、极值、连通、零点与介值 |
-| 19 一致连续 | `chap:uniform-continuity` | 13、17--18 | Heine--Cantor、连续模、Cauchy 保持与稠密延拓 |
+| 10 函数极限 | `chap:function-limits` | 0、5、7、9 | `\varepsilon-\delta` 定义、局部性质、Heine 与 Cauchy 判据、各类广义极限 |
+| 11 连续性 | `chap:continuity-discontinuity` | 1、10 | 连续性、间断分类、单调函数间断点、逆映射相对连续 |
+| 12 闭区间上的连续函数 | `chap:continuous-functions-closed-interval` | 1、4、7、11 | 有限覆盖、极值、连通、介值和删条件反例 |
+| 13 一致连续 | `chap:uniform-continuity` | 9、11--12 | Heine--Cantor、连续模、Cauchy 保持与完备化延拓 |
 
 ## 附录
 
@@ -51,7 +59,7 @@
 
 ## 当前关键无环约束
 
-- 第17章逆映射连续性的证明不得调用第18章介值定理；它直接在像集的相对拓扑中证明。
-- 第4章的 Archimedes 结论只能在该章确界性质证明之后调用第3章的推导。
-- 第3章涉及无限小数的论证只使用有限部分和及其上确界，不预先调用级数理论。
-- 第19章的延拓定理可使用第13章 Cauchy 完备性和第15章序列判据。
+- 第11章逆映射连续性的证明不得调用第12章介值定理；它直接在像集的相对拓扑中证明。
+- 第2章的域公理验证不得在乘法定义之前使用“有理数嵌入保持乘法”。
+- 第1章涉及无限小数的论证只使用有限截断和确界，不预先调用级数理论。
+- 第13章的延拓定理可使用第9章 Cauchy 完备性和第10章序列判据。

@@ -1,189 +1,203 @@
-\chapter{极限定义中的误差控制：习题解答}
+\chapter{上极限与下极限：习题解答}
 
-\begin{chapterguide}
-本章解答优先给出可验证的误差上界。指标估计不追求最优，但必须标明常数和参数依赖。
-\end{chapterguide}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
-\section*{A组　误差估计}
-\addcontentsline{toc}{section}{A组　误差估计}
-
-\begin{solution}{8.1}
-有
+\begin{solution}{12.5}
+若 \(n=2m\)，尾部最大项是 \(a_n=1+1/(2m)\)，故
+\(\beta_{2m}=1+1/(2m)\)；尾部最小的奇数项为
+\(a_{2m+1}=-1+1/(2m+1)\)，故
+\(\alpha_{2m}=-1+1/(2m+1)\)。
+若 \(n=2m-1\)，有
 \[
- \abs{\frac{5n-2}{3n+7}-\frac53}
- =\frac{41}{3(3n+7)}<\frac{41}{9n}.
+ \beta_{2m-1}=1+\frac1{2m},\qquad
+ \alpha_{2m-1}=-1+\frac1{2m-1}.
 \]
-给定 \(\varepsilon>0\)，取整数 \(N>41/(9\varepsilon)\)。对 \(n\ge N\)，误差小于 \(\varepsilon\)，故极限为 \(5/3\)。
+令 \(m\to\infty\)，得上极限 \(1\)、下极限 \(-1\)。
 \end{solution}
 
-\begin{solution}{8.2}
+\begin{solution}{12.6}
+尾部集合 \(A_{n+1}\subseteq A_n\)。子集的上确界不大于母集上确界，故 \(\beta_{n+1}\le\beta_n\)；子集下确界不小于母集下确界，故 \(\alpha_{n+1}\ge\alpha_n\)。
+\end{solution}
+
+\begin{solution}{12.7}
+\begin{enumerate}[label=(\arabic*)]
+ \item 偶数项趋于 \(+\infty\)，奇数项趋于 \(-\infty\)，故上下极限分别为 \(+\infty,-\infty\)。
+ \item 指标 \(4k+1\) 的项趋于 \(+\infty\)，\(4k+3\) 的项趋于 \(-\infty\)，故结论相同；偶数项为零不改变端点。
+ \item 整列收敛到 \(1\)，故上下极限都为 \(1\)。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{12.8}
+若有子列趋于 \(+\infty\)，每个尾部上确界均为 \(+\infty\)，所以上极限为 \(+\infty\)。反之，若上极限为 \(+\infty\)，则每个尾部无上界。递归选
 \[
- \abs{\frac{n^2+1}{n^2+n}-1}
- =\frac{n-1}{n^2+n}\le\frac1n.
+ n_{j+1}>n_j,\qquad a_{n_j}>j,
 \]
-取 \(N>1/\varepsilon\)，则 \(n\ge N\) 时误差小于 \(\varepsilon\)。
+得到趋于 \(+\infty\) 的子列。
 \end{solution}
 
-\begin{solution}{8.3}
-令 \(t=3/n\)。有
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{12.9}
+令 \(s=\limsup a_n\)。取 \(m_1=1\)，由尾部上确界近似性选 \(n_1\ge m_1\)，使
+\(a_{n_1}>\beta_{m_1}-1\)。选好 \(n_j\) 后令 \(m_{j+1}=n_j+1\)，再选
 \[
- \sqrt{n^2+3n}-n=\frac3{\sqrt{1+t}+1}.
+ n_{j+1}\ge m_{j+1},\qquad
+ a_{n_{j+1}}>\beta_{m_{j+1}}-\frac1{j+1}.
 \]
-因而
+同时 \(a_{n_j}\le\beta_{m_j}\)，而因 \(m_j\to\infty\)，
+\(\beta_{m_j}\to s\)。夹逼得 \(a_{n_j}\to s\)，且指标严格递增。
+\end{solution}
+
+\begin{solution}{12.10}
+若 \(a_{n_j}\to L\)，固定 \(m\)。充分大时 \(n_j\ge m\)，所以
+\(\alpha_m\le a_{n_j}\le\beta_m\)。令 \(j\to\infty\)，得
+\(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，即得
+\(\liminf a_n\le L\le\limsup a_n\)。
+\end{solution}
+
+\begin{solution}{12.11}
+对每个尾部，
 \[
-\begin{aligned}
-\abs{\frac3{\sqrt{1+t}+1}-\frac32}
-&=\frac{3(\sqrt{1+t}-1)}{2(\sqrt{1+t}+1)}\\
-&=\frac{3t}{2(\sqrt{1+t}+1)^2}
-\le\frac{3t}{8}=\frac9{8n}.
-\end{aligned}
+ \sup_{k\ge n}(-a_k)=-\inf_{k\ge n}a_k.
 \]
-取 \(N>9/(8\varepsilon)\) 即可。
-\end{solution}
-
-\begin{solution}{8.4}
-设次数均为 \(d\)，
+对 \(n\) 取下确界，得到
 \[
- p(n)=a_dn^d+\cdots+a_0,\qquad
- q(n)=b_dn^d+\cdots+b_0,\quad b_d\ne0.
+ \limsup(-a_n)
+ =\inf_n(-\alpha_n)
+ =-\sup_n\alpha_n
+ =-\liminf a_n.
 \]
-除以 \(n^d\)，记
-\(u_n=\sum_{j<d}a_jn^{j-d}\)、
-\(v_n=\sum_{j<d}b_jn^{j-d}\)。有限和估计给出 \(u_n,v_n\to0\)。最终
-\(\abs{b_d+v_n}\ge\abs{b_d}/2\)，且
+\end{solution}
+
+\begin{solution}{12.12}
+删去有限首项不改变上下极限。此后对每个尾部都有
 \[
- \frac{p(n)}{q(n)}-\frac{a_d}{b_d}
- =\frac{b_du_n-a_dv_n}{b_d(b_d+v_n)}.
+ \inf_{k\ge n}a_k\le\inf_{k\ge n}b_k,\qquad
+ \sup_{k\ge n}a_k\le\sup_{k\ge n}b_k.
 \]
-分子绝对值趋零，分母最终有固定正下界，故差趋零。每个 \(n^{j-d}\) 的误差可由 \(1/n\) 控制，从而整个证明可写成显式 \(C/n\) 估计。
+分别取相应极限即得结论。
 \end{solution}
 
-\begin{solution}{8.5}
+\begin{solution}{12.13}
+对每个 \(n\)，
 \[
- \abs{\frac{u_n}{n^\alpha}}\le\frac M{n^\alpha}.
+ \sup_{k\ge n}(a_k+b_k)
+ \le \sup_{k\ge n}a_k+\sup_{k\ge n}b_k.
 \]
-给定 \(\varepsilon>0\)，若 \(M=0\) 取 \(N=1\)；若 \(M>0\)，取
+令 \(n\to\infty\) 得所需不等式。严格例取
+\(a_n=(-1)^n,b_n=-(-1)^n\)：两上极限均为 \(1\)，和恒为 \(0\)。
+\end{solution}
+
+\begin{solution}{12.14}
+给定 \(\varepsilon>0\)，最终
 \[
- N>\left(\frac M\varepsilon\right)^{1/\alpha}.
+ a-\varepsilon+b_n\le a_n+b_n\le a+\varepsilon+b_n.
 \]
-此 \(N\) 依赖 \(M,\alpha,\varepsilon\)，不依赖 \(n\)。
-\end{solution}
-
-\begin{solution}{8.6}
-取 \(m\in\N\) 使 \(1/q>1+1/m\)。由 Bernoulli 不等式，
+由上下极限的单调性与平移公式，
 \[
- q^{-n}>\left(1+\frac1m\right)^n\ge1+\frac nm.
+ a-\varepsilon+\limsup b_n
+ \le\limsup(a_n+b_n)
+ \le a+\varepsilon+\limsup b_n.
 \]
-故
+令 \(\varepsilon\downarrow0\) 得等式。
+\end{solution}
+
+\begin{solution}{12.15}
+对每个尾部，非负性给出
 \[
- 0<q^n\le\frac{m}{m+n}<\frac mn.
+ \sup_{k\ge n}(a_kb_k)
+ \le\left(\sup_{k\ge n}a_k\right)
+   \left(\sup_{k\ge n}b_k\right).
 \]
-右端趋于零，所以 \(q^n\to0\)。该证明没有使用无穷级数。
+两侧均为有限非负数，令 \(n\to\infty\) 并使用乘积极限定理，即得结论。
 \end{solution}
 
-\section*{B组　参数与夹逼}
-\addcontentsline{toc}{section}{B组　参数与夹逼}
-
-\begin{solution}{8.7}
-对 \(abs t\le A\)，
+\begin{solution}{12.16}
+对每个尾部有精确恒等式
 \[
- \abs{\frac{t}{n+t^2}}\le\frac A n.
+ \sup_{k\ge n}\max\{a_k,b_k\}
+ =\max\left\{\sup_{k\ge n}a_k,\sup_{k\ge n}b_k\right\}.
 \]
-给定 \(\varepsilon>0\)，取 \(N>A/\varepsilon\)，则同一个 \(N\) 对所有 \(t\in[-A,A]\) 有效。若 \(A=0\)，任取 \(N\) 即可。
+对 \(n\to\infty\) 取极限，并使用有限最大值保持极限，得到所求等式。
 \end{solution}
 
-\begin{solution}{8.8}
-固定 \(t<1\) 时，若 \(t=0\) 结论直接成立；若 \(0<t<1\)，由\exerciseref{8.6}有 \(t^n\to0\)。若存在对整个 \([0,1)\) 统一的 \(N\)，取 \(\varepsilon=1/2\)。对该 \(N\)，选 \(t\in(2^{-1/N},1)\)，则 \(t^N>1/2\)，与统一估计矛盾。
-\end{solution}
-
-\begin{solution}{8.9}
-给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时 \(b_n<\varepsilon\)。由
-\(0\le a_n\le b_n\)，有
-\(\abs{a_n}=a_n<\varepsilon\)，故 \(a_n\to0\)。
-\end{solution}
-
-\begin{solution}{8.10}
-由正文“几何衰减快于多项式增长”结论，\(n^2q^n\to0\)。又
+\begin{solution}{12.17}
+不总成立；取 \(a_n=(-1)^n\)，左端为 \(1\)，右端也是1，此例不否定；改取部分极限为 \(-2,1\) 的交错列，则左端为 \(2\)，而
+\(\abs{\limsup a_n}=1\)。对有界实数列，正确关系为
 \[
- \abs{a_nq^n}\le n^2q^n,
+ \limsup\abs{a_n}
+ =\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}.
 \]
-所以夹逼定理给出 \(a_nq^n\to0\)。
+这是因为绝对值在区间 \([\liminf a_n,\limsup a_n]\) 上的最大值出现在端点，且两个端点都由子列实现。
 \end{solution}
 
-\begin{solution}{8.11}
-当前可以直接得到
+\begin{solution}{12.18}
+设共同有限值为 \(L\)。尾部下确界 \(\alpha_n\uparrow L\)，上确界
+\(\beta_n\downarrow L\)。给定 \(\varepsilon>0\)，取 \(N\) 使
 \[
- \frac12=\frac n{2n}
- \le\sum_{k=n+1}^{2n}\frac1k
- \le\frac n{n+1}<1.
+ L-\varepsilon<\alpha_N\le\beta_N<L+\varepsilon.
 \]
-还可以把各项写成
+对所有 \(n\ge N\)，\(\alpha_N\le a_n\le\beta_N\)，故
+\(\abs{a_n-L}<\varepsilon\)。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{12.19}
+若 \(a_n\to L\)，则任给 \(\varepsilon>0\)，充分大的尾部全部位于
+\((L-\varepsilon/2,L+\varepsilon/2)\)，故振幅不超过 \(\varepsilon\)。反之若 \(\omega_n\to0\)，则
 \[
- \frac1n\frac1{1+k/n},\qquad k=1,\ldots,n,
+ \limsup a_n-\liminf a_n
+ =\lim_n\omega_n=0.
 \]
-看出它是函数 \(1/(1+x)\) 的一种 Riemann 和。要严格识别极限为
-\(int_0^1(1+x)^{-1}\,dx=\log2\)，需要定积分理论和对数函数的严格建立，当前章节尚未给出。因此本题只能先记录界与后续证明位置，不能循环引用积分结论。
+两者有限且相等，由\exerciseref{12.18}原列收敛。
 \end{solution}
 
-\begin{solution}{8.12}
-原论证先固定 \(N\) 再让 \(\varepsilon\) 依赖 \(N\)，量词顺序相反；而且 \(n>N\) 只得到 \(1/n<1/N\)，并没有处理预先给定的误差。正确证明为：给定 \(\varepsilon>0\)，取整数 \(N>1/\varepsilon\)。若 \(n\ge N\)，则
-\(1/n\le1/N<\varepsilon\)。
-\end{solution}
-
-\begin{solution}{8.13}
-取 \(T=(0,\infty)\)，令
+\begin{solution}{12.21}
+令 \(u_n\) 在偶数时为 \(1\)、奇数时为 \(0\)。三种安排为：
 \[
- a_n(t)=\frac tn,\qquad a(t)=0,\qquad C(t)=t.
+ (a_n,b_n)=(u_n,-u_n+1)
 \]
-对每个固定 \(t\)，有 \(\abs{a_n(t)}\le C(t)/n\to0\)。但对任意固定 \(n\)，令 \(t=n\)，就有 \(a_n(t)=1\)。所以在误差 \(1/2\) 下不存在统一 \(N\)。失败来自 \(C(t)\) 在参数集上无统一上界。
-\end{solution}
-
-\section*{C组　发散与项目}
-\addcontentsline{toc}{section}{C组　发散与项目}
-
-\begin{solution}{8.14}
-因 \(n+\sin n\ge n-1\)，给定 \(M\) 取 \(N>M+1\)，则 \(n\ge N\) 时
-\(n+\sin n>M\)，故趋于 \(+\infty\)。它因此无界，而收敛实数列必有界，所以没有有限极限。
-\end{solution}
-
-\begin{solution}{8.15}
-当 \(n=4k\) 时 \(\sin(n\pi/2)=0\)；当 \(n=4k+1\) 时其值为 \(1\)。两条常值子列的极限不同，因此原列发散。
-\end{solution}
-
-\begin{solution}{8.16}
-把下列有限块依次连接：第 \(k\) 个块先从 \(-1\) 以步长 \(1/k\) 上升到 \(1\)，再以步长 \(1/k\) 下降到 \(-1\)。所得数列始终位于 \([-1,1]\)，且第 \(k\) 个块内相邻差为 \(1/k\)，块的连接点差为 \(0\)，故相邻差趋于零。每个块都含 \(1\) 和 \(-1\)，所以存在分别恒取这两个值的子列，原列发散。
-\end{solution}
-
-\begin{solution}{8.17}
-先设 \(p=m\in\N\)。选 \(r\) 使 \(q<r<1\)，令 \(c=r/q-1>0\)。二项式定理给出
+时两者上极限均为1且和恒为1；
 \[
- \left(\frac rq\right)^n=(1+c)^n
- \ge\binom n{m+1}c^{m+1}.
+ (a_n,b_n)=(2u_n-1,1-2u_n)
 \]
-对 \(n\ge2(m+1)\)，组合数不小于常数 \(C_0n^{m+1}\)，故
+时两者上极限均为1且和恒为0；
 \[
- n^mq^n\le C_1\frac{r^n}{n}\le\frac{C_1}{n}\to0.
+ (a_n,b_n)=(u_n,u_n)
 \]
-若 \(p>0\) 非整数，取整数 \(m\ge p\)。对 \(n\ge1\)，\(n^p\le n^m\)，由夹逼得结论。
+时两上极限均为1且和的上极限为2。
 \end{solution}
 
-\begin{solution}{8.18}
-设从 \(N_0\) 起 \(a_{n+1}\le qa_n\)。归纳得到
+\begin{solution}{12.23}
+不存在无条件等式。取
 \[
- 0\le a_n\le a_{N_0}q^{n-N_0}\qquad(n\ge N_0).
+ a_{2k}=1,\qquad a_{2k-1}=2^{-2k}.
 \]
-右端为常数乘几何数列并趋于零，故 \(a_n\to0\)。这同时给出几何误差界。
+则 \(\limsup a_n^{1/n}=1\)。但从奇项到偶项的比值趋于 \(+\infty\)，所以
+\(\limsup a_{n+1}/a_n=+\infty\)。根式判别与比值判别需要额外的规则性条件，不能直接交换。
 \end{solution}
 
-\begin{solution}{8.19}
-给定 \(\varepsilon>0\)，分别取 \(N_1,N_2\) 使
-\(r_n<\varepsilon/2\)、\(s_n<\varepsilon/2\) 在相应尾部成立。若再把原估计成立的起点取入最大值，则
+\begin{solution}{12.24}
+选 \(r\) 使
 \[
- \abs{a_n-a}\le r_n+s_n<\varepsilon.
+ \limsup\abs{a_n}<r<1.
 \]
-\(\varepsilon/2\) 把总误差预算分配给两个独立来源；任意正分配 \(\theta\varepsilon+(1-\theta)\varepsilon\) 也可。
+由上极限的尾部刻画，存在 \(N\) 使
+\[
+ \sup_{k\ge N}\abs{a_k}<r.
+\]
+于是 \(\abs{a_n}\le r\) 对所有 \(n\ge N\) 成立。
 \end{solution}
 
-\begin{solution}{8.20}
-定性收敛只要求对每个误差找到某个有限起点，较粗上界往往能更清楚地显示参数依赖和证明结构。若研究算法成本、收敛阶或达到给定精度的计算量，最优或近优的 \(N(\varepsilon)\) 才具有直接意义。选择标准由问题目标决定，但两种情形都必须保证估计方向正确、常数依赖明确。
+\begin{solution}{12.26}
+尾部闭包
+\[
+ K_n=\overline{\{a_k:k\ge n\}}
+\]
+递减。对有界列，交集正是部分极限集合；其最大、最小点分别由尾部确界极限给出。集合表达适合证明闭性与嵌套性，尾部确界表达适合运算不等式和定量界，子列表达适合实现端点、构造反例和把量词否定转化为对象。三种语言描述同一尾部结构，但各自压缩的证明步骤不同。
 \end{solution}
+

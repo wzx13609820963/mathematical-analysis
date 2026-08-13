@@ -1,7 +1,7 @@
-\chapter{实数轴上的紧致性与连通性}
+\chapter{闭区间上的连续函数：习题解答}
 
-\section*{A组　覆盖、紧致与极值}
-\addcontentsline{toc}{section}{A组　覆盖、紧致与极值}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
 \begin{solution}{18.1}
 对 \((0,1)\) 取 \(U_n=(1/n,1)\)；对 \([0,\infty)\) 取 \(U_n=(-1,n)\)；对 \(\R\) 取 \(U_n=(-n,n)\)。三族都分别覆盖目标集。任意有限子族只需取最大指标 \(N\)，其并分别仍漏掉靠近 \(0\) 的正点、大于等于 \(N\) 的点或绝对值不小于 \(N\) 的点。
@@ -20,7 +20,7 @@
 \end{solution}
 
 \begin{solution}{18.5}
-若 \(K\) 无界，则 \(\{(-n,n):n\in\N\}\) 是 \(K\) 的开覆盖。任意有限子族的并为某个 \((-N,N)\)，不能覆盖无界的 \(K\)，与有限覆盖性质矛盾。
+若 \(K\) 无界，则 \(\{(-n,n):n\in\Npos\}\) 是 \(K\) 的开覆盖。任意有限子族的并为某个 \((-N,N)\)，不能覆盖无界的 \(K\)，与有限覆盖性质矛盾。
 \end{solution}
 
 \begin{solution}{18.6}
@@ -61,8 +61,8 @@
 则无界，因而没有最大值。
 \end{solution}
 
-\section*{B组　连通与介值}
-\addcontentsline{toc}{section}{B组　连通与介值}
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
 
 \begin{solution}{18.10}
 设区间 \(I=A\cup B\) 被两个非空相对开集分离，取 \(a\in A,b\in B\)，不妨 \(a<b\)。令 \(c=\sup(A\cap[a,b])\)。区间性质保证 \(c\in I\)。若 \(c\in A\)，相对开性使 \(c\) 右侧仍有 \(A\) 中点，违背上界；若 \(c\in B\)，相对开性在 \(c\) 左侧排除 \(A\) 中点，违背上确界逼近。故不存在分离。
@@ -113,8 +113,8 @@
 设多项式次数为奇数，首项为 \(a_{2m+1}x^{2m+1}\)。低次项与首项之比在 \(\abs x\to\infty\) 时趋零，因此当 \(\abs x\) 足够大时，多项式符号与首项相同。正负无穷方向上首项符号相反，故可取 \(A>0\) 使 \(p(-A)p(A)<0\)。由连续性和零点定理，\(p\) 在 \((-A,A)\) 内有实根。
 \end{solution}
 
-\section*{C组　结构、边界与项目}
-\addcontentsline{toc}{section}{C组　结构、边界与项目}
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
 
 \begin{solution}{18.19}
 给定 \(f(K)\) 的开覆盖 \(\{V_\lambda\}\)。连续性使 \(f^{-1}(V_\lambda)\) 在 \(K\) 中相对开，并覆盖 \(K\)。写成 \(K\cap U_\lambda\) 后，由 \(K\) 的有限覆盖性质取有限多个原像覆盖 \(K\)。对应的有限多个 \(V_\lambda\) 覆盖 \(f(K)\)。
@@ -172,3 +172,4 @@
 \]
 在 \(K\) 中闭，因此是紧集。若 \(f\) 处处非零，则连续函数 \(\abs f\) 在紧集 \(K\) 上取得最小值 \(m\ge0\)。若 \(m=0\)，存在 \(x_0\in K\) 使 \(\abs{f(x_0)}=0\)，与处处非零矛盾，故 \(m>0\)。
 \end{solution}
+

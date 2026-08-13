@@ -1,211 +1,231 @@
-\chapter{完备性的基本后果：习题解答}
+\chapter{Cauchy 列构造：习题解答}
 
-\begin{chapterguide}
-本章解答使用\chapterref{chap:ordered-field-completeness}的确界公理和本章已经证明的 Archimedes 性质、整数部分定理与稠密性。
-\end{chapterguide}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
-\section*{A组　Archimedes 性与稠密性}
-\addcontentsline{toc}{section}{A组　Archimedes 性与稠密性}
-
-\begin{solution}{3.1}
-对实数 \(|x|\) 应用 Archimedes 性质，存在 \(n\in\N\) 使 \(n>|x|\)。于是同时有 \(-n<x<n\)。
-\end{solution}
-
-\begin{solution}{3.2}
-对正数 \(a/\varepsilon\) 取 \(n>a/\varepsilon\)。乘以 \(\varepsilon/n>0\)，得到 \(a/n<\varepsilon\)。
-\end{solution}
-
-\begin{solution}{3.3}
-令 \(k=\lfloor x\rfloor\)，则 \(k\le x<k+1\)。加 \(m\in\Z\) 后
+\begin{solution}{5.1}
+对 Cauchy 列 \((a_n)\) 取 \(\varepsilon=1\)，存在 \(N\) 使 \(n\ge N\) 时
 \[
- k+m\le x+m<k+m+1,
+ |a_n-a_N|<1,\qquad |a_n|<|a_N|+1.
 \]
-由唯一性得 \(\lfloor x+m\rfloor=k+m\)。
-
-定义 \(\lceil x\rceil\) 为满足 \(r-1<x\le r\) 的唯一整数。该不等式取相反数得
+令
 \[
- -r\le -x<-r+1,
+ M=\max\{|a_1|,\ldots,|a_{N-1}|,|a_N|+1\}.
 \]
-故 \(\lfloor-x\rfloor=-r=-\lceil x\rceil\)。
+则 \(|a_n|\le M\) 对所有 \(n\) 成立。有限前项必须并入最大值，Cauchy 条件只控制尾部。
 \end{solution}
 
-\begin{solution}{3.4}
-先取 \(q_1\in\Q\cap(a,b)\)。递归地在 \((q_k,b)\) 中取 \(q_{k+1}\in\Q\)，得到严格递增的无限有理数列。对无理数同样递归使用正文的无理稠密性定理。严格递增保证各项互异。
+\begin{solution}{5.2}
+若 \(z_n,w_n\to0\)，给定 \(\varepsilon>0\)，从某项起有 \(|z_n|,|w_n|<\min\{1,\sqrt{\varepsilon}\}\)，故 \(|z_nw_n|<\varepsilon\)；和的证明用 \(\varepsilon/2\)。命题“任意数列乘零列仍为零列”错误：\(z_n=1/n\) 是零列，\(a_n=n\) 无界，而 \(a_nz_n=1\) 不是零列。
 \end{solution}
 
-\begin{solution}{3.5}
-取 \(m=\lfloor nx\rfloor\)，令 \(q=m/n\)。则
+\begin{solution}{5.3}
+自反性：\(a_n-a_n=0\) 是零列。对称性：若 \(a_n-b_n\) 是零列，其相反数 \(b_n-a_n\) 也是零列。传递性：若 \(a_n-b_n\) 与 \(b_n-c_n\) 是零列，则
 \[
- 0\le x-q<\frac1n,
+ a_n-c_n=(a_n-b_n)+(b_n-c_n)
 \]
-所以 \(|x-q|<1/n\)。若要求严格从另一侧逼近，可取 \((m+1)/n\)。
+是两个零列之和，故仍为零列。
 \end{solution}
 
-\section*{B组　表示与计数}
-\addcontentsline{toc}{section}{B组　表示与计数}
-
-\begin{solution}{3.6}
+\begin{solution}{5.4}
+写成
 \[
- d_n(-\sqrt2)=\frac{\lfloor-10^n\sqrt2\rfloor}{10^n}
- =-\frac{\lceil10^n\sqrt2\rceil}{10^n}.
+ a_nb_n-a'_nb'_n=a_n(b_n-b'_n)+b'_n(a_n-a'_n).
 \]
-例如 \(d_1(-\sqrt2)=-1.5\)、\(d_2(-\sqrt2)=-1.42\)。简单删除 \(-1.414\ldots\) 的尾部会得到 \(-1.4\)，它大于原数；向下截断必须取不超过原数的网格点。
+四个 Cauchy 列均有界；特别地，\(a_n,b'_n\) 有统一界。括号内两列为零列，所以右端两项都是“有界列乘零列”，其和仍为零列。故 \(ab\sim a'b'\)。
 \end{solution}
 
-\begin{solution}{3.7}
-正文已证左侧单调性。由于
+\begin{solution}{5.5}
+若两列只在前 \(N-1\) 项不同，则其差从第 \(N\) 项起恒为零。对每个 \(\varepsilon>0\)，同一个 \(N\) 已保证尾部差小于 \(\varepsilon\)，所以差为零列，两列等价。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{5.6}
+若 \([a_n]\ne[0]\)，则存在 \(\varepsilon>0\)，使对每个 \(N\) 都有某个 \(k\ge N\) 满足 \(|a_k|\ge\varepsilon\)。由 Cauchy 性取 \(N_0\)，使 \(m,n\ge N_0\) 时 \(|a_m-a_n|<\varepsilon/2\)。选 \(k\ge N_0\) 且 \(|a_k|\ge\varepsilon\)。于是对所有 \(n\ge N_0\)，
 \[
- d_n(x)=\frac{10\lfloor10^nx\rfloor}{10^{n+1}},
+ |a_n|\ge|a_k|-|a_n-a_k|>\varepsilon/2.
 \]
-而 \(\lfloor10^{n+1}x\rfloor\) 至多比该整数大 \(9\)，故
+若 \(a_k>0\)，则 \(a_n>a_k-\varepsilon/2\ge\varepsilon/2\)；若 \(a_k<0\)，则 \(a_n<-\varepsilon/2\)。故尾部符号恒定。
+\end{solution}
+
+\begin{solution}{5.7}
+若尾部 \(|a_n|\ge\delta\)，则
 \[
- d_{n+1}(x)-d_n(x)\le\frac9{10^{n+1}}.
+ \left|\frac1{a_m}-\frac1{a_n}\right|
+ \le\delta^{-2}|a_m-a_n|,
 \]
-\end{solution}
+所以倒数列为 Cauchy 列。
 
-\begin{solution}{3.8}
-\(0.999\ldots\) 的第 \(n\) 个部分和为 \(1-10^{-n}\)。其上确界为 \(1\)：\(1\) 是上界，而对任意 \(\varepsilon>0\)，取 \(10^{-n}<\varepsilon\) 即有 \(1-10^{-n}>1-\varepsilon\)。
-
-令 \(x=0.272727\ldots\)。有限部分和或位移计算给出 \(100x=27+x\)，所以 \(x=27/99=3/11\)。严格地说，可先对有限偶数位部分和计算，再用余项不超过 \(10^{-2n}\) 取上确界。
-\end{solution}
-
-\begin{solution}{3.9}
-设非循环前缀长度为 \(r\)，循环节表示的整数为 \(C\in\{0,\ldots,10^p-1\}\)，前缀对应有限小数 \(A/10^r\)。则
+若 \(a\sim a'\)，两者非零且代表同一类，则在共同尾部有 \(|a_n|,|a'_n|\ge\delta\)。于是
 \[
- x=\frac A{10^r}+\frac C{10^r}\sum_{j=1}^{\infty}10^{-pj}
- =\frac A{10^r}+\frac C{10^r(10^p-1)}.
+ \left|\frac1{a_n}-\frac1{a'_n}\right|
+ \le\delta^{-2}|a_n-a'_n|\longrightarrow0.
 \]
-右端为有理数。公式也覆盖 \(C=0\) 的终止情形。
+故倒数类与代表元选择无关。
 \end{solution}
 
-\begin{solution}{3.10}
-有限小数由一个整数、有限位数和有限数字串编码，是可数族有限集的并，故至多可数；因其包含所有整数，所以可数无限。最终循环小数可由符号、整数部分、非循环前缀和循环节四个有限字符串编码，故至多可数；它同样包含所有整数，所以可数无限。
+\begin{solution}{5.8}
+若 \(a\sim a'\) 且 \(a_n\ge\delta>0\) 从某项起成立，取更后指标使 \(|a_n-a'_n|<\delta/2\)，则 \(a'_n\ge\delta/2\)，故正性与代表元无关。
+
+对任意类 \(x=[a_n]\)，若 \(x=0\) 已完成。若非零，\exerciseref{5.6}给出尾部恒正或恒负，分别得到 \(x>0\) 或 \(-x>0\)。三种情形互斥，因为正类不可能同时是零类，且 \(x,-x\) 不可能都最终有正下界。
 \end{solution}
 
-\begin{solution}{3.11}
-实代数数全体可数无限。若某开区间 \(I\) 中的超越数至多可数，则 \(I\) 是“区间中的代数数”与“区间中的超越数”两个至多可数集之并，因而至多可数。但 \(I\) 与 \((0,1)\) 通过仿射映射双射，而正文的三进制构造证明 \((0,1)\) 不可数，矛盾。
-\end{solution}
-
-\section*{C组　项目与边界}
-\addcontentsline{toc}{section}{C组　项目与边界}
-
-\begin{solution}{3.12}
-定义
+\begin{solution}{5.9}
+常值列满足
 \[
- d_n^{(b)}(x)=\frac{\lfloor b^nx\rfloor}{b^n}.
+ [q]+[r]=[q+r],\quad [q][r]=[qr],\quad
+ -[q]=[-q],\quad [q]^{-1}=[q^{-1}]\ (q\ne0).
 \]
-则 \(d_n^{(b)}(x)\le x<d_n^{(b)}(x)+b^{-n}\)，相邻差确定数字 \(a_n\in\{0,\ldots,b-1\}\)。有限部分和集合的上确界即为 \(x\)。
+若 \(q<r\)，常值差 \(r-q>0\) 本身就是统一正下界，故 \([q]<[r]\)。反向由三歧律得到，所以嵌入保持并反映次序。
+\end{solution}
 
-若两种表示在第 \(k\) 位首次不同，较大数字至少多 \(b^{-k}\)，后续最大补偿为
+\begin{solution}{5.10}
+令 \(x=[r_j]\)。给定 \(\varepsilon>0\)，先取 \(K_1\) 使 \(1/k<\varepsilon/3\)（\(k\ge K_1\)），再由 \(r_j\) 的 Cauchy 性取 \(K_2\)，使 \(j,k\ge K_2\) 时 \(|r_j-r_k|<\varepsilon/3\)。对 \(k\ge K=\max\{K_1,K_2\}\)，类 \(x-r_k=[r_j-r_k]\) 的代表元从 \(j\ge K_2\) 起绝对值小于 \(\varepsilon/3\)，故 \(|x-r_k|\le\varepsilon/3\)。于是
 \[
- \sum_{j=k+1}^\infty(b-1)b^{-j}=b^{-k}.
+ |x_k-x|\le|x_k-r_k|+|r_k-x|<\frac{2\varepsilon}{3}<\varepsilon.
 \]
-故只有较大侧以后全为 \(0\)、较小侧以后全为 \(b-1\) 时可能相等。
-
-对有理数作基数 \(b\) 的长除法，有限余数必终止或重复；最终循环表示按\exerciseref{3.9}的计算把 \(10\) 换成 \(b\)，得到分母 \(b^p-1\) 的有理数。三项结论全部成立。
 \end{solution}
 
-\begin{solution}{3.13}
-有限尾和为
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{5.11}
+集合 \(\mathcal C/\sim\) 的加法和乘法良定义性由\exerciseref{5.3}、5.4给出，环公理由逐项有理运算继承。\exerciseref{5.6}、5.7为每个非零类构造良定义倒数，所以得到域。\exerciseref{5.8}给出三歧律；正下界的相加、相乘分别证明序的传递性以及正数乘积为正，故得到有序域。
+
+有理常值类稠密，因为代表 Cauchy 列的某个后项可在任意给定误差内逼近该类。任意类被代表列的有理界控制，故构造域 Archimedean。最后对其中的 Cauchy 列 \(x_k\) 选 \(|x_k-r_k|<1/k\)，\exerciseref{5.10}证明 \([r_k]\) 是其极限。由此完整得到完备有序域，未使用\chapterref{chap:dedekind-construction}。
+\end{solution}
+
+\begin{solution}{5.12}
+\chapterref{chap:real-number-system}数列满足
 \[
- \sum_{k=m+1}^{N}\frac2{3^k}
- =\frac1{3^m}\left(1-\frac1{3^{N-m}}\right),
+ 0<2-a_n^2<4\cdot10^{-n}+10^{-2n}.
 \]
-其上确界为 \(3^{-m}\)。因此首次不同位的净差至少为
+右端为零列，所以 \((a_n^2-2)\) 是零列，即
 \[
- 2\cdot3^{-m}-3^{-m}=3^{-m}>0.
+ [a_n]^2=[a_n^2]=[2].
 \]
-每个 \(\Phi(A)\) 的第 \(k\) 位按 \(k\in A\) 取 \(2\)，否则取 \(0\)；反之，任意只含 \(0,2\) 的三进制表示由这些取 \(2\) 的位置唯一确定一个子集。故像恰为该类数。
+正类的平方根唯一性还说明该类就是构造域中的正平方根。
 \end{solution}
 
-\begin{solution}{3.14}
-映射
+\begin{solution}{5.13}
+取 \(a_0\in\alpha,b_0\notin\alpha\)。每步以中点 \(c_n\) 二分：若 \(c_n\in\alpha\)，令其为新左端；否则令其为新右端。得到嵌套区间且
 \[
- f:[0,1]\to[a,b],\qquad f(t)=a+(b-a)t
+ a_n\in\alpha,\quad b_n\notin\alpha,\quad
+ b_n-a_n=2^{-n}(b_0-a_0).
 \]
-有逆映射 \(f^{-1}(x)=(x-a)/(b-a)\)，故为双射。于是 \([a,b]\) 与不可数的 \([0,1]\) 等势。开区间与半开区间也可由显式分段双射或 Cantor--Schröder--Bernstein 定理得到不可数性；仅推出不可数时，包含一个非退化闭子区间已经足够。
+左端单调且任意两项之差不超过较早区间长度，故 \((a_n)\) 为 Cauchy 列。
+
+若 \(q\in\alpha\)，取 \(q'\in\alpha\) 且 \(q'>q\)。区间长度最终小于 \(q'-q\)，此时不可能仍有 \(a_n\le q<q'\le b_n\)，故从某项起 \(a_n>q\)，于是 \(q<[a_n]\)。若 \(q\notin\alpha\)，则每个 \(a_n<q\)，所以不可能有 \(q<[a_n]\)。因此 \(\Phi([a_n])=\alpha\)。
 \end{solution}
 
-\begin{solution}{3.15}
-一种标准参考模型是实系数有理函数域 \(\R(t)\)，按“\(t\) 大于每个实常数”的最终首项符号排序。于是 \(t>n\) 对所有 \(n\in\N\) 成立，Archimedes 性质首先失效；随之任意小倒数、整数部分定理以及用整数网格证明的稠密性论证也不能照搬。构造全序需按有理函数在充分大实参数处的符号定义，并验证与域运算相容。
+\begin{solution}{5.14}
+一般度量空间的 Cauchy 完备化仍可使用“Cauchy 列之差的距离趋于零”定义等价关系；等价性的验证、常值点嵌入、稠密性以及用对角选择证明完备性只依赖距离与三角不等式。
+
+逐项加法、乘法、倒数和正负号需要原空间的代数与序结构。若这些运算对距离连续，它们可延拓到完备化；倒数还需远离零的论证。一般度量空间没有乘法逆元或全序，因此这些步骤没有对应物。
 \end{solution}
 
-\begin{solution}{3.16}
-自然数无上界用于 \(1/\varepsilon\) 即得某个 \(n>1/\varepsilon\)，从而 \(1/n<\varepsilon\)。反之，若存在任意小的 \(1/n\)，给定 \(x>0\)，对 \(\varepsilon=1/x\) 取 \(1/n<1/x\)，便有 \(n>x\)；\(x\le0\) 时任取正整数。第三种表述由
+\begin{solution}{5.15}
+\((a_n)\sim(q)\) 按定义表示 \((a_n-q)\) 是零列，即
 \[
- nx>y\Longleftrightarrow n>y/x
+ \forall\varepsilon\in\Q_{>0}\ \exists N\
+ \forall n\ge N,\quad\abs{a_n-q}<\varepsilon.
 \]
-与第一种表述等价。
+这正是 \((a_n)\) 在 \(\Q\) 中收敛到 \(q\) 的定义。
 \end{solution}
 
-\begin{solution}{3.17}
-写
+\begin{solution}{5.16}
+由 \((r_k)\) 是有理 Cauchy 列，给定 \(\varepsilon>0\)，取 \(K_1\) 使 \(j\ge k\ge K_1\) 时
 \[
- x=\lfloor x\rfloor+\{x\},\qquad
- y=\lfloor y\rfloor+\{y\},
+ \abs{r_j-r_k}<\varepsilon/2.
 \]
-其中两个小数部分都在 \([0,1)\)。因此
+对固定 \(k\ge K_1\)，这说明代表 \(x=[r_j]\) 与常值类 \(r_k\) 的差列最终小于 \(\varepsilon/2\)。再取 \(K_2\) 使 \(k\ge K_2\) 时
 \[
- \lfloor x+y\rfloor
- =\lfloor x\rfloor+\lfloor y\rfloor
- +\lfloor\{x\}+\{y\}\rfloor,
+ \abs{x_k-r_k}<1/k<\varepsilon/2.
 \]
-最后一项只能为 \(0\) 或 \(1\)。恰在 \(\{x\}+\{y\}\ge1\) 时出现 \(+1\)。
-\end{solution}
-
-\begin{solution}{3.18}
-取 \(m=\lfloor nx\rfloor\)。整数部分定理给出
+于是 \(k\ge\max\{K_1,K_2\}\) 时
 \[
- m\le nx<m+1,
+ \abs{x_k-x}\le\abs{x_k-r_k}+\abs{r_k-x}<\varepsilon.
 \]
-除以 \(n>0\) 即得所需夹逼。普通稠密性只断言区间中存在某个有理数；这里还指定分母网格，并给出误差严格小于 \(1/n\) 的定量结论。
 \end{solution}
 
-\begin{solution}{3.19}
-反设 \([0,1]\) 可枚举为 \(x_1,x_2,\ldots\)，并为每个数选取不以 \(9\) 为尾的十进制表示。构造
+\begin{solution}{5.17}
+令 \(d=y-x>0\)。正类定义给出 \(\delta>0\)，使 \(d\) 的某代表从一项起不小于 \(\delta\)。利用类可由有理代表后项任意逼近，选 \(q\in\Q\) 使
 \[
- y=0.y_1y_2\cdots,\qquad
- y_n=
- \begin{cases}
- 1,&x_n\text{ 的第 }n\text{ 位不是 }1,\\
- 2,&x_n\text{ 的第 }n\text{ 位是 }1.
- \end{cases}
+ \abs{q-x}<\delta/3
 \]
-新表示只用 \(1,2\)，不会以 \(9\) 为尾，也不会产生终止式与尾随 \(9\) 的歧义。它与 \(x_n\) 在第 \(n\) 位不同，故不等于任何 \(x_n\)，矛盾。
+并从上方逼近 \(x\)。于是 \(x<q<x+\delta<y\)。更形式地，可先取有理 \(r\) 满足 \(\abs{x-r}<\delta/4\)，再在有理区间 \((x,y)\) 的代表估计中加一个小有理增量。
 \end{solution}
 
-\begin{solution}{3.20}
-任意非空开区间 \((a,b)\) 包含非退化闭区间，例如
+\begin{solution}{5.18}
+设 \(a_n\ge\delta>0\) 最终成立，且 \((a_n')\sim(a_n)\)。差为零列，所以最终
 \[
- [a+(b-a)/3,\ a+2(b-a)/3].
+ \abs{a_n'-a_n}<\delta/2.
 \]
-该闭区间与 \([0,1]\) 仿射双射，故不可数。区间内有理数至多可数；若无理数也至多可数，则二者并仍可数，与区间不可数矛盾。
-\end{solution}
-
-\begin{solution}{3.21}
-由
+于是
 \[
- d_n(x)\le x<d_n(x)+10^{-n}
+ a_n'\ge a_n-\abs{a_n'-a_n}>\delta/2.
 \]
-知 \(x\) 是 \(D\) 的上界，且对每个 \(\varepsilon>0\)，取 \(n\) 使 \(10^{-n}<\varepsilon\)，便有 \(d_n(x)>x-\varepsilon\)。故 \(\sup D=x\)。
-
-若 \(x\) 是有限小数，则从某位起 \(d_n(x)=x\)，所以 \(D\) 有最大元 \(x\)。反之，若某个 \(d_n(x)=x\)，则 \(x\) 的分母可取 \(10^n\)，是有限小数。
+故任何等价代表都最终有正下界，正性定义良好。
 \end{solution}
 
-\begin{solution}{3.22}
-对每个次数 \(n\) 与系数整数向量 \((a_0,\ldots,a_n)\)，多项式只有有限多个实根。整系数多项式全体是可数族有限整数序列的并，故至多可数；其有限根集的可数并仍至多可数。每个整数都是实代数数，所以全体实代数数可数无限。
-
-任意非空开区间不可数。删去其中至多可数的代数数后，剩余集合不可能至多可数，否则原区间会成为两个至多可数集之并。因此每个开区间含不可数多个超越数。
-\end{solution}
-
-\begin{solution}{3.23}
-对整数基数 \(b\ge2\)，统一约定禁止从某位起恒为 \(b-1\)，可获得唯一表示；最终循环恰刻画有理数。二进制适合与有限位编码比较，十进制适合日常数值表示，三进制只用数字 \(0,2\) 可在不可数性注入中留下严格尾差并避开双重表示。统一误差为
+\begin{solution}{5.19}
+若 \([a_n]\le[b_n]\)，等号情形差为零列，严格小于情形则 \(b_n-a_n\) 最终有正下界。两种情形都推出对每个 \(\varepsilon>0\)，最终
 \[
- 0\le x-d_n^{(b)}(x)<b^{-n},
+ a_n<b_n+\varepsilon.
 \]
-统一歧义仅为终止表示与尾随 \(b-1\) 表示成对出现。
+反向也成立：若上述不等式对每个正有理 \(\varepsilon\) 最终成立，则不可能有 \([a_n]>[b_n]\)，因为后者会使 \(a_n-b_n\) 最终至少为某个 \(\delta>0\)，取 \(\varepsilon=\delta/2\) 矛盾。由全序性只能 \([a_n]\le[b_n]\)。
 \end{solution}
 
-\begin{solution}{3.24}
-固定字长和指数范围后，浮点数集合是有限集，而任一实区间不可数，因此绝大多数实数不能被精确表示。把实数替换成邻近浮点数产生表示或舍入误差；对已表示数执行有限精度运算并再次舍入产生运算误差；算法中这些误差传播并累积。数学分析中的实数模型提供理想连续量，浮点模型则是有限网格，二者不能因小数记号相似而混同。
+\begin{solution}{5.20}
+若 \(q\in\Phi(x)+\Phi(y)\)，则 \(q=r+s\) 对某些 \(r<x,s<y\) 成立，故 \(q<x+y\)，所以 \(q\in\Phi(x+y)\)。
+
+反之，若 \(q<x+y\)，令 \(d=x+y-q>0\)。由有理稠密性选正有理 \(\eta<d/2\)，再选有理 \(r,s\) 使
+\[
+ x-\eta<r<x,\qquad y-\eta<s<y.
+\]
+则
+\[
+ r+s>x+y-2\eta>q.
+\]
+由于分割和向下封闭，\(q\in\Phi(x)+\Phi(y)\)。故两个左部相等。
 \end{solution}
+
+\begin{solution}{5.21}
+设 \(x,y>0\)。若 \(q\in\Phi(x)\Phi(y)\) 且 \(q>0\)，则存在 \(0<r<x,0<s<y\) 使 \(q<rs<xy\)，故 \(q\in\Phi(xy)\)。
+
+反之，若 \(0<q<xy\)，先取有理 \(r<x\) 充分接近 \(x\)，使 \(q/r<y\)，再取有理 \(s\) 满足
+\[
+ q/r<s<y.
+\]
+于是 \(q<rs\)，故 \(q\in\Phi(x)\Phi(y)\)。非正有理数自动属于正分割乘积。负号和零由构造中的符号扩张以及同态对逆元的唯一性处理。
+\end{solution}
+
+\begin{solution}{5.22}
+设两列为 \(a_n,b_n\)。最终存在 \(c>0\) 使 \(a_n+b_n\ge c\)。又
+\[
+ \abs{a_n^2-b_n^2}
+ \le\abs{a_n^2-2}+\abs{b_n^2-2}
+\]
+是零列，所以
+\[
+ \abs{a_n-b_n}
+ =\frac{\abs{a_n^2-b_n^2}}{a_n+b_n}
+ \le c^{-1}\abs{a_n^2-b_n^2}
+\]
+也是零列。因此二者等价。
+\end{solution}
+
+\begin{solution}{5.23}
+Dedekind 模型以左部集合相等判定对象相等，Cauchy 模型以差为零列判定；前者次序是包含，后者次序是尾部正下界；加法与乘法分别是集合下闭运算和逐项运算取商。Dedekind 完备性由有界分割族的并集直接给出，Cauchy 完备性由有理近似的对角列给出。映射
+\[
+ [a_n]\longmapsto\{q\in\Q:q<[a_n]\}
+\]
+把这些结构逐项对应，说明不同技术路线构造的是同一个完备有序域。
+\end{solution}
+
+\begin{solution}{5.24}
+若只取在 \(\Q\) 中收敛的列，每条都等价于某个有理常值列，商集不会产生任何新元素。若放宽到任意有界列，则尾部不必内部稳定；例如 \((-1)^n\) 无法与单个候选值保持任意小距离。逐项乘法虽有界，但“非零类最终远离零并固定符号”会失败，因而不能统一定义倒数与全序。Cauchy 条件恰好提供延拓运算所需的尾部稳定性。
+\end{solution}
+

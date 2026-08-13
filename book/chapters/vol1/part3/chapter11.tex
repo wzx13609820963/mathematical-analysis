@@ -1,11 +1,12 @@
-\chapter{连续性与间断点}
+\chapter{连续性}
 \label{chap:continuity-discontinuity}
 
-\begin{chapterguide}
-连续性把函数在一点的极限与该点函数值连接起来。它既可用邻域量词表述，也可用序列保持表述，并在代数运算和复合下稳定。对区间端点必须采用相对定义域。单调函数虽未必连续，但其左右极限始终存在，间断点具有跳跃结构且至多可数；严格单调函数在其像集上具有相对连续的逆映射，原函数连续时像集还是区间。
-\end{chapterguide}
+当函数在一点的取值等于它在该点的极限时，局部极限便与函数本身接合起来。连续性首先是逐点性质；加入单调性以后，左右极限总会存在，间断只能以跳跃方式出现，逆映射也获得相应的连续性。
 
-\section{点连续的定义及极限形式}
+\section{点连续、序列刻画与相对连续}
+
+\subsection{点连续的定义及极限形式}
+
 
 \begin{definition}[点连续]
 设 \(f:D\to\R\)，\(a\in D\)。若
@@ -24,6 +25,8 @@
 \]
 若 \(a\) 是孤立点，任意函数都在 \(a\) 连续，因为可取小邻域使其中唯一的定义域点是 \(a\)。
 
+点连续性比较的是两类同时变化的数据：输入点 \(x\) 靠近 \(a\)，输出值 \(f(x)\) 靠近已经指定的 \(f(a)\)。因此连续性不仅要求删心极限存在，还要求点值恰好填在这个极限上。可去间断点之所以能修补，正是因为邻近函数值已经决定了唯一可选的点值。
+
 \begin{definition}[集合上的连续性]
 若 \(f\) 在 \(D\) 的每一点连续，则称 \(f\) 在 \(D\) 上连续。若 \(D\) 是区间，端点连续性始终相对于 \(D\) 理解。
 \end{definition}
@@ -32,7 +35,8 @@
 设 \(f(x)=(x^2-1)/(x-1)\)（\(x\ne1\)）。因删心极限为 \(2\)，定义 \(f(1)=2\) 可得到连续延拓；定义为其他值则在 \(1\) 处不连续。
 \end{example}
 
-\section{连续性的序列刻画}
+\subsection{连续性的序列刻画}
+
 
 \begin{theorem}[序列连续性]
 设 \(a\in D\)。函数 \(f:D\to\R\) 在 \(a\) 连续，当且仅当对每条 \((x_n)\subset D\) 满足 \(x_n\to a\)，都有
@@ -61,7 +65,35 @@
 
 条件 \(a\in D\) 不可省略，因为 \(f(a)\) 必须有定义。若只研究 \(a\notin D\) 的邻近行为，应使用函数极限而非点连续。
 
-\section{连续函数的代数运算与复合}
+\subsection{相对拓扑下的端点连续性}
+
+
+若 \(f:[a,b]\to\R\)，则在左端点 \(a\) 连续的量词条件为
+\[
+ \forall\varepsilon>0\ \exists\delta>0,\qquad
+ x\in[a,b],\ a\le x<a+\delta
+ \Longrightarrow\abs{f(x)-f(a)}<\varepsilon.
+\]
+它等价于右极限 \(\lim_{x\to a+}f(x)=f(a)\)。右端点相应使用左极限。
+
+\begin{example}
+\(f(x)=\sqrt x\) 在定义域 \([0,\infty)\) 的端点 \(0\) 连续，因为给定 \(\varepsilon>0\)，取 \(\delta=\varepsilon^2\)，则
+\[
+ 0\le x<\delta\Longrightarrow\abs{\sqrt x-\sqrt0}<\varepsilon.
+\]
+没有必要把函数延拓到负半轴后再讨论。
+\end{example}
+
+\begin{proposition}[限制与粘合]
+连续函数限制到任意子集仍连续。设 \(D=A\cup B\)，函数 \(f\) 在 \(A\) 与 \(B\) 上的限制分别连续；若对每个 \(x\in A\cap B\) 两个定义相同，并且在交界点的相对极限一致，则粘合函数在交界点连续。
+\end{proposition}
+
+“分段公式各自连续”不足以自动推出分段函数连续；必须另行核对交界点的函数值与两侧极限。
+
+\section{连续映射的代数运算和复合}
+
+连续性的运算法则不是另一套需要重新记忆的极限公式。只要把每个函数在 \(a\) 处的极限替换为它的点值，函数极限的加、乘、商和复合定理便直接给出连续性。商仍须排除分母点值为零；复合仍须保证内层函数值落在外层函数的定义域中。
+
 
 \begin{theorem}
 若 \(f,g:D\to\R\) 在 \(a\in D\) 连续，\(c\in\R\)，则
@@ -102,31 +134,8 @@
 多项式在 \(\R\) 上连续；有理函数在分母非零处连续；根式、绝对值及由有限次代数运算和复合得到的初等表达式在其自然定义域内连续。
 \end{corollary}
 
-\section{相对拓扑下的端点连续性}
+\section{间断点的分类}
 
-若 \(f:[a,b]\to\R\)，则在左端点 \(a\) 连续的量词条件为
-\[
- \forall\varepsilon>0\ \exists\delta>0,\qquad
- x\in[a,b],\ a\le x<a+\delta
- \Longrightarrow\abs{f(x)-f(a)}<\varepsilon.
-\]
-它等价于右极限 \(\lim_{x\to a+}f(x)=f(a)\)。右端点相应使用左极限。
-
-\begin{example}
-\(f(x)=\sqrt x\) 在定义域 \([0,\infty)\) 的端点 \(0\) 连续，因为给定 \(\varepsilon>0\)，取 \(\delta=\varepsilon^2\)，则
-\[
- 0\le x<\delta\Longrightarrow\abs{\sqrt x-\sqrt0}<\varepsilon.
-\]
-没有必要把函数延拓到负半轴后再讨论。
-\end{example}
-
-\begin{proposition}[限制与粘合]
-连续函数限制到任意子集仍连续。设 \(D=A\cup B\)，函数 \(f\) 在 \(A\) 与 \(B\) 上的限制分别连续；若对每个 \(x\in A\cap B\) 两个定义相同，并且在交界点的相对极限一致，则粘合函数在交界点连续。
-\end{proposition}
-
-“分段公式各自连续”不足以自动推出分段函数连续；必须另行核对交界点的函数值与两侧极限。
-
-\section{可去、跳跃与第二类间断点}
 
 设 \(a\) 是定义域内点，并假定两侧都是聚集方向。
 \begin{definition}[间断点分类]
@@ -137,6 +146,8 @@
 \end{enumerate}
 \end{definition}
 
+分类只描述单侧极限怎样失败，并不衡量间断“大小”。可去间断可以只由一个错误点值造成，跳跃间断保留两个有限侧极限，而第二类间断把无界发散和持续振荡都包括在内。若定义域在 \(a\) 的一侧没有点，则那一侧极限不应被强行加入分类。
+
 \begin{example}
 \[
  \frac{x^2-1}{x-1}\quad(x\ne1)
@@ -146,7 +157,10 @@
 
 分类依赖定义域的趋近方向。在半闭区间端点只检验存在的单侧方向，因此不能机械套用双侧分类。
 
-\section{单调函数的左右极限}
+\section{单调函数的左右极限与间断点}
+
+\subsection{单调函数的左右极限}
+
 
 \begin{theorem}[单调函数的单侧极限]
 设 \(f:I\to\R\) 在区间 \(I\) 上单调递增，\(a\) 是 \(I\) 的内点。则有限左右极限存在，并且
@@ -183,7 +197,8 @@
 \]
 \end{corollary}
 
-\section{单调函数的间断点至多可数}
+\subsection{单调函数的间断点至多可数}
+
 
 \begin{theorem}
 区间上的单调函数的间断点集合至多可数。
@@ -213,7 +228,10 @@
 \]
 单调递增，并可在每个 \(a_n\) 产生跳跃。
 
-\section{严格单调函数在像集上的连续逆映射}
+\section{严格单调映射及其相对连续逆}
+
+严格单调保证每个函数值只有一个原像，但并不保证像集没有缺口。逆函数的连续性应先相对于像集 \(J=f(I)\) 来讨论；在这个相对意义下，严格单调已经足够。要进一步断言 \(J\) 本身是区间，才需要连续性和下一章的介值定理。
+
 
 \begin{theorem}[连续逆映射]
 设 \(I\) 是区间，\(f:I\to\R\) 严格单调，令 \(J=f(I)\)。则 \(f:I\to J\) 为双射，并且逆函数
@@ -249,55 +267,49 @@
 端点按相对邻域只选可用的一侧。递减情形把不等号方向反转即可。
 \end{proof}
 
-若 \(f\) 有跳跃，像集 \(J\) 可能有缺口，但上述相对连续性仍成立。只有在还要断言 \(J\) 为区间时，才需要 \(f\) 的连续性；这将在\chapterref{chap:compact-connected-real-line}由介值定理推出。
-
-\section*{本章小结}
-\addcontentsline{toc}{section}{本章小结}
-
-点连续等价于函数极限等于点值，也等价于保持所有趋近该点的数列极限。连续性在代数运算、绝对值、最大最小和复合下稳定；端点使用相对定义域。单调函数由实数完备性获得左右极限，其间断只能是跳跃型，并可把每个跳跃注入有理数集，从而间断点至多可数。严格单调函数在其像集上具有相对连续的逆映射；原函数连续时，像集还是区间。
+若 \(f\) 有跳跃，像集 \(J\) 可能有缺口，但上述相对连续性仍成立。只有在还要断言 \(J\) 为区间时，才需要 \(f\) 的连续性；这将在\chapterref{chap:continuous-functions-closed-interval}由介值定理推出。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\noindent\textbf{配置说明：}本章按II级核心章配置，共26道编号题，含约42个独立训练单元，建议总用时5至7小时。\exerciserange{17.1}{17.20}为核心必做范围。
-
-\subsection*{A组　连续性的定义与运算}
-\begin{enumerate}[label=\textbf{17.\arabic*.}]
- \exerciseitem{17.1} \mustdo 证明孤立定义域点处的任意函数都连续。
- \exerciseitem{17.2} \mustdo 证明点连续与“极限等于点值”的等价性。
- \exerciseitem{17.3} \mustdo 用量词否定构造数列，证明序列连续性判据的充分性。
- \exerciseitem{17.4} \mustdo 证明连续函数保持绝对值、最大值与最小值运算。
- \exerciseitem{17.5} \mustdo 证明若 \(f\) 在 \(a\) 连续且 \(f(a)\ne0\)，则 \(1/f\) 在 \(a\) 连续。
- \exerciseitem{17.6} \mustdo 证明复合连续性，并分别用量词法和序列法完成。
- \exerciseitem{17.7} \mustdo 证明 \(\sqrt x\) 在 \([0,\infty)\) 上连续，特别处理端点 \(0\)。
- \exerciseitem{17.8} \mustdo 说明连续函数限制到任意子集后仍连续。
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{17.1} 证明孤立定义域点处的任意函数都连续。
+ \exerciseitem{17.2} 证明点连续与“极限等于点值”的等价性。
+ \exerciseitem{17.3} 用量词否定构造数列，证明序列连续性判据的充分性。
+ \exerciseitem{17.4} 证明连续函数保持绝对值、最大值与最小值运算。
+ \exerciseitem{17.5} 证明若 \(f\) 在 \(a\) 连续且 \(f(a)\ne0\)，则 \(1/f\) 在 \(a\) 连续。
+ \exerciseitem{17.6} 证明复合连续性，并分别用量词法和序列法完成。
+ \exerciseitem{17.7} 证明 \(\sqrt x\) 在 \([0,\infty)\) 上连续，特别处理端点 \(0\)。
+ \exerciseitem{17.8} 说明连续函数限制到任意子集后仍连续。
 \end{enumerate}
 
-\subsection*{B组　间断与单调函数}
-\begin{enumerate}[label=\textbf{17.\arabic*.},resume]
- \exerciseitem{17.9} \mustdo 对下列函数在指定点分类：\((x^2-1)/(x-1)\) 于 \(1\)，\(\lfloor x\rfloor\) 于整数，\(\sin(1/x)\) 于 \(0\)，\(1/x\) 于 \(0\)。
- \exerciseitem{17.10} \mustdo 构造一个分段函数，使两段各自连续但交界点不连续；给出使其连续的参数条件。
- \exerciseitem{17.11} \mustdo 证明递增函数的左极限等于左侧值集上确界。
- \exerciseitem{17.12} \mustdo 写出递减函数的左右极限公式并证明。
- \exerciseitem{17.13} \mustdo 证明单调函数的内点间断必为跳跃间断。
- \exerciseitem{17.14} \mustdo 证明单调函数的跳跃区间两两不交。
- \exerciseitem{17.15} \mustdo 完整证明单调函数间断点至多可数。
- \exerciseitem{17.16} \mustdo 构造在可数无穷多个指定点发生跳跃的有界递增函数。
- \exerciseitem{17.17} \mustdo 给出有可数稠密间断点集的单调函数。
- \exerciseitem{17.18} \mustdo 严格单调函数若有一个跳跃，证明其像集不是区间。
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{17.9} 对下列函数在指定点分类：\((x^2-1)/(x-1)\) 于 \(1\)，\(\lfloor x\rfloor\) 于整数，\(\sin(1/x)\) 于 \(0\)，\(1/x\) 于 \(0\)。
+ \exerciseitem{17.10} 构造一个分段函数，使两段各自连续但交界点不连续；给出使其连续的参数条件。
+ \exerciseitem{17.11} 证明递增函数的左极限等于左侧值集上确界。
+ \exerciseitem{17.12} 写出递减函数的左右极限公式并证明。
+ \exerciseitem{17.13} 证明单调函数的内点间断必为跳跃间断。
+ \exerciseitem{17.14} 证明单调函数的跳跃区间两两不交。
+ \exerciseitem{17.15} 完整证明单调函数间断点至多可数。
+ \exerciseitem{17.16} 构造在可数无穷多个指定点发生跳跃的有界递增函数。
+ \exerciseitem{17.17} 给出有可数稠密间断点集的单调函数。
+ \exerciseitem{17.18} 严格单调函数若有一个跳跃，证明其像集不是区间。
 \end{enumerate}
 
-\subsection*{C组　逆映射、结构与项目}
-\begin{enumerate}[label=\textbf{17.\arabic*.},resume]
- \exerciseitem{17.19} \mustdo 证明严格单调连续函数的逆函数连续，单独说明区间端点。
- \exerciseitem{17.20} \mustdo 证明若 \(f:I\to J\) 是严格递增双射且 \(I,J\) 都是区间，则 \(f\) 自动连续。
- \exerciseitem{17.21} \optionaldo 研究“连续双射的逆函数连续”在非紧区间上何时成立，并与单调性联系。
- \exerciseitem{17.22} \optionaldo 构造处处不连续但在每一点左右极限都存在的函数是否可能？给出证明。
- \exerciseitem{17.23} \projectdo\ 【前置：\chapterref{chap:cauchy-construction}可数性；预计用时：75分钟】重建单调函数间断点至多可数的证明，并进一步证明跳跃大于 \(1/n\) 的间断点在有界值域内只有有限多个。
- \exerciseitem{17.24} \opendo 比较可去、跳跃、第二类分类与函数振荡量
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{17.19} 证明严格单调连续函数的逆函数连续，单独说明区间端点。
+ \exerciseitem{17.20} 证明若 \(f:I\to J\) 是严格递增双射且 \(I,J\) 都是区间，则 \(f\) 自动连续。
+ \optionalexerciseitem{17.21} 研究“连续双射的逆函数连续”在非紧区间上何时成立，并与单调性联系。
+ \optionalexerciseitem{17.22} 构造处处不连续但在每一点左右极限都存在的函数是否可能？给出证明。
+ \projectexerciseitem{17.23} \ 【前置：\chapterref{chap:cauchy-construction}可数性；预计用时：75分钟】重建单调函数间断点至多可数的证明，并进一步证明跳跃大于 \(1/n\) 的间断点在有界值域内只有有限多个。
+ \openexerciseitem{17.24} 比较可去、跳跃、第二类分类与函数振荡量
  \[
  \omega_f(a)=\inf_{\delta>0}\sup\{\abs{f(x)-f(y)}:x,y\in D,\ \abs{x-a},\abs{y-a}<\delta\}.
  \]
- \exerciseitem{17.25} \mustdo 证明连续函数的零点集是闭集。
- \exerciseitem{17.26} \optionaldo 设 \(f_n\) 都在 \(a\) 连续且 \(f_n\to f\) 一致。证明 \(f\) 在 \(a\) 连续；一致收敛的定义可先按\chapterref{chap:uniform-continuity}预读。
+ \exerciseitem{17.25} 证明连续函数的零点集是闭集。
+ \optionalexerciseitem{17.26} 设 \(f_n\) 都在 \(a\) 连续且 \(f_n\to f\) 一致。证明 \(f\) 在 \(a\) 连续；一致收敛的定义可先按\chapterref{chap:uniform-continuity}预读。
 \end{enumerate}
+

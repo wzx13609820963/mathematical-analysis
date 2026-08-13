@@ -21,6 +21,11 @@
 | 一致连续 | uniformly continuous | 与“连续函数族一致”无关 |
 | 连续模 | modulus of continuity | 定义域非空；允许取 `+\infty` |
 | 紧致 | compact | 当前实线章节先以有限覆盖性质出现，后续度量空间中给一般定义 |
+| 单位分解 | partition of unity | 流形部分统一采用此译名，不使用“分割统一” |
+| Vitali 收敛定理 | Vitali convergence theorem | 实分析中指依测度收敛加一致可积性推出 \(L^1\) 收敛的定理 |
+| Vitali--Porter 收敛定理 | Vitali--Porter theorem | 复分析中指正规族背景下由具有聚点的点集上的收敛推出局部一致收敛；不得简称为上一条 |
+| Tychonoff 乘积定理 | Tychonoff product theorem | 正文须说明采用任意乘积、紧 Hausdorff 乘积或其他版本，以及相应选择原则 |
+| Euclidean 空间 | Euclidean space | 中文统一写“欧氏空间”；英文不写“Euclid 空间” |
 
 ## 风格约定
 

@@ -1,17 +1,11 @@
-\chapter{数学语言与证明基础}
+\chapter{数学语言}
 \label{chap:mathematical-language}
 
-\begin{chapterguide}
-分析学要求精确区分“任意”“存在”“从某项以后”和“对所有对象同时成立”。这些词决定了极限、连续、一致收敛、紧致性与完备性等概念的量词结构，也决定了一项估计是逐点成立还是一致成立。
+分析中的许多困难并不来自计算，而来自一句话究竟量化了哪些对象、一个集合是否已经给定，以及某个构造是否依赖代表元。以下集中约定全书使用的逻辑、集合与映射语言。集合存在公理和选择原则只在实际需要时调用，其系统说明见附录A。
 
-本章约定全书使用的逻辑与集合语言，并集中讨论量词的次序、命题的否定、像与原像、等价类、可数性和常用证明方法。集合论只讲正文立即需要的部分；公理体系及选择原理的详细说明见附录A。
-\end{chapterguide}
+\section{命题、逻辑联结词与量词}
 
-本章仍按通常方式使用实数、函数和数列，但不调用实数的完备性。凡需依赖后文结果的结论，均明确标出其位置。
-
-\section{数学命题与逻辑联结词}
-
-\subsection{命题及其真值}
+\subsection{数学命题与逻辑联结词}
 
 能够明确判断真假的陈述句称为\term{命题}。例如
 \[
@@ -63,9 +57,7 @@
 \]
 这就是命题逻辑中的 De Morgan 律。
 
-\section{全称量词、存在量词及其否定}
-
-\subsection{量词与论域}
+\subsection{全称量词、存在量词及其否定}
 
 设 \(P(x)\) 是依赖变量 \(x\) 的陈述。表达式
 \[
@@ -120,9 +112,9 @@
 \]
 前者允许 \(y\) 依赖于 \(x\)；后者要求同一个 \(y\) 大于所有实数。两者含义完全不同。
 
-极限定义含有多重且有序的量词。数列 \(a_n\) 收敛到 \(a\) 将在\chapterref{chap:sequence-limit-definition}定义为
+极限定义含有多重且有序的量词。数列 \(a_n\) 收敛到 \(a\) 将在\chapterref{chap:sequence-limits}定义为
 \[
-  \forall\varepsilon>0\ \exists N\in\mathbb N\ \forall n\ge N,
+  \forall\varepsilon>0\ \exists N\in\Npos\ \forall n\ge N,
   \quad |a_n-a|<\varepsilon.
 \]
 这里 \(N\) 可以依赖于 \(\varepsilon\)，但选定以后必须同时控制所有 \(n\ge N\)。
@@ -131,7 +123,8 @@
 “令 \(N\) 充分大”没有交代量词依赖。证明中应说明 \(N\) 在哪些量之后选取、允许依赖哪些量，以及选定后须同时控制哪些对象。
 \end{warningbox}
 
-\section{集合、集合族与工作约定}
+\section{集合、集合族与受限概括}
+
 
 \subsection{外延性、子集与受限概括}
 
@@ -209,20 +202,16 @@ x\in\left(\bigcup_{i\in I}A_i\right)^c
 
 \subsection{公理化背景及其在本书中的位置}
 
-本书在经典一阶逻辑与 Zermelo--Fraenkel 集合论加选择公理（ZFC）的通常背景下工作。本章只建立分析正文所需的工作语言，不把 ZFC 的公理系统作为第一编的前置课程。需要核查对象存在性、选择原理或编码问题时，再使用附录A所列的公理化背景。正文会区分下列三种层次：
+本书采用经典一阶逻辑和 Zermelo--Fraenkel 集合论加选择公理（ZFC）。使用这些背景，并不要求先把集合论公理逐条学完；分析中应当区分的是下列三类论据：
 \begin{enumerate}
   \item \term{逻辑推理规则}，例如排中律、反证法和量词否定；
   \item \term{集合存在公理}，例如配对、并集、幂集、无穷、分离和替代公理；
   \item \term{分析学公理或定理}，例如实数的确界性质，它不是集合论公理的简单改写，而是所构造实数系统的结构性质。
 \end{enumerate}
-实数的 Dedekind 分割构造和 Cauchy 列构造将在后文给出；这些构造说明，在固定的集合论背景中，具有所需性质的实数系统确实存在。选择公理、Zorn 引理和良序原理的等价性，以及本书哪些结论需要选择原则，统一放在附录A中说明。正文若使用了非平凡的选择原则，会在首次使用处标明。
+\chapterref{chap:dedekind-construction}和\chapterref{chap:cauchy-construction}将在这一背景中分别构造实数系；确界性质则是构造所得数系的结构定理，不是集合论公理。正文遇到集合构造时只核对当下所需的存在依据，完整公理表、选择公理与 Zorn 引理等内容留在附录A。任何非平凡的选择原则都在首次使用处注明。
 
-\medskip
-\noindent\textbf{集合论内容的安排。}
-正文只在使用集合构造时说明相应依据，以免集合论编码中断分析主线。受限概括、幂集和选择过程的使用规则在本章给出；完整公理体系集中列于附录A，非平凡的选择原则在使用处另行注明。
-\medskip
+\section{映射、像、原像与复合}
 
-\section{映射、像与原像}
 
 \subsection{有序对、笛卡儿积与映射}
 
@@ -320,12 +309,10 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 所以像一般不保持交集。
 \end{counterexample}
 
-\medskip
-\noindent\textbf{后文联系。}
-开集的原像用于定义连续性，可测集的原像用于定义可测性。原像保持任意并、任意交和补集，因此也保持由这些运算规定的集合结构。
-\medskip
+连续性将用开集的原像表述，可测性将用可测集的原像表述。两种定义都依赖同一个事实：原像保持任意并、任意交和补集。
 
 \section{关系、等价关系与商集}
+
 
 \subsection{等价关系与分割}
 
@@ -392,24 +379,27 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 \]
 \end{example}
 
-\medskip
-\noindent\textbf{后文联系。}
-\chapterref{chap:cauchy-construction}以有理 Cauchy 列的等价类构造实数；后文构造 \(L^p\) 空间时，还会把几乎处处相等的函数视为同一元素。两处都须分别验证运算、次序或范数不依赖代表元。
-\medskip
+\chapterref{chap:cauchy-construction}会把等价的有理 Cauchy 列视为同一个实数；构造 \(L^p\) 空间时，几乎处处相等的函数也将被视为同一元素。无论对象是数列还是函数，在等价类上定义运算、次序或范数，都要重新验证其结果与代表元无关。
 
-\section{有限、可数与不可数}
+\section{有限、可数无限、至多可数与不可数}
+
 
 \subsection{可数性的定义}
 
-本书约定
+本书约定自然数包含零：
 \[
-  \mathbb N=\{1,2,3,\ldots\}.
+  \mathbb N=\{0,1,2,\ldots\},\qquad
+  \Npos=\{1,2,3,\ldots\}.
 \]
 对 \(n\in\mathbb N\)，记
 \[
   [n]=\{1,2,\ldots,n\},\qquad [0]=\varnothing.
 \]
-若存在 \(n\in\mathbb N_0\) 使集合 \(X\) 与 \([n]\) 双射，则称 \(X\) 为\term{有限集}；否则称为无限集。若存在双射 \(\mathbb N\to X\)，则称 \(X\) 为\term{可数无限集}。有限集和可数无限集统称为\term{至多可数集}，不至多可数的集合称为不可数集。
+若存在 \(n\in\mathbb N\) 使集合 \(X\) 与 \([n]\) 双射，则称 \(X\) 为\term{有限集}；否则称为无限集。若存在双射 \(\mathbb N\to X\)，则称 \(X\) 为\term{可数无限集}。有限集和可数无限集统称为\term{至多可数集}，不至多可数的集合称为不可数集。
+
+\begin{notationbox}[自然数与正整数]
+本书始终取 \(0\in\N\)。需要排除零时写 \(\Npos\) 或直接写 \(n\ge1\)，尤其在 \(1/n\)、正整数分母和从第一项开始的序列中不省略这一限制。
+\end{notationbox}
 
 \begin{proposition}[至多可数的等价刻画]
 对任意集合 \(X\)，下列条件等价：
@@ -451,7 +441,7 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 \begin{proof}
 定义
 \[
-  \pi(m,n)=\frac{(m+n-2)(m+n-1)}2+m.
+  \pi(m,n)=\frac{(m+n)(m+n+1)}2+m.
 \]
 对固定的 \(m+n\)，\(\pi\) 沿一条有限对角线连续编号；不同对角线对应互不相交的连续整数段。因此 \(\pi:\mathbb N\times\mathbb N\to\mathbb N\) 为双射。这给出了“沿对角线排列”的显式形式。
 \end{proof}
@@ -471,7 +461,7 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 \]
 有限集合可以在末尾重复最后一个元素。令
 \[
-  D=\{(n,k)\in\mathbb N\times\mathbb N:A_n\ne\varnothing\}.
+  D=\{(n,k)\in\Npos\times\Npos:A_n\ne\varnothing\}.
 \]
 这里只在 \(A_n\ne\varnothing\) 时使用已给定的 \(a_{nk}\)。集合 \(D\) 是可数无限集 \(\mathbb N\times\mathbb N\) 的子集，因而至多可数；映射
 \[
@@ -492,17 +482,18 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 \[
   0,1,-1,2,-2,\ldots
 \]
-排列。每个有理数都可写成 \(p/q\)，其中 \(p\in\mathbb Z\)、\(q\in\mathbb N\)。映射
+排列。每个有理数都可写成 \(p/q\)，其中 \(p\in\mathbb Z\)、\(q\in\Npos\)。映射
 \[
-  \mathbb Z\times\mathbb N\longrightarrow\mathbb Q,\qquad
+  \mathbb Z\times\Npos\longrightarrow\mathbb Q,\qquad
   (p,q)\longmapsto\frac pq
 \]
 是满射，所以 \(\mathbb Q\) 至多可数；又因 \(\mathbb N\subseteq\mathbb Q\)，故它可数无限。由 \(\mathbb N\times\mathbb N\) 可数无限及归纳法，\(\mathbb N^d\) 对每个正整数 \(d\) 都可数无限；把 \(\mathbb Q\) 的一个枚举逐坐标作用，便得到 \(\mathbb Q^d\) 与 \(\mathbb N^d\) 的双射。因此 \(\mathbb Q^d\) 可数无限。
 \end{proof}
 
-\section{Cantor 对角线方法、幂集与不可数性}
+\section{Cantor 对角线方法与幂集}
 
-至多可数集可以列成有限表或序列。本节说明，有些集合不能由自然数编号。
+
+至多可数集可以列成有限表或序列。Cantor 的对角线论证将给出不能由自然数编号的集合。
 
 \begin{theorem}[Cantor 定理]
 对任意集合 \(X\)，不存在从 \(X\) 到其幂集 \(\mathcal P(X)\) 的满射。因此 \(X\) 与 \(\mathcal P(X)\) 不可能等势。
@@ -548,10 +539,11 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 则 \(b\) 与第 \(n\) 个序列在第 \(n\) 位不同，故不等于列表中的任何序列。
 
 \begin{remark}
-\chapterref{chap:consequences-completeness}将在实数系统建立后证明 \(\mathbb R\) 不可数。若采用小数展开证明，必须先排除 \(0.4999\ldots=0.5000\ldots\) 一类表示不唯一所造成的歧义；Cantor 定理本身没有这一技术问题。
+\chapterref{chap:real-number-system}将在实数系统建立后证明 \(\mathbb R\) 不可数。若采用小数展开证明，必须先排除 \(0.4999\ldots=0.5000\ldots\) 一类表示不唯一所造成的歧义；Cantor 定理本身没有这一技术问题。
 \end{remark}
 
 \section{直接证明、反证法、归纳法与构造法}
+
 
 \subsection{直接证明与逆否证明}
 
@@ -579,19 +571,19 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 
 设 \(P(n)\) 是关于 \(n\in\mathbb N\) 的命题。若
 \begin{enumerate}
-  \item \(P(1)\) 成立；
+  \item \(P(0)\) 成立；
   \item 对每个 \(n\in\mathbb N\)，由 \(P(n)\) 可以推出 \(P(n+1)\)，
 \end{enumerate}
 则 \(P(n)\) 对所有 \(n\in\mathbb N\) 成立。第二步是在证明条件命题，并不是循环地假设最终结论。
 
-归纳法依据自然数系统的归纳原理：若 \(S\subseteq\mathbb N\) 包含 \(1\)，并且 \(n\in S\Rightarrow n+1\in S\)，则 \(S=\mathbb N\)。在集合论构造中，自然数被定义为包含于每个归纳集的最小归纳集，由此得到上述原理。
+归纳法依据自然数系统的归纳原理：若 \(S\subseteq\mathbb N\) 包含 \(0\)，并且 \(n\in S\Rightarrow n+1\in S\)，则 \(S=\mathbb N\)。在集合论构造中，自然数被定义为包含于每个归纳集的最小归纳集，这一构造给出上述归纳原理。
 
 \begin{example}
 对每个 \(n\in\mathbb N\)，
 \[
   1+2+\cdots+n=\frac{n(n+1)}2.
 \]
-当 \(n=1\) 时成立。若对 \(n\) 成立，则
+当 \(n=0\) 时，左端为空和，按约定等于 \(0\)，公式成立。若对 \(n\) 成立，则
 \[
   1+\cdots+n+(n+1)
   =\frac{n(n+1)}2+(n+1)
@@ -613,14 +605,15 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 
 证明集合相等通常使用双包含；证明两个映射相等，除了逐点证明函数值相同，还必须确认定义域和陪域相同；证明唯一性通常设两个对象都满足要求，再推出二者相等。
 
-\section{本书的记号、约定与定理引用方式}
+\section{记号、定义域与常数约定}
+
 
 \subsection{数集、区间与空运算}
 
 本书采用
 \[
-  \mathbb N=\{1,2,3,\ldots\},\qquad
-  \mathbb N_0=\{0,1,2,\ldots\},
+  \mathbb N=\{0,1,2,\ldots\},\qquad
+  \Npos=\{1,2,3,\ldots\},
 \]
 并用 \(\mathbb Z,\mathbb Q,\mathbb R,\mathbb C\) 表示整数、有理数、实数和复数。区间采用
 \[
@@ -640,62 +633,32 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 
 “不失一般性”只能在各情形能够通过对称性、重命名或等价变换彼此转化时使用。若其余情形需要新的论证，就不能用这一短语跳过。
 
-\subsection{定理环境与交叉引用}
-
-“定义”规定术语含义；“定理”陈述结构性主要结论；“命题”和“引理”分别用于局部结论和证明工具；“推论”表示由前述结果直接导出的结论。后文引用时将区分“由定义直接得到”“由已证明定理得到”和“需要后置理论完成”，以避免循环论证。
-
-\section*{若干辨析}
-\addcontentsline{toc}{section}{若干辨析}
-
-\begin{description}[style=nextline,leftmargin=2em,labelindent=0pt]
-  \item[量词的次序] \(\forall x\exists y\) 允许 \(y\) 随 \(x\) 改变，\(\exists y\forall x\) 则要求同一个 \(y\) 对全部 \(x\) 有效。交换二者通常改变命题。
-  \item[单向蕴含与等价] 由 \(P\Rightarrow Q\) 不能推出 \(Q\Rightarrow P\)。写成“当且仅当”时，两个方向都须证明。
-  \item[像与原像] 原像保持并、交、补；像保持并，但一般不保持交与补。二者的运算规则不能互换。
-  \item[商集上的定义] 商集上的运算、距离和范数须证明与代表元无关。否则，同一个商集元素会对应多个结果。
-  \item[性质与集合的存在] 式子 \(\{x\in X:P(x)\}\) 从已有集合 \(X\) 中分离子集；没有母集限制的 \(\{x:P(x)\}\) 不能作为一般的集合存在原则。
-\end{description}
-
-\section*{本章小结}
-\addcontentsline{toc}{section}{本章小结}
-
-\begin{enumerate}
-  \item 命题的论域、量词次序及变量依赖均属于命题本身；否定全称量词得到存在量词，反之亦然。
-  \item 映射由定义域、陪域和图像集合确定。原像保持并、交、补，像在一般情形下不保持交与补。
-  \item 等价关系给出集合的分割。商集上的任何运算或度量都须验证良定义性。
-  \item 至多可数集可嵌入 \(\mathbb N\)；具有给定枚举的可数族至多可数集之并仍至多可数。
-  \item Cantor 定理说明 \(X\) 与 \(\mathcal P(X)\) 不等势。其证明从任意候选满射构造对角集合。
-  \item 正文在 ZFC 背景下使用集合。完整公理体系与选择原理见附录A。
-\end{enumerate}
-
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\noindent\textbf{配置说明：}本章建立后续各章共用的逻辑、映射、商结构和可数性语言，习题按II级核心章配置，共19道编号题，按可独立作答的要求折合约37个训练单元，建议总用时为6至8小时。标为“必做”的题目构成后续章节所需的最低训练；项目题和开放题可在完成主线后选做。详细解答收入独立的《数学分析习题解答》。
-
-\subsection*{A组　概念与基本证明}
-
-\begin{enumerate}[label=\textbf{0.\arabic*.}]
-  \exerciseitem{0.1} \mustdo 写出下列命题的否定，并把否定号推进到最内层：
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+  \exerciseitem{0.1} 写出下列命题的否定，并把否定号推进到最内层：
   \begin{enumerate}[label=(\arabic*)]
     \item \(\forall x\in\mathbb R,\ \exists n\in\mathbb N,\ n>x\)；
     \item \(\exists M>0,\ \forall n\in\mathbb N,\ |a_n|\le M\)；
     \item \(\forall\varepsilon>0,\ \exists N\in\mathbb N,\ \forall n\ge N,\ |a_n-a|<\varepsilon\)。
   \end{enumerate}
 
-  \exerciseitem{0.2} \mustdo 写出命题“若整数 \(n\) 能被 \(6\) 整除，则 \(n\) 能被 \(3\) 整除”的逆命题、否命题和逆否命题，并判断真假。
+  \exerciseitem{0.2} 写出命题“若整数 \(n\) 能被 \(6\) 整除，则 \(n\) 能被 \(3\) 整除”的逆命题、否命题和逆否命题，并判断真假。
 
-  \exerciseitem{0.3} \mustdo 用逐元素方法证明
+  \exerciseitem{0.3} 用逐元素方法证明
   \[
     A\setminus(B\cup C)=(A\setminus B)\cap(A\setminus C).
   \]
 
-  \exerciseitem{0.4} \mustdo 设 \(f:X\to Y\)，证明
+  \exerciseitem{0.4} 设 \(f:X\to Y\)，证明
   \[
     A\subseteq f^{-1}(f(A)),\qquad f(f^{-1}(B))\subseteq B,
   \]
   并分别给出等号成立的充分必要条件。
 
-  \exerciseitem{0.5} \mustdo 判断下列关系是否为等价关系：
+  \exerciseitem{0.5} 判断下列关系是否为等价关系：
   \begin{enumerate}[label=(\arabic*)]
     \item 在 \(\mathbb R\) 上，\(x\sim y\) 当且仅当 \(x-y\in\mathbb Q\)；
     \item 在 \(\mathbb R\) 上，\(x\sim y\) 当且仅当 \(x\le y\)；
@@ -706,18 +669,17 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
     再令 \(x\sim y\) 当且仅当 \(\|x\|=\|y\|\)。
   \end{enumerate}
 
-  \exerciseitem{0.6} \mustdo 证明 \(\mathbb Z\times\mathbb Z\) 可数无限。
-  \exerciseitem{0.7} \mustdo 证明有限个至多可数集的笛卡儿积仍至多可数；若每个因子都可数无限，判断乘积何时可数无限。
+  \exerciseitem{0.6} 证明 \(\mathbb Z\times\mathbb Z\) 可数无限。
+  \exerciseitem{0.7} 证明有限个至多可数集的笛卡儿积仍至多可数；若每个因子都可数无限，判断乘积何时可数无限。
 \end{enumerate}
 
-\subsection*{B组　结构性问题}
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+  \exerciseitem{0.8} 证明：\(f:X\to Y\) 为单射，当且仅当对每个 \(A\subseteq X\)，有 \(f^{-1}(f(A))=A\)；\(f\) 为满射，当且仅当对每个 \(B\subseteq Y\)，有 \(f(f^{-1}(B))=B\)。
 
-\begin{enumerate}[label=\textbf{0.\arabic*.},resume]
-  \exerciseitem{0.8} \mustdo 证明：\(f:X\to Y\) 为单射，当且仅当对每个 \(A\subseteq X\)，有 \(f^{-1}(f(A))=A\)；\(f\) 为满射，当且仅当对每个 \(B\subseteq Y\)，有 \(f(f^{-1}(B))=B\)。
+  \optionalexerciseitem{0.9} 设 \(\pi:X\to X/{\sim}\) 定义为 \(\pi(x)=[x]\)。证明 \(\pi\) 是满射，并刻画它何时为单射。
 
-  \exerciseitem{0.9} \optionaldo 设 \(\pi:X\to X/{\sim}\) 定义为 \(\pi(x)=[x]\)。证明 \(\pi\) 是满射，并刻画它何时为单射。
-
-  \exerciseitem{0.10} \mustdo 在 \(\mathbb Z\times(\mathbb Z\setminus\{0\})\) 上定义
+  \exerciseitem{0.10} 在 \(\mathbb Z\times(\mathbb Z\setminus\{0\})\) 上定义
   \[
     (p,q)\sim(r,s)\quad\Longleftrightarrow\quad ps=rq.
   \]
@@ -727,25 +689,24 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
   \]
   良定义。
 
-  \exerciseitem{0.11} \optionaldo 证明全体有限整数序列组成的集合 \(\bigcup_{n=1}^{\infty}\mathbb Z^n\) 可数无限。
+  \optionalexerciseitem{0.11} 证明全体有限整数序列组成的集合 \(\bigcup_{n=1}^{\infty}\mathbb Z^n\) 可数无限。
 
-  \exerciseitem{0.12} \mustdo 复数若为某个非零整系数多项式的根，则称为代数数。证明全体代数数可数无限。
+  \exerciseitem{0.12} 复数若为某个非零整系数多项式的根，则称为代数数。证明全体代数数可数无限。
 
-  \exerciseitem{0.13} \mustdo 证明 \(\mathcal P(\mathbb N)\) 中全体有限子集可数无限，并推出 \(\mathbb N\) 的无限子集有不可数多个。
+  \exerciseitem{0.13} 证明 \(\mathcal P(\mathbb N)\) 中全体有限子集可数无限，并推出 \(\mathbb N\) 的无限子集有不可数多个。
 \end{enumerate}
 
-\subsection*{C组　拓展与反思}
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+  \projectexerciseitem{0.14} \ 【前置：\exerciseref{0.8}；预计用时：60分钟】Cantor--Schröder--Bernstein 定理断言：若存在单射 \(X\to Y\) 和单射 \(Y\to X\)，则存在双射 \(X\to Y\)。在两个单射形成的有向图上分析各连通分支并构造双射。
 
-\begin{enumerate}[label=\textbf{0.\arabic*.},resume]
-  \exerciseitem{0.14} \projectdo\ 【前置：\exerciseref{0.8}；预计用时：60分钟】Cantor--Schröder--Bernstein 定理断言：若存在单射 \(X\to Y\) 和单射 \(Y\to X\)，则存在双射 \(X\to Y\)。在两个单射形成的有向图上分析各连通分支并构造双射。
+  \optionalexerciseitem{0.15} 证明不存在由所有集合组成的集合。提示：若存在这样的集合 \(U\)，则比较 \(U\) 与 \(\mathcal P(U)\)。
 
-  \exerciseitem{0.15} \optionaldo 证明不存在由所有集合组成的集合。提示：若存在这样的集合 \(U\)，则比较 \(U\) 与 \(\mathcal P(U)\)。
+  \openexerciseitem{0.16} 讨论“任意无限集合都含有可数无限子集”与选择原理的关系。
 
-  \exerciseitem{0.16} \opendo 讨论“任意无限集合都含有可数无限子集”与选择原理的关系。
+  \openexerciseitem{0.17} 从论域、映射的陪域、补集的母集、空交的母集四项中任选三项，分别构造一个因约定不同而真值或对象发生改变的例子。
 
-  \exerciseitem{0.17} \opendo 从论域、映射的陪域、补集的母集、空交的母集四项中任选三项，分别构造一个因约定不同而真值或对象发生改变的例子。
-
-  \exerciseitem{0.18} \mustdo 分别判断下列集合构造是否已经指定了合法的母集；若没有，应如何改写：
+  \exerciseitem{0.18} 分别判断下列集合构造是否已经指定了合法的母集；若没有，应如何改写：
   \begin{enumerate}[label=(\arabic*)]
     \item \(\{x\in\mathbb R:x^2<2\}\)；
     \item \(\{x:x=x\}\)；
@@ -753,7 +714,7 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
   \end{enumerate}
   再令 \(R_X=\{x\in X:x\notin x\}\)，证明 \(R_X\notin X\)，并说明这为何排除了全集的存在。
 
-  \exerciseitem{0.19} \optionaldo 从 Kuratowski 定义
+  \optionalexerciseitem{0.19} 从 Kuratowski 定义
   \[
     (x,y)=\bigl\{\{x\},\{x,y\}\bigr\}
   \]
@@ -761,7 +722,6 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 \end{enumerate}
 
 \section*{部分习题提示}
-
 \begin{itemize}
   \item \exerciseref{0.4}：先分别求出两个复合集合。对给定的 \(A\subseteq X\)，第一个等号成立当且仅当 \(A\) 是若干纤维的并；若要求它对所有 \(A\) 成立，才等价于单射。对给定的 \(B\subseteq Y\)，第二个等号成立当且仅当 \(B\subseteq f(X)\)；若要求它对所有 \(B\) 成立，才等价于满射。
   \item \exerciseref{0.10}：检查代表元变化后交叉乘积是否仍相等。

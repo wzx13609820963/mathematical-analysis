@@ -1,0 +1,517 @@
+\chapter{数列极限：习题解答}
+
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
+
+\begin{solution}{7.1}
+四个命题依次为
+\[
+\begin{aligned}
+a_n\to a
+&\Longleftrightarrow
+\forall\varepsilon>0\ \exists N\ \forall n\ge N,
+ \abs{a_n-a}<\varepsilon,\\
+a_n\not\to a
+&\Longleftrightarrow
+\exists\varepsilon_0>0\ \forall N\ \exists n\ge N,
+ \abs{a_n-a}\ge\varepsilon_0,\\
+a_n\to+\infty
+&\Longleftrightarrow
+\forall M\in\R\ \exists N\ \forall n\ge N,
+ a_n>M,\\
+a_n\not\to+\infty
+&\Longleftrightarrow
+\exists M_0\in\R\ \forall N\ \exists n\ge N,
+ a_n\le M_0.
+\end{aligned}
+\]
+所有 \(N,n\) 均取自 \(N\)。
+\end{solution}
+
+\begin{solution}{7.2}
+若严格不等式版本成立，给定 \(\varepsilon>0\)，对 \(\varepsilon/2\) 取 \(N\)，便有
+\(\abs{a_n-a}<\varepsilon/2\le\varepsilon\)。反之，若非严格版本成立，对 \(\varepsilon/2\) 取 \(N\)，则
+\(\abs{a_n-a}\le\varepsilon/2<\varepsilon\)。两种定义等价。
+\end{solution}
+
+\begin{solution}{7.3}
+若 \(a_n\to a\)，结论直接来自定义。反之，给定 \(\varepsilon>0\)，由 Archimedes 性质取 \(k\) 使 \(2^{-k}<\varepsilon\)。按假设存在 \(N_k\)，使 \(n\ge N_k\) 时
+\[
+ \abs{a_n-a}<2^{-k}<\varepsilon.
+\]
+故满足完整定义。
+\end{solution}
+
+\begin{solution}{7.4}
+固定任意 \(n\ge N\)。若 \(a_n\ne a\)，令
+\(\varepsilon=\abs{a_n-a}/2>0\)。假设却给出
+\(\abs{a_n-a}<\varepsilon=\abs{a_n-a}/2\)，矛盾。因此每个 \(n\ge N\) 都有 \(a_n=a\)。
+\end{solution}
+
+\begin{solution}{7.5}
+不能。取
+\[
+ a_n=\begin{cases}0,&n\text{ 为偶数},\\1,&n\text{ 为奇数}.
+ \end{cases}
+\]
+点 \(0\) 的每个邻域都含无穷多个偶数项，但取半径 \(1/2\) 时，任何尾部仍含值为 \(1\) 的奇数项，所以没有完整尾部包含在该邻域中，数列不收敛到 \(0\)。
+\end{solution}
+
+\begin{solution}{7.6}
+若 \(P\) 从 \(N_1\) 起成立、\(\Q\) 从 \(N_2\) 起成立，则从
+\(N=\max\{N_1,N_2\}\) 起二者同时成立。
+
+对每个 \(k\in\N\)，令 \(P_k(n)\) 为命题 \(n\ne k\)。它从第 \(k+1\) 项起成立；但不存在 \(N\) 使所有 \(P_k(n)\) 对每个 \(k\) 和每个 \(n\ge N\) 同时成立，因为取 \(k=n=N\) 即失败。
+\end{solution}
+
+\begin{solution}{8.1}
+有
+\[
+ \abs{\frac{5n-2}{3n+7}-\frac53}
+ =\frac{41}{3(3n+7)}<\frac{41}{9n}.
+\]
+给定 \(\varepsilon>0\)，取整数 \(N>41/(9\varepsilon)\)。对 \(n\ge N\)，误差小于 \(\varepsilon\)，故极限为 \(5/3\)。
+\end{solution}
+
+\begin{solution}{8.2}
+\[
+ \abs{\frac{n^2+1}{n^2+n}-1}
+ =\frac{n-1}{n^2+n}\le\frac1n.
+\]
+取 \(N>1/\varepsilon\)，则 \(n\ge N\) 时误差小于 \(\varepsilon\)。
+\end{solution}
+
+\begin{solution}{8.3}
+令 \(t=3/n\)。有
+\[
+ \sqrt{n^2+3n}-n=\frac3{\sqrt{1+t}+1}.
+\]
+因而
+\[
+\begin{aligned}
+\abs{\frac3{\sqrt{1+t}+1}-\frac32}
+&=\frac{3(\sqrt{1+t}-1)}{2(\sqrt{1+t}+1)}\\
+&=\frac{3t}{2(\sqrt{1+t}+1)^2}
+\le\frac{3t}{8}=\frac9{8n}.
+\end{aligned}
+\]
+取 \(N>9/(8\varepsilon)\) 即可。
+\end{solution}
+
+\begin{solution}{8.4}
+设次数均为 \(d\)，
+\[
+ p(n)=a_dn^d+\cdots+a_0,\qquad
+ q(n)=b_dn^d+\cdots+b_0,\quad b_d\ne0.
+\]
+除以 \(n^d\)，记
+\(u_n=\sum_{j<d}a_jn^{j-d}\)、
+\(v_n=\sum_{j<d}b_jn^{j-d}\)。有限和估计给出 \(u_n,v_n\to0\)。最终
+\(\abs{b_d+v_n}\ge\abs{b_d}/2\)，且
+\[
+ \frac{p(n)}{q(n)}-\frac{a_d}{b_d}
+ =\frac{b_du_n-a_dv_n}{b_d(b_d+v_n)}.
+\]
+分子绝对值趋零，分母最终有固定正下界，故差趋零。每个 \(n^{j-d}\) 的误差可由 \(1/n\) 控制，从而整个证明可写成显式 \(C/n\) 估计。
+\end{solution}
+
+\begin{solution}{8.5}
+\[
+ \abs{\frac{u_n}{n^\alpha}}\le\frac M{n^\alpha}.
+\]
+给定 \(\varepsilon>0\)，若 \(M=0\) 取 \(N=1\)；若 \(M>0\)，取
+\[
+ N>\left(\frac M\varepsilon\right)^{1/\alpha}.
+\]
+此 \(N\) 依赖 \(M,\alpha,\varepsilon\)，不依赖 \(n\)。
+\end{solution}
+
+\begin{solution}{8.6}
+取 \(m\in\N\) 使 \(1/q>1+1/m\)。由 Bernoulli 不等式，
+\[
+ q^{-n}>\left(1+\frac1m\right)^n\ge1+\frac nm.
+\]
+故
+\[
+ 0<q^n\le\frac{m}{m+n}<\frac mn.
+\]
+右端趋于零，所以 \(q^n\to0\)。该证明没有使用无穷级数。
+\end{solution}
+
+\begin{solution}{9.1}
+若 \(a\ne b\)，取 \(r=\abs{a-b}/3\)。邻域 \(U_r(a)\) 与 \(U_r(b)\) 不交，否则某个 \(x\) 同属二者将给出
+\(\abs{a-b}\le\abs{a-x}+\abs{x-b}<2r\)。若数列同时收敛到 \(a,b\)，两个邻域都包含完整尾部；取两起点最大值便得到同一项同时属于两个不交邻域，矛盾。
+\end{solution}
+
+\begin{solution}{9.2}
+若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N\) 控制原列。严格递增指标列满足 \(n_k\ge k\)，所以 \(k\ge N\) 时 \(n_k\ge N\)，从而 \(\abs{a_{n_k}-a}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{9.3}
+由收敛列有界性，存在 \(M\) 使 \(\abs{a_n}\le M\) 对所有 \(n\) 成立。因此
+\(A=\{\abs{a_n}:n\in\N\}\) 非空且有上界。实数的确界公理保证 \(\sup A\in\R\) 存在且不大于 \(M\)。若只需某个有限界，不需确界公理；取得最小上界才使用完备性。
+\end{solution}
+
+\begin{solution}{9.4}
+取 \(a_n=(-1)^n\)。它满足 \(\abs{a_n}\le1\)。偶数子列恒为 \(1\)，奇数子列恒为 \(-1\)，两条子列极限不同；若原列收敛，所有子列应收敛到同一极限，矛盾。
+\end{solution}
+
+\begin{solution}{9.5}
+取 \(\varepsilon=a/2\)，最终 \(\abs{a_n-a}<a/2\)，从而 \(a_n>a/2\)。可令 \(\delta=a/2\)。若 \(a=0\)，数列 \((-1)^n/n\to0\) 却无限次为正和为负，不存在最终正下界。
+\end{solution}
+
+\begin{solution}{9.6}
+若 \(a<0\)，取 \(\varepsilon=-a/2\)。最终 \(a_n<a+\varepsilon=a/2<0\)，与最终 \(a_n\ge0\) 矛盾。因此 \(a\ge0\)。
+\end{solution}
+
+\begin{solution}{9.7}
+取 \(a_n=0\)、\(b_n=1/n\)，则每项严格不等而两极限都为 \(0\)。若存在 \(\delta>0\)，使
+\(b_n-a_n\ge\delta\) 最终成立，则取极限得到 \(b-a\ge\delta\)，故 \(a<b\)。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{7.7}
+计算得
+\[
+ \abs{\frac{3n-1}{2n+5}-\frac32}
+ =\frac{17}{2(2n+5)}<\frac{17}{4n}.
+\]
+给定 \(\varepsilon>0\)，取整数 \(N>17/(4\varepsilon)\)。则 \(n\ge N\) 时右端小于 \(\varepsilon\)，故极限为 \(3/2\)。
+\end{solution}
+
+\begin{solution}{7.8}
+给定 \(\varepsilon>0\)，取整数 \(N>\varepsilon^{-2}\)。若 \(n\ge N\)，则
+\[
+ 0<\frac1{\sqrt n}\le\frac1{\sqrt N}<\varepsilon.
+\]
+可取 \(N=\lfloor\varepsilon^{-2}\rfloor+1\)。
+\end{solution}
+
+\begin{solution}{7.9}
+给定 \(\varepsilon>0\)，取
+\[
+ N>\left(\frac C\varepsilon\right)^{1/p}.
+\]
+则 \(n\ge N\) 时
+\[
+ \abs{a_n-a}\le\frac C{n^p}
+ \le\frac C{N^p}<\varepsilon.
+\]
+因此 \(a_n\to a\)。指标量级为 \(N(\varepsilon)=O(\varepsilon^{-1/p})\)，常数依赖于 \(C,p\)。
+\end{solution}
+
+\begin{solution}{7.10}
+设两列从 \(N_0\) 起相同。有限极限的证明取原列误差起点 \(N_1\)，再令
+\[
+ N=\max\{N_0,N_1\}.
+\]
+若原列趋于 \(+\infty\)，对任意 \(M\) 取越过 \(M\) 的起点 \(N_1\)，同样取最大值；\(-\infty\) 对称。反向交换两列即可。
+\end{solution}
+
+\begin{solution}{7.11}
+任取候选 \(a\in\R\)。若 \(a\ge0\)，对每个 \(N\) 可取奇数 \(n\ge N\)，此时
+\(\abs{(-1)^n-a}=1+a\ge1\)。若 \(a<0\)，取偶数 \(n\ge N\)，则
+\(\abs{1-a}>1\)。因此统一的 \(\varepsilon_0=1\) 满足不收敛到 \(a\) 的否定式。候选 \(a\) 任意，故数列发散。
+\end{solution}
+
+\begin{solution}{7.12}
+给定 \(M\)，取 \(N>M+1\)。若 \(n\ge N\)，则
+\[
+ n+(-1)^n\ge n-1\ge N-1>M,
+\]
+故趋于 \(+\infty\)。对 \((-1)^nn\)，每个尾部含负的奇数项和正的偶数项；取 \(M=0\) 即否定趋于 \(+\infty\)，同样否定趋于 \(-\infty\)。它也不可能有有限极限，因为它无界。
+\end{solution}
+
+\begin{solution}{7.13}
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时
+\(\abs{a_n-a}<\varepsilon\)。严格递增正整数列满足 \(n_k\ge k\)。因此 \(k\ge N\) 时 \(n_k\ge N\)，从而
+\(\abs{a_{n_k}-a}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{7.14}
+枚举 \(\Q=\{q_1,q_2,\ldots\}\)，依次连接有限块
+\[
+ q_1;\quad q_1,q_2;\quad q_1,q_2,q_3;\quad\cdots.
+\]
+所得数列中每个 \(q_j\) 在所有长度至少为 \(j\) 的块中出现，故出现无穷多次。它含恒等于 \(0\) 的子列和恒等于 \(1\) 的子列，所以没有有限极限；同时含无穷多个 \(0\)，否定趋于 \(+\infty\) 和 \(-\infty\)。
+\end{solution}
+
+\begin{solution}{8.7}
+对 \(abs t\le A\)，
+\[
+ \abs{\frac{t}{n+t^2}}\le\frac A n.
+\]
+给定 \(\varepsilon>0\)，取 \(N>A/\varepsilon\)，则同一个 \(N\) 对所有 \(t\in[-A,A]\) 有效。若 \(A=0\)，任取 \(N\) 即可。
+\end{solution}
+
+\begin{solution}{8.8}
+固定 \(t<1\) 时，若 \(t=0\) 结论直接成立；若 \(0<t<1\)，由\exerciseref{8.6}有 \(t^n\to0\)。若存在对整个 \([0,1)\) 统一的 \(N\)，取 \(\varepsilon=1/2\)。对该 \(N\)，选 \(t\in(2^{-1/N},1)\)，则 \(t^N>1/2\)，与统一估计矛盾。
+\end{solution}
+
+\begin{solution}{8.9}
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时 \(b_n<\varepsilon\)。由
+\(0\le a_n\le b_n\)，有
+\(\abs{a_n}=a_n<\varepsilon\)，故 \(a_n\to0\)。
+\end{solution}
+
+\begin{solution}{8.10}
+由正文“几何衰减快于多项式增长”结论，\(n^2q^n\to0\)。又
+\[
+ \abs{a_nq^n}\le n^2q^n,
+\]
+所以夹逼定理给出 \(a_nq^n\to0\)。
+\end{solution}
+
+\begin{solution}{8.11}
+当前可以直接得到
+\[
+ \frac12=\frac n{2n}
+ \le\sum_{k=n+1}^{2n}\frac1k
+ \le\frac n{n+1}<1.
+\]
+还可以把各项写成
+\[
+ \frac1n\frac1{1+k/n},\qquad k=1,\ldots,n,
+\]
+看出它是函数 \(1/(1+x)\) 的一种 Riemann 和。要严格识别极限为
+\(int_0^1(1+x)^{-1}\,dx=\log2\)，需要定积分理论和对数函数的严格建立，当前章节尚未给出。因此本题只能先记录界与后续证明位置，不能循环引用积分结论。
+\end{solution}
+
+\begin{solution}{8.12}
+原论证先固定 \(N\) 再让 \(\varepsilon\) 依赖 \(N\)，量词顺序相反；而且 \(n>N\) 只得到 \(1/n<1/N\)，并没有处理预先给定的误差。正确证明为：给定 \(\varepsilon>0\)，取整数 \(N>1/\varepsilon\)。若 \(n\ge N\)，则
+\(1/n\le1/N<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{8.13}
+取 \(T=(0,\infty)\)，令
+\[
+ a_n(t)=\frac tn,\qquad a(t)=0,\qquad C(t)=t.
+\]
+对每个固定 \(t\)，有 \(\abs{a_n(t)}\le C(t)/n\to0\)。但对任意固定 \(n\)，令 \(t=n\)，就有 \(a_n(t)=1\)。所以在误差 \(1/2\) 下不存在统一 \(N\)。失败来自 \(C(t)\) 在参数集上无统一上界。
+\end{solution}
+
+\begin{solution}{9.8}
+给定 \(\varepsilon>0\)，分别使
+\(\abs{a_n-a}<\varepsilon/2\)、
+\(\abs{b_n-b}<\varepsilon/2\)。在共同尾部，
+\[
+ \abs{(a_n-b_n)-(a-b)}
+ \le\abs{a_n-a}+\abs{b_n-b}<\varepsilon.
+\]
+\end{solution}
+
+\begin{solution}{9.9}
+收敛性给出最终 \(\abs{a_n-a}<1\)、\(\abs{b_n-b}<1\)。再把两个误差分别取得足够小，使
+\[
+ \abs{a_n-a}\abs{b_n-b}<\varepsilon/3,\quad
+ \abs a\abs{b_n-b}<\varepsilon/3,\quad
+ \abs b\abs{a_n-a}<\varepsilon/3.
+\]
+由题给分解和三角不等式，乘积误差小于 \(\varepsilon\)。当 \(a\) 或 \(b\) 为零时，相应项直接消失。
+\end{solution}
+
+\begin{solution}{9.10}
+由 \(a_n\to a\ne0\)，最终
+\(\abs{a_n-a}<\abs a/2\)，故
+\(\abs{a_n}\ge\abs a/2>0\)。于是倒数最终有定义，且
+\[
+ \abs{\frac1{a_n}-\frac1a}
+ \le\frac{2}{\abs a^2}\abs{a_n-a}\to0.
+\]
+\end{solution}
+
+\begin{solution}{9.11}
+给定 \(L\in\R\)，取 \(a_n=L/n,b_n=1/n\)，商恒为 \(L\)。取
+\(a_n=1/\sqrt n,b_n=1/n\)，商为 \(\sqrt n\to+\infty\)。取
+\(a_n=(-1)^n/n,b_n=1/n\)，商为 \((-1)^n\) 并发散。
+\end{solution}
+
+\begin{solution}{9.12}
+若 \(\abs{b_n}\le M\)，则
+\(\abs{a_nb_n}\le M\abs{a_n}\to0\)。无界例子为
+\[
+ \frac1n\sqrt n\to0,\qquad
+ \frac1n n=1,\qquad
+ \frac1n((-1)^nn)=(-1)^n.
+\]
+\end{solution}
+
+\begin{solution}{9.13}
+对 \(k\) 归纳。\(k=1\) 直接成立。若 \(a_n^k\to a^k\)，乘积极限定理给出
+\[
+ a_n^{k+1}=a_n^ka_n\longrightarrow a^ka=a^{k+1}.
+\]
+这里 \(k\) 固定，归纳步数不随 \(n\) 变化。
+\end{solution}
+
+\begin{solution}{9.14}
+若 \(a>0\)，则
+\[
+ \abs{\sqrt{a_n}-\sqrt a}
+ =\frac{\abs{a_n-a}}{\sqrt{a_n}+\sqrt a}
+ \le\frac{\abs{a_n-a}}{\sqrt a}\to0.
+\]
+若 \(a=0\)，给定 \(\varepsilon>0\)，最终 \(0\le a_n<\varepsilon^2\)，故
+\(0\le\sqrt{a_n}<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{9.15}
+使用
+\[
+ \max\{x,y\}=\frac{x+y+\abs{x-y}}2,\qquad
+ \min\{x,y\}=\frac{x+y-\abs{x-y}}2,
+\]
+再依次应用和、差、绝对值及常数倍的极限定理。
+\end{solution}
+
+\begin{solution}{9.16}
+给定 \(\varepsilon>0\)，取共同起点使比较成立且
+\(a_n>L-\varepsilon\)、\(c_n<L+\varepsilon\)。于是
+\[
+ L-\varepsilon<a_n\le b_n\le c_n<L+\varepsilon,
+\]
+故 \(b_n\to L\)。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{7.15}
+若对每个 \(\varepsilon>0\)，坏指标集
+\(B_\varepsilon=\{n:\abs{a_n-a}\ge\varepsilon\}\) 有限，则当它非空时取
+\(N=1+\max B_\varepsilon\)，空时取 \(N=1\)。于是 \(n\ge N\) 都不是坏指标，故收敛。
+
+反之，若 \(a_n\to a\)，由定义存在 \(N\) 使坏指标只能位于
+\(\{1,\ldots,N-1\}\)，所以它有限。
+\end{solution}
+
+\begin{solution}{7.16}
+取 \(a_n=0\)，并令 \(b_n=1/n\)。两列在每个指标处不同，但都收敛到 \(0\)。再取 \(c_n=0\)，令
+\[
+ d_n=\begin{cases}1,&n\text{ 为偶数},\\0,&n\text{ 为奇数}.
+ \end{cases}
+\]
+两列在无穷多个偶数指标处不同，\(c_n\) 收敛而 \(d_n\) 由奇偶子列极限不同而发散。
+\end{solution}
+
+\begin{solution}{7.17}
+若 \(E\) 有限，则从某项起 \(\chi_E(n)=0\)，故极限为 \(0\)。若 \(N\setminus E\) 有限，则最终恒为 \(1\)，故极限为 \(1\)。
+
+反之，若 \(\chi_E(n)\to L\)，取 \(\varepsilon=1/3\)。尾部所有项都在
+\((L-1/3,L+1/3)\) 中。该区间不可能同时含 \(0,1\)，所以尾部示性值恒为 \(0\) 或恒为 \(1\)。前者说明 \(E\) 有限，后者说明补集有限；相应极限分别为 \(0,1\)。
+\end{solution}
+
+\begin{solution}{7.18}
+给定 \(M\)，由 \(a_n\to+\infty\) 取 \(N\) 使 \(n\ge N\) 时
+\(a_n>M-c\)。于是 \(a_n+c>M\)。若最终 \(b_n\ge a_n\)，再把该比较成立的起点并入最大值，便有最终 \(b_n>M\)。
+\end{solution}
+
+\begin{solution}{7.19}
+设单调递增列有子列 \(a_{n_k}\to L\)。固定 \(n\)，选 \(k\) 使 \(n_k\ge n\)，则 \(a_n\le a_{n_k}\)。由极限的序保持（也可直接反证）得 \(a_n\le L\)，故原列以上界 \(L\) 控制。对 \(\varepsilon>0\)，取 \(k\) 使 \(L-\varepsilon<a_{n_k}\le L\)。单调性给出 \(n\ge n_k\) 时
+\(L-\varepsilon<a_n\le L\)，所以 \(a_n\to L\)。递减情形对称。
+\end{solution}
+
+\begin{solution}{7.20}
+“最终成立”把只相差有限个指标的命题视为同一尾部信息。因此有限项修改不会影响任何只由尾部量化的极限断言。它仍不能替代误差估计，因为极限同时要求对每个 \(\varepsilon\) 建立一个尾部，而不同误差的起点通常不同；还必须证明这些起点确实存在，并保持量词次序。
+\end{solution}
+
+\begin{solution}{8.14}
+因 \(n+\sin n\ge n-1\)，给定 \(M\) 取 \(N>M+1\)，则 \(n\ge N\) 时
+\(n+\sin n>M\)，故趋于 \(+\infty\)。它因此无界，而收敛实数列必有界，所以没有有限极限。
+\end{solution}
+
+\begin{solution}{8.15}
+当 \(n=4k\) 时 \(\sin(n\pi/2)=0\)；当 \(n=4k+1\) 时其值为 \(1\)。两条常值子列的极限不同，因此原列发散。
+\end{solution}
+
+\begin{solution}{8.16}
+把下列有限块依次连接：第 \(k\) 个块先从 \(-1\) 以步长 \(1/k\) 上升到 \(1\)，再以步长 \(1/k\) 下降到 \(-1\)。所得数列始终位于 \([-1,1]\)，且第 \(k\) 个块内相邻差为 \(1/k\)，块的连接点差为 \(0\)，故相邻差趋于零。每个块都含 \(1\) 和 \(-1\)，所以存在分别恒取这两个值的子列，原列发散。
+\end{solution}
+
+\begin{solution}{8.17}
+先设 \(p=m\in\N\)。选 \(r\) 使 \(q<r<1\)，令 \(c=r/q-1>0\)。二项式定理给出
+\[
+ \left(\frac rq\right)^n=(1+c)^n
+ \ge\binom n{m+1}c^{m+1}.
+\]
+对 \(n\ge2(m+1)\)，组合数不小于常数 \(C_0n^{m+1}\)，故
+\[
+ n^mq^n\le C_1\frac{r^n}{n}\le\frac{C_1}{n}\to0.
+\]
+若 \(p>0\) 非整数，取整数 \(m\ge p\)。对 \(n\ge1\)，\(n^p\le n^m\)，由夹逼得结论。
+\end{solution}
+
+\begin{solution}{8.18}
+设从 \(N_0\) 起 \(a_{n+1}\le qa_n\)。归纳得到
+\[
+ 0\le a_n\le a_{N_0}q^{n-N_0}\qquad(n\ge N_0).
+\]
+右端为常数乘几何数列并趋于零，故 \(a_n\to0\)。这同时给出几何误差界。
+\end{solution}
+
+\begin{solution}{8.19}
+给定 \(\varepsilon>0\)，分别取 \(N_1,N_2\) 使
+\(r_n<\varepsilon/2\)、\(s_n<\varepsilon/2\) 在相应尾部成立。若再把原估计成立的起点取入最大值，则
+\[
+ \abs{a_n-a}\le r_n+s_n<\varepsilon.
+\]
+\(\varepsilon/2\) 把总误差预算分配给两个独立来源；任意正分配 \(\theta\varepsilon+(1-\theta)\varepsilon\) 也可。
+\end{solution}
+
+\begin{solution}{8.20}
+定性收敛只要求对每个误差找到某个有限起点，较粗上界往往能更清楚地显示参数依赖和证明结构。若研究算法成本、收敛阶或达到给定精度的计算量，最优或近优的 \(N(\varepsilon)\) 才具有直接意义。选择标准由问题目标决定，但两种情形都必须保证估计方向正确、常数依赖明确。
+\end{solution}
+
+\begin{solution}{9.17}
+\begin{enumerate}[label=(\arabic*)]
+ \item 真，因为 \(\abs{a_n-0}=\abs{a_n}\to0\)。
+ \item 假，取 \(a_n=(-1)^n\)。
+ \item 假。固定 \(a=1\)，仍取 \(a_n=(-1)^n\)，则 \(a_n^2=a^2=1\)，但 \(a_n\not\to1\)。若再假定 \(a_n,a\ge0\)，平方根极限定理可以恢复结论。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{9.18}
+能推出。把所有满足 \(a_n\le b_n\) 的指标排成严格递增列 \(n_k\)。由原列收敛，
+\(a_{n_k}\to a\)、\(b_{n_k}\to b\)。对子列应用序关系的闭性，得到 \(a\le b\)。
+\end{solution}
+
+\begin{solution}{9.19}
+对表达式的构造层数归纳。变量层极限已知；和、差、积、常数倍由代数极限定理通过；绝对值、最大值、最小值由相应定理通过；商节点在分母极限非零时通过。表达式树有限，归纳在有限步后结束。
+\end{solution}
+
+\begin{solution}{9.20}
+按自然解释 \(p_{2k}=a_k,p_{2k-1}=b_k\)。若 \(p_n\to L\)，两条奇偶子列给出 \(a_k,b_k\to L\)。反之，若两列同趋于 \(L\)，对给定误差取两起点最大值，则交错列从相应位置起的奇偶项都在误差区间中。因此充要条件是两列收敛到同一极限。
+\end{solution}
+
+\begin{solution}{9.21}
+取 \(\varepsilon=\abs a/2\)，最终 \(a_n\) 与 \(a\) 同号，故符号函数值相等。在 \(0\) 处，\(a_n=(-1)^n/n\to0\)，但
+\(\operatorname{sgn}(a_n)=(-1)^n\) 发散。
+\end{solution}
+
+\begin{solution}{9.22}
+由
+\[
+ a_n-b_n=b_n\left(\frac{a_n}{b_n}-1\right),
+\]
+若 \((b_n)\) 有界，则有界列乘零列给出差趋零。无此条件取
+\(a_n=n+1,b_n=n\)，则 \(a_n/b_n\to1\)，但 \(a_n-b_n=1\)。
+\end{solution}
+
+\begin{solution}{9.23}
+本章逐项证明的内容正是后文“连续映射保持数列极限”的具体原型。若现在直接引用连续性定理，就会使用尚未建立且证明依赖本章结果的结论，形成循环。当前证明还明确显示了分母极限非零等条件的作用。
+\end{solution}
+
+\begin{solution}{9.24}
+设 \(x_n=(x_n^{(1)},\ldots,x_n^{(d)})\)、\(x=(x^{(1)},\ldots,x^{(d)})\)，并令
+\(\norm{y}_\infty=\max_j\abs{y^{(j)}}\)。若
+\(\norm{x_n-x}_\infty\to0\)，每个分量误差不超过该范数，故逐分量收敛。
+
+反之，若每个分量收敛，对给定 \(\varepsilon\) 分别取起点 \(N_j\)，再令
+\[
+ N=\max_{1\le j\le d}N_j.
+\]
+此后所有分量误差同时小于 \(\varepsilon\)，故最大范数误差小于 \(\varepsilon\)。若使用欧氏范数，可把每个分量误差预算为 \(\varepsilon/\sqrt d\)。
+\end{solution}
+

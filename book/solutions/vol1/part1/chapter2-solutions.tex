@@ -1,224 +1,199 @@
-\chapter{有序域与实数的完备性公理：习题解答}
+\chapter{Dedekind 分割：习题解答}
 
-\begin{chapterguide}
-本章解答以确界公理为唯一完备性假设，不预先使用\chapterref{chap:consequences-completeness}的 Archimedes 性质。
-\end{chapterguide}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
-\section*{A组　结构与不等式}
-\addcontentsline{toc}{section}{A组　结构与不等式}
-
-\begin{solution}{2.1}
-由 \(0x=(0+0)x=0x+0x\) 消去 \(0x\)，得 \(0x=0\)。又
-\[
- x+(-1)x=(1-1)x=0,
-\]
-所以逆元唯一性给出 \((-1)x=-x\)。进而
-\[
- (-x)(-y)=((-1)x)((-1)y)=(-1)^2xy=xy.
-\]
-\end{solution}
-
-\begin{solution}{2.2}
-由平移相容性，\(x<y\) 两边加 \(-x\) 等价于 \(0<y-x\)。若 \(x<y\) 且 \(u<v\)，则
-\[
- x+u<y+u<y+v.
-\]
-若 \(c<0\)，则 \(-c>0\)。由 \(x<y\) 乘 \(-c\) 后再取相反数，得到 \(cx>cy\)。
-\end{solution}
-
-\begin{solution}{2.3}
-若 \(x\ge0\)，则 \(x^2\ge0\)；若 \(x<0\)，则 \(-x>0\) 且 \(x^2=(-x)^2>0\)。若 \(x=0\)，平方为零；若 \(x\ne0\)，上述讨论给出 \(x^2>0\)，故逆向也成立。
-\end{solution}
-
-\begin{solution}{2.4}
-\(|x-a|<r\) 等价于 \(-r<x-a<r\)，两端加 \(a\) 即得第一式。反向步骤可逆。把严格不等号改为非严格不等号，同样得到第二式。
-\end{solution}
-
-\begin{solution}{2.5}
-由 \(x=(x-y)+y\) 得 \(|x|-|y|\le|x-y|\)。交换 \(x,y\) 后有 \(|y|-|x|\le|x-y|\)，合并即
-\[
- \bigl||x|-|y|\bigr|\le|x-y|.
-\]
-当 \(x,y\) 同号或至少一个为零时取等。
-\end{solution}
-
-\begin{solution}{2.6}
-若 \(\C\) 能成为有序域，则 \(1>0\)，故 \(-1<0\)，同时每个平方非负。但 \(i^2=-1<0\)，矛盾。
-\end{solution}
-
-\section*{B组　界与确界}
-\addcontentsline{toc}{section}{B组　界与确界}
-
-\begin{solution}{2.7}
+\begin{solution}{4.1}
 \begin{enumerate}[label=(\arabic*)]
- \item \((0,1)\) 的上界全体为 \([1,\infty)\)，下界全体为 \((-\infty,0]\)，上、下确界为 \(1,0\)，没有最大元和最小元。
- \item \([0,1)\) 的上下界全体和上下确界同上；最小元为 \(0\)，没有最大元。
- \item 记 \(s=\sqrt2\)。非负数平方保持次序，故集合等于 \([0,s)\)。上界全体为 \([s,\infty)\)，下界全体为 \((-\infty,0]\)，上下确界为 \(s,0\)，最小元为 \(0\)，没有最大元。
+ \item \(\{q:q\le0\}\) 非空、非全体且向下封闭，但有最大元 \(0\)，不是分割。
+ \item \(\{q:q<0\}=0^*\) 满足三条件，是分割。
+ \item \(\Q\) 违反“真子集”条件，不是分割。
+ \item 这是\chapterref{chap:real-number-system}的 \(L\)。正文已证它非空、非全体、向下封闭且无最大元，故为分割。
 \end{enumerate}
 \end{solution}
 
-\begin{solution}{2.8}
-若 \(s,t\) 都是上确界，则 \(s\le t\) 且 \(t\le s\)，故 \(s=t\)。
+\begin{solution}{4.2}
+右部 \(R=\Q\setminus\alpha\) 非空，因为 \(\alpha\ne\Q\)。若 \(r\in R\) 且 \(s>r\)，若 \(s\in\alpha\)，向下封闭将给出 \(r\in\alpha\)，矛盾，故 \(s\in R\)。
 
-\(m=\inf A\) 的近似刻画为：\(m\le a\) 对所有 \(a\in A\) 成立；对每个 \(\varepsilon>0\)，存在 \(a_\varepsilon\in A\) 使
+\(R\) 有最小元 \(c\) 当且仅当 \(\alpha=c^*\)。若 \(c=\min R\)，则每个 \(q<c\) 不在 \(R\)，故在 \(\alpha\)；每个 \(q\ge c\) 在 \(R\)，故 \(\alpha=\{q:q<c\}\)。反向结论直接成立。无最大元条件并不排除右部有最小元。
+\end{solution}
+
+\begin{solution}{4.3}
+若 \(\alpha\nsubseteq\beta\)，取 \(a\in\alpha\setminus\beta\)。任意 \(b\in\beta\) 必有 \(b<a\)：\(a<b\) 会由向下封闭推出 \(a\in\beta\)，而 \(a=b\) 也不可能。因此 \(b\in\alpha\)，即 \(\beta\subseteq\alpha\)。可比较性主要使用向下封闭；无最大元用于保证分割统一表示边界，但不是本项全序证明的必要条件。
+\end{solution}
+
+\begin{solution}{4.4}
+若 \(r<s\)，则每个 \(q<r\) 也满足 \(q<s\)，故 \(r^*\subseteq s^*\)；取 \(q\in(r,s)\cap\Q\)，有 \(q\in s^*\setminus r^*\)，所以包含严格。反之，若 \(r^*\subsetneq s^*\)，全序排除 \(s\le r\)，故 \(r<s\)。于是不同有理数像不同，映射为单射。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{4.5}
+取 \(a\in\alpha,b\in\beta\)，则 \(a+b\) 证明非空。取 \(u\notin\alpha,v\notin\beta\)，所有 \(a<u,b<v\)，故 \(u+v\) 不在和中，证明非全体。若 \(x=a+b\) 且 \(y<x\)，令 \(a'=a+y-x<a\)，则 \(a'\in\alpha\) 且 \(y=a'+b\)，证明向下封闭。最后取 \(a'>a\) 且 \(a'\in\alpha\)，便有 \(a'+b>a+b\)，所以无最大元。
+\end{solution}
+
+\begin{solution}{4.6}
+按定义，
 \[
- m\le a_\varepsilon<m+\varepsilon.
+ q\in-r^*
+ \Longleftrightarrow \exists s\ge r,\ q<-s.
 \]
-若第二项失败，\(m+\varepsilon\) 是更大的下界；反之，任何大于 \(m\) 的下界都与第二项矛盾。
-\end{solution}
-
-\begin{solution}{2.9}
-\(\sup B\) 是 \(B\) 的上界，因而也是 \(A\) 的上界，所以 \(\sup A\le\sup B\)。取 \(A=(0,1)\)、\(B=(0,2)\) 得严格不等；取 \(A=(0,1)\)、\(B=(0,1]\) 得等号。
-\end{solution}
-
-\begin{solution}{2.10}
-令 \(\alpha=\sup A,\ \beta=\sup B\)。对 \(a\in A,b\in B\)，有 \(a+b\le\alpha+\beta\)，故右端是上界。给定 \(\varepsilon>0\)，取
+若右式成立，则 \(q<-r\)。若 \(q<-r\)，取 \(s=r\) 即满足右式。因此
 \[
- a>\alpha-\varepsilon/2,\qquad b>\beta-\varepsilon/2.
-\]
-则 \(a+b>\alpha+\beta-\varepsilon\)。由上确界近似刻画，结论成立。
-\end{solution}
-
-\begin{solution}{2.11}
-令 \(s=\max\{\sup A,\sup B\}\)。它同时支配 \(A,B\)，故支配 \(A\cup B\)。任何 \(A\cup B\) 的上界都是 \(A,B\) 的上界，因而不小于 \(s\)。下确界式按同一论证反向处理。
-\end{solution}
-
-\begin{solution}{2.12}
-取
-\[
- A=(0,2),\qquad B=(0,1)\cup(3,4).
-\]
-则 \(A\cap B=(0,1)\)，所以
-\[
- \sup(A\cap B)=1<2=\min\{\sup A,\sup B\}.
+ -r^*=\{q:q<-r\}=(-r)^*.
 \]
 \end{solution}
 
-\section*{C组　完备性与项目}
-\addcontentsline{toc}{section}{C组　完备性与项目}
-
-\begin{solution}{2.13}
-若 \(A\ne\varnothing\) 有下界，则 \(-A\) 非空有上界。令 \(s=\sup(-A)\)，逐项变号可知 \(-s\) 是 \(A\) 的最大下界。故确界公理推出下确界原理。
-
-反之，若下确界原理成立，对非空有上界的 \(A\) 取 \(m=\inf(-A)\)，则 \(-m\) 是 \(A\) 的最小上界。
+\begin{solution}{4.7}
+设 \(r>0\)。对 \(q>0\)，
+\[
+ q\in(r^*)^{-1}
+ \Longleftrightarrow \exists s\ge r,\ q<s^{-1}.
+\]
+右式蕴含 \(q<r^{-1}\)；反之若 \(q<r^{-1}\)，取 \(s=r\)。再加上所有非正有理数，得到 \((r^*)^{-1}=(r^{-1})^*\)。
 \end{solution}
 
-\begin{solution}{2.14}
-若 \(d=a-s^2>0\)，可取
-\[
- h=\frac{d}{2(2s+1+d)}.
-\]
-则 \(0<h<1\) 且 \((2s+1)h<d\)，所以 \((s+h)^2<a\)。若 \(d=s^2-a>0\)，可取
-\[
- h=\frac{sd}{2(2s^2+d)}.
-\]
-则 \(0<h<s/2\) 且 \(2sh<d\)，所以 \((s-h)^2>a\)。两式只用域运算。
-\end{solution}
+\begin{solution}{4.8}
+若 \(x\in\alpha+\gamma\)，写成 \(x=a+c\)，其中 \(a\in\alpha\subseteq\beta,c\in\gamma\)，故 \(x\in\beta+\gamma\)。
 
-\begin{solution}{2.15}
-由 \(0<t<1\) 与 \(b-a>0\)，
+若 \(\gamma=0^*\)，两积相等。若 \(\gamma>0^*\) 且 \(\alpha,\beta\ge0^*\)，积定义中的正代表元包含关系立即给出 \(\alpha\gamma\subseteq\beta\gamma\)。一般符号可把 \(\beta=\alpha+(\beta-\alpha)\) 与 \(\beta-\alpha\ge0^*\) 代入分配律，得到
 \[
- 0<t(b-a)<b-a.
-\]
-两边加 \(a\)，得到
-\[
- a<a+t(b-a)=(1-t)a+tb<b.
-\]
-这只使用有序域的相容性。
-\end{solution}
-
-\begin{solution}{2.16}
-令 \(A=\{a_n:n\in\N\}\)。它非空，且 \(b_1\) 是上界。取 \(s=\sup A\)。固定 \(n\)。若 \(k\le n\)，则 \(a_k\le a_n\le b_n\)；若 \(k\ge n\)，则 \(a_k\le b_k\le b_n\)。所以 \(b_n\) 是 \(A\) 的上界，因而
-\[
- a_n\le s\le b_n.
-\]
-故 \(s\in\bigcap_n[a_n,b_n]\)。没有长度条件时交集可含多个点。
-\end{solution}
-
-\begin{solution}{2.17}
-令 \(s=\sup A\) 且 \(c<s\)，取 \(\varepsilon=s-c\)。上确界近似刻画给出 \(a\in A\) 使
-\[
- c=s-\varepsilon<a\le s.
+ \beta\gamma=\alpha\gamma+(\beta-\alpha)\gamma\ge\alpha\gamma.
 \]
 \end{solution}
 
-\begin{solution}{2.18}
-域性质用于展开平方、除法及唯一性分解；序性质用于比较平方、保持不等式方向并保证扰动为正；确界公理用于从非空有上界集合取得候选 \(s\)。在 \(\Q\) 中，失败发生在取得 \(s=\sup A\in\Q\) 这一步；其余代数和序估计均合法。
+\begin{solution}{4.9}
+设 \(\mathcal A\) 非空且以上界 \(\beta\) 控制。并集 \(\sigma=\bigcup\mathcal A\) 非空、包含于 \(\beta\ne\Q\)、向下封闭；若 \(x\in\sigma\)，它属于某个无最大元的 \(\alpha\in\mathcal A\)，故 \(\sigma\) 中有更大元素。于是 \(\sigma\) 是分割。它包含每个 \(\alpha\)，而任何共同上界也包含并集，所以是最小上界。
+
+交集可能为空；即使族有下界，交集也可能有最大元，因而不一定是分割。故不能无条件把交集写成下确界。
 \end{solution}
 
-\begin{solution}{2.19}
-若 \(M\in\operatorname{UB}(A)\) 且 \(M'\ge M\)，则对每个 \(a\in A\) 有 \(a\le M\le M'\)，故 \(M'\) 仍是上界。下界情形对称。按定义，\(s=\sup A\) 恰好表示
+\begin{solution}{4.10}
+取 \(\alpha_n=(1/n)^*\)。则
 \[
- s\in\operatorname{UB}(A),\qquad
- s\le M\quad(M\in\operatorname{UB}(A)),
+ \bigcap_{n=1}^{\infty}\alpha_n=\{q\in\Q:q\le0\},
 \]
-即 \(s=\min\operatorname{UB}(A)\)。
+其最大元为 \(0\)。删去该最大元得到 \(0^*=\{q:q<0\}\)，它正是分割族的下确界。一般有下界族的交若有最大元，应删除该元；若无最大元，交本身即为下确界。
 \end{solution}
 
-\begin{solution}{2.20}
-若 \(s=\sup A\)，任取 \(t<s\)，令 \(\varepsilon=s-t\)。近似刻画给出 \(a\in A\) 使 \(t<a\le s\)。反之，若 \(s\) 是上界且每个 \(t<s\) 都不是上界，那么任何上界 \(M\) 都不能满足 \(M<s\)，故 \(s\le M\)，所以 \(s\) 是最小上界。
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{4.11}
+对正分割，积的封闭性已在正文逐项验证。结合律方面，正元素 \(x\) 属于 \((\alpha\beta)\gamma\) 当且仅当存在 \(a\in\alpha_+,b\in\beta_+,c\in\gamma_+\) 使 \(x<(ab)c\)；利用有理数乘法结合律，这等价于 \(x<a(bc)\)，即属于 \(\alpha(\beta\gamma)\)。
+
+分配律的一侧由 \(a(b+c)=ab+ac\) 得到。反向取
+\[
+ x<u+v,\quad u<ab,\quad v<a'c.
+\]
+在 \(\alpha\) 中取 \(d>\max\{a,a'\}\)，则 \(x<d(b+c)\)，故 \(x\in\alpha(\beta+\gamma)\)。
+
+倒数方面，若 \(a\in\alpha_+\)、\(q<1/r\) 且 \(r\notin\alpha\)，则 \(a<r\)，故 \(aq<1\)。反向对 \(0<x<1\)，二分取得 \(a\in\alpha_+,r\notin\alpha\) 且 \(a/r>x\)，再取
+\[
+ \frac xa<q<\frac1r.
+\]
+于是 \(q\in\alpha^{-1}\) 且 \(x<aq\)。这些论证补足两个集合包含方向。
 \end{solution}
 
-\begin{solution}{2.21}
-\(\sup B\) 是 \(B\) 的上界。对每个 \(a\in A\)，选择 \(b\in B\) 使 \(a\le b\le\sup B\)，故 \(\sup B\) 也是 \(A\) 的上界，于是 \(\sup A\le\sup B\)。取 \(A=(0,1)\)、\(B=(0,2)\) 得严格不等；取 \(A=(0,1)\)、\(B=(0,1]\) 得等号。
+\begin{solution}{4.12}
+若 \(a,b\in\alpha\) 为正数，设 \(a\le b\)，则 \(ab\le b^2<2\)。所以 \(\alpha^2\subseteq2^*\)。
+
+反之，若 \(x<2\) 且 \(x\le0\)，按定义 \(x\in\alpha^2\)。若 \(0<x<2\)，取\chapterref{chap:real-number-system}十进制逼近 \(a_n\in\alpha_+\)。因
+\[
+ 0<2-a_n^2<4\cdot10^{-n}+10^{-2n},
+\]
+可取 \(n\) 使右端 \(<2-x\)，从而 \(x<a_n^2\)。积的向下闭定义给出 \(x\in\alpha^2\)。故 \(\alpha^2=2^*\)。
 \end{solution}
 
-\begin{solution}{2.22}
-对 \(x>0\)，有
+\begin{solution}{4.13}
+对非空有下界族 \(\mathcal A\)，取
 \[
- 0<\frac{x}{1+x}<1,
+ \inf\mathcal A=-\sup\{-\alpha:\alpha\in\mathcal A\}.
 \]
-所以 \(1\) 是上界。给定 \(0<\varepsilon<1\)，取
-\[
- x>\frac{1-\varepsilon}{\varepsilon},
-\]
-便有 \(x/(1+x)>1-\varepsilon\)；当 \(\varepsilon\ge1\) 时任取 \(x>0\)。由近似刻画，上确界为 \(1\)，且不取得。
+这由有序域中的变号反序立即验证。另一表达是先取 \(I=\bigcap_{\alpha\in\mathcal A}\alpha\)：若 \(I\) 无最大元，则 \(\inf\mathcal A=I\)；若 \(I\) 有最大元 \(c\)，则 \(\inf\mathcal A=I\setminus\{c\}\)。
 \end{solution}
 
-\begin{solution}{2.23}
-记 \(s=\sup A\)、\(m=\inf A\)。对每个 \(a\in A\)，有 \(a\le s\) 与 \(-a\le-m\)，故
-\[
- \abs a=\max\{a,-a\}\le\max\{s,-m\}.
-\]
-另一方面，从 \(A\) 中可任意逼近 \(s\)，对应绝对值上界必须不小于 \(s\)；从 \(A\) 中可任意逼近 \(m\)，对应 \(-a\) 可任意逼近 \(-m\)，故绝对值上界也不小于 \(-m\)。因此公式成立。
+\begin{solution}{4.14}
+若允许左部含边界，则有理边界 \(r\) 可由 \(\{q:q<r\}\) 与 \(\{q:q\le r\}\) 两个不同集合表示。若二者都保留，嵌入不再单射地对应“一个位置一个数”。可以改为统一要求左部无最大元，或统一要求右部无最小元；任一约定都可工作，但必须始终一致。本书采用前者。
 \end{solution}
 
-\begin{solution}{2.24}
-若 \(A\) 无最大元，则删除任意有限集 \(F\subset A\) 后上确界不变。给定 \(t<\sup A\)，先取 \(a_1\in A\) 且 \(t<a_1\)。若 \(a_1\in F\)，因 \(a_1\) 不是最大元可再取更大的 \(a_2\in A\)；重复有限次后必得到不在 \(F\) 中的元素，故剩余集合仍从下方逼近原确界。
+\begin{solution}{4.15}
+若 \(\alpha\subseteq\beta\)，则每个 \(a+c\)（\(a\in\alpha,c\in\gamma\)）也以 \(a\in\beta\) 表示，故 \(\alpha+\gamma\subseteq\beta+\gamma\)。若原包含严格，加上 \(-\alpha-\gamma\) 后等价于
+\[
+ 0^*<\beta-\alpha,
+\]
+所以严格性保持。
 
-边界例一：\(A=(0,1)\cup\{2\}\)，删除 \(2\) 后上确界从 \(2\) 变为 \(1\)。边界例二：删除单点集的唯一元素后得到空集，本章的非空确界定义不再适用。
+当 \(\gamma>0^*\) 时，
+\[
+ \beta\gamma-\alpha\gamma=(\beta-\alpha)\gamma>0^*,
+\]
+故乘法严格保序。若 \(\gamma=0^*\)，两积都为 \(0^*\)，严格性消失。
 \end{solution}
 
-\begin{solution}{2.25}
-乘负数反转次序。\(\lambda\inf A\) 是 \(\lambda A\) 的上界。若 \(M\) 是 \(\lambda A\) 的上界，则
+\begin{solution}{4.16}
+若 \(q\in r^*s^*\) 且 \(q>0\)，存在 \(0<a<r,0<b<s\) 使 \(q<ab<rs\)，故 \(q\in(rs)^*\)；非正数自动包含。
+
+反之，若 \(0<q<rs\)，先选 \(a<r\) 且充分接近 \(r\)，使 \(q/a<s\)，再由有理稠密性选 \(b\) 满足
 \[
- \lambda a\le M\quad(a\in A)
+ q/a<b<s.
 \]
-推出 \(a\ge M/\lambda\)，所以 \(M/\lambda\) 是 \(A\) 的下界，\(M/\lambda\le\inf A\)。再乘 \(\lambda<0\) 得 \(M\ge\lambda\inf A\)。因此
+则 \(a\in r^*,b\in s^*\) 且 \(q<ab\)，所以 \(q\in r^*s^*\)。因此两分割相等。
+\end{solution}
+
+\begin{solution}{4.17}
+取 \(b\in\beta\setminus\alpha\)，再由 \(\beta\) 无最大元取 \(q\in\beta\) 且 \(q>b\)。因为 \(b\notin\alpha\)，每个 \(a\in\alpha\) 都小于 \(b<q\)，所以
 \[
- \sup(\lambda A)=\lambda\inf A.
+ \alpha\subsetneq q^*.
+\]
+又 \(q\in\beta\) 且 \(\beta\) 向下封闭，故 \(q^*\subsetneq\beta\)。于是 \(\alpha<q^*<\beta\)。
+\end{solution}
+
+\begin{solution}{4.18}
+由上一题在 \(0^*<\beta-\alpha\) 之间选正主分割 \(r^*\)，使
+\[
+ 0^*<r^*<\beta-\alpha.
+\]
+两边加 \(\alpha\)，得到
+\[
+ \alpha<\alpha+r^*<\beta.
 \]
 \end{solution}
 
-\begin{solution}{2.26}
-基本公式为
-\[
- \sup(A+c)=\sup A+c,\qquad
- \sup(\lambda A)=
- \begin{cases}
- \lambda\sup A,&\lambda>0,\\
- \lambda\inf A,&\lambda<0,
- \end{cases}
-\]
-\[
- \sup(A\cup B)=\max\{\sup A,\sup B\},\qquad
- \sup(A+B)=\sup A+\sup B.
-\]
-若 \(A,B\subset[0,\infty)\)，则
-\[
- \sup(AB)=(\sup A)(\sup B).
-\]
-允许混合符号时，应比较四个端点积；这些端点分别来自 \(A,B\) 的上下确界。
-
-每个公式都先验证候选是上界，再用确界近似元从下方任意逼近候选。乘积公式中符号决定不等式方向，不能省略。
+\begin{solution}{4.19}
+若直接取 \(\{-a:a\in\alpha\}\)，原来向下封闭的左部会变成向上封闭集合，故不能作为分割；加法逆元必须从右部取反并再取严格下闭包。正左部逐项取倒数也会反转次序，形成向上倾向的集合。例如 \(\alpha=2^*\) 的正部倒数为 \(\{1/a:0<a<2\}\)，其中含大于 \(1/2\) 的数，却不含较小的某些非正数，既不向下封闭也不含所有负有理数。正文定义使用右部倒数并补入非正数，正好恢复左部结构。
 \end{solution}
+
+\begin{solution}{4.20}
+并集非空来自族中任一分割；共同上界 \(\beta\) 保证并集包含于 \(\beta\ne\Q\)，所以它不是全体有理数；任意并保持向下封闭；并集中一点属于某个成员，该成员无最大元，故并集也无最大元。若删去共同上界假设，并集可能等于 \(\Q\)，例如取全体主分割 \(n^*\)（\(n\in\N\)），其并为 \(\Q\)，不再是分割。
+\end{solution}
+
+\begin{solution}{4.21}
+令 \(\mathcal L\) 为 \(\mathcal A\) 的全部下界分割。它非空，且每个 \(\gamma\in\mathcal L\) 都包含于任一固定 \(\alpha_0\in\mathcal A\)，所以 \(\mathcal L\) 有上界。其并
+\[
+ \sigma=\bigcup_{\gamma\in\mathcal L}\gamma
+\]
+是 \(\mathcal L\) 的上确界。因为每个 \(\alpha\in\mathcal A\) 都是 \(\mathcal L\) 的上界，有 \(\sigma\subseteq\alpha\)，故 \(\sigma\) 是 \(\mathcal A\) 的下界；任何其他下界属于 \(\mathcal L\) 并包含于 \(\sigma\)，所以它是最大下界。交集公式若恰有最大元，必须删去该元以恢复“无最大元”条件。
+\end{solution}
+
+\begin{solution}{4.22}
+核对表应至少包括：加法与乘法生成集合仍是分割；\(0^*,1^*\) 的单位元恒等式；右部定义给出 \(-\alpha\) 与 \(\alpha^{-1}\)；加法结合交换由集合和继承；正乘法结合交换由有理乘法继承；分配律反向包含用共同放大左部代表；符号扩张覆盖其余情形；包含关系为全序，并与平移及正数乘法相容。每一项都需注明使用向下封闭、无最大元或有理稠密性的具体位置。
+\end{solution}
+
+\begin{solution}{4.23}
+左部分割适合用包含关系定义次序，并以并集直接构造上确界；右部分割对称地适合交集和下确界；上下集合对同时保留两侧信息，但需要额外的互补与无端点条件。对有理边界 \(r\)，必须统一选择
+\[
+ \{q:q<r\}\quad\text{或}\quad\{q:q\le r\}
+\]
+中的一种。左部无最大元、右部无最小元分别实现两种统一约定；若上下集合对同时使用，则需规定边界落在哪一侧。
+\end{solution}
+
+\begin{solution}{4.24}
+设 \((a_n)\) 是最终为正、满足 \(a_n^2\to2\) 的有理 Cauchy 列。若 \(q\in\alpha\)，则 \(q<0\) 时显然最终 \(q<a_n\)；若 \(q\ge0,q^2<2\)，由
+\[
+ 2-q^2>0
+\]
+及平方误差趋零，最终有 \(a_n^2>q^2\)，故 \(a_n>q\)。若 \(q\notin\alpha\)，则 \(q>0,q^2>2\)，同理最终 \(a_n<q\)。因此该列从所有有理精度看都被同一左右部分割夹住，所确定的分割恰为 \(\alpha\)。
+\end{solution}
+

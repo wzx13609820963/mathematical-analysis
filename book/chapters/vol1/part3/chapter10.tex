@@ -1,0 +1,822 @@
+\chapter{函数极限}
+\label{chap:function-limits}
+\label{chap:function-limit-definition}
+\label{chap:heine-cauchy}
+\label{chap:generalized-function-limits}
+
+函数极限只考察趋近点附近的函数值，因此改变函数在该点的取值不会改变极限。这个局部定义一旦写清，数列极限的工具便可转用于函数：Heine 定理用定义域中的点列检验极限，Cauchy 准则则在不知道候选极限时直接比较函数值。
+
+\section{有限点处的有限极限}
+
+\subsection{定义域、聚点与删心邻域}
+
+设 \(D\subset\R\)，\(a\in\R\)。函数 \(f:D\to\R\) 在 \(a\) 附近的行为只涉及集合
+\[
+ D\cap\{x:0<\abs{x-a}<\delta\}.
+\]
+这里排除了 \(x=a\)，因为极限描述的是邻近点的函数值，而非点值 \(f(a)\)。
+
+\begin{definition}[聚点]
+若对每个 \(\delta>0\)，集合
+\[
+ D\cap\{x:0<\abs{x-a}<\delta\}
+\]
+均非空，则称 \(a\) 是 \(D\) 的\term{聚点}。集合
+\[
+ U^\circ(a,\delta)=\{x\in\R:0<\abs{x-a}<\delta\}
+\]
+称为 \(a\) 的半径为 \(\delta\) 的\term{删心邻域}。
+\end{definition}
+
+聚点不必属于 \(D\)。例如 \(0\) 是 \((0,1)\) 的聚点，却不属于该区间；孤立点不是聚点。若不要求 \(a\) 为聚点，在充分小的删心邻域中可能没有定义域点，极限条件便会对任意候选值自动成立，从而破坏唯一性。
+
+\begin{example}
+令 \(D=\{0\}\cup[1,2]\)。点 \(0\) 属于 \(D\)，但不是 \(D\) 的聚点；点 \(1\) 既属于 \(D\) 又是聚点；点 \(2\) 是单侧聚集形成的聚点；点 \(3\) 既不属于 \(D\)，也不是聚点。
+\end{example}
+
+\subsection{极限的严格定义}
+
+\begin{definition}[函数极限]
+设 \(f:D\to\R\)，\(a\) 是 \(D\) 的聚点，\(L\in\R\)。若
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in D,\qquad
+ 0<\abs{x-a}<\delta\Longrightarrow\abs{f(x)-L}<\varepsilon,
+\]
+则称 \(f(x)\) 在 \(x\to a\) 时趋于 \(L\)，记作
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L.
+\]
+定义域明确时简记为 \(\lim_{x\to a}f(x)=L\)。
+\end{definition}
+
+定义中没有要求 \(a\in D\)，也没有使用 \(f(a)\)。因此改变或补定义 \(f(a)\) 不影响极限。若 \(f\) 在 \(a\) 附近仅定义于稀疏集合，例如
+\[
+ D=\{0\}\cup\{1/n:n\in\Npos\},
+\]
+定义仍按 \(x\in D\) 检验，不能擅自把量词扩展到整个实数邻域。
+
+与数列极限相比，函数极限多了一次选择：给定误差 \(\varepsilon\) 后先选邻域半径 \(\delta\)，随后要同时控制这个删心邻域内的所有定义域点。它不规定 \(x\) 以某种速度趋近 \(a\)，也不规定从左还是从右接近。只要定义域允许，一切趋近方式都包含在同一个全称量词中。
+
+\begin{example}[点值与极限相互独立]
+定义
+\[
+ f(x)=
+ \begin{cases}
+ 3x+1,&x\ne2,\\
+ 100,&x=2.
+ \end{cases}
+\]
+则 \(\lim_{x\to2}f(x)=7\)，而 \(f(2)=100\)。若删去 \(x=2\) 处的定义，极限仍为 \(7\)。
+\end{example}
+
+\subsection{\texorpdfstring{\(\delta\)}{delta} 对 \texorpdfstring{\(\varepsilon\)}{epsilon} 的依赖}
+
+极限定义先给定输出精度 \(\varepsilon\)，再允许选择输入尺度 \(\delta\)。因此 \(\delta\) 可以依赖 \(\varepsilon\)、考察点 \(a\) 以及函数 \(f\)，但不能依赖随后任取的 \(x\)。
+
+\begin{proposition}[缩小半径]
+若某个 \(\delta_0>0\) 对给定 \(\varepsilon\) 有效，则每个 \(0<\delta\le\delta_0\) 也有效。
+\end{proposition}
+
+\begin{proof}
+若 \(0<\abs{x-a}<\delta\le\delta_0\)，便有 \(0<\abs{x-a}<\delta_0\)，故沿用原估计即可。
+\end{proof}
+
+\begin{example}[线性函数]
+证明 \(\lim_{x\to a}(mx+b)=ma+b\)。给定 \(\varepsilon>0\)。若 \(m=0\)，任取 \(\delta>0\)；若 \(m\ne0\)，取
+\[
+ \delta=\frac{\varepsilon}{\abs m}.
+\]
+于是 \(0<\abs{x-a}<\delta\) 蕴含
+\[
+ \abs{(mx+b)-(ma+b)}=\abs m\,\abs{x-a}<\varepsilon.
+\]
+\end{example}
+
+\begin{counterexample}[让半径依赖于 \(x\)]
+语句“对每个 \(x\ne a\)，存在 \(\delta_x>\abs{x-a}\) 使某性质成立”不能证明极限。它没有给出一个对邻域内所有 \(x\) 同时有效的半径。逐点选择与统一控制的区别将在一致连续性中再次出现。
+\end{counterexample}
+
+\subsection{极限不存在的否定形式}
+
+把定义中的量词逐层否定，得到
+\[
+ \lim_{x\to a}f(x)\ne L
+\]
+当且仅当
+\[
+ \exists\varepsilon_0>0\ \forall\delta>0\ \exists x\in D,\qquad
+ 0<\abs{x-a}<\delta,\quad
+ \abs{f(x)-L}\ge\varepsilon_0.
+\]
+见证点 \(x\) 可以依赖 \(\delta\)。固定的 \(\varepsilon_0\) 表示无论观察尺度多小，总能找到离候选值保持确定距离的函数值。
+
+\begin{example}[Dirichlet 型振荡]
+令
+\[
+ f(x)=
+ \begin{cases}
+ 1,&x\in\Q,\\
+ 0,&x\notin\Q.
+ \end{cases}
+\]
+任取 \(a,L\in\R\)。在任意删心邻域内均有有理数和无理数。若 \(L\le1/2\)，选择有理点可使 \(\abs{f(x)-L}\ge1/2\)；若 \(L>1/2\)，选择无理点得到同样结论。因此 \(f\) 在任何点都没有极限。
+\end{example}
+
+否定某个候选极限与证明“极限不存在”有区别。后者要排除全部 \(L\in\R\)。\chapterref{chap:heine-cauchy}将用序列方法显著简化这一工作。
+
+\subsection{唯一性、局部有界性与局部保号性}
+
+\begin{theorem}[唯一性]
+若 \(a\) 是 \(D\) 的聚点，且
+\[
+ \lim_{x\to a}f(x)=L,\qquad \lim_{x\to a}f(x)=M,
+\]
+则 \(L=M\)。
+\end{theorem}
+
+\begin{proof}
+若 \(L\ne M\)，取 \(\varepsilon=\abs{L-M}/3\)。分别由两个极限取得半径 \(\delta_1,\delta_2\)，令 \(\delta=\min\{\delta_1,\delta_2\}\)。由于 \(a\) 是聚点，可取 \(x\in D\) 满足 \(0<\abs{x-a}<\delta\)。于是
+\[
+ \abs{L-M}\le\abs{L-f(x)}+\abs{f(x)-M}
+ <\frac23\abs{L-M},
+\]
+矛盾。聚点条件用于保证共同删心邻域中存在可检验的 \(x\)。
+\end{proof}
+
+\begin{theorem}[局部有界性与局部保号性]
+设 \(\lim_{x\to a}f(x)=L\)。
+\begin{enumerate}
+ \item 存在 \(\delta>0\) 与 \(M>0\)，使 \(x\in D\)、\(0<\abs{x-a}<\delta\) 时 \(\abs{f(x)}\le M\)；
+ \item 若 \(L>0\)，则存在 \(\delta>0\)，使上述 \(x\) 均满足 \(f(x)>0\)；\(L<0\) 时有对称结论；
+ \item 若 \(L\ne0\)，则在某删心邻域内
+ \[
+  \abs{f(x)}\ge\frac{\abs L}{2}.
+ \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+第一项在定义中取 \(\varepsilon=1\)，得到 \(\abs{f(x)}\le\abs L+1\)。若 \(L>0\)，取 \(\varepsilon=L/2\)，则 \(f(x)>L/2>0\)。第三项取 \(\varepsilon=\abs L/2\)，由反三角不等式得
+\[
+ \abs{f(x)}\ge\abs L-\abs{f(x)-L}>\frac{\abs L}{2}.
+\]
+\end{proof}
+
+\begin{proposition}[保序性]
+设 \(f,g:D\to\R\)，并且在 \(a\) 的某个删心邻域内 \(f(x)\le g(x)\)。若两极限均存在，则
+\[
+ \lim_{x\to a}f(x)\le\lim_{x\to a}g(x).
+\]
+\end{proposition}
+
+\begin{proof}
+记两极限为 \(L,M\)。若 \(L>M\)，取 \(\varepsilon=(L-M)/3\)。在充分小的共同删心邻域内，
+\[
+ f(x)>L-\varepsilon>M+\varepsilon>g(x),
+\]
+与局部次序矛盾。
+\end{proof}
+
+\subsection{四则运算与复合极限}
+
+\begin{theorem}[代数运算]
+若 \(f(x)\to L\)、\(g(x)\to M\)（\(x\to a\)），则
+\[
+ f+g\to L+M,\qquad cf\to cL,\qquad fg\to LM.
+\]
+若另有 \(M\ne0\)，则 \(g\) 在某删心邻域内非零，且
+\[
+ \frac{f}{g}\longrightarrow\frac LM.
+\]
+\end{theorem}
+
+\begin{proof}
+和与数乘直接分配误差。乘积使用恒等式
+\[
+ fg-LM=f(g-M)+M(f-L).
+\]
+由 \(f\to L\) 的局部有界性，存在 \(K\) 使 \(\abs{f(x)}\le K\)。给定 \(\varepsilon>0\)，令 \(g\) 的误差小于 \(\varepsilon/(2K)\)，令 \(f\) 的误差小于 \(\varepsilon/(2(\abs M+1))\)，并取各半径的最小值，即得乘积极限。
+
+对商，局部保离零性给出 \(\abs{g(x)}\ge\abs M/2\)。于是
+\[
+ \abs{\frac1{g(x)}-\frac1M}
+ =\frac{\abs{g(x)-M}}{\abs{g(x)}\abs M}
+ \le\frac{2}{\abs M^2}\abs{g(x)-M}\to0.
+\]
+再用乘积结论。条件 \(M\ne0\) 同时保证候选商有定义并提供分母的统一下界。
+\end{proof}
+
+\begin{theorem}[复合极限]
+设 \(g:D\to E\subset\R\)，\(a\) 是 \(D\) 的聚点，\(b\) 是 \(E\) 的聚点，并且
+\[
+ g(x)\to b\quad(x\to a),\qquad f(y)\to L\quad(y\to b,\ y\in E).
+\]
+若在 \(a\) 的某个删心邻域内 \(g(x)\ne b\)，则
+\[
+ f(g(x))\to L\quad(x\to a).
+\]
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，由外层极限取得 \(\eta>0\)，使
+\[
+ y\in E,\quad0<\abs{y-b}<\eta
+ \Longrightarrow\abs{f(y)-L}<\varepsilon.
+\]
+由 \(g(x)\to b\) 取得 \(\delta_1>0\)，使 \(0<\abs{x-a}<\delta_1\) 时 \(\abs{g(x)-b}<\eta\)。再把 \(\delta_1\) 与保证 \(g(x)\ne b\) 的半径取最小值，便可把 \(y=g(x)\) 代入外层极限定义。
+\end{proof}
+
+若 \(f\) 在 \(b\) 处有定义且连续，即 \(\lim_{y\to b}f(y)=f(b)\)，则无需假设 \(g(x)\ne b\)。删心极限的复合之所以需要额外条件，是因为外层定义没有控制 \(y=b\) 处的函数值。
+
+\begin{counterexample}
+令 \(g(x)\equiv0\)，并令 \(f(y)=1\)（\(y\ne0\)）、\(f(0)=2\)。有
+\[
+ g(x)\to0,\qquad \lim_{y\to0}f(y)=1,
+\]
+但 \(f(g(x))\equiv2\)。因此复合定理中“\(g(x)\ne0\) 最终成立”的条件不能省略。
+\end{counterexample}
+
+\subsection{从定义进行误差估计}
+
+证明函数极限时，常先在草算中从目标不等式反推对 \(\abs{x-a}\) 的要求，再加入一个固定局部限制以控制可变因子。
+
+\begin{example}[平方函数]
+证明 \(\lim_{x\to a}x^2=a^2\)。分解
+\[
+ \abs{x^2-a^2}=\abs{x-a}\abs{x+a}.
+\]
+先限制 \(\abs{x-a}<1\)，则 \(\abs x<\abs a+1\)，从而
+\[
+ \abs{x+a}\le2\abs a+1.
+\]
+给定 \(\varepsilon>0\)，取
+\[
+ \delta=\min\left\{1,\frac{\varepsilon}{2\abs a+1}\right\}
+\]
+即可。固定限制 \(1\) 只用于把 \(\abs{x+a}\) 化成与 \(x\) 无关的常数。
+\end{example}
+
+\begin{example}[根式有理化]
+设 \(a>0\)。证明 \(\sqrt{x}\to\sqrt a\)（\(x\to a,\ x\ge0\)）。有
+\[
+ \abs{\sqrt x-\sqrt a}
+ =\frac{\abs{x-a}}{\sqrt x+\sqrt a}
+ \le\frac{\abs{x-a}}{\sqrt a}.
+\]
+故取 \(\delta=\varepsilon\sqrt a\) 即可。条件 \(a>0\) 提供了固定的正分母；在 \(a=0\) 时应直接由 \(\sqrt x<\varepsilon\Longleftrightarrow x<\varepsilon^2\) 处理。
+\end{example}
+
+\begin{example}[多项式与有理函数]
+由常值函数、恒等函数的极限和代数运算，可归纳得到任意多项式 \(p\) 满足
+\[
+ \lim_{x\to a}p(x)=p(a).
+\]
+若 \(q(a)\ne0\)，则商法则给出
+\[
+ \lim_{x\to a}\frac{p(x)}{q(x)}=\frac{p(a)}{q(a)}.
+\]
+若 \(q(a)=0\)，不能直接使用商法则；约去公因子、分析无穷极限或证明不存在，取决于具体结构。
+\end{example}
+
+\section{Heine 定理}
+
+\(\varepsilon\)-\(\delta\) 定义一次控制一个完整邻域，数列方法则沿一条逐点选择的路径检验函数值。Heine 定理说明，在实数这样的度量空间中，这两种表述等价。正向只需把收敛点列最终放入邻域；反向的关键是从每个失效半径中选择一个坏点，把“所有邻域都失败”编码成一条趋向 \(a\) 的数列。
+
+\subsection{定理的陈述}
+
+下文中“\(x_n\to a\) 的定义域点列”总是指
+\[
+ x_n\in D\setminus\{a\},\qquad x_n\to a.
+\]
+排除 \(x_n=a\) 是为了与删心极限一致。
+
+\begin{theorem}[Heine 定理]
+设 \(f:D\to\R\)，\(a\) 是 \(D\) 的聚点，\(L\in\R\)。则
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L
+\]
+当且仅当对每条趋于 \(a\) 的定义域点列 \((x_n)\)，都有
+\[
+ f(x_n)\to L.
+\]
+\end{theorem}
+
+定理中的全称量词不可换成“存在一条点列”。单条点列只能抽取一种趋近路径，函数在其他定义域点上仍可能具有不同的行为。
+
+\begin{counterexample}
+令 \(f(x)=\sin(1/x)\)（\(x\ne0\)）。沿 \(x_n=1/(\pi n)\) 有 \(f(x_n)=0\)，但这不说明 \(x\to0\) 时存在极限。沿另一些点列，函数值可恒为 \(1\) 或 \(-1\)。
+\end{counterexample}
+
+\subsection{由函数极限推出序列极限}
+
+\begin{proof}[Heine 定理的必要性]
+设 \(f(x)\to L\)，并任取 \(x_n\in D\setminus\{a\}\)、\(x_n\to a\)。给定 \(\varepsilon>0\)，由函数极限取得 \(\delta>0\)，使
+\[
+ x\in D,\quad0<\abs{x-a}<\delta
+ \Longrightarrow\abs{f(x)-L}<\varepsilon.
+\]
+又由 \(x_n\to a\)，存在 \(N\) 使 \(n\ge N\) 时 \(\abs{x_n-a}<\delta\)。结合 \(x_n\ne a\)，得到
+\[
+ \abs{f(x_n)-L}<\varepsilon\qquad(n\ge N).
+\]
+故 \(f(x_n)\to L\)。
+\end{proof}
+
+这个方向只是把函数极限给出的半径输入数列极限定义。函数极限的半径对邻域内所有点有效，因此自然适用于任意选定的逼近数列。
+
+\begin{corollary}
+函数极限的唯一性可由数列极限唯一性推出。
+\end{corollary}
+
+\begin{proof}
+因 \(a\) 是聚点，可递归选择
+\[
+ x_n\in D,\qquad0<\abs{x_n-a}<1/n.
+\]
+于是 \(x_n\to a\)。若函数极限同时为 \(L,M\)，必要性说明 \(f(x_n)\) 同时趋于 \(L,M\)，故 \(L=M\)。
+\end{proof}
+
+\subsection{由否定命题构造反例数列}
+
+若 \(f(x)\not\to L\)，则存在 \(\varepsilon_0>0\)，使对每个 \(\delta>0\) 都能选到坏点。令 \(\delta=1/n\)，依次选择
+\[
+ x_n\in D,\qquad
+ 0<\abs{x_n-a}<\frac1n,\qquad
+ \abs{f(x_n)-L}\ge\varepsilon_0.
+\]
+于是 \(x_n\to a\)，但 \(f(x_n)\not\to L\)。这一构造把量词否定中的每个尺度转换为一个数列指标。
+
+\begin{lemma}[坏点数列]
+下列两项等价：
+\begin{enumerate}
+ \item \(f(x)\not\to L\)（\(x\to a\)）；
+ \item 存在定义域点列 \(x_n\to a\)，使 \(f(x_n)\not\to L\)。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+第一项推出第二项即上述选择。第二项若成立，而函数极限为 \(L\)，则 Heine 定理的必要性会给出 \(f(x_n)\to L\)，矛盾。
+\end{proof}
+
+\begin{remark}
+构造中用 \(1/n\) 只是方便。任意正数列 \(\delta_n\to0\) 都可充当逐步缩小的尺度。关键是每一步从全部坏点中选取一个见证点。
+\end{remark}
+
+\subsection{逆向证明}
+
+\begin{proof}[Heine 定理的充分性]
+假设对每条定义域点列 \(x_n\to a\) 都有 \(f(x_n)\to L\)。若函数极限不为 \(L\)，坏点数列引理给出一条 \(x_n\to a\)，使 \(f(x_n)\not\to L\)，与假设矛盾。因此函数极限为 \(L\)。
+\end{proof}
+
+充分性也可以直接写成反证构造：先固定否定命题提供的 \(\varepsilon_0\)，再在半径 \(1/n\) 内选坏点。这里使用了依赖选择的一个最简单可数形式；每一步只需从已知非空集合中取一点。
+
+\begin{proposition}[定义域限制]
+若 \(E\subset D\)，且 \(a\) 是 \(E\) 的聚点，则
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L
+ \Longrightarrow
+ \lim_{\substack{x\to a\\x\in E}}f(x)=L.
+\]
+反向一般不成立。
+\end{proposition}
+
+\begin{proof}
+任意 \(E\) 中趋于 \(a\) 的点列也是 \(D\) 中的此类点列，故由 Heine 定理得到限制函数的极限。反向失败可由左右半轴限制或有理、无理限制给出。
+\end{proof}
+
+\subsection{用两条数列证明极限不存在}
+
+\begin{proposition}[双路径判别]
+若存在两条定义域点列 \(x_n\to a\)、\(y_n\to a\)，使
+\[
+ f(x_n)\to L,\qquad f(y_n)\to M,\qquad L\ne M,
+\]
+则 \(\lim_{x\to a}f(x)\) 不存在。
+\end{proposition}
+
+\begin{proof}
+若函数极限存在并等于 \(A\)，Heine 定理必要性迫使两条像数列都趋于 \(A\)。数列极限唯一性给出 \(L=A=M\)，矛盾。
+\end{proof}
+
+\begin{example}
+对 \(f(x)=\sin(1/x)\)，取
+\[
+ x_n=\frac1{\frac\pi2+2\pi n},\qquad
+ y_n=\frac1{\frac{3\pi}2+2\pi n}.
+\]
+两列都趋于 \(0\)，而 \(f(x_n)=1\)、\(f(y_n)=-1\)，故函数极限不存在。
+\end{example}
+
+\begin{example}[有理与无理路径]
+令 \(f=\mathbf1_{\Q}\)。对任意 \(a\)，可在每个 \(1/n\) 邻域内分别选择有理数 \(r_n\ne a\) 与无理数 \(s_n\ne a\)。则
+\[
+ r_n,s_n\to a,\qquad f(r_n)=1,\quad f(s_n)=0.
+\]
+故 \(f\) 处处无极限。
+\end{example}
+
+两条路径给出不同极限是充分条件，但不是证明不存在的唯一方式。像数列无界，或同一条像数列不收敛，也足以否定函数极限。
+
+\section{Cauchy 准则}
+
+当候选极限难以写出时，可以像研究数列那样比较同一小邻域中的两个函数值。若这些值彼此任意接近，它们便形成一个 Cauchy 型局部族；值域为 \(\R\) 时，完备性把这种内部稳定补成一个极限。准则的反向因此不能只靠函数极限的代数法则。
+
+\subsection{函数极限的 Cauchy 准则}
+
+\begin{definition}[局部 Cauchy 条件]
+称 \(f:D\to\R\) 在 \(a\) 附近满足 Cauchy 条件，如果
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x,y\in D,
+\]
+\[
+ 0<\abs{x-a}<\delta,\quad0<\abs{y-a}<\delta
+ \Longrightarrow\abs{f(x)-f(y)}<\varepsilon.
+\]
+\end{definition}
+
+\begin{theorem}[函数极限的 Cauchy 准则]
+设 \(a\) 是 \(D\) 的聚点。函数 \(f:D\to\R\) 在 \(x\to a\) 时有有限极限，当且仅当它在 \(a\) 附近满足局部 Cauchy 条件。
+\end{theorem}
+
+\begin{proof}
+若 \(f(x)\to L\)，给定 \(\varepsilon>0\)，取半径使
+\[
+ \abs{f(x)-L}<\varepsilon/2,\qquad
+ \abs{f(y)-L}<\varepsilon/2
+\]
+同时对删心邻域内所有点成立。三角不等式即给出 Cauchy 条件。
+
+反之，假设局部 Cauchy 条件成立。由聚点性可选 \(x_n\in D\) 满足
+\[
+ 0<\abs{x_n-a}<1/n.
+\]
+对给定 \(\varepsilon>0\)，取 Cauchy 半径 \(\delta\)。当 \(m,n\) 充分大时，\(x_m,x_n\) 都落在该删心邻域，故
+\[
+ \abs{f(x_m)-f(x_n)}<\varepsilon.
+\]
+于是 \((f(x_n))\) 是实 Cauchy 列，由实数完备性存在 \(L\in\R\) 使 \(f(x_n)\to L\)。
+
+最后证明 \(f(x)\to L\)。给定 \(\varepsilon>0\)，先取局部 Cauchy 条件对 \(\varepsilon/2\) 的半径 \(\delta\)。再选一个固定的充分大指标 \(n_0\)，使
+\[
+ 0<\abs{x_{n_0}-a}<\delta,\qquad
+ \abs{f(x_{n_0})-L}<\varepsilon/2.
+\]
+对任意 \(x\in D\) 满足 \(0<\abs{x-a}<\delta\)，有
+\[
+ \abs{f(x)-L}
+ \le\abs{f(x)-f(x_{n_0})}+\abs{f(x_{n_0})-L}
+ <\varepsilon.
+\]
+故极限存在。
+\end{proof}
+
+\subsection{值域完备性的作用}
+
+充分性证明中，局部 Cauchy 条件只保证 \((f(x_n))\) 是 Cauchy 列；要得到值域中的极限，还须使用值域的完备性。值域若不完备，论证恰在这一步中断。
+
+\begin{counterexample}[有理值函数]
+取有理 Cauchy 列 \((q_n)\) 在 \(\R\) 中趋于 \(\sqrt2\)，并令
+\[
+ D=\{0\}\cup\{1/n:n\in\Npos\},\qquad f(1/n)=q_n,\quad f(0)=0.
+\]
+把 \(f\) 看作 \(\Q\)-值函数。因 \((q_n)\) 是 Cauchy 列，\(f\) 在 \(0\) 附近满足局部 Cauchy 条件；但不存在 \(L\in\Q\) 使 \(f(x)\to L\)。若把值域扩大为 \(\R\)，极限就是 \(\sqrt2\)。
+\end{counterexample}
+
+\begin{theorem}[完备值域版本]
+设 \((Y,d)\) 是完备度量空间，\(f:D\to Y\)，\(a\) 是 \(D\) 的聚点。则 \(f\) 在 \(a\) 处存在 \(Y\)-值极限，当且仅当
+\[
+ \forall\varepsilon>0\ \exists\delta>0,\quad
+ x,y\in D\cap U^\circ(a,\delta)
+ \Longrightarrow d(f(x),f(y))<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+把实数绝对值换成距离，前一节证明逐字成立。三角不等式用于必要性和最后的传递；完备性用于像序列的收敛。
+\end{proof}
+
+\section{单侧极限、无穷极限与无穷远处的极限}
+
+\subsection{左极限与右极限}
+
+\begin{definition}[单侧聚点与单侧极限]
+若对每个 \(\delta>0\)，\(D\cap(a-\delta,a)\ne\varnothing\)，则称 \(a\) 是 \(D\) 的左聚点。此时若
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x\in D,\qquad
+ a-\delta<x<a\Longrightarrow\abs{f(x)-L}<\varepsilon,
+\]
+则记
+\[
+ \lim_{x\to a-}f(x)=L.
+\]
+右聚点与右极限 \(\lim_{x\to a+}f(x)=L\) 对称定义。
+\end{definition}
+
+单侧极限仍是相对于定义域的。若 \(D=[a,\infty)\)，则只可讨论右极限；若 \(D\) 在 \(a\) 左侧只有有限多个点，\(a\) 不是左聚点。
+
+\begin{example}
+符号函数
+\[
+ \operatorname{sgn}(x)=
+ \begin{cases}
+ -1,&x<0,\\
+ 0,&x=0,\\
+ 1,&x>0
+ \end{cases}
+\]
+满足
+\[
+ \lim_{x\to0-}\operatorname{sgn}(x)=-1,\qquad
+ \lim_{x\to0+}\operatorname{sgn}(x)=1.
+\]
+点值 \(\operatorname{sgn}(0)\) 不参与这两个极限。
+\end{example}
+
+\subsection{双侧极限存在的充要条件}
+
+\begin{theorem}[双侧与单侧极限]
+设 \(a\) 同时是 \(D\) 的左聚点和右聚点。则
+\[
+ \lim_{x\to a}f(x)=L
+\]
+当且仅当
+\[
+ \lim_{x\to a-}f(x)=L
+ \quad\text{且}\quad
+ \lim_{x\to a+}f(x)=L.
+\]
+\end{theorem}
+
+\begin{proof}
+双侧极限存在时，把量词限制到左半邻域或右半邻域即得两个单侧极限。
+
+反之，给定 \(\varepsilon>0\)，分别取左、右半径 \(\delta_-,\delta_+\)，令
+\[
+ \delta=\min\{\delta_-,\delta_+\}.
+\]
+若 \(0<\abs{x-a}<\delta\)，则 \(x<a\) 或 \(x>a\)，相应单侧估计均给出 \(\abs{f(x)-L}<\varepsilon\)。故双侧极限为 \(L\)。
+\end{proof}
+
+若定义域只在一侧聚集，则双侧删心极限按定义已经等同于该侧的相对极限；上述定理明确要求两侧都是可检验方向，以避免把空缺方向误当成额外条件。
+
+\begin{corollary}
+当两侧均聚集时，双侧有限极限存在当且仅当左右极限都存在且相等。
+\end{corollary}
+
+\subsection{函数值趋于 \texorpdfstring{\(\pm\infty\)}{infinity}}
+
+\begin{definition}[无穷极限]
+设 \(a\) 是 \(D\) 的聚点。若
+\[
+ \forall M>0\ \exists\delta>0\ \forall x\in D,\qquad
+ 0<\abs{x-a}<\delta\Longrightarrow f(x)>M,
+\]
+则称 \(f(x)\to+\infty\)（\(x\to a\)）。若把末项改为 \(f(x)<-M\)，则称 \(f(x)\to-\infty\)。
+\end{definition}
+
+\(+\infty\) 和 \(-\infty\) 不是实数，因而这里所说的“极限”表示确定的无界趋势，不表示函数值趋近某个实数点。定义中的阈值也可写成任意 \(A\in\R\)；用 \(M>0\) 便于与绝对值估计配合。
+
+\begin{example}
+\[
+ \lim_{x\to0}\frac1{x^2}=+\infty.
+\]
+给定 \(M>0\)，取 \(\delta=1/\sqrt M\)。若 \(0<\abs x<\delta\)，则 \(1/x^2>M\)。
+\end{example}
+
+\begin{counterexample}
+\(1/x\) 在 \(x\to0\) 时没有双侧无穷极限，因为右侧趋于 \(+\infty\)，左侧趋于 \(-\infty\)。它的绝对值趋于 \(+\infty\)，不能据此决定原函数的符号趋势。
+\end{counterexample}
+
+\begin{proposition}[倒数联系]
+若 \(f(x)>0\) 在 \(a\) 的某删心邻域内成立，则
+\[
+ f(x)\to0
+ \quad\Longleftrightarrow\quad
+ \frac1{f(x)}\to+\infty.
+\]
+若 \(f(x)\to+\infty\)，则 \(1/f(x)\to0+\)。
+\end{proposition}
+
+\begin{proof}
+在第一个等价中，把 \(\varepsilon\) 与 \(M\) 通过 \(M=1/\varepsilon\) 对换。第二项中给定 \(\varepsilon>0\)，令阈值 \(M=1/\varepsilon\)，在相应邻域有 \(0<1/f(x)<\varepsilon\)。
+\end{proof}
+
+\subsection{自变量趋于 \texorpdfstring{\(\pm\infty\)}{infinity}}
+
+\begin{definition}[无穷远处的有限极限]
+设 \(D\subset\R\) 向上无界。若
+\[
+ \forall\varepsilon>0\ \exists A\in\R\ \forall x\in D,\qquad
+ x>A\Longrightarrow\abs{f(x)-L}<\varepsilon,
+\]
+则记 \(\lim_{x\to+\infty}f(x)=L\)。当 \(D\) 向下无界时，以 \(x<A\) 定义 \(x\to-\infty\)。
+\end{definition}
+
+\begin{definition}[无穷远处的无穷极限]
+例如
+\[
+ \lim_{x\to+\infty}f(x)=+\infty
+\]
+表示
+\[
+ \forall M>0\ \exists A\in\R\ \forall x\in D,\qquad
+ x>A\Longrightarrow f(x)>M.
+\]
+其余三种符号组合对称定义。
+\end{definition}
+
+\begin{example}
+对 \(p>0\)，有
+\[
+ x^{-p}\to0\quad(x\to+\infty),\qquad
+ x^p\to+\infty\quad(x\to+\infty).
+\]
+前者给定 \(\varepsilon>0\) 取 \(A>\varepsilon^{-1/p}\)，后者给定 \(M>0\) 取 \(A>M^{1/p}\)。
+\end{example}
+
+当定义域为 \(\N\) 时，\(x\to+\infty\) 的函数极限恰好退化为数列极限。阈值 \(A\) 与数列定义中的指标起点 \(N\) 承担相同作用。
+
+\subsection{扩充实数中的表述}
+
+记
+\[
+ \overline{\R}=\R\cup\{-\infty,+\infty\}.
+\]
+在序拓扑的邻域语言中：
+\begin{itemize}
+ \item 有限点 \(a\) 的邻域含某个 \((a-\delta,a+\delta)\)；
+ \item \(+\infty\) 的邻域含某个 \((A,+\infty]\)；
+ \item \(-\infty\) 的邻域含某个 \([-\infty,A)\)。
+\end{itemize}
+于是 \(x\to\alpha\)、\(f(x)\to\beta\)（\(\alpha,\beta\in\overline{\R}\)）可以统一表述为：
+\[
+ \text{对 \(\beta\) 的每个邻域 \(V\)，存在 \(\alpha\) 的邻域 \(U\)，使}
+\]
+\[
+ x\in D\cap U,\quad x\ne\alpha
+ \Longrightarrow f(x)\in V,
+\]
+其中 \(\alpha=\pm\infty\) 时“\(x\ne\alpha\)”自动成立。
+
+\begin{remark}[无穷运算的限制]
+扩充实数中的次序是明确的，但并非所有代数运算都有定义。例如
+\[
+ +\infty-\infty,\qquad0\cdot\infty,\qquad\frac{\infty}{\infty}
+\]
+都是未定式标签，不是可直接代入的数值。它们提示仅凭各部分的粗略极限还不足以决定组合极限，必须进一步比较增长或衰减。
+\end{remark}
+
+\begin{proposition}[无穷极限的保序]
+若在某个相应尾部或删心邻域内 \(f(x)\le g(x)\)，且 \(f(x)\to+\infty\)，则 \(g(x)\to+\infty\)。若 \(g(x)\to-\infty\)，则 \(f(x)\to-\infty\)。
+\end{proposition}
+
+\begin{proof}
+对任意 \(M>0\)，先使 \(f(x)>M\)，再用 \(g(x)\ge f(x)\)。负无穷情形对称。
+\end{proof}
+
+\subsection{各类极限的序列刻画}
+
+\begin{theorem}[扩展 Heine 定理]
+设 \(\alpha,\beta\in\overline{\R}\)，定义域允许从相应方向趋于 \(\alpha\)。则
+\[
+ f(x)\to\beta\quad(x\to\alpha)
+\]
+当且仅当对每条满足 \(x_n\in D\)、\(x_n\to\alpha\) 且在有限 \(\alpha\) 时 \(x_n\ne\alpha\) 的点列，都有
+\[
+ f(x_n)\to\beta
+\]
+（极限在 \(\overline{\R}\) 中理解）。
+\end{theorem}
+
+\begin{proof}
+必要性把目标邻域对应的输入邻域传给数列。若充分性失败，则存在目标邻域 \(V\)，使每个依次缩小或远移的输入邻域中都有坏点。有限 \(\alpha\) 时在半径 \(1/n\) 内选 \(x_n\)；\(\alpha=+\infty\) 时在 \(x>n\) 中选坏点；\(\alpha=-\infty\) 时在 \(x<-n\) 中选坏点。所得点列趋于 \(\alpha\)，而像列始终不在 \(V\) 中，与假设矛盾。
+\end{proof}
+
+\begin{example}
+证明 \(f(x)\not\to+\infty\)（\(x\to+\infty\)），只需找到一条 \(x_n\to+\infty\) 使 \(f(x_n)\) 不趋于 \(+\infty\)。例如 \(\sin x\) 沿 \(x_n=2\pi n\) 恒为零，故不趋于任何无穷方向。
+\end{example}
+
+\subsection{变量代换}
+
+\begin{proposition}[倒数代换]
+设 \(F\) 在相应定义域上有定义，则
+\[
+ \lim_{x\to+\infty}F(x)=L
+ \quad\Longleftrightarrow\quad
+ \lim_{t\to0+}F(1/t)=L.
+\]
+类似地，
+\[
+ x\to-\infty\quad\Longleftrightarrow\quad t=1/x\to0-.
+\]
+\end{proposition}
+
+\begin{proof}
+条件 \(x>A\) 在 \(x=1/t\)、\(t>0\) 下等价于 \(0<t<1/A\)（可先把 \(A\) 增大到正数）。两边的量词因此可相互翻译。
+\end{proof}
+
+\begin{proposition}[平移与尺度代换]
+若 \(u=\phi(x)\) 在 \(x\to\alpha\) 时趋于 \(\gamma\)，且 \(\phi(x)\ne\gamma\) 最终成立，则
+\[
+ \lim_{u\to\gamma}F(u)=L
+ \Longrightarrow
+ \lim_{x\to\alpha}F(\phi(x))=L.
+\]
+\end{proposition}
+
+这就是复合极限定理在各种极限类型中的统一形式。反向等价还需要代换能够覆盖 \(\gamma\) 附近的全部相关方向。若 \(\phi\) 只取一侧值，复合只检验相应单侧极限。
+
+\begin{counterexample}
+令 \(\phi(x)=x^2\)。当 \(x\to0\) 时 \(\phi(x)\to0+\)。因此
+\[
+ F(x^2)\to L
+\]
+只反映 \(F(u)\) 在 \(u\to0+\) 时的行为，不能推出 \(F\) 的双侧极限。例如 \(F(u)=\operatorname{sgn}(u)\) 有 \(F(x^2)=1\)（\(x\ne0\)），但 \(F\) 在 \(0\) 处双侧极限不存在。
+\end{counterexample}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与基本方法}
+
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em]
+\exerciseitem{14.1}  分别求集合 \(\{1/n:n\in\Npos\}\)、\(\Q\cap[0,1]\)、\(\Z\) 的全部聚点，并证明结论。
+ \exerciseitem{14.2}  说明为什么孤立定义域点处不能按本章定义讨论删心极限；若强行删去聚点条件，会出现什么逻辑问题？
+ \exerciseitem{14.3}  用定义证明改变 \(f(a)\) 不影响 \(\lim_{x\to a}f(x)\)。
+ \exerciseitem{14.4}  写出 \(\lim_{x\to a}f(x)=L\) 的严格量词形式，并逐层写出其否定。
+ \exerciseitem{14.5}  用定义证明 \(\lim_{x\to3}(2x-5)=1\)，给出一个明确的 \(\delta(\varepsilon)\)。
+ \exerciseitem{14.6}  用定义证明 \(\lim_{x\to a}x^3=a^3\)。
+ \exerciseitem{14.7}  设 \(f(x)\to L\)。证明 \(\abs{f(x)}\to\abs L\)。
+ \exerciseitem{14.8}  设 \(f(x)\to L>0\)。证明存在删心邻域使 \(f(x)>L/2\)。
+\exerciseitem{14.9}  证明夹逼定理的函数版本。
+ \exerciseitem{14.10}  若 \(f(x)\le g(x)\) 只在趋近 \(a\) 的一个点列上成立，保序结论是否仍成立？给出反例。
+ \exerciseitem{14.11}  用定义证明 \(\lim_{x\to2}(x^2+3x)=10\)，并使半径公式中不含可变量 \(x\)。
+ \exerciseitem{14.12}  用有理化证明 \(\lim_{x\to4}\sqrt x=2\)。
+ \exerciseitem{14.13}  证明若 \(f(x)\to0\)，且 \(g\) 在 \(a\) 的某删心邻域内有界，则 \(f(x)g(x)\to0\)。
+ \exerciseitem{14.14}  构造 \(f(x)\to0\)、无界的 \(g(x)\)，使 \(f(x)g(x)\) 分别趋于 \(0\)、趋于非零常数、没有极限。
+ \exerciseitem{14.15}  完整证明倒数极限定理，并指出极限非零条件在何处使用。
+ \exerciseitem{14.16}  设 \(p,q\) 为多项式。分类讨论 \(q(a)\ne0\)、\(q(a)=0\) 且可约、\(q(a)=0\) 且不可约时商的局部行为，各给一例。
+ \exerciseitem{14.17}  给出复合极限定理中 \(g(x)\ne b\) 最终成立这一条件不可删去的另一个反例。
+ \exerciseitem{14.18}  证明：若外层函数 \(f\) 在 \(b\) 连续，则复合极限不需要避开 \(b\)。
+\exerciseitem{14.19}  设 \(D=\{0\}\cup\{1/n:n\in\Npos\}\)，\(f(1/n)=(-1)^n\)。证明 \(0\) 是 \(D\) 的聚点，并证明 \(f\) 在 \(0\) 处没有极限。
+ \exerciseitem{14.20}  证明若 \(\lim_{x\to a}f(x)=L\)，则对每个趋于 \(a\) 的定义域点族，函数值都最终落入任意给定的 \(L\) 邻域；不得引用\chapterref{chap:heine-cauchy}的 Heine 定理。
+ \optionalexerciseitem{14.21}  若 \(f^2(x)\to L^2\)，是否必有 \(f(x)\to L\) 或 \(f(x)\to-L\)？给出充分条件与反例。
+ \optionalexerciseitem{14.22}  证明 \(\max\{f,g\}\) 与 \(\min\{f,g\}\) 的极限运算法则。
+ \projectexerciseitem{14.23} \ 【前置：本章局部性质；预计用时：60分钟】分别整理因式分解、有理化、控制局部有界因子和使分母远离零点四类极限证明。每一类写出可复用的命题、一个实例以及条件不足时的反例。
+ \openexerciseitem{14.24}  设定义域在 \(a\) 的每个删心邻域中都非空，但只从某个指定子集方向逼近。讨论极限如何依赖所选定义域，并构造同一公式在不同定义域限制下具有不同极限的例子。
+
+\exerciseitem{15.1}  证明 \(a\) 是 \(D\) 的聚点当且仅当存在互异于 \(a\) 的点列 \((x_n)\subset D\) 趋于 \(a\)。
+ \exerciseitem{15.2}  在 Heine 定理中说明条件 \(x_n\ne a\) 的必要性。
+ \exerciseitem{15.3}  不引用函数极限唯一性，利用 Heine 定理证明唯一性。
+ \exerciseitem{15.4}  从 \(f(x)\not\to L\) 的否定形式逐步构造坏点数列。
+ \exerciseitem{15.5}  证明若对每条 \(x_n\to a\) 都有 \(f(x_n)\to L\)，则对每条子列式重编号 \(x_{n_k}\) 结论仍成立。
+ \exerciseitem{15.6}  用两条数列证明 \(\lim_{x\to0}\abs{x}/x\) 不存在。
+ \exerciseitem{15.7}  用数列证明 \(\lim_{x\to0}\cos(1/x)\) 不存在。
+ \exerciseitem{15.8}  证明函数极限存在时，任意两条逼近点列的函数值之差趋于零。
+\exerciseitem{15.9}  证明 Heine 定理对任意子集定义域 \(D\subset\R\) 成立，不需要 \(D\) 包含区间。
+ \exerciseitem{15.10}  证明限制定义域保持已有极限，并构造反向失败的例子。
+ \exerciseitem{15.11}  设 \(f\) 在 \(a\) 附近满足局部 Cauchy 条件。证明对任意 \(x_n\to a\)，像数列 \(f(x_n)\) 是 Cauchy 列。
+ \exerciseitem{15.12}  反过来，若每条 \(x_n\to a\) 的像数列都是 Cauchy 列，证明 \(f\) 满足局部 Cauchy 条件。
+ \exerciseitem{15.13}  完整重建函数极限 Cauchy 准则的充分性证明，注明实数完备性的使用位置。
+ \exerciseitem{15.14}  构造有理值函数满足局部 Cauchy 条件但没有有理值极限。
+ \exerciseitem{15.15}  证明若 \(f(x)-g(x)\to0\)，则 \(f\) 有有限极限当且仅当 \(g\) 有有限极限，并且极限相同。
+ \exerciseitem{15.16}  设 \(f\) 在 \(a\) 附近满足局部 Cauchy 条件。证明 \(f\) 在某删心邻域内有界。
+\exerciseitem{15.17}  构造函数，使它沿某条趋于 \(0\) 的数列收敛到每个预先指定的 \(c\in[-1,1]\)，但函数在 \(0\) 处无极限。
+ \exerciseitem{15.18}  证明：若对每两条 \(x_n,y_n\to a\) 都有 \(f(x_n)-f(y_n)\to0\)，则 \(f\) 在 \(a\) 处有有限极限。
+ \optionalexerciseitem{15.19}  把两条点列交错成一条点列，借此给出上一题的另一证明。
+ \optionalexerciseitem{15.20}  设值域是度量空间 \(Y\)。分析 Heine 定理是否需要 \(Y\) 完备，并与 Cauchy 准则比较。
+ \projectexerciseitem{15.21} \ 【前置：\chapterref{chap:cauchy-criterion}与本章；预计用时：75分钟】给出“数列 Cauchy 准则—函数 Cauchy 准则—完备度量值域版本”的平行证明表，逐项标明三角不等式、聚点性和完备性的位置。
+ \openexerciseitem{15.22}  研究只对单调逼近点列检验 Heine 条件是否足以推出函数极限。分别在区间定义域与一般稀疏定义域中讨论。
+ \projectexerciseitem{15.23} \ 【前置：可数稠密集；预计用时：60分钟】对 \(\mathbf1_{\Q}\)、Thomae 型函数和 \(\sin(1/x)\) 分别选取适当的见证数列，比较三类函数在给定点附近不能收敛的原因。
+ \optionalexerciseitem{15.24}  证明完备值域版本的 Cauchy 准则，并说明若 \(Y\) 只序列完备，证明仍然成立。
+
+\exerciseitem{16.1}  写出右极限、左无穷极限、\(x\to+\infty\) 时有限极限的完整量词定义。
+ \exerciseitem{16.2}  证明双侧极限存在的充要条件，并指出两侧聚点假设的用途。
+ \exerciseitem{16.3}  求取整函数 \(\lfloor x\rfloor\) 在整数 \(m\) 处的左右极限。
+ \exerciseitem{16.4}  讨论 \(\abs{x}/x\) 在 \(0\) 处的左右极限与双侧极限。
+ \exerciseitem{16.5}  用定义证明 \(\lim_{x\to0+}1/x=+\infty\)。
+ \exerciseitem{16.6}  用定义证明 \(\lim_{x\to-\infty}(3x+1)=-\infty\)。
+ \exerciseitem{16.7}  证明 \(f(x)\to+\infty\) 当且仅当对每个 \(A\in\R\)，最终有 \(f(x)>A\)。
+ \exerciseitem{16.8}  证明若 \(f(x)\to+\infty\)，则 \(\abs{f(x)}\to+\infty\)，并说明反向为何不成立。
+\exerciseitem{16.9}  给出 \(f(x)\not\to+\infty\)（\(x\to a\)）的量词否定和序列否定。
+ \exerciseitem{16.10}  证明 \(1/x^2\to+\infty\)（\(x\to0\)），而 \(1/x\) 没有双侧扩充实极限。
+ \exerciseitem{16.11}  若 \(f(x)\to+\infty\)、\(g(x)\to L\in\R\)，证明 \(f(x)+g(x)\to+\infty\)。
+ \exerciseitem{16.12}  若 \(f(x)\to+\infty\)、\(g(x)\to M>0\)，证明 \(f(x)g(x)\to+\infty\)。
+ \exerciseitem{16.13}  构造 \(f,g\to+\infty\)，使 \(f-g\) 分别趋于有限数、趋于 \(+\infty\)、没有极限。
+ \exerciseitem{16.14}  构造 \(f\to0\)、\(g\to+\infty\)，使 \(fg\) 分别趋于 \(0\)、有限非零值、\(+\infty\) 及无极限。
+ \exerciseitem{16.15}  用序列刻画证明下述等价关系：
+ \[
+  \lim_{x\to+\infty}f(x)=L
+  \quad\Longleftrightarrow\quad
+  \bigl(x_n\to+\infty\Rightarrow f(x_n)\to L\bigr).
+ \]
+ \exerciseitem{16.16}  严格证明倒数代换 \(x=1/t\) 在 \(+\infty\) 与 \(0+\) 之间的极限等价。
+\exerciseitem{16.17}  证明若 \(f(x)>0\) 最终成立，则 \(f(x)\to0\) 当且仅当 \(1/f(x)\to+\infty\)。
+ \exerciseitem{16.18}  分析 \(F(x^2)\) 在 \(x\to0\) 的极限与 \(F(u)\) 在 \(u\to0+\) 的极限之间的等价关系。
+ \optionalexerciseitem{16.19}  给出扩充实数邻域体系，并用它统一写出九种 \(\alpha\to\beta\) 极限。
+ \optionalexerciseitem{16.20}  证明扩展 Heine 定理，分别写出 \(\alpha\) 有限、\(\alpha=+\infty\)、\(\alpha=-\infty\) 时的坏点构造。
+ \projectexerciseitem{16.21} \ 【前置：本章全部内容；预计用时：75分钟】制作极限类型转换表，覆盖平移、倒数、指数式重参数化和单侧限制；每个箭头注明是等价还是单向蕴含。
+ \openexerciseitem{16.22}  研究怎样为扩充实数定义一个与其序拓扑相容的度量，并用该度量重写本章的序列极限。
+ \exerciseitem{16.23}  证明若 \(f\) 单调递增且在 \((A,\infty)\) 上有上界，则 \(\lim_{x\to+\infty}f(x)\) 存在且有限。
+ \optionalexerciseitem{16.24}  给出“\(\infty-\infty\)”与“\(0\cdot\infty\)”各三种不同结果的例子，说明未定式只是分类标签。
+\end{enumerate}

@@ -1,11 +1,7 @@
-\chapter{单调数列、递推数列与迭代：习题解答}
+\chapter{单调数列与迭代：习题解答}
 
-\begin{chapterguide}
-本章解答把递推分析拆成定义域、不变区间、收敛机制和极限识别四步。仅求固定点方程的根不计作收敛证明。
-\end{chapterguide}
-
-\section*{A组　单调性与确界}
-\addcontentsline{toc}{section}{A组　单调性与确界}
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
 
 \begin{solution}{10.1}
 有界性使值集 \(A=\{a_n\}\) 有有限上确界 \(s\)，此处使用实数完备性。对 \(\varepsilon>0\)，上确界近似性给出 \(a_N>s-\varepsilon\)；单调性把这一不等式传给全部 \(n\ge N\)，而上界性给出 \(a_n\le s\)。故
@@ -44,8 +40,8 @@
 前者严格递增，后者严格递减，且两者都由直接误差 \(1/n\to0\) 得到极限 \(L\)。
 \end{solution}
 
-\section*{B组　递推数列}
-\addcontentsline{toc}{section}{B组　递推数列}
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
 
 \begin{solution}{10.7}
 \([0,2]\) 为不变区间，故递推始终有定义并有界。对 \(x\in[0,2]\)，
@@ -118,8 +114,8 @@
 \(0,1,0,1,\ldots\)，不收敛。故固定点唯一仍不足以保证所有轨道收敛。
 \end{solution}
 
-\section*{C组　压缩、反例与项目}
-\addcontentsline{toc}{section}{C组　压缩、反例与项目}
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
 
 \begin{solution}{10.17}
 压缩性归纳给出
@@ -191,3 +187,4 @@
 \begin{solution}{10.24}
 二分法通常只需连续性和端点异号来保证根存在，区间长度给出先验误差，但若根不唯一，区间可能收敛到其中某个根。压缩迭代要求更强的统一 Lipschitz 常数 \(q<1\) 及不变闭集，却同时给出固定点存在、唯一和几何误差。二分法的收敛率由区间宽度 \(2^{-n}\) 决定；压缩法由 \(q^n\) 决定，且每步需要计算 \(f\)。
 \end{solution}
+
