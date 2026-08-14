@@ -6,7 +6,7 @@
 
 函数极限只考察趋近点附近的函数值，因此改变函数在该点的取值不会改变极限。这个局部定义一旦写清，数列极限的工具便可转用于函数：Heine 定理用定义域中的点列检验极限，Cauchy 准则则在不知道候选极限时直接比较函数值。
 
-\section{有限点处的有限极限}
+\section{聚点、删心邻域与 \texorpdfstring{\(\varepsilon\)-\(\delta\)}{epsilon-delta} 定义}
 
 \subsection{定义域、聚点与删心邻域}
 
@@ -123,6 +123,8 @@
 \end{example}
 
 否定某个候选极限与证明“极限不存在”有区别。后者要排除全部 \(L\in\R\)。\chapterref{chap:heine-cauchy}将用序列方法显著简化这一工作。
+
+\section{唯一性、局部有界性、保号性与运算}
 
 \subsection{唯一性、局部有界性与局部保号性}
 
@@ -278,7 +280,7 @@
 若 \(q(a)=0\)，不能直接使用商法则；约去公因子、分析无穷极限或证明不存在，取决于具体结构。
 \end{example}
 
-\section{Heine 定理}
+\section{Heine 序列刻画及不存在极限的方法}
 
 \(\varepsilon\)-\(\delta\) 定义一次控制一个完整邻域，数列方法则沿一条逐点选择的路径检验函数值。Heine 定理说明，在实数这样的度量空间中，这两种表述等价。正向只需把收敛点列最终放入邻域；反向的关键是从每个失效半径中选择一个坏点，把“所有邻域都失败”编码成一条趋向 \(a\) 的数列。
 
@@ -417,7 +419,7 @@
 
 两条路径给出不同极限是充分条件，但不是证明不存在的唯一方式。像数列无界，或同一条像数列不收敛，也足以否定函数极限。
 
-\section{Cauchy 准则}
+\section{函数极限的 Cauchy 准则}
 
 当候选极限难以写出时，可以像研究数列那样比较同一小邻域中的两个函数值。若这些值彼此任意接近，它们便形成一个 Cauchy 型局部族；值域为 \(\R\) 时，完备性把这种内部稳定补成一个极限。准则的反向因此不能只靠函数极限的代数法则。
 
@@ -495,7 +497,7 @@
 把实数绝对值换成距离，前一节证明逐字成立。三角不等式用于必要性和最后的传递；完备性用于像序列的收敛。
 \end{proof}
 
-\section{单侧极限、无穷极限与无穷远处的极限}
+\section{单侧极限、无穷极限和无穷远处的极限}
 
 \subsection{左极限与右极限}
 
@@ -636,6 +638,8 @@
 
 当定义域为 \(\N\) 时，\(x\to+\infty\) 的函数极限恰好退化为数列极限。阈值 \(A\) 与数列定义中的指标起点 \(N\) 承担相同作用。
 
+\section{扩充实数中的极限与变量代换}
+
 \subsection{扩充实数中的表述}
 
 记
@@ -716,7 +720,7 @@
 \end{proof}
 
 \begin{proposition}[平移与尺度代换]
-若 \(u=\phi(x)\) 在 \(x\to\alpha\) 时趋于 \(\gamma\)，且 \(\phi(x)\ne\gamma\) 最终成立，则
+设 \(F:E\to\R\)，\(\gamma\) 是 \(E\) 的聚点；设 \(\phi:D\to E\)，且 \(\alpha\) 是 \(D\) 的聚点。若 \(x\to\alpha\) 时 \(\phi(x)\to\gamma\)，并且在 \(D\) 的某个删心邻域内有 \(\phi(x)\ne\gamma\)，则
 \[
  \lim_{u\to\gamma}F(u)=L
  \Longrightarrow
@@ -724,7 +728,20 @@
 \]
 \end{proposition}
 
-这就是复合极限定理在各种极限类型中的统一形式。反向等价还需要代换能够覆盖 \(\gamma\) 附近的全部相关方向。若 \(\phi\) 只取一侧值，复合只检验相应单侧极限。
+\begin{proof}
+给定 \(\varepsilon>0\)。由 \(F(u)\to L\)，存在 \(\eta>0\)，使
+\[
+ u\in E,\quad 0<\abs{u-\gamma}<\eta
+ \Longrightarrow \abs{F(u)-L}<\varepsilon.
+\]
+再由 \(\phi(x)\to\gamma\)，取 \(\delta>0\)，使 \(x\in D\)、\(0<\abs{x-\alpha}<\delta\) 时有 \(\abs{\phi(x)-\gamma}<\eta\)，并把 \(\delta\) 缩小到保证 \(\phi(x)\ne\gamma\) 的删心邻域内。此时 \(\phi(x)\in E\) 且
+\[
+ 0<\abs{\phi(x)-\gamma}<\eta,
+\]
+故 \(\abs{F(\phi(x))-L}<\varepsilon\)。
+\end{proof}
+
+这是复合极限定理在变量代换中的直接应用。反向等价还需要代换能够覆盖 \(\gamma\) 附近的全部相关方向。若 \(\phi\) 只取一侧值，复合只检验相应单侧极限。
 
 \begin{counterexample}
 令 \(\phi(x)=x^2\)。当 \(x\to0\) 时 \(\phi(x)\to0+\)。因此

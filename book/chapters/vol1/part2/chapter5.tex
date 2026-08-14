@@ -6,7 +6,7 @@
 
 说数列的项“越来越接近”某个数，还没有说明怎样检验这种接近。极限定义要求：误差尺度无论给得多小，数列的某个完整尾部都落在这个尺度内。量词次序确定以后，常见估计、唯一性、有界性和四则运算都可从这一定义推出。
 
-\section{数列与极限定义}
+\section{数列、邻域与 \texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义}
 
 \subsection{数列是定义在正整数集上的函数}
 
@@ -123,6 +123,8 @@
 
 这里使用“完整尾部”而非“无穷多项”。数列 \((-1)^n\) 的任意小的 \(1\) 的邻域可能含无穷多个项，却从不包含完整尾部；这不足以说明收敛到 \(1\)。
 
+\section{量词顺序、极限的否定与误差估计}
+
 \subsection{不收敛的严格否定形式}
 
 固定候选 \(a\)。命题“\(a_n\) 不收敛到 \(a\)”是极限定义的逐层否定：
@@ -132,74 +134,11 @@
 \]
 同一个 \(\varepsilon_0\) 对每个尾部都有效，而见证失败的 \(n\) 可以随 \(N\) 改变。
 
-\begin{proposition}
-若存在两条子列分别收敛到不同实数 \(a\ne b\)，则原数列发散。
-\end{proposition}
-
-\begin{proof}
-若原列收敛到 \(L\)，则任意子列也收敛到 \(L\)：给定误差，只要子列指标进入原列所要求的尾部即可。\chapterref{chap:sequence-limit-properties}将证明极限唯一性，于是应有 \(a=L=b\)，矛盾。也可直接取 \(\varepsilon_0=\abs{a-b}/3\)，两条子列最终分别落在两个不交区间中，完整尾部不可能同时落入候选极限的任意小邻域。
-\end{proof}
-
 \begin{example}
 数列 \(a_n=(-1)^n\) 发散。若候选 \(a\ge0\)，所有奇数项 \(-1\) 与 \(a\) 的距离至少为 \(1\)；若 \(a<0\)，所有偶数项 \(1\) 与 \(a\) 的距离大于 \(1\)。因此可统一取 \(\varepsilon_0=1\)，每个尾部都含违反误差要求的项。
 \end{example}
 
 证明一个数列发散并不等同于证明它不收敛到某个显眼候选值。必须排除所有实数候选，或使用能够一次排除所有候选的结构，例如两个不同的子列极限、无界性或振荡。
-
-\subsection{有限项修改与极限不变性}
-
-\begin{theorem}[尾部不变性]
-设实数列 \((a_n)\)、\((b_n)\) 满足：存在 \(N_0\)，使 \(a_n=b_n\) 对所有 \(n\ge N_0\) 成立。则对任意 \(a\in\R\)，
-\[
- a_n\to a\quad\Longleftrightarrow\quad b_n\to a.
-\]
-\end{theorem}
-
-\begin{proof}
-若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N_1\) 控制 \(a_n\) 的误差。令 \(N=\max\{N_0,N_1\}\)，则 \(n\ge N\) 时
-\[
- \abs{b_n-a}=\abs{a_n-a}<\varepsilon.
-\]
-反向完全相同。
-\end{proof}
-
-删除有限项、增加有限个首项、改变有限项以及把起始指标从 \(1\) 改成任意固定整数，均不改变极限。相反，改变无穷多项可能仍不改变极限，也可能破坏极限；关键不在修改项数是否无限，而在修改后的误差是否仍最终可任意小。例如把 \(1/n\) 的偶数项改为 \(2/n\) 仍收敛到 \(0\)，把偶数项改为 \(1\) 则不收敛到 \(0\)。
-
-\subsection{数列趋于 \texorpdfstring{\(+\infty\)}{+infinity} 或 \texorpdfstring{\(-\infty\)}{-infinity} 的定义}
-
-\begin{definition}
-设 \((a_n)\) 为实数列。若
-\[
-\forall M\in\R\ \exists N\in\Npos\ \forall n\ge N,
- \quad a_n>M,
-\]
-则称 \(a_n\to+\infty\)。若
-\[
-\forall M\in\R\ \exists N\in\Npos\ \forall n\ge N,
- \quad a_n<M,
-\]
-则称 \(a_n\to-\infty\)。
-\end{definition}
-
-符号 \(+\infty\) 与 \(-\infty\) 在这里不是实数，因而无穷极限不属于“收敛到某个实数”。它描述数列最终越过每个有限阈值。命题 \(a_n\not\to+\infty\) 的否定形式为
-\[
-\exists M_0\in\R\ \forall N\in\Npos\ \exists n\ge N,
- \quad a_n\le M_0.
-\]
-
-\begin{example}
-\(a_n=n^2\to+\infty\)。给定 \(M\)，若 \(M<0\) 可取 \(N=1\)；若 \(M\ge0\)，取整数 \(N>\sqrt M\)，则 \(n\ge N\) 时 \(n^2>M\)。数列 \(a_n=(-1)^n n\) 无界，却既不趋于 \(+\infty\) 也不趋于 \(-\infty\)，因为每个尾部同时含很大的正项和很小的负项。
-\end{example}
-
-\begin{proposition}
-若 \((a_n)\) 单调递增，则它或者有上界，或者趋于 \(+\infty\)。递减情形对称成立。
-\end{proposition}
-
-\begin{proof}
-若无上界，给定 \(M\)，存在 \(N\) 使 \(a_N>M\)。单调性保证 \(n\ge N\) 时 \(a_n\ge a_N>M\)。有上界时不能趋于 \(+\infty\)。
-\end{proof}
-
-\section{从定义进行估计}
 
 \subsection{从目标不等式反向寻找 \texorpdfstring{\(N\)}{N}}
 
@@ -281,7 +220,7 @@
 
 \begin{example}[分母可能接近零]
 表达式
-\(\frac{a_n}{b_n}\) 的误差不能仅分别估计分子与分母。即使 \(b_n\to0\)，也不能把 \(1/b_n\) 当作有界量。商极限定理必须要求分母极限非零，并先证明分母最终远离零；\chapterref{chap:sequence-limit-properties}将系统处理这一点。
+\(\frac{a_n}{b_n}\) 的误差不能仅分别估计分子与分母。即使 \(b_n\to0\)，也不能把 \(1/b_n\) 当作有界量。后面的商极限定理将要求分母极限非零，并先证明分母最终远离零。
 \end{example}
 
 \subsection{含参数数列中的一致误差估计}
@@ -316,38 +255,16 @@
 对所有 \(t\in T\) 和充分大的 \(n\) 同时成立，则误差关于 \(t\) 一致。
 \end{proposition}
 
-该结论中的“充分大”也必须一致；若起点仍依赖 \(t\)，则不能直接取一个统一尾部。
-
-\subsection{夹逼结构与辅助估计}
-
-\begin{theorem}[夹逼的定义版本]
-设从某项起
-\[
- b_n\le a_n\le c_n,
-\]
-且 \(b_n\to L\)、\(c_n\to L\)。则 \(a_n\to L\)。
-\end{theorem}
-
 \begin{proof}
-给定 \(\varepsilon>0\)，分别取 \(N_1,N_2\) 使
+给定 \(\varepsilon>0\)，由 \(r_n\to0\) 取 \(N_1\)，使 \(n\ge N_1\) 时 \(r_n<\varepsilon\)。题设中的“充分大”给出与 \(t\) 无关的起点 \(N_0\)。令 \(N=\max\{N_0,N_1\}\)，则对所有 \(t\in T\) 与 \(n\ge N\)，均有
 \[
- L-\varepsilon<b_n,\qquad c_n<L+\varepsilon
-\]
-在相应尾部成立。令
-\[
- N=\max\{N_0,N_1,N_2\}.
-\]
-于是对每个 \(n\ge N\)，有
-\[
- L-\varepsilon<a_n<L+\varepsilon.
+ \abs{a_n(t)-a(t)}\le r_n<\varepsilon.
 \]
 \end{proof}
 
-常用的绝对值形式是：若最终有
-\[
- \abs{a_n-L}\le r_n,\qquad r_n\to0,
-\]
-则 \(a_n\to L\)。辅助估计的任务是把复杂误差压到已知趋零量之下。
+该结论中的“充分大”也必须一致；若起点仍依赖 \(t\)，则不能直接取一个统一尾部。
+
+\subsection{辅助估计}
 
 \begin{example}
 若 \(\abs{u_n}\le M\)，则
@@ -401,18 +318,9 @@
 数列 \(a_n=n\sin(n\pi/2)\) 发散。指标 \(n=4k\) 的子列恒为 \(0\)，而 \(n=4k+1\) 的子列等于 \(4k+1\)，无界。它既没有有限极限，也没有正、负无穷极限。
 \end{example}
 
-\begin{proposition}
-若实数列存在有限极限，则它有界。
-\end{proposition}
-
-\begin{proof}
-对 \(\varepsilon=1\) 取 \(N\)，尾部满足
-\(\abs{a_n}\le\abs a+1\)。把前 \(N-1\) 项的有限个绝对值与 \(\abs a+1\) 取最大值，即得全列界。
-\end{proof}
-
 无界性只是发散的充分条件，不是必要条件；\((-1)^n\) 有界而发散。类似地，不趋于 \(+\infty\) 不能推出有有限极限。
 
-\section{基本性质}
+\section{唯一性、有界性、保号性与夹逼}
 
 \subsection{极限的唯一性}
 
@@ -466,7 +374,7 @@
 
 有界性不能替换成“每一项都是有限实数”，后者对所有实数列都成立而不给统一控制。例如 \(a_n=1/n\)、\(b_n=n\) 时乘积恒为 \(1\)。
 
-\subsection{保号性与序关系}
+\subsection{保号性}
 
 \begin{theorem}[局部保号]
 若 \(a_n\to a\) 且 \(a>0\)，则存在 \(N\) 使
@@ -482,20 +390,6 @@
 \end{proof}
 
 极限为零时不能推出尾部固定符号；数列 \((-1)^n/n\to0\) 无限次改变符号。反向命题“若最终 \(a_n>0\)，则极限 \(a>0\)”也不成立，反例为 \(a_n=1/n\)。能稳定传给极限的是非严格不等式。
-
-\begin{theorem}[序关系的闭性]
-若 \(a_n\to a\)、\(b_n\to b\)，且最终 \(a_n\le b_n\)，则 \(a\le b\)。特别地，若 \(a_n\ge0\) 最终成立，则 \(a\ge0\)。
-\end{theorem}
-
-\begin{proof}
-若 \(a>b\)，令 \(\varepsilon=(a-b)/3\)。充分大时
-\[
- a_n>a-\varepsilon>b+\varepsilon>b_n,
-\]
-与最终 \(a_n\le b_n\) 矛盾。
-\end{proof}
-
-即使每个 \(n\) 都有 \(a_n<b_n\)，极限也可能相等，例如 \(a_n=0\)、\(b_n=1/n\)。若要得到 \(a<b\)，需要最终存在固定间隙，例如 \(b_n-a_n\ge\delta>0\)。
 
 \subsection{夹逼定理}
 
@@ -521,7 +415,7 @@
 
 夹逼两侧必须趋于同一极限。若只知 \(a_n\to A\)、\(c_n\to C\) 且 \(A<C\)，最多能推出任何收敛子列极限位于 \([A,C]\)，不能保证 \(b_n\) 收敛。
 
-\section{极限的运算}
+\section{四则运算、绝对值与序关系}
 
 \subsection{和、差、积、商}
 
@@ -613,7 +507,79 @@
 再应用已证明的代数运算与绝对值极限。
 \end{proof}
 
+\subsection{序关系与极限}
+
+\begin{theorem}[序关系的闭性]
+若 \(a_n\to a\)、\(b_n\to b\)，且最终 \(a_n\le b_n\)，则 \(a\le b\)。特别地，若 \(a_n\ge0\) 最终成立，则 \(a\ge0\)。
+\end{theorem}
+
+\begin{proof}
+若 \(a>b\)，令 \(\varepsilon=(a-b)/3\)。充分大时
+\[
+ a_n>a-\varepsilon>b+\varepsilon>b_n,
+\]
+与最终 \(a_n\le b_n\) 矛盾。
+\end{proof}
+
+即使每个 \(n\) 都有 \(a_n<b_n\)，极限也可能相等，例如 \(a_n=0\)、\(b_n=1/n\)。若要得到 \(a<b\)，需要最终存在固定间隙，例如 \(b_n-a_n\ge\delta>0\)。
+
 有限次运算的稳定性不能未经证明推广到随 \(n\) 增长的运算次数。例如每个固定 \(k\) 都有 \((1+1/n)^k\to1\)，但指数若取 \(n\)，数列 \((1+1/n)^n\) 不趋于 \(1\)。量词中的“固定对象”与“随指标变化的对象”必须区分。
+
+\section{无穷极限和有限项修改}
+
+\subsection{趋于 \texorpdfstring{\(+\infty\)}{+infinity} 或 \texorpdfstring{\(-\infty\)}{-infinity}}
+
+\begin{definition}
+设 \((a_n)\) 为实数列。若
+\[
+\forall M\in\R\ \exists N\in\Npos\ \forall n\ge N,
+ \quad a_n>M,
+\]
+则称 \(a_n\to+\infty\)。若
+\[
+\forall M\in\R\ \exists N\in\Npos\ \forall n\ge N,
+ \quad a_n<M,
+\]
+则称 \(a_n\to-\infty\)。
+\end{definition}
+
+符号 \(+\infty\) 与 \(-\infty\) 在这里不是实数，因而无穷极限不属于“收敛到某个实数”。它描述数列最终越过每个有限阈值。命题 \(a_n\not\to+\infty\) 的否定形式为
+\[
+\exists M_0\in\R\ \forall N\in\Npos\ \exists n\ge N,
+ \quad a_n\le M_0.
+\]
+
+\begin{example}
+\(a_n=n^2\to+\infty\)。给定 \(M\)，若 \(M<0\) 可取 \(N=1\)；若 \(M\ge0\)，取整数 \(N>\sqrt M\)，则 \(n\ge N\) 时 \(n^2>M\)。数列 \(a_n=(-1)^n n\) 无界，却既不趋于 \(+\infty\) 也不趋于 \(-\infty\)，因为每个尾部同时含很大的正项和很小的负项。
+\end{example}
+
+\begin{proposition}
+若 \((a_n)\) 单调递增，则它或者有上界，或者趋于 \(+\infty\)。递减情形对称成立。
+\end{proposition}
+
+\begin{proof}
+若无上界，给定 \(M\)，存在 \(N\) 使 \(a_N>M\)。单调性保证 \(n\ge N\) 时 \(a_n\ge a_N>M\)。有上界时不能趋于 \(+\infty\)。
+\end{proof}
+
+\subsection{有限项修改与尾部不变性}
+
+\begin{theorem}[尾部不变性]
+设实数列 \((a_n)\)、\((b_n)\) 满足：存在 \(N_0\)，使 \(a_n=b_n\) 对所有 \(n\ge N_0\) 成立。则对任意 \(a\in\R\)，
+\[
+ a_n\to a\quad\Longleftrightarrow\quad b_n\to a.
+\]
+同样的结论适用于趋于 \(+\infty\) 或 \(-\infty\)。
+\end{theorem}
+
+\begin{proof}
+若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N_1\) 控制 \(a_n\) 的误差。令 \(N=\max\{N_0,N_1\}\)，则 \(n\ge N\) 时
+\[
+ \abs{b_n-a}=\abs{a_n-a}<\varepsilon.
+\]
+反向完全相同。无穷极限的证明把误差条件换成相应的阈值条件即可。
+\end{proof}
+
+删除有限项、增加有限个首项、改变有限项以及把起始指标从 \(1\) 改成任意固定整数，均不改变极限。相反，改变无穷多项可能仍不改变极限，也可能破坏极限；关键不在修改项数是否无限，而在修改后的误差是否仍最终可任意小。例如把 \(1/n\) 的偶数项改为 \(2/n\) 仍收敛到 \(0\)，把偶数项改为 \(1\) 则不收敛到 \(0\)。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}

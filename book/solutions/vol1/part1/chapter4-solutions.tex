@@ -51,7 +51,8 @@
 若 \(m>n\)，则
 \[
  |a_m-a_n|\le\sum_{k=n}^{m-1}|a_{k+1}-a_k|
- \le\sum_{k=n}^{\infty}2^{-k}=2^{1-n}.
+ \le\sum_{k=n}^{m-1}2^{-k}
+ =2^{1-n}\bigl(1-2^{-(m-n)}\bigr)<2^{1-n}.
 \]
 给定 \(\varepsilon>0\)，取 \(N\) 使 \(2^{1-N}<\varepsilon\)，即得 Cauchy 性。
 \end{solution}

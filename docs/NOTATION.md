@@ -49,4 +49,4 @@
 | `\exerciseref{dedekind-cut-basic-check}` | 正文中的习题引用 |
 | `\begin{solution}{dedekind-cut-basic-check}` | 解答册中与正文标签自动配对的解答 |
 
-稳定键只承担工程身份，不得手工决定最终显示号。新稳定键不得含当前章号或题号；现有数字键仅作3.0版目录迁移期兼容。
+稳定键只承担工程身份，不得手工决定最终显示号。新稳定键不得含当前章号或题号；第一卷前三编迁移后仍保留的数字键只作兼容，不得仿照新增。选做、项目和开放题分别使用 `\optionalexerciseitem`、`\projectexerciseitem`、`\openexerciseitem`，键的规则不变。

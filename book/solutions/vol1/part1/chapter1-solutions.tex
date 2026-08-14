@@ -237,12 +237,16 @@
 \end{solution}
 
 \begin{solution}{3.9}
-设非循环前缀长度为 \(r\)，循环节表示的整数为 \(C\in\{0,\ldots,10^p-1\}\)，前缀对应有限小数 \(A/10^r\)。则
+设非循环前缀长度为 \(r\)，循环节表示的整数为 \(C\in\{0,\ldots,10^p-1\}\)，前缀对应有限小数 \(A/10^r\)。重复 \(N\) 个循环节所得的有限小数为
 \[
- x=\frac A{10^r}+\frac C{10^r}\sum_{j=1}^{\infty}10^{-pj}
- =\frac A{10^r}+\frac C{10^r(10^p-1)}.
+ x_N=\frac A{10^r}+\frac C{10^r}\sum_{j=1}^{N}10^{-pj}
+ =\frac A{10^r}+\frac C{10^r(10^p-1)}(1-10^{-pN}).
 \]
-右端为有理数。公式也覆盖 \(C=0\) 的终止情形。
+余项的绝对值不超过 \(10^{-r-pN}\)，故由上确界刻画或 Cauchy 构造取极限得到
+\[
+ x=\frac A{10^r}+\frac C{10^r(10^p-1)}\in\Q.
+\]
+公式也覆盖 \(C=0\) 的终止情形。
 \end{solution}
 
 \begin{solution}{3.10}
@@ -389,7 +393,7 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \end{solution}
 
 \begin{solution}{2.16}
-令 \(A=\{a_n:n\in\N\}\)。它非空，且 \(b_1\) 是上界。取 \(s=\sup A\)。固定 \(n\)。若 \(k\le n\)，则 \(a_k\le a_n\le b_n\)；若 \(k\ge n\)，则 \(a_k\le b_k\le b_n\)。所以 \(b_n\) 是 \(A\) 的上界，因而
+令 \(A=\{a_n:n\in\Npos\}\)。它非空，且 \(b_1\) 是上界。取 \(s=\sup A\)。固定 \(n\)。若 \(k\le n\)，则 \(a_k\le a_n\le b_n\)；若 \(k\ge n\)，则 \(a_k\le b_k\le b_n\)。所以 \(b_n\) 是 \(A\) 的上界，因而
 \[
  a_n\le s\le b_n.
 \]

@@ -194,11 +194,11 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 \[
  \abs{a_{n_{k+1}}-a_{n_k}}<2^{-k}\qquad(k\in\Npos).
 \]
-进一步，令 \(d_k=a_{n_{k+1}}-a_{n_k}\)，则级数 \(\sum_{k=1}^{\infty}d_k\) 绝对收敛，而且
+令 \(d_k=a_{n_{k+1}}-a_{n_k}\)。对每个 \(m\ge2\)，有限和恒等式
 \[
  a_{n_m}=a_{n_1}+\sum_{k=1}^{m-1}d_k.
 \]
-因此该子列收敛，原 Cauchy 列也收敛到同一极限。
+成立，并且该子列为 Cauchy 列，因而收敛。原 Cauchy 列也收敛到同一极限。
 \end{proposition}
 
 \begin{proof}
@@ -206,19 +206,22 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 \[
  n_{k+1}>n_k,\qquad n_k\ge N_k.
 \]
-于是所需相邻差估计成立，并且
+于是所需相邻差估计成立。若 \(m>\ell\)，有限次三角不等式给出
 \[
- \sum_{k=1}^{\infty}\abs{d_k}\le\sum_{k=1}^{\infty}2^{-k}<\infty.
+ \abs{a_{n_m}-a_{n_\ell}}
+ \le \sum_{k=\ell}^{m-1}\abs{d_k}
+ <\sum_{k=\ell}^{m-1}2^{-k}
+ <2^{1-\ell}.
 \]
-绝对收敛级数的部分和收敛，而上式的有限和逐项消去后正是 \(a_{n_m}-a_{n_1}\)，故子列收敛。Cauchy 列若有收敛子列，则全列收敛到同一点。
+给定 \(\varepsilon>0\)，取 \(L\) 使 \(2^{1-L}<\varepsilon\)，便知 \((a_{n_k})\) 是 Cauchy 列。由实数的 Cauchy 收敛准则，该子列收敛。上式中的有限和逐项消去后正是 \(a_{n_m}-a_{n_1}\)，故所列恒等式成立。Cauchy 列若有收敛子列，则全列收敛到同一点。
 \end{proof}
 
-这项构造把 Cauchy 列化为一列可求和的增量。反过来，若 \(\sum d_k\) 绝对收敛，则其部分和为 Cauchy 列，因为
+这项构造把 Cauchy 列化为一列具有可控有限尾和的增量。第 22 章建立级数以后，可以把同一论证写成“增量级数绝对收敛”。届时，绝对收敛级数的部分和为 Cauchy 列，关键仍是有限尾和估计
 \[
  \abs{\sum_{k=n+1}^{m}d_k}
  \le\sum_{k=n+1}^{m}\abs{d_k}.
 \]
-这一观察将在数项级数的 Cauchy 准则中反复使用。
+这里没有把尚未建立的级数收敛定理作为当前证明的前提。
 
 
 \begin{definition}

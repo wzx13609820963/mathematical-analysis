@@ -156,11 +156,15 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 本节出现两层数列。元素 \(x_k\in\widehat{\R}\) 本身是有理 Cauchy 列的等价类，而我们还要研究类组成的 Cauchy 列 \((x_k)\)。证明要从第 \(k\) 个类中选一个足够准确的有理数 \(r_k\)，再把双重指标压到对角线 \((r_k)\) 上。若不先区分这两层指标，“取第 \(k\) 项”会同时指向两个不同对象。
 
 
-类 \(x=[a_n]\) 可由其任一足够靠后的有理项逼近：给定 \(\varepsilon>0\)，Cauchy 性给出 \(N\)，使
+类 \(x=[a_n]\) 可由其任一足够靠后的有理项逼近。给定 \(\varepsilon>0\)，先对 \(\varepsilon/2\) 使用 Cauchy 条件，取 \(N\) 使 \(n\ge N\) 时
+\[
+ |a_n-a_N|<\frac{\varepsilon}{2}.
+\]
+于是类 \(\varepsilon-|a_n-a_N|\) 从第 \(N\) 项起不小于 \(\varepsilon/2\)，按照严格序的定义，
 \[
  |x-a_N|=[\,|a_n-a_N|\,]<\varepsilon.
 \]
-因此 \(\Q\) 在 \(\widehat{\R}\) 中稠密。
+因此 \(\Q\) 在 \(\widehat{\R}\) 中稠密。这里保留的 \(\varepsilon/2\) 正是严格类不等式所需的正间隙。
 
 每个有理 Cauchy 列有有理界，故每个 \(x\in\widehat{\R}\) 都被某个正整数控制；因此 \(\widehat{\R}\) 具有 Archimedes 性质。特别地，对任意 \(\varepsilon>0\) 可取 \(k\) 使 \(1/k<\varepsilon\)。
 
