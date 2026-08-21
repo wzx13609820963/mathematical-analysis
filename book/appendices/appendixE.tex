@@ -6,7 +6,7 @@
 本附录统一前三编已经使用的记号、同名定理版本和默认假设。全书后续卷涉及的拓扑、测度、函数空间与偏微分方程记号保留既定栏目，待相应正文定稿后逐项补入，避免符号表先于定义冻结。
 \end{chapterguide}
 
-\section{数集、区间与扩充实数记号}
+\section{数集、拓扑、测度和概率记号}
 
 \begin{description}[style=nextline,leftmargin=4.2em]
  \item[\(\N,\Npos,\Z,\Q,\R,\C\)]
@@ -45,24 +45,22 @@
  \lim_{\substack{x\to a\\x\in D}}f(x).
 \]
 
-\section{拓扑、流形、测度和概率记号}
+\subsection*{拓扑、流形、测度和概率记号}
 
-\begin{remark}[当前已启用的拓扑记号]
-前三编只使用实直线和度量空间的初步语言：
+\begin{remark}[拓扑记号]
+下列记号分别表示闭包、内部、边界、距离和开球：
 \[
  \overline A,\quad A^\circ,\quad\partial A,\quad
  d(x,y),\quad B(x,r),
 \]
-分别表示闭包、内部、边界、距离和开球。正文尚未系统定义时，附录中的出现仅用于阅读导航，不构成可引用定义。
+它们在欧氏空间、度量空间和一般拓扑空间各章逐层定义。前三编只在已经明确给出含义的实直线情形使用，不把本表当作定义的替代。
 \end{remark}
 
-\begin{remark}[预留：依赖第八至十二编]
-本节后续将补入拓扑基、网与滤子、流形坐标、切丛、Borel \(\sigma\)-代数、测度、可测函数、期望、条件期望与随机过程等记号。正式表格须以相应章节最终采用的字体和下标约定为准。
-\end{remark}
+拓扑基写作 \(\mathcal B\)，生成的拓扑写作 \(\tau\)；网以有向集为指标，滤子与超滤子分别写作 \(\mathcal F,\mathcal U\)。流形的切空间写作 \(T_pM\)，切丛写作 \(TM\)。Borel \(\sigma\)-代数写作 \(\mathcal B(X)\)，测度空间写作 \((X,\mathcal A,\mu)\)。概率空间写作 \((\Omega,\mathcal F,\mathbb P)\)，期望与条件期望写作 \(\mathbb E X\) 和 \(\mathbb E[X\mid\mathcal G]\)。这些约定只有在相应正文给出定义后才可用于推理。
 
-\section{函数空间、算子与偏微分方程记号}
+\section{函数空间、算子和偏微分方程记号}
 
-\begin{remark}[当前已启用的定量连续性记号]
+\begin{remark}[定量连续性记号]
 \[
  \operatorname{Lip}(f),\qquad
  \omega_f(t),\qquad C^{0,\alpha}
@@ -70,52 +68,16 @@
 分别用于 Lipschitz 常数、连续模和 Hölder 类。前三编只在实值函数与实数子集上使用；后续推广到度量值域时改用距离。
 \end{remark}
 
-\begin{remark}[后续记号预留]
-依赖第五、六及第十三至二十编的记号将在相应正文完成后补入，其中包括
+\begin{remark}[函数空间与弱导数记号]
+常用函数空间记作
 \[
  C^k,\quad C_c^\infty,\quad L^p,\quad \ell^p,\quad
  W^{k,p},\quad H^s.
 \]
-对偶空间、算子范数、谱、分布导数、弱解、边界迹和常用微分算子的记号也暂不预设。
+等号在 \(L^p\) 与 Sobolev 空间中表示几乎处处等价类。连续对偶写作 \(X^*\)，有界线性算子空间写作 \(\mathcal L(X,Y)\)，算子范数写作 \(\|T\|\)，谱写作 \(\sigma(T)\)。分布导数使用 \(D^\alpha u\)，弱解所在空间和测试函数空间必须在具体方程旁给出；本表不设任何默认边界条件。
 \end{remark}
 
-\section{全书主要定理依赖图}
-
-前三编的主干依赖可写为
-\[
-\begin{aligned}
- &\text{集合、逻辑与有理数缺口}\\
- &\quad\Downarrow\\
- &\text{完备有序域公理或实数构造}\\
- &\quad\Downarrow\\
- &\text{Archimedes 性质、整数部分、有理稠密}\\
- &\quad\Downarrow\\
- &\text{单调收敛、区间套、Bolzano--Weierstrass、Cauchy 完备}\\
- &\quad\Downarrow\\
- &\text{数列极限、子列、上下极限与 Cauchy 准则}\\
- &\quad\Downarrow\\
- &\text{函数极限、Heine 定理、函数 Cauchy 准则}\\
- &\quad\Downarrow\\
- &\text{连续性、闭区间紧致、介值与极值}\\
- &\quad\Downarrow\\
- &\text{Heine--Cantor、一致连续与完备化延拓}.
-\end{aligned}
-\]
-
-几条关键侧向依赖为：
-\begin{itemize}
- \item 函数 Cauchy 准则的充分性直接依赖值域完备；
- \item 单调函数左右极限依赖确界性质；
- \item 单调函数间断点至多可数还依赖有理数稠密以及 \(\Q\) 至多可数；
- \item 闭区间有限覆盖既可由上确界法证明，也可经区间套或序列紧致证明；
- \item Heine--Cantor 依赖紧致性加连续性，一致延拓依赖一致连续、稠密性和值域完备。
-\end{itemize}
-
-\begin{remark}[全书图预留]
-第四编以后每编完成时，应在此图中新增节点与有向边，而不改写已有依赖方向。若发现循环引用，须回到正文调整定理顺序；附录只记录，不替代证明。
-\end{remark}
-
-\section{同名定理不同版本对照}
+\section{同名定理的不同版本}
 
 \begin{description}[style=nextline,leftmargin=4em]
  \item[Heine 定理]
@@ -134,7 +96,47 @@
  前三编指单调有界实数列收敛。测度论中的“单调收敛定理”是积分定理，后续引用必须加上“数列”或“积分”限定。
 \end{description}
 
-\section{常用假设的默认范围与例外}
+\section{主要定理依赖图}
+
+数列极限的定义和代数性质只使用实数的序与域运算；完备性负责保证某些候选极限确实存在。因此依赖关系不是一条把所有内容串起的单链。前三编的主要分支为
+\[
+\begin{array}{c}
+\text{逻辑、集合与有理数}\\[2mm]
+\downarrow\\[-1mm]
+\text{完备有序域的公理描述}\quad\longleftarrow\quad
+\begin{matrix}
+\text{Dedekind 分割构造}\\
+\text{Cauchy 列商构造}
+\end{matrix}\\[3mm]
+\downarrow\\[-1mm]
+\text{Archimedes 性质、整数部分、有理稠密}\\[2mm]
+\swarrow\qquad\downarrow\qquad\searrow\\[-1mm]
+\begin{matrix}\text{单调有界}\\\text{收敛}\end{matrix}
+\quad
+\begin{matrix}\text{区间套与}\\\text{Bolzano--Weierstrass}\end{matrix}
+\quad
+\begin{matrix}\text{Cauchy}\\\text{完备性}\end{matrix}.
+\end{array}
+\]
+另一方面，
+\[
+\text{数列极限定义与运算}
+\longrightarrow
+\text{子列、上下极限、Cauchy 判据}
+\longrightarrow
+\text{函数极限与连续性}.
+\]
+两个分支在“存在性”处相交：单调数列、部分极限和 Cauchy 列的收敛都调用相应的完备性形式。随后还有以下侧向依赖：
+\begin{itemize}
+ \item 函数极限的 Cauchy 准则在充分性方向使用值域完备性；
+ \item 单调函数的左右极限使用确界性质，其间断点至多可数还使用有理数稠密性；
+ \item 闭区间有限覆盖可由确界、区间套或序列紧致得到；
+ \item 极值与介值分别来自紧致性和连通性；
+ \item Heine--Cantor 由紧致性与连续性推出，一致延拓还需要值域完备。
+\end{itemize}
+依赖图只记录可以引用的先后关系，不代替正文证明。若某个证明沿箭头反向调用后文结论，就必须另给不循环的证明。
+
+\section{默认假设、例外和选择原则}
 
 \begin{enumerate}
  \item 未注明时，数列为实数列，函数为实变量实值函数；推广到度量值域时显式写出空间。
@@ -144,8 +146,23 @@
  \item “完备”必须说明相对于哪个距离或一致结构；\(\Q\) 在通常距离下不完备。
  \item 上确界、下确界的正文定理默认集合非空并有相应界；空集与扩充实值约定须明确说明。
  \item 常数 \(C,c,M\) 可逐行改变时写明“存在与主要变量无关的常数”；依赖关系用 \(C(\alpha,p,\ldots)\) 标注。
- \item 预留栏目中的符号和定理名称不得作为已证明结果交叉引用。
+ \item 从固定枚举中取第一个合格元素属于规范选择；从任意非空集合族同时取元可能使用选择公理。所用强度按附录 A 的分类说明。
+ \item 本表中出现的后卷符号只登记字体和含义，不构成定义，也不得作为前卷已证明结果引用。
 \end{enumerate}
+
+\section{编写阶段登记表的整理规则}
+
+本附录是给读者查阅的成书内容，不承担工程日志职能。编写阶段的活符号表、术语表和定理依赖表分别维护在
+\texttt{docs/NOTATION.md}、\texttt{docs/TERMINOLOGY.md} 与
+\texttt{docs/DEPENDENCIES.md} 中；它们可记录尚未进入正文的候选项、文件位置和审校状态。
+
+整理进本附录时遵守三条规则：
+\begin{enumerate}
+ \item 只收入已经在正文中定义，或确有必要提前统一字体的记号；后者必须明说不能替代定义。
+ \item 同一名称有多个版本时，列出对象范围和假设差别，不以“同理”掩盖维数、完备性或可测性条件。
+ \item 依赖箭头以正文中实际可引用的证明为准。历史报告和计划中的拟定顺序不能覆盖现行数学依赖。
+\end{enumerate}
+因此，工程登记表可以频繁更新，而本附录只在有关理论定稿后整理；二者职责不同。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}

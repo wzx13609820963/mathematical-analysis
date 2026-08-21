@@ -16,12 +16,22 @@
  [T(x)]_{\mathcal C}=A[x]_{\mathcal B}.
 \]
 
-若 \(P\) 的列是新基 \(\mathcal B'\) 在旧基 \(\mathcal B\) 中的坐标，则
+若 \(P\) 的列是 \(V\) 的新基 \(\mathcal B'\) 在旧基 \(\mathcal B\) 中的坐标，\(Q\) 的列是 \(W\) 的新基 \(\mathcal C'\) 在旧基 \(\mathcal C\) 中的坐标，则
 \[
  [x]_{\mathcal B}=P[x]_{\mathcal B'},\qquad
- [T]_{\mathcal B'\leftarrow\mathcal B'}=P^{-1}[T]_{\mathcal B\leftarrow\mathcal B}P.
+ [y]_{\mathcal C}=Q[y]_{\mathcal C'}.
 \]
-相似矩阵表示同一线性算子在不同基下的坐标。
+从而
+\[
+ [T]_{\mathcal C'\leftarrow\mathcal B'}
+ =Q^{-1}[T]_{\mathcal C\leftarrow\mathcal B}P.
+\]
+只有在 \(V=W\)，并且定义域和值域同时采用同一组新基时，公式才化为
+\[
+ [T]_{\mathcal B'\leftarrow\mathcal B'}
+ =P^{-1}[T]_{\mathcal B\leftarrow\mathcal B}P.
+\]
+因此相似矩阵表示同一线性自映射在不同基下的坐标；一般线性映射的矩阵变换是左右两边分别换基。
 
 \begin{theorem}[秩--零化度]
 若 \(T:V\to W\) 线性且 \(\dim V=n\)，则
@@ -33,6 +43,12 @@
 \begin{proof}
 取 \(\ker T\) 的基 \(e_1,\ldots,e_k\)，扩充为 \(V\) 的基。则 \(T(e_{k+1}),\ldots,T(e_n)\) 张成像空间；若其线性组合为零，对应原向量落在核中，与基的线性无关性比较可知全部系数为零。故它们是像空间的基。
 \end{proof}
+
+核与像分别衡量方程 \(T(x)=0\) 的自由度和 \(T\) 实际达到的方向。由秩--零化度立即得到：有限维自映射 \(T:V\to V\) 单射、满射、可逆三者等价。若 \(U\subseteq V\) 是子空间，则商空间 \(V/U\) 的元素是陪集 \(x+U\)，并且
+\[
+ \dim(V/U)=\dim V-\dim U.
+\]
+映射 \(T\) 在商空间上诱导的映射是否良定义，仍须验证它把同一陪集中的向量送到同一目标陪集。
 
 \section{线性泛函、对偶基与转置映射}
 
@@ -52,6 +68,26 @@
 \]
 是同构；无限维代数对偶中它一般不是满射。
 
+若 \(U\subseteq V\)，它的湮灭子定义为
+\[
+ U^\circ=\{\varphi\in V^*:\varphi(u)=0\text{ 对所有 }u\in U\}.
+\]
+取 \(U\) 的基并扩充为 \(V\) 的基，可见
+\[
+ \dim U^\circ=\dim V-\dim U.
+\]
+同一基计算还给出
+\[
+ (\operatorname{im}T)^\circ=\ker T^*.
+\]
+再用秩--零化度便得到 \(\operatorname{rank}T^*=\operatorname{rank}T\)。这些恒等式不依赖矩阵表示；矩阵转置只是它们在对偶基下的坐标形式。
+
+若新旧基满足 \([x]_{\mathcal B}=P[x]_{\mathcal B'}\)，则对偶坐标满足
+\[
+ [\varphi]_{\mathcal B'^*}=P^{\mathsf T}[\varphi]_{\mathcal B^*}.
+\]
+协向量与向量采用相反方向的基变换，这也是后文上、下指标变换规律的来源。这里的 \(T^*\) 是代数对偶映射；Hilbert 空间中的伴随算子还要使用内积，通常也写作 \(T^*\)，两者应由上下文区分。
+
 \section{行列式与定向体积}
 
 行列式是唯一满足下列条件的函数 \(\det:F^{n\times n}\to F\)：对各列分别线性，交换两列变号，且 \(\det I=1\)。Leibniz 公式为
@@ -59,6 +95,7 @@
  \det A=\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)
  \prod_{i=1}^n a_{i,\sigma(i)}.
 \]
+\(\operatorname{sgn}(\sigma)\) 记录置换分解为换位时的奇偶性。由交替性立即得到：两列相同则行列式为零；一列是其他列的线性组合时也为零。反过来，把每一列按标准基展开，只有指标互异的项可能保留，便从交替多线性条件推出 Leibniz 公式，因而行列式的确唯一。
 
 \begin{theorem}
 \[
@@ -68,10 +105,24 @@
 \end{theorem}
 
 \begin{proof}
-固定 \(B\)，函数 \(A\mapsto\det(AB)\) 对 \(A\) 的列具有交替多线性结构；按 \(B\) 的列展开或先验证初等矩阵，可得比例因子 \(\det B\)。令 \(A=I\) 确定比例，得到乘法公式。若 \(A\) 可逆，则 \(1=\det A\det A^{-1}\)。若 \(\det A\ne0\)，其列线性无关，方阵对应映射为双射。
+固定 \(A\)。把 \(B\) 的列记作 \(b_1,\ldots,b_n\)，则 \(AB\) 的列是 \(Ab_1,\ldots,Ab_n\)。因此
+\[
+ (b_1,\ldots,b_n)\longmapsto\det(Ab_1,\ldots,Ab_n)
+\]
+是交替多线性函数。由行列式的唯一性，它等于某个常数乘以 \(\det B\)；令 \(B=I\)，常数就是 \(\det A\)。故 \(\det(AB)=\det A\det B\)。
+
+若 \(A\) 可逆，则 \(1=\det A\det A^{-1}\)，所以 \(\det A\ne0\)。反之，若 \(A\) 不可逆，其列线性相关；把一列写成其他列的线性组合并使用多线性与交替性，得到 \(\det A=0\)。这证明了可逆判据。
 \end{proof}
 
-在实向量空间中，\(|\det A|\) 是定向平行体体积的缩放因子，符号记录定向是否反转。变量代换公式中的 Jacobian 行列式取绝对值，正是因为普通体积不带定向。
+一个有序基确定实向量空间的定向；基变换矩阵行列式为正时保定向，为负时反定向。在欧氏空间中，Gram 矩阵
+\[
+ G=(\langle v_i,v_j\rangle)_{i,j}
+\]
+的行列式给出平行体体积的平方。若 \(v_i=Ae_i\)，则
+\[
+ \det G=\det(A^{\mathsf T}A)=(\det A)^2,
+\]
+故体积伸缩因子为 \(|\det A|\)，而 \(\det A\) 的符号同时记录定向。变量代换公式中出现绝对值，是因为普通体积不携带定向。
 
 \section{特征值、正交对角化与谱定理}
 
@@ -81,6 +132,32 @@
 \]
 实矩阵未必有实特征值，也未必可对角化；例如平面非平凡旋转没有实特征向量，Jordan 块只有一个特征方向。
 
+在 \(\R^n\) 中使用标准内积与欧氏范数
+\[
+ \langle x,y\rangle=\sum_{i=1}^n x_i y_i,\qquad
+ \|x\|=\sqrt{\langle x,x\rangle}.
+\]
+对任意 \(x,y\) 和实数 \(t\)，有
+\[
+ 0\le \|x-ty\|^2
+ =\|x\|^2-2t\langle x,y\rangle+t^2\|y\|^2.
+\]
+当 \(y\ne0\) 时取 \(t=\langle x,y\rangle/\|y\|^2\)，得到 Cauchy--Schwarz 不等式
+\[
+ |\langle x,y\rangle|\le \|x\|\,\|y\|.
+\]
+等号成立当且仅当 \(x,y\) 线性相关。它进一步推出三角不等式。
+
+若 \(U\subseteq\R^n\) 是子空间，Gram--Schmidt 过程把 \(U\) 的任一基变成标准正交基 \(u_1,\ldots,u_k\)。于是
+\[
+ P_Ux=\sum_{j=1}^k\langle x,u_j\rangle u_j
+\]
+满足 \(P_Ux\in U\) 且 \(x-P_Ux\perp U\)。分解
+\[
+ x=P_Ux+(x-P_Ux)
+\]
+唯一，因为 \(U\cap U^\perp=\{0\}\)。这一定义不依赖所选标准正交基，并给出正交投影 \(P_U\)。
+
 \begin{theorem}[实对称谱定理]
 若 \(A=A^{\mathsf T}\in\R^{n\times n}\)，则存在正交矩阵 \(Q\) 与实对角矩阵 \(\Lambda\)，使
 \[
@@ -89,9 +166,27 @@
 \end{theorem}
 
 \begin{proof}
-连续函数 \(x\mapsto x^{\mathsf T}Ax\) 在单位球面上取得最大值 \(\lambda\)。对单位最大点 \(v\) 与任意 \(h\perp v\)，考察归一化曲线 \((v+th)/\|v+th\|\)，在 \(t=0\) 的导数为零，得到 \(h^{\mathsf T}Av=0\)。故 \(Av\) 与 \(v\) 平行，且 \(Av=\lambda v\)。
+连续函数 \(q(x)=x^{\mathsf T}Ax\) 在单位球面上取得最大值 \(\lambda\)。这里使用有限维单位球面的紧致性；该事实在欧氏空间的紧致性理论中证明，本附录不以谱定理反过来证明它。取单位最大点 \(v\)。对任意 \(h\perp v\) 和 \(t\in\R\)，最大性给出
+\[
+ q(v+th)\le \lambda\|v+th\|^2.
+\]
+利用 \(q(v)=\lambda\)、\(\langle v,h\rangle=0\) 展开可得
+\[
+ 2t\,h^{\mathsf T}Av+t^2
+ \bigl(h^{\mathsf T}Ah-\lambda\|h\|^2\bigr)\le0.
+\]
+分别取正、负且趋于零的 \(t\)，一次项只能为零。因此
+\[
+ h^{\mathsf T}Av=0\qquad(h\perp v).
+\]
+所以 \(Av\in(v^\perp)^\perp=\operatorname{span}\{v\}\)，而与 \(v\) 取内积又得 \(Av=\lambda v\)。
 
-对称性保证 \(v^\perp\) 在 \(A\) 下不变，因为 \(v^{\mathsf T}Ax=(Av)^{\mathsf T}x=0\)。在 \(v^\perp\) 上归纳，得到一组标准正交特征向量。把它们作为 \(Q\) 的列即得结论。这里使用了有限维单位球面的紧致性；无限维情形不能直接沿用。
+对称性保证 \(v^\perp\) 在 \(A\) 下不变，因为
+\[
+ \langle Ax,v\rangle=\langle x,Av\rangle=0
+ \qquad(x\perp v).
+\]
+在 \(v^\perp\) 上归纳，得到一组标准正交特征向量；把它们作为 \(Q\) 的列即得结论。无限维单位球面一般不紧，因此这条有限维证明不能直接用于一般无限维算子。
 \end{proof}
 
 不同特征值对应的特征向量正交，因为
@@ -102,7 +197,13 @@
 
 \section{二次型、正定性与 Sylvester 判据}
 
-实二次型可写为 \(q(x)=x^{\mathsf T}Ax\)，其中只需取对称部分 \((A+A^{\mathsf T})/2\)。称 \(A\) 正定，如果 \(x^{\mathsf T}Ax>0\) 对所有 \(x\ne0\) 成立。
+实二次型可写为 \(q(x)=x^{\mathsf T}Ax\)，其中只需取对称部分 \((A+A^{\mathsf T})/2\)。称 \(A\) 正定，如果 \(x^{\mathsf T}Ax>0\) 对所有 \(x\ne0\) 成立；把严格不等式改为 \(\ge0\) 得到半正定。若二次型同时取正值和负值，则称为不定。
+
+基变换 \(x=Py\) 把矩阵变成
+\[
+ A\longmapsto P^{\mathsf T}AP,
+\]
+这称为合同变换，并不等同于相似变换。合同保持二次型的正、负、零方向数目。谱定理给出的正交对角化既是相似变换，也是合同变换。
 
 \begin{theorem}
 对实对称矩阵 \(A\)，下列条件等价：
@@ -120,14 +221,70 @@
  A=LDL^{\mathsf T},\qquad
  d_k=\Delta_k/\Delta_{k-1}.
 \]
-全部 \(\Delta_k>0\) 当且仅当全部 \(d_k>0\)，又等价于正定。
+下面说明这一分解为何合法。写
+\[
+ A=\begin{pmatrix}a&r^{\mathsf T}\\ r&C\end{pmatrix}.
+\]
+若首个顺序主子式 \(a=\Delta_1\ne0\)，则直接相乘可得
+\[
+ A=
+ \begin{pmatrix}1&0\\ r/a&I\end{pmatrix}
+ \begin{pmatrix}a&0\\0&C-rr^{\mathsf T}/a\end{pmatrix}
+ \begin{pmatrix}1&r^{\mathsf T}/a\\0&I\end{pmatrix}.
+\]
+Schur 补 \(C-rr^{\mathsf T}/a\) 的第 \(j\) 个顺序主子式是
+\(\Delta_{j+1}/\Delta_1\)。若所有 \(\Delta_k>0\)，可归纳继续消元，得到单位下三角矩阵 \(L\) 和
+\[
+ D=\operatorname{diag}(d_1,\ldots,d_n),
+ \qquad d_k=\frac{\Delta_k}{\Delta_{k-1}}>0,
+ \quad \Delta_0=1.
+\]
+于是 \(x^{\mathsf T}Ax=(L^{\mathsf T}x)^{\mathsf T}D(L^{\mathsf T}x)>0\)。
+
+反过来，若 \(A\) 正定，则它在前 \(k\) 个坐标张成的子空间上的限制仍正定。对应矩阵 \(A_{1:k,1:k}\) 的全部特征值为正，故
+\[
+ \Delta_k=\det A_{1:k,1:k}>0.
+\]
+这证明了 Sylvester 判据，也完成四个条件的等价性。
 \end{proof}
+
+半正定情形不能只把 Sylvester 判据中的 \(>\) 改成 \(\ge\)：顺序主子式全非负并不足以控制所有方向。正确判据是全部主子式非负，或等价地全部特征值非负。退化二次型也说明二阶极值判别在 Hessian 半正定时为何不能给出严格极值结论。
 
 \section{多线性映射与张量记号初步}
 
 映射 \(T:V_1\times\cdots\times V_k\to W\) 若对每个变量分别线性，称为 \(k\)-线性映射。双线性型在基下写成 \(B(x,y)=B_{ij}x^iy^j\)。Einstein 求和约定把重复的一上一下指标自动求和。
 
-张量积 \(V\otimes W\) 由双线性映射的泛性质刻画：任意双线性 \(B:V\times W\to U\) 唯一分解为线性映射 \(\widetilde B:V\otimes W\to U\)。有限维时 \(e_i\otimes f_j\) 构成基，故
+张量积可以直接构造。令 \(F^{(V\times W)}\) 为以形式符号 \([v,w]\) 为基的自由向量空间，再除去由
+\[
+\begin{aligned}
+ [v+v',w]-[v,w]-[v',w],&\qquad
+ [v,w+w']-[v,w]-[v,w'],\\
+ [\lambda v,w]-\lambda[v,w],&\qquad
+ [v,\lambda w]-\lambda[v,w]
+\end{aligned}
+\]
+生成的子空间。所得商空间记为 \(V\otimes W\)，\([v,w]\) 的陪集记为 \(v\otimes w\)。商掉的关系恰好保证映射
+\[
+ \tau:V\times W\to V\otimes W,\qquad
+ \tau(v,w)=v\otimes w
+\]
+双线性。
+
+若 \(B:V\times W\to U\) 双线性，先在线性基 \([v,w]\) 上规定
+\(\widehat B([v,w])=B(v,w)\)。双线性保证上述关系生成的子空间包含在
+\(\ker\widehat B\) 中，所以 \(\widehat B\) 唯一下降为线性映射
+\[
+ \widetilde B:V\otimes W\to U,\qquad
+ \widetilde B(v\otimes w)=B(v,w).
+\]
+纯张量张成整个商空间，故这样的 \(\widetilde B\) 唯一。这就是张量积的泛性质。
+
+若 \(e_1,\ldots,e_m\) 与 \(f_1,\ldots,f_n\) 分别是 \(V,W\) 的基，双线性展开表明 \(e_i\otimes f_j\) 张成 \(V\otimes W\)。为证线性无关，对每个 \((i,j)\) 定义双线性坐标函数
+\[
+ B_{ij}(v,w)=e^i(v)f^j(w).
+\]
+相应的 \(\widetilde B_{ij}\) 在 \(e_p\otimes f_q\) 上取值
+\(\delta_{ip}\delta_{jq}\)，故任何线性关系的各个系数都为零。因此这些纯张量构成基，并且
 \[
  \dim(V\otimes W)=\dim V\,\dim W.
 \]

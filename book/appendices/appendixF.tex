@@ -57,12 +57,16 @@
 故核正规。若 \(\varphi\) 单射，则 \(\varphi(g)=e=\varphi(e)\) 只可能在 \(g=e\) 时发生，所以核平凡；反之，\(\varphi(g)=\varphi(h)\) 蕴含 \(h^{-1}g\in\ker\varphi\)，故 \(g=h\)。
 \end{proof}
 
-\begin{definition}[理想]
-交换环 \(R\) 的加法子群 \(I\) 若满足
+\begin{definition}[左理想、右理想与双边理想]
+环 \(R\) 的加法子群 \(I\) 若满足
 \[
  r\in R,\ a\in I\Longrightarrow ra\in I,
 \]
-则称 \(I\) 为理想，记作 \(I\lhd R\)。理想是构造环商所需的封闭条件。
+则称为左理想；若满足 \(ar\in I\)，称为右理想；两者同时成立时称为双边理想，记作 \(I\lhd R\)。交换环中三者没有区别。构造环商需要双边理想，因为乘积
+\[
+ (r+I)(s+I)=rs+I
+\]
+要同时对 \(r\) 与 \(s\) 的代表元选择无关。任意环同态的核都是双边理想。
 \end{definition}
 
 \section{商结构与同构定理的基本形式}
@@ -95,7 +99,7 @@
 故它保持乘法；陪域取为 \(\operatorname{im}\varphi\)，所以它满射到像。若 \(\overline\varphi(g\ker\varphi)=e\)，则 \(g\in\ker\varphi\)，该陪集就是商群单位元，故映射单射。
 \end{proof}
 
-环版本完全平行。若 \(I\lhd R\)，在加法陪集上定义
+环版本完全平行。若 \(I\lhd R\) 是双边理想，在加法陪集上定义
 \[
  (r+I)+(s+I)=(r+s)+I,\qquad
  (r+I)(s+I)=rs+I.
@@ -324,6 +328,7 @@
  \widetilde B:V\otimes W\to U,\qquad
  \widetilde B(v\otimes w)=B(v,w).
 \]
+存在性可由自由向量空间构造：以形式符号 \([v,w]\) 为基，再除去表达两个变量线性关系的子空间。附录 B 已写出这一商构造并证明泛性质；因此这里的张量积不是仅由一句性质假定存在。泛性质还说明任意两个满足要求的张量积存在唯一的典范同构。
 
 纯张量满足
 \[
@@ -365,6 +370,16 @@
  \dim\Lambda(V)=2^n.
 \]
 最高次外幂 \(\Lambda^n(V)\) 为一维，行列式可理解为线性映射在最高次外幂上诱导的标量。
+
+这里的“构成基”包含两步。任意楔积先按多线性展开为
+\(e_{j_1}\wedge\cdots\wedge e_{j_k}\) 的线性组合；若某两个指标相同，该项为零，交换指标并整理符号后只剩严格递增指标，故这些元素张成。为证线性无关，对每个
+\(I=(i_1<\cdots<i_k)\) 定义交替 \(k\)-线性形式
+\[
+ \omega_I(v_1,\ldots,v_k)
+ =\det\bigl(e^{i_p}(v_q)\bigr)_{p,q=1}^k.
+\]
+它在基楔积 \(e_{j_1}\wedge\cdots\wedge e_{j_k}\) 上只在
+\((j_1,\ldots,j_k)=I\) 时取 \(1\)，其余递增指标组取 \(0\)。因此任何线性关系的全部系数均为零。
 
 \begin{example}[二维面积因子]
 若 \(V\) 有基 \(e_1,e_2\)，且

@@ -5,7 +5,7 @@
 本附录集中列出全书反复使用的估计工具。每条公式同时注明对象范围、等号条件或常数依赖；使用时仍须核对相应和、积分与范数是否有限。
 \end{chapterguide}
 
-\section{三角不等式、反三角不等式与范数估计}
+\section{三角不等式、范数和常数依赖}
 
 绝对值满足
 \[
@@ -20,13 +20,34 @@
 \[
  \bigl|\|x\|-\|y\|\bigr|\le\|x-y\|.
 \]
-在内积空间中，Cauchy--Schwarz 不等式
+在实内积空间中，Cauchy--Schwarz 不等式
 \[
  |\langle x,y\rangle|\le\|x\|\,\|y\|
 \]
 由 \(0\le\|x-ty\|^2\) 的二次判别式得到；等号当且仅当 \(x,y\) 线性相关。
+复内积空间不能只令 \(t\) 遍历实数。若 \(y\ne0\)，应取
+\[
+ \lambda=\frac{\langle x,y\rangle}{\|y\|^2}
+\]
+并使用 \(0\le\|x-\lambda y\|^2\)；所得不等式与等号条件相同。
 
 估计和时，应先判断是否需要保留抵消。直接取绝对值稳健但可能损失阶数；Fourier 分析和振荡积分中，过早使用三角不等式会抹去关键抵消。
+
+记号 \(A\lesssim B\) 表示存在常数 \(C>0\) 使 \(A\le CB\)。必须从上下文说明 \(C\) 允许依赖哪些参数；必要时写成
+\[
+ A\le C(p,d,\Omega)B.
+\]
+\(A\asymp B\) 表示双向控制。渐近记号
+\[
+ f=O(g),\qquad f=o(g)
+\]
+分别表示：在指定极限过程中，\(g\) 最终非零且 \(|f/g|\) 有界、\(f/g\to0\)。若参数还在变化，应说明界与收敛对哪些参数一致。
+
+吸收法把
+\[
+ X\le A+\theta X,\qquad 0\le\theta<1
+\]
+改写为 \(X\le A/(1-\theta)\)。当 \(\theta\) 依赖参数时，必须在所研究的参数范围内给出统一的 \(\theta\le\theta_0<1\)。
 
 \section{Young、Hölder、Minkowski 与 Jensen 不等式}
 
@@ -104,23 +125,37 @@
 \end{proof}
 
 \begin{theorem}[连续 Grönwall 不等式]
-设 \(u,b\) 在 \([0,T]\) 上非负可积，且
+设 \(u:[0,T]\to[0,\infty)\) 连续，\(b:[0,T]\to[0,\infty)\) Lebesgue 可积，并且对每个 \(t\in[0,T]\) 都有
 \[
  u(t)\le A+\int_0^t b(s)u(s)\,ds.
 \]
-则几乎处处
+则对每个 \(t\in[0,T]\)，
 \[
  u(t)\le A\exp\left(\int_0^t b(s)\,ds\right).
 \]
 \end{theorem}
 
 \begin{proof}
-若 \(A>0\)，令 \(v(t)=A+\int_0^tb(s)u(s)\,ds\)。则 \(u\le v\) 且几乎处处 \(v'\le bv\)，所以
+连续函数 \(u\) 在紧区间上有界，故 \(bu\in L^1[0,T]\)。若 \(A>0\)，令 \(v(t)=A+\int_0^tb(s)u(s)\,ds\)。则 \(v\) 绝对连续、\(u\le v\)，且几乎处处
+\[
+ v'(t)=b(t)u(t)\le b(t)v(t).
+\]
+因为 \(v\ge A>0\)，链式法则给出
 \[
  (\log v)'\le b.
 \]
-积分后得到结论。\(A=0\) 可先以 \(A+\varepsilon\) 代替 \(A\)，再令 \(\varepsilon\downarrow0\)。
+从 \(0\) 到 \(t\) 积分得到
+\[
+ \log v(t)-\log A\le\int_0^t b(s)\,ds,
+\]
+所以 \(u(t)\le v(t)\le A\exp(\int_0^t b)\)。当 \(A=0\) 时，原不等式也蕴含
+\[
+ u(t)\le \varepsilon+\int_0^t b(s)u(s)\,ds
+\]
+对每个 \(\varepsilon>0\) 成立。应用已经证明的情形后令 \(\varepsilon\downarrow0\)，得到 \(u(t)=0\)。
 \end{proof}
+
+还可采用更弱的假设：\(u,b,bu\in L^1\)，积分不等式几乎处处成立。此时可重新选择 \(u\) 的代表，使结论在相应的几乎处处意义下成立。正文使用 Grönwall 不等式时会明确采用哪个版本。
 
 \section{截断、分层、分解与 \texorpdfstring{\(\varepsilon/3\)}{epsilon/3} 方法}
 
@@ -141,24 +176,6 @@
  \|x_n-x\|\le\|x_n-y_n\|+\|y_n-y\|+\|y-x\|.
 \]
 先固定辅助对象 \(y\) 控制第三项，再对该固定选择控制第二项，最后选择 \(n\) 控制第一项。数字 \(3\) 没有特殊地位；关键是选择顺序与常数总和小于目标误差。
-
-\section{常数依赖关系和定量估计记法}
-
-记号 \(A\lesssim B\) 表示存在常数 \(C>0\) 使 \(A\le CB\)。必须从上下文说明 \(C\) 允许依赖哪些参数；必要时写作
-\[
- A\le C(p,d,\Omega)B.
-\]
-\(A\asymp B\) 表示双向控制。渐近记号
-\[
- f=O(g),\qquad f=o(g)
-\]
-分别表示 \(|f/g|\) 在指定极限过程中有界、趋于零；必须写明极限变量与参数是否一致。
-
-吸收法把
-\[
- X\le A+\theta X,\qquad 0\le\theta<1
-\]
-改写为 \(X\le A/(1-\theta)\)。若 \(\theta\) 依赖参数，就要保证它在所研究范围内统一小于 \(1\)。
 
 \section{Cesàro 平均与 Stolz--Cesàro 定理}
 
@@ -196,6 +213,49 @@
 \]
 从固定 \(N\) 求和到 \(n-1\)，再除以 \(b_n\)。固定的 \(a_N,b_N\) 项除以 \(b_n\) 后趋零，夹逼得到结论。
 \end{proof}
+
+\section{常用核估计和缩放关系}
+
+设 \(K:\R^d\to\C\) 可积，并对 \(\varepsilon>0\) 定义
+\[
+ K_\varepsilon(x)=\varepsilon^{-d}K(x/\varepsilon).
+\]
+变量代换给出
+\[
+ \|K_\varepsilon\|_{L^1}=\|K\|_{L^1},\qquad
+ \|K_\varepsilon\|_{L^p}
+ =\varepsilon^{-d(1-1/p)}\|K\|_{L^p}.
+\]
+在一阶导数存在且可积时还有
+\[
+ \|\nabla K_\varepsilon\|_{L^1}
+ =\varepsilon^{-1}\|\nabla K\|_{L^1}.
+\]
+这些幂次来自体积元的 \(\varepsilon^d\) 与幅度归一化的
+\(\varepsilon^{-d}\)，应由变量代换核对。
+
+若 \(\int_{\R^d}K=1\)，并且
+\[
+ \int_{|x|>R}|K(x)|\,dx\longrightarrow0
+ \qquad(R\to\infty),
+\]
+则 \(K_\varepsilon\) 的质量随着 \(\varepsilon\downarrow0\) 集中到原点。对有界一致连续函数 \(f\)，估计
+\[
+ |K_\varepsilon*f(x)-f(x)|
+ \le \int |K_\varepsilon(y)|\,|f(x-y)-f(x)|\,dy
+\]
+可按 \(|y|<\delta\) 与 \(|y|\ge\delta\) 分开：前者由一致连续性控制，后者由核的尾质量控制。这是近似恒等族收敛证明的基本分解。
+
+卷积还满足 Young 的端点估计。若 \(K\in L^1(\R^d)\)、\(f\in L^\infty(\R^d)\)，则
+\[
+ \|K*f\|_{L^\infty}
+ \le\|K\|_{L^1}\|f\|_{L^\infty}.
+\]
+若 \(f\in L^p\)、\(1\le p<\infty\)，Minkowski 积分不等式给出
+\[
+ \|K*f\|_{L^p}\le\|K\|_{L^1}\|f\|_{L^p}.
+\]
+卷积、Lebesgue 积分和 \(L^p\) 空间在后卷正式建立；本节只登记以后反复使用的尺度与常数。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
