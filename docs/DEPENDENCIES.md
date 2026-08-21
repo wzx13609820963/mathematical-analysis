@@ -20,11 +20,11 @@
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 0 数学语言 | `chap:mathematical-language` | 无；集合存在性细节可查附录A | 量词、受限概括、映射、商集、至多可数、证明方法 |
-| 1 实数系 | `chap:real-number-system` | 0 | 有理数缺口、有序域、确界公理、Archimedes 性质、稠密性与不可数性 |
-| 2 Dedekind 分割 | `chap:dedekind-construction` | 0--1；集合存在性查附录A | 以分割构造完备有序域，逐项验证运算与顺序 |
-| 3 Cauchy 列构造 | `chap:cauchy-construction` | 0--1 | 以有理 Cauchy 列的商集构造完备有序域 |
-| 4 实数的完备性 | `chap:equivalent-completeness` | 1--3 | 确界、区间套、单调收敛、Bolzano--Weierstrass 与 Cauchy 完备性的等价链 |
+| 0 数学语言 | `chap:mathematical-language` | 无；集合存在性细节可查附录A | 量词与逻辑联结、受限概括、集合族、映射、商集、可数性和证明方法 |
+| 1 实数系 | `chap:real-number-system` | 0 | 有序域与完备性公理、有理数缺口、Archimedes 性质、稠密性、十进制表示与不可数性 |
+| 2 Dedekind 分割 | `chap:dedekind-construction` | 0--1；集合存在性查附录A | 以分割构造完备有序域，验证加法、乘法、逆元、序和确界性质 |
+| 3 Cauchy 列构造 | `chap:cauchy-construction` | 0--1 | 以有理 Cauchy 列的商集构造完备有序域，证明运算良定义、完备性及两种构造的同构 |
+| 4 实数的完备性 | `chap:equivalent-completeness` | 1--3 | 确界、区间套、单调收敛、Bolzano--Weierstrass 与 Cauchy 完备性的完整等价链 |
 
 ## 第一卷第二编
 
@@ -32,30 +32,30 @@
 |---|---|---|---|
 | 5 数列极限 | `chap:sequence-limits` | 0--1、4 | `\varepsilon-N` 定义、误差估计、基本性质和运算法则 |
 | 6 单调数列与迭代 | `chap:monotone-iteration` | 4--5 | 单调有界收敛、递推数列和局部压缩估计 |
-| 7 子列与聚点 | `chap:subsequences-cluster-points` | 4--6 | 子列刻画、抽取定理、聚点与部分极限 |
-| 8 上极限与下极限 | `chap:limsup-liminf` | 5、7 | 尾部确界、上下极限、子列刻画和运算不等式 |
+| 7 子列与聚点 | `chap:subsequences-cluster-points` | 4--6 | 子列刻画、反复抽取、聚点与部分极限集、闭性和对角抽取 |
+| 8 上极限与下极限 | `chap:limsup-liminf` | 5、7 | 尾部确界、阈值刻画、极值子列、收敛判据和运算不等式 |
 | 9 Cauchy 数列 | `chap:cauchy-criterion` | 4--8 | 实数 Cauchy 准则、有理反例、快速子列和级数增量 |
 
 ## 第一卷第三编
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 10 函数极限 | `chap:function-limits` | 0、5、7、9 | `\varepsilon-\delta` 定义、局部性质、Heine 与 Cauchy 判据、各类广义极限 |
-| 11 连续性 | `chap:continuity-discontinuity` | 1、10 | 连续性、间断分类、单调函数间断点、逆映射相对连续 |
-| 12 闭区间上的连续函数 | `chap:continuous-functions-closed-interval` | 1、4、7、11 | 有限覆盖、极值、连通、介值和删条件反例 |
-| 13 一致连续 | `chap:uniform-continuity` | 9、11--12 | Heine--Cantor、连续模、Cauchy 保持与完备化延拓 |
+| 10 函数极限 | `chap:function-limits` | 0、5、7、9 | `\varepsilon-\delta` 定义、局部语言与振幅、Heine 与 Cauchy 判据、单侧和无穷型极限 |
+| 11 连续性 | `chap:continuity-discontinuity` | 1、10 | 序列与开集刻画、代数运算、拼接、间断分类、单调函数的跳跃点和逆映射相对连续 |
+| 12 闭区间上的连续函数 | `chap:continuous-functions-closed-interval` | 1、4、7、11 | 紧致性的覆盖与序列刻画、Lebesgue 数、极值、距离、连通、介值及删条件反例 |
+| 13 一致连续 | `chap:uniform-continuity` | 9、11--12 | 双序列判据、Heine--Cantor、Lipschitz 与 Hölder 连续、连续模、Cauchy 保持和稠密子集延拓 |
 
 ## 附录
 
 | 附录 | 稳定标签 | 作用 |
 |---|---|---|
-| A | `chap:appendix-set-theory` | ZFC、选择原理和对象编码的按需参考 |
-| B | `chap:appendix-linear-algebra` | 有限维线性代数预备 |
-| C | `chap:appendix-estimates` | 常用不等式和估计索引 |
-| D | `chap:appendix-counterexamples` | 按失效条件检索反例 |
+| A | `chap:appendix-set-theory` | ZF 公理、对象编码、序数与 Hartogs 引理、选择公理等价形式和本书选择原则 |
+| B | `chap:appendix-linear-algebra` | 线性映射、对偶、行列式、内积、谱定理、二次型和张量积预备 |
+| C | `chap:appendix-estimates` | 常用不等式、Grönwall 估计、截断分层和核缩放索引 |
+| D | `chap:appendix-counterexamples` | 按被删除的假设分类并检索反例 |
 | E | `chap:appendix-notation-dependencies` | 面向读者的符号与依赖索引 |
-| F | `chap:appendix-algebra-complex` | 代数结构、复数与多项式预备 |
-| G | `chap:appendix-history-terminology` | 历史、术语和阅读路线 |
+| F | `chap:appendix-algebra-complex` | 群环域、商结构、复数、多项式、外代数和张量记号预备 |
+| G | `chap:appendix-history-terminology` | 历史札记、多语术语、经典教材比较和阅读路线 |
 
 ## 当前关键无环约束
 
