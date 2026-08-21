@@ -123,6 +123,40 @@
 “令 \(N\) 充分大”没有交代量词依赖。证明中应说明 \(N\) 在哪些量之后选取、允许依赖哪些量，以及选定后须同时控制哪些对象。
 \end{warningbox}
 
+\subsection{自由变量、约束变量与参数}
+
+公式中的变量并不都承担同一作用。在
+\[
+  \forall x\in X\ \exists y\in Y,\qquad |f(x)-y|<\varepsilon
+\]
+中，\(x,y\) 分别受全称量词和存在量词约束；若 \(f,X,Y,\varepsilon\) 在此前已经给定，它们是这条公式的参数。没有被量词约束、也没有由上下文固定的变量称为自由变量。含自由变量的公式通常描述一个条件，只有在论域和参数均已给定以后才成为可以判断真假的命题。
+
+量词的作用域必须由括号或句法结构确定。例如
+\[
+  \forall x\in X\,[P(x)\Rightarrow Q(x)]
+\]
+与
+\[
+  [\forall x\in X\,P(x)]\Rightarrow Q(x)
+\]
+不是同一公式；后一式右端的 \(x\) 仍是自由变量。约束变量的名称可以改变，只要不捕获原有自由变量：
+\[
+  \forall x\in X\,P(x)\quad\Longleftrightarrow\quad
+  \forall u\in X\,P(u).
+\]
+
+在分析中，参数依赖常由量词次序决定。下式允许每个 \(x\) 有自己的控制量：
+\[
+  \forall x\in X\ \exists C_x>0\ \forall n,\qquad
+  |a_n(x)|\le C_x;
+\]
+而
+\[
+  \exists C>0\ \forall x\in X\ \forall n,\qquad
+  |a_n(x)|\le C
+\]
+要求一个常数同时控制全部 \(x,n\)。后者蕴含前者，反向一般不成立。以后逐点收敛与一致收敛的区别正是这种量词差异的系统表现。
+
 \section{集合、集合族与受限概括}
 
 
@@ -249,6 +283,42 @@ x\in\left(\bigcup_{i\in I}A_i\right)^c
 映射称为单射，如果 \(f(x_1)=f(x_2)\Rightarrow x_1=x_2\)；称为满射，如果每个 \(y\in Y\) 都等于某个 \(f(x)\)；既单又满时称为双射。只有双射才存在从整个 \(Y\) 到 \(X\) 的反函数。
 
 同一个公式配以不同定义域、陪域，可以得到不同的映射。例如 \(x\mapsto x^2\) 作为 \(\mathbb R\to\mathbb R\) 的映射既非单射也非满射；作为 \([0,\infty)\to[0,\infty)\) 的映射则是双射。
+
+\subsection{复合、限制与单侧逆}
+
+设 \(f:X\to Y\)、\(g:Y\to Z\)。复合映射定义为
+\[
+  g\circ f:X\to Z,\qquad (g\circ f)(x)=g(f(x)).
+\]
+定义域与陪域是复合能否书写的一部分；若 \(f(X)\) 不包含在 \(g\) 的定义域中，表达式 \(g\circ f\) 便没有定义。恒等映射记为
+\[
+  \operatorname{id}_X:X\to X,\qquad \operatorname{id}_X(x)=x.
+\]
+复合满足结合律，并有 \(f\circ\operatorname{id}_X=f\)、\(\operatorname{id}_Y\circ f=f\)。
+
+若 \(A\subseteq X\)，则 \(f\) 在 \(A\) 上的限制
+\[
+  f|_A:A\to Y
+\]
+沿用原来的函数值而缩小定义域。若另有 \(B\subseteq Y\) 且 \(f(X)\subseteq B\)，可以把陪域缩小为 \(B\)；这与限制定义域是两种不同操作。反函数定理中所谓“把映射限制到一个邻域并缩小陪域”，同时使用了这两步。
+
+映射 \(\ell:Y\to X\) 若满足 \(\ell\circ f=\operatorname{id}_X\)，称为 \(f\) 的左逆；映射 \(r:Y\to X\) 若满足 \(f\circ r=\operatorname{id}_Y\)，称为右逆。
+
+\begin{proposition}[单射、满射与单侧逆]
+映射有左逆则为单射，有右逆则为满射。反之，单射在 \(X\ne\varnothing\) 时可在其像外指定一个固定值而得到左逆；满射若已经为每个纤维选定一个原像，则所得选择给出右逆。因而后一方向在任意集合上包含选择问题。
+\end{proposition}
+
+\begin{proof}
+若 \(f(x_1)=f(x_2)\)，对两边作用左逆便得 \(x_1=x_2\)。若 \(f\circ r=\operatorname{id}_Y\)，则每个 \(y\in Y\) 都等于 \(f(r(y))\)，故 \(f\) 满射。
+
+反过来，若 \(f\) 单射，则 \(f:X\to f(X)\) 是双射，其逆在 \(f(X)\) 上唯一确定；当 \(X\ne\varnothing\) 时，取 \(x_0\in X\)，可把该逆在 \(Y\setminus f(X)\) 上统一定义为 \(x_0\)，得到左逆。若 \(f\) 满射，并已对每个 \(y\) 选定 \(r(y)\in f^{-1}(\{y\})\)，则 \(f(r(y))=y\)，故 \(r\) 是右逆。
+\end{proof}
+
+若同一映射同时有左逆 \(\ell\) 和右逆 \(r\)，则
+\[
+  \ell=\ell\circ(f\circ r)=(\ell\circ f)\circ r=r.
+\]
+这时 \(f\) 为双射，二者共同等于通常意义的反函数 \(f^{-1}\)。
 
 \subsection{像与原像}
 
@@ -381,6 +451,20 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 
 \chapterref{chap:cauchy-construction}会把等价的有理 Cauchy 列视为同一个实数；构造 \(L^p\) 空间时，几乎处处相等的函数也将被视为同一元素。无论对象是数列还是函数，在等价类上定义运算、次序或范数，都要重新验证其结果与代表元无关。
 
+\subsection{偏序、全序与极值元素}
+
+集合 \(X\) 上的关系 \(\preccurlyeq\) 若满足自反性和传递性，称为预序；再满足
+\[
+  x\preccurlyeq y,\quad y\preccurlyeq x\quad\Longrightarrow\quad x=y,
+\]
+便称为偏序。若任意 \(x,y\in X\) 还至少有一个方向可比较，则称为全序。集合包含 \(\subseteq\) 是幂集 \(\mathcal P(X)\) 上的偏序，但当 \(X\) 至少有两个元素时通常不是全序；数的通常大小关系则是全序。
+
+记 \(x\prec y\) 表示 \(x\preccurlyeq y\) 且 \(x\ne y\)。设 \(A\) 是偏序集的子集。元素 \(m\in A\) 称为极大元，如果不存在 \(a\in A\) 使 \(m\prec a\)；称为最大元，如果 \(a\preccurlyeq m\) 对每个 \(a\in A\) 成立。最大元若存在则唯一，并且一定是极大元；偏序集可以有多个极大元而没有最大元。例如在
+\[
+  \bigl\{\{1\},\{2\}\bigr\}
+\]
+按包含排序时，两项都是极大元，却没有最大元。章1中的上界、最大元与上确界以及附录A中的 Zorn 引理都依赖这些区别。
+
 \section{有限、可数无限、至多可数与不可数}
 
 
@@ -474,7 +558,7 @@ x\in f^{-1}\left(\bigcap_i B_i\right)
 \end{proof}
 
 \begin{corollary}
-\(\mathbb Z\)、\(\mathbb Q\) 和任意 \(d\in\mathbb N\) 对应的有理向量空间 \(\mathbb Q^d\) 都是可数无限集。
+\(\mathbb Z\)、\(\mathbb Q\) 和任意 \(d\in\Npos\) 对应的有理向量空间 \(\mathbb Q^d\) 都是可数无限集；按空积约定，\(\mathbb Q^0\) 是单点集，因而只是有限集。
 \end{corollary}
 
 \begin{proof}

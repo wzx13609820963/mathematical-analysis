@@ -79,11 +79,16 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \end{theorem}
 
 \begin{proof}
-有理 Cauchy 列的和仍为 Cauchy 列。积的差写成
+有理 Cauchy 列的和仍为 Cauchy 列，因为给定 \(\varepsilon>0\)，两列分别在误差 \(\varepsilon/2\) 下稳定以后，其和的任意两项相差小于 \(\varepsilon\)。对积，先取共同的有理界 \(|a_n|,|b_n|\le M\)，并把 \(M\) 放大到至少为 \(1\)。恒等式
 \[
  a_mb_m-a_nb_n=a_m(b_m-b_n)+b_n(a_m-a_n),
 \]
-利用两列有界性和 Cauchy 性可使右端任意小，故积仍为 Cauchy 列。
+给出
+\[
+ |a_mb_m-a_nb_n|
+ \le M|b_m-b_n|+M|a_m-a_n|.
+\]
+把两列的尾部误差分别控制在 \(\varepsilon/(2M)\) 内，便知积仍为 Cauchy 列。
 
 若 \(a\sim a'\)、\(b\sim b'\)，则
 \[
@@ -93,7 +98,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \[
  a_nb_n-a'_nb'_n=a_n(b_n-b'_n)+b'_n(a_n-a'_n),
 \]
-两项均为“有界列乘零列”，故为零列。环公理由有理数逐项运算继承。
+两项均为“有界列乘零列”，故为零列。更明确地，若四条代表列的绝对值均由 \(M\ge1\) 控制，则把两个零列误差各控制在 \(\varepsilon/(2M)\) 内即可。环公理在任意代表上化为有理数的逐项恒等式；良定义性保证这些恒等式确实下降到商集。
 \end{proof}
 
 \begin{lemma}[非零类远离零]
@@ -134,14 +139,28 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 并以相等补成 \(\le\)。
 \end{definition}
 
-该定义与代表元无关：零列扰动不可能改变一个与零保持固定正距离的尾部符号。
+该定义与代表元无关。事实上，若 \(a_n\ge\delta>0\) 最终成立，而 \((a_n-a'_n)\) 是零列，则从某项起
+\[
+  |a_n-a'_n|<\delta/2,\qquad a'_n>\delta/2.
+\]
+所以更换代表元以后仍得到正类。这里必须保留正下界；仅仅“最终为正”经零列扰动后虽然仍可能成立，却会把正零列 \((1/n)\) 错判为非零正数。
 
 \begin{theorem}
 上述次序是与域运算相容的全序。
 \end{theorem}
 
 \begin{proof}
-对任意 Cauchy 列 \(a\)，若其类非零，“远离零”引理说明尾部恒正或恒负，故三歧性成立。传递性由两个最终正下界相加得到；平移相容性来自差不变；两个正类的代表元最终均有正下界，其乘积也有正下界。反对称性和其余次序公理由定义得到。
+先证三歧性。对任意有理 Cauchy 列 \((a_n)\)，若其类为零，则 \([a_n]=[0]\)；否则“非零类远离零”引理给出 \(\delta>0\)，并说明尾部恒正或恒负。因此恰有 \([a_n]>[0]\)、\([a_n]=[0]\)、\(-[a_n]>[0]\) 三种情形之一成立。
+
+若 \(x>y\)、\(y>z\)，分别取代表差的最终正下界 \(\delta,\eta\)。则
+\[
+  (x-z)=(x-y)+(y-z)
+\]
+的代表尾部不小于 \(\delta+\eta\)，所以 \(x>z\)。这给出严格序的传递性；三歧性随即给出反对称性和全序性。平移不改变差，故
+\[
+  x<y\quad\Longrightarrow\quad x+z<y+z.
+\]
+若 \(x,y>0\)，可取代表使其尾部分别不小于 \(\delta,\eta>0\)，于是乘积代表尾部不小于 \(\delta\eta\)，所以 \(xy>0\)。非负情形再加入零元即可。故该全序与域运算相容。
 \end{proof}
 
 定义
@@ -156,17 +175,31 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 本节出现两层数列。元素 \(x_k\in\widehat{\R}\) 本身是有理 Cauchy 列的等价类，而我们还要研究类组成的 Cauchy 列 \((x_k)\)。证明要从第 \(k\) 个类中选一个足够准确的有理数 \(r_k\)，再把双重指标压到对角线 \((r_k)\) 上。若不先区分这两层指标，“取第 \(k\) 项”会同时指向两个不同对象。
 
 
-类 \(x=[a_n]\) 可由其任一足够靠后的有理项逼近。给定 \(\varepsilon>0\)，先对 \(\varepsilon/2\) 使用 Cauchy 条件，取 \(N\) 使 \(n\ge N\) 时
+先说明本节使用的序列语言。若 \((x_k)\) 是 \(\widehat{\R}\) 中的数列，定义
 \[
- |a_n-a_N|<\frac{\varepsilon}{2}.
+ x_k\longrightarrow x
+ \quad\Longleftrightarrow\quad
+ \forall\varepsilon>0\ \exists K\ \forall k\ge K,
+ \quad |x_k-x|<\varepsilon;
 \]
-于是类 \(\varepsilon-|a_n-a_N|\) 从第 \(N\) 项起不小于 \(\varepsilon/2\)，按照严格序的定义，
+称它为 Cauchy 列，如果
 \[
- |x-a_N|=[\,|a_n-a_N|\,]<\varepsilon.
+ \forall\varepsilon>0\ \exists K\ \forall k,\ell\ge K,
+ \quad |x_k-x_\ell|<\varepsilon.
 \]
-因此 \(\Q\) 在 \(\widehat{\R}\) 中稠密。这里保留的 \(\varepsilon/2\) 正是严格类不等式所需的正间隙。
+这里的 \(\varepsilon\) 是构造域中的正元素。\chapterref{chap:equivalent-completeness}与\chapterref{chap:sequence-limits}将分别研究完备性等价形式和数列极限的一般性质；本节只使用这两个定义完成构造。
 
-每个有理 Cauchy 列有有理界，故每个 \(x\in\widehat{\R}\) 都被某个正整数控制；因此 \(\widehat{\R}\) 具有 Archimedes 性质。特别地，对任意 \(\varepsilon>0\) 可取 \(k\) 使 \(1/k<\varepsilon\)。
+每个有理 Cauchy 列有有理界。若 \(|a_n|\le M\)，则构造数 \(x=[a_n]\) 满足 \(|x|<M+1\)。所以每个构造数都被正整数控制，\(\widehat{\R}\) 是 Archimedes 有序域。特别地，对每个 \(\varepsilon>0\) 可取 \(k\in\Npos\) 使 \(1/k<\varepsilon\)。
+
+类 \(x=[a_n]\) 可由其任一足够靠后的有理项逼近。给定构造域中的 \(\varepsilon>0\)，正类定义给出正有理数 \(\eta\) 使 \(0<\eta<\varepsilon\)。对 \(\eta/2\) 使用代表列的 Cauchy 条件，取 \(N\) 使 \(n\ge N\) 时
+\[
+ |a_n-a_N|<\frac{\eta}{2}.
+\]
+于是类 \(\eta-|a_n-a_N|\) 从第 \(N\) 项起不小于 \(\eta/2\)，按照严格序的定义，
+\[
+ |x-a_N|=[\,|a_n-a_N|\,]<\eta<\varepsilon.
+\]
+因此 \(\Q\) 在 \(\widehat{\R}\) 中稠密。这里保留的 \(\eta/2\) 正是严格类不等式所需的正间隙。
 
 \begin{theorem}
 \(\widehat{\R}\) 中每个 Cauchy 列都收敛。
@@ -177,26 +210,25 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \[
  |x_k-r_k|<\frac1k.
 \]
-先证 \((r_k)\) 是有理 Cauchy 列。给定 \(\varepsilon>0\)，取 \(K\) 使 \(2/K<\varepsilon/2\)，并使 \(m,n\ge K\) 时 \(|x_m-x_n|<\varepsilon/2\)。于是
+这一步不需要任意的可数选择：预先固定 \(\Q\) 的一个枚举，对每个 \(k\) 取枚举中第一个满足上式的有理数即可。
+
+先证 \((r_k)\) 是有理 Cauchy 列。给定正有理数 \(\varepsilon\)，取 \(K\) 使 \(2/K<\varepsilon/2\)，并使 \(m,n\ge K\) 时 \(|x_m-x_n|<\varepsilon/2\)。于是
 \[
  |r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|<\varepsilon.
 \]
-令 \(x=[r_k]\)。再由
+令 \(x=[r_k]\)。给定构造域中的 \(\varepsilon>0\)，先取正有理数 \(\eta<\varepsilon/2\)。由 \((r_k)\) 的 Cauchy 性，取 \(K\) 使 \(j,k\ge K\) 时 \(|r_j-r_k|<\eta/2\)，并使 \(1/k<\eta/2\)。对固定的 \(k\ge K\)，代表差列 \((r_j-r_k)_j\) 最终绝对值小于 \(\eta/2\)，所以
 \[
- |x_k-x|\le|x_k-r_k|+|r_k-x|
+  |x-r_k|\le\eta/2.
 \]
-以及类 \([r_k]\) 被第 \(k\) 个有理项逼近的性质，得到 \(x_k\to x\)。
+于是
+\[
+ |x_k-x|\le |x_k-r_k|+|r_k-x|
+ <\eta/2+\eta/2=\eta<\varepsilon.
+\]
+故 \(x_k\to x\)。
 \end{proof}
 
-最后一步可展开如下。由 \((r_k)\) 的 Cauchy 性，给定 \(\varepsilon>0\)，存在 \(K\) 使 \(j\ge k\ge K\) 时
-\[
- \abs{r_j-r_k}<\varepsilon/2.
-\]
-因而构造数 \(x=[r_j]\) 与常值类 \(r_k\) 的距离不超过 \(\varepsilon/2\)：代表差列从第 \(k\) 个位置以后都满足该界。再使
-\[
- \abs{x_k-r_k}<1/k<\varepsilon/2,
-\]
-便有 \(\abs{x_k-x}<\varepsilon\)。这里的两个“尾部”分别属于外层类数列和内层有理代表，不能混用指标。
+证明中两个“尾部”分别属于外层类数列和内层有理代表。先以外层 Cauchy 性控制 \(x_k-x_\ell\)，再以有理代表列的尾部控制 \([r_j]-r_k\)；把二者写成不同指标可以避免将 \(x_k\) 的第 \(k\) 项误当成某个代表列的第 \(k\) 项。
 
 \begin{proposition}[构造域中有理数的稠密性]
 若 \(x<y\) 属于 \(\widehat{\R}\)，则存在 \(q\in\Q\) 使
@@ -232,26 +264,54 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \end{theorem}
 
 \begin{proof}
-有理数在 \(\widehat{\R}\) 中稠密且 Archimedes，因此 \(\Phi(x)\) 非空、非全体、向下封闭且无最大元，是分割。若 \(x<y\)，取有理数 \(q\) 使 \(x<q<y\)，便有严格包含 \(\Phi(x)\subsetneq\Phi(y)\)，所以 \(\Phi\) 保序且单射。
+由 Archimedes 性质取正整数 \(N>|x|+1\)，则 \(-N<x<N\)，所以 \(\Phi(x)\) 非空且不等于 \(\Q\)。它显然向下封闭；若 \(q<x\)，有理稠密性给出 \(r\in\Q\) 使 \(q<r<x\)，故没有最大元。因此 \(\Phi(x)\) 是分割。若 \(x<y\)，取有理数 \(q\) 使 \(x<q<y\)，便有
+\[
+ \Phi(x)\subsetneq\Phi(y),\qquad q\in\Phi(y)\setminus\Phi(x).
+\]
+所以 \(\Phi\) 严格保序并为单射。
 
 任取分割 \(\alpha\)。从一个左部元素与右部元素开始二分；第 \(n\) 步得到 \(a_n\in\alpha,b_n\notin\alpha\)，且
 \[
  0<b_n-a_n<2^{-n}C.
 \]
-于是 \((a_n)\) 为有理 Cauchy 列。若 \(x=[a_n]\)，则 \(q\in\alpha\) 当且仅当 \(q<x\)：左到右使用 \(\alpha\) 无最大元并取足够小区间，右到左使用右部向上封闭。故 \(\Phi(x)=\alpha\)，证明满射。
-
-对有理数 \(q\)，\(\Phi(q)=q^*\)。加法与乘法可由有理稠密性验证其左部恰与\chapterref{chap:dedekind-construction}定义相同；负号和逆元由唯一性随之保持。因此 \(\Phi\) 是域同构。
-\end{proof}
-
-运算保持可用左部逐项核对。例如
+于是 \((a_n)\) 为有理 Cauchy 列。令 \(x=[a_n]\)。若 \(q\in\alpha\)，取 \(q'\in\alpha\) 使 \(q<q'\)。充分大时 \(b_n-a_n<(q'-q)/2\)，而 \(q'<b_n\)，故
 \[
- q<x+y
+  a_n>q'-\frac{q'-q}{2}>q.
 \]
-当且仅当存在有理数 \(r<x,s<y\) 使 \(q<r+s\)。正向先在 \(q\) 与 \(x+y\) 之间留出有理误差，再把误差分配给 \(x,y\) 的有理近似；反向由次序相容性立即得到。因此
+于是 \(x-q\) 有固定正下界，故 \(q<x\)。反之，若 \(q\notin\alpha\)，则 \(a_n<q\) 对每个 \(n\) 成立，因而不可能有 \(x>q\)。所以
+\[
+  q\in\alpha\quad\Longleftrightarrow\quad q<x,
+\]
+即 \(\Phi(x)=\alpha\)，满射性得证。
+
+对有理数 \(q\)，直接有 \(\Phi(q)=q^*\)。现核对加法。若 \(t\in\Phi(x)+\Phi(y)\)，写成 \(t=r+s\)，其中 \(r<x,s<y\)，则 \(t<x+y\)，所以
+\[
+ \Phi(x)+\Phi(y)\subseteq\Phi(x+y).
+\]
+反之，若 \(t<x+y\)，令 \(d=x+y-t>0\)，取正有理数 \(\eta<d/3\)，并由有理稠密性取
+\[
+ x-\eta<r<x,\qquad y-\eta<s<y.
+\]
+则 \(r+s>t\)。由于分割和向下封闭，\(t\in\Phi(x)+\Phi(y)\)。故
 \[
  \Phi(x+y)=\Phi(x)+\Phi(y).
 \]
-正数乘法同理先给两个因子留出相对误差，负号与倒数再由域中逆元唯一性传递。这样可避免把“保序双射自动保持运算”误当作一般事实；运算保持必须独立验证。
+
+再设 \(x,y>0\)。若正有理数 \(t\in\Phi(x)\Phi(y)\)，则存在正有理数 \(r<x,s<y\) 使 \(t<rs<xy\)，故 \(t\in\Phi(xy)\)。反之，若 \(0<t<xy\)，令 \(d=xy-t>0\)。取正有理数 \(\eta\) 满足
+\[
+ \eta<\min\left\{\frac{x}{2},\frac{y}{2},
+ \frac{d}{2(x+y+1)}\right\},
+\]
+再取有理数 \(x-\eta<r<x\)、\(y-\eta<s<y\)。此时 \(r,s>0\)，并且
+\[
+ xy-rs=x(y-s)+s(x-r)<\eta(x+y)<d,
+\]
+所以 \(t<rs\)，从而 \(t\in\Phi(x)\Phi(y)\)。非正有理数属于两个正分割，故 \(\Phi(xy)=\Phi(x)\Phi(y)\)。一般符号由乘法的符号扩张得到。
+
+因此 \(\Phi\) 保持 \(0,1\)、加法与乘法。加法逆元和非零乘法逆元由群、域中逆元的唯一性自动保持。结合已经证明的双射性，\(\Phi\) 是保序域同构。
+\end{proof}
+
+上面的运算核对不能由保序双射自动推出。加法需要把总误差分给两个有理下近似，乘法还要同时保证近似因子为正并控制交叉误差；只有这些集合等式已经证明以后，逆元唯一性才可用于传递负号和倒数。
 
 \begin{corollary}
 \chapterref{chap:real-number-system}任意两条正的有理 Cauchy 列，只要平方都逼近 \(2\)，就在 \(\widehat{\R}\) 中代表同一个元素；该元素经 \(\Phi\) 映到\chapterref{chap:dedekind-construction}的 \(\sqrt2\) 分割。

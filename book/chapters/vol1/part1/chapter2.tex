@@ -148,14 +148,27 @@
 \[
  \alpha\beta=\beta\alpha,\qquad
  (\alpha\beta)\gamma=\alpha(\beta\gamma),\qquad
+ \alpha 1^*=\alpha,\qquad
  \alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma.
 \]
 \end{lemma}
 
 \begin{proof}
-非空性来自所有非正有理数。取正的右部元素 \(u\notin\alpha,v\notin\beta\)，则每个 \(a\in\alpha_+,b\in\beta_+\) 满足 \(ab<uv\)，故 \(uv\) 不在积中。向下封闭由定义立即得到；若 \(q<ab\)，可在 \(a\) 与 \(\alpha\) 的更大正元素之间作微小有理扰动，使 \(q<a'b\)，由此排除最大元。
+积包含所有非正有理数，故非空。取 \(u\notin\alpha\)、\(v\notin\beta\)。由于两个分割均为正，\(u,v>0\)，且每个 \(a\in\alpha_+\)、\(b\in\beta_+\) 都满足 \(a<u\)、\(b<v\)。于是 \(ab<uv\)，从而 \(uv\notin\alpha\beta\)，积不是全体 \(\Q\)。
 
-交换律、结合律由有理数乘法和存在量词的重新分组得到。分配律的一侧由 \(a(b+c)=ab+ac\) 直接包含。反向包含中，给定 \(x<ab+a'c\)，利用 \(\alpha\) 无最大元取共同的 \(d\in\alpha_+\) 且 \(d>\max\{a,a'\}\)；于是 \(x<d(b+c)\)，故 \(x\in\alpha(\beta+\gamma)\)。非正元素按定义也包含。两侧因向下封闭而得到相等。
+若 \(q\in\alpha\beta\) 且 \(t<q\)，则 \(q\le0\) 时 \(t\le0\)；若 \(q>0\)，存在 \(a\in\alpha_+,b\in\beta_+\) 使 \(q<ab\)，于是同样有 \(t<ab\)。故积向下封闭。再证无最大元。若 \(q<0\)，则 \(0\in\alpha\beta\) 且 \(q<0\)；若 \(q=0\)，任选正的 \(a\in\alpha,b\in\beta\)，在 \(0\) 与 \(ab\) 之间取有理数；若 \(q>0\)，先取 \(a,b\) 使 \(q<ab\)，再取 \(a'\in\alpha_+\) 且 \(a'>a\)，便可在 \(q\) 与 \(a'b\) 之间取更大的积内元素。因此 \(\alpha\beta\) 是正分割。
+
+交换律直接来自 \(ab=ba\)。以下证明结合律。只需考察 \(q>0\)。若 \(q\in(\alpha\beta)\gamma\)，则存在 \(u\in(\alpha\beta)_+\)、\(c\in\gamma_+\) 使 \(q<uc\)。再由 \(u\in\alpha\beta\) 取 \(a\in\alpha_+,b\in\beta_+\) 使 \(u<ab\)，于是 \(q<abc\)。在 \(q/a\) 与 \(bc\) 之间取有理数 \(v\)，则 \(v\in\beta\gamma\) 且 \(q<av\)，故 \(q\in\alpha(\beta\gamma)\)。反向包含完全对称，非正有理数本来属于两边。
+
+再证单位元。若正数 \(q\in\alpha1^*\)，则 \(q<ab\)，其中 \(a\in\alpha_+\)、\(0<b<1\)，所以 \(q<a\) 且 \(q\in\alpha\)。反之，若 \(q\in\alpha\) 且 \(q>0\)，取 \(a\in\alpha\) 使 \(a>q\)，再取有理数 \(b\) 使 \(q/a<b<1\)，便有 \(q<ab\)，所以 \(q\in\alpha1^*\)。非正部分相同，故 \(\alpha1^*=\alpha\)。
+
+最后证明分配律。若正数 \(q\in\alpha(\beta+\gamma)\)，取 \(a\in\alpha_+\) 与 \(v=b+c\in(\beta+\gamma)_+\) 使 \(q<av\)，其中 \(b\in\beta,c\in\gamma\)。不论 \(b,c\) 的符号如何，\(ab\in\alpha\beta\)、\(ac\in\alpha\gamma\)：正的乘积可把 \(a\) 稍向上扰动，非正乘积则按定义属于相应分割。因此 \(ab+ac\in\alpha\beta+\alpha\gamma\)，而后者向下封闭，故 \(q\) 属于右边。
+
+反过来，取 \(q=x+y\)，其中 \(x\in\alpha\beta\)、\(y\in\alpha\gamma\)。可分别选正数 \(a,a'\in\alpha\)、\(b\in\beta\)、\(c\in\gamma\)，使 \(x<ab\)、\(y<a'c\)；当 \(x\le0\) 或 \(y\le0\) 时任取正因子即可。再取 \(d\in\alpha_+\) 且 \(d>\max\{a,a'\}\)，便有
+\[
+  q=x+y<ab+a'c<d(b+c).
+\]
+因 \(b+c\in\beta+\gamma\)，得到 \(q\in\alpha(\beta+\gamma)\)。这证明两边相等。
 \end{proof}
 
 \begin{proposition}
@@ -182,11 +195,34 @@
 
 \section{分配律}
 
-正分割乘法演算已经证明三项均为正时的分配律。固定 \(\alpha>0^*\)。若 \(\beta>0^*\)、\(\gamma=-\delta<0^*\)，且 \(\beta\ge\delta\)，则
+\begin{proposition}[一般分配律]
+对任意分割 \(\alpha,\beta,\gamma\)，有
 \[
- \alpha\beta=\alpha(\beta-\delta)+\alpha\delta.
+  \alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma.
 \]
-在加法群中消去 \(\alpha\delta\)，得到 \(\alpha(\beta+\gamma)=\alpha\beta+\alpha\gamma\)。当 \(\beta<\delta\) 时交换两项；两项都为负时先提出负号。若 \(\alpha<0^*\)，由 \(\alpha=-(-\alpha)\) 归结到上述情形。零因子情形直接成立。因此分配律对任意三个分割成立。
+\end{proposition}
+
+\begin{proof}
+正分割乘法演算已经证明三项均为正的情形；若其中某项为零，结论直接成立。先固定 \(\alpha>0^*\)。若 \(\beta,\gamma<0^*\)，写 \(\beta=-\beta_0\)、\(\gamma=-\gamma_0\)，其中 \(\beta_0,\gamma_0>0^*\)，则由正数情形和加法逆元唯一性，
+\[
+ \alpha(\beta+\gamma)
+ =-\alpha(\beta_0+\gamma_0)
+ =-(\alpha\beta_0+\alpha\gamma_0)
+ =\alpha\beta+\alpha\gamma.
+\]
+
+若符号相反，不妨 \(\beta>0^*\)、\(\gamma=-\delta<0^*\)。当 \(\beta\ge\delta\) 时令 \(\eta=\beta-\delta\ge0^*\)。正数情形给出
+\[
+  \alpha\beta=\alpha(\eta+\delta)=\alpha\eta+\alpha\delta.
+\]
+在加法群中消去 \(\alpha\delta\)，得到
+\[
+  \alpha(\beta-\delta)=\alpha\beta-\alpha\delta.
+\]
+这正是所需公式。若 \(\beta<\delta\)，对正数 \(\delta-\beta\) 应用刚证的等式，再取相反数即可。
+
+至此第一因子为正时均已证明。若 \(\alpha<0^*\)，写 \(\alpha=-\alpha_0\)，先对 \(\alpha_0\) 使用已证公式，再整体取相反数。故分配律对任意分割成立。
+\end{proof}
 
 \section{乘法逆元}
 
@@ -228,7 +264,14 @@
 \end{theorem}
 
 \begin{proof}
-加法群、乘法交换律和结合律、分配律、单位元以及非零元的逆元已经分别证明。若 \(\alpha,\beta>0^*\)，正分割乘法的定义给出 \(\alpha\beta>0^*\)；含零情形给出非负性。由此全序与乘法相容，所以 \(\mathbb D\) 是有序域。
+加法的封闭性、交换律、结合律、零元与逆元已在前文证明，所以 \((\mathbb D,+)\) 是交换群。正分割乘法演算给出正元素上的交换律、结合律和单位元；符号扩张把这些等式逐项传递到任意符号，并且 \(0^*\) 为吸收元。一般分配律已经单独证明。每个正非零分割有正文构造的倒数，负分割 \(\alpha\) 的逆元为 \(-(( -\alpha)^{-1})\)，其乘积按符号定义等于 \(1^*\)。因此 \(\mathbb D\) 是域。
+
+包含关系已经证明为全序。若 \(\alpha\subseteq\beta\)，加法定义直接给出
+\(\alpha+\gamma\subseteq\beta+\gamma\)。若 \(0^*\subseteq\alpha,\beta\)，则正部代表的包含给出 \(0^*\subseteq\alpha\beta\)；严格为正时，任取正的 \(a\in\alpha,b\in\beta\)，有理数 \(0<q<ab\) 属于积，故积严格大于 \(0^*\)。特别地，当 \(\alpha\subseteq\beta\) 且 \(0^*\subseteq\gamma\) 时，\(0^*\subseteq\beta-\alpha\)，分配律给出
+\[
+  \beta\gamma-\alpha\gamma=(\beta-\alpha)\gamma\ge0^*,
+\]
+即 \(\alpha\gamma\subseteq\beta\gamma\)。所以序与加法及非负数乘法相容，\(\mathbb D\) 是有序域。
 \end{proof}
 
 这里没有把关键的良定义问题隐藏在代表元之后：\(\mathbb D\) 的元素本身就是集合，所有运算均直接生成唯一集合。技术负担转移到了验证生成集合仍为分割以及逆元恒等式。

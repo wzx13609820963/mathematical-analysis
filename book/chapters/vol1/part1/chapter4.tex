@@ -3,6 +3,18 @@
 
 确界原理谈的是任意有界集合，单调收敛和 Cauchy 准则谈的却是数列，区间套与 Bolzano--Weierstrass 定理又采用不同的形式。它们之所以都能支撑极限论，是因为在 Archimedes 有序域中可以互相推出。下面选取一条不循环的证明路线，把这些命题连成闭环。
 
+以下先在一个有序域 \(F\) 中表述各项命题；应用于实数时取 \(F=\R\)。本章必须在\chapterref{chap:sequence-limits}系统研究数列极限之前使用少量序列语言，现统一规定如下。数列是映射 \(a:\Npos\to F\)，记为 \((a_n)\)。称 \(a_n\) 收敛到 \(a\in F\)，如果
+\[
+ \forall\varepsilon>0\ \exists N\in\Npos\ \forall n\ge N,
+ \qquad |a_n-a|<\varepsilon.
+\]
+严格递增的指标列 \(n_1<n_2<\cdots\) 确定子列 \((a_{n_k})\)。称 \((a_n)\) 为 Cauchy 列，如果
+\[
+ \forall\varepsilon>0\ \exists N\in\Npos\ \forall m,n\ge N,
+ \qquad |a_m-a_n|<\varepsilon.
+\]
+本章只比较这些命题与实数完备性的关系；量词否定、运算和估计方法留到\chapterref{chap:sequence-limits}展开。
+
 \section{确界原理与单调有界收敛}
 
 \subsection{各种完备性命题及其依赖图}
@@ -10,24 +22,31 @@
 
 考虑以下命题：
 \begin{description}[style=nextline,leftmargin=3em]
- \item[(S) 确界原理] 每个非空有上界实数集有上确界。
- \item[(M) 单调有界收敛] 每个单调递增且有上界的实数列收敛；递减情形对称。
+ \item[(S) 确界原理] 每个非空有上界集合 \(A\subseteq F\) 有上确界。
+ \item[(M) 单调有界收敛] 每个单调递增且有上界的 \(F\)-值数列收敛；递减情形对称。
  \item[(N) 区间套] 若闭区间 \(I_n=[a_n,b_n]\) 嵌套且 \(b_n-a_n\to0\)，则交集恰含一个点。
- \item[(B) Bolzano--Weierstrass] 每个有界实数列都有收敛子列。
- \item[(C) Cauchy 完备] 每个实 Cauchy 列都收敛。
+ \item[(B) Bolzano--Weierstrass] 每个有界 \(F\)-值数列都有收敛子列。
+ \item[(C) Cauchy 完备] 每个 \(F\)-值 Cauchy 列都收敛。
+\end{description}
+
+另记
+\begin{description}[style=nextline,leftmargin=3em]
+ \item[(A) Archimedes 性质] 对每个 \(x\in F\)，存在自然数 \(n>x\)。
 \end{description}
 
 这些命题回答的是同一个缺口的不同表现，但量化对象并不相同。(S) 对任意非空有界集合作断言，(M)、(B)、(C) 只考察数列，(N) 考察一列闭区间。把它们列在一起，是为了说明在实数的序和 Archimedes 尺度下，集合边界可以编码成数列，数列又可以装入逐渐缩小的区间。
 
-证明按下列次序进行：
+证明按下列次序进行：确界原理先由\chapterref{chap:real-number-system}的定理给出 (A)，随后
 \[
+ \mathrm{(S)}\Longrightarrow\mathrm{(A)},\qquad
  \mathrm{(S)}\Longrightarrow\mathrm{(M)}
  \Longrightarrow\mathrm{(N)}
  \Longrightarrow\mathrm{(B)}
  \Longrightarrow\mathrm{(C)}
- \Longrightarrow\mathrm{(S)}.
+ \quad\text{且}\quad
+ \mathrm{(A)}+\mathrm{(C)}\Longrightarrow\mathrm{(S)}.
 \]
-最后一个方向以及二分区间长度趋零这一步会用到 Archimedes 性质。
+二分区间长度趋零以及最后一个方向都使用 (A)。把这一条件单独列出，是为了避免把“有序域中的形式推理”和“自然数尺度能够任意细分”混为一谈。
 
 依赖图中的箭头表示一种无循环证明路线，不表示每个结论只能这样证明。例如可由确界原理直接证明 Bolzano--Weierstrass，也可从区间套经二分得到；可由 Cauchy 完备性与 Archimedes 网格直接重建单调收敛。比较不同路线时，必须把“有序域公理”“Archimedes 性质”和待证明的完备性命题分开记账。
 
@@ -130,7 +149,7 @@ a_n\to\sup\{a_n:n\in\Npos\}.
 \end{corollary}
 
 \begin{proof}
-从 \(E\) 中递归选取互异点 \(x_n\)。该有界数列有收敛子列 \(x_{n_k}\to x\)。因子列各项互异，任意 \(x\) 的邻域都含异于 \(x\) 的 \(E\) 中点，故 \(x\) 是聚点。
+从 \(E\) 中递归选取互异点 \(x_n\)。这一递归使用可数选择的一种形式；本书采用 ZFC，故该步骤合法，选择原则的区分见附录A。所得有界数列有收敛子列 \(x_{n_k}\to x\)。因子列各项互异，对每个 \(\varepsilon>0\) 都有充分大的 \(k\) 使 \(x_{n_k}\in(x-\varepsilon,x+\varepsilon)\)，且至多一项等于 \(x\)。故每个邻域都含异于 \(x\) 的 \(E\) 中点，\(x\) 是聚点。
 \end{proof}
 
 \section{Cauchy 完备性}
@@ -138,13 +157,7 @@ a_n\to\sup\{a_n:n\in\Npos\}.
 前几种完备性表述都显式制造候选极限：确界、区间交点或收敛子列。Cauchy 条件则只比较尾部中的两项。许多近似算法可以估计任意两次后期计算的差，却不知道极限的闭式表达；实数完备性保证这种内部稳定最终对应于实数中的一点。
 
 
-\begin{definition}
-实数列 \((a_n)\) 称为 Cauchy 列，如果
-\[
-\forall\varepsilon>0\ \exists N\in\Npos\
- \forall m,n\ge N,\quad |a_m-a_n|<\varepsilon.
-\]
-\end{definition}
+章首已经给出 Cauchy 条件。与收敛不同，它不含候选极限，只要求同一尾部内任意两项彼此接近。
 
 \begin{proposition}
 Cauchy 列有界。若 Cauchy 列有一个收敛到 \(a\) 的子列，则原列收敛到 \(a\)。
@@ -170,7 +183,7 @@ Cauchy 列有界。若 Cauchy 列有一个收敛到 \(a\) 的子列，则原列�
 \[
  d_N=\sup\{\abs{a_m-a_n}:m,n\ge N\},
 \]
-允许 \(d_N=+\infty\)。则 \((a_n)\) 是 Cauchy 列当且仅当 \(d_N\) 最终有限且
+若尾部差集无上界，局部约定其上确界为符号 \(+\infty\)；这里只把它作为“无有限上界”的记号，不使用\chapterref{chap:limsup-liminf}扩充实数的运算。则 \((a_n)\) 是 Cauchy 列当且仅当 \(d_N\) 最终有限且
 \[
  d_N\to0.
 \]
@@ -192,7 +205,7 @@ Cauchy 列有界。若 Cauchy 列有一个收敛到 \(a\) 的子列，则原列�
 \end{theorem}
 
 \begin{proof}
-设 \(\varnothing\ne A\subseteq F\) 有上界。取 \(l_0\) 不是上界、\(u_0\) 是上界。已给 \(l_n,u_n\) 后令 \(m_n=(l_n+u_n)/2\)：若 \(m_n\) 是上界，取
+设 \(\varnothing\ne A\subseteq F\) 有上界。先取 \(a_0\in A\)，令 \(l_0=a_0-1\)，则 \(l_0\) 不是上界；再取一个上界 \(u_0\)，必要时放大它使 \(l_0<u_0\)。已给 \(l_n,u_n\) 后令 \(m_n=(l_n+u_n)/2\)：若 \(m_n\) 是上界，取
 \[
  l_{n+1}=l_n,\quad u_{n+1}=m_n;
 \]
@@ -204,7 +217,22 @@ Cauchy 列有界。若 Cauchy 列有一个收敛到 \(a\) 的子列，则原列�
 \[
  u_n-l_n=2^{-n}(u_0-l_0).
 \]
-Archimedes 性质使右端趋于零，所以两列都是 Cauchy 列。设 \(l_n\to l\)、\(u_n\to u\)。由 \(u_n-l_n\to0\) 得 \(l=u=:s\)。
+Archimedes 性质使右端趋于零：给定 \(\varepsilon>0\)，先取自然数 \(N>(u_0-l_0)/\varepsilon\)，再用 \(2^N\ge N\) 即得 \(2^{-N}(u_0-l_0)<\varepsilon\)。若 \(m\ge n\)，嵌套性给出
+\[
+  l_n\le l_m\le u_m\le u_n,
+\]
+因而
+\[
+ |l_m-l_n|\le u_n-l_n,\qquad
+ |u_m-u_n|\le u_n-l_n.
+\]
+所以两列都是 Cauchy 列。设 \(l_n\to l\)、\(u_n\to u\)。给定 \(\varepsilon>0\)，充分大时同时有
+\[
+ |u-u_n|<\frac{\varepsilon}{3},\qquad
+ u_n-l_n<\frac{\varepsilon}{3},\qquad
+ |l_n-l|<\frac{\varepsilon}{3}.
+\]
+三角不等式给出 \(|u-l|<\varepsilon\)。因 \(\varepsilon\) 任意，若 \(u\ne l\)，取 \(\varepsilon=|u-l|/2\) 即得矛盾，故 \(l=u=:s\)。
 
 若存在 \(a\in A\) 且 \(a>s\)，取 \(\varepsilon=(a-s)/2\)。充分大时 \(u_n<s+\varepsilon<a\)，与 \(u_n\) 是上界矛盾，故 \(s\) 是上界。若 \(c<s\)，充分大时 \(l_n>c\)；因 \(l_n\) 不是上界，存在 \(a\in A\) 使 \(a>l_n>c\)，所以 \(c\) 不是上界。故 \(s=\sup A\)。
 \end{proof}
