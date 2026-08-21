@@ -111,14 +111,22 @@
 称为 \(a\) 的一个\term{开邻域}。由绝对值与区间的等价关系，\(\abs{a_n-a}<\varepsilon\) 等价于 \(a_n\in U_\varepsilon(a)\)。
 
 \begin{theorem}[邻域刻画]
-数列 \(a_n\to a\) 当且仅当 \(a\) 的每个开邻域都包含数列的一个完整尾部；也就是说，对每个含 \(a\) 的开集 \(U\subseteq\R\)，存在 \(N\) 使
+数列 \(a_n\to a\) 当且仅当 \(a\) 的每个开区间邻域都包含数列的一个完整尾部；也就是说，对每个 \(r>0\)，存在 \(N\) 使
 \[
- \{a_n:n\ge N\}\subseteq U.
+ \{a_n:n\ge N\}\subseteq(a-r,a+r).
 \]
 \end{theorem}
 
 \begin{proof}
-若 \(a_n\to a\)，且集合 \(U\) 含有某个以 \(a\) 为中心的开区间 \(U_\varepsilon(a)\)，则极限定义给出最终 \(a_n\in U_\varepsilon(a)\subseteq U\)。反之只需把 \(U\) 取为任意 \(U_\varepsilon(a)\)。以后定义实线开集后，这一表述可简写为“每个含 \(a\) 的开集都包含一个完整尾部”。
+这只是绝对值不等式
+\(
+ \abs{a_n-a}<r
+\)
+与区间包含关系
+\(
+ a_n\in(a-r,a+r)
+\)
+的逐项改写。以后定义实线上的开集后，还可把“开区间邻域”换成“任意含 \(a\) 的开集”，但当前结论不依赖尚未建立的开集理论。
 \end{proof}
 
 这里使用“完整尾部”而非“无穷多项”。数列 \((-1)^n\) 的任意小的 \(1\) 的邻域可能含无穷多个项，却从不包含完整尾部；这不足以说明收敛到 \(1\)。
@@ -156,17 +164,15 @@
 要使右端小于 \(\varepsilon\)，取 \(N>5/\varepsilon\) 即可。估计 \(\frac5{n+4}<\frac5n\) 牺牲了一点精度，却使指标选择更透明。
 \end{example}
 
-\begin{proposition}[误差上界原则]
-设 \(r_n\ge0\)、\(r_n\to0\)。若存在 \(N_0\) 使
+前一节的最终误差函数已经给出一般的上界原则。计算中常用的是它的定量形式：若从 \(N_0\) 起
 \[
- \abs{a_n-a}\le r_n\qquad(n\ge N_0),
+ \abs{a_n-a}\le C\phi(n),
 \]
-则 \(a_n\to a\)。若还知道 \(r_n\le C\phi(n)\)，其中 \(\phi(n)\downarrow0\)，则任何保证 \(C\phi(N)<\varepsilon\) 的 \(N\ge N_0\) 都可作为误差起点。
-\end{proposition}
-
-\begin{proof}
-给定 \(\varepsilon>0\)，由 \(r_n\to0\) 取 \(N_1\) 使 \(n\ge N_1\) 时 \(r_n<\varepsilon\)。取 \(N=\max\{N_0,N_1\}\) 即得结论。第二句话只是把 \(r_n\) 的控制进一步显式化。
-\end{proof}
+其中 \(C>0\)，且正数列 \(\phi(n)\) 单调趋于零，那么只要选取 \(N\ge N_0\) 使
+\(
+ C\phi(N)<\varepsilon,
+\)
+便有 \(n\ge N\Rightarrow C\phi(n)\le C\phi(N)<\varepsilon\)。这里的单调性用于把第 \(N\) 项的估计传给整个尾部；若 \(\phi\) 不单调，则应直接求一个对所有 \(n\ge N\) 有效的尾部上界。
 
 反向推导只是寻找 \(N\) 的草稿过程，不能把“由 \(\abs{a_n-a}<\varepsilon\) 解得 \(n>G(\varepsilon)\)”当作证明，因为前件正是尚待证明的目标。正式论证必须从选定的 \(N\) 出发推出误差不等式。
 
@@ -191,7 +197,7 @@
 \[
  \abs{cn+d}\ge\abs c\,n-\abs d.
 \]
-取 \(N_0\ge2\abs d/\abs c\)，右端便不小于 \(abs c n/2\)。
+取 \(N_0\ge2\abs d/\abs c\)，右端便不小于 \(\abs c\,n/2\)。
 \end{proof}
 
 所以
@@ -305,17 +311,16 @@
 
 \subsection{从定义证明发散与不存在极限}
 
-发散证明没有统一的计算格式。常用入口有以下四个，它们最终都要落实到极限定义或已经证明的定理。
+发散证明没有统一的计算格式。在尚未建立子列理论以前，可以使用以下三个入口；\chapterref{chap:subsequences-cluster-points}还会把极限定义的否定系统地转化为“坏子列”。
 
 \begin{enumerate}
- \item 构造两个不同的子列极限；
  \item 证明数列无界，因为收敛数列必有界；
- \item 对任意候选 \(a\) 找到统一的失败尺度 \(\varepsilon_0(a)>0\)；
+ \item 对任意候选 \(a\) 找到固定的失败尺度 \(\varepsilon_0(a)>0\)；
  \item 证明若存在极限便与某个最终性质矛盾。
 \end{enumerate}
 
 \begin{example}
-数列 \(a_n=n\sin(n\pi/2)\) 发散。指标 \(n=4k\) 的子列恒为 \(0\)，而 \(n=4k+1\) 的子列等于 \(4k+1\)，无界。它既没有有限极限，也没有正、负无穷极限。
+数列 \(a_n=n\sin(n\pi/2)\) 发散。它在指标 \(4k\) 处等于 \(0\)，在指标 \(4k+1\) 处等于 \(4k+1\)，所以无界，不可能有有限极限；每个尾部又含值为 \(0\) 的项以及任意大的正项和负项，故它也不趋于正、负无穷。\chapterref{chap:subsequences-cluster-points}会把这里抽取两类指标的做法正式化为子列方法。
 \end{example}
 
 无界性只是发散的充分条件，不是必要条件；\((-1)^n\) 有界而发散。类似地，不趋于 \(+\infty\) 不能推出有有限极限。
@@ -338,10 +343,6 @@
 \end{proof}
 
 几何上，半径小于 \(\abs{a-b}/2\) 的两个邻域不相交，而一个完整尾部不能同时包含在两个不交邻域中。唯一性依赖值域距离能够分离不同点；以后在一般拓扑空间中，这对应 Hausdorff 条件。
-
-\begin{corollary}
-若数列的两个子列分别收敛到不同极限，则原列发散。
-\end{corollary}
 
 \subsection{收敛数列的有界性}
 
@@ -553,13 +554,7 @@
 \(a_n=n^2\to+\infty\)。给定 \(M\)，若 \(M<0\) 可取 \(N=1\)；若 \(M\ge0\)，取整数 \(N>\sqrt M\)，则 \(n\ge N\) 时 \(n^2>M\)。数列 \(a_n=(-1)^n n\) 无界，却既不趋于 \(+\infty\) 也不趋于 \(-\infty\)，因为每个尾部同时含很大的正项和很小的负项。
 \end{example}
 
-\begin{proposition}
-若 \((a_n)\) 单调递增，则它或者有上界，或者趋于 \(+\infty\)。递减情形对称成立。
-\end{proposition}
-
-\begin{proof}
-若无上界，给定 \(M\)，存在 \(N\) 使 \(a_N>M\)。单调性保证 \(n\ge N\) 时 \(a_n\ge a_N>M\)。有上界时不能趋于 \(+\infty\)。
-\end{proof}
+无界不能推出无穷极限：\((-1)^n n\) 同时向两个方向无界。要得到 \(+\infty\)，必须证明每个给定阈值最终被全部后项越过，而不只是存在无穷多个大于该阈值的项。\chapterref{chap:monotone-iteration}在定义单调数列以后，将说明单调性怎样把“存在一项越过阈值”传递给整个尾部。
 
 \subsection{有限项修改与尾部不变性}
 
@@ -650,14 +645,16 @@
  \exerciseitem{9.10}  若 \(a_n\to a\ne0\)，证明 \(1/a_n\) 最终有定义且收敛到 \(1/a\)。
  \exerciseitem{9.11}  分别构造 \(a_n,b_n\to0\)，使 \(a_n/b_n\) 收敛到给定 \(L\in\R\)、趋于 \(+\infty\)、以及发散。
  \exerciseitem{9.12}  证明零列乘有界列为零列；构造“零列乘无界列”分别趋零、趋非零常数和发散的例子。
- \exerciseitem{9.13}  证明若 \(a_n\to a\)，则 \(a_n^k\to a^k\)（固定 \(k\in\N\)）。
+ \exerciseitem{9.13}  证明若 \(a_n\to a\)，则 \(a_n^k\to a^k\)（固定 \(k\in\Npos\)）。
  \exerciseitem{9.14}  若 \(a_n\to a\ge0\) 且每个 \(a_n\ge0\)，证明 \(\sqrt{a_n}\to\sqrt a\)。分别处理 \(a>0\) 与 \(a=0\)。
  \exerciseitem{9.15}  证明 \(\max\{a_n,b_n\}\) 与 \(\min\{a_n,b_n\}\) 的极限定理。
  \exerciseitem{9.16}  证明若最终 \(a_n\le b_n\le c_n\) 且两端同趋于 \(L\)，则中间列也趋于 \(L\)。
 \exerciseitem{9.17}  判断并证明或反驳：
- \item \(\abs{a_n}\to0\Rightarrow a_n\to0\)；
+ \begin{enumerate}[label=(\arabic*)]
+  \item \(\abs{a_n}\to0\Rightarrow a_n\to0\)；
   \item \(\abs{a_n}\to1\Rightarrow a_n\) 收敛；
   \item \(a_n^2\to a^2\Rightarrow a_n\to a\)。
+ \end{enumerate}
  \exerciseitem{9.18}  若 \(a_n\to a\)、\(b_n\to b\) 且 \(a_n\le b_n\) 对无穷多个 \(n\) 成立，能否推出 \(a\le b\)？证明结论或给反例。
  \projectexerciseitem{9.19} \ 【前置：本章全部定理；预计用时：60分钟】证明任何由有限次四则运算、绝对值、最大值和最小值组成的表达式，只要所有分母的极限非零，就可以逐项通过极限。
  \optionalexerciseitem{9.20}  设 \(p_n\) 为偶数时 \(a_n\)，奇数时 \(b_n\)。刻画 \(p_n\) 收敛的充要条件。

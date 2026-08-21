@@ -81,6 +81,23 @@
 
 该命题把量词否定转化为可操作的反例子列，是\chapterref{chap:function-limits}证明函数极限序列刻画时的主要构造。
 
+\begin{theorem}[进一步子列判据]
+实数列 \((a_n)\) 收敛到 \(L\)，当且仅当它的每条子列都含有一条进一步子列收敛到 \(L\)。
+\end{theorem}
+
+\begin{proof}
+若 \(a_n\to L\)，每条子列本身已经收敛到 \(L\)，因而任取其进一步子列即可。
+
+反之，若原列不收敛到 \(L\)，由上一命题存在
+\(\varepsilon_0>0\) 和一条子列 \((a_{n_k})\)，使
+\[
+ \abs{a_{n_k}-L}\ge\varepsilon_0\qquad(k\in\Npos).
+\]
+这条子列的任何进一步子列仍满足同一下界，不可能收敛到 \(L\)，与假设矛盾。
+\end{proof}
+
+这一判据不要求原列有界。它把“控制完整尾部”换成一个等价的抽取原则，在函数极限、紧致性和各种弱收敛问题中会反复出现。
+
 \section{Bolzano--Weierstrass 定理与单调子列定理}
 
 \subsection{二分区间法证明 Bolzano--Weierstrass 定理}
@@ -189,15 +206,21 @@
 \subsection{部分极限的子列刻画}
 
 
-上一命题也可写成：每个邻域 \(U\) 与每个尾部值集
+上一命题也可写成：每个以 \(L\) 为中心的开区间与每个尾部值集
 \[
  A_N=\{a_n:n\ge N\}
 \]
-都有非空交。于是部分极限集合为
+都有非空交。为避免提前使用闭包语言，令
 \[
- \bigcap_{N=1}^{\infty}\overline{A_N},
+\operatorname{adh}(A_N)
+:=\{x\in\R:\text{\(x\) 的每个开区间邻域都与 \(A_N\) 相交}\}.
 \]
-其中闭包符号在本章只表示“集合连同其全部聚点”；\chapterref{chap:continuous-functions-closed-interval}将给出闭集语言。
+若以 \(\mathcal L(a)\) 表示全部部分极限组成的集合，则
+\[
+ \mathcal L(a)=\bigcap_{N=1}^{\infty}\operatorname{adh}(A_N).
+\]
+\chapterref{chap:continuous-functions-closed-interval}建立闭集和闭包以后，
+\(\operatorname{adh}(A_N)\) 将写成通常的 \(\overline{A_N}\)。
 
 \begin{theorem}
 若 \((a_n)\) 有界，则其部分极限集合非空且有界。若部分极限只有一个 \(L\)，则原列收敛到 \(L\)。
@@ -208,6 +231,26 @@
 
 若原列不收敛到 \(L\)，可抽取始终与 \(L\) 保持固定正距离的子列。它仍有界，故有收敛的进一步子列；该新部分极限不同于 \(L\)，矛盾。
 \end{proof}
+
+\begin{proposition}[部分极限对极限运算封闭]
+设 \((a_n)\) 有界，且 \(L_j\in\mathcal L(a)\)、\(L_j\to L\)。则
+\(L\in\mathcal L(a)\)。
+\end{proposition}
+
+\begin{proof}
+递归选取严格递增指标 \(n_j\)。因为 \(L_j\) 是部分极限，可在第 \(j\) 步从指标大于 \(n_{j-1}\) 的项中选取 \(a_{n_j}\)，使
+\[
+ \abs{a_{n_j}-L_j}<\frac1j.
+\]
+同时 \(L_j\to L\)，故
+\[
+ \abs{a_{n_j}-L}
+ \le\abs{a_{n_j}-L_j}+\abs{L_j-L}\longrightarrow0.
+\]
+于是 \(a_{n_j}\to L\)，所以 \(L\) 也是部分极限。
+\end{proof}
+
+后文的闭集语言会把这一命题简称为“\(\mathcal L(a)\) 是闭集”。这里的对角选择揭示了真正使用的事实：第 \(j\) 步既要逼近变化中的目标 \(L_j\)，又要保证指标超过此前全部选择。
 
 无界数列可能没有有限部分极限，例如 \(a_n=n\)；也可能同时有有限部分极限和无穷方向，例如 \(a_{2n}=0\)、\(a_{2n-1}=n\)。
 
@@ -229,19 +272,21 @@
 中，由非零项组成的子列趋于 \(0\)，由零项组成的子列也趋于 \(0\)，而且原列确实收敛到 \(0\)。所以，数列由两种取值模式交替组成并不能单独说明它发散；要看这些模式产生的子列极限是否一致。
 \end{counterexample}
 
-\begin{proposition}
-有界实数列收敛到 \(L\)，当且仅当它的每个收敛子列都收敛到 \(L\)，并且每个子列都含有进一步收敛子列。
+\begin{proposition}[有界性的抽取刻画]
+实数列 \((a_n)\) 有界，当且仅当它的每条子列都含有收敛的进一步子列。
 \end{proposition}
 
 \begin{proof}
-若原列收敛到 \(L\)，子列继承性给出正向结论。反之，若原列不收敛到 \(L\)，由第三节命题存在 \(\varepsilon_0>0\) 以及子列 \((a_{n_k})\)，使
+若原列有界，每条子列仍有界，Bolzano--Weierstrass 定理给出收敛的进一步子列。
+
+反之，若原列无界，可以递归选择严格递增指标 \(n_k\)，使
 \[
- \abs{a_{n_k}-L}\ge\varepsilon_0\qquad(k\in\Npos).
+ \abs{a_{n_k}}>k.
 \]
-按假设，它含进一步收敛子列；该进一步子列的极限与 \(L\) 的距离至少为 \(\varepsilon_0\)，与所有收敛子列极限均为 \(L\) 矛盾。
+这条子列的每条进一步子列仍无界，因而不可能收敛，与假设矛盾。
 \end{proof}
 
-在实数中，有界性自动保证“每个子列都含进一步收敛子列”。进入一般度量空间以后，这一性质将成为相对紧致性的序列形式。
+因此在实数中，收敛性可以拆成两件事：有界性保证每次抽取还能继续抽到收敛列；进一步子列判据再要求所有这些局部极限只能汇聚到同一点。进入一般度量空间后，前一种性质将发展为相对序列紧致性，且不再能简单地用有界性代替。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}

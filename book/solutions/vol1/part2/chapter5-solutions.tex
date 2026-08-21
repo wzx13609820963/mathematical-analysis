@@ -25,7 +25,7 @@ a_n\not\to+\infty
  a_n\le M_0.
 \end{aligned}
 \]
-所有 \(N,n\) 均取自 \(N\)。
+所有 \(N,n\) 均取自 \(\Npos\)。
 \end{solution}
 
 \begin{solution}{7.2}
@@ -106,13 +106,30 @@ a_n\not\to+\infty
 \]
 除以 \(n^d\)，记
 \(u_n=\sum_{j<d}a_jn^{j-d}\)、
-\(v_n=\sum_{j<d}b_jn^{j-d}\)。有限和估计给出 \(u_n,v_n\to0\)。最终
+\(v_n=\sum_{j<d}b_jn^{j-d}\)。令
+\[
+ A=\sum_{j<d}\abs{a_j},\qquad B=\sum_{j<d}\abs{b_j}.
+\]
+由于 \(j-d\le-1\)，对 \(n\ge1\) 有
+\(\abs{u_n}\le A/n\)、\(\abs{v_n}\le B/n\)。若
+\(n\ge 2B/\abs{b_d}\)，则
 \(\abs{b_d+v_n}\ge\abs{b_d}/2\)，且
 \[
  \frac{p(n)}{q(n)}-\frac{a_d}{b_d}
  =\frac{b_du_n-a_dv_n}{b_d(b_d+v_n)}.
 \]
-分子绝对值趋零，分母最终有固定正下界，故差趋零。每个 \(n^{j-d}\) 的误差可由 \(1/n\) 控制，从而整个证明可写成显式 \(C/n\) 估计。
+因此
+\[
+ \abs{\frac{p(n)}{q(n)}-\frac{a_d}{b_d}}
+ \le
+ \frac{2(\abs{b_d}A+\abs{a_d}B)}{\abs{b_d}^2}\frac1n
+ =:\frac Cn.
+\]
+给定 \(\varepsilon>0\)，取整数
+\(
+ N>\max\{2B/\abs{b_d},C/\varepsilon\}
+\)
+即可。
 \end{solution}
 
 \begin{solution}{8.5}
@@ -127,7 +144,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{8.6}
-取 \(m\in\N\) 使 \(1/q>1+1/m\)。由 Bernoulli 不等式，
+取 \(m\in\Npos\) 使 \(1/q>1+1/m\)。由 Bernoulli 不等式，
 \[
  q^{-n}>\left(1+\frac1m\right)^n\ge1+\frac nm.
 \]
@@ -239,7 +256,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{8.7}
-对 \(abs t\le A\)，
+对 \(\abs t\le A\)，
 \[
  \abs{\frac{t}{n+t^2}}\le\frac A n.
 \]
@@ -276,7 +293,7 @@ a_n\not\to+\infty
  \frac1n\frac1{1+k/n},\qquad k=1,\ldots,n,
 \]
 看出它是函数 \(1/(1+x)\) 的一种 Riemann 和。要严格识别极限为
-\(int_0^1(1+x)^{-1}\,dx=\log2\)，需要定积分理论和对数函数的严格建立，当前章节尚未给出。因此本题只能先记录界与后续证明位置，不能循环引用积分结论。
+\(\int_0^1(1+x)^{-1}\,dx=\log2\)，需要定积分理论和对数函数的严格建立，当前章节尚未给出。因此本题只能先记录界与后续证明位置，不能循环引用积分结论。
 \end{solution}
 
 \begin{solution}{8.12}
@@ -303,13 +320,23 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{9.9}
-收敛性给出最终 \(\abs{a_n-a}<1\)、\(\abs{b_n-b}<1\)。再把两个误差分别取得足够小，使
+给定 \(\varepsilon>0\)，令
 \[
- \abs{a_n-a}\abs{b_n-b}<\varepsilon/3,\quad
- \abs a\abs{b_n-b}<\varepsilon/3,\quad
- \abs b\abs{a_n-a}<\varepsilon/3.
+ \delta=\min\left\{1,\frac{\varepsilon}{1+\abs a+\abs b}\right\}.
 \]
-由题给分解和三角不等式，乘积误差小于 \(\varepsilon\)。当 \(a\) 或 \(b\) 为零时，相应项直接消失。
+取共同尾部使
+\(\abs{a_n-a}<\delta\)、\(\abs{b_n-b}<\delta\)。由题给分解，
+\[
+\begin{aligned}
+ \abs{a_nb_n-ab}
+ &\le \abs{a_n-a}\abs{b_n-b}
+   +\abs a\abs{b_n-b}
+   +\abs b\abs{a_n-a}\\
+ &<\delta^2+(\abs a+\abs b)\delta\\
+ &\le(1+\abs a+\abs b)\delta\le\varepsilon.
+\end{aligned}
+\]
+若最后可能取等号，可在定义 \(\delta\) 时把 \(\varepsilon\) 换成 \(\varepsilon/2\)，从而得到严格小于 \(\varepsilon\) 的估计。
 \end{solution}
 
 \begin{solution}{9.10}
@@ -514,4 +541,3 @@ a_n\not\to+\infty
 \]
 此后所有分量误差同时小于 \(\varepsilon\)，故最大范数误差小于 \(\varepsilon\)。若使用欧氏范数，可把每个分量误差预算为 \(\varepsilon/\sqrt d\)。
 \end{solution}
-

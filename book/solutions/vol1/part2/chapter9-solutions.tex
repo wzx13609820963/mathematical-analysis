@@ -142,16 +142,32 @@ Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref
 \begin{solution}{13.18}
 递归取 \(n_{k+1}>n_k\)，使
 \(\abs{a_m-a_n}<2^{-k}\) 对所有 \(m,n\ge n_k\) 成立。于是相邻抽取项差小于 \(2^{-k}\)。令
-\(d_k=a_{n_{k+1}}-a_{n_k}\)。部分和
-\(\sum_{j=1}^m\abs{d_j}\) 单调且被几何和控制，故收敛；于是
+\(d_k=a_{n_{k+1}}-a_{n_k}\)，并写
 \[
- a_{n_k}=a_{n_1}+\sum_{j=1}^{k-1}d_j
+ d_k=d_k^+-d_k^-,
+ \qquad d_k^+=\max\{d_k,0\},\quad
+ d_k^-=\max\{-d_k,0\}.
 \]
-收敛。再用\exerciseref{13.5}推出原列收敛。此路线使用单调有界收敛，但不使用 Bolzano--Weierstrass。
+两个有限部分和
+\[
+ P_m=\sum_{j=1}^m d_j^+,\qquad
+ Q_m=\sum_{j=1}^m d_j^-
+\]
+都单调递增，且都不超过有限几何和
+\(\sum_{j=1}^m2^{-j}<1\)，故由单调有界收敛定理分别收敛。于是
+\[
+ a_{n_k}=a_{n_1}+P_{k-1}-Q_{k-1}
+\]
+收敛。再用\exerciseref{13.5}推出原列收敛。此路线只使用有限和、单调有界收敛及 Cauchy 列的子列提升，不使用 Bolzano--Weierstrass，也不预设一般级数理论。
 \end{solution}
 
 \begin{solution}{13.19}
-若 \(F\) 是完备空间 \(X\) 的闭子集，\(F\) 中 Cauchy 列先在 \(X\) 中收敛，闭性保证极限在 \(F\)。反之，若 \(F\) 完备而 \(x_n\in F\) 在 \(X\) 中收敛到 \(x\)，则它为 Cauchy 列，在 \(F\) 中收敛到某个 \(y\in F\)。母空间极限唯一，故 \(x=y\in F\)，所以 \(F\) 闭。
+设 (1) 成立。取值于 \(F\) 的 Cauchy 列在 \(\R\) 中由完备性收敛到某个
+\(x\in\R\)，再由 (1) 得 \(x\in F\)，故 (2) 成立。
+
+反之设 (2) 成立，而 \(x_n\in F\) 在 \(\R\) 中收敛到 \(x\)。收敛列是
+Cauchy 列，故按 (2) 它还收敛到某个 \(y\in F\)。实数极限唯一，因而
+\(x=y\in F\)，得到 (1)。后文把满足 (1) 的集合称为闭集，于是这里的等价关系正是“实数中的闭子集完备，完备子集闭”。
 \end{solution}
 
 \begin{solution}{13.20}
@@ -233,7 +249,20 @@ Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref
  a_{n+1}-\sqrt3
  =\frac{(a_n-\sqrt3)^2}{2a_n},
 \]
-显示误差在靠近根时呈平方衰减。
+令 \(e_n=a_n-\sqrt3\)（\(n\ge2\)），则
+\[
+ 0\le e_{n+1}\le\frac{e_n^2}{2\sqrt3}.
+\]
+这给出平方误差递推。又因 \(0\le e_n<a_n\)，有
+\[
+ e_{n+1}\le\frac12e_n,
+\]
+从而得到全局几何界
+\[
+ 0\le a_n-\sqrt3\le2^{-(n-2)}(a_2-\sqrt3)
+ \qquad(n\ge2).
+\]
+前一估计描述靠近根时的二次收敛，后一估计给出无需预知局部误差大小的先验界。
 \end{solution}
 
 \begin{solution}{II.5}
@@ -245,7 +274,13 @@ Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref
 \end{solution}
 
 \begin{solution}{II.7}
-收敛蕴含每个子列及进一步子列同趋于 \(L\)，也蕴含上下极限同为 \(L\) 和振幅趋零。每个子列都有进一步子列趋于 \(L\) 可用“坏子列”反证原列收敛。上下极限相等有限由\chapterref{chap:limsup-liminf}判据推出收敛。振幅趋零等价于上下极限之差为零，也推出同一结论。
+收敛蕴含每个子列及进一步子列同趋于 \(L\)，也蕴含上下极限同为
+\(L\)、振幅趋零，并可取原列本身作为趋于 \(L\) 的子列。每个子列都有进一步子列趋于 \(L\)，可用“坏子列”反证原列收敛。上下极限相等且共同值为 \(L\)，由\chapterref{chap:limsup-liminf}判据推出收敛。
+
+最后，若尾部振幅趋零，则原列为 Cauchy 列，因而在 \(\R\) 中收敛到某个
+\(A\)。题设还给出一条子列趋于 \(L\)，而收敛列的每条子列都趋于
+\(A\)，由唯一性 \(A=L\)。这里的子列条件不可删除：常值列 \(a_n=0\)
+振幅恒为零，却不收敛到预先指定的 \(L=1\)。
 \end{solution}
 
 \begin{solution}{II.8}
@@ -279,4 +314,3 @@ Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref
 \begin{solution}{II.12}
 “最终性质”忽略有限首项；“完整尾部”表达极限邻域必须同时容纳所有后项；“尾部值集”保留后续可能取值；“尾部确界”压缩其上下边界并产生上下极限；“尾部直径”测量剩余整体振荡并刻画 Cauchy 性。完整尾部可恢复尾部值集，值集可计算确界与直径；只保留确界会丢失内部排列和频率，因而不能反向恢复全部尾部信息。
 \end{solution}
-

@@ -134,6 +134,63 @@
 再令 \(n\to\infty\)，得到第二组等式。
 \end{proof}
 
+\begin{theorem}[上极限与下极限的阈值刻画]
+设 \(s\in\R\)。则 \(\limsup a_n=s\) 当且仅当以下两项同时成立：
+\begin{enumerate}
+ \item 对每个 \(\varepsilon>0\)，最终有 \(a_n<s+\varepsilon\)；
+ \item 对每个 \(\varepsilon>0\) 和每个 \(N\in\Npos\)，存在
+ \(n\ge N\) 使 \(a_n>s-\varepsilon\)。
+\end{enumerate}
+对偶地，\(\liminf a_n=\ell\in\R\) 当且仅当：
+\begin{enumerate}
+ \item 对每个 \(\varepsilon>0\)，最终有 \(a_n>\ell-\varepsilon\)；
+ \item 对每个 \(\varepsilon>0\) 和每个 \(N\in\Npos\)，存在
+ \(n\ge N\) 使 \(a_n<\ell+\varepsilon\)。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+设尾部上确界为 \(\beta_N\)。若 \(\beta_N\downarrow s\)，对给定
+\(\varepsilon>0\)，可取 \(N\) 使 \(\beta_N<s+\varepsilon\)，于是
+\(n\ge N\) 时 \(a_n\le\beta_N<s+\varepsilon\)。另一方面，对任意
+\(N\)，数 \(s-\varepsilon\) 不能是尾部的上界；否则
+\(\beta_N\le s-\varepsilon<s\)，与 \(s=\inf_N\beta_N\) 矛盾。因此该尾部中存在 \(a_n>s-\varepsilon\)。
+
+反之，第一项说明某个尾部上确界不超过 \(s+\varepsilon\)，故
+\(\limsup a_n\le s+\varepsilon\)。第二项说明每个尾部上确界至少为
+\(s-\varepsilon\)，故 \(\limsup a_n\ge s-\varepsilon\)。令
+\(\varepsilon\downarrow0\) 得 \(\limsup a_n=s\)。下极限的证明把不等号和上下确界对换即可。
+\end{proof}
+
+第一项是最终上界，第二项是反复逼近。只保留第一项只能得到
+\(\limsup a_n\le s\)，只保留第二项只能得到 \(\limsup a_n\ge s\)。
+由同一证明还得到常用的严格版本：若 \(\limsup a_n<c\)，则最终
+\(a_n<c\)；若最终 \(a_n\le c\)，则 \(\limsup a_n\le c\)。
+
+\begin{proposition}[无穷端点]
+\[
+\begin{aligned}
+ \limsup a_n=+\infty
+ &\Longleftrightarrow
+ \text{对每个 \(M\in\R\) 和每个 \(N\)，存在 \(n\ge N\) 使 \(a_n>M\)},\\
+ \limsup a_n=-\infty
+ &\Longleftrightarrow a_n\to-\infty.
+\end{aligned}
+\]
+特别地，\(\limsup a_n=+\infty\) 当且仅当有子列趋于 \(+\infty\)。
+下极限有完全对偶的结论。
+\end{proposition}
+
+\begin{proof}
+第一行表示每个尾部都无上界，恰好等价于全部尾部上确界为
+\(+\infty\)。递归地在第 \(j\) 步选 \(n_j>n_{j-1}\) 且
+\(a_{n_j}>j\)，便得到趋于 \(+\infty\) 的子列；反向由该子列立即得到每个尾部无上界。
+
+若尾部上确界 \(\beta_N\downarrow-\infty\)，给定 \(M\)，可取 \(N\)
+使 \(\beta_N<M\)，于是所有 \(n\ge N\) 都有 \(a_n<M\)，即
+\(a_n\to-\infty\)。反向同理。下极限结论可对 \((-a_n)\) 应用已证结果。
+\end{proof}
+
 \section{部分极限的子列刻画}
 
 
@@ -164,7 +221,7 @@
 取 \(j\to\infty\) 得 \(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，得到 \(\ell\le L\le s\)。前一步已经说明端点本身是部分极限，所以它们分别为最小和最大部分极限。
 \end{proof}
 
-对无界数列，相应端点可能为无穷。例如 \(\limsup a_n=+\infty\) 当且仅当存在子列趋于 \(+\infty\)；证明仍用尾部上确界或逐级选择超过整数 \(j\) 的项。
+对无界数列，相应端点可能为无穷。上一节的命题说明，无穷端点仍具有准确的子列含义，不需要把 \(+\infty\) 当作实数。
 
 例如 \(a_{2n}=0\)、\(a_{2n-1}=n\) 满足
 \[
@@ -259,6 +316,83 @@
 \]
 若其中一列收敛到非负数，则可得到相应等式。带符号乘法需同时考虑上下极限，不能直接套用同一公式。
 
+\begin{proposition}[标量、最大值与绝对值]
+设 \((a_n)\)、\((b_n)\) 有界，\(c\in\R\)。若 \(c\ge0\)，则
+\[
+ \limsup(ca_n)=c\limsup a_n,\qquad
+ \liminf(ca_n)=c\liminf a_n;
+\]
+若 \(c<0\)，则
+\[
+ \limsup(ca_n)=c\liminf a_n,\qquad
+ \liminf(ca_n)=c\limsup a_n.
+\]
+此外，
+\[
+\begin{aligned}
+ \limsup\max\{a_n,b_n\}
+ &=\max\{\limsup a_n,\limsup b_n\},\\
+ \liminf\min\{a_n,b_n\}
+ &=\min\{\liminf a_n,\liminf b_n\},
+\end{aligned}
+\]
+并且
+\[
+ \limsup\abs{a_n}
+ =\max\bigl\{\abs{\liminf a_n},\abs{\limsup a_n}\bigr\}.
+\]
+\end{proposition}
+
+\begin{proof}
+标量公式直接来自尾部确界在正比例缩放下保持方向、在负比例缩放下交换上下确界。对最大值，每个尾部都有
+\[
+ \sup_{k\ge n}\max\{a_k,b_k\}
+ =\max\left\{\sup_{k\ge n}a_k,\sup_{k\ge n}b_k\right\};
+\]
+令 \(n\to\infty\) 即得。最小值公式对偶。
+
+记 \(\ell=\liminf a_n\)、\(s=\limsup a_n\)，并令
+\(r=\limsup\abs{a_n}\)。取子列使
+\(\abs{a_{n_j}}\to r\)，再由有界性抽取进一步子列
+\(a_{n_{j_k}}\to L\)。于是 \(L\in[\ell,s]\)，并且
+\[
+ r=\abs L\le\max\{\abs\ell,\abs s\}.
+\]
+另一方面，分别取趋于 \(\ell,s\) 的子列并通过绝对值，说明
+\(r\ge\abs\ell\) 且 \(r\ge\abs s\)。两边合并即得公式。
+\end{proof}
+
+\begin{proposition}[一个因子收敛时的乘法公式]
+设 \(a_n\to a\)，而 \((b_n)\) 有界。若 \(a\ge0\)，则
+\[
+ \limsup(a_nb_n)=a\limsup b_n,\qquad
+ \liminf(a_nb_n)=a\liminf b_n.
+\]
+若 \(a<0\)，则
+\[
+ \limsup(a_nb_n)=a\liminf b_n,\qquad
+ \liminf(a_nb_n)=a\limsup b_n.
+\]
+\end{proposition}
+
+\begin{proof}
+先设 \(a>0\)。令 \(M\) 为 \((b_n)\) 的绝对值上界。给定
+\(\varepsilon\in(0,a)\)，充分大时
+\(\abs{a_n-a}<\varepsilon\)，从而
+\[
+ \abs{a_nb_n-ab_n}\le M\varepsilon.
+\]
+和的上下极限不等式应用于 \(ab_n\) 与趋零列
+\((a_n-a)b_n\)，给出
+\[
+ \limsup(a_nb_n)=\limsup(ab_n)=a\limsup b_n,
+\]
+下极限同理。\(a=0\) 时由零列乘有界列得到二者都为零。
+若 \(a<0\)，对 \((-a_n)b_n\) 使用正数情形，再用负号交换上下极限。
+\end{proof}
+
+两个因子都只知道上下极限时，峰值可能错位，乘法也会出现与加法相同的相关性问题。因此这些公式不能在没有收敛因子或符号条件时任意推广。
+
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
@@ -296,7 +430,7 @@
  \limsup\max\{a_n,b_n\}
  =\max\{\limsup a_n,\limsup b_n\}.
  \]
- \exerciseitem{12.17} 判断 \(\limsup\abs{a_n}=\abs{\limsup a_n}\) 是否总成立，并给出正确关系。
+ \exerciseitem{12.17} 对有界实数列判断 \(\limsup\abs{a_n}=\abs{\limsup a_n}\) 是否总成立，并给出正确关系。
  \exerciseitem{12.18} 证明上下极限相等且有限蕴含原列收敛。
 \end{enumerate}
 
@@ -306,7 +440,7 @@
  \exerciseitem{12.21} 构造有界数列 \(a_n,b_n\)，使两个上极限都为 \(1\)，而和的上极限分别可以为 \(0,1,2\)。
  \optionalexerciseitem{12.23} 设 \(a_n>0\)。比较 \(\limsup a_{n+1}/a_n\) 与 \(a_n^{1/n}\) 的可能关系，给出至少一个不能直接交换的反例。
  \optionalexerciseitem{12.24} 证明若 \(\limsup\abs{a_n}<1\)，则存在 \(q<1\) 使 \(\abs{a_n}\le q\) 最终成立。
- \projectexerciseitem{12.26} \ 【前置：本章全部；预计用时：60分钟】把上、下极限写成尾部闭包交集的最大、最小点，并比较“集合表达”“尾部确界表达”“子列表达”三种证明工具。
+ \projectexerciseitem{12.26} \ 【前置：本章全部；预计用时：60分钟】设 \((a_n)\) 有界。把上、下极限写成尾部闭包交集的最大、最小点，并比较“集合表达”“尾部确界表达”“子列表达”三种证明工具。
 \end{enumerate}
 
 \section*{部分习题提示}

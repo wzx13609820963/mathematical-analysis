@@ -63,16 +63,37 @@ Cauchy 条件中的同一个 \(N\) 必须同时控制两个独立指标 \(m,n\)�
  \abs{a_m-a_n}\ge\varepsilon_0.
 \]
 
-\begin{proposition}[尾部直径刻画]
+\begin{theorem}[Cauchy 条件的等价形式]
 令
 \[
  d_N=\sup\{\abs{a_m-a_n}:m,n\ge N\}\in[0,+\infty].
 \]
-则 \((a_n)\) 是 Cauchy 列，当且仅当 \(d_N\to0\)。
-\end{proposition}
+下列条件等价：
+\begin{enumerate}
+ \item \((a_n)\) 是 Cauchy 列；
+ \item 对每个 \(\varepsilon>0\)，存在 \(N\)，使
+ \[
+   m\ge n\ge N\quad\Longrightarrow\quad
+   \abs{a_m-a_n}<\varepsilon;
+ \]
+ \item 对每个 \(k\in\Npos\)，存在 \(N_k\)，使
+ \[
+   m,n\ge N_k\quad\Longrightarrow\quad
+   \abs{a_m-a_n}<2^{-k};
+ \]
+ \item \(d_N\to0\)。
+\end{enumerate}
+\end{theorem}
 
 \begin{proof}
-若为 Cauchy 列，对给定 \(\varepsilon\) 可使尾部任意两项距离小于 \(\varepsilon\)，故 \(d_N\le\varepsilon\)；用 \(\varepsilon/2\) 可取得严格误差。反之若 \(d_N\to0\)，取 \(N\) 使 \(d_N<\varepsilon\)，定义立即成立。
+\((1)\Rightarrow(2)\) 是缩小量词范围；\((2)\Rightarrow(1)\) 则在
+\(m<n\) 时交换两个指标。\((1)\Rightarrow(3)\) 由定义直接得到。
+反之，给定 \(\varepsilon>0\)，取 \(k\) 使
+\(2^{-k}<\varepsilon\)，再用相应的 \(N_k\)，得到 \((1)\)。
+
+若 \((1)\) 成立，对 \(\varepsilon/2\) 取尾部，则
+\(d_N\le\varepsilon/2<\varepsilon\)，所以 \(d_N\to0\)。若
+\(d_N\to0\)，取 \(N\) 使 \(d_N<\varepsilon\)，尾部任意两项的距离都不超过 \(d_N\)，从而得到 \((1)\)。
 \end{proof}
 
 对有界列，尾部直径等于
@@ -148,6 +169,27 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 再用乘积结论。
 \end{proof}
 
+\begin{proposition}[趋零扰动不改变 Cauchy 性]
+若 \(\abs{a_n-b_n}\to0\)，则 \((a_n)\) 是 Cauchy 列，当且仅当
+\((b_n)\) 是 Cauchy 列。
+\end{proposition}
+
+\begin{proof}
+设 \((a_n)\) 是 Cauchy 列。给定 \(\varepsilon>0\)，在一个共同尾部上使
+\[
+ \abs{a_n-b_n}<\frac{\varepsilon}{3},
+ \qquad
+ \abs{a_m-a_n}<\frac{\varepsilon}{3}.
+\]
+于是
+\[
+ \abs{b_m-b_n}
+ \le\abs{b_m-a_m}+\abs{a_m-a_n}+\abs{a_n-b_n}
+ <\varepsilon.
+\]
+反向交换两列即可。
+\end{proof}
+
 \section{实数中的 Cauchy 收敛准则}
 
 这一准则有两个方向，地位并不相同。收敛推出 Cauchy 只靠三角不等式，在任何度量空间中都成立；Cauchy 推出收敛则断言空间没有缺失极限，是实数完备性的体现。以后说一个空间完备，指的正是第二个方向在该空间成立。
@@ -158,10 +200,19 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 \end{theorem}
 
 \begin{proof}
-正向已在第三节证明。反向设 \((a_n)\) 为 Cauchy 列。它有界，所以由 Bolzano--Weierstrass 定理存在收敛子列 \(a_{n_k}\to a\)。第三节推论说明具有收敛子列的 Cauchy 列整体收敛到 \(a\)。
+正向已在上一节证明。反向设 \((a_n)\) 为 Cauchy 列。它有界，且尾部直径满足
+\[
+ d_N=\sup_{k\ge N}a_k-\inf_{k\ge N}a_k\longrightarrow0.
+\]
+因此
+\[
+ \limsup a_n-\liminf a_n=0.
+\]
+上下极限都是有限实数，\chapterref{chap:limsup-liminf}的收敛判据便说明原列收敛。
 \end{proof}
 
-反向证明中，Cauchy 性提供全列尾部的内部控制，有界性与 Bolzano--Weierstrass 定理产生一个候选极限，最后再把子列极限推广到原列。使用实数完备性的环节是有界列能够抽取收敛子列。
+这条证明与\chapterref{chap:equivalent-completeness}的证明路线不同。后者先用 Bolzano--Weierstrass
+抽取候选极限；这里则把尾部直径压缩为上下极限之差。两条路线分别显示了紧致性和序完备性怎样实现同一个完备性结论。
 
 \section{有理 Cauchy 列的无理极限}
 
@@ -223,23 +274,44 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 \]
 这里没有把尚未建立的级数收敛定理作为当前证明的前提。
 
-
-\begin{definition}
-若一个度量空间中的每个 Cauchy 列都收敛到该空间内的点，则称该空间\term{完备}。
-\end{definition}
-
-这里提前使用最少的度量语言：度量 \(d(x,y)\) 满足非负性、分离性、对称性和三角不等式；Cauchy 条件把
-\(\abs{a_m-a_n}\) 换成 \(d(x_m,x_n)\)。实数完备，有理数不完备。闭区间作为实数中的子空间是完备的，而开区间通常不完备，例如 \(1/n\) 在 \((0,1)\) 中是 Cauchy 列但极限 \(0\) 不在该空间。
-
-\begin{proposition}
-完备度量空间的闭子集仍完备。反之，一个度量空间的完备子集必为闭集。
+\begin{proposition}[增量尾和判据]
+设 \(r_k\ge0\)，并且
+\[
+ R_N:=\sup_{m>n\ge N}\sum_{k=n}^{m-1}r_k\longrightarrow0.
+\]
+若
+\[
+ \abs{a_{k+1}-a_k}\le r_k\qquad(k\in\Npos),
+\]
+则 \((a_n)\) 是 Cauchy 列。设其极限为 \(L\)，则还得到后验界
+\[
+ \abs{a_n-L}\le
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k.
+\]
 \end{proposition}
 
 \begin{proof}
-设 \(F\) 为闭子集，\(F\) 中 Cauchy 列在母空间中收敛到某点 \(x\)；闭性保证 \(x\in F\)。反之，若 \(F\) 完备而 \(x\) 是 \(F\) 中序列的母空间极限，则该序列为 Cauchy 列，在 \(F\) 中还收敛到某点 \(y\)。极限唯一性给出 \(x=y\in F\)。
+对 \(m>n\ge N\)，有限次三角不等式给出
+\[
+ \abs{a_m-a_n}
+ \le\sum_{k=n}^{m-1}\abs{a_{k+1}-a_k}
+ \le\sum_{k=n}^{m-1}r_k
+ \le R_N.
+\]
+由 \(R_N\to0\) 得 Cauchy 性。固定 \(n\)，令 \(m\to\infty\)，绝对值保持极限，得到
+\[
+ \abs{L-a_n}
+ \le\sup_{m>n}\sum_{k=n}^{m-1}r_k.
+\]
 \end{proof}
 
-一般空间的完备化将在度量空间编系统构造。\chapterref{chap:cauchy-construction}以有理 Cauchy 列等价类构造实数，已经给出这一过程的基本模型。
+相邻差趋零只说明单步变化变小；增量尾和判据要求任意长度的后期累积变化一同趋零。调和部分和在这一区别上失败，因为其从 \(n\) 到 \(2n\) 的增量始终不小于固定正数。对 \(r_k=Cq^k\)（\(0<q<1\)），有限几何和给出显式尾界
+\[
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k
+ \le\frac{Cq^n}{1-q}.
+\]
+
+本章只在实数距离下讨论 Cauchy 列。一般度量空间中的完备性、闭子空间和完备化将在后文分别定义和证明；这里已经出现的两个原型是：\(\R\) 中每个 Cauchy 列都有极限，而 \(\Q\) 中存在指向 \(\sqrt2\) 的缺口的 Cauchy 列。\chapterref{chap:cauchy-construction}把所有这类有理 Cauchy 列按“差为零列”取等价类，正是完备化构造的具体模型。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -277,7 +349,12 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \projectexerciseitem{13.18} \ 【前置：\chapterref{chap:equivalent-completeness}完备性；预计用时：75分钟】从 Cauchy 列抽取满足
  \(\abs{a_{n_{k+1}}-a_{n_k}}<2^{-k}\) 的快速子列，并不经过 Bolzano--Weierstrass 定理完成收敛证明。
- \exerciseitem{13.19} 证明完备度量空间的闭子集完备，完备子集在母空间中闭。
+ \exerciseitem{13.19} 设 \(F\subseteq\R\)。证明以下两项等价：
+ \begin{enumerate}[label=(\arabic*)]
+  \item 每个取值于 \(F\) 且在 \(\R\) 中收敛的数列，其极限仍属于 \(F\)；
+  \item 每个取值于 \(F\) 的 Cauchy 列都收敛到 \(F\) 中的点。
+ \end{enumerate}
+ 并说明这给出了后文“闭子集完备”的实数原型。
  \optionalexerciseitem{13.20} 给出一个数列，它在通常距离下是 Cauchy 列；把距离改为离散距离后不再是 Cauchy 列。
  \optionalexerciseitem{13.21} 若两个实数列满足 \(\abs{a_n-b_n}\to0\)，证明其中一个为 Cauchy 列当且仅当另一个为 Cauchy 列。
  \optionalexerciseitem{13.22} 证明 Cauchy 列的有限线性组合仍为 Cauchy 列，并讨论无穷线性组合为何需要额外一致控制。
@@ -295,7 +372,7 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
  \exerciseitem{II.4} 分析递推 \(a_{n+1}=(a_n+3/a_n)/2\)、\(a_1>0\)：不变区间、单调性、有界性、极限与误差估计。
  \exerciseitem{II.5} 对有界数列完成三种抽取：收敛子列、单调子列、趋于上极限的子列；比较三种构造的输入与输出。
  \exerciseitem{II.6} 构造一个部分极限集合恰为 \(\{-2,0,1\}\) 的数列，计算上下极限、尾部振幅，并判断是否 Cauchy。
- \exerciseitem{II.7} 证明下列条件等价：\(a_n\to L\)；每个子列都有进一步子列趋于 \(L\)；\(\liminf a_n=\limsup a_n=L\)；尾部振幅趋零。
+ \exerciseitem{II.7} 证明下列条件等价：\(a_n\to L\)；每个子列都有进一步子列趋于 \(L\)；\(\liminf a_n=\limsup a_n=L\)；尾部振幅趋零且存在一条子列趋于 \(L\)。
  \exerciseitem{II.8} 对 \(\sum_{k=1}^n2^{-k}u_k\)（\(\abs{u_k}\le1\)）证明 Cauchy 性、统一有界性及尾部误差，并讨论 \(u_k\) 不收敛是否妨碍部分和收敛。
  \projectexerciseitem{II.9} \ 【预计用时：90分钟】从确界原理出发重建链条：单调有界收敛、区间套、Bolzano--Weierstrass、Cauchy 准则。
  \exerciseitem{II.10} 比较 \(\Q\) 与 \(\R\) 中同一个有理 Cauchy 列：Cauchy 性、可能极限、值域闭性与完备性的差异。
