@@ -30,6 +30,12 @@
 
 聚点不必属于 \(D\)。例如 \(0\) 是 \((0,1)\) 的聚点，却不属于该区间；孤立点不是聚点。若不要求 \(a\) 为聚点，在充分小的删心邻域中可能没有定义域点，极限条件便会对任意候选值自动成立，从而破坏唯一性。
 
+许多极限命题只要求性质在充分靠近 \(a\) 时成立。以下约定将反复使用：若存在 \(\delta>0\)，使性质 \(P(x)\) 对所有
+\[
+ x\in D,\qquad 0<\abs{x-a}<\delta
+\]
+成立，就说 \(P\) 在 \(x\to a\) 时\term{最终成立}。两个函数若在某个这样的删心邻域内相等，就称它们在 \(a\) 附近局部相等。这个说法不涉及它们在邻域外或中心点处的取值。
+
 \begin{example}
 令 \(D=\{0\}\cup[1,2]\)。点 \(0\) 属于 \(D\)，但不是 \(D\) 的聚点；点 \(1\) 既属于 \(D\) 又是聚点；点 \(2\) 是单侧聚集形成的聚点；点 \(3\) 既不属于 \(D\)，也不是聚点。
 \end{example}
@@ -179,6 +185,30 @@
 与局部次序矛盾。
 \end{proof}
 
+\begin{proposition}[局部性与夹逼]
+设 \(f,g,h:D\to\R\)，\(a\) 是 \(D\) 的聚点。
+\begin{enumerate}
+ \item 若 \(f=g\) 在 \(x\to a\) 时最终成立，则 \(f\) 与 \(g\) 在 \(a\) 处或者同时没有有限极限，或者具有相同的有限极限；
+ \item 若 \(f(x)\le h(x)\le g(x)\) 最终成立，且
+ \[
+  f(x)\to L,\qquad g(x)\to L,
+ \]
+ 则 \(h(x)\to L\)。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+第一项中，决定极限的所有点最终都落入函数相等的删心邻域，因此同一组 \(\delta(\varepsilon)\) 可用于两个函数。对第二项，给定 \(\varepsilon>0\)，分别取得使
+\[
+ L-\varepsilon<f(x),\qquad g(x)<L+\varepsilon
+\]
+成立的半径，再与保证次序关系的半径取最小值。于是
+\[
+ L-\varepsilon<h(x)<L+\varepsilon,
+\]
+即得结论。
+\end{proof}
+
 \subsection{四则运算与复合极限}
 
 \begin{theorem}[代数运算]
@@ -207,6 +237,18 @@
 \]
 再用乘积结论。条件 \(M\ne0\) 同时保证候选商有定义并提供分母的统一下界。
 \end{proof}
+
+由反三角不等式
+\[
+ \bigl|\abs u-\abs v\bigr|\le\abs{u-v}
+\]
+可知 \(f(x)\to L\) 时 \(\abs{f(x)}\to\abs L\)。再利用
+\[
+ \max\{u,v\}=\frac{u+v+\abs{u-v}}2,
+ \qquad
+ \min\{u,v\}=\frac{u+v-\abs{u-v}}2,
+\]
+便得到最大值与最小值的极限运算法则。这些结论同夹逼定理一样，后文将直接用于连续函数。
 
 \begin{theorem}[复合极限]
 设 \(g:D\to E\subset\R\)，\(a\) 是 \(D\) 的聚点，\(b\) 是 \(E\) 的聚点，并且
@@ -436,6 +478,24 @@
 \]
 \end{definition}
 
+局部 Cauchy 条件也可用邻域中函数值集合的直径表示。对 \(r>0\)，令
+\[
+ \Omega_f(a,r)=\sup\{\abs{f(x)-f(y)}:
+ x,y\in D\cap U^\circ(a,r)\},
+\]
+并允许上确界为 \(+\infty\)。由于 \(a\) 是聚点，取上确界的集合非空。半径减小时，可选点对减少，所以 \(r\mapsto\Omega_f(a,r)\) 单调不减。
+
+\begin{proposition}[局部振幅判据]
+函数 \(f\) 在 \(a\) 附近满足局部 Cauchy 条件，当且仅当
+\[
+ \Omega_f(a,r)\longrightarrow0\qquad(r\to0+).
+\]
+\end{proposition}
+
+\begin{proof}
+若局部 Cauchy 条件成立，给定 \(\varepsilon>0\)，先用精度 \(\varepsilon/2\) 取得半径 \(\delta\)。当 \(0<r<\delta\) 时，定义 \(\Omega_f(a,r)\) 的每个差都小于 \(\varepsilon/2\)，故上确界不超过 \(\varepsilon/2<\varepsilon\)。反之，若局部振幅趋于零，取 \(r>0\) 使 \(\Omega_f(a,r)<\varepsilon\)，则同一删心邻域中任意两个函数值之差都小于 \(\varepsilon\)。
+\end{proof}
+
 \begin{theorem}[函数极限的 Cauchy 准则]
 设 \(a\) 是 \(D\) 的聚点。函数 \(f:D\to\R\) 在 \(x\to a\) 时有有限极限，当且仅当它在 \(a\) 附近满足局部 Cauchy 条件。
 \end{theorem}
@@ -494,7 +554,19 @@
 \end{theorem}
 
 \begin{proof}
-把实数绝对值换成距离，前一节证明逐字成立。三角不等式用于必要性和最后的传递；完备性用于像序列的收敛。
+若 \(f(x)\to y_0\in Y\)，给定 \(\varepsilon>0\)，取半径使邻域中所有像点到 \(y_0\) 的距离小于 \(\varepsilon/2\)，三角不等式即给出 Cauchy 条件。
+
+反之，由聚点性选 \(x_n\in D\setminus\{a\}\) 且 \(x_n\to a\)。局部 Cauchy 条件使 \((f(x_n))\) 成为 \(Y\) 中的 Cauchy 列；完备性给出某个 \(y_0\in Y\) 使 \(f(x_n)\to y_0\)。给定 \(\varepsilon>0\)，取局部 Cauchy 条件对 \(\varepsilon/2\) 的半径 \(\delta\)，再固定充分大的 \(n_0\)，使
+\[
+ 0<\abs{x_{n_0}-a}<\delta,
+ \qquad d(f(x_{n_0}),y_0)<\varepsilon/2.
+\]
+对任意 \(x\in D\cap U^\circ(a,\delta)\)，有
+\[
+ d(f(x),y_0)
+ \le d(f(x),f(x_{n_0}))+d(f(x_{n_0}),y_0)<\varepsilon.
+\]
+因此 \(f(x)\to y_0\)。完备性只在取得 \(y_0\) 时使用。
 \end{proof}
 
 \section{单侧极限、无穷极限和无穷远处的极限}
@@ -646,7 +718,7 @@
 \[
  \overline{\R}=\R\cup\{-\infty,+\infty\}.
 \]
-在序拓扑的邻域语言中：
+下面只使用三个明确的邻域族，不预先调用一般拓扑理论：
 \begin{itemize}
  \item 有限点 \(a\) 的邻域含某个 \((a-\delta,a+\delta)\)；
  \item \(+\infty\) 的邻域含某个 \((A,+\infty]\)；
@@ -677,6 +749,8 @@
 \begin{proof}
 对任意 \(M>0\)，先使 \(f(x)>M\)，再用 \(g(x)\ge f(x)\)。负无穷情形对称。
 \end{proof}
+
+无穷极限的代数运算必须附带符号或有界性条件。例如，若 \(f(x)\to+\infty\) 而 \(g(x)\to L\in\R\)，则 \(f(x)+g(x)\to+\infty\)；若另有 \(g(x)\to M>0\)，则 \(f(x)g(x)\to+\infty\)。前者先用有限极限的局部有界性控制 \(\abs{g(x)}\)，后者先用保号性取得 \(g(x)>M/2\)。相反，\(+\infty-\infty\) 与 \(0\cdot\infty\) 没有统一结论，不能列入无条件的运算法则。
 
 \subsection{各类极限的序列刻画}
 
@@ -766,13 +840,13 @@
  \exerciseitem{14.7}  设 \(f(x)\to L\)。证明 \(\abs{f(x)}\to\abs L\)。
  \exerciseitem{14.8}  设 \(f(x)\to L>0\)。证明存在删心邻域使 \(f(x)>L/2\)。
 \exerciseitem{14.9}  证明夹逼定理的函数版本。
- \exerciseitem{14.10}  若 \(f(x)\le g(x)\) 只在趋近 \(a\) 的一个点列上成立，保序结论是否仍成立？给出反例。
+ \exerciseitem{14.10}  若 \(f(x)\le g(x)\) 只在一条趋近 \(a\) 的定义域点列上成立，并且两函数的有限极限都存在，证明极限的保序结论仍成立；再说明这一点列条件为什么不能保证两极限存在。
  \exerciseitem{14.11}  用定义证明 \(\lim_{x\to2}(x^2+3x)=10\)，并使半径公式中不含可变量 \(x\)。
  \exerciseitem{14.12}  用有理化证明 \(\lim_{x\to4}\sqrt x=2\)。
  \exerciseitem{14.13}  证明若 \(f(x)\to0\)，且 \(g\) 在 \(a\) 的某删心邻域内有界，则 \(f(x)g(x)\to0\)。
  \exerciseitem{14.14}  构造 \(f(x)\to0\)、无界的 \(g(x)\)，使 \(f(x)g(x)\) 分别趋于 \(0\)、趋于非零常数、没有极限。
  \exerciseitem{14.15}  完整证明倒数极限定理，并指出极限非零条件在何处使用。
- \exerciseitem{14.16}  设 \(p,q\) 为多项式。分类讨论 \(q(a)\ne0\)、\(q(a)=0\) 且可约、\(q(a)=0\) 且不可约时商的局部行为，各给一例。
+ \exerciseitem{14.16}  设 \(p,q\) 为多项式。分别讨论 \(q(a)\ne0\)、分子分母在 \(a\) 处的公共零因子可完全消去、消去公共因子后分母在 \(a\) 仍为零时商的局部行为，各给一例。
  \exerciseitem{14.17}  给出复合极限定理中 \(g(x)\ne b\) 最终成立这一条件不可删去的另一个反例。
  \exerciseitem{14.18}  证明：若外层函数 \(f\) 在 \(b\) 连续，则复合极限不需要避开 \(b\)。
 \exerciseitem{14.19}  设 \(D=\{0\}\cup\{1/n:n\in\Npos\}\)，\(f(1/n)=(-1)^n\)。证明 \(0\) 是 \(D\) 的聚点，并证明 \(f\) 在 \(0\) 处没有极限。
@@ -781,6 +855,12 @@
  \optionalexerciseitem{14.22}  证明 \(\max\{f,g\}\) 与 \(\min\{f,g\}\) 的极限运算法则。
  \projectexerciseitem{14.23} \ 【前置：本章局部性质；预计用时：60分钟】分别整理因式分解、有理化、控制局部有界因子和使分母远离零点四类极限证明。每一类写出可复用的命题、一个实例以及条件不足时的反例。
  \openexerciseitem{14.24}  设定义域在 \(a\) 的每个删心邻域中都非空，但只从某个指定子集方向逼近。讨论极限如何依赖所选定义域，并构造同一公式在不同定义域限制下具有不同极限的例子。
+
+\end{enumerate}
+
+\subsection*{B组　序列刻画与 Cauchy 准则}
+
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em,resume]
 
 \exerciseitem{15.1}  证明 \(a\) 是 \(D\) 的聚点当且仅当存在互异于 \(a\) 的点列 \((x_n)\subset D\) 趋于 \(a\)。
  \exerciseitem{15.2}  在 Heine 定理中说明条件 \(x_n\ne a\) 的必要性。
@@ -806,6 +886,12 @@
  \openexerciseitem{15.22}  研究只对单调逼近点列检验 Heine 条件是否足以推出函数极限。分别在区间定义域与一般稀疏定义域中讨论。
  \projectexerciseitem{15.23} \ 【前置：可数稠密集；预计用时：60分钟】对 \(\mathbf1_{\Q}\)、Thomae 型函数和 \(\sin(1/x)\) 分别选取适当的见证数列，比较三类函数在给定点附近不能收敛的原因。
  \optionalexerciseitem{15.24}  证明完备值域版本的 Cauchy 准则，并说明若 \(Y\) 只序列完备，证明仍然成立。
+
+\end{enumerate}
+
+\subsection*{C组　单侧、无穷与扩充实极限}
+
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em,resume]
 
 \exerciseitem{16.1}  写出右极限、左无穷极限、\(x\to+\infty\) 时有限极限的完整量词定义。
  \exerciseitem{16.2}  证明双侧极限存在的充要条件，并指出两侧聚点假设的用途。

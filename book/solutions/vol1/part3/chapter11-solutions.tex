@@ -129,7 +129,7 @@
 \end{solution}
 
 \begin{solution}{17.16}
-给定互异点 \(a_n\in[0,1]\)（\(n\in\Npos\)）。对 \(N\in\Npos\) 定义
+枚举 \(A=\{a_n:n\in\Npos\}\subset(0,1)\)，其中各 \(a_n\) 互异。对 \(N\in\Npos\) 定义
 \[
  f_N(x)=\sum_{\substack{1\le n\le N\\a_n\le x}}2^{-n}.
 \]
@@ -194,7 +194,30 @@
 \end{solution}
 
 \begin{solution}{17.21}
-连续双射在一般拓扑空间之间未必有连续逆。但实区间之间的连续单射必严格单调，因此本章定理保证逆连续，不要求区间紧。紧致情形还有更一般的结论：紧空间到 Hausdorff 空间的连续双射是同胚；这将在后续拓扑章节系统处理。
+设 \(f:I\to\R\) 严格递增，\(J=f(I)\)。对 \(y_0=f(x_0)\in J\) 和给定的 \(\varepsilon>0\)，若 \(x_0\) 为内点，可在 \(I\) 中取
+\[
+ x_0-\varepsilon<x_-<x_0<x_+<x_0+\varepsilon.
+\]
+令
+\[
+ \delta=\min\{y_0-f(x_-),f(x_+)-y_0\}>0.
+\]
+当 \(y\in J\) 且 \(\abs{y-y_0}<\delta\) 时，严格单调性迫使
+\(x_-<f^{-1}(y)<x_+\)，所以逆函数相对于 \(J\) 连续。端点只取可用的一侧；递减情形同理。
+
+严格单调性并不保证原函数连续。定义
+\[
+ f(x)=
+ \begin{cases}
+  x,&x<0,\\
+  x+1,&x\ge0.
+ \end{cases}
+\]
+则 \(f:\R\to\R\) 严格递增，却在 \(0\) 处有跳跃；其像集为
+\[
+ (-\infty,0)\cup[1,+\infty),
+\]
+不是区间。尽管如此，\(f^{-1}\) 在这个像集的相对意义下仍连续。
 \end{solution}
 
 \begin{solution}{17.22}
@@ -254,22 +277,18 @@
 \end{solution}
 
 \begin{solution}{17.26}
-给定 \(\varepsilon>0\)，由一致收敛取 \(N\)，使所有 \(x\) 都满足
+固定 \(a\in D\) 和 \(\varepsilon>0\)。由有理数在实数中的稠密性，可取 \(p,q\in\Q\) 使
 \[
- \abs{f_N(x)-f(x)}<\varepsilon/3.
+ f(a)-\varepsilon<p<f(a)<q<f(a)+\varepsilon.
 \]
-由 \(f_N\) 在 \(a\) 连续，取 \(\delta>0\)，使 \(\abs{x-a}<\delta\) 时
+于是 \(a\in f^{-1}((p,q))\)。按题设，这个原像在 \(D\) 中相对开，故存在 \(\delta>0\)，使
 \[
- \abs{f_N(x)-f_N(a)}<\varepsilon/3.
+ (a-\delta,a+\delta)\cap D
+ \subset f^{-1}((p,q)).
 \]
-于是
+因此当 \(x\in D\) 且 \(\abs{x-a}<\delta\) 时，
 \[
- \abs{f(x)-f(a)}
- \le\abs{f(x)-f_N(x)}
- +\abs{f_N(x)-f_N(a)}
- +\abs{f_N(a)-f(a)}
- <\varepsilon.
+ f(a)-\varepsilon<f(x)<f(a)+\varepsilon,
 \]
-统一选择的 \(N\) 同时控制 \(x\) 与 \(a\)，这是结论成立的关键。
+即 \(\abs{f(x)-f(a)}<\varepsilon\)。这证明了 \(f\) 在任意 \(a\in D\) 连续。
 \end{solution}
-

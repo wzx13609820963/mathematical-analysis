@@ -79,9 +79,6 @@
 因而 \(f(x)>L-L/2=L/2\)。条件 \(L>0\) 保证所选误差为正并给出正下界。
 \end{solution}
 
-\section*{B组　运算、估计与反例}
-\addcontentsline{toc}{section}{B组　运算、估计与反例}
-
 \begin{solution}{14.9}
 设在 \(a\) 的某删心邻域内 \(f(x)\le h(x)\le g(x)\)，且 \(f(x),g(x)\to L\)。给定 \(\varepsilon>0\)，取共同半径，使
 \[
@@ -170,15 +167,19 @@
 \[
  \frac{x+1}{x+2}\longrightarrow\frac23\quad(x\to1).
 \]
-若 \(q(a)=0\) 且分子分母有可约公因子，约去后可能有可去型有限极限，例如
+若 \(q(a)=0\) 且 \(p\) 不恒为零，把两多项式写成
+\[
+ p(x)=(x-a)^mP(x),\qquad q(x)=(x-a)^nQ(x),
+\]
+其中 \(P(a)Q(a)\ne0\)，并允许 \(m=0\)。若 \(p\equiv0\)，商在有定义处恒为零。对非零 \(p\)，当 \(m\ge n\) 时，公共零因子可把分母在 \(a\) 的零点完全消去；若 \(m=n\)，极限为 \(P(a)/Q(a)\)，若 \(m>n\)，极限为零。例如
 \[
  \frac{x^2-1}{x-1}=x+1\to2\quad(x\to1).
 \]
-若没有足够的公共零点抵消，可能出现无穷行为或双侧极限不存在，例如
+当 \(m<n\) 时，消去公共因子后分母仍含 \((x-a)^{n-m}\)。此时商的绝对值趋于无穷；剩余次数为偶数时两侧符号相同，为奇数时两侧符号相反，具体符号还由 \(P(a)/Q(a)\) 决定。例如
 \[
  \frac1{x^2}\to+\infty,\qquad \frac1x
 \]
-在 \(x\to0\) 时左右符号相反。仅凭 \(q(a)=0\) 不能作统一结论，须比较零点阶或直接估计。
+在 \(x\to0\) 时左右符号相反。分类所需的是分子、分母在 \(a\) 的零点阶数，而不是“可约”这一含混表述。
 \end{solution}
 
 \begin{solution}{14.17}
@@ -201,9 +202,6 @@
 \]
 这里允许 \(y=b\)，因为此时误差为零。由 \(g(x)\to b\) 取 \(\delta\)，使 \(0<\abs{x-a}<\delta\) 时 \(\abs{g(x)-b}<\eta\)，直接代入即可。
 \end{solution}
-
-\section*{C组　结构、边界与项目}
-\addcontentsline{toc}{section}{C组　结构、边界与项目}
 
 \begin{solution}{14.19}
 任意 \(\delta>0\) 可取 \(n>1/\delta\)，使 \(1/n\in D\) 且 \(0<1/n<\delta\)，故 \(0\) 是聚点。若极限为 \(L\)，偶数指标与奇数指标给出的值分别为 \(1,-1\)。取
@@ -264,8 +262,8 @@
 为例：在 \(D_+=(0,\infty)\) 上令 \(x\to0\)，函数恒为 \(1\)，极限为 \(1\)；在 \(D_-=(-\infty,0)\) 上极限为 \(-1\)；在 \(D=\R\setminus\{0\}\) 上双侧极限不存在。公式相同，允许逼近中心的方向不同，量词所覆盖的点集随之改变。
 \end{solution}
 
-\section*{A组　序列刻画与基本应用}
-\addcontentsline{toc}{section}{A组　序列刻画与基本应用}
+\section*{B组　序列刻画与 Cauchy 准则}
+\addcontentsline{toc}{section}{B组　序列刻画与 Cauchy 准则}
 
 \begin{solution}{15.1}
 若 \(a\) 是聚点，对每个 \(n\) 从
@@ -324,9 +322,6 @@
 \]
 数列极限的差法则于是给出 \(f(x_n)-f(y_n)\to0\)。
 \end{solution}
-
-\section*{B组　Cauchy 准则与限制定义域}
-\addcontentsline{toc}{section}{B组　Cauchy 准则与限制定义域}
 
 \begin{solution}{15.9}
 必要性只使用 \(x_n\in D\) 与 \(x_n\to a\)，不要求点列之间填满区间。充分性中若极限失败，每个删心邻域与 \(D\) 的交都含坏点，按半径 \(1/n\) 选取即可。因此证明仅依赖聚点性，适用于任意子集 \(D\subset\R\)。
@@ -404,9 +399,6 @@
 故局部有界。
 \end{solution}
 
-\section*{C组　反例、结构与项目}
-\addcontentsline{toc}{section}{C组　反例、结构与项目}
-
 \begin{solution}{15.17}
 取 \(f(x)=\sin(1/x)\)（\(x\ne0\)）。给定 \(c\in[-1,1]\)，选 \(\theta\) 使 \(\sin\theta=c\)，并令
 \[
@@ -463,8 +455,8 @@ Heine 定理不需要值域完备。其必要性只把邻域定义传给数列�
 把参考列极限推广到整个删心邻域。证明只涉及序列，因此序列完备足够；在度量空间中，完备与序列完备等价。
 \end{solution}
 
-\section*{A组　定义与单侧极限}
-\addcontentsline{toc}{section}{A组　定义与单侧极限}
+\section*{C组　单侧、无穷与扩充实极限}
+\addcontentsline{toc}{section}{C组　单侧、无穷与扩充实极限}
 
 \begin{solution}{16.1}
 右极限 \(f(x)\to L\) 的定义是
@@ -519,9 +511,6 @@ Heine 定理不需要值域完备。其必要性只把邻域定义传给数列�
 \begin{solution}{16.8}
 若 \(f(x)\to+\infty\)，则给定 \(M>0\)，最终有 \(f(x)>M\)，因而 \(\abs{f(x)}>M\)。反向不成立，例如 \(f(x)=1/x\) 在 \(x\to0\) 时满足 \(\abs{f(x)}\to+\infty\)，但左右符号相反，原函数没有双侧扩充实极限。
 \end{solution}
-
-\section*{B组　序列刻画、运算与代换}
-\addcontentsline{toc}{section}{B组　序列刻画、运算与代换}
 
 \begin{solution}{16.9}
 量词否定为
@@ -579,9 +568,6 @@ Heine 定理不需要值域完备。其必要性只把邻域定义传给数列�
 
 反之，给定 \(\varepsilon>0\)，由 \(F(1/t)\to L\)（\(t\to0+\)）取 \(\delta>0\)，令 \(A=1/\delta\)。若 \(x>A\)，则 \(0<1/x<\delta\)，故 \(\abs{F(x)-L}<\varepsilon\)。
 \end{solution}
-
-\section*{C组　统一形式、边界与项目}
-\addcontentsline{toc}{section}{C组　统一形式、边界与项目}
 
 \begin{solution}{16.17}
 若 \(f(x)\to0\) 且最终为正，给定 \(M>0\)，把零极限精度取为 \(1/M\)，便有

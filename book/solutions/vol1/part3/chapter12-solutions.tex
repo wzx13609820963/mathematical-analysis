@@ -139,23 +139,40 @@
 \end{solution}
 
 \begin{solution}{18.23}
-证明链可组织为：
+先证闭且有界推出序列紧致。任取 \((x_n)\subset K\)，有界性与 Bolzano--Weierstrass 定理给出收敛子列；闭性保证其极限仍在 \(K\) 中。
+
+再由序列紧致推出闭且有界。若 \(K\) 无界，可递归选择 \(x_n\in K\) 使 \(\abs{x_n}>n\)，所得数列没有收敛子列，矛盾。若 \(K\) 不闭，闭集的序列刻画给出 \(x_n\in K\) 与 \(a\notin K\)，使 \(x_n\to a\)。它的每个子列仍收敛到 \(a\)，因极限唯一，不可能有子列收敛到 \(K\) 中的点。故 \(K\) 闭且有界，再由 Heine--Borel 定理得到有限覆盖性质。这里没有枚举任意开覆盖；开覆盖可能不可数，不能写成“从逐渐增大的有限子族外选点”。
+
+最后由有限覆盖性质推出闭且有界。若无界，开覆盖 \(\{(-n,n):n\in\Npos\}\) 没有有限子覆盖。若不闭，取 \(a\in\overline K\setminus K\)，则
 \[
- \text{闭且有界}\Rightarrow\text{序列紧致}
+ U_n=\{x\in\R:\abs{x-a}>1/n\},\qquad n\in\Npos,
 \]
-使用 Bolzano--Weierstrass 与闭性；
-\[
- \text{序列紧致}\Rightarrow\text{有限覆盖性质}
-\]
-反设无有限子覆盖，从逐渐增大的有限子族外选点，再由收敛子列落入某覆盖成员导致矛盾；
-\[
- \text{有限覆盖性质}\Rightarrow\text{闭且有界}
-\]
-分别使用覆盖 \((-n,n)\) 和避开缺失聚点的覆盖。实数完备性进入 Bolzano--Weierstrass 或闭区间有限覆盖定理的证明。
+覆盖 \(K\)，但任一有限子族都会漏掉充分靠近 \(a\) 的 \(K\) 中点。因此 \(K\) 必闭且有界。
+
+完备性在第一步通过 Bolzano--Weierstrass 定理进入，在“闭且有界推出有限覆盖性质”中通过闭区间有限覆盖定理进入；后二者先前都已由实数完备性证明。其余反例选择和闭性论证不再增加新的完备性原理。
 \end{solution}
 
 \begin{solution}{18.24}
-对每个 \(x\in K\)，设连续性在精度 \(\varepsilon\) 下给出半径 \(\delta_x\)。以半径 \(\delta_x/2\) 的邻域覆盖 \(K\)，取有限子覆盖。令 \(\lambda\) 为这些半径的一半中的最小值。任何直径小于 \(\lambda\) 且与 \(K\) 相交的局部片段会落入某个原邻域，从而其函数振荡小于所需精度。这种统一的 \(\lambda\) 是 Lebesgue 数思想，也是 Heine--Cantor 定理的覆盖证明基础。
+对每个 \(x\in K\)，选 \(U_x\in\mathcal U\) 使 \(x\in U_x\)。由 \(U_x\) 开，可取 \(r_x>0\) 使
+\[
+ (x-2r_x,x+2r_x)\subset U_x.
+\]
+区间族 \(\{(x-r_x,x+r_x):x\in K\}\) 覆盖 \(K\)，故有有限子覆盖，对应中心记为 \(x_1,\ldots,x_m\)。令
+\[
+ \lambda=\min_{1\le j\le m}r_{x_j}>0.
+\]
+任取 \(y\in K\)，有某个 \(j\) 使 \(\abs{y-x_j}<r_{x_j}\)。若 \(z\in K\cap(y-\lambda,y+\lambda)\)，则
+\[
+ \abs{z-x_j}
+ \le\abs{z-y}+\abs{y-x_j}
+ <\lambda+r_{x_j}
+ \le2r_{x_j},
+\]
+所以 \(z\in U_{x_j}\)。于是
+\[
+ K\cap(y-\lambda,y+\lambda)\subset U_{x_j},
+\]
+证明了 \(\lambda\) 是所求 Lebesgue 数。
 \end{solution}
 
 \begin{solution}{18.25}
@@ -172,4 +189,3 @@
 \]
 在 \(K\) 中闭，因此是紧集。若 \(f\) 处处非零，则连续函数 \(\abs f\) 在紧集 \(K\) 上取得最小值 \(m\ge0\)。若 \(m=0\)，存在 \(x_0\in K\) 使 \(\abs{f(x_0)}=0\)，与处处非零矛盾，故 \(m>0\)。
 \end{solution}
-

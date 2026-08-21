@@ -24,6 +24,9 @@
 若集合 \(K\subset\R\) 的每个开覆盖都有有限子覆盖，则称 \(K\) 为\term{紧集}。这一名称只缩写有限覆盖性质，不预先包含“闭且有界”；两者在实线上等价，是下面要证明的 Heine--Borel 定理。
 \end{definition}
 
+定义中的覆盖成员取为实线中的开集。若改用 \(K\) 中的相对开集，定义不变。事实上，任一相对开集都可写成 \(K\cap U\)，其中 \(U\subset\R\) 开；相对开覆盖
+\(\{K\cap U_\lambda\}\) 有有限子覆盖，当且仅当相应的 \(\{U_\lambda\}\) 从 \(K\) 上看有有限子覆盖。这个简单的转换使连续映射的原像可以直接用于紧致性论证。
+
 \begin{proposition}[闭集的序列刻画]
 集合 \(F\subset\R\) 闭，当且仅当每个满足 \(x_n\in F\)、\(x_n\to x\) 的数列都有 \(x\in F\)。
 \end{proposition}
@@ -59,7 +62,7 @@
 下面采用“可从左端覆盖到哪里”的上确界证明。集合 \(E\) 记录已经能用有限多个覆盖成员处理的右端点；若其上确界尚未到达 \(b\)，覆盖上确界的某个开集便能把有限覆盖向右推进，从而造成矛盾。证明末尾还需单独说明上确界自身可以覆盖到，不能把 \(\sup E=b\) 与 \(b\in E\) 混为一谈。
 
 \begin{theorem}[Heine--Borel 有限覆盖定理]
-闭区间 \([a,b]\) 的每个开覆盖都有有限子覆盖。
+设 \(a\le b\)。闭区间 \([a,b]\) 的每个开覆盖都有有限子覆盖。
 \end{theorem}
 
 \begin{proof}
@@ -98,6 +101,40 @@
 覆盖 \(K\)，但任意有限子族的并仍避开 \(a\) 的某个邻域；数列 \((x_j)\) 最终进入该邻域，故这个有限子族不能覆盖 \(K\)。
 \end{proof}
 
+\begin{proposition}[紧集的基本运算]
+空集与有限集紧；紧集的闭子集紧；有限多个紧集的并仍紧。
+\end{proposition}
+
+\begin{proof}
+空集没有需要覆盖的点，有限集只需为每个点选一个覆盖成员。设 \(F\subset K\)，其中 \(F\) 在 \(K\) 中相对闭且 \(K\) 紧。给定 \(F\) 的相对开覆盖，把 \(K\setminus F\) 添入便得到 \(K\) 的相对开覆盖；取有限子覆盖后删去 \(K\setminus F\)，余下成员覆盖 \(F\)。最后，若 \(K_1,\ldots,K_m\) 紧，则给定它们的并集的开覆盖，分别从每个 \(K_j\) 上取有限子覆盖，把这有限多组成员合在一起即可。
+\end{proof}
+
+\begin{theorem}[Lebesgue 数引理]
+设 \(K\subset\R\) 紧，\(\mathcal U\) 是 \(K\) 的开覆盖。则存在 \(\lambda>0\)，使对每个 \(x\in K\)，都能找到 \(U\in\mathcal U\) 满足
+\[
+ K\cap(x-\lambda,x+\lambda)\subset U.
+\]
+这样的 \(\lambda\) 称为该覆盖的一个 \term{Lebesgue 数}。
+\end{theorem}
+
+\begin{proof}
+若 \(K=\varnothing\)，任意 \(\lambda>0\) 都满足结论。以下设 \(K\ne\varnothing\)。
+对每个 \(x\in K\)，选取 \(U_x\in\mathcal U\) 使 \(x\in U_x\)。由开性可取 \(r_x>0\)，使
+\[
+ (x-2r_x,x+2r_x)\subset U_x.
+\]
+较小的区间 \(\{(x-r_x,x+r_x):x\in K\}\) 覆盖 \(K\)。由紧致性选出有限多个中心
+\(x_1,\ldots,x_m\)，并令
+\[
+ \lambda=\min_{1\le j\le m}r_{x_j}>0.
+\]
+任取 \(y\in K\)，某个 \(j\) 满足 \(\abs{y-x_j}<r_{x_j}\)。若 \(z\in K\) 且 \(\abs{z-y}<\lambda\)，则
+\[
+ \abs{z-x_j}\le\abs{z-y}+\abs{y-x_j}<2r_{x_j},
+\]
+所以 \(z\in U_{x_j}\)。因此 \(K\cap(y-\lambda,y+\lambda)\subset U_{x_j}\)。
+\end{proof}
+
 \begin{corollary}[实线上的序列紧致性]
 集合 \(K\subset\R\) 紧，当且仅当 \(K\) 中每个数列都有一个收敛到 \(K\) 中某点的子列。
 \end{corollary}
@@ -113,15 +150,16 @@
 \subsection{有界性定理}
 
 \begin{theorem}[有界性定理]
-若 \(f:[a,b]\to\R\) 连续，则 \(f\) 在 \([a,b]\) 上有界。
+若 \(K\subset\R\) 紧且 \(f:K\to\R\) 连续，则 \(f\) 在 \(K\) 上有界。
 \end{theorem}
 
 \begin{proof}[覆盖证明]
-对每个 \(x\in[a,b]\)，由连续性取开邻域 \(U_x\)，使
+空集上的函数有界，以下设 \(K\ne\varnothing\)。
+对每个 \(x\in K\)，由连续性取开邻域 \(U_x\)，使
 \[
- y\in U_x\cap[a,b]\Longrightarrow\abs{f(y)-f(x)}<1.
+ y\in U_x\cap K\Longrightarrow\abs{f(y)-f(x)}<1.
 \]
-这些 \(U_x\) 构成 \([a,b]\) 的开覆盖。取有限子覆盖
+这些 \(U_x\) 构成 \(K\) 的开覆盖。取有限子覆盖
 \[
  U_{x_1},\ldots,U_{x_m}.
 \]
@@ -129,50 +167,73 @@
 \[
  M=1+\max_{1\le j\le m}\abs{f(x_j)}.
 \]
-任取 \(y\in[a,b]\)，它属于某个 \(U_{x_j}\)，故
+任取 \(y\in K\)，它属于某个 \(U_{x_j}\)，故
 \[
  \abs{f(y)}\le\abs{f(y)-f(x_j)}+\abs{f(x_j)}<M.
 \]
 \end{proof}
 
 \begin{proof}[序列证明]
-若 \(f\) 无界，可对每个 \(n\) 选 \(x_n\in[a,b]\) 使 \(\abs{f(x_n)}>n\)。由 Bolzano--Weierstrass 定理，\((x_n)\) 有收敛子列 \(x_{n_k}\to x\in[a,b]\)；闭性保证极限仍在区间中。连续性给出
+若 \(f\) 无界，可对每个 \(n\) 选 \(x_n\in K\) 使 \(\abs{f(x_n)}>n\)。由序列紧致性，\((x_n)\) 有收敛子列 \(x_{n_k}\to x\in K\)。连续性给出
 \[
  f(x_{n_k})\to f(x),
 \]
 故像子列有界，与 \(\abs{f(x_{n_k})}>n_k\to\infty\) 矛盾。
 \end{proof}
 
-第一个证明从有限子覆盖取得有限组局部界，第二个证明从有界点列抽取收敛子列。在实数轴上，这两种论证分别对应紧致性的覆盖形式和序列形式；它们都以闭且有界为特征。
+第一个证明从有限子覆盖取得有限组局部界，第二个证明从点列抽取收敛子列。在实数轴上，这两种论证分别对应紧致性的覆盖形式和序列形式。闭区间只是最常用的紧集；任意闭有界子集都同样适用。
 
 \subsection{最大值最小值定理}
 
-有界性只产生数 \(M=\sup f([a,b])\)，并不保证存在 \(x\) 使 \(f(x)=M\)。取得最大值还需要两步：从上确界附近选出一列函数值，再从相应点列抽取仍留在闭区间中的收敛子列。连续性最后把点列极限送到函数值极限。
+有界性只产生数 \(M=\sup f(K)\)，并不保证存在 \(x\) 使 \(f(x)=M\)。取得最大值还需要两步：从上确界附近选出一列函数值，再从相应点列抽取仍留在 \(K\) 中的收敛子列。连续性最后把点列极限送到函数值极限。
 
 \begin{theorem}[Weierstrass 极值定理]
-若 \(f:[a,b]\to\R\) 连续，则存在 \(x_{\min},x_{\max}\in[a,b]\)，使
+若 \(K\subset\R\) 是非空紧集，\(f:K\to\R\) 连续，则存在 \(x_{\min},x_{\max}\in K\)，使
 \[
  f(x_{\min})\le f(x)\le f(x_{\max})
- \qquad(x\in[a,b]).
+ \qquad(x\in K).
 \]
 \end{theorem}
 
 \begin{proof}
 由有界性，值集
 \[
- S=f([a,b])
+ S=f(K)
 \]
-有上界。令 \(M=\sup S\)。按上确界定义，对每个 \(n\) 选 \(x_n\in[a,b]\) 使
+有上界。令 \(M=\sup S\)。按上确界定义，对每个 \(n\) 选 \(x_n\in K\) 使
 \[
  M-\frac1n<f(x_n)\le M.
 \]
-由 Bolzano--Weierstrass 定理，某子列 \(x_{n_k}\to x_{\max}\in[a,b]\)。连续性与夹逼给出
+由序列紧致性，某子列 \(x_{n_k}\to x_{\max}\in K\)。连续性与夹逼给出
 \[
  f(x_{\max})
  =\lim_{k\to\infty}f(x_{n_k})
  =M.
 \]
 故最大值取得。对 \(-f\) 应用同一结论，得到最小值。
+\end{proof}
+
+\begin{corollary}[到紧集的距离]
+设 \(K\subset\R\) 为非空紧集，\(x\in\R\)。则存在 \(y_x\in K\) 使
+\[
+ \operatorname{dist}(x,K)
+ :=\inf_{y\in K}\abs{x-y}
+ =\abs{x-y_x}.
+\]
+若非空紧集 \(K,L\subset\R\) 不相交，则
+\[
+ \operatorname{dist}(K,L)
+ :=\inf\{\abs{x-y}:x\in K,\ y\in L\}>0.
+\]
+\end{corollary}
+
+\begin{proof}
+第一个结论对连续函数 \(y\mapsto\abs{x-y}\) 应用极值定理即可。对于第二个结论，若下确界为零，可选
+\(x_n\in K\)、\(y_n\in L\) 使 \(\abs{x_n-y_n}<1/n\)。从 \((x_n)\) 中抽出收敛子列 \(x_{n_k}\to x\in K\)，再从相应的 \((y_{n_k})\) 中抽出子列 \(y_{n_{k_j}}\to y\in L\)。由于
+\[
+ \abs{x_{n_{k_j}}-y_{n_{k_j}}}\longrightarrow0,
+\]
+唯一性给出 \(x=y\)，与 \(K\cap L=\varnothing\) 矛盾。
 \end{proof}
 
 \begin{counterexample}[缺少条件时]
@@ -226,7 +287,7 @@
 \subsection{零点定理与介值定理}
 
 \begin{theorem}[Bolzano 零点定理]
-若 \(f:[a,b]\to\R\) 连续且
+设 \(a<b\)。若 \(f:[a,b]\to\R\) 连续且
 \[
  f(a)f(b)<0,
 \]
@@ -271,6 +332,22 @@
 在 \(K\) 中相对开，并且这些原像覆盖 \(K\)。把它们写成 \(K\cap U_\lambda\)（\(U_\lambda\) 为实线开集），则 \(\{U_\lambda\}\) 是 \(K\) 的开覆盖。由紧致性选出有限多个，对应的 \(V_\lambda\) 便覆盖 \(f(K)\)。
 \end{proof}
 
+\begin{corollary}[紧集上的连续双射]
+设 \(K\subset\R\) 紧，\(Y\subset\R\)，并设 \(f:K\to Y\) 是连续双射。则逆映射
+\[
+ f^{-1}:Y\to K
+\]
+连续。
+\end{corollary}
+
+\begin{proof}
+若 \(C\subset K\) 相对闭，则 \(C\) 是紧集，因而 \(f(C)\) 也是紧集。实线上的紧集闭，所以 \(f(C)\) 在 \(Y\) 中相对闭。现在
+\[
+ (f^{-1})^{-1}(C)=f(C),
+\]
+故逆映射满足闭集原像判据。这里不能只写“连续双射的逆连续”：紧致性正是把闭集的像仍变成闭集的条件。
+\end{proof}
+
 \begin{theorem}[连续像保持连通性]
 若 \(E\subset\R\) 连通，\(f:E\to\R\) 连续，则 \(f(E)\) 连通。
 \end{theorem}
@@ -291,7 +368,7 @@
 
 若定义域不是闭集，连续函数即使有界也未必取得端点值。例如 \(f(x)=x\) 在 \((0,1)\) 上既无最大值也无最小值。若定义域闭但无界，\(f(x)=x\) 在 \([0,\infty)\) 上无界。若定义域闭且有界但函数不连续，令
 \[
- f(0)=0,qquad f(x)=\frac1x\quad(0<x\le1),
+ f(0)=0,\qquad f(x)=\frac1x\quad(0<x\le1),
 \]
 则 \(f\) 在 \([0,1]\) 上无界。这三例分别说明不能只保留闭、有界、连续中的两项。
 
@@ -307,7 +384,7 @@
 \addcontentsline{toc}{section}{习题}
 
 \subsection*{A组　覆盖、紧致与极值}
-\begin{enumerate}[label=\textbf{18.\arabic*.}]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
  \exerciseitem{18.1}  分别给出 \((0,1)\)、\([0,\infty)\)、\(\R\) 没有有限子覆盖的具体开覆盖。
  \exerciseitem{18.2}  完整重建闭区间有限覆盖定理的上确界证明。
  \exerciseitem{18.3}  在上述证明中说明为何 \(\sup E=b\) 之后仍需单独证明 \(b\in E\)。
@@ -320,7 +397,7 @@
 \end{enumerate}
 
 \subsection*{B组　连通与介值}
-\begin{enumerate}[label=\textbf{18.\arabic*.},resume]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{18.10}  证明任意区间连通。
  \exerciseitem{18.11}  证明实线中的连通集具有区间性质。
  \exerciseitem{18.12}  证明 \(\Q\) 与无理数集都不连通。
@@ -333,13 +410,13 @@
 \end{enumerate}
 
 \subsection*{C组　结构、边界与项目}
-\begin{enumerate}[label=\textbf{18.\arabic*.},resume]
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{18.19}  证明连续像保持有限覆盖性质。
  \exerciseitem{18.20}  证明连续像保持连通性。
  \exerciseitem{18.21}  证明闭区间中任意无限子集都有聚点，并由此重新证明有限覆盖定理。
  \exerciseitem{18.22}  证明紧致集上的连续双射到实数子集时逆映射连续。
  \exerciseitem{18.23} \ 【前置：\chapterref{chap:subsequences-bw}与本章；预计用时：90分钟】建立“闭且有界—序列紧致—有限覆盖性质”的三向证明链，要求每个方向独立注明使用的实数完备性形式。
- \exerciseitem{18.24}  比较有限覆盖数、Lebesgue 数与一致连续性之间的联系；可预读\chapterref{chap:uniform-continuity}后完成。
+ \exerciseitem{18.24}  设 \(\mathcal U\) 是紧集 \(K\) 的开覆盖。若 \(\lambda>0\) 满足：每个 \(x\in K\) 的相对邻域 \(K\cap(x-\lambda,x+\lambda)\) 都包含于某个 \(U\in\mathcal U\)，则称 \(\lambda\) 为覆盖的 Lebesgue 数。完整证明每个紧集开覆盖都有 Lebesgue 数。
  \exerciseitem{18.25}  设 \(K_1\supset K_2\supset\cdots\) 为非空紧集。证明若 \(K_1\) 有界，则 \(\bigcap_nK_n\ne\varnothing\)。
  \exerciseitem{18.26}  证明连续函数在紧集上的零点集仍是紧集；若函数处处非零，证明其绝对值有正的最小值。
 \end{enumerate}
