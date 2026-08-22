@@ -1,342 +1,389 @@
-\chapter{子列与聚点}
-\label{chap:subsequences-cluster-points}
-\label{chap:subsequences-bw}
+\chapter{Cauchy 数列}
+\label{chap:cauchy-criterion}
 
-发散数列的全部项未必靠近同一点，但某些按原次序选出的项仍可能收敛。子列就是这种选择的精确形式。部分极限记录子列能够达到的极限，聚点则从每个尾部是否反复进入邻域来描述同一现象。
+有时可以证明数列的后两项任意接近，却无法预先说出它们接近哪个数。Cauchy 条件正是这种内部判据。在实数中，完备性保证满足该条件的数列必有极限；\chapterref{chap:real-number-system}构造的有理 Cauchy 列表明，同一推论在 \(\Q\) 中不成立。
 
-\section{子列及其指标结构}
+\section{Cauchy 条件的量词结构}
+
+\subsection{“项与项接近”代替“项与极限接近”}
+
+
+若 \(a_n\to a\)，则对充分大的 \(m,n\)，
+\[
+ \abs{a_m-a_n}
+ \le\abs{a_m-a}+\abs{a_n-a}
+\]
+很小。所以收敛列的尾部各项彼此接近。反过来，若所有后项彼此接近，就得到一个不出现未知极限的判别条件。
+
+“相邻项接近”仍不够。调和部分和满足
+\[
+ H_{n+1}-H_n=\frac1{n+1}\to0,
+\]
+但 \(H_n\to+\infty\)。Cauchy 条件要求任意两个充分靠后的项接近，而非只控制相邻项。
+
+\begin{example}
+若存在非负数列 \(r_k\) 使
+\[
+ \abs{a_{k+1}-a_k}\le r_k,\qquad
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k\longrightarrow0,
+\]
+则
+\[
+ \abs{a_m-a_n}\le\sum_{k=n}^{m-1}r_k
+\]
+说明 \((a_n)\) 具有 Cauchy 性。几何误差 \(r_k=Cq^k\) 是典型情形。
+\end{example}
+
+\subsection{Cauchy 数列的定义与量词结构}
 
 
 \begin{definition}
-设 \((a_n)\) 为数列。若正整数列
+实数列 \((a_n)\) 称为 \term{Cauchy 数列}，如果
 \[
- n_1<n_2<\cdots
+\forall\varepsilon>0\ \exists N\in\Npos\
+ \forall m,n\ge N,\qquad
+ \abs{a_m-a_n}<\varepsilon.
 \]
-严格递增，则 \((a_{n_k})_{k\ge1}\) 称为 \((a_n)\) 的一个\term{子列}。映射 \(k\mapsto n_k\) 是 \(\Npos\) 到 \(\Npos\) 的严格递增映射。
 \end{definition}
 
-严格递增保证两点：子列保持原来的先后次序，并且指标趋于无穷。事实上由归纳有 \(n_k\ge k\)。只要求 \(n_k\) 互异而不递增会允许重排；只要求非递减则可能无限重复某一固定项，不能反映原列尾部。
+定义要求的是尾部直径趋于零，不是“项的变化越来越慢”。调和部分和的相邻差趋零，但从第 \(n\) 项累积到第 \(2n\) 项仍约为 \(\log 2\)，因而两个晚期项可以保持固定距离。检验 Cauchy 性时必须估计任意 \(m>n\) 的总变化，而不能停在 \(a_{n+1}-a_n\)。
 
-\begin{example}
-偶数项 \((a_{2k})\)、平方指标项 \((a_{k^2})\) 都是子列。序列
-\((a_1,a_1,a_1,\ldots)\) 一般不是子列，因为对应指标不严格递增。
-\end{example}
-
-\begin{proposition}[子列的子列]
-若 \((a_{n_k})\) 是 \((a_n)\) 的子列，而 \((a_{n_{k_j}})\) 是前者的子列，则它仍是 \((a_n)\) 的子列。
-\end{proposition}
-
-\begin{proof}
-\(j\mapsto k_j\) 与 \(k\mapsto n_k\) 都严格递增，其复合 \(j\mapsto n_{k_j}\) 仍严格递增。
-\end{proof}
-
-\section{子列对收敛与发散的刻画}
-
-\subsection{子列继承原列极限}
-
-
-\begin{theorem}
-若 \(a_n\to a\)，则每个子列 \(a_{n_k}\to a\)。若 \(a_n\to+\infty\) 或 \(-\infty\)，相应结论也成立。
-\end{theorem}
-
-\begin{proof}
-给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时
-\(\abs{a_n-a}<\varepsilon\)。由于 \(n_k\ge k\)，当 \(k\ge N\) 时 \(n_k\ge N\)，故
-\(\abs{a_{n_k}-a}<\varepsilon\)。无穷极限只需把误差条件换成阈值条件，证明相同。
-\end{proof}
-
-\begin{corollary}
-若原列有收敛子列，则原列不可能趋于与该子列极限不同的有限值，也不可能趋于 \(+\infty\) 或 \(-\infty\)。
-\end{corollary}
-
-\begin{insightbox}[一个收敛子列说明不了整列]
-存在一个收敛子列不保证原列收敛。例如 \((-1)^n\) 的偶数子列收敛到 \(1\)，原列却发散。要从子列恢复原列，需要额外条件，例如原列为 Cauchy 列或单调列。
+\begin{insightbox}[同一个起点控制两个指标]
+Cauchy 条件中的同一个 \(N\) 必须同时控制两个独立指标 \(m,n\)。这表示从第 \(N\) 项起，尾部任意两项都彼此接近，而非只比较相邻项。
 \end{insightbox}
 
-\subsection{用子列证明原列不收敛}
+把条件写成
+\[
+ \forall\varepsilon>0\ \forall m,n\ \exists N\le\min\{m,n\}
+\]
+会失去尾部统一性。严格否定为
+\[
+\exists\varepsilon_0>0\ \forall N\in\Npos\
+ \exists m,n\ge N,\qquad
+ \abs{a_m-a_n}\ge\varepsilon_0.
+\]
 
-
-\begin{theorem}[子列判别的反面]
-若存在两条子列分别收敛到 \(a,b\)，且 \(a\ne b\)，则原数列发散。
+\begin{theorem}[Cauchy 条件的等价形式]
+令
+\[
+ d_N=\sup\{\abs{a_m-a_n}:m,n\ge N\}\in[0,+\infty].
+\]
+下列条件等价：
+\begin{enumerate}
+ \item \((a_n)\) 是 Cauchy 列；
+ \item 对每个 \(\varepsilon>0\)，存在 \(N\)，使
+ \[
+   m\ge n\ge N\quad\Longrightarrow\quad
+   \abs{a_m-a_n}<\varepsilon;
+ \]
+ \item 对每个 \(k\in\Npos\)，存在 \(N_k\)，使
+ \[
+   m,n\ge N_k\quad\Longrightarrow\quad
+   \abs{a_m-a_n}<2^{-k};
+ \]
+ \item \(d_N\to0\)。
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-若原列收敛到 \(L\)，两条子列都应收敛到 \(L\)。极限唯一性迫使 \(a=L=b\)，矛盾。
+\((1)\Rightarrow(2)\) 是缩小量词范围；\((2)\Rightarrow(1)\) 则在
+\(m<n\) 时交换两个指标。\((1)\Rightarrow(3)\) 由定义直接得到。
+反之，给定 \(\varepsilon>0\)，取 \(k\) 使
+\(2^{-k}<\varepsilon\)，再用相应的 \(N_k\)，得到 \((1)\)。
+
+若 \((1)\) 成立，对 \(\varepsilon/2\) 取尾部，则
+\(d_N\le\varepsilon/2<\varepsilon\)，所以 \(d_N\to0\)。若
+\(d_N\to0\)，取 \(N\) 使 \(d_N<\varepsilon\)，尾部任意两项的距离都不超过 \(d_N\)，从而得到 \((1)\)。
 \end{proof}
 
-\begin{example}
-对 \(a_n=(-1)^n+1/n\)，偶数子列趋于 \(1\)，奇数子列趋于 \(-1\)，所以原列发散。项 \(1/n\) 的趋零扰动不消除主振荡。
-\end{example}
-
-\begin{proposition}
-实数列 \((a_n)\) 不收敛到 \(a\)，当且仅当存在 \(\varepsilon_0>0\) 与一条子列 \((a_{n_k})\)，使
+对有界列，尾部直径等于
 \[
- \abs{a_{n_k}-a}\ge\varepsilon_0\qquad(k\in\Npos).
+ d_N=\sup_{k\ge N}a_k-\inf_{k\ge N}a_k,
 \]
-\end{proposition}
+所以\chapterref{chap:limsup-liminf}的尾部振幅判据也是 Cauchy 判据。
 
-\begin{proof}
-若不收敛到 \(a\)，严格否定给出 \(\varepsilon_0>0\)，使每个尾部都有坏项。先选 \(n_1\) 为某个坏指标；选好 \(n_k\) 后，对尾部起点 \(n_k+1\) 选坏指标 \(n_{k+1}\)，便得到严格递增指标列。反向若存在这样的子列，则任意尾部都含误差至少为 \(\varepsilon_0\) 的项，故不能收敛到 \(a\)。
-\end{proof}
+\section{收敛蕴含 Cauchy 及 Cauchy 列有界}
 
-该命题把量词否定转化为可操作的反例子列，是\chapterref{chap:function-limits}证明函数极限序列刻画时的主要构造。
+\subsection{收敛数列必为 Cauchy 数列}
 
-\begin{theorem}[进一步子列判据]
-实数列 \((a_n)\) 收敛到 \(L\)，当且仅当它的每条子列都含有一条进一步子列收敛到 \(L\)。
-\end{theorem}
-
-\begin{proof}
-若 \(a_n\to L\)，每条子列本身已经收敛到 \(L\)，因而任取其进一步子列即可。
-
-反之，若原列不收敛到 \(L\)，由上一命题存在
-\(\varepsilon_0>0\) 和一条子列 \((a_{n_k})\)，使
-\[
- \abs{a_{n_k}-L}\ge\varepsilon_0\qquad(k\in\Npos).
-\]
-这条子列的任何进一步子列仍满足同一下界，不可能收敛到 \(L\)，与假设矛盾。
-\end{proof}
-
-这一判据不要求原列有界。它把“控制完整尾部”换成一个等价的抽取原则，在函数极限、紧致性和各种弱收敛问题中会反复出现。
-
-\section{Bolzano--Weierstrass 定理与单调子列定理}
-
-\subsection{二分区间法证明 Bolzano--Weierstrass 定理}
-
-
-\begin{theorem}[Bolzano--Weierstrass 定理]
-每个有界实数列都存在收敛子列。
-\end{theorem}
-
-\begin{proof}
-设所有项都位于闭区间 \(I_0=[A,B]\)。若 \(A=B\)，数列恒为 \(A\)，结论直接成立。以下设 \(A<B\)。
-
-把 \(I_0\) 二分成两个闭半区间。至少一个半区间含无穷多个数列项；否则两边都只含有限多个指标，其并也只含有限多个指标，与数列有无穷多个指标矛盾。选定一个含无穷多项的半区间为 \(I_1\)。递归进行，得到
-\[
- I_k=[\alpha_k,\beta_k],\qquad
- I_{k+1}\subseteq I_k,\qquad
- \beta_k-\alpha_k=2^{-k}(B-A),
-\]
-且每个 \(I_k\) 含无穷多个数列项。
-
-由 Archimedes 性质，区间长度趋于零；区间套定理给出唯一交点 \(x\in\bigcap_kI_k\)。递归选指标 \(n_k>n_{k-1}\)，使
-\(a_{n_k}\in I_k\)。这是可能的，因为 \(I_k\) 含无穷多个指标，删除前 \(n_{k-1}\) 个指标后仍有可选项。由于 \(a_{n_k},x\in I_k\)，
-\[
- \abs{a_{n_k}-x}\le\beta_k-\alpha_k
- =2^{-k}(B-A)\longrightarrow0.
-\]
-故所得子列收敛到 \(x\)。
-\end{proof}
-
-“区间含无穷多个数列项”按指标计数，而不是按不同数值计数。若常值列所有项都等于 \(c\)，任何含 \(c\) 的区间都含无穷多个项，尽管值集只有一个元素。
-
-\begin{corollary}
-每个有界实数列至少有一个部分极限。每个无限有界实数集至少有一个聚点。
-\end{corollary}
-
-第二个结论先从集合中选取互异点形成数列，再对该数列应用定理。互异性保证极限点的每个邻域含集合中不同于它的点。
-
-\subsection{单调子列定理及另一种证明}
-
-
-\begin{definition}
-若指标 \(n\) 满足
-\[
- a_n\ge a_m\qquad(m>n),
-\]
-则称 \(n\) 为数列的一个\term{峰指标}。峰指标处的项不小于其后全部项。
-\end{definition}
-
-\begin{theorem}[单调子列定理]
-每个实数列都有一个单调子列。
-\end{theorem}
-
-\begin{proof}
-分两种情形。
-
-若峰指标有无穷多个，把它们按递增顺序记为
-\(n_1<n_2<\cdots\)。由峰指标定义，
-\[
- a_{n_1}\ge a_{n_2}\ge\cdots,
-\]
-得到单调递减子列。
-
-若峰指标只有有限多个，取 \(N\) 大于所有峰指标。对每个 \(n\ge N\)，\(n\) 不是峰指标，所以存在 \(m>n\) 使 \(a_m>a_n\)。从任意 \(n_1\ge N\) 开始，递归选
-\[
- n_{k+1}>n_k,\qquad a_{n_{k+1}}>a_{n_k},
-\]
-得到严格递增子列。
-\end{proof}
-
-若原列有界，所得单调子列仍有界，因而由单调有界收敛定理收敛。这给出 Bolzano--Weierstrass 定理的第二种证明。反过来，用 Bolzano--Weierstrass 定理只能直接得到收敛子列，而收敛子列未必单调；单调子列定理包含不同的组合结构。
-
-\section{数列值集的聚点与部分极限}
-
-\subsection{数列值集的聚点与数列的部分极限}
-
-
-\begin{definition}
-设 \(E\subseteq\R\)。若对每个 \(\varepsilon>0\)，删心邻域
-\[
- (x-\varepsilon,x+\varepsilon)\setminus\{x\}
-\]
-都含 \(E\) 中的点，则称 \(x\) 为 \(E\) 的\term{聚点}。
-\end{definition}
-
-\begin{definition}
-若实数列 \((a_n)\) 有子列 \(a_{n_k}\to L\in\R\)，则称 \(L\) 为该数列的一个\term{部分极限}或\term{子列极限}。
-\end{definition}
-
-聚点属于集合的概念，部分极限属于带指标的数列。常值列 \(a_n=c\) 的值集是单点集，没有聚点；但 \(c\) 是该数列的部分极限。若一个数值只出现有限次，则它要成为部分极限，必须有其他数列值从附近逼近它。
-
-\begin{proposition}
-实数 \(L\) 是 \((a_n)\) 的部分极限，当且仅当对每个 \(\varepsilon>0\) 和每个 \(N\in\Npos\)，都存在 \(n\ge N\) 使
-\[
- \abs{a_n-L}<\varepsilon.
-\]
-\end{proposition}
-
-\begin{proof}
-若 \(a_{n_k}\to L\)，给定 \(\varepsilon,N\)，取 \(k\) 足够大使
-\(n_k\ge N\) 且 \(\abs{a_{n_k}-L}<\varepsilon\)。
-
-反之，先在 \(N=1\)、误差 \(1\) 下选 \(n_1\)。选好 \(n_k\) 后，在尾部起点 \(n_k+1\)、误差 \(1/(k+1)\) 下选 \(n_{k+1}\)。于是指标严格递增且
-\(\abs{a_{n_k}-L}<1/k\)，故子列收敛到 \(L\)。
-\end{proof}
-
-\subsection{部分极限的子列刻画}
-
-
-上一命题也可写成：每个以 \(L\) 为中心的开区间与每个尾部值集
-\[
- A_N=\{a_n:n\ge N\}
-\]
-都有非空交。为避免提前使用闭包语言，令
-\[
-\operatorname{adh}(A_N)
-:=\{x\in\R:\text{\(x\) 的每个开区间邻域都与 \(A_N\) 相交}\}.
-\]
-若以 \(\mathcal L(a)\) 表示全部部分极限组成的集合，则
-\[
- \mathcal L(a)=\bigcap_{N=1}^{\infty}\operatorname{adh}(A_N).
-\]
-\chapterref{chap:continuous-functions-closed-interval}建立闭集和闭包以后，
-\(\operatorname{adh}(A_N)\) 将写成通常的 \(\overline{A_N}\)。
 
 \begin{theorem}
-若 \((a_n)\) 有界，则其部分极限集合非空且有界。若部分极限只有一个 \(L\)，则原列收敛到 \(L\)。
+若实数列 \(a_n\to a\)，则 \((a_n)\) 是 Cauchy 列。
 \end{theorem}
 
 \begin{proof}
-非空性由 Bolzano--Weierstrass 定理。每个子列仍受原列的共同界控制，序关系取极限后说明部分极限也位于同一闭区间内。
-
-若原列不收敛到 \(L\)，可抽取始终与 \(L\) 保持固定正距离的子列。它仍有界，故有收敛的进一步子列；该新部分极限不同于 \(L\)，矛盾。
+给定 \(\varepsilon>0\)，取 \(N\) 使
+\[
+ n\ge N\quad\Longrightarrow\quad
+ \abs{a_n-a}<\frac\varepsilon2.
+\]
+于是对任意 \(m,n\ge N\)，
+\[
+ \abs{a_m-a_n}
+ \le\abs{a_m-a}+\abs{a_n-a}<\varepsilon.
+\]
 \end{proof}
 
-\begin{proposition}[部分极限对极限运算封闭]
-设 \((a_n)\) 有界，且 \(L_j\in\mathcal L(a)\)、\(L_j\to L\)。则
-\(L\in\mathcal L(a)\)。
+证明只使用三角不等式，不使用实数完备性。因此它在任意度量空间中都成立。误差 \(\varepsilon/2\) 是把总距离预算分给两项与极限之间的距离。
+
+\begin{corollary}
+Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列，则原列收敛到同一极限。
+\end{corollary}
+
+\begin{proof}
+子列继承性由其指标最终进入原列尾部。若 \(a_{n_k}\to a\)，给定 \(\varepsilon>0\)，先用 Cauchy 性使原列尾部任意两项距离小于 \(\varepsilon/2\)，再选同一尾部中的子列项使其与 \(a\) 的距离小于 \(\varepsilon/2\)。三角不等式给出原列整个尾部与 \(a\) 的距离小于 \(\varepsilon\)。
+\end{proof}
+
+\subsection{Cauchy 数列必有界}
+
+
+\begin{theorem}
+每个 Cauchy 实数列都有界。
+\end{theorem}
+
+\begin{proof}
+在定义中取 \(\varepsilon=1\)，得到 \(N\)，使 \(m,n\ge N\) 时
+\(\abs{a_m-a_n}<1\)。固定 \(n=N\)，则对 \(m\ge N\)，
+\[
+ \abs{a_m}\le\abs{a_N}+1.
+\]
+再把前 \(N-1\) 项的绝对值并入有限最大值，便得到全列统一界。
+\end{proof}
+
+逆命题不成立，\((-1)^n\) 是有界非 Cauchy 列。Cauchy 性还比“相邻差趋零”强，因为它控制任意长度的尾部累积误差。
+
+\begin{proposition}
+若 \((a_n)\)、\((b_n)\) 为 Cauchy 列，则它们的和、差、积仍为 Cauchy 列；若存在 \(\delta>0\) 使 \(\abs{b_n}\ge\delta\) 最终成立，则 \(a_n/b_n\) 也是 Cauchy 列。
 \end{proposition}
 
 \begin{proof}
-递归选取严格递增指标 \(n_j\)。因为 \(L_j\) 是部分极限，可在第 \(j\) 步从指标大于 \(n_{j-1}\) 的项中选取 \(a_{n_j}\)，使
+和、差由三角不等式。乘积使用 Cauchy 列有界性和分解
 \[
- \abs{a_{n_j}-L_j}<\frac1j.
+ a_mb_m-a_nb_n=a_m(b_m-b_n)+b_n(a_m-a_n).
 \]
-同时 \(L_j\to L\)，故
+商先证明倒数列：
 \[
- \abs{a_{n_j}-L}
- \le\abs{a_{n_j}-L_j}+\abs{L_j-L}\longrightarrow0.
+ \abs{\frac1{b_m}-\frac1{b_n}}
+ \le\delta^{-2}\abs{b_m-b_n},
 \]
-于是 \(a_{n_j}\to L\)，所以 \(L\) 也是部分极限。
+再用乘积结论。
 \end{proof}
 
-后文的闭集语言会把这一命题简称为“\(\mathcal L(a)\) 是闭集”。这里的对角选择揭示了真正使用的事实：第 \(j\) 步既要逼近变化中的目标 \(L_j\)，又要保证指标超过此前全部选择。
-
-无界数列可能没有有限部分极限，例如 \(a_n=n\)；也可能同时有有限部分极限和无穷方向，例如 \(a_{2n}=0\)、\(a_{2n-1}=n\)。
-
-\section{有界性、收敛性和序列紧致性的区别}
-
-
-有界性控制数列所在的整体区间，收敛性要求尾部集中到单点。紧致性原型定理介于二者之间：
-\[
- \text{收敛}\Longrightarrow\text{有界}
- \Longrightarrow\text{存在收敛子列},
-\]
-第二个箭头在实数中成立，而两个逆箭头均不成立。
-
-\begin{counterexample}
-\((-1)^n\) 有界且有收敛子列，但原列不收敛。数列
-\[
- 0,1,0,1/2,0,1/3,\ldots
-\]
-中，由非零项组成的子列趋于 \(0\)，由零项组成的子列也趋于 \(0\)，而且原列确实收敛到 \(0\)。所以，数列由两种取值模式交替组成并不能单独说明它发散；要看这些模式产生的子列极限是否一致。
-\end{counterexample}
-
-\begin{proposition}[有界性的抽取刻画]
-实数列 \((a_n)\) 有界，当且仅当它的每条子列都含有收敛的进一步子列。
+\begin{proposition}[趋零扰动不改变 Cauchy 性]
+若 \(\abs{a_n-b_n}\to0\)，则 \((a_n)\) 是 Cauchy 列，当且仅当
+\((b_n)\) 是 Cauchy 列。
 \end{proposition}
 
 \begin{proof}
-若原列有界，每条子列仍有界，Bolzano--Weierstrass 定理给出收敛的进一步子列。
-
-反之，若原列无界，可以递归选择严格递增指标 \(n_k\)，使
+设 \((a_n)\) 是 Cauchy 列。给定 \(\varepsilon>0\)，在一个共同尾部上使
 \[
- \abs{a_{n_k}}>k.
+ \abs{a_n-b_n}<\frac{\varepsilon}{3},
+ \qquad
+ \abs{a_m-a_n}<\frac{\varepsilon}{3}.
 \]
-这条子列的每条进一步子列仍无界，因而不可能收敛，与假设矛盾。
+于是
+\[
+ \abs{b_m-b_n}
+ \le\abs{b_m-a_m}+\abs{a_m-a_n}+\abs{a_n-b_n}
+ <\varepsilon.
+\]
+反向交换两列即可。
 \end{proof}
 
-因此在实数中，收敛性可以拆成两件事：有界性保证每次抽取还能继续抽到收敛列；进一步子列判据再要求所有这些局部极限只能汇聚到同一点。进入一般度量空间后，前一种性质将发展为相对序列紧致性，且不再能简单地用有界性代替。
+\section{实数中的 Cauchy 收敛准则}
+
+这一准则有两个方向，地位并不相同。收敛推出 Cauchy 只靠三角不等式，在任何度量空间中都成立；Cauchy 推出收敛则断言空间没有缺失极限，是实数完备性的体现。以后说一个空间完备，指的正是第二个方向在该空间成立。
+
+
+\begin{theorem}[Cauchy 收敛准则]
+实数列收敛，当且仅当它是 Cauchy 数列。
+\end{theorem}
+
+\begin{proof}
+正向已在上一节证明。反向设 \((a_n)\) 为 Cauchy 列。它有界，且尾部直径满足
+\[
+ d_N=\sup_{k\ge N}a_k-\inf_{k\ge N}a_k\longrightarrow0.
+\]
+因此
+\[
+ \limsup a_n-\liminf a_n=0.
+\]
+上下极限都是有限实数，\chapterref{chap:limsup-liminf}的收敛判据便说明原列收敛。
+\end{proof}
+
+下一章比较各种完备性命题时，还会先用 Bolzano--Weierstrass 定理抽取候选极限，再由 Cauchy 性提升为全列收敛。这里的证明则把尾部直径压缩为上下极限之差。两种证明调用的前置结果不同，结论相同。
+
+\section{有理 Cauchy 列的无理极限}
+
+
+\chapterref{chap:real-number-system}构造了有理数列
+\[
+ a_n=\frac{k_n}{10^n},\qquad
+ a_n^2<2\le(a_n+10^{-n})^2,
+\]
+并证明
+\[
+ 0\le a_m-a_n<10^{-n}\qquad(m\ge n).
+\]
+因此它是 \(\Q\) 中的 Cauchy 列，却没有有理极限。
+
+\begin{theorem}
+“每个 Cauchy 列收敛”不是有序域公理的结论，也不是 Archimedes 性质的结论。
+\end{theorem}
+
+\begin{proof}
+\(\Q\) 是 Archimedes 有序域。前面构造的有理 Cauchy 列若在 \(\Q\) 中收敛到 \(q\)，平方极限定理给出 \(q^2=2\)，与 \(\sqrt2\notin\Q\) 矛盾。
+\end{proof}
+
+同一数列在 \(\R\) 中收敛到 \(\sqrt2\)。Cauchy 性只使用项之间的距离，所以在 \(\Q\) 与 \(\R\) 中完全相同；“极限属于哪个空间”则取决于值域是否包含缺失边界。
+
+\section{快速 Cauchy 子列与级数方法}
+
+\begin{proposition}[快速 Cauchy 子列]
+每个 Cauchy 列 \((a_n)\) 都有子列 \((a_{n_k})\) 满足
+\[
+ \abs{a_{n_{k+1}}-a_{n_k}}<2^{-k}\qquad(k\in\Npos).
+\]
+令 \(d_k=a_{n_{k+1}}-a_{n_k}\)。对每个 \(m\ge2\)，有限和恒等式
+\[
+ a_{n_m}=a_{n_1}+\sum_{k=1}^{m-1}d_k.
+\]
+成立，并且该子列为 Cauchy 列，因而收敛。原 Cauchy 列也收敛到同一极限。
+\end{proposition}
+
+\begin{proof}
+对每个 \(k\)，由 Cauchy 条件取 \(N_k\)，使 \(m,n\ge N_k\) 时 \(\abs{a_m-a_n}<2^{-k}\)。递归选取
+\[
+ n_{k+1}>n_k,\qquad n_k\ge N_k.
+\]
+于是所需相邻差估计成立。若 \(m>\ell\)，有限次三角不等式给出
+\[
+ \abs{a_{n_m}-a_{n_\ell}}
+ \le \sum_{k=\ell}^{m-1}\abs{d_k}
+ <\sum_{k=\ell}^{m-1}2^{-k}
+ <2^{1-\ell}.
+\]
+给定 \(\varepsilon>0\)，取 \(L\) 使 \(2^{1-L}<\varepsilon\)，便知 \((a_{n_k})\) 是 Cauchy 列。由实数的 Cauchy 收敛准则，该子列收敛。上式中的有限和逐项消去后正是 \(a_{n_m}-a_{n_1}\)，故所列恒等式成立。Cauchy 列若有收敛子列，则全列收敛到同一点。
+\end{proof}
+
+这项构造把 Cauchy 列化为一列具有可控有限尾和的增量。第 22 章建立级数以后，可以把同一论证写成“增量级数绝对收敛”。届时，绝对收敛级数的部分和为 Cauchy 列，关键仍是有限尾和估计
+\[
+ \abs{\sum_{k=n+1}^{m}d_k}
+ \le\sum_{k=n+1}^{m}\abs{d_k}.
+\]
+这里没有把尚未建立的级数收敛定理作为当前证明的前提。
+
+\begin{proposition}[增量尾和判据]
+设 \(r_k\ge0\)，并且
+\[
+ R_N:=\sup_{m>n\ge N}\sum_{k=n}^{m-1}r_k\longrightarrow0.
+\]
+若
+\[
+ \abs{a_{k+1}-a_k}\le r_k\qquad(k\in\Npos),
+\]
+则 \((a_n)\) 是 Cauchy 列。设其极限为 \(L\)，则还得到后验界
+\[
+ \abs{a_n-L}\le
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k.
+\]
+\end{proposition}
+
+\begin{proof}
+对 \(m>n\ge N\)，有限次三角不等式给出
+\[
+ \abs{a_m-a_n}
+ \le\sum_{k=n}^{m-1}\abs{a_{k+1}-a_k}
+ \le\sum_{k=n}^{m-1}r_k
+ \le R_N.
+\]
+由 \(R_N\to0\) 得 Cauchy 性。固定 \(n\)，令 \(m\to\infty\)，绝对值保持极限，得到
+\[
+ \abs{L-a_n}
+ \le\sup_{m>n}\sum_{k=n}^{m-1}r_k.
+\]
+\end{proof}
+
+相邻差趋零只说明单步变化变小；增量尾和判据要求任意长度的后期累积变化一同趋零。调和部分和在这一区别上失败，因为其从 \(n\) 到 \(2n\) 的增量始终不小于固定正数。对 \(r_k=Cq^k\)（\(0<q<1\)），有限几何和给出显式尾界
+\[
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k
+ \le\frac{Cq^n}{1-q}.
+\]
+
+本章只在实数距离下讨论 Cauchy 列。一般度量空间中的完备性、闭子空间和完备化将在后文分别定义和证明；这里已经出现的两个原型是：\(\R\) 中每个 Cauchy 列都有极限，而 \(\Q\) 中存在指向 \(\sqrt2\) 的缺口的 Cauchy 列。\chapterref{chap:cauchy-construction}把所有这类有理 Cauchy 列按“差为零列”取等价类，正是完备化构造的具体模型。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
 \subsection*{A组　定义与基本方法}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
- \exerciseitem{11.1} 证明严格递增正整数列满足 \(n_k\ge k\)，并推出 \(n_k\to+\infty\)。
- \exerciseitem{11.2} 判断 \(a_{2k}\)、\(a_{k^2}\)、\(a_{2-k}\)、\(a_{\lfloor\sqrt k\rfloor+1}\) 哪些构成子列，并说明理由。
- \exerciseitem{11.3} 证明子列的子列仍是原列子列。
- \exerciseitem{11.4} 从定义证明有限极限和无穷极限都由原列传给子列。
- \exerciseitem{11.5} 证明：若原列的每个子列都有进一步子列收敛到 \(L\)，则原列收敛到 \(L\)。
- \exerciseitem{11.6} 把“不收敛到 \(L\)”的量词否定递归构造成始终远离 \(L\) 的子列。
- \exerciseitem{12.1} 证明部分极限的“每个邻域命中任意尾部”刻画。
- \exerciseitem{12.2} 分别求 \((-1)^n\)、\((-1)^n+1/n\)、\(\sin(n\pi/2)\) 的全部部分极限。
- \exerciseitem{12.3} 给出数列部分极限但不是其值集聚点的例子，并解释差异。
- \exerciseitem{12.4} 证明有界数列的部分极限集合非空且有最大元、最小元。
+ \exerciseitem{13.1} 写出 Cauchy 条件的严格否定，并用于证明 \((-1)^n\) 不是 Cauchy 列。
+ \exerciseitem{13.2} 证明收敛列为 Cauchy 列，标明 \(\varepsilon/2\) 的作用。
+ \exerciseitem{13.3} 证明 Cauchy 列有界，完整处理有限首项。
+ \exerciseitem{13.4} 证明 Cauchy 列的任意子列仍为 Cauchy 列。
+ \exerciseitem{13.5} 证明 Cauchy 列若有收敛子列，则原列收敛到同一极限。
+ \exerciseitem{13.6} 证明尾部直径趋零与 Cauchy 条件等价。
+ \exerciseitem{13.7} 给出相邻差趋零但非 Cauchy 的数列，并从定义验证失败。
 \end{enumerate}
 
 \subsection*{B组　证明与反例}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{11.7} 用奇偶子列判断 \((-1)^n+1/n\) 的收敛性。
- \exerciseitem{11.8} 补全二分区间证明中“至少一个半区间含无穷多项”和“可以选 \(n_k>n_{k-1}\)”两步。
- \exerciseitem{11.9} 证明任意有界数列都有 Cauchy 子列，并给出第 \(k\) 步的距离估计。
- \exerciseitem{11.10} 从无限有界集合中抽取互异数列，证明该集合有聚点。
- \exerciseitem{11.11} 证明峰指标无穷时得到递减子列，峰指标有限时得到严格递增子列。
- \exerciseitem{11.12} 用单调子列定理重新证明 Bolzano--Weierstrass 定理。
- \exerciseitem{11.13} 证明：有界数列若只有一个部分极限，则原列收敛。
- \exerciseitem{11.14} 给出无界数列具有收敛子列的例子，并说明这不与 Bolzano--Weierstrass 定理矛盾。
- \exerciseitem{11.15} 证明若数列的值只取有限多个实数，则至少有一个常值子列；刻画原列何时收敛。
+ \exerciseitem{13.8} 证明两个 Cauchy 列的和与积仍为 Cauchy 列。
+ \exerciseitem{13.9} 若 \(a_n\) 是 Cauchy 列且最终 \(\abs{a_n}\ge\delta>0\)，证明 \(1/a_n\) 是 Cauchy 列。
+ \exerciseitem{13.10} 证明若 \(\abs{a_{n+1}-a_n}\le2^{-n}\)，则 \((a_n)\) 为 Cauchy 列。
+ \exerciseitem{13.11} 推广上一题：若非负级数尾和满足
+ \[
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k\to0
+ \]
+ 且 \(\abs{a_{k+1}-a_k}\le r_k\)，证明 \(a_n\) 为 Cauchy 列。
+ \exerciseitem{13.12} 使用 Bolzano--Weierstrass 定理证明实数 Cauchy 准则。
+ \exerciseitem{13.13} 对\chapterref{chap:real-number-system}十进制逼近 \(\sqrt2\) 的有理列，直接验证 Cauchy 性并证明无有理极限。
+ \exerciseitem{13.14} 构造 \((0,1)\) 中没有区间内极限的 Cauchy 列。
+ \exerciseitem{13.15} 证明实数中的闭区间完备，开区间一般不完备。
+ \exerciseitem{13.16} 判断“每个有界数列都是 Cauchy 列”“每个有收敛子列的数列都是 Cauchy 列”的真伪。
+ \exerciseitem{13.17} 证明 Cauchy 列的上下极限相等，并由此再证 Cauchy 收敛准则。
 \end{enumerate}
 
 \subsection*{C组　综合问题}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{11.16} 构造有界数列，使其部分极限恰为给定的两个实数 \(a<b\)。
- \exerciseitem{11.17} 构造有界数列，其部分极限集合为 \([0,1]\)。允许使用有理数在区间中的可数稠密枚举。
- \projectexerciseitem{11.18} \ 【前置：\chapterref{chap:equivalent-completeness}区间套；预计用时：75分钟】完整重建 Bolzano--Weierstrass 定理的二分区间证明，并给出子列误差不超过 \(2^{-k}(B-A)\) 的定量版本。
- \optionalexerciseitem{11.19} 证明任意实数列都有单调子列，并讨论在偏序集值数列中该结论为何可能失败。
- \optionalexerciseitem{11.20} 若 \(a_{n+1}-a_n\to0\)，两条收敛子列的极限是否必须相同？给出反例。
- \optionalexerciseitem{11.21} 证明有界数列收敛到 \(L\) 当且仅当每条子列都含有进一步子列收敛到 \(L\)。
- \openexerciseitem{11.22} 比较“值集有聚点”与“数列有部分极限”。说明重复取值为何使两概念不能简单等同。
- \projectexerciseitem{11.23} \ 【前置：\chapterref{chap:real-number-system}可数性；预计用时：60分钟】给定可数闭集的若干具体例子，设计数列使其部分极限集合等于该集合；分析构造中每个点需出现的逼近频率。
- \exerciseitem{12.20} 构造数列，使其部分极限集合恰为 \(\{-1,0,2\}\)，并计算上下极限。
- \projectexerciseitem{12.22} \ 【前置：\chapterref{chap:subsequences-cluster-points}Bolzano--Weierstrass；预计用时：90分钟】证明有界数列的部分极限集合是非空闭集，且其最大、最小元分别为上下极限。
- \openexerciseitem{12.25} 研究任意非空闭集 \(F\subseteq\R\) 是否能成为某个数列的部分极限集合；对有界 \(F\) 给出构造方案。
+ \projectexerciseitem{13.18} \ 【预计用时：75分钟】从 Cauchy 列抽取满足
+ \(\abs{a_{n_{k+1}}-a_{n_k}}<2^{-k}\) 的快速子列，并不经过 Bolzano--Weierstrass 定理完成收敛证明。
+ \exerciseitem{13.19} 设 \(F\subseteq\R\)。证明以下两项等价：
+ \begin{enumerate}[label=(\arabic*)]
+  \item 每个取值于 \(F\) 且在 \(\R\) 中收敛的数列，其极限仍属于 \(F\)；
+  \item 每个取值于 \(F\) 的 Cauchy 列都收敛到 \(F\) 中的点。
+ \end{enumerate}
+ 并说明这给出了后文“闭子集完备”的实数原型。
+ \optionalexerciseitem{13.20} 给出一个数列，它在通常距离下是 Cauchy 列；把距离改为离散距离后不再是 Cauchy 列。
+ \optionalexerciseitem{13.21} 若两个实数列满足 \(\abs{a_n-b_n}\to0\)，证明其中一个为 Cauchy 列当且仅当另一个为 Cauchy 列。
+ \optionalexerciseitem{13.22} 证明 Cauchy 列的有限线性组合仍为 Cauchy 列，并讨论无穷线性组合为何需要额外一致控制。
+ \openexerciseitem{13.23} 比较“序完备”“Cauchy 完备”和“区间套完备”在 Archimedes 有序域与一般度量空间中的关系。
+ \projectexerciseitem{13.24} \ 【完成\chapterref{chap:cauchy-construction}后回做；预计用时：90分钟】概括 \(\Q\) 的 Cauchy 完备化：等价关系、常值嵌入、稠密性和完备性的四个证明模块。
+\end{enumerate}
+
+\section*{本编综合习题}
+\addcontentsline{toc}{section}{本编综合习题}
+
+\begin{enumerate}[label=\textbf{综.\arabic*.}]
+ \exerciseitem{II.1} 对命题“\(a_n\to a\)”依次完成：写出定义、写出否定、写出邻域形式、证明有限项修改不影响结论。
+ \exerciseitem{II.2} 设 \(a_n=(n+\alpha)/(n+\beta)\)。讨论分母最终非零，给出极限及关于参数 \((\alpha,\beta)\) 在有界矩形上的一致误差估计。
+ \exerciseitem{II.3} 设 \(a_n,b_n\) 收敛。证明线性组合、乘积、商、绝对值和最大值的极限定理，并为每个必要条件给出一个删去后失败的例子。
+ \exerciseitem{II.4} 分析递推 \(a_{n+1}=(a_n+3/a_n)/2\)、\(a_1>0\)：不变区间、单调性、有界性、极限与误差估计。
+ \exerciseitem{II.5} 对有界数列完成三种抽取：收敛子列、单调子列、趋于上极限的子列；比较三种构造的输入与输出。
+ \exerciseitem{II.6} 构造一个部分极限集合恰为 \(\{-2,0,1\}\) 的数列，计算上下极限、尾部振幅，并判断是否 Cauchy。
+ \exerciseitem{II.7} 证明下列条件等价：\(a_n\to L\)；每个子列都有进一步子列趋于 \(L\)；\(\liminf a_n=\limsup a_n=L\)；尾部振幅趋零且存在一条子列趋于 \(L\)。
+ \exerciseitem{II.8} 对 \(\sum_{k=1}^n2^{-k}u_k\)（\(\abs{u_k}\le1\)）证明 Cauchy 性、统一有界性及尾部误差，并讨论 \(u_k\) 不收敛是否妨碍部分和收敛。
+ \projectexerciseitem{II.9} \ 【预计用时：90分钟】从确界原理出发重建链条：单调有界收敛、区间套、Bolzano--Weierstrass、Cauchy 准则。
+ \exerciseitem{II.10} 比较 \(\Q\) 与 \(\R\) 中同一个有理 Cauchy 列：Cauchy 性、可能极限、值域闭性与完备性的差异。
+ \optionalexerciseitem{II.11} 构造有界列 \(a_n,b_n\)，使二者各有两个部分极限，而 \(a_n+b_n\) 分别出现一个、两个和三个部分极限的三组例子。
+ \openexerciseitem{II.12} 以“尾部”为主线总结第二编：最终性质、完整尾部、尾部值集、尾部确界、尾部直径分别解决什么问题，哪些信息彼此可恢复。
 \end{enumerate}
 
 \section*{部分习题提示}
 \begin{itemize}
- \item \exerciseref{11.5}：反设不收敛，使用\exerciseref{11.6}构造坏子列。
- \item \exerciseref{11.13}：反设不收敛到唯一部分极限，再抽取远离它的子列并应用 Bolzano--Weierstrass。
- \item \exerciseref{11.17}：把 \(\Q\cap[0,1]\) 的前 \(m\) 个数依次组成第 \(m\) 个有限块。
- \item \exerciseref{11.20}：可使用步长逐渐缩小、往返于两个端点的三角形块。
+ \item \exerciseref{13.7}：使用调和部分和。
+ \item \exerciseref{13.17}：对 Cauchy 列，尾部上、下确界之差不超过尾部直径。
+ \item \exerciseref{13.20}：离散距离为 \(d(x,y)=1\)（\(x\ne y\)）。
+ \item 综合题II.4：这是 \(\sqrt3\) 的 Newton 迭代。
+ \item 综合题II.8：任意尾和绝对值不超过几何尾和。
 \end{itemize}

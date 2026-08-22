@@ -1,665 +1,342 @@
-\chapter{数列极限}
-\label{chap:sequence-limits}
-\label{chap:sequence-limit-definition}
-\label{chap:sequence-error-control}
-\label{chap:sequence-limit-properties}
+\chapter{子列与聚点}
+\label{chap:subsequences-cluster-points}
+\label{chap:subsequences-bw}
 
-说数列的项“越来越接近”某个数，还没有说明怎样检验这种接近。极限定义要求：误差尺度无论给得多小，数列的某个完整尾部都落在这个尺度内。量词次序确定以后，常见估计、唯一性、有界性和四则运算都可从这一定义推出。
+发散数列的全部项未必靠近同一点，但某些按原次序选出的项仍可能收敛。子列就是这种选择的精确形式。部分极限记录子列能够达到的极限，聚点则从每个尾部是否反复进入邻域来描述同一现象。
 
-\section{数列、邻域与 \texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义}
+\section{子列及其指标结构}
 
-\subsection{数列是定义在正整数集上的函数}
 
 \begin{definition}
-设 \(X\) 为集合。一个\term{\(X\) 中的数列}是映射
+设 \((a_n)\) 为数列。若正整数列
 \[
- a:\Npos\longrightarrow X,
+ n_1<n_2<\cdots
 \]
-其在 \(n\) 处的值记为 \(a_n\)，整个数列记为 \((a_n)_{n\ge1}\) 或简记为 \((a_n)\)。本编主要取 \(X=\R\)。
+严格递增，则 \((a_{n_k})_{k\ge1}\) 称为 \((a_n)\) 的一个\term{子列}。映射 \(k\mapsto n_k\) 是 \(\Npos\) 到 \(\Npos\) 的严格递增映射。
 \end{definition}
 
-把数列视为映射可以明确三个容易混淆的对象：指标 \(n\)、第 \(n\) 项 \(a_n\) 与值集 \(\{a_n:n\in\Npos\}\)。不同指标可以取得同一数值，因此值集不能恢复数列的排列和重复次数。例如常值列的值集只有一个元素，而数列仍有无穷多个项。
-
-数列的性质常分为两类。断言“\(a_n\ne0\) 对所有 \(n\) 成立”涉及每一项；断言“从某项起 \(a_n\ne0\)”允许有限个例外。极限只取决于后一类尾部信息。
-
-\begin{definition}
-若命题 \(P(n)\) 存在 \(N\in\Npos\)，使得对每个 \(n\ge N\) 都成立，则称 \(P(n)\) \term{最终成立}或\term{从某项起成立}。
-\end{definition}
-
-最终成立的两个命题的合取仍最终成立：分别取得起点 \(N_1,N_2\)，再令
-\[
- N=\max\{N_1,N_2\}.
-\]
-这一取最大值的步骤将在极限运算中反复出现。
-
-\subsection{“任意精度”与“从某项以后”}
-
-设目标值为 \(a\)。误差 \(\abs{a_n-a}\) 描述第 \(n\) 项与 \(a\) 的距离。单独验证某个固定误差，例如最终有 \(\abs{a_n-a}<10^{-3}\)，不能推出收敛；收敛要求这一结论对每个正误差都成立。
-
-\begin{definition}[数列极限]
-设 \((a_n)\) 为实数列，\(a\in\R\)。若
-\[
-\forall\varepsilon>0\ \exists N\in\Npos\ \forall n\in\Npos,
- \quad n\ge N\Longrightarrow\abs{a_n-a}<\varepsilon,
-\]
-则称 \((a_n)\) \term{收敛到} \(a\)，记为
-\[
- a_n\longrightarrow a,
- \qquad\text{或}\qquad
- \lim_{n\to\infty}a_n=a.
-\]
-若不存在这样的 \(a\)，则称该数列发散。
-\end{definition}
-
-定义中的 \(N\) 可以依赖 \(\varepsilon\) 以及正在研究的数列，但不能依赖于随后出现的 \(n\)。选定 \(N\) 后，所有 \(n\ge N\) 必须同时满足误差要求。严格不等号不是实质性的；把 \(\abs{a_n-a}<\varepsilon\) 改成 \(\abs{a_n-a}\le\varepsilon\) 得到等价定义，因为可以先使用 \(\varepsilon/2\)。
+严格递增保证两点：子列保持原来的先后次序，并且指标趋于无穷。事实上由归纳有 \(n_k\ge k\)。只要求 \(n_k\) 互异而不递增会允许重排；只要求非递减则可能无限重复某一固定项，不能反映原列尾部。
 
 \begin{example}
-证明 \(1/n\to0\)。给定 \(\varepsilon>0\)，由 Archimedes 性质可取 \(N>1/\varepsilon\)。若 \(n\ge N\)，则
-\[
- \abs{\frac1n-0}=\frac1n\le\frac1N<\varepsilon.
-\]
-选择顺序不可倒置：\(\varepsilon\) 给定后确定 \(N\)，这个 \(N\) 随后控制每个 \(n\ge N\)。
+偶数项 \((a_{2k})\)、平方指标项 \((a_{k^2})\) 都是子列。序列
+\((a_1,a_1,a_1,\ldots)\) 一般不是子列，因为对应指标不严格递增。
 \end{example}
 
-\begin{example}
-设 \(a_n=c\) 为常值列。对任意 \(\varepsilon>0\)，取 \(N=1\)，便有 \(\abs{a_n-c}=0<\varepsilon\)，故 \(a_n\to c\)。同一个 \(N\) 对所有误差都有效，是允许但并非必需的特殊情形。
-\end{example}
-
-\subsection{\texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义的量词结构}
-
-极限定义的逻辑骨架为
-\[
- \forall\varepsilon>0\quad
- \exists N=N(\varepsilon)\quad
- \forall n\ge N.
-\]
-交换前两个量词会得到远强于收敛的命题：若存在同一个 \(N\) 对所有 \(\varepsilon>0\) 都有 \(\abs{a_n-a}<\varepsilon\)，则每个 \(n\ge N\) 都满足 \(a_n=a\)，数列最终恒等于极限。
-
-\begin{proposition}[只检验一列精度]
-实数列 \((a_n)\) 收敛到 \(a\)，当且仅当对每个 \(k\in\Npos\)，存在 \(N_k\)，使
-\[
- n\ge N_k\quad\Longrightarrow\quad
- \abs{a_n-a}<\frac1k.
-\]
-还可把 \(1/k\) 换成任意趋于零的正数列 \((\eta_k)\)。
+\begin{proposition}[子列的子列]
+若 \((a_{n_k})\) 是 \((a_n)\) 的子列，而 \((a_{n_{k_j}})\) 是前者的子列，则它仍是 \((a_n)\) 的子列。
 \end{proposition}
 
 \begin{proof}
-正向由定义直接得到。反向给定 \(\varepsilon>0\)，由 Archimedes 性质取 \(k\) 使 \(1/k<\varepsilon\)，再使用对应的 \(N_k\)。一般情形只需假定：对每个 \(\varepsilon>0\)，存在 \(k\) 使 \(0<\eta_k<\varepsilon\)。
+\(j\mapsto k_j\) 与 \(k\mapsto n_k\) 都严格递增，其复合 \(j\mapsto n_{k_j}\) 仍严格递增。
 \end{proof}
 
-\begin{proposition}[最终误差函数]
-若存在非负数列 \(r_n\to0\)，并且从某项起
-\[
- \abs{a_n-a}\le r_n,
-\]
-则 \(a_n\to a\)。
-\end{proposition}
+\section{子列对收敛与发散的刻画}
 
-\begin{proof}
-给定 \(\varepsilon>0\)，取 \(N_1\) 使 \(n\ge N_1\) 时 \(r_n<\varepsilon\)，再取 \(N_2\) 使估计式对 \(n\ge N_2\) 成立。令 \(N=\max\{N_1,N_2\}\)，则所需结论成立。
-\end{proof}
+\subsection{子列继承原列极限}
 
-该命题把收敛证明转化为寻找可控的上界，但上界必须自身趋于零。只知道 \(\abs{a_n-a}\le1\) 无法说明误差能达到任意精度。
 
-\subsection{极限定义的邻域表述}
-
-对 \(a\in\R\)、\(\varepsilon>0\)，开区间
-\[
- U_\varepsilon(a)=(a-\varepsilon,a+\varepsilon)
-\]
-称为 \(a\) 的一个\term{开邻域}。由绝对值与区间的等价关系，\(\abs{a_n-a}<\varepsilon\) 等价于 \(a_n\in U_\varepsilon(a)\)。
-
-\begin{theorem}[邻域刻画]
-数列 \(a_n\to a\) 当且仅当 \(a\) 的每个开区间邻域都包含数列的一个完整尾部；也就是说，对每个 \(r>0\)，存在 \(N\) 使
-\[
- \{a_n:n\ge N\}\subseteq(a-r,a+r).
-\]
+\begin{theorem}
+若 \(a_n\to a\)，则每个子列 \(a_{n_k}\to a\)。若 \(a_n\to+\infty\) 或 \(-\infty\)，相应结论也成立。
 \end{theorem}
 
 \begin{proof}
-这只是绝对值不等式
-\(
- \abs{a_n-a}<r
-\)
-与区间包含关系
-\(
- a_n\in(a-r,a+r)
-\)
-的逐项改写。以后定义实线上的开集后，还可把“开区间邻域”换成“任意含 \(a\) 的开集”，但当前结论不依赖尚未建立的开集理论。
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时
+\(\abs{a_n-a}<\varepsilon\)。由于 \(n_k\ge k\)，当 \(k\ge N\) 时 \(n_k\ge N\)，故
+\(\abs{a_{n_k}-a}<\varepsilon\)。无穷极限只需把误差条件换成阈值条件，证明相同。
 \end{proof}
 
-这里使用“完整尾部”而非“无穷多项”。数列 \((-1)^n\) 的任意小的 \(1\) 的邻域可能含无穷多个项，却从不包含完整尾部；这不足以说明收敛到 \(1\)。
+\begin{corollary}
+若原列有收敛子列，则原列不可能趋于与该子列极限不同的有限值，也不可能趋于 \(+\infty\) 或 \(-\infty\)。
+\end{corollary}
 
-\section{量词顺序、极限的否定与误差估计}
+\begin{insightbox}[一个收敛子列说明不了整列]
+存在一个收敛子列不保证原列收敛。例如 \((-1)^n\) 的偶数子列收敛到 \(1\)，原列却发散。要从子列恢复原列，需要额外条件，例如原列为 Cauchy 列或单调列。
+\end{insightbox}
 
-\subsection{不收敛的严格否定形式}
+\subsection{用子列证明原列不收敛}
 
-固定候选 \(a\)。命题“\(a_n\) 不收敛到 \(a\)”是极限定义的逐层否定：
-\[
-\exists\varepsilon_0>0\ \forall N\in\Npos\ \exists n\ge N,
- \quad \abs{a_n-a}\ge\varepsilon_0.
-\]
-同一个 \(\varepsilon_0\) 对每个尾部都有效，而见证失败的 \(n\) 可以随 \(N\) 改变。
 
-\begin{example}
-数列 \(a_n=(-1)^n\) 发散。若候选 \(a\ge0\)，所有奇数项 \(-1\) 与 \(a\) 的距离至少为 \(1\)；若 \(a<0\)，所有偶数项 \(1\) 与 \(a\) 的距离大于 \(1\)。因此可统一取 \(\varepsilon_0=1\)，每个尾部都含违反误差要求的项。
-\end{example}
-
-证明一个数列发散并不等同于证明它不收敛到某个显眼候选值。必须排除所有实数候选，或使用能够一次排除所有候选的结构，例如两个不同的子列极限、无界性或振荡。
-
-\subsection{从目标不等式反向寻找 \texorpdfstring{\(N\)}{N}}
-
-寻找 \(N\) 时，可以先暂把 \(n\) 看作正实变量，从目标
-\[
- \abs{a_n-a}<\varepsilon
-\]
-反推出一个较强而易于检验的条件 \(n>G(\varepsilon)\)。这只是寻找参数的草算。写入证明时，仍须从给定的 \(\varepsilon\) 出发，选整数 \(N>G(\varepsilon)\)，再正向验证每个 \(n\ge N\) 的误差。
-
-\begin{example}
-对 \(a_n=(2n+3)/(n+4)\)，有
-\[
- \abs{a_n-2}=\frac5{n+4}<\frac5n.
-\]
-要使右端小于 \(\varepsilon\)，取 \(N>5/\varepsilon\) 即可。估计 \(\frac5{n+4}<\frac5n\) 牺牲了一点精度，却使指标选择更透明。
-\end{example}
-
-前一节的最终误差函数已经给出一般的上界原则。计算中常用的是它的定量形式：若从 \(N_0\) 起
-\[
- \abs{a_n-a}\le C\phi(n),
-\]
-其中 \(C>0\)，且正数列 \(\phi(n)\) 单调趋于零，那么只要选取 \(N\ge N_0\) 使
-\(
- C\phi(N)<\varepsilon,
-\)
-便有 \(n\ge N\Rightarrow C\phi(n)\le C\phi(N)<\varepsilon\)。这里的单调性用于把第 \(N\) 项的估计传给整个尾部；若 \(\phi\) 不单调，则应直接求一个对所有 \(n\ge N\) 有效的尾部上界。
-
-反向推导只是寻找 \(N\) 的草稿过程，不能把“由 \(\abs{a_n-a}<\varepsilon\) 解得 \(n>G(\varepsilon)\)”当作证明，因为前件正是尚待证明的目标。正式论证必须从选定的 \(N\) 出发推出误差不等式。
-
-\subsection{线性式、有理式与根式数列}
-
-线性分式的极限证明可统一化。设 \(c\ne0\)，则
-\[
- \frac{an+b}{cn+d}-\frac ac
- =\frac{bc-ad}{c(cn+d)}.
-\]
-困难只在给分母建立最终的线性下界。
-
-\begin{lemma}[分母远离零]
-若 \(c\ne0\)，则存在 \(N_0\) 使
-\[
- \abs{cn+d}\ge\frac{\abs c}{2}n\qquad(n\ge N_0).
-\]
-\end{lemma}
+\begin{theorem}[子列判别的反面]
+若存在两条子列分别收敛到 \(a,b\)，且 \(a\ne b\)，则原数列发散。
+\end{theorem}
 
 \begin{proof}
-由反三角不等式，
-\[
- \abs{cn+d}\ge\abs c\,n-\abs d.
-\]
-取 \(N_0\ge2\abs d/\abs c\)，右端便不小于 \(\abs c\,n/2\)。
+若原列收敛到 \(L\)，两条子列都应收敛到 \(L\)。极限唯一性迫使 \(a=L=b\)，矛盾。
 \end{proof}
 
-所以
-\[
- \abs{\frac{an+b}{cn+d}-\frac ac}
- \le\frac{2\abs{bc-ad}}{\abs c^2 n}
-\]
-最终成立。常数依赖于 \(a,b,c,d\)，但不依赖于 \(n\) 或 \(\varepsilon\)。
-
-\begin{example}[根式的有理化]
-证明
-\[
- \sqrt{n^2+n}-n\longrightarrow\frac12.
-\]
-令 \(t=1/n\)。有
-\[
- \sqrt{n^2+n}-n=\frac1{\sqrt{1+t}+1}.
-\]
-再计算
-\[
- \abs{\frac1{\sqrt{1+t}+1}-\frac12}
- =\frac{t}{2(\sqrt{1+t}+1)^2}\le\frac{t}{8}=\frac1{8n}.
-\]
-因而可取 \(N>1/(8\varepsilon)\)。有理化同时消除了两个大数相减造成的结构遮蔽。
-\end{example}
-
-\begin{example}[分母可能接近零]
-表达式
-\(\frac{a_n}{b_n}\) 的误差不能仅分别估计分子与分母。即使 \(b_n\to0\)，也不能把 \(1/b_n\) 当作有界量。后面的商极限定理将要求分母极限非零，并先证明分母最终远离零。
-\end{example}
-
-\subsection{含参数数列中的一致误差估计}
-
-设参数 \(t\) 取自集合 \(T\)，对每个 \(t\) 有一个数列 \(a_n(t)\) 及候选极限 \(a(t)\)。若对每个 \(\varepsilon>0\)，能选同一个 \(N\) 使
-\[
- n\ge N, t\in T
- \quad\Longrightarrow\quad
- \abs{a_n(t)-a(t)}<\varepsilon,
-\]
-则称该误差估计\term{关于参数 \(t\) 一致}。这里尚不建立函数列一致收敛的一般理论，只记录量词差异。
-
-逐参数收敛的量词为
-\[
- \forall t\in T\ \forall\varepsilon>0\ \exists N(t,\varepsilon)\ \forall n\ge N,
-\]
-而一致估计把 \(\forall t\) 放到 \(\exists N\) 之后。后一条件更强。
-
 \begin{example}
-对 \(t\in[0,A]\) 与 \(a_n(t)=t/(n+t)\)，有
-\[
- 0\le a_n(t)\le\frac A n.
-\]
-故取 \(N>A/\varepsilon\) 可同时控制全部 \(t\in[0,A]\)。若允许 \(t\in[0,\infty)\)，则对每个固定 \(n\)，当 \(t\to\infty\) 时 \(t/(n+t)\to1\)，不存在统一的 \(N\)。参数有界性正是该一致估计的条件。
+对 \(a_n=(-1)^n+1/n\)，偶数子列趋于 \(1\)，奇数子列趋于 \(-1\)，所以原列发散。项 \(1/n\) 的趋零扰动不消除主振荡。
 \end{example}
 
 \begin{proposition}
-若存在与 \(t\) 无关的非负数列 \(r_n\to0\)，使
+实数列 \((a_n)\) 不收敛到 \(a\)，当且仅当存在 \(\varepsilon_0>0\) 与一条子列 \((a_{n_k})\)，使
 \[
- \abs{a_n(t)-a(t)}\le r_n
+ \abs{a_{n_k}-a}\ge\varepsilon_0\qquad(k\in\Npos).
 \]
-对所有 \(t\in T\) 和充分大的 \(n\) 同时成立，则误差关于 \(t\) 一致。
 \end{proposition}
 
 \begin{proof}
-给定 \(\varepsilon>0\)，由 \(r_n\to0\) 取 \(N_1\)，使 \(n\ge N_1\) 时 \(r_n<\varepsilon\)。题设中的“充分大”给出与 \(t\) 无关的起点 \(N_0\)。令 \(N=\max\{N_0,N_1\}\)，则对所有 \(t\in T\) 与 \(n\ge N\)，均有
-\[
- \abs{a_n(t)-a(t)}\le r_n<\varepsilon.
-\]
+若不收敛到 \(a\)，严格否定给出 \(\varepsilon_0>0\)，使每个尾部都有坏项。先选 \(n_1\) 为某个坏指标；选好 \(n_k\) 后，对尾部起点 \(n_k+1\) 选坏指标 \(n_{k+1}\)，便得到严格递增指标列。反向若存在这样的子列，则任意尾部都含误差至少为 \(\varepsilon_0\) 的项，故不能收敛到 \(a\)。
 \end{proof}
 
-该结论中的“充分大”也必须一致；若起点仍依赖 \(t\)，则不能直接取一个统一尾部。
+该命题把量词否定转化为可操作的反例子列，是\chapterref{chap:function-limits}证明函数极限序列刻画时的主要构造。
 
-\subsection{辅助估计}
+\begin{theorem}[进一步子列判据]
+实数列 \((a_n)\) 收敛到 \(L\)，当且仅当它的每条子列都含有一条进一步子列收敛到 \(L\)。
+\end{theorem}
 
-\begin{example}
-若 \(\abs{u_n}\le M\)，则
+\begin{proof}
+若 \(a_n\to L\)，每条子列本身已经收敛到 \(L\)，因而任取其进一步子列即可。
+
+反之，若原列不收敛到 \(L\)，由上一命题存在
+\(\varepsilon_0>0\) 和一条子列 \((a_{n_k})\)，使
 \[
- \abs{\frac{u_n}{n}}\le\frac Mn\longrightarrow0.
+ \abs{a_{n_k}-L}\ge\varepsilon_0\qquad(k\in\Npos).
 \]
-这里不要求 \(u_n\) 本身有极限；有界性与衰减因子已经足够。反例 \(u_n=n\) 表明不能删除统一界。
-\end{example}
+这条子列的任何进一步子列仍满足同一下界，不可能收敛到 \(L\)，与假设矛盾。
+\end{proof}
 
-\begin{example}[几何衰减快于多项式增长]
-设 \(0<q<1\)、\(p\in\N\)。则 \(n^p q^n\to0\)。取 \(r\) 满足 \(q<r<1\)。由二项式定理，
+这一判据不要求原列有界。它把“控制完整尾部”换成一个等价的抽取原则，在函数极限、紧致性和各种弱收敛问题中会反复出现。
+
+\section{Bolzano--Weierstrass 定理与单调子列定理}
+
+\subsection{二分区间法证明 Bolzano--Weierstrass 定理}
+
+
+\begin{theorem}[Bolzano--Weierstrass 定理]
+每个有界实数列都存在收敛子列。
+\end{theorem}
+
+\begin{proof}
+设所有项都位于闭区间 \(I_0=[A,B]\)。若 \(A=B\)，数列恒为 \(A\)，结论直接成立。以下设 \(A<B\)。
+
+把 \(I_0\) 二分成两个闭半区间。至少一个半区间含无穷多个数列项；否则两边都只含有限多个指标，其并也只含有限多个指标，与数列有无穷多个指标矛盾。选定一个含无穷多项的半区间为 \(I_1\)。递归进行，得到
 \[
- \left(\frac rq\right)^n
- \ge \binom n{p+1}\left(\frac rq-1\right)^{p+1},
+ I_k=[\alpha_k,\beta_k],\qquad
+ I_{k+1}\subseteq I_k,\qquad
+ \beta_k-\alpha_k=2^{-k}(B-A),
 \]
-右端最终不小于常数乘 \(n^{p+1}\)。故 \(n^p(q/r)^n\le C/n\) 最终成立，从而
+且每个 \(I_k\) 含无穷多个数列项。
+
+由 Archimedes 性质，区间长度趋于零；区间套定理给出唯一交点 \(x\in\bigcap_kI_k\)。递归选指标 \(n_k>n_{k-1}\)，使
+\(a_{n_k}\in I_k\)。这是可能的，因为 \(I_k\) 含无穷多个指标，删除前 \(n_{k-1}\) 个指标后仍有可选项。由于 \(a_{n_k},x\in I_k\)，
 \[
- n^pq^n\le C\frac{r^n}{n}\le\frac Cn\to0.
+ \abs{a_{n_k}-x}\le\beta_k-\alpha_k
+ =2^{-k}(B-A)\longrightarrow0.
 \]
-证明只需给出某个趋零上界，不必追求最优常数。
-\end{example}
+故所得子列收敛到 \(x\)。
+\end{proof}
 
-\subsection{量词顺序错误}
+“区间含无穷多个数列项”按指标计数，而不是按不同数值计数。若常值列所有项都等于 \(c\)，任何含 \(c\) 的区间都含无穷多个项，尽管值集只有一个元素。
 
-下列三种写法都没有满足极限定义中的量词次序。
+\begin{corollary}
+每个有界实数列至少有一个部分极限。每个无限有界实数集至少有一个聚点。
+\end{corollary}
 
-\begin{enumerate}
- \item \term{先固定 \(N\)。} 证明开头任取 \(N\)，随后把 \(\varepsilon\) 选成依赖 \(N\) 的量，只说明某个误差可被该尾部控制；极限要求先给任意误差。
- \item \term{让 \(N\) 依赖于 \(n\)。} 写成“对每个 \(n\) 取 \(N=n\)”没有产生一个控制所有后续项的固定起点。
- \item \term{用待证结论选择参数。} 从目标误差不等式反向变形可以发现充分条件，但正式证明必须从该充分条件正向验证目标。
-\end{enumerate}
+第二个结论先从集合中选取互异点形成数列，再对该数列应用定理。互异性保证极限点的每个邻域含集合中不同于它的点。
+
+\subsection{单调子列定理及另一种证明}
+
+
+\begin{definition}
+若指标 \(n\) 满足
+\[
+ a_n\ge a_m\qquad(m>n),
+\]
+则称 \(n\) 为数列的一个\term{峰指标}。峰指标处的项不小于其后全部项。
+\end{definition}
+
+\begin{theorem}[单调子列定理]
+每个实数列都有一个单调子列。
+\end{theorem}
+
+\begin{proof}
+分两种情形。
+
+若峰指标有无穷多个，把它们按递增顺序记为
+\(n_1<n_2<\cdots\)。由峰指标定义，
+\[
+ a_{n_1}\ge a_{n_2}\ge\cdots,
+\]
+得到单调递减子列。
+
+若峰指标只有有限多个，取 \(N\) 大于所有峰指标。对每个 \(n\ge N\)，\(n\) 不是峰指标，所以存在 \(m>n\) 使 \(a_m>a_n\)。从任意 \(n_1\ge N\) 开始，递归选
+\[
+ n_{k+1}>n_k,\qquad a_{n_{k+1}}>a_{n_k},
+\]
+得到严格递增子列。
+\end{proof}
+
+若原列有界，所得单调子列仍有界，因而由单调有界收敛定理收敛。这给出 Bolzano--Weierstrass 定理的第二种证明。反过来，用 Bolzano--Weierstrass 定理只能直接得到收敛子列，而收敛子列未必单调；单调子列定理包含不同的组合结构。
+
+\section{数列值集的聚点与部分极限}
+
+\subsection{数列值集的聚点与数列的部分极限}
+
+
+\begin{definition}
+设 \(E\subseteq\R\)。若对每个 \(\varepsilon>0\)，删心邻域
+\[
+ (x-\varepsilon,x+\varepsilon)\setminus\{x\}
+\]
+都含 \(E\) 中的点，则称 \(x\) 为 \(E\) 的\term{聚点}。
+\end{definition}
+
+\begin{definition}
+若实数列 \((a_n)\) 有子列 \(a_{n_k}\to L\in\R\)，则称 \(L\) 为该数列的一个\term{部分极限}或\term{子列极限}。
+\end{definition}
+
+聚点属于集合的概念，部分极限属于带指标的数列。常值列 \(a_n=c\) 的值集是单点集，没有聚点；但 \(c\) 是该数列的部分极限。若一个数值只出现有限次，则它要成为部分极限，必须有其他数列值从附近逼近它。
+
+\begin{proposition}
+实数 \(L\) 是 \((a_n)\) 的部分极限，当且仅当对每个 \(\varepsilon>0\) 和每个 \(N\in\Npos\)，都存在 \(n\ge N\) 使
+\[
+ \abs{a_n-L}<\varepsilon.
+\]
+\end{proposition}
+
+\begin{proof}
+若 \(a_{n_k}\to L\)，给定 \(\varepsilon,N\)，取 \(k\) 足够大使
+\(n_k\ge N\) 且 \(\abs{a_{n_k}-L}<\varepsilon\)。
+
+反之，先在 \(N=1\)、误差 \(1\) 下选 \(n_1\)。选好 \(n_k\) 后，在尾部起点 \(n_k+1\)、误差 \(1/(k+1)\) 下选 \(n_{k+1}\)。于是指标严格递增且
+\(\abs{a_{n_k}-L}<1/k\)，故子列收敛到 \(L\)。
+\end{proof}
+
+\subsection{部分极限的子列刻画}
+
+
+上一命题也可写成：每个以 \(L\) 为中心的开区间与每个尾部值集
+\[
+ A_N=\{a_n:n\ge N\}
+\]
+都有非空交。为避免提前使用闭包语言，令
+\[
+\operatorname{adh}(A_N)
+:=\{x\in\R:\text{\(x\) 的每个开区间邻域都与 \(A_N\) 相交}\}.
+\]
+若以 \(\mathcal L(a)\) 表示全部部分极限组成的集合，则
+\[
+ \mathcal L(a)=\bigcap_{N=1}^{\infty}\operatorname{adh}(A_N).
+\]
+\chapterref{chap:continuous-functions-closed-interval}建立闭集和闭包以后，
+\(\operatorname{adh}(A_N)\) 将写成通常的 \(\overline{A_N}\)。
+
+\begin{theorem}
+若 \((a_n)\) 有界，则其部分极限集合非空且有界。若部分极限只有一个 \(L\)，则原列收敛到 \(L\)。
+\end{theorem}
+
+\begin{proof}
+非空性由 Bolzano--Weierstrass 定理。每个子列仍受原列的共同界控制，序关系取极限后说明部分极限也位于同一闭区间内。
+
+若原列不收敛到 \(L\)，可抽取始终与 \(L\) 保持固定正距离的子列。它仍有界，故有收敛的进一步子列；该新部分极限不同于 \(L\)，矛盾。
+\end{proof}
+
+\begin{proposition}[部分极限对极限运算封闭]
+设 \((a_n)\) 有界，且 \(L_j\in\mathcal L(a)\)、\(L_j\to L\)。则
+\(L\in\mathcal L(a)\)。
+\end{proposition}
+
+\begin{proof}
+递归选取严格递增指标 \(n_j\)。因为 \(L_j\) 是部分极限，可在第 \(j\) 步从指标大于 \(n_{j-1}\) 的项中选取 \(a_{n_j}\)，使
+\[
+ \abs{a_{n_j}-L_j}<\frac1j.
+\]
+同时 \(L_j\to L\)，故
+\[
+ \abs{a_{n_j}-L}
+ \le\abs{a_{n_j}-L_j}+\abs{L_j-L}\longrightarrow0.
+\]
+于是 \(a_{n_j}\to L\)，所以 \(L\) 也是部分极限。
+\end{proof}
+
+后文的闭集语言会把这一命题简称为“\(\mathcal L(a)\) 是闭集”。这里的对角选择揭示了真正使用的事实：第 \(j\) 步既要逼近变化中的目标 \(L_j\)，又要保证指标超过此前全部选择。
+
+无界数列可能没有有限部分极限，例如 \(a_n=n\)；也可能同时有有限部分极限和无穷方向，例如 \(a_{2n}=0\)、\(a_{2n-1}=n\)。
+
+\section{有界性、收敛性和序列紧致性的区别}
+
+
+有界性控制数列所在的整体区间，收敛性要求尾部集中到单点。紧致性原型定理介于二者之间：
+\[
+ \text{收敛}\Longrightarrow\text{有界}
+ \Longrightarrow\text{存在收敛子列},
+\]
+第二个箭头在实数中成立，而两个逆箭头均不成立。
 
 \begin{counterexample}
-对任意固定 \(N\)，都可以取 \(\varepsilon=2/N\)，使 \(1/N<\varepsilon\)。这并未证明任意数列收敛，也没有证明 \(1/n\) 对预先给定的任意 \(\varepsilon\) 从某项起受控。正确证明须在 \(\varepsilon\) 已给定后取 \(N>1/\varepsilon\)。
+\((-1)^n\) 有界且有收敛子列，但原列不收敛。数列
+\[
+ 0,1,0,1/2,0,1/3,\ldots
+\]
+中，由非零项组成的子列趋于 \(0\)，由零项组成的子列也趋于 \(0\)，而且原列确实收敛到 \(0\)。所以，数列由两种取值模式交替组成并不能单独说明它发散；要看这些模式产生的子列极限是否一致。
 \end{counterexample}
 
-含参数问题中还有一种常见错误：先固定 \(t\) 得到 \(N(t,\varepsilon)\)，随后省略参数依赖并声称估计一致。若参数集合无界，所需起点往往随参数无限增大。
-
-\subsection{从定义证明发散与不存在极限}
-
-发散证明没有统一的计算格式。在尚未建立子列理论以前，可以使用以下三个入口；\chapterref{chap:subsequences-cluster-points}还会把极限定义的否定系统地转化为“坏子列”。
-
-\begin{enumerate}
- \item 证明数列无界，因为收敛数列必有界；
- \item 对任意候选 \(a\) 找到固定的失败尺度 \(\varepsilon_0(a)>0\)；
- \item 证明若存在极限便与某个最终性质矛盾。
-\end{enumerate}
-
-\begin{example}
-数列 \(a_n=n\sin(n\pi/2)\) 发散。它在指标 \(4k\) 处等于 \(0\)，在指标 \(4k+1\) 处等于 \(4k+1\)，所以无界，不可能有有限极限；每个尾部又含值为 \(0\) 的项以及任意大的正项和负项，故它也不趋于正、负无穷。\chapterref{chap:subsequences-cluster-points}会把这里抽取两类指标的做法正式化为子列方法。
-\end{example}
-
-无界性只是发散的充分条件，不是必要条件；\((-1)^n\) 有界而发散。类似地，不趋于 \(+\infty\) 不能推出有有限极限。
-
-\section{唯一性、有界性、保号性与夹逼}
-
-\subsection{极限的唯一性}
-
-\begin{theorem}[极限唯一性]
-若实数列 \((a_n)\) 同时收敛到 \(a,b\in\R\)，则 \(a=b\)。
-\end{theorem}
-
-\begin{proof}
-反设 \(a\ne b\)，令 \(\varepsilon=\abs{a-b}/3\)。分别由 \(a_n\to a\) 与 \(a_n\to b\) 取得起点 \(N_1,N_2\)。当 \(n\ge\max\{N_1,N_2\}\) 时，
-\[
- \abs{a-b}\le\abs{a-a_n}+\abs{a_n-b}
- <2\varepsilon=\frac23\abs{a-b},
-\]
-矛盾。
-\end{proof}
-
-几何上，半径小于 \(\abs{a-b}/2\) 的两个邻域不相交，而一个完整尾部不能同时包含在两个不交邻域中。唯一性依赖值域距离能够分离不同点；以后在一般拓扑空间中，这对应 Hausdorff 条件。
-
-\subsection{收敛数列的有界性}
-
-\begin{theorem}
-每个收敛实数列都有界。
-\end{theorem}
-
-\begin{proof}
-设 \(a_n\to a\)。对误差 \(1\) 取 \(N\)，则 \(n\ge N\) 时
-\(\abs{a_n}\le\abs a+1\)。令
-\[
- M=\max\{\abs{a_1},\ldots,\abs{a_{N-1}},\abs a+1\},
-\]
-便有 \(\abs{a_n}\le M\) 对所有 \(n\) 成立。
-\end{proof}
-
-有限个首项必须单独并入界中。极限定义只控制尾部，而“数列有界”要求所有项同时受控。
-
-逆命题不成立。数列 \((-1)^n\) 有界但发散。完整的恢复条件需要额外结构：单调有界列由\chapterref{chap:monotone-recursive-sequences}定理收敛；一般有界列只能由\chapterref{chap:subsequences-bw}保证存在收敛子列。
-
-\begin{proposition}[零列乘有界列]
-若 \(a_n\to0\)，而 \((b_n)\) 有界，则 \(a_nb_n\to0\)。
+\begin{proposition}[有界性的抽取刻画]
+实数列 \((a_n)\) 有界，当且仅当它的每条子列都含有收敛的进一步子列。
 \end{proposition}
 
 \begin{proof}
-取 \(M\ge1\) 使 \(\abs{b_n}\le M\)。给定 \(\varepsilon>0\)，最终有
-\(\abs{a_n}<\varepsilon/M\)，于是
-\(\abs{a_nb_n}<\varepsilon\)。
+若原列有界，每条子列仍有界，Bolzano--Weierstrass 定理给出收敛的进一步子列。
+
+反之，若原列无界，可以递归选择严格递增指标 \(n_k\)，使
+\[
+ \abs{a_{n_k}}>k.
+\]
+这条子列的每条进一步子列仍无界，因而不可能收敛，与假设矛盾。
 \end{proof}
 
-有界性不能替换成“每一项都是有限实数”，后者对所有实数列都成立而不给统一控制。例如 \(a_n=1/n\)、\(b_n=n\) 时乘积恒为 \(1\)。
-
-\subsection{保号性}
-
-\begin{theorem}[局部保号]
-若 \(a_n\to a\) 且 \(a>0\)，则存在 \(N\) 使
-\[
- a_n>\frac a2>0\qquad(n\ge N).
-\]
-若 \(a<0\)，则 \(a_n<a/2<0\) 最终成立。
-\end{theorem}
-
-\begin{proof}
-对 \(a>0\) 取误差 \(\varepsilon=a/2\)，则最终
-\(\abs{a_n-a}<a/2\)，从而 \(a_n>a-a/2=a/2\)。负数情形对 \(-a_n\) 应用正数结论。
-\end{proof}
-
-极限为零时不能推出尾部固定符号；数列 \((-1)^n/n\to0\) 无限次改变符号。反向命题“若最终 \(a_n>0\)，则极限 \(a>0\)”也不成立，反例为 \(a_n=1/n\)。能稳定传给极限的是非严格不等式。
-
-\subsection{夹逼定理}
-
-\begin{theorem}[夹逼定理]
-设实数列满足最终
-\[
- a_n\le b_n\le c_n.
-\]
-若 \(a_n\to L\)、\(c_n\to L\)，则 \(b_n\to L\)。
-\end{theorem}
-
-\begin{proof}
-给定 \(\varepsilon>0\)，把两个极限的起点与比较成立的起点取最大值。对充分大的 \(n\)，
-\[
- L-\varepsilon<a_n\le b_n\le c_n<L+\varepsilon,
-\]
-故 \(\abs{b_n-L}<\varepsilon\)。
-\end{proof}
-
-\begin{corollary}
-若 \(\abs{b_n-L}\le r_n\) 最终成立且 \(r_n\to0\)，则 \(b_n\to L\)。
-\end{corollary}
-
-夹逼两侧必须趋于同一极限。若只知 \(a_n\to A\)、\(c_n\to C\) 且 \(A<C\)，最多能推出任何收敛子列极限位于 \([A,C]\)，不能保证 \(b_n\) 收敛。
-
-\section{四则运算、绝对值与序关系}
-
-\subsection{和、差、积、商}
-
-\begin{theorem}[极限的代数运算]
-若 \(a_n\to a\)、\(b_n\to b\)，且 \(\lambda,\mu\in\R\)，则
-\[
- \lambda a_n+\mu b_n\to\lambda a+\mu b,
- \qquad a_nb_n\to ab.
-\]
-若再有 \(b\ne0\)，则 \(b_n\ne0\) 最终成立，并且
-\[
- \frac{a_n}{b_n}\longrightarrow\frac ab.
-\]
-\end{theorem}
-
-\begin{proof}
-线性组合由
-\[
- \abs{\lambda(a_n-a)+\mu(b_n-b)}
- \le\abs\lambda\abs{a_n-a}+\abs\mu\abs{b_n-b}
-\]
-及误差分配得到。
-
-对乘积写成
-\[
- a_nb_n-ab=a_n(b_n-b)+b(a_n-a).
-\]
-收敛列 \((a_n)\) 有界，设 \(\abs{a_n}\le M\)。给定 \(\varepsilon>0\)，分别使
-\[
- \abs{b_n-b}<\frac{\varepsilon}{2(M+1)},\qquad
- \abs{a_n-a}<\frac{\varepsilon}{2(\abs b+1)}.
-\]
-于是乘积误差小于 \(\varepsilon\)。
-
-若 \(b\ne0\)，局部保号定理给出最终
-\(\abs{b_n}\ge\abs b/2\)。因此
-\[
- \abs{\frac1{b_n}-\frac1b}
- =\frac{\abs{b_n-b}}{\abs{b_n}\abs b}
- \le\frac{2}{\abs b^2}\abs{b_n-b}\longrightarrow0.
-\]
-商结论由乘积结论应用于 \(a_n\) 与 \(1/b_n\) 得到。
-\end{proof}
-
-分母极限非零保证统一下界，也保证商最终有定义。若 \(b=0\)，商可能有有限极限、无穷极限或发散：例如
-\[
- \frac{1/n}{1/n}=1,\qquad
- \frac{1}{1/n}=n,\qquad
- \frac{(-1)^n/n}{1/n}=(-1)^n.
-\]
-因此不存在只凭“分子、分母都趋零”即可决定商极限的法则。
-
-\begin{corollary}
-若 \(P\) 是实系数多项式且 \(a_n\to a\)，则 \(P(a_n)\to P(a)\)。若 \(R=P/Q\) 且 \(Q(a)\ne0\)，则 \(R(a_n)\to R(a)\)。
-\end{corollary}
-
-\subsection{绝对值、最大值与最小值}
-
-\begin{theorem}
-若 \(a_n\to a\)，则
-\[
- \abs{a_n}\to\abs a.
-\]
-反之，\(\abs{a_n}\to\abs a\) 一般不能推出 \(a_n\to a\)。
-\end{theorem}
-
-\begin{proof}
-反三角不等式给出
-\[
- \bigl|\abs{a_n}-\abs a\bigr|\le\abs{a_n-a}\longrightarrow0.
-\]
-反例取 \(a=1\)、\(a_n=(-1)^n\)，则 \(\abs{a_n}=1\) 恒成立而原列发散。
-\end{proof}
-
-\begin{proposition}
-若 \(a_n\to a\)、\(b_n\to b\)，则
-\[
- \max\{a_n,b_n\}\to\max\{a,b\},\qquad
- \min\{a_n,b_n\}\to\min\{a,b\}.
-\]
-\end{proposition}
-
-\begin{proof}
-利用恒等式
-\[
- \max\{x,y\}=\frac{x+y+\abs{x-y}}2,\qquad
- \min\{x,y\}=\frac{x+y-\abs{x-y}}2,
-\]
-再应用已证明的代数运算与绝对值极限。
-\end{proof}
-
-\subsection{序关系与极限}
-
-\begin{theorem}[序关系的闭性]
-若 \(a_n\to a\)、\(b_n\to b\)，且最终 \(a_n\le b_n\)，则 \(a\le b\)。特别地，若 \(a_n\ge0\) 最终成立，则 \(a\ge0\)。
-\end{theorem}
-
-\begin{proof}
-若 \(a>b\)，令 \(\varepsilon=(a-b)/3\)。充分大时
-\[
- a_n>a-\varepsilon>b+\varepsilon>b_n,
-\]
-与最终 \(a_n\le b_n\) 矛盾。
-\end{proof}
-
-即使每个 \(n\) 都有 \(a_n<b_n\)，极限也可能相等，例如 \(a_n=0\)、\(b_n=1/n\)。若要得到 \(a<b\)，需要最终存在固定间隙，例如 \(b_n-a_n\ge\delta>0\)。
-
-有限次运算的稳定性不能未经证明推广到随 \(n\) 增长的运算次数。例如每个固定 \(k\) 都有 \((1+1/n)^k\to1\)，但指数若取 \(n\)，数列 \((1+1/n)^n\) 不趋于 \(1\)。量词中的“固定对象”与“随指标变化的对象”必须区分。
-
-\section{无穷极限和有限项修改}
-
-\subsection{趋于 \texorpdfstring{\(+\infty\)}{+infinity} 或 \texorpdfstring{\(-\infty\)}{-infinity}}
-
-\begin{definition}
-设 \((a_n)\) 为实数列。若
-\[
-\forall M\in\R\ \exists N\in\Npos\ \forall n\ge N,
- \quad a_n>M,
-\]
-则称 \(a_n\to+\infty\)。若
-\[
-\forall M\in\R\ \exists N\in\Npos\ \forall n\ge N,
- \quad a_n<M,
-\]
-则称 \(a_n\to-\infty\)。
-\end{definition}
-
-符号 \(+\infty\) 与 \(-\infty\) 在这里不是实数，因而无穷极限不属于“收敛到某个实数”。它描述数列最终越过每个有限阈值。命题 \(a_n\not\to+\infty\) 的否定形式为
-\[
-\exists M_0\in\R\ \forall N\in\Npos\ \exists n\ge N,
- \quad a_n\le M_0.
-\]
-
-\begin{example}
-\(a_n=n^2\to+\infty\)。给定 \(M\)，若 \(M<0\) 可取 \(N=1\)；若 \(M\ge0\)，取整数 \(N>\sqrt M\)，则 \(n\ge N\) 时 \(n^2>M\)。数列 \(a_n=(-1)^n n\) 无界，却既不趋于 \(+\infty\) 也不趋于 \(-\infty\)，因为每个尾部同时含很大的正项和很小的负项。
-\end{example}
-
-无界不能推出无穷极限：\((-1)^n n\) 同时向两个方向无界。要得到 \(+\infty\)，必须证明每个给定阈值最终被全部后项越过，而不只是存在无穷多个大于该阈值的项。\chapterref{chap:monotone-iteration}在定义单调数列以后，将说明单调性怎样把“存在一项越过阈值”传递给整个尾部。
-
-\subsection{有限项修改与尾部不变性}
-
-\begin{theorem}[尾部不变性]
-设实数列 \((a_n)\)、\((b_n)\) 满足：存在 \(N_0\)，使 \(a_n=b_n\) 对所有 \(n\ge N_0\) 成立。则对任意 \(a\in\R\)，
-\[
- a_n\to a\quad\Longleftrightarrow\quad b_n\to a.
-\]
-同样的结论适用于趋于 \(+\infty\) 或 \(-\infty\)。
-\end{theorem}
-
-\begin{proof}
-若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N_1\) 控制 \(a_n\) 的误差。令 \(N=\max\{N_0,N_1\}\)，则 \(n\ge N\) 时
-\[
- \abs{b_n-a}=\abs{a_n-a}<\varepsilon.
-\]
-反向完全相同。无穷极限的证明把误差条件换成相应的阈值条件即可。
-\end{proof}
-
-删除有限项、增加有限个首项、改变有限项以及把起始指标从 \(1\) 改成任意固定整数，均不改变极限。相反，改变无穷多项可能仍不改变极限，也可能破坏极限；关键不在修改项数是否无限，而在修改后的误差是否仍最终可任意小。例如把 \(1/n\) 的偶数项改为 \(2/n\) 仍收敛到 \(0\)，把偶数项改为 \(1\) 则不收敛到 \(0\)。
+因此在实数中，收敛性可以拆成两件事：有界性保证每次抽取还能继续抽到收敛列；进一步子列判据再要求所有这些局部极限只能汇聚到同一点。进入一般度量空间后，前一种性质将发展为相对序列紧致性，且不再能简单地用有界性代替。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
 \subsection*{A组　定义与基本方法}
-
-\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em]
-\exerciseitem{7.1}  写出 \(a_n\to a\)、\(a_n\not\to a\)、\(a_n\to+\infty\) 和 \(a_n\not\to+\infty\) 的完整量词形式。
- \exerciseitem{7.2}  证明把极限定义中的 \(<\varepsilon\) 改为 \(\le\varepsilon\) 不改变概念。
- \exerciseitem{7.3}  证明只检验误差 \(2^{-k}\)（\(k\in\N\)）足以判定收敛。
- \exerciseitem{7.4}  证明若存在 \(N\) 使对所有 \(\varepsilon>0\) 及所有 \(n\ge N\) 都有 \(\abs{a_n-a}<\varepsilon\)，则 \(a_n=a\) 对所有 \(n\ge N\) 成立。
- \exerciseitem{7.5}  判断“每个 \(a\) 的邻域都含无穷多个 \(a_n\)”能否推出 \(a_n\to a\)，并给出证明或反例。
- \exerciseitem{7.6}  证明两个最终成立的命题之合取最终成立；说明可数多个最终成立的命题不必同时从某项起成立。
-\exerciseitem{7.7}  从定义证明
- \[
- \frac{3n-1}{2n+5}\longrightarrow\frac32.
- \]
- \exerciseitem{7.8}  证明 \(1/\sqrt n\to0\)，并给出可用的整数 \(N(\varepsilon)\)。
- \exerciseitem{7.9}  设 \(\abs{a_n-a}\le C/n^p\)，其中 \(C>0,p>0\)。证明 \(a_n\to a\)，并给出误差达到 \(\varepsilon\) 所需的指标估计。
- \exerciseitem{7.10}  证明有限项修改不改变有限极限，也不改变趋于 \(+\infty\) 或 \(-\infty\) 的性质。
- \exerciseitem{7.11}  用严格否定证明 \((-1)^n\) 不收敛到任何实数。
- \exerciseitem{7.12}  证明 \(n+(-1)^n\to+\infty\)，而 \((-1)^n n\) 没有无穷极限。
- \exerciseitem{7.13}  若 \(a_n\to a\) 且 \(n_k\) 为严格递增正整数列，直接从定义证明 \(a_{n_k}\to a\)。
- \optionalexerciseitem{7.14}  构造一个每个有理数都在其中出现无穷多次的实数列，并证明它没有有限或无穷极限。
-\exerciseitem{7.15}  证明：若对每个 \(\varepsilon>0\)，只有有限多个 \(n\) 满足 \(\abs{a_n-a}\ge\varepsilon\)，则 \(a_n\to a\)；并证明逆向。
- \exerciseitem{7.16}  构造两个数列，它们在无穷多个指标处不同但具有相同极限；再构造一对只在无穷多个指标处不同且一个收敛、一个发散的数列。
- \projectexerciseitem{7.17} \ 【前置：本章定义；预计用时：45分钟】设 \(E\subseteq\N\)。证明示性数列 \(\chi_E(n)\) 收敛当且仅当 \(E\) 或其补集为有限集，并确定极限。
- \optionalexerciseitem{7.18}  设 \(a_n\to+\infty\)。证明任取实数 \(c\)，都有 \(a_n+c\to+\infty\)；若另有 \(b_n\ge a_n\) 最终成立，则 \(b_n\to+\infty\)。
- \optionalexerciseitem{7.19}  证明单调数列若有一个收敛子列，则原列收敛到同一极限。
- \openexerciseitem{7.20}  把“最终成立”看成 \(N\) 上忽略有限集的逻辑。讨论这一观点怎样解释极限对有限项修改不敏感，并指出它不能替代误差估计的原因。
-\exerciseitem{8.1}  对 \(a_n=(5n-2)/(3n+7)\) 从定义证明极限为 \(5/3\)，并给出 \(N(\varepsilon)\)。
- \exerciseitem{8.2}  从定义证明 \((n^2+1)/(n^2+n)\to1\)。
- \exerciseitem{8.3}  证明 \(\sqrt{n^2+3n}-n\to3/2\)，要求给出显式误差上界。
-  \exerciseitem{8.4}  设 \(p,q\) 是同次数多项式，且 \(q\) 的首项系数非零。用误差估计证明 \(p(n)/q(n)\) 趋于两者首项系数之比。
- \exerciseitem{8.5}  设 \(\abs{u_n}\le M\)。证明 \(u_n/n^\alpha\to0\)（\(\alpha>0\)），并说明 \(N\) 对 \(M,\alpha\) 的依赖。
- \exerciseitem{8.6}  证明若 \(0<q<1\)，则 \(q^n\to0\)，不得引用级数收敛。
-\exerciseitem{8.7}  对 \(t\in[-A,A]\) 证明 \(t/(n+t^2)\to0\) 的误差可关于 \(t\) 一致选择。
- \exerciseitem{8.8}  证明 \(t^n\to0\) 对每个固定 \(t\in[0,1)\) 成立，但在整个 \([0,1)\) 上不能统一选择 \(N\)。
- \exerciseitem{8.9}  若 \(0\le a_n\le b_n\) 且 \(b_n\to0\)，从定义证明 \(a_n\to0\)。
- \exerciseitem{8.10}  设 \(\abs{a_n}\le n^2\)、\(0<q<1\)。证明 \(a_nq^n\to0\)。
- \exerciseitem{8.11}  证明
- \[
- \frac1{n+1}+\frac1{n+2}+\cdots+\frac1{2n}\longrightarrow\log2
- \]
-不能在当前章节由已有结果直接完成；指出可以严格证明的上下界及尚缺的理论。
- \exerciseitem{8.12}  找出并修正下述证明的量词错误：“给定 \(N\)，取 \(\varepsilon=1/N\)，则 \(n>N\) 时 \(1/n<\varepsilon\)，故 \(1/n\to0\)。”
- \exerciseitem{8.13}  证明若对每个参数 \(t\) 有 \(\abs{a_n(t)-a(t)}\le C(t)/n\)，这一般不足以得到参数一致估计；构造 \(C(t)\) 无界的例子。
-\exerciseitem{8.14}  用无界性证明 \(a_n=n+\sin n\) 没有有限极限，并直接证明它趋于 \(+\infty\)。
- \exerciseitem{8.15}  用两个子列证明 \(\sin(n\pi/2)\) 发散。
- \exerciseitem{8.16}  构造有界发散数列，使其相邻两项之差趋于 \(0\)。
- \projectexerciseitem{8.17} \ 【前置：二项式定理；预计用时：60分钟】对任意 \(p>0\)、\(0<q<1\)，证明 \(n^p q^n\to0\)。允许先处理整数 \(p\)，再比较一般 \(p\)。
- \optionalexerciseitem{8.18}  设 \(a_n\ge0\) 且 \(a_{n+1}/a_n\le q<1\) 最终成立。证明 \(a_n\to0\)，并给出几何误差界。
- \optionalexerciseitem{8.19}  若 \(\abs{a_n-a}\le r_n+s_n\)，其中 \(r_n,s_n\to0\)，证明 \(a_n\to a\)，并说明 \(\varepsilon/2\) 的作用。
- \openexerciseitem{8.20}  比较一个精确但复杂的 \(N(\varepsilon)\) 与一个较粗但结构清楚的 \(N(\varepsilon)\)。说明在定性收敛和定量复杂度问题中选择标准为何不同。
-\exerciseitem{9.1}  用两个不交邻域重新证明极限唯一性。
- \exerciseitem{9.2}  证明收敛数列的任意子列收敛到同一极限。
- \exerciseitem{9.3}  证明：若 \(a_n\to a\)，则 \(sup_n\abs{a_n}\) 是有限实数；指出确界公理的使用处。
- \exerciseitem{9.4}  给出有界发散数列，并证明它不收敛而不是只写出公式。
- \exerciseitem{9.5}  若 \(a_n\to a>0\)，证明存在 \(\delta>0\) 使 \(a_n\ge\delta\) 最终成立；讨论 \(a=0\) 时的反例。
- \exerciseitem{9.6}  若 \(a_n\ge0\) 最终成立且 \(a_n\to a\)，证明 \(a\ge0\)。
- \exerciseitem{9.7}  若 \(a_n<b_n\) 对所有 \(n\) 成立，构造极限相等的例子；再给出保证极限严格不等的附加条件。
-\exerciseitem{9.8}  从定义证明 \(a_n\to a\)、\(b_n\to b\) 蕴含 \(a_n-b_n\to a-b\)。
- \exerciseitem{9.9}  在乘积极限定理中改用分解
- \[
- a_nb_n-ab=(a_n-a)(b_n-b)+a(b_n-b)+b(a_n-a)
- \]
-完成证明，并说明各项怎样控制。
- \exerciseitem{9.10}  若 \(a_n\to a\ne0\)，证明 \(1/a_n\) 最终有定义且收敛到 \(1/a\)。
- \exerciseitem{9.11}  分别构造 \(a_n,b_n\to0\)，使 \(a_n/b_n\) 收敛到给定 \(L\in\R\)、趋于 \(+\infty\)、以及发散。
- \exerciseitem{9.12}  证明零列乘有界列为零列；构造“零列乘无界列”分别趋零、趋非零常数和发散的例子。
- \exerciseitem{9.13}  证明若 \(a_n\to a\)，则 \(a_n^k\to a^k\)（固定 \(k\in\Npos\)）。
- \exerciseitem{9.14}  若 \(a_n\to a\ge0\) 且每个 \(a_n\ge0\)，证明 \(\sqrt{a_n}\to\sqrt a\)。分别处理 \(a>0\) 与 \(a=0\)。
- \exerciseitem{9.15}  证明 \(\max\{a_n,b_n\}\) 与 \(\min\{a_n,b_n\}\) 的极限定理。
- \exerciseitem{9.16}  证明若最终 \(a_n\le b_n\le c_n\) 且两端同趋于 \(L\)，则中间列也趋于 \(L\)。
-\exerciseitem{9.17}  判断并证明或反驳：
- \begin{enumerate}[label=(\arabic*)]
-  \item \(\abs{a_n}\to0\Rightarrow a_n\to0\)；
-  \item \(\abs{a_n}\to1\Rightarrow a_n\) 收敛；
-  \item \(a_n^2\to a^2\Rightarrow a_n\to a\)。
- \end{enumerate}
- \exerciseitem{9.18}  若 \(a_n\to a\)、\(b_n\to b\) 且 \(a_n\le b_n\) 对无穷多个 \(n\) 成立，能否推出 \(a\le b\)？证明结论或给反例。
- \projectexerciseitem{9.19} \ 【前置：本章全部定理；预计用时：60分钟】证明任何由有限次四则运算、绝对值、最大值和最小值组成的表达式，只要所有分母的极限非零，就可以逐项通过极限。
- \optionalexerciseitem{9.20}  设 \(p_n\) 为偶数时 \(a_n\)，奇数时 \(b_n\)。刻画 \(p_n\) 收敛的充要条件。
- \optionalexerciseitem{9.21}  若 \(a_n\to a\)、\(a\ne0\)，证明 \(\operatorname{sgn}(a_n)=\operatorname{sgn}(a)\) 最终成立；说明符号函数在 \(0\) 处为何不能通过极限。
- \optionalexerciseitem{9.22}  设 \(a_n,b_n>0\)、\(a_n/b_n\to1\)。证明 \(a_n-b_n\to0\) 需要额外的有界性条件，并给出无此条件时的反例。
- \openexerciseitem{9.23}  比较“代数运算连续”与本章逐项证明之间的关系。说明为何在连续性尚未定义时，不能用后文定理替代当前证明。
- \projectexerciseitem{9.24} \ 【前置：第7--9章；预计用时：75分钟】建立有限维向量数列的分量判据：\((x_n^{(1)},\ldots,x_n^{(d)})\) 在最大范数下收敛，当且仅当每个分量收敛；给出误差在维数 \(d\) 下的依赖。
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{11.1} 证明严格递增正整数列满足 \(n_k\ge k\)，并推出 \(n_k\to+\infty\)。
+ \exerciseitem{11.2} 判断 \(a_{2k}\)、\(a_{k^2}\)、\(a_{2-k}\)、\(a_{\lfloor\sqrt k\rfloor+1}\) 哪些构成子列，并说明理由。
+ \exerciseitem{11.3} 证明子列的子列仍是原列子列。
+ \exerciseitem{11.4} 从定义证明有限极限和无穷极限都由原列传给子列。
+ \exerciseitem{11.5} 证明：若原列的每个子列都有进一步子列收敛到 \(L\)，则原列收敛到 \(L\)。
+ \exerciseitem{11.6} 把“不收敛到 \(L\)”的量词否定递归构造成始终远离 \(L\) 的子列。
+ \exerciseitem{12.1} 证明部分极限的“每个邻域命中任意尾部”刻画。
+ \exerciseitem{12.2} 分别求 \((-1)^n\)、\((-1)^n+1/n\)、\(\sin(n\pi/2)\) 的全部部分极限。
+ \exerciseitem{12.3} 给出数列部分极限但不是其值集聚点的例子，并解释差异。
+ \exerciseitem{12.4} 证明有界数列的部分极限集合非空且有最大元、最小元。
 \end{enumerate}
+
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{11.7} 用奇偶子列判断 \((-1)^n+1/n\) 的收敛性。
+ \exerciseitem{11.8} 补全二分区间证明中“至少一个半区间含无穷多项”和“可以选 \(n_k>n_{k-1}\)”两步。
+ \exerciseitem{11.9} 证明任意有界数列都有 Cauchy 子列，并给出第 \(k\) 步的距离估计。
+ \exerciseitem{11.10} 从无限有界集合中抽取互异数列，证明该集合有聚点。
+ \exerciseitem{11.11} 证明峰指标无穷时得到递减子列，峰指标有限时得到严格递增子列。
+ \exerciseitem{11.12} 用单调子列定理重新证明 Bolzano--Weierstrass 定理。
+ \exerciseitem{11.13} 证明：有界数列若只有一个部分极限，则原列收敛。
+ \exerciseitem{11.14} 给出无界数列具有收敛子列的例子，并说明这不与 Bolzano--Weierstrass 定理矛盾。
+ \exerciseitem{11.15} 证明若数列的值只取有限多个实数，则至少有一个常值子列；刻画原列何时收敛。
+\end{enumerate}
+
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{11.16} 构造有界数列，使其部分极限恰为给定的两个实数 \(a<b\)。
+ \exerciseitem{11.17} 构造有界数列，其部分极限集合为 \([0,1]\)。允许使用有理数在区间中的可数稠密枚举。
+ \projectexerciseitem{11.18} \ 【完成\chapterref{chap:equivalent-completeness}后回做；预计用时：75分钟】完整重建 Bolzano--Weierstrass 定理的二分区间证明，并给出子列误差不超过 \(2^{-k}(B-A)\) 的定量版本。
+ \optionalexerciseitem{11.19} 证明任意实数列都有单调子列，并讨论在偏序集值数列中该结论为何可能失败。
+ \optionalexerciseitem{11.20} 若 \(a_{n+1}-a_n\to0\)，两条收敛子列的极限是否必须相同？给出反例。
+ \optionalexerciseitem{11.21} 证明有界数列收敛到 \(L\) 当且仅当每条子列都含有进一步子列收敛到 \(L\)。
+ \openexerciseitem{11.22} 比较“值集有聚点”与“数列有部分极限”。说明重复取值为何使两概念不能简单等同。
+ \projectexerciseitem{11.23} \ 【前置：\chapterref{chap:real-number-system}可数性；预计用时：60分钟】给定可数闭集的若干具体例子，设计数列使其部分极限集合等于该集合；分析构造中每个点需出现的逼近频率。
+ \exerciseitem{12.20} 构造数列，使其部分极限集合恰为 \(\{-1,0,2\}\)，并计算上下极限。
+ \projectexerciseitem{12.22} \ 【前置：\chapterref{chap:subsequences-cluster-points}Bolzano--Weierstrass；预计用时：90分钟】证明有界数列的部分极限集合是非空闭集，且其最大、最小元分别为上下极限。
+ \openexerciseitem{12.25} 研究任意非空闭集 \(F\subseteq\R\) 是否能成为某个数列的部分极限集合；对有界 \(F\) 给出构造方案。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{11.5}：反设不收敛，使用\exerciseref{11.6}构造坏子列。
+ \item \exerciseref{11.13}：反设不收敛到唯一部分极限，再抽取远离它的子列并应用 Bolzano--Weierstrass。
+ \item \exerciseref{11.17}：把 \(\Q\cap[0,1]\) 的前 \(m\) 个数依次组成第 \(m\) 个有限块。
+ \item \exerciseref{11.20}：可使用步长逐渐缩小、往返于两个端点的三角形块。
+\end{itemize}

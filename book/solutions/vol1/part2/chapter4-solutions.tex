@@ -1,0 +1,189 @@
+\chapter{单调数列与迭代：习题解答}
+
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
+
+\begin{solution}{10.1}
+有界性使值集 \(A=\{a_n\}\) 有有限上确界 \(s\)，此处使用实数完备性。对 \(\varepsilon>0\)，上确界近似性给出 \(a_N>s-\varepsilon\)；单调性把这一不等式传给全部 \(n\ge N\)，而上界性给出 \(a_n\le s\)。故
+\(\abs{a_n-s}<\varepsilon\)。三项条件的用途彼此不同。
+\end{solution}
+
+\begin{solution}{10.2}
+若原列收敛到有限 \(L\)，任意子列同趋于 \(L\)。若递增列趋于 \(+\infty\)，给定 \(M\)，原列从某项起大于 \(M\)，子列指标最终进入该尾部，故也趋于 \(+\infty\)；递减和 \(-\infty\) 同理。
+\end{solution}
+
+\begin{solution}{10.3}
+设极限为 \(s\)，且 \(c<s\)。取 \(\varepsilon=s-c\)。由收敛定义，最终
+\(a_n>s-\varepsilon=c\)。也可直接使用 \(s=\sup\{a_n\}\) 的近似性和单调性。
+\end{solution}
+
+\begin{solution}{10.4}
+调和部分和递增。对 \(m\ge1\)，
+\[
+ H_{2^m}
+ =1+\sum_{j=1}^m\sum_{k=2^{j-1}+1}^{2^j}\frac1k
+ \ge1+\sum_{j=1}^m2^{j-1}\frac1{2^j}
+ =1+\frac m2.
+\]
+故它无上界；单调递增无上界定理给出 \(H_n\to+\infty\)。
+\end{solution}
+
+\begin{solution}{10.5}
+存在 \(N_0\) 使 \(a_{n+1}\ge a_n\) 对 \(n\ge N_0\) 成立。尾列 \((a_{N_0+k})_{k\ge0}\) 单调递增且仍有界，故收敛。原列只比尾列多有限项，所以收敛到同一极限。
+\end{solution}
+
+\begin{solution}{10.6}
+可取
+\[
+ a_n=L-\frac1n,\qquad b_n=L+\frac1n.
+\]
+前者严格递增，后者严格递减，且两者都由直接误差 \(1/n\to0\) 得到极限 \(L\)。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{10.7}
+\([0,2]\) 为不变区间，故递推始终有定义并有界。对 \(x\in[0,2]\)，
+\[
+ \sqrt{2+x}\ge x\Longleftrightarrow(2-x)(x+1)\ge0,
+\]
+故数列递增。它收敛到 \(L\in[0,2]\)。平方根在该区间保持极限，递推式给出
+\(L=\sqrt{2+L}\)，即 \((L-2)(L+1)=0\)。区间条件排除 \(-1\)，故 \(L=2\)。
+\end{solution}
+
+\begin{solution}{10.8}
+由算术--几何平均不等式，
+\[
+ a_{n+1}=\frac12\left(a_n+\frac2{a_n}\right)\ge\sqrt2.
+\]
+所以从第二项起有下界 \(\sqrt2\)。当 \(a_n\ge\sqrt2\) 时，
+\[
+ a_{n+1}-a_n=\frac{2-a_n^2}{2a_n}\le0.
+\]
+故尾列递减有下界并收敛。极限 \(L>0\) 满足
+\(L=(L+2/L)/2\)，所以 \(L=\sqrt2\)。
+\end{solution}
+
+\begin{solution}{10.9}
+若 \(0<x<1\)，则 \(0<x(2-x)<1\)，因为
+\(1-x(2-x)=(1-x)^2>0\)。故 \((0,1)\) 不变。又
+\[
+ a_{n+1}-a_n=a_n(1-a_n)>0,
+\]
+所以数列递增且以上界 \(1\) 控制。极限满足
+\(L=L(2-L)\)，候选为 \(0,1\)；因 \(L\ge a_1>0\)，故 \(L=1\)。
+\end{solution}
+
+\begin{solution}{10.10}
+递推两次得到 \(a_{n+2}=a_n\)。若 \(a_1=1/2\)，数列恒为 \(1/2\)。若 \(a_1\ne1/2\)，则奇数项恒为 \(a_1\)，偶数项恒为 \(1-a_1\)，两值不同，故数列为二周期并发散。
+\end{solution}
+
+\begin{solution}{10.11}
+若 \(\abs{a_1}<1\)，则 \(0\le a_2<1\)，且之后
+\(0\le a_{n+1}=a_n^2\le a_n\)，故收敛到 \(L\in[0,1)\)。方程 \(L=L^2\) 只给 \(0,1\)，由 \(L<1\) 得 \(L=0\)。\(a_1=1\) 时恒为 \(1\)。若 \(a_1>1\)，则严格递增；若有上界便收敛到固定点，但候选 \(0,1\) 均小于 \(a_1\)，矛盾，所以无上界并趋于 \(+\infty\)。
+\end{solution}
+
+\begin{solution}{10.12}
+不变区间单独不足：\(f(x)=1-x\) 保持 \([0,1]\)，但一般轨道二周期。单调性单独不足：\(f(x)=x+1\) 的轨道严格递增而无界。固定点唯一单独不足：仍取 \(f(x)=1-x\)，其唯一固定点为 \(1/2\)，但除该点外轨道不收敛。
+\end{solution}
+
+\begin{solution}{10.13}
+由 \(a_1\le f(a_1)=a_2\)。若 \(a_n\le a_{n+1}\)，因 \(f\) 递增，
+\[
+ a_{n+1}=f(a_n)\le f(a_{n+1})=a_{n+2}.
+\]
+归纳得到整列单调递增。轨道留在 \(I\) 保证每次可以使用 \(f\) 在 \(I\) 上的递增性。
+\end{solution}
+
+\begin{solution}{10.14}
+若 \(f\) 递减，\(a_n<a_{n+1}\) 会推出
+\(a_{n+1}=f(a_n)>f(a_{n+1})=a_{n+2}\)，方向交替。又
+\[
+ a_{n+2}=(f\circ f)(a_n),
+\]
+所以奇数项与偶数项分别按映射 \(f\circ f\) 迭代；该复合映射递增。
+\end{solution}
+
+\begin{solution}{10.15}
+多项式极限定理给出 \(P(a_n)\to P(L)\)。移位列 \(a_{n+1}\) 与原列有同一极限 \(L\)。由递推式和极限唯一性，\(L=P(L)\)。
+\end{solution}
+
+\begin{solution}{10.16}
+取 \(f(x)=1-x\)。固定点方程只有 \(L=1/2\)。从 \(a_1=0\) 出发，轨道为
+\(0,1,0,1,\ldots\)，不收敛。故固定点唯一仍不足以保证所有轨道收敛。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{10.17}
+压缩性归纳给出
+\(\abs{a_{n+1}-a_n}\le q^{n-1}\abs{a_2-a_1}\)。对 \(m>n\)，三角不等式及有限几何和给出
+\[
+ \abs{a_m-a_n}
+ \le\frac{q^{n-1}}{1-q}\abs{a_2-a_1},
+\]
+故为 Cauchy 列。若 \(L_1,L_2\) 都是固定点，则
+\[
+ \abs{L_1-L_2}\le q\abs{L_1-L_2},
+\]
+而 \(q<1\)，只能有两者相等。
+\end{solution}
+
+\begin{solution}{10.18}
+\[
+ \abs{f(x)-f(y)}=\frac13\abs{x-y},
+\]
+故压缩常数可取 \(q=1/3\)。固定点满足 \(L=(L+2)/3\)，所以 \(L=1\)。迭代差满足
+\[
+ a_n-1=3^{-(n-1)}(a_1-1),
+\]
+因此精确误差为 \(3^{-(n-1)}\abs{a_1-1}\)；一般定理也给出相同量级。
+\end{solution}
+
+\begin{solution}{10.19}
+对 \(x,y\in[0,2]\)，
+\[
+ \abs{\sqrt{2+x}-\sqrt{2+y}}
+ =\frac{\abs{x-y}}{\sqrt{2+x}+\sqrt{2+y}}
+ \le\frac1{2\sqrt2}\abs{x-y}.
+\]
+故为压缩。压缩证明对任意初值同时给出固定点唯一与几何误差界；单调有界证明较初等，但要单独验证单调性，并且通常不给统一收敛速度。
+\end{solution}
+
+\begin{solution}{10.20}
+按正文证明，先由不变性保证轨道位于闭区间，再以几何尾和证明轨道为 Cauchy 列。实数 Cauchy 完备性给出极限 \(L\)。闭区间条件在此用于由 \(a_n\in I\)、\(a_n\to L\) 推出 \(L\in I\)，从而可以把 \(f\) 的压缩估计应用于 \(a_n,L\)。随后证明 \(f(L)=L\) 与唯一性。全程未用单调性。
+\end{solution}
+
+\begin{solution}{10.21}
+归纳得
+\[
+ \abs{a_n-L}\le q^{n-1}\abs{a_1-L}.
+\]
+要使误差小于 \(\varepsilon\)，只需
+\[
+ q^{n-1}\abs{a_1-L}<\varepsilon.
+\]
+若 \(a_1\ne L\)，取
+\[
+ n>1+\frac{\log(\abs{a_1-L}/\varepsilon)}{\log(1/q)}
+\]
+即可；若暂不使用对数，可表述为取使几何项小于给定比值的最小整数。
+\end{solution}
+
+\begin{solution}{10.22}
+取 \(f(x)=1-x\)。它把 \([0,1]\) 映入自身且只有固定点 \(1/2\)，但从任何 \(a_1\ne1/2\) 出发均在 \(a_1,1-a_1\) 间交替，不收敛。
+\end{solution}
+
+\begin{solution}{10.23}
+正且递减保证存在极限 \(L\ge0\)。其余不等式不能把 \(L\) 唯一确定：任意正的常值列满足全部条件，极限可为任意正数；数列 \(a_n=1/n\) 也满足
+\[
+ \frac1{n+1}\ge\frac1n-\frac1{n^2},
+\]
+且极限为 \(0\)。所以可能的极限范围恰可覆盖所有非负实数。
+\end{solution}
+
+\begin{solution}{10.24}
+二分法通常只需连续性和端点异号来保证根存在，区间长度给出先验误差，但若根不唯一，区间可能收敛到其中某个根。压缩迭代要求更强的统一 Lipschitz 常数 \(q<1\) 及不变闭集，却同时给出固定点存在、唯一和几何误差。二分法的收敛率由区间宽度 \(2^{-n}\) 决定；压缩法由 \(q^n\) 决定，且每步需要计算 \(f\)。
+\end{solution}

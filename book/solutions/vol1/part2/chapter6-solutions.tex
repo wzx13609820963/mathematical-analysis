@@ -1,190 +1,203 @@
-\chapter{单调数列与迭代：习题解答}
+\chapter{上极限与下极限：习题解答}
 
 \section*{A组}
 \addcontentsline{toc}{section}{A组}
 
-\begin{solution}{10.1}
-有界性使值集 \(A=\{a_n\}\) 有有限上确界 \(s\)，此处使用实数完备性。对 \(\varepsilon>0\)，上确界近似性给出 \(a_N>s-\varepsilon\)；单调性把这一不等式传给全部 \(n\ge N\)，而上界性给出 \(a_n\le s\)。故
-\(\abs{a_n-s}<\varepsilon\)。三项条件的用途彼此不同。
-\end{solution}
-
-\begin{solution}{10.2}
-若原列收敛到有限 \(L\)，任意子列同趋于 \(L\)。若递增列趋于 \(+\infty\)，给定 \(M\)，原列从某项起大于 \(M\)，子列指标最终进入该尾部，故也趋于 \(+\infty\)；递减和 \(-\infty\) 同理。
-\end{solution}
-
-\begin{solution}{10.3}
-设极限为 \(s\)，且 \(c<s\)。取 \(\varepsilon=s-c\)。由收敛定义，最终
-\(a_n>s-\varepsilon=c\)。也可直接使用 \(s=\sup\{a_n\}\) 的近似性和单调性。
-\end{solution}
-
-\begin{solution}{10.4}
-调和部分和递增。对 \(m\ge1\)，
+\begin{solution}{12.5}
+若 \(n=2m\)，尾部最大项是 \(a_n=1+1/(2m)\)，故
+\(\beta_{2m}=1+1/(2m)\)；尾部最小的奇数项为
+\(a_{2m+1}=-1+1/(2m+1)\)，故
+\(\alpha_{2m}=-1+1/(2m+1)\)。
+若 \(n=2m-1\)，有
 \[
- H_{2^m}
- =1+\sum_{j=1}^m\sum_{k=2^{j-1}+1}^{2^j}\frac1k
- \ge1+\sum_{j=1}^m2^{j-1}\frac1{2^j}
- =1+\frac m2.
+ \beta_{2m-1}=1+\frac1{2m},\qquad
+ \alpha_{2m-1}=-1+\frac1{2m-1}.
 \]
-故它无上界；单调递增无上界定理给出 \(H_n\to+\infty\)。
+令 \(m\to\infty\)，得上极限 \(1\)、下极限 \(-1\)。
 \end{solution}
 
-\begin{solution}{10.5}
-存在 \(N_0\) 使 \(a_{n+1}\ge a_n\) 对 \(n\ge N_0\) 成立。尾列 \((a_{N_0+k})_{k\ge0}\) 单调递增且仍有界，故收敛。原列只比尾列多有限项，所以收敛到同一极限。
+\begin{solution}{12.6}
+尾部集合 \(A_{n+1}\subseteq A_n\)。子集的上确界不大于母集上确界，故 \(\beta_{n+1}\le\beta_n\)；子集下确界不小于母集下确界，故 \(\alpha_{n+1}\ge\alpha_n\)。
 \end{solution}
 
-\begin{solution}{10.6}
-可取
+\begin{solution}{12.7}
+\begin{enumerate}[label=(\arabic*)]
+ \item 偶数项趋于 \(+\infty\)，奇数项趋于 \(-\infty\)，故上下极限分别为 \(+\infty,-\infty\)。
+ \item 指标 \(4k+1\) 的项趋于 \(+\infty\)，\(4k+3\) 的项趋于 \(-\infty\)，故结论相同；偶数项为零不改变端点。
+ \item 整列收敛到 \(1\)，故上下极限都为 \(1\)。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{12.8}
+若有子列趋于 \(+\infty\)，每个尾部上确界均为 \(+\infty\)，所以上极限为 \(+\infty\)。反之，若上极限为 \(+\infty\)，则每个尾部无上界。递归选
 \[
- a_n=L-\frac1n,\qquad b_n=L+\frac1n.
+ n_{j+1}>n_j,\qquad a_{n_j}>j,
 \]
-前者严格递增，后者严格递减，且两者都由直接误差 \(1/n\to0\) 得到极限 \(L\)。
+得到趋于 \(+\infty\) 的子列。
 \end{solution}
 
 \section*{B组}
 \addcontentsline{toc}{section}{B组}
 
-\begin{solution}{10.7}
-\([0,2]\) 为不变区间，故递推始终有定义并有界。对 \(x\in[0,2]\)，
+\begin{solution}{12.9}
+令 \(s=\limsup a_n\)。取 \(m_1=1\)，由尾部上确界近似性选 \(n_1\ge m_1\)，使
+\(a_{n_1}>\beta_{m_1}-1\)。选好 \(n_j\) 后令 \(m_{j+1}=n_j+1\)，再选
 \[
- \sqrt{2+x}\ge x\Longleftrightarrow(2-x)(x+1)\ge0,
+ n_{j+1}\ge m_{j+1},\qquad
+ a_{n_{j+1}}>\beta_{m_{j+1}}-\frac1{j+1}.
 \]
-故数列递增。它收敛到 \(L\in[0,2]\)。平方根在该区间保持极限，递推式给出
-\(L=\sqrt{2+L}\)，即 \((L-2)(L+1)=0\)。区间条件排除 \(-1\)，故 \(L=2\)。
+同时 \(a_{n_j}\le\beta_{m_j}\)，而因 \(m_j\to\infty\)，
+\(\beta_{m_j}\to s\)。夹逼得 \(a_{n_j}\to s\)，且指标严格递增。
 \end{solution}
 
-\begin{solution}{10.8}
-由算术--几何平均不等式，
+\begin{solution}{12.10}
+若 \(a_{n_j}\to L\)，固定 \(m\)。充分大时 \(n_j\ge m\)，所以
+\(\alpha_m\le a_{n_j}\le\beta_m\)。令 \(j\to\infty\)，得
+\(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，即得
+\(\liminf a_n\le L\le\limsup a_n\)。
+\end{solution}
+
+\begin{solution}{12.11}
+对每个尾部，
 \[
- a_{n+1}=\frac12\left(a_n+\frac2{a_n}\right)\ge\sqrt2.
+ \sup_{k\ge n}(-a_k)=-\inf_{k\ge n}a_k.
 \]
-所以从第二项起有下界 \(\sqrt2\)。当 \(a_n\ge\sqrt2\) 时，
+对 \(n\) 取下确界，得到
 \[
- a_{n+1}-a_n=\frac{2-a_n^2}{2a_n}\le0.
+ \limsup(-a_n)
+ =\inf_n(-\alpha_n)
+ =-\sup_n\alpha_n
+ =-\liminf a_n.
 \]
-故尾列递减有下界并收敛。极限 \(L>0\) 满足
-\(L=(L+2/L)/2\)，所以 \(L=\sqrt2\)。
 \end{solution}
 
-\begin{solution}{10.9}
-若 \(0<x<1\)，则 \(0<x(2-x)<1\)，因为
-\(1-x(2-x)=(1-x)^2>0\)。故 \((0,1)\) 不变。又
+\begin{solution}{12.12}
+删去有限首项不改变上下极限。此后对每个尾部都有
 \[
- a_{n+1}-a_n=a_n(1-a_n)>0,
+ \inf_{k\ge n}a_k\le\inf_{k\ge n}b_k,\qquad
+ \sup_{k\ge n}a_k\le\sup_{k\ge n}b_k.
 \]
-所以数列递增且以上界 \(1\) 控制。极限满足
-\(L=L(2-L)\)，候选为 \(0,1\)；因 \(L\ge a_1>0\)，故 \(L=1\)。
+分别取相应极限即得结论。
 \end{solution}
 
-\begin{solution}{10.10}
-递推两次得到 \(a_{n+2}=a_n\)。若 \(a_1=1/2\)，数列恒为 \(1/2\)。若 \(a_1\ne1/2\)，则奇数项恒为 \(a_1\)，偶数项恒为 \(1-a_1\)，两值不同，故数列为二周期并发散。
-\end{solution}
-
-\begin{solution}{10.11}
-若 \(\abs{a_1}<1\)，则 \(0\le a_2<1\)，且之后
-\(0\le a_{n+1}=a_n^2\le a_n\)，故收敛到 \(L\in[0,1)\)。方程 \(L=L^2\) 只给 \(0,1\)，由 \(L<1\) 得 \(L=0\)。\(a_1=1\) 时恒为 \(1\)。若 \(a_1>1\)，则严格递增；若有上界便收敛到固定点，但候选 \(0,1\) 均小于 \(a_1\)，矛盾，所以无上界并趋于 \(+\infty\)。
-\end{solution}
-
-\begin{solution}{10.12}
-不变区间单独不足：\(f(x)=1-x\) 保持 \([0,1]\)，但一般轨道二周期。单调性单独不足：\(f(x)=x+1\) 的轨道严格递增而无界。固定点唯一单独不足：仍取 \(f(x)=1-x\)，其唯一固定点为 \(1/2\)，但除该点外轨道不收敛。
-\end{solution}
-
-\begin{solution}{10.13}
-由 \(a_1\le f(a_1)=a_2\)。若 \(a_n\le a_{n+1}\)，因 \(f\) 递增，
+\begin{solution}{12.13}
+对每个 \(n\)，
 \[
- a_{n+1}=f(a_n)\le f(a_{n+1})=a_{n+2}.
+ \sup_{k\ge n}(a_k+b_k)
+ \le \sup_{k\ge n}a_k+\sup_{k\ge n}b_k.
 \]
-归纳得到整列单调递增。轨道留在 \(I\) 保证每次可以使用 \(f\) 在 \(I\) 上的递增性。
+令 \(n\to\infty\) 得所需不等式。严格例取
+\(a_n=(-1)^n,b_n=-(-1)^n\)：两上极限均为 \(1\)，和恒为 \(0\)。
 \end{solution}
 
-\begin{solution}{10.14}
-若 \(f\) 递减，\(a_n<a_{n+1}\) 会推出
-\(a_{n+1}=f(a_n)>f(a_{n+1})=a_{n+2}\)，方向交替。又
+\begin{solution}{12.14}
+给定 \(\varepsilon>0\)，最终
 \[
- a_{n+2}=(f\circ f)(a_n),
+ a-\varepsilon+b_n\le a_n+b_n\le a+\varepsilon+b_n.
 \]
-所以奇数项与偶数项分别按映射 \(f\circ f\) 迭代；该复合映射递增。
+由上下极限的单调性与平移公式，
+\[
+ a-\varepsilon+\limsup b_n
+ \le\limsup(a_n+b_n)
+ \le a+\varepsilon+\limsup b_n.
+\]
+令 \(\varepsilon\downarrow0\) 得等式。
 \end{solution}
 
-\begin{solution}{10.15}
-多项式极限定理给出 \(P(a_n)\to P(L)\)。移位列 \(a_{n+1}\) 与原列有同一极限 \(L\)。由递推式和极限唯一性，\(L=P(L)\)。
+\begin{solution}{12.15}
+对每个尾部，非负性给出
+\[
+ \sup_{k\ge n}(a_kb_k)
+ \le\left(\sup_{k\ge n}a_k\right)
+   \left(\sup_{k\ge n}b_k\right).
+\]
+两侧均为有限非负数，令 \(n\to\infty\) 并使用乘积极限定理，即得结论。
 \end{solution}
 
-\begin{solution}{10.16}
-取 \(f(x)=1-x\)。固定点方程只有 \(L=1/2\)。从 \(a_1=0\) 出发，轨道为
-\(0,1,0,1,\ldots\)，不收敛。故固定点唯一仍不足以保证所有轨道收敛。
+\begin{solution}{12.16}
+对每个尾部有精确恒等式
+\[
+ \sup_{k\ge n}\max\{a_k,b_k\}
+ =\max\left\{\sup_{k\ge n}a_k,\sup_{k\ge n}b_k\right\}.
+\]
+对 \(n\to\infty\) 取极限，并使用有限最大值保持极限，得到所求等式。
+\end{solution}
+
+\begin{solution}{12.17}
+不总成立；取 \(a_n=(-1)^n\)，左端为 \(1\)，右端也是1，此例不否定；改取部分极限为 \(-2,1\) 的交错列，则左端为 \(2\)，而
+\(\abs{\limsup a_n}=1\)。对有界实数列，正确关系为
+\[
+ \limsup\abs{a_n}
+ =\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}.
+\]
+这是因为绝对值在区间 \([\liminf a_n,\limsup a_n]\) 上的最大值出现在端点，且两个端点都由子列实现。
+\end{solution}
+
+\begin{solution}{12.18}
+设共同有限值为 \(L\)。尾部下确界 \(\alpha_n\uparrow L\)，上确界
+\(\beta_n\downarrow L\)。给定 \(\varepsilon>0\)，取 \(N\) 使
+\[
+ L-\varepsilon<\alpha_N\le\beta_N<L+\varepsilon.
+\]
+对所有 \(n\ge N\)，\(\alpha_N\le a_n\le\beta_N\)，故
+\(\abs{a_n-L}<\varepsilon\)。
 \end{solution}
 
 \section*{C组}
 \addcontentsline{toc}{section}{C组}
 
-\begin{solution}{10.17}
-压缩性归纳给出
-\(\abs{a_{n+1}-a_n}\le q^{n-1}\abs{a_2-a_1}\)。对 \(m>n\)，三角不等式及有限几何和给出
+\begin{solution}{12.19}
+若 \(a_n\to L\)，则任给 \(\varepsilon>0\)，充分大的尾部全部位于
+\((L-\varepsilon/2,L+\varepsilon/2)\)，故振幅不超过 \(\varepsilon\)。反之若 \(\omega_n\to0\)，则
 \[
- \abs{a_m-a_n}
- \le\frac{q^{n-1}}{1-q}\abs{a_2-a_1},
+ \limsup a_n-\liminf a_n
+ =\lim_n\omega_n=0.
 \]
-故为 Cauchy 列。若 \(L_1,L_2\) 都是固定点，则
-\[
- \abs{L_1-L_2}\le q\abs{L_1-L_2},
-\]
-而 \(q<1\)，只能有两者相等。
+两者有限且相等，由\exerciseref{12.18}原列收敛。
 \end{solution}
 
-\begin{solution}{10.18}
+\begin{solution}{12.21}
+令 \(u_n\) 在偶数时为 \(1\)、奇数时为 \(0\)。三种安排为：
 \[
- \abs{f(x)-f(y)}=\frac13\abs{x-y},
+ (a_n,b_n)=(u_n,-u_n+1)
 \]
-故压缩常数可取 \(q=1/3\)。固定点满足 \(L=(L+2)/3\)，所以 \(L=1\)。迭代差满足
+时两者上极限均为1且和恒为1；
 \[
- a_n-1=3^{-(n-1)}(a_1-1),
+ (a_n,b_n)=(2u_n-1,1-2u_n)
 \]
-因此精确误差为 \(3^{-(n-1)}\abs{a_1-1}\)；一般定理也给出相同量级。
+时两者上极限均为1且和恒为0；
+\[
+ (a_n,b_n)=(u_n,u_n)
+\]
+时两上极限均为1且和的上极限为2。
 \end{solution}
 
-\begin{solution}{10.19}
-对 \(x,y\in[0,2]\)，
+\begin{solution}{12.23}
+不存在无条件等式。取
 \[
- \abs{\sqrt{2+x}-\sqrt{2+y}}
- =\frac{\abs{x-y}}{\sqrt{2+x}+\sqrt{2+y}}
- \le\frac1{2\sqrt2}\abs{x-y}.
+ a_{2k}=1,\qquad a_{2k-1}=2^{-2k}.
 \]
-故为压缩。压缩证明对任意初值同时给出固定点唯一与几何误差界；单调有界证明较初等，但要单独验证单调性，并且通常不给统一收敛速度。
+则 \(\limsup a_n^{1/n}=1\)。但从奇项到偶项的比值趋于 \(+\infty\)，所以
+\(\limsup a_{n+1}/a_n=+\infty\)。根式判别与比值判别需要额外的规则性条件，不能直接交换。
 \end{solution}
 
-\begin{solution}{10.20}
-按正文证明，先由不变性保证轨道位于闭区间，再以几何尾和证明轨道为 Cauchy 列。实数 Cauchy 完备性给出极限 \(L\)。闭区间条件在此用于由 \(a_n\in I\)、\(a_n\to L\) 推出 \(L\in I\)，从而可以把 \(f\) 的压缩估计应用于 \(a_n,L\)。随后证明 \(f(L)=L\) 与唯一性。全程未用单调性。
+\begin{solution}{12.24}
+选 \(r\) 使
+\[
+ \limsup\abs{a_n}<r<1.
+\]
+由上极限的尾部刻画，存在 \(N\) 使
+\[
+ \sup_{k\ge N}\abs{a_k}<r.
+\]
+于是 \(\abs{a_n}\le r\) 对所有 \(n\ge N\) 成立。
 \end{solution}
 
-\begin{solution}{10.21}
-归纳得
+\begin{solution}{12.26}
+尾部闭包
 \[
- \abs{a_n-L}\le q^{n-1}\abs{a_1-L}.
+ K_n=\overline{\{a_k:k\ge n\}}
 \]
-要使误差小于 \(\varepsilon\)，只需
-\[
- q^{n-1}\abs{a_1-L}<\varepsilon.
-\]
-若 \(a_1\ne L\)，取
-\[
- n>1+\frac{\log(\abs{a_1-L}/\varepsilon)}{\log(1/q)}
-\]
-即可；若暂不使用对数，可表述为取使几何项小于给定比值的最小整数。
-\end{solution}
-
-\begin{solution}{10.22}
-取 \(f(x)=1-x\)。它把 \([0,1]\) 映入自身且只有固定点 \(1/2\)，但从任何 \(a_1\ne1/2\) 出发均在 \(a_1,1-a_1\) 间交替，不收敛。
-\end{solution}
-
-\begin{solution}{10.23}
-正且递减保证存在极限 \(L\ge0\)。其余不等式不能把 \(L\) 唯一确定：任意正的常值列满足全部条件，极限可为任意正数；数列 \(a_n=1/n\) 也满足
-\[
- \frac1{n+1}\ge\frac1n-\frac1{n^2},
-\]
-且极限为 \(0\)。所以可能的极限范围恰可覆盖所有非负实数。
-\end{solution}
-
-\begin{solution}{10.24}
-二分法通常只需连续性和端点异号来保证根存在，区间长度给出先验误差，但若根不唯一，区间可能收敛到其中某个根。压缩迭代要求更强的统一 Lipschitz 常数 \(q<1\) 及不变闭集，却同时给出固定点存在、唯一和几何误差。二分法的收敛率由区间宽度 \(2^{-n}\) 决定；压缩法由 \(q^n\) 决定，且每步需要计算 \(f\)。
+递减。对有界列，交集正是部分极限集合；其最大、最小点分别由尾部确界极限给出。集合表达适合证明闭性与嵌套性，尾部确界表达适合运算不等式和定量界，子列表达适合实现端点、构造反例和把量词否定转化为对象。三种语言描述同一尾部结构，但各自压缩的证明步骤不同。
 \end{solution}
 

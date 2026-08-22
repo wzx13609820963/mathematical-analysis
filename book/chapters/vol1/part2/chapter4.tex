@@ -1,0 +1,399 @@
+\chapter{单调数列与迭代}
+\label{chap:monotone-iteration}
+\label{chap:monotone-recursive-sequences}
+
+对单调数列，全部尾部信息由取值集合的上确界或下确界控制。这使完备性可以直接转化为收敛。递推数列则多一层困难：在讨论极限方程以前，必须先保证每一步都能进行，并分别建立不变区间、单调性和有界性。
+
+\section{单调有界收敛定理}
+
+\subsection{单调数列及其上确界}
+
+
+\begin{definition}
+实数列 \((a_n)\) 称为\term{单调递增}，如果 \(a_{n+1}\ge a_n\) 对每个 \(n\) 成立；若始终为严格不等号，则称严格递增。单调递减及严格递减对称定义。递增或递减数列统称单调数列。
+\end{definition}
+
+相邻项比较通过传递性给出
+\[
+ a_m\le a_n\qquad(m\le n)
+\]
+对递增列成立。这里的“单调”包括常值区段；要求严格单调通常不是收敛定理所必需。
+
+\begin{proposition}
+若 \((a_n)\) 单调递增，则其值集 \(A=\{a_n:n\in\Npos\}\) 的任一上界也是整列的上界；若 \(A\) 有上确界 \(s\)，则对每个 \(\varepsilon>0\) 存在 \(N\) 使
+\[
+ s-\varepsilon<a_N\le a_n\le s\qquad(n\ge N).
+\]
+\end{proposition}
+
+\begin{proof}
+第一句只是上界定义。由 \(s=\sup A\) 的近似刻画，\(s-\varepsilon\) 不是上界，故存在 \(N\) 使 \(a_N>s-\varepsilon\)。单调性把这一项的下界传递给所有后项。
+\end{proof}
+
+\subsection{单调有界收敛定理的完整证明}
+
+
+\begin{theorem}[单调有界收敛定理]
+单调递增且有上界的实数列收敛，并且
+\[
+\lim_{n\to\infty}a_n=\sup\{a_n:n\in\Npos\}.
+\]
+单调递减且有下界的实数列收敛到其值集的下确界。
+\end{theorem}
+
+\begin{proof}
+递增情形令 \(s=\sup\{a_n:n\in\Npos\}\)。给定 \(\varepsilon>0\)，由上确界近似性取 \(N\) 使 \(a_N>s-\varepsilon\)。对 \(n\ge N\)，
+\[
+ s-\varepsilon<a_N\le a_n\le s,
+\]
+故 \(\abs{a_n-s}<\varepsilon\)。递减情形可对 \((-a_n)\) 应用递增结论，或直接以值集下确界作同样证明。
+\end{proof}
+
+有界性用于保证有限确界存在；单调性用于把某一项的近似推广到完整尾部。删除有界性，\(a_n=n\) 发散到 \(+\infty\)；删除单调性，\((-1)^n\) 有界而发散。定理还把极限精确识别为值集的最小上界或最大下界。
+
+\begin{corollary}
+若 \((a_n)\) 单调递增且有一个收敛子列 \(a_{n_k}\to L\)，则整列收敛到 \(L\)。
+\end{corollary}
+
+\begin{proof}
+固定 \(n\)，取 \(k\) 使 \(n_k\ge n\)，则 \(a_n\le a_{n_k}\)。由序关系的闭性得 \(a_n\le L\)，所以 \(L\) 是上界。单调有界收敛定理给出整列极限 \(s\le L\)，而其子列也趋于 \(s\)，唯一性给出 \(s=L\)。
+\end{proof}
+
+\section{无界单调数列}
+
+
+\begin{theorem}
+单调递增实数列若无上界，则趋于 \(+\infty\)；单调递减列若无下界，则趋于 \(-\infty\)。
+\end{theorem}
+
+\begin{proof}
+给定 \(M\in\R\)。无上界性给出某个 \(N\) 使 \(a_N>M\)，单调性给出 \(a_n\ge a_N>M\) 对所有 \(n\ge N\) 成立。递减情形对称。
+\end{proof}
+
+因此每个单调实数列恰有三种互斥行为之一：收敛到有限实数、趋于 \(+\infty\)、趋于 \(-\infty\)。这三分结论依赖实数完备性；在不完备有序域中，单调有界列可能指向域外缺口。
+
+\begin{example}
+调和部分和
+\[
+ H_n=\sum_{k=1}^n\frac1k
+\]
+单调递增。按区块估计
+\[
+ H_{2^m}\ge1+\sum_{j=1}^m2^{j-1}\frac1{2^j}
+=1+\frac m2,
+\]
+故无上界，因而 \(H_n\to+\infty\)。这一证明把无界性与单调性分开处理。
+\end{example}
+
+\section{递推数列的不变区间、单调性与有界性}
+
+\subsection{递推数列的定义域、不变区间与有界性}
+
+
+递推式
+\[
+ a_{n+1}=f(a_n)
+\]
+只有在每一步的 \(a_n\) 属于 \(f\) 的定义域时才产生无限数列。证明这一点的常用工具是不变区间。
+
+高等数学中的递推题常把“数列已由递推式定义”当作默认事实。含根式、对数或分母的递推式并没有这种保证。例如一旦某一步离开定义域，后续各项便不存在；一旦进入一个封闭区间并被映回其中，定义域与有界性才同时得到控制。因此，寻找不变区间通常应早于计算固定点。
+
+\begin{definition}
+设 \(f:D\to\R\)，区间 \(I\subseteq D\) 称为 \(f\) 的一个\term{不变区间}，如果 \(f(I)\subseteq I\)。
+\end{definition}
+
+\begin{proposition}
+若 \(a_1\in I\) 且 \(I\) 是 \(f\) 的不变区间，则递推 \(a_{n+1}=f(a_n)\) 对所有 \(n\) 有定义并满足 \(a_n\in I\)。
+\end{proposition}
+
+\begin{proof}
+对 \(n\) 归纳。初始项属于 \(I\)。若 \(a_n\in I\)，则 \(a_{n+1}=f(a_n)\in f(I)\subseteq I\)。
+\end{proof}
+
+\begin{example}
+设 \(a_1\in[0,2]\)，
+\[
+ a_{n+1}=\sqrt{2+a_n}.
+\]
+若 \(a_n\in[0,2]\)，则 \(2\le2+a_n\le4\)，故
+\(\sqrt2\le a_{n+1}\le2\)。所以 \([0,2]\) 不变，递推始终有定义且有界。
+\end{example}
+
+只验证候选极限落在定义域内并不能保证前面各步有定义。例如 \(a_{n+1}=\sqrt{a_n-1}\) 若从 \(a_1=1/2\) 开始，第二项已经没有实数意义。
+
+\subsection{用差值或辅助函数证明单调性}
+
+
+若能因式分解 \(a_{n+1}-a_n=f(a_n)-a_n\)，则单调性归结为辅助函数
+\[
+ g(x)=f(x)-x
+\]
+在不变区间上的符号。也可以比较 \(f(x)\) 与 \(x\)，或证明迭代在固定点的一侧保持。
+
+\begin{example}
+继续考虑 \(a_{n+1}=\sqrt{2+a_n}\)，并设 \(0\le a_1\le2\)。在 \([0,2]\) 上，
+\[
+ \sqrt{2+x}\ge x
+ \Longleftrightarrow 2+x\ge x^2
+ \Longleftrightarrow (2-x)(x+1)\ge0.
+\]
+故 \(a_{n+1}\ge a_n\)。数列单调递增且被 \(2\) 控制，所以收敛。
+\end{example}
+
+\begin{example}[差值符号不固定]
+递推 \(a_{n+1}=1-a_n\) 把区间 \([0,1]\) 映入自身，但
+\[
+ a_{n+1}-a_n=1-2a_n
+\]
+的符号会随位置改变。除 \(a_1=1/2\) 外，数列在两个值之间交替，故不收敛。不变区间只保证有界和有定义，不保证单调或收敛。
+\end{example}
+
+对复杂递推，直接比较相邻项可能困难，可以寻找单调的辅助量，例如 \(\abs{a_n-L}\)、\(a_na_{n+1}\) 或某个能量函数。辅助量收敛不自动推出原列收敛，还需证明它能控制原列的振荡。
+
+\begin{proposition}[递增映射的轨道]
+设 \(I\) 为区间，\(f:I\to I\) 单调递增，且 \(a_{n+1}=f(a_n)\)。若
+\(a_1\le a_2\)，则 \((a_n)\) 单调递增；若 \(a_1\ge a_2\)，则
+\((a_n)\) 单调递减。若 \(I\) 有界，轨道因而收敛。
+\end{proposition}
+
+\begin{proof}
+只证第一种情形。已知 \(a_1\le a_2\)。若 \(a_n\le a_{n+1}\)，递增性给出
+\[
+ a_{n+1}=f(a_n)\le f(a_{n+1})=a_{n+2}.
+\]
+归纳即得单调递增。轨道始终位于有界区间 \(I\)，故由单调有界收敛定理收敛。另一方向同理。
+\end{proof}
+
+映射递减时，相邻项的大小关系会交替，但间隔两项的关系仍可控制，因为
+\(f\circ f\) 单调递增。下面的结论把二周期现象从例子提升为一般结构。
+
+\begin{proposition}[递减映射与奇偶子列]
+设有界区间 \(I\) 在单调递减映射 \(f:I\to I\) 下不变，且
+\(a_{n+1}=f(a_n)\)。则奇数项子列和偶数项子列分别单调，并且单调方向相反，因而存在
+\[
+ a_{2n-1}\to p,\qquad a_{2n}\to q
+\]
+成立。
+若 \(p,q\in I\)，且 \(f\) 在这两点保持数列极限，则
+\[
+ q=f(p),\qquad p=f(q).
+\]
+原列收敛当且仅当 \(p=q\)；此时共同极限是 \(f\) 的固定点。
+\end{proposition}
+
+\begin{proof}
+令 \(g=f\circ f\)，则 \(g\) 单调递增，而
+\[
+ a_{2n+1}=g(a_{2n-1}),\qquad a_{2n+2}=g(a_{2n}).
+\]
+若 \(a_1\le a_3\)，上一命题说明奇数子列递增。由 \(f\) 递减，
+\(a_2=f(a_1)\ge f(a_3)=a_4\)，所以偶数子列递减；若
+\(a_1\ge a_3\)，方向全部反转。两列均有界，故分别收敛。
+
+在等式 \(a_{2n}=f(a_{2n-1})\) 与
+\(a_{2n+1}=f(a_{2n})\) 中取极限，得到所列二周期方程。若原列收敛，则两条子列极限相同；反之若 \(p=q\)，给定 \(\varepsilon>0\)，奇偶两条尾列同时落入共同极限的误差邻域，原列也收敛。
+\end{proof}
+
+递减并不自动产生非平凡二周期。例如若还能证明 \(f^2\) 的两个极限必须相等，原列仍会收敛；映射 \(f(x)=1-x\) 则说明二周期确实可能发生。
+
+\section{极限方程、候选极限与存在性}
+
+
+若已经证明 \(a_n\to L\)，并且能够证明 \(f(a_n)\to f(L)\)，递推式才允许取极限得到
+\[
+ L=f(L).
+\]
+\begin{warningbox}[固定点方程只给出候选极限]
+方程 \(L=f(L)\) 是递推数列收敛时极限必须满足的必要条件，不能单独证明数列收敛。必须先建立单调有界、Cauchy 性或压缩估计等收敛依据。
+\end{warningbox}
+
+固定点还可能不止一个，初值决定迭代落入哪个吸引区域。例如 \(a_{n+1}=a_n^2\) 的固定点为 \(0,1\)：当 \(0<a_1<1\) 时数列递减到 \(0\)，当 \(a_1=1\) 时恒为 \(1\)，而当 \(a_1>1\) 时无界。相同的极限方程并不能省略对初值和不变区间的分析。
+
+\begin{counterexample}
+递推 \(a_{n+1}=1/a_n\)、\(a_1=2\) 的固定点方程是 \(L=1/L\)，候选为 \(L=\pm1\)。实际数列在 \(2\) 与 \(1/2\) 之间交替，并不收敛。
+\end{counterexample}
+
+\begin{counterexample}
+递推 \(a_{n+1}=a_n^2\)、\(a_1=2\) 的固定点候选为 \(0,1\)，但实际数列趋于 \(+\infty\)。候选方程既不保证存在极限，也不保证极限一定从所有固定点中任选一个。
+\end{counterexample}
+
+\begin{proposition}
+设 \(a_n\to L\)，且 \(f\) 在 \(L\) 处满足：\(x_n\to L\Rightarrow f(x_n)\to f(L)\)。若 \(a_{n+1}=f(a_n)\)，则 \(L=f(L)\)。
+\end{proposition}
+
+\begin{proof}
+移位数列 \(a_{n+1}\) 与 \(a_n\) 有同一极限 \(L\)。另一方面，假设给出
+\(f(a_n)\to f(L)\)。由递推式与极限唯一性，\(L=f(L)\)。
+\end{proof}
+
+命题中的序列保持条件将在\chapterref{chap:continuity-discontinuity}被识别为 \(f\) 在 \(L\) 处连续。
+
+\section{局部压缩、误差估计与收敛速度}
+
+
+\begin{definition}
+若区间 \(I\) 上存在 \(0\le q<1\)，使
+\[
+ \abs{f(x)-f(y)}\le q\abs{x-y}\qquad(x,y\in I),
+\]
+则称 \(f\) 在 \(I\) 上为压缩映射，\(q\) 为压缩常数。
+\end{definition}
+
+压缩估计同时控制存在性、唯一性和速度。它把相邻两次迭代的误差按固定比例缩小，有限几何尾和于是控制任意两项的累积差。这里要求 \(q<1\) 是定量条件；若只有 \(q=1\)，映射 \(f(x)=1-x\) 已表明迭代可以永久振荡。下面先用本章的单调有界定理证明收敛；\chapterref{chap:cauchy-criterion}建立 Cauchy 准则后，同一估计还会得到更简洁的解释。
+
+\begin{theorem}[区间上的压缩迭代]
+设 \(I\subseteq\R\) 为非空闭区间，\(f:I\to I\)，并且存在
+\(0\le q<1\) 使
+\[
+ \abs{f(x)-f(y)}\le q\abs{x-y}\qquad(x,y\in I).
+\]
+则：
+\begin{enumerate}
+ \item \(f\) 在 \(I\) 中有唯一固定点 \(L\)；
+ \item 对任意 \(a_1\in I\)，迭代 \(a_{n+1}=f(a_n)\) 收敛到 \(L\)；
+ \item 有误差估计
+ \[
+  \abs{a_n-L}\le\frac{q^{n-1}}{1-q}\abs{a_2-a_1}.
+  \]
+ \item 当 \(n\ge2\) 时，还有后验误差估计
+ \[
+  \abs{a_n-L}\le\frac q{1-q}\abs{a_n-a_{n-1}}.
+ \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+由压缩估计归纳得
+\[
+ \abs{a_{n+1}-a_n}\le q^{n-1}\abs{a_2-a_1}.
+\]
+若 \(m>n\)，则
+\[
+ \abs{a_m-a_n}
+ \le\sum_{k=n}^{m-1}\abs{a_{k+1}-a_k}
+ \le\frac{q^{n-1}}{1-q}\abs{a_2-a_1}.
+\]
+右端随 \(n\) 趋零。为避免预先调用后文的 Cauchy 收敛准则，对每个 \(n\) 定义尾部的上下确界
+\[
+ \ell_n=\inf\{a_m:m\ge n\},\qquad
+ u_n=\sup\{a_m:m\ge n\}.
+\]
+在前面的两项估计中取 \(n=1\)，可知每个 \(a_m\) 都落在以 \(a_1\) 为中心、半径
+\(\abs{a_2-a_1}/(1-q)\) 的有界区间内；因此两个确界均为有限实数。尾部逐渐缩小，故 \((\ell_n)\) 单调递增，\((u_n)\) 单调递减；本章的单调有界定理给出
+\[
+ \ell_n\to \ell,\qquad u_n\to u.
+\]
+前面的两项估计还说明
+\[
+ 0\le u_n-\ell_n
+ \le \frac{q^{n-1}}{1-q}\abs{a_2-a_1}.
+\]
+因此 \(u=\ell=:L\)，而 \(\ell_n\le a_n\le u_n\) 由夹逼定理给出 \(a_n\to L\)。由于 \(I\) 是闭集且所有 \(a_n\in I\)，有 \(L\in I\)。又
+\[
+ \abs{f(a_n)-f(L)}\le q\abs{a_n-L}\to0,
+\]
+而 \(f(a_n)=a_{n+1}\to L\)，故 \(f(L)=L\)。
+
+若 \(L_1,L_2\) 都是固定点，则
+\[
+ \abs{L_1-L_2}=\abs{f(L_1)-f(L_2)}
+ \le q\abs{L_1-L_2},
+\]
+因 \(q<1\)，只能有 \(L_1=L_2\)。最后在前述尾和估计中令 \(m\to\infty\)，得到先验误差界。
+
+又由
+\[
+ \abs{a_{n+j+1}-a_{n+j}}
+ \le q^{j+1}\abs{a_n-a_{n-1}}\qquad(j\ge0)
+\]
+及有限几何和，先把右端从 \(j=0\) 加到 \(M\)，再令 \(M\to\infty\)，便得
+\[
+ \abs{a_n-L}
+ \le\frac q{1-q}\abs{a_n-a_{n-1}}.
+\]
+这一步只使用有限几何和公式及实数极限，没有把一般级数理论作为前提。
+\end{proof}
+
+\begin{proposition}[局部压缩的启动条件]
+设 \(J\subseteq I\) 为非空闭区间，\(f(J)\subseteq J\)，且 \(f\) 在
+\(J\) 上具有压缩常数 \(q<1\)。若某次迭代 \(a_N\in J\)，则此后
+\(a_n\in J\)，并且尾部收敛到 \(J\) 中唯一固定点 \(L\)。对 \(n\ge N+1\)，
+\[
+ \abs{a_n-L}\le\frac q{1-q}\abs{a_n-a_{n-1}}.
+\]
+\end{proposition}
+
+\begin{proof}
+从 \(a_N\in J\) 起把尾部重新编号，区间上的压缩迭代定理即可应用。不变性负责使后续项不再离开 \(J\)；压缩估计只控制进入 \(J\) 以后的轨道。
+\end{proof}
+
+\begin{example}[Heron 迭代]
+设 \(a_1>0\)，
+\[
+ a_{n+1}=\frac12\left(a_n+\frac2{a_n}\right).
+\]
+算术--几何平均不等式给出 \(a_2\ge\sqrt2\)。当 \(a_n\ge\sqrt2\) 时，
+\[
+ a_{n+1}-a_n=\frac{2-a_n^2}{2a_n}\le0,
+\]
+所以尾列递减并以下界 \(\sqrt2\) 控制，故趋于 \(\sqrt2\)。进一步有
+\[
+ a_{n+1}-\sqrt2
+ =\frac{(a_n-\sqrt2)^2}{2a_n}.
+\]
+由于 \(a_n\ge\sqrt2\)，
+\[
+ 0\le a_{n+1}-\sqrt2
+ \le\frac1{2\sqrt2}(a_n-\sqrt2)^2.
+\]
+单调有界法保证极限存在，误差恒等式则给出平方衰减；固定点方程本身不能提供这两项信息。
+\end{example}
+
+若只在固定点附近压缩，还需先证明迭代最终进入并留在该邻域；局部估计不能自动控制远离固定点的初始阶段。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{10.1} 证明单调递增有界列的极限等于其值集上确界，并逐项说明单调性、有界性和完备性的使用处。
+ \exerciseitem{10.2} 证明单调数列的任意子列与原列具有相同的有限或无穷极限。
+ \exerciseitem{10.3} 证明单调递增列若有上界 \(M\)，则所有严格小于其极限的数最终被数列超过。
+ \exerciseitem{10.4} 证明调和部分和趋于 \(+\infty\)。
+ \exerciseitem{10.5} 判断并证明：若 \(a_{n+1}-a_n\ge0\) 最终成立且 \((a_n)\) 有界，则 \((a_n)\) 收敛。
+ \exerciseitem{10.6} 构造严格递增且收敛到给定 \(L\) 的数列，以及严格递减且收敛到同一 \(L\) 的数列。
+\end{enumerate}
+
+\subsection*{B组　证明与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{10.7} 设 \(a_1\in[0,2]\)、\(a_{n+1}=\sqrt{2+a_n}\)。证明有定义、单调、有界并求极限。
+ \exerciseitem{10.8} 设 \(a_1>0\)、\(a_{n+1}=(a_n+2/a_n)/2\)。证明从第二项起 \(a_n\ge\sqrt2\)，随后单调递减，并求极限。
+ \exerciseitem{10.9} 设 \(a_{n+1}=a_n(2-a_n)\)、\(0<a_1<1\)。证明 \((0,1)\) 为不变区间，数列递增并求极限。
+ \exerciseitem{10.10} 分析 \(a_{n+1}=1-a_n\)、\(a_1\in[0,1]\) 的全部轨道。
+ \exerciseitem{10.11} 设 \(a_{n+1}=a_n^2\)。分别讨论 \(a_1\in(-1,1)\)、\(a_1=1\)、\(a_1>1\) 的行为。
+ \exerciseitem{10.12} 对递推 \(a_{n+1}=f(a_n)\) 说明“不变区间”“单调性”“固定点唯一”三项中任意一项单独都不足以保证收敛，并给出例子。
+ \exerciseitem{10.13} 若 \(f\) 在区间 \(I\) 上递增，且 \(a_1\le f(a_1)\)、轨道留在 \(I\)，证明迭代单调递增。
+ \exerciseitem{10.14} 若 \(f\) 在 \(I\) 上递减，解释为何相邻项比较通常不足；证明偶数子列和奇数子列分别是 \(f\circ f\) 的迭代。
+ \exerciseitem{10.15} 设 \(a_n\to L\) 且 \(a_{n+1}=P(a_n)\)，其中 \(P\) 为多项式。证明 \(L=P(L)\)。
+ \exerciseitem{10.16} 构造一个固定点方程只有唯一实根但某条轨道仍不收敛到它的例子。
+\end{enumerate}
+
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{10.17} 补全压缩迭代定理中 Cauchy 估计与固定点唯一性的证明。
+ \exerciseitem{10.18} 设 \(f(x)=(x+2)/3\)。在 \(\R\) 上求压缩常数、固定点及从任意初值出发的显式误差界。
+ \exerciseitem{10.19} 设 \(f(x)=\sqrt{2+x}\)。证明它在 \([0,2]\) 上是压缩映射，并比较压缩证明与单调有界证明。
+ \projectexerciseitem{10.20} \ 【完成\chapterref{chap:cauchy-criterion}后回做；预计用时：75分钟】用 Cauchy 收敛准则重证闭区间上的压缩迭代定理，不使用尾部上下确界；再说明闭区间条件在何处使用。
+ \optionalexerciseitem{10.21} 若 \(\abs{a_{n+1}-L}\le q\abs{a_n-L}\) 且 \(0<q<1\)，证明几何误差估计并给出达到精度 \(\varepsilon\) 的迭代次数。
+ \optionalexerciseitem{10.22} 构造 \(f:[0,1]\to[0,1]\)，使它有唯一固定点，但存在不收敛轨道。
+ \optionalexerciseitem{10.23} 设 \(a_n>0\)、\(a_{n+1}\le a_n\) 且 \(a_{n+1}\ge a_n-a_n^2\)。讨论这些条件是否足以确定极限，并验证可能的极限范围。
+ \openexerciseitem{10.24} 比较二分法与压缩迭代：二者在存在性、唯一性、误差界和函数条件方面分别依赖什么。
+\end{enumerate}
+
+\section*{部分习题提示}
+\begin{itemize}
+ \item \exerciseref{10.8}：使用算术--几何平均不等式，并计算 \(a_{n+1}-a_n\)。
+ \item \exerciseref{10.9}：有 \(1-a_{n+1}=(1-a_n)^2\)。
+ \item \exerciseref{10.16}：可取 \(f(x)=1-x\)，唯一固定点为 \(1/2\)。
+ \item \exerciseref{10.19}：利用 \(\abs{\sqrt{2+x}-\sqrt{2+y}}\) 的有理化。
+\end{itemize}

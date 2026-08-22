@@ -1,452 +1,257 @@
-\chapter{上极限与下极限}
-\label{chap:limsup-liminf}
+\chapter{实数完备性的等价形式}
+\label{chap:equivalent-completeness}
 
-对每个尾部取上确界和下确界，会得到一条递减列和一条递增列。它们的极限分别记住原数列长期可能达到的最高、最低水平，即使原数列本身发散也仍有意义。适当的子列能够达到这两个值，从而把确界估计与子列抽取联系起来。
+确界原理、单调有界收敛定理、区间套定理、Bolzano--Weierstrass 定理和 Cauchy 收敛准则的表述差别很大：它们分别谈论集合、单调数列、闭区间、子列和尾部误差。前几章已经逐一建立这些结论。本章不再重复全部证明，而要回答两个问题：这些结论怎样相互推出；在把其中一种形式当作公理时，还需要哪些序结构或 Archimedes 条件。
 
-\section{扩充实数与尾部上下确界}
+这种比较并非只为列出一组等价命题。在实际证明中，已知条件往往只适合其中一种形式。单调逼近适合取确界，逐次排除适合构造区间套，任意有界序列适合抽取子列，而误差估计通常直接给出 Cauchy 性。清楚各条推导所用的条件，才能在后文选择合适的完备性工具而不造成循环引用。
 
-\subsection{扩充实数系 \texorpdfstring{\([-\infty,+\infty]\)}{[-infinity,+infinity]}}
+\section{五种完备性命题}
 
+设 \(F\) 为有序域。绝对值、数列收敛、子列和 Cauchy 列均按前几章的定义理解。考虑以下命题：
+\begin{description}[style=nextline,leftmargin=3em]
+ \item[(S) 确界原理] 每个非空且有上界的集合 \(A\subseteq F\) 都有上确界。
+ \item[(M) 单调有界收敛] 每个单调递增且有上界的 \(F\)-值数列都收敛；递减情形对称。
+ \item[(N) 区间套] 若 \(I_n=[a_n,b_n]\) 满足 \(I_{n+1}\subseteq I_n\) 且 \(b_n-a_n\to0\)，则 \(\bigcap_n I_n\) 恰含一个点。
+ \item[(B) Bolzano--Weierstrass] 每个有界 \(F\)-值数列都有收敛子列。
+ \item[(C) Cauchy 完备] 每个 \(F\)-值 Cauchy 列都收敛。
+\end{description}
 
-在集合 \(\R\) 中加入两个符号 \(-\infty,+\infty\)，得到\term{扩充实数系}
-\[
- \overline{\R}=[-\infty,+\infty].
-\]
-规定
-\[
- -\infty<x<+\infty\qquad(x\in\R).
-\]
-扩充实数是全序集，但不是域。表达式
-\[
- (+\infty)+(-\infty),\qquad 0\cdot(+\infty),\qquad
- \frac{\infty}{\infty}
-\]
-不作定义，因为不同逼近方式会产生不同结果。只有不会造成歧义的运算才使用，例如 \(x+(+\infty)=+\infty\) 对有限 \(x\) 成立。
+另记
+\begin{description}[style=nextline,leftmargin=3em]
+ \item[(A) Archimedes 性质] 对每个 \(x\in F\)，存在 \(n\in\Npos\) 使 \(n>x\)。
+\end{description}
 
-\begin{definition}
-在 \(\overline{\R}\) 中，若数列趋于 \(+\infty\) 或 \(-\infty\)，也把相应符号称为其扩充实数极限。
-\end{definition}
-
-任意集合 \(E\subseteq\R\) 在扩充实数中都有上确界与下确界：若 \(E\) 在实数中无上界，规定 \(\sup E=+\infty\)；若 \(E=\varnothing\)，为统一尾部公式规定
-\[
- \sup\varnothing=-\infty,\qquad
- \inf\varnothing=+\infty.
-\]
-本章尾部值集均非空，因此空集约定不会直接进入数列计算。
-
-\subsection{尾部上确界与下确界}
-
-
-对实数列 \((a_n)\)，定义扩充实数
-\[
- \beta_n=\sup_{k\ge n}a_k,\qquad
- \alpha_n=\inf_{k\ge n}a_k.
-\]
-称它们为第 \(n\) 个尾部的上确界和下确界。
-
-\begin{proposition}
-\((\beta_n)\) 在 \(\overline{\R}\) 中单调递减，\((\alpha_n)\) 单调递增，并且
-\[
- \alpha_n\le a_n\le\beta_n.
-\]
-若原列有界，则两列均为有限实数列并分别收敛。
-\end{proposition}
-
-\begin{proof}
-尾部集合满足 \(A_{n+1}\subseteq A_n\)，所以其上确界不增、下确界不减。因 \(a_n\in A_n\)，中间不等式成立。有界时 \(\beta_n,\alpha_n\) 有共同有限界，单调有界收敛定理给出极限。
-\end{proof}
-
-\begin{example}
-若 \(a_n=(-1)^n+1/n\)，则每个尾部仍含趋近 \(1\) 的偶数项和趋近 \(-1\) 的奇数项。直接计算尾部确界的细节依赖首个偶指标，但有
-\[
- \beta_n\downarrow1,\qquad \alpha_n\uparrow-1.
-\]
-\end{example}
-
-\section{\texorpdfstring{\(\limsup\)、\(\liminf\)}{limsup, liminf} 与单调尾列}
-
-
-\begin{definition}
-实数列 \((a_n)\) 的\term{上极限}与\term{下极限}定义为
-\[
- \limsup_{n\to\infty}a_n
- :=\inf_{n\ge1}\sup_{k\ge n}a_k
- =\inf_n\beta_n,
-\]
-\[
- \liminf_{n\to\infty}a_n
- :=\sup_{n\ge1}\inf_{k\ge n}a_k
- =\sup_n\alpha_n.
-\]
-二者取值于 \(\overline{\R}\)。
-\end{definition}
-
-有界时，它们分别是单调列 \(\beta_n,\alpha_n\) 的实数极限。定义中的顺序不能交换：先对每个尾部取确界，再对尾部起点取下确界，表达“删去任意有限多项后仍可能达到的最高层次”。
-
-上极限不是全体项的上确界。数列 \(a_1=100\)、\(a_n=0\)（\(n\ge2\)）的上确界为 \(100\)，上极限却是 \(0\)，因为有限个早期异常值最终会从尾部中消失。相反，只要某一高度在任意晚的尾部仍被项反复逼近，它就会影响上极限。
-
-\begin{theorem}[基本序关系]
-对任意实数列，
-\[
- \liminf a_n\le\limsup a_n.
-\]
-若 \(a_n\le b_n\) 最终成立，则
-\[
- \liminf a_n\le\liminf b_n,\qquad
- \limsup a_n\le\limsup b_n.
-\]
+\begin{theorem}[完备性命题的等价性]
+在 Archimedes 有序域中，(S)、(M)、(N)、(B)、(C) 等价。确界原理 (S) 本身还蕴含 Archimedes 性质。
 \end{theorem}
 
-\begin{proof}
-对任意 \(m,n\)，取 \(k\ge\max\{m,n\}\)，有
+证明将在本章余下各节完成。可以采用许多不同的推导路线；这里选择
 \[
- \alpha_m\le a_k\le\beta_n.
-\]
-所以 \(\alpha_m\le\beta_n\)。先对 \(m\) 取上确界、再对 \(n\) 取下确界得到第一式。最终比较允许删去有限首项；在共同尾部上，尾部上下确界保持相应序关系，取极限即得第二组不等式。
-\end{proof}
-
-\begin{proposition}
-\[
- \limsup(-a_n)=-\liminf a_n,\qquad
- \liminf(-a_n)=-\limsup a_n.
-\]
-对常数 \(c\in\R\)，
-\[
- \limsup(a_n+c)=\limsup a_n+c,
-\quad
- \liminf(a_n+c)=\liminf a_n+c.
-\]
-\end{proposition}
-
-\begin{proof}
-对每个 \(n\)，尾部集合在取负号后满足
-\[
- \sup_{k\ge n}(-a_k)=-\inf_{k\ge n}a_k,
+ \mathrm{(S)}\Longrightarrow\mathrm{(M)}
+ \Longrightarrow\mathrm{(N)}
+ \Longrightarrow\mathrm{(B)}
+ \Longrightarrow\mathrm{(C)},
  \qquad
- \inf_{k\ge n}(-a_k)=-\sup_{k\ge n}a_k.
+ \mathrm{(A)}+\mathrm{(C)}\Longrightarrow\mathrm{(S)}.
 \]
-令 \(n\to\infty\) 即得第一组等式。平移常数不改变尾部中各项的相对次序，并且
+第一条链把集合的序边界逐步转化为数列的极限，最后一个方向则用二分法把任意集合的上边界编码成两条 Cauchy 列。长度 \(2^{-n}\) 能够小于任意正数，正是 Archimedes 性质介入的地方。
+
+\section{从确界原理到 Cauchy 完备性}
+
+\subsection{确界与单调数列}
+
+设 \((a_n)\) 单调递增且有上界。由 (S)，值集
 \[
- \sup_{k\ge n}(a_k+c)=\sup_{k\ge n}a_k+c,
- \qquad
- \inf_{k\ge n}(a_k+c)=\inf_{k\ge n}a_k+c.
+ E=\{a_n:n\in\Npos\}
 \]
-再令 \(n\to\infty\)，得到第二组等式。
-\end{proof}
-
-\begin{theorem}[上极限与下极限的阈值刻画]
-设 \(s\in\R\)。则 \(\limsup a_n=s\) 当且仅当以下两项同时成立：
-\begin{enumerate}
- \item 对每个 \(\varepsilon>0\)，最终有 \(a_n<s+\varepsilon\)；
- \item 对每个 \(\varepsilon>0\) 和每个 \(N\in\Npos\)，存在
- \(n\ge N\) 使 \(a_n>s-\varepsilon\)。
-\end{enumerate}
-对偶地，\(\liminf a_n=\ell\in\R\) 当且仅当：
-\begin{enumerate}
- \item 对每个 \(\varepsilon>0\)，最终有 \(a_n>\ell-\varepsilon\)；
- \item 对每个 \(\varepsilon>0\) 和每个 \(N\in\Npos\)，存在
- \(n\ge N\) 使 \(a_n<\ell+\varepsilon\)。
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-设尾部上确界为 \(\beta_N\)。若 \(\beta_N\downarrow s\)，对给定
-\(\varepsilon>0\)，可取 \(N\) 使 \(\beta_N<s+\varepsilon\)，于是
-\(n\ge N\) 时 \(a_n\le\beta_N<s+\varepsilon\)。另一方面，对任意
-\(N\)，数 \(s-\varepsilon\) 不能是尾部的上界；否则
-\(\beta_N\le s-\varepsilon<s\)，与 \(s=\inf_N\beta_N\) 矛盾。因此该尾部中存在 \(a_n>s-\varepsilon\)。
-
-反之，第一项说明某个尾部上确界不超过 \(s+\varepsilon\)，故
-\(\limsup a_n\le s+\varepsilon\)。第二项说明每个尾部上确界至少为
-\(s-\varepsilon\)，故 \(\limsup a_n\ge s-\varepsilon\)。令
-\(\varepsilon\downarrow0\) 得 \(\limsup a_n=s\)。下极限的证明把不等号和上下确界对换即可。
-\end{proof}
-
-第一项是最终上界，第二项是反复逼近。只保留第一项只能得到
-\(\limsup a_n\le s\)，只保留第二项只能得到 \(\limsup a_n\ge s\)。
-由同一证明还得到常用的严格版本：若 \(\limsup a_n<c\)，则最终
-\(a_n<c\)；若最终 \(a_n\le c\)，则 \(\limsup a_n\le c\)。
-
-\begin{proposition}[无穷端点]
+有上确界 \(s\)。对任意 \(\varepsilon>0\)，\(s-\varepsilon\) 不是 \(E\) 的上界，故存在 \(N\) 使 \(a_N>s-\varepsilon\)。单调性把这一项的估计传给整个尾部：
 \[
-\begin{aligned}
- \limsup a_n=+\infty
- &\Longleftrightarrow
- \text{对每个 \(M\in\R\) 和每个 \(N\)，存在 \(n\ge N\) 使 \(a_n>M\)},\\
- \limsup a_n=-\infty
- &\Longleftrightarrow a_n\to-\infty.
-\end{aligned}
+ s-\varepsilon<a_N\le a_n\le s\qquad(n\ge N).
 \]
-特别地，\(\limsup a_n=+\infty\) 当且仅当有子列趋于 \(+\infty\)。
-下极限有完全对偶的结论。
+因此 \(a_n\to s\)。这正是\chapterref{chap:monotone-iteration}中单调有界收敛定理的证明；递减情形可对 \((-a_n)\) 应用同一结论。于是 (S) 推出 (M)。
+
+这里两项假设承担不同工作。有界性使有限确界存在，单调性则保证进入 \(s\) 的一个邻域后不再离开。数列 \(a_n=n\) 说明不能删除有界性，\((-1)^n\) 说明不能删除单调性。
+
+\subsection{单调收敛与区间套}
+
+假设 (M) 成立，并设闭区间 \(I_n=[a_n,b_n]\) 嵌套且 \(b_n-a_n\to0\)。嵌套性给出
+\[
+ a_1\le a_2\le\cdots\le b_2\le b_1,
+\]
+所以 \((a_n)\) 单调递增且有上界，\((b_n)\) 单调递减且有下界。记
+\[
+ a_n\to x,\qquad b_n\to y.
+\]
+由极限的线性运算，\(b_n-a_n\to y-x\)，而已知左端趋于 \(0\)，故 \(x=y\)。对固定 \(n\)，当 \(k\ge n\) 时有
+\[
+ a_n\le a_k\le b_k\le b_n.
+\]
+令 \(k\to\infty\)，得到 \(a_n\le x\le b_n\)，因而 \(x\in I_n\) 对每个 \(n\) 成立。若 \(z\) 也属于全部 \(I_n\)，则
+\[
+ |z-x|\le b_n-a_n\qquad(n\in\Npos),
+\]
+长度趋零迫使 \(z=x\)。于是 (M) 推出 (N)。
+
+长度条件只负责唯一性，并非闭区间套非空所必需。
+
+\begin{proposition}[一般闭区间套]
+设 \(I_n=[a_n,b_n]\) 为嵌套的非空闭区间。若 (S) 成立，则
+\[
+ \bigcap_{n=1}^{\infty}I_n
+ =\left[\sup_n a_n,\inf_n b_n\right].
+\]
+特别地，交集非空，但可能含有多个点。
 \end{proposition}
 
 \begin{proof}
-第一行表示每个尾部都无上界，恰好等价于全部尾部上确界为
-\(+\infty\)。递归地在第 \(j\) 步选 \(n_j>n_{j-1}\) 且
-\(a_{n_j}>j\)，便得到趋于 \(+\infty\) 的子列；反向由该子列立即得到每个尾部无上界。
-
-若尾部上确界 \(\beta_N\downarrow-\infty\)，给定 \(M\)，可取 \(N\)
-使 \(\beta_N<M\)，于是所有 \(n\ge N\) 都有 \(a_n<M\)，即
-\(a_n\to-\infty\)。反向同理。下极限结论可对 \((-a_n)\) 应用已证结果。
+嵌套性使 \(a_n\le b_m\) 对任意 \(m,n\) 成立。故
+\[
+ a:=\sup_n a_n\le b:=\inf_n b_n.
+\]
+点 \(x\) 属于全部 \(I_n\)，当且仅当对每个 \(n\) 有 \(a_n\le x\le b_n\)，这又等价于 \(a\le x\le b\)。
 \end{proof}
 
-\section{部分极限的子列刻画}
+闭性不能省略，例如开区间 \((0,1/n)\) 的交为空；长度趋零不能保证非闭区间的端点被保留下来。
 
+\subsection{区间套与收敛子列}
 
-\begin{theorem}[有界数列的子列刻画]
-设 \((a_n)\) 有界，记
+假设 (N) 成立，设有界数列 \((x_n)\) 的所有项落在闭区间 \(I_0=[A,B]\) 中。将 \(I_0\) 二分，至少有一个半区间含有无穷多个序列项；选定这样的半区间为 \(I_1\)。继续二分，得到嵌套闭区间
 \[
- s=\limsup a_n,\qquad \ell=\liminf a_n.
+ I_k=[\alpha_k,\beta_k],\qquad
+ \beta_k-\alpha_k=2^{-k}(B-A),
 \]
-则：
-\begin{enumerate}
- \item 存在子列收敛到 \(s\)，也存在子列收敛到 \(\ell\)；
- \item 任意部分极限 \(L\) 都满足 \(\ell\le L\le s\)；
- \item \(s\) 是所有部分极限中的最大者，\(\ell\) 是最小者。
-\end{enumerate}
-\end{theorem}
+每个 \(I_k\) 都含有无穷多个序列项。Archimedes 性质保证区间长度趋于零，(N) 给出唯一交点 \(x\)。
 
-\begin{proof}
-设 \(\beta_n=\sup_{k\ge n}a_k\downarrow s\)。对每个 \(j\)，由上确界近似性可在尾部 \(k\ge j\) 中选指标 \(n_j\ge j\)，使
+递归选择 \(n_k>n_{k-1}\) 且 \(x_{n_k}\in I_k\)。这种选择可行，因为 \(I_k\) 中出现的指标有无穷多个。于是
 \[
- \beta_j-\frac1j<a_{n_j}\le\beta_j.
+ |x_{n_k}-x|\le\beta_k-\alpha_k\longrightarrow0,
 \]
-为了保证严格递增，可在第 \(j\) 步把尾部起点改为 \(n_{j-1}+1\)，并使用该尾部的上确界；所得上确界仍趋于 \(s\)。夹逼给出 \(a_{n_j}\to s\)。下极限情形对 \(-a_n\) 应用同一论证。
+从而得到收敛子列。故 (N) 推出 (B)。这也是\chapterref{chap:subsequences-cluster-points}中 Bolzano--Weierstrass 定理的区间套证明。
 
-若 \(a_{n_j}\to L\)，固定尾部起点 \(m\)。充分大时 \(n_j\ge m\)，故
+“含有无穷多个项”是关于指标的陈述，不是关于不同取值的陈述。常值数列的值集只有一个元素，却仍可在每一步抽取更大的指标。
+
+\subsection{收敛子列与 Cauchy 收敛}
+
+假设 (B) 成立，设 \((a_n)\) 为 Cauchy 列。它有界，因而存在子列 \(a_{n_k}\to a\)。给定 \(\varepsilon>0\)，先取 \(N\) 使
 \[
- \alpha_m\le a_{n_j}\le\beta_m.
+ |a_m-a_n|<\frac{\varepsilon}{2}\qquad(m,n\ge N),
 \]
-取 \(j\to\infty\) 得 \(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，得到 \(\ell\le L\le s\)。前一步已经说明端点本身是部分极限，所以它们分别为最小和最大部分极限。
-\end{proof}
-
-对无界数列，相应端点可能为无穷。上一节的命题说明，无穷端点仍具有准确的子列含义，不需要把 \(+\infty\) 当作实数。
-
-例如 \(a_{2n}=0\)、\(a_{2n-1}=n\) 满足
+再取 \(k\) 使 \(n_k\ge N\) 且 \(|a_{n_k}-a|<\varepsilon/2\)。于是对所有 \(n\ge N\)，
 \[
- \liminf a_n=0,\qquad \limsup a_n=+\infty.
+ |a_n-a|
+ \le |a_n-a_{n_k}|+|a_{n_k}-a|
+ <\varepsilon.
 \]
-上下极限允许一个端点有限、另一个端点无穷，因此比有界振荡覆盖更多发散情形。
+所以原列收敛到 \(a\)，即 (B) 推出 (C)。这一步把\chapterref{chap:cauchy-criterion}中的两项事实合在一起使用：Cauchy 列有界；Cauchy 列若有收敛子列，则全列收敛到同一点。
 
-\section{收敛判据与振荡幅度}
+\section{从 Cauchy 完备性重建上确界}
 
+前一节从 (S) 出发，逐步得到 (C)。反向推导不能简单地把箭头倒过来，因为 Cauchy 完备性只谈可数序列，而确界原理量化任意非空有界集合。需要用二分区间把集合的边界转化为可数数据。
 
 \begin{theorem}
-实数列 \((a_n)\) 收敛到 \(L\in\R\)，当且仅当
-\[
- \liminf a_n=\limsup a_n=L.
-\]
+设 \(F\) 是 Archimedes 有序域。若 \(F\) 中每个 Cauchy 列都收敛，则 \(F\) 满足确界原理。
 \end{theorem}
 
 \begin{proof}
-若 \(a_n\to L\)，给定 \(\varepsilon>0\)，充分大时整个尾部位于
-\((L-\varepsilon,L+\varepsilon)\)，故相应尾部上下确界也在闭区间
-\([L-\varepsilon,L+\varepsilon]\) 中。于是上下极限均为 \(L\)。
+设 \(\varnothing\ne A\subseteq F\) 有上界。取 \(a_0\in A\)，令 \(l_0=a_0-1\)，则 \(l_0\) 不是上界；再取 \(A\) 的一个上界 \(u_0\)，必要时放大它，使 \(l_0<u_0\)。
 
-反之，设共同值为 \(L\)。尾部下确界 \(\alpha_n\uparrow L\)，尾部上确界 \(\beta_n\downarrow L\)。给定 \(\varepsilon>0\)，取 \(N\) 使
+已经构造 \(l_n,u_n\) 后，令 \(m_n=(l_n+u_n)/2\)。若 \(m_n\) 是 \(A\) 的上界，置
 \[
- L-\varepsilon<\alpha_N\le\beta_N<L+\varepsilon.
+ l_{n+1}=l_n,\qquad u_{n+1}=m_n;
 \]
-对所有 \(n\ge N\)，有
-\(\alpha_N\le a_n\le\beta_N\)，所以 \(\abs{a_n-L}<\varepsilon\)。
+否则置
+\[
+ l_{n+1}=m_n,\qquad u_{n+1}=u_n.
+\]
+对每个 \(n\)，\(l_n\) 不是上界，\(u_n\) 是上界，并且
+\[
+ u_n-l_n=2^{-n}(u_0-l_0).
+\]
+
+Archimedes 性质使右端趋于零。若 \(m\ge n\)，嵌套性给出
+\[
+ l_n\le l_m\le u_m\le u_n,
+\]
+从而
+\[
+ |l_m-l_n|\le u_n-l_n,
+ \qquad
+ |u_m-u_n|\le u_n-l_n.
+\]
+所以 \((l_n)\)、\((u_n)\) 都是 Cauchy 列。由假设，存在 \(l,u\in F\) 使 \(l_n\to l\)、\(u_n\to u\)。又因 \(u_n-l_n\to0\)，得到 \(u=l=:s\)。
+
+若有 \(a\in A\) 满足 \(a>s\)，取 \(\varepsilon=(a-s)/2\)。充分大时 \(u_n<s+\varepsilon<a\)，这与 \(u_n\) 是上界矛盾，故 \(s\) 是上界。若 \(c<s\)，充分大时 \(l_n>c\)；由于 \(l_n\) 不是上界，存在 \(a\in A\) 使 \(a>l_n>c\)，所以 \(c\) 不是上界。于是 \(s=\sup A\)。
 \end{proof}
 
-因此振幅
-\[
- \omega_n:=\sup_{k\ge n}a_k-\inf_{k\ge n}a_k
-\]
-对有界数列满足
-\[
- a_n\text{ 收敛}\quad\Longleftrightarrow\quad\omega_n\to0.
-\]
-这一量度量尾部剩余的整体振荡，而不只比较相邻两项。
-
-\section{代数运算中的等式、不等式和反例}
-
-
-上极限不把加法普遍变成等式，因为两个数列的高峰可能出现在不同指标。
-
-\begin{theorem}[和的上下极限不等式]
-设 \((a_n)\)、\((b_n)\) 都有界，则
-\[
- \limsup(a_n+b_n)
- \le\limsup a_n+\limsup b_n,
-\]
-\[
- \liminf(a_n+b_n)
- \ge\liminf a_n+\liminf b_n.
-\]
-若 \(a_n\to a\)，则两式中与 \(a_n\) 有关的对应关系成为等式：
-\[
- \limsup(a_n+b_n)=a+\limsup b_n,
-\quad
- \liminf(a_n+b_n)=a+\liminf b_n.
-\]
-\end{theorem}
-
-\begin{proof}
-对每个尾部，
-\[
- \sup_{k\ge n}(a_k+b_k)
- \le\sup_{k\ge n}a_k+\sup_{k\ge n}b_k.
-\]
-令 \(n\to\infty\) 得第一式；下确界同理。若 \(a_n\to a\)，给定 \(\varepsilon>0\)，最终
-\[
- a-\varepsilon\le a_n\le a+\varepsilon.
-\]
-于是把 \(a_n+b_n\) 夹在 \(b_n+a\pm\varepsilon\) 之间，对上下极限使用单调性，再令 \(\varepsilon\downarrow0\) 即得等式。
-\end{proof}
-
-\begin{counterexample}
-令 \(a_n=(-1)^n\)、\(b_n=-(-1)^n\)。则
-\[
- \limsup a_n=\limsup b_n=1,
-\]
-但 \(a_n+b_n=0\)，所以
-\[
- \limsup(a_n+b_n)=0<2.
-\]
-两个高峰从不在同一指标出现。
-\end{counterexample}
-
-对非负有界数列有
-\[
- \limsup(a_nb_n)\le(\limsup a_n)(\limsup b_n).
-\]
-若其中一列收敛到非负数，则可得到相应等式。带符号乘法需同时考虑上下极限，不能直接套用同一公式。
-
-\begin{proposition}[标量、最大值与绝对值]
-设 \((a_n)\)、\((b_n)\) 有界，\(c\in\R\)。若 \(c\ge0\)，则
-\[
- \limsup(ca_n)=c\limsup a_n,\qquad
- \liminf(ca_n)=c\liminf a_n;
-\]
-若 \(c<0\)，则
-\[
- \limsup(ca_n)=c\liminf a_n,\qquad
- \liminf(ca_n)=c\limsup a_n.
-\]
-此外，
-\[
-\begin{aligned}
- \limsup\max\{a_n,b_n\}
- &=\max\{\limsup a_n,\limsup b_n\},\\
- \liminf\min\{a_n,b_n\}
- &=\min\{\liminf a_n,\liminf b_n\},
-\end{aligned}
-\]
-并且
-\[
- \limsup\abs{a_n}
- =\max\bigl\{\abs{\liminf a_n},\abs{\limsup a_n}\bigr\}.
-\]
+\begin{proposition}
+在 Archimedes 有序域中，若每个单调递增有界数列都收敛，则确界原理成立。
 \end{proposition}
 
 \begin{proof}
-标量公式直接来自尾部确界在正比例缩放下保持方向、在负比例缩放下交换上下确界。对最大值，每个尾部都有
-\[
- \sup_{k\ge n}\max\{a_k,b_k\}
- =\max\left\{\sup_{k\ge n}a_k,\sup_{k\ge n}b_k\right\};
-\]
-令 \(n\to\infty\) 即得。最小值公式对偶。
-
-记 \(\ell=\liminf a_n\)、\(s=\limsup a_n\)，并令
-\(r=\limsup\abs{a_n}\)。取子列使
-\(\abs{a_{n_j}}\to r\)，再由有界性抽取进一步子列
-\(a_{n_{j_k}}\to L\)。于是 \(L\in[\ell,s]\)，并且
-\[
- r=\abs L\le\max\{\abs\ell,\abs s\}.
-\]
-另一方面，分别取趋于 \(\ell,s\) 的子列并通过绝对值，说明
-\(r\ge\abs\ell\) 且 \(r\ge\abs s\)。两边合并即得公式。
+对非空有上界集合 \(A\) 作上述二分构造。左端点列 \((l_n)\) 单调递增且有上界，故收敛到某个 \(s\)。区间宽度趋于零，因而 \(u_n\to s\)。再用“\(l_n\) 不是上界、\(u_n\) 是上界”两项不变量，重复上一证明的最后一段，即得 \(s=\sup A\)。
 \end{proof}
 
-\begin{proposition}[一个因子收敛时的乘法公式]
-设 \(a_n\to a\)，而 \((b_n)\) 有界。若 \(a\ge0\)，则
+\section{Archimedes 条件与有理数反例}
+
+确界原理在有序域中能够推出 Archimedes 性质，证明已见\chapterref{chap:real-number-system}。反向从序列形式重建确界时，Archimedes 性质不能隐去。二分法所依赖的事实是
 \[
- \limsup(a_nb_n)=a\limsup b_n,\qquad
- \liminf(a_nb_n)=a\liminf b_n.
+ 2^{-n}(u_0-l_0)\longrightarrow0.
 \]
-若 \(a<0\)，则
-\[
- \limsup(a_nb_n)=a\liminf b_n,\qquad
- \liminf(a_nb_n)=a\limsup b_n.
-\]
+在非 Archimedes 有序域中，可能存在正无穷小 \(\eta\)，使 \(2^{-n}>\eta\) 对每个自然数 \(n\) 都成立；此时可数次二分未必越过所有尺度。
+
+\begin{proposition}[同一个有理缺口的五种表现]
+\(\Q\) 是 Archimedes 有序域，但 (S)、(M)、(N)、(B)、(C) 全部失败。
 \end{proposition}
 
 \begin{proof}
-先设 \(a>0\)。令 \(M\) 为 \((b_n)\) 的绝对值上界。给定
-\(\varepsilon\in(0,a)\)，充分大时
-\(\abs{a_n-a}<\varepsilon\)，从而
+令
 \[
- \abs{a_nb_n-ab_n}\le M\varepsilon.
+ E=\{q\in\Q:q<0\text{ 或 }q^2<2\}.
 \]
-和的上下极限不等式应用于 \(ab_n\) 与趋零列
-\((a_n-a)b_n\)，给出
-\[
- \limsup(a_nb_n)=\limsup(ab_n)=a\limsup b_n,
-\]
-下极限同理。\(a=0\) 时由零列乘有界列得到二者都为零。
-若 \(a<0\)，对 \((-a_n)b_n\) 使用正数情形，再用负号交换上下极限。
+由\chapterref{chap:real-number-system}，\(E\) 在 \(\Q\) 中有上界却没有有理上确界，故 (S) 失败。取从左侧逼近 \(\sqrt2\) 的十进制截断列 \((a_n)\)，它单调递增且有界，却没有有理极限，故 (M) 失败。相应的左右有理端点构成长趋于零的闭区间套，其交在 \(\Q\) 中为空，故 (N) 失败。
+
+同一列是有理 Cauchy 列而无有理极限，所以 (C) 失败。若 (B) 成立，\((a_n)\) 应有在 \(\Q\) 中收敛的子列；设该子列趋于 \(q\in\Q\)，则平方的极限给出 \(q^2=2\)，仍与 \(\sqrt2\notin\Q\) 矛盾。故 (B) 也失败。
 \end{proof}
 
-两个因子都只知道上下极限时，峰值可能错位，乘法也会出现与加法相同的相关性问题。因此这些公式不能在没有收敛因子或符号条件时任意推广。
+这个例子说明 Archimedes 性质只保证自然数网格可以任意细分，并不保证网格逼近的边界仍属于原数系。完备性补充的是极限留在空间内的封闭性。
+
+\begin{remark}[序完备与 Cauchy 完备]
+确界原理检查任意非空有界子集的序边界，Cauchy 完备性只检查可数序列的距离稳定性。二者在 Archimedes 有序域中由上面的二分编码联系起来；在一般度量空间中没有上确界或区间可用，Cauchy 完备性仍有意义，而本章的其他形式必须另作解释或替换。
+\end{remark}
+
+\section{在证明中选择完备性形式}
+
+等价性不意味着各形式在证明中同样方便。若对象天然单调，例如积分上和、下和或逐步增大的近似集合，通常直接寻找上确界或下确界。若每一步把候选范围缩小到闭区间，区间套定理同时记录存在性和定位误差。若只有有界性而缺少单调性，Bolzano--Weierstrass 定理允许先抽取收敛子列；若能估计任意两个后期近似之间的差，Cauchy 准则往往无需预知极限。
+
+还要区分“存在候选值”和“候选值属于当前空间”。极限方程、上下极限或形式代数运算可以给出候选值，却不能代替完备性论证。反过来，完备性通常只给出存在性；极限的具体数值还要靠唯一性、方程、保序性或误差估计确定。后续章节使用完备性时，将明确指出采用的是上述哪一种形式。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
 \subsection*{A组　定义与基本方法}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
- \exerciseitem{12.5} 对 \(a_n=(-1)^n+1/n\) 写出 \(\alpha_n,\beta_n\) 的奇偶公式，并求上下极限。
- \exerciseitem{12.6} 证明尾部上确界递减、尾部下确界递增。
- \exerciseitem{12.7} 计算下列数列的上下极限：
- \begin{enumerate}[label=(\arabic*)]
-  \item \(a_n=(-1)^n n\)；
-  \item \(a_n=n\sin(n\pi/2)\)；
-  \item \(a_n=1+(-1)^n/n\)。
- \end{enumerate}
- \exerciseitem{12.8} 证明 \(\limsup a_n=+\infty\) 当且仅当存在子列趋于 \(+\infty\)。
+ \exerciseitem{6.1} 从定义证明收敛数列是 Cauchy 列。
+ \exerciseitem{6.2} 证明单调递增列若无上界，则对每个 \(M\in\R\) 从某项起 \(a_n>M\)。
+ \exerciseitem{6.3} 给出有界但不收敛数列、单调但不收敛数列，并指出各自缺少的条件。
+ \exerciseitem{6.4} 证明区间套定理中若只知交集非空而无长度条件，交集必为闭区间。
+ \exerciseitem{6.5} 分别给出删除嵌套性、闭性、长度趋零条件后结论失败的例子。
 \end{enumerate}
 
 \subsection*{B组　证明与反例}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{12.9} 完整证明有界数列存在收敛到其上极限的子列，确保指标严格递增。
- \exerciseitem{12.10} 证明任意部分极限位于 \([\liminf a_n,\limsup a_n]\)。
- \exerciseitem{12.11} 证明 \(\limsup(-a_n)=-\liminf a_n\)。
- \exerciseitem{12.12} 证明最终 \(a_n\le b_n\) 蕴含上下极限的相应单调性。
- \exerciseitem{12.13} 证明和的上极限不等式，并给出严格不等的例子。
- \exerciseitem{12.14} 若 \(a_n\to a\)，证明
- \[
- \limsup(a_n+b_n)=a+\limsup b_n
- \]
- 对有界 \((b_n)\) 成立。
- \exerciseitem{12.15} 对非负有界列证明
- \[
- \limsup(a_nb_n)\le(\limsup a_n)(\limsup b_n).
- \]
- \exerciseitem{12.16} 证明
- \[
- \limsup\max\{a_n,b_n\}
- =\max\{\limsup a_n,\limsup b_n\}.
- \]
- \exerciseitem{12.17} 对有界实数列判断 \(\limsup\abs{a_n}=\abs{\limsup a_n}\) 是否总成立，并给出正确关系。
- \exerciseitem{12.18} 证明上下极限相等且有限蕴含原列收敛。
+ \exerciseitem{6.6} 证明有界数列若只有一个可能的子列极限，则原列收敛。
+ \exerciseitem{6.7} 证明 Cauchy 列的任意子列仍是 Cauchy 列；若某子列收敛，则所有收敛子列极限相同。
+ \exerciseitem{6.8} 用二分区间法证明每个无限有界实数集至少有一个聚点。
+ \exerciseitem{6.9} 证明若 \(|a_{n+1}-a_n|\le2^{-n}\)，则 \((a_n)\) 是 Cauchy 列。
+ \optionalexerciseitem{6.10} 构造 \(|a_{n+1}-a_n|\to0\) 但不是 Cauchy 列的数列。
+ \exerciseitem{6.11} 证明有限多个 Cauchy 列的线性组合仍为 Cauchy 列。
 \end{enumerate}
 
 \subsection*{C组　综合问题}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{12.19} 证明有界数列收敛当且仅当尾部振幅 \(\omega_n\to0\)。
- \exerciseitem{12.21} 构造有界数列 \(a_n,b_n\)，使两个上极限都为 \(1\)，而和的上极限分别可以为 \(0,1,2\)。
- \optionalexerciseitem{12.23} 设 \(a_n>0\)。比较 \(\limsup a_{n+1}/a_n\) 与 \(a_n^{1/n}\) 的可能关系，给出至少一个不能直接交换的反例。
- \optionalexerciseitem{12.24} 证明若 \(\limsup\abs{a_n}<1\)，则存在 \(q<1\) 使 \(\abs{a_n}\le q\) 最终成立。
- \projectexerciseitem{12.26} \ 【前置：本章全部；预计用时：60分钟】设 \((a_n)\) 有界。把上、下极限写成尾部闭包交集的最大、最小点，并比较“集合表达”“尾部确界表达”“子列表达”三种证明工具。
+ \projectexerciseitem{6.12} \ 【前置：本章全部主定理；预计用时：90分钟】不经过 Bolzano--Weierstrass 定理，直接用快速 Cauchy 子列与级数型误差证明 Cauchy 完备性。
+ \exerciseitem{6.13} 补全从 Cauchy 完备性构造上确界时 \(l_n,u_n\) 的 Cauchy 性和共同极限证明。
+ \exerciseitem{6.14} 证明“每个有界数列都有 Cauchy 子列”与 Bolzano--Weierstrass 定理在 Cauchy 完备的有序域中等价。
+ \exerciseitem{6.15} 设闭区间套 \(I_n=[a_n,b_n]\) 的长度趋于零，交点为 \(x\)。证明对任意选择 \(x_n\in I_n\)，都有 \(x_n\to x\)。
+ \optionalexerciseitem{6.16} 设有序域 \(F\) 中存在正元素 \(\eta\)，满足 \(\eta<1/n\) 对每个 \(n\in\Npos\) 成立。证明 \(2^{-n}\) 在 \(F\) 中不趋于零，并说明可数次二分为何不能越过尺度 \(\eta\)。
+ \exerciseitem{6.17} 证明在 \(\Q\) 中 (S)、(M)、(N)、(B)、(C) 均失败，并尽量使用\chapterref{chap:real-number-system}同一个 \(\sqrt2\) 缺口。
+ \exerciseitem{6.18} 对不要求长度趋零的嵌套闭区间证明
+ \[
+  \bigcap_n[a_n,b_n]=[\sup_n a_n,\inf_n b_n].
+ \]
+ \exerciseitem{6.19} 从 Bolzano--Weierstrass 定理推出每个无限有界实数集有聚点，并解释互异点选择的必要性。
+ \exerciseitem{6.20} 定义尾部直径 \(d_N\)，证明 Cauchy 性等价于 \(d_N\to0\)。
+ \exerciseitem{6.21} 证明若 \((a_n)\) 是 Cauchy 列且有子列趋于 \(+\infty\)，则产生矛盾；说明 Cauchy 列不能有不同的扩充实子列极限。
+ \exerciseitem{6.22} 只用单调有界收敛与 Archimedes 性质重建确界原理。
+ \exerciseitem{6.23} 证明若每个长度趋零的闭区间套交集非空，则交集自动为单点；据此区分“存在性”与“唯一性”的条件来源。
+ \optionalexerciseitem{6.24} 给出从 (C) 直接推出 (B) 的证明方案，避免先使用确界原理；可先构造 Cauchy 子列。
+ \projectexerciseitem{6.25} \ 【前置：本章全部内容；预计用时：120分钟】为依赖图中每条箭头写一份条件清单和反例清单，确保不循环引用等价命题。
+ \optionalexerciseitem{6.26} 设 \(A\subseteq\R\) 非空且有上界，\(s\in\R\)。证明：\(s=\sup A\) 当且仅当 \(s\) 是 \(A\) 的上界，并且存在 \(a_n\in A\) 使 \(a_n\to s\)。
 \end{enumerate}
 
 \section*{部分习题提示}
 \begin{itemize}
- \item \exerciseref{12.5}：分别找尾部中最大的第一个偶项与最小的第一个奇项。
- \item \exerciseref{12.16}：利用 \(\max\) 与尾部上确界可交换。
- \item \exerciseref{12.17}：正确关系涉及 \(\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}\)。
- \item \exerciseref{12.21}：通过让两个数列的高峰同位、错位或部分同位安排结果。
+ \item \exerciseref{6.6}：反设不收敛，抽取一条始终远离候选极限的子列，再应用收敛子列定理。
+ \item \exerciseref{6.10}：取调和部分和 \(a_n=\sum_{k=1}^n1/k\)。
+ \item \exerciseref{6.12}：抽取 \(n_k\) 使尾部项两两距离 \(<2^{-k}\)，证明它收敛后再控制原列。
 \end{itemize}

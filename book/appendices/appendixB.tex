@@ -1,309 +1,159 @@
-\chapter{有限维线性代数、二次型与行列式复习}
-\label{chap:appendix-linear-algebra}
+\chapter{符号与定理版本}
+\label{chap:appendix-notation-dependencies}
 
-\begin{chapterguide}
-本附录汇总后续多元分析、微分形式和算子理论反复使用的有限维线性代数。默认读者已学过矩阵运算；重点放在不依赖坐标的对象、基变换下的公式以及有限维假设的使用位置。
-\end{chapterguide}
+本附录汇总第一卷前三编已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。局部记号仍以正文首次定义处为准；若本附录与某一定理的正式陈述发生差异，应以正文中的完整假设为准。
 
-\section{线性映射、矩阵与基变换}
+\section{数集与指标}
 
-设 \(V,W\) 是域 \(F\) 上有限维向量空间。映射 \(T:V\to W\) 线性是指
+本书采用
 \[
- T(\alpha x+\beta y)=\alpha T(x)+\beta T(y).
+ \N=\{0,1,2,\ldots\},\qquad
+ \Npos=\{1,2,3,\ldots\}.
 \]
-给定 \(V\) 的基 \(\mathcal B=(e_1,\ldots,e_n)\) 与 \(W\) 的基 \(\mathcal C=(f_1,\ldots,f_m)\)，矩阵 \(A=[T]_{\mathcal C\leftarrow\mathcal B}\) 的第 \(j\) 列是 \(T(e_j)\) 的 \(\mathcal C\)-坐标，因此
+数列通常以 \(\Npos\) 为指标集；需要初值 \(a_0\) 时会明确改用 \(\N\)。此外，
 \[
- [T(x)]_{\mathcal C}=A[x]_{\mathcal B}.
+ \Z=\{\ldots,-1,0,1,\ldots\},\qquad
+ \Q=\left\{\frac pq:p\in\Z,\ q\in\Npos\right\},\qquad
+ \R=\text{实数集}.
 \]
+扩充实数集记为
+\[
+ \overline{\R}=\R\cup\{-\infty,+\infty\}.
+\]
+符号 \(\pm\infty\) 不是实数。只有在正文明确给出约定时，才在 \(\overline{\R}\) 中进行序比较或部分代数运算；诸如 \(+\infty-\infty\)、\(0\cdot\infty\) 不作定义。
 
-若 \(P\) 的列是 \(V\) 的新基 \(\mathcal B'\) 在旧基 \(\mathcal B\) 中的坐标，\(Q\) 的列是 \(W\) 的新基 \(\mathcal C'\) 在旧基 \(\mathcal C\) 中的坐标，则
+正整数指标 \(m,n,k,N\) 默认属于 \(\Npos\)。写
 \[
- [x]_{\mathcal B}=P[x]_{\mathcal B'},\qquad
- [y]_{\mathcal C}=Q[y]_{\mathcal C'}.
+ n\ge N
 \]
-从而
-\[
- [T]_{\mathcal C'\leftarrow\mathcal B'}
- =Q^{-1}[T]_{\mathcal C\leftarrow\mathcal B}P.
-\]
-只有在 \(V=W\)，并且定义域和值域同时采用同一组新基时，公式才化为
-\[
- [T]_{\mathcal B'\leftarrow\mathcal B'}
- =P^{-1}[T]_{\mathcal B\leftarrow\mathcal B}P.
-\]
-因此相似矩阵表示同一线性自映射在不同基下的坐标；一般线性映射的矩阵变换是左右两边分别换基。
+表示对整个尾部作断言；有限多个首项通常不影响收敛性，但在证明有界性时必须把这些首项单独纳入有限最大值。
 
-\begin{theorem}[秩--零化度]
-若 \(T:V\to W\) 线性且 \(\dim V=n\)，则
-\[
- \dim\ker T+\dim\operatorname{im}T=n.
-\]
-\end{theorem}
+\section{集合、映射与区间}
 
-\begin{proof}
-取 \(\ker T\) 的基 \(e_1,\ldots,e_k\)，扩充为 \(V\) 的基。则 \(T(e_{k+1}),\ldots,T(e_n)\) 张成像空间；若其线性组合为零，对应原向量落在核中，与基的线性无关性比较可知全部系数为零。故它们是像空间的基。
-\end{proof}
-
-核与像分别衡量方程 \(T(x)=0\) 的自由度和 \(T\) 实际达到的方向。由秩--零化度立即得到：有限维自映射 \(T:V\to V\) 单射、满射、可逆三者等价。若 \(U\subseteq V\) 是子空间，则商空间 \(V/U\) 的元素是陪集 \(x+U\)，并且
+集合包含记为 \(A\subseteq B\)，允许 \(A=B\)；真包含在需要时写为 \(A\subsetneq B\)。空集记为 \(\varnothing\)，幂集记为 \(\mathcal P(X)\)。集合差为
 \[
- \dim(V/U)=\dim V-\dim U.
-\]
-映射 \(T\) 在商空间上诱导的映射是否良定义，仍须验证它把同一陪集中的向量送到同一目标陪集。
-
-\section{线性泛函、对偶基与转置映射}
-
-对偶空间 \(V^*=\operatorname{Hom}(V,F)\)。基 \((e_i)\) 的对偶基 \((e^i)\) 由
-\[
- e^i(e_j)=\delta^i_j
-\]
-确定；若 \(x=\sum_i x^ie_i\)，则 \(x^i=e^i(x)\)。
-
-线性映射 \(T:V\to W\) 的转置或对偶映射
-\[
- T^*:W^*\to V^*,\qquad T^*(\varphi)=\varphi\circ T
-\]
-满足 \((S\circ T)^*=T^*\circ S^*\)。在对偶基下，\(T^*\) 的矩阵是 \(T\) 矩阵的转置。有限维时自然映射
-\[
- V\to V^{**},\qquad x\mapsto(\varphi\mapsto\varphi(x))
-\]
-是同构；无限维代数对偶中它一般不是满射。
-
-若 \(U\subseteq V\)，它的湮灭子定义为
-\[
- U^\circ=\{\varphi\in V^*:\varphi(u)=0\text{ 对所有 }u\in U\}.
-\]
-取 \(U\) 的基并扩充为 \(V\) 的基，可见
-\[
- \dim U^\circ=\dim V-\dim U.
-\]
-同一基计算还给出
-\[
- (\operatorname{im}T)^\circ=\ker T^*.
-\]
-再用秩--零化度便得到 \(\operatorname{rank}T^*=\operatorname{rank}T\)。这些恒等式不依赖矩阵表示；矩阵转置只是它们在对偶基下的坐标形式。
-
-若新旧基满足 \([x]_{\mathcal B}=P[x]_{\mathcal B'}\)，则对偶坐标满足
-\[
- [\varphi]_{\mathcal B'^*}=P^{\mathsf T}[\varphi]_{\mathcal B^*}.
-\]
-协向量与向量采用相反方向的基变换，这也是后文上、下指标变换规律的来源。这里的 \(T^*\) 是代数对偶映射；Hilbert 空间中的伴随算子还要使用内积，通常也写作 \(T^*\)，两者应由上下文区分。
-
-\section{行列式与定向体积}
-
-行列式是唯一满足下列条件的函数 \(\det:F^{n\times n}\to F\)：对各列分别线性，交换两列变号，且 \(\det I=1\)。Leibniz 公式为
-\[
- \det A=\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)
- \prod_{i=1}^n a_{i,\sigma(i)}.
-\]
-\(\operatorname{sgn}(\sigma)\) 记录置换分解为换位时的奇偶性。由交替性立即得到：两列相同则行列式为零；一列是其他列的线性组合时也为零。反过来，把每一列按标准基展开，只有指标互异的项可能保留，便从交替多线性条件推出 Leibniz 公式，因而行列式的确唯一。
-
-\begin{theorem}
-\[
- \det(AB)=\det A\det B.
-\]
-因此 \(A\) 可逆当且仅当 \(\det A\ne0\)，且相似矩阵行列式相同。
-\end{theorem}
-
-\begin{proof}
-固定 \(A\)。把 \(B\) 的列记作 \(b_1,\ldots,b_n\)，则 \(AB\) 的列是 \(Ab_1,\ldots,Ab_n\)。因此
-\[
- (b_1,\ldots,b_n)\longmapsto\det(Ab_1,\ldots,Ab_n)
-\]
-是交替多线性函数。由行列式的唯一性，它等于某个常数乘以 \(\det B\)；令 \(B=I\)，常数就是 \(\det A\)。故 \(\det(AB)=\det A\det B\)。
-
-若 \(A\) 可逆，则 \(1=\det A\det A^{-1}\)，所以 \(\det A\ne0\)。反之，若 \(A\) 不可逆，其列线性相关；把一列写成其他列的线性组合并使用多线性与交替性，得到 \(\det A=0\)。这证明了可逆判据。
-\end{proof}
-
-一个有序基确定实向量空间的定向；基变换矩阵行列式为正时保定向，为负时反定向。在欧氏空间中，Gram 矩阵
-\[
- G=(\langle v_i,v_j\rangle)_{i,j}
-\]
-的行列式给出平行体体积的平方。若 \(v_i=Ae_i\)，则
-\[
- \det G=\det(A^{\mathsf T}A)=(\det A)^2,
-\]
-故体积伸缩因子为 \(|\det A|\)，而 \(\det A\) 的符号同时记录定向。变量代换公式中出现绝对值，是因为普通体积不携带定向。
-
-\section{特征值、正交对角化与谱定理}
-
-若 \(T(v)=\lambda v\) 且 \(v\ne0\)，则 \(\lambda\) 是特征值。有限维矩阵的特征值满足
-\[
- \det(A-\lambda I)=0.
-\]
-实矩阵未必有实特征值，也未必可对角化；例如平面非平凡旋转没有实特征向量，Jordan 块只有一个特征方向。
-
-在 \(\R^n\) 中使用标准内积与欧氏范数
-\[
- \langle x,y\rangle=\sum_{i=1}^n x_i y_i,\qquad
- \|x\|=\sqrt{\langle x,x\rangle}.
-\]
-对任意 \(x,y\) 和实数 \(t\)，有
-\[
- 0\le \|x-ty\|^2
- =\|x\|^2-2t\langle x,y\rangle+t^2\|y\|^2.
-\]
-当 \(y\ne0\) 时取 \(t=\langle x,y\rangle/\|y\|^2\)，得到 Cauchy--Schwarz 不等式
-\[
- |\langle x,y\rangle|\le \|x\|\,\|y\|.
-\]
-等号成立当且仅当 \(x,y\) 线性相关。它进一步推出三角不等式。
-
-若 \(U\subseteq\R^n\) 是子空间，Gram--Schmidt 过程把 \(U\) 的任一基变成标准正交基 \(u_1,\ldots,u_k\)。于是
-\[
- P_Ux=\sum_{j=1}^k\langle x,u_j\rangle u_j
-\]
-满足 \(P_Ux\in U\) 且 \(x-P_Ux\perp U\)。分解
-\[
- x=P_Ux+(x-P_Ux)
-\]
-唯一，因为 \(U\cap U^\perp=\{0\}\)。这一定义不依赖所选标准正交基，并给出正交投影 \(P_U\)。
-
-\begin{theorem}[实对称谱定理]
-若 \(A=A^{\mathsf T}\in\R^{n\times n}\)，则存在正交矩阵 \(Q\) 与实对角矩阵 \(\Lambda\)，使
-\[
- A=Q\Lambda Q^{\mathsf T}.
-\]
-\end{theorem}
-
-\begin{proof}
-连续函数 \(q(x)=x^{\mathsf T}Ax\) 在单位球面上取得最大值 \(\lambda\)。这里使用有限维单位球面的紧致性；该事实在欧氏空间的紧致性理论中证明，本附录不以谱定理反过来证明它。取单位最大点 \(v\)。对任意 \(h\perp v\) 和 \(t\in\R\)，最大性给出
-\[
- q(v+th)\le \lambda\|v+th\|^2.
-\]
-利用 \(q(v)=\lambda\)、\(\langle v,h\rangle=0\) 展开可得
-\[
- 2t\,h^{\mathsf T}Av+t^2
- \bigl(h^{\mathsf T}Ah-\lambda\|h\|^2\bigr)\le0.
-\]
-分别取正、负且趋于零的 \(t\)，一次项只能为零。因此
-\[
- h^{\mathsf T}Av=0\qquad(h\perp v).
-\]
-所以 \(Av\in(v^\perp)^\perp=\operatorname{span}\{v\}\)，而与 \(v\) 取内积又得 \(Av=\lambda v\)。
-
-对称性保证 \(v^\perp\) 在 \(A\) 下不变，因为
-\[
- \langle Ax,v\rangle=\langle x,Av\rangle=0
- \qquad(x\perp v).
-\]
-在 \(v^\perp\) 上归纳，得到一组标准正交特征向量；把它们作为 \(Q\) 的列即得结论。无限维单位球面一般不紧，因此这条有限维证明不能直接用于一般无限维算子。
-\end{proof}
-
-不同特征值对应的特征向量正交，因为
-\[
- \lambda\langle x,y\rangle=\langle Ax,y\rangle
- =\langle x,Ay\rangle=\mu\langle x,y\rangle.
+ A\setminus B=\{x\in A:x\notin B\}.
 \]
 
-\section{二次型、正定性与 Sylvester 判据}
-
-实二次型可写为 \(q(x)=x^{\mathsf T}Ax\)，其中只需取对称部分 \((A+A^{\mathsf T})/2\)。称 \(A\) 正定，如果 \(x^{\mathsf T}Ax>0\) 对所有 \(x\ne0\) 成立；把严格不等式改为 \(\ge0\) 得到半正定。若二次型同时取正值和负值，则称为不定。
-
-基变换 \(x=Py\) 把矩阵变成
+映射写为
 \[
- A\longmapsto P^{\mathsf T}AP,
+ f:X\to Y.
 \]
-这称为合同变换，并不等同于相似变换。合同保持二次型的正、负、零方向数目。谱定理给出的正交对角化既是相似变换，也是合同变换。
-
-\begin{theorem}
-对实对称矩阵 \(A\)，下列条件等价：
-\begin{enumerate}
- \item \(A\) 正定；
- \item \(A\) 的全部特征值为正；
- \item 存在可逆 \(R\) 使 \(A=R^{\mathsf T}R\)；
- \item 所有顺序主子式 \(\Delta_k=\det A_{1:k,1:k}\) 均为正。
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-谱分解给出 \(q(x)=\sum_i\lambda_i y_i^2\)，故前两项等价。正特征值取平方根得到 \(A=R^{\mathsf T}R\)；反向由 \(\|Rx\|^2>0\) 得正定。最后一项是 Sylvester 判据：无主元交换的对称消元给出
+其中 \(X\) 是定义域，\(Y\) 是陪域，实际值域为
 \[
- A=LDL^{\mathsf T},\qquad
- d_k=\Delta_k/\Delta_{k-1}.
+ f(X)=\{f(x):x\in X\}\subseteq Y.
 \]
-下面说明这一分解为何合法。写
+对 \(A\subseteq X\)、\(B\subseteq Y\)，
 \[
- A=\begin{pmatrix}a&r^{\mathsf T}\\ r&C\end{pmatrix}.
+ f(A)=\{f(x):x\in A\},\qquad
+ f^{-1}(B)=\{x\in X:f(x)\in B\}.
 \]
-若首个顺序主子式 \(a=\Delta_1\ne0\)，则直接相乘可得
+这里 \(f^{-1}(B)\) 表示原像，不要求 \(f\) 可逆。只有在 \(f\) 为双射并明确谈论逆映射时，\(f^{-1}:Y\to X\) 才表示一个映射。
+
+实数区间采用通常记号 \((a,b)\)、\([a,b]\)、\((a,b]\)、\([a,b)\)。在子空间 \(E\subseteq\R\) 中谈邻域或连续性时，区间要与 \(E\) 相交。例如端点 \(a\) 在 \([a,b]\) 中的相对邻域可以写为
 \[
- A=
- \begin{pmatrix}1&0\\ r/a&I\end{pmatrix}
- \begin{pmatrix}a&0\\0&C-rr^{\mathsf T}/a\end{pmatrix}
- \begin{pmatrix}1&r^{\mathsf T}/a\\0&I\end{pmatrix}.
+ (a-\delta,a+\delta)\cap[a,b].
 \]
-Schur 补 \(C-rr^{\mathsf T}/a\) 的第 \(j\) 个顺序主子式是
-\(\Delta_{j+1}/\Delta_1\)。若所有 \(\Delta_k>0\)，可归纳继续消元，得到单位下三角矩阵 \(L\) 和
+
+集合 \(A\subseteq\R\) 的上确界、下确界分别记为 \(\sup A\)、\(\inf A\)。这两个符号默认只在相应确界存在时使用；把空集或无界集合的确界放入扩充实数，需要正文另行说明。
+
+\section{数列记号}
+
+数列记为 \((a_n)\)，它是从指标集到值域的映射。符号
 \[
- D=\operatorname{diag}(d_1,\ldots,d_n),
- \qquad d_k=\frac{\Delta_k}{\Delta_{k-1}}>0,
- \quad \Delta_0=1.
+ a_n\to a,\qquad \lim_{n\to\infty}a_n=a
 \]
-于是 \(x^{\mathsf T}Ax=(L^{\mathsf T}x)^{\mathsf T}D(L^{\mathsf T}x)>0\)。
-
-反过来，若 \(A\) 正定，则它在前 \(k\) 个坐标张成的子空间上的限制仍正定。对应矩阵 \(A_{1:k,1:k}\) 的全部特征值为正，故
+均表示有限极限。写 \(a_n\uparrow a\) 表示 \((a_n)\) 单调递增且收敛到 \(a\)，\(a_n\downarrow a\) 类似。符号
 \[
- \Delta_k=\det A_{1:k,1:k}>0.
+ a_n\to+\infty
 \]
-这证明了 Sylvester 判据，也完成四个条件的等价性。
-\end{proof}
+表示对每个实数 \(M\)，存在 \(N\) 使 \(n\ge N\) 时 \(a_n>M\)；它不表示在 \(\R\) 中收敛。
 
-半正定情形不能只把 Sylvester 判据中的 \(>\) 改成 \(\ge\)：顺序主子式全非负并不足以控制所有方向。正确判据是全部主子式非负，或等价地全部特征值非负。退化二次型也说明二阶极值判别在 Hessian 半正定时为何不能给出严格极值结论。
-
-\section{多线性映射与张量记号初步}
-
-映射 \(T:V_1\times\cdots\times V_k\to W\) 若对每个变量分别线性，称为 \(k\)-线性映射。双线性型在基下写成 \(B(x,y)=B_{ij}x^iy^j\)。Einstein 求和约定把重复的一上一下指标自动求和。
-
-张量积可以直接构造。令 \(F^{(V\times W)}\) 为以形式符号 \([v,w]\) 为基的自由向量空间，再除去由
+子列写为 \((a_{n_k})\)，其中
 \[
-\begin{aligned}
- [v+v',w]-[v,w]-[v',w],&\qquad
- [v,w+w']-[v,w]-[v,w'],\\
- [\lambda v,w]-\lambda[v,w],&\qquad
- [v,\lambda w]-\lambda[v,w]
-\end{aligned}
+ n_1<n_2<\cdots.
 \]
-生成的子空间。所得商空间记为 \(V\otimes W\)，\([v,w]\) 的陪集记为 \(v\otimes w\)。商掉的关系恰好保证映射
-\[
- \tau:V\times W\to V\otimes W,\qquad
- \tau(v,w)=v\otimes w
-\]
-双线性。
+严格递增性保证 \(n_k\ge k\)，所以子列指标最终进入原列的任意尾部。
 
-若 \(B:V\times W\to U\) 双线性，先在线性基 \([v,w]\) 上规定
-\(\widehat B([v,w])=B(v,w)\)。双线性保证上述关系生成的子空间包含在
-\(\ker\widehat B\) 中，所以 \(\widehat B\) 唯一下降为线性映射
+有界数列的上极限与下极限可写为
 \[
- \widetilde B:V\otimes W\to U,\qquad
- \widetilde B(v\otimes w)=B(v,w).
+ \limsup_{n\to\infty}a_n
+ =\lim_{N\to\infty}\sup_{n\ge N}a_n,
 \]
-纯张量张成整个商空间，故这样的 \(\widetilde B\) 唯一。这就是张量积的泛性质。
-
-若 \(e_1,\ldots,e_m\) 与 \(f_1,\ldots,f_n\) 分别是 \(V,W\) 的基，双线性展开表明 \(e_i\otimes f_j\) 张成 \(V\otimes W\)。为证线性无关，对每个 \((i,j)\) 定义双线性坐标函数
 \[
- B_{ij}(v,w)=e^i(v)f^j(w).
+ \liminf_{n\to\infty}a_n
+ =\lim_{N\to\infty}\inf_{n\ge N}a_n.
 \]
-相应的 \(\widetilde B_{ij}\) 在 \(e_p\otimes f_q\) 上取值
-\(\delta_{ip}\delta_{jq}\)，故任何线性关系的各个系数都为零。因此这些纯张量构成基，并且
+无界数列的相应值可以落在 \(\overline{\R}\)。部分极限是收敛子列的极限；聚点是数列值在每个邻域中按指标无限次出现的极限位置。若某个值只出现有限次，它不会仅因属于值集就成为部分极限。
+
+Cauchy 条件写为
 \[
- \dim(V\otimes W)=\dim V\,\dim W.
+ \forall\varepsilon>0\ \exists N\ \forall m,n\ge N,
+ \qquad |a_m-a_n|<\varepsilon.
 \]
-坐标变换时，每个逆变指标随基变换，每个协变指标随对偶基变换；张量记号的价值在于把这种变换律编码进指标位置。
+两个尾部指标必须由同一个 \(N\) 同时控制。只知道
+\[
+ |a_{n+1}-a_n|\to0
+\]
+不能推出 Cauchy 性。
 
-\section*{习题}
-\addcontentsline{toc}{section}{习题}
+\section{函数极限与连续性}
 
-\begin{enumerate}[label=\textbf{B.\arabic*.}]
- \exerciseitem{B.1} 证明同一线性算子在两组基下的矩阵相似。
- \exerciseitem{B.2} 证明秩--零化度定理，并推出有限维空间上的单射线性自映射必为满射。
- \exerciseitem{B.3} 计算基变换下对偶基的变换矩阵。
- \exerciseitem{B.4} 证明 \((S\circ T)^*=T^*\circ S^*\) 及 \(\operatorname{rank}T^*=\operatorname{rank}T\)。
- \exerciseitem{B.5} 从交替多线性定义推出相同行的方阵行列式为零。
- \exerciseitem{B.6} 证明 \(\det(P^{-1}AP)=\det A\) 及迹的相似不变性。
- \exerciseitem{B.7} 给出不可对角化实矩阵及没有实特征值的实矩阵，并验证。
- \exerciseitem{B.8} 证明实对称矩阵不同特征值的特征空间正交。
- \exerciseitem{B.9} 证明正定矩阵的全部顺序主子式为正。
- \projectexerciseitem{B.10} \ 【前置：正交投影；预计用时：60分钟】补全实对称谱定理的极值证明。
- \optionalexerciseitem{B.11} 证明双线性型只由矩阵的对称部分决定其二次型，并用极化恒等式恢复对称双线性型。
- \optionalexerciseitem{B.12} 构造 \(V\otimes W\) 的基并证明其线性无关性。
-\end{enumerate}
+若 \(a\) 是定义域 \(D\subseteq\R\) 的聚点，则
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=L
+\]
+表示
+\[
+ \forall\varepsilon>0\ \exists\delta>0\
+ \forall x\in D,\quad
+ 0<|x-a|<\delta\Longrightarrow |f(x)-L|<\varepsilon.
+\]
+条件 \(0<|x-a|\) 排除点 \(a\) 本身，因此函数极限只由删心邻域中的值决定。若 \(a\) 同时是 \(D\) 的聚点，则 \(f\) 在 \(a\in D\) 连续等价于
+\[
+ \lim_{\substack{x\to a\\x\in D}}f(x)=f(a)
+\]
+更一般的连续性定义不要求 \(a\) 是聚点；若 \(a\) 是 \(D\) 的孤立点，它自动满足连续性定义，但此时不能把上式当作一个已经定义的删心极限等式。
+
+单侧极限中的 \(x\to a+\)、\(x\to a-\) 分别把变量限制在 \(x>a\)、\(x<a\)。无穷远处极限 \(x\to+\infty\) 通过条件 \(x>M\) 定义；无穷极限 \(f(x)\to+\infty\) 则通过结论 \(f(x)>K\) 定义。两种“无穷”分别作用于自变量和函数值，量词位置不同。
+
+一致连续写为
+\[
+ \forall\varepsilon>0\ \exists\delta>0\
+ \forall x,y\in D,\quad
+ |x-y|<\delta\Longrightarrow |f(x)-f(y)|<\varepsilon.
+\]
+这里 \(\delta\) 只能依赖 \(\varepsilon\)，不能依赖基点。普通连续允许每个基点有自己的 \(\delta\)。
+
+\section{同名结论的版本差别}
+
+\begin{description}[style=nextline,leftmargin=3em]
+ \item[区间套定理]
+ 本书第一卷的版本要求闭区间嵌套且长度趋于零，结论是交集恰含一点。若不要求长度趋零，实数的确界性质仍保证交集非空，但交集可以是非退化闭区间。以后度量空间中的闭集套或闭球套必须另写条件，不能直接沿用一维结论。
+
+ \item[Bolzano--Weierstrass 定理]
+ 数列版本断言每个有界实数列有收敛子列；集合版本断言每个无限有界实数集有聚点。由数列版推出集合版时需要从集合中选出互异点；由集合版返回数列版时还要处理某个值出现无穷多次的情形。
+
+ \item[Cauchy 收敛准则]
+ “收敛推出 Cauchy”只用三角不等式；“Cauchy 推出收敛”使用值域的完备性。在 \(\R\) 中两向都成立，在 \(\Q\) 中反向失败。以后度量空间称为完备，正是要求反向成立。
+
+ \item[Heine 定理]
+ \chapterref{chap:function-limits}的版本把一元函数极限化为定义域中趋近聚点的数列极限。以后多元空间和一般度量空间仍有序列版本，但在一般拓扑空间中序列未必刻画全部拓扑信息。
+
+ \item[Heine--Cantor 定理]
+ 当前版本断言闭有界区间上的连续函数一致连续。其证明实际使用定义域的紧致性；以后推广时应表述为“紧致度量空间上的连续映射一致连续”，而不能把“闭且有界”当作所有空间中的充分条件。
+\end{description}
+
+\section{当前章节依赖}
+
+第一卷前三编的主要依赖可概括如下：
+\[
+ \text{数学语言}
+ \longrightarrow
+ \text{实数系与 Dedekind 构造}
+ \longrightarrow
+ \text{数列极限}.
+\]
+在数列极限之后，单调收敛、子列、上下极限和 Cauchy 准则依次建立；\chapterref{chap:equivalent-completeness}再比较完备性的各种形式，\chapterref{chap:cauchy-construction}用有理 Cauchy 列独立构造实数。函数极限通过 Heine 定理调用数列理论，连续性再建立闭区间上的紧致与连通结论，最后得到一致连续性。
+
+\chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

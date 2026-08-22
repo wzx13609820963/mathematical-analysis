@@ -1,316 +1,229 @@
-\chapter{Cauchy 数列：习题解答}
+\chapter{Cauchy 列构造：习题解答}
 
 \section*{A组}
 \addcontentsline{toc}{section}{A组}
 
-\begin{solution}{13.1}
-否定式为
+\begin{solution}{5.1}
+对 Cauchy 列 \((a_n)\) 取 \(\varepsilon=1\)，存在 \(N\) 使 \(n\ge N\) 时
 \[
- \exists\varepsilon_0>0\ \forall N\ \exists m,n\ge N,\quad
- \abs{a_m-a_n}\ge\varepsilon_0.
+ |a_n-a_N|<1,\qquad |a_n|<|a_N|+1.
 \]
-对 \(a_n=(-1)^n\)，取 \(\varepsilon_0=1\)。任给 \(N\)，在 \(N\) 以后各取一个奇指标和偶指标，相应两项距离为 \(2\ge1\)，故不是 Cauchy 列。
-\end{solution}
-
-\begin{solution}{13.2}
-若 \(a_n\to a\)，对给定 \(\varepsilon>0\) 使
-\(\abs{a_n-a}<\varepsilon/2\) 最终成立。于是任意 \(m,n\) 位于该尾部时，
+令
 \[
- \abs{a_m-a_n}\le\abs{a_m-a}+\abs{a_n-a}<\varepsilon.
+ M=\max\{|a_1|,\ldots,|a_{N-1}|,|a_N|+1\}.
 \]
-\(\varepsilon/2\) 把总误差分给两段距离。
+则 \(|a_n|\le M\) 对所有 \(n\) 成立。有限前项必须并入最大值，Cauchy 条件只控制尾部。
+\end{solution}
+\begin{solution}{5.2}
+若 \(z_n,w_n\to0\)，给定 \(\varepsilon>0\)，从某项起有 \(|z_n|,|w_n|<\min\{1,\sqrt{\varepsilon}\}\)，故 \(|z_nw_n|<\varepsilon\)；和的证明用 \(\varepsilon/2\)。命题“任意数列乘零列仍为零列”错误：\(z_n=1/n\) 是零列，\(a_n=n\) 无界，而 \(a_nz_n=1\) 不是零列。
 \end{solution}
 
-\begin{solution}{13.3}
-取 Cauchy 误差 \(1\)，得到 \(N\)。固定第 \(N\) 项，则
-\(\abs{a_n}\le\abs{a_N}+1\) 对 \(n\ge N\) 成立。令
+\begin{solution}{5.3}
+自反性：\(a_n-a_n=0\) 是零列。对称性：若 \(a_n-b_n\) 是零列，其相反数 \(b_n-a_n\) 也是零列。传递性：若 \(a_n-b_n\) 与 \(b_n-c_n\) 是零列，则
 \[
- M=\max\{\abs{a_1},\ldots,\abs{a_{N-1}},\abs{a_N}+1\},
+ a_n-c_n=(a_n-b_n)+(b_n-c_n)
 \]
-便控制全部项。
+是两个零列之和，故仍为零列。
 \end{solution}
 
-\begin{solution}{13.4}
-给定 \(\varepsilon\)，取 \(N\) 控制原列尾部。因 \(n_k\ge k\)，当
-\(k,\ell\ge N\) 时，\(n_k,n_\ell\ge N\)，故
-\(\abs{a_{n_k}-a_{n_\ell}}<\varepsilon\)。
-\end{solution}
-
-\begin{solution}{13.5}
-设 \(a_{n_k}\to a\)。给定 \(\varepsilon>0\)，用 Cauchy 性取 \(N\)，使尾部任意两项距离小于 \(\varepsilon/2\)。再取 \(k\) 使
-\(n_k\ge N\) 且 \(\abs{a_{n_k}-a}<\varepsilon/2\)。则对所有 \(n\ge N\)，
+\begin{solution}{5.4}
+写成
 \[
- \abs{a_n-a}\le\abs{a_n-a_{n_k}}+\abs{a_{n_k}-a}<\varepsilon.
+ a_nb_n-a'_nb'_n=a_n(b_n-b'_n)+b'_n(a_n-a'_n).
 \]
+四个 Cauchy 列均有界；特别地，\(a_n,b'_n\) 有统一界。括号内两列为零列，所以右端两项都是“有界列乘零列”，其和仍为零列。故 \(ab\sim a'b'\)。
 \end{solution}
 
-\begin{solution}{13.6}
-若为 Cauchy 列，对 \(\varepsilon/2\) 取尾部，则该尾部所有两点距离小于 \(\varepsilon/2\)，从而其距离集合上确界不超过 \(\varepsilon/2<\varepsilon\)。反之，\(d_N\to0\) 时取 \(d_N<\varepsilon\) 的尾部，任意两项距离均不超过 \(d_N\)。
-\end{solution}
-
-\begin{solution}{13.7}
-取调和部分和 \(H_n\)。相邻差为 \(1/(n+1)\to0\)。但对每个 \(N\)，取
-\(n\ge N\) 并令 \(m=2n\)，则
-\[
- H_m-H_n=\sum_{k=n+1}^{2n}\frac1k\ge\frac12.
-\]
-所以 Cauchy 否定式可取 \(\varepsilon_0=1/2\)。
+\begin{solution}{5.5}
+若两列只在前 \(N-1\) 项不同，则其差从第 \(N\) 项起恒为零。对每个 \(\varepsilon>0\)，同一个 \(N\) 已保证尾部差小于 \(\varepsilon\)，所以差为零列，两列等价。
 \end{solution}
 
 \section*{B组}
 \addcontentsline{toc}{section}{B组}
 
-\begin{solution}{13.8}
-和的差由
+\begin{solution}{5.6}
+若 \([a_n]\ne[0]\)，则存在 \(\varepsilon>0\)，使对每个 \(N\) 都有某个 \(k\ge N\) 满足 \(|a_k|\ge\varepsilon\)。由 Cauchy 性取 \(N_0\)，使 \(m,n\ge N_0\) 时 \(|a_m-a_n|<\varepsilon/2\)。选 \(k\ge N_0\) 且 \(|a_k|\ge\varepsilon\)。于是对所有 \(n\ge N_0\)，
 \[
- \abs{(a_m+b_m)-(a_n+b_n)}
- \le\abs{a_m-a_n}+\abs{b_m-b_n}
+ |a_n|\ge|a_k|-|a_n-a_k|>\varepsilon/2.
 \]
-控制。乘积写成
+若 \(a_k>0\)，则 \(a_n>a_k-\varepsilon/2\ge\varepsilon/2\)；若 \(a_k<0\)，则 \(a_n<-\varepsilon/2\)。故尾部符号恒定。
+\end{solution}
+
+\begin{solution}{5.7}
+若尾部 \(|a_n|\ge\delta\)，则
 \[
- a_mb_m-a_nb_n=a_m(b_m-b_n)+b_n(a_m-a_n).
+ \left|\frac1{a_m}-\frac1{a_n}\right|
+ \le\delta^{-2}|a_m-a_n|,
 \]
-两列有界，设共同界不超过 \(M\ge1\)，再分别把两个 Cauchy 误差取为 \(\varepsilon/(2M)\)。
-\end{solution}
+所以倒数列为 Cauchy 列。
 
-\begin{solution}{13.9}
-在共同尾部 \(\abs{a_n}\ge\delta\)，于是
+若 \(a\sim a'\)，两者非零且代表同一类，则在共同尾部有 \(|a_n|,|a'_n|\ge\delta\)。于是
 \[
- \abs{\frac1{a_m}-\frac1{a_n}}
- =\frac{\abs{a_m-a_n}}{\abs{a_ma_n}}
- \le\delta^{-2}\abs{a_m-a_n}.
+ \left|\frac1{a_n}-\frac1{a'_n}\right|
+ \le\delta^{-2}|a_n-a'_n|\longrightarrow0.
 \]
-原列的 Cauchy 性使右端任意小。
+故倒数类与代表元选择无关。
 \end{solution}
 
-\begin{solution}{13.10}
-若 \(m>n\)，
+\begin{solution}{5.8}
+若 \(a\sim a'\) 且 \(a_n\ge\delta>0\) 从某项起成立，取更后指标使 \(|a_n-a'_n|<\delta/2\)，则 \(a'_n\ge\delta/2\)，故正性与代表元无关。
+
+对任意类 \(x=[a_n]\)，若 \(x=0\) 已完成。若非零，\exerciseref{5.6}给出尾部恒正或恒负，分别得到 \(x>0\) 或 \(-x>0\)。三种情形互斥，因为正类不可能同时是零类，且 \(x,-x\) 不可能都最终有正下界。
+\end{solution}
+
+\begin{solution}{5.9}
+常值列满足
 \[
- \abs{a_m-a_n}
- \le\sum_{k=n}^{m-1}2^{-k}<2^{1-n}.
+ [q]+[r]=[q+r],\quad [q][r]=[qr],\quad
+ -[q]=[-q],\quad [q]^{-1}=[q^{-1}]\ (q\ne0).
 \]
-给定 \(\varepsilon\)，取 \(N\) 使 \(2^{1-N}<\varepsilon\)。
+若 \(q<r\)，常值差 \(r-q>0\) 本身就是统一正下界，故 \([q]<[r]\)。反向由三歧律得到，所以嵌入保持并反映次序。
 \end{solution}
 
-\begin{solution}{13.11}
-对 \(m>n\)，三角不等式给出
+\begin{solution}{5.10}
+令 \(x=[r_j]\)。给定 \(\varepsilon>0\)，先取 \(K_1\) 使 \(1/k<\varepsilon/3\)（\(k\ge K_1\)），再由 \(r_j\) 的 Cauchy 性取 \(K_2\)，使 \(j,k\ge K_2\) 时 \(|r_j-r_k|<\varepsilon/3\)。对 \(k\ge K=\max\{K_1,K_2\}\)，类 \(x-r_k=[r_j-r_k]\) 的代表元从 \(j\ge K_2\) 起绝对值小于 \(\varepsilon/3\)，故 \(|x-r_k|\le\varepsilon/3\)。于是
 \[
- \abs{a_m-a_n}\le\sum_{k=n}^{m-1}r_k.
+ |x_k-x|\le|x_k-r_k|+|r_k-x|<\frac{2\varepsilon}{3}<\varepsilon.
 \]
-题设说明右端对所有 \(m>n\) 的上确界随 \(n\) 趋零，所以可用同一个 \(N\) 同时控制全部 \(m,n\ge N\)。
-\end{solution}
-
-\begin{solution}{13.12}
-Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref{13.5}把该子列极限推广为原列极限。反向由\exerciseref{13.2}。完备性通过 Bolzano--Weierstrass 定理进入反向证明。
-\end{solution}
-
-\begin{solution}{13.13}
-\chapterref{chap:real-number-system}估计给出 \(m\ge n\) 时
-\[
- 0\le a_m-a_n<10^{-n},
-\]
-故为 Cauchy 列。若在 \(\Q\) 中收敛到 \(q\)，由平方极限定理及
-\(a_n^2\to2\) 得 \(q^2=2\)，与 \(\sqrt2\notin\Q\) 矛盾。
-\end{solution}
-
-\begin{solution}{13.14}
-取 \(a_n=1/n\in(0,1)\)。它在 \(\R\) 中收敛到 \(0\)，故是 Cauchy 列；但在子空间 \((0,1)\) 中没有极限，因为实数极限唯一且 \(0\notin(0,1)\)。
-\end{solution}
-
-\begin{solution}{13.15}
-闭区间中的 Cauchy 列在 \(\R\) 中收敛到 \(L\)。由
-\(a\le a_n\le b\) 取极限得 \(a\le L\le b\)，故极限仍在区间内。开区间 \((a,b)\) 若非空，取
-\(a_n=a+(b-a)/(n+1)\)，它是区间中的 Cauchy 列，却收敛到不属于区间的 \(a\)。
-\end{solution}
-
-\begin{solution}{13.16}
-两命题都假。第一项反例为 \((-1)^n\)。第二项仍可用同一数列：它有恒为 \(1\) 的偶数收敛子列，却不是 Cauchy 列。
-\end{solution}
-
-\begin{solution}{13.17}
-设 \((a_n)\) 为 Cauchy 列。给定 \(\varepsilon>0\)，取 \(N\) 使尾部任意两项距离小于 \(\varepsilon\)。于是
-\[
- \sup_{k\ge N}a_k-\inf_{k\ge N}a_k\le\varepsilon.
-\]
-令 \(N\to\infty\)，得到
-\(\limsup a_n-\liminf a_n=0\)。两者有限是因为 Cauchy 列有界；\chapterref{chap:limsup-liminf}判据遂给出收敛。
 \end{solution}
 
 \section*{C组}
 \addcontentsline{toc}{section}{C组}
 
-\begin{solution}{13.18}
-递归取 \(n_{k+1}>n_k\)，使
-\(\abs{a_m-a_n}<2^{-k}\) 对所有 \(m,n\ge n_k\) 成立。于是相邻抽取项差小于 \(2^{-k}\)。令
-\(d_k=a_{n_{k+1}}-a_{n_k}\)，并写
+\begin{solution}{5.11}
+集合 \(\mathcal C/\sim\) 的加法和乘法良定义性由\exerciseref{5.3}、5.4给出，环公理由逐项有理运算继承。\exerciseref{5.6}、5.7为每个非零类构造良定义倒数，所以得到域。\exerciseref{5.8}给出三歧律；正下界的相加、相乘分别证明序的传递性以及正数乘积为正，故得到有序域。
+
+有理常值类稠密，因为代表 Cauchy 列的某个后项可在任意给定误差内逼近该类。任意类被代表列的有理界控制，故构造域 Archimedean。最后对其中的 Cauchy 列 \(x_k\) 选 \(|x_k-r_k|<1/k\)，\exerciseref{5.10}证明 \([r_k]\) 是其极限。由此完整得到完备有序域，未使用\chapterref{chap:dedekind-construction}。
+\end{solution}
+
+\begin{solution}{5.12}
+\chapterref{chap:real-number-system}数列满足
 \[
- d_k=d_k^+-d_k^-,
- \qquad d_k^+=\max\{d_k,0\},\quad
- d_k^-=\max\{-d_k,0\}.
+ 0<2-a_n^2<4\cdot10^{-n}+10^{-2n}.
 \]
-两个有限部分和
+右端为零列，所以 \((a_n^2-2)\) 是零列，即
 \[
- P_m=\sum_{j=1}^m d_j^+,\qquad
- Q_m=\sum_{j=1}^m d_j^-
+ [a_n]^2=[a_n^2]=[2].
 \]
-都单调递增，且都不超过有限几何和
-\(\sum_{j=1}^m2^{-j}<1\)，故由单调有界收敛定理分别收敛。于是
+正类的平方根唯一性还说明该类就是构造域中的正平方根。
+\end{solution}
+
+\begin{solution}{5.13}
+取 \(a_0\in\alpha,b_0\notin\alpha\)。每步以中点 \(c_n\) 二分：若 \(c_n\in\alpha\)，令其为新左端；否则令其为新右端。得到嵌套区间且
 \[
- a_{n_k}=a_{n_1}+P_{k-1}-Q_{k-1}
+ a_n\in\alpha,\quad b_n\notin\alpha,\quad
+ b_n-a_n=2^{-n}(b_0-a_0).
 \]
-收敛。再用\exerciseref{13.5}推出原列收敛。此路线只使用有限和、单调有界收敛及 Cauchy 列的子列提升，不使用 Bolzano--Weierstrass，也不预设一般级数理论。
+左端单调且任意两项之差不超过较早区间长度，故 \((a_n)\) 为 Cauchy 列。
+
+若 \(q\in\alpha\)，取 \(q'\in\alpha\) 且 \(q'>q\)。区间长度最终小于 \(q'-q\)，此时不可能仍有 \(a_n\le q<q'\le b_n\)，故从某项起 \(a_n>q\)，于是 \(q<[a_n]\)。若 \(q\notin\alpha\)，则每个 \(a_n<q\)，所以不可能有 \(q<[a_n]\)。因此 \(\Phi([a_n])=\alpha\)。
 \end{solution}
 
-\begin{solution}{13.19}
-设 (1) 成立。取值于 \(F\) 的 Cauchy 列在 \(\R\) 中由完备性收敛到某个
-\(x\in\R\)，再由 (1) 得 \(x\in F\)，故 (2) 成立。
+\begin{solution}{5.14}
+一般度量空间的 Cauchy 完备化仍可使用“Cauchy 列之差的距离趋于零”定义等价关系；等价性的验证、常值点嵌入、稠密性以及用对角选择证明完备性只依赖距离与三角不等式。
 
-反之设 (2) 成立，而 \(x_n\in F\) 在 \(\R\) 中收敛到 \(x\)。收敛列是
-Cauchy 列，故按 (2) 它还收敛到某个 \(y\in F\)。实数极限唯一，因而
-\(x=y\in F\)，得到 (1)。后文把满足 (1) 的集合称为闭集，于是这里的等价关系正是“实数中的闭子集完备，完备子集闭”。
+逐项加法、乘法、倒数和正负号需要原空间的代数与序结构。若这些运算对距离连续，它们可延拓到完备化；倒数还需远离零的论证。一般度量空间没有乘法逆元或全序，因此这些步骤没有对应物。
 \end{solution}
 
-\begin{solution}{13.20}
-取通常实数列 \(a_n=1/n\)，它在通常距离下收敛，故为 Cauchy 列。离散距离定义为
+\begin{solution}{5.15}
+\((a_n)\sim(q)\) 按定义表示 \((a_n-q)\) 是零列，即
 \[
- d(x,y)=\begin{cases}0,&x=y,\\1,&x\ne y.\end{cases}
+ \forall\varepsilon\in\Q_{>0}\ \exists N\
+ \forall n\ge N,\quad\abs{a_n-q}<\varepsilon.
 \]
-取 \(\varepsilon=1/2\)。因 \(1/n\) 的各项互异，任意尾部都有两项距离为 \(1\)，所以不是离散距离下的 Cauchy 列。
+这正是 \((a_n)\) 在 \(\Q\) 中收敛到 \(q\) 的定义。
 \end{solution}
 
-\begin{solution}{13.21}
-若 \(a_n\) 为 Cauchy 列，给定 \(\varepsilon\)，使
-\(\abs{a_n-b_n}<\varepsilon/3\) 最终成立，并使
-\(\abs{a_m-a_n}<\varepsilon/3\) 对尾部成立。则
+\begin{solution}{5.16}
+由 \((r_k)\) 是有理 Cauchy 列，给定 \(\varepsilon>0\)，取 \(K_1\) 使 \(j\ge k\ge K_1\) 时
 \[
- \abs{b_m-b_n}
- \le\abs{b_m-a_m}+\abs{a_m-a_n}+\abs{a_n-b_n}<\varepsilon.
+ \abs{r_j-r_k}<\varepsilon/2.
 \]
-反向交换两列。
-\end{solution}
-
-\begin{solution}{13.22}
-有限线性组合由三角不等式和有限个尾部起点取最大值得到。无穷线性组合若逐项选择起点，通常不存在控制全部项的有限最大值；还需绝对可和、一致尾和或其他允许交换求和与极限的条件。
-\end{solution}
-
-\begin{solution}{13.23}
-在 Archimedes 有序域中，确界完备、单调完备、区间套与 Cauchy 完备可按\chapterref{chap:equivalent-completeness}的链条互推。一般度量空间没有序和区间，因而只保留 Cauchy 完备；紧致性或闭球交性质需另作定义，且不再自动等价。非 Archimedes 有序域中，二分宽度未必趋零，等价链也会断裂。
-\end{solution}
-
-\begin{solution}{13.24}
-四个模块为：
-\begin{enumerate}
- \item 以“差为零列”定义有理 Cauchy 列的等价关系；
- \item 把 \(q\in\Q\) 嵌入为常值列类，并验证运算与距离保持；
- \item 用代表列的某个后项在任意误差内逼近其类，证明 \(\Q\) 稠密；
- \item 对类的 Cauchy 列选择有理代表，并逐步提高精度。沿对角线组成单个有理 Cauchy 列，再证明其类为极限。
-\end{enumerate}
-商运算的良定义性和非零类远离零分别承担域结构中的主要技术步骤。
-\end{solution}
-
-\section*{本编综合习题}
-\addcontentsline{toc}{section}{本编综合习题}
-
-\begin{solution}{II.1}
-定义与否定分别见\exerciseref{7.1}。邻域形式为：每个 \(a\) 的开邻域包含某个完整尾部。若只修改前 \(N_0-1\) 项，把极限定义给出的起点与 \(N_0\) 取最大值，后续误差完全相同，故结论不变。
-\end{solution}
-
-\begin{solution}{II.2}
+对固定 \(k\ge K_1\)，这说明代表 \(x=[r_j]\) 与常值类 \(r_k\) 的差列最终小于 \(\varepsilon/2\)。再取 \(K_2\) 使 \(k\ge K_2\) 时
 \[
- \frac{n+\alpha}{n+\beta}-1=\frac{\alpha-\beta}{n+\beta}.
+ \abs{x_k-r_k}<1/k<\varepsilon/2.
 \]
-对固定参数，分母最终非零且绝对值与 \(n\) 同阶，所以极限为 \(1\)。若
-\(\abs\alpha\le A,\abs\beta\le B\)，对 \(n\ge2B+1\) 有
-\(\abs{n+\beta}\ge n/2\)，从而统一估计
+于是 \(k\ge\max\{K_1,K_2\}\) 时
 \[
- \abs{\frac{n+\alpha}{n+\beta}-1}
- \le\frac{2(A+B)}n.
+ \abs{x_k-x}\le\abs{x_k-r_k}+\abs{r_k-x}<\varepsilon.
 \]
-取 \(N>\max\{2B,2(A+B)/\varepsilon\}\) 即可。
 \end{solution}
 
-\begin{solution}{II.3}
-线性组合使用三角不等式，乘积使用收敛列有界性，商先由非零分母极限得到尾部下界，绝对值使用反三角不等式，最大值使用
-\(\max(x,y)=(x+y+\abs{x-y})/2\)。删去分母极限非零条件，\(1/(1/n)=n\)；把有限次运算换成随 \(n\) 增长的次数，\((1+1/n)^n\) 不服从固定幂法则；绝对值逆向以 \((-1)^n\) 为反例。
+\begin{solution}{5.17}
+令 \(d=y-x>0\)。正类定义给出 \(\delta>0\)，使 \(d\) 的某代表从一项起不小于 \(\delta\)。利用类可由有理代表后项任意逼近，选 \(q\in\Q\) 使
+\[
+ \abs{q-x}<\delta/3
+\]
+并从上方逼近 \(x\)。于是 \(x<q<x+\delta<y\)。更形式地，可先取有理 \(r\) 满足 \(\abs{x-r}<\delta/4\)，再在有理区间 \((x,y)\) 的代表估计中加一个小有理增量。
 \end{solution}
 
-\begin{solution}{II.4}
-算术--几何平均给出
+\begin{solution}{5.18}
+设 \(a_n\ge\delta>0\) 最终成立，且 \((a_n')\sim(a_n)\)。差为零列，所以最终
 \[
- a_{n+1}=\frac12\left(a_n+\frac3{a_n}\right)\ge\sqrt3.
+ \abs{a_n'-a_n}<\delta/2.
 \]
-从第二项起
+于是
 \[
- a_{n+1}-a_n=\frac{3-a_n^2}{2a_n}\le0,
+ a_n'\ge a_n-\abs{a_n'-a_n}>\delta/2.
 \]
-故尾列递减并以下界 \(\sqrt3\) 控制。极限 \(L>0\) 满足
-\(L=(L+3/L)/2\)，所以 \(L=\sqrt3\)。进一步计算
-\[
- a_{n+1}-\sqrt3
- =\frac{(a_n-\sqrt3)^2}{2a_n},
-\]
-令 \(e_n=a_n-\sqrt3\)（\(n\ge2\)），则
-\[
- 0\le e_{n+1}\le\frac{e_n^2}{2\sqrt3}.
-\]
-这给出平方误差递推。又因 \(0\le e_n<a_n\)，有
-\[
- e_{n+1}\le\frac12e_n,
-\]
-从而得到全局几何界
-\[
- 0\le a_n-\sqrt3\le2^{-(n-2)}(a_2-\sqrt3)
- \qquad(n\ge2).
-\]
-前一估计描述靠近根时的二次收敛，后一估计给出无需预知局部误差大小的先验界。
+故任何等价代表都最终有正下界，正性定义良好。
 \end{solution}
 
-\begin{solution}{II.5}
-收敛子列由二分区间和区间套得到，输出极限与显式区间误差；单调子列由峰指标分类得到，不要求原列有界；趋于上极限的子列由尾部上确界近似性得到，并把极限指定为最大的部分极限。三者分别突出紧致性、全序组合结构和尾部边界。
-\end{solution}
-
-\begin{solution}{II.6}
-周期重复 \(-2,0,1\)。部分极限恰为这三点，上极限为 \(1\)、下极限为 \(-2\)，尾部振幅恒为 \(3\)，所以不是 Cauchy 列。
-\end{solution}
-
-\begin{solution}{II.7}
-收敛蕴含每个子列及进一步子列同趋于 \(L\)，也蕴含上下极限同为
-\(L\)、振幅趋零，并可取原列本身作为趋于 \(L\) 的子列。每个子列都有进一步子列趋于 \(L\)，可用“坏子列”反证原列收敛。上下极限相等且共同值为 \(L\)，由\chapterref{chap:limsup-liminf}判据推出收敛。
-
-最后，若尾部振幅趋零，则原列为 Cauchy 列，因而在 \(\R\) 中收敛到某个
-\(A\)。题设还给出一条子列趋于 \(L\)，而收敛列的每条子列都趋于
-\(A\)，由唯一性 \(A=L\)。这里的子列条件不可删除：常值列 \(a_n=0\)
-振幅恒为零，却不收敛到预先指定的 \(L=1\)。
-\end{solution}
-
-\begin{solution}{II.8}
-令
+\begin{solution}{5.19}
+若 \([a_n]\le[b_n]\)，等号情形差为零列，严格小于情形则 \(b_n-a_n\) 最终有正下界。两种情形都推出对每个 \(\varepsilon>0\)，最终
 \[
- s_n=\sum_{k=1}^n2^{-k}u_k.
+ a_n<b_n+\varepsilon.
 \]
-则 \(\abs{s_n}\le\sum_{k=1}^n2^{-k}<1\)。若 \(m>n\)，
+反向也成立：若上述不等式对每个正有理 \(\varepsilon\) 最终成立，则不可能有 \([a_n]>[b_n]\)，因为后者会使 \(a_n-b_n\) 最终至少为某个 \(\delta>0\)，取 \(\varepsilon=\delta/2\) 矛盾。由全序性只能 \([a_n]\le[b_n]\)。
+\end{solution}
+
+\begin{solution}{5.20}
+若 \(q\in\Phi(x)+\Phi(y)\)，则 \(q=r+s\) 对某些 \(r<x,s<y\) 成立，故 \(q<x+y\)，所以 \(q\in\Phi(x+y)\)。
+
+反之，若 \(q<x+y\)，令 \(d=x+y-q>0\)。由有理稠密性选正有理 \(\eta<d/2\)，再选有理 \(r,s\) 使
 \[
- \abs{s_m-s_n}\le\sum_{k=n+1}^m2^{-k}<2^{-n}.
+ x-\eta<r<x,\qquad y-\eta<s<y.
 \]
-故部分和为 Cauchy 列并收敛，且误差尾界不超过 \(2^{-n}\)。系数的绝对可和性吸收了 \(u_k\) 的振荡，所以 \(u_k\) 无需收敛。
-\end{solution}
-
-\begin{solution}{II.9}
-确界原理先把单调递增有界列的值集上确界识别为极限；左端点单调、右端点单调给出区间套；对有界列反复二分并抽取指标得到 Bolzano--Weierstrass；Cauchy 列有界，从而有收敛子列，再由 Cauchy 性提升为全列收敛。各步证明分别见\chapterref{chap:equivalent-completeness}、\chapterref{chap:monotone-iteration}、\chapterref{chap:subsequences-cluster-points}和\chapterref{chap:cauchy-criterion}。
-\end{solution}
-
-\begin{solution}{II.10}
-同一有理列的 Cauchy 性只比较有理项距离，在 \(\Q,\R\) 中完全相同。在 \(\R\) 中它收敛到 \(\sqrt2\)；在 \(\Q\) 中没有极限。作为 \(\R\) 的子空间，\(\Q\) 不是闭集，缺少的边界点也是其不完备性的见证；\(\R\) 则包含该极限并且完备。
-\end{solution}
-
-\begin{solution}{II.11}
-一个部分极限：取 \(a_n=(-1)^n,b_n=-(-1)^n\)，和恒为0。两个部分极限：取 \(a_n=b_n=(-1)^n\)，和的部分极限为 \(\{-2,2\}\)。三个部分极限：周期安排数对
+则
 \[
- (a_n,b_n)=(0,0),(0,1),(1,1)
+ r+s>x+y-2\eta>q.
 \]
-并重复；两列各自部分极限均为 \(\{0,1\}\)，和的部分极限为 \(\{0,1,2\}\)。
+由于分割和向下封闭，\(q\in\Phi(x)+\Phi(y)\)。故两个左部相等。
 \end{solution}
 
-\begin{solution}{II.12}
-“最终性质”忽略有限首项；“完整尾部”表达极限邻域必须同时容纳所有后项；“尾部值集”保留后续可能取值；“尾部确界”压缩其上下边界并产生上下极限；“尾部直径”测量剩余整体振荡并刻画 Cauchy 性。完整尾部可恢复尾部值集，值集可计算确界与直径；只保留确界会丢失内部排列和频率，因而不能反向恢复全部尾部信息。
+\begin{solution}{5.21}
+设 \(x,y>0\)。若 \(q\in\Phi(x)\Phi(y)\) 且 \(q>0\)，则存在 \(0<r<x,0<s<y\) 使 \(q<rs<xy\)，故 \(q\in\Phi(xy)\)。
+
+反之，若 \(0<q<xy\)，先取有理 \(r<x\) 充分接近 \(x\)，使 \(q/r<y\)，再取有理 \(s\) 满足
+\[
+ q/r<s<y.
+\]
+于是 \(q<rs\)，故 \(q\in\Phi(x)\Phi(y)\)。非正有理数自动属于正分割乘积。负号和零由构造中的符号扩张以及同态对逆元的唯一性处理。
+\end{solution}
+
+\begin{solution}{5.22}
+设两列为 \(a_n,b_n\)。最终存在 \(c>0\) 使 \(a_n+b_n\ge c\)。又
+\[
+ \abs{a_n^2-b_n^2}
+ \le\abs{a_n^2-2}+\abs{b_n^2-2}
+\]
+是零列，所以
+\[
+ \abs{a_n-b_n}
+ =\frac{\abs{a_n^2-b_n^2}}{a_n+b_n}
+ \le c^{-1}\abs{a_n^2-b_n^2}
+\]
+也是零列。因此二者等价。
+\end{solution}
+
+\begin{solution}{5.23}
+Dedekind 模型以左部集合相等判定对象相等，Cauchy 模型以差为零列判定；前者次序是包含，后者次序是尾部正下界；加法与乘法分别是集合下闭运算和逐项运算取商。Dedekind 完备性由有界分割族的并集直接给出，Cauchy 完备性由有理近似的对角列给出。映射
+\[
+ [a_n]\longmapsto\{q\in\Q:q<[a_n]\}
+\]
+把这些结构逐项对应，说明不同技术路线构造的是同一个完备有序域。
+\end{solution}
+
+\begin{solution}{5.24}
+若只取在 \(\Q\) 中收敛的列，每条都等价于某个有理常值列，商集不会产生任何新元素。若放宽到任意有界列，则尾部不必内部稳定；例如 \((-1)^n\) 无法与单个候选值保持任意小距离。逐项乘法虽有界，但“非零类最终远离零并固定符号”会失败，因而不能统一定义倒数与全序。Cauchy 条件恰好提供延拓运算所需的尾部稳定性。
 \end{solution}

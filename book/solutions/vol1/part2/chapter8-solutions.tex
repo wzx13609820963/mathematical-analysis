@@ -1,203 +1,220 @@
-\chapter{上极限与下极限：习题解答}
+\chapter{实数的完备性：习题解答}
 
 \section*{A组}
 \addcontentsline{toc}{section}{A组}
 
-\begin{solution}{12.5}
-若 \(n=2m\)，尾部最大项是 \(a_n=1+1/(2m)\)，故
-\(\beta_{2m}=1+1/(2m)\)；尾部最小的奇数项为
-\(a_{2m+1}=-1+1/(2m+1)\)，故
-\(\alpha_{2m}=-1+1/(2m+1)\)。
-若 \(n=2m-1\)，有
+\begin{solution}{6.1}
+若 \(a_n\to a\)，给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时 \(|a_n-a|<\varepsilon/2\)。则 \(m,n\ge N\) 时
 \[
- \beta_{2m-1}=1+\frac1{2m},\qquad
- \alpha_{2m-1}=-1+\frac1{2m-1}.
+ |a_m-a_n|\le|a_m-a|+|a_n-a|<\varepsilon.
 \]
-令 \(m\to\infty\)，得上极限 \(1\)、下极限 \(-1\)。
 \end{solution}
 
-\begin{solution}{12.6}
-尾部集合 \(A_{n+1}\subseteq A_n\)。子集的上确界不大于母集上确界，故 \(\beta_{n+1}\le\beta_n\)；子集下确界不小于母集下确界，故 \(\alpha_{n+1}\ge\alpha_n\)。
+\begin{solution}{6.2}
+若单调递增列无上界，给定 \(M\)，存在 \(N\) 使 \(a_N>M\)，否则 \(M\) 就是上界。对 \(n\ge N\)，单调性给出 \(a_n\ge a_N>M\)。
 \end{solution}
 
-\begin{solution}{12.7}
-\begin{enumerate}[label=(\arabic*)]
- \item 偶数项趋于 \(+\infty\)，奇数项趋于 \(-\infty\)，故上下极限分别为 \(+\infty,-\infty\)。
- \item 指标 \(4k+1\) 的项趋于 \(+\infty\)，\(4k+3\) 的项趋于 \(-\infty\)，故结论相同；偶数项为零不改变端点。
- \item 整列收敛到 \(1\)，故上下极限都为 \(1\)。
-\end{enumerate}
+\begin{solution}{6.3}
+\(a_n=(-1)^n\) 有界但不收敛，缺少单调性；\(a_n=n\) 单调递增但不收敛于有限实数，缺少有界性。前者的奇偶子列极限不同，后者超过任意给定上界。
 \end{solution}
 
-\begin{solution}{12.8}
-若有子列趋于 \(+\infty\)，每个尾部上确界均为 \(+\infty\)，所以上极限为 \(+\infty\)。反之，若上极限为 \(+\infty\)，则每个尾部无上界。递归选
+\begin{solution}{6.4}
+设 \(I_n=[a_n,b_n]\) 嵌套且交非空。令
 \[
- n_{j+1}>n_j,\qquad a_{n_j}>j,
+ a=\sup_n a_n,\qquad b=\inf_n b_n.
 \]
-得到趋于 \(+\infty\) 的子列。
+任一交中点同时满足 \(a_n\le x\le b_n\)，故 \(a\le b\)。若 \(y\) 属于全部 \(I_n\)，则 \(a\le y\le b\)；反之 \(a_n\le a\le y\le b\le b_n\)，故 \(y\in I_n\)。所以交集为闭区间 \([a,b]\)，可能退化为单点。
+\end{solution}
+
+\begin{solution}{6.5}
+删除嵌套性：令偶数项区间为 \([0,1/n]\)，奇数项为 \([1,1+1/n]\)，它们闭且长度趋零，交为空。删除闭性：\((0,1/n)\) 嵌套、长度趋零，交为空。删除长度条件：\(I_n=[0,1]\) 嵌套闭且交非空，但交不是单点。
 \end{solution}
 
 \section*{B组}
 \addcontentsline{toc}{section}{B组}
 
-\begin{solution}{12.9}
-令 \(s=\limsup a_n\)。取 \(m_1=1\)，由尾部上确界近似性选 \(n_1\ge m_1\)，使
-\(a_{n_1}>\beta_{m_1}-1\)。选好 \(n_j\) 后令 \(m_{j+1}=n_j+1\)，再选
-\[
- n_{j+1}\ge m_{j+1},\qquad
- a_{n_{j+1}}>\beta_{m_{j+1}}-\frac1{j+1}.
-\]
-同时 \(a_{n_j}\le\beta_{m_j}\)，而因 \(m_j\to\infty\)，
-\(\beta_{m_j}\to s\)。夹逼得 \(a_{n_j}\to s\)，且指标严格递增。
+\begin{solution}{6.6}
+由有界性和 Bolzano--Weierstrass 定理，至少有一个收敛子列，设其极限为 \(L\)。若原列不收敛到 \(L\)，则存在 \(\varepsilon>0\) 和子列 \(a_{n_k}\) 使 \(|a_{n_k}-L|\ge\varepsilon\)。该子列仍有界，故有收敛子列 \(a_{n_{k_j}}\to M\)。反三角不等式给出 \(|M-L|\ge\varepsilon\)，于是出现第二个子列极限，矛盾。
 \end{solution}
 
-\begin{solution}{12.10}
-若 \(a_{n_j}\to L\)，固定 \(m\)。充分大时 \(n_j\ge m\)，所以
-\(\alpha_m\le a_{n_j}\le\beta_m\)。令 \(j\to\infty\)，得
-\(\alpha_m\le L\le\beta_m\)。再令 \(m\to\infty\)，即得
-\(\liminf a_n\le L\le\limsup a_n\)。
+\begin{solution}{6.7}
+若原列为 Cauchy，给定 \(\varepsilon>0\)，取 \(N\) 控制所有指标不小于 \(N\) 的项。因 \(n_k\ge k\)，对充分大 \(k,\ell\) 有 \(n_k,n_\ell\ge N\)，故子列也是 Cauchy。
+
+若两个子列分别收敛到 \(a,b\)，原 Cauchy 列由其中任一收敛子列及正文命题已经收敛到相同极限；极限唯一性给出 \(a=b\)。
 \end{solution}
 
-\begin{solution}{12.11}
-对每个尾部，
-\[
- \sup_{k\ge n}(-a_k)=-\inf_{k\ge n}a_k.
-\]
-对 \(n\) 取下确界，得到
-\[
- \limsup(-a_n)
- =\inf_n(-\alpha_n)
- =-\sup_n\alpha_n
- =-\liminf a_n.
-\]
+\begin{solution}{6.8}
+从无限有界集合 \(E\) 中递归选取互不相同的点 \(x_n\)。数列有界，故有子列 \(x_{n_k}\to x\)。任给 \(\varepsilon>0\)，从某项起 \(x_{n_k}\in(x-\varepsilon,x+\varepsilon)\)。因所选点互异，该邻域含 \(E\) 中不同于 \(x\) 的点，所以 \(x\) 是聚点。
 \end{solution}
 
-\begin{solution}{12.12}
-删去有限首项不改变上下极限。此后对每个尾部都有
+\begin{solution}{6.9}
+若 \(m>n\)，则
 \[
- \inf_{k\ge n}a_k\le\inf_{k\ge n}b_k,\qquad
- \sup_{k\ge n}a_k\le\sup_{k\ge n}b_k.
+ |a_m-a_n|\le\sum_{k=n}^{m-1}|a_{k+1}-a_k|
+ \le\sum_{k=n}^{m-1}2^{-k}
+ =2^{1-n}\bigl(1-2^{-(m-n)}\bigr)<2^{1-n}.
 \]
-分别取相应极限即得结论。
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(2^{1-N}<\varepsilon\)，即得 Cauchy 性。
 \end{solution}
 
-\begin{solution}{12.13}
-对每个 \(n\)，
+\begin{solution}{6.10}
+取调和部分和
 \[
- \sup_{k\ge n}(a_k+b_k)
- \le \sup_{k\ge n}a_k+\sup_{k\ge n}b_k.
+ a_n=\sum_{k=1}^n\frac1k.
 \]
-令 \(n\to\infty\) 得所需不等式。严格例取
-\(a_n=(-1)^n,b_n=-(-1)^n\)：两上极限均为 \(1\)，和恒为 \(0\)。
+则 \(|a_{n+1}-a_n|=1/(n+1)\to0\)。但
+\[
+ a_{2n}-a_n=\sum_{k=n+1}^{2n}\frac1k\ge\frac n{2n}=\frac12,
+\]
+故它不是 Cauchy 列。
 \end{solution}
 
-\begin{solution}{12.14}
-给定 \(\varepsilon>0\)，最终
+\begin{solution}{6.11}
+设 \(a^{(j)}_n\)（\(1\le j\le r\)）均为 Cauchy 列，系数为 \(c_j\)。给定 \(\varepsilon>0\)，对每个非零 \(c_j\) 取尾部使
 \[
- a-\varepsilon+b_n\le a_n+b_n\le a+\varepsilon+b_n.
+ |a^{(j)}_m-a^{(j)}_n|<\frac{\varepsilon}{r|c_j|}.
 \]
-由上下极限的单调性与平移公式，
+取这些指标的最大值，则
 \[
- a-\varepsilon+\limsup b_n
- \le\limsup(a_n+b_n)
- \le a+\varepsilon+\limsup b_n.
+ \left|\sum_jc_ja^{(j)}_m-\sum_jc_ja^{(j)}_n\right|<\varepsilon.
 \]
-令 \(\varepsilon\downarrow0\) 得等式。
-\end{solution}
-
-\begin{solution}{12.15}
-对每个尾部，非负性给出
-\[
- \sup_{k\ge n}(a_kb_k)
- \le\left(\sup_{k\ge n}a_k\right)
-   \left(\sup_{k\ge n}b_k\right).
-\]
-两侧均为有限非负数，令 \(n\to\infty\) 并使用乘积极限定理，即得结论。
-\end{solution}
-
-\begin{solution}{12.16}
-对每个尾部有精确恒等式
-\[
- \sup_{k\ge n}\max\{a_k,b_k\}
- =\max\left\{\sup_{k\ge n}a_k,\sup_{k\ge n}b_k\right\}.
-\]
-对 \(n\to\infty\) 取极限，并使用有限最大值保持极限，得到所求等式。
-\end{solution}
-
-\begin{solution}{12.17}
-不总成立；取 \(a_n=(-1)^n\)，左端为 \(1\)，右端也是1，此例不否定；改取部分极限为 \(-2,1\) 的交错列，则左端为 \(2\)，而
-\(\abs{\limsup a_n}=1\)。对有界实数列，正确关系为
-\[
- \limsup\abs{a_n}
- =\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}.
-\]
-这是因为绝对值在区间 \([\liminf a_n,\limsup a_n]\) 上的最大值出现在端点，且两个端点都由子列实现。
-\end{solution}
-
-\begin{solution}{12.18}
-设共同有限值为 \(L\)。尾部下确界 \(\alpha_n\uparrow L\)，上确界
-\(\beta_n\downarrow L\)。给定 \(\varepsilon>0\)，取 \(N\) 使
-\[
- L-\varepsilon<\alpha_N\le\beta_N<L+\varepsilon.
-\]
-对所有 \(n\ge N\)，\(\alpha_N\le a_n\le\beta_N\)，故
-\(\abs{a_n-L}<\varepsilon\)。
 \end{solution}
 
 \section*{C组}
 \addcontentsline{toc}{section}{C组}
 
-\begin{solution}{12.19}
-若 \(a_n\to L\)，则任给 \(\varepsilon>0\)，充分大的尾部全部位于
-\((L-\varepsilon/2,L+\varepsilon/2)\)，故振幅不超过 \(\varepsilon\)。反之若 \(\omega_n\to0\)，则
+\begin{solution}{6.12}
+设 \((a_n)\) 为 Cauchy 列。递归取 \(n_{k+1}>n_k\)，使
 \[
- \limsup a_n-\liminf a_n
- =\lim_n\omega_n=0.
+ |a_m-a_n|<2^{-k}\qquad(m,n\ge n_k).
 \]
-两者有限且相等，由\exerciseref{12.18}原列收敛。
+于是 \(|a_{n_{k+1}}-a_{n_k}|<2^{-k}\)。令 \(d_k=a_{n_{k+1}}-a_{n_k}\)。级数 \(\sum|d_k|\) 的部分和单调且被几何和控制，由单调有界收敛定理收敛；因此
+\[
+ a_{n_k}=a_{n_1}+\sum_{j=1}^{k-1}d_j
+\]
+收敛到某个 \(a\)。原列为 Cauchy 且有收敛子列，正文命题推出 \(a_n\to a\)。该证明没有使用 Bolzano--Weierstrass，但使用了由确界原理得到的单调有界收敛。
 \end{solution}
 
-\begin{solution}{12.21}
-令 \(u_n\) 在偶数时为 \(1\)、奇数时为 \(0\)。三种安排为：
+\begin{solution}{6.13}
+由构造，
 \[
- (a_n,b_n)=(u_n,-u_n+1)
+ 0\le l_m-l_n\le u_n-l_n,\qquad
+ 0\le u_n-u_m\le u_n-l_n\quad(m\ge n).
 \]
-时两者上极限均为1且和恒为1；
+而 \(u_n-l_n=2^{-n}(u_0-l_0)\to0\)，故两列都是 Cauchy。设其极限为 \(l,u\)。差的极限定理可由三角不等式直接验证，给出
 \[
- (a_n,b_n)=(2u_n-1,1-2u_n)
+ u-l=\lim_n(u_n-l_n)=0.
 \]
-时两者上极限均为1且和恒为0；
-\[
- (a_n,b_n)=(u_n,u_n)
-\]
-时两上极限均为1且和的上极限为2。
+所以共同极限为 \(s=l=u\)。正文随后分别利用“\(u_n\) 是上界”和“\(l_n\) 不是上界”证明 \(s\) 是最小上界。
 \end{solution}
 
-\begin{solution}{12.23}
-不存在无条件等式。取
-\[
- a_{2k}=1,\qquad a_{2k-1}=2^{-2k}.
-\]
-则 \(\limsup a_n^{1/n}=1\)。但从奇项到偶项的比值趋于 \(+\infty\)，所以
-\(\limsup a_{n+1}/a_n=+\infty\)。根式判别与比值判别需要额外的规则性条件，不能直接交换。
+\begin{solution}{6.14}
+若 Bolzano--Weierstrass 成立，有界列有收敛子列，而收敛列必为 Cauchy，故有 Cauchy 子列。
+
+反之，设每个有界列都有 Cauchy 子列，并假定所在有序域 Cauchy 完备。该子列收敛，所以原有界列有收敛子列，即 Bolzano--Weierstrass 成立。Cauchy 完备性只用于第二个方向。
 \end{solution}
 
-\begin{solution}{12.24}
-选 \(r\) 使
+\begin{solution}{6.15}
+因 \(x,x_n\in I_n=[a_n,b_n]\)，有
 \[
- \limsup\abs{a_n}<r<1.
+ |x_n-x|\le b_n-a_n.
 \]
-由上极限的尾部刻画，存在 \(N\) 使
-\[
- \sup_{k\ge N}\abs{a_k}<r.
-\]
-于是 \(\abs{a_n}\le r\) 对所有 \(n\ge N\) 成立。
+给定 \(\varepsilon>0\)，由区间长度趋于零，存在 \(N\) 使 \(b_n-a_n<\varepsilon\) 对所有 \(n\ge N\) 成立。因此 \(|x_n-x|<\varepsilon\)，即 \(x_n\to x\)。这里不要求按照某种规则选择 \(x_n\)；区间直径趋零已经同时控制了区间中的所有点。
 \end{solution}
 
-\begin{solution}{12.26}
-尾部闭包
+\begin{solution}{6.16}
+对每个 \(n\in\Npos\)，正整数 \(2^n\) 也是一个正整数，所以题设给出
 \[
- K_n=\overline{\{a_k:k\ge n\}}
+ 0<\eta<\frac1{2^n}=2^{-n}.
 \]
-递减。对有界列，交集正是部分极限集合；其最大、最小点分别由尾部确界极限给出。集合表达适合证明闭性与嵌套性，尾部确界表达适合运算不等式和定量界，子列表达适合实现端点、构造反例和把量词否定转化为对象。三种语言描述同一尾部结构，但各自压缩的证明步骤不同。
+若 \(2^{-n}\to0\)，在极限定义中取正精度 \(\varepsilon=\eta\)，则应存在 \(N\) 使 \(n\ge N\) 时 \(2^{-n}<\eta\)，与上式矛盾。因此 \(2^{-n}\) 不趋于零。
+
+初始宽度为 \(d>0\) 的区间经过 \(n\) 次二分后宽度为 \(2^{-n}d\)。若取 \(d=1\)，所有宽度都大于 \(\eta\)；因而可数次二分不能保证把候选范围缩小到任意给定的正尺度。这正是从序列型完备性反推确界原理时必须补充 Archimedes 性质的原因。
+\end{solution}
+
+\begin{solution}{6.17}
+令 \(S=\{q\in\Q:q\ge0,q^2<2\}\)。它无有理上确界，否定 (S)。\chapterref{chap:real-number-system}十进制列 \(a_n\) 单调有界却无有理极限，否定 (M)。令
+\[
+ I_n=[a_n,a_n+10^{-n}]\cap\Q;
+\]
+适当改用同步嵌套网格后可使 \(I_{n+1}\subset I_n\)、长度趋零，而共同点若存在其平方必须为 \(2\)，故 (N) 失败。若该有界列有有理收敛子列，平方误差仍迫使子列极限平方为 \(2\)，所以 (B) 失败。原列本身是无有理极限的 Cauchy 列，否定 (C)。
+\end{solution}
+
+\begin{solution}{6.18}
+嵌套性给出 \(a_n\) 递增、\(b_n\) 递减，且任意 \(a_n\le b_m\)。令
+\[
+ a=\sup_n a_n,\qquad b=\inf_n b_n.
+\]
+则 \(a\le b\)。点 \(x\) 属于全部区间，当且仅当对所有 \(n\) 有 \(a_n\le x\le b_n\)，这又等价于 \(a\le x\le b\)。故交集为 \([a,b]\)。
+\end{solution}
+
+\begin{solution}{6.19}
+从无限集 \(E\) 中递归选互异点 \(x_n\)。有界性使该数列有收敛子列 \(x_{n_k}\to x\)。任意 \(\delta>0\) 内最终含某个 \(x_{n_k}\)，且因各项互异可取该点异于 \(x\)，故 \(x\) 是聚点。若不保证互异，常值选择只能证明所选点自身被重复，不能反映 \(E\) 的无限性。
+\end{solution}
+
+\begin{solution}{6.20}
+尾部集合随 \(N\) 增大而缩小，所以 \(d_N\) 单调不增。若数列是 Cauchy 列，给定 \(\varepsilon>0\)，取起点使尾部任意两项距离小于 \(\varepsilon/2\)，则 \(d_N\le\varepsilon/2<\varepsilon\)。反之，若 \(d_N\to0\)，给定 \(\varepsilon>0\) 取 \(d_N<\varepsilon\)，便有所有 \(m,n\ge N\) 的距离小于 \(\varepsilon\)。
+\end{solution}
+
+\begin{solution}{6.21}
+Cauchy 列有界，而趋于 \(+\infty\) 的子列无界，已经矛盾。也可直接取 Cauchy 精度 \(1\)，固定一个充分靠后的原列项 \(a_N\)；全部后项都落在 \((a_N-1,a_N+1)\)，任何子列尾部也不能越过任意大阈值。类似地，Cauchy 列不能有 \(-\infty\) 子列；若有两个有限收敛子列，它们的极限由 Cauchy 性必须相同。
+\end{solution}
+
+\begin{solution}{6.22}
+对非空有上界集合 \(A\)，取非上界 \(l_0\) 与上界 \(u_0\)，按中点是否为上界递归二分。左端点 \(l_n\) 单调递增且被 \(u_0\) 控制，故由 (M) 收敛到 \(s\)。Archimedes 性质给出
+\[
+ u_n-l_n=2^{-n}(u_0-l_0)\to0,
+\]
+所以 \(u_n\to s\)。若某 \(a\in A\) 大于 \(s\)，最终上界 \(u_n<a\)，矛盾；若 \(c<s\)，最终非上界 \(l_n>c\)，故存在 \(a\in A\) 大于 \(c\)。所以 \(s=\sup A\)。
+\end{solution}
+
+\begin{solution}{6.23}
+存在性由题设直接给出。若 \(x,y\) 都在全部区间内，则
+\[
+ \abs{x-y}\le b_n-a_n
+\]
+对每个 \(n\) 成立。长度趋零后，若 \(x\ne y\)，取精度 \(\abs{x-y}/2\) 即矛盾。因此唯一性只使用长度趋零；闭性、嵌套性和完备性主要用于存在性。
+\end{solution}
+
+\begin{solution}{6.24}
+对有界列递归构造子列。把其值域所在区间不断二分，每步选含无穷多项的半区间，并选递增指标落在其中。这样得到的子列满足：对每个 \(k\)，从第 \(k\) 项起全部位于长度 \(2^{-k}(B-A)\) 的区间中，所以是 Cauchy 列。由 (C) 它收敛，因而原列有收敛子列。该路线实质上仍用 Archimedes 性质保证二分长度趋零。
+\end{solution}
+
+\begin{solution}{6.25}
+清单可概括为：
+\[
+ (S)\to(M)
+\]
+用项集上确界；
+\[
+ (M)\to(N)
+\]
+用端点单调收敛与长度唯一性；
+\[
+ (N)\to(B)
+\]
+用二分与无穷指标；
+\[
+ (B)\to(C)
+\]
+用 Cauchy 有界及“收敛子列提升全列”；
+\[
+ (C)\to(S)
+\]
+用上界—非上界二分和 Archimedes 长度趋零。每个箭头的反例应针对删去的单调性、有界性、闭性、嵌套性、Cauchy 性或 Archimedes 背景，不能调用待证箭头反向的结论。
+\end{solution}
+
+\begin{solution}{6.26}
+若 \(s=\sup A\)，则 \(s\) 是上界。对每个 \(n\in\Npos\)，数 \(s-1/n\) 不是上界，故可取 \(a_n\in A\) 使
+\[
+ s-\frac1n<a_n\le s.
+\]
+于是 \(0\le s-a_n<1/n\)，从而 \(a_n\to s\)。
+
+反之，设 \(s\) 是 \(A\) 的上界，并有 \(a_n\in A\)、\(a_n\to s\)。若上界 \(u<s\)，取 \(\varepsilon=(s-u)/2\)。充分大时
+\[
+ a_n>s-\varepsilon=\frac{s+u}{2}>u,
+\]
+这与 \(u\) 是上界矛盾。因此没有小于 \(s\) 的上界，故 \(s=\sup A\)。
 \end{solution}
 

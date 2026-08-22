@@ -1,8 +1,8 @@
 # 当前正文依赖登记表
 
-> 3.0版目录处于章级候选定稿阶段。第一卷前三编正文已经迁移为新版第0—13章；下表记录当前实际文件、稳定标签和直接依赖。旧版章标签只作为临时兼容别名保留，不再用于新增引用。
+> 3.1版目录处于章级候选定稿阶段。第一卷前三编正文已经迁移为新版第0—13章；第3—9章按数列概念和完备性证明的实际依赖重排。下表记录当前文件、稳定标签和直接依赖。旧版章标签只作为迁移期兼容别名保留，不再用于新增引用。
 
-## 3.0版目录的全书级前置约束
+## 3.1版目录的全书级前置约束
 
 - 一般拓扑的基、乘积、分离、紧致、Tychonoff 定理、网和滤子前置到第二卷第36—40章；第四卷的弱拓扑和弱星拓扑可引用这些结果。
 - 第78章 Banach--Alaoglu 定理采用一般乘积紧致性的证明；其直接前置至少包括第38章 Tychonoff 乘积定理、第42章局部凸拓扑和第77章 Hahn--Banach 与对偶性。若以后改用只适用于可分对偶球的度量化证明，必须明确降格为特殊版本，不得冒充一般定理。
@@ -12,7 +12,7 @@
 - 第72章只建立 Lebesgue 微分定理所需的一维或最低局部极大估计；第121章系统建立 \(\mathbb R^n\) 中 Hardy--Littlewood 极大算子的弱型、强型和微分定理。后者可以引用前者的动机，但须重新证明高维系统结果。
 - 第101章先建立奇异链、奇异同调、奇异上同调、同伦不变性和 Mayer--Vietoris 序列；第102章随后以积分配对和 Mayer--Vietoris 方法证明 de Rham 定理。不得在第102章调用未建立的奇异上同调语言。
 - 第96章 Riemann 映射定理可引用第95章正规族和 Montel 定理；第97章调和函数与 Dirichlet 问题不再与共形映射共用同一章闭环。
-- 附录A若给出选择公理、Zorn 引理和良序原理的等价性证明，须先建立序数、超限递归和 Hartogs 引理；否则必须标明哪些等价性仅陈述并给出参考文献。
+- 当前附录A只处理前三编已使用的集合构造、自然数递归和选择说明。Zorn 引理、良序原理、超限递归和 Hartogs 引理不作为基础附录的预备材料；未来章节若需使用，必须先建立足够前置并说明所用选择原则。
 
 “全书级前置约束”只记录宏观目录审校中已经明确、且会影响未来章序或证明版本的关键决定；不为尚未编写的149章逐章推测依赖。后面的章级表只登记已经写入或已经进入近期实施范围的直接前置与稳定标签。二者都服务于编写和校核，不代替正文证明。新增跨章依赖、移动定理或改变允许引用范围时，应从实际源文件核实并同步更新本表。
 
@@ -23,43 +23,42 @@
 | 0 数学语言 | `chap:mathematical-language` | 无；集合存在性细节可查附录A | 量词与逻辑联结、受限概括、集合族、映射、商集、可数性和证明方法 |
 | 1 实数系 | `chap:real-number-system` | 0 | 有序域与完备性公理、有理数缺口、Archimedes 性质、稠密性、十进制表示与不可数性 |
 | 2 Dedekind 分割 | `chap:dedekind-construction` | 0--1；集合存在性查附录A | 以分割构造完备有序域，验证加法、乘法、逆元、序和确界性质 |
-| 3 Cauchy 列构造 | `chap:cauchy-construction` | 0--1 | 以有理 Cauchy 列的商集构造完备有序域，证明运算良定义、完备性及两种构造的同构 |
-| 4 实数的完备性 | `chap:equivalent-completeness` | 1--3 | 确界、区间套、单调收敛、Bolzano--Weierstrass 与 Cauchy 完备性的完整等价链 |
 
 ## 第一卷第二编
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 5 数列极限 | `chap:sequence-limits` | 0--1、4 | `\varepsilon-N` 定义、误差估计、基本性质和运算法则 |
-| 6 单调数列与迭代 | `chap:monotone-iteration` | 4--5 | 单调有界收敛、递推数列和局部压缩估计 |
-| 7 子列与聚点 | `chap:subsequences-cluster-points` | 4--6 | 子列刻画、反复抽取、聚点与部分极限集、闭性和对角抽取 |
-| 8 上极限与下极限 | `chap:limsup-liminf` | 5、7 | 尾部确界、阈值刻画、极值子列、收敛判据和运算不等式 |
-| 9 Cauchy 数列 | `chap:cauchy-criterion` | 4--8 | 实数 Cauchy 准则、有理反例、快速子列和级数增量 |
+| 3 数列极限 | `chap:sequence-limits` | 0--2 | `\varepsilon-N` 定义、误差估计、基本性质和运算法则 |
+| 4 单调数列与迭代 | `chap:monotone-iteration` | 1、3 | 单调有界收敛、递推数列；压缩迭代先以尾部确界和单调收敛证明 |
+| 5 子列与聚点 | `chap:subsequences-cluster-points` | 3--4 | 子列刻画、反复抽取、Bolzano--Weierstrass、聚点与部分极限集 |
+| 6 上极限与下极限 | `chap:limsup-liminf` | 1、3、5 | 尾部确界、阈值刻画、极值子列、收敛判据和运算不等式 |
+| 7 Cauchy 数列 | `chap:cauchy-criterion` | 3、5--6 | 实数 Cauchy 准则、有理反例、快速子列和级数增量 |
+| 8 实数完备性的等价形式 | `chap:equivalent-completeness` | 1、3--7 | 确界、单调收敛、区间套、Bolzano--Weierstrass 与 Cauchy 完备性的无循环等价链 |
+| 9 实数的 Cauchy 构造 | `chap:cauchy-construction` | 0--3、7--8；与2比较 | 以有理 Cauchy 列商集构造完备有序域，证明运算良定义、完备性及两种构造同构 |
 
 ## 第一卷第三编
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 10 函数极限 | `chap:function-limits` | 0、5、7、9 | `\varepsilon-\delta` 定义、局部语言与振幅、Heine 与 Cauchy 判据、单侧和无穷型极限 |
+| 10 函数极限 | `chap:function-limits` | 0、3、5、7 | `\varepsilon-\delta` 定义、局部语言与振幅、Heine 与 Cauchy 判据、单侧和无穷型极限 |
 | 11 连续性 | `chap:continuity-discontinuity` | 1、10 | 序列与开集刻画、代数运算、拼接、间断分类、单调函数的跳跃点和逆映射相对连续 |
-| 12 闭区间上的连续函数 | `chap:continuous-functions-closed-interval` | 1、4、7、11 | 紧致性的覆盖与序列刻画、Lebesgue 数、极值、距离、连通、介值及删条件反例 |
-| 13 一致连续 | `chap:uniform-continuity` | 9、11--12 | 双序列判据、Heine--Cantor、Lipschitz 与 Hölder 连续、连续模、Cauchy 保持和稠密子集延拓 |
+| 12 闭区间上的连续函数 | `chap:continuous-functions-closed-interval` | 1、5、8、11 | 紧致性的覆盖与序列刻画、Lebesgue 数、极值、距离、连通、介值及删条件反例 |
+| 13 一致连续 | `chap:uniform-continuity` | 7、11--12 | 双序列判据、Heine--Cantor、Lipschitz 与 Hölder 连续、连续模、Cauchy 保持和稠密子集延拓 |
 
 ## 附录
 
 | 附录 | 稳定标签 | 作用 |
 |---|---|---|
-| A | `chap:appendix-set-theory` | ZF 公理、对象编码、序数与 Hartogs 引理、选择公理等价形式和本书选择原则 |
-| B | `chap:appendix-linear-algebra` | 线性映射、对偶、行列式、内积、谱定理、二次型和张量积预备 |
-| C | `chap:appendix-estimates` | 常用不等式、Grönwall 估计、截断分层和核缩放索引 |
-| D | `chap:appendix-counterexamples` | 按被删除的假设分类并检索反例 |
-| E | `chap:appendix-notation-dependencies` | 面向读者的符号与依赖索引 |
-| F | `chap:appendix-algebra-complex` | 群环域、商结构、复数、多项式、外代数和张量记号预备 |
-| G | `chap:appendix-history-terminology` | 历史札记、多语术语、经典教材比较和阅读路线 |
+| A | `chap:appendix-set-theory` | 受限概括、有序对和笛卡儿积、映射与商集的存在性、自然数递归及当前选择说明 |
+| B | `chap:appendix-notation-dependencies` | 前三编数集、数列、函数极限记号，同名定理版本及当前章节依赖 |
+| C | `chap:appendix-counterexamples` | 前三编错误命题、反例、修正条件及反例核对方法 |
 
 ## 当前关键无环约束
 
 - 第11章逆映射连续性的证明不得调用第12章介值定理；它直接在像集的相对拓扑中证明。
 - 第2章的域公理验证不得在乘法定义之前使用“有理数嵌入保持乘法”。
 - 第1章涉及无限小数的论证只使用有限截断和确界，不预先调用级数理论。
-- 第13章的延拓定理可使用第9章 Cauchy 完备性和第10章序列判据。
+- 第4章压缩迭代的首次证明使用尾部上下确界与单调有界收敛，不前置调用第7章 Cauchy 准则；第7章后可以给出 Cauchy 证明。
+- 第8章只综合第3—7章已经建立的序列结论，并证明反向重建确界的步骤；不得把第8章再作为第3—7章主定理的前置。
+- 第9章构造商域的完备性时不得借用外部实数空间的完备性，只能使用有理代表和对角选取。
+- 第13章的延拓定理可使用第7章 Cauchy 完备性和第10章序列判据。
