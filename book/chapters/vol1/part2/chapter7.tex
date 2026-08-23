@@ -1,7 +1,7 @@
 \chapter{Cauchy 数列}
 \label{chap:cauchy-criterion}
 
-有时可以证明数列的后两项任意接近，却无法预先说出它们接近哪个数。Cauchy 条件正是这种内部判据。在实数中，完备性保证满足该条件的数列必有极限；\chapterref{chap:real-number-system}构造的有理 Cauchy 列表明，同一推论在 \(\Q\) 中不成立。
+许多数列由近似过程产生，极限在证明开始时并没有可用的公式。与其先猜出极限再估计 \(\abs{a_n-a}\)，可以直接比较两个后期近似 \(a_m,a_n\)。Cauchy 条件要求整个尾部的任意两项都接近，因此不含未知的极限。收敛列必满足这个条件；反过来能否由此得到极限，取决于所处数系是否完备。
 
 \section{Cauchy 条件的量词结构}
 
@@ -25,7 +25,8 @@
 若存在非负数列 \(r_k\) 使
 \[
  \abs{a_{k+1}-a_k}\le r_k,\qquad
- \sup_{m>n}\sum_{k=n}^{m-1}r_k\longrightarrow0,
+ \sup_{m>n}\sum_{k=n}^{m-1}r_k\longrightarrow0
+ \quad(n\to\infty),
 \]
 则
 \[
@@ -47,6 +48,8 @@
 \end{definition}
 
 定义要求的是尾部直径趋于零，不是“项的变化越来越慢”。调和部分和的相邻差趋零，但从第 \(n\) 项累积到第 \(2n\) 项仍约为 \(\log 2\)，因而两个晚期项可以保持固定距离。检验 Cauchy 性时必须估计任意 \(m>n\) 的总变化，而不能停在 \(a_{n+1}-a_n\)。
+
+Cauchy 性与有限极限一样只取决于尾部。改变、删除或补写有限多个首项，不会改变一个数列是否为 Cauchy 列；证明时只需把 Cauchy 条件给出的起点与修改结束的位置取最大值。这也解释了为什么后文讨论最终有定义的商时，可以任意补写有限个首项。
 
 \begin{insightbox}[同一个起点控制两个指标]
 Cauchy 条件中的同一个 \(N\) 必须同时控制两个独立指标 \(m,n\)。这表示从第 \(N\) 项起，尾部任意两项都彼此接近，而非只比较相邻项。
@@ -153,20 +156,38 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 逆命题不成立，\((-1)^n\) 是有界非 Cauchy 列。Cauchy 性还比“相邻差趋零”强，因为它控制任意长度的尾部累积误差。
 
 \begin{proposition}
-若 \((a_n)\)、\((b_n)\) 为 Cauchy 列，则它们的和、差、积仍为 Cauchy 列；若存在 \(\delta>0\) 使 \(\abs{b_n}\ge\delta\) 最终成立，则 \(a_n/b_n\) 也是 Cauchy 列。
+若 \((a_n)\)、\((b_n)\) 为 Cauchy 列，则它们的和、差、积仍为 Cauchy 列。若存在 \(\delta>0\) 使
+\(\abs{b_n}\ge\delta\) 最终成立，则商从某项起有定义；任意补写有限个首项以后，\((a_n/b_n)\) 也是 Cauchy 列。
 \end{proposition}
 
 \begin{proof}
-和、差由三角不等式。乘积使用 Cauchy 列有界性和分解
+取 \(M\ge1\)，使 \(\abs{a_n},\abs{b_n}\le M\) 对所有 \(n\) 成立。
+给定 \(\varepsilon>0\)，在一个共同尾部上使
+\[
+ \abs{a_m-a_n}<\frac{\varepsilon}{2},
+ \qquad
+ \abs{b_m-b_n}<\frac{\varepsilon}{2}.
+\]
+三角不等式立即给出和与差的 Cauchy 性。
+
+对乘积，把共同尾部取得更远，使两项差都小于
+\(\varepsilon/(2M)\)。利用分解
 \[
  a_mb_m-a_nb_n=a_m(b_m-b_n)+b_n(a_m-a_n).
 \]
-商先证明倒数列：
+便有
+\[
+ \abs{a_mb_m-a_nb_n}
+ \le M\abs{b_m-b_n}+M\abs{a_m-a_n}<\varepsilon.
+\]
+
+最后在 \(\abs{b_n}\ge\delta\) 的尾部上，
 \[
  \abs{\frac1{b_m}-\frac1{b_n}}
  \le\delta^{-2}\abs{b_m-b_n},
 \]
-再用乘积结论。
+所以倒数列在该尾部满足 Cauchy 条件。有限首项任意补写后不改变
+Cauchy 性，再对 \((a_n)\) 与补写后的倒数列使用乘积结论即可。
 \end{proof}
 
 \begin{proposition}[趋零扰动不改变 Cauchy 性]
@@ -211,7 +232,12 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 上下极限都是有限实数，\chapterref{chap:limsup-liminf}的收敛判据便说明原列收敛。
 \end{proof}
 
-下一章比较各种完备性命题时，还会先用 Bolzano--Weierstrass 定理抽取候选极限，再由 Cauchy 性提升为全列收敛。这里的证明则把尾部直径压缩为上下极限之差。两种证明调用的前置结果不同，结论相同。
+\begin{proof}[反向的另一种证明]
+Cauchy 列有界，故由 Bolzano--Weierstrass 定理存在收敛子列
+\(a_{n_k}\to a\)。前面已经证明，Cauchy 列一旦有一条收敛子列，原列便收敛到同一个 \(a\)。这条证明先从有界性抽取候选极限，再用 Cauchy 条件把一条子列的收敛传给整个尾部。
+\end{proof}
+
+第一种证明把尾部直径压缩为上下极限之差，第二种证明使用收敛子列提供候选值。两者都在关键一步使用了实数完备性：前者依赖有限的上下极限，后者依赖 Bolzano--Weierstrass 定理。
 
 \section{有理 Cauchy 列的无理极限}
 
@@ -226,6 +252,16 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
  0\le a_m-a_n<10^{-n}\qquad(m\ge n).
 \]
 因此它是 \(\Q\) 中的 Cauchy 列，却没有有理极限。
+
+这里可以直接看出两项结论。给定 \(\varepsilon>0\)，取
+\(N\) 使 \(10^{-N}<\varepsilon\)，则 \(m\ge n\ge N\) 时
+\(\abs{a_m-a_n}<\varepsilon\)。另一方面，
+\[
+ 0\le 2-a_n^2
+ \le (a_n+10^{-n})^2-a_n^2
+ =2a_n10^{-n}+10^{-2n}\longrightarrow0,
+\]
+其中 \((a_n)\) 有界。因此 \(a_n^2\to2\)。
 
 \begin{theorem}
 “每个 Cauchy 列收敛”不是有序域公理的结论，也不是 Archimedes 性质的结论。
@@ -266,7 +302,7 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 给定 \(\varepsilon>0\)，取 \(L\) 使 \(2^{1-L}<\varepsilon\)，便知 \((a_{n_k})\) 是 Cauchy 列。由实数的 Cauchy 收敛准则，该子列收敛。上式中的有限和逐项消去后正是 \(a_{n_m}-a_{n_1}\)，故所列恒等式成立。Cauchy 列若有收敛子列，则全列收敛到同一点。
 \end{proof}
 
-这项构造把 Cauchy 列化为一列具有可控有限尾和的增量。第 22 章建立级数以后，可以把同一论证写成“增量级数绝对收敛”。届时，绝对收敛级数的部分和为 Cauchy 列，关键仍是有限尾和估计
+这项构造把 Cauchy 列化为一列具有可控有限尾和的增量。后文建立数项级数以后，可以把同一论证写成“增量级数绝对收敛”。届时，绝对收敛级数的部分和为 Cauchy 列，关键仍是有限尾和估计
 \[
  \abs{\sum_{k=n+1}^{m}d_k}
  \le\sum_{k=n+1}^{m}\abs{d_k}.
@@ -310,7 +346,7 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
  \le\frac{Cq^n}{1-q}.
 \]
 
-本章只在实数距离下讨论 Cauchy 列。一般度量空间中的完备性、闭子空间和完备化将在后文分别定义和证明；这里已经出现的两个原型是：\(\R\) 中每个 Cauchy 列都有极限，而 \(\Q\) 中存在指向 \(\sqrt2\) 的缺口的 Cauchy 列。\chapterref{chap:cauchy-construction}把所有这类有理 Cauchy 列按“差为零列”取等价类，正是完备化构造的具体模型。
+本章只使用实数的通常距离。已经证明的结论清楚地区分了两类事实：三角不等式给出“收敛蕴含 Cauchy”、有界性和代数稳定性；实数的完备性才给出“Cauchy 蕴含收敛”。一般度量空间将沿用这一区分。\chapterref{chap:cauchy-construction}则把有理 Cauchy 列按“差趋于零”取等价类，用具体构造补上 \(\Q\) 中缺失的极限。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -329,7 +365,8 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
 \subsection*{B组　证明与反例}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{13.8} 证明两个 Cauchy 列的和与积仍为 Cauchy 列。
- \exerciseitem{13.9} 若 \(a_n\) 是 Cauchy 列且最终 \(\abs{a_n}\ge\delta>0\)，证明 \(1/a_n\) 是 Cauchy 列。
+ \exerciseitem{13.9} 若 \(a_n\) 是 Cauchy 列且最终
+ \(\abs{a_n}\ge\delta>0\)，证明倒数从某项起有定义，并且任意补写有限首项后得到 Cauchy 列。
  \exerciseitem{13.10} 证明若 \(\abs{a_{n+1}-a_n}\le2^{-n}\)，则 \((a_n)\) 为 Cauchy 列。
  \exerciseitem{13.11} 推广上一题：若非负级数尾和满足
  \[
@@ -361,29 +398,11 @@ Cauchy 列的任意子列仍是 Cauchy 列。若一个 Cauchy 列有收敛子列
  \projectexerciseitem{13.24} \ 【完成\chapterref{chap:cauchy-construction}后回做；预计用时：90分钟】概括 \(\Q\) 的 Cauchy 完备化：等价关系、常值嵌入、稠密性和完备性的四个证明模块。
 \end{enumerate}
 
-\section*{本编综合习题}
-\addcontentsline{toc}{section}{本编综合习题}
-
-\begin{enumerate}[label=\textbf{综.\arabic*.}]
- \exerciseitem{II.1} 对命题“\(a_n\to a\)”依次完成：写出定义、写出否定、写出邻域形式、证明有限项修改不影响结论。
- \exerciseitem{II.2} 设 \(a_n=(n+\alpha)/(n+\beta)\)。讨论分母最终非零，给出极限及关于参数 \((\alpha,\beta)\) 在有界矩形上的一致误差估计。
- \exerciseitem{II.3} 设 \(a_n,b_n\) 收敛。证明线性组合、乘积、商、绝对值和最大值的极限定理，并为每个必要条件给出一个删去后失败的例子。
- \exerciseitem{II.4} 分析递推 \(a_{n+1}=(a_n+3/a_n)/2\)、\(a_1>0\)：不变区间、单调性、有界性、极限与误差估计。
- \exerciseitem{II.5} 对有界数列完成三种抽取：收敛子列、单调子列、趋于上极限的子列；比较三种构造的输入与输出。
- \exerciseitem{II.6} 构造一个部分极限集合恰为 \(\{-2,0,1\}\) 的数列，计算上下极限、尾部振幅，并判断是否 Cauchy。
- \exerciseitem{II.7} 证明下列条件等价：\(a_n\to L\)；每个子列都有进一步子列趋于 \(L\)；\(\liminf a_n=\limsup a_n=L\)；尾部振幅趋零且存在一条子列趋于 \(L\)。
- \exerciseitem{II.8} 对 \(\sum_{k=1}^n2^{-k}u_k\)（\(\abs{u_k}\le1\)）证明 Cauchy 性、统一有界性及尾部误差，并讨论 \(u_k\) 不收敛是否妨碍部分和收敛。
- \projectexerciseitem{II.9} \ 【预计用时：90分钟】从确界原理出发重建链条：单调有界收敛、区间套、Bolzano--Weierstrass、Cauchy 准则。
- \exerciseitem{II.10} 比较 \(\Q\) 与 \(\R\) 中同一个有理 Cauchy 列：Cauchy 性、可能极限、值域闭性与完备性的差异。
- \optionalexerciseitem{II.11} 构造有界列 \(a_n,b_n\)，使二者各有两个部分极限，而 \(a_n+b_n\) 分别出现一个、两个和三个部分极限的三组例子。
- \openexerciseitem{II.12} 以“尾部”为主线总结第二编：最终性质、完整尾部、尾部值集、尾部确界、尾部直径分别解决什么问题，哪些信息彼此可恢复。
-\end{enumerate}
-
 \section*{部分习题提示}
 \begin{itemize}
  \item \exerciseref{13.7}：使用调和部分和。
  \item \exerciseref{13.17}：对 Cauchy 列，尾部上、下确界之差不超过尾部直径。
  \item \exerciseref{13.20}：离散距离为 \(d(x,y)=1\)（\(x\ne y\)）。
- \item 综合题II.4：这是 \(\sqrt3\) 的 Newton 迭代。
- \item 综合题II.8：任意尾和绝对值不超过几何尾和。
+ \item \exerciseref{II.4}：这是 \(\sqrt3\) 的 Newton 迭代。
+ \item \exerciseref{II.8}：任意尾和绝对值不超过几何尾和。
 \end{itemize}

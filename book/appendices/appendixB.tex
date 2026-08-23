@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第一卷前三编已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。局部记号仍以正文首次定义处为准；若本附录与某一定理的正式陈述发生差异，应以正文中的完整假设为准。
+本附录汇总第一卷前三编已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -39,7 +39,7 @@
 \[
  f:X\to Y.
 \]
-其中 \(X\) 是定义域，\(Y\) 是陪域，实际值域为
+其中 \(X\) 是定义域，\(Y\) 是陪域，像集为
 \[
  f(X)=\{f(x):x\in X\}\subseteq Y.
 \]
@@ -84,7 +84,7 @@
  \liminf_{n\to\infty}a_n
  =\lim_{N\to\infty}\inf_{n\ge N}a_n.
 \]
-无界数列的相应值可以落在 \(\overline{\R}\)。部分极限是收敛子列的极限；聚点是数列值在每个邻域中按指标无限次出现的极限位置。若某个值只出现有限次，它不会仅因属于值集就成为部分极限。
+无界数列的相应值可以落在 \(\overline{\R}\)。部分极限是收敛子列的极限。对实数列而言，\(x\) 是有限部分极限，当且仅当 \(x\) 的每个邻域都含有无穷多个序列项（按指标计数）；这又等价于存在子列收敛到 \(x\)。若某个值只出现有限次，它不会仅因属于值集就成为部分极限。
 
 Cauchy 条件写为
 \[
@@ -112,7 +112,7 @@ Cauchy 条件写为
 条件 \(0<|x-a|\) 排除点 \(a\) 本身，因此函数极限只由删心邻域中的值决定。若 \(a\) 同时是 \(D\) 的聚点，则 \(f\) 在 \(a\in D\) 连续等价于
 \[
  \lim_{\substack{x\to a\\x\in D}}f(x)=f(a)
-\]
+\]。
 更一般的连续性定义不要求 \(a\) 是聚点；若 \(a\) 是 \(D\) 的孤立点，它自动满足连续性定义，但此时不能把上式当作一个已经定义的删心极限等式。
 
 单侧极限中的 \(x\to a+\)、\(x\to a-\) 分别把变量限制在 \(x>a\)、\(x<a\)。无穷远处极限 \(x\to+\infty\) 通过条件 \(x>M\) 定义；无穷极限 \(f(x)\to+\infty\) 则通过结论 \(f(x)>K\) 定义。两种“无穷”分别作用于自变量和函数值，量词位置不同。
@@ -154,6 +154,6 @@ Cauchy 条件写为
  \longrightarrow
  \text{数列极限}.
 \]
-在数列极限之后，单调收敛、子列、上下极限和 Cauchy 准则依次建立；\chapterref{chap:equivalent-completeness}再比较完备性的各种形式，\chapterref{chap:cauchy-construction}用有理 Cauchy 列独立构造实数。函数极限通过 Heine 定理调用数列理论，连续性再建立闭区间上的紧致与连通结论，最后得到一致连续性。
+在数列极限之后，单调收敛、子列、上下极限和 Cauchy 准则依次建立；\chapterref{chap:equivalent-completeness}再比较完备性的各种形式，\chapterref{chap:cauchy-construction}用有理 Cauchy 列构造另一个实数模型。函数极限通过 Heine 定理调用数列理论，连续性随后进入闭区间上的紧致与连通结论，最后得到一致连续性。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

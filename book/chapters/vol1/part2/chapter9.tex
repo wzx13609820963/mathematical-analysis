@@ -1,7 +1,9 @@
 \chapter{实数的 Cauchy 构造}
 \label{chap:cauchy-construction}
 
-Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存的则是逼近这个数的过程。两条有理 Cauchy 列若彼此之差趋于零，就不应代表两个不同的数。由此得到的商集还须承受加法、乘法和次序，并且这些定义不能随代表列改变。
+Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存的则是逼近这个数的过程。\chapterref{chap:cauchy-criterion}已经给出从左、右逼近 \(\sqrt2\) 缺口的有理 Cauchy 列。它们在 \(\Q\) 中没有极限，但“任意两项在后期彼此接近”这一性质只使用有理数的距离，完全可以在 \(\Q\) 内部检验。Cauchy 构造把这样的逼近过程本身作为新数的材料。
+
+同一个缺口可以由许多序列逼近。两条有理 Cauchy 列若彼此之差趋于零，就不应代表两个不同的数；商集正是用这一判据消除表示的冗余。随后还要完成三项工作：证明逐项运算与代表列无关，为等价类定义与运算相容的全序，并证明新域中任意 Cauchy 列仍有极限。最后一项不能借用外部实数的完备性，否则构造将成为循环论证。
 
 \section{有理 Cauchy 列、零列与等价关系}
 
@@ -63,9 +65,23 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \]
 \end{proof}
 
+\begin{example}[同一有理缺口的不同逼近]
+从有理区间 \([1,2]\) 开始作二分，每一步保留满足
+\[
+ a_n^2<2<b_n^2
+\]
+的半区间，可得 \(b_n-a_n=2^{-n}\)。若改用十进制截断，可得到另一对有理端点 \(c_n<d_n\)，其中 \(d_n-c_n=10^{-n}\)，并且两对区间都夹住同一个平方根缺口。于是
+\[
+ |a_n-c_n|\le (b_n-a_n)+(d_n-c_n)\longrightarrow0.
+\]
+两条左端点列虽逐项不同，却属于同一等价类。等价关系保留的是逼近到哪个缺口，而不是采用哪一种算法。
+\end{example}
+
 \section{等价类运算及其良定义性}
 
 逐项相加、相乘是自然的候选定义。困难不在公式本身，而在于一个等价类有许多代表列：换掉任一代表以后，所得结果必须仍落在同一等价类中。加法只需零列对加法封闭；乘法还要用到 Cauchy 列有界，因为一个趋零误差与无控制的因子相乘未必仍趋零。
+
+这里有两个不同的封闭性问题。首先，逐项和与逐项积仍须是有理 Cauchy 列，才能作为商集中的代表；其次，更换输入代表列不能改变输出等价类。前者保证公式有取值，后者保证公式确实定义在等价类上。
 
 
 定义
@@ -124,6 +140,8 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
  \le\delta^{-2}|a_m-a_n|,
 \]
 故 \((b_n)\) 是 Cauchy 列。逐项乘积从第 \(N\) 项起等于 \(1\)，所以 \([a_n][b_n]=[1]\)。
+
+若从另一个等价代表开始作同样构造，也会得到同一逆元：域中一个元素的乘法逆元至多有一个。因而这里不必再把倒数列的代表独立性作为新的定义前提。
 \end{proof}
 
 \section{序关系与常值列嵌入}
@@ -132,7 +150,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 
 
 \begin{definition}
-称 \([a_n]>[0]\)，如果存在 \(\delta>0,N\in\Npos\)，使 \(a_n\ge\delta\) 对所有 \(n\ge N\) 成立。定义
+称 \([a_n]>[0]\)，如果存在正有理数 \(\delta\) 与 \(N\in\Npos\)，使 \(a_n\ge\delta\) 对所有 \(n\ge N\) 成立。定义
 \[
  [a_n]<[b_n]\Longleftrightarrow[b_n-a_n]>[0],
 \]
@@ -163,6 +181,37 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 若 \(x,y>0\)，可取代表使其尾部分别不小于 \(\delta,\eta>0\)，于是乘积代表尾部不小于 \(\delta\eta\)，所以 \(xy>0\)。非负情形再加入零元即可。故该全序与域运算相容。
 \end{proof}
 
+\begin{lemma}[代表估计与商序]
+设 \(u=[u_n]\in\widehat{\R}\)。则
+\[
+ |u|=[\,|u_n|\,].
+\]
+若 \(c\) 是正有理数，且 \(|u_n|\le c\) 最终成立，则
+\(|u|\le c\)。进一步，若存在正有理数 \(\rho\) 使
+\[
+ |u_n|\le c-\rho
+\]
+最终成立，则 \(|u|<c\)。
+\end{lemma}
+
+\begin{proof}
+反三角不等式给出
+\[
+ \bigl||u_m|-|u_n|\bigr|\le |u_m-u_n|,
+\]
+所以 \((|u_n|)\) 仍是有理 Cauchy 列。若 \(u=0\)，则
+\(|u_n|\to0\)，从而 \([|u_n|]=0=|u|\)。若 \(u>0\)，正类定义说明
+\(u_n\) 最终为正，故 \(|u_n|-u_n\) 最终为零，因而
+\([|u_n|]=[u_n]=u=|u|\)。若 \(u<0\)，同理有
+\([|u_n|]=[-u_n]=-u=|u|\)。三歧性穷尽了全部情形。
+
+现在设 \(|u_n|\le c\) 最终成立。若反有 \(|u|>c\)，则正类
+\(|u|-c=[|u_n|-c]\) 的某个代表尾部应有固定正下界，这与
+\(|u_n|-c\le0\) 最终成立矛盾。因此 \(|u|\le c\)。若还知道
+\(|u_n|\le c-\rho\)，则 \(c-|u_n|\ge\rho\) 最终成立，正类定义直接给出
+\(c-|u|>0\)，即 \(|u|<c\)。
+\end{proof}
+
 定义
 \[
  \jmath:\Q\to\widehat{\R},\qquad
@@ -189,17 +238,28 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \]
 这里的 \(\varepsilon\) 是构造域中的正元素。前两章已经在给定的实数系中建立 Cauchy 准则并比较完备性的等价形式；本节不能反过来借用那个实数系作为外部完备空间，而要直接证明新商域对自身的 Cauchy 列封闭。
 
-每个有理 Cauchy 列有有理界。若 \(|a_n|\le M\)，则构造数 \(x=[a_n]\) 满足 \(|x|<M+1\)。所以每个构造数都被正整数控制，\(\widehat{\R}\) 是 Archimedes 有序域。特别地，对每个 \(\varepsilon>0\) 可取 \(k\in\Npos\) 使 \(1/k<\varepsilon\)。
+每个有理 Cauchy 列都有正有理界。若 \(|a_n|\le M\)，代表估计引理给出构造数
+\(x=[a_n]\) 满足 \(|x|\le M\)。再取正整数 \(p>M\)，便有
+\(|x|<p\)。所以每个构造数都被正整数控制，\(\widehat{\R}\) 是 Archimedes 有序域。特别地，对每个 \(\varepsilon>0\) 可取 \(k\in\Npos\) 使 \(1/k<\varepsilon\)。
 
-类 \(x=[a_n]\) 可由其任一足够靠后的有理项逼近。给定构造域中的 \(\varepsilon>0\)，正类定义给出正有理数 \(\eta\) 使 \(0<\eta<\varepsilon\)。对 \(\eta/2\) 使用代表列的 Cauchy 条件，取 \(N\) 使 \(n\ge N\) 时
+\begin{proposition}[由代表列作有理近似]
+设 \(x=[a_n]\in\widehat{\R}\)。对每个 \(\varepsilon>0\)，存在 \(q\in\Q\) 使
+\[
+ |x-q|<\varepsilon.
+\]
+\end{proposition}
+
+\begin{proof}
+正类 \(\varepsilon\) 有一个最终不小于正有理数 \(\delta\) 的代表，故常值类 \(\eta:=\delta/2\) 满足 \(0<\eta<\varepsilon\)。对 \(\eta/2\) 使用代表列的 Cauchy 条件，取 \(N\) 使 \(n\ge N\) 时
 \[
  |a_n-a_N|<\frac{\eta}{2}.
 \]
-于是类 \(\eta-|a_n-a_N|\) 从第 \(N\) 项起不小于 \(\eta/2\)，按照严格序的定义，
+于是类 \(\eta-|a_n-a_N|\) 从第 \(N\) 项起不小于 \(\eta/2\)。由代表估计引理和严格序的定义，
 \[
  |x-a_N|=[\,|a_n-a_N|\,]<\eta<\varepsilon.
 \]
-因此 \(\Q\) 在 \(\widehat{\R}\) 中稠密。这里保留的 \(\eta/2\) 正是严格类不等式所需的正间隙。
+取 \(q=a_N\) 即得结论。这里保留的 \(\eta/2\) 是严格类不等式所需的正间隙；若只得到代表差最终不超过 \(\eta\)，尚不能推出类严格小于 \(\eta\)。
+\end{proof}
 
 \begin{theorem}
 \(\widehat{\R}\) 中每个 Cauchy 列都收敛。
@@ -216,7 +276,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \[
  |r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|<\varepsilon.
 \]
-令 \(x=[r_k]\)。给定构造域中的 \(\varepsilon>0\)，先取正有理数 \(\eta<\varepsilon/2\)。由 \((r_k)\) 的 Cauchy 性，取 \(K\) 使 \(j,k\ge K\) 时 \(|r_j-r_k|<\eta/2\)，并使 \(1/k<\eta/2\)。对固定的 \(k\ge K\)，代表差列 \((r_j-r_k)_j\) 最终绝对值小于 \(\eta/2\)，所以
+令 \(x=[r_k]\)。给定构造域中的 \(\varepsilon>0\)，先取正有理数 \(\eta<\varepsilon/2\)。由 \((r_k)\) 的 Cauchy 性，取 \(K\) 使 \(j,k\ge K\) 时 \(|r_j-r_k|<\eta/2\)，并使 \(1/k<\eta/2\)。对固定的 \(k\ge K\)，代表差列 \((r_j-r_k)_j\) 最终绝对值小于 \(\eta/2\)，代表估计引理因而给出
 \[
   |x-r_k|\le\eta/2.
 \]
@@ -238,7 +298,15 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \end{proposition}
 
 \begin{proof}
-令 \(d=y-x>0\)。正类定义给出正有理数 \(\delta\)，使 \(d\) 的某代表尾部不小于 \(\delta\)。取正整数 \(n\) 使 \(1/n<\delta/3\)，再以 \(1/n\) 网格逼近 \(x\) 的一个有理代表后项，可选 \(q\in\Q\) 使 \(x<q<x+\delta<y\)。等价地，也可先由每个类能被有理数任意逼近，再把误差预算为 \((y-x)/3\)。
+令 \(d=y-x>0\)。由 Archimedes 性质取 \(n\in\Npos\) 使 \(nd>1\)，即 \(1/n<d\)。整数部分定理的证明只使用 Archimedes 性质，因而可用于 \(\widehat{\R}\)：存在 \(p\in\Z\) 使
+\[
+ p\le nx<p+1.
+\]
+令 \(q=(p+1)/n\in\Q\)。由上式可得
+\[
+ x<q\le x+\frac1n< x+d=y.
+\]
+所以 \(x<q<y\)。这一步把 Archimedes 性质转化成足够细的有理网格。
 \end{proof}
 
 构造把双重指标族对角化为单个有理序列：
@@ -264,7 +332,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \end{theorem}
 
 \begin{proof}
-由 Archimedes 性质取正整数 \(N>|x|+1\)，则 \(-N<x<N\)，所以 \(\Phi(x)\) 非空且不等于 \(\Q\)。它显然向下封闭；若 \(q<x\)，有理稠密性给出 \(r\in\Q\) 使 \(q<r<x\)，故没有最大元。因此 \(\Phi(x)\) 是分割。若 \(x<y\)，取有理数 \(q\) 使 \(x<q<y\)，便有
+由 Archimedes 性质取正整数 \(N>|x|+1\)，则 \(-N<x<N\)，所以 \(\Phi(x)\) 非空且不等于 \(\Q\)。若 \(p<q<x\)，则 \(p<x\)，故 \(\Phi(x)\) 向下封闭；若 \(q<x\)，有理稠密性给出 \(r\in\Q\) 使 \(q<r<x\)，故没有最大元。因此 \(\Phi(x)\) 是分割。若 \(x<y\)，取有理数 \(q\) 使 \(x<q<y\)，便有
 \[
  \Phi(x)\subsetneq\Phi(y),\qquad q\in\Phi(y)\setminus\Phi(x).
 \]
@@ -334,17 +402,31 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \end{theorem}
 
 \begin{proof}
-每个有序域同态必须把 \(1\) 送到 \(1\)，因而固定整数及其商。由\chapterref{chap:real-number-system}的论证，完备有序域都是 Archimedes 的，且 \(\Q\) 稠密。映射
+每个完备有序域都具有 Archimedes 性质，其中的有理数副本稠密。对这样的域 \(F\)，定义
 \[
- x\longmapsto\{q\in\Q:q<x\}
+ L_F(x)=\{q\in\Q:q<x\}.
 \]
-分别把 \(F,G\) 同构到 \(\mathbb D\)，复合一个映射的逆与另一个映射即得所需同构。
+与上面对 \(\Phi\) 的验证相同，\(L_F(x)\) 是 Dedekind 分割，且 \(L_F\) 严格保序、单射。还需证明满射。任取分割 \(\alpha\)，把其中的有理数视为 \(F\) 的元素，并令
+\[
+ s=\sup_F\alpha.
+\]
+若 \(q\in\alpha\)，由分割没有最大元，可取 \(r\in\alpha\) 使 \(q<r\le s\)，故 \(q<s\)。反之，若 \(q<s\) 而 \(q\notin\alpha\)，向下封闭性说明每个 \(r\in\alpha\) 都满足 \(r<q\)，于是 \(q\) 是 \(\alpha\) 的上界，与 \(q<s=\sup_F\alpha\) 矛盾。因此
+\[
+ \alpha=\{q\in\Q:q<s\}=L_F(s),
+\]
+所以 \(L_F\) 为满射。
 
-若 \(T:F\to G\) 是保序域同构，则它固定 \(\Q\)，从而
+上文证明 \(\Phi\) 保持加法和乘法的两个包含方向，只使用有理数在有序域中的稠密性及域运算规律，因而同样证明 \(L_F\) 是保序域同构。对 \(G\) 也成立。于是
 \[
- q<x\Longleftrightarrow q<T(x).
+ T:=L_G^{-1}\circ L_F:F\longrightarrow G
 \]
-所以 \(x\) 与 \(T(x)\) 决定同一分割；分割表示的单射性迫使 \(T\) 等于上述同构，故唯一。
+是所需同构。
+
+最后证明唯一性。任一保序域同构 \(S:F\to G\) 都把 \(1\) 送到 \(1\)，因而固定整数及其商。于是
+\[
+ q<x\Longleftrightarrow q<S(x)
+\]
+对每个 \(q\in\Q\) 成立，即 \(L_G(S(x))=L_F(x)\)。由 \(L_G\) 的单射性，\(S(x)=T(x)\) 对所有 \(x\in F\) 成立。
 \end{proof}
 
 \section*{习题}
@@ -383,7 +465,25 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
  \optionalexerciseitem{5.21} 对正元素补全 \(\Phi(xy)=\Phi(x)\Phi(y)\) 的两个包含方向，再用符号扩张处理一般情形。
  \exerciseitem{5.22} 证明任意两条最终为正且平方逼近 \(2\) 的有理 Cauchy 列等价。
  \projectexerciseitem{5.23} \ 【前置：\chapterref{chap:dedekind-construction}与本章；预计用时：120分钟】逐项比较 Dedekind 分割与 Cauchy 商构造中的对象相等、次序、加法、乘法、确界和完备性证明。
- \openexerciseitem{5.24} 讨论把“有理 Cauchy 列”替换为“有理收敛列”为什么不能补出新点；再讨论替换为任意有界列为什么等价关系与运算会失去控制。
+ \openexerciseitem{5.24} 讨论把“有理 Cauchy 列”替换为“在 \(\Q\) 中收敛的有理列”为什么不能补出新点。再把全体有界有理列按“差为零列”取商：证明等价关系、加法和乘法仍然良定义，并说明所得商环为什么不能沿用本章方法成为有序域。
+\end{enumerate}
+
+\section*{本编综合习题}
+\addcontentsline{toc}{section}{本编综合习题}
+
+\begin{enumerate}[label=\textbf{综.\arabic*.}]
+ \exerciseitem{II.1} 对命题“\(a_n\to a\)”依次完成：写出定义、写出否定、写出邻域形式、证明有限项修改不影响结论。
+ \exerciseitem{II.2} 设 \(a_n=(n+\alpha)/(n+\beta)\)。讨论分母最终非零，给出极限及关于参数 \((\alpha,\beta)\) 在有界矩形上的一致误差估计。
+ \exerciseitem{II.3} 设 \(a_n,b_n\) 收敛。证明线性组合、乘积、商、绝对值和最大值的极限定理，并为每个必要条件给出一个删去后失败的例子。
+ \exerciseitem{II.4} 分析递推 \(a_{n+1}=(a_n+3/a_n)/2\)、\(a_1>0\)：不变区间、单调性、有界性、极限与误差估计。
+ \exerciseitem{II.5} 对有界数列完成三种抽取：收敛子列、单调子列、趋于上极限的子列；比较三种构造的输入与输出。
+ \exerciseitem{II.6} 构造一个部分极限集合恰为 \(\{-2,0,1\}\) 的数列，计算上下极限、尾部振幅，并判断是否 Cauchy。
+ \exerciseitem{II.7} 证明下列条件等价：\(a_n\to L\)；每个子列都有进一步子列趋于 \(L\)；\(\liminf a_n=\limsup a_n=L\)；尾部振幅趋零且存在一条子列趋于 \(L\)。
+ \exerciseitem{II.8} 对 \(\sum_{k=1}^n2^{-k}u_k\)（\(\abs{u_k}\le1\)）证明 Cauchy 性、统一有界性及尾部误差，并讨论 \(u_k\) 不收敛是否妨碍部分和收敛。
+ \projectexerciseitem{II.9} \ 【预计用时：90分钟】从确界原理出发重建链条：单调有界收敛、区间套、Bolzano--Weierstrass、Cauchy 准则。
+ \exerciseitem{II.10} 比较 \(\Q\) 与 \(\R\) 中同一个有理 Cauchy 列：Cauchy 性、可能极限、极限是否仍落在值域中，以及完备性的差异。
+ \optionalexerciseitem{II.11} 构造有界列 \(a_n,b_n\)，使二者各有两个部分极限，而 \(a_n+b_n\) 分别出现一个、两个和三个部分极限的三组例子。
+ \openexerciseitem{II.12} 以“尾部”为主线总结第二编：最终性质、完整尾部、尾部值集、尾部确界、尾部直径分别解决什么问题，哪些信息彼此可恢复。
 \end{enumerate}
 
 \section*{部分习题提示}

@@ -1,7 +1,9 @@
 \chapter{一致连续}
 \label{chap:uniform-continuity}
 
-逐点连续时，控制误差所需的邻域可以随基点缩小；若定义域很大或缺少端点，这些邻域可能没有共同的正下界。一致连续排除这种退化：给定输出误差后，同一个输入尺度对定义域中的任意两点都有效。由此可以判断函数何时保持 Cauchy 列，并得到从稠密子集向完备空间的延拓。
+逐点连续允许控制尺度随基点改变。在无界区间上，这些尺度可能随着基点远离原点而趋于零；在缺少端点的区间上，也可能在靠近缺口时退化。一致连续要求同一个输入尺度适用于定义域中的任意一对点，因此能够比较那些彼此接近、却未必收敛到定义域内同一点的点列。
+
+这项差别带来两个重要结果。紧集上的连续函数由于不能向无穷远或缺失边界逃逸，自动一致连续；一致连续函数又把 Cauchy 列映成 Cauchy 列，因而能从稠密子集唯一延拓到闭包。本章还用 Lipschitz 条件、Hölder 条件和连续模记录一致连续性的定量强弱。
 
 \section{一致连续的定义与序列判据}
 
@@ -34,7 +36,7 @@
 线性函数 \(f(x)=mx+b\) 在 \(\R\) 上一致连续。给定 \(\varepsilon>0\)，当 \(m\ne0\) 时取 \(\delta=\varepsilon/\abs m\)；\(m=0\) 时任取正半径。
 \end{example}
 
-\subsection{一致连续的定义和序列判据}
+\subsection{相互逼近的两列}
 
 
 \begin{theorem}[序列判据]
@@ -113,7 +115,7 @@
 
 \begin{proof}
 若 \(D=\varnothing\)，结论平凡。以下设 \(D\ne\varnothing\)。
-取一致连续性对 \(\varepsilon=1\) 的半径 \(\delta>0\)。把包含 \(D\) 的某个有界区间分成有限个长度小于 \(\delta\) 的小区间。每个与 \(D\) 相交的小区间选一个点 \(x_j\in D\)。任意 \(x\in D\) 与某个 \(x_j\) 距离小于 \(\delta\)，故
+取一致连续性对 \(\varepsilon=1\) 的半径 \(\delta>0\)。由有界性可取 \(A<B\) 使 \(D\subset[A,B]\)。选正整数 \(N\) 使 \((B-A)/N<\delta\)，按这组等分点把 \([A,B]\) 分成有限个小区间。每个与 \(D\) 相交的小区间选一个点 \(x_j\in D\)。任意 \(x\in D\) 与同一小区间中选出的 \(x_j\) 距离小于 \(\delta\)，故
 \[
  \abs{f(x)}<1+\max_j\abs{f(x_j)}.
 \]
@@ -215,6 +217,8 @@
 \end{enumerate}
 \end{definition}
 
+Lipschitz 条件用输入距离的线性函数控制输出距离，Hölder 条件则允许幂次型控制。高等数学中常用“导数有界”估计函数增量；等到中值定理在后文严格建立后，可以证明区间上满足 \(\abs{f'}\le L\) 的可导函数是 \(L\)-Lipschitz 连续的。这里先把增量估计本身作为定义，不把可导性作为前提。
+
 \begin{proposition}
 Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函数都一致连续。
 \end{proposition}
@@ -232,7 +236,15 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 \[
  \abs{x^\alpha-y^\alpha}\le\abs{x-y}^{\alpha},
 \]
-因而是 Hölder 连续的。它在包含 \(0\) 的区间上通常不是 Lipschitz 连续，因为
+为验证该估计，可设 \(x\ge y\ge0\)，并令 \(h=x-y\)。若 \(x>0\)，置 \(r=y/x\in[0,1]\)。由于 \(0<\alpha<1\)，对 \(0\le u\le1\) 有 \(u^\alpha\ge u\)，所以
+\[
+ r^\alpha+(1-r)^\alpha\ge r+(1-r)=1.
+\]
+两边乘以 \(x^\alpha\)，得到
+\[
+ y^\alpha+h^\alpha\ge x^\alpha,
+\]
+即 \(x^\alpha-y^\alpha\le h^\alpha\)。\(x=0\) 时不等式平凡。因此 \(f\) 是 Hölder 连续的。它在包含 \(0\) 的区间上不是 Lipschitz 连续，因为
 \[
  \frac{x^\alpha-0}{x-0}=x^{\alpha-1}\to+\infty.
 \]
@@ -261,11 +273,22 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 这说明通常把 Hölder 指数限制在 \(0<\alpha\le1\) 并非纯粹约定：在区间上，更高指数不会产生新的非恒定函数。若定义域不是区间，上述分割点可能不在定义域中，结论便不能照搬。
 
 \begin{proposition}
-若 \(f,g\) 都 Lipschitz 连续，则 \(f+g\) 也 Lipschitz 连续；复合函数的 Lipschitz 常数至多为两常数之积。乘积若要在整个定义域上 Lipschitz 连续，还需至少控制其中函数的有界性。
+设 \(f,g:D\to\R\) 分别为 \(L_f\)-Lipschitz 和 \(L_g\)-Lipschitz 函数，则 \(f+g\) 为 \((L_f+L_g)\)-Lipschitz 函数。若对所有 \(x\in D\) 还有 \(\abs{f(x)}\le M_f\)、\(\abs{g(x)}\le M_g\)，则 \(fg\) 为 \((M_fL_g+M_gL_f)\)-Lipschitz 函数。若 \(f:D\to E\) 为 \(L_f\)-Lipschitz 映射，\(h:E\to\R\) 为 \(L_h\)-Lipschitz 函数，则 \(h\circ f\) 的 Lipschitz 常数可取 \(L_hL_f\)。
 \end{proposition}
 
 \begin{proof}
-和与复合由三角不等式直接得到。乘积使用
+和的估计来自
+\[
+ \abs{(f+g)(x)-(f+g)(y)}
+ \le (L_f+L_g)\abs{x-y},
+\]
+复合则满足
+\[
+ \abs{h(f(x))-h(f(y))}
+ \le L_h\abs{f(x)-f(y)}
+ \le L_hL_f\abs{x-y}.
+\]
+乘积使用
 \[
  f(x)g(x)-f(y)g(y)
  =f(x)(g(x)-g(y))+g(y)(f(x)-f(y)).
@@ -352,27 +375,36 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 取上确界即得 \(\omega_f(t)\le\rho(t)\)。
 \end{proof}
 
-若 \(D\) 是区间，则连续模还具有近似次可加结构。对任意 \(s,t>0\)，把距离不超过 \(s+t\) 的两点之间按比例插入区间内中间点，可得
+若 \(D\) 是区间，则连续模还具有次可加性。对任意 \(s,t>0\) 及满足 \(\abs{x-y}\le s+t\) 的 \(x,y\in D\)，取
+\[
+ z=\frac{t}{s+t}x+\frac{s}{s+t}y.
+\]
+区间性保证 \(z\in D\)，并且 \(\abs{x-z}\le s\)、\(\abs{z-y}\le t\)。因此
+\[
+ \abs{f(x)-f(y)}
+ \le \omega_f(s)+\omega_f(t).
+\]
+对所有这样的点对取上确界，得到
 \[
  \omega_f(s+t)\le\omega_f(s)+\omega_f(t).
 \]
-一般非凸定义域可能缺少中间点，不能直接使用这一证明。
+一般定义域可能缺少连接 \(x,y\) 的中间点，上述不等式未必成立。
 
-在区间上，次可加性还说明自然连续模在有限值处从右连续。事实上对 \(h>0\)，
+在区间上，若 \(f\) 一致连续并且 \(\omega_f(t)<+\infty\)，次可加性还说明连续模在 \(t\) 处从右连续。事实上对 \(h>0\)，只要各项有限，就有
 \[
  0\le\omega_f(t+h)-\omega_f(t)\le\omega_f(h),
 \]
-而一致连续时右端随 \(h\downarrow0\) 趋于零。对于和、数乘与复合，连续模还满足
+一致连续性给出 \(\omega_f(h)\to0\)，故右端随 \(h\downarrow0\) 趋于零。设 \(f,g:D\to\R\)，并分别按同一集合 \(D\) 定义连续模。则
 \[
  \omega_{f+g}(t)\le\omega_f(t)+\omega_g(t),
  \qquad
  \omega_{cf}(t)=\abs c\,\omega_f(t)\quad(c\ne0),
 \]
-而 \(c=0\) 时 \(\omega_{cf}\equiv0\)。在右端有意义时还有
+而 \(c=0\) 时 \(\omega_{cf}\equiv0\)。再设 \(f:D\to E\)、\(h:E\to\R\)，其中 \(\omega_h\) 按定义域 \(E\) 计算。对每个满足 \(\omega_f(t)<+\infty\) 的 \(t\)，还有
 \[
  \omega_{h\circ f}(t)\le\omega_h(\omega_f(t)).
 \]
-这些不等式比只记录“是否一致连续”保留了更多定量信息。
+若右端的上确界为 \(+\infty\)，不等式按扩充实数次序理解。这些不等式比只记录“是否一致连续”保留了更多定量信息。
 
 \begin{example}
 Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函数满足
@@ -411,9 +443,21 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 \]
 两个反向分别由 \(x^2:\R\to\R\) 与 \(1/x:(0,1)\to\R\) 否定。双序列判据才是无附加条件的一致连续等价条件。
 
-\begin{corollary}
-若 \(D\) 稠密于某集合 \(X\)，一致连续函数 \(f:D\to\R\) 对每个 \(x\in X\) 的任意逼近列给出同一个候选极限。
-\end{corollary}
+\begin{proposition}[逼近列的相容性]
+设 \(D\subset X\subset\R\)，\(f:D\to\R\) 一致连续。若 \((u_n),(v_n)\subset D\) 都收敛到同一个 \(x\in X\)，则
+\[
+ \abs{f(u_n)-f(v_n)}\longrightarrow0.
+\]
+特别地，只要其中一条像列收敛，另一条像列就收敛到同一极限。
+\end{proposition}
+
+\begin{proof}
+由 \(u_n\to x\) 和 \(v_n\to x\)，有
+\[
+ \abs{u_n-v_n}\le\abs{u_n-x}+\abs{v_n-x}\longrightarrow0.
+\]
+一致连续的双序列判据随即给出结论。
+\end{proof}
 
 \subsection{闭包上的延拓}
 
@@ -433,20 +477,23 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 \[
  \widetilde f(x)=\lim_{n\to\infty}f(x_n).
 \]
-若 \(y_n\in D\) 也趋于 \(x\)，则 \(\abs{x_n-y_n}\to0\)，一致连续性的序列判据给出
+若 \(y_n\in D\) 也趋于 \(x\)，逼近列的相容性给出
 \[
  \abs{f(x_n)-f(y_n)}\to0,
 \]
 故定义与逼近列无关。若 \(x\in D\)，可取常值列，得到 \(\widetilde f(x)=f(x)\)。
 
-证明延拓一致连续。给定 \(\varepsilon>0\)，先取原函数在精度 \(\varepsilon/3\) 下的半径 \(\delta>0\)。若 \(x,y\in X\) 且 \(\abs{x-y}<\delta/3\)，从 \(D\) 中分别取 \(u,v\) 充分接近 \(x,y\)，使
+下面证明延拓一致连续。给定 \(\varepsilon>0\)，取原函数在精度 \(\varepsilon/2\) 下的一致连续半径 \(\delta>0\)。设 \(x,y\in X\) 且 \(\abs{x-y}<\delta/3\)，分别取 \((u_n),(v_n)\subset D\) 使 \(u_n\to x\)、\(v_n\to y\)。充分大时
 \[
- \abs{x-u}<\delta/3,\qquad\abs{y-v}<\delta/3
+ \abs{u_n-v_n}
+ \le\abs{u_n-x}+\abs{x-y}+\abs{y-v_n}<\delta,
 \]
-并使 \(\abs{\widetilde f(x)-f(u)}\)、\(\abs{\widetilde f(y)-f(v)}\) 均小于 \(\varepsilon/3\)。则 \(\abs{u-v}<\delta\)，故
+所以 \(\abs{f(u_n)-f(v_n)}<\varepsilon/2\)。令 \(n\to\infty\)，得到
 \[
- \abs{\widetilde f(x)-\widetilde f(y)}<\varepsilon.
+ \abs{\widetilde f(x)-\widetilde f(y)}
+ \le\frac{\varepsilon}{2}<\varepsilon.
 \]
+半径 \(\delta/3\) 与 \(x,y\) 无关，故 \(\widetilde f\) 一致连续。
 
 若 \(g:X\to\R\) 是另一连续延拓，对任意 \(x_n\in D\)、\(x_n\to x\)，连续性给出
 \[
@@ -519,7 +566,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
  \exerciseitem{19.15} 构造连续函数把某条定义域内 Cauchy 列映成非 Cauchy 列。
  \exerciseitem{19.16} 定义连续模并证明一致连续的连续模判据。
  \exerciseitem{19.17} 在区间定义域上证明连续模的次可加性。
- \exerciseitem{19.18} 计算 \(f(x)=x\)、\(f(x)=\sqrt x\) 在相应定义域上的最小自然连续模上界。
+ \exerciseitem{19.18} 分别计算 \(f(x)=x\) 在 \(\R\) 上以及 \(f(x)=\sqrt x\) 在 \([0,\infty)\) 上的连续模 \(\omega_f(t)\)。
 \end{enumerate}
 
 \subsection*{C组　综合问题}
@@ -529,7 +576,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
  \exerciseitem{19.21} 证明 \(\sin x\) 在 \(\Q\) 上的限制唯一延拓为 \(\R\) 上的 \(\sin x\)。
  \optionalexerciseitem{19.22} 构造在 \(\Q\) 上连续但不能连续延拓到 \(\R\) 的函数。
  \optionalexerciseitem{19.23} 证明若 \(f\) 在 \((a,b)\) 上一致连续，则左右有限极限存在，因而可连续延拓到 \([a,b]\)。
- \projectexerciseitem{19.24} \ 【前置：\chapterref{chap:cauchy-criterion}、\chapterref{chap:continuous-functions-closed-interval}与本章；预计用时：90分钟】建立“紧致性—Heine--Cantor—保持 Cauchy 列—完备化延拓”的证明链，并给每个箭头配置一个删条件反例。
+ \projectexerciseitem{19.24} \ 【前置：\chapterref{chap:cauchy-criterion}、\chapterref{chap:continuous-functions-closed-interval}与本章；预计用时：90分钟】建立“紧致性—Heine--Cantor—保持 Cauchy 列—稠密子集上的一致连续延拓”的证明链，并给每个箭头配置一个删条件反例。
  \openexerciseitem{19.25} 研究一致连续是否由“保持收敛列”刻画，并比较它与“保持 Cauchy 列”的强弱。
  \optionalexerciseitem{19.26} 若 \(f\) 是双射且 \(f,f^{-1}\) 都一致连续，称其为一致同胚。证明一致同胚保持 Cauchy 性与完备性。
 \end{enumerate}
@@ -601,7 +648,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
   \item 判断是否 Hölder 或 Lipschitz；
   \item 写出可用的连续模上界。
  \end{enumerate}
- \exerciseitem{III.10} \textbf{（完备化延拓）}
+ \exerciseitem{III.10} \textbf{（稠密子集上的一致连续延拓）}
  \begin{enumerate}
   \item 由稠密性选择逼近列；
   \item 证明像列收敛且极限与选择无关；

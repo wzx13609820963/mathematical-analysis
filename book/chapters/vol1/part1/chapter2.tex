@@ -1,7 +1,9 @@
 \chapter{Dedekind 分割}
 \label{chap:dedekind-construction}
 
-\chapterref{chap:real-number-system}中的每个有理缺口都有一个确定的左部。Dedekind 的办法是把这个左部本身当作新数。这样得到的对象只有在加法、乘法和次序均有定义，并且全部域公理与确界性质都得到验证以后，才能称为实数系。
+\chapterref{chap:real-number-system}中的每个有理缺口都有一个确定的左部。Dedekind 的办法是把这个左部本身当作新数。这个想法很短，核验却不能省略：包含关系是否给出全序，两个左部怎样相加、相乘，负号与倒数怎样定义，以及一族新数是否仍有上确界，都要从集合定义推出。只有这些步骤完成以后，分割才组成实数系，而不只是若干“缺口的名称”。
+
+本章的证明有两类。第一类说明某个公式确实产生分割，即所得集合非空、不等于 \(\Q\)、向下封闭且没有最大元；第二类验证这些公式满足域公理及序公理。加法几乎逐项继承有理数运算，乘法则必须先处理正数，再扩张符号。确界性质放在最后证明，因为它取决于分割以左部表示这一特定选择。
 
 \section{分割的定义、序与有理数嵌入}
 
@@ -17,6 +19,9 @@
 \end{enumerate}
 全体分割组成的集合记为 \(\mathbb D\)。
 \end{definition}
+
+这里“全体分割”确实是集合：每个分割都是 \(\Q\) 的子集，而
+\(\mathbb D\) 可从幂集 \(\mathcal P(\Q)\) 中按上述三项条件分离出来。这个存在性核对只使用附录A中的受限概括，不使用任何分析学完备性。
 
 分割只记录左部；右部是 \(\Q\setminus\alpha\)。向下封闭性保证每个左部元素小于每个右部元素，无最大元则统一处理“边界为有理数”和“边界为无理数”两种情形。
 
@@ -50,6 +55,34 @@
 \[
  r<s\quad\Longleftrightarrow\quad r^*\subsetneq s^*.
 \]
+
+\begin{proposition}[分割的基本性质]
+设 \(\alpha\in\mathbb D\)。
+\begin{enumerate}
+ \item 若 \(a\in\alpha\)、\(r\notin\alpha\)，则 \(a<r\)。
+ \item \(\alpha>0^*\) 当且仅当 \(0\in\alpha\)，也当且仅当 \(\alpha\) 含有正有理数。
+ \item 给定 \(a_0\in\alpha\)、\(r_0\notin\alpha\) 与 \(\varepsilon>0\)，存在
+ \[
+   a\in\alpha,\qquad r\notin\alpha,
+   \qquad a_0\le a<r\le r_0,\qquad r-a<\varepsilon.
+ \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+若 \(r\le a\)，则 \(r=a\) 与 \(r\notin\alpha\) 矛盾；若 \(r<a\)，向下封闭性又给出 \(r\in\alpha\)。故必有 \(a<r\)。
+
+若 \(\alpha>0^*\)，可取 \(x\in\alpha\setminus0^*\)，于是 \(x\ge0\)。当 \(x>0\) 时向下封闭性给出 \(0\in\alpha\)，当 \(x=0\) 时结论已经成立。反过来，\(0\in\alpha\) 说明 \(0^*\subsetneq\alpha\)。又因 \(\alpha\) 没有最大元，\(0\in\alpha\) 时必有某个正有理数属于 \(\alpha\)；含正有理数当然也推出 \(0\in\alpha\)。
+
+由第一项，\(a_0<r_0\)。对区间 \([a_0,r_0]\) 逐次二分：若中点属于 \(\alpha\)，以它替换左端点；否则以它替换右端点。第 \(n\) 次以后仍有左端点 \(a_n\in\alpha\)、右端点 \(r_n\notin\alpha\)，并且
+ \[
+   r_n-a_n=2^{-n}(r_0-a_0).
+ \]
+比值 \((r_0-a_0)/\varepsilon\) 是正有理数，取整数 \(n\) 使
+\(2^n>(r_0-a_0)/\varepsilon\) 即可；这个选择只用整数的初等 Archimedes 性质。于是 \(r_n-a_n<\varepsilon\)。取 \(a=a_n,r=r_n\) 即得结论。
+\end{proof}
+
+第三项没有声称缺口在 \(\Q\) 中有边界；它只说左右两侧可以达到任意给定的有理精度。后面构造加法逆元和乘法逆元时，正是这一夹逼性质把集合定义转化为恒等式。
 
 \subsection{有理数的嵌入}
 
@@ -123,11 +156,17 @@
 \end{theorem}
 
 \begin{proof}
-取 \(r\notin\alpha\)，任意 \(q<-r\) 表明集合非空；取 \(a\in\alpha\)，则任何 \(q\in-\alpha\) 都满足 \(q<-r<-a\)，故 \(-a\notin-\alpha\)，所以它不等于 \(\Q\)。向下封闭和无最大元由严格不等式及有理数稠密性直接得到。
+取 \(r_0\notin\alpha\)，任意 \(q<-r_0\) 都属于 \(-\alpha\)，故该集合非空。再固定 \(a_0\in\alpha\)。若 \(q\in-\alpha\)，按定义存在 \(r\notin\alpha\) 使 \(q<-r\)；分割的基本性质给出 \(a_0<r\)，所以 \(q<-a_0\)。因此 \(-a_0\notin-\alpha\)，该集合不等于 \(\Q\)。
+
+若 \(q\in-\alpha\)、\(t<q\)，原来证明 \(q\in-\alpha\) 的同一个右部元素也证明 \(t\in-\alpha\)，故集合向下封闭。若 \(q\in-\alpha\)，取 \(r\notin\alpha\) 使 \(q<-r\)，再由有理数稠密性选取 \(t\) 满足 \(q<t<-r\)，则 \(t\in-\alpha\)。所以 \(-\alpha\) 没有最大元，确为分割。
 
 若 \(a\in\alpha\)、\(q\in-\alpha\)，取 \(r\notin\alpha\) 使 \(q<-r\)。由 \(a<r\)，得 \(a+q<a-r<0\)，所以 \(\alpha+(-\alpha)\subseteq0^*\)。
 
-反之，取 \(x<0\)。先取 \(a_0\in\alpha\)、\(r_0\notin\alpha\)。反复二分 \([a_0,r_0]\)：中点在 \(\alpha\) 时替换左端，否则替换右端。取 \(n\) 使 \((r_0-a_0)/2^n<-x\)，便得到 \(a\in\alpha,r\notin\alpha\) 且 \(r-a<-x\)。于是 \(q=x-a<-r\)，故 \(q\in-\alpha\)，且 \(x=a+q\)。所以 \(0^*\subseteq\alpha+(-\alpha)\)。
+反之，取 \(x<0\)，并任取 \(a_0\in\alpha\)、\(r_0\notin\alpha\)。对精度 \(-x>0\) 使用前面的分割夹逼命题，得到 \(a\in\alpha,r\notin\alpha\) 且 \(r-a<-x\)。令 \(q=x-a\)，则
+ \[
+   q=x-a<-r,
+ \]
+所以 \(q\in-\alpha\)，并且 \(x=a+q\in\alpha+(-\alpha)\)。这对每个 \(x<0\) 成立，故 \(0^*\subseteq\alpha+(-\alpha)\)。
 \end{proof}
 
 于是 \((\mathbb D,+)\) 是交换群，而且 \(-(r^*)=(-r)^*\)。有理数嵌入保持加法和相反数。
@@ -158,13 +197,19 @@
 
 若 \(q\in\alpha\beta\) 且 \(t<q\)，则 \(q\le0\) 时 \(t\le0\)；若 \(q>0\)，存在 \(a\in\alpha_+,b\in\beta_+\) 使 \(q<ab\)，于是同样有 \(t<ab\)。故积向下封闭。再证无最大元。若 \(q<0\)，则 \(0\in\alpha\beta\) 且 \(q<0\)；若 \(q=0\)，任选正的 \(a\in\alpha,b\in\beta\)，在 \(0\) 与 \(ab\) 之间取有理数；若 \(q>0\)，先取 \(a,b\) 使 \(q<ab\)，再取 \(a'\in\alpha_+\) 且 \(a'>a\)，便可在 \(q\) 与 \(a'b\) 之间取更大的积内元素。因此 \(\alpha\beta\) 是正分割。
 
-交换律直接来自 \(ab=ba\)。以下证明结合律。只需考察 \(q>0\)。若 \(q\in(\alpha\beta)\gamma\)，则存在 \(u\in(\alpha\beta)_+\)、\(c\in\gamma_+\) 使 \(q<uc\)。再由 \(u\in\alpha\beta\) 取 \(a\in\alpha_+,b\in\beta_+\) 使 \(u<ab\)，于是 \(q<abc\)。在 \(q/a\) 与 \(bc\) 之间取有理数 \(v\)，则 \(v\in\beta\gamma\) 且 \(q<av\)，故 \(q\in\alpha(\beta\gamma)\)。反向包含完全对称，非正有理数本来属于两边。
+交换律来自 \(ab=ba\)。以下逐项证明结合律；非正有理数本来属于两边，只需比较正有理数。若 \(q\in(\alpha\beta)\gamma\) 且 \(q>0\)，则存在 \(u\in(\alpha\beta)_+\)、\(c\in\gamma_+\) 使 \(q<uc\)。再由 \(u\in\alpha\beta\) 取 \(a\in\alpha_+,b\in\beta_+\) 使 \(u<ab\)，于是 \(q<abc\)。在 \(q/a\) 与 \(bc\) 之间取有理数 \(v\)，则 \(v\in\beta\gamma\) 且 \(q<av\)，故 \(q\in\alpha(\beta\gamma)\)。
+
+反过来，若正数 \(q\in\alpha(\beta\gamma)\)，可取 \(a\in\alpha_+\)、\(v\in(\beta\gamma)_+\) 使 \(q<av\)，再取 \(b\in\beta_+,c\in\gamma_+\) 使 \(v<bc\)。于是 \(q<abc\)。在 \(q/c\) 与 \(ab\) 之间取有理数 \(u\)，便有 \(u\in\alpha\beta\) 且 \(q<uc\)，从而 \(q\in(\alpha\beta)\gamma\)。两个包含方向均已得到。
 
 再证单位元。若正数 \(q\in\alpha1^*\)，则 \(q<ab\)，其中 \(a\in\alpha_+\)、\(0<b<1\)，所以 \(q<a\) 且 \(q\in\alpha\)。反之，若 \(q\in\alpha\) 且 \(q>0\)，取 \(a\in\alpha\) 使 \(a>q\)，再取有理数 \(b\) 使 \(q/a<b<1\)，便有 \(q<ab\)，所以 \(q\in\alpha1^*\)。非正部分相同，故 \(\alpha1^*=\alpha\)。
 
-最后证明分配律。若正数 \(q\in\alpha(\beta+\gamma)\)，取 \(a\in\alpha_+\) 与 \(v=b+c\in(\beta+\gamma)_+\) 使 \(q<av\)，其中 \(b\in\beta,c\in\gamma\)。不论 \(b,c\) 的符号如何，\(ab\in\alpha\beta\)、\(ac\in\alpha\gamma\)：正的乘积可把 \(a\) 稍向上扰动，非正乘积则按定义属于相应分割。因此 \(ab+ac\in\alpha\beta+\alpha\gamma\)，而后者向下封闭，故 \(q\) 属于右边。
+最后证明分配律。若正数 \(q\in\alpha(\beta+\gamma)\)，取 \(a\in\alpha_+\) 与 \(v=b+c\in(\beta+\gamma)_+\) 使 \(q<av\)，其中 \(b\in\beta,c\in\gamma\)。若 \(ab\le0\)，则 \(ab\) 按定义属于 \(\alpha\beta\)；若 \(ab>0\)，取 \(a'\in\alpha\) 且 \(a'>a\)，便有 \(ab<a'b\)，所以 \(ab\in\alpha\beta\)。同理 \(ac\in\alpha\gamma\)。因此
+ \[
+   q<a(b+c)=ab+ac\in\alpha\beta+\alpha\gamma,
+ \]
+而右边是向下封闭的分割，故 \(q\) 属于右边。
 
-反过来，取 \(q=x+y\)，其中 \(x\in\alpha\beta\)、\(y\in\alpha\gamma\)。可分别选正数 \(a,a'\in\alpha\)、\(b\in\beta\)、\(c\in\gamma\)，使 \(x<ab\)、\(y<a'c\)；当 \(x\le0\) 或 \(y\le0\) 时任取正因子即可。再取 \(d\in\alpha_+\) 且 \(d>\max\{a,a'\}\)，便有
+反过来，非正的 \(q\) 已自动属于左边，设 \(q>0\) 且 \(q=x+y\)，其中 \(x\in\alpha\beta\)、\(y\in\alpha\gamma\)。可分别选正数 \(a,a'\in\alpha\)、\(b\in\beta\)、\(c\in\gamma\)，使 \(x<ab\)、\(y<a'c\)；当 \(x\le0\) 或 \(y\le0\) 时，任取相应的正因子也能得到严格不等式。再取 \(d\in\alpha_+\) 且 \(d>\max\{a,a'\}\)，便有
 \[
   q=x+y<ab+a'c<d(b+c).
 \]
@@ -181,17 +226,43 @@
 
 \section{乘法的符号扩张}
 
-若一因子为 \(0^*\)，定义其积为 \(0^*\)。对非零分割先置
+包含次序与加法已经足以判断相反数的符号。若 \(\alpha<\beta\)，则
+\(\alpha+\gamma<\beta+\gamma\)：非严格包含由加法定义得到；若平移后相等，再加上 \(-\gamma\) 就会推出 \(\alpha=\beta\)。特别地，
+\[
+  \alpha<0^*\quad\Longleftrightarrow\quad-\alpha>0^*.
+\]
+因此，每个非零分割都能唯一写成一个正分割或正分割的相反数。
+
+若一因子为 \(0^*\)，定义其积为 \(0^*\)。对非零分割置
 \[
  |\alpha|=\begin{cases}
  \alpha,&\alpha>0^*,\\
  -\alpha,&\alpha<0^*,
  \end{cases}
 \]
-再规定同号相乘取 \(|\alpha||\beta|\)，异号相乘取 \(-(|\alpha||\beta|)\)。正分割乘法的交换律和结合律连同符号法则表明，扩张后的乘法仍满足交换律与结合律。上一命题及零与负号情形给出
+再规定同号相乘取 \(|\alpha||\beta|\)，异号相乘取
+\(-(|\alpha||\beta|)\)。
+
+\begin{proposition}
+上述公式对任意 \(\alpha,\beta\in\mathbb D\) 定义了一个分割，并且乘法满足交换律、结合律，以 \(1^*\) 为单位元，以 \(0^*\) 为吸收元。
+\end{proposition}
+
+\begin{proof}
+非零分割的绝对值为正分割，故 \(|\alpha||\beta|\) 已由上一节定义并且仍是正分割；它的相反数也是分割。因此四种符号组合都给出 \(\mathbb D\) 中的唯一元素，含零的情形则按定义处理。
+
+交换律由正分割乘法的交换律和“同号或异号”这一分类的对称性得到。验证结合律时，只要有一项为零，两边都为 \(0^*\)；三项均非零时，两边的绝对值都是
+\[
+  (|\alpha||\beta|)|\gamma|
+  =|\alpha|(|\beta||\gamma|),
+\]
+而两边的符号都由三个因子中负号的个数是偶数还是奇数决定。因此两边相等。因 \(1^*>0^*\)，正分割的单位元公式给出 \(\alpha1^*=\alpha\)：\(\alpha>0^*\) 时直接使用上一节的结论，\(\alpha<0^*\) 时两边同时带负号，\(\alpha=0^*\) 时按定义成立。吸收元也已经写入定义。
+\end{proof}
+
+主分割的正数乘法已在上一节核对。再结合零与符号两种情形，得到
 \[
  r^*s^*=(rs)^*\qquad(r,s\in\Q).
 \]
+所以有理数嵌入不仅保序、保持加法，也保持乘法。
 
 \section{分配律}
 
@@ -246,35 +317,40 @@
 
 若 \(q\in\alpha^{-1}\) 且 \(t<q\)，则 \(q\le 0\) 时有 \(t\le0\)；\(q>0\) 时，可取 \(r\notin\alpha\) 使 \(q<r^{-1}\)，于是 \(t<r^{-1}\)。两种情形都给出 \(t\in\alpha^{-1}\)，故它向下封闭。最后说明它没有最大元。对 \(q\le0\)，先取任意正数 \(r\notin\alpha\)，再取 \(0<t<r^{-1}\)，便有 \(q<t\in\alpha^{-1}\)；对 \(q>0\)，由定义取 \(r\notin\alpha\) 使 \(q<r^{-1}\)，再在二者之间取有理数 \(t\)。因此 \(\alpha^{-1}\) 确为正分割。
 
-若 \(a\in\alpha_+\)、\(q<r^{-1}\) 且 \(r\notin\alpha\)，则 \(a<r\)，故 \(aq<1\)；所以积包含于 \(1^*\)。
+先证 \(\alpha\alpha^{-1}\subseteq1^*\)。非正有理数已经属于 \(1^*\)。若 \(z>0\) 且 \(z\in\alpha\alpha^{-1}\)，可取 \(a\in\alpha_+\)、\(q\in(\alpha^{-1})_+\) 使 \(z<aq\)。再由 \(q\in\alpha^{-1}\) 取 \(r>0\)、\(r\notin\alpha\) 使 \(q<r^{-1}\)。分割的基本性质给出 \(a<r\)，故
+\[
+ z<aq<ar^{-1}<1.
+\]
+于是 \(z\in1^*\)，第一个包含得证。
 
-反之，给定 \(0<x<1\)，取 \(a_0\in\alpha_+\)、\(r_0\notin\alpha\)，并可令 \(r_0>a_0\)。用二分法取得 \(a\in\alpha_+\)、\(r\notin\alpha\)，使
+反之，给定 \(0<x<1\)，取 \(a_0\in\alpha_+\)、\(r_0\notin\alpha\)。对正数
+\[
+ \varepsilon=\frac{1-x}{x}a_0
+\]
+使用分割夹逼命题，取得 \(a\in\alpha_+\)、\(r\notin\alpha\)，使
 \[
  r-a<\frac{1-x}{x}a_0\le\frac{1-x}{x}a.
 \]
-于是 \(a/r>x\)，即 \(x/a<1/r\)。由有理数稠密性取 \(q\) 使 \(x/a<q<1/r\)。则 \(q\in\alpha^{-1}\) 且 \(x<aq\)，由积的向下封闭性得 \(x\in\alpha\alpha^{-1}\)。负数和零本来就在积中，故 \(1^*\subseteq\alpha\alpha^{-1}\)。
+整理右端不等式得 \(xr<a\)，即 \(x/a<1/r\)。由有理数稠密性取 \(q\) 使
+\[
+  \frac{x}{a}<q<\frac1r.
+\]
+则 \(q\in\alpha^{-1}\) 且 \(x<aq\)，由积的定义得 \(x\in\alpha\alpha^{-1}\)。负数和零本来就在积中，故 \(1^*\subseteq\alpha\alpha^{-1}\)。
 \end{proof}
 
-负分割的逆元由 \(\alpha^{-1}=-((-\alpha)^{-1})\) 定义。
+负分割的逆元由
+\[
+  \alpha^{-1}=-\bigl((-\alpha)^{-1}\bigr)
+\]
+定义。此时 \(\alpha\) 与 \(\alpha^{-1}\) 同为负分割，按符号扩张的乘法，
+\[
+  \alpha\alpha^{-1}
+  =(-\alpha)(-\alpha)^{-1}
+  =1^*.
+\]
+因此每个非零分割都有乘法逆元。
 
 \section{顺序与域运算的相容性}
-
-\begin{theorem}
-\((\mathbb D,+,\cdot,\subseteq)\) 是有序域。其零元、单位元分别为 \(0^*,1^*\)。
-\end{theorem}
-
-\begin{proof}
-加法的封闭性、交换律、结合律、零元与逆元已在前文证明，所以 \((\mathbb D,+)\) 是交换群。正分割乘法演算给出正元素上的交换律、结合律和单位元；符号扩张把这些等式逐项传递到任意符号，并且 \(0^*\) 为吸收元。一般分配律已经单独证明。每个正非零分割有正文构造的倒数，负分割 \(\alpha\) 的逆元为 \(-(( -\alpha)^{-1})\)，其乘积按符号定义等于 \(1^*\)。因此 \(\mathbb D\) 是域。
-
-包含关系已经证明为全序。若 \(\alpha\subseteq\beta\)，加法定义直接给出
-\(\alpha+\gamma\subseteq\beta+\gamma\)。若 \(0^*\subseteq\alpha,\beta\)，则正部代表的包含给出 \(0^*\subseteq\alpha\beta\)；严格为正时，任取正的 \(a\in\alpha,b\in\beta\)，有理数 \(0<q<ab\) 属于积，故积严格大于 \(0^*\)。特别地，当 \(\alpha\subseteq\beta\) 且 \(0^*\subseteq\gamma\) 时，\(0^*\subseteq\beta-\alpha\)，分配律给出
-\[
-  \beta\gamma-\alpha\gamma=(\beta-\alpha)\gamma\ge0^*,
-\]
-即 \(\alpha\gamma\subseteq\beta\gamma\)。所以序与加法及非负数乘法相容，\(\mathbb D\) 是有序域。
-\end{proof}
-
-这里没有把关键的良定义问题隐藏在代表元之后：\(\mathbb D\) 的元素本身就是集合，所有运算均直接生成唯一集合。技术负担转移到了验证生成集合仍为分割以及逆元恒等式。
 
 \begin{proposition}[序与运算的相容性细化]
 对任意分割 \(\alpha,\beta,\gamma\)，有
@@ -293,18 +369,52 @@
 \end{proposition}
 
 \begin{proof}
-加法的非严格包含直接由定义中的代表 \(a\in\alpha\subseteq\beta\) 得到。若 \(\alpha\subsetneq\beta\)，加上 \(-\alpha\) 后得
-\[
- 0^*\subsetneq\beta+(-\alpha),
-\]
-再平移回去可知严格性不会消失。
+加法的非严格包含直接由定义中的代表 \(a\in\alpha\subseteq\beta\) 得到。若 \(\alpha\subsetneq\beta\) 而平移后相等，即
+\(\alpha+\gamma=\beta+\gamma\)，则两边再加 \(-\gamma\)，由结合律和逆元公式得到 \(\alpha=\beta\)，矛盾。因此加法严格保序。
 
-当三者非负时，乘法包含由正部代表的包含直接得到；一般的 \(\alpha,\beta\) 可先平移一个足够大的主分割，使两者变为正，再用分配律消去共同平移项。若 \(\gamma>0^*\) 且 \(\alpha<\beta\)，则
+下面设 \(\gamma>0^*\)；\(\gamma=0^*\) 的结论由吸收元公式得到。先固定 \(a_0\in\alpha\)，取有理数 \(t>-a_0+1\)。由于
+\(t-\tfrac12\in t^*\) 且
+\[
+  a_0+t-\tfrac12>\tfrac12,
+\]
+分割 \(\alpha+t^*\) 含有正有理数。由于 \(\alpha\subseteq\beta\)，分割
+\(\beta+t^*\) 也为正。正分割乘法的定义于是给出
+\[
+  (\alpha+t^*)\gamma\subseteq(\beta+t^*)\gamma.
+\]
+使用分配律展开，并在包含式两边加上 \(-(t^*\gamma)\)，得到
+\[
+  \alpha\gamma\subseteq\beta\gamma.
+\]
+若进一步有 \(\alpha<\beta\)，则由加法严格保序，
+\[
+  \beta-\alpha>0^*.
+\]
+两个正分割的积仍严格为正，因而
 \[
  (\beta-\alpha)\gamma>0^*,
 \]
-所以 \(\alpha\gamma<\beta\gamma\)。\(\gamma=0^*\) 时只能得到等号，故严格性表述要排除零因子。
+再由分配律得到 \(\beta\gamma-\alpha\gamma>0^*\)，即
+\(\alpha\gamma<\beta\gamma\)。这也说明为何严格保序必须排除
+\(\gamma=0^*\)。
 \end{proof}
+
+\begin{theorem}
+\((\mathbb D,+,\cdot,\subseteq)\) 是有序域。其零元、单位元分别为 \(0^*,1^*\)。
+\end{theorem}
+
+\begin{proof}
+加法的封闭性、交换律、结合律、零元与逆元已在前文证明，所以 \((\mathbb D,+)\) 是交换群。正分割乘法演算给出正元素上的交换律、结合律和单位元；符号扩张把这些等式传递到任意符号，并且 \(0^*\) 为吸收元。一般分配律和每个非零元素的乘法逆元也已经证明。因此 \(\mathbb D\) 是域。
+
+包含关系是全序。上一命题给出加法的保序性。若
+\(0^*\subseteq\alpha\) 且 \(0^*\subseteq\beta\)，在该命题的乘法保序式中令较小元素为 \(0^*\)、乘数为 \(\beta\)，便有
+\[
+ 0^*=0^*\beta\subseteq\alpha\beta.
+\]
+这正是序与乘法的相容条件，故 \(\mathbb D\) 是有序域。
+\end{proof}
+
+这里没有把关键的良定义问题隐藏在代表元之后：\(\mathbb D\) 的元素本身就是集合，所有运算均直接生成唯一集合。技术负担转移到了验证生成集合仍为分割以及逆元恒等式。
 
 把全部域公理逐项列出可以看出，交换律和结合律主要继承自有理数运算；封闭性、加法逆元、乘法逆元和分配律需要分割条件与稠密性。尤其倒数构造必须使用右部信息，单靠正左部的逐项倒数会反转次序且不再向下封闭。
 
@@ -326,6 +436,22 @@
 
 每个 \(\alpha\in\mathcal A\) 都包含于 \(\sigma\)，所以 \(\sigma\) 是上界。若 \(\gamma\) 是另一上界，则每个 \(\alpha\subseteq\gamma\)，从而其并 \(\sigma\subseteq\gamma\)。故 \(\sigma=\sup\mathcal A\)。
 \end{proof}
+
+\begin{corollary}[Dedekind 构造定理]
+\(\mathbb D\) 是完备有序域，并且
+\[
+  \iota:\Q\longrightarrow\mathbb D,\qquad r\longmapsto r^*
+\]
+是保持 \(0,1\)、加法、乘法和次序的域嵌入。其像在
+\(\mathbb D\) 中稠密。
+\end{corollary}
+
+\begin{proof}
+有序域结构由前面各节的运算核验得到，确界定理由本节定理得到。主分割的加法、乘法及符号公式说明 \(\iota\) 保持域运算；保序性、单射性和稠密性已在第一节证明。
+\end{proof}
+
+这条推论完成了一个实数模型的构造。以后若采用分割模型，可以把
+\(\iota(\Q)\) 直接记作 \(\Q\)，把 \(\mathbb D\) 记作 \(\R\)；这种记号上的识别以嵌入保持全部有序域结构为依据。分割的集合编码不会进入通常的极限计算，但确界的并集公式解释了这个模型为何没有 Dedekind 缺口。
 
 \begin{proposition}
 分割域中 \(1^*>0^*\)，每个非零分割的平方为正，并且不存在正分割小于所有正主分割 \(1/n^*\)。
@@ -361,7 +487,15 @@
 
 \subsection*{C组　综合问题}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \projectexerciseitem{4.11} \ 【前置：\exerciserange{4.5}{4.8}；预计用时：90分钟】补全正分割乘法结合律、分配律及倒数恒等式中省略的稠密性细节。
+ \projectexerciseitem{4.11} \ 【前置：本章全部；预计用时：120分钟】设 \(F\) 是具有确界性质的有序域，并把 \(\Q\) 视为 \(F\) 中的有序子域。对 \(x\in F\) 定义
+ \[
+   L_x=\{q\in\Q:q<x\}.
+ \]
+ 证明 \(L_x\) 是 Dedekind 分割，且映射
+ \[
+   \Psi:F\longrightarrow\mathbb D,\qquad x\longmapsto L_x
+ \]
+ 是保持次序和域运算的双射。进而证明：在固定有理数嵌入以后，任意两个具有确界性质的有序域之间恰有一个保序域同构。
  \exerciseitem{4.12} 令 \(\alpha=\{q:q<0\text{ 或 }q^2<2\}\)。证明 \(\alpha^2=2^*\)。
  \optionalexerciseitem{4.13} 证明 \(\mathbb D\) 中任意非空有下界集合有下确界，并用上界或取负号给出两种表达。
  \openexerciseitem{4.14} 比较“分割没有最大元”和允许左部含边界的另一套约定；说明若不统一约定，有理数会出现两个表示。
@@ -383,7 +517,22 @@
  并与“交集后必要时删端点”的公式比较。
  \projectexerciseitem{4.22} \ 【前置：本章全部运算；预计用时：120分钟】制作 Dedekind 构造的域公理核对表，逐项给出封闭性、单位元、逆元、结合律、分配律与序相容性的证明位置。
  \openexerciseitem{4.23} 比较以左部分割、右部分割和上下集合对三种方式构造实数的技术差异，说明三者怎样避免有理边界的双重表示。
- \optionalexerciseitem{4.24} 证明\chapterref{chap:real-number-system}所有逼近 \(\sqrt2\) 的有理 Cauchy 列在分割模型中都收敛到同一个分割 \(\alpha\)；可用有理左右夹逼表述。
+ \optionalexerciseitem{4.24} 令
+ \[
+   \alpha=\{q\in\Q:q<0\text{ 或 }q^2<2\}.
+ \]
+ 设 \((a_n)\) 是有理 Cauchy 列，并且从某项起 \(a_n>0\)。再假设对每个正有理数 \(\varepsilon\)，存在 \(N\) 使
+ \[
+   n\ge N\quad\Longrightarrow\quad \abs{a_n^2-2}<\varepsilon.
+ \]
+ 定义
+ \[
+ \begin{aligned}
+   L_{(a_n)}&=\{q\in\Q:\exists N\ \forall n\ge N,\ q<a_n\},\\
+   R_{(a_n)}&=\{q\in\Q:\exists N\ \forall n\ge N,\ a_n<q\}.
+ \end{aligned}
+ \]
+ 证明 \(L_{(a_n)}=\alpha\) 且 \(R_{(a_n)}=\Q\setminus\alpha\)。因此，任意满足上述条件的有理列都给出同一个 Dedekind 分割。
 \end{enumerate}
 
 \section*{部分习题提示}

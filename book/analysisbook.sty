@@ -246,8 +246,13 @@
 \makeatletter
 \providecommand*{\toclevel@volume}{-2}
 \newcommand*\l@volume{\@dottedtocline{-1}{0em}{0em}}
+% The verso inserted solely to restore recto opening should carry no running
+% head or folio.  Grouping keeps the ordinary page style unchanged elsewhere.
+\newcommand{\analysisclearemptydoublepage}{%
+  \clearpage{\pagestyle{empty}\cleardoublepage}%
+}
 \newcommand{\volume}[1]{%
-  \cleardoublepage
+  \analysisclearemptydoublepage
   \phantomsection
   \addcontentsline{toc}{volume}{#1}
   \thispagestyle{empty}
@@ -256,6 +261,6 @@
     {\Huge\bfseries\color{AnalysisHeading}#1\par}
   \end{center}
   \vfill
-  \cleardoublepage
+  \analysisclearemptydoublepage
 }
 \makeatother

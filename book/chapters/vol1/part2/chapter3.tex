@@ -4,7 +4,7 @@
 \label{chap:sequence-error-control}
 \label{chap:sequence-limit-properties}
 
-说数列的项“越来越接近”某个数，还没有说明怎样检验这种接近。极限定义要求：误差尺度无论给得多小，数列的某个完整尾部都落在这个尺度内。量词次序确定以后，常见估计、唯一性、有界性和四则运算都可从这一定义推出。
+在极限计算中，人们常凭借公式的形状判断一个数列“越来越接近”某个数。然而，这句话没有说明要观察多少项，也没有说明精度改变以后，先前的判断是否仍然有效。极限定义把这两件事分开：先给出允许误差，再寻找一个起点，使从该点开始的全部项都满足要求。本章从这一量词次序出发，建立有限极限和无穷极限的基本运算法则。
 
 \section{数列、邻域与 \texorpdfstring{\(\varepsilon\)-\(N\)}{epsilon-N} 定义}
 
@@ -31,6 +31,10 @@
  N=\max\{N_1,N_2\}.
 \]
 这一取最大值的步骤将在极限运算中反复出现。
+
+这里的结论只涉及有限多个命题。对每个 \(j\in\Npos\)，命题
+\(n\ge j\) 都从某项起成立，但不存在一个指标 \(N\)，使 \(n\ge j\)
+对所有 \(j\) 和所有 \(n\ge N\) 同时成立。以后合并若干误差条件时，可以取有限多个起点的最大值；面对随参数变化的无穷多个条件，则必须另找统一估计。
 
 \subsection{“任意精度”与“从某项以后”}
 
@@ -146,11 +150,11 @@
 数列 \(a_n=(-1)^n\) 发散。若候选 \(a\ge0\)，所有奇数项 \(-1\) 与 \(a\) 的距离至少为 \(1\)；若 \(a<0\)，所有偶数项 \(1\) 与 \(a\) 的距离大于 \(1\)。因此可统一取 \(\varepsilon_0=1\)，每个尾部都含违反误差要求的项。
 \end{example}
 
-证明一个数列发散并不等同于证明它不收敛到某个显眼候选值。必须排除所有实数候选，或使用能够一次排除所有候选的结构，例如两个不同的子列极限、无界性或振荡。
+证明一个数列发散并不等同于证明它不收敛到某个显眼候选值。必须排除所有实数候选，或使用能够一次排除所有候选的结构，例如按两组严格递增指标抽出极限不同的数列，或者证明原列无界、持续振荡。
 
 \subsection{从目标不等式反向寻找 \texorpdfstring{\(N\)}{N}}
 
-寻找 \(N\) 时，可以先暂把 \(n\) 看作正实变量，从目标
+寻找 \(N\) 时，可以暂把 \(n\) 看作正实变量，从目标
 \[
  \abs{a_n-a}<\varepsilon
 \]
@@ -174,7 +178,7 @@
 \)
 便有 \(n\ge N\Rightarrow C\phi(n)\le C\phi(N)<\varepsilon\)。这里的单调性用于把第 \(N\) 项的估计传给整个尾部；若 \(\phi\) 不单调，则应直接求一个对所有 \(n\ge N\) 有效的尾部上界。
 
-反向推导只是寻找 \(N\) 的草稿过程，不能把“由 \(\abs{a_n-a}<\varepsilon\) 解得 \(n>G(\varepsilon)\)”当作证明，因为前件正是尚待证明的目标。正式论证必须从选定的 \(N\) 出发推出误差不等式。
+反向推导只是寻找 \(N\) 的草算，不能把“由 \(\abs{a_n-a}<\varepsilon\) 解得 \(n>G(\varepsilon)\)”当作证明，因为前件正是尚待证明的目标。正式论证必须从选定的 \(N\) 出发推出误差不等式。
 
 \subsection{线性式、有理式与根式数列}
 
@@ -221,7 +225,7 @@
  \abs{\frac1{\sqrt{1+t}+1}-\frac12}
  =\frac{t}{2(\sqrt{1+t}+1)^2}\le\frac{t}{8}=\frac1{8n}.
 \]
-因而可取 \(N>1/(8\varepsilon)\)。有理化同时消除了两个大数相减造成的结构遮蔽。
+因而可取 \(N>1/(8\varepsilon)\)。有理化把两个大数之差改写成了分母有明确下界的表达式，误差的阶由此直接显现。
 \end{example}
 
 \begin{example}[分母可能接近零]
@@ -311,7 +315,7 @@
 
 \subsection{从定义证明发散与不存在极限}
 
-发散证明没有统一的计算格式。在尚未建立子列理论以前，可以使用以下三个入口；\chapterref{chap:subsequences-cluster-points}还会把极限定义的否定系统地转化为“坏子列”。
+发散证明不必强求同一种计算格式。在尚未建立系统的抽取理论以前，常用的论证有以下三类；\chapterref{chap:subsequences-cluster-points}会把极限定义的否定转化为一条按严格递增指标抽取、且始终违反误差要求的数列。
 
 \begin{enumerate}
  \item 证明数列无界，因为收敛数列必有界；
@@ -320,7 +324,7 @@
 \end{enumerate}
 
 \begin{example}
-数列 \(a_n=n\sin(n\pi/2)\) 发散。它在指标 \(4k\) 处等于 \(0\)，在指标 \(4k+1\) 处等于 \(4k+1\)，所以无界，不可能有有限极限；每个尾部又含值为 \(0\) 的项以及任意大的正项和负项，故它也不趋于正、负无穷。\chapterref{chap:subsequences-cluster-points}会把这里抽取两类指标的做法正式化为子列方法。
+数列 \(a_n=n\sin(n\pi/2)\) 发散。它在指标 \(4k\) 处等于 \(0\)，在指标 \(4k+1\) 处等于 \(4k+1\)，所以无界，不可能有有限极限；每个尾部又含值为 \(0\) 的项以及任意大的正项和负项，故它也不趋于正、负无穷。\chapterref{chap:subsequences-cluster-points}会把这里按两类指标抽取的做法写成一般定理。
 \end{example}
 
 无界性只是发散的充分条件，不是必要条件；\((-1)^n\) 有界而发散。类似地，不趋于 \(+\infty\) 不能推出有有限极限。
@@ -361,7 +365,7 @@
 
 有限个首项必须单独并入界中。极限定义只控制尾部，而“数列有界”要求所有项同时受控。
 
-逆命题不成立。数列 \((-1)^n\) 有界但发散。完整的恢复条件需要额外结构：单调有界列由\chapterref{chap:monotone-recursive-sequences}定理收敛；一般有界列只能由\chapterref{chap:subsequences-bw}保证存在收敛子列。
+逆命题不成立。数列 \((-1)^n\) 有界但发散。要从有界性得到收敛，还需额外结构：单调有界列由\chapterref{chap:monotone-recursive-sequences}的定理收敛；对一般有界列，\chapterref{chap:subsequences-bw}只能保证可按严格递增指标抽出一条收敛数列。
 
 \begin{proposition}[零列乘有界列]
 若 \(a_n\to0\)，而 \((b_n)\) 有界，则 \(a_nb_n\to0\)。
@@ -414,7 +418,13 @@
 若 \(\abs{b_n-L}\le r_n\) 最终成立且 \(r_n\to0\)，则 \(b_n\to L\)。
 \end{corollary}
 
-夹逼两侧必须趋于同一极限。若只知 \(a_n\to A\)、\(c_n\to C\) 且 \(A<C\)，最多能推出任何收敛子列极限位于 \([A,C]\)，不能保证 \(b_n\) 收敛。
+夹逼两侧必须趋于同一极限。若只知 \(a_n\to A\)、\(c_n\to C\) 且 \(A<C\)，设
+\(n_1<n_2<\cdots\) 且 \(b_{n_k}\to L\)。由于 \(n_k\ge k\)，仍有
+\(a_{n_k}\to A\)、\(c_{n_k}\to C\)；从
+\[
+ a_{n_k}\le b_{n_k}\le c_{n_k}
+\]
+取极限得到 \(A\le L\le C\)。因此只能限制按递增指标抽出并且收敛的数列的极限位置，不能保证 \((b_n)\) 本身收敛。\chapterref{chap:subsequences-cluster-points}将系统建立这种抽取方法。
 
 \section{四则运算、绝对值与序关系}
 
@@ -603,7 +613,8 @@
  \exerciseitem{7.16}  构造两个数列，它们在无穷多个指标处不同但具有相同极限；再构造一对只在无穷多个指标处不同且一个收敛、一个发散的数列。
  \projectexerciseitem{7.17} \ 【前置：本章定义；预计用时：45分钟】设 \(E\subseteq\N\)。证明示性数列 \(\chi_E(n)\) 收敛当且仅当 \(E\) 或其补集为有限集，并确定极限。
  \optionalexerciseitem{7.18}  设 \(a_n\to+\infty\)。证明任取实数 \(c\)，都有 \(a_n+c\to+\infty\)；若另有 \(b_n\ge a_n\) 最终成立，则 \(b_n\to+\infty\)。
- \optionalexerciseitem{7.19}  证明单调数列若有一个收敛子列，则原列收敛到同一极限。
+ \optionalexerciseitem{7.19}  设 \((a_n)\) 单调，且存在严格递增正整数列
+ \(n_1<n_2<\cdots\) 使 \(a_{n_k}\) 收敛。证明原列收敛到同一极限。
  \openexerciseitem{7.20}  把“最终成立”看成 \(N\) 上忽略有限集的逻辑。讨论这一观点怎样解释极限对有限项修改不敏感，并指出它不能替代误差估计的原因。
 \exerciseitem{8.1}  对 \(a_n=(5n-2)/(3n+7)\) 从定义证明极限为 \(5/3\)，并给出 \(N(\varepsilon)\)。
  \exerciseitem{8.2}  从定义证明 \((n^2+1)/(n^2+n)\to1\)。
@@ -623,15 +634,16 @@
  \exerciseitem{8.12}  找出并修正下述证明的量词错误：“给定 \(N\)，取 \(\varepsilon=1/N\)，则 \(n>N\) 时 \(1/n<\varepsilon\)，故 \(1/n\to0\)。”
  \exerciseitem{8.13}  证明若对每个参数 \(t\) 有 \(\abs{a_n(t)-a(t)}\le C(t)/n\)，这一般不足以得到参数一致估计；构造 \(C(t)\) 无界的例子。
 \exerciseitem{8.14}  用无界性证明 \(a_n=n+\sin n\) 没有有限极限，并直接证明它趋于 \(+\infty\)。
- \exerciseitem{8.15}  用两个子列证明 \(\sin(n\pi/2)\) 发散。
+ \exerciseitem{8.15}  分别考察指标 \(4k+1\) 与 \(4k+3\) 处的项，证明
+ \(\sin(n\pi/2)\) 发散。
  \exerciseitem{8.16}  构造有界发散数列，使其相邻两项之差趋于 \(0\)。
  \projectexerciseitem{8.17} \ 【前置：二项式定理；预计用时：60分钟】对任意 \(p>0\)、\(0<q<1\)，证明 \(n^p q^n\to0\)。允许先处理整数 \(p\)，再比较一般 \(p\)。
  \optionalexerciseitem{8.18}  设 \(a_n\ge0\) 且 \(a_{n+1}/a_n\le q<1\) 最终成立。证明 \(a_n\to0\)，并给出几何误差界。
  \optionalexerciseitem{8.19}  若 \(\abs{a_n-a}\le r_n+s_n\)，其中 \(r_n,s_n\to0\)，证明 \(a_n\to a\)，并说明 \(\varepsilon/2\) 的作用。
  \openexerciseitem{8.20}  比较一个精确但复杂的 \(N(\varepsilon)\) 与一个较粗但结构清楚的 \(N(\varepsilon)\)。说明在定性收敛和定量复杂度问题中选择标准为何不同。
 \exerciseitem{9.1}  用两个不交邻域重新证明极限唯一性。
- \exerciseitem{9.2}  证明收敛数列的任意子列收敛到同一极限。
- \exerciseitem{9.3}  证明：若 \(a_n\to a\)，则 \(sup_n\abs{a_n}\) 是有限实数；指出确界公理的使用处。
+ \exerciseitem{9.2}  设 \(a_n\to a\)，且 \(n_1<n_2<\cdots\) 为正整数。证明 \(a_{n_k}\to a\)。
+ \exerciseitem{9.3}  证明：若 \(a_n\to a\)，则 \(\sup_n\abs{a_n}\) 是有限实数；指出确界公理的使用处。
  \exerciseitem{9.4}  给出有界发散数列，并证明它不收敛而不是只写出公式。
  \exerciseitem{9.5}  若 \(a_n\to a>0\)，证明存在 \(\delta>0\) 使 \(a_n\ge\delta\) 最终成立；讨论 \(a=0\) 时的反例。
  \exerciseitem{9.6}  若 \(a_n\ge0\) 最终成立且 \(a_n\to a\)，证明 \(a\ge0\)。
@@ -657,7 +669,8 @@
  \end{enumerate}
  \exerciseitem{9.18}  若 \(a_n\to a\)、\(b_n\to b\) 且 \(a_n\le b_n\) 对无穷多个 \(n\) 成立，能否推出 \(a\le b\)？证明结论或给反例。
  \projectexerciseitem{9.19} \ 【前置：本章全部定理；预计用时：60分钟】证明任何由有限次四则运算、绝对值、最大值和最小值组成的表达式，只要所有分母的极限非零，就可以逐项通过极限。
- \optionalexerciseitem{9.20}  设 \(p_n\) 为偶数时 \(a_n\)，奇数时 \(b_n\)。刻画 \(p_n\) 收敛的充要条件。
+ \optionalexerciseitem{9.20}  设
+ \(p_{2k}=a_k\)、\(p_{2k-1}=b_k\)。刻画交错数列 \((p_n)\) 收敛的充要条件。
  \optionalexerciseitem{9.21}  若 \(a_n\to a\)、\(a\ne0\)，证明 \(\operatorname{sgn}(a_n)=\operatorname{sgn}(a)\) 最终成立；说明符号函数在 \(0\) 处为何不能通过极限。
  \optionalexerciseitem{9.22}  设 \(a_n,b_n>0\)、\(a_n/b_n\to1\)。证明 \(a_n-b_n\to0\) 需要额外的有界性条件，并给出无此条件时的反例。
  \openexerciseitem{9.23}  比较“代数运算连续”与本章逐项证明之间的关系。说明为何在连续性尚未定义时，不能用后文定理替代当前证明。

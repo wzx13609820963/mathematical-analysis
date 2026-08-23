@@ -212,11 +212,15 @@
 \end{solution}
 
 \begin{solution}{14.20}
-设 \(\lim_{x\to a}f(x)=L\)，并给定 \(L\) 的任意邻域半径 \(\varepsilon>0\)。按定义存在 \(\delta>0\)，使所有满足
+设 \(\lim_{x\to a}f(x)=L\)，并任取 \((x_n)\subset D\setminus\{a\}\)、\(x_n\to a\)。给定 \(\varepsilon>0\)，按函数极限定义存在 \(\delta>0\)，使所有满足
 \[
  x\in D,\qquad0<\abs{x-a}<\delta
 \]
-的点都有 \(f(x)\in(L-\varepsilon,L+\varepsilon)\)。任何趋于 \(a\) 且最终不等于 \(a\) 的定义域点族，按“趋于”的含义最终进入上述 \(\delta\)-邻域，故对应函数值最终进入给定的 \(L\)-邻域。这里只是直接嵌套两个定义，没有使用逆向的序列刻画。
+的点都有 \(\abs{f(x)-L}<\varepsilon\)。由 \(x_n\to a\)，存在 \(N\) 使 \(n\ge N\) 时 \(\abs{x_n-a}<\delta\)；又因每个 \(x_n\ne a\)，此时
+\[
+ \abs{f(x_n)-L}<\varepsilon.
+\]
+故 \(f(x_n)\to L\)。这里只嵌套了函数极限与数列极限的定义，没有使用 Heine 定理。
 \end{solution}
 
 \begin{solution}{14.21}
@@ -416,7 +420,7 @@
 \end{solution}
 
 \begin{solution}{15.19}
-若局部 Cauchy 条件失败，上一题构造出 \(u_n,v_n\to a\) 且配对像差不趋零。将两列交错为
+若局部 Cauchy 条件失败，\exerciseref{15.18}中的反证构造给出 \(u_n,v_n\to a\) 且配对像差不趋零。将两列交错为
 \[
  z_{2n-1}=u_n,\qquad z_{2n}=v_n.
 \]

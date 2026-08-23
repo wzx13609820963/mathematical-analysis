@@ -242,7 +242,7 @@
  x_N=\frac A{10^r}+\frac C{10^r}\sum_{j=1}^{N}10^{-pj}
  =\frac A{10^r}+\frac C{10^r(10^p-1)}(1-10^{-pN}).
 \]
-余项的绝对值不超过 \(10^{-r-pN}\)，故由上确界刻画或 Cauchy 构造取极限得到
+余项的绝对值不超过 \(10^{-r-pN}\)。上述有限部分和递增，且右端有界；由上确界近似刻画，其上确界为
 \[
  x=\frac A{10^r}+\frac C{10^r(10^p-1)}\in\Q.
 \]
@@ -315,7 +315,12 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \[
  0\le a_m-a_n<b^{-n},
 \]
-而 \(b^{-n}\to0\)，所以该列是 Cauchy 列。
+给定正有理数 \(\varepsilon\)，取 \(N\) 使 \(b^{-N}<\varepsilon\)。当
+\(m\ge n\ge N\) 时，
+\[
+  |a_m-a_n|=a_m-a_n<b^{-n}\le b^{-N}<\varepsilon.
+\]
+所以该列是 Cauchy 列。这里直接核对了 Cauchy 量词，没有调用后文的数列极限理论。
 \end{solution}
 
 \begin{solution}{1.17}
@@ -355,11 +360,12 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \end{solution}
 
 \begin{solution}{1.20}
-可把三种对象统一围绕
+可把三种对象围绕完整左部
 \[
- S=\{q\in\Q:q\ge0,q^2<2\}
+ L=\{q\in\Q:q<0\text{ 或 }q^2<2\}
 \]
-组织。左部无最大元、右部无最小元直接给出分割缺口；右部恰是上界集，故无最小元等价于无上确界；从网格中取不超过边界的最大候选得到 Cauchy 列，若它有有理极限，平方估计会产生有理解 \(r^2=2\)。反向从任意正的平方逼近 Cauchy 列可恢复同一左部：\(q\in S\) 当且仅当 \(q\) 最终小于该列。十进制只用于给出显式网格，三种缺陷的逻辑联系不依赖特定进位制。
+组织。左部无最大元、右部无最小元直接给出分割缺口；非负部分
+\(S=L\cap[0,\infty)\) 的上界集没有最小元，等价地，\(S\) 没有有理上确界。从网格中取不超过边界的最大候选得到 Cauchy 列，若它有有理极限，平方估计会产生有理解 \(r^2=2\)。反向从任意最终为正的平方逼近 Cauchy 列可恢复同一左部：\(q\in L\) 当且仅当 \(q\) 最终小于该列。十进制只用于给出显式网格，三种缺陷的逻辑联系不依赖特定进位制。
 \end{solution}
 
 \begin{solution}{2.13}
@@ -445,7 +451,16 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \[
  \abs a=\max\{a,-a\}\le\max\{s,-m\}.
 \]
-另一方面，从 \(A\) 中可任意逼近 \(s\)，对应绝对值上界必须不小于 \(s\)；从 \(A\) 中可任意逼近 \(m\)，对应 \(-a\) 可任意逼近 \(-m\)，故绝对值上界也不小于 \(-m\)。因此公式成立。
+所以右端是集合 \(\{\abs a:a\in A\}\) 的上界。反过来，设 \(M\) 是该集合的任一上界。因为
+\[
+  a\le |a|\le M,\qquad -a\le |a|\le M\qquad(a\in A),
+\]
+\(M\) 同时是 \(A\) 与 \(-A\) 的上界，故 \(M\ge s\) 且
+\(M\ge\sup(-A)=-m\)。于是
+\[
+  M\ge\max\{s,-m\}.
+\]
+右端既是上界又不大于任何上界，因而就是所求上确界。
 \end{solution}
 
 \begin{solution}{2.24}
@@ -466,26 +481,73 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \end{solution}
 
 \begin{solution}{2.26}
-基本公式为
+记
 \[
- \sup(A+c)=\sup A+c,\qquad
- \sup(\lambda A)=
+ m_A=\inf A,\quad M_A=\sup A,
+ \qquad m_B=\inf B,\quad M_B=\sup B.
+\]
+这里 \(A,B\) 均非空有界，\(c,\lambda\in\mathbb R\)。平移、伸缩、并集和 Minkowski 和的公式如下：
+\begin{align*}
+ \inf(A+c)&=m_A+c,& \sup(A+c)&=M_A+c,\\
+ \inf(\lambda A)&=
  \begin{cases}
- \lambda\sup A,&\lambda>0,\\
- \lambda\inf A,&\lambda<0,
+  \lambda m_A,&\lambda>0,\\
+  0,&\lambda=0,\\
+  \lambda M_A,&\lambda<0,
  \end{cases}
-\]
+ &
+ \sup(\lambda A)&=
+ \begin{cases}
+  \lambda M_A,&\lambda>0,\\
+  0,&\lambda=0,\\
+  \lambda m_A,&\lambda<0,
+ \end{cases}\\
+ \inf(A\cup B)&=\min\{m_A,m_B\},&
+ \sup(A\cup B)&=\max\{M_A,M_B\},\\
+ \inf(A+B)&=m_A+m_B,&
+ \sup(A+B)&=M_A+M_B.
+\end{align*}
+这些公式只需上述非空有界条件。平移保持次序，正数伸缩保持次序，负数伸缩反转次序；并集公式由共同上界、共同下界的定义得到。以 \(\sup(A+B)\) 为例，\(M_A+M_B\) 是 \(A+B\) 的上界。给定 \(\varepsilon>0\)，可取
 \[
- \sup(A\cup B)=\max\{\sup A,\sup B\},\qquad
- \sup(A+B)=\sup A+\sup B.
+ a>M_A-\frac{\varepsilon}{2},\qquad
+ b>M_B-\frac{\varepsilon}{2},
 \]
-若 \(A,B\subset[0,\infty)\)，则
-\[
- \sup(AB)=(\sup A)(\sup B).
-\]
-允许混合符号时，应比较四个端点积；这些端点分别来自 \(A,B\) 的上下确界。
+于是 \(a+b>M_A+M_B-\varepsilon\)，故没有更小的数能够成为上界。其余加法公式同理。
 
-每个公式都先验证候选是上界，再用确界近似元从下方任意逼近候选。乘积公式中符号决定不等式方向，不能省略。
+乘积不必按符号另列许多情形。令
+\[
+ E=\{m_Am_B,\ m_AM_B,\ M_Am_B,\ M_AM_B\}.
+\]
+则对任意非空有界的 \(A,B\)，都有
+\[
+ \inf(AB)=\min E,
+ \qquad
+ \sup(AB)=\max E.
+\]
+事实上，矩形 \([m_A,M_A]\times[m_B,M_B]\) 上的双线性函数 \((x,y)\mapsto xy\) 的最大值和最小值都在四个顶点中取得。因而每个 \(ab\) 都夹在 \(\min E\) 与 \(\max E\) 之间。
+
+还须说明这些端点值确能被 \(AB\) 任意逼近。以 \(\max E=M_AM_B\) 为例；其他三个顶点的论证相同，只需从相应一侧逼近上下确界。设
+\[
+ K=1+\max\{|m_A|,|M_A|,|m_B|,|M_B|\}.
+\]
+给定 \(\varepsilon>0\)，取 \(a\in A,b\in B\) 使
+\[
+ |a-M_A|<\frac{\varepsilon}{2K},
+ \qquad
+ |b-M_B|<\frac{\varepsilon}{2K}.
+\]
+则
+\[
+ |ab-M_AM_B|
+ \le |a|\,|b-M_B|+|M_B|\,|a-M_A|
+ <\varepsilon.
+\]
+所以相应顶点积是 \(AB\) 的上确界或下确界。特别地，若 \(A,B\subset[0,\infty)\)，公式化为
+\[
+ \inf(AB)=m_Am_B,
+ \qquad
+ \sup(AB)=M_AM_B.
+\]
 \end{solution}
 
 \begin{solution}{3.12}
@@ -495,10 +557,12 @@ Cauchy 完备化则把每个由内部距离逼近确定的缺失点加入，并�
 \]
 则 \(d_n^{(b)}(x)\le x<d_n^{(b)}(x)+b^{-n}\)，相邻差确定数字 \(a_n\in\{0,\ldots,b-1\}\)。有限部分和集合的上确界即为 \(x\)。
 
-若两种表示在第 \(k\) 位首次不同，较大数字至少多 \(b^{-k}\)，后续最大补偿为
+若两种表示在第 \(k\) 位首次不同，较大数字至少多 \(b^{-k}\)。到第 \(N>k\) 位为止，后续能够提供的反向补偿至多为有限和
 \[
- \sum_{j=k+1}^\infty(b-1)b^{-j}=b^{-k}.
+ \sum_{j=k+1}^{N}(b-1)b^{-j}
+ =b^{-k}\bigl(1-b^{-(N-k)}\bigr)<b^{-k};
 \]
+这些有限补偿的上确界为 \(b^{-k}\)。
 故只有较大侧以后全为 \(0\)、较小侧以后全为 \(b-1\) 时可能相等。
 
 对有理数作基数 \(b\) 的长除法，有限余数必终止或重复；最终循环表示按\exerciseref{3.9}的计算把 \(10\) 换成 \(b\)，得到分母 \(b^p-1\) 的有理数。三项结论全部成立。

@@ -81,9 +81,9 @@
 \end{solution}
 
 \begin{solution}{5.10}
-令 \(x=[r_j]\)。给定 \(\varepsilon>0\)，先取 \(K_1\) 使 \(1/k<\varepsilon/3\)（\(k\ge K_1\)），再由 \(r_j\) 的 Cauchy 性取 \(K_2\)，使 \(j,k\ge K_2\) 时 \(|r_j-r_k|<\varepsilon/3\)。对 \(k\ge K=\max\{K_1,K_2\}\)，类 \(x-r_k=[r_j-r_k]\) 的代表元从 \(j\ge K_2\) 起绝对值小于 \(\varepsilon/3\)，故 \(|x-r_k|\le\varepsilon/3\)。于是
+令 \(x=[r_j]\)。给定构造域中的 \(\varepsilon>0\)，先选正有理数 \(\eta<\varepsilon/3\)。取 \(K_1\) 使 \(1/k<\eta\)（\(k\ge K_1\)），再由 \((r_j)\) 的有理 Cauchy 性取 \(K_2\)，使 \(j,k\ge K_2\) 时 \(|r_j-r_k|<\eta\)。对 \(k\ge K=\max\{K_1,K_2\}\)，类 \(x-r_k=[r_j-r_k]\) 的代表元最终绝对值小于 \(\eta\)，故 \(|x-r_k|\le\eta\)。于是
 \[
- |x_k-x|\le|x_k-r_k|+|r_k-x|<\frac{2\varepsilon}{3}<\varepsilon.
+ |x_k-x|\le|x_k-r_k|+|r_k-x|<2\eta<\varepsilon.
 \]
 \end{solution}
 
@@ -91,7 +91,7 @@
 \addcontentsline{toc}{section}{C组}
 
 \begin{solution}{5.11}
-集合 \(\mathcal C/\sim\) 的加法和乘法良定义性由\exerciseref{5.3}、5.4给出，环公理由逐项有理运算继承。\exerciseref{5.6}、5.7为每个非零类构造良定义倒数，所以得到域。\exerciseref{5.8}给出三歧律；正下界的相加、相乘分别证明序的传递性以及正数乘积为正，故得到有序域。
+集合 \(\mathcal C/\sim\) 的加法和乘法良定义性由\exerciseref{5.3}、\exerciseref{5.4}给出，环公理由逐项有理运算继承。\exerciseref{5.6}、\exerciseref{5.7}为每个非零类构造良定义倒数，所以得到域。\exerciseref{5.8}给出三歧律；正下界的相加、相乘分别证明序的传递性以及正数乘积为正，故得到有序域。
 
 有理常值类稠密，因为代表 Cauchy 列的某个后项可在任意给定误差内逼近该类。任意类被代表列的有理界控制，故构造域 Archimedean。最后对其中的 Cauchy 列 \(x_k\) 选 \(|x_k-r_k|<1/k\)，\exerciseref{5.10}证明 \([r_k]\) 是其极限。由此完整得到完备有序域，未使用\chapterref{chap:dedekind-construction}。
 \end{solution}
@@ -135,26 +135,30 @@
 \end{solution}
 
 \begin{solution}{5.16}
-由 \((r_k)\) 是有理 Cauchy 列，给定 \(\varepsilon>0\)，取 \(K_1\) 使 \(j\ge k\ge K_1\) 时
+给定构造域中的 \(\varepsilon>0\)，先选正有理数 \(\eta<\varepsilon/2\)。由 \((r_k)\) 是有理 Cauchy 列，取 \(K_1\) 使 \(j\ge k\ge K_1\) 时
 \[
- \abs{r_j-r_k}<\varepsilon/2.
+ \abs{r_j-r_k}<\eta.
 \]
-对固定 \(k\ge K_1\)，这说明代表 \(x=[r_j]\) 与常值类 \(r_k\) 的差列最终小于 \(\varepsilon/2\)。再取 \(K_2\) 使 \(k\ge K_2\) 时
+对固定 \(k\ge K_1\)，这说明代表 \(x=[r_j]\) 与常值类 \(r_k\) 的差列最终小于 \(\eta\)，故 \(\abs{x-r_k}\le\eta\)。再取 \(K_2\) 使 \(k\ge K_2\) 时
 \[
- \abs{x_k-r_k}<1/k<\varepsilon/2.
+ \abs{x_k-r_k}<1/k<\eta.
 \]
 于是 \(k\ge\max\{K_1,K_2\}\) 时
 \[
- \abs{x_k-x}\le\abs{x_k-r_k}+\abs{r_k-x}<\varepsilon.
+ \abs{x_k-x}\le\abs{x_k-r_k}+\abs{r_k-x}<2\eta<\varepsilon.
 \]
 \end{solution}
 
 \begin{solution}{5.17}
-令 \(d=y-x>0\)。正类定义给出 \(\delta>0\)，使 \(d\) 的某代表从一项起不小于 \(\delta\)。利用类可由有理代表后项任意逼近，选 \(q\in\Q\) 使
+令 \(d=y-x>0\)。由构造域的 Archimedes 性质取 \(n\in\Npos\) 使 \(nd>1\)。整数部分定理的证明只使用 Archimedes 性质，所以存在 \(p\in\Z\) 满足
 \[
- \abs{q-x}<\delta/3
+ p\le nx<p+1.
 \]
-并从上方逼近 \(x\)。于是 \(x<q<x+\delta<y\)。更形式地，可先取有理 \(r\) 满足 \(\abs{x-r}<\delta/4\)，再在有理区间 \((x,y)\) 的代表估计中加一个小有理增量。
+令 \(q=(p+1)/n\in\Q\)。那么
+\[
+ x<q\le x+\frac1n<x+d=y.
+\]
+因此 \(x<q<y\)。证明没有预先假定有理数稠密，而是从 Archimedes 网格直接构造所需有理数。
 \end{solution}
 
 \begin{solution}{5.18}
@@ -217,13 +221,206 @@
 \end{solution}
 
 \begin{solution}{5.23}
-Dedekind 模型以左部集合相等判定对象相等，Cauchy 模型以差为零列判定；前者次序是包含，后者次序是尾部正下界；加法与乘法分别是集合下闭运算和逐项运算取商。Dedekind 完备性由有界分割族的并集直接给出，Cauchy 完备性由有理近似的对角列给出。映射
+记 Dedekind 分割模型为 \(D\)，Cauchy 商模型为 \(C\)。比较二者的映射取为
 \[
- [a_n]\longmapsto\{q\in\Q:q<[a_n]\}
+ \Phi:C\longrightarrow D,\qquad
+ \Phi(x)=\{q\in\Q:q<x\}.
 \]
-把这些结构逐项对应，说明不同技术路线构造的是同一个完备有序域。
+
+首先核对对象与相等。Cauchy 模型中的对象是等价类，\(a\sim b\) 当且仅当
+\(a_n-b_n\to0\)；Dedekind 模型中的对象是满足非空、真子集、向下封闭且无最大元的有理数左部。商序与代表元无关，所以 \(\Phi\) 良定义。构造域的有理数稠密性说明 \(\Phi(x)\) 无最大元；构造数有有理上下界，说明它非空且不等于 \(\Q\)，其余分割条件由序的传递性直接得到。
+
+若 \(\Phi(x)=\Phi(y)\) 而 \(x<y\)，可取有理数
+\(q\) 满足 \(x<q<y\)，于是 \(q\notin\Phi(x)\) 而
+\(q\in\Phi(y)\)，矛盾；\(y<x\) 同理，故 \(x=y\)。反过来，给定分割
+\(\alpha\)，按\exerciseref{5.13}构造
+\[
+ a_n\in\alpha,\qquad b_n\notin\alpha,\qquad b_n-a_n\to0.
+\]
+则 \((a_n)\) 是有理 Cauchy 列。令 \(x=[a_n]\)，利用分割的向下封闭与无最大元分别证明
+\(q\in\alpha\Rightarrow q<x\) 和
+\(q\notin\alpha\Rightarrow q\ge x\)，得到 \(\Phi(x)=\alpha\)。因此
+\(\Phi\) 为双射。
+
+其次比较次序。若 \(x<y\)，则每个 \(q<x\) 也满足 \(q<y\)，所以
+\(\Phi(x)\subseteq\Phi(y)\)；有理稠密性还给出严格包含。反向若
+\(\Phi(x)\subsetneq\Phi(y)\)，取差集中的有理数即可排除 \(y\le x\)。故 Cauchy 模型的尾部正下界次序恰对应 Dedekind 模型的包含次序。
+
+对加法，若 \(r<x+y\)，利用有理稠密性可先把 \(x,y\) 分别从下方作足够精细的有理逼近，得到
+\(p<x,q<y\) 且 \(r<p+q\)；分割的向下封闭便给出
+\(r\in\Phi(x)+\Phi(y)\)。反向由 \(p<x,q<y\Rightarrow p+q<x+y\) 得到。因此
+\[
+ \Phi(x+y)=\Phi(x)+\Phi(y).
+\]
+乘法先对 \(x,y>0\) 作同样的双向有理逼近，得到
+\(\Phi(xy)=\Phi(x)\Phi(y)\)，再用相反数和符号分解推广到一般元素。常值类显然对应有理分割，所以 \(\Phi\) 固定 \(\Q\) 的副本。
+
+最后比较两种完备性证明。Dedekind 模型中，非空有上界分割族的并集仍是分割，并且立即是其上确界；这是直接的序完备性证明。Cauchy 模型中，先从外层 Cauchy 列 \((x_k)\) 选择有理近似 \(r_k\)，证明 \((r_k)\) 是有理 Cauchy 列，再以 \([r_k]\) 为极限；这是对角化的 Cauchy 完备性证明。由 Archimedes 性质和\chapterref{chap:equivalent-completeness}，后者再推出确界原理。若 \(E\subseteq C\) 非空且有上界，则
+\[
+ \Phi(\sup E)=\bigcup_{x\in E}\Phi(x),
+\]
+因为有理数 \(q<\sup E\) 当且仅当 \(q\) 还不是 \(E\) 的上界，即存在
+\(x\in E\) 使 \(q<x\)。这说明两种确界构造也由 \(\Phi\) 对应。综上，\(\Phi\) 是固定有理数副本的保序域同构。
 \end{solution}
 
 \begin{solution}{5.24}
-若只取在 \(\Q\) 中收敛的列，每条都等价于某个有理常值列，商集不会产生任何新元素。若放宽到任意有界列，则尾部不必内部稳定；例如 \((-1)^n\) 无法与单个候选值保持任意小距离。逐项乘法虽有界，但“非零类最终远离零并固定符号”会失败，因而不能统一定义倒数与全序。Cauchy 条件恰好提供延拓运算所需的尾部稳定性。
+若只取在 \(\Q\) 中收敛的列，设 \(a_n\to q\in\Q\)，则
+\((a_n-q)\) 是零列，所以 \((a_n)\) 与常值列 \((q)\) 等价。商集中的每个类都已经由一个有理数表示，因而没有补入新点。
+
+现在令 \(B\) 为全体有界有理数列，仍以“差为零列”定义 \(a\sim b\)。这确实是等价关系。逐项和、积仍有界；若
+\(a\sim a'\)、\(b\sim b'\)，则
+\[
+ a_nb_n-a'_nb'_n
+ =a_n(b_n-b'_n)+b'_n(a_n-a'_n)
+\]
+是两个“有界列乘零列”之和。因此加法和乘法仍良定义，\(B/\!\sim\) 是交换含幺环，并非“等价关系和运算本身失效”。
+
+失败发生在域和全序。令 \(e_n=1\)（\(n\) 偶）而
+\(e_n=0\)（\(n\) 奇）。类 \([e_n]\ne0\)，但
+\([e_n][1-e_n]=0\)，所以它是非零零因子，不可能有乘法逆元。另一方面，\((-1)^n\) 的类既不是零类，也不可能由一个最终正下界判为正或负，三歧性失败。Cauchy 条件排除了这两种持续振荡，并保证每个非零类最终远离零且固定符号；这才是商环升级为有序域所需的条件。
+\end{solution}
+
+\section*{本编综合习题}
+\addcontentsline{toc}{section}{本编综合习题}
+
+\begin{solution}{II.1}
+定义与否定分别见\exerciseref{7.1}。邻域形式为：每个 \(a\) 的开邻域包含某个完整尾部。若只修改前 \(N_0-1\) 项，把极限定义给出的起点与 \(N_0\) 取最大值，后续误差完全相同，故结论不变。
+\end{solution}
+
+\begin{solution}{II.2}
+\[
+ \frac{n+\alpha}{n+\beta}-1=\frac{\alpha-\beta}{n+\beta}.
+\]
+对固定参数，分母最终非零且绝对值与 \(n\) 同阶，所以极限为 \(1\)。若
+\(\abs\alpha\le A,\abs\beta\le B\)，对 \(n\ge2B+1\) 有
+\(\abs{n+\beta}\ge n/2\)，从而统一估计
+\[
+ \abs{\frac{n+\alpha}{n+\beta}-1}
+ \le\frac{2(A+B)}n.
+\]
+取 \(N>\max\{2B,2(A+B)/\varepsilon\}\) 即可。
+\end{solution}
+
+\begin{solution}{II.3}
+线性组合使用三角不等式，乘积使用收敛列有界性，商先由非零分母极限得到尾部下界，绝对值使用反三角不等式，最大值使用
+\(\max(x,y)=(x+y+\abs{x-y})/2\)。删去分母极限非零条件，\(1/(1/n)=n\)；把有限次运算换成随 \(n\) 增长的次数，\((1+1/n)^n\) 不服从固定幂法则；绝对值逆向以 \((-1)^n\) 为反例。
+\end{solution}
+
+\begin{solution}{II.4}
+算术--几何平均给出
+\[
+ a_{n+1}=\frac12\left(a_n+\frac3{a_n}\right)\ge\sqrt3.
+\]
+从第二项起
+\[
+ a_{n+1}-a_n=\frac{3-a_n^2}{2a_n}\le0,
+\]
+故尾列递减并以下界 \(\sqrt3\) 控制。极限 \(L>0\) 满足
+\(L=(L+3/L)/2\)，所以 \(L=\sqrt3\)。进一步计算
+\[
+ a_{n+1}-\sqrt3
+ =\frac{(a_n-\sqrt3)^2}{2a_n},
+\]
+令 \(e_n=a_n-\sqrt3\)（\(n\ge2\)），则
+\[
+ 0\le e_{n+1}\le\frac{e_n^2}{2\sqrt3}.
+\]
+这给出平方误差递推。又因 \(0\le e_n<a_n\)，有
+\[
+ e_{n+1}\le\frac12e_n,
+\]
+从而得到全局几何界
+\[
+ 0\le a_n-\sqrt3\le2^{-(n-2)}(a_2-\sqrt3)
+ \qquad(n\ge2).
+\]
+前一估计描述靠近根时的二次收敛，后一估计给出无需预知局部误差大小的先验界。
+\end{solution}
+
+\begin{solution}{II.5}
+收敛子列由二分区间和区间套得到，输出极限与显式区间误差；单调子列由峰指标分类得到，不要求原列有界；趋于上极限的子列由尾部上确界近似性得到，并把极限指定为最大的部分极限。三者分别突出紧致性、全序组合结构和尾部边界。
+\end{solution}
+
+\begin{solution}{II.6}
+周期重复 \(-2,0,1\)。部分极限恰为这三点，上极限为 \(1\)、下极限为 \(-2\)，尾部振幅恒为 \(3\)，所以不是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{II.7}
+收敛蕴含每个子列及进一步子列同趋于 \(L\)，也蕴含上下极限同为
+\(L\)、振幅趋零，并可取原列本身作为趋于 \(L\) 的子列。每个子列都有进一步子列趋于 \(L\)，可用“坏子列”反证原列收敛。上下极限相等且共同值为 \(L\)，由\chapterref{chap:limsup-liminf}判据推出收敛。
+
+最后，若尾部振幅趋零，则原列为 Cauchy 列，因而在 \(\R\) 中收敛到某个
+\(A\)。题设还给出一条子列趋于 \(L\)，而收敛列的每条子列都趋于
+\(A\)，由唯一性 \(A=L\)。这里的子列条件不可删除：常值列 \(a_n=0\)
+振幅恒为零，却不收敛到预先指定的 \(L=1\)。
+\end{solution}
+
+\begin{solution}{II.8}
+令
+\[
+ s_n=\sum_{k=1}^n2^{-k}u_k.
+\]
+则 \(\abs{s_n}\le\sum_{k=1}^n2^{-k}<1\)。若 \(m>n\)，
+\[
+ \abs{s_m-s_n}\le\sum_{k=n+1}^m2^{-k}<2^{-n}.
+\]
+故部分和为 Cauchy 列并收敛，且误差尾界不超过 \(2^{-n}\)。系数的绝对可和性吸收了 \(u_k\) 的振荡，所以 \(u_k\) 无需收敛。
+\end{solution}
+
+\begin{solution}{II.9}
+第一步，设 \((a_n)\) 单调递增且有上界，令
+\(s=\sup\{a_n:n\in\Npos\}\)。给定 \(\varepsilon>0\)，数
+\(s-\varepsilon\) 不是上界，故存在 \(N\) 使
+\(a_N>s-\varepsilon\)。单调性于是给出
+\[
+ s-\varepsilon<a_N\le a_n\le s\qquad(n\ge N),
+\]
+所以 \(a_n\to s\)。递减情形对 \((-a_n)\) 使用同一结论。这得到单调有界收敛定理。
+
+第二步，设闭区间 \(I_n=[\alpha_n,\beta_n]\) 嵌套且
+\(\beta_n-\alpha_n\to0\)。左端点递增有界，右端点递减有界，故分别收敛到
+\(x,y\)。差的极限给出 \(y-x=0\)。对固定 \(n\)，由
+\(\alpha_n\le\alpha_k\le\beta_k\le\beta_n\)（\(k\ge n\)）取极限，得到共同极限 \(x\in I_n\)。若 \(z\) 也在全部区间中，则
+\(|z-x|\le\beta_n-\alpha_n\) 对每个 \(n\) 成立，故 \(z=x\)。这得到区间套定理。
+
+第三步，设有界列全部落在 \([A,B]\)。反复二分区间，每一步保留含有无穷多个序列指标的闭半区间，得到
+\[
+ I_k=[\alpha_k,\beta_k],\qquad
+ \beta_k-\alpha_k=2^{-k}(B-A).
+\]
+Archimedes 性质保证长度趋零，区间套定理给出唯一交点 \(x\)。递归选取
+\(n_k>n_{k-1}\) 且 \(a_{n_k}\in I_k\)，便有
+\(|a_{n_k}-x|\le\beta_k-\alpha_k\to0\)。这就是 Bolzano--Weierstrass 定理。
+
+最后，设 \((a_n)\) 为 Cauchy 列。取 Cauchy 精度 \(1\) 可知它有界，故存在子列
+\(a_{n_k}\to a\)。给定 \(\varepsilon>0\)，取 \(N\) 使
+\(|a_m-a_n|<\varepsilon/2\) 对所有 \(m,n\ge N\) 成立，再取
+\(k\) 使 \(n_k\ge N\) 且 \(|a_{n_k}-a|<\varepsilon/2\)。于是对每个
+\(n\ge N\)，
+\[
+ |a_n-a|\le |a_n-a_{n_k}|+|a_{n_k}-a|<\varepsilon.
+\]
+所以每个实 Cauchy 列收敛。四步只沿
+\((S)\Rightarrow(M)\Rightarrow(N)\Rightarrow(B)\Rightarrow(C)\)
+使用前一步所得结论，没有引用后面的逆向命题。
+\end{solution}
+
+\begin{solution}{II.10}
+同一有理列的 Cauchy 性只比较有理项之间的距离，在 \(\Q\) 与
+\(\R\) 中完全相同。以逼近 \(\sqrt2\) 的有理列为例，它在 \(\R\) 中收敛到
+\(\sqrt2\)，但不存在有理极限。也就是说，\(\Q\) 中存在取值始终为有理数、在
+\(\R\) 中收敛而极限不再属于 \(\Q\) 的数列；同一现象表现为 \(\Q\) 中的
+Cauchy 列没有域内极限。\(\R\) 包含该极限，并且每条实 Cauchy 列都有实极限。
+\end{solution}
+
+\begin{solution}{II.11}
+一个部分极限：取 \(a_n=(-1)^n,b_n=-(-1)^n\)，和恒为0。两个部分极限：取 \(a_n=b_n=(-1)^n\)，和的部分极限为 \(\{-2,2\}\)。三个部分极限：周期安排数对
+\[
+ (a_n,b_n)=(0,0),(0,1),(1,1)
+\]
+并重复；两列各自部分极限均为 \(\{0,1\}\)，和的部分极限为 \(\{0,1,2\}\)。
+\end{solution}
+
+\begin{solution}{II.12}
+“最终性质”忽略有限首项；“完整尾部”表达极限邻域必须同时容纳所有后项；“尾部值集”保留后续可能取值；“尾部确界”压缩其上下边界并产生上下极限；“尾部直径”测量剩余整体振荡并刻画 Cauchy 性。完整尾部可恢复尾部值集，值集可计算确界与直径；只保留确界会丢失内部排列和频率，因而不能反向恢复全部尾部信息。
 \end{solution}

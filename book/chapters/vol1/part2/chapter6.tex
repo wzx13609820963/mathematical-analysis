@@ -1,7 +1,7 @@
 \chapter{上极限与下极限}
 \label{chap:limsup-liminf}
 
-对每个尾部取上确界和下确界，会得到一条递减列和一条递增列。它们的极限分别记住原数列长期可能达到的最高、最低水平，即使原数列本身发散也仍有意义。适当的子列能够达到这两个值，从而把确界估计与子列抽取联系起来。
+有限极限只适合描述尾部集中到一个点的数列。对于持续振荡的数列，仍可以询问：删去任意有限多项以后，余下各项能够逼近的最高和最低位置是什么？对每个尾部取上确界与下确界，恰好保留了这两项信息。随着尾部起点后移，上确界只能下降，下确界只能上升；它们的极限就是上极限与下极限。
 
 \section{扩充实数与尾部上下确界}
 
@@ -82,6 +82,38 @@
 \end{definition}
 
 有界时，它们分别是单调列 \(\beta_n,\alpha_n\) 的实数极限。定义中的顺序不能交换：先对每个尾部取确界，再对尾部起点取下确界，表达“删去任意有限多项后仍可能达到的最高层次”。
+
+\begin{proposition}[最终上界与最终下界]
+令
+\[
+ \mathcal U=\{u\in\R:\text{最终有 }a_n\le u\},\qquad
+ \mathcal D=\{d\in\R:\text{最终有 }d\le a_n\}.
+\]
+确界在扩充实数中理解，则
+\[
+ \limsup a_n=\inf\mathcal U,\qquad
+ \liminf a_n=\sup\mathcal D.
+\]
+\end{proposition}
+
+\begin{proof}
+实数 \(u\) 属于 \(\mathcal U\)，当且仅当它是某个尾部
+\(\{a_k:k\ge N\}\) 的上界，也就是存在 \(N\) 使
+\(\beta_N\le u\)。记 \(s=\inf_N\beta_N\)。若 \(s\in\R\)，则
+\(s\le u\) 对每个 \(u\in\mathcal U\) 成立；另一方面，对每个
+\(\varepsilon>0\)，存在 \(N\) 使
+\(\beta_N<s+\varepsilon\)，所以 \(s+\varepsilon\in\mathcal U\)。
+这两项说明 \(\inf\mathcal U=s\)。
+
+若 \(s=+\infty\)，则每个 \(\beta_N=+\infty\)，没有实数能够成为最终上界，故 \(\mathcal U=\varnothing\)。若 \(s=-\infty\)，则对每个
+\(u\in\R\) 都有某个 \(N\) 满足 \(\beta_N<u\)，故
+\(\mathcal U=\R\)。按扩充实数中的确界约定，这两种情形仍有
+\(\inf\mathcal U=s\)。最终下界的结论对偶。
+\end{proof}
+
+这个表述不要求上极限本身是某一项，也不要求它是最终上界。例如
+\(a_n=1+1/n\) 的每个大于 \(1\) 的数都是最终上界，\(1\) 却不是；这些最终上界的下确界仍为 \(1\)。此外，有限项修改不改变
+\(\mathcal U,\mathcal D\)，因而也不改变上下极限。
 
 上极限不是全体项的上确界。数列 \(a_1=100\)、\(a_n=0\)（\(n\ge2\)）的上确界为 \(100\)，上极限却是 \(0\)，因为有限个早期异常值最终会从尾部中消失。相反，只要某一高度在任意晚的尾部仍被项反复逼近，它就会影响上极限。
 
@@ -252,15 +284,37 @@
 \(\alpha_N\le a_n\le\beta_N\)，所以 \(\abs{a_n-L}<\varepsilon\)。
 \end{proof}
 
-因此振幅
+\begin{proposition}[尾部振幅]
+设 \((a_n)\) 有界，并令
 \[
  \omega_n:=\sup_{k\ge n}a_k-\inf_{k\ge n}a_k
 \]
-对有界数列满足
+为第 \(n\) 个尾部的振幅。则 \((\omega_n)\) 单调递减，并且
+\[
+ \omega_n\longrightarrow
+ \limsup a_n-\liminf a_n.
+\]
+特别地，
 \[
  a_n\text{ 收敛}\quad\Longleftrightarrow\quad\omega_n\to0.
 \]
-这一量度量尾部剩余的整体振荡，而不只比较相邻两项。
+\end{proposition}
+
+\begin{proof}
+记尾部上下确界为 \(\beta_n,\alpha_n\)。由
+\(\beta_{n+1}\le\beta_n\) 与
+\(\alpha_{n+1}\ge\alpha_n\)，有
+\(\omega_{n+1}\le\omega_n\)。又因两列均收敛，极限的代数运算给出
+\[
+ \lim_n\omega_n
+ =\lim_n\beta_n-\lim_n\alpha_n
+ =\limsup a_n-\liminf a_n.
+\]
+最后使用上一收敛判据即可。
+\end{proof}
+
+尾部振幅同时比较任意两个后期取值；相邻差
+\(\abs{a_{n+1}-a_n}\) 只记录一步变化。即使每一步移动越来越小，许多小步仍可能累积成固定幅度的往返运动，所以相邻差趋零不能代替 \(\omega_n\to0\)。
 
 \section{代数运算中的等式、不等式和反例}
 
@@ -362,6 +416,39 @@
 \(r\ge\abs\ell\) 且 \(r\ge\abs s\)。两边合并即得公式。
 \end{proof}
 
+上式只给出了“最大值的上极限”和“最小值的下极限”。另外两个方向一般没有相同的等式。取
+\(a_n=(-1)^n\)、\(b_n=-(-1)^n\)，则
+\(\max\{a_n,b_n\}=1\)，所以
+\[
+ \liminf\max\{a_n,b_n\}=1,
+ \qquad
+ \max\{\liminf a_n,\liminf b_n\}=-1.
+\]
+失败的原因仍是两列的低谷出现在不同指标。
+
+\begin{proposition}[趋零扰动]
+设 \((a_n)\)、\((b_n)\) 有界且
+\(\abs{a_n-b_n}\to0\)。则
+\[
+ \limsup a_n=\limsup b_n,\qquad
+ \liminf a_n=\liminf b_n.
+\]
+\end{proposition}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，最终有
+\[
+ b_n-\varepsilon\le a_n\le b_n+\varepsilon.
+\]
+对三列使用上下极限的单调性与平移公式，得到
+\[
+ \limsup b_n-\varepsilon
+ \le\limsup a_n
+ \le\limsup b_n+\varepsilon.
+\]
+令 \(\varepsilon\downarrow0\) 即得上极限等式；下极限同理。
+\end{proof}
+
 \begin{proposition}[一个因子收敛时的乘法公式]
 设 \(a_n\to a\)，而 \((b_n)\) 有界。若 \(a\ge0\)，则
 \[
@@ -382,8 +469,8 @@
 \[
  \abs{a_nb_n-ab_n}\le M\varepsilon.
 \]
-和的上下极限不等式应用于 \(ab_n\) 与趋零列
-\((a_n-a)b_n\)，给出
+由于
+\(\abs{a_nb_n-ab_n}\le M\abs{a_n-a}\to0\)，趋零扰动命题给出
 \[
  \limsup(a_nb_n)=\limsup(ab_n)=a\limsup b_n,
 \]
@@ -391,7 +478,7 @@
 若 \(a<0\)，对 \((-a_n)b_n\) 使用正数情形，再用负号交换上下极限。
 \end{proof}
 
-两个因子都只知道上下极限时，峰值可能错位，乘法也会出现与加法相同的相关性问题。因此这些公式不能在没有收敛因子或符号条件时任意推广。
+若两个因子都不收敛，仅知道它们各自的上下极限，仍不知道高峰、低谷在什么指标同时出现。乘积的上下极限因而还依赖两列之间的配合；没有收敛因子或符号条件时，上面的公式不能直接套用。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -440,7 +527,11 @@
  \exerciseitem{12.21} 构造有界数列 \(a_n,b_n\)，使两个上极限都为 \(1\)，而和的上极限分别可以为 \(0,1,2\)。
  \optionalexerciseitem{12.23} 设 \(a_n>0\)。比较 \(\limsup a_{n+1}/a_n\) 与 \(a_n^{1/n}\) 的可能关系，给出至少一个不能直接交换的反例。
  \optionalexerciseitem{12.24} 证明若 \(\limsup\abs{a_n}<1\)，则存在 \(q<1\) 使 \(\abs{a_n}\le q\) 最终成立。
- \projectexerciseitem{12.26} \ 【前置：本章全部；预计用时：60分钟】设 \((a_n)\) 有界。把上、下极限写成尾部闭包交集的最大、最小点，并比较“集合表达”“尾部确界表达”“子列表达”三种证明工具。
+ \projectexerciseitem{12.26} \ 【前置：本章全部；预计用时：60分钟】设 \((a_n)\) 有界，令 \(A_N=\{a_k:k\ge N\}\)，并沿用\chapterref{chap:subsequences-cluster-points}的记号
+ \[
+  \operatorname{adh}(A_N)=\{x:\text{\(x\) 的每个开区间邻域都与 \(A_N\) 相交}\}.
+ \]
+ 证明 \(\bigcap_N\operatorname{adh}(A_N)\) 的最大、最小点分别为上、下极限，并比较“尾部集合表达”“尾部确界表达”“子列表达”三种证明工具。
 \end{enumerate}
 
 \section*{部分习题提示}

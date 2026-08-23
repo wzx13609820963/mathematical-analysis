@@ -31,9 +31,10 @@
 \begin{solution}{12.8}
 若有子列趋于 \(+\infty\)，每个尾部上确界均为 \(+\infty\)，所以上极限为 \(+\infty\)。反之，若上极限为 \(+\infty\)，则每个尾部无上界。递归选
 \[
- n_{j+1}>n_j,\qquad a_{n_j}>j,
+ n_1<n_2<\cdots,\qquad a_{n_j}>j,
 \]
-得到趋于 \(+\infty\) 的子列。
+具体地，选好 \(n_j\) 后，从起点 \(n_j+1\) 的尾部中选取
+\(a_{n_{j+1}}>j+1\)。所得子列趋于 \(+\infty\)。
 \end{solution}
 
 \section*{B组}
@@ -124,13 +125,22 @@
 \end{solution}
 
 \begin{solution}{12.17}
-不总成立；取 \(a_n=(-1)^n\)，左端为 \(1\)，右端也是1，此例不否定；改取部分极限为 \(-2,1\) 的交错列，则左端为 \(2\)，而
+不总成立。取 \(a_{2k}=-2\)、\(a_{2k-1}=1\)，则
+\(\limsup\abs{a_n}=2\)，而
 \(\abs{\limsup a_n}=1\)。对有界实数列，正确关系为
 \[
  \limsup\abs{a_n}
  =\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}.
 \]
-这是因为绝对值在区间 \([\liminf a_n,\limsup a_n]\) 上的最大值出现在端点，且两个端点都由子列实现。
+记右端为 \(M\)。上下极限都由子列实现，所以
+\(\limsup\abs{a_n}\ge M\)。反过来，取一条子列使
+\(\abs{a_{n_j}}\to\limsup\abs{a_n}\)，再由有界性抽取
+\(a_{n_j}\) 的收敛进一步子列，设其极限为 \(L\)。任意部分极限满足
+\[
+ \liminf a_n\le L\le\limsup a_n,
+\]
+故 \(\abs L\le M\)。沿进一步子列取绝对值极限，得到
+\(\limsup\abs{a_n}\le M\)。
 \end{solution}
 
 \begin{solution}{12.18}
@@ -194,10 +204,20 @@
 \end{solution}
 
 \begin{solution}{12.26}
-尾部闭包
+令
 \[
- K_n=\overline{\{a_k:k\ge n\}}
+ K_N=\operatorname{adh}(A_N).
 \]
-递减。对有界列，交集正是部分极限集合；其最大、最小点分别由尾部确界极限给出。集合表达适合证明闭性与嵌套性，尾部确界表达适合运算不等式和定量界，子列表达适合实现端点、构造反例和把量词否定转化为对象。三种语言描述同一尾部结构，但各自压缩的证明步骤不同。
+由于 \(A_{N+1}\subseteq A_N\)，集合 \(K_N\) 递减。\chapterref{chap:subsequences-cluster-points}的尾部刻画给出
+\[
+ \bigcap_{N=1}^{\infty}K_N=\mathcal L(a),
+\]
+其中 \(\mathcal L(a)\) 是全部部分极限组成的集合。设
+\(s=\limsup a_n\)、\(\ell=\liminf a_n\)。本章已经构造子列分别趋于
+\(s\) 与 \(\ell\)，故 \(s,\ell\in\mathcal L(a)\)；任一部分极限
+\(L\) 又满足 \(\ell\le L\le s\)。所以交集的最大点为 \(s\)，最小点为
+\(\ell\)。
+
+尾部集合表达保留所有可能的部分极限，适合讨论嵌套和极值点；尾部确界表达把每个尾部压缩成两个数，适合证明运算不等式和给出定量界；子列表达则把端点实际实现为极限，适合构造与反例。三种表达依次保留不同数量的信息，不能在没有附加条件时彼此完全恢复。
 \end{solution}
 

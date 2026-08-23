@@ -58,7 +58,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{7.6}
-若 \(P\) 从 \(N_1\) 起成立、\(\Q\) 从 \(N_2\) 起成立，则从
+若 \(P\) 从 \(N_1\) 起成立、\(Q\) 从 \(N_2\) 起成立，则从
 \(N=\max\{N_1,N_2\}\) 起二者同时成立。
 
 对每个 \(k\in\N\)，令 \(P_k(n)\) 为命题 \(n\ne k\)。它从第 \(k+1\) 项起成立；但不存在 \(N\) 使所有 \(P_k(n)\) 对每个 \(k\) 和每个 \(n\ge N\) 同时成立，因为取 \(k=n=N\) 即失败。
@@ -170,7 +170,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{9.4}
-取 \(a_n=(-1)^n\)。它满足 \(\abs{a_n}\le1\)。偶数子列恒为 \(1\)，奇数子列恒为 \(-1\)，两条子列极限不同；若原列收敛，所有子列应收敛到同一极限，矛盾。
+取 \(a_n=(-1)^n\)。它满足 \(\abs{a_n}\le1\)，而偶数项恒为 \(1\)，奇数项恒为 \(-1\)。若原列收敛到 \(a\)，把极限定义分别限制在偶数指标和奇数指标上，便会同时得到 \(a=1\) 与 \(a=-1\)，矛盾。
 \end{solution}
 
 \begin{solution}{9.5}
@@ -252,7 +252,7 @@ a_n\not\to+\infty
 \[
  q_1;\quad q_1,q_2;\quad q_1,q_2,q_3;\quad\cdots.
 \]
-所得数列中每个 \(q_j\) 在所有长度至少为 \(j\) 的块中出现，故出现无穷多次。它含恒等于 \(0\) 的子列和恒等于 \(1\) 的子列，所以没有有限极限；同时含无穷多个 \(0\)，否定趋于 \(+\infty\) 和 \(-\infty\)。
+所得数列中每个 \(q_j\) 在所有长度至少为 \(j\) 的块中出现，故出现无穷多次。把值为 \(0\) 的指标和值为 \(1\) 的指标分别按递增次序取出，得到两列极限不同的抽出项，因此原列没有有限极限；原列又含无穷多个 \(0\)，这同时否定了趋于 \(+\infty\) 和趋于 \(-\infty\)。
 \end{solution}
 
 \begin{solution}{8.7}
@@ -322,7 +322,7 @@ a_n\not\to+\infty
 \begin{solution}{9.9}
 给定 \(\varepsilon>0\)，令
 \[
- \delta=\min\left\{1,\frac{\varepsilon}{1+\abs a+\abs b}\right\}.
+ \delta=\min\left\{1,\frac{\varepsilon}{2(1+\abs a+\abs b)}\right\}.
 \]
 取共同尾部使
 \(\abs{a_n-a}<\delta\)、\(\abs{b_n-b}<\delta\)。由题给分解，
@@ -333,10 +333,9 @@ a_n\not\to+\infty
    +\abs a\abs{b_n-b}
    +\abs b\abs{a_n-a}\\
  &<\delta^2+(\abs a+\abs b)\delta\\
- &\le(1+\abs a+\abs b)\delta\le\varepsilon.
+ &\le(1+\abs a+\abs b)\delta\le\frac{\varepsilon}{2}<\varepsilon.
 \end{aligned}
 \]
-若最后可能取等号，可在定义 \(\delta\) 时把 \(\varepsilon\) 换成 \(\varepsilon/2\)，从而得到严格小于 \(\varepsilon\) 的估计。
 \end{solution}
 
 \begin{solution}{9.10}
@@ -420,7 +419,7 @@ a_n\not\to+\infty
  d_n=\begin{cases}1,&n\text{ 为偶数},\\0,&n\text{ 为奇数}.
  \end{cases}
 \]
-两列在无穷多个偶数指标处不同，\(c_n\) 收敛而 \(d_n\) 由奇偶子列极限不同而发散。
+两列在无穷多个偶数指标处不同，\(c_n\) 收敛；\(d_n\) 的偶数项恒为 \(1\)，奇数项恒为 \(0\)，故它不能收敛。
 \end{solution}
 
 \begin{solution}{7.17}
@@ -436,7 +435,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{7.19}
-设单调递增列有子列 \(a_{n_k}\to L\)。固定 \(n\)，选 \(k\) 使 \(n_k\ge n\)，则 \(a_n\le a_{n_k}\)。由极限的序保持（也可直接反证）得 \(a_n\le L\)，故原列以上界 \(L\) 控制。对 \(\varepsilon>0\)，取 \(k\) 使 \(L-\varepsilon<a_{n_k}\le L\)。单调性给出 \(n\ge n_k\) 时
+设严格递增正整数列 \((n_k)\) 满足 \(a_{n_k}\to L\)。固定 \(n\)，选 \(k\) 使 \(n_k\ge n\)，则 \(a_n\le a_{n_k}\)。令 \(k\to\infty\)，由序关系对极限的保持性得 \(a_n\le L\)，故原列以上界 \(L\) 控制。对 \(\varepsilon>0\)，取 \(k\) 使 \(L-\varepsilon<a_{n_k}\le L\)。单调性给出 \(n\ge n_k\) 时
 \(L-\varepsilon<a_n\le L\)，所以 \(a_n\to L\)。递减情形对称。
 \end{solution}
 
@@ -450,11 +449,11 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{8.15}
-当 \(n=4k\) 时 \(\sin(n\pi/2)=0\)；当 \(n=4k+1\) 时其值为 \(1\)。两条常值子列的极限不同，因此原列发散。
+当 \(n=4k+1\) 时 \(\sin(n\pi/2)=1\)；当 \(n=4k+3\) 时其值为 \(-1\)。这两类指标都可以任意大，而相应函数值相差 \(2\)，所以不存在一个实数能使整个尾部落在其半径小于 \(1\) 的邻域内，原列发散。
 \end{solution}
 
 \begin{solution}{8.16}
-把下列有限块依次连接：第 \(k\) 个块先从 \(-1\) 以步长 \(1/k\) 上升到 \(1\)，再以步长 \(1/k\) 下降到 \(-1\)。所得数列始终位于 \([-1,1]\)，且第 \(k\) 个块内相邻差为 \(1/k\)，块的连接点差为 \(0\)，故相邻差趋于零。每个块都含 \(1\) 和 \(-1\)，所以存在分别恒取这两个值的子列，原列发散。
+把下列有限块依次连接：第 \(k\) 个块先从 \(-1\) 以步长 \(1/k\) 上升到 \(1\)，再以步长 \(1/k\) 下降到 \(-1\)。所得数列始终位于 \([-1,1]\)，且第 \(k\) 个块内相邻差为 \(1/k\)，块的连接点差为 \(0\)，故相邻差趋于零。每个块都含 \(1\) 和 \(-1\)；分别取出这些端点便得到两列不同的极限值，所以原列发散。
 \end{solution}
 
 \begin{solution}{8.17}
@@ -500,8 +499,8 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{9.18}
-能推出。把所有满足 \(a_n\le b_n\) 的指标排成严格递增列 \(n_k\)。由原列收敛，
-\(a_{n_k}\to a\)、\(b_{n_k}\to b\)。对子列应用序关系的闭性，得到 \(a\le b\)。
+能推出。把所有满足 \(a_n\le b_n\) 的指标排成严格递增列 \(n_k\)。由本章已经证明的抽出项极限性质，
+\(a_{n_k}\to a\)、\(b_{n_k}\to b\)。再对每个 \(k\) 成立的不等式 \(a_{n_k}\le b_{n_k}\) 取极限，得到 \(a\le b\)。
 \end{solution}
 
 \begin{solution}{9.19}
@@ -509,7 +508,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{9.20}
-按自然解释 \(p_{2k}=a_k,p_{2k-1}=b_k\)。若 \(p_n\to L\)，两条奇偶子列给出 \(a_k,b_k\to L\)。反之，若两列同趋于 \(L\)，对给定误差取两起点最大值，则交错列从相应位置起的奇偶项都在误差区间中。因此充要条件是两列收敛到同一极限。
+若 \(p_n\to L\)，把极限定义分别限制在偶数指标与奇数指标上，便有 \(a_k=p_{2k}\to L\)、\(b_k=p_{2k-1}\to L\)。反之，若两列同趋于 \(L\)，给定 \(\varepsilon>0\)，分别取起点 \(K_a,K_b\)，使 \(k\ge K_a\) 时 \(\abs{a_k-L}<\varepsilon\)，\(k\ge K_b\) 时 \(\abs{b_k-L}<\varepsilon\)。令 \(K=\max\{K_a,K_b\}\)，则 \(n\ge2K\) 时，无论 \(n\) 为奇数还是偶数，都有 \(\abs{p_n-L}<\varepsilon\)。因此充要条件是两列收敛到同一极限。
 \end{solution}
 
 \begin{solution}{9.21}

@@ -66,7 +66,7 @@
 \end{solution}
 
 \begin{solution}{19.7}
-恒等函数 \(f(x)=x\) 在 \(\R\) 上是 \(1\)-Lipschitz 连续，因而一致连续，但它无界。定义域有界性是上一题推出函数有界的必要背景。
+恒等函数 \(f(x)=x\) 在 \(\R\) 上是 \(1\)-Lipschitz 连续，因而一致连续，但它无界。定义域有界性是\exerciseref{19.6}推出函数有界的必要背景。
 \end{solution}
 
 \begin{solution}{19.8}
@@ -76,7 +76,7 @@
 \end{solution}
 
 \begin{solution}{19.9}
-有界但不闭：\(1/x\) 在 \((0,1)\) 上连续而不一致连续，坏行为集中到缺失端点。闭但无界：\(x^2\) 在 \(\R\) 上连续而不一致连续，坏点对共同逃向无穷远。这两个反例对应紧致性失败的两种不同机制。
+有界但不闭：\(1/x\) 在 \((0,1)\) 上连续而不一致连续，失效发生在缺失端点附近。闭但无界：\(x^2\) 在 \(\R\) 上连续而不一致连续，可取共同趋于无穷的坏点对。前一例说明有界性不能代替闭性，后一例说明闭性不能代替有界性。
 \end{solution}
 
 \section*{B组}
@@ -95,14 +95,21 @@
 \end{solution}
 
 \begin{solution}{19.11}
-对 \(x\ge y\ge0\)，凹函数幂的次可加性给出
+先证所需的幂不等式。设 \(x\ge y\ge0\)。当 \(x=0\) 时结论显然；当 \(x>0\) 时令 \(r=y/x\)。由于 \(0\le r\le1\) 且 \(0<\alpha<1\)，有
 \[
- x^\alpha=(y+(x-y))^\alpha\le y^\alpha+(x-y)^\alpha,
+ r^\alpha\ge r,
+ \qquad (1-r)^\alpha\ge1-r.
+\]
+二式相加并乘以 \(x^\alpha\)，得到
+\[
+ x^\alpha\le y^\alpha+(x-y)^\alpha.
 \]
 故
 \[
  \abs{x^\alpha-y^\alpha}\le\abs{x-y}^\alpha.
 \]
+交换 \(x,y\) 后同一估计适用于任意两点，所以该函数在 \([0,\infty)\) 上是常数为 \(1\) 的 \(\alpha\)-Hölder 函数。
+
 若它是 Lipschitz 的，则对 \(y=0\) 有
 \[
  x^\alpha\le Lx,
@@ -127,13 +134,17 @@
 \begin{solution}{19.13}
 在 \(\R\) 上取 \(f(x)=g(x)=x\)。二者都是 \(1\)-Lipschitz，但乘积 \(x^2\) 不一致连续，因而不可能 Lipschitz。若
 \[
- \abs f\le M_f,\quad\abs g\le M_g,
+ \abs{f(x)}\le M_f,\qquad \abs{g(x)}\le M_g
+ \quad(x\in D),
 \]
-则
-\[
+并且二者的 Lipschitz 常数分别为 \(L_f,L_g\)，则对任意 \(x,y\in D\)，
+\begin{align*}
  \abs{f(x)g(x)-f(y)g(y)}
- \le(M_fL_g+M_gL_f)\abs{x-y}.
-\]
+ &\le \abs{f(x)}\abs{g(x)-g(y)} \\
+ &\quad+\abs{g(y)}\abs{f(x)-f(y)} \\
+ &\le(M_fL_g+M_gL_f)\abs{x-y}.
+\end{align*}
+因此有界 Lipschitz 函数的乘积仍是 Lipschitz 函数。
 \end{solution}
 
 \begin{solution}{19.14}
@@ -153,7 +164,11 @@
 \[
  \omega_f(t)=\sup_{\abs{x-y}\le t}\abs{f(x)-f(y)}
 \]
-单调不减且 \(\omega_f(0)=0\)。若 \(f\) 一致连续，给定 \(\varepsilon>0\)，用精度 \(\varepsilon\) 的统一半径可使充分小 \(t\) 下所有相关像距小于 \(\varepsilon\)，故连续模趋零。反之，选 \(\delta\) 使 \(\omega_f(\delta)<\varepsilon\)，则 \(\abs{x-y}<\delta\) 时像距不超过该连续模。
+单调不减且 \(\omega_f(0)=0\)。若 \(f\) 一致连续，给定 \(\varepsilon>0\)，先对精度 \(\varepsilon/2\) 取统一半径 \(\delta\)。当 \(0<t<\delta\) 时，定义上确界中的每个像距都小于 \(\varepsilon/2\)，所以
+\[
+ \omega_f(t)\le\varepsilon/2<\varepsilon.
+\]
+故连续模趋于零。反之，选 \(\delta>0\) 使 \(\omega_f(\delta)<\varepsilon\)，则 \(\abs{x-y}<\delta\) 时像距不超过该连续模，因而小于 \(\varepsilon\)。
 \end{solution}
 
 \begin{solution}{19.17}
@@ -187,9 +202,33 @@
 \addcontentsline{toc}{section}{C组}
 
 \begin{solution}{19.19}
-对 \(x\in X\)，取 \(x_n\in D\)、\(x_n\to x\)。一致连续性保持 Cauchy 列，故 \(f(x_n)\) 是实 Cauchy 列并收敛，定义其极限为 \(\widetilde f(x)\)。若 \(y_n\to x\)，则 \(\abs{x_n-y_n}\to0\)，双序列判据说明两条像列之差趋零，故定义良好。
+对 \(x\in X\)，由稠密性取 \(x_n\in D\)、\(x_n\to x\)。数列 \((x_n)\) 是 Cauchy 列，一致连续性使 \((f(x_n))\) 成为实 Cauchy 列；由实数完备性，它有极限。定义
+\[
+ \widetilde f(x)=\lim_{n\to\infty}f(x_n).
+\]
+若 \(y_n\in D\) 也趋于 \(x\)，则 \(\abs{x_n-y_n}\to0\)。给定 \(\varepsilon>0\)，把一致连续性用于这两列即可得到 \(\abs{f(x_n)-f(y_n)}<\varepsilon\) 最终成立，因而两条像列具有同一极限。定义与逼近列的选择无关。
 
-在 \(D\) 中用常值列可知延拓保持原值。对 \(x,y\in X\) 足够近，分别以 \(D\) 中点 \(u,v\) 逼近，并把三段像误差各控制在 \(\varepsilon/3\)，即可证明 \(\widetilde f\) 一致连续。任何连续延拓在 \(x_n\to x\) 上都必须取极限 \(\lim f(x_n)\)，故唯一。
+若 \(x\in D\)，可取常值列 \(x_n=x\)，故 \(\widetilde f(x)=f(x)\)。下面验证一致连续性。给定 \(\varepsilon>0\)，取 \(\delta>0\)，使 \(u,v\in D\) 且 \(\abs{u-v}<\delta\) 时
+\[
+ \abs{f(u)-f(v)}<\varepsilon/2.
+\]
+若 \(x,y\in X\) 且 \(\abs{x-y}<\delta/3\)，分别选 \(u_n,v_n\in D\) 使 \(u_n\to x\)、\(v_n\to y\)。充分大时
+\[
+ \abs{u_n-v_n}
+ \le \abs{u_n-x}+\abs{x-y}+\abs{y-v_n}<\delta.
+\]
+于是 \(\abs{f(u_n)-f(v_n)}<\varepsilon/2\)。令 \(n\to\infty\)，得到
+\[
+ \abs{\widetilde f(x)-\widetilde f(y)}
+ \le\varepsilon/2<\varepsilon.
+\]
+所用半径 \(\delta/3\) 与 \(x,y\) 无关，所以 \(\widetilde f\) 一致连续。最后，若 \(g:X\to\R\) 是另一连续延拓，则对任意 \(x_n\in D\)、\(x_n\to x\)，
+\[
+ g(x)=\lim_{n\to\infty}g(x_n)
+     =\lim_{n\to\infty}f(x_n)
+     =\widetilde f(x),
+\]
+故延拓唯一。
 \end{solution}
 
 \begin{solution}{19.20}
@@ -223,7 +262,7 @@
 \end{solution}
 
 \begin{solution}{19.24}
-证明链为：紧致性把连续函数的局部半径有限化，得到 Heine--Cantor；一致连续性把输入 Cauchy 列映成像 Cauchy 列；值域完备性把像列变成极限；稠密性把这些极限定义为完备化上的延拓。删去紧致性可用 \(x^2\) 或 \(1/x\) 反驳连续推出一致连续；删去一致连续性用 \(1/n\mapsto n\) 反驳保持 Cauchy；删去值域完备性用趋于 \(\sqrt2\) 的有理 Cauchy 列；删去稠密性则新点附近没有原定义域信息，延拓不唯一。
+证明链为：紧致性把连续函数的局部半径有限化，得到 Heine--Cantor；一致连续性把输入 Cauchy 列映成像 Cauchy 列；值域完备性把像列变成极限；定义域的稠密性使这些极限在给定空间 \(X\) 的每一点都有定义，并保证延拓唯一。删去紧致性可用 \(x^2\) 或 \(1/x\) 反驳连续推出一致连续；删去一致连续性用 \(1/n\mapsto n\) 反驳保持 Cauchy；删去值域完备性用趋于 \(\sqrt2\) 的有理 Cauchy 列；删去稠密性则新点附近没有原定义域信息，延拓不唯一。只有在另行构造了原空间的完备化并把原空间稠密嵌入其中以后，才把这里的结论称为完备化延拓。
 \end{solution}
 
 \begin{solution}{19.25}
@@ -271,7 +310,7 @@
  \]
  并以 \(f\) 的局部有界性控制第一项。
  \item \(M\ne0\) 给出 \(\abs g\ge\abs M/2\)，先证 \(1/g\to1/M\)，再用乘积法则。
- \item 当 \(x\to0\) 时，取 \(f=g=x\) 得商为 \(1\)；取 \(f=1,g=x^2\) 得商趋 \(+\infty\)；取 \(f=\sin(1/x),g=1\) 可得无极限，也可令分子分母都趋零取 \(f=x\sin(1/x),g=x\)。
+ \item 当 \(x\to0\) 时，取 \(f=g=x\) 得商为 \(1\)；取 \(f=1,g=x^2\) 得商趋 \(+\infty\)；取 \(f=x\sin(1/x),g=x\)，则分子、分母都趋于零，而商为 \(\sin(1/x)\)，没有极限。
  \item 外层删心极限不控制中心点值；若内层函数反复取中心，复合值可能由该未受控点值决定。外层连续时可取消避开条件。
 \end{enumerate}
 \end{solution}
@@ -305,7 +344,7 @@
 \begin{solution}{III.5}
 \begin{enumerate}
  \item 连续推出序列保持；反向失败时按 \(1/n\) 邻域选与点值保持固定误差的点。
- \item 可去型：未补值的 \((x^2-1)/(x-1)\)、改错点值的常值函数；跳跃型：取整函数、符号函数；第二类：\(\sin(1/x)\)、\(1/x\) 在零点。
+ \item 可去型：令 \(f(x)=(x^2-1)/(x-1)\)（\(x\ne1\)）而 \(f(1)=0\)；或令 \(g(x)=0\)（\(x\ne0\)）而 \(g(0)=1\)。跳跃型可取取整函数，以及在零点任意赋值的符号函数。第二类可取在 \(0\) 处补任意值后的 \(\sin(1/x)\) 与 \(1/x\)。这里补入点值只为使指定点属于定义域，不改变删心极限或单侧极限。
  \item 两段内部连续只控制交界点两侧；全局连续还要求左右极限与交界点值相等。
  \item 端点只检验定义域存在的一侧。例如 \(\sqrt x\) 在 \([0,\infty)\) 的 \(0\) 处连续，无需负侧定义。
 \end{enumerate}
@@ -371,7 +410,7 @@
 \[
  \text{一致连续}\Longrightarrow\text{保持 Cauchy 列}
 \]
-与值域完备性、定义域稠密性结合，得到完备化延拓。图中每条边都应标明相应证明中调用的定理，而不能把互相等价的完备性结论循环引用。
+与值域完备性、定义域稠密性结合，得到稠密子集上的一致连续延拓。图中每条边都应标明相应证明中调用的定理，而不能把互相等价的完备性结论循环引用。
 \end{solution}
 
 \begin{solution}{III.12}
