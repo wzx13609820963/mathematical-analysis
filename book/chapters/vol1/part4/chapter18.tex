@@ -1,0 +1,526 @@
+\chapter{凸函数}
+\label{chap:convex-functions}
+
+微分学常从一点的切线研究函数，凸性则先比较两点之间的弦。它不要求函数预先可导，却能推出连续性、单侧导数的存在和支撑线不等式。函数一旦可导，凸性又等价于导数单调；若二阶导数存在，熟悉的 \(f''\ge 0\) 只是这一理论在光滑情形下的表达。
+
+本章限于实直线上的凸函数。高维凸集与凸函数将在多元微分和泛函分析中重新出现；这里得到的割线斜率、次梯度和共轭函数是那些理论的一维形式。
+
+\section{凸集、凸组合与凸函数}
+
+\begin{definition}[凸集]
+集合 \(C\subset\R\) 称为\term{凸集}，若任取 \(x,y\in C\) 与 \(t\in[0,1]\)，都有
+\[
+ (1-t)x+ty\in C.
+\]
+\end{definition}
+
+在实直线上，非空凸集恰为各种区间，包括单点、开区间、闭区间、半开区间以及无界区间。数 \((1-t)x+ty\) 位于连接 \(x,y\) 的线段上；凸性要求整条线段仍留在集合中。
+
+\begin{definition}[凸函数]
+设 \(I\subset\R\) 为区间。函数 \(f:I\to\R\) 称为\term{凸函数}，若对任意 \(x,y\in I\) 与 \(t\in[0,1]\)，
+\begin{equation}
+ f((1-t)x+ty)\le (1-t)f(x)+t f(y).
+ \label{eq:convex-two-point}
+\end{equation}
+若 \(x\ne y\) 且 \(0<t<1\) 时不等式总是严格的，则称 \(f\) \term{严格凸}。把不等号反向便得到凹函数和严格凹函数。
+\end{definition}
+
+右端是图像两端点连线在横坐标 \((1-t)x+ty\) 处的高度。因此凸函数的图像位于任意弦的下方。这里允许相等，故仿射函数 \(x\mapsto ax+b\) 既凸又凹，却不严格凸。
+
+\begin{example}
+函数 \(x\mapsto x^2\) 在 \(\R\) 上严格凸，因为
+\[
+ (1-t)x^2+ty^2-((1-t)x+ty)^2=t(1-t)(x-y)^2.
+\]
+函数 \(x\mapsto \abs{x}\) 是凸函数，可由三角不等式验证；它在 \(0\) 处不可导，因而凸性并不以光滑性为前提。函数 \(x\mapsto x^3\) 在整个实轴上既非凸也非凹，但分别在 \([0,+\infty)\) 与 \((-\infty,0]\) 上凸、凹。凸性始终依赖指定的定义域。
+\end{example}
+
+两点定义可以推广到有限个点。
+
+\begin{theorem}[有限 Jensen 不等式]
+\label{thm:finite-jensen}
+设 \(f:I\to\R\) 为凸函数，\(n\ge 2\)，\(x_1,\dots,x_n\in I\)，且
+\[
+ \lambda_i\ge0,
+ \qquad \sum_{i=1}^n\lambda_i=1.
+\]
+则
+\begin{equation}
+ f\!\left(\sum_{i=1}^n\lambda_i x_i\right)
+ \le \sum_{i=1}^n\lambda_i f(x_i).
+ \label{eq:finite-jensen}
+\end{equation}
+若 \(f\) 严格凸且所有 \(\lambda_i>0\)，则等号成立当且仅当 \(x_1=\cdots=x_n\)。
+\end{theorem}
+
+\begin{proof}
+对 \(n\) 归纳。\(n=2\) 就是定义。设结论对 \(n-1\) 成立。若 \(\lambda_n=1\)，结论显然；否则令
+\[
+ \mu_i=\frac{\lambda_i}{1-\lambda_n}\quad(1\le i<n),
+ \qquad y=\sum_{i=1}^{n-1}\mu_i x_i.
+\]
+于是 \(\sum_{i<n}\mu_i=1\)，并且
+\[
+ \sum_{i=1}^n\lambda_i x_i=(1-\lambda_n)y+\lambda_nx_n.
+\]
+先对 \(y,x_n\) 使用两点凸性，再对 \(y\) 使用归纳假设，得到
+\[
+ \begin{aligned}
+ f((1-\lambda_n)y+\lambda_nx_n)
+ &\le(1-\lambda_n)f(y)+\lambda_nf(x_n)\\
+ &\le\sum_{i=1}^n\lambda_i f(x_i).
+ \end{aligned}
+\]
+若 \(f\) 严格凸且所有权重为正，等号先迫使 \(y=x_n\)，归纳步骤中的等号再迫使 \(x_1=\cdots=x_{n-1}=y\)。反向结论直接成立。
+\end{proof}
+
+凸函数在非负线性组合、逐点上确界和仿射变量替换下仍保持凸性。更准确地说，若 \(f,g\) 凸且 \(\alpha,\beta\ge0\)，则 \(\alpha f+\beta g\) 凸；若一族凸函数 \((f_j)\) 的逐点上确界在每一点有限，则 \(x\mapsto\sup_j f_j(x)\) 凸；若 \(f\) 凸且 \(x\mapsto ax+b\) 把某区间映入 \(f\) 的定义域，则 \(x\mapsto f(ax+b)\) 凸。这些结论都可直接代入定义验证。
+
+\section{割线、单侧导数与导数单调性}
+
+对 \(x<y\)，记割线斜率为
+\[
+ [x,y]_f=\frac{f(y)-f(x)}{y-x}.
+\]
+凸函数的局部信息主要由这些斜率的次序控制。
+
+\begin{theorem}[三点斜率不等式]
+\label{thm:convex-three-slopes}
+设 \(f:I\to\R\) 为凸函数，\(x<y<z\) 均在 \(I\) 中。则
+\begin{equation}
+ [x,y]_f\le [x,z]_f\le[y,z]_f.
+ \label{eq:convex-three-slopes}
+\end{equation}
+反之，若函数对任意 \(x<y<z\) 满足其中任意一侧的不等式，便是凸函数。
+\end{theorem}
+
+\begin{proof}
+由
+\[
+ y=\frac{z-y}{z-x}x+\frac{y-x}{z-x}z
+\]
+和凸性可得
+\[
+ f(y)\le\frac{z-y}{z-x}f(x)+\frac{y-x}{z-x}f(z).
+\]
+移项并分别除以正数，便得到
+\[
+ \frac{f(y)-f(x)}{y-x}\le\frac{f(z)-f(x)}{z-x},
+ \qquad
+ \frac{f(z)-f(x)}{z-x}\le\frac{f(z)-f(y)}{z-y}.
+\]
+反过来，给定 \(x<z\) 和 \(y=(1-t)x+tz\)，其中 \(0<t<1\)，第一侧斜率不等式给出
+\[
+ \frac{f(y)-f(x)}{y-x}\le\frac{f(z)-f(x)}{z-x}.
+\]
+由 \(y-x=t(z-x)\) 整理即得 \eqref{eq:convex-two-point}。另一侧的不等式等价地给出同一结论，端点权重情形显然。
+\end{proof}
+
+固定左端点时，\(y\mapsto[x,y]_f\) 单调不减；固定右端点时，\(x\mapsto[x,y]_f\) 也单调不减。这个事实同时导出连续性和单侧导数。
+
+\begin{theorem}[内点处的单侧导数]
+\label{thm:convex-one-sided-derivatives}
+设 \(f:I\to\R\) 凸，\(x\) 为 \(I\) 的内点。则有限的单侧导数
+\[
+ f'_-(x)=\lim_{h\to0-}\frac{f(x+h)-f(x)}h,
+ \qquad
+ f'_+(x)=\lim_{h\to0+}\frac{f(x+h)-f(x)}h
+\]
+都存在，并满足
+\begin{equation}
+ f'_-(x)\le f'_+(x).
+ \label{eq:convex-one-sided-order}
+\end{equation}
+若 \(u<x<v\)，还有
+\begin{equation}
+ [u,x]_f\le f'_-(x)\le f'_+(x)\le[x,v]_f.
+ \label{eq:convex-secant-derivative}
+\end{equation}
+并且对内点 \(x<y\)，
+\begin{equation}
+ f'_+(x)\le [x,y]_f\le f'_-(y).
+ \label{eq:convex-derivative-secant}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+当 \(h>0\) 趋于零时，差商
+\[
+ \frac{f(x+h)-f(x)}h=[x,x+h]_f
+\]
+随 \(h\) 减小而单调不增。取定 \(u<x<v\)，三点斜率不等式又给出
+\[
+ [u,x]_f\le[x,x+h]_f\le[x,v]_f
+\]
+（\(h>0\) 充分小时），所以右极限存在且有限。左差商同理。
+
+把右差商和左差商分别取极限，便得到 \eqref{eq:convex-secant-derivative}。再对 \(x-h<x<x+k\) 使用三点斜率不等式，令 \(h,k\to0+\)，得到 \(f'_-(x)\le f'_+(x)\)。最后对 \(x<x+h<y\) 以及 \(x<y-h<y\) 应用三点斜率不等式并取极限，即得 \eqref{eq:convex-derivative-secant}。
+\end{proof}
+
+\begin{corollary}[凸函数的内点连续性]
+\label{cor:convex-local-lipschitz}
+有限值凸函数在区间内部连续；更强地，它在每个包含于区间内部的紧子区间上 Lipschitz 连续。
+\end{corollary}
+
+\begin{proof}
+设 \([a,b]\subset I^\circ\)，并取 \(u<a<b<v\) 均在 \(I\) 中。若 \(a\le x<y\le b\)，由三点斜率不等式可得
+\[
+ [u,a]_f\le[x,y]_f\le[b,v]_f.
+\]
+令
+\[
+ L=\max\{\abs{[u,a]_f},\abs{[b,v]_f}\},
+\]
+便有
+\[
+ \abs{f(y)-f(x)}\le L\abs{y-x}.
+\]
+任一内点都位于这样的紧子区间内，故 \(f\) 在区间内部连续。
+\end{proof}
+
+端点连续性不能由凸性自动推出。例如在 \([0,1]\) 上定义 \(f(0)=1\)，并令 \(f(x)=0\)（\(x>0\)），所得函数仍凸，却在 \(0\) 不连续。若端点值由内部极限给定，便没有这个问题。
+
+\begin{theorem}[可导凸函数的判据]
+\label{thm:convex-derivative-monotone}
+设 \(f:I\to\R\) 在开区间 \(I\) 上可导。则下列条件等价：
+\begin{enumerate}
+ \item \(f\) 为凸函数；
+ \item \(f'\) 在 \(I\) 上单调不减；
+ \item 对任意 \(x,y\in I\)，
+ \begin{equation}
+  f(y)\ge f(x)+f'(x)(y-x).
+  \label{eq:tangent-support-differentiable}
+ \end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+若 \(f\) 凸且 \(x<y\)，由 \eqref{eq:convex-derivative-secant} 有
+\[
+ f'(x)\le[x,y]_f\le f'(y),
+\]
+故 \(f'\) 单调不减。
+
+反过来，设 \(f'\) 单调不减。若 \(x<y\)，Lagrange 中值定理给出 \(\xi\in(x,y)\)，使
+\[
+ f(y)-f(x)=f'(\xi)(y-x)\ge f'(x)(y-x).
+\]
+若 \(y<x\)，交换端点后作同样比较，仍得到支撑线不等式。
+
+最后设支撑线不等式成立，并令 \(z=(1-t)x+ty\)，其中 \(0<t<1\)。在 \(z\) 处分别对 \(x,y\) 使用该不等式：
+\[
+ f(x)\ge f(z)+f'(z)(x-z),\qquad
+ f(y)\ge f(z)+f'(z)(y-z).
+\]
+第一式乘 \(1-t\)，第二式乘 \(t\) 后相加；线性项消去，得到凸性不等式。
+\end{proof}
+
+凸函数未必处处可导，但其不可导点至多可数。
+
+\begin{theorem}[凸函数的可导点]
+\label{thm:convex-countable-nondifferentiability}
+开区间上的凸函数除至多可数个点外处处可导。
+\end{theorem}
+
+\begin{proof}
+函数在 \(x\) 可导当且仅当 \(f'_-(x)=f'_+(x)\)。对每个不可导点 \(x\)，开区间
+\[
+ J_x=(f'_-(x),f'_+(x))
+\]
+非空。若 \(x<y\)，由 \eqref{eq:convex-derivative-secant} 得
+\[
+ f'_+(x)\le f'_-(y),
+\]
+所以 \(J_x\cap J_y=\varnothing\)。
+
+固定有理数的一个枚举 \(\Q=\{q_1,q_2,\dots\}\)。对每个不可导点 \(x\)，令 \(m(x)\) 为满足 \(q_{m(x)}\in J_x\) 的最小正整数。有理数的稠密性保证这样的整数存在，而不交性说明 \(x\ne y\) 时 \(m(x)\ne m(y)\)。因此 \(x\mapsto m(x)\) 把不可导点集单射到正整数集，该集合至多可数。
+\end{proof}
+
+“至多可数”不能改为“有限”。取有界区间内一列互异点 \((a_n)\) 与满足 \(\sum_n c_n<\infty\) 的正数 \((c_n)\)，定义
+\[
+ f(x)=\sum_{n=1}^{\infty}c_n\abs{x-a_n}.
+\]
+该级数一致收敛，和函数凸，并在每个 \(a_n\) 处出现导数跳跃。完整核对留作习题。
+
+\section{支撑线和一维次梯度}
+
+不可导点处没有唯一的切线斜率，但仍有一族从下方支撑图像的直线。
+
+\begin{definition}[次梯度]
+设 \(f:I\to\R\) 凸，\(x\) 为 \(I\) 的内点。若 \(p\in\R\) 满足
+\[
+ f(y)\ge f(x)+p(y-x)\qquad(y\in I),
+\]
+则称 \(p\) 是 \(f\) 在 \(x\) 处的\term{次梯度}。全体次梯度组成的集合记为
+\[
+ \partial f(x)=\{p\in\R:f(y)\ge f(x)+p(y-x)\text{ 对一切 }y\in I\}.
+\]
+\end{definition}
+
+\begin{theorem}[一维次梯度公式]
+\label{thm:one-dimensional-subdifferential}
+对区间内部的凸函数，
+\begin{equation}
+ \partial f(x)=[f'_-(x),f'_+(x)].
+ \label{eq:subdifferential-interval}
+\end{equation}
+特别地，\(f\) 在 \(x\) 可导当且仅当 \(\partial f(x)=\{f'(x)\}\)。
+\end{theorem}
+
+\begin{proof}
+若 \(p\in[f'_-(x),f'_+(x)]\)，当 \(y>x\) 时，\eqref{eq:convex-derivative-secant} 给出
+\[
+ \frac{f(y)-f(x)}{y-x}\ge f'_+(x)\ge p.
+\]
+当 \(y<x\) 时，三点斜率不等式给出
+\[
+ \frac{f(x)-f(y)}{x-y}\le f'_-(x)\le p,
+\]
+整理后仍得到 \(f(y)\ge f(x)+p(y-x)\)。故该闭区间包含于 \(\partial f(x)\)。
+
+反之，若 \(p\in\partial f(x)\)，对 \(y>x\) 除以 \(y-x>0\) 并令 \(y\to x+\)，得 \(p\le f'_+(x)\)；对 \(y<x\) 除以 \(y-x<0\) 并令 \(y\to x-\)，得 \(p\ge f'_-(x)\)。于是 \eqref{eq:subdifferential-interval} 成立。
+\end{proof}
+
+\begin{example}
+对 \(f(x)=\abs{x}\)，
+\[
+ \partial f(x)=
+ \begin{cases}
+  \{-1\},&x<0,\\
+  [-1,1],&x=0,\\
+  \{1\},&x>0.
+ \end{cases}
+\]
+因此经过原点、斜率在 \([-1,1]\) 内的每条直线都从下方支撑绝对值函数。
+\end{example}
+
+次梯度把无约束极小值的一阶条件写成不需要可导性的形式。
+
+\begin{proposition}[凸函数的极小值判据]
+\label{prop:convex-minimum-subgradient}
+设 \(x\) 是凸函数 \(f:I\to\R\) 的内点。则 \(x\) 是整体极小点当且仅当
+\[
+ 0\in\partial f(x).
+\]
+若 \(f\) 严格凸，这样的极小点至多一个。
+\end{proposition}
+
+\begin{proof}
+条件 \(0\in\partial f(x)\) 恰好表示 \(f(y)\ge f(x)\) 对所有 \(y\in I\) 成立。反之，若 \(x\) 是整体极小点，同一不等式说明零斜率是次梯度。若严格凸函数在两个不同点取得同一最小值，则它们之间任一真内分点的函数值严格小于该最小值，矛盾。
+\end{proof}
+
+若凸性不等式在 \(x<y\) 的某个真内分点取等号，则函数在整个 \([x,y]\) 上与连接端点的弦重合。因此凸函数严格凸，当且仅当它不在任何非退化子区间上为仿射函数。
+
+\section{二阶判据及其非必要性}
+
+\begin{theorem}[二阶导数判据]
+\label{thm:convex-second-derivative}
+设 \(f\) 在开区间 \(I\) 上二次可导。
+\begin{enumerate}
+ \item 若 \(f''\ge0\) 于 \(I\)，则 \(f\) 凸；若 \(f''>0\) 于 \(I\)，则 \(f\) 严格凸。
+ \item 若 \(f\) 凸，则 \(f''\ge0\) 于 \(I\)。
+\end{enumerate}
+因而在二次可导的前提下，\(f\) 凸当且仅当 \(f''\ge0\)。
+\end{theorem}
+
+\begin{proof}
+若 \(f''\ge0\)，导数单调性判据说明 \(f'\) 单调不减，再由 \theoremref{thm:convex-derivative-monotone} 得 \(f\) 凸。若 \(f''>0\)，Lagrange 中值定理说明 \(f'\) 严格递增。对 \(x<z<y\)，在 \([x,z]\) 与 \([z,y]\) 上使用中值定理，得到
+\[
+ [x,z]_f=f'(\xi)<f'(\eta)=[z,y]_f,
+\]
+其中 \(\xi<z<\eta\)，于是凸性不等式严格。
+
+反之，若 \(f\) 凸，则 \(f'\) 单调不减。对任意 \(x\in I\) 与充分小的非零 \(h\)，
+\[
+ \frac{f'(x+h)-f'(x)}h\ge0.
+\]
+令 \(h\to0\) 得 \(f''(x)\ge0\)。
+\end{proof}
+
+条件 \(f''>0\) 是严格凸的充分条件，但不是必要条件。函数 \(x^4\) 在 \(\R\) 上严格凸，然而 \(f''(0)=0\)。在可导情形下，严格凸等价于 \(f'\) 严格递增；二阶条件只是一种便于核对的充分条件。凸函数也可能没有二阶导数，甚至没有一阶导数，\(\abs{x}\) 是最简单的例子。
+
+\begin{example}[函数的凹凸区间]
+对 \(f(x)=x^3\)，有 \(f''(x)=6x\)。因此它在 \((0,+\infty)\) 上严格凸，在 \((-\infty,0)\) 上严格凹。点 \(0\) 是凹凸性改变的位置，却不是局部极值点。这说明二阶导数变号描述的是弯曲方向，不等同于一阶导数变号的极值判据。
+\end{example}
+
+若 \(f''\ge m>0\)，令 \(g(x)=f(x)-\frac m2x^2\)。由 \(g\) 的凸性可得更强的不等式
+\begin{equation}
+ f(y)\ge f(x)+f'(x)(y-x)+\frac m2(y-x)^2.
+ \label{eq:strong-convexity-one-dimensional}
+\end{equation}
+它给出函数偏离切线的二次下界，并使极小值具有定量稳定性。这是一维强凸性的基本形式。
+
+\section{Jensen 不等式、共轭函数与 Young 不等式}
+
+有限 Jensen 不等式可以直接推出许多经典不等式。
+
+\begin{example}[算术平均与几何平均]
+取 \(x_1,\dots,x_n>0\)。函数 \(-\log x\) 严格凸；等权 Jensen 不等式给出
+\[
+ -\log\!\left(\frac{x_1+\cdots+x_n}{n}\right)
+ \le -\frac1n\sum_{i=1}^n\log x_i.
+\]
+取指数并整理即得
+\[
+ \sqrt[n]{x_1\cdots x_n}\le\frac{x_1+\cdots+x_n}{n},
+\]
+等号当且仅当所有 \(x_i\) 相等。
+\end{example}
+
+把所有支撑线的截距同时记录下来，会得到凸共轭。为使定义同时覆盖整条实线和半轴上的例子，以下允许定义域是任意非空区间。
+
+\begin{definition}[凸共轭]
+设 \(I\subset\R\) 是非空区间，\(f:I\to\R\)。定义 \(f\) 的\term{凸共轭}为扩充实值函数
+\[
+ f^*(p)=\sup_{x\in I}\{px-f(x)\},\qquad p\in\R.
+\]
+若上确界无界，允许 \(f^*(p)=+\infty\)。
+\end{definition}
+
+对每个固定 \(x\)，\(p\mapsto px-f(x)\) 是仿射函数，所以 \(f^*\) 作为一族仿射函数的逐点上确界总是凸的，即使原函数 \(f\) 并不凸。
+
+\begin{theorem}[Fenchel--Young 不等式]
+\label{thm:fenchel-young}
+对任意 \(x\in I\) 与 \(p\in\R\)，
+\begin{equation}
+ px\le f(x)+f^*(p).
+ \label{eq:fenchel-young}
+\end{equation}
+若 \(f\) 凸且 \(x\in I^\circ\)，则等号成立当且仅当 \(p\in\partial f(x)\)。
+\end{theorem}
+
+\begin{proof}
+由上确界的定义，\(f^*(p)\ge px-f(x)\)，移项即得不等式。等号成立等价于
+\[
+ py-f(y)\le px-f(x)\qquad(y\in I),
+\]
+也就是
+\[
+ f(y)\ge f(x)+p(y-x)\qquad(y\in I).
+\]
+这正是 \(p\in\partial f(x)\)。
+\end{proof}
+
+\begin{example}[Young 不等式]
+设 \(r,s>1\) 且 \(1/r+1/s=1\)。在 \(I=[0,+\infty)\) 上取
+\[
+ \Phi(x)=\frac{x^r}{r}.
+\]
+对 \(p\ge0\)，函数 \(x\mapsto px-x^r/r\) 的导数为 \(p-x^{r-1}\)，其最大值在 \(x=p^{1/(r-1)}=p^{s-1}\) 处取得。因此
+\[
+ \Phi^*(p)=\frac{p^s}{s}\qquad(p\ge0).
+\]
+Fenchel--Young 不等式给出
+\begin{equation}
+ ab\le\frac{a^r}{r}+\frac{b^s}{s}\qquad(a,b\ge0).
+ \label{eq:young-inequality}
+\end{equation}
+当 \(a,b>0\) 时，等号条件为 \(b=a^{r-1}\)；检查端点后可知，对非负 \(a,b\)，等号仍恰在 \(a^r=b^s\) 时成立。这一标量不等式将在建立 \(L^p\) 空间时用于证明 H\"older 不等式。
+\end{example}
+
+凸共轭把斜率 \(p\) 的最佳支撑线编码为一个函数。若 \(p\in\partial f(x)\)，则直线
+\[
+ y\longmapsto py-f^*(p)
+\]
+在 \(x\) 处接触 \(f\) 且处处不高于 \(f\)。更高维时，乘积 \(px\) 将由线性泛函与向量的配对取代。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义、割线与导数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{convex-sublevel-interval} 证明实直线上非空凸集恰为区间；再证明凸函数的次水平集
+ \[
+  \{x\in I:f(x)\le c\}
+ \]
+ 总是凸集。
+ \exerciseitem{convex-absolute-value-direct} 不使用导数，直接由三角不等式证明 \(x\mapsto\abs{x}\) 凸，并判断它是否严格凸。
+ \exerciseitem{convex-maximum-preservation} 设 \(f,g\) 在同一区间上凸。证明 \(\max\{f,g\}\) 凸；举例说明逐点下确界未必保持凸性。
+ \exerciseitem{convex-composition-monotone} 设 \(f:I\to J\) 凸，\(g:J\to\R\) 凸且单调不减。证明 \(g\circ f\) 凸，并说明若去掉单调性结论可能失败。
+ \exerciseitem{convex-three-slope-equivalences} 从三点斜率不等式的左侧推出右侧，并反向推导；据此说明两侧中的任意一侧都足以刻画凸性。
+ \exerciseitem{convex-continuity-endpoint-counterexample} 核对正文端点反例在 \([0,1]\) 上确为凸函数；再证明有限值凸函数在开区间上连续。
+ \exerciseitem{convex-local-lipschitz-constant} 设 \(f\) 在 \((a,b)\) 上凸，\(a<c<d<b\)。用四个点的函数值写出一个使
+ \[
+  \abs{f(x)-f(y)}\le L\abs{x-y}\qquad(x,y\in[c,d])
+ \]
+ 成立的显式常数 \(L\)。
+ \exerciseitem{convex-one-sided-absolute-value} 计算 \(\abs{x}\) 在每一点的左右导数，并逐点验证 \(f'_-(x)\le f'_+(x)\)。
+ \exerciseitem{convex-differentiable-derivative-criterion} 不引用二阶导数，证明可导函数凸当且仅当其导数单调不减。
+ \exerciseitem{convex-strict-affine-segment} 证明：凸函数若在某条弦的一个真内分点取等号，则在整条弦上为仿射函数。由此给出严格凸性的等价判据。
+\end{enumerate}
+
+\subsection*{B组　次梯度与二阶判据}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{subgradient-piecewise-linear} 设 \(f(x)=\max\{2x-1,-x+2\}\)。画出图像，求每一点的 \(\partial f(x)\)，并求全体极小点。
+ \exerciseitem{subgradient-sum-inclusion} 设 \(f,g\) 在开区间上凸。证明
+ \[
+  \partial f(x)+\partial g(x)\subset\partial(f+g)(x),
+ \]
+ 并利用一维次梯度公式证明这里实际取等号。
+ \exerciseitem{subgradient-monotonicity} 设 \(x<y\)，\(p\in\partial f(x)\)，\(q\in\partial f(y)\)。证明 \(p\le q\)。
+ \exerciseitem{convex-minimum-one-sided-criterion} 证明凸函数在内点 \(x\) 取得整体最小值当且仅当
+ \[
+  f'_-(x)\le0\le f'_+(x).
+ \]
+ \exerciseitem{strict-convex-unique-minimum-not-existence} 证明严格凸函数若有极小点则唯一；分别举出严格凸函数没有极小点以及下确界有限却不取得的例子。
+ \exerciseitem{second-derivative-sufficient-not-necessary} 证明 \(x^4\) 在 \(\R\) 上严格凸，并说明条件 \(f''>0\) 不是严格凸的必要条件。
+ \exerciseitem{strong-convex-tangent-bound} 设 \(f''\ge m>0\)。证明式 \eqref{eq:strong-convexity-one-dimensional}，并推出 \(f\) 的任意临界点都是唯一整体极小点。
+ \exerciseitem{convex-countably-many-corners} 设 \((a_n)\) 是有界区间内互异点列，\(c_n>0\) 且 \(\sum_n c_n<\infty\)。证明
+ \[
+  f(x)=\sum_{n=1}^{\infty}c_n\abs{x-a_n}
+ \]
+ 在该区间上定义了连续凸函数，并在每个 \(a_n\) 处不可导。
+ \exerciseitem{convex-nondifferentiability-countable-proof} 补全“凸函数至多在可数个点不可导”的证明，特别说明为什么给每个不交开区间选取有理数不需要选择公理。
+\end{enumerate}
+
+\subsection*{C组　Jensen 与共轭函数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{jensen-weighted-amgm} 从 \(-\log x\) 的凸性证明加权算术--几何平均不等式，并写出等号条件。
+ \exerciseitem{jensen-power-mean-basic} 设 \(p>1\)，用 \(x^p\) 的凸性证明
+ \[
+  \left(\frac{x_1+\cdots+x_n}{n}\right)^p
+  \le\frac{x_1^p+\cdots+x_n^p}{n}
+ \]
+ 对非负 \(x_i\) 成立。
+ \exerciseitem{convex-conjugate-quadratic} 计算 \(f(x)=x^2/2\) 的凸共轭，并核对 Fenchel--Young 不等式恰为一个平方非负。
+ \exerciseitem{convex-conjugate-absolute-value} 计算 \(f(x)=\abs{x}\) 的凸共轭，说明为什么结果自然取 \(0\) 与 \(+\infty\) 两种值。
+ \exerciseitem{fenchel-equality-subgradient} 对一般凸函数完整证明 Fenchel--Young 等号条件，并在 \(f(x)=\abs{x}\)、\(x=0\) 时解释全部等号情形。
+ \exerciseitem{young-inequality-scaled} 由 Young 不等式证明：对任意 \(\varepsilon>0\)，存在显式常数 \(C_{\varepsilon,r}>0\)，使
+ \[
+  ab\le\varepsilon a^r+C_{\varepsilon,r}b^s
+ \]
+ 对所有 \(a,b\ge0\) 成立，其中 \(1/r+1/s=1\)。
+ \optionalexerciseitem{convex-biconjugate-support-lines} 设 \(f:\R\to\R\) 凸且在每点都有次梯度。定义 \(f^{**}(x)=\sup_p\{px-f^*(p)\}\)。证明 \(f^{**}=f\)。
+ \projectexerciseitem{convex-inequality-portfolio} 【前置：本章；预计用时：120分钟】从 Jensen、支撑线或凸共轭三种方法中至少选两种，系统证明算术--几何平均不等式、Young 不等式和 \(\log x\le x-1\)，比较各方法中的凸函数、接触点与等号条件。
+\end{enumerate}
+
+\subsection*{第四编综合题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{differential-mean-value-taylor-chain} 设 \(f\in C^2([a,b])\)，\(f(a)=f(b)=0\)，并令 \(M=\max_{[a,b]}\abs{f''}\)。证明对每个 \(x\in[a,b]\)，
+ \[
+  \abs{f(x)}\le\frac{M}{2}(x-a)(b-x)\le\frac{M(b-a)^2}{8},
+ \]
+ 并说明常数 \(1/8\) 不能减小。
+ \exerciseitem{derivative-rational-valued} 设 \(f\) 在区间 \(I\) 上可导，且 \(f'(x)\in\Q\) 对每个 \(x\in I\) 成立。利用 Darboux 定理证明 \(f\) 为仿射函数；若再知 \(f'\) 在 \(I\) 的一个稠密子集上为零，证明 \(f\) 为常函数。
+ \exerciseitem{mean-value-lhopital-counterexample-suite} 分别构造例子说明：L'H\^opital 法则中若导数商没有极限、分母导数允许为零，或原商不是未定式，套用结论会出现什么问题。
+ \exerciseitem{darboux-convex-derivative-continuity} 证明开区间上的可导凸函数具有连续导数。提示：结合导数的单调性与 Darboux 性。说明该结论为何不与一般凸函数的尖点矛盾。
+ \exerciseitem{taylor-convexity-local-global} 设 \(f\in C^2(I)\)。从 Taylor 公式和中值定理两条路线分别证明 \(f''\ge0\Rightarrow f\) 凸，并比较两条证明所需的余项信息。
+ \exerciseitem{inverse-function-convexity} 设 \(f:(a,b)\to(c,d)\) 为严格递增满射，二次可导且 \(f'>0\)。求 \((f^{-1})''\)，并证明：若 \(f\) 凸，则 \(f^{-1}\) 凹。
+ \exerciseitem{flat-function-convexity-near-zero} 研究平坦函数 \(e^{-1/x^2}\)（在 \(0\) 处补零）在 \(0\) 两侧充分小邻域内的单调性和凹凸性，说明“所有阶导数在一点为零”为什么不能决定邻域中的凹凸。
+ \exerciseitem{convex-logarithm-taylor-inequalities} 用凸性、切线支撑和 Taylor 余项分别证明适当定义域上的
+ \[
+  \log x\le x-1,
+  \qquad e^x\ge1+x,
+ \]
+ 并比较等号条件。
+ \optionalexerciseitem{continuous-derivative-modulus-taylor} 设 \(f\in C^1([a,b])\)，记 \(f'\) 的连续模为
+ \[
+  \omega(\delta)=\sup\{\abs{f'(x)-f'(y)}:x,y\in[a,b],\ \abs{x-y}\le\delta\}.
+ \]
+ 证明
+ \[
+  \abs{f(x+h)-f(x)-f'(x)h}\le \abs{h}\,\omega(\abs{h})
+ \]
+ 在连接 \(x\) 与 \(x+h\) 的线段留在 \([a,b]\) 时成立，并说明这比单纯的 \(o(h)\) 给出了什么定量信息。
+ \projectexerciseitem{part-four-theorem-dependency-map} 【前置：第四编；预计用时：150分钟】选择“可导凸函数具有连续导数”或“高阶极值判别”之一，从导数定义开始写出不跳步的定理依赖链；对链中每个主要假设给出一个删去后失败的例子，并标明哪些步骤使用了实数完备性。
+\end{enumerate}

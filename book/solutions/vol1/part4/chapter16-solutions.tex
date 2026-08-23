@@ -1,0 +1,391 @@
+\chapter{导函数：习题解答}
+
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
+
+\begin{solution}{bounded-oscillatory-derivative}
+在原点，
+\[
+ \frac{f(h)-f(0)}h=h\sin(1/h),
+ \qquad
+ \left|h\sin(1/h)\right|\le |h|\longrightarrow0,
+\]
+故 \(f'(0)=0\)。当 \(x\ne0\) 时，乘积法则与链式法则给出
+\[
+ f'(x)=2x\sin(1/x)-\cos(1/x).
+\]
+若 \(0<|x|<1\)，则
+\[
+ |f'(x)|\le2|x|+1<3,
+\]
+所以 \(f'\) 在 \(0\) 附近有界。
+
+取
+\[
+ x_n=\frac1{2\pi n},
+ \qquad
+ y_n=\frac1{(2n+1)\pi}.
+\]
+二者都趋于 \(0\)，但
+\[
+ f'(x_n)=-1,
+ \qquad
+ f'(y_n)=1.
+\]
+因此 \(\lim_{x\to0}f'(x)\) 不存在，\(f'\) 在 \(0\) 不连续。
+\end{solution}
+
+\begin{solution}{locally-unbounded-derivative}
+在原点，
+\[
+ \left|\frac{g(h)-g(0)}h\right|
+ =|h\sin(1/h^2)|\le |h|\longrightarrow0,
+\]
+故 \(g'(0)=0\)。在非零点，
+\[
+ g'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2).
+\]
+因此 \(g\) 处处可导。
+
+令
+\[
+ u_n=(2\pi n)^{-1/2},
+ \qquad
+ v_n=((2n+1)\pi)^{-1/2}.
+\]
+则 \(u_n,v_n\to0+\)，且
+\[
+ g'(u_n)=-\frac2{u_n}\to-\infty,
+ \qquad
+ g'(v_n)=\frac2{v_n}\to+\infty.
+\]
+任给原点邻域，充分大的 \(n\) 使 \(u_n,v_n\) 同时落在其中，而相应导数值可任意负或任意正。故 \(g'\) 在每个这样的邻域内既无下界也无上界。
+\end{solution}
+
+\begin{solution}{positive-derivative-at-point}
+由 \(f'(a)>0\)，可取 \(\delta>0\)，使 \(0<|x-a|<\delta\) 时
+\[
+ \frac{f(x)-f(a)}{x-a}>\frac{f'(a)}2>0.
+\]
+若 \(x>a\)，分母为正，故 \(f(x)-f(a)>0\)；若 \(x<a\)，分母为负，故 \(f(x)-f(a)<0\)。这正是题设两条结论。
+
+这些不等式只比较 \(f(x)\) 与中心值 \(f(a)\)，没有比较同侧两个不同点 \(x,y\) 的函数值，所以不能推出邻域上的严格递增。一个具体反例是
+\[
+ F(0)=0,
+ \qquad
+ F(x)=x+x^3\sin(1/x^2)\quad(x\ne0).
+\]
+因为 \(x^2\sin(1/x^2)\to0\)，有 \(F'(0)=1\)。但对 \(x\ne0\)，
+\[
+ F'(x)=1+3x^2\sin(1/x^2)-2\cos(1/x^2).
+\]
+沿 \(x_n=(2\pi n)^{-1/2}\) 有 \(F'(x_n)=-1<0\)。这些点任意靠近 \(0\)。若 \(F\) 在某个原点邻域内严格递增，则它在其中每个可导点的导数应非负，与上式矛盾。因此 \(F\) 在任何原点邻域内都不是严格递增函数。
+\end{solution}
+
+\begin{solution}{two-valued-derivative}
+若 \(\alpha=\beta\)，结论显然。设 \(\alpha\ne\beta\)。若 \(f'\) 在 \(I^\circ\) 中同时取得 \(\alpha\) 与 \(\beta\)，Darboux 定理迫使它取得两者之间的每个数，这与
+\[
+ f'(I^\circ)\subset\{\alpha,\beta\}
+\]
+矛盾。因此 \(f'\) 只能取得其中一个值，记此常值为 \(c\)。
+
+对任意 \(x<y\) 且 \(x,y\in I^\circ\)，中值定理给出 \(\xi\in(x,y)\)，使
+\[
+ f(y)-f(x)=f'(\xi)(y-x)=c(y-x).
+\]
+所以 \(f(x)-cx\) 在 \(I^\circ\) 上为常数，\(f(x)=cx+d\)。若 \(I\) 含端点且 \(f\) 在端点连续，让内部点趋于相应端点即可把同一公式延伸到整个 \(I\)。
+\end{solution}
+
+\begin{solution}{nonvanishing-derivative-monotonicity}
+若 \(f'\) 在 \(I\) 中某两点分别为正、负值，Darboux 定理将在两点之间给出 \(c\) 使 \(f'(c)=0\)，与假设矛盾。因此 \(f'\) 要么处处为正，要么处处为负。
+
+任取 \(x<y\)。中值定理给出 \(\xi\in(x,y)\)，满足
+\[
+ f(y)-f(x)=f'(\xi)(y-x).
+\]
+若 \(f'>0\)，右端为正，故 \(f\) 严格递增；若 \(f'<0\)，右端为负，故 \(f\) 严格递减。
+\end{solution}
+
+\begin{solution}{affine-darboux-stability}
+若 \(A=0\)，函数 \(Ah+B\) 为常值函数，显然具有 Darboux 性质。设 \(A\ne0\)，取 \(x_1<x_2\)，并令 \(\mu\) 严格介于
+\[
+ Ah(x_1)+B,
+ \qquad Ah(x_2)+B
+\]
+之间。仿射逆变换给出
+\[
+ \lambda=\frac{\mu-B}{A}.
+\]
+无论 \(A\) 正负，\(\lambda\) 都严格介于 \(h(x_1)\) 与 \(h(x_2)\) 之间。由 \(h\) 的 Darboux 性质，存在 \(c\in(x_1,x_2)\) 使 \(h(c)=\lambda\)，于是
+\[
+ Ah(c)+B=A\lambda+B=\mu.
+\]
+故 \(Ah+B\) 具有 Darboux 性质。
+\end{solution}
+
+\begin{solution}{sine-reciprocal-darboux}
+取
+\[
+ x_n=\frac1{\pi/2+2\pi n},
+ \qquad
+ y_n=\frac1{3\pi/2+2\pi n}.
+\]
+则 \(x_n,y_n\to0\)，而 \(h(x_n)=1\)、\(h(y_n)=-1\)，所以 \(h\) 在 \(0\) 不连续。
+
+现证介值性。任取 \(a<b\)。若 \(0\notin[a,b]\)，则 \(h\) 在 \([a,b]\) 连续，通常的介值定理适用。若 \(0\in[a,b]\)，且 \([a,b]\) 不退化，则该区间至少包含 \([0,\delta]\) 或 \([-\delta,0]\) 中的一段，其中 \(\delta>0\)。给定 \(\lambda\in[-1,1]\)，取实数 \(\theta\) 使 \(\sin\theta=\lambda\)。在数列 \(\theta+2k\pi\) 中可选绝对值任意大且符号与所用单侧区间相同的项。其倒数落在该单侧小区间内，并被 \(h\) 映为 \(\lambda\)。于是 \(h([a,b])\) 包含 \([-1,1]\)。特别地，严格介于 \(h(a),h(b)\) 之间的每个数都被取得，故 \(h\) 具有 Darboux 性质。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{oscillatory-power-classification}
+在原点的差商为
+\[
+ \frac{F_{m,n}(h)-F_{m,n}(0)}h
+ =h^{m-1}\sin(h^{-n}).
+\]
+当 \(m>1\) 时，其绝对值不超过 \(|h|^{m-1}\)，故趋于 \(0\)，于是 \(F_{m,n}'(0)=0\)。当 \(m=1\) 时，分别取
+\[
+ h_k=(\pi/2+2\pi k)^{-1/n},
+ \qquad
+ \widetilde h_k=(3\pi/2+2\pi k)^{-1/n},
+\]
+差商分别恒为 \(1\) 与 \(-1\)，故极限不存在。
+
+以下设 \(m>1\)。对 \(x\ne0\)，
+\[
+ F_{m,n}'(x)
+ =m x^{m-1}\sin(x^{-n})
+ -n x^{m-n-1}\cos(x^{-n}).
+\]
+第一项趋于 \(0\)。若 \(m>n+1\)，第二项也趋于 \(0\)，所以 \(F_{m,n}'(x)\to0=F_{m,n}'(0)\)，导函数在 \(0\) 连续。
+
+若 \(m=n+1\)，第二项为 \(-n\cos(x^{-n})\)，故导函数在 \(0\) 附近有界；沿满足 \(x^{-n}=2\pi k\) 与 \(x^{-n}=(2k+1)\pi\) 的正数列，其极限分别为 \(-n\) 与 \(n\)，所以不连续。
+
+若 \(1<m<n+1\)，指数 \(m-n-1<0\)。沿上述两类数列，正弦项为零，而第二项的绝对值为
+\[
+ n x^{m-n-1}\longrightarrow\infty,
+\]
+且符号交替。因此导函数在 \(0\) 的每个邻域内无界。三种情形已经穷尽 \(m>1\) 的可能。
+\end{solution}
+
+\begin{solution}{bounded-derivative-cluster-set}
+对 \(x\ne0\)，
+\[
+ f'(x)=2x\sin(1/x)-\cos(1/x).
+\]
+若 \(x_k\to0\) 且 \(f'(x_k)\to L\)，由于第一项趋于 \(0\)，而第二项始终属于 \([-1,1]\)，必有 \(L\in[-1,1]\)。
+
+反过来，任取 \(L\in[-1,1]\)。选 \(\theta\in[0,2\pi]\) 使 \(-\cos\theta=L\)，并令
+\[
+ x_k=\frac1{\theta+2\pi k}
+\]
+（若有一个分母为零，删去该项）。则 \(x_k\to0\)，且
+\[
+ f'(x_k)
+ =2x_k\sin\theta-\cos\theta
+ \longrightarrow L.
+\]
+故每个 \(L\in[-1,1]\) 都是聚值，聚值集合恰为 \([-1,1]\)。
+\end{solution}
+
+\begin{solution}{unbounded-derivative-full-range}
+已知
+\[
+ g'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2)
+ \qquad(x\ne0).
+\]
+令
+\[
+ u_n=(2\pi n)^{-1/2},
+ \qquad
+ v_n=((2n+1)\pi)^{-1/2}.
+\]
+则 \(g'(u_n)=-2/u_n\to-\infty\)，而 \(g'(v_n)=2/v_n\to+\infty\)。给定 \(\delta>0\) 与 \(M\in\R\)，可取充分大的 \(n\)，使 \(u_n,v_n\in(0,\delta)\) 且
+\[
+ g'(u_n)<M<g'(v_n).
+\]
+由于 \(g'\) 是导函数，Darboux 定理保证连接 \(u_n,v_n\) 的开区间中存在 \(c\)，使 \(g'(c)=M\)。因此任意实数 \(M\) 都属于 \(g'((0,\delta))\)，所求像集等于 \(\R\)。
+\end{solution}
+
+\begin{solution}{endpoint-darboux-version}
+设 \(\lambda\) 严格介于 \(f'_+(a)\) 与 \(f'_-(b)\) 之间，并令
+\[
+ \varphi(x)=f(x)-\lambda x.
+\]
+若 \(f'_+(a)<\lambda<f'_-(b)\)，则
+\[
+ \varphi'_+(a)<0<\varphi'_-(b).
+\]
+右差商为负说明 \(a\) 不是 \(\varphi\) 在 \([a,b]\) 上的最小值点；左差商为正且增量为负，说明 \(b\) 也不是最小值点。连续函数 \(\varphi\) 在闭区间上取得最小值，故某个最小值点 \(c\) 位于 \((a,b)\)。Fermat 定理给出
+\[
+ 0=\varphi'(c)=f'(c)-\lambda.
+\]
+若端点导数的次序相反，则两个端点均不是最大值点；在内点最大值处应用 Fermat 定理得到同样结论。
+\end{solution}
+
+\begin{solution}{monotone-darboux-continuity}
+只讨论非递减情形，非递增时对 \(-h\) 应用结论。设 \(a\) 是定义区间的内点，并记
+\[
+ L=\sup\{h(x):x\in J,\ x<a\},
+ \qquad
+ R=\inf\{h(x):x\in J,\ x>a\}.
+\]
+由单调性，\(L\le h(a)\le R\)。若 \(L<h(a)\)，取 \(L<\lambda<h(a)\)。任取一个 \(x<a\)，有 \(h(x)\le L<\lambda<h(a)\)。Darboux 性质在 \([x,a]\) 上给出 \(c\in(x,a)\) 使 \(h(c)=\lambda\)，这与 \(L\) 是左侧值集的上确界矛盾。因此 \(L=h(a)\)。同理，若 \(h(a)<R\)，在 \([a,y]\) 上使用介值性将与 \(R\) 的定义矛盾，故 \(R=h(a)\)。
+
+单调函数的左极限等于上述上确界，右极限等于上述下确界，所以
+\[
+ \lim_{x\to a-}h(x)=h(a)=\lim_{x\to a+}h(x).
+\]
+于是 \(h\) 在每个内点连续。若定义区间含端点，同一上确界或下确界论证给出相应单侧连续性。因此 \(h\) 在整个定义区间上连续。
+\end{solution}
+
+\begin{solution}{one-sided-limit-darboux}
+只证右极限。设扩充实数右极限存在。若它是有限数 \(L\ne h(a)\)，取严格介于 \(L\) 与 \(h(a)\) 之间的 \(\lambda\)。可取 \(x_n\downarrow a\)，使 \(h(x_n)\) 与 \(L\) 位于 \(\lambda\) 的同一侧，而 \(h(a)\) 位于另一侧。Darboux 性质给出 \(c_n\in(a,x_n)\) 使 \(h(c_n)=\lambda\)。此时 \(c_n\to a+\)，故一方面 \(h(c_n)\to L\)，另一方面 \(h(c_n)\) 恒等于 \(\lambda\ne L\)，矛盾。因此有限右极限只能是 \(h(a)\)。
+
+若右极限为 \(+\infty\)，取 \(\lambda>h(a)\)，并另取任意 \(x_n\downarrow a\)、\(x_n>a\)。对充分大的 \(n\)，\(h(x_n)>\lambda\)，介值性仍产生 \(c_n\to a+\) 且 \(h(c_n)=\lambda\)，与 \(h(c_n)\to+\infty\) 矛盾。右极限为 \(-\infty\) 时取 \(\lambda<h(a)\) 并使用同样的点列。左极限的证明相同。
+\end{solution}
+
+\begin{solution}{rational-valued-derivative}
+Darboux 定理说明 \(f'(I)\) 是区间。若该区间含两个不同实数 \(p<q\)，它就包含 \([p,q]\)，从而包含无理数；这与 \(f'(I)\subset\Q\) 矛盾。因此 \(f'(I)\) 只能是单点集，记 \(f'\equiv c\)。
+
+任取 \(x<y\) 于 \(I\)，中值定理给出 \(\xi\in(x,y)\)，使
+\[
+ f(y)-f(x)=f'(\xi)(y-x)=c(y-x).
+\]
+故 \(f(x)-cx\) 为常数，\(f(x)=cx+d\)，即 \(f\) 是仿射函数。
+\end{solution}
+
+\begin{solution}{avoided-slope-monotonicity}
+令
+\[
+ F(x)=f(x)-\lambda x.
+\]
+则 \(F'(x)=f'(x)-\lambda\ne0\)。若 \(F'\) 在两点异号，Darboux 定理将迫使它在两点之间取值 \(0\)，矛盾。因此 \(F'\) 保持正号或保持负号。中值定理随即说明 \(F\) 严格递增或严格递减，即 \(f(x)-\lambda x\) 严格单调。
+\end{solution}
+
+\begin{solution}{derivative-first-kind-exclusion}
+设 \(h=f'\)，并设 \(a\) 为定义区间内点。若 \(a\) 是 \(h\) 的可去间断点，则两个有限单侧极限存在且相等。Darboux 函数的单侧极限定理说明它们都必须等于 \(h(a)\)，于是 \(h\) 实际在 \(a\) 连续，矛盾。
+
+若 \(a\) 是跳跃间断点，则两个有限单侧极限存在但不相等；同一定理却说明二者都等于 \(h(a)\)，仍然矛盾。因此两类间断都不可能出现。
+
+最后，若 \(h\) 在 \(a\) 不连续而右极限存在，则该右极限等于 \(h(a)\)。如果左极限也存在，它同样等于 \(h(a)\)，两侧极限与函数值相同将推出 \(h\) 在 \(a\) 连续。故左极限必不存在。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{prescribed-cluster-interval}
+令
+\[
+ c=\frac{A+B}{2},
+ \qquad
+ d=\frac{B-A}{2}>0,
+\]
+并定义
+\[
+ f(0)=0,
+ \qquad
+ f(x)=cx+d x^2\sin(1/x)\quad(x\ne0).
+\]
+在原点，
+\[
+ \frac{f(h)-f(0)}h=c+d h\sin(1/h)\longrightarrow c,
+\]
+故 \(f'(0)=c\)。在 \(x\ne0\) 处，
+\[
+ f'(x)=c+d\bigl(2x\sin(1/x)-\cos(1/x)\bigr).
+\]
+括号内在 \(0\) 的聚值集合是 \([-1,1]\)：第一项趋于 \(0\)，而 \(-\cos(1/x)\) 的每个 \([-1,1]\) 值都可沿适当数列逼近。因此 \(f'\) 在 \(0\) 的聚值集合为
+\[
+ c+d[-1,1]=[c-d,c+d]=[A,B].
+\]
+\end{solution}
+
+\begin{solution}{injective-darboux-continuity}
+先证明一个保序性质：对任意 \(a<b<c\)，数 \(h(b)\) 必严格介于 \(h(a)\) 与 \(h(c)\) 之间。三个函数值因单射而两两不同。若 \(h(b)\) 不在另两个值之间，则 \(h(a)\) 严格介于 \(h(b),h(c)\) 之间，或 \(h(c)\) 严格介于 \(h(a),h(b)\) 之间。第一种情形由 Darboux 性质在 \((b,c)\) 内产生另一点取值 \(h(a)\)，第二种情形在 \((a,b)\) 内产生另一点取值 \(h(c)\)，均与单射矛盾。
+
+取 \(x_1<x_2\)。不妨设 \(h(x_1)<h(x_2)\)。刚证的性质先给出
+\[
+ \begin{array}{ll}
+  z<x_1 &\Longrightarrow h(z)<h(x_1),\\
+  x_1<z<x_2 &\Longrightarrow h(x_1)<h(z)<h(x_2),\\
+  z>x_2 &\Longrightarrow h(z)>h(x_2).
+ \end{array}
+\]
+例如在 \(z<x_1<x_2\) 中，\(h(x_1)\) 介于 \(h(z),h(x_2)\) 之间，而 \(h(x_1)<h(x_2)\)，故只能有 \(h(z)<h(x_1)\)；其余两项相同。
+
+再取任意 \(y<z\)。若二者都在 \(x_1\) 左侧、都在 \(x_1,x_2\) 之间或都在 \(x_2\) 右侧，把相应锚点与 \(y,z\) 组成三点，再用上述保序性质便得 \(h(y)<h(z)\)；若二者分处不同区域，刚才三行不等式直接给出同一结论。因此 \(h\) 严格递增。若最初 \(h(x_1)>h(x_2)\)，则对 \(-h\) 应用同一论证，得到 \(h\) 严格递减。
+
+单调且具有 Darboux 性质的函数连续，故 \(h\) 连续。若 \(h=f'\) 且 \(f'\) 单射，Darboux 定理先给出 \(f'\) 的 Darboux 性质，以上结论再给出 \(f'\) 连续。
+\end{solution}
+
+\begin{solution}{countable-derivative-range}
+Darboux 定理说明 \(f'(I)\) 是区间。任一非退化实区间都不可数，因此至多可数的 \(f'(I)\) 只能是单点集。于是 \(f'\equiv c\)。由中值定理，任取 \(x<y\) 有
+\[
+ f(y)-f(x)=c(y-x),
+\]
+所以 \(f(x)=cx+d\)。
+\end{solution}
+
+\begin{solution}{irregular-derivative-lipschitz-function}
+函数 \(f\) 在 \([-1,1]\) 上连续、在 \((-1,1)\) 上可导，并且
+\[
+ f'(0)=0,
+ \qquad
+ f'(x)=2x\sin(1/x)-\cos(1/x)\quad(x\ne0).
+\]
+于是对所有 \(x\in(-1,1)\)，
+\[
+ |f'(x)|\le3.
+\]
+任取 \(x<y\) 于 \([-1,1]\)，中值定理给出 \(\xi\in(x,y)\)，使
+\[
+ |f(y)-f(x)|=|f'(\xi)|\,|y-x|\le3|y-x|.
+\]
+故 \(f\) 是 Lipschitz 函数。另一方面，沿两列趋于 \(0\) 的点，\(f'\) 分别恒取 \(-1\) 与 \(1\)，所以 \(f'\) 在 \(0\) 不连续。由此可见，函数的 Lipschitz 性并不要求其导函数连续。
+\end{solution}
+
+\begin{solution}{unbounded-derivative-uniform-function}
+当 \(x\to0\) 时，
+\[
+ |g(x)|=|x^2\sin(1/x^2)|\le x^2\longrightarrow0=g(0),
+\]
+故 \(g\) 在 \(0\) 连续；在非零点它由初等连续函数复合而成。因此 \(g\) 在闭区间 \([-1,1]\) 上连续，由 Heine--Cantor 定理，\(g\) 在该区间上一致连续。
+
+但
+\[
+ g'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2)
+\]
+在趋于 \(0\) 的两列点上分别趋于 \(+\infty\) 与 \(-\infty\)，故在每个原点邻域内无界。Heine--Cantor 定理的对象是连续函数 \(g\)，结论也是 \(g\) 的一致连续性；它没有断言导函数 \(g'\) 有界或连续，所以不存在矛盾。
+\end{solution}
+
+\begin{solution}{persistent-interval-discontinuity}
+由 \(h\) 在 \(a\) 不连续，存在 \(\varepsilon>0\) 与 \(x_n\to a\)，使
+\[
+ |h(x_n)-h(a)|\ge\varepsilon.
+\]
+在两个集合
+\[
+ \{n:h(x_n)\ge h(a)+\varepsilon\},
+ \qquad
+ \{n:h(x_n)\le h(a)-\varepsilon\}
+\]
+中至少有一个无限。取相应子列。
+
+若第一集合无限，令
+\[
+ L=\left[h(a)+\frac{\varepsilon}{3},
+          h(a)+\frac{2\varepsilon}{3}\right].
+\]
+任给 \(a\) 的邻域 \(U\)，取 \(\delta>0\) 使 \((a-\delta,a+\delta)\subset U\)。充分大的 \(n\) 满足 \(x_n\in(a-\delta,a+\delta)\cap J\)，连接 \(a,x_n\) 的整个闭区间也包含在 \(U\cap J\) 中。对每个 \(\lambda\in L\)，数 \(\lambda\) 严格介于 \(h(a)\) 与 \(h(x_n)\) 之间，故 Darboux 性质给出该闭区间内一点 \(c\) 使 \(h(c)=\lambda\)。所以 \(L\subset h(U\cap J)\)。
+
+若第二集合无限，则改取
+\[
+ L=\left[h(a)-\frac{2\varepsilon}{3},
+          h(a)-\frac{\varepsilon}{3}\right]
+\]
+并作相同论证。两种情况下 \(L\) 都是非退化闭区间。
+
+若 \(h=f'\)，Darboux 定理保证 \(h\) 满足题设的介值性，因此以上结论逐字适用：任一导函数间断点附近，都有一段固定的导数值在每个邻域内出现。
+\end{solution}

@@ -20,6 +20,17 @@
 | 上极限、下极限 | limit superior, limit inferior | 分别写 `\limsup`、`\liminf` |
 | 一致连续 | uniformly continuous | 与“连续函数族一致”无关 |
 | 连续模 | modulus of continuity | 定义域非空；允许取 `+\infty` |
+| 局部线性化 | local linearization | 一元情形写成 `f(a+h)=f(a)+Ah+o(h)`；线性主部唯一 |
+| Fréchet 微分 | Fréchet differential | 第14章先给一元有限维版本；后续多元与赋范空间中推广 |
+| 小 \(o\)、大 \(O\) | little-o, big-O | 必须写明趋近方式；不把等式当作普通代数恒等式 |
+| Darboux 定理 | Darboux's theorem | 本书指导函数具有介值性，不简称为一般介值定理 |
+| Taylor 多项式 | Taylor polynomial | 与 Taylor 级数、实解析性分开讨论 |
+| Peano 余项 | Peano remainder | 记作 `o((x-a)^n)`；与 Lagrange、Cauchy、积分余项区分 |
+| 实解析函数 | real-analytic function | 局部等于自己的 Taylor 级数；不等同于 \(C^\infty\) |
+| 凸函数 | convex function | 定义域须为区间；“严格凸”不等同于处处二阶导数为正 |
+| 次梯度 | subgradient | 一维凸函数在内点的全体次梯度构成 `\partial f(x)` |
+| 凸共轭 | convex conjugate | 记作 \(f^*\)，允许取扩充实值；亦称 Legendre--Fenchel 共轭 |
+| Fenchel--Young 不等式 | Fenchel--Young inequality | 等号条件以次梯度表述 |
 | 紧致 | compact | 当前实线章节先以有限覆盖性质出现，后续度量空间中给一般定义 |
 | 单位分解 | partition of unity | 流形部分统一采用此译名，不使用“分割统一” |
 | Vitali 收敛定理 | Vitali convergence theorem | 实分析中指依测度收敛加一致可积性推出 \(L^1\) 收敛的定理 |

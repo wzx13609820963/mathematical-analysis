@@ -1,0 +1,701 @@
+\chapter{导数与线性化}
+\label{chap:derivative-linearization}
+
+函数极限只描述函数值最终靠近哪里，导数还要比较输入误差与输出误差的首要比例。差商
+\[
+ \frac{f(x)-f(a)}{x-a}
+\]
+若趋于有限数 \(A\)，就意味着在 \(a\) 附近，增量 \(f(a+h)-f(a)\) 可以写成线性部分 \(Ah\) 与一个相对于 \(h\) 可忽略的余项之和。这个表述把求导从一个极限计算转化为局部线性逼近，并能直接导出微分法则、误差估计和反函数求导公式。
+
+本章只讨论一元实函数。定义允许自变量沿给定子集趋近，因此也包含区间端点的单侧导数；称为 Fréchet 微分时则明确把定义域取为实线中的开集。高等数学中熟悉的求导公式不再逐项重算，重点放在公式成立所需的局部条件，以及等价无穷小何时能够安全代换。
+
+\section{差商、可导性与局部线性化}
+
+\subsection{相对于定义域的导数}
+
+设 \(D\subset\R\)，\(a\in D\)，并假定 \(a\) 是 \(D\) 的聚点。聚点条件排除了孤立点；若 \(a\) 孤立，删心邻域中没有可供比较的自变量，任意数都会空泛地满足差商极限条件。
+
+\begin{definition}[导数]
+若有限极限
+\[
+ \lim_{\substack{x\to a\\x\in D,\ x\ne a}}
+ \frac{f(x)-f(a)}{x-a}
+\]
+存在，则称 \(f:D\to\R\) 在 \(a\) 处相对于 \(D\) \term{可导}，该极限称为 \(f\) 在 \(a\) 处的\term{导数}，记作 \(f'(a)\)。
+\end{definition}
+
+令 \(h=x-a\)。导数也可写成
+\[
+ f'(a)=\lim_{\substack{h\to0\\a+h\in D,\ h\ne0}}
+ \frac{f(a+h)-f(a)}{h}.
+\]
+当 \(a\) 是区间的内点时，\(h\) 从正负两侧趋于零；当 \(D=[a,b)\) 时，只允许充分小的正 \(h\)，所得导数就是通常的右导数。定义域是导数数据的一部分。例如 \(f(x)=|x|\) 在 \(\R\) 上于 \(0\) 不可导，但其限制 \(f:[0,\infty)\to\R\) 在 \(0\) 处的相对导数为 \(1\)。
+
+导数的唯一性直接来自函数极限的唯一性。导数还具有局部性：若 \(f,g\) 在 \(a\) 的某个相对邻域中相等，包括 \(f(a)=g(a)\)，则二者在 \(a\) 处或者同时不可导，或者导数相等。邻域以外的函数值不参与差商极限。
+
+\begin{example}
+常值函数的差商恒为 \(0\)，故导数为 \(0\)；恒等函数的差商恒为 \(1\)，故导数为 \(1\)。对正整数 \(m\)，恒等式
+\[
+ x^m-a^m=(x-a)\sum_{j=0}^{m-1}x^{m-1-j}a^j
+\]
+和有限和的极限法则给出
+\[
+ (x^m)'\big|_{x=a}=ma^{m-1}.
+\]
+当 \(m=1\) 时右端按导数为 \(1\) 理解。这里使用的是代数分解与连续性，不需要预先引用一般求导法则。
+\end{example}
+
+\subsection{差商极限与余项}
+
+差商极限可以改写成一个不再含商的增量公式。这个改写在多元微分中仍然成立，而“除以 \(x-a\)”只是一维中的特殊便利。
+
+\begin{theorem}[可导与局部线性化]
+\label{thm:derivative-linearization}
+设 \(a\in D\subset\R\) 且 \(a\) 是 \(D\) 的聚点。函数 \(f:D\to\R\) 在 \(a\) 处可导且 \(f'(a)=A\)，当且仅当存在定义在
+\[
+ H_a:=\{h\in\R:a+h\in D\}
+\]
+上的函数 \(r\)，满足 \(r(0)=0\)、
+\[
+ \lim_{\substack{h\to0\\h\in H_a,\ h\ne0}}
+ \frac{|r(h)|}{|h|}=0,
+\]
+并且
+\[
+ f(a+h)=f(a)+Ah+r(h)\qquad(h\in H_a).
+\]
+此时线性系数 \(A\) 唯一。
+\end{theorem}
+
+\begin{proof}
+若 \(f'(a)=A\)，定义
+\[
+ r(h)=f(a+h)-f(a)-Ah\qquad(h\in H_a).
+\]
+由定义有 \(r(0)=0\)。对非零 \(h\in H_a\)，
+\[
+ \frac{|r(h)|}{|h|}
+ =\left|\frac{f(a+h)-f(a)}{h}-A\right|\longrightarrow0.
+\]
+于是得到所需分解。
+
+反之，由分解式可得
+\[
+ \frac{f(a+h)-f(a)}h=A+\frac{r(h)}h.
+\]
+而
+\[
+ \left|\frac{r(h)}h\right|=\frac{|r(h)|}{|h|}\longrightarrow0,
+\]
+故差商趋于 \(A\)。若另一个系数 \(B\) 也满足同类分解，差商既趋于 \(A\) 又趋于 \(B\)，由极限唯一性有 \(A=B\)。
+\end{proof}
+
+以后把条件 \(|r(h)|/|h|\to0\) 简记为
+\[
+ r(h)=o(h)\qquad(h\to0).
+\]
+这里的 \(o(h)\) 不是某个固定函数，而是“余项相对于 \(|h|\) 可以任意小”的关系；\sectionref{sec:asymptotic-notation-error-propagation}将给出一般定义和运算法则。线性化公式于是写成
+\[
+ f(a+h)=f(a)+f'(a)h+o(h).
+\]
+
+\begin{theorem}[可导推出连续]
+若 \(f:D\to\R\) 在聚点 \(a\in D\) 处可导，则 \(f\) 在 \(a\) 处相对于 \(D\) 连续。
+\end{theorem}
+
+\begin{proof}
+由线性化公式，
+\[
+ f(a+h)-f(a)=f'(a)h+r(h).
+\]
+第一项随 \(h\to0\) 趋于零。由 \(r(h)=o(h)\)，取精度 \(1\) 即知充分小时 \(|r(h)|\le |h|\)，所以第二项也趋于零。因此 \(f(a+h)\to f(a)\)。
+\end{proof}
+
+逆命题不成立。绝对值函数在 \(0\) 连续，但左右差商分别恒为 \(-1\) 与 \(1\)。连续性只要求函数增量趋于零，可导性还要求该增量除以输入增量后具有唯一极限。
+
+非零导数给出更精确的局部比较。
+
+\begin{proposition}[非零线性项的控制]
+若 \(f'(a)=A\ne0\)，则存在相对邻域，使其中每个非零允许增量 \(h\) 都满足
+\[
+ \frac{|A|}{2}|h|
+ \le |f(a+h)-f(a)|
+ \le \frac{3|A|}{2}|h|.
+\]
+并且 \(f(a+h)-f(a)\) 与 \(Ah\) 同号。
+\end{proposition}
+
+\begin{proof}
+在线性化公式中取邻域使 \(|r(h)|\le |A||h|/2\)。三角不等式和反三角不等式分别给出两个界。又因
+\[
+ \left|\frac{f(a+h)-f(a)}h-A\right|<\frac{|A|}{2},
+\]
+差商与 \(A\) 同号，故函数增量与 \(Ah\) 同号。
+\end{proof}
+
+这项命题只比较 \(a\) 与邻近点，尚未比较邻域中任意两点。因此不能仅由 \(f'(a)\ne0\) 宣布 \(f\) 在某个邻域严格单调或存在局部逆映射。反函数求导必须另外说明逆映射确实存在并在对应点连续。
+
+\section{微分、连续性与一元 Fréchet 形式}
+
+\subsection{微分是线性映射}
+
+设 \(U\subset\R\) 为开集，\(a\in U\)。开性保证所有充分小的正负增量 \(h\) 都使 \(a+h\in U\)。
+
+\begin{definition}[一元 Fréchet 可微]
+若存在线性映射 \(L:\R\to\R\)，使
+\[
+ \lim_{h\to0}
+ \frac{|f(a+h)-f(a)-L(h)|}{|h|}=0,
+\]
+则称 \(f:U\to\R\) 在 \(a\) 处 Fréchet 可微，称 \(L\) 为 \(f\) 在 \(a\) 处的\term{微分}，记作 \(df(a)\)。
+\end{definition}
+
+实线上的线性映射没有额外的自由度：若 \(L:\R\to\R\) 线性，令 \(A=L(1)\)，则
+\[
+ L(h)=L(h\cdot1)=hL(1)=Ah.
+\]
+因此，当定义域在 \(a\) 的某邻域内为开集时，前一定义与通常的双侧差商定义完全等价，并且
+\[
+ df(a)[h]=f'(a)h.
+\]
+传统记号 \(dy=f'(a)\,dx\) 应理解为线性映射之间的坐标表达：\(dx[h]=h\)，而 \(dy=df(a)[h]\)。它不是把 \(dx\) 当作一个固定的“无穷小实数”。
+
+在任意相对定义域 \(D\) 上，\theoremref{thm:derivative-linearization}仍给出同样的线性余项形式；开集条件只是使它与通常的 Fréchet 定义完全一致。进入多元分析后，线性映射不再由一个数决定，保留 \(df(a)\) 而不只保留若干差商就会成为必要步骤。
+
+\subsection{代数法则}
+
+线性化可以同时处理多项运算。以下各函数均在同一聚点 \(a\) 处相对于共同定义域可导。
+
+\begin{theorem}[导数的代数法则]
+设 \(f'(a)=A\)、\(g'(a)=B\)，\(c\in\R\)。则
+\[
+ (f+g)'(a)=A+B,
+ \qquad (cf)'(a)=cA,
+\]
+\[
+ (fg)'(a)=f(a)B+g(a)A.
+\]
+若 \(g(a)\ne0\)，则 \(g\) 在 \(a\) 的某相对邻域内非零，且
+\[
+ \left(\frac fg\right)'(a)
+ =\frac{A g(a)-f(a)B}{g(a)^2}.
+\]
+\end{theorem}
+
+\begin{proof}
+写成
+\[
+ f(a+h)=f(a)+Ah+r(h),\qquad
+ g(a+h)=g(a)+Bh+s(h),
+\]
+其中 \(r(h)=o(h)\)、\(s(h)=o(h)\)。相加与数乘立即给出前两式。
+
+对乘积展开：
+\begin{align*}
+ f(a+h)g(a+h)-f(a)g(a)
+ &=\bigl(f(a)B+g(a)A\bigr)h\\
+ &\quad+f(a)s(h)+g(a)r(h)\\
+ &\quad+ABh^2+Ah\,s(h)+Bh\,r(h)+r(h)s(h).
+\end{align*}
+前两项余量是 \(o(h)\)。又因 \(r(h)/h\to0\)、\(s(h)/h\to0\)，最后四项除以 \(|h|\) 后也趋于零，故乘积的线性系数如上。
+
+若 \(g(a)\ne0\)，可导性推出连续性，因而充分靠近 \(a\) 时 \(|g(a+h)|\ge |g(a)|/2\)。先考察倒数：
+\[
+ \frac{g(a+h)^{-1}-g(a)^{-1}}h
+ =-\frac1{g(a+h)g(a)}
+   \frac{g(a+h)-g(a)}h
+ \longrightarrow-\frac{B}{g(a)^2}.
+\]
+再对 \(f\cdot(1/g)\) 使用乘积法则，得到商法则。
+\end{proof}
+
+分母条件是局部条件 \(g(a)\ne0\)，而不是要求 \(g\) 在整个定义域无零点。连续性自动把点上的非零值扩展成一个局部正下界。
+
+\subsection{链式法则}
+
+链式法则需要同时追踪两个尺度：输入增量 \(h\)，以及中间变量增量 \(k=f(a+h)-f(a)\)。内层可导性保证 \(k=O(h)\)，所以外层相对于 \(k\) 可忽略的余项，在复合后也相对于 \(h\) 可忽略。
+
+\begin{theorem}[一元链式法则]
+\label{thm:one-dimensional-chain-rule}
+设 \(f:D\to E\subset\R\) 在 \(a\in D\) 处可导，\(b=f(a)\)，并设 \(g:E\to\R\) 在 \(b\) 处可导。则 \(g\circ f\) 在 \(a\) 处可导，且
+\[
+ (g\circ f)'(a)=g'(b)f'(a).
+\]
+这里的趋近均相对于相应定义域理解。
+\end{theorem}
+
+\begin{proof}
+记 \(A=f'(a)\)、\(B=g'(b)\)。有
+\[
+ f(a+h)=b+Ah+r(h),\qquad r(h)=o(h).
+\]
+令 \(k(h)=f(a+h)-b\)。由上式，存在常数 \(C>0\)，使充分小时
+\[
+ |k(h)|\le C|h|.
+\]
+外层线性化写为
+\[
+ g(b+k)=g(b)+Bk+s(k),\qquad s(k)=o(k),\quad s(0)=0.
+\]
+代入 \(k=k(h)\) 后，
+\[
+ g(f(a+h))-g(f(a))
+ =BAh+B r(h)+s(k(h)).
+\]
+固定常数乘法保持小 \(o\)，故 \(B r(h)=o(h)\)。给定 \(\varepsilon>0\)，由 \(s(k)=o(k)\)，当 \(k\ne0\) 且充分小时有
+\[
+ |s(k)|\le \frac{\varepsilon}{C}|k|.
+\]
+于是 \(|s(k(h))|\le\varepsilon|h|\)；若 \(k(h)=0\)，则 \(s(k(h))=s(0)=0\)，同一估计仍成立。因此 \(s(k(h))=o(h)\)，复合的线性系数为 \(BA\)。
+\end{proof}
+
+链式法则没有要求 \(f(a+h)\ne f(a)\)。若用两个差商相乘的写法，这种相等会使中间商暂时无定义；线性化证明把该退化情形一并包含在余项中。
+
+\section{小 \texorpdfstring{\(o\)}{o}、大 \texorpdfstring{\(O\)}{O}、渐近尺度与误差传播}
+\label{sec:asymptotic-notation-error-propagation}
+
+\subsection{两个渐近关系}
+
+设 \(D\subset\R\)，\(a\) 是 \(D\) 的聚点，\(u,v:D\to\R\)。下列定义只比较 \(x\to a\) 时的局部大小，函数在远离 \(a\) 处的行为无关。
+
+\begin{definition}[小 \(o\) 与大 \(O\)]
+\label{def:little-o-big-o}
+称
+\[
+ u(x)=o(v(x))\qquad(x\to a),
+\]
+如果对每个 \(\varepsilon>0\)，存在 \(\delta>0\)，使 \(x\in D\)、\(0<|x-a|<\delta\) 时
+\[
+ |u(x)|\le\varepsilon |v(x)|.
+\]
+称
+\[
+ u(x)=O(v(x))\qquad(x\to a),
+\]
+如果存在常数 \(C\ge0\) 与 \(\delta>0\)，使同一范围内
+\[
+ |u(x)|\le C|v(x)|.
+\]
+大 \(O\) 中的常数可以依赖已经固定的函数与点 \(a\)，不能依赖正在趋近 \(a\) 的变量 \(x\)。
+\end{definition}
+
+定义允许 \(v\) 在任意多的点取零；此时不等式迫使 \(u\) 在那些点也取零。只有当 \(v\) 最终不为零时，才可改用商：
+\[
+ u=o(v)\iff \frac uv\to0,
+\]
+而
+\[
+ u=O(v)\iff \frac uv
+ \text{在某删心邻域内有界}.
+\]
+不检查分母是否最终非零就直接写商，会丢失原定义能够处理的情形。
+
+小 \(o\) 表示相对可忽略性，大 \(O\) 表示固定倍数控制。由定义，\(u=o(v)\) 推出 \(u=O(v)\)，反向不成立；例如 \(h=O(h)\) 但 \(h\ne o(h)\)。当 \(h\to0\) 且 \(0<\alpha<\beta\) 时，
+\[
+ |h|^\beta=o(|h|^\alpha),
+ \qquad |h|^\alpha=o(1).
+\]
+因此幂指数越大，趋零越快。这个次序只针对同一个趋近过程，不能脱离极限点谈“阶”。
+
+\subsection{运算法则}
+
+\begin{proposition}[渐近运算]
+在同一趋近过程中，下列各式成立：
+\begin{enumerate}
+ \item 若 \(u_1=o(v)\)、\(u_2=o(v)\)，则 \(u_1+u_2=o(v)\)；大 \(O\) 有同样结论；
+ \item 若 \(u=o(v)\)、\(p=O(q)\)，则 \(up=o(vq)\)；若两个小 \(o\) 同时成立，也仍有 \(up=o(vq)\)；
+ \item 若 \(u=o(v)\)、\(v=O(w)\)，则 \(u=o(w)\)；若 \(u=O(v)\)、\(v=O(w)\)，则 \(u=O(w)\)；
+ \item 固定常数乘法保持小 \(o\) 与大 \(O\)；非零常数还可在尺度一侧约去。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+第一项对给定 \(\varepsilon>0\) 分别用精度 \(\varepsilon/2\)，再把两个邻域取交。大 \(O\) 情形把两个界常数相加。
+
+对第二项，设充分靠近极限点时 \(|p|\le C|q|\)。若 \(C>0\)，由 \(u=o(v)\) 取
+\[
+ |u|\le\frac{\varepsilon}{C}|v|,
+\]
+便有 \(|up|\le\varepsilon|vq|\)。若 \(C=0\)，则 \(p\) 最终为零，结论更直接。两个小 \(o\) 的情形可先把其中一个看成大 \(O\)。
+
+对第三项，若 \(C>0\)，先把小 \(o\) 估计中的精度取为
+\(\varepsilon/C\)，再代入 \(|v|\le C|w|\)；若 \(C=0\)，则
+\(v\) 最终为零，而 \(u=o(v)\) 又迫使 \(u\) 最终为零。两个大
+\(O\) 的复合只需把界常数相乘。常数乘法则直接调整
+\(\varepsilon\) 或界常数。
+\end{proof}
+
+式子 \(O(v)+O(v)=O(v)\) 只是上述命题的简写：每次出现的 \(O(v)\) 可以代表不同余项，不能把它们当作同一个未知量进行消去。例如两个 \(O(v)\) 之差可能为零，也可能仍与 \(v\) 同阶。
+
+\subsection{误差传播}
+
+\begin{proposition}[有限次代数运算的误差]
+设 \(\alpha(x)\to0\)、\(\beta(x)\to0\)，并且
+\[
+ r=O(\alpha),\qquad s=O(\beta).
+\]
+则
+\[
+ r+s=O(|\alpha|+|\beta|),
+ \qquad rs=O(\alpha\beta).
+\]
+对固定常数 \(c,d\in\R\)，
+\[
+ (c+r)(d+s)
+ =cd+O(|\alpha|+|\beta|).
+\]
+若 \(d\ne0\)，则充分靠近极限点时 \(d+s\ne0\)，并且
+\[
+ \frac{c+r}{d+s}
+ =\frac cd+O(|\alpha|+|\beta|).
+\]
+特别地，若 \(r=o(\alpha)\) 且 \(c\ne0\)，则
+\[
+ \frac1{c+r}=\frac1c+o(\alpha).
+\]
+\end{proposition}
+
+\begin{proof}
+和与积来自定义及前一命题。展开
+\[
+ (c+r)(d+s)-cd=cs+dr+rs.
+\]
+前两项分别为 \(O(\beta)\)、\(O(\alpha)\)，而 \(\alpha,\beta\to0\) 使充分靠近极限点时
+\[
+ |\alpha\beta|\le |\alpha|+|\beta|.
+\]
+故总误差为 \(O(|\alpha|+|\beta|)\)。
+
+因为 \(s\to0\)，可取邻域使 \(|d+s|\ge|d|/2\)。再写
+\[
+ \frac{c+r}{d+s}-\frac cd
+ =\frac{dr-cs}{d(d+s)},
+\]
+分母有固定正下界，分子为 \(O(|\alpha|+|\beta|)\)。最后，
+\[
+ \frac1{c+r}-\frac1c=-\frac{r}{c(c+r)},
+\]
+局部分母仍有正下界；若 \(r=o(\alpha)\)，右端就是 \(o(\alpha)\)。
+\end{proof}
+
+误差估计必须随运算保留足够的尺度信息。若只知道两个量都趋于零，乘法虽然仍趋于零，却无法判断它相对于指定尺度的阶；若加法中发生抵消，结果可能比每个加数小得多。\sectionref{sec:equivalent-infinitesimal-substitution}处理的代换问题正是这种尺度损失的常见来源。
+
+\section{反函数求导}
+
+\subsection{一个最小条件版本}
+
+设 \(f\) 为单射，\(g=f^{-1}\)。形式计算
+\[
+ \frac{g(y)-g(b)}{y-b}
+ =\frac{x-a}{f(x)-f(a)},
+ \qquad y=f(x),\quad b=f(a),
+\]
+提示逆函数导数应为 \(1/f'(a)\)。要把 \(y\to b\) 转成 \(x\to a\)，需要 \(g\) 在 \(b\) 连续；单射本身并不提供这一点。
+
+\begin{theorem}[反函数求导]
+\label{thm:inverse-derivative-relative}
+设 \(D\subset\R\)，\(a\in D\) 是聚点，\(f:D\to\R\) 为单射，令
+\[
+ J=f(D),\qquad b=f(a),\qquad g=f^{-1}:J\to D.
+\]
+假设
+\begin{enumerate}
+ \item \(f\) 在 \(a\) 处相对于 \(D\) 可导；
+ \item \(f'(a)\ne0\)；
+ \item \(g\) 在 \(b\) 处相对于 \(J\) 连续。
+\end{enumerate}
+则 \(b\) 是 \(J\) 的聚点，\(g\) 在 \(b\) 处相对于 \(J\) 可导，并且
+\[
+ g'(b)=\frac1{f'(a)}.
+\]
+\end{theorem}
+
+\begin{proof}
+由 \(a\) 的聚点性可取 \(x_n\in D\setminus\{a\}\) 且 \(x_n\to a\)。可导性推出连续性，所以 \(f(x_n)\to b\)；单射性保证 \(f(x_n)\ne b\)。因此 \(b\) 是 \(J\) 的聚点。
+
+现在令 \(y\to b\)，其中 \(y\in J\setminus\{b\}\)，并置 \(x=g(y)\)。逆映射在 \(b\) 连续给出 \(x\to a\)，单射性给出 \(x\ne a\)。于是
+\[
+ \frac{g(y)-g(b)}{y-b}
+ =\frac{x-a}{f(x)-f(a)}
+ =\left(\frac{f(x)-f(a)}{x-a}\right)^{-1}.
+\]
+右端括号内趋于非零数 \(f'(a)\)，故充分靠近时其倒数有定义并趋于 \(1/f'(a)\)。
+\end{proof}
+
+条件 \(f'(a)\ne0\) 不能只解释为“避免公式分母为零”。函数 \(f(x)=x^3\) 是严格递增双射，逆函数为 \(g(y)=\sqrt[3]{y}\)，但
+\[
+ \frac{g(y)-g(0)}{y-0}=|y|^{-2/3}
+\]
+在 \(y\to0\) 时没有有限极限。原函数在零点的导数为零，逆映射在该点出现竖直切向行为。
+
+逆映射连续性也不可由单射性替代。令
+\[
+ D=\{0\}\cup\{1/n:n\ge2\}\cup\{n:n\ge2\},
+\]
+并定义
+\[
+ f(0)=0,\qquad f(1/n)=1/n,\qquad f(n)=-1/n.
+\]
+函数 \(f\) 为单射，且相对于 \(D\) 有 \(f'(0)=1\)。然而 \(f(n)=-1/n\to0\)，而
+\[
+ f^{-1}(-1/n)=n\not\to0,
+\]
+故逆映射在 \(0\) 不连续。这个例子也说明，仅有原函数在 \(a\) 处连续仍不能排除远处点的像逼近 \(f(a)\)。
+
+\subsection{严格单调区间函数}
+
+\chapterref{chap:continuity-discontinuity}已经证明：区间上的严格单调函数，其逆映射相对于像集连续。于是最小条件版本立即给出常用形式。
+
+\begin{corollary}[严格单调函数的逆导数]
+设 \(I\subset\R\) 为区间，\(f:I\to\R\) 严格单调，\(a\in I\) 是 \(I\) 的聚点。若 \(f\) 在 \(a\) 处相对于 \(I\) 可导且 \(f'(a)\ne0\)，则对 \(J=f(I)\)，逆函数 \(f^{-1}:J\to I\) 在 \(b=f(a)\) 处相对于 \(J\) 可导，并且
+\[
+ (f^{-1})'(b)=\frac1{f'(a)}.
+\]
+\end{corollary}
+
+这里不要求 \(J\) 预先是区间。若还知道 \(f\) 连续，介值定理保证 \(J\) 为区间；但反函数求导本身只需要在 \(J\) 的相对意义下取极限。
+
+\begin{example}
+在 \((0,\infty)\) 上取 \(f(x)=x^m\)，其中 \(m\in\Npos\)。它严格递增，且 \(f'(a)=ma^{m-1}\ne0\)。因此 \(g(y)=y^{1/m}\) 在每个 \(b>0\) 处可导，若 \(a=b^{1/m}\)，则
+\[
+ g'(b)=\frac1{ma^{m-1}}
+ =\frac1m b^{1/m-1}.
+\]
+若把幂函数与根函数连续延拓到闭端点 \(0\)，则当 \(m>1\) 且 \(b=0\) 时原导数为零，上述定理不适用；这正对应根函数在零点差商无界。
+\end{example}
+
+\section{等价无穷小代换的条件}
+\label{sec:equivalent-infinitesimal-substitution}
+
+\subsection{等价关系与线性化}
+
+\begin{definition}[等价无穷小]
+设 \(\alpha,\beta:D\to\R\) 在 \(x\to a\) 时都趋于 \(0\)，并假设 \(\beta\) 在某删心邻域内不为零。若
+\[
+ \frac{\alpha(x)}{\beta(x)}\longrightarrow1,
+\]
+则称 \(\alpha\) 与 \(\beta\) 在 \(x\to a\) 时为\term{等价无穷小}，记作
+\[
+ \alpha(x)\sim\beta(x).
+\]
+\end{definition}
+
+一旦比值趋于 \(1\)，\(\alpha\) 也最终非零，并且
+\[
+ \alpha\sim\beta
+ \iff \alpha-\beta=o(\beta).
+\]
+事实上
+\[
+ \frac{\alpha-\beta}{\beta}=\frac\alpha\beta-1.
+\]
+这里“最终非零”是比值定义的一部分。若尺度 \(\beta\) 有无穷多个零点，关系 \(\alpha-\beta=o(\beta)\) 仍可能有意义，但不能未经说明把它改写成等价无穷小。
+
+导数会系统地产生等价无穷小。
+
+\begin{proposition}[非零导数产生等价量]
+设 \(U\) 是 \(0\) 的一个开邻域，\(\phi:U\to\R\) 在 \(0\) 处可导，\(\phi(0)=0\)，且 \(\phi'(0)=c\ne0\)。则
+\[
+ \phi(h)\sim ch\qquad(h\to0).
+\]
+更一般地，若 \(f\) 在 \(a\) 处可导且 \(f'(a)\ne0\)，则
+\[
+ f(a+h)-f(a)\sim f'(a)h.
+\]
+\end{proposition}
+
+\begin{proof}
+线性化给出
+\[
+ \phi(h)=ch+o(h).
+\]
+除以 \(ch\) 后，余项趋于零。非零线性项控制命题保证 \(\phi(h)\) 在充分小的非零 \(h\) 处也非零。一般情形完全相同。
+\end{proof}
+
+例如，对 \(m\in\Npos\)，由代数恒等式可得
+\[
+ (1+h)^m-1\sim mh.
+\]
+又由有理化与根函数连续性，
+\[
+ \sqrt{1+h}-1
+ =\frac{h}{\sqrt{1+h}+1}
+ \sim\frac h2.
+\]
+这些等价式不是一张需要另行记忆的表：它们记录的是相应函数在基点的非零线性项。
+
+\subsection{可以代换的结构}
+
+\begin{theorem}[等价无穷小的代换]
+\label{thm:equivalent-infinitesimal-substitution}
+设 \(\alpha\sim\beta\)（\(x\to a\)）。
+\begin{enumerate}
+ \item 若 \(\gamma\) 最终非零，则
+ \[
+  \frac{\alpha\gamma}{\beta\gamma}\longrightarrow1,
+  \qquad
+  \frac{\alpha/\gamma}{\beta/\gamma}\longrightarrow1.
+  \]
+  若另有 \(\beta\gamma\to0\)，则
+  \(\alpha\gamma\sim\beta\gamma\)；若另有 \(\beta/\gamma\to0\)，则
+  \(\alpha/\gamma\sim\beta/\gamma\)。
+ \item 若 \(\gamma\) 最终非零且
+ \[
+  \frac\beta\gamma\longrightarrow L,
+  \qquad L\in\R\cup\{+\infty,-\infty\},
+ \]
+ 则 \(\alpha/\gamma\to L\)。同样，若 \(\gamma/\beta\to L\)，则 \(\gamma/\alpha\to L\)。
+ \item 设尺度 \(\rho\) 最终非零。若 \(\beta=O(\rho)\)，则
+ \[
+  \frac{\alpha-\beta}{\rho}\longrightarrow0.
+ \]
+ 因而对任意同一附加项 \(\gamma\)，只要其中一个商的极限存在，就有
+ \[
+  \frac{\alpha+\gamma}{\rho}
+  -\frac{\beta+\gamma}{\rho}\longrightarrow0,
+ \]
+ 从而两个商具有相同的极限。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+第一项中两个新比值都等于 \(\alpha/\beta\)。在相应新量趋于零时，它们才同时满足本章“等价无穷小”定义中的趋零要求。对第二项，写成
+\[
+ \frac\alpha\gamma=\frac\alpha\beta\frac\beta\gamma.
+\]
+第一因子趋于 \(1\)，且充分靠近时为正并有固定上下界，所以它既保持有限极限，也保持 \(+\infty\) 或 \(-\infty\) 的方向。倒数形式同理。
+
+第三项由 \(\alpha-\beta=o(\beta)\) 与 \(\beta=O(\rho)\) 推出 \(\alpha-\beta=o(\rho)\)，再使用小 \(o\) 的商刻画。
+\end{proof}
+
+第一、二项说明，等价无穷小可以替换一个完整的乘法因子或商中的完整因子。第三项则给出加法中的检验标准：必须把替换误差与整个问题所观察的尺度比较，不能只看被替换的两个量互相等价。
+
+\begin{counterexample}[抵消使代换失效]
+当 \(x\to0\) 时，令
+\[
+ \alpha(x)=x+x^2,\qquad\beta(x)=x.
+\]
+则 \(\alpha\sim\beta\)。但是
+\[
+ \frac{\alpha(x)-x}{x^2}=1,
+ \qquad
+ \frac{\beta(x)-x}{x^2}=0.
+\]
+把加法表达式中的 \(\alpha\) 直接替换成 \(\beta\) 改变了极限。原因是替换误差 \(\alpha-\beta=x^2\) 与最终观察的尺度 \(x^2\) 同阶，并非 \(o(x^2)\)。
+\end{counterexample}
+
+等价关系也不能在任意外层函数中无条件传递。一个常用的充分条件是外层函数在零点具有非零导数。
+
+\begin{proposition}[经过非退化外层映射]
+设 \(U\) 是 \(0\) 的一个开邻域，\(\phi:U\to\R\) 在 \(0\) 处可导并满足
+\(\phi(0)=0\)、\(\phi'(0)\ne0\)。若 \(\alpha\sim\beta\to0\)，则 \(\alpha,\beta\) 最终落在 \(U\) 中，并且
+\[
+ \phi(\alpha(x))\sim\phi(\beta(x)).
+\]
+\end{proposition}
+
+\begin{proof}
+充分靠近零点时各分母均非零，并且
+\[
+ \frac{\phi(\alpha)}{\phi(\beta)}
+ =\frac{\phi(\alpha)}{\alpha}
+  \frac{\alpha}{\beta}
+  \frac{\beta}{\phi(\beta)}.
+\]
+三个因子分别趋于 \(\phi'(0)\)、\(1\) 和 \(1/\phi'(0)\)。
+\end{proof}
+
+若 \(\phi'(0)=0\)，这个证明中的首末两个因子不再有非零极限；结论有时仍成立，例如正整数次幂会保持等价关系，但不能由本命题推出。实际计算中，先写明表达式的乘除结构或归一化尺度，再决定是否代换，比背诵“等价无穷小可以替换”更可靠。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与基本方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{relative-derivative-uniqueness} 设 \(D\subset\R\)，\(a\in D\) 是聚点。证明相对于 \(D\) 的导数若存在则唯一，并说明聚点条件为何不能删去。
+ \exerciseitem{linearization-equivalence-proof} 不引用正文定理，直接从量词定义证明：\(f'(a)=A\) 当且仅当
+ \[
+  f(a+h)=f(a)+Ah+r(h),\qquad r(h)=o(h).
+ \]
+ \exerciseitem{differentiability-implies-continuity} 用差商的局部有界性证明可导推出连续，并给出连续但不可导的函数，核对其左右差商。
+ \exerciseitem{absolute-value-one-sided} 分别把 \(f(x)=|x|\) 的定义域取为 \(\R\)、\([0,\infty)\) 与 \((-\infty,0]\)，求它在 \(0\) 处相对于各定义域的导数或说明不存在。
+ \exerciseitem{monomial-difference-quotient} 仅用因式分解与有限和极限，证明 \(m\in\Npos\) 时 \(f(x)=x^m\) 满足 \(f'(a)=ma^{m-1}\)，并单独处理 \(a=0\)。
+ \exerciseitem{differential-linear-map} 证明每个线性映射 \(L:\R\to\R\) 都有唯一形式 \(L(h)=Ah\)，并由此证明一元 Fréchet 可微与通常可导等价。
+ \exerciseitem{sum-product-rules} 从局部线性化出发证明和法则与乘积法则；证明过程中逐项指出哪些余项是 \(o(h)\)。
+ \exerciseitem{chain-rule-linearization} 完整证明一元链式法则，并说明中间增量 \(f(a+h)-f(a)\) 可能为零时证明仍然有效。
+ \exerciseitem{little-o-big-o-powers} 设 \(p,q\in\R\)。判定 \(h\to0\) 时 \(|h|^p\) 与 \(|h|^q\) 之间的小 \(o\)、大 \(O\) 关系，分别讨论 \(p>q\)、\(p=q\)、\(p<q\)。
+ \exerciseitem{quotient-criteria-asymptotics} 在尺度 \(v\) 最终非零的假设下，证明小 \(o\) 与大 \(O\) 的商判据；再解释若删去该假设，商判据会出现什么定义问题。
+\end{enumerate}
+
+\subsection*{B组　证明与条件辨析}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{asymptotic-algebra-rules} 由定义证明：若 \(u=o(v)\)、\(p=O(q)\)，则 \(up=o(vq)\)；若再有 \(v=O(w)\)，则 \(u=o(w)\)。处理大 \(O\) 常数可能为零的情形。
+ \exerciseitem{finite-error-propagation} 设 \(r=O(\alpha)\)、\(s=O(\beta)\)，且 \(\alpha,\beta\to0\)。证明
+ \[
+  (c+r)(d+s)=cd+O(|\alpha|+|\beta|),
+ \]
+并说明为何有限次误差传播中的常数可以合并，而无限次运算不能由此结论直接推出。
+ \exerciseitem{reciprocal-error-expansion} 设 \(c\ne0\)、\(\alpha\to0\)。分别证明
+ \[
+  r=O(\alpha)\Longrightarrow
+  \frac1{c+r}=\frac1c+O(\alpha),
+ \]
+以及把两个大 \(O\) 换成小 \(o\) 后的结论。
+ \exerciseitem{derivative-perturbation-stability} 设 \(f\) 在 \(a\) 处可导，\(r(a)=0\)，且 \(r(a+h)=o(h)\)。定义 \(g=f+r\)。证明 \(g\) 在 \(a\) 处可导且 \(g'(a)=f'(a)\)。
+ \exerciseitem{nonzero-slope-increment} 若 \(f'(a)=A\ne0\)，证明
+ \[
+  f(a+h)-f(a)\sim Ah,
+ \]
+并推出充分小时函数增量的双边绝对值估计。说明该结论为何只保证 \(a\) 是 \(f(a)\) 的局部唯一原像，而不自动保证整个邻域上的单射性。
+ \exerciseitem{inverse-derivative-minimal} 逐项重证反函数求导定理：先证明 \(b=f(a)\) 是像集的聚点，再证明 \(y\to b\) 时 \(x=f^{-1}(y)\to a\)，最后处理倒数极限。
+ \exerciseitem{inverse-continuity-counterexample} 对正文集合
+ \[
+  D=\{0\}\cup\{1/n:n\ge2\}\cup\{n:n\ge2\}
+ \]
+上的函数 \(f\)，验证其为单射、在 \(0\) 处连续且 \(f'(0)=1\)，但逆映射在 \(0\) 不连续。指出反函数求导证明具体在哪一步失效。
+ \exerciseitem{power-inverse-derivative} 不直接求根函数的差商。利用反函数求导定理证明：\(m\in\Npos\)、\(b>0\) 时
+ \[
+  \frac{d}{db}b^{1/m}=\frac1m b^{1/m-1}.
+ \]
+解释 \(m>1,b=0\) 时为何不能套用该定理。
+ \exerciseitem{equivalent-infinitesimal-factor} 设 \(\alpha\sim\beta\)，\(\gamma\) 最终非零。证明
+ \[
+  \frac{\alpha\gamma}{\beta\gamma}\to1,\qquad
+  \frac{\alpha/\gamma}{\beta/\gamma}\to1.
+ \]
+ 分别写出还需什么趋零条件才能把这两个结论称为等价无穷小；若 \(\beta/\gamma\to+\infty\)，证明 \(\alpha/\gamma\to+\infty\)。
+ \exerciseitem{equivalent-infinitesimal-cancellation} 验证 \(\alpha=x+x^2\sim x=\beta\)（\(x\to0\)），并分别考察
+ \[
+  \frac{\alpha}{x},\quad
+  \frac{\alpha-x}{x^2},\quad
+  \frac{\alpha+x}{x}
+ \]
+中用 \(\beta\) 替换 \(\alpha\) 后的极限，解释为何只有第二个表达式失效。
+\end{enumerate}
+
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \optionalexerciseitem{vanishing-scale-with-zeros} 定义 \(v(h)=h^2\sin^2(1/h)\)（\(h\ne0\)）、\(v(0)=0\)，并令 \(u=v^2\)。证明 \(u=o(v)\)，同时说明 \(u/v\) 在任何删心邻域都不是处处有定义。这一例怎样说明小 \(o\) 的不等式定义比商定义更一般？
+ \optionalexerciseitem{inverse-asymptotic-expansion} 设 \(y=ax+O(x^2)\)（\(x\to0\)），其中 \(a\ne0\)，并假设这一关系由某个局部可逆对应给出，且 \(x\to0\) 当且仅当 \(y\to0\)。证明
+ \[
+  x=\frac ya+O(y^2).
+ \]
+ \optionalexerciseitem{outer-map-equivalence} 设 \(U\) 是 \(0\) 的开邻域，\(\phi:U\to\R\) 在 \(0\) 处可导，\(\phi(0)=0\)，且 \(\phi'(0)=c\ne0\)。若 \(\alpha\sim\beta\to0\)，不用直接引用正文命题，证明 \(\phi(\alpha)\sim\phi(\beta)\)，并指出 \(c\ne0\) 在何处使用。
+ \exerciseitem{zero-derivative-no-order} 对每个 \(p>1\)，令 \(f_p(h)=|h|^p\)。证明 \(f_p'(0)=0\)，但对任意 \(q>p\) 都有 \(f_p(h)\ne O(|h|^q)\)。由此说明 \(f'(a)=0\) 一般只给出 \(o(h)\)，不提供统一的更高幂次阶。
+ \exerciseitem{oscillatory-remainder-derivative} 定义
+ \[
+  f(0)=0,\qquad f(h)=h^2\sin(1/h^2)\quad(h\ne0).
+ \]
+证明 \(f'(0)=0\) 且 \(f(h)=O(h^2)\)，但不存在非零常数 \(c\) 使 \(f(h)\sim c h^2\)。
+ \exerciseitem{local-data-same-derivative} 设 \(f,g:D\to\R\) 在 \(a\) 的某删心相对邻域内相等。准确说明还需包含哪一个点值条件，才能推出 \(f'(a)=g'(a)\)；若该点值条件删去，构造反例。
+ \exerciseitem{strictly-increasing-cubic-inverse} 证明 \(f(x)=x+x^3\) 在 \(\R\) 上严格递增且为到 \(\R\) 的双射。设 \(g=f^{-1}\)，不用求出 \(g\) 的显式公式，证明
+ \[
+  g'(f(a))=\frac1{1+3a^2}.
+ \]
+ \optionalexerciseitem{asymptotic-substitution-audit} 设 \(\alpha\sim\beta\)，尺度 \(\rho\) 最终非零。证明若 \(\beta=O(\rho)\)，则对任意 \(\gamma\)，只要有关商有定义，
+ \[
+  \frac{\alpha+\gamma}{\rho}
+  -\frac{\beta+\gamma}{\rho}\longrightarrow0.
+ \]
+再构造一个 \(\beta\ne O(\rho)\) 且代换改变极限的例子。
+\end{enumerate}

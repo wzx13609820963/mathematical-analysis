@@ -1,0 +1,525 @@
+\chapter{导数与线性化：习题解答}
+
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
+
+\begin{solution}{relative-derivative-uniqueness}
+若 \(A,B\) 都是相对于 \(D\) 的导数，则同一个差商函数
+\[
+ q(x)=\frac{f(x)-f(a)}{x-a},
+ \qquad x\in D\setminus\{a\},
+\]
+在 \(x\to a\) 时既趋于 \(A\) 又趋于 \(B\)。因为 \(a\) 是 \(D\) 的聚点，函数极限唯一性适用，故 \(A=B\)。
+
+若 \(a\) 是孤立点，则存在 \(\delta>0\) 使
+\[
+ D\cap\{x:0<|x-a|<\delta\}=\varnothing.
+\]
+此时对任意 \(A\in\R\) 和任意 \(\varepsilon>0\)，差商落在 \((A-\varepsilon,A+\varepsilon)\) 的要求都空泛成立；定义不能选出唯一导数。因此必须排除孤立点。
+\end{solution}
+
+\begin{solution}{linearization-equivalence-proof}
+若 \(f'(a)=A\)，在允许的增量集合上定义
+\[
+ r(h)=f(a+h)-f(a)-Ah,\qquad r(0)=0.
+\]
+对 \(h\ne0\)，
+\[
+ \frac{|r(h)|}{|h|}
+ =\left|\frac{f(a+h)-f(a)}h-A\right|\longrightarrow0,
+\]
+所以 \(r(h)=o(h)\)，且所需分解成立。
+
+反之，若
+\[
+ f(a+h)-f(a)=Ah+r(h),\qquad r(h)=o(h),
+\]
+则
+\[
+ \frac{f(a+h)-f(a)}h
+ =A+\frac{r(h)}h.
+\]
+小 \(o\) 定义给出
+\[
+ \left|\frac{r(h)}h\right|
+ =\frac{|r(h)|}{|h|}\longrightarrow0,
+\]
+故差商趋于 \(A\)，即 \(f'(a)=A\)。
+\end{solution}
+
+\begin{solution}{differentiability-implies-continuity}
+设差商趋于 \(A=f'(a)\)。收敛函数局部有界，所以存在 \(M>0\) 与相对删心邻域，使
+\[
+ \left|\frac{f(x)-f(a)}{x-a}\right|\le M.
+\]
+因此
+\[
+ |f(x)-f(a)|\le M|x-a|\longrightarrow0,
+\]
+这正是 \(f\) 在 \(a\) 处连续。
+
+反向可取 \(f(x)=|x|\)、\(a=0\)。它在零点连续，但 \(x>0\) 时差商为 \(1\)，\(x<0\) 时差商为 \(-1\)。两条单侧极限不同，故双侧导数不存在。
+\end{solution}
+
+\begin{solution}{absolute-value-one-sided}
+在定义域 \(\R\) 上，
+\[
+ \frac{|h|-|0|}{h}
+ =\begin{cases}
+  1,&h>0,\\
+  -1,&h<0.
+ \end{cases}
+\]
+故零点双侧不可导。在 \([0,\infty)\) 上只允许 \(h\to0+\)，差商恒为 \(1\)，相对导数为 \(1\)。在 \((-\infty,0]\) 上只允许 \(h\to0-\)，差商恒为 \(-1\)，相对导数为 \(-1\)。这三个答案的差异来自定义域中允许的趋近方向。
+\end{solution}
+
+\begin{solution}{monomial-difference-quotient}
+若 \(x\ne a\)，因式分解给出
+\[
+ \frac{x^m-a^m}{x-a}
+ =x^{m-1}+x^{m-2}a+\cdots+xa^{m-2}+a^{m-1}.
+\]
+当 \(x\to a\) 时，右端的 \(m\) 项都趋于 \(a^{m-1}\)，故极限为 \(ma^{m-1}\)。
+
+当 \(a=0\) 时也可直接核对：差商为 \(x^{m-1}\)。若 \(m=1\)，其极限为 \(1\)；若 \(m\ge2\)，其极限为 \(0\)。这与 \(m0^{m-1}\) 一致，其中 \(m=1\) 时按 \(x^1\) 的直接计算理解，不需要调用含 \(0^0\) 的形式。
+\end{solution}
+
+\begin{solution}{differential-linear-map}
+令 \(A=L(1)\)。对任意 \(h\in\R\)，由实线性性
+\[
+ L(h)=L(h\cdot1)=hL(1)=Ah.
+\]
+若也有 \(L(h)=Bh\)，取 \(h=1\) 得 \(A=B\)，所以表示唯一。
+
+若 \(f\) Fréchet 可微，则相应线性映射为 \(L(h)=Ah\)，从而
+\[
+ \frac{|f(a+h)-f(a)-Ah|}{|h|}\to0.
+\]
+由线性化等价式，通常导数存在且等于 \(A\)。反之，若 \(f'(a)=A\)，局部线性化给出同一极限，所以 \(L(h)=Ah\) 就是 Fréchet 微分。
+\end{solution}
+
+\begin{solution}{sum-product-rules}
+写成
+\[
+ f(a+h)=f(a)+Ah+r(h),\qquad
+ g(a+h)=g(a)+Bh+s(h),
+\]
+其中 \(r=o(h)\)、\(s=o(h)\)。相加得到
+\[
+ (f+g)(a+h)=(f+g)(a)+(A+B)h+r(h)+s(h),
+\]
+而 \(r+s=o(h)\)，故和的导数为 \(A+B\)。
+
+对乘积，
+\begin{align*}
+ f(a+h)g(a+h)-f(a)g(a)
+ &=\bigl(f(a)B+g(a)A\bigr)h\\
+ &\quad+f(a)s+g(a)r+ABh^2+Ah\,s+Bh\,r+rs.
+\end{align*}
+前两项余量是固定常数乘小 \(o(h)\)。此外
+\[
+ h^2=o(h),\qquad h\,s=o(h),\qquad h\,r=o(h),
+\]
+而 \(rs=o(h^2)=o(h)\)。所以全部余项之和为 \(o(h)\)，乘积导数为 \(f(a)B+g(a)A\)。
+\end{solution}
+
+\begin{solution}{chain-rule-linearization}
+记 \(A=f'(a)\)、\(B=g'(f(a))\)，并令 \(b=f(a)\)。有
+\[
+ f(a+h)=b+Ah+r(h),\qquad r=o(h).
+\]
+令 \(k(h)=Ah+r(h)\)。因为 \(r(h)/h\to0\)，存在 \(C>0\) 使 \(|k(h)|\le C|h|\)。外层线性化为
+\[
+ g(b+k)=g(b)+Bk+s(k),\qquad s(k)=o(k),\quad s(0)=0.
+\]
+于是
+\[
+ g(f(a+h))-g(f(a))
+ =BAh+B r(h)+s(k(h)).
+\]
+第二项是 \(o(h)\)。给定 \(\varepsilon>0\)，充分小的非零 \(k\) 满足
+\[
+ |s(k)|\le\frac{\varepsilon}{C}|k|.
+\]
+若 \(k(h)\ne0\)，由 \(|k(h)|\le C|h|\) 得 \(|s(k(h))|\le\varepsilon|h|\)；若 \(k(h)=0\)，则 \(s(k(h))=s(0)=0\)。故复合余项为 \(o(h)\)，导数为 \(BA\)。零中间增量不需要组成差商，因此不会造成未定义表达式。
+\end{solution}
+
+\begin{solution}{little-o-big-o-powers}
+对 \(h\ne0\)，两个尺度之比为
+\[
+ \frac{|h|^p}{|h|^q}=|h|^{p-q}.
+\]
+若 \(p>q\)，该比值趋于 \(0\)，所以 \(|h|^p=o(|h|^q)\)；反向比值趋于 \(+\infty\)，故 \(|h|^q\ne O(|h|^p)\)。若 \(p=q\)，比值恒为 \(1\)，两者互为大 \(O\)，但任一方都不是另一方的小 \(o\)。若 \(p<q\)，交换 \(p,q\) 即得 \(|h|^q=o(|h|^p)\)，且 \(|h|^p\ne O(|h|^q)\)。这些结论对任意实指数成立，因为只在 \(h\ne0\) 的删心邻域中计算。
+\end{solution}
+
+\begin{solution}{quotient-criteria-asymptotics}
+假设 \(v\) 最终非零。由定义，
+\[
+ u=o(v)
+\]
+等价于：对每个 \(\varepsilon>0\)，充分靠近极限点时
+\[
+ \left|\frac uv\right|\le\varepsilon,
+\]
+这正是 \(u/v\to0\)。同理，\(u=O(v)\) 等价于存在 \(C\ge0\)，使 \(|u/v|\le C\) 最终成立，即商局部有界。
+
+若 \(v\) 在任意删心邻域中都有零点，\(u/v\) 便不在整个删心邻域有定义。原来的不等式定义仍可使用，并且会要求这些零点同时也是 \(u\) 的零点。因此不能在没有最终非零条件时把不等式定义替换为普通的函数商极限。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{asymptotic-algebra-rules}
+由 \(p=O(q)\)，存在 \(C\ge0\) 使 \(|p|\le C|q|\) 最终成立。若 \(C>0\)，给定 \(\varepsilon>0\)，由 \(u=o(v)\) 取邻域使
+\[
+ |u|\le\frac{\varepsilon}{C}|v|.
+\]
+于是
+\[
+ |up|\le\frac{\varepsilon}{C}|v|\,C|q|
+ =\varepsilon|vq|,
+\]
+故 \(up=o(vq)\)。若 \(C=0\)，则 \(p=0\) 最终成立，乘积也最终为零，结论仍成立。
+
+再设 \(v=O(w)\)，即 \(|v|\le K|w|\) 最终成立。若 \(K>0\)，对给定 \(\varepsilon\) 先用 \(u=o(v)\) 取 \(|u|\le(\varepsilon/K)|v|\)，便有 \(|u|\le\varepsilon|w|\)。若 \(K=0\)，则 \(v=0\) 最终成立，而 \(u=o(v)\) 迫使 \(u=0\) 最终成立。因此总有 \(u=o(w)\)。
+\end{solution}
+
+\begin{solution}{finite-error-propagation}
+存在常数 \(C,D\) 使
+\[
+ |r|\le C|\alpha|,\qquad |s|\le D|\beta|
+\]
+最终成立。展开后有
+\[
+ |(c+r)(d+s)-cd|
+ \le |c|D|\beta|+|d|C|\alpha|+CD|\alpha\beta|.
+\]
+因 \(\alpha,\beta\to0\)，充分靠近时 \(|\alpha|,|\beta|\le1\)，所以
+\[
+ |\alpha\beta|\le\min\{|\alpha|,|\beta|\}
+ \le|\alpha|+|\beta|.
+\]
+把有限个固定系数取和，即得某个固定 \(K\) 使误差不超过 \(K(|\alpha|+|\beta|)\)。
+
+证明只合并了有限多个常数。若有无限多项，界常数的总和可能发散，且每一项开始有效的邻域也可能没有共同的正半径；要交换无穷求和与极限，还需要一致控制或专门的收敛定理，不能由有限次法则直接推出。
+\end{solution}
+
+\begin{solution}{reciprocal-error-expansion}
+由 \(r=O(\alpha)\) 与 \(\alpha\to0\) 得 \(r\to0\)。取邻域使 \(|c+r|\ge|c|/2\)。恒等式
+\[
+ \frac1{c+r}-\frac1c=-\frac{r}{c(c+r)}
+\]
+给出
+\[
+ \left|\frac1{c+r}-\frac1c\right|
+ \le\frac{2}{|c|^2}|r|.
+\]
+若 \(|r|\le C|\alpha|\)，右端为 \(O(\alpha)\)。若 \(r=o(\alpha)\)，对任意 \(\varepsilon>0\) 把 \(r\) 控制为
+\[
+ |r|\le\frac{\varepsilon|c|^2}{2}|\alpha|,
+\]
+便得到倒数误差不超过 \(\varepsilon|\alpha|\)，即为 \(o(\alpha)\)。
+\end{solution}
+
+\begin{solution}{derivative-perturbation-stability}
+在 \(a\) 处有
+\[
+ f(a+h)=f(a)+f'(a)h+o(h).
+\]
+又因 \(r(a)=0\) 且 \(r(a+h)=o(h)\)，
+\begin{align*}
+ g(a+h)-g(a)
+ &=f(a+h)+r(a+h)-f(a)-r(a)\\
+ &=f'(a)h+o(h)+o(h)\\
+ &=f'(a)h+o(h).
+\end{align*}
+由线性化判据，\(g\) 可导且 \(g'(a)=f'(a)\)。点值条件 \(r(a)=0\) 保证增量中没有固定的非零跳跃。
+\end{solution}
+
+\begin{solution}{nonzero-slope-increment}
+线性化给出
+\[
+ f(a+h)-f(a)=Ah+r(h),\qquad r=o(h).
+\]
+除以 \(Ah\) 得
+\[
+ \frac{f(a+h)-f(a)}{Ah}
+ =1+\frac{r(h)}{Ah}\longrightarrow1,
+\]
+所以函数增量与 \(Ah\) 等价。取邻域使 \(|r(h)|\le |A||h|/2\)，便有
+\[
+ \frac{|A|}{2}|h|
+ \le |f(a+h)-f(a)|
+ \le\frac{3|A|}{2}|h|.
+\]
+特别地，非零 \(h\) 不会满足 \(f(a+h)=f(a)\)，所以 \(a\) 是 \(f(a)\) 的局部唯一原像。
+
+但是这些不等式只比较 \(f(a+h)\) 与 \(f(a)\)。它们没有给出
+\[
+ |f(a+h_1)-f(a+h_2)|
+\]
+相对于 \(|h_1-h_2|\) 的下界，因而不能排除两个都不同于 \(a\) 的邻近点取到同一函数值。邻域单射性需要额外的单调性或对邻域内导数的统一控制。
+\end{solution}
+
+\begin{solution}{inverse-derivative-minimal}
+取 \(x_n\in D\setminus\{a\}\) 且 \(x_n\to a\)。由 \(f\) 在 \(a\) 处可导可知它在该点连续，所以 \(f(x_n)\to f(a)=b\)。单射性给出 \(f(x_n)\ne b\)，故 \(b\) 是 \(J=f(D)\) 的聚点。
+
+令 \(y\to b\)，其中 \(y\in J\setminus\{b\}\)，并置 \(x=f^{-1}(y)\)。逆映射在 \(b\) 连续恰好给出 \(x\to a\)；单射性又保证 \(x\ne a\)。因此
+\[
+ \frac{f^{-1}(y)-f^{-1}(b)}{y-b}
+ =\left(\frac{f(x)-f(a)}{x-a}\right)^{-1}.
+\]
+括号内趋于 \(f'(a)\ne0\)。由极限的局部保离零性，倒数最终有定义并趋于 \(1/f'(a)\)，这就是逆函数导数。
+\end{solution}
+
+\begin{solution}{inverse-continuity-counterexample}
+正数集合 \(\{1/n:n\ge2\}\) 与负数集合 \(\{-1/n:n\ge2\}\) 不交；各自内部也无重复，且 \(f(n)=-1/n\)。所以给定的 \(f\) 为单射。
+
+在 \(D\) 中趋于 \(0\) 的非零点最终只能来自 \(1/n\)。沿这些点 \(f(1/n)=1/n\to0=f(0)\)，故 \(f\) 在 \(0\) 连续，而且
+\[
+ \frac{f(1/n)-f(0)}{1/n-0}=1,
+\]
+所以相对导数为 \(1\)。
+
+另一方面，令 \(y_n=-1/n\in f(D)\)。则 \(y_n\to0\)，但
+\[
+ f^{-1}(y_n)=n\to+\infty.
+\]
+因此逆映射在零点不连续。反函数求导证明中，从 \(y\to b\) 推出 \(x=f^{-1}(y)\to a\) 的步骤失败；原函数在 \(a\) 处的局部差商无法控制来自定义域远处的原像。
+\end{solution}
+
+\begin{solution}{power-inverse-derivative}
+在 \(I=(0,\infty)\) 上，\(f(x)=x^m\) 严格递增，其像仍为 \((0,\infty)\)。由幂函数的差商计算，
+\[
+ f'(a)=ma^{m-1}>0.
+\]
+逆函数为 \(g(b)=b^{1/m}\)。反函数求导定理给出
+\[
+ g'(b)=\frac1{f'(a)}
+ =\frac1{ma^{m-1}},
+ \qquad a=b^{1/m}.
+\]
+代入 \(a\) 后得到
+\[
+ g'(b)=\frac1m b^{1/m-1}.
+\]
+若把函数连续延拓到闭端点并考察 \(b=0\)，则对应原像 \(a=0\)。当 \(m>1\) 时 \(f'(0)=0\)，定理的非零导数假设失败；事实上根函数差商 \(b^{1/m}/b=b^{1/m-1}\) 在 \(b\to0+\) 时无有限极限。
+\end{solution}
+
+\begin{solution}{equivalent-infinitesimal-factor}
+因为 \(\alpha/\beta\to1\)，且所有相关因子最终非零，
+\[
+ \frac{\alpha\gamma}{\beta\gamma}
+ =\frac\alpha\beta\longrightarrow1,
+\qquad
+ \frac{\alpha/\gamma}{\beta/\gamma}
+ =\frac\alpha\beta\longrightarrow1.
+\]
+若再有 \(\beta\gamma\to0\)，第一组新量都趋于零，因而
+\(\alpha\gamma\sim\beta\gamma\)；若再有 \(\beta/\gamma\to0\)，第二组新量都趋于零，因而
+\(\alpha/\gamma\sim\beta/\gamma\)。没有相应趋零条件时，只能断言比值趋于 \(1\)，不能按本章定义称为等价无穷小。例如取
+\(\alpha=\beta=x\)、\(\gamma=x\)，两个商的新量恒为 \(1\)。
+
+若 \(\beta/\gamma\to+\infty\)，则
+\[
+ \frac\alpha\gamma
+ =\frac\alpha\beta\frac\beta\gamma.
+\]
+第一因子充分靠近时例如落在 \((1/2,3/2)\) 内，因而为正且有正下界；第二因子趋于 \(+\infty\)。给定 \(M>0\)，让第二因子大于 \(2M\)，乘积便大于 \(M\)，故 \(\alpha/\gamma\to+\infty\)。
+\end{solution}
+
+\begin{solution}{equivalent-infinitesimal-cancellation}
+有
+\[
+ \frac{\alpha}{\beta}
+ =\frac{x+x^2}{x}=1+x\longrightarrow1,
+\]
+故 \(\alpha\sim\beta\)。三个表达式分别满足
+\[
+ \frac{\alpha}{x}=1+x\to1,\qquad
+ \frac{\beta}{x}=1;
+\]
+\[
+ \frac{\alpha-x}{x^2}=1,\qquad
+ \frac{\beta-x}{x^2}=0;
+\]
+\[
+ \frac{\alpha+x}{x}=2+x\to2,\qquad
+ \frac{\beta+x}{x}=2.
+\]
+第一式替换的是完整分子因子。第三式虽含加法，但替换误差为 \(x^2=o(x)\)，小于归一化尺度 \(x\)。第二式发生一阶项抵消，归一化尺度降为 \(x^2\)，而替换误差恰为 \(x^2\)，所以极限改变。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{vanishing-scale-with-zeros}
+因为
+\[
+ |v(h)|\le h^2\longrightarrow0,
+\]
+给定 \(\varepsilon>0\)，充分小时 \(|v(h)|\le\varepsilon\)。于是
+\[
+ |u(h)|=|v(h)|^2\le\varepsilon|v(h)|,
+\]
+故 \(u=o(v)\)。
+
+对每个足够大的正整数 \(k\)，取 \(h_k=1/(k\pi)\)，则 \(h_k\to0\) 且
+\[
+ v(h_k)=h_k^2\sin^2(k\pi)=0.
+\]
+因此 \(u/v\) 在每个删心邻域中都有未定义点。小 \(o\) 的不等式定义仍能在这些点检验关系，因为 \(u(h_k)=v(h_k)=0\)；普通商极限只有在先限制定义域或假设尺度最终非零后才能使用。
+\end{solution}
+
+\begin{solution}{inverse-asymptotic-expansion}
+把关系写为
+\[
+ y=ax+R(x),\qquad R(x)=O(x^2).
+\]
+除以 \(x\ne0\) 得
+\[
+ \frac yx=a+\frac{R(x)}x\longrightarrow a.
+\]
+因为 \(a\ne0\)，充分小时
+\[
+ |y|\ge\frac{|a|}{2}|x|,
+\]
+所以 \(x=O(y)\)，进而 \(x^2=O(y^2)\)。再由
+\[
+ x-\frac ya=\frac{ax-y}{a}=-\frac{R(x)}a
+\]
+得到
+\[
+ x-\frac ya=O(x^2)=O(y^2).
+\]
+题设中的趋近对应保证这些估计既可按 \(x\to0\) 也可按 \(y\to0\) 解读。
+\end{solution}
+
+\begin{solution}{outer-map-equivalence}
+\(\alpha,\beta\to0\) 保证它们最终落在开邻域 \(U\) 中，因而以下复合式有定义。由 \(\phi'(0)=c\ne0\) 及 \(\phi(0)=0\)，
+\[
+ \frac{\phi(t)}t\longrightarrow c.
+\]
+非零线性项控制还保证充分小的非零 \(t\) 满足 \(\phi(t)\ne0\)。因为 \(\alpha\sim\beta\)，二者最终都非零，且都趋于零。于是
+\[
+ \frac{\phi(\alpha)}{\phi(\beta)}
+ =\frac{\phi(\alpha)}{\alpha}
+  \frac{\alpha}{\beta}
+  \frac{\beta}{\phi(\beta)}
+ \longrightarrow c\cdot1\cdot\frac1c=1.
+\]
+条件 \(c\ne0\) 一方面保证最后一个因子有有限极限 \(1/c\)，另一方面保证 \(\phi(\beta)\) 最终非零。若 \(c=0\)，这条分解不能用于约去外层函数。
+\end{solution}
+
+\begin{solution}{zero-derivative-no-order}
+对 \(h\ne0\)，
+\[
+ \frac{f_p(h)-f_p(0)}h
+ =\frac{|h|^p}{h},
+\]
+其绝对值为 \(|h|^{p-1}\to0\)，故 \(f_p'(0)=0\)。
+
+若 \(q>p\) 且假设 \(|h|^p=O(|h|^q)\)，则存在 \(C\) 使充分小时
+\[
+ |h|^{p-q}\le C.
+\]
+但 \(p-q<0\)，左端在 \(h\to0\) 时趋于 \(+\infty\)，矛盾。因此它不是 \(O(|h|^q)\)。让 \(p\) 任意接近 \(1\) 可见，零导数只保证余项是 \(o(h)\)，并不统一保证 \(O(h^2)\) 或任何预先指定的更高幂次。
+\end{solution}
+
+\begin{solution}{oscillatory-remainder-derivative}
+对 \(h\ne0\)，
+\[
+ \left|\frac{f(h)-f(0)}h\right|
+ =|h\sin(1/h^2)|\le|h|\longrightarrow0,
+\]
+故 \(f'(0)=0\)。同时 \(|f(h)|\le h^2\)，所以 \(f(h)=O(h^2)\)。
+
+若存在非零 \(c\) 使 \(f(h)\sim ch^2\)，则应有
+\[
+ \frac{\sin(1/h^2)}c\longrightarrow1.
+\]
+取
+\[
+ h_n=\frac1{\sqrt{\pi/2+2\pi n}},\qquad
+ k_n=\frac1{\sqrt{3\pi/2+2\pi n}},
+\]
+两列都趋于零，但相应正弦值分别为 \(1\) 与 \(-1\)。两个子列比值分别恒为 \(1/c\) 与 \(-1/c\)，不可能有共同极限 \(1\)。故不存在这样的非零 \(c\)。
+\end{solution}
+
+\begin{solution}{local-data-same-derivative}
+还需要 \(f(a)=g(a)\)。若该点值条件成立，且某个 \(\delta>0\) 使
+\[
+ f(x)=g(x)\qquad
+ (x\in D,\ 0<|x-a|<\delta),
+\]
+则对应差商在同一删心邻域内完全相等：
+\[
+ \frac{f(x)-f(a)}{x-a}
+ =\frac{g(x)-g(a)}{x-a}.
+\]
+因此二者同时可导时导数相等，事实上一方可导就推出另一方可导。
+
+若删去点值条件，取 \(D=\R\)、\(f(x)\equiv0\)，并令
+\[
+ g(x)=
+ \begin{cases}
+  1,&x=a,\\
+  0,&x\ne a.
+ \end{cases}
+\]
+二者在 \(a\) 的每个删心邻域都相等，但 \(f'(a)=0\)，而
+\[
+ \frac{g(x)-g(a)}{x-a}=-\frac1{x-a}
+\]
+没有有限极限，所以 \(g\) 不可导。
+\end{solution}
+
+\begin{solution}{strictly-increasing-cubic-inverse}
+若 \(x>y\)，则
+\[
+ f(x)-f(y)
+ =(x-y)\bigl(1+x^2+xy+y^2\bigr).
+\]
+括号内
+\[
+ 1+x^2+xy+y^2
+ =1+\left(x+\frac y2\right)^2+\frac34y^2>0,
+\]
+故 \(f(x)>f(y)\)，所以 \(f\) 严格递增。它是连续多项式，且 \(f(x)\to\pm\infty\)（\(x\to\pm\infty\)）；对任意实数 \(z\)，可取足够大的 \(M\) 使 \(f(-M)<z<f(M)\)，再由介值定理得到 \(f(x)=z\) 的解。严格递增性保证解唯一，故 \(f:\R\to\R\) 为双射。
+
+由和法则与幂函数导数，
+\[
+ f'(a)=1+3a^2>0.
+\]
+严格单调函数的逆映射连续，反函数求导定理遂给出
+\[
+ g'(f(a))=\frac1{f'(a)}
+ =\frac1{1+3a^2}.
+\]
+整个过程不需要求出三次方程的显式根式。
+\end{solution}
+
+\begin{solution}{asymptotic-substitution-audit}
+由 \(\alpha\sim\beta\) 得 \(\alpha-\beta=o(\beta)\)。再由 \(\beta=O(\rho)\) 的传递法则，
+\[
+ \alpha-\beta=o(\rho).
+\]
+尺度 \(\rho\) 最终非零，所以
+\[
+ \frac{\alpha+\gamma}{\rho}
+ -\frac{\beta+\gamma}{\rho}
+ =\frac{\alpha-\beta}{\rho}\longrightarrow0.
+\]
+
+若缺少 \(\beta=O(\rho)\)，取
+\[
+ \alpha=x+x^2,\qquad\beta=x,\qquad
+ \rho=x^2,\qquad\gamma=-x.
+\]
+则 \(\alpha\sim\beta\)，但 \(\beta\ne O(\rho)\)，且
+\[
+ \frac{\alpha+\gamma}{\rho}=1,\qquad
+ \frac{\beta+\gamma}{\rho}=0.
+\]
+代换改变了极限，正是因为替换误差与归一化尺度同阶。
+\end{solution}

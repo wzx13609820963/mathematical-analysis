@@ -1,0 +1,368 @@
+\chapter{Taylor 理论：习题解答}
+
+\begin{solution}{taylor-polynomial-derivative-match}
+把多项式按中心 \(a\) 写成
+\[
+ P(x)=\sum_{j=0}^{n}c_j(x-a)^j.
+\]
+对 \(k\) 阶求导后令 \(x=a\)，只有第 \(k\) 项留下，因此
+\[
+ P^{(k)}(a)=k!c_k,\qquad c_k=\frac{P^{(k)}(a)}{k!}.
+\]
+所以前 \(n\) 阶导数唯一决定全部系数。要求 \(P^{(k)}(a)=f^{(k)}(a)\) 时，必有
+\[
+ P(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k=T_{n,a}f(x).
+\]
+\end{solution}
+
+\begin{solution}{taylor-polynomial-polynomial-exact}
+设 \(\deg P=m\le n\)。由上一题，
+\[
+ P(x)=\sum_{k=0}^{m}\frac{P^{(k)}(a)}{k!}(x-a)^k.
+\]
+当 \(k>m\) 时 \(P^{(k)}\equiv0\)，故把求和上限延长到 \(n\) 不改变多项式。这正是 \(T_{n,a}P=P\)。
+\end{solution}
+
+\begin{solution}{peano-second-order-expansion}
+二阶 Peano 展开为
+\[
+ f(a+h)=f(a)+f'(a)h+\frac{f''(a)}2h^2+o(h^2).
+\]
+若 \(f'(a)=0\)、\(f''(a)>0\)，则
+\[
+ f(a+h)-f(a)
+ =h^2\left(\frac{f''(a)}2+o(1)\right).
+\]
+充分小的非零 \(h\) 使括号为正，而 \(h^2>0\)，所以 \(f(a+h)>f(a)\)。故 \(a\) 是严格局部极小点。
+\end{solution}
+
+\begin{solution}{peano-remainder-no-next-derivative}
+令 \(f(x)=\abs{x}^{3/2}\)。有
+\[
+ \frac{f(x)-f(0)}x=
+ \begin{cases}
+  x^{1/2},&x>0,\\
+  -(-x)^{1/2},&x<0,
+ \end{cases}
+ \longrightarrow0,
+\]
+故 \(f'(0)=0\)，并且 \(f(x)=f(0)+f'(0)x+o(x)\)。对 \(x>0\)，
+\(f'(x)=\tfrac32x^{1/2}\)；对 \(x<0\)，
+\(f'(x)=-\tfrac32(-x)^{1/2}\)。于是
+\[
+ \frac{f'(x)-f'(0)}x=
+ \begin{cases}
+  \tfrac32x^{-1/2},&x>0,\\
+  \tfrac32(-x)^{-1/2},&x<0,
+ \end{cases}
+\]
+趋于 \(+\infty\)，所以 \(f''(0)\) 不存在。
+\end{solution}
+
+\begin{solution}{lagrange-remainder-uniform-bound}
+Lagrange 余项给出某个介于 \(a,x\) 之间的 \(\xi\)，使
+\[
+ R_{n,a}f(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}.
+\]
+故
+\[
+ \abs{R_{n,a}f(x)}
+ \le\frac{M}{(n+1)!}\abs{x-a}^{n+1}.
+\]
+中间点 \(\xi\) 随 \(x\) 改变，且事先不知道其位置；因此只控制
+\(f^{(n+1)}(a)\) 不能替代整段区间上的上界。
+\end{solution}
+
+\begin{solution}{exp-taylor-numerical-error}
+在 \([0,0.1]\) 上 \(f^{(3)}(t)=e^t\le e^{0.1}\)。二阶 Taylor 多项式为
+\(1+x+x^2/2\)，所以
+\[
+ \left|e^{0.1}-\left(1+0.1+\frac{0.1^2}{2}\right)\right|
+ \le e^{0.1}\frac{0.1^3}{6}
+ <1.85\times10^{-4}.
+\]
+最后一个数值只作方便阅读的上界；严格误差界是前一式。
+\end{solution}
+
+\begin{solution}{sine-taylor-global-error}
+在 \(0\) 处取四阶 Taylor 多项式。由于
+\[
+ \sin0=0,\quad \cos0=1,\quad -\sin0=0,\quad-\cos0=-1,
+\quad \sin0=0,
+\]
+有 \(T_{4,0}\sin x=x-x^3/6\)。五阶导数为 \(\cos x\)，绝对值不超过 \(1\)。Lagrange 余项因此给出
+\[
+ \abs{\sin x-x+x^3/6}\le\frac{\abs{x}^5}{5!}.
+\]
+\end{solution}
+
+\begin{solution}{cosine-basic-inequality-taylor}
+对 \(\cos x\) 在 \(0\) 处取三阶 Taylor 多项式，得到
+\[
+ \cos x=1-\frac{x^2}{2}+\frac{\cos\xi}{4!}x^4
+\]
+其中 \(\xi\) 介于 \(0,x\) 之间。若 \(\abs x<\pi/2\)，则
+\(\abs\xi<\pi/2\)，故 \(\cos\xi>0\)，从而
+\(1-x^2/2\le\cos x\)。另一方面，由周期性只需考察
+\([-\pi,\pi]\)。在 \((-\pi,0)\) 上有
+\((\cos x)'=-\sin x>0\)，在 \((0,\pi)\) 上有
+\((\cos x)'=-\sin x<0\)。因此余弦函数在前一段递增、后一段递减，
+并在 \(0\) 处取得这一区间的最大值 \(1\)。于是
+\(\cos x\le1\) 对所有实数成立。
+\end{solution}
+
+\begin{solution}{cauchy-remainder-telescoping-derivative}
+令
+\[
+ S(t)=\sum_{k=0}^{n}\frac{f^{(k)}(t)}{k!}(x-t)^k.
+\]
+则
+\[
+ \begin{aligned}
+ S'(t)
+ &=\sum_{k=0}^{n}\frac{f^{(k+1)}(t)}{k!}(x-t)^k
+   -\sum_{k=1}^{n}\frac{f^{(k)}(t)}{(k-1)!}(x-t)^{k-1}\\
+ &=\frac{f^{(n+1)}(t)}{n!}(x-t)^n,
+ \end{aligned}
+\]
+因为第一和中的第 \(0,\ldots,n-1\) 项与第二和逐项抵消。对
+\(H(t)=f(x)-S(t)\) 使用中值定理便得到 Cauchy 余项。\(n=0\) 时公式为
+\[
+ f(x)-f(a)=f'(\xi)(x-a),
+\]
+即 Lagrange 中值定理。
+\end{solution}
+
+\begin{solution}{lagrange-implies-peano-bounded-next-derivative}
+若在 \(a\) 的某邻域有 \(\abs{f^{(n+1)}}\le M\)，则充分接近 \(a\) 时
+\[
+ \abs{R_{n,a}f(x)}\le\frac{M}{(n+1)!}\abs{x-a}^{n+1}.
+\]
+除以 \(\abs{x-a}^n\) 得
+\[
+ \frac{\abs{R_{n,a}f(x)}}{\abs{x-a}^n}
+ \le\frac{M}{(n+1)!}\abs{x-a}\longrightarrow0.
+\]
+故 \(R_{n,a}f=o((x-a)^n)\)。
+\end{solution}
+
+\begin{solution}{peano-remainder-unique-polynomial}
+令 \(S=P-Q\)。由两式相减得 \(S(x)=o((x-a)^n)\)。若 \(S\not\equiv0\)，设
+\[
+ S(x)=c_j(x-a)^j+\cdots+c_n(x-a)^n,\qquad c_j\ne0
+\]
+且 \(j\) 最小。则
+\[
+ \frac{S(x)}{(x-a)^j}\longrightarrow c_j\ne0.
+\]
+但 \(S=o((x-a)^n)\) 给出
+\[
+ \frac{S(x)}{(x-a)^j}
+ =o((x-a)^{n-j})\longrightarrow0
+\]
+（\(j=n\) 时右端为 \(o(1)\)），矛盾。因此 \(P=Q\)。
+\end{solution}
+
+\begin{solution}{flat-power-exponential-limit}
+令 \(t=x^{-q}\)，则
+\[
+ x^{-p}e^{-1/x^q}=t^{p/q}e^{-t}.
+\]
+取整数 \(N>p/q\)。由正文已经从有限阶 Taylor 公式得到的
+\(e^{t/2}\ge(t/2)^N/N!\)，
+\[
+ 0\le t^{p/q}e^{-t}
+ \le 2^NN!\,t^{p/q-N}e^{-t/2}\longrightarrow0.
+\]
+另一条路线是对 \(t^{r}/e^t\) 使用 L'Hôpital 法则，其中 \(r=p/q\)。若 \(r\notin\N\)，连续使用 \(\lceil r\rceil\) 次：在最后一次以前分子仍趋于 \(+\infty\)，最后得到常数乘 \(t^{r-\lceil r\rceil}/e^t\)，其分子趋于零。若 \(r=m\in\N\)，只使用 \(m\) 次，得到常数除以 \(e^t\)。两种情形都在商不再是未定式时停止，极限为零。
+\end{solution}
+
+\begin{solution}{flat-derivative-polynomial-form}
+若
+\(\phi^{(n)}(x)=P_n(1/x)e^{-1/x^2}\)，令 \(u=1/x\)，则
+\[
+ P_{n+1}(u)=-u^2P_n'(u)+2u^3P_n(u).
+\]
+从 \(P_0(u)=1\) 出发，
+\[
+ P_1(u)=2u^3,\qquad
+ P_2(u)=4u^6-6u^4,
+\]
+\[
+ P_3(u)=8u^9-36u^7+24u^5.
+\]
+递推式同时证明每个 \(P_n\) 都是多项式。
+\end{solution}
+
+\begin{solution}{flat-function-smooth-not-analytic}
+对 \(x\ne0\)，
+\[
+ \phi'(x)=2x^{-3}e^{-1/x^2},\qquad
+ \phi''(x)=(4x^{-6}-6x^{-4})e^{-1/x^2},
+\]
+\[
+ \phi'''(x)=(8x^{-9}-36x^{-7}+24x^{-5})e^{-1/x^2}.
+\]
+指数压过任意负幂，因此 \(\phi(x)/x\to0\)，先得
+\(\phi'(0)=0\)；再依次考察 \(\phi'(x)/x\) 与 \(\phi''(x)/x\)，得到
+\(\phi''(0)=\phi'''(0)=0\)。同一估计还使这些导数在 \(0\) 连续。
+一般归纳需要两点：每阶导数在 \(x\ne0\) 时均为
+\(P_n(1/x)e^{-1/x^2}\)，且任意这样的表达式除以 \(x\) 后仍趋于零。
+\end{solution}
+
+\begin{solution}{compact-support-smooth-function}
+只需检查 \(x=1\)，另一端完全相同。令 \(s=1-x\downarrow0\)，则
+\[
+ 1-x^2=s(2-s).
+\]
+在 \(0<s<1\) 时有 \(s\le1-x^2\le2s\)。对内部公式反复求导，每一项都是
+\[
+ \frac{P(x)}{(1-x^2)^m}
+ \exp\!\left(-\frac1{1-x^2}\right)
+\]
+的有限和，其中 \(P\) 是多项式。令 \(u=1-x^2\downarrow0\)，平坦估计给出
+\(u^{-m}e^{-1/u}\to0\)，故每阶内部导数在 \(x\to1-\) 时趋于零。
+外侧函数恒为零。现作归纳：假设延拓后的 \(\eta^{(k)}(1)=0\)。内部的 \(\eta^{(k)}(x)\) 是上述有限和；又因 \(1-x^2=(1-x)(1+x)\)，除以 \(x-1\) 只多出一个至多常数倍的 \((1-x^2)^{-1}\) 因子。平坦估计仍给出
+\[
+ \frac{\eta^{(k)}(x)-\eta^{(k)}(1)}{x-1}\longrightarrow0
+ \qquad(x\to1-).
+\]
+右侧差商恒为零，所以 \(\eta^{(k+1)}(1)\) 存在且等于零；前述内部极限又给出连续性。逐阶归纳，并在 \(-1\) 处作同样论证，得到
+\(\eta\in C^\infty(\R)\) 且 \(\eta^{(n)}(\pm1)=0\)。
+\end{solution}
+
+\begin{solution}{finite-smoothness-power-example}
+在 \(x\ne0\) 处反复求导可得第 \(j\) 阶导数为常数乘
+\(\abs{x}^{k+1/2-j}\)，再乘一个只依赖左右侧和 \(j\) 的符号。对
+\(0\le j\le k\)，指数至少为 \(1/2\)，故该导数趋于零，可在 \(0\) 处连续补为零；逐级差商也证明这些正是导数。因此
+\[
+ f\in C^k(\R).
+\]
+第 \(k+1\) 阶候选在 \(x\ne0\) 处含 \(\abs{x}^{-1/2}\)，在 \(0\) 附近无界，且相应差商不收敛，所以 \(f\notin C^{k+1}(\R)\)。
+\end{solution}
+
+\begin{solution}{analytic-zero-finite-order-sign}
+若 \(m\) 是首个非零阶数，则
+\[
+ f(a+h)=h^m\left(\frac{f^{(m)}(a)}{m!}+o(1)\right).
+\]
+括号在充分小的 \(h\) 上不为零，所以 \(a\) 附近没有其他零点，零点阶数为 \(m\)。若 \(m\) 偶，\(h^m\) 两侧同号，函数两侧符号相同；若 \(m\) 奇，\(h^m\) 两侧异号，函数穿过零点变号。具体正负还乘以 \(f^{(m)}(a)\) 的符号。
+\end{solution}
+
+\begin{solution}{analytic-identity-two-functions}
+令 \(h=f-g\)。它仍在 \(I\) 上实解析，且 \(h(x_n)=0\)、\(x_n\to a\in I\)。因此 \(a\) 是其零点集的内聚点。实解析函数恒等原理给出 \(h\equiv0\)，即 \(f=g\) 于 \(I\)。
+\end{solution}
+
+\begin{solution}{first-nonzero-derivative-extremum-cases}
+可取
+\[
+ f_2(x)=x^2,\qquad f_3(x)=x^3,\qquad
+ f_4(x)=-x^4,\qquad f_5(x)=x^5.
+\]
+它们在 \(0\) 处首个非零导数的阶数依次为 \(2,3,4,5\)。\(f_2\) 在
+\(0\) 有严格极小，\(f_4\) 有严格极大；两个奇次幂在零点两侧变号，均无局部极值。这同时核对了偶阶正、偶阶负和奇阶两种符号下的结论。
+\end{solution}
+
+\begin{solution}{all-derivatives-zero-extremum-variety}
+令
+\[
+ \phi(x)=
+ \begin{cases}e^{-1/x^2},&x\ne0,\\0,&x=0.\end{cases}
+\]
+则 \(\phi\)、\(-\phi\) 和 \(x\phi(x)\) 都属于 \(C^\infty\)，并且在 \(0\) 的所有阶导数均为零。函数 \(\phi\) 在 \(0\) 有严格极小，\(-\phi\) 有严格极大，而 \(x\phi(x)\) 在零点两侧异号，故 \(0\) 不是极值点。
+\end{solution}
+
+\begin{solution}{asymptotic-quotient-first-nonzero-order}
+在 \(h\ne0\) 且充分小时，分母由 \(B\ne0\) 保证不为零，并且
+\[
+ \frac{f(a+h)}{g(a+h)}
+ =\frac AB\,h^{m-n}\frac{1+o(1)}{1+o(1)}.
+\]
+若 \(m>n\)，极限为 \(0\)；若 \(m=n\)，极限为 \(A/B\)；若
+\(m<n\)，绝对值趋于 \(+\infty\)。最后一种情形中，若 \(n-m\) 为偶数，两侧具有同一扩充实极限，其符号由 \(A/B\) 决定；若 \(n-m\) 为奇数，两侧符号相反，双侧扩充实极限不存在，但两个单侧极限存在。
+\end{solution}
+
+\begin{solution}{trigonometric-third-order-limit}
+利用
+\[
+ \sin x=x-\frac{x^3}{6}+o(x^3),\qquad
+ \tan x=x+\frac{x^3}{3}+o(x^3),
+\]
+得
+\[
+ \tan x-\sin x=\frac{x^3}{2}+o(x^3),\qquad
+ x-\sin x=\frac{x^3}{6}+o(x^3).
+\]
+所以两个极限分别为 \(1/2\) 与 \(1/6\)。
+\end{solution}
+
+\begin{solution}{taylor-remainder-center-dependence}
+设截断阶数为 \(n\)。在 \(a=0\) 处近似 \(x=1/2\) 时，区间
+\([0,1/2]\) 上 \(e^t\le e^{1/2}\)，故
+\[
+ \abs{R_{n,0}e^{1/2}}
+ \le e^{1/2}\frac{(1/2)^{n+1}}{(n+1)!}.
+\]
+在 \(a=1\) 处，连接 \(1\) 与 \(1/2\) 的区间上 \(e^t\le e\)，且距离仍为
+\(1/2\)，所以
+\[
+ \abs{R_{n,1}e^{1/2}}
+ \le e\frac{(1/2)^{n+1}}{(n+1)!}.
+\]
+按这一统一上界，中心 \(0\) 较好。一般比较既取决于 \(\abs{x-a}^{n+1}\)，也取决于连接区间上高阶导数的界，不能只比较中心到目标点的距离。
+\end{solution}
+
+\begin{solution}{taylor-remainders-comparison-project}
+先比较 \(e^x\) 在 \([-r,r]\) 上以 \(0\) 为中心的各种余项。Peano 形式为
+\[
+ e^x=\sum_{k=0}^{n}\frac{x^k}{k!}+o(x^n),
+\]
+\[
+ R_n(x)=\frac{e^\xi}{(n+1)!}x^{n+1},
+\qquad
+ R_n(x)=\frac{e^\xi}{n!}x(x-\xi)^n,
+\]
+其中 \(\xi\) 位于 \(0,x\) 之间，故统一有
+\[
+ \abs{R_n(x)}\le e^r\frac{\abs{x}^{n+1}}{(n+1)!}.
+\]
+Peano 形式只描述 \(x\to0\)，后两式则对固定区间内每个 \(x\) 给出中间点信息。
+
+对 \(\log(1+x)\)，取 \(0<r<1\)。其 \(k\ge1\) 阶导数为
+\[
+ f^{(k)}(x)=(-1)^{k-1}\frac{(k-1)!}{(1+x)^k}.
+\]
+因此
+\[
+ T_{n,0}f(x)=\sum_{k=1}^{n}(-1)^{k-1}\frac{x^k}{k},
+\]
+而在 \([-r,r]\) 上
+\[
+ \abs{f^{(n+1)}(t)}
+ \le\frac{n!}{(1-r)^{n+1}}.
+\]
+Lagrange 余项给出
+\[
+ \abs{R_n(x)}
+ \le\frac{\abs{x}^{n+1}}{(n+1)(1-r)^{n+1}},
+\]
+Cauchy 余项则保留 \((x-\xi)^n\) 因子。三种形式分别适合局部阶数、统一数值界和中间点位置分析。学完积分理论后，再由
+\[
+ R_n(x)=\frac1{n!}\int_0^x f^{(n+1)}(t)(x-t)^n\,dt
+\]
+比较平均贡献与最大值估计。
+\end{solution}
+
+\begin{solution}{smooth-jet-realization-preview}
+Borel 定理的一维版本断言：对任意实数列 \((a_n)_{n\in\N}\)，存在
+\(f\in C^\infty(\R)\) 使
+\[
+ f^{(n)}(0)=a_n\qquad(n\in\N).
+\]
+该结论不要求形式幂级数 \(\sum a_nx^n/n!\) 有正收敛半径。若 \(f\) 是一个实现，而
+\(\phi\) 是本章的非零平坦函数，则对任意常数 \(c\)，
+\[
+ (f+c\phi)^{(n)}(0)=a_n
+\]
+仍对全部 \(n\) 成立。因此给定全部导数并不能在 \(C^\infty\) 类中保证唯一性。Borel 定理的构造需要局部截断函数与逐项控制，本书将在具备函数空间工具后再讨论。
+\end{solution}

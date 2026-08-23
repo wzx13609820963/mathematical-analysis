@@ -1,0 +1,528 @@
+\chapter{凸函数：习题解答}
+
+\begin{solution}{convex-sublevel-interval}
+设 \(C\subset\R\) 非空且凸。若 \(x<z\) 属于 \(C\)，任取 \(y\in(x,z)\)，令
+\[
+ t=\frac{y-x}{z-x}\in(0,1).
+\]
+则 \(y=(1-t)x+tz\in C\)。所以 \(C\) 连同任意两点也包含两点之间的一切点，这正是实直线上区间的刻画。反之，区间按定义包含任意两点之间的线段，故为凸集。
+
+若 \(x,y\) 属于次水平集且 \(t\in[0,1]\)，则
+\[
+ f((1-t)x+ty)\le(1-t)f(x)+tf(y)\le(1-t)c+tc=c.
+\]
+故 \((1-t)x+ty\) 仍在该次水平集中。
+\end{solution}
+
+\begin{solution}{convex-absolute-value-direct}
+对 \(t\in[0,1]\)，三角不等式与绝对值的齐次性给出
+\[
+ |(1-t)x+ty|\le(1-t)|x|+t|y|.
+\]
+所以绝对值函数凸。它不严格凸：取 \(0<x<y\)，任意 \(t\in(0,1)\) 都有
+\[
+ |(1-t)x+ty|=(1-t)|x|+t|y|.
+\]
+事实上，它在正半轴和负半轴上分别是仿射函数。
+\end{solution}
+
+\begin{solution}{convex-maximum-preservation}
+令 \(h=\max\{f,g\}\)。对 \(z=(1-t)x+ty\)，
+\[
+ \begin{aligned}
+ h(z)
+ &=\max\{f(z),g(z)\}\\
+ &\le\max\{(1-t)f(x)+tf(y),(1-t)g(x)+tg(y)\}\\
+ &\le(1-t)h(x)+th(y).
+ \end{aligned}
+\]
+故 \(h\) 凸。逐点下确界则未必凸。例如
+\[
+ f(x)=(x-1)^2,\qquad g(x)=(x+1)^2
+\]
+都严格凸，但 \(k=\min\{f,g\}\) 满足 \(k(-1)=k(1)=0\)、\(k(0)=1\)，违反中点凸性。
+\end{solution}
+
+\begin{solution}{convex-composition-monotone}
+令 \(z=(1-t)x+ty\)。先由 \(f\) 凸，再由 \(g\) 单调不减及凸性，
+\[
+ \begin{aligned}
+ g(f(z))
+ &\le g((1-t)f(x)+tf(y))\\
+ &\le(1-t)g(f(x))+tg(f(y)).
+ \end{aligned}
+\]
+因此 \(g\circ f\) 凸。单调性不能省略：取 \(f(x)=x^2\)，\(g(u)=-u\)。函数 \(g\) 是仿射函数，因而凸，但单调递减；复合函数 \(-x^2\) 在 \(\R\) 上不凸。
+\end{solution}
+
+\begin{solution}{convex-three-slope-equivalences}
+对 \(x<y<z\)，恒有分解
+\[
+ [x,z]_f=\frac{y-x}{z-x}[x,y]_f+
+          \frac{z-y}{z-x}[y,z]_f.
+\]
+若 \([x,y]_f\le[x,z]_f\)，代入上式并移项，得到
+\[
+ \frac{z-y}{z-x}[x,z]_f
+ \le\frac{z-y}{z-x}[y,z]_f,
+\]
+故 \([x,z]_f\le[y,z]_f\)。反向完全相同。因此三点斜率不等式的两侧等价。任取 \(x<z\) 及其内分点 \(y\)，其中任一侧整理后都给出
+\[
+ f(y)\le\frac{z-y}{z-x}f(x)+\frac{y-x}{z-x}f(z),
+\]
+所以任一侧都刻画凸性。
+\end{solution}
+
+\begin{solution}{convex-continuity-endpoint-counterexample}
+定义 \(f(0)=1\)，\(f(x)=0\)（\(0<x\le1\)）。若两点都为正，凸性不等式两边都是零；若 \(x=0<y\)，则对 \(0<t\le1\)，
+\[
+ f((1-t)0+ty)=f(ty)=0\le(1-t)f(0)+tf(y)=1-t.
+\]
+端点权重也显然，所以 \(f\) 凸。但 \(x\to0+\) 时 \(f(x)\to0\ne f(0)\)。
+
+对开区间内任一点 \(x_0\)，可取 \(u<a<x_0<b<v\) 都在定义域中。三点斜率不等式说明 \(f\) 在 \([a,b]\) 上的任意割线斜率介于两个固定有限数 \([u,a]_f\) 与 \([b,v]_f\) 之间，故存在 \(L<\infty\) 使
+\[
+ |f(x)-f(y)|\le L|x-y|\qquad(x,y\in[a,b]).
+\]
+所以 \(f\) 在 \(x_0\) 连续。
+\end{solution}
+
+\begin{solution}{convex-local-lipschitz-constant}
+任选 \(u\in(a,c)\)、\(v\in(d,b)\)，令
+\[
+ L=\max\left\{
+ \left|\frac{f(c)-f(u)}{c-u}\right|,
+ \left|\frac{f(v)-f(d)}{v-d}\right|
+ \right\}.
+\]
+对 \(c\le x<y\le d\)，三点斜率不等式给出
+\[
+ [u,c]_f\le[x,y]_f\le[d,v]_f.
+\]
+因而 \(|[x,y]_f|\le L\)，乘以 \(y-x\) 即得所求。这里的常数由四点 \(u,c,d,v\) 的函数值明确给出。
+\end{solution}
+
+\begin{solution}{convex-one-sided-absolute-value}
+若 \(x<0\)，绝对值函数在 \(x\) 的某邻域等于 \(-x\)，故左右导数均为 \(-1\)；若 \(x>0\)，两者均为 \(1\)。在 \(x=0\)，
+\[
+ f'_-(0)=\lim_{h\to0-}\frac{|h|}{h}=-1,
+ \qquad
+ f'_+(0)=\lim_{h\to0+}\frac{|h|}{h}=1.
+\]
+所以每一点均有 \(f'_-(x)\le f'_+(x)\)，且只在原点严格不等。
+\end{solution}
+
+\begin{solution}{convex-differentiable-derivative-criterion}
+若 \(f\) 凸且 \(x<y\)，由割线与单侧导数的关系，
+\[
+ f'(x)\le\frac{f(y)-f(x)}{y-x}\le f'(y),
+\]
+故 \(f'\) 单调不减。
+
+反之，设 \(f'\) 单调不减。对 \(x<z<y\)，Lagrange 中值定理分别给出 \(\xi\in(x,z)\)、\(\eta\in(z,y)\)，使
+\[
+ [x,z]_f=f'(\xi)\le f'(\eta)=[z,y]_f.
+\]
+三点斜率判据于是说明 \(f\) 凸。
+\end{solution}
+
+\begin{solution}{convex-strict-affine-segment}
+设 \(x<z<y\)，且 \(f(z)\) 等于端点弦 \(L\) 在 \(z\) 处的值。凸性已给出 \(f(w)\le L(w)\)（\(w\in[x,y]\)）。若 \(x<w<z\)，把 \(z\) 写成 \(w,y\) 的真凸组合。于是
+\[
+ L(z)=f(z)\le\alpha f(w)+(1-\alpha)f(y)
+ \le\alpha L(w)+(1-\alpha)L(y)=L(z),
+\]
+其中 \(0<\alpha<1\)。两次不等式只能都取等号，故 \(f(w)=L(w)\)。对 \(z<w<y\)，改用 \(x,w\) 表示 \(z\)，结论相同。因此 \(f=L\) 于整个 \([x,y]\)。
+
+所以凸函数严格凸当且仅当它在任何非退化区间上都不与一条仿射函数重合。
+\end{solution}
+
+\begin{solution}{subgradient-piecewise-linear}
+两条直线在 \(2x-1=-x+2\)，即 \(x=1\) 处相交。故
+\[
+ f(x)=\begin{cases}-x+2,&x\le1,\\2x-1,&x\ge1.
+ \end{cases}
+\]
+在 \(x<1\) 处导数为 \(-1\)，在 \(x>1\) 处导数为 \(2\)；在 \(x=1\) 处左右导数分别为 \(-1,2\)。于是
+\[
+ \partial f(x)=
+ \begin{cases}
+  \{-1\},&x<1,\\
+  [-1,2],&x=1,\\
+  \{2\},&x>1.
+ \end{cases}
+\]
+只有 \(x=1\) 的次梯度集合含零，所以极小点集合为 \(\{1\}\)，最小值为 \(1\)。
+\end{solution}
+
+\begin{solution}{subgradient-sum-inclusion}
+若 \(p\in\partial f(x)\)、\(q\in\partial g(x)\)，则对所有 \(y\)，
+\[
+ f(y)\ge f(x)+p(y-x),\qquad
+ g(y)\ge g(x)+q(y-x).
+\]
+相加得到 \(p+q\in\partial(f+g)(x)\)，故有题中包含关系。
+
+一维次梯度公式与单侧导数的线性给出
+\[
+ \begin{aligned}
+ \partial(f+g)(x)
+ &=[f'_-(x)+g'_-(x),f'_+(x)+g'_+(x)]\\
+ &=[f'_-(x),f'_+(x)]+[g'_-(x),g'_+(x)]\\
+ &=\partial f(x)+\partial g(x).
+ \end{aligned}
+\]
+\end{solution}
+
+\begin{solution}{subgradient-monotonicity}
+由次梯度不等式，
+\[
+ f(y)\ge f(x)+p(y-x),
+ \qquad
+ f(x)\ge f(y)+q(x-y).
+\]
+相加后得到 \(0\ge(p-q)(y-x)\)。因为 \(y-x>0\)，所以 \(p\le q\)。
+\end{solution}
+
+\begin{solution}{convex-minimum-one-sided-criterion}
+由一维次梯度公式，
+\[
+ 0\in\partial f(x)
+ \quad\Longleftrightarrow\quad
+ f'_-(x)\le0\le f'_+(x).
+\]
+另一方面，\(0\in\partial f(x)\) 等价于 \(f(y)\ge f(x)\) 对所有 \(y\) 成立，也就是 \(x\) 为整体极小点。
+\end{solution}
+
+\begin{solution}{strict-convex-unique-minimum-not-existence}
+若严格凸函数在 \(x\ne y\) 处都取得最小值 \(m\)，则
+\[
+ f\!\left(\frac{x+y}{2}\right)<\frac{f(x)+f(y)}2=m,
+\]
+矛盾，故极小点至多一个。
+
+函数 \(f(x)=e^x+x\) 满足 \(f''(x)=e^x>0\)，所以严格凸；当 \(x\to-\infty\) 时 \(f(x)\to-\infty\)，因而没有极小点。函数 \(g(x)=e^x\) 也严格凸，其下确界为 \(0\)，但不取得。
+\end{solution}
+
+\begin{solution}{second-derivative-sufficient-not-necessary}
+函数 \(f(x)=x^4\) 的导数 \(f'(x)=4x^3\) 在 \(\R\) 上严格递增。若 \(x<z<y\)，由中值定理可取 \(\xi\in(x,z)\)、\(\eta\in(z,y)\)，且
+\[
+ [x,z]_f=f'(\xi)<f'(\eta)=[z,y]_f.
+\]
+因此 \(f\) 严格凸。但 \(f''(x)=12x^2\)，故 \(f''(0)=0\)。这说明处处 \(f''>0\) 不是严格凸的必要条件。
+\end{solution}
+
+\begin{solution}{strong-convex-tangent-bound}
+令 \(g(t)=f(t)-\frac m2t^2\)。则 \(g''=f''-m\ge0\)，所以 \(g\) 凸。支撑线不等式给出
+\[
+ g(y)\ge g(x)+g'(x)(y-x).
+\]
+代入 \(g\) 并整理即得
+\[
+ f(y)\ge f(x)+f'(x)(y-x)+\frac m2(y-x)^2.
+\]
+若 \(f'(x)=0\)，则对 \(y\ne x\)，右端严格大于 \(f(x)\)，故 \(x\) 是唯一整体极小点。
+\end{solution}
+
+\begin{solution}{convex-countably-many-corners}
+设所有 \(a_n\) 落在有界区间 \(I\)，其直径不超过 \(D\)。对任意 \(N>M\)，
+\[
+ \sup_{x\in I}\left|\sum_{n=M+1}^{N}c_n|x-a_n|\right|
+ \le D\sum_{n=M+1}^{N}c_n.
+\]
+右端趋于零，故部分和列一致 Cauchy，从而一致收敛；每项连续，故和函数连续。每个部分和都是凸函数，令部分和极限通过凸性不等式即可知 \(f\) 凸。
+
+固定 \(k\)。对 \(n\ne k\)，函数 \(|x-a_n|\) 在 \(a_k\) 可导，导数为 \(\operatorname{sgn}(a_k-a_n)\)。其差商的绝对值不超过 \(1\)，而 \(\sum c_n<\infty\)，故差商级数的尾项受 \(\sum_{n>M}c_n\) 一致控制，可以逐项取极限。于是除第 \(k\) 项外的和在 \(a_k\) 可导，而第 \(k\) 项的左右导数分别为 \(-c_k,c_k\)。所以总函数的右导数减左导数为 \(2c_k>0\)，在 \(a_k\) 不可导。
+\end{solution}
+
+\begin{solution}{convex-nondifferentiability-countable-proof}
+对每个不可导点 \(x\)，区间
+\[
+ J_x=(f'_-(x),f'_+(x))
+\]
+非空。若 \(x<y\)，则 \(f'_+(x)\le f'_-(y)\)，故 \(J_x\cap J_y=\varnothing\)。固定一个枚举 \(\Q=\{q_1,q_2,\dots\}\)。对每个 \(x\)，令 \(n(x)\) 为满足 \(q_{n(x)}\in J_x\) 的最小正整数。稠密性保证这样的整数存在，而最小整数原理使选择唯一确定，不需对任意族作额外选择。
+
+不交性说明若 \(x\ne y\)，则 \(q_{n(x)}\ne q_{n(y)}\)。所以 \(x\mapsto n(x)\) 把不可导点集单射到 \(\Npos\)，该集合至多可数。
+\end{solution}
+
+\begin{solution}{jensen-weighted-amgm}
+设 \(x_i>0\)、\(\lambda_i\ge0\) 且 \(\sum_i\lambda_i=1\)。函数 \(-\log x\) 严格凸，Jensen 不等式给出
+\[
+ -\log\!\left(\sum_i\lambda_i x_i\right)
+ \le-\sum_i\lambda_i\log x_i
+ =-\log\!\left(\prod_i x_i^{\lambda_i}\right).
+\]
+乘以 \(-1\) 后指数化，得到
+\[
+ \prod_i x_i^{\lambda_i}\le\sum_i\lambda_i x_i.
+\]
+若所有权重都为正，等号当且仅当所有 \(x_i\) 相等；零权重对应的项不影响不等式。
+\end{solution}
+
+\begin{solution}{jensen-power-mean-basic}
+对 \(p>1\)，函数 \(\phi(x)=x^p\) 在 \([0,\infty)\) 上严格凸。取等权 \(\lambda_i=1/n\)，有限 Jensen 不等式直接给出
+\[
+ \left(\frac{x_1+\cdots+x_n}{n}\right)^p
+ \le\frac{x_1^p+\cdots+x_n^p}{n}.
+\]
+等号当且仅当 \(x_1=\cdots=x_n\)。
+\end{solution}
+
+\begin{solution}{convex-conjugate-quadratic}
+令 \(f(x)=x^2/2\)。配方得
+\[
+ px-\frac{x^2}{2}
+ =\frac{p^2}{2}-\frac{(x-p)^2}{2}\le\frac{p^2}{2},
+\]
+且在 \(x=p\) 处取等号，所以 \(f^*(p)=p^2/2\)。Fenchel--Young 不等式成为
+\[
+ px\le\frac{x^2}{2}+\frac{p^2}{2},
+\]
+它等价于 \((x-p)^2/2\ge0\)，等号当且仅当 \(x=p\)。
+\end{solution}
+
+\begin{solution}{convex-conjugate-absolute-value}
+若 \(|p|\le1\)，则
+\[
+ px-|x|\le |p|\,|x|-|x|\le0,
+\]
+而 \(x=0\) 时取零，故 \(f^*(p)=0\)。若 \(p>1\)，令 \(x\to+\infty\)，则 \(px-|x|=(p-1)x\to+\infty\)；若 \(p<-1\)，令 \(x\to-\infty\) 可得同样结论。因此
+\[
+ f^*(p)=\begin{cases}0,&|p|\le1,\\+\infty,&|p|>1.\end{cases}
+\]
+有限值区间恰是原点的次梯度集合 \([-1,1]\)。
+\end{solution}
+
+\begin{solution}{fenchel-equality-subgradient}
+由定义，
+\[
+ f^*(p)=\sup_y\{py-f(y)\}\ge px-f(x),
+\]
+故 \(px\le f(x)+f^*(p)\)。等号成立当且仅当 \(x\) 是上确界的一个取到点，即对每个 \(y\)，
+\[
+ py-f(y)\le px-f(x).
+\]
+移项后这正是 \(f(y)\ge f(x)+p(y-x)\)，也就是 \(p\in\partial f(x)\)。对 \(f(x)=|x|\)、\(x=0\)，有 \(\partial f(0)=[-1,1]\)，所以每个 \(|p|\le1\) 都给出有限等号。
+\end{solution}
+
+\begin{solution}{young-inequality-scaled}
+令 \(1/r+1/s=1\)。在 Young 不等式中取
+\[
+ A=(\varepsilon r)^{1/r}a,
+ \qquad B=(\varepsilon r)^{-1/r}b.
+\]
+则 \(AB=ab\)，并且
+\[
+ ab\le\frac{A^r}{r}+\frac{B^s}{s}
+ =\varepsilon a^r+\frac{1}{s(\varepsilon r)^{s/r}}b^s.
+\]
+所以可取
+\[
+ C_{\varepsilon,r}=\frac{1}{s(\varepsilon r)^{s/r}}.
+\]
+\end{solution}
+
+\begin{solution}{convex-biconjugate-support-lines}
+Fenchel--Young 不等式说明对所有 \(p\)，
+\[
+ px-f^*(p)\le f(x).
+\]
+取上确界得 \(f^{**}(x)\le f(x)\)。另一方面，按题设可取 \(p\in\partial f(x)\)。Fenchel--Young 的等号条件给出 \(px-f^*(p)=f(x)\)，所以 \(f^{**}(x)\ge f(x)\)。两边合并即得 \(f^{**}=f\)。
+\end{solution}
+
+\begin{solution}{convex-inequality-portfolio}
+先证明对数不等式。由于 \(-\log x\) 在 \((0,+\infty)\) 上凸，
+它在 \(x=1\) 处的支撑线给出
+\[
+ -\log x\ge 1-x,
+\]
+即 \(\log x\le x-1\)。严格凸性说明等号仅在 \(x=1\) 处成立。
+另一种证明使用凸共轭。对 \(\Phi(t)=e^t\)，直接求极大值得
+\[
+ \Phi^*(1)=\sup_{t\in\R}(t-e^t)=-1.
+\]
+Fenchel--Young 不等式在 \(p=1\) 时给出 \(t\le e^t-1\)。代入
+\(t=\log x\) 即得同一结论；等号条件 \(1=\Phi'(t)=e^t\) 仍给出
+\(x=1\)。
+
+现在设 \(x_1,\dots,x_n>0\)，并记
+\[
+ A=\frac{x_1+\cdots+x_n}{n},
+ \qquad G=(x_1\cdots x_n)^{1/n}.
+\]
+对严格凸函数 \(-\log x\) 使用等权 Jensen 不等式，得到
+\[
+ -\log A\le-\frac1n\sum_{i=1}^n\log x_i=-\log G,
+\]
+所以 \(G\le A\)，且等号当且仅当 \(x_1=\cdots=x_n\)。也可令
+\(y_i=x_i/G\)。此时 \(\prod_i y_i=1\)，由刚才证明的
+\(\log y_i\le y_i-1\) 求和可得
+\[
+ 0=\sum_{i=1}^n\log y_i
+ \le\sum_{i=1}^n(y_i-1)
+ =\frac{nA}{G}-n.
+\]
+这再次给出 \(G\le A\)。每一项同时取等号仍等价于全部 \(x_i\)
+相等。
+
+最后设 \(r,s>1\) 且 \(1/r+1/s=1\)。令
+\(\Psi(a)=a^r/r\)（\(a\ge0\)）；计算共轭得到
+\(\Psi^*(b)=b^s/s\)（\(b\ge0\)）。Fenchel--Young 不等式立即给出
+\[
+ ab\le\frac{a^r}{r}+\frac{b^s}{s}.
+\]
+固定 \(b\ge0\) 后，也可考察
+\[
+ h(a)=\frac{a^r}{r}-ab+\frac{b^s}{s},\qquad a\ge0.
+\]
+函数 \(h\) 凸，且当 \(b>0\) 时唯一临界点为
+\(a=b^{s-1}\)。在该点利用 \((s-1)r=s\) 得
+\[
+ h(b^{s-1})
+ =\frac{b^s}{r}-b^s+\frac{b^s}{s}=0.
+\]
+当 \(b=0\) 时结论直接成立。因此两种方法都证明了 Young 不等式，
+其等号条件都是 \(a^{r-1}=b\)。
+
+三组证明中的接触点分别是 \(x=1\)、所有取样点相等，以及
+\(a^{r-1}=b\)。支撑线证明使用一个接触点的局部信息，Jensen 不等式
+比较若干取样点及其重心，凸共轭则把等号写成互为次梯度的条件；三种
+方法所需的正性或共轭指数条件不能省略。
+\end{solution}
+
+\begin{solution}{differential-mean-value-taylor-chain}
+固定 \(x\in(a,b)\)。令 \(P\) 为通过 \((a,0),(x,f(x)),(b,0)\) 的二次插值多项式。由于端点值为零，
+\[
+ P(t)=\frac{f(x)}{(x-a)(x-b)}(t-a)(t-b).
+\]
+函数 \(F=f-P\) 在 \(a,x,b\) 三点为零。Rolle 定理先后使用两次，得到某个 \(\xi\in(a,b)\) 使 \(F''(\xi)=0\)。因
+\[
+ P''(t)=\frac{2f(x)}{(x-a)(x-b)},
+\]
+可得
+\[
+ f(x)=\frac{f''(\xi)}2(x-a)(x-b).
+\]
+取绝对值便有
+\[
+ |f(x)|\le\frac M2(x-a)(b-x).
+\]
+又因 \((x-a)(b-x)\le((b-a)/2)^2\)，得到第二个不等式。端点处结论显然。
+
+取 \(f(t)=\frac M2(t-a)(t-b)\)，它满足 \(|f''|=M\)，并在中点达到绝对值 \(M(b-a)^2/8\)。所以常数 \(1/8\) 不能减小。
+\end{solution}
+
+\begin{solution}{derivative-rational-valued}
+导函数具有 Darboux 性。若 \(f'\) 在某两点取不同有理数 \(r<s\)，则它在这两点之间必须取遍 \((r,s)\) 中所有实数，特别会取到无理数，与值域包含于 \(\Q\) 矛盾。因此 \(f'\) 在区间上只能取一个常值 \(c\in\Q\)。由 Lagrange 中值定理，
+\[
+ f(y)-f(x)=c(y-x),
+\]
+所以 \(f(x)=cx+d\) 为仿射函数。
+
+若 \(f'\) 在一个稠密子集上为零，该子集非空，因此常值 \(c\) 必为零；于是 \(f\) 为常函数。
+\end{solution}
+
+\begin{solution}{mean-value-lhopital-counterexample-suite}
+第一，取 \(f(x)=x^2\sin(1/x)\)、\(g(x)=x\)（\(x\ne0\)，并在 \(0\) 处补零）。原商
+\[
+ \frac{f(x)}{g(x)}=x\sin(1/x)\longrightarrow0,
+\]
+但
+\[
+ \frac{f'(x)}{g'(x)}=2x\sin(1/x)-\cos(1/x)
+\]
+没有极限。这说明导数商极限是充分条件，不是原商收敛的必要条件。
+
+第二，令 \(g(x)=x^2(2+\sin(1/x))\)、\(f=g\)，并在 \(0\) 处补零。两函数之商恒为 \(1\)，而
+\[
+ g'(x)=4x+2x\sin(1/x)-\cos(1/x).
+\]
+取 \(x_n=1/(2\pi n)\)、\(y_n=1/((2n+1)\pi)\)。充分大的 \(n\) 使
+\[
+ g'(x_n)=4x_n-1<0,\qquad g'(y_n)=4y_n+1>0.
+\]
+由导函数在每个不含零的闭区间 \([y_n,x_n]\) 上连续，存在 \(z_n\in(y_n,x_n)\) 使 \(g'(z_n)=0\)，且 \(z_n\to0\)。因而 \(f'/g'\) 在这些点没有定义。删去“删心邻域内 \(g'\ne0\)”后，导数商不再是该邻域上的函数；即使本例结论碰巧成立，也不能套用原定理。若要放宽条件，必须重新准确表述并证明。
+
+第三，取 \(f(x)=1+x\)、\(g(x)=x\)，令 \(x\to0\)。导数商恒为 \(1\)，但原商 \((1+x)/x\) 不是未定式且无有限极限。盲目“分子分母求导”会错误地给出 \(1\)。
+\end{solution}
+
+\begin{solution}{darboux-convex-derivative-continuity}
+凸性使 \(f'\) 单调不减。若单调函数在 \(x_0\) 不连续，则它的左、右极限存在，并且至少有一侧与函数值之间留出非空开区间。例如若
+\[
+ \ell=\sup_{x<x_0}f'(x)<f'(x_0),
+\]
+任取 \(v\in(\ell,f'(x_0))\)，\(f'\) 在 \(x_0\) 左侧不可能取 \(v\)，右侧又不小于 \(f'(x_0)\)，这违反 Darboux 性。右跳的情形相同。因此 \(f'\) 处处连续。
+
+一般凸函数如 \(|x|\) 在尖点处并不可导，所以不存在一个定义在整个区间上的导函数可供上述论证使用。
+\end{solution}
+
+\begin{solution}{taylor-convexity-local-global}
+Taylor 路线：对任意 \(x,y\in I\)，Lagrange 余项给出某个介于 \(x,y\) 之间的 \(\xi\)，使
+\[
+ f(y)=f(x)+f'(x)(y-x)+\frac{f''(\xi)}2(y-x)^2
+ \ge f(x)+f'(x)(y-x).
+\]
+于是每条切线都是支撑线，支撑线判据说明 \(f\) 凸。
+
+中值定理路线：\(f''\ge0\) 蕴含 \(f'\) 单调不减，再由可导凸函数判据得到凸性。前一路线使用二阶 Taylor 公式及余项符号；后一路线只需把 \(f''\ge0\) 转化为导数次序。
+\end{solution}
+
+\begin{solution}{inverse-function-convexity}
+令 \(g=f^{-1}\)，\(x=g(y)\)。一阶逆函数求导公式给出
+\[
+ g'(y)=\frac1{f'(x)}.
+\]
+再对 \(y\) 求导，并用 \(x'=g'(y)=1/f'(x)\)，得到
+\[
+ g''(y)=-\frac{f''(g(y))}{(f'(g(y)))^3}.
+\]
+若 \(f\) 凸，则 \(f''\ge0\)；又 \(f'>0\)，所以 \(g''\le0\)。二阶判据说明 \(f^{-1}\) 为凹函数。
+\end{solution}
+
+\begin{solution}{flat-function-convexity-near-zero}
+对 \(x\ne0\)，令 \(\phi(x)=e^{-1/x^2}\)。直接计算
+\[
+ \phi'(x)=\frac{2}{x^3}e^{-1/x^2},
+ \qquad
+ \phi''(x)=\frac{4-6x^2}{x^6}e^{-1/x^2}.
+\]
+所以 \(\phi\) 在负半轴靠近零处递减，在正半轴靠近零处递增；当 \(0<|x|<\sqrt{2/3}\) 时 \(\phi''(x)>0\)。又 \(\phi'(0)=0\)，故 \(\phi\) 在任意充分小的对称邻域上严格凸，且 \(0\) 是严格极小点。
+
+尽管 \(\phi^{(n)}(0)=0\) 对所有 \(n\) 成立，删心邻域内的二阶导数却为正。单点的全部导数并不决定一般光滑函数在邻域内的凹凸性。
+\end{solution}
+
+\begin{solution}{convex-logarithm-taylor-inequalities}
+函数 \(-\log x\) 在 \((0,\infty)\) 上凸，其在 \(x=1\) 处的切线为 \(1-x\)。支撑线不等式给出 \(-\log x\ge1-x\)，即 \(\log x\le x-1\)。函数 \(e^x\) 凸，在 \(0\) 处切线为 \(1+x\)，故 \(e^x\ge1+x\)。两者因严格凸性都只在接触点取等号。
+
+Taylor 路线给出
+\[
+ e^x=1+x+\frac{e^\xi}{2}x^2\ge1+x.
+\]
+对 \(\log x\)，在 \(1\) 处作一阶 Taylor 展开：
+\[
+ \log x=(x-1)-\frac{1}{2\xi^2}(x-1)^2\le x-1,
+\]
+其中 \(\xi\) 分别位于相应展开中心与 \(x\) 之间。余项为零恰在接触点。
+\end{solution}
+
+\begin{solution}{continuous-derivative-modulus-taylor}
+若 \(h\ne0\)，Lagrange 中值定理给出位于 \(x\) 与 \(x+h\) 之间的 \(\xi\)，使
+\[
+ f(x+h)-f(x)=f'(\xi)h.
+\]
+因此
+\[
+ |f(x+h)-f(x)-f'(x)h|
+ =|h|\,|f'(\xi)-f'(x)|
+ \le |h|\,\omega(|h|).
+\]
+\(h=0\) 时显然。由于 \(f'\) 在紧区间上一致连续，\(\omega(\delta)\to0\)，故该估计包含 \(o(h)\)；同时它对所有允许的 \(x,h\) 给出统一误差界。
+\end{solution}
+
+\begin{solution}{part-four-theorem-dependency-map}
+以“可导凸函数具有连续导数”为例，一条完整依赖链是：实数确界原理保证单调函数的单侧极限存在；凸性定义推出三点斜率不等式；令割线端点趋近得到 \(f'\) 单调不减。另一方面，可导推出连续，闭区间极值定理保证辅助函数 \(g(t)=f(t)-\lambda t\) 取得最小值；端点导数符号把极小点压入区间内部，Fermat 定理再给出 \(g'=0\)。这便证明导数的 Darboux 性。最后，单调函数若不连续只能发生跳跃，而 Darboux 性排除跳跃，所以 \(f'\) 连续。
+
+主要条件的作用可由下列例子核对：去掉凸性，\(x^2\sin(1/x^2)\) 的导数可在零附近振荡；去掉处处可导，\(|x|\) 是凸函数但在零处有尖点；只保留单调性而没有 Darboux 性，阶跃函数发生跳跃；只保留 Darboux 性而没有单调性，连续振荡函数不必单调。区间定义域保证任意两点之间仍可使用中值定理和介值性。
+
+这条链中，三点斜率的代数推导不使用完备性；单侧极限存在和闭区间极值定理最终使用实数完备性。若选择高阶极值判别，则应相应追踪 Peano 余项、保号性和极限理论。
+\end{solution}

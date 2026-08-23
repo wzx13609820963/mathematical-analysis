@@ -1,0 +1,881 @@
+\chapter{中值定理}
+\label{chap:mean-value-theorems}
+
+导数是在一点取得的局部信息。若要由导数判断一段区间上的增减、估计两个函数值之差，或者比较两个趋于零或无穷的函数，就需要把局部信息同区间两端的增量联系起来。中值定理完成的正是这一步：某个中间点的导数再现或控制整段区间的平均变化率。
+
+本章中的函数均为实值函数，除非另有说明。中值定理只要求闭区间上的连续性和开区间内的可导性；端点处不必可导。这个条件分工在后面的反例和 L'Hôpital 法则中都会起作用。
+
+\section{Fermat、Rolle 与 Lagrange 定理}
+\label{sec:fermat-rolle-lagrange}
+
+\subsection{内点极值与 Fermat 定理}
+
+设 \(f:D\to\R\)，\(a\in D\)。若存在 \(\delta>0\)，使
+\[
+ f(x)\le f(a)
+ \qquad\bigl(x\in D,\ \abs{x-a}<\delta\bigr),
+\]
+则称 \(a\) 为 \(f\) 的局部极大点；局部极小点对称定义。这里的“局部”只比较定义域中充分靠近 \(a\) 的点。若 \(a\) 是区间的内点，则可以从左右两侧考察差商。
+
+\begin{theorem}[Fermat 定理]
+\label{thm:fermat-stationary}
+设 \(a\) 是区间 \(I\) 的内点，函数 \(f:I\to\R\) 在 \(a\) 可导。若 \(a\) 是 \(f\) 的局部极大点或局部极小点，则
+\[
+ f'(a)=0.
+\]
+\end{theorem}
+
+\begin{proof}
+只证局部极大情形。存在 \(\delta>0\)，使 \(x\in I\)、\(\abs{x-a}<\delta\) 时 \(f(x)\le f(a)\)。对充分小的 \(h>0\)，
+\[
+ \frac{f(a+h)-f(a)}{h}\le0;
+\]
+对充分小的 \(h<0\)，分子仍不大于零而分母为负，故
+\[
+ \frac{f(a+h)-f(a)}{h}\ge0.
+\]
+因 \(f'(a)\) 存在，左右差商必须趋于同一个数。右极限不大于零，左极限不小于零，所以共同极限只能为零。局部极小情形把不等号反向即可。
+\end{proof}
+
+满足 \(f'(a)=0\) 的点称为驻点。Fermat 定理给出内点可导极值的必要条件，却不是充分条件；例如 \(f(x)=x^3\) 在 \(0\) 处导数为零，但 \(0\) 不是局部极值点。它也没有处理端点极值或尖点极值，这两种情形将在本章第四节中逐一核对。
+
+\subsection{Rolle 定理}
+
+\begin{theorem}[Rolle 定理]
+\label{thm:rolle}
+设 \(a<b\)，函数 \(f:[a,b]\to\R\) 在 \([a,b]\) 上连续，在 \((a,b)\) 内可导，并且
+\[
+ f(a)=f(b).
+\]
+则存在 \(c\in(a,b)\)，使 \(f'(c)=0\)。
+\end{theorem}
+
+\begin{proof}
+闭区间连续函数取得最大值和最小值。若二者相等，则 \(f\) 为常值，任取 \(c\in(a,b)\) 都有 \(f'(c)=0\)。
+
+若最大值与最小值不同，由 \(f(a)=f(b)\)，二者不可能都只在两个端点取得：若最大值恰为端点公共值且函数不恒定，则最小值在某个内点取得；若最小值恰为端点公共值，则最大值在某个内点取得；若端点公共值介于最大值与最小值之间，两个极值都在内点取得。因此总有某个 \(c\in(a,b)\) 是局部极值点。Fermat 定理给出 \(f'(c)=0\)。
+\end{proof}
+
+证明中闭区间的作用不是装饰性的：它使连续函数取得极值。端点等值再迫使至少一个极值落入可以使用 Fermat 定理的区间内部。
+
+\subsection{Lagrange 中值定理}
+
+\begin{theorem}[Lagrange 中值定理]
+\label{thm:lagrange-mvt}
+设 \(a<b\)，函数 \(f:[a,b]\to\R\) 在 \([a,b]\) 上连续，在 \((a,b)\) 内可导。则存在 \(c\in(a,b)\)，使
+\[
+ f(b)-f(a)=f'(c)(b-a),
+\]
+即
+\[
+ f'(c)=\frac{f(b)-f(a)}{b-a}.
+\]
+\end{theorem}
+
+\begin{proof}
+令
+\[
+ \ell(x)=f(a)+\frac{f(b)-f(a)}{b-a}(x-a)
+\]
+为连接两端点的割线函数，并设 \(F=f-\ell\)。函数 \(F\) 在 \([a,b]\) 上连续、在 \((a,b)\) 内可导，而且
+\[
+ F(a)=F(b)=0.
+\]
+由 Rolle 定理，存在 \(c\in(a,b)\) 使 \(F'(c)=0\)。因此
+\[
+ f'(c)-\frac{f(b)-f(a)}{b-a}=0,
+\]
+整理即得结论。
+\end{proof}
+
+Lagrange 定理把端点增量写成一个中间点导数与区间长度的乘积。这里的 \(c\) 依赖于函数和两个端点，通常不能预先指定，也不必唯一。把 \(a\) 固定、令 \(b=a+h\)，可写成有限增量形式
+\[
+ f(a+h)-f(a)=f'(a+\theta h)h
+\]
+其中某个 \(\theta\in(0,1)\) 依赖于 \(h\)。这个公式是精确等式，但它并没有说明 \(\theta\) 随 \(h\) 怎样变化。
+
+\begin{example}[指数函数的基本估计]
+对 \(x>0\)，把 Lagrange 定理用于 \(e^t\) 在 \([0,x]\) 上的限制，得到某个 \(c\in(0,x)\) 使
+\[
+ e^x-1=e^c x.
+\]
+于是
+\[
+ x\le e^x-1\le xe^x.
+\]
+对负 \(x\) 可在 \([x,0]\) 上作同样分析。与只写出导数公式相比，中值定理保留了区间上的定量控制。
+\end{example}
+
+\section{Cauchy 中值定理}
+\label{sec:cauchy-mean-value}
+
+Lagrange 定理比较函数值增量与自变量增量。若把自变量 \(x\) 换成另一个函数 \(g(x)\)，就得到两个函数增量之间的比较。这一形式是 L'Hôpital 法则的直接基础。
+
+\begin{theorem}[Cauchy 中值定理]
+\label{thm:cauchy-mvt}
+设 \(a<b\)，函数 \(f,g:[a,b]\to\R\) 都在 \([a,b]\) 上连续、在 \((a,b)\) 内可导。则存在 \(c\in(a,b)\)，使
+\[
+ \bigl(f(b)-f(a)\bigr)g'(c)
+ =
+ \bigl(g(b)-g(a)\bigr)f'(c).
+\]
+\end{theorem}
+
+\begin{proof}
+定义
+\[
+ H(x)=\bigl(f(b)-f(a)\bigr)\bigl(g(x)-g(a)\bigr)
+      -\bigl(g(b)-g(a)\bigr)\bigl(f(x)-f(a)\bigr).
+\]
+它在闭区间上连续、在开区间内可导，并且直接计算得
+\[
+ H(a)=H(b)=0.
+\]
+Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
+\[
+ \bigl(f(b)-f(a)\bigr)g'(c)
+ -
+ \bigl(g(b)-g(a)\bigr)f'(c)=0.
+\]
+\end{proof}
+
+交叉相乘的陈述始终有意义，不要求 \(g(b)\ne g(a)\)，也不要求 \(g'(c)\ne0\)。若要写成商，必须另加非零条件。
+
+\begin{corollary}[增量比形式]
+\label{cor:cauchy-mvt-ratio}
+在 Cauchy 中值定理的条件下，若
+\[
+ g'(x)\ne0\qquad(x\in(a,b)),
+\]
+则 \(g(b)\ne g(a)\)，并且存在 \(c\in(a,b)\) 使
+\[
+ \frac{f(b)-f(a)}{g(b)-g(a)}
+ =\frac{f'(c)}{g'(c)}.
+\]
+\end{corollary}
+
+\begin{proof}
+若 \(g(a)=g(b)\)，Rolle 定理会给出某个 \(\xi\in(a,b)\) 使 \(g'(\xi)=0\)，与假设矛盾。因此端点增量非零。再在 Cauchy 中值定理的等式两端除以
+\((g(b)-g(a))g'(c)\) 即得商式。
+\end{proof}
+
+\begin{corollary}[导数比控制增量比]
+\label{cor:derivative-ratio-controls-increments}
+设上述非零条件成立。若对所有 \(x\in(a,b)\) 有
+\[
+ m\le\frac{f'(x)}{g'(x)}\le M,
+\]
+则
+\[
+ m\le
+ \frac{f(b)-f(a)}{g(b)-g(a)}
+ \le M.
+\]
+\end{corollary}
+
+\begin{proof}
+增量比等于某个中间点 \(c\) 处的导数比，代入给定上下界即可。这个结论不要求 \(g'\) 为正；分母可能为负的影响已经包含在两个比值中。
+\end{proof}
+
+取 \(g(x)=x\) 时，Cauchy 中值定理退化为 Lagrange 中值定理。取一般 \(g\) 则允许用 \(g\) 的变化作为尺度，这正是比较 \(f/g\) 型极限所需的形式。
+
+\section{单调性、常值性与导数估计}
+\label{sec:mvt-consequences}
+
+\subsection{导数符号与单调性}
+
+\begin{theorem}[导数符号判据]
+\label{thm:derivative-sign-monotonicity}
+设 \(I\) 是区间，\(f:I\to\R\) 在 \(I\) 的内点可导，并在属于 \(I\) 的端点连续。
+\begin{enumerate}
+ \item 若 \(f'(x)\ge0\) 对所有内点成立，则 \(f\) 在 \(I\) 上单调不减；
+ \item 若 \(f'(x)\le0\) 对所有内点成立，则 \(f\) 在 \(I\) 上单调不增；
+ \item 若 \(f'(x)>0\) 对所有内点成立，则 \(f\) 严格递增；若 \(f'(x)<0\)，则 \(f\) 严格递减。
+\end{enumerate}
+反过来，若 \(f\) 在 \(I\) 上单调不减且在内点 \(x\) 可导，则 \(f'(x)\ge0\)；单调不增时 \(f'(x)\le0\)。
+\end{theorem}
+
+\begin{proof}
+任取 \(x<y\) 于 \(I\)。函数在 \([x,y]\) 上连续、在 \((x,y)\) 内可导，故存在 \(c\in(x,y)\) 使
+\[
+ f(y)-f(x)=f'(c)(y-x).
+\]
+由于 \(y-x>0\)，前三项结论由 \(f'(c)\) 的符号立即得到。
+
+反过来，设 \(f\) 单调不减，且 \(x\) 为内点。对充分小的 \(h\ne0\)，当 \(h>0\) 时分子 \(f(x+h)-f(x)\ge0\)；当 \(h<0\) 时分子不大于零，除以负数后差商仍不小于零。差商极限存在时必有 \(f'(x)\ge0\)。单调不增情形对称。
+\end{proof}
+
+严格递增函数的导数可以在某些点等于零，例如 \(x^3\) 在 \(0\) 处。因而“严格递增”不能反推 \(f'>0\) 处处成立；正确的反向结论仍只是 \(f'\ge0\)。
+
+\begin{corollary}[零导数判据]
+\label{cor:zero-derivative-constant}
+设 \(I\) 是区间，\(f:I\to\R\) 满足上一结论的连续与可导条件。则
+\[
+ f'(x)=0\quad(x\in\operatorname{int}I)
+\]
+当且仅当 \(f\) 在 \(I\) 上为常值。
+\end{corollary}
+
+\begin{proof}
+若导数恒为零，则它既非负又非正，故 \(f\) 同时单调不减和单调不增，只能为常值。常值函数的导数显然处处为零。
+\end{proof}
+
+\subsection{增量估计}
+
+\begin{theorem}[导数上下界与增量]
+\label{thm:derivative-bounds-increments}
+设 \(f:[a,b]\to\R\) 连续并在 \((a,b)\) 内可导。若
+\[
+ m\le f'(x)\le M\qquad(x\in(a,b)),
+\]
+则对任意 \(a\le x<y\le b\)，
+\[
+ m(y-x)\le f(y)-f(x)\le M(y-x).
+\]
+\end{theorem}
+
+\begin{proof}
+把 Lagrange 中值定理用于 \([x,y]\)，得到某个 \(c\in(x,y)\) 使
+\[
+ f(y)-f(x)=f'(c)(y-x).
+\]
+因 \(y-x>0\)，将 \(m\le f'(c)\le M\) 同乘以 \(y-x\) 即得。
+\end{proof}
+
+\begin{corollary}[有界导数与 Lipschitz 估计]
+\label{cor:bounded-derivative-lipschitz}
+若
+\[
+ \abs{f'(x)}\le K\qquad(x\in(a,b)),
+\]
+则
+\[
+ \abs{f(y)-f(x)}\le K\abs{y-x}
+\qquad(x,y\in[a,b]).
+\]
+因此 \(f\) 是 \(K\)-Lipschitz 连续。反之，若 \(f\) 在区间 \(I\) 上是 \(K\)-Lipschitz 连续，并在内点 \(x\) 可导，则
+\[
+ \abs{f'(x)}\le K.
+\]
+\end{corollary}
+
+\begin{proof}
+前一结论取 \(m=-K\)、\(M=K\)。反向中，对充分小的非零 \(h\) 有
+\[
+ \abs{\frac{f(x+h)-f(x)}{h}}\le K.
+\]
+令 \(h\to0\)，得到 \(\abs{f'(x)}\le K\)。
+\end{proof}
+
+这个等价关系说明，在一元区间上，“导数处处受统一界控制”和“函数具有全局 Lipschitz 增量估计”是同一项定量事实的微分与差分表述。若只知道每一点的导数有限，却没有统一上界，就不能推出整个区间上的同一 Lipschitz 常数。
+
+\begin{corollary}[导数比较]
+\label{cor:derivative-comparison}
+若 \(f,g:[a,b]\to\R\) 连续、在 \((a,b)\) 内可导，且 \(f'\le g'\)，则对任意 \(a\le x<y\le b\)，
+\[
+ f(y)-f(x)\le g(y)-g(x).
+\]
+\end{corollary}
+
+\begin{proof}
+函数 \(h=f-g\) 满足 \(h'\le0\)，故单调不增。
+\end{proof}
+
+\begin{proposition}[下导数界与逆向距离估计]
+\label{prop:lower-derivative-inverse-lipschitz}
+设 \(f:[a,b]\to\R\) 连续、在 \((a,b)\) 内可导，并且或者
+\[
+ f'(x)\ge m>0,
+\]
+或者 \(f'(x)\le-m<0\)。则 \(f\) 严格单调，且对所有 \(x,y\in[a,b]\)，
+\[
+ \abs{f(x)-f(y)}\ge m\abs{x-y}.
+\]
+因而逆函数 \(f^{-1}:f([a,b])\to[a,b]\) 是 \(1/m\)-Lipschitz 连续。
+\end{proposition}
+
+\begin{proof}
+严格单调性来自导数符号判据。对 \(x<y\)，Lagrange 定理给出
+\[
+ \abs{f(y)-f(x)}=\abs{f'(c)}(y-x)\ge m(y-x).
+\]
+令 \(u=f(x)\)、\(v=f(y)\)，改写为
+\[
+ \abs{f^{-1}(u)-f^{-1}(v)}
+ \le\frac1m\abs{u-v}.
+\]
+\end{proof}
+
+\section{各项假设的作用和反例}
+\label{sec:mvt-hypotheses-counterexamples}
+
+中值定理的假设分属三个位置：闭区间连续性把端点同内部连接起来，开区间可导性使 Fermat 定理能够作用于内部极值，区间性则保证两端之间的所有点都属于定义域。删去其中任何一项，都可能失去中间点。
+
+\subsection{Fermat 定理中的三个条件}
+
+\begin{counterexample}[缺少内点条件]
+函数 \(f(x)=x\) 在 \([0,1]\) 的左端点 \(0\) 取得最小值，但右导数为 \(1\)。Fermat 定理只对区间内点作结论；端点极值只给出单侧差商的符号。
+\end{counterexample}
+
+\begin{counterexample}[缺少可导性]
+函数 \(f(x)=\abs x\) 在 \(0\) 处取得严格局部最小值，但左右导数分别为 \(-1\) 和 \(1\)，导数不存在。尖点极值不能由 \(f'(a)=0\) 描述。
+\end{counterexample}
+
+\begin{counterexample}[驻点不一定是极值点]
+函数 \(f(x)=x^3\) 满足 \(f'(0)=0\)，但它在 \(0\) 的任意邻域内同时取正值和负值。因此 Fermat 条件不可反向使用。
+\end{counterexample}
+
+\subsection{Rolle 与 Lagrange 定理中的条件}
+
+\begin{counterexample}[闭区间连续性不可删除]
+在 \([0,1]\) 上定义
+\[
+ f(0)=1,\qquad f(x)=x\quad(0<x\le1).
+\]
+函数在 \((0,1)\) 内可导且 \(f(0)=f(1)=1\)，但 \(f'(x)=1\) 对所有 \(x\in(0,1)\) 成立。由于函数在 \(0\) 处不连续，Rolle 定理的结论失败；同一例也使端点割线斜率为零而内部导数从不为零，故 Lagrange 定理同样失败。
+\end{counterexample}
+
+\begin{counterexample}[内部可导性不可删除]
+函数 \(f(x)=\abs x\) 在 \([-1,1]\) 上连续且端点值相等，但内部没有导数为零的点：在负半轴导数为 \(-1\)，在正半轴导数为 \(1\)，而 \(0\) 处不可导。因此 Rolle 定理不能只假设连续。它的端点割线斜率为零，也说明 Lagrange 定理需要整个开区间内可导。
+\end{counterexample}
+
+\begin{counterexample}[端点等值只属于 Rolle 定理]
+函数 \(f(x)=x\) 在 \([0,1]\) 上连续、在内部可导，却没有导数为零的点。这里 \(f(0)\ne f(1)\)，所以不能使用 Rolle 定理；Lagrange 定理仍成立，因为内部导数恒等于割线斜率 \(1\)。
+\end{counterexample}
+
+\begin{counterexample}[定义域必须连接两端]
+令
+\[
+ D=[-1,0]\cup[1,2],
+\qquad
+ f(x)=
+ \begin{cases}
+ x+1,&x\in[-1,0],\\
+ x-2,&x\in[1,2].
+ \end{cases}
+\]
+函数在相对定义域 \(D\) 上连续，在两个分支内部的导数都为 \(1\)，并且 \(f(-1)=f(2)=0\)。若把 Rolle 定理错误推广到不连通定义域，就会预言某处导数为零。原定理要求函数定义在整个 \([a,b]\) 上，使端点之间的极值与割线论证能够进行。
+\end{counterexample}
+
+端点可导性则不是中值定理的条件。例如 \(f(x)=\sqrt x\) 在 \([0,1]\) 上连续、在 \((0,1)\) 内可导，虽然在 \(0\) 处没有有限右导数，Lagrange 定理仍然适用。把端点可导加入假设会得到一个正确但不必要地偏强的版本。
+
+Cauchy 中值定理取 \(g(x)=x\) 就退化为 Lagrange 定理，所以上述闭区间连续性、内部可导性和区间性反例也说明 Cauchy 定理的相应条件不能随意删除。另一方面，交叉相乘形式本身不要求 \(g'\ne0\)；这一非零条件只在把结论改写成导数比与增量比时加入。
+
+\begin{remark}[严格符号与非严格单调性]
+由 \(f'\ge0\) 只能推出单调不减，不能推出严格递增；常值函数就是反例。由 \(f'>0\) 可推出严格递增，但严格递增只能反推 \(f'\ge0\)，不能反推 \(f'>0\)。函数 \(x^3\) 在实线上严格递增而 \(f'(0)=0\)。
+\end{remark}
+
+\section{L'Hôpital 法则的各类严格版本}
+\label{sec:lhopital-rules}
+
+L'Hôpital 法则不是把“零除以零”或“无穷除以无穷”当作数值运算。它用 Cauchy 中值定理把函数增量比转成导数比，再由导数比的极限控制原商。为同时包括有限单侧极限和无穷远极限，先固定一种端点语言。
+
+设 \(I\) 是非空开区间，它的两个端点允许属于
+\(\overline{\R}=\R\cup\{-\infty,+\infty\}\)。以下写
+\[
+ x\to\alpha,\qquad x\in I,
+\]
+总表示 \(x\) 沿 \(I\) 趋向端点 \(\alpha\)。若 \(\alpha\) 有限，这是一个单侧极限；若 \(\alpha=\pm\infty\)，就是相应的无穷远极限。双侧有限极限应分别在左右两个区间上应用定理。
+
+\subsection{导数比与割线比}
+
+\begin{lemma}[Cauchy 比较引理]
+\label{lem:cauchy-quotient-comparison}
+设 \(f,g\) 在开区间 \(I\) 内可导，并且
+\[
+ g'(x)\ne0\qquad(x\in I).
+\]
+若 \(x,y\in I\)、\(x\ne y\)，则 \(g(x)\ne g(y)\)，且存在介于 \(x,y\) 之间的 \(\xi\)，使
+\[
+ \frac{f(y)-f(x)}{g(y)-g(x)}
+ =\frac{f'(\xi)}{g'(\xi)}.
+\]
+因此，若导数比在连接 \(x,y\) 的区间内落在 \((A,B)\) 中，则相应增量比也落在 \((A,B)\) 中。
+\end{lemma}
+
+\begin{proof}
+若 \(g(x)=g(y)\)，Rolle 定理给出介于两点之间的 \(\eta\) 使 \(g'(\eta)=0\)，与假设矛盾。把 Cauchy 中值定理用于以 \(x,y\) 为端点的闭区间，再除以非零的
+\[
+ \bigl(g(y)-g(x)\bigr)g'(\xi),
+\]
+便得商式及其比较结论。
+\end{proof}
+
+定理只需 \(g'\) 在所考察端点的某个邻域内不为零。实际应用时可以先缩短区间 \(I\)，所以下文为简化陈述写成 \(g'\ne0\) 于 \(I\)。
+
+\subsection{\texorpdfstring{\(0/0\)}{0/0} 型}
+
+\begin{theorem}[L'Hôpital 法则：\(0/0\) 型]
+\label{thm:lhopital-zero-zero}
+设 \(\alpha\) 是开区间 \(I\) 的一个端点，函数 \(f,g:I\to\R\) 在 \(I\) 内可导，并且
+\[
+ \lim_{\substack{x\to\alpha\\x\in I}}f(x)=0,
+ \qquad
+ \lim_{\substack{x\to\alpha\\x\in I}}g(x)=0,
+ \qquad
+ g'(x)\ne0\quad(x\in I).
+\]
+若导数比在扩充实数中有极限
+\[
+ \lim_{\substack{x\to\alpha\\x\in I}}
+ \frac{f'(x)}{g'(x)}=L
+ \qquad(L\in\overline{\R}),
+\]
+则 \(f(x)/g(x)\) 在充分靠近 \(\alpha\) 时有定义，并且
+\[
+ \lim_{\substack{x\to\alpha\\x\in I}}
+ \frac{f(x)}{g(x)}=L.
+\]
+\end{theorem}
+
+\begin{proof}
+由比较引理，\(g\) 在 \(I\) 上为单射，因而至多有一个零点。若有这样的零点，它位于区间内部；把区间缩短到更靠近端点 \(\alpha\) 的一段即可避开它。因此 \(f/g\) 最终有定义。
+
+先设 \(L\in\R\)。给定 \(\varepsilon>0\)，把导数比限制在端点的一个邻域内，使
+\[
+ L-\frac{\varepsilon}{2}
+ <
+ \frac{f'(t)}{g'(t)}
+ <
+ L+\frac{\varepsilon}{2}.
+\]
+固定这个邻域内的 \(x\)，并让 \(y\in I\) 位于 \(x\) 与端点 \(\alpha\) 之间。只要 \(y\) 也充分靠近 \(\alpha\)，连接 \(x,y\) 的整段区间都在上述邻域内。比较引理给出
+\[
+ L-\frac{\varepsilon}{2}
+ <
+ \frac{f(y)-f(x)}{g(y)-g(x)}
+ <
+ L+\frac{\varepsilon}{2}.
+\]
+令 \(y\to\alpha\)。因为 \(f(y)\to0\)、\(g(y)\to0\)，且已保证 \(g(x)\ne0\)，中间的增量比趋于
+\[
+ \frac{-f(x)}{-g(x)}=\frac{f(x)}{g(x)}.
+\]
+于是
+\[
+ L-\frac{\varepsilon}{2}
+ \le\frac{f(x)}{g(x)}
+ \le L+\frac{\varepsilon}{2},
+\]
+从而 \(\abs{f(x)/g(x)-L}<\varepsilon\)。这对所有充分靠近端点的 \(x\) 成立。
+
+若 \(L=+\infty\)，给定 \(M>0\)，先使 \(f'/g'>M+1\)。同样的增量比估计在令 \(y\to\alpha\) 后给出
+\[
+ \frac{f(x)}{g(x)}\ge M+1>M.
+\]
+故商趋于 \(+\infty\)。若 \(L=-\infty\)，则 \((-f)'/g'\to+\infty\)。对 \(-f\) 使用刚证的情形，得到
+\[
+ \frac{-f(x)}{g(x)}\longrightarrow+\infty,
+\]
+故 \(f(x)/g(x)\to-\infty\)。
+\end{proof}
+
+有限端点的常见版本通常把 \(f,g\) 补定义到端点 \(\alpha\)，要求它们在那里连续且 \(f(\alpha)=g(\alpha)=0\)。这恰好保证上述两个单侧零极限；证明并不需要端点处可导。
+
+\subsection{分母无界型}
+
+\begin{theorem}[L'Hôpital 法则：无界分母型]
+\label{thm:lhopital-infinite-denominator}
+设 \(\alpha\) 是开区间 \(I\) 的一个端点，\(f,g:I\to\R\) 在 \(I\) 内可导，且
+\[
+ \abs{g(x)}\longrightarrow+\infty
+ \qquad(x\to\alpha,\ x\in I),
+\]
+\[
+ g'(x)\ne0\qquad(x\in I).
+\]
+若
+\[
+ \frac{f'(x)}{g'(x)}\longrightarrow L
+ \qquad(x\to\alpha,\ x\in I)
+\]
+其中 \(L\in\overline{\R}\)，则
+\[
+ \frac{f(x)}{g(x)}\longrightarrow L.
+\]
+\end{theorem}
+
+\begin{proof}
+由 \(\abs{g(x)}\to+\infty\)，商在端点附近有定义。先设 \(L\in\R\)。给定 \(\varepsilon>0\)，把 \(c\in I\) 选入使
+\[
+ \abs{\frac{f'(t)}{g'(t)}-L}<\frac{\varepsilon}{4}
+\]
+对所有比 \(c\) 更靠近端点的 \(t\) 成立的邻域。当 \(x\) 比 \(c\) 更靠近端点时，比较引理给出
+\[
+ Q(x):=\frac{f(x)-f(c)}{g(x)-g(c)}
+ =\frac{f'(\xi_x)}{g'(\xi_x)}
+\]
+其中 \(\xi_x\) 位于 \(c,x\) 之间。整段 \([c,x]\) 留在上述邻域，因此
+\[
+ \abs{Q(x)-L}<\frac{\varepsilon}{4}.
+\]
+恒等式
+\[
+ \frac{f(x)}{g(x)}
+ =
+ Q(x)\left(1-\frac{g(c)}{g(x)}\right)
+ +\frac{f(c)}{g(x)}
+\]
+还可改写为
+\[
+ \frac{f(x)}{g(x)}-L
+ =(Q(x)-L)\left(1-\frac{g(c)}{g(x)}\right)
+ +\frac{f(c)-Lg(c)}{g(x)}.
+\]
+再把 \(x\) 限制得更靠近端点，使
+\[
+ \abs{\frac{g(c)}{g(x)}}<1,\qquad
+ \abs{\frac{f(c)-Lg(c)}{g(x)}}<\frac{\varepsilon}{2}.
+\]
+于是右端绝对值小于
+\[
+ \frac{\varepsilon}{4}\cdot2+\frac{\varepsilon}{2}
+ =\varepsilon,
+\]
+这就按量词证明了 \(f(x)/g(x)\to L\)。
+
+若 \(L=+\infty\)，给定 \(M>0\)，把 \(c\) 取得充分靠近端点，使整段上的导数比大于 \(2(M+1)\)。于是更靠近端点时
+\[
+ Q(x)>2(M+1).
+\]
+再缩小端点邻域，使
+\[
+ \abs{\frac{g(c)}{g(x)}}<\frac12,
+ \qquad
+ \abs{\frac{f(c)}{g(x)}}<1.
+\]
+由上面的恒等式，
+\[
+ \frac{f(x)}{g(x)}
+ >2(M+1)\cdot\frac12-1=M.
+\]
+故商趋于 \(+\infty\)。若 \(L=-\infty\)，对 \(-f\) 应用刚证的正无穷情形，得到
+\[
+ \frac{-f(x)}{g(x)}\longrightarrow+\infty,
+\]
+也就是 \(f(x)/g(x)\to-\infty\)。
+\end{proof}
+
+经典的“\(\infty/\infty\) 型”在此定理中还假设
+\(\abs{f(x)}\to+\infty\)。证明实际上只使用了分母的无界趋势；分子的无界性不是结论所需的条件。因此“无界分母型”是更准确的定理名称。
+
+\begin{corollary}[单侧、双侧与无穷远版本]
+\label{cor:lhopital-directions}
+上述两个定理适用于有限点的左极限、右极限，以及 \(x\to+\infty\) 或 \(x\to-\infty\)。若要推出有限点的双侧极限，应分别在左右两侧核对假设；只有两侧所得极限相同，双侧结论才成立。导数比极限可以是有限实数，也可以是 \(+\infty\) 或 \(-\infty\)。
+\end{corollary}
+
+\begin{example}[\(0/0\) 与单侧极限]
+假定正弦函数的导数公式已经由独立方法建立。在 \(x\to0\) 时，
+\[
+ \frac{\sin x}{x}
+\]
+为 \(0/0\) 型。分母导数恒为 \(1\)，导数比为 \(\cos x\to1\)，故商趋于 \(1\)。这个双侧结论可以看作分别应用于 \((-\delta,0)\) 与 \((0,\delta)\) 的结果。
+\end{example}
+
+若所采用的正弦函数求导证明本身以
+\(\lim_{x\to0}\sin x/x=1\) 为前提，就不能再用本例反向证明该极限；这会形成循环论证。此时应把本例理解为 L'Hôpital 法则对一个已知极限的复核，或者改用不依赖该极限的方式先建立三角函数导数。
+
+\begin{example}[无穷远与无界分母]
+当 \(x\to+\infty\) 时，
+\[
+ \frac{\log x}{x}
+\]
+的分母趋于 \(+\infty\)，而
+\[
+ \frac{(\log x)'}{x'}=\frac1x\longrightarrow0.
+\]
+所以 \(\log x/x\to0\)。分子虽然也趋于 \(+\infty\)，证明只需分母无界。
+\end{example}
+
+\begin{example}[有限端点的 \(\infty/\infty\) 型]
+当 \(x\to0+\) 时，\(\log x\to-\infty\)、\(1/x\to+\infty\)，且
+\[
+ \frac{(\log x)'}{(1/x)'}
+ =\frac{1/x}{-1/x^2}=-x\longrightarrow0.
+\]
+因此
+\[
+ x\log x=\frac{\log x}{1/x}\longrightarrow0.
+\]
+\end{example}
+
+\section{L'Hôpital 法则的条件与反例}
+\label{sec:lhopital-counterexamples}
+
+\subsection{定理只给出充分条件}
+
+L'Hôpital 法则的逻辑形式是：在指定不定型和正则性条件下，导数比极限存在则函数比具有同一极限。它不是等价判据。函数比的极限可能存在，而导数比没有极限。
+
+\begin{counterexample}[逆命题失败]
+令 \(g(x)=x\)，并在 \(x\ne0\) 时令
+\[
+ f(x)=x+x^2\sin\frac1{x^2},
+\qquad f(0)=0.
+\]
+当 \(x\to0\) 时，
+\[
+ \frac{f(x)}{g(x)}
+ =1+x\sin\frac1{x^2}\longrightarrow1.
+\]
+但对 \(x\ne0\)，
+\[
+ \frac{f'(x)}{g'(x)}
+ =1+2x\sin\frac1{x^2}
+   -\frac2x\cos\frac1{x^2},
+\]
+它无界并且没有极限。因此函数比收敛不能反推导数比收敛。
+\end{counterexample}
+
+\begin{counterexample}[缺少不定型条件]
+当 \(x\to0\) 时取
+\[
+ f(x)=1+x,\qquad g(x)=x.
+\]
+导数比恒为 \(1\)，但
+\[
+ \frac{f(x)}{g(x)}=\frac1x+1
+\]
+没有有限双侧极限，更不趋于 \(1\)。这里分子不趋于零，分母也不无界，所以两个 L'Hôpital 定理都不适用。
+\end{counterexample}
+
+\subsection{导数比必须有确定极限}
+
+导数比有界不足以推出函数比收敛。令 \(x>1\)，
+\[
+ g(x)=x,\qquad f(x)=x\bigl(2+\sin(\log x)\bigr).
+\]
+则 \(f(x),g(x)\to+\infty\)，而
+\[
+ \frac{f(x)}{g(x)}=2+\sin(\log x)
+\]
+没有极限。相应导数比
+\[
+ \frac{f'(x)}{g'(x)}
+ =2+\sin(\log x)+\cos(\log x)
+\]
+虽然有界，也没有极限。L'Hôpital 法则要求导数比本身趋于某个扩充实数，不能用“有界”或“沿某条数列收敛”替代。
+
+条件 \(g'\ne0\) 的作用是保证所有相关割线分母非零，并使导数比在完整端点邻域内有定义。它可以在更精细的版本中削弱，但必须用别的条件保证 Cauchy 增量比论证有效。端点本身的 \(g'(\alpha)\) 不参与定理；例如 \(g(x)=x^2\) 在 \(x\to0\) 时虽然 \(g'(0)=0\)，但在每个删心侧邻域内 \(g'(x)\ne0\)，仍可使用定理。
+
+\subsection{单侧核对与重复使用}
+
+\begin{example}[两侧结果不同]
+函数
+\[
+ \frac{\abs x}{x}
+\]
+在 \(x\to0+\) 时的导数比为 \(1\)，在 \(x\to0-\) 时的导数比为 \(-1\)。分子在 \(0\) 处不可导不影响两个删心侧区间内的应用；两侧结论不同，所以双侧极限不存在。把一个单侧证明直接写成双侧证明会遗漏这一差异。
+\end{example}
+
+重复使用 L'Hôpital 法则时，每一次都要重新检查所得商仍属于定理覆盖的情形。例如
+\[
+ \lim_{x\to0}\frac{1-\cos x}{x^2}
+\]
+第一次化为
+\[
+ \lim_{x\to0}\frac{\sin x}{2x},
+\]
+它仍是 \(0/0\) 型；第二次化为
+\[
+ \lim_{x\to0}\frac{\cos x}{2}=\frac12.
+\]
+若中间商已经不再是 \(0/0\) 型或无界分母型，不能只因为表达式仍“看起来复杂”就继续求导。
+
+乘积 \(0\cdot\infty\)、差式 \(\infty-\infty\) 和幂式 \(1^\infty\) 不在定理的直接陈述中。可以先把它们改写为商或取对数，但改写以后仍须核对定义域、符号以及两个基本定理的全部假设。代数改写不会自动产生可用的 L'Hôpital 条件。
+
+\section{向量值映射中值定理的局限}
+\label{sec:vector-mean-value}
+
+本节在 \(\R^m\) 上使用标准欧氏内积 \(\langle\cdot,\cdot\rangle\) 及其诱导范数 \(\norm{\cdot}\)。
+
+标量证明能够从局部极值推出导数为零，并能用 Rolle 定理找到一个同时满足全部要求的中间点。向量值函数没有与实数次序相容的最大值、最小值；各坐标使用标量中值定理时，得到的中间点也可能不同。
+
+\begin{counterexample}[不存在一般的向量等式]
+\label{ex:vector-mvt-failure}
+令
+\[
+ F(t)=(\cos t,\sin t),
+\qquad 0\le t\le2\pi.
+\]
+有 \(F(2\pi)-F(0)=0\)。若存在标量中值定理形式的点 \(c\in(0,2\pi)\) 使
+\[
+ F(2\pi)-F(0)=F'(c)\,2\pi,
+\]
+就会有 \(F'(c)=0\)。但
+\[
+ F'(t)=(-\sin t,\cos t),\qquad \norm{F'(t)}=1,
+\]
+矛盾。因此即使 \(F\) 光滑，也未必存在一个共同中间点再现整个向量增量。
+\end{counterexample}
+
+逐坐标使用 Lagrange 定理只能得到
+\[
+ F_j(b)-F_j(a)=F_j'(c_j)(b-a),
+\]
+其中 \(c_j\) 可能随坐标 \(j\) 改变。这组等式不能合并成一个共同的 \(c\)。
+
+\begin{theorem}[向量值中值估计]
+\label{thm:vector-mean-value-estimate}
+设 \(a<b\)，\(F:[a,b]\to\R^m\) 连续并在 \((a,b)\) 内可导，其中导数按各坐标定义为
+\[
+ F'(t)=\bigl(F_1'(t),\ldots,F_m'(t)\bigr).
+\]
+若
+\[
+ \norm{F'(t)}\le M\qquad(t\in(a,b)),
+\]
+则
+\[
+ \norm{F(b)-F(a)}\le M(b-a).
+\]
+更精确地，若 \(F(b)\ne F(a)\)，则存在 \(c\in(a,b)\) 使
+\[
+ \norm{F(b)-F(a)}
+ \le (b-a)\norm{F'(c)}.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(F(b)=F(a)\)，结论显然。否则令
+\[
+ v=\frac{F(b)-F(a)}{\norm{F(b)-F(a)}},
+\]
+并考虑标量函数
+\[
+ \varphi(t)=\langle v,F(t)\rangle.
+\]
+它在 \([a,b]\) 上连续、在内部可导，且
+\[
+ \varphi'(t)=\langle v,F'(t)\rangle.
+\]
+Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
+\begin{align*}
+ \norm{F(b)-F(a)}
+ &=\langle v,F(b)-F(a)\rangle\\
+ &=(b-a)\langle v,F'(c)\rangle\\
+ &\le(b-a)\norm{F'(c)}.
+\end{align*}
+最后使用 \(\norm{F'(c)}\le M\) 即得统一估计。
+\end{proof}
+
+\begin{corollary}[向量值 Lipschitz 判据]
+若 \(F:I\to\R^m\) 在区间 \(I\) 的内点可导，并满足
+\[
+ \norm{F'(t)}\le M,
+\]
+且在属于 \(I\) 的端点连续，则
+\[
+ \norm{F(y)-F(x)}\le M\abs{y-x}
+\qquad(x,y\in I).
+\]
+\end{corollary}
+
+\begin{proof}
+对以 \(x,y\) 为端点的闭区间应用向量值中值估计。
+\end{proof}
+
+因此，从标量中值定理推广到向量值映射时，应保留的是增量的范数估计，而不是强求一个中间点给出向量等式。证明所用的方向 \(v\) 由端点增量决定；对其他投影方向，标量中值定理可能给出不同的中间点。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　中值定理与基本推论}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em]
+ \exerciseitem{fermat-local-extremum} 从左右差商的符号出发完整证明 Fermat 定理，并说明为什么证明不能用于区间端点。
+ \exerciseitem{rolle-polynomial-root} 设实多项式 \(p\) 有两个不同实根。证明 \(p'\) 在两根之间至少有一个实根；进而证明 \(p\) 有 \(k\) 个不同实根时，\(p'\) 至少有 \(k-1\) 个不同实根。
+ \exerciseitem{lagrange-secant-example} 对 \(f(x)=x^3\) 在区间 \([a,b]\) 上写出 Lagrange 中值点所满足的方程，并在 \([0,1]\) 上求出全部中值点。
+ \exerciseitem{zero-derivative-constant} 证明区间上处处可导且导数恒为零的函数为常值，并构造不连通定义域上的反例。
+ \exerciseitem{derivative-sign-monotonicity} 证明若 \(f'\ge0\) 于区间内部，则 \(f\) 单调不减；若 \(f'>0\)，则严格递增。
+ \exerciseitem{monotone-derivative-converse} 证明可导的单调不减函数满足 \(f'\ge0\)，并举例说明严格递增函数的导数仍可在某点为零。
+ \exerciseitem{derivative-bounds-increments} 设 \(m\le f'\le M\)。证明对 \(x<y\) 有
+ \[
+  m(y-x)\le f(y)-f(x)\le M(y-x).
+ \]
+ \exerciseitem{bounded-derivative-lipschitz} 证明 \(\abs{f'}\le K\) 推出 \(f\) 为 \(K\)-Lipschitz，并说明闭区间端点处为何不需要导数。
+ \exerciseitem{lipschitz-derivative-bound} 设 \(f\) 在区间上为 \(K\)-Lipschitz 且在内点 \(a\) 可导。证明 \(\abs{f'(a)}\le K\)。
+ \exerciseitem{cauchy-mvt-ratio} 从交叉相乘形式推出 Cauchy 中值定理的增量比形式，逐项说明两个非零分母由何处得到。
+ \exerciseitem{derivative-comparison} 若 \(f'\le g'\) 于区间内部，证明
+ \[
+  f(y)-f(x)\le g(y)-g(x)\qquad(x<y).
+ \]
+ \exerciseitem{endpoint-derivative-unneeded} 以 \(\sqrt x\) 在 \([0,1]\) 上的限制为例，核对 Lagrange 中值定理全部假设并求一个中值点，说明端点可导不是必要条件。
+\end{enumerate}
+
+\subsection*{B组　条件辨析与 L'Hôpital 法则}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em,resume]
+ \exerciseitem{fermat-hypotheses-counterexamples} 分别构造反例说明 Fermat 定理中的内点、可导性和局部极值三个条件不能删去或反向使用。
+ \exerciseitem{rolle-hypotheses-counterexamples} 分别删去 Rolle 定理的闭区间连续性、内部可导性和端点等值条件，给出结论失败的反例，并核对其余假设。
+ \exerciseitem{interval-hypothesis-counterexample} 构造不连通定义域上的函数，使两个指定端点函数值相同而所有可导点的导数均不为零；解释区间性在 Rolle 证明中的位置。
+ \exerciseitem{strict-versus-nonstrict-monotonicity} 分别给出下列反向命题的反例：单调不减推出 \(f'>0\)；严格递增推出 \(f'>0\)；\(f'\ge0\) 推出严格递增。
+ \exerciseitem{inverse-lipschitz-from-lower-derivative} 设 \(f'\ge m>0\) 于 \((a,b)\)。证明 \(f^{-1}\) 在像区间上为 \(1/m\)-Lipschitz；指出只假设 \(f'>0\) 而没有统一下界时为何得不到固定常数。
+ \exerciseitem{lhopital-zero-zero-sine} 假定正弦函数的导数公式已由不依赖下述极限的方法建立。用 \(0/0\) 型 L'Hôpital 法则证明
+ \[
+  \lim_{x\to0}\frac{\sin x}{x}=1,
+ \]
+ 并把双侧证明拆成两个单侧应用。
+ \exerciseitem{lhopital-zero-zero-infinity} 用无穷远处的 \(0/0\) 型定理计算
+ \[
+  \lim_{x\to+\infty}\frac{1/x}{1/\sqrt{x}}.
+ \]
+ \exerciseitem{lhopital-infinity-infinity-log} 用无界分母型定理证明
+ \[
+  \lim_{x\to+\infty}\frac{\log x}{x}=0.
+ \]
+ \exerciseitem{lhopital-infinite-result} 用 L'Hôpital 法则证明
+ \[
+  \lim_{x\to+\infty}\frac{e^x-1}{x}=+\infty,
+ \]
+ 并核对无穷导数比版本中的量词。
+ \exerciseitem{lhopital-nonindeterminate-failure} 构造导数比恒有有限极限，但原商因既非 \(0/0\) 型也非无界分母型而不趋于该极限的例子。
+ \exerciseitem{lhopital-converse-failure} 验证正文中的函数
+ \[
+  f(x)=x+x^2\sin(1/x^2),\qquad g(x)=x
+ \]
+ 满足 \(f/g\to1\) 而 \(f'/g'\) 没有极限。
+ \exerciseitem{lhopital-repeated-application} 假定三角函数导数公式已经独立建立。严格核对两次使用 L'Hôpital 法则计算
+ \[
+  \lim_{x\to0}\frac{1-\cos x}{x^2}
+ \]
+ 时每一步的假设。
+\end{enumerate}
+
+\subsection*{C组　比较、无穷远与向量值映射}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em,resume]
+ \exerciseitem{cauchy-comparison-full-proof} 设 \(g'\ne0\)，并有
+ \[
+  m\le f'/g'\le M.
+ \]
+ 不跳步地证明任意两点之间的增量比也位于 \([m,M]\)，包括 \(g(y)-g(x)\ne0\) 的证明。
+ \exerciseitem{lhopital-left-and-two-sided} 写出 \(x\to a-\) 的 \(0/0\) 型 L'Hôpital 定理；再证明若左右导数比极限均为同一 \(L\in\overline{\R}\)，则原商有双侧极限 \(L\)。
+ \exerciseitem{lhopital-at-negative-infinity} 把无界分母型定理完整改写为 \(x\to-\infty\) 的版本，并用它计算
+ \[
+  \lim_{x\to-\infty}\frac{\log(1+x^2)}{x}.
+ \]
+ \exerciseitem{lhopital-denominator-divergence-suffices} 给出一个分子具有有限极限、分母绝对值趋于无穷的例子，用无界分母型定理求商极限，并说明为何该定理不必假设分子无界。
+ \exerciseitem{lhopital-bounded-derivative-ratio-insufficient} 验证
+ \[
+  f(x)=x(2+\sin\log x),\qquad g(x)=x
+ \]
+ 在 \(x\to+\infty\) 时构成 \(\infty/\infty\) 型，导数比有界而函数比没有极限。
+ \exerciseitem{vector-mvt-circle-counterexample} 对 \(F(t)=(\cos t,\sin t)\) 证明不存在
+ \[
+  F(2\pi)-F(0)=2\pi F'(c)
+ \]
+ 的中间点 \(c\)。
+ \exerciseitem{vector-mvt-norm-estimate} 通过端点增量方向的标量投影，完整证明向量值中值估计。
+ \exerciseitem{vector-derivative-bound-lipschitz} 设 \(F:I\to\R^m\) 可导且 \(\norm{F'}\le M\)。证明 \(F\) 为 \(M\)-Lipschitz，并说明这个常数在 \(F(t)=tv\) 时达到。
+ \exerciseitem{vector-projection-mean-value} 设 \(a<b\)，\(F:[a,b]\to\R^m\) 连续并在 \((a,b)\) 内可导。证明对每个固定 \(u\in\R^m\)，存在依赖于 \(u\) 的 \(c_u\in(a,b)\)，使
+ \[
+  \langle u,F(b)-F(a)\rangle
+  =(b-a)\langle u,F'(c_u)\rangle.
+ \]
+ 解释为什么这些 \(c_u\) 一般不能取成同一点。
+ \projectexerciseitem{mean-value-theorem-dependency-project} 【前置：本章；预计用时：90分钟】整理
+ \[
+  \text{极值定理与 Fermat 定理}\Longrightarrow\text{Rolle}
+  \Longrightarrow\text{Lagrange}
+  \Longrightarrow\text{Cauchy}
+  \Longrightarrow\text{L'Hôpital}
+ \]
+ 的证明依赖。对每个箭头写出辅助函数或关键估计，并给出至少一个删条件反例；最后说明向量值情形在哪个箭头失去标量等式。
+\end{enumerate}

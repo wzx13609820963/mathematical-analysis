@@ -1,0 +1,649 @@
+\chapter{中值定理：习题解答}
+
+\section*{A组}
+\addcontentsline{toc}{section}{A组}
+
+\begin{solution}{fermat-local-extremum}
+设 \(a\) 为区间内点并且是局部极大点。存在 \(\delta>0\)，使
+\[
+ f(a+h)-f(a)\le0\qquad(0<\abs h<\delta).
+\]
+当 \(h>0\) 时，
+\[
+ \frac{f(a+h)-f(a)}h\le0;
+\]
+当 \(h<0\) 时，除以负数使不等号反向，故差商不小于零。若导数存在，右差商极限不大于零，左差商极限不小于零，而二者必须等于同一个 \(f'(a)\)，所以 \(f'(a)=0\)。局部极小情形对称。
+
+若 \(a\) 是左端点，定义域中可能只有 \(h>0\)，证明只能得到右差商非负或非正，无法同另一侧夹出零。例如 \(f(x)=x\) 在 \([0,1]\) 的 \(0\) 处取得最小值，但右导数为 \(1\)。
+\end{solution}
+
+\begin{solution}{rolle-polynomial-root}
+设 \(r<s\) 是 \(p\) 的两个不同实根。多项式在 \([r,s]\) 上连续、在 \((r,s)\) 内可导，并且 \(p(r)=p(s)=0\)。Rolle 定理给出 \(c\in(r,s)\) 使 \(p'(c)=0\)。
+
+若 \(p\) 有 \(k\) 个不同实根
+\[
+ r_1<r_2<\cdots<r_k,
+\]
+则对每个 \(j=1,\ldots,k-1\)，把 Rolle 定理用于 \([r_j,r_{j+1}]\)，得到
+\[
+ c_j\in(r_j,r_{j+1}),\qquad p'(c_j)=0.
+\]
+这些开区间两两不交，所以 \(c_1,\ldots,c_{k-1}\) 互不相同。故 \(p'\) 至少有 \(k-1\) 个不同实根。
+\end{solution}
+
+\begin{solution}{lagrange-secant-example}
+对 \(f(x)=x^3\)，Lagrange 等式为
+\[
+ 3c^2=\frac{b^3-a^3}{b-a}=a^2+ab+b^2,
+\qquad c\in(a,b).
+\]
+定理保证这个方程至少有一个根落在 \((a,b)\) 内；不能只解方程而忽略中间点范围。
+
+当 \([a,b]=[0,1]\) 时，
+\[
+ 3c^2=1.
+\]
+两个代数解为 \(\pm1/\sqrt3\)，其中只有
+\[
+ c=\frac1{\sqrt3}
+\]
+属于 \((0,1)\)，故它是全部中值点。
+\end{solution}
+
+\begin{solution}{zero-derivative-constant}
+任取区间中的 \(x<y\)。Lagrange 中值定理给出 \(c\in(x,y)\) 使
+\[
+ f(y)-f(x)=f'(c)(y-x)=0.
+\]
+所以任意两点函数值相同，\(f\) 为常值。
+
+区间性不可删去。在
+\[
+ D=(-\infty,0)\cup(0,\infty)
+\]
+上定义
+\[
+ f(x)=
+ \begin{cases}
+ 0,&x<0,\\
+ 1,&x>0.
+ \end{cases}
+\]
+函数在 \(D\) 的每一点可导且导数为零，但它在两个连通分支上取不同常值，因而不在整个 \(D\) 上为常值。
+\end{solution}
+
+\begin{solution}{derivative-sign-monotonicity}
+任取 \(x<y\) 于区间内。对 \(f\) 在 \([x,y]\) 上使用 Lagrange 定理，得到 \(c\in(x,y)\) 使
+\[
+ f(y)-f(x)=f'(c)(y-x).
+\]
+若 \(f'\ge0\)，因 \(y-x>0\)，右端非负，故 \(f(x)\le f(y)\)，即 \(f\) 单调不减。若 \(f'>0\)，右端严格为正，故 \(f(x)<f(y)\)，即严格递增。端点若属于原区间，只需函数在那里连续，仍可把任意两个端点作为上述闭区间的端点。
+\end{solution}
+
+\begin{solution}{monotone-derivative-converse}
+设 \(f\) 单调不减，\(a\) 是可导内点。对充分小的 \(h>0\)，
+\[
+ \frac{f(a+h)-f(a)}h\ge0.
+\]
+对充分小的 \(h<0\)，有 \(f(a+h)\le f(a)\)，分子与分母都非正，故同一差商仍非负。令 \(h\to0\)，得到 \(f'(a)\ge0\)。
+
+严格递增并不迫使导数严格为正。函数 \(f(x)=x^3\) 在 \(\R\) 上严格递增，但
+\[
+ f'(0)=0.
+\]
+\end{solution}
+
+\begin{solution}{derivative-bounds-increments}
+固定 \(x<y\)。Lagrange 定理给出 \(c\in(x,y)\) 使
+\[
+ \frac{f(y)-f(x)}{y-x}=f'(c).
+\]
+由 \(m\le f'(c)\le M\)，并利用 \(y-x>0\)，得到
+\[
+ m(y-x)\le f(y)-f(x)\le M(y-x).
+\]
+上下界在同一个中间点处同时使用，不需要分别选择两个点。
+\end{solution}
+
+\begin{solution}{bounded-derivative-lipschitz}
+由 \(\abs{f'}\le K\) 得 \(-K\le f'\le K\)。对 \(x<y\)，上一题给出
+\[
+ -K(y-x)\le f(y)-f(x)\le K(y-x),
+\]
+即
+\[
+ \abs{f(y)-f(x)}\le K\abs{y-x}.
+\]
+交换 \(x,y\) 后适用于任意点对。
+
+证明只在两个端点之间的开区间使用导数。原闭区间端点只需保证相应限制函数连续，以便使用 Lagrange 定理；端点导数不参与估计。
+\end{solution}
+
+\begin{solution}{lipschitz-derivative-bound}
+由 \(K\)-Lipschitz 条件，对充分小的非零 \(h\) 有
+\[
+ \abs{f(a+h)-f(a)}\le K\abs h.
+\]
+除以 \(\abs h\) 得
+\[
+ \abs{\frac{f(a+h)-f(a)}h}\le K.
+\]
+当 \(h\to0\) 时差商趋于 \(f'(a)\)，绝对值函数连续，所以
+\[
+ \abs{f'(a)}\le K.
+\]
+\end{solution}
+
+\begin{solution}{cauchy-mvt-ratio}
+首先证明 \(g(b)-g(a)\ne0\)。若 \(g(a)=g(b)\)，Rolle 定理会给出 \(\eta\in(a,b)\) 使 \(g'(\eta)=0\)，与 \(g'\ne0\) 于 \((a,b)\) 矛盾。
+
+Cauchy 中值定理给出 \(c\in(a,b)\) 满足
+\[
+ \bigl(f(b)-f(a)\bigr)g'(c)
+ =
+ \bigl(g(b)-g(a)\bigr)f'(c).
+\]
+假设还保证 \(g'(c)\ne0\)。因此
+\[
+ \bigl(g(b)-g(a)\bigr)g'(c)\ne0,
+\]
+可以相除，得到
+\[
+ \frac{f(b)-f(a)}{g(b)-g(a)}
+ =
+ \frac{f'(c)}{g'(c)}.
+\]
+\end{solution}
+
+\begin{solution}{derivative-comparison}
+令 \(h=f-g\)。则
+\[
+ h'=f'-g'\le0.
+\]
+导数符号判据说明 \(h\) 单调不增。因此 \(x<y\) 时
+\[
+ h(y)\le h(x),
+\]
+即
+\[
+ f(y)-g(y)\le f(x)-g(x).
+\]
+移项得到
+\[
+ f(y)-f(x)\le g(y)-g(x).
+\]
+\end{solution}
+
+\begin{solution}{endpoint-derivative-unneeded}
+函数 \(f(x)=\sqrt x\) 在 \([0,1]\) 上连续，并在 \((0,1)\) 内可导，
+\[
+ f'(x)=\frac1{2\sqrt x}.
+\]
+虽然有限右导数 \(f'_+(0)\) 不存在，Lagrange 定理的假设仍全部满足。割线斜率为
+\[
+ \frac{f(1)-f(0)}{1-0}=1.
+\]
+中值点满足
+\[
+ \frac1{2\sqrt c}=1,
+\]
+故 \(c=1/4\in(0,1)\)。这也直接说明端点可导不是定理所需条件。
+\end{solution}
+
+\section*{B组}
+\addcontentsline{toc}{section}{B组}
+
+\begin{solution}{fermat-hypotheses-counterexamples}
+\begin{enumerate}
+ \item 缺少内点条件：\(f(x)=x\) 在 \([0,1]\) 的 \(0\) 处取得最小值，但右导数为 \(1\)。
+ \item 缺少可导性：\(f(x)=\abs x\) 在 \(0\) 处取得严格局部最小值，但左右导数分别为 \(-1,1\)，导数不存在。
+ \item 把必要条件反向使用：\(f(x)=x^3\) 满足 \(f'(0)=0\)，但 \(0\) 不是局部极值点。
+\end{enumerate}
+三个例子分别保留其余相关性质，因此对应的是不同逻辑缺口。
+\end{solution}
+
+\begin{solution}{rolle-hypotheses-counterexamples}
+\begin{enumerate}
+ \item 删去闭区间连续性：在 \([0,1]\) 上令 \(f(0)=1\)、\(f(x)=x\)（\(x>0\)）。它在 \((0,1)\) 内可导，且 \(f(0)=f(1)=1\)，但内部导数恒为 \(1\)。
+ \item 删去内部可导性：取 \(f(x)=\abs x\) 于 \([-1,1]\)。它连续且端点值相等；可导处的导数只取 \(-1,1\)，而 \(0\) 处不可导，所以不存在导数为零的中间点。
+ \item 删去端点等值：取 \(f(x)=x\) 于 \([0,1]\)。它连续且内部可导，但导数恒为 \(1\)，没有 Rolle 点。
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{interval-hypothesis-counterexample}
+取
+\[
+ D=[-1,0]\cup[1,2],
+\qquad
+ f(x)=
+ \begin{cases}
+ x+1,&x\in[-1,0],\\
+ x-2,&x\in[1,2].
+ \end{cases}
+\]
+它在 \(D\) 的相对拓扑中连续，且在两个分支的内部都有 \(f'=1\)。端点满足
+\[
+ f(-1)=0=f(2),
+\]
+却没有导数为零的点。Rolle 证明需要在连接两端的整个闭区间上取得极值，并在端点之间使用 Fermat 定理；定义域的缺口破坏了这条论证。
+\end{solution}
+
+\begin{solution}{strict-versus-nonstrict-monotonicity}
+\begin{enumerate}
+ \item “单调不减推出 \(f'>0\)”错误：常值函数单调不减而导数恒为零。
+ \item “严格递增推出 \(f'>0\)”错误：\(x^3\) 严格递增而在 \(0\) 处导数为零。
+ \item “\(f'\ge0\) 推出严格递增”错误：仍取常值函数。
+\end{enumerate}
+正确结论是 \(f'\ge0\) 等价于可导函数单调不减；\(f'>0\) 是严格递增的充分条件而非必要条件。
+\end{solution}
+
+\begin{solution}{inverse-lipschitz-from-lower-derivative}
+由 \(f'\ge m>0\)，函数 \(f\) 严格递增。对 \(x<y\)，Lagrange 定理给出
+\[
+ f(y)-f(x)=f'(c)(y-x)\ge m(y-x).
+\]
+令 \(u=f(x)\)、\(v=f(y)\)，得到
+\[
+ \abs{f^{-1}(v)-f^{-1}(u)}
+ \le\frac1m\abs{v-u}.
+\]
+故逆函数为 \(1/m\)-Lipschitz。
+
+只有 \(f'>0\) 时，导数可能任意接近零。例如 \(f(x)=x^3\) 在 \([0,1]\) 的每个内点满足 \(f'(x)>0\)，但逆函数 \(u^{1/3}\) 不是 Lipschitz：若存在常数 \(K\)，比较 \(u>0\) 与 \(0\) 会要求
+\[
+ u^{1/3}\le Ku
+\]
+对充分小的 \(u>0\) 成立，即 \(u^{-2/3}\le K\)，矛盾。统一正下界正是固定逆 Lipschitz 常数的来源。
+\end{solution}
+
+\begin{solution}{lhopital-zero-zero-sine}
+以下论证以正弦函数导数公式的独立证明为前提；若该公式此前由 \(\sin x/x\) 的极限推出，本题只能作为定理复核，不能作为原极限的首次证明。
+
+先在右侧区间 \((0,\delta)\) 上考虑 \(f(x)=\sin x\)、\(g(x)=x\)。二者趋于零，\(g'(x)=1\ne0\)，且
+\[
+ \frac{f'(x)}{g'(x)}=\cos x\longrightarrow1
+ \qquad(x\to0+).
+\]
+由 \(0/0\) 型定理，
+\[
+ \frac{\sin x}{x}\longrightarrow1
+ \qquad(x\to0+).
+\]
+在左侧区间 \((-\delta,0)\) 上同样有两个零极限、分母导数非零以及 \(\cos x\to1\)，故左极限也为 \(1\)。左右有限极限相等，因此双侧极限为 \(1\)。
+\end{solution}
+
+\begin{solution}{lhopital-zero-zero-infinity}
+当 \(x\to+\infty\) 时，
+\[
+ f(x)=\frac1x\to0,\qquad
+ g(x)=\frac1{\sqrt x}\to0.
+\]
+在 \((0,\infty)\) 上
+\[
+ f'(x)=-\frac1{x^2},\qquad
+ g'(x)=-\frac1{2x^{3/2}}\ne0,
+\]
+所以
+\[
+ \frac{f'(x)}{g'(x)}
+ =\frac{2}{\sqrt x}\longrightarrow0.
+\]
+无穷远处的 \(0/0\) 型定理给出
+\[
+ \frac{1/x}{1/\sqrt x}=\frac1{\sqrt x}\longrightarrow0.
+\]
+\end{solution}
+
+\begin{solution}{lhopital-infinity-infinity-log}
+在 \(x>1\) 上，分母 \(g(x)=x\) 满足 \(\abs{g(x)}\to+\infty\) 且 \(g'=1\ne0\)。又
+\[
+ \frac{(\log x)'}{x'}=\frac1x\longrightarrow0.
+\]
+由无界分母型定理，
+\[
+ \frac{\log x}{x}\longrightarrow0.
+\]
+虽然 \(\log x\to+\infty\)，这一分子条件并未在证明中使用。
+\end{solution}
+
+\begin{solution}{lhopital-infinite-result}
+令 \(f(x)=e^x-1\)、\(g(x)=x\)。当 \(x\to+\infty\) 时 \(\abs{g(x)}\to+\infty\)，且 \(g'=1\ne0\)。导数比为
+\[
+ \frac{f'(x)}{g'(x)}=e^x\longrightarrow+\infty.
+\]
+因此原商趋于 \(+\infty\)。
+
+量词上，给定 \(M>0\)，无穷导数比保证存在 \(A\)，使 \(t>A\) 时 \(e^t>2(M+1)\)。在无界分母型定理的证明中固定 \(c>A\)，Cauchy 比较引理使更远端的增量比也大于 \(2(M+1)\)；再使 \(\abs{c/x}<1/2\) 以及 \(\abs{f(c)/x}<1\)，便得到原商 \(>M\)。这说明结论是完整的无穷极限，而不是只沿某条数列发散。
+\end{solution}
+
+\begin{solution}{lhopital-nonindeterminate-failure}
+在 \(x\to0\) 时取
+\[
+ f(x)=1+x,\qquad g(x)=x.
+\]
+有 \(f'/g'\equiv1\)，但
+\[
+ \frac{f(x)}{g(x)}=\frac1x+1.
+\]
+它右侧趋于 \(+\infty\)、左侧趋于 \(-\infty\)，不趋于 \(1\)。分子不趋于零，分母也不趋于无穷，所以这不是两个定理覆盖的不定型。
+\end{solution}
+
+\begin{solution}{lhopital-converse-failure}
+对 \(x\ne0\)，
+\[
+ \frac{f(x)}{g(x)}
+ =1+x\sin\frac1{x^2}.
+\]
+因第二项绝对值不超过 \(\abs x\)，商趋于 \(1\)。另一方面
+\[
+ \frac{f'(x)}{g'(x)}
+ =1+2x\sin\frac1{x^2}
+   -\frac2x\cos\frac1{x^2}.
+\]
+取
+\[
+ x_n=(2\pi n)^{-1/2},
+\]
+则正弦项为零、余弦项为 \(1\)，导数比趋于 \(-\infty\)。取
+\[
+ y_n=((2n+1)\pi)^{-1/2},
+\]
+则正弦项仍为零、余弦项为 \(-1\)，导数比趋于 \(+\infty\)。故导数比没有极限。这否定的是 L'Hôpital 法则的逆命题，不影响正向定理。
+\end{solution}
+
+\begin{solution}{lhopital-repeated-application}
+以下两次求导都以三角函数导数公式已经独立建立为前提。
+
+第一次取
+\[
+ f_0(x)=1-\cos x,\qquad g_0(x)=x^2.
+\]
+在左右删心邻域内二者都趋于零，\(g_0'(x)=2x\ne0\)，且导数比为
+\[
+ \frac{\sin x}{2x}.
+\]
+它仍为 \(0/0\) 型。第二次取
+\[
+ f_1(x)=\sin x,\qquad g_1(x)=2x.
+\]
+二者趋于零，\(g_1'=2\ne0\)，导数比
+\[
+ \frac{\cos x}{2}\longrightarrow\frac12.
+\]
+第二次定理先给出 \(\sin x/(2x)\to1/2\)，第一次定理再给出
+\[
+ \frac{1-\cos x}{x^2}\longrightarrow\frac12.
+\]
+两个步骤都需分别在左右侧区间核对，所得极限相同后才合成双侧结论。
+\end{solution}
+
+\section*{C组}
+\addcontentsline{toc}{section}{C组}
+
+\begin{solution}{cauchy-comparison-full-proof}
+先固定 \(x<y\)。若 \(g(y)=g(x)\)，Rolle 定理用于 \(g\) 在 \([x,y]\) 上的限制，会给出 \(\eta\in(x,y)\) 使 \(g'(\eta)=0\)，与假设矛盾。因此
+\[
+ g(y)-g(x)\ne0.
+\]
+Cauchy 中值定理给出 \(c\in(x,y)\) 使
+\[
+ \bigl(f(y)-f(x)\bigr)g'(c)
+ =
+ \bigl(g(y)-g(x)\bigr)f'(c).
+\]
+又因 \(g'(c)\ne0\)，可以除以
+\((g(y)-g(x))g'(c)\)，得到
+\[
+ \frac{f(y)-f(x)}{g(y)-g(x)}
+ =
+ \frac{f'(c)}{g'(c)}.
+\]
+把 \(c\) 代入导数比的上下界即得
+\[
+ m\le
+ \frac{f(y)-f(x)}{g(y)-g(x)}
+ \le M.
+\]
+这里没有把不等式直接同乘 \(g(y)-g(x)\)，所以不需要预先判断这个增量的符号。
+\end{solution}
+
+\begin{solution}{lhopital-left-and-two-sided}
+左侧版本可表述如下：设 \(f,g\) 在 \((a-\delta,a)\) 内可导，
+\[
+ f(x)\to0,\qquad g(x)\to0\qquad(x\to a-),
+\]
+并且 \(g'(x)\ne0\)。若
+\[
+ \frac{f'(x)}{g'(x)}\to L\in\overline{\R}
+ \qquad(x\to a-),
+\]
+则 \(f(x)/g(x)\to L\)（\(x\to a-\)）。证明直接把开区间的右端点取为 \(a\)，使用正文的端点版本。
+
+若右侧也满足相同条件并得到同一个 \(L\)，则
+\[
+ \lim_{x\to a-}\frac{f(x)}{g(x)}
+ =
+ \lim_{x\to a+}\frac{f(x)}{g(x)}
+ =L.
+\]
+有限 \(L\) 时由双侧极限判据得到双侧极限。若 \(L=+\infty\)，给定 \(M>0\)，分别取左右半径使两侧商都大于 \(M\)，再取两半径的最小值；\(L=-\infty\) 同理。故扩充实极限也能由两个相同的单侧结论合成。
+\end{solution}
+
+\begin{solution}{lhopital-at-negative-infinity}
+负无穷版本为：设 \(f,g\) 在 \((-\infty,A)\) 上可导，
+\[
+ \abs{g(x)}\to+\infty\qquad(x\to-\infty),
+\qquad g'(x)\ne0,
+\]
+并且 \(f'(x)/g'(x)\to L\in\overline{\R}\)，则
+\[
+ f(x)/g(x)\to L\qquad(x\to-\infty).
+\]
+证明中固定一个足够负的 \(c\)，再令 \(x<c\) 向负无穷移动；连接 \(x,c\) 的整段区间仍位于导数比已受控制的尾部，余下估计与正文完全相同。
+
+现取
+\[
+ f(x)=\log(1+x^2),\qquad g(x)=x.
+\]
+有 \(\abs{g(x)}\to+\infty\)、\(g'=1\)，而
+\[
+ \frac{f'(x)}{g'(x)}
+ =\frac{2x}{1+x^2}\longrightarrow0
+ \qquad(x\to-\infty).
+\]
+故
+\[
+ \lim_{x\to-\infty}\frac{\log(1+x^2)}x=0.
+\]
+\end{solution}
+
+\begin{solution}{lhopital-denominator-divergence-suffices}
+取 \(x\to+\infty\)，令
+\[
+ f(x)=1+\frac1x,\qquad g(x)=x.
+\]
+分子趋于有限数 \(1\)，分母绝对值趋于无穷，且
+\[
+ \frac{f'(x)}{g'(x)}
+ =-\frac1{x^2}\longrightarrow0.
+\]
+无界分母型定理给出
+\[
+ \frac{1+1/x}{x}\longrightarrow0.
+\]
+证明只把
+\[
+ \frac{f(x)}{g(x)}
+ =
+ \frac{f(x)-f(c)}{g(x)-g(c)}
+ \left(1-\frac{g(c)}{g(x)}\right)
+ +\frac{f(c)}{g(x)}
+\]
+分解为一个受导数比控制的增量比和两个趋零修正项，从未使用 \(\abs{f(x)}\to\infty\)。因此分子无界只是经典“\(\infty/\infty\)”名称的一部分，不是该定理的必要假设。
+\end{solution}
+
+\begin{solution}{lhopital-bounded-derivative-ratio-insufficient}
+对 \(x>1\)，有 \(1\le2+\sin\log x\le3\)，故
+\[
+ f(x)=x(2+\sin\log x)\to+\infty,
+\qquad g(x)=x\to+\infty.
+\]
+但
+\[
+ \frac{f(x)}{g(x)}=2+\sin\log x.
+\]
+沿
+\[
+ x_n=e^{2\pi n+\pi/2},
+\qquad
+ y_n=e^{2\pi n+3\pi/2},
+\]
+这个比值分别恒为 \(3\) 与 \(1\)，所以没有极限。
+
+另一方面，
+\[
+ \frac{f'(x)}{g'(x)}
+ =2+\sin\log x+\cos\log x,
+\]
+其绝对值有统一界，却同样振荡。L'Hôpital 法则要求这个导数比趋于确定的扩充实数；有界性只给出增量比的粗界，不能选出唯一极限。
+\end{solution}
+
+\begin{solution}{vector-mvt-circle-counterexample}
+有
+\[
+ F(2\pi)-F(0)=(1,0)-(1,0)=0,
+\]
+而
+\[
+ F'(t)=(-\sin t,\cos t),
+\qquad
+ \norm{F'(t)}=1
+\]
+对所有 \(t\) 成立。若存在 \(c\in(0,2\pi)\) 使
+\[
+ F(2\pi)-F(0)=2\pi F'(c),
+\]
+则 \(F'(c)=0\)，与其范数恒为 \(1\) 矛盾。标量 Rolle 定理不能直接替换为向量等式。
+\end{solution}
+
+\begin{solution}{vector-mvt-norm-estimate}
+若 \(F(b)=F(a)\)，估计显然。否则定义单位向量
+\[
+ v=\frac{F(b)-F(a)}{\norm{F(b)-F(a)}}
+\]
+和标量函数
+\[
+ \varphi(t)=\langle v,F(t)\rangle.
+\]
+逐坐标连续与可导保证 \(\varphi\) 在闭区间连续、在内部可导，并且
+\[
+ \varphi'(t)=\langle v,F'(t)\rangle.
+\]
+标量 Lagrange 定理给出 \(c\in(a,b)\) 使
+\[
+ \varphi(b)-\varphi(a)
+ =(b-a)\varphi'(c).
+\]
+左端为
+\[
+ \langle v,F(b)-F(a)\rangle
+ =\norm{F(b)-F(a)}.
+\]
+所以由 Cauchy--Schwarz 不等式，
+\[
+ \norm{F(b)-F(a)}
+ =(b-a)\langle v,F'(c)\rangle
+ \le(b-a)\norm{F'(c)}.
+\]
+若 \(\norm{F'}\le M\)，再得
+\[
+ \norm{F(b)-F(a)}\le M(b-a).
+\]
+\end{solution}
+
+\begin{solution}{vector-derivative-bound-lipschitz}
+任取 \(x<y\) 于 \(I\)。把向量值中值估计用于 \([x,y]\)，得到
+\[
+ \norm{F(y)-F(x)}
+ \le (y-x)\sup_{t\in(x,y)}\norm{F'(t)}
+ \le M(y-x).
+\]
+交换 \(x,y\) 后即为
+\[
+ \norm{F(y)-F(x)}\le M\abs{y-x},
+\]
+故 \(F\) 为 \(M\)-Lipschitz。
+
+取固定向量 \(v\in\R^m\) 并令 \(F(t)=tv\)。则 \(F'(t)=v\)，可取 \(M=\norm v\)，且
+\[
+ \norm{F(y)-F(x)}
+ =\norm{(y-x)v}
+ =M\abs{y-x}.
+\]
+因此常数一般不能减小。
+\end{solution}
+
+\begin{solution}{vector-projection-mean-value}
+固定 \(u\in\R^m\)，令
+\[
+ \varphi_u(t)=\langle u,F(t)\rangle.
+\]
+它是标量连续可导函数，且
+\[
+ \varphi_u'(t)=\langle u,F'(t)\rangle.
+\]
+Lagrange 定理给出某个 \(c_u\in(a,b)\) 使
+\[
+ \langle u,F(b)-F(a)\rangle
+ =(b-a)\langle u,F'(c_u)\rangle.
+\]
+
+中值点由标量函数 \(\varphi_u\) 决定，改变投影方向会改变该函数。若所有方向都能使用同一个 \(c\)，取标准基向量便会得到
+\[
+ F(b)-F(a)=(b-a)F'(c),
+\]
+但圆周参数化的反例已经否定这一等式。因此一般不能让全部 \(c_u\) 相同。
+\end{solution}
+
+\begin{solution}{mean-value-theorem-dependency-project}
+一份完整依赖整理如下。
+
+\begin{enumerate}
+ \item 极值定理先保证闭区间连续函数取得最大、最小值。若端点等值且函数不恒定，至少一个极值在内部取得；Fermat 定理把该内点极值转成导数零点，从而得到 Rolle 定理。删去闭区间连续性可用
+ \[
+  f(0)=1,\qquad f(x)=x\ (x>0)
+ \]
+ 反驳。
+ \item 从 Rolle 到 Lagrange 的辅助函数是
+ \[
+  F(x)=f(x)-f(a)
+  -\frac{f(b)-f(a)}{b-a}(x-a).
+ \]
+ 它在两端为零；Rolle 点给出割线斜率等于导数。删去内部可导性可用 \(\abs x\) 于 \([-1,1]\) 反驳。
+ \item 从 Lagrange 的思想到 Cauchy 形式，可直接对
+ \[
+  H(x)=\Delta f\,(g(x)-g(a))
+       -\Delta g\,(f(x)-f(a))
+ \]
+ 使用 Rolle 定理，其中
+ \(\Delta f=f(b)-f(a)\)、\(\Delta g=g(b)-g(a)\)。这给出交叉乘积等式；要写商还需 \(g'\ne0\)，它通过 Rolle 定理保证 \(\Delta g\ne0\)。
+ \item 从 Cauchy 到 L'Hôpital，先把任意两点之间的增量比写成某个中间点的导数比。\(0/0\) 型中让其中一点趋向端点，使增量比趋于原商；无界分母型中固定一点，并使用
+ \[
+  \frac{f(x)}{g(x)}
+  =
+  \frac{f(x)-f(c)}{g(x)-g(c)}
+  \left(1-\frac{g(c)}{g(x)}\right)
+  +\frac{f(c)}{g(x)}.
+ \]
+ 缺少不定型条件可用 \((1+x)/x\) 反驳；只知道导数比有界可用
+ \(x(2+\sin\log x)/x\) 反驳。
+\end{enumerate}
+
+向量值情形首先在“极值与 Fermat 定理推出 Rolle 定理”这一步失效。实值函数可以比较大小，并在闭区间上取得最大值和最小值；一般向量值映射没有可供这一论证使用的序。圆周参数化
+\(F(t)=(\cos t,\sin t)\) 已直接说明向量值 Rolle 等式不成立：
+\(F(0)=F(2\pi)\)，但 \(F'(t)=(-\sin t,\cos t)\) 从不为零。因此后续的 Lagrange 向量等式也不能成立，更不能逐坐标选取一个共同中间点。保留下来的正确结论是沿端点增量方向作标量投影，再得到范数估计
+\[
+ \norm{F(b)-F(a)}
+ \le(b-a)\sup_{(a,b)}\norm{F'}.
+\]
+\end{solution}

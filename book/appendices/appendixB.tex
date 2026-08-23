@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第一卷前三编已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第一卷前四编已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -125,6 +125,60 @@ Cauchy 条件写为
 \]
 这里 \(\delta\) 只能依赖 \(\varepsilon\)，不能依赖基点。普通连续允许每个基点有自己的 \(\delta\)。
 
+\section{微分、渐近与凸性记号}
+
+函数 \(f:D\to\R\) 在聚点 \(a\in D\) 处的导数按相对定义域写为
+\[
+ f'(a)=\lim_{\substack{x\to a\\x\in D\setminus\{a\}}}
+ \frac{f(x)-f(a)}{x-a}.
+\]
+在开区间内点，这与通常的双侧导数相同；在半闭区间端点，它可能只使用单侧趋近。局部线性化
+\[
+ f(a+h)=f(a)+f'(a)h+o(h)
+\]
+中的 \(h\to0\) 也必须服从 \(a+h\in D\)。
+
+写
+\[
+ r(x)=o(\phi(x))\qquad(x\to a)
+\]
+表示 \(r(x)/\phi(x)\to0\)，并默认 \(\phi\) 在相应删心邻域内非零。写
+\[
+ r(x)=O(\phi(x))\qquad(x\to a)
+\]
+表示存在 \(C,\delta>0\)，使相应邻域内
+\[
+ |r(x)|\le C|\phi(x)|.
+\]
+小 \(o\) 和大 \(O\) 是带有趋近方式的关系，不是可以脱离语境任意约分的代数对象。
+
+若 \(f\) 在 \(a\) 处有前 \(n\) 阶导数，则
+\[
+ T_{n,a}f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k,
+ \qquad
+ R_{n,a}f(x)=f(x)-T_{n,a}f(x).
+\]
+\(T_{n,a}f\) 是有限多项式，不等同于 Taylor 级数。符号 \(C^k(I)\) 表示前 \(k\) 阶导数在 \(I\) 上连续，\(C^\infty(I)\) 表示各阶导数都存在且连续；实解析性还要求函数局部等于自己的 Taylor 级数。
+
+对区间内部的凸函数，左右导数记为 \(f'_-(x)\)、\(f'_+(x)\)，并有
+\[
+ f'_-(x)\le f'_+(x).
+\]
+次梯度集合写为
+\[
+ \partial f(x)
+ =\{p\in\R:f(y)\ge f(x)+p(y-x)\text{ 对定义域内所有 }y\},
+\]
+一维公式为
+\[
+ \partial f(x)=[f'_-(x),f'_+(x)].
+\]
+凸共轭记为
+\[
+ f^*(p)=\sup_x\{px-f(x)\},
+\]
+允许取值 \(+\infty\)。符号 \(\partial f(x)\) 在这里不是集合的拓扑边界；两种含义须由上下文和对象类型区分。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -142,11 +196,23 @@ Cauchy 条件写为
 
  \item[Heine--Cantor 定理]
  当前版本断言闭有界区间上的连续函数一致连续。其证明实际使用定义域的紧致性；以后推广时应表述为“紧致度量空间上的连续映射一致连续”，而不能把“闭且有界”当作所有空间中的充分条件。
+
+ \item[中值定理]
+ Lagrange 中值定理给出标量函数在一段区间上的某个中值点；Cauchy 中值定理同时比较两个标量增量。对一般向量值函数，不能逐坐标选出同一个中值点使向量等式成立，只能在适当范数下得到积分或增量估计。
+
+ \item[L'Hôpital 法则]
+ 本书当前分别证明 \(0/0\) 型和无界分母型，并区分有限、正无穷和负无穷的导数商极限。法则的结论是原商极限，不是“分子分母可以约去一次导数”；非未定式、导数商无极限或分母导数在删心邻域内为零时，均须回到相应版本核对。
+
+ \item[Taylor 公式]
+ Peano 余项只给出相对于 \((x-a)^n\) 的渐近阶，Lagrange 与 Cauchy 余项使用区间上更高一阶导数，积分余项还依赖积分理论。积分余项在第四编只陈述，证明留到微积分基本定理建立以后。
+
+ \item[Darboux 定理]
+ 当前版本断言导函数即使不连续也具有介值性。它不同于连续函数的介值定理：这里不假设导函数连续，证明依赖原函数与割线斜率构造出的极值问题。
 \end{description}
 
 \section{当前章节依赖}
 
-第一卷前三编的主要依赖可概括如下：
+第一卷前四编的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -155,5 +221,7 @@ Cauchy 条件写为
  \text{数列极限}.
 \]
 在数列极限之后，单调收敛、子列、上下极限和 Cauchy 准则依次建立；\chapterref{chap:equivalent-completeness}再比较完备性的各种形式，\chapterref{chap:cauchy-construction}用有理 Cauchy 列构造另一个实数模型。函数极限通过 Heine 定理调用数列理论，连续性随后进入闭区间上的紧致与连通结论，最后得到一致连续性。
+
+微分学从\chapterref{chap:derivative-linearization}的局部线性化开始；\chapterref{chap:mean-value-theorems}利用闭区间极值与连续性建立中值定理，再由此得到 L'Hôpital 法则。\chapterref{chap:derivative-darboux}研究导函数在不连续时仍保留的介值性，\chapterref{chap:taylor-theory}在这些结果上建立有限阶余项，\chapterref{chap:convex-functions}则先由割线建立无需可导性的凸函数理论，再与导数和二阶导数衔接。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

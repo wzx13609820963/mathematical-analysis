@@ -1,0 +1,341 @@
+\chapter{导函数}
+\label{chap:derivative-darboux}
+
+函数在一点可导，只说明固定基点的差商有极限。让基点移动以后，所得函数
+\[
+ x\longmapsto f'(x)
+\]
+未必连续，甚至未必在一点附近有界。另一方面，导函数也不是任意函数：它的值不能从一个数跳到另一个数而略过中间值。本章先用几个可直接核验的例子说明导函数能够出现怎样的振荡，再证明 Darboux 定理，并由此排除导函数的跳跃间断。
+
+本章中的定义域通常取开区间 \(I\subset\R\)。这样每一点都有双侧导数，也可在任意闭子区间上使用极值定理和中值定理。端点处的单侧版本将在需要时另行说明。
+
+\section{不连续、振荡和无界的导函数}
+
+\subsection{可导函数的导数未必连续}
+
+考虑函数
+\[
+ f(x)=
+ \begin{cases}
+  x^2\sin(1/x),&x\ne0,\\
+  0,&x=0.
+ \end{cases}
+\]
+在 \(x\ne0\) 处按通常法则求导，得到
+\[
+ f'(x)=2x\sin(1/x)-\cos(1/x).
+\]
+原点不能代入这一公式，必须回到差商：
+\[
+ \frac{f(h)-f(0)}{h}=h\sin(1/h),
+ \qquad
+ \left|h\sin(1/h)\right|\le |h|.
+\]
+因此 \(f'(0)=0\)，函数 \(f\) 在整条实线上可导。
+
+然而 \(f'\) 在 \(0\) 不连续。取
+\[
+ x_n=\frac1{2\pi n},
+ \qquad
+ y_n=\frac1{(2n+1)\pi},
+\]
+则 \(x_n,y_n\to0\)，并且
+\[
+ f'(x_n)=-1,
+ \qquad
+ f'(y_n)=1.
+\]
+所以 \(f'(x)\) 在 \(x\to0\) 时没有极限。这里的导函数仍在原点附近有界，因为
+\[
+ |f'(x)|\le 2|x|+1
+ \qquad(x\ne0).
+\]
+这个例子把“可导”与“连续可导”清楚地区分开来：\(f\) 处处可导，但 \(f\notin C^1(\R)\)。
+
+振荡并不只产生两个部分极限。事实上，\(f'\) 在 \(0\) 的聚值集合恰为 \([-1,1]\)。若 \(z_n\to0\) 且 \(z_n\ne0\)，那么
+\[
+ 2z_n\sin(1/z_n)\to0,
+\]
+故任何有限聚值都属于 \([-1,1]\)。反过来，给定 \(\lambda\in[-1,1]\)，选取 \(\theta\in[0,2\pi]\) 使 \(-\cos\theta=\lambda\)，并令
+\[
+ z_n=\frac1{\theta+2\pi n}
+\]
+（略去分母为零的有限项），便有 \(z_n\to0\) 且 \(f'(z_n)\to\lambda\)。因而导函数在一个点附近可以遍历整段数值，而不是仅在两个数之间来回跳动。
+
+\subsection{局部无界的导函数}
+
+把振荡频率提高一阶，令
+\[
+ g(x)=
+ \begin{cases}
+  x^2\sin(1/x^2),&x\ne0,\\
+  0,&x=0.
+ \end{cases}
+\]
+仍有
+\[
+ \left|\frac{g(h)-g(0)}h\right|
+ =|h\sin(1/h^2)|\le |h|,
+\]
+所以 \(g'(0)=0\)。对 \(x\ne0\)，
+\[
+ g'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2).
+\]
+取
+\[
+ u_n=\frac1{\sqrt{2\pi n}},
+ \qquad
+ v_n=\frac1{\sqrt{(2n+1)\pi}},
+\]
+则
+\[
+ g'(u_n)=-\frac2{u_n}\longrightarrow-\infty,
+ \qquad
+ g'(v_n)=\frac2{v_n}\longrightarrow+\infty.
+\]
+因此 \(g'\) 在 \(0\) 的每个邻域内既无上界也无下界。注意 \(g\) 本身在 \(0\) 连续，甚至在任意闭区间上都一致连续；函数值的良好连续性并不能控制导函数的局部大小。
+
+上述两个例子来自同一个幂次族。对正整数 \(m,n\)，定义
+\[
+ F_{m,n}(x)=
+ \begin{cases}
+  x^m\sin(x^{-n}),&x\ne0,\\
+  0,&x=0.
+ \end{cases}
+\]
+当 \(m>1\) 时，
+\[
+ \frac{F_{m,n}(h)-F_{m,n}(0)}h
+ =h^{m-1}\sin(h^{-n})\longrightarrow0,
+\]
+故 \(F_{m,n}'(0)=0\)。当 \(m=1\) 时，右端沿使正弦分别等于 \(1\) 与 \(-1\) 的正数列取不同极限，所以原点不可导。对 \(m>1\) 及 \(x\ne0\)，
+\[
+ F_{m,n}'(x)
+ =m x^{m-1}\sin(x^{-n})
+ -n x^{m-n-1}\cos(x^{-n}).
+\]
+第一项总趋于 \(0\)，第二项的幂指数决定原点附近的行为：
+\[
+ \begin{array}{c|c}
+  m>n+1 & F_{m,n}'\text{ 在 }0\text{ 连续},\\
+  m=n+1 & F_{m,n}'\text{ 在 }0\text{ 附近有界但不连续},\\
+  1<m<n+1 & F_{m,n}'\text{ 在 }0\text{ 的每个邻域内无界}.
+ \end{array}
+\]
+后两项结论可沿 \(x^{-n}=k\pi\) 的正数列核验：此时正弦项为零，余弦项等于 \((-1)^k\)。这个族说明，函数在原点消失的阶数与内部振荡的频率共同决定了导函数的规则程度。
+
+\section{Darboux 定理}
+
+连续函数具有介值性。前面的例子表明导函数未必连续，下面的定理却说明它仍保留介值性。为把这一性质与连续性分开，先作定义。
+
+\begin{definition}[Darboux 性质]
+设 \(J\subset\R\) 是区间，\(h:J\to\R\)。若对任意 \(x_1<x_2\) 及任意严格介于 \(h(x_1)\) 与 \(h(x_2)\) 之间的数 \(\lambda\)，总存在 \(c\in(x_1,x_2)\) 使
+\[
+ h(c)=\lambda,
+\]
+则称 \(h\) 具有\term{Darboux 性质}或\term{介值性}。
+\end{definition}
+
+连续函数由介值定理具有 Darboux 性质。这个性质只要求值域没有被跨越的缺口，并不要求邻近点的函数值彼此接近。
+
+\begin{theorem}[Darboux 定理]
+\label{thm:darboux-derivative}
+设 \(I\subset\R\) 是开区间，\(f:I\to\R\) 在 \(I\) 上可导。则导函数 \(f'\) 具有 Darboux 性质。更具体地，若 \(x_1<x_2\) 且 \(\lambda\) 严格介于 \(f'(x_1)\) 与 \(f'(x_2)\) 之间，则存在 \(c\in(x_1,x_2)\) 使
+\[
+ f'(c)=\lambda.
+\]
+\end{theorem}
+
+\begin{proof}
+令
+\[
+ \varphi(x)=f(x)-\lambda x,
+ \qquad x\in[x_1,x_2].
+\]
+函数 \(\varphi\) 在闭区间上连续、在开区间上可导，并且
+\[
+ \varphi'(x)=f'(x)-\lambda.
+\]
+
+先设 \(f'(x_1)<\lambda<f'(x_2)\)，即
+\[
+ \varphi'(x_1)<0<\varphi'(x_2).
+\]
+由 \(\varphi'(x_1)<0\)，存在充分小的 \(h>0\) 使
+\[
+ \frac{\varphi(x_1+h)-\varphi(x_1)}h<0,
+\]
+从而 \(\varphi(x_1+h)<\varphi(x_1)\)；故 \(x_1\) 不是 \(\varphi\) 在 \([x_1,x_2]\) 上的最小值点。类似地，由 \(\varphi'(x_2)>0\)，对充分小的 \(h<0\) 有
+\[
+ \frac{\varphi(x_2+h)-\varphi(x_2)}h>0.
+\]
+此时 \(h<0\)，所以 \(\varphi(x_2+h)<\varphi(x_2)\)，\(x_2\) 也不是最小值点。
+
+连续函数 \(\varphi\) 在 \([x_1,x_2]\) 上取得最小值。两个端点均不能取得该最小值，因此某个最小值点 \(c\) 位于 \((x_1,x_2)\)。由
+\chapterref{chap:mean-value-theorems} 中的 Fermat 定理，\(\varphi'(c)=0\)，即 \(f'(c)=\lambda\)。
+
+若 \(f'(x_1)>\lambda>f'(x_2)\)，则
+\[
+ \varphi'(x_1)>0>\varphi'(x_2).
+\]
+同样的单侧差商论证说明两个端点都不是最大值点。令 \(c\) 为 \(\varphi\) 在闭区间上取得最大值的内点，再用 Fermat 定理便有 \(\varphi'(c)=0\)。两种次序均已覆盖，定理得证。
+\end{proof}
+
+证明中没有对 \(f'\) 使用连续性。连续性只用于辅助函数 \(f(x)-\lambda x\)，以保证它在闭区间上取得极值；导数在端点的符号把极值点推入区间内部，Fermat 定理再把极值转化为所需的导数值。这也是 Darboux 定理不能由通常介值定理直接套在 \(f'\) 上的原因。
+
+\begin{corollary}[区间的导数像]
+\label{cor:derivative-image-interval}
+若 \(K\subset I\) 是区间，则 \(f'(K)\) 也是区间。
+\end{corollary}
+
+\begin{proof}
+任取 \(p,q\in f'(K)\)，设 \(p=f'(x_1)\)、\(q=f'(x_2)\)。由于 \(K\) 是区间，连接 \(x_1,x_2\) 的闭区间包含在 \(K\) 中。由
+\theoremref{thm:darboux-derivative}，介于 \(p,q\) 之间的每个数都属于 \(f'(K)\)。实线上具有这种介值性质的集合正是区间。
+\end{proof}
+
+若 \(f\) 只在闭区间 \([a,b]\) 上连续、在 \((a,b)\) 可导，并且右导数 \(f'_+(a)\) 与左导数 \(f'_-(b)\) 存在，那么同一极值论证仍可比较端点导数。例如，严格介于 \(f'_+(a)\) 与 \(f'_-(b)\) 之间的数仍由某个内点导数取得。关键是端点处只使用朝向区间内部的差商。
+
+\section{导函数的介值性与不连续点}
+
+\subsection{单侧极限不能产生跳跃}
+
+Darboux 性质对一个间断点附近的值域施加强约束。下述命题先对一般 Darboux 函数陈述。
+
+\begin{proposition}[Darboux 函数的单侧极限]
+\label{prop:darboux-one-sided-limit}
+设 \(h:J\to\R\) 具有 Darboux 性质，\(a\) 是区间 \(J\) 的内点。若扩充实数意义下的右极限
+\[
+ \lim_{x\to a+}h(x)
+\]
+存在，则该极限必为有限数且等于 \(h(a)\)。左极限也有相同结论。
+\end{proposition}
+
+\begin{proof}
+只证右侧。先设右极限为有限数 \(L\)。若 \(L\ne h(a)\)，取严格介于二者之间的数 \(\lambda\)。不妨设 \(h(a)<\lambda<L\)；另一种次序完全相同。由 \(h(x)\to L\)，可取 \(x_n\downarrow a\) 使 \(h(x_n)>\lambda\)。Darboux 性质在 \([a,x_n]\) 上给出 \(c_n\in(a,x_n)\)，满足 \(h(c_n)=\lambda\)。但 \(c_n\to a+\)，于是既应有 \(h(c_n)\to L\)，又有 \(h(c_n)=\lambda\)，矛盾。因此 \(L=h(a)\)。
+
+若右极限为 \(+\infty\)，取 \(\lambda>h(a)\)，并另取任意 \(x_n\downarrow a\)、\(x_n>a\)。充分大的 \(n\) 使 \(h(x_n)>\lambda\)。仍由 Darboux 性质得到 \(c_n\in(a,x_n)\) 且 \(h(c_n)=\lambda\)，这与 \(h(c_n)\to+\infty\) 矛盾。右极限为 \(-\infty\) 时取 \(\lambda<h(a)\) 并使用同样的点列即可。左侧证明只需反转区间方向。
+\end{proof}
+
+应用于 \(h=f'\) 可得：导函数若在一点有某个单侧极限，该极限只能等于该点的导数值。因而导函数不可能有可去间断点，也不可能有跳跃间断点；在导函数的任一间断点，至少有一个单侧极限不存在。前面两个振荡例正是这样：问题不在某个点值填错，也不在左右两侧趋于不同常数，而在任意小邻域内持续出现一整段甚至无界的导数值。
+
+\subsection{间断点附近必反复出现一段数值}
+
+下面的结论把“没有跳跃”写成一个局部值域命题。
+
+\begin{proposition}[间断点处的持久值区间]
+\label{prop:persistent-value-interval}
+设 \(h:J\to\R\) 具有 Darboux 性质，\(a\) 是 \(J\) 的内点。若 \(h\) 在 \(a\) 不连续，则存在一个非退化闭区间 \(L\subset\R\)，使得对 \(a\) 的每个邻域 \(U\)，都有
+\[
+ L\subset h(U\cap J).
+\]
+\end{proposition}
+
+\begin{proof}
+由不连续的点列判据，存在 \(\varepsilon>0\) 和点列 \(x_n\to a\)，使
+\[
+ |h(x_n)-h(a)|\ge\varepsilon.
+\]
+至少有无穷多个 \(n\) 满足
+\[
+ h(x_n)\ge h(a)+\varepsilon,
+\]
+或至少有无穷多个 \(n\) 满足
+\[
+ h(x_n)\le h(a)-\varepsilon.
+\]
+取相应子列后只需讨论其中一种情形。
+
+在第一种情形令
+\[
+ L=\left[h(a)+\frac{\varepsilon}{3},
+          h(a)+\frac{2\varepsilon}{3}\right].
+\]
+给定邻域 \(U\)，取 \(\delta>0\) 使 \((a-\delta,a+\delta)\subset U\)。当 \(n\) 充分大时，连接 \(a\) 与 \(x_n\) 的闭区间包含在 \(U\cap J\) 中。Darboux 性质说明 \(L\) 中每个数都由该闭区间内的一点取得，因此 \(L\subset h(U\cap J)\)。第二种情形改取
+\[
+ L=\left[h(a)-\frac{2\varepsilon}{3},
+          h(a)-\frac{\varepsilon}{3}\right]
+\]
+即可。
+\end{proof}
+
+对导函数而言，这一命题说明：一旦 \(f'\) 在 \(a\) 不连续，就有一段固定长度的数值在 \(a\) 的每个邻域内反复出现。局部邻域不断缩小，这段值域却不会随之缩成一点。
+
+在局部无界的例子 \(g(x)=x^2\sin(1/x^2)\) 中，结论更强。任给 \(\delta>0\) 与 \(M\in\R\)，可在 \((0,\delta)\) 中选取 \(u_n,v_n\) 使 \(g'(u_n)<M<g'(v_n)\)。Darboux 定理于是给出 \(c\in(0,\delta)\) 满足 \(g'(c)=M\)。所以
+\[
+ g'((0,\delta))=\R
+ \qquad(\delta>0).
+\]
+导函数的局部无界不是由孤立尖峰造成的；介于高峰与低谷之间的所有数值也必须出现。
+
+\subsection{Darboux 性质弱于连续性}
+
+定义
+\[
+ h(x)=
+ \begin{cases}
+  \sin(1/x),&x\ne0,\\
+  0,&x=0.
+ \end{cases}
+\]
+它在 \(0\) 不连续。另一方面，\(h\) 具有 Darboux 性质。若一个闭区间不含 \(0\)，结论来自连续函数的介值定理；若闭区间含 \(0\) 且不退化，那么它至少在 \(0\) 的一侧含有一小段区间，而 \(\sin(1/x)\) 在这段区间上取得 \([-1,1]\) 中的每个值。具体地，对任意 \(\lambda\in[-1,1]\)，先取 \(\theta\) 使 \(\sin\theta=\lambda\)，再在同余角 \(\theta+2k\pi\) 中选取绝对值充分大的一个，其倒数便落在指定的单侧小区间内。因此两个端点函数值之间的每个数都能在原区间内取得。
+
+这个例子说明 Darboux 性质不能推出连续性。连续性控制 \(x\) 靠近 \(a\) 时 \(h(x)\) 是否靠近 \(h(a)\)；Darboux 性质只禁止值域出现缺口。导函数可能像上例那样无限振荡，但每次从一个值走到另一个值时都必须经过其间全部数值。
+
+介值性与单调性合在一起则足以恢复连续性。若 \(h\) 在区间上单调且具有 Darboux 性质，那么它若在内点间断，依
+\chapterref{chap:continuity-discontinuity} 中单调函数的间断点理论，该间断只能是跳跃间断；但跳跃与 Darboux 性质矛盾。端点用单侧版本处理，故 \(h\) 在整个定义区间上连续。特别地，若某个导函数恰好单调，那么它必连续。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组：定义与基本论证}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{bounded-oscillatory-derivative} 设 \(f(0)=0\)，\(f(x)=x^2\sin(1/x)\)（\(x\ne0\)）。从导数定义求 \(f'(0)\)，再求 \(x\ne0\) 时的 \(f'(x)\)，并证明 \(f'\) 在 \(0\) 有界但不连续。
+ \exerciseitem{locally-unbounded-derivative} 设 \(g(0)=0\)，\(g(x)=x^2\sin(1/x^2)\)（\(x\ne0\)）。证明 \(g\) 处处可导，而 \(g'\) 在 \(0\) 的每个邻域内既无上界也无下界。
+ \exerciseitem{positive-derivative-at-point} 设 \(f\) 在内点 \(a\) 可导且 \(f'(a)>0\)。证明存在 \(\delta>0\)，使
+ \[
+  a-\delta<x<a\Longrightarrow f(x)<f(a),
+  \qquad
+  a<x<a+\delta\Longrightarrow f(x)>f(a).
+ \]
+说明这个结论为什么不等于“\(f\) 在 \(a\) 的某个邻域内严格递增”。
+ \exerciseitem{two-valued-derivative} 设 \(I\) 是具有非空内部的区间，\(f:I\to\R\) 在 \(I^\circ\) 可导，并且 \(f'(I^\circ)\subset\{\alpha,\beta\}\)。证明 \(f'\) 在 \(I^\circ\) 上为常数；若 \(f\) 在 \(I\) 上连续，再证明 \(f\) 在整个 \(I\) 上是仿射函数。
+ \exerciseitem{nonvanishing-derivative-monotonicity} 设 \(f\) 在开区间 \(I\) 上可导且 \(f'(x)\ne0\) 对所有 \(x\in I\) 成立。证明 \(f'\) 在 \(I\) 上保持同号，并由中值定理推出 \(f\) 严格单调。
+ \exerciseitem{affine-darboux-stability} 设 \(h:J\to\R\) 具有 Darboux 性质，\(A,B\in\R\)。证明 \(Ah+B\) 也具有 Darboux 性质。
+ \exerciseitem{sine-reciprocal-darboux} 对
+ \[
+  h(0)=0,
+  \qquad h(x)=\sin(1/x)\quad(x\ne0),
+ \]
+完整证明 \(h\) 具有 Darboux 性质但在 \(0\) 不连续。
+\end{enumerate}
+
+\subsection*{B组：定理的推论与条件}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{oscillatory-power-classification} 对正整数 \(m,n\)，系统讨论
+ \[
+  F_{m,n}(0)=0,
+  \qquad F_{m,n}(x)=x^m\sin(x^{-n})\quad(x\ne0)
+ \]
+在 \(0\) 的可导性，并在可导时判定 \(F_{m,n}'\) 在 \(0\) 连续、局部有界但不连续、局部无界分别对应哪些 \(m,n\)。
+ \exerciseitem{bounded-derivative-cluster-set} 证明函数 \(f(x)=x^2\sin(1/x)\)（\(x\ne0\)）、\(f(0)=0\) 的导函数在 \(0\) 的聚值集合恰为 \([-1,1]\)。
+ \exerciseitem{unbounded-derivative-full-range} 对 \(g(x)=x^2\sin(1/x^2)\)（\(x\ne0\)）、\(g(0)=0\)，证明每个 \(\delta>0\) 都满足
+ \[
+  g'((0,\delta))=\R.
+ \]
+ \exerciseitem{endpoint-darboux-version} 设 \(a<b\)，\(f\in C([a,b])\)，\(f\) 在 \((a,b)\) 可导，且有限右导数 \(f'_+(a)\) 与有限左导数 \(f'_-(b)\) 存在。证明严格介于这两个端点导数之间的每个数都等于某个 \(f'(c)\)，其中 \(c\in(a,b)\)。
+ \exerciseitem{monotone-darboux-continuity} 不引用“单调函数的间断点必为跳跃间断”这一现成结论，直接从单调性和 Darboux 性质证明：区间上的单调 Darboux 函数连续。
+ \exerciseitem{one-sided-limit-darboux} 设 \(h\) 在区间上具有 Darboux 性质。证明：若 \(h\) 在内点 \(a\) 的某个扩充实数单侧极限存在，则该极限有限且等于 \(h(a)\)。
+ \exerciseitem{rational-valued-derivative} 设 \(f\) 在开区间 \(I\) 上可导，且 \(f'(x)\in\Q\) 对所有 \(x\in I\) 成立。证明 \(f\) 是仿射函数。
+ \exerciseitem{avoided-slope-monotonicity} 设 \(f\) 在开区间 \(I\) 上可导，\(\lambda\in\R\)，并且 \(f'(x)\ne\lambda\) 对所有 \(x\in I\) 成立。证明 \(f(x)-\lambda x\) 在 \(I\) 上严格单调。
+ \exerciseitem{derivative-first-kind-exclusion} 证明导函数的间断点不可能是可去间断点或跳跃间断点。再说明：若导函数在内点 \(a\) 不连续而右极限存在，则左极限必不存在。
+\end{enumerate}
+
+\subsection*{C组：构造与综合}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \optionalexerciseitem{prescribed-cluster-interval} 给定非退化闭区间 \([A,B]\)，构造一个在 \(\R\) 上可导的函数 \(f\)，使 \(f'\) 在 \(0\) 的聚值集合恰为 \([A,B]\)。
+ \optionalexerciseitem{injective-darboux-continuity} 证明区间上的单射 Darboux 函数必严格单调并连续。由此证明：若一个导函数在区间上单射，则它连续。
+ \optionalexerciseitem{countable-derivative-range} 设 \(f\) 在开区间 \(I\) 上可导，且 \(f'(I)\) 至多可数。证明 \(f\) 是仿射函数。
+ \optionalexerciseitem{irregular-derivative-lipschitz-function} 证明 \(f(x)=x^2\sin(1/x)\)（\(x\ne0\)）、\(f(0)=0\) 在 \([-1,1]\) 上是 Lipschitz 函数，尽管 \(f'\) 在 \(0\) 不连续。
+ \optionalexerciseitem{unbounded-derivative-uniform-function} 证明 \(g(x)=x^2\sin(1/x^2)\)（\(x\ne0\)）、\(g(0)=0\) 在 \([-1,1]\) 上一致连续，而 \(g'\) 在 \(0\) 的每个邻域内无界。说明这为何不与 Heine--Cantor 定理矛盾。
+ \projectexerciseitem{persistent-interval-discontinuity} 设 \(h:J\to\R\) 具有 Darboux 性质，并在内点 \(a\) 不连续。仅从不连续的点列判据与 Darboux 性质出发，证明存在非退化闭区间 \(L\)，使 \(L\subset h(U\cap J)\) 对 \(a\) 的每个邻域 \(U\) 成立；再把结论用于任意在 \(a\) 不连续的导函数。
+\end{enumerate}

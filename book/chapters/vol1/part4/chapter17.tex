@@ -1,0 +1,499 @@
+\chapter{Taylor 理论}
+\label{chap:taylor-theory}
+
+导数把函数在一点附近的变化压缩成线性信息。若函数具有更高阶导数，逐次扣除已经识别出的低阶变化，就会得到一个多项式近似以及相应的误差。高等数学通常把这件事写成若干现成公式；数学分析还需区分几个问题：近似多项式为何由函数唯一决定，不同余项分别需要什么假设，光滑函数何时等于自己的 Taylor 级数，以及高阶展开能够对极值和渐近关系作出怎样的判定。
+
+本章先在有限阶范围内建立完整理论。积分余项的公式先准确陈述，其证明留到 Riemann 积分和微积分基本定理建立以后。实解析函数涉及无穷级数，当前只使用定义及少量不依赖换序的结论；系统的幂级数理论将在后卷给出。
+
+\section{高阶导数与 Taylor 多项式}
+
+设 \(I\subset\R\) 是开区间，\(a\in I\)，\(f:I\to\R\)。若 \(f'\) 在 \(a\) 的某个邻域内有定义且在 \(a\) 可导，便定义 \(f''(a)=(f')'(a)\)；更高阶导数递归定义。约定 \(f^{(0)}=f\)。写“\(f\) 在 \(a\) 处 \(n\) 次可导”时，包含一个邻域上的递归定义要求，而不只是给出 \(n+1\) 个互不相关的数。
+
+\begin{definition}[Taylor 多项式]
+若 \(f^{(k)}(a)\) 对 \(0\le k\le n\) 均存在，则称
+\[
+ T_{n,a}f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k
+\]
+为 \(f\) 在 \(a\) 处的 \(n\) 阶 \term{Taylor 多项式}。相应差
+\[
+ R_{n,a}f(x)=f(x)-T_{n,a}f(x)
+\]
+称为 \(n\) 阶余项。
+\end{definition}
+
+这些系数并非为了得到熟悉的公式而预先指定。它们恰好使多项式在 \(a\) 处与 \(f\) 具有相同的前 \(n\) 阶导数。
+
+\begin{proposition}[导数匹配与唯一性]
+设 \(P\) 是次数不超过 \(n\) 的多项式。下列条件等价：
+\begin{enumerate}
+ \item \(P^{(k)}(a)=f^{(k)}(a)\) 对 \(0\le k\le n\) 成立；
+ \item \(P=T_{n,a}f\)。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+写
+\[
+ P(x)=\sum_{j=0}^{n}c_j(x-a)^j.
+\]
+对 \(k\) 阶求导并令 \(x=a\)，只有 \(j=k\) 的项留下，故
+\[
+ P^{(k)}(a)=k!c_k.
+\]
+因此导数匹配等价于 \(c_k=f^{(k)}(a)/k!\)，这正给出 Taylor 多项式。反向验证包含在同一计算中。
+\end{proof}
+
+Taylor 多项式依赖展开中心。即使是同一函数，在不同点展开也得到不同系数；余项的大小也只在指定中心附近讨论。有限阶理论中并未出现“无穷多项式”，所以 \(T_{n,a}f\) 总是普通多项式，不涉及级数收敛。
+
+\begin{example}
+对 \(f(x)=e^x\)，有 \(f^{(k)}(0)=1\)，故
+\[
+ T_{n,0}f(x)=1+x+\frac{x^2}{2!}+\cdots+\frac{x^n}{n!}.
+\]
+对 \(g(x)=\sin x\)，偶数阶导数在 \(0\) 处为零，奇数阶导数交替为 \(1,-1\)，所以 Taylor 多项式只含奇次项。这里尚未断言这些多项式在 \(n\to\infty\) 时收敛到原函数；那是另一个需要余项估计的问题。
+\end{example}
+
+\section{Peano、Lagrange、Cauchy 和积分余项}
+
+\subsection{Peano 余项}
+
+导数的定义本身已经给出一阶局部展开
+\[
+ f(x)=f(a)+f'(a)(x-a)+o(x-a).
+\]
+反复使用这一事实，可以在不要求下一阶导数存在的情况下得到有限阶 Taylor 展开。
+
+\begin{theorem}[Taylor 公式的 Peano 余项]
+\label{thm:taylor-peano}
+若 \(f\) 在 \(a\) 处 \(n\) 次可导，其中 \(n\ge1\)，则
+\[
+ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k
+      +o\bigl((x-a)^n\bigr),
+ \qquad x\to a.
+\]
+\end{theorem}
+
+\begin{proof}
+对 \(n\) 作归纳。\(n=1\) 时结论就是可导性的局部线性化。设结论对 \(n-1\) 成立，并令
+\[
+ R_n(x)=f(x)-T_{n,a}f(x).
+\]
+由导数匹配，\(R_n(a)=0\)。在 \(x\ne a\) 且充分接近 \(a\) 时，Lagrange 中值定理给出介于 \(a,x\) 之间的点 \(\xi_x\)，使
+\[
+ R_n(x)=R_n'(\xi_x)(x-a).
+\]
+对 \(f'\) 使用 \(n-1\) 阶归纳假设，有
+\[
+ R_n'(t)
+ =f'(t)-\sum_{k=1}^{n}\frac{f^{(k)}(a)}{(k-1)!}(t-a)^{k-1}
+ =o\bigl((t-a)^{n-1}\bigr).
+\]
+给定 \(\varepsilon>0\)，当 \(t\) 充分接近 \(a\) 时，
+\[
+ \abs{R_n'(t)}\le\varepsilon\abs{t-a}^{n-1}.
+\]
+点 \(\xi_x\) 随 \(x\to a\) 也趋于 \(a\)，且
+\(\abs{\xi_x-a}\le\abs{x-a}\)。于是
+\[
+ \abs{R_n(x)}
+ \le\varepsilon\abs{\xi_x-a}^{n-1}\abs{x-a}
+ \le\varepsilon\abs{x-a}^{n}.
+\]
+这正是 \(R_n(x)=o((x-a)^n)\)。
+\end{proof}
+
+Peano 余项只说明误差相对于 \((x-a)^n\) 更小，不给出误差在某个固定区间上的数值上界。它的假设也较弱：不要求 \(f^{(n+1)}\) 存在。
+
+\subsection{Lagrange 余项}
+
+为了得到可计算的误差，需要在 \(a\) 与 \(x\) 之间取得下一阶导数的信息。先记录反复使用 Rolle 定理的一个形式。
+
+\begin{lemma}[多重零点的 Rolle 推论]
+设 \(F\) 在连接 \(a\) 与 \(x\) 的闭区间上 \(n\) 次连续可导，并在内部 \(n+1\) 次可导，且
+\[
+ F(a)=F'(a)=\cdots=F^{(n)}(a)=0,
+ \qquad F(x)=0,
+\]
+其中 \(x\ne a\)。则在 \(a\) 与 \(x\) 之间存在 \(\xi\)，使 \(F^{(n+1)}(\xi)=0\)。
+\end{lemma}
+
+\begin{proof}
+令 \(c_0=x\)。由假设，\(F(a)=F(c_0)=0\)。Rolle 定理给出位于
+\(a\) 与 \(c_0\) 之间的 \(c_1\)，使 \(F'(c_1)=0\)。此后递归进行：
+若已经得到 \(c_{k-1}\)，满足
+\[
+ F^{(k-1)}(c_{k-1})=0,
+\]
+则 \(F^{(k-1)}(a)=0\)，因而可在端点为 \(a,c_{k-1}\) 的闭区间上
+使用 Rolle 定理，得到位于二者之间的 \(c_k\)，使
+\(F^{(k)}(c_k)=0\)。这个写法不要求预先规定 \(a<x\) 还是
+\(x<a\)，并且每一步都保留位于 \(a\) 的高阶零点。
+
+\(F\in C^n\) 保证前 \(n\) 步所需的闭区间连续性，内部
+\(n+1\) 次可导保证最后一步的导数存在。取
+\(\xi=c_{n+1}\) 即得结论。
+\end{proof}
+
+\begin{theorem}[Taylor 公式的 Lagrange 余项]
+\label{thm:taylor-lagrange}
+设 \(a,x\in I\)、\(x\ne a\)。若 \(f\) 在连接 \(a,x\) 的闭区间上 \(n\) 次连续可导，并在内部 \(n+1\) 次可导，则存在介于 \(a,x\) 之间的 \(\xi\)，使
+\[
+ R_{n,a}f(x)
+ =\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-a)^{n+1}.
+\]
+\end{theorem}
+
+\begin{proof}
+令 \(h=x-a\ne0\)，并选常数
+\[
+ K=\frac{R_{n,a}f(x)}{h^{n+1}}.
+\]
+定义
+\[
+ F(t)=f(t)-T_{n,a}f(t)-K(t-a)^{n+1}.
+\]
+由 Taylor 多项式的导数匹配，\(F^{(k)}(a)=0\) 对 \(0\le k\le n\) 成立；\(K\) 的选择又使 \(F(x)=0\)。多重零点的 Rolle 推论给出某个 \(\xi\) 使
+\[
+ 0=F^{(n+1)}(\xi)=f^{(n+1)}(\xi)-(n+1)!K.
+\]
+代回 \(K\) 的定义即得结论。
+\end{proof}
+
+\begin{corollary}[一致误差估计]
+在上一定理的条件下，若连接 \(a,x\) 的区间内
+\(\abs{f^{(n+1)}(t)}\le M\)，则
+\[
+ \abs{R_{n,a}f(x)}
+ \le\frac{M}{(n+1)!}\abs{x-a}^{n+1}.
+\]
+\end{corollary}
+
+这个推论常用于数值估计。它需要的不是 \(f^{(n+1)}(a)\) 一个数，而是整段区间上的统一界；只知道中心处的导数不能控制远离中心的误差。
+
+\subsection{Cauchy 余项}
+
+\begin{theorem}[Taylor 公式的 Cauchy 余项]
+在 \theoremref{thm:taylor-lagrange} 的条件下，存在介于 \(a,x\) 之间的 \(\xi\)，使
+\[
+ R_{n,a}f(x)
+ =\frac{f^{(n+1)}(\xi)}{n!}(x-a)(x-\xi)^n.
+\]
+\end{theorem}
+
+\begin{proof}
+固定 \(x\)，把展开中心 \(t\) 视为变量，定义
+\[
+ H(t)=f(x)-\sum_{k=0}^{n}\frac{f^{(k)}(t)}{k!}(x-t)^k.
+\]
+逐项求导时相邻项消去，得到
+\[
+ H'(t)=-\frac{f^{(n+1)}(t)}{n!}(x-t)^n.
+\]
+又有 \(H(a)=R_{n,a}f(x)\) 与 \(H(x)=0\)。对 \(H\) 在 \(a,x\) 之间使用 Lagrange 中值定理，存在 \(\xi\) 使
+\[
+ -R_{n,a}f(x)=H(x)-H(a)=H'(\xi)(x-a),
+\]
+整理即得所述公式。
+\end{proof}
+
+\subsection{积分余项}
+
+若 \(f^{(n+1)}\) 连续，则还有
+\begin{equation}
+ R_{n,a}f(x)
+ =\frac1{n!}\int_a^x f^{(n+1)}(t)(x-t)^n\,dt.
+ \label{eq:taylor-integral-remainder}
+\end{equation}
+该式称为 Taylor 公式的积分余项。当前尚未严格建立 Riemann 积分及分部积分，因此这里只把它作为先行陈述。后文《微积分基本定理》一章将由微积分基本定理和分部积分证明 \equationref{eq:taylor-integral-remainder}，并说明连续性条件怎样保证积分存在。
+
+\section{余项的条件、强弱和用途}
+
+四种余项回答的问题不同，不能只把它们看成同一公式的四种写法。
+
+\begin{itemize}
+ \item Peano 余项是 \(x\to a\) 时的局部渐近陈述，只需要到 \(n\) 阶的可导性；
+ \item Lagrange 余项把误差写成某个中间点的下一阶导数，适合取得统一上界；
+ \item Cauchy 余项保留了中间点到终点的距离，在某些符号判断和非对称估计中更灵活；
+ \item 积分余项记录了整个区间上下一阶导数的贡献，适合与积分不等式、参数估计及后续函数空间方法结合。
+\end{itemize}
+
+Lagrange 余项蕴含 Peano 余项需要额外的局部有界性。若 \(f^{(n+1)}\) 在 \(a\) 附近有界，则
+\[
+ R_{n,a}f(x)=O\bigl((x-a)^{n+1}\bigr)
+              =o\bigl((x-a)^n\bigr).
+\]
+反之，Peano 余项并不保证存在 \(n+1\) 阶导数。例如
+\[
+ f(x)=\abs{x}^{3/2}
+\]
+在 \(0\) 处可导，且 \(f(x)=o(x)\)，但二阶导数在 \(0\) 处不存在，不能在该点套用一阶 Lagrange 余项定理。
+
+\begin{example}[指数函数的误差]
+在 \(0\) 与 \(x\) 之间，\(e^t\le e^{\abs x}\)。因此
+\[
+ \left|e^x-\sum_{k=0}^{n}\frac{x^k}{k!}\right|
+ \le e^{\abs x}\frac{\abs{x}^{n+1}}{(n+1)!}.
+\]
+对固定 \(x\)，右端随 \(n\to\infty\) 趋于零；可用相邻项比值或本书后续的级数判别严格验证。这个估计不仅给出收敛，还给出截断到第 \(n\) 项时的误差。
+\end{example}
+
+\begin{example}[正弦与余弦]
+正弦和余弦的任意阶导数绝对值不超过 \(1\)。因此在 \(0\) 处截断到 \(n\) 阶时，余项绝对值不超过
+\[
+ \frac{\abs{x}^{n+1}}{(n+1)!}.
+\]
+利用奇偶导数为零还可选择更合适的截断阶数。误差阶数由第一个未写出的非零项决定，而不是由版面上最后一个幂次机械决定。
+\end{example}
+
+\begin{warningbox}[中间点不能预先指定]
+Lagrange 与 Cauchy 余项中的 \(\xi\) 依赖 \(x\)、展开中心和截断阶数。定理只保证它位于两端之间，通常不能把它替换为 \(a\)、\(x\) 或某个固定中点。实际估计应当对整段区间控制导数，而不是猜测 \(\xi\) 的位置。
+\end{warningbox}
+
+\section{\texorpdfstring{\(C^k\)、\(C^\infty\)}{Ck, C-infinity} 与实解析函数}
+
+\begin{definition}
+设 \(I\subset\R\) 为开区间。
+\begin{enumerate}
+ \item 若 \(f^{(j)}\) 对 \(0\le j\le k\) 在 \(I\) 上存在且连续，则写 \(f\in C^k(I)\)；
+ \item 若 \(f\in C^k(I)\) 对每个 \(k\in\N\) 都成立，则写 \(f\in C^\infty(I)\)，称 \(f\) 为\term{光滑函数}；
+ \item 若 \(f\in C^\infty(I)\)，并且对每个 \(a\in I\) 都存在 \(r>0\)，使
+ \[
+  f(x)=\sum_{k=0}^{\infty}\frac{f^{(k)}(a)}{k!}(x-a)^k
+  \qquad(\abs{x-a}<r),
+ \]
+ 其中等号表示部分和在每个这样的 \(x\) 处收敛到 \(f(x)\)，则称 \(f\) 在 \(I\) 上\term{实解析}。
+\end{enumerate}
+\end{definition}
+
+对非退化闭区间 \([a,b]\)，本书约定 \(f\in C^k([a,b])\) 表示
+\(f\) 在 \([a,b]\) 上连续，在 \((a,b)\) 上具有前 \(k\) 阶导数，
+并且每个 \(f^{(j)}\)（\(1\le j\le k\)）都能从 \((a,b)\) 连续延拓
+到两个端点。端点处采用这些连续延拓值；等价地，它们是相应的单侧
+导数。实解析性的定义仍只用于开区间内点。
+
+由定义有
+\[
+ \text{实解析}\Longrightarrow C^\infty
+ \Longrightarrow C^k\Longrightarrow C^{k-1}.
+\]
+反向一般失败。函数 \(x\mapsto\abs{x}^{k+1/2}\) 在 \(0\) 附近可用来区分有限阶光滑性；下一节的平坦函数则表明 \(C^\infty\) 仍不足以推出解析性。
+
+有些教材把“局部等于某个收敛幂级数”作为解析函数定义，而不预先把系数写成导数。幂级数逐项求导理论建立以后，可以证明两种定义等价。本章采用 Taylor 系数版本，以便把问题集中在余项是否趋于零上。
+
+对 \(f\in C^\infty(I)\)，Taylor 级数在 \(a\) 处是否等于 \(f\)，取决于
+\[
+ R_{n,a}f(x)\longrightarrow0\qquad(n\to\infty).
+\]
+“每一阶导数都存在”只保证每个有限阶 Taylor 多项式可写，并不自动给出这一关于 \(n\) 的极限。
+
+\section{无穷阶平坦函数}
+
+\begin{lemma}[指数压过任意幂]
+对每个 \(m\ge0\)，
+\[
+ \lim_{t\to+\infty}t^m e^{-t}=0.
+\]
+因而对任意 \(q>0\) 与 \(m\ge0\)，
+\[
+ \lim_{x\to0}\abs{x}^{-m}e^{-1/\abs{x}^{q}}=0.
+\]
+\end{lemma}
+
+\begin{proof}
+取整数 \(N>m\)。对 \(e^u\) 在 \(0\) 处使用前述有限阶 Lagrange Taylor 公式；当 \(u\ge0\) 时各项与余项均非负，故
+\[
+ e^u\ge\frac{u^N}{N!}.
+\]
+令 \(u=t/2\)，有
+\[
+ 0\le t^m e^{-t}
+ \le 2^N N!\,t^{m-N}e^{-t/2}
+ \le 2^N N!\,t^{m-N}\longrightarrow0.
+\]
+第二式令 \(t=1/\abs{x}^{q}\)，则原式化为 \(t^{m/q}e^{-t}\)，再使用第一式。
+\end{proof}
+
+定义
+\[
+ \phi(x)=
+ \begin{cases}
+  e^{-1/x^2},&x\ne0,\\
+  0,&x=0.
+ \end{cases}
+\]
+
+\begin{theorem}[无穷阶平坦函数]
+\label{thm:flat-function}
+函数 \(\phi\) 属于 \(C^\infty(\R)\)，且
+\[
+ \phi^{(n)}(0)=0\qquad(n\in\N).
+\]
+因此 \(\phi\) 在 \(0\) 处的 Taylor 级数恒为零，却在任意删心邻域内为正；它不在 \(0\) 的任何邻域内实解析。
+\end{theorem}
+
+\begin{proof}
+对 \(x\ne0\) 归纳可得
+\[
+ \phi^{(n)}(x)=P_n(1/x)e^{-1/x^2},
+\]
+其中 \(P_n\) 是某个多项式。\(n=0\) 时成立；若对 \(n\) 成立，求导后
+\[
+ \phi^{(n+1)}(x)
+ =\left[-\frac1{x^2}P_n'(1/x)+\frac2{x^3}P_n(1/x)\right]e^{-1/x^2},
+\]
+括号仍是 \(1/x\) 的多项式。
+
+现在同时证明各阶导数在 \(0\) 存在且取零。假设 \(\phi^{(n)}(0)=0\) 已定义。由上式和前一引理，
+\[
+ \frac{\phi^{(n)}(x)-\phi^{(n)}(0)}{x}
+ =\frac1x P_n(1/x)e^{-1/x^2}\longrightarrow0.
+\]
+所以 \(\phi^{(n+1)}(0)\) 存在且等于零。前一引理还说明 \(\phi^{(n)}(x)\to0=\phi^{(n)}(0)\)，故每阶导数在 \(0\) 连续。于是 \(\phi\in C^\infty(\R)\)。
+
+所有 Taylor 系数均为零，所以 Taylor 级数恒为零；而 \(x\ne0\) 时 \(\phi(x)>0\)，两者不可能在 \(0\) 的某个邻域内相等。
+\end{proof}
+
+这类函数可在不破坏光滑性的情况下把函数“接”到零上。例如
+\[
+ \eta(x)=
+ \begin{cases}
+  \exp\!\left(-\dfrac1{1-x^2}\right),&\abs x<1,\\
+  0,&\abs x\ge1
+ \end{cases}
+\]
+是一个支集包含在 \([-1,1]\) 内的非零光滑函数。端点处的光滑性可把 \(1-x^2\) 与前述平坦估计结合验证。这样的紧支集光滑函数在逼近、分布和偏微分方程中会反复出现，而非零实解析函数不可能具有紧支集。
+
+\section{解析刚性与光滑柔性}
+
+平坦函数说明，光滑函数在一点的全部导数仍可能不能决定邻域内的函数值。解析函数则受到相反的限制。
+
+\begin{proposition}[零点的阶]
+设 \(f\) 在 \(a\) 附近实解析。若存在最小整数 \(m\ge0\) 使 \(f^{(m)}(a)\ne0\)，则
+\[
+ f(x)=(x-a)^m\left(\frac{f^{(m)}(a)}{m!}+o(1)\right).
+\]
+因此当 \(m\ge1\) 时，\(a\) 是孤立零点；若所有阶导数在 \(a\) 都为零，则 \(f\) 在 \(a\) 的某个邻域内恒为零。
+\end{proposition}
+
+\begin{proof}
+前一式可由 \(m\) 阶 Peano 公式得到，也可直接从解析展开中提出 \((x-a)^m\)。括号内趋于非零数，故充分接近 \(a\) 时不为零。若所有 Taylor 系数为零，解析定义立即给出邻域内恒为零。
+\end{proof}
+
+\begin{theorem}[实解析函数的恒等原理]
+设 \(I\) 是开区间，\(f:I\to\R\) 实解析。若 \(f\) 的零点集在 \(I\) 内有聚点，则 \(f\equiv0\) 于 \(I\)。因此两个实解析函数若在具有内聚点的集合上相等，便在整个区间上相等。
+\end{theorem}
+
+\begin{proof}
+设零点 \(x_n\to a\in I\)，且可取 \(x_n\ne a\)。若 \(f\) 在 \(a\) 处有首个非零阶导数，上一命题说明 \(a\) 附近除 \(a\) 外没有零点，与 \(x_n\to a\) 矛盾。因此所有 \(f^{(k)}(a)\) 都为零，\(f\) 在 \(a\) 的某个邻域内恒为零。
+
+令 \(U\subset I\) 为 \(f\) 在其某个邻域内恒为零的点集。集合 \(U\) 非空且在 \(I\) 中开。若 \(a_j\in U\)、\(a_j\to a\in I\)，则每个 \(k\) 都有 \(f^{(k)}(a_j)=0\)。解析函数属于 \(C^\infty\)，由 \(f^{(k)}\) 连续得 \(f^{(k)}(a)=0\)，故解析展开又使 \(a\in U\)。所以 \(U\) 在 \(I\) 中也闭。区间的连通性迫使 \(U=I\)。对两个函数之差应用此结论即得第二项。
+\end{proof}
+
+恒等原理不适用于一般 \(C^\infty\) 函数。\theoremref{thm:flat-function} 中的 \(\phi\) 在 \(0\) 的所有导数均为零，却不在任何邻域恒为零；紧支集光滑函数甚至可以在一个开区间外完全为零而在内部非零。
+
+\section{Taylor 理论在极值和渐近估计中的应用}
+
+\begin{theorem}[首个非零高阶导数判别]
+设 \(f\) 在内点 \(a\) 处 \(n\) 次可导，并满足
+\[
+ f'(a)=\cdots=f^{(m-1)}(a)=0,
+ \qquad f^{(m)}(a)\ne0
+\]
+其中 \(2\le m\le n\)。则：
+\begin{enumerate}
+ \item 若 \(m\) 为偶数，\(f^{(m)}(a)>0\) 时 \(a\) 为严格局部极小点，\(f^{(m)}(a)<0\) 时为严格局部极大点；
+ \item 若 \(m\) 为奇数，则 \(a\) 不是局部极值点。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Peano 公式给出
+\[
+ f(a+h)-f(a)
+ =\frac{f^{(m)}(a)}{m!}h^m+o(h^m)
+ =h^m\left(\frac{f^{(m)}(a)}{m!}+o(1)\right).
+\]
+括号内在充分小的非零 \(h\) 上与 \(f^{(m)}(a)\) 同号。若 \(m\) 为偶数，\(h^m>0\)，差值在两侧同号；若 \(m\) 为奇数，\(h^m\) 在两侧异号，差值也异号。
+\end{proof}
+
+若 \(f''(a)=0\)，二阶判别没有结论，并不意味着 \(a\) 不是极值点。函数 \(x^4\)、\(-x^4\) 和 \(x^3\) 在 \(0\) 处的前两阶导数都为零，却分别给出极小、极大和非极值。若所有有限阶导数都消失，Taylor 多项式仍可能完全无法判定，例如平坦函数 \(\phi\) 在 \(0\) 处有严格极小值。
+
+Taylor 展开也把复杂极限转成首个未消去项的比较。若
+\[
+ f(a+h)=A h^m+o(h^m),\qquad
+ g(a+h)=B h^m+o(h^m),\qquad B\ne0,
+\]
+则在分母非零的删心邻域内
+\[
+ \frac{f(a+h)}{g(a+h)}\longrightarrow\frac AB.
+\]
+这里使用的是两个余项相对 \(h^m\) 都可忽略；若两式的最低非零阶不同，商的极限由幂次差决定。
+
+\begin{example}
+由三阶 Peano 展开
+\[
+ \sin x=x-\frac{x^3}{6}+o(x^3),
+ \qquad
+ \tan x=x+\frac{x^3}{3}+o(x^3),
+\]
+可得
+\[
+ \lim_{x\to0}\frac{\tan x-\sin x}{x^3}=\frac12.
+\]
+这类计算的重点是确认展开阶数足以覆盖分子中的消去。
+\end{example}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　有限阶展开}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{taylor-polynomial-derivative-match} 证明次数不超过 \(n\) 的多项式由它在一点的前 \(n\) 阶导数唯一决定，并据此重新推导 Taylor 多项式的系数。
+ \exerciseitem{taylor-polynomial-polynomial-exact} 设 \(P\) 为次数不超过 \(n\) 的多项式。证明 \(T_{n,a}P=P\)，并说明次数小于 \(n\) 时高阶系数怎样消失。
+ \exerciseitem{peano-second-order-expansion} 从 Peano 余项定理写出二阶展开，并用它证明：若 \(f'(a)=0\)、\(f''(a)>0\)，则 \(a\) 是严格局部极小点。
+ \exerciseitem{peano-remainder-no-next-derivative} 验证 \(f(x)=\abs{x}^{3/2}\) 在 \(0\) 处满足一阶 Peano 展开，但二阶导数不存在。
+ \exerciseitem{lagrange-remainder-uniform-bound} 设 \(\abs{f^{(n+1)}}\le M\) 于连接 \(a,x\) 的区间。由 Lagrange 余项证明统一误差估计，并说明 \(M\) 必须控制整段区间。
+ \exerciseitem{exp-taylor-numerical-error} 用 Lagrange 余项估计 \(e^{0.1}\) 由 \(1+x+x^2/2\) 近似时的绝对误差。
+ \exerciseitem{sine-taylor-global-error} 证明对任意 \(x\in\R\)，
+ \[
+  \abs{\sin x-x+x^3/6}\le\abs{x}^5/5!.
+ \]
+ \exerciseitem{cosine-basic-inequality-taylor} 用二阶 Taylor 公式证明 \(1-x^2/2\le\cos x\le1\) 在充分接近 \(0\) 时成立，并另用导数符号把右侧不等式推广到所有实数。
+\end{enumerate}
+
+\subsection*{B组　余项与光滑性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{cauchy-remainder-telescoping-derivative} 完整核对 Cauchy 余项证明中逐项求导后的消去，并从 \(n=0\) 情形恢复 Lagrange 中值定理。
+ \exerciseitem{lagrange-implies-peano-bounded-next-derivative} 证明若 \(f^{(n+1)}\) 在 \(a\) 的某邻域有界，则 Lagrange 余项蕴含 \(n\) 阶 Peano 余项。
+ \exerciseitem{peano-remainder-unique-polynomial} 设 \(P,Q\) 的次数均不超过 \(n\)，且
+ \[
+  f(x)-P(x)=o((x-a)^n),\qquad f(x)-Q(x)=o((x-a)^n).
+ \]
+ 证明 \(P=Q\)。
+ \exerciseitem{flat-power-exponential-limit} 对任意 \(p,q>0\) 证明 \(x^{-p}e^{-1/x^q}\to0\)（\(x\to0+\)），并分别给出 L'Hôpital 法和指数函数下界法。
+ \exerciseitem{flat-derivative-polynomial-form} 证明 \(\phi^{(n)}(x)=P_n(1/x)e^{-1/x^2}\) 的归纳式，并写出 \(P_1,P_2,P_3\)。
+ \exerciseitem{flat-function-smooth-not-analytic} 不直接引用本章定理，完整证明平坦函数在 \(0\) 处三次可导且前三阶导数为零，再说明一般归纳需要什么估计。
+ \exerciseitem{compact-support-smooth-function} 证明本章给出的 \(\eta\) 在 \(x=\pm1\) 处无穷次可导，并且所有阶导数均为零。
+ \exerciseitem{finite-smoothness-power-example} 对给定整数 \(k\ge0\)，研究 \(f(x)=\abs{x}^{k+1/2}\) 在 \(0\) 处属于哪些 \(C^j\) 类，给出完整结论。
+ \exerciseitem{analytic-zero-finite-order-sign} 设实解析函数 \(f\) 满足 \(f(a)=0\)，并且在 \(a\) 处的首个非零导数阶数为 \(m\ge1\)。证明其零点阶数为 \(m\)，并判断 \(f\) 在 \(a\) 两侧的符号关系。
+\end{enumerate}
+
+\subsection*{C组　综合问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{analytic-identity-two-functions} 设 \(f,g\) 在开区间 \(I\) 上实解析，且存在 \(x_n\to a\in I\)、\(x_n\ne a\)，使 \(f(x_n)=g(x_n)\)。证明 \(f=g\) 于 \(I\)。
+ \exerciseitem{first-nonzero-derivative-extremum-cases} 分别构造首个非零导数阶数为 \(2,3,4,5\) 的函数，并核对高阶极值判别的四种结论。
+ \exerciseitem{all-derivatives-zero-extremum-variety} 构造三个 \(C^\infty\) 函数，使它们在 \(0\) 处所有导数都为零，而 \(0\) 分别是严格极小点、严格极大点和非极值点。
+ \exerciseitem{asymptotic-quotient-first-nonzero-order} 设
+ \[
+  f(a+h)=Ah^m+o(h^m),\qquad g(a+h)=Bh^n+o(h^n),
+ \]
+ 其中 \(A,B\ne0\)。按 \(m<n,m=n,m>n\) 分类讨论 \(f/g\) 的双侧或单侧行为。
+ \exerciseitem{trigonometric-third-order-limit} 用恰当阶数的 Taylor 展开计算
+ \[
+  \lim_{x\to0}\frac{\tan x-\sin x}{x^3},\qquad
+  \lim_{x\to0}\frac{x-\sin x}{x^3}.
+ \]
+ \optionalexerciseitem{taylor-remainder-center-dependence} 对 \(f(x)=e^x\) 比较在 \(a=0\) 与 \(a=1\) 处取同阶 Taylor 多项式近似 \(x=1/2\) 的 Lagrange 误差上界，说明展开中心如何影响估计。
+ \projectexerciseitem{taylor-remainders-comparison-project} 【前置：本章及\chapterref{chap:mean-value-theorems}；预计用时：120分钟】选择 \(e^x,\sin x,\log(1+x)\) 中两个函数，在同一有限区间上分别建立 Peano、Lagrange 与 Cauchy 余项，比较所需假设、可得到的信息和误差常数；积分余项部分待学完微积分基本定理后补做。
+ \openexerciseitem{smooth-jet-realization-preview} 给定任意实数列 \((a_n)\)，研究是否总能找到 \(C^\infty\) 函数满足 \(f^{(n)}(0)=a_n\)。查阅 Borel 定理的准确陈述，说明平坦函数为何表明这样的函数若存在也不唯一；本题不要求证明 Borel 定理。
+\end{enumerate}
