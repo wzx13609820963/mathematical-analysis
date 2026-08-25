@@ -35,6 +35,40 @@
 函数 \(x\mapsto \abs{x}\) 是凸函数，可由三角不等式验证；它在 \(0\) 处不可导，因而凸性并不以光滑性为前提。函数 \(x\mapsto x^3\) 在整个实轴上既非凸也非凹，但分别在 \([0,+\infty)\) 与 \((-\infty,0]\) 上凸、凹。凸性始终依赖指定的定义域。
 \end{example}
 
+\begin{definition}[上图集]
+设 \(f:I\to\R\)。集合
+\[
+ \operatorname{epi}f
+ =\{(x,u)\in I\times\R:u\ge f(x)\}
+\]
+称为 \(f\) 的\term{上图集}。它由函数图像以及图像上方的全部点组成。
+\end{definition}
+
+\begin{proposition}[上图集刻画]
+\label{prop:convex-epigraph-characterization}
+函数 \(f:I\to\R\) 为凸函数，当且仅当 \(\operatorname{epi}f\) 是 \(\R^2\) 中的凸集。
+\end{proposition}
+
+\begin{proof}
+设 \(f\) 凸，并取 \((x,u),(y,v)\in\operatorname{epi}f\) 与 \(t\in[0,1]\)。由
+\(u\ge f(x)\)、\(v\ge f(y)\) 以及凸性，
+\[
+ (1-t)u+tv
+ \ge (1-t)f(x)+tf(y)
+ \ge f((1-t)x+ty).
+\]
+故两点的凸组合仍属于 \(\operatorname{epi}f\)。
+
+反之，若上图集为凸集，则 \((x,f(x))\) 与 \((y,f(y))\) 都在其中。它们的凸组合仍在上图集，
+恰好给出
+\[
+ f((1-t)x+ty)\le(1-t)f(x)+tf(y).
+\]
+\end{proof}
+
+这个刻画把函数不等式转化为集合的几何性质。在多元情形中定义不变，只需把横坐标
+\(x\) 换成向量；许多凸函数的运算规则也可由上图集直接看出。
+
 两点定义可以推广到有限个点。
 
 \begin{theorem}[有限 Jensen 不等式]
@@ -74,7 +108,37 @@
 若 \(f\) 严格凸且所有权重为正，等号先迫使 \(y=x_n\)，归纳步骤中的等号再迫使 \(x_1=\cdots=x_{n-1}=y\)。反向结论直接成立。
 \end{proof}
 
-凸函数在非负线性组合、逐点上确界和仿射变量替换下仍保持凸性。更准确地说，若 \(f,g\) 凸且 \(\alpha,\beta\ge0\)，则 \(\alpha f+\beta g\) 凸；若一族凸函数 \((f_j)\) 的逐点上确界在每一点有限，则 \(x\mapsto\sup_j f_j(x)\) 凸；若 \(f\) 凸且 \(x\mapsto ax+b\) 把某区间映入 \(f\) 的定义域，则 \(x\mapsto f(ax+b)\) 凸。这些结论都可直接代入定义验证。
+\begin{proposition}[凸性的保持运算]
+\label{prop:convexity-preserving-operations}
+设下列函数都定义在相应区间上。
+\begin{enumerate}
+ \item 若 \(f,g\) 凸且 \(\alpha,\beta\ge0\)，则 \(\alpha f+\beta g\) 凸。
+ \item 若一族凸函数 \((f_j)_{j\in J}\) 的逐点上确界
+ \[
+  F(x)=\sup_{j\in J}f_j(x)
+ \]
+ 在每一点有限，则 \(F\) 凸。
+ \item 若 \(f\) 凸，且仿射映射 \(x\mapsto ax+b\) 把区间 \(K\) 映入 \(f\) 的定义域，
+ 则 \(x\mapsto f(ax+b)\) 在 \(K\) 上凸。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+第一项把 \(f,g\) 的凸性不等式分别乘以非负数后相加即可。对第二项，令
+\(z=(1-t)x+ty\)。每个 \(j\) 都满足
+\[
+ f_j(z)\le(1-t)f_j(x)+tf_j(y)
+ \le(1-t)F(x)+tF(y).
+\]
+对 \(j\) 取上确界便得 \(F(z)\le(1-t)F(x)+tF(y)\)。第三项来自恒等式
+\[
+ a((1-t)x+ty)+b=(1-t)(ax+b)+t(ay+b)
+\]
+以及 \(f\) 的凸性。
+\end{proof}
+
+逐点下确界一般不保持凸性。例如 \(f_1(x)=(x-1)^2\) 与 \(f_2(x)=(x+1)^2\) 都严格凸，
+但 \(\min\{f_1,f_2\}\) 在 \(-1\) 和 \(1\) 处取零，在中点 \(0\) 处取 \(1\)，违反凸性不等式。
 
 \section{割线、单侧导数与导数单调性}
 
@@ -294,6 +358,24 @@
 因此经过原点、斜率在 \([-1,1]\) 内的每条直线都从下方支撑绝对值函数。
 \end{example}
 
+\begin{proposition}[次梯度的单调性]
+\label{prop:subgradient-monotonicity}
+设 \(f:I\to\R\) 凸，\(x<y\) 为内点。若
+\(p\in\partial f(x)\)、\(q\in\partial f(y)\)，则 \(p\le q\)。
+\end{proposition}
+
+\begin{proof}
+两条支撑线不等式分别给出
+\[
+ f(y)\ge f(x)+p(y-x),\qquad
+ f(x)\ge f(y)+q(x-y).
+\]
+相加得到 \(0\ge(p-q)(y-x)\)。由于 \(y-x>0\)，必有 \(p\le q\)。
+\end{proof}
+
+可导时，\(\partial f(x)=\{f'(x)\}\)，上述命题退化为导数单调性。不可导时，
+它说明较右位置的每条支撑线斜率都不小于较左位置的任一支撑线斜率。
+
 次梯度把无约束极小值的一阶条件写成不需要可导性的形式。
 
 \begin{proposition}[凸函数的极小值判据]
@@ -401,6 +483,39 @@
 这正是 \(p\in\partial f(x)\)。
 \end{proof}
 
+\begin{definition}[双共轭]
+对 \(f:\R\to\R\)，定义
+\[
+ f^{**}(x)=\sup_{p\in\R}\{px-f^*(p)\}.
+\]
+\end{definition}
+
+\begin{theorem}[双共轭公式]
+\label{thm:finite-convex-biconjugate}
+若 \(f:\R\to\R\) 是有限值凸函数，则
+\[
+ f^{**}=f.
+\]
+\end{theorem}
+
+\begin{proof}
+Fenchel--Young 不等式表明，对任意 \(x,p\in\R\)，
+\[
+ px-f^*(p)\le f(x).
+\]
+对 \(p\) 取上确界得到 \(f^{**}(x)\le f(x)\)。
+
+固定 \(x\in\R\)。由于 \(x\) 是定义域的内点，一维次梯度公式保证
+\(\partial f(x)\ne\varnothing\)。取 \(p\in\partial f(x)\)，Fenchel--Young 的等号条件给出
+\[
+ px-f^*(p)=f(x).
+\]
+于是 \(f^{**}(x)\ge f(x)\)，两边合并即得结论。
+\end{proof}
+
+双共轭公式说明，有限值凸函数等于其全部仿射支撑函数的逐点上确界。这里定义域取
+\(\R\)，避开了端点处可能不存在支撑线的问题；在扩充实值函数的理论中，正确的一般结论还需加入下半连续性。
+
 \begin{example}[Young 不等式]
 设 \(r,s>1\) 且 \(1/r+1/s=1\)。在 \(I=[0,+\infty)\) 上取
 \[
@@ -435,6 +550,8 @@ Fenchel--Young 不等式给出
  \]
  总是凸集。
  \exerciseitem{convex-absolute-value-direct} 不使用导数，直接由三角不等式证明 \(x\mapsto\abs{x}\) 凸，并判断它是否严格凸。
+ \exerciseitem{convex-epigraph-characterization} 证明函数的上图集为凸集当且仅当函数凸；再写出
+ \(f(x)=\abs{x}\) 与 \(f(x)=x^2\) 的上图集，并用几何语言说明两者的差别。
  \exerciseitem{convex-maximum-preservation} 设 \(f,g\) 在同一区间上凸。证明 \(\max\{f,g\}\) 凸；举例说明逐点下确界未必保持凸性。
  \exerciseitem{convex-composition-monotone} 设 \(f:I\to J\) 凸，\(g:J\to\R\) 凸且单调不减。证明 \(g\circ f\) 凸，并说明若去掉单调性结论可能失败。
  \exerciseitem{convex-three-slope-equivalences} 从三点斜率不等式的左侧推出右侧，并反向推导；据此说明两侧中的任意一侧都足以刻画凸性。
@@ -490,7 +607,7 @@ Fenchel--Young 不等式给出
   ab\le\varepsilon a^r+C_{\varepsilon,r}b^s
  \]
  对所有 \(a,b\ge0\) 成立，其中 \(1/r+1/s=1\)。
- \optionalexerciseitem{convex-biconjugate-support-lines} 设 \(f:\R\to\R\) 凸且在每点都有次梯度。定义 \(f^{**}(x)=\sup_p\{px-f^*(p)\}\)。证明 \(f^{**}=f\)。
+ \optionalexerciseitem{convex-biconjugate-support-lines} 不直接引用双共轭公式，从支撑线出发重新证明有限值凸函数 \(f:\R\to\R\) 满足 \(f^{**}=f\)，并说明证明中为何无需额外假设“每点都有次梯度”。
  \projectexerciseitem{convex-inequality-portfolio} 【前置：本章；预计用时：120分钟】从 Jensen、支撑线或凸共轭三种方法中至少选两种，系统证明算术--几何平均不等式、Young 不等式和 \(\log x\le x-1\)，比较各方法中的凸函数、接触点与等号条件。
 \end{enumerate}
 

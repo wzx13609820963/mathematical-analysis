@@ -207,6 +207,23 @@ Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
 
 严格递增函数的导数可以在某些点等于零，例如 \(x^3\) 在 \(0\) 处。因而“严格递增”不能反推 \(f'>0\) 处处成立；正确的反向结论仍只是 \(f'\ge0\)。
 
+在已经知道 \(f'\ge0\) 时，严格递增仍有一个准确判据，它比处处 \(f'>0\) 弱。
+
+\begin{proposition}[非负导数与严格递增]
+\label{prop:nonnegative-derivative-strictness}
+在 \theoremref{thm:derivative-sign-monotonicity} 的条件下，设 \(f'\ge0\) 于 \(I\) 的全部内点。则 \(f\) 严格递增，当且仅当 \(f'\) 不在 \(I\) 的任何非退化子区间内部恒为零。
+\end{proposition}
+
+\begin{proof}
+若某个非退化子区间上 \(f'\equiv0\)，零导数判据说明 \(f\) 在该子区间为常值，故不可能严格递增。
+
+反过来，导数非负已经保证 \(f\) 单调不减。若存在 \(x<y\) 使 \(f(x)=f(y)\)，则对每个 \(z\in[x,y]\) 都有
+\[
+ f(x)\le f(z)\le f(y)=f(x).
+\]
+所以 \(f\) 在 \([x,y]\) 上恒定，进而 \(f'=0\) 于 \((x,y)\)，与假设矛盾。因此 \(x<y\) 总有 \(f(x)<f(y)\)。
+\end{proof}
+
 \begin{corollary}[零导数判据]
 \label{cor:zero-derivative-constant}
 设 \(I\) 是区间，\(f:I\to\R\) 满足上一结论的连续与可导条件。则
@@ -268,6 +285,8 @@ Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
 \end{proof}
 
 这个等价关系说明，在一元区间上，“导数处处受统一界控制”和“函数具有全局 Lipschitz 增量估计”是同一项定量事实的微分与差分表述。若只知道每一点的导数有限，却没有统一上界，就不能推出整个区间上的同一 Lipschitz 常数。
+
+这里不需要区间有界或闭。若 \(I\) 是任意区间，\(f\) 在内点可导、在属于 \(I\) 的端点连续，并满足 \(|f'|\le K\)，则任取 \(x<y\) 于 \(I\)，在闭区间 \([x,y]\) 上应用中值定理即可得到同一 Lipschitz 估计。反向结论也只使用点附近的差商。因此在这样的区间上，导数的统一界与 Lipschitz 常数可以逐点相互恢复。
 
 \begin{corollary}[导数比较]
 \label{cor:derivative-comparison}
@@ -469,6 +488,30 @@ L'Hôpital 法则不是把“零除以零”或“无穷除以无穷”当作数
 \]
 故 \(f(x)/g(x)\to-\infty\)。
 \end{proof}
+
+上述证明在导数比尚无极限时仍给出定量夹逼。
+
+\begin{corollary}[\(0/0\) 型的导数比夹逼]
+\label{cor:lhopital-zero-zero-bracket}
+在 \theoremref{thm:lhopital-zero-zero} 的条件中，用下列假设代替导数比极限：存在 \(m,M\in\R\) 和端点 \(\alpha\) 的一个邻域，使
+\[
+ m\le\frac{f'(t)}{g'(t)}\le M
+\]
+对该邻域内全部 \(t\in I\) 成立。则当 \(x\) 充分靠近 \(\alpha\) 时，
+\[
+ m\le\frac{f(x)}{g(x)}\le M.
+\]
+\end{corollary}
+
+\begin{proof}
+先缩短端点邻域，使其中 \(g\) 没有零点。固定邻域内的 \(x\)，并取位于 \(x\) 与端点之间的 \(y\)。Cauchy 比较引理给出
+\[
+ m\le\frac{f(y)-f(x)}{g(y)-g(x)}\le M.
+\]
+令 \(y\to\alpha\)，分子、分母分别趋于 \(-f(x)\)、\(-g(x)\)，中间商趋于 \(f(x)/g(x)\)。闭区间 \([m,M]\) 在取极限时保持，结论成立。
+\end{proof}
+
+令 \(m=L-\varepsilon\)、\(M=L+\varepsilon\)，就恢复有限极限版本。更一般地，这个夹逼说明即使导数比只在两个常数之间振荡，原商仍会受到相同的最终控制；但除非上下界可以任意收紧到同一个数，不能据此断言原商收敛。
 
 有限端点的常见版本通常把 \(f,g\) 补定义到端点 \(\alpha\)，要求它们在那里连续且 \(f(\alpha)=g(\alpha)=0\)。这恰好保证上述两个单侧零极限；证明并不需要端点处可导。
 
@@ -786,6 +829,7 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
  \exerciseitem{lagrange-secant-example} 对 \(f(x)=x^3\) 在区间 \([a,b]\) 上写出 Lagrange 中值点所满足的方程，并在 \([0,1]\) 上求出全部中值点。
  \exerciseitem{zero-derivative-constant} 证明区间上处处可导且导数恒为零的函数为常值，并构造不连通定义域上的反例。
  \exerciseitem{derivative-sign-monotonicity} 证明若 \(f'\ge0\) 于区间内部，则 \(f\) 单调不减；若 \(f'>0\)，则严格递增。
+ \exerciseitem{nonnegative-derivative-strictness} 设 \(f'\ge0\) 于区间内部。证明 \(f\) 严格递增当且仅当不存在非退化子区间使 \(f'\) 在其内部恒为零；给出一个导数在无穷多个点为零但函数仍严格递增的例子。
  \exerciseitem{monotone-derivative-converse} 证明可导的单调不减函数满足 \(f'\ge0\)，并举例说明严格递增函数的导数仍可在某点为零。
  \exerciseitem{derivative-bounds-increments} 设 \(m\le f'\le M\)。证明对 \(x<y\) 有
  \[
@@ -837,6 +881,15 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
   \lim_{x\to0}\frac{1-\cos x}{x^2}
  \]
  时每一步的假设。
+ \exerciseitem{lhopital-derivative-ratio-bracket} 在 \(0/0\) 型 L'Hôpital 法则的条件下，设端点附近
+ \[
+  m\le\frac{f'}{g'}\le M.
+ \]
+ 不假设导数比有极限，直接由 Cauchy 比较引理证明原商最终也位于 \([m,M]\)。再用这一结论证明：若对每个 \(\varepsilon>0\)，端点附近都有
+ \[
+  L-\varepsilon\le\frac{f'}{g'}\le L+\varepsilon,
+ \]
+ 则 \(f/g\to L\)。
 \end{enumerate}
 
 \subsection*{C组　比较、无穷远与向量值映射}

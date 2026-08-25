@@ -267,6 +267,51 @@ Darboux 性质对一个间断点附近的值域施加强约束。下述命题先
 \]
 导函数的局部无界不是由孤立尖峰造成的；介于高峰与低谷之间的所有数值也必须出现。
 
+\subsection{连续差商的逐点逼近}
+
+导函数虽然可能不连续，却可以在每个紧子区间上由连续函数逐点逼近。这一事实只使用导数定义，不要求先建立函数列的一致收敛理论。
+
+\begin{proposition}[导函数是连续差商的逐点极限]
+\label{prop:derivative-pointwise-continuous-quotients}
+设 \(f:I\to\R\) 在开区间 \(I\) 上可导，且 \([a,b]\subset I\)。则存在一列连续函数 \(q_n:[a,b]\to\R\)，使
+\[
+ q_n(x)\longrightarrow f'(x)
+ \qquad(x\in[a,b]).
+\]
+\end{proposition}
+
+\begin{proof}
+因为 \(I\) 是开区间且 \([a,b]\subset I\)，可取 \(\eta>0\) 使
+\[
+ [a,b+\eta]\subset I.
+\]
+定义
+\[
+ q_n(x)=\frac{f(x+\eta/n)-f(x)}{\eta/n},
+ \qquad x\in[a,b].
+\]
+函数 \(f\) 可导，因而连续，所以每个 \(q_n\) 都连续。对固定 \(x\in[a,b]\)，增量 \(\eta/n\to0+\)，导数的双侧极限存在，故
+\[
+ q_n(x)\to f'(x).
+\]
+这里的收敛只对每个固定 \(x\) 分别成立；本命题没有声称在整个 \([a,b]\) 上使用同一个收敛速度。
+\end{proof}
+
+前两个振荡例说明这列连续函数的逐点极限可以不连续。这一点预示了函数列理论中的一个基本区别：逐点收敛保存的性质远少于一致收敛。后文建立 Baire 纲定理后，还会从这种差商逼近推出导函数连续点集合的进一步限制；当前不提前使用该结论。
+
+介值性还能对导数的值域施加直接限制。
+
+\begin{corollary}[至多可数值域的导函数]
+\label{cor:countable-range-derivative-affine}
+设 \(f\) 在开区间 \(I\) 上可导。若 \(f'(I)\) 至多可数，则 \(f'\) 为常值，因而 \(f\) 是仿射函数。
+\end{corollary}
+
+\begin{proof}
+Darboux 定理说明 \(f'(I)\) 是区间。非退化实区间不可数，所以一个至多可数的区间只能是单点集，记为 \(\{c\}\)。于是 \((f(x)-cx)'=0\) 于 \(I\)，零导数判据给出 \(f(x)=cx+d\)。
+\end{proof}
+
+同样，若 \(f'\) 在区间上从不取零，Darboux 性质迫使它保持同号；否则某两个导数值一正一负，中间值零就必须出现。再由中值定理，\(f\) 严格单调。这里“保持同号”来自导函数的介值性，而不是来自导函数连续。
+
 \subsection{Darboux 性质弱于连续性}
 
 定义
@@ -307,6 +352,7 @@ Darboux 性质对一个间断点附近的值域施加强约束。下述命题先
   \qquad h(x)=\sin(1/x)\quad(x\ne0),
  \]
 完整证明 \(h\) 具有 Darboux 性质但在 \(0\) 不连续。
+ \exerciseitem{derivative-continuous-difference-quotients} 设 \(f\) 在开区间 \(I\) 上可导，\([a,b]\subset I\)。构造一列定义在 \([a,b]\) 上的连续差商函数，证明它逐点收敛到 \(f'\)；再用 \(f(x)=x^2\sin(1/x)\) 说明该收敛一般不能推出极限函数连续。
 \end{enumerate}
 
 \subsection*{B组：定理的推论与条件}

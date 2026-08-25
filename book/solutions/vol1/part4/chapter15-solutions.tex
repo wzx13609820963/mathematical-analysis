@@ -80,6 +80,22 @@
 若 \(f'\ge0\)，因 \(y-x>0\)，右端非负，故 \(f(x)\le f(y)\)，即 \(f\) 单调不减。若 \(f'>0\)，右端严格为正，故 \(f(x)<f(y)\)，即严格递增。端点若属于原区间，只需函数在那里连续，仍可把任意两个端点作为上述闭区间的端点。
 \end{solution}
 
+\begin{solution}{nonnegative-derivative-strictness}
+由 \(f'\ge0\) 和中值定理，\(f\) 单调不减。若存在非退化子区间 \(J\) 使 \(f'=0\) 于 \(J^\circ\)，则零导数判据说明 \(f\) 在 \(J\) 上为常值，所以 \(f\) 不严格递增。
+
+反之，若 \(f\) 不严格递增，则存在 \(x<y\) 使 \(f(x)=f(y)\)。单调不减性给出
+\[
+ f(x)\le f(z)\le f(y)=f(x)\qquad(x\le z\le y),
+\]
+故 \(f\) 在 \([x,y]\) 上恒定，\(f'=0\) 于 \((x,y)\)。这证明了等价性。
+
+例子可取
+\[
+ f(x)=x+\sin x.
+\]
+它满足 \(f'(x)=1+\cos x\ge0\)，导数在所有 \((2k+1)\pi\) 处为零。零点是离散的，导数不在任何区间恒为零，所以前述判据说明 \(f\) 在 \(\R\) 上严格递增。
+\end{solution}
+
 \begin{solution}{monotone-derivative-converse}
 设 \(f\) 单调不减，\(a\) 是可导内点。对充分小的 \(h>0\)，
 \[
@@ -375,6 +391,33 @@ Cauchy 中值定理给出 \(c\in(a,b)\) 满足
  \frac{1-\cos x}{x^2}\longrightarrow\frac12.
 \]
 两个步骤都需分别在左右侧区间核对，所得极限相同后才合成双侧结论。
+\end{solution}
+
+\begin{solution}{lhopital-derivative-ratio-bracket}
+先把端点邻域缩小到 \(g'\ne0\) 且
+\[
+ m\le\frac{f'}{g'}\le M
+\]
+处处成立的范围。由 Rolle 定理，\(g\) 在这一范围单射，因此至多有一个零点；必要时再次缩短邻域，使 \(g(x)\ne0\)。
+
+固定邻域内的 \(x\)，并令 \(y\) 从 \(x\) 与端点之间趋向端点。Cauchy 比较引理给出
+\[
+ m\le\frac{f(y)-f(x)}{g(y)-g(x)}\le M.
+\]
+由 \(f(y),g(y)\to0\)，中间商趋于 \(f(x)/g(x)\)。两侧常数不变，取极限后得到
+\[
+ m\le\frac{f(x)}{g(x)}\le M.
+\]
+
+现在给定 \(\varepsilon>0\)。题设的第二项允许在某个端点邻域内取
+\[
+ m=L-\varepsilon,\qquad M=L+\varepsilon.
+\]
+刚证的夹逼说明其中每个充分靠近端点的 \(x\) 都满足
+\[
+ \left|\frac{f(x)}{g(x)}-L\right|\le\varepsilon.
+\]
+若要得到极限定义中的严格不等式，可在导数比处使用 \(\varepsilon/2\)。因此 \(f/g\to L\)。
 \end{solution}
 
 \section*{C组}

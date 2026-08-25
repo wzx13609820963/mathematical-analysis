@@ -49,11 +49,11 @@
 
 | 章 | 稳定标签 | 直接前置 | 主要产出 |
 |---|---|---|---|
-| 14 导数与线性化 | `chap:derivative-linearization` | 10--13；反函数求导引用11的逆映射连续性 | 相对定义域导数、局部线性化、一元 Fréchet 微分、链式法则、渐近记号、反函数求导与等价无穷小 |
-| 15 中值定理 | `chap:mean-value-theorems` | 12、14 | Fermat、Rolle、Lagrange 与 Cauchy 中值定理，单调性和增量估计，L'Hôpital 法则及条件反例 |
-| 16 导函数 | `chap:derivative-darboux` | 14--15 | 不连续和振荡导数，Darboux 定理，导函数不连续点的限制 |
-| 17 Taylor 理论 | `chap:taylor-theory` | 14--15 | 有限阶 Taylor 多项式，Peano、Lagrange 与 Cauchy 余项，光滑性、实解析性和平坦函数 |
-| 18 凸函数 | `chap:convex-functions` | 12、14--17 | 割线斜率、单侧导数、次梯度、二阶判据、有限 Jensen、不等式与一维凸共轭 |
+| 14 导数与线性化 | `chap:derivative-linearization` | 10--13；反函数求导引用11的逆映射连续性 | 相对定义域导数及序列判据、局部线性化、一元 Fréchet 微分、链式法则、渐近记号、反函数的线性化与等价无穷小 |
+| 15 中值定理 | `chap:mean-value-theorems` | 12、14 | Fermat、Rolle、Lagrange 与 Cauchy 中值定理，单调性的精确判据和增量估计，L'Hôpital 法则、导数比夹逼及条件反例 |
+| 16 导函数 | `chap:derivative-darboux` | 14--15 | 不连续和振荡导数，Darboux 定理，连续差商的逐点逼近及导函数值域的限制 |
+| 17 Taylor 理论 | `chap:taylor-theory` | 14--15 | 有限阶 Taylor 多项式及其唯一性，Peano、Lagrange 与 Cauchy 余项，导数增长判据、实解析性和平坦函数 |
+| 18 凸函数 | `chap:convex-functions` | 12、14--17 | 上图集、割线斜率、单侧导数、次梯度、二阶判据、有限 Jensen、凸共轭与双共轭公式 |
 
 ## 附录
 

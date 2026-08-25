@@ -33,6 +33,32 @@
 
 导数的唯一性直接来自函数极限的唯一性。导数还具有局部性：若 \(f,g\) 在 \(a\) 的某个相对邻域中相等，包括 \(f(a)=g(a)\)，则二者在 \(a\) 处或者同时不可导，或者导数相等。邻域以外的函数值不参与差商极限。
 
+把差商看成定义在 \(D\setminus\{a\}\) 上的函数，函数极限的序列刻画立即给出下列判据。它在证明不可导时尤其方便：要否定一个候选导数，只需找到一条差商不趋于该数的点列；要否定导数存在，则可寻找两条给出不同极限的点列。
+
+\begin{proposition}[导数的序列判据]
+\label{prop:derivative-sequential-criterion}
+设 \(a\in D\subset\R\) 且 \(a\) 是 \(D\) 的聚点。对函数 \(f:D\to\R\) 和 \(A\in\R\)，下列条件等价：
+\begin{enumerate}
+ \item \(f\) 在 \(a\) 处相对于 \(D\) 可导，且 \(f'(a)=A\)；
+ \item 对每个满足
+ \[
+  x_n\in D\setminus\{a\},\qquad x_n\to a
+ \]
+ 的数列，都有
+ \[
+  \frac{f(x_n)-f(a)}{x_n-a}\longrightarrow A.
+ \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+在 \(D\setminus\{a\}\) 上定义
+\[
+ q(x)=\frac{f(x)-f(a)}{x-a}.
+\]
+点 \(a\) 是这一新定义域的聚点。命题的第一项是 \(q(x)\to A\)（\(x\to a\)）的删心极限陈述，第二项是同一极限的 Heine 判据，二者等价。
+\end{proof}
+
 \begin{example}
 常值函数的差商恒为 \(0\)，故导数为 \(0\)；恒等函数的差商恒为 \(1\)，故导数为 \(1\)。对正整数 \(m\)，恒等式
 \[
@@ -455,6 +481,30 @@
 
 这里不要求 \(J\) 预先是区间。若还知道 \(f\) 连续，介值定理保证 \(J\) 为区间；但反函数求导本身只需要在 \(J\) 的相对意义下取极限。
 
+反函数公式不仅给出一个数，还给出逆映射的一阶误差。以下结论把它写回线性化语言。
+
+\begin{corollary}[逆映射的局部线性化]
+\label{cor:inverse-map-linearization}
+在 \theoremref{thm:inverse-derivative-relative} 的条件下，令 \(A=f'(a)\ne0\)。当 \(k\to0\)、\(b+k\in J\) 时，
+\[
+ g(b+k)=a+\frac{k}{A}+o(k).
+\]
+并且存在 \(b\) 的相对邻域，使其中每个非零允许增量 \(k\) 都满足
+\[
+ \frac{2}{3|A|}|k|
+ \le |g(b+k)-a|
+ \le \frac{2}{|A|}|k|.
+\]
+\end{corollary}
+
+\begin{proof}
+反函数求导定理给出 \(g'(b)=1/A\)，第一式就是 \(g\) 在 \(b\) 处的局部线性化。为得到双边界，令 \(h=g(b+k)-a\)，于是 \(k=f(a+h)-f(a)\)。由非零线性项的控制，充分小时
+\[
+ \frac{|A|}{2}|h|\le |k|\le\frac{3|A|}{2}|h|.
+\]
+逆映射在 \(b\) 连续保证 \(k\to0\) 时 \(h\to0\)，故可以使用这个估计；解出 \(|h|\) 即得所述常数。
+\end{proof}
+
 \begin{example}
 在 \((0,\infty)\) 上取 \(f(x)=x^m\)，其中 \(m\in\Npos\)。它严格递增，且 \(f'(a)=ma^{m-1}\ne0\)。因此 \(g(y)=y^{1/m}\) 在每个 \(b>0\) 处可导，若 \(a=b^{1/m}\)，则
 \[
@@ -523,6 +573,14 @@
  \sim\frac h2.
 \]
 这些等价式不是一张需要另行记忆的表：它们记录的是相应函数在基点的非零线性项。
+
+若基本初等函数的导数已经由不循环的方法建立，同一命题还统一给出
+\[
+ \sin h\sim h,\qquad \tan h\sim h,\qquad
+ e^h-1\sim h,\qquad \log(1+h)\sim h
+ \qquad(h\to0).
+\]
+例如 \(\phi(h)=\log(1+h)\) 满足 \(\phi(0)=0\)、\(\phi'(0)=1\)。这些关系可由导数直接读取；若某个导数公式本身依赖待求极限，就不能反过来用该导数公式证明同一极限。
 
 \subsection{可以代换的结构}
 
@@ -613,6 +671,7 @@
 \subsection*{A组　定义与基本方法}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
  \exerciseitem{relative-derivative-uniqueness} 设 \(D\subset\R\)，\(a\in D\) 是聚点。证明相对于 \(D\) 的导数若存在则唯一，并说明聚点条件为何不能删去。
+ \exerciseitem{derivative-sequential-criterion} 完整证明导数的序列判据，并据此说明：若两条趋于 \(a\) 的允许点列给出不同的差商极限，则 \(f'(a)\) 不存在。
  \exerciseitem{linearization-equivalence-proof} 不引用正文定理，直接从量词定义证明：\(f'(a)=A\) 当且仅当
  \[
   f(a+h)=f(a)+Ah+r(h),\qquad r(h)=o(h).
@@ -648,6 +707,11 @@
  \]
 并推出充分小时函数增量的双边绝对值估计。说明该结论为何只保证 \(a\) 是 \(f(a)\) 的局部唯一原像，而不自动保证整个邻域上的单射性。
  \exerciseitem{inverse-derivative-minimal} 逐项重证反函数求导定理：先证明 \(b=f(a)\) 是像集的聚点，再证明 \(y\to b\) 时 \(x=f^{-1}(y)\to a\)，最后处理倒数极限。
+ \exerciseitem{inverse-linearization-error} 在反函数求导定理的条件下，从原函数的非零线性项估计直接推出
+ \[
+  f^{-1}(b+k)=a+\frac{k}{f'(a)}+o(k)
+ \]
+ 及推论~\ref{cor:inverse-map-linearization}中的双边距离估计；说明逆映射连续性在论证中用于何处。
  \exerciseitem{inverse-continuity-counterexample} 对正文集合
  \[
   D=\{0\}\cup\{1/n:n\ge2\}\cup\{n:n\ge2\}

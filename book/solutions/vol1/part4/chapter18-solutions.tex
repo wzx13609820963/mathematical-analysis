@@ -26,6 +26,25 @@
 事实上，它在正半轴和负半轴上分别是仿射函数。
 \end{solution}
 
+\begin{solution}{convex-epigraph-characterization}
+先设 \(f\) 凸。若 \((x,u),(y,v)\in\operatorname{epi}f\)，则对 \(0\le t\le1\)，
+\[
+ (1-t)u+tv\ge(1-t)f(x)+tf(y)\ge f((1-t)x+ty).
+\]
+因此 \(((1-t)x+ty,(1-t)u+tv)\in\operatorname{epi}f\)，上图集为凸集。
+
+反之，若上图集为凸集，则 \((x,f(x))\) 与 \((y,f(y))\) 的凸组合仍在其中，故
+\[
+ (1-t)f(x)+tf(y)\ge f((1-t)x+ty),
+\]
+即 \(f\) 凸。
+
+\(\operatorname{epi}\abs{\cdot}=\{(x,u):u\ge\abs x\}\)，其边界由两条射线组成；
+\(\operatorname{epi}(x^2)=\{(x,u):u\ge x^2\}\)，其边界是光滑抛物线。前者在原点有角点，
+后者处处有唯一切线，但两集合都包含连接其中任意两点的线段。可导性改变边界的局部形状，
+并不改变上图集的凸性。
+\end{solution}
+
 \begin{solution}{convex-maximum-preservation}
 令 \(h=\max\{f,g\}\)。对 \(z=(1-t)x+ty\)，
 \[
@@ -327,7 +346,21 @@ Fenchel--Young 不等式说明对所有 \(p\)，
 \[
  px-f^*(p)\le f(x).
 \]
-取上确界得 \(f^{**}(x)\le f(x)\)。另一方面，按题设可取 \(p\in\partial f(x)\)。Fenchel--Young 的等号条件给出 \(px-f^*(p)=f(x)\)，所以 \(f^{**}(x)\ge f(x)\)。两边合并即得 \(f^{**}=f\)。
+取上确界得 \(f^{**}(x)\le f(x)\)。另一方面，\(f\) 在整个实轴上有限且凸，因而每个
+\(x\in\R\) 都是定义域内点。一维次梯度公式给出
+\[
+ \partial f(x)=[f'_-(x),f'_+(x)]\ne\varnothing.
+\]
+任选 \(p\in\partial f(x)\)，相应支撑线满足
+\[
+ f(y)\ge f(x)+p(y-x)\qquad(y\in\R).
+\]
+这等价于 \(py-f(y)\le px-f(x)\)，所以 \(f^*(p)=px-f(x)\)。于是
+\[
+ f^{**}(x)\ge px-f^*(p)=f(x).
+\]
+两边合并即得 \(f^{**}=f\)。可见“每点都有次梯度”已经由有限值、整轴定义和凸性推出，
+不是额外假设。
 \end{solution}
 
 \begin{solution}{convex-inequality-portfolio}

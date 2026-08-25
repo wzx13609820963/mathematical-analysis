@@ -161,6 +161,31 @@ Lagrange 余项给出某个介于 \(a,x\) 之间的 \(\xi\)，使
  =o((x-a)^{n-j})\longrightarrow0
 \]
 （\(j=n\) 时右端为 \(o(1)\)），矛盾。因此 \(P=Q\)。
+
+若两个余项都只是 \(O((x-a)^n)\)，则 \(S=P-Q=O((x-a)^n)\)。仍设 \(j\) 是 \(S\) 的最低非零次数。
+倘若 \(j<n\)，则
+\[
+ \frac{S(x)}{(x-a)^j}\longrightarrow c_j\ne0,
+ \qquad
+ \frac{S(x)}{(x-a)^j}=O((x-a)^{n-j})\longrightarrow0,
+\]
+矛盾。因此所有低于 \(n\) 次的系数都相同。第 \(n\) 次系数不受此条件限制：例如
+\(P=0,\ Q=(x-a)^n,\ f=0\) 时，两项余量都是 \(O((x-a)^n)\)，但 \(P\ne Q\)。
+\end{solution}
+
+\begin{solution}{factorial-derivative-growth-analyticity}
+取 \(0<\rho<\min\{r,1/B\}\)。对任意 \(\abs x<\rho\)，连接 \(0\) 与 \(x\) 的线段包含在
+\((-r,r)\) 中。Lagrange 余项公式给出某个 \(\xi_n\) 位于这条线段上，并有
+\[
+ \left|f(x)-\sum_{m=0}^n\frac{f^{(m)}(0)}{m!}x^m\right|
+ =\left|\frac{f^{(n+1)}(\xi_n)}{(n+1)!}x^{n+1}\right|
+ \le A(B\abs x)^{n+1}.
+\]
+因为 \(B\abs x<1\)，右端趋于零，故 Taylor 级数在 \((-\rho,\rho)\) 上逐点等于 \(f\)。
+
+“对每个固定 \(m\)，\(f^{(m)}\) 在某邻域有界”只给出一列可能依赖于 \(m\) 的界 \(M_m\)，
+不能保证 \(M_m\abs x^m/m!\to0\)。平坦函数 \(e^{-1/x^2}\)（在零点补为零）在每个紧区间上
+各阶导数分别有界，却不等于它在零点的 Taylor 级数，因而正是反例。
 \end{solution}
 
 \begin{solution}{flat-power-exponential-limit}

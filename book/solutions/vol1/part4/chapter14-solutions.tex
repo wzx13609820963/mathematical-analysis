@@ -18,6 +18,26 @@
 此时对任意 \(A\in\R\) 和任意 \(\varepsilon>0\)，差商落在 \((A-\varepsilon,A+\varepsilon)\) 的要求都空泛成立；定义不能选出唯一导数。因此必须排除孤立点。
 \end{solution}
 
+\begin{solution}{derivative-sequential-criterion}
+在 \(D\setminus\{a\}\) 上定义差商函数
+\[
+ q(x)=\frac{f(x)-f(a)}{x-a}.
+\]
+若 \(f'(a)=A\)，则 \(q(x)\to A\)。由函数极限的序列判据，每个
+\[
+ x_n\in D\setminus\{a\},\qquad x_n\to a
+\]
+都满足 \(q(x_n)\to A\)。
+
+反过来，若每条这样的点列都使 \(q(x_n)\to A\)，Heine 定理给出 \(q(x)\to A\)，所以 \(f'(a)=A\)。这里 \(a\) 的聚点性保证可以选择允许点列，并使 Heine 判据不是空命题。
+
+若存在两条允许点列 \((x_n)\)、\((y_n)\) 趋于 \(a\)，而
+\[
+ q(x_n)\to L_1,\qquad q(y_n)\to L_2,\qquad L_1\ne L_2,
+\]
+则假设导数存在会迫使两条差商数列趋于同一个 \(f'(a)\)，矛盾。因此导数不存在。
+\end{solution}
+
 \begin{solution}{linearization-equivalence-proof}
 若 \(f'(a)=A\)，在允许的增量集合上定义
 \[
@@ -270,6 +290,36 @@
  =\left(\frac{f(x)-f(a)}{x-a}\right)^{-1}.
 \]
 括号内趋于 \(f'(a)\ne0\)。由极限的局部保离零性，倒数最终有定义并趋于 \(1/f'(a)\)，这就是逆函数导数。
+\end{solution}
+
+\begin{solution}{inverse-linearization-error}
+记 \(A=f'(a)\ne0\)、\(g=f^{-1}\)、\(b=f(a)\)。令
+\[
+ h=g(b+k)-a.
+\]
+逆映射在 \(b\) 连续，所以当 \(k\to0\)、\(b+k\in f(D)\) 时，\(h\to0\)。同时
+\[
+ k=f(a+h)-f(a)=Ah+r(h),\qquad r(h)=o(h).
+\]
+非零线性项估计给出
+\[
+ \frac{|A|}{2}|h|\le |k|\le\frac{3|A|}{2}|h|
+\]
+对充分小的非零 \(k\) 成立，因此
+\[
+ \frac{2}{3|A|}|k|\le |h|\le\frac{2}{|A|}|k|.
+\]
+特别地 \(h=O(k)\)。
+
+从 \(k=Ah+r(h)\) 解出
+\[
+ h-\frac{k}{A}=-\frac{r(h)}A.
+\]
+由于 \(r(h)=o(h)\) 且 \(h=O(k)\)，渐近关系的传递律给出 \(r(h)=o(k)\)。故
+\[
+ g(b+k)=a+h=a+\frac{k}{A}+o(k).
+\]
+逆映射连续性正用于从 \(k\to0\) 推出 \(h\to0\)；没有这一步，原函数只在 \(a\) 附近成立的线性估计不能应用于 \(g(b+k)\)。
 \end{solution}
 
 \begin{solution}{inverse-continuity-counterexample}

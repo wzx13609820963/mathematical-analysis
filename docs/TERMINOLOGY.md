@@ -28,8 +28,10 @@
 | Peano 余项 | Peano remainder | 记作 `o((x-a)^n)`；与 Lagrange、Cauchy、积分余项区分 |
 | 实解析函数 | real-analytic function | 局部等于自己的 Taylor 级数；不等同于 \(C^\infty\) |
 | 凸函数 | convex function | 定义域须为区间；“严格凸”不等同于处处二阶导数为正 |
+| 上图集 | epigraph | 记作 \(\operatorname{epi}f\)；函数凸当且仅当其上图集为凸集 |
 | 次梯度 | subgradient | 一维凸函数在内点的全体次梯度构成 `\partial f(x)` |
 | 凸共轭 | convex conjugate | 记作 \(f^*\)，允许取扩充实值；亦称 Legendre--Fenchel 共轭 |
+| 凸双共轭 | convex biconjugate | 记作 \(f^{**}\)；当前正文证明有限值整轴凸函数的双共轭公式 |
 | Fenchel--Young 不等式 | Fenchel--Young inequality | 等号条件以次梯度表述 |
 | 紧致 | compact | 当前实线章节先以有限覆盖性质出现，后续度量空间中给一般定义 |
 | 单位分解 | partition of unity | 流形部分统一采用此译名，不使用“分割统一” |

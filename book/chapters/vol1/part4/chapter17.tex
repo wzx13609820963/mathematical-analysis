@@ -102,6 +102,34 @@ Taylor 多项式依赖展开中心。即使是同一函数，在不同点展开�
 这正是 \(R_n(x)=o((x-a)^n)\)。
 \end{proof}
 
+\begin{proposition}[渐近多项式的唯一性]
+\label{prop:asymptotic-polynomial-uniqueness}
+设多项式 \(P,Q\) 的次数均不超过 \(n\)。若当 \(x\to a\) 时
+\[
+ f(x)-P(x)=o((x-a)^n),\qquad
+ f(x)-Q(x)=o((x-a)^n),
+\]
+则 \(P=Q\)。因此，若 \(f\) 在 \(a\) 处有 \(n\) 阶 Peano 展开，其中出现的多项式只能是
+\(T_{n,a}f\)。
+\end{proposition}
+
+\begin{proof}
+令 \(S=P-Q\)，则 \(S(x)=o((x-a)^n)\)。若 \(S\not\equiv0\)，把它在 \(a\) 处写成
+\[
+ S(x)=c_j(x-a)^j+c_{j+1}(x-a)^{j+1}+\cdots+c_n(x-a)^n,
+ \qquad c_j\ne0,
+\]
+其中 \(j\le n\) 是最低的非零次数。于是
+\[
+ \frac{S(x)}{(x-a)^j}\longrightarrow c_j\ne0.
+\]
+另一方面，\(S(x)=o((x-a)^n)\) 给出
+\[
+ \frac{S(x)}{(x-a)^j}=o((x-a)^{n-j})\longrightarrow0;
+\]
+当 \(j=n\) 时，右端按定义为 \(o(1)\)。矛盾说明 \(S\equiv0\)。
+\end{proof}
+
 Peano 余项只说明误差相对于 \((x-a)^n\) 更小，不给出误差在某个固定区间上的数值上界。它的假设也较弱：不要求 \(f^{(n+1)}\) 存在。
 
 \subsection{Lagrange 余项}
@@ -286,6 +314,39 @@ Lagrange 与 Cauchy 余项中的 \(\xi\) 依赖 \(x\)、展开中心和截断阶
 \]
 “每一阶导数都存在”只保证每个有限阶 Taylor 多项式可写，并不自动给出这一关于 \(n\) 的极限。
 
+\begin{theorem}[导数增长与解析性]
+\label{thm:derivative-growth-analyticity}
+设 \(f\in C^\infty(I)\)，且 \([a-r,a+r]\subset I\)。若存在常数 \(A,B>0\)，使得
+\[
+ \abs{f^{(m)}(x)}\le A B^m m!
+ \qquad(m=0,1,2,\ldots;\ x\in[a-r,a+r]),
+\]
+则对满足 \(\abs h<r\) 且 \(B\abs h<1\) 的 \(h\)，有
+\[
+ f(a+h)=\sum_{m=0}^{\infty}\frac{f^{(m)}(a)}{m!}h^m.
+\]
+更具体地，\(n\) 阶 Taylor 余项满足
+\begin{equation}
+ \abs{R_{n,a}f(a+h)}\le A(B\abs h)^{n+1}.
+ \label{eq:factorial-derivative-growth-remainder}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+连接 \(a\) 与 \(a+h\) 的闭区间包含在 \([a-r,a+r]\) 中。Lagrange 余项公式给出其中某点
+\(\xi_n\)，使
+\[
+ R_{n,a}f(a+h)=\frac{f^{(n+1)}(\xi_n)}{(n+1)!}h^{n+1}.
+\]
+代入导数估计即得式 \eqref{eq:factorial-derivative-growth-remainder}。当 \(B\abs h<1\) 时，
+右端随 \(n\to\infty\) 趋于零，所以 Taylor 多项式在该点收敛于 \(f(a+h)\)。
+\end{proof}
+
+这个判据把解析性化为一族对所有阶导数同时成立的估计。对 \(e^x\)、
+\(\sin x\) 和 \(\cos x\)，在任意固定闭区间上都可取适当的 \(A\) 与 \(B=1\)，因而它们在
+每一点附近等于各自的 Taylor 级数。一般 \(C^\infty\) 函数没有这样的阶数一致估计；
+下一节的平坦函数说明缺少它时会发生什么。
+
 \section{无穷阶平坦函数}
 
 \begin{lemma}[指数压过任意幂]
@@ -362,6 +423,27 @@ Lagrange 与 Cauchy 余项中的 \(\xi\) 依赖 \(x\)、展开中心和截断阶
  \end{cases}
 \]
 是一个支集包含在 \([-1,1]\) 内的非零光滑函数。端点处的光滑性可把 \(1-x^2\) 与前述平坦估计结合验证。这样的紧支集光滑函数在逼近、分布和偏微分方程中会反复出现，而非零实解析函数不可能具有紧支集。
+
+端点处的论证可作如下补全。定义
+\[
+ \psi(t)=
+ \begin{cases}
+  e^{-1/t},&t>0,\\
+  0,&t\le0.
+ \end{cases}
+\]
+在 \(t>0\) 上反复求导可得
+\[
+ \psi^{(m)}(t)=Q_m(1/t)e^{-1/t},
+\]
+其中 \(Q_m\) 是多项式。指数压过任意幂的引理说明这些导数在 \(t\to0+\) 时都趋于零。
+从左侧看，\(\psi\) 恒为零；逐阶使用导数定义便知 \(\psi\in C^\infty(\R)\)，且
+\(\psi^{(m)}(0)=0\)。由于
+\[
+ \eta(x)=\psi(1-x^2),
+\]
+\(\eta\) 是两个光滑函数的复合，因此在 \(x=\pm1\) 处也无穷次可导，所有阶导数均为零。
+这同时证明了上面关于紧支集的断言。
 
 \section{解析刚性与光滑柔性}
 
@@ -469,7 +551,12 @@ Taylor 展开也把复杂极限转成首个未消去项的比较。若
  \[
   f(x)-P(x)=o((x-a)^n),\qquad f(x)-Q(x)=o((x-a)^n).
  \]
- 证明 \(P=Q\)。
+ 证明 \(P=Q\)。若把两个小 \(o\) 都改成大 \(O\)，证明 \(P,Q\) 的 \(0\) 至 \(n-1\) 次项系数仍相同，并说明 \(n\) 次项系数可以不同。
+ \exerciseitem{factorial-derivative-growth-analyticity} 设 \(f\in C^\infty((-r,r))\)，并且存在 \(A,B>0\)，使
+ \[
+  \abs{f^{(m)}(x)}\le AB^m m!\qquad(m\ge0,\ \abs x<r).
+ \]
+ 证明 \(f\) 在 \(0\) 的某个邻域内等于其 Taylor 级数；再说明为什么仅仅对每个固定 \(m\) 知道 \(f^{(m)}\) 有界不足以得到同一结论。
  \exerciseitem{flat-power-exponential-limit} 对任意 \(p,q>0\) 证明 \(x^{-p}e^{-1/x^q}\to0\)（\(x\to0+\)），并分别给出 L'Hôpital 法和指数函数下界法。
  \exerciseitem{flat-derivative-polynomial-form} 证明 \(\phi^{(n)}(x)=P_n(1/x)e^{-1/x^2}\) 的归纳式，并写出 \(P_1,P_2,P_3\)。
  \exerciseitem{flat-function-smooth-not-analytic} 不直接引用本章定理，完整证明平坦函数在 \(0\) 处三次可导且前三阶导数为零，再说明一般归纳需要什么估计。
