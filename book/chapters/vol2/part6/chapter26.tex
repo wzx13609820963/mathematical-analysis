@@ -1,0 +1,382 @@
+\chapter{一致收敛的保持定理}
+\label{chap:uniform-convergence-preservation}
+
+函数列取极限以后，连续性是否保留，积分和导数能否逐项进行，取决于极限
+过程能否与邻近点比较、有限求和或差商相协调。一致收敛提供了对所有自变量
+共同有效的误差估计，足以处理连续性和 Riemann 积分；求导涉及除以趋于零
+的增量，还必须控制导数列。本章逐一证明这些结论，并用反例说明条件缺失时
+误差集中在何处。
+
+\section{连续函数的一致极限与局部一致收敛}
+
+\begin{theorem}[一致极限保持连续性]
+\label{thm:uniform-limit-continuous}
+设 \(E\subseteq\R\)，每个 \(f_n:E\to\R\) 都在 \(x_0\in E\) 连续。
+若 \(f_n\rightrightarrows f\) 于 \(E\)，则 \(f\) 在 \(x_0\) 连续。
+特别地，连续函数列的一致极限仍连续。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，由一致收敛取 \(N\)，使
+\[
+ |f_N(x)-f(x)|<\frac{\varepsilon}{3}
+ \qquad(x\in E).
+\]
+由 \(f_N\) 在 \(x_0\) 连续，存在 \(\delta>0\)，使
+\(x\in E\)、\(|x-x_0|<\delta\) 时
+\[
+ |f_N(x)-f_N(x_0)|<\frac{\varepsilon}{3}.
+\]
+于是
+\[
+\begin{aligned}
+ |f(x)-f(x_0)|
+ &\le |f(x)-f_N(x)|+|f_N(x)-f_N(x_0)|\\
+ &\quad+|f_N(x_0)-f(x_0)|<\varepsilon.
+\end{aligned}
+\]
+\end{proof}
+
+证明先固定一个充分靠后的 \(f_N\)，再借助它的连续性比较 \(x\) 与
+\(x_0\)。逐点收敛做不到第一步，因为在 \(x\) 与 \(x_0\) 处可能需要
+不同的指标。
+
+在非紧区间上，全局一致收敛有时强于局部问题实际所需的条件。
+
+\begin{definition}[局部一致收敛]
+设 \(I\subseteq\R\) 为区间。若对每个紧子区间 \(K\subseteq I\)，都有
+\[
+ f_n\rightrightarrows f\quad\text{于 }K,
+\]
+则称 \(f_n\) 在 \(I\) 上\term{局部一致收敛}于 \(f\)。
+\end{definition}
+
+若 \(I\) 本身是紧区间，局部一致收敛与一致收敛等价。若 \(I\) 非紧，
+局部一致收敛只控制每个固定紧子区间，所需指标可以随 \(K\) 改变。
+
+\begin{corollary}
+连续函数列的局部一致极限仍连续。
+\end{corollary}
+
+\begin{proof}
+给定 \(x_0\in I\)，选取含 \(x_0\) 的一个紧相对子区间 \(K\)，使
+\(K\) 还含有 \(x_0\) 在 \(I\) 中的某个相对邻域。在 \(K\) 上使用
+\theoremref{thm:uniform-limit-continuous}，便得 \(f\) 在 \(x_0\)
+连续。
+\end{proof}
+
+例如 \(\sum_{k=0}^n x^k\) 在 \((-1,1)\) 上局部一致收敛，因为每个
+\([-r,r]\)、\(r<1\) 上的几何尾项都有共同估计；它不在整个
+\((-1,1)\) 上一致收敛。
+
+\section{极限与 Riemann 积分交换}
+
+闭区间上的 Riemann 积分满足
+\[
+ \left|\int_a^b h(x)\,dx\right|
+ \le(b-a)\norm h_\infty.
+\]
+这个估计正好把上确界误差送入积分误差。在应用它之前，还需证明一致极限
+本身可积。
+
+\begin{theorem}[一致极限的 Riemann 可积性]
+\label{thm:uniform-limit-riemann-integrable}
+设每个 \(f_n\) 都在 \([a,b]\) 上 Riemann 可积，并且
+\(f_n\rightrightarrows f\)。则 \(f\) Riemann 可积，且
+\[
+ \int_a^b f(x)\,dx
+ =\lim_{n\to\infty}\int_a^b f_n(x)\,dx.
+\]
+\end{theorem}
+
+\begin{proof}
+由一致收敛和某个 \(f_N\) 的有界性，\(f\) 有界。先证可积性。给定
+\(\varepsilon>0\)，取 \(N\) 使
+\[
+ \norm{f-f_N}_\infty<\frac{\varepsilon}{4(b-a)}
+\]
+（\(a=b\) 时结论直接成立）。因 \(f_N\) 可积，存在分割 \(P\) 使
+\[
+ U(f_N,P)-L(f_N,P)<\frac{\varepsilon}{2}.
+\]
+在 \(P\) 的任一子区间 \(I\) 上，
+\[
+ \sup_I f-\inf_I f
+ \le \sup_I f_N-\inf_I f_N+2\norm{f-f_N}_\infty.
+\]
+乘以各子区间长度并求和，得到
+\[
+ U(f,P)-L(f,P)
+ <\frac{\varepsilon}{2}
+   +2(b-a)\frac{\varepsilon}{4(b-a)}
+ =\varepsilon.
+\]
+由 Darboux 判据，\(f\) 可积。
+
+此后 \(f_n-f\) 也可积，并有
+\[
+ \left|\int_a^b f_n-\int_a^b f\right|
+ \le(b-a)\norm{f_n-f}_\infty\to0.
+\]
+\end{proof}
+
+\begin{corollary}[积分上限函数的一致收敛]
+在上述条件下，令
+\[
+ F_n(x)=\int_a^x f_n(t)\,dt,\qquad
+ F(x)=\int_a^x f(t)\,dt.
+\]
+则 \(F_n\rightrightarrows F\) 于 \([a,b]\)，并且
+\[
+ \norm{F_n-F}_\infty
+ \le(b-a)\norm{f_n-f}_\infty.
+\]
+\end{corollary}
+
+\begin{proof}
+对每个 \(x\in[a,b]\)，
+\[
+ |F_n(x)-F(x)|
+ \le |x-a|\norm{f_n-f}_\infty
+ \le(b-a)\norm{f_n-f}_\infty.
+\]
+对 \(x\) 取上确界即可。
+\end{proof}
+
+若只有逐点收敛，上确界误差可能集中在越来越窄或不断移动的区间上，积分
+是否收敛便取决于峰高与宽度的共同作用。第五节将给出积分保持不变的尖峰。
+
+\section{极限与微分交换}
+
+一致收敛本身不能控制差商，因为
+\[
+ \frac{f_n(x+h)-f_n(x)}{h}
+\]
+把函数误差除以 \(h\)。当 \(h\to0\) 时，再小的固定一致误差也可能被
+放大。可行的条件是直接控制导数列。
+
+\begin{theorem}[逐项求导定理]
+\label{thm:uniform-derivative-limit}
+设 \(f_n:[a,b]\to\R\) 连续并在 \((a,b)\) 上可导。假设：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 存在 \(x_0\in[a,b]\)，使数列 \((f_n(x_0))\) 收敛；
+ \item \(f_n'\) 在 \((a,b)\) 上一致收敛于函数 \(g\)。
+\end{enumerate}
+则 \((f_n)\) 在 \([a,b]\) 上一致收敛于某个连续函数 \(f\)，并且
+\[
+ f'(x)=g(x)\qquad(a<x<b).
+\]
+\end{theorem}
+
+\begin{proof}
+先证 \((f_n)\) 一致 Cauchy。对 \(m,n\) 和 \(x\in[a,b]\)，将
+Lagrange 中值定理用于 \(f_m-f_n\) 在 \(x\) 与 \(x_0\) 之间的区间，
+得到
+\[
+ |(f_m-f_n)(x)-(f_m-f_n)(x_0)|
+ \le(b-a)\sup_{a<t<b}|f_m'(t)-f_n'(t)|.
+\]
+右端因导数列一致收敛而在 \(m,n\to\infty\) 时趋于零，第一项
+\((f_m-f_n)(x_0)\) 也由假设趋于零。因此 \((f_n)\) 满足一致 Cauchy
+条件，存在一致极限 \(f\)。由上一节定理，\(f\) 连续。
+
+固定 \(x\in(a,b)\) 和 \(\varepsilon>0\)。导数列一致 Cauchy，所以可取
+\(N\)，使对所有 \(n\ge N\) 及 \(t\in(a,b)\)，
+\[
+ |f_n'(t)-f_N'(t)|<\frac{\varepsilon}{3}.
+\]
+令 \(n\to\infty\)，先对 \(f_n-f_N\) 使用中值定理，可得当
+\(x+h\in(a,b)\) 时
+\[
+ |(f-f_N)(x+h)-(f-f_N)(x)|
+ \le\frac{\varepsilon}{3}|h|.
+\]
+另一方面，一致极限给出
+\[
+ |g(x)-f_N'(x)|\le\frac{\varepsilon}{3}.
+\]
+由 \(f_N\) 在 \(x\) 可导，可取充分小的 \(h\ne0\)，使
+\[
+ \left|
+ \frac{f_N(x+h)-f_N(x)}h-f_N'(x)
+ \right|<\frac{\varepsilon}{3}.
+\]
+三项相加便得
+\[
+ \left|\frac{f(x+h)-f(x)}h-g(x)\right|<\varepsilon.
+\]
+故 \(f'(x)=g(x)\)。
+\end{proof}
+
+条件 (i) 只固定一个加法常数。若 \(f_n(x)=x+n\)，则 \(f_n'\equiv1\)
+一致收敛，但函数列在任何点都不收敛。一个点的收敛与导数的一致控制结合，
+通过中值定理传播到整个区间。
+
+若已知每个 \(f_n'\) 连续，还可以从
+\[
+ f_n(x)=f_n(x_0)+\int_{x_0}^x f_n'(t)\,dt
+\]
+出发，使用上一节的积分交换定理。这一证明较短，却额外要求导数连续；
+上面的中值定理证明只需要导数存在。
+
+\section{Dini 定理}
+
+紧致性有时能把带有单调结构的逐点收敛提升为一致收敛。
+
+\begin{theorem}[Dini 定理]
+\label{thm:dini}
+设 \(K=[a,b]\)，\(f_n\in C(K)\)，且 \(f_n\) 逐点收敛于连续函数
+\(f\)。若对每个 \(x\in K\)，序列 \(f_n(x)\) 关于 \(n\) 单调递增，
+或都单调递减，则 \(f_n\rightrightarrows f\) 于 \(K\)。
+\end{theorem}
+
+\begin{proof}
+只证递减情形。令 \(g_n=f_n-f\)，则 \(g_n\in C(K)\)，
+\(g_n\ge0\)，且 \(g_n(x)\downarrow0\)。固定 \(\varepsilon>0\)，定义
+\[
+ U_n=\{x\in K:g_n(x)<\varepsilon\}.
+\]
+每个 \(U_n\) 在 \(K\) 中相对开，且
+\[
+ U_1\subseteq U_2\subseteq\cdots,\qquad
+ \bigcup_{n=1}^\infty U_n=K.
+\]
+由 \(K\) 的紧致性，可从这个开覆盖中取有限子覆盖。由于集合递增，有限
+子覆盖中指标最大的一个 \(U_N\) 已覆盖 \(K\)。于是
+\[
+ 0\le f_n(x)-f(x)=g_n(x)<\varepsilon
+\]
+对所有 \(x\in K\)、\(n\ge N\) 成立，故收敛一致。递增情形对
+\(f-f_n\) 使用同一论证。
+\end{proof}
+
+定理同时使用了三个条件：定义域紧致，极限连续，收敛关于 \(n\) 单调。
+在 \([0,\infty)\) 上，\(x/(n+x)\downarrow0\) 且两端函数均连续，但
+收敛不一致；这里缺少紧致性。函数列 \(x^n\) 在 \([0,1]\) 上逐点递减，
+但极限在端点不连续，也不一致收敛。若删去单调性，移动峰函数已经给出
+连续函数列逐点趋于连续函数却不一致的例子。
+
+\section{逐点收敛下的积分与导数反例}
+
+先构造一个面积不消失的尖峰。在 \([0,1]\) 上令
+\[
+ s_n(x)=
+ \begin{cases}
+ n^2x(1-nx),&0\le x\le1/n,\\
+ 0,&1/n<x\le1.
+ \end{cases}
+\]
+每个 \(s_n\) 连续。固定 \(x>0\) 时，充分大的 \(n\) 有 \(x>1/n\)，
+故 \(s_n(x)=0\)；而 \(s_n(0)=0\)。所以 \(s_n\to0\) 逐点成立。但令
+\(u=nx\)，得到
+\[
+ \int_0^1s_n(x)\,dx
+ =\int_0^1u(1-u)\,du=\frac16.
+\]
+峰宽约为 \(1/n\)，峰高约为 \(n\)，两者的乘积保持常数量级。逐点极限
+与积分不能交换。
+
+求导的失败即使在原函数一致收敛时也会发生。令
+\[
+ f_n(x)=\frac{x}{1+n^2x^2}\qquad(-1\le x\le1).
+\]
+由
+\[
+ \sup_{x\in\R}\frac{|x|}{1+n^2x^2}=\frac1{2n}
+\]
+可知 \(f_n\rightrightarrows0\)。然而
+\[
+ f_n'(x)=\frac{1-n^2x^2}{(1+n^2x^2)^2}
+\]
+在 \(x=0\) 恒等于 \(1\)，在每个 \(x\ne0\) 处趋于 \(0\)。导数列逐点
+收敛于在原点取 \(1\)、其余点取 \(0\) 的函数，它不是极限函数 \(0\)
+的导数。这里缺少的正是导数的一致控制。
+
+另一个常见例子是 \(n^{-1}\sin(nx)\rightrightarrows0\)，而导数
+\(\cos(nx)\) 不收敛。它说明原函数振幅趋零并不限制振荡频率。对函数列
+进行极限运算时，连续性只比较邻近函数值，积分会平均误差，微分却会放大
+小尺度变化；三类保持定理的条件因而不同。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　连续性与积分}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{uniform-limit-continuity-epsilon}
+ 不引用定理名称，直接从定义证明：若 \(f_n\rightrightarrows f\) 于
+ \(E\)，且每个 \(f_n\) 在 \(x_0\) 连续，则 \(f\) 在 \(x_0\) 连续。
+ \exerciseitem{local-uniform-geometric-series}
+ 证明几何部分和在 \((-1,1)\) 上局部一致收敛于 \(1/(1-x)\)，但不在
+ 整个区间上一致收敛。
+ \exerciseitem{uniform-integrability-darboux}
+ 把正文中一致极限可积性的 Darboux 估计逐个子区间写出，并说明为何只需
+ 选取一个 \(f_N\)。
+ \exerciseitem{uniform-integral-varying-upper-limit}
+ 在正文积分上限函数的条件下，证明
+ \[
+  \sup_{a\le u\le v\le b}
+  \left|\int_u^v(f_n-f)\right|
+  \le(b-a)\norm{f_n-f}_\infty.
+ \]
+ \exerciseitem{pointwise-integral-spike}
+ 核对正文 \(s_n\) 的连续性、逐点极限、最大值和积分，并说明它为什么
+ 不可能一致收敛于零。
+ \exerciseitem{uniform-integral-with-moving-interval}
+ 若 \(f_n\rightrightarrows f\) 于 \([a,b]\)，且
+ \(a_n,b_n,\alpha,\beta\in[a,b]\)、\(a_n\to\alpha\)、\(b_n\to\beta\)，
+ 证明
+ \[
+  \int_{a_n}^{b_n}f_n(x)\,dx\to\int_\alpha^\beta f(x)\,dx.
+ \]
+\end{enumerate}
+
+\subsection*{B组　逐项求导}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{derivative-theorem-anchor}
+ 说明逐项求导定理中只需在一个点假设 \(f_n(x_0)\) 收敛，并用
+ \(f_n(x)=x+n\) 说明这一条件不能完全删除。
+ \exerciseitem{derivative-theorem-uniform-function-convergence}
+ 在逐项求导定理的假设下证明定量估计
+ \[
+  \norm{f_m-f_n}_\infty
+  \le |f_m(x_0)-f_n(x_0)|
+    +(b-a)\norm{f_m'-f_n'}_\infty.
+ \]
+ \exerciseitem{uniform-functions-pointwise-derivatives}
+ 完整分析正文 \(f_n(x)=x/(1+n^2x^2)\) 的一致收敛和导数逐点极限。
+ \exerciseitem{uniform-derivative-no-pointwise-function-given}
+ 设 \(f_n'\rightrightarrows g\) 于 \((a,b)\)，且 \(f_n(x_0)\) 收敛。
+ 证明不必预先假设 \(f_n\) 逐点收敛，正文定理已经能推出一致收敛。
+ \exerciseitem{termwise-derivative-series-form}
+ 设 \(u_n\in C[a,b]\) 且在 \((a,b)\) 可导，若
+ \(\sum u_n(x_0)\) 收敛且 \(\sum u_n'\) 一致收敛，证明
+ \(\sum u_n\) 一致收敛并可逐项求导。
+ \exerciseitem{derivative-limit-darboux}
+ 在正文逐项求导定理的条件下，说明极限函数 \(g\) 必具有 Darboux 性，
+ 即使没有假设 \(g\) 连续。
+\end{enumerate}
+
+\subsection*{C组　Dini 定理与条件辨析}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{dini-closed-set-proof}
+ 用闭集
+ \[
+  F_n=\{x\in K:f_n(x)-f(x)\ge\varepsilon\}
+ \]
+ 和嵌套闭集定理重新证明 Dini 定理的递减情形。
+ \exerciseitem{dini-compactness-counterexample}
+ 证明 \(x/(n+x)\) 在 \([0,\infty)\) 上逐点单调递减到零但不一致收敛。
+ \exerciseitem{dini-continuous-limit-counterexample}
+ 用 \(x^n\) 说明 Dini 定理不能删除极限连续性。
+ \exerciseitem{dini-monotonicity-counterexample}
+ 构造连续函数列，在 \([0,1]\) 上逐点趋于连续函数 \(0\)，但不一致收敛，
+ 并核对它不满足关于 \(n\) 的逐点单调性。
+ \exerciseitem{dini-uniform-supremum-proof}
+ 设 \(f_n\downarrow f\) 满足 Dini 定理的条件。证明连续函数
+ \(g_n=f_n-f\) 的最大值 \(M_n\) 单调趋于零，并指出证明
+ \(\lim M_n=0\) 时紧致性出现在哪里。
+ \optionalexerciseitem{uniform-limit-homeomorphism-inverses}
+ 设 \(f_n:[a,b]\to[c,d]\) 为严格递增连续双射，\(f_n\rightrightarrows f\)，
+ 且 \(f\) 也是严格递增双射。证明 \(f_n^{-1}\rightrightarrows f^{-1}\)。
+ 提示：使用 \(f^{-1}\) 的一致连续性，不要假设存在统一的导数下界。
+\end{enumerate}

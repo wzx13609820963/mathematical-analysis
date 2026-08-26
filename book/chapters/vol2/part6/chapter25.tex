@@ -1,0 +1,385 @@
+\chapter{逐点收敛与一致收敛}
+\label{chap:pointwise-uniform-convergence}
+
+数列的每一项是一个数，函数列的每一项却是一整族函数值。若只把自变量
+固定下来，函数列便退化为普通数列；这种逐点考察自然给出逐点收敛。然而，
+连续性、积分和微分都同时比较许多自变量处的函数值。要把极限过程送入这些
+运算，通常需要一种对整个定义域同时有效的尾部控制。本章先区分这两种控制，
+再把一致收敛写成有界函数空间中的范数收敛。
+
+除非另有说明，本章的函数都取实值，公共定义域 \(E\) 是一个非空集合。
+
+\section{函数列和逐点收敛}
+
+函数列是映射序列
+\[
+ f_n:E\to\R\qquad(n\in\Npos).
+\]
+对固定的 \(x\in E\)，数列 \((f_n(x))\) 可以按照第一卷的方法讨论。
+
+\begin{definition}[逐点收敛]
+若对每个 \(x\in E\)，数列 \((f_n(x))\) 都收敛到 \(f(x)\)，则称
+\((f_n)\) 在 \(E\) 上\term{逐点收敛}于 \(f\)，记作
+\[
+ f_n(x)\longrightarrow f(x)\quad(x\in E).
+\]
+展开量词，这表示
+\[
+ \forall x\in E\ \forall\varepsilon>0\ \exists N=N(x,\varepsilon)
+ \ \forall n\ge N,
+ \qquad |f_n(x)-f(x)|<\varepsilon.
+\]
+\end{definition}
+
+这里的 \(N\) 可以随 \(x\) 改变。若某些点附近的收敛越来越慢，逐点定义
+仍然允许为这些点另选更大的指标。
+
+逐点极限若存在便是唯一的，因为每个固定 \(x\) 处的数列极限唯一。四则
+运算也可以逐点进行：若 \(f_n\to f\)、\(g_n\to g\) 逐点成立，则
+\(f_n+g_n\to f+g\)、\(f_ng_n\to fg\) 逐点成立；在分母最终不为零的
+点还可取商。这些结论只是数列极限法则逐点使用，并没有给出不同点之间的
+共同估计。
+
+\begin{example}
+在 \([0,1]\) 上令 \(f_n(x)=x^n\)。若 \(0\le x<1\)，则 \(x^n\to0\)；
+而 \(f_n(1)=1\)。故逐点极限为
+\[
+ f(x)=
+ \begin{cases}
+ 0,&0\le x<1,\\
+ 1,&x=1.
+ \end{cases}
+\]
+每个 \(f_n\) 都连续，极限函数却在 \(1\) 处不连续。连续性不能仅由逐点
+收敛传给极限。
+\end{example}
+
+逐点收敛还可以只在某个子集上考察。上例在每个 \([0,r]\)、\(0<r<1\)
+上都有估计
+\[
+ \sup_{0\le x\le r}x^n=r^n\to0.
+\]
+端点 \(1\) 附近才是收敛失去共同速度的地方。
+
+\section{一致收敛及量词顺序}
+
+\begin{definition}[一致收敛]
+若对任意 \(\varepsilon>0\)，存在只依赖于 \(\varepsilon\) 的
+\(N\)，使对所有 \(x\in E\) 和所有 \(n\ge N\)，都有
+\[
+ |f_n(x)-f(x)|<\varepsilon,
+\]
+则称 \((f_n)\) 在 \(E\) 上\term{一致收敛}于 \(f\)，记作
+\[
+ f_n\rightrightarrows f\quad\text{于 }E.
+\]
+\end{definition}
+
+与逐点收敛相比，变化只发生在两个量词的位置：
+\[
+\begin{array}{ll}
+\text{逐点收敛：}&
+ \forall x\ \forall\varepsilon\ \exists N\ \forall n\ge N,\\[0.3em]
+\text{一致收敛：}&
+ \forall\varepsilon\ \exists N\ \forall x\ \forall n\ge N.
+\end{array}
+\]
+一致收敛要求同一个 \(N\) 控制定义域中所有点，因而必然推出逐点收敛。
+反向推论由 \(x^n\) 的例子否定。
+
+一致收敛的否定形式在构造反例时很有用：
+\[
+ f_n\not\rightrightarrows f
+\]
+当且仅当存在 \(\varepsilon_0>0\)，使对每个 \(N\)，都能找到
+\(n\ge N\) 和 \(x_n\in E\)，满足
+\[
+ |f_n(x_n)-f(x_n)|\ge\varepsilon_0.
+\]
+这里的坏点允许随 \(n\) 移动。对 \(f_n(x)=x^n\)，可直接取
+\(x_n=1\)；即使端点不在定义域，也可取趋近端点的 \(x_n\)，使
+\(x_n^n\) 保持远离零。
+
+\begin{proposition}[一致收敛的限制与有限拼接]
+若 \(f_n\rightrightarrows f\) 于 \(E\)，则在任意 \(A\subseteq E\)
+上仍一致收敛。反之，若
+\[
+ E=A_1\cup\cdots\cup A_m
+\]
+是有限并，并且 \(f_n\rightrightarrows f\) 于每个 \(A_j\)，则
+\(f_n\rightrightarrows f\) 于 \(E\)。
+\end{proposition}
+
+\begin{proof}
+限制结论直接沿用原来的 \(N\)。对有限拼接，给定 \(\varepsilon>0\)，
+分别取每个 \(A_j\) 所需的 \(N_j\)，令
+\(N=\max_{1\le j\le m}N_j\)。任意 \(x\in E\) 至少属于一个
+\(A_j\)，因此同一个 \(N\) 对整个 \(E\) 有效。
+\end{proof}
+
+“有限”不能直接删去。函数列可以在每个 \(A_m\) 上一致收敛，而所需指标
+随 \(m\) 增大，以致在可数并上没有共同上界。例如 \(f_n(x)=x/n\) 在
+每个有界区间上一致趋于零，在 \(\R\) 上却不一致收敛。
+
+\section{上确界范数与一致 Cauchy 准则}
+
+若误差函数 \(f_n-f\) 有界，定义
+\[
+ \norm{f_n-f}_\infty
+   =\sup_{x\in E}|f_n(x)-f(x)|.
+\]
+下标 \(\infty\) 表示取所有点中最大的误差尺度，并非变量趋于无穷。
+
+\begin{theorem}[上确界判据]
+若 \(f_n-f\) 在 \(E\) 上有界，则
+\[
+ f_n\rightrightarrows f\quad\Longleftrightarrow\quad
+ \norm{f_n-f}_\infty\to0.
+\]
+更一般地，允许上确界取值 \(+\infty\) 时，右端仍刻画一致收敛。
+\end{theorem}
+
+\begin{proof}
+若上确界趋于零，则充分大时
+\[
+ |f_n(x)-f(x)|\le\norm{f_n-f}_\infty<\varepsilon
+\]
+对所有 \(x\) 同时成立。反之，若一致收敛，给定 \(\varepsilon>0\)，
+充分大的 \(n\) 满足
+\[
+ |f_n(x)-f(x)|<\varepsilon/2\qquad(x\in E).
+\]
+于是 \(\norm{f_n-f}_\infty\le\varepsilon/2<\varepsilon\)。使用
+\(\varepsilon/2\) 是为了避免从逐点的严格不等式直接推出上确界也严格小于
+同一个 \(\varepsilon\)。
+\end{proof}
+
+这个判据把“一致”压缩成一个实数列的收敛。许多一致估计因而可以直接
+使用三角不等式。例如
+\[
+ \norm{(f_n+g_n)-(f+g)}_\infty
+ \le\norm{f_n-f}_\infty+\norm{g_n-g}_\infty.
+\]
+
+未知极限函数时，可以把数列的 Cauchy 思想用于函数列。
+
+\begin{definition}[一致 Cauchy 条件]
+称 \((f_n)\) 在 \(E\) 上满足一致 Cauchy 条件，如果
+\[
+ \forall\varepsilon>0\ \exists N\ \forall m,n\ge N\ \forall x\in E,
+ \qquad |f_m(x)-f_n(x)|<\varepsilon.
+\]
+\end{definition}
+
+\begin{theorem}[一致收敛的 Cauchy 准则]
+实值函数列在 \(E\) 上一致收敛，当且仅当它满足一致 Cauchy 条件。
+\label{thm:uniform-cauchy-criterion}
+\end{theorem}
+
+\begin{proof}
+若 \(f_n\rightrightarrows f\)，取 \(N\) 使
+\(|f_k(x)-f(x)|<\varepsilon/2\) 对所有 \(k\ge N\)、\(x\in E\)
+成立，则
+\[
+ |f_m(x)-f_n(x)|<\varepsilon.
+\]
+
+反之，固定 \(x\in E\)。一致 Cauchy 条件说明 \((f_n(x))\) 是实
+Cauchy 列，由实数完备性存在极限，记为 \(f(x)\)。给定
+\(\varepsilon>0\)，取 \(N\) 使 \(m,n\ge N\) 时
+\[
+ |f_m(x)-f_n(x)|<\varepsilon/2
+\]
+对所有 \(x\) 成立。固定 \(n\ge N\) 和 \(x\)，令 \(m\to\infty\)，
+由绝对值的连续性得到
+\[
+ |f(x)-f_n(x)|\le\varepsilon/2<\varepsilon.
+\]
+同一个 \(N\) 与 \(x\) 无关，故收敛是一致的。
+\end{proof}
+
+充分性证明使用了实数的 Cauchy 完备性。若值域换成不完备的度量空间，
+一致 Cauchy 条件仍能使每个点处成为 Cauchy 列，却未必在原值域中得到
+极限。这里已经出现了以后函数空间完备性的基本模式。
+
+\section{有界函数空间的完备性}
+
+记
+\[
+ \mathcal B(E)=\{f:E\to\R:f\text{ 有界}\}.
+\]
+逐点加法和数乘使它成为实线性空间。对 \(f\in\mathcal B(E)\)，定义
+\[
+ \norm f_\infty=\sup_{x\in E}|f(x)|.
+\]
+
+\begin{proposition}
+上确界范数满足
+\[
+ \norm f_\infty\ge0,\qquad
+ \norm f_\infty=0\Longleftrightarrow f=0,
+\]
+\[
+ \norm{\lambda f}_\infty=|\lambda|\norm f_\infty,\qquad
+ \norm{f+g}_\infty\le\norm f_\infty+\norm g_\infty.
+\]
+\end{proposition}
+
+\begin{proof}
+前三条来自绝对值的相应性质。对任意 \(x\in E\)，
+\[
+ |f(x)+g(x)|\le |f(x)|+|g(x)|
+ \le\norm f_\infty+\norm g_\infty.
+\]
+对 \(x\) 取上确界便得三角不等式。
+\end{proof}
+
+因此 \(\norm{f-g}_\infty\) 给出有界函数之间的距离。上一节的上确界
+判据说，一致收敛正是这个距离意义下的收敛。
+
+\begin{theorem}
+\label{thm:bounded-functions-complete}
+\(\mathcal B(E)\) 在上确界范数下完备：若
+\[
+ \norm{f_m-f_n}_\infty\to0\qquad(m,n\to\infty),
+\]
+则存在 \(f\in\mathcal B(E)\)，使
+\(\norm{f_n-f}_\infty\to0\)。
+\end{theorem}
+
+\begin{proof}
+范数 Cauchy 条件与一致 Cauchy 条件等价。由
+\theoremref{thm:uniform-cauchy-criterion}，存在函数 \(f:E\to\R\)
+使 \(f_n\rightrightarrows f\)。还须验证 \(f\) 有界。取 \(N\) 使
+\(\norm{f-f_N}_\infty<1\)，则对所有 \(x\in E\)，
+\[
+ |f(x)|\le |f(x)-f_N(x)|+|f_N(x)|
+ \le1+\norm{f_N}_\infty.
+\]
+所以 \(f\in\mathcal B(E)\)，而上确界判据给出范数收敛。
+\end{proof}
+
+若 \(E\) 是区间，连续有界函数构成 \(\mathcal B(E)\) 的子空间。它是否
+在上确界范数下仍然完备，取决于一致极限是否保持连续；下一章将证明答案
+是肯定的。若把上确界范数换成积分平均意义的距离，收敛概念和完备化后的
+函数空间都会改变，这一现象将在 Lebesgue 理论中系统出现。
+
+\section{移动峰与尖峰函数}
+
+逐点收敛失败于一致性的典型原因，是最大误差所在的点随 \(n\) 移动。
+在 \([0,1]\) 上令
+\[
+ p_n(x)=\max\{1-3n|x-1/n|,0\}.
+\]
+其支集包含在
+\([2/(3n),4/(3n)]\) 中，且 \(p_n(1/n)=1\)。固定 \(x>0\) 时，
+这个支集最终落在 \(x\) 左侧；在 \(x=0\) 处函数值恒为零。因此
+\[
+ p_n(x)\to0\qquad(0\le x\le1),
+\]
+但
+\[
+ \norm{p_n}_\infty=1.
+\]
+图形的峰不断向原点移动，每一个固定点最终都躲开了峰，而整个区间始终
+存在误差为 \(1\) 的点。
+
+无界定义域还会产生另一种现象。对 \(x\ge0\) 令
+\[
+ q_n(x)=\frac{x}{n+x}.
+\]
+每个固定 \(x\) 都满足 \(q_n(x)\to0\)，但
+\[
+ \sup_{x\ge0}q_n(x)=1.
+\]
+这里坏点逃向无穷远处。限制在任意 \([0,M]\) 上则有
+\[
+ 0\le q_n(x)\le \frac{M}{n+M}\to0,
+\]
+所以收敛在每个有界闭区间上一致，却不在整个半轴上一致。
+
+这些例子说明，逐点收敛只观察固定位置的长期行为；一致收敛还要控制
+误差峰的位置和高度。峰的宽度或面积是否趋零并不能单独决定一致收敛，
+因为上确界范数只记录峰高。积分则会同时受到高度和宽度影响，这正是后续
+交换极限与积分时需要分别讨论的地方。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与判别}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{pointwise-uniform-quantifier-negation}
+ 写出“\(f_n\) 不在 \(E\) 上一致收敛于 \(f\)”的完整量词形式，并说明
+ 为什么只找到一个固定点 \(x_0\) 使 \(f_n(x_0)\not\to f(x_0)\) 是更强的
+ 失败情形。
+ \exerciseitem{uniform-power-on-truncated-interval}
+ 证明 \(x^n\rightrightarrows0\) 于 \([0,r]\)（\(0<r<1\)），并证明它在
+ \([0,1)\) 上不一致收敛。
+ \exerciseitem{uniform-rational-family}
+ 讨论 \(f_n(x)=x/(1+nx)\) 在 \([0,1]\) 上的逐点与一致收敛。
+ \exerciseitem{uniform-reciprocal-tail}
+ 讨论 \(f_n(x)=1/(1+nx)\) 在 \([0,1]\) 和 \([a,1]\)（\(a>0\)）上的
+ 逐点与一致收敛。
+ \exerciseitem{uniform-finite-union}
+ 证明正文中的有限拼接命题，并构造一个可数并上失败的例子。
+ \exerciseitem{supremum-criterion-strict-inequality}
+ 解释在上确界判据的反向证明中为什么使用 \(\varepsilon/2\) 可以避免
+ 严格不等号问题；举例说明“对每个 \(x\)，\(h(x)<1\)”不能推出
+ \(\sup_Eh<1\)。
+\end{enumerate}
+
+\subsection*{B组　一致 Cauchy 条件与范数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{uniform-cauchy-geometric-sums}
+ 不先写出极限函数，用一致 Cauchy 准则证明
+ \(\sum_{k=0}^n x^k\) 在 \([0,r]\)、\(0<r<1\) 上一致收敛。
+ \exerciseitem{uniform-cauchy-pointwise-insufficient}
+ 给出一个函数列，使每个 \(x\) 处的数列都是 Cauchy 列，但函数列不满足
+ 一致 Cauchy 条件。
+ \exerciseitem{sup-norm-basic-identities}
+ 对 \(f,g\in\mathcal B(E)\) 证明
+ \[
+  |\norm f_\infty-\norm g_\infty|\le\norm{f-g}_\infty,
+ \]
+ 并推出范数函数关于上确界距离是连续的。
+ \exerciseitem{uniform-limit-boundedness}
+ 若每个 \(f_n\) 有界且 \(f_n\rightrightarrows f\)，证明 \(f\) 有界。
+ 再说明逐点极限不具有这一性质。
+ \exerciseitem{bounded-functions-closed-subspace}
+ 设 \(A\subseteq E\)。证明
+ \[
+  V_A=\{f\in\mathcal B(E):f|_A=0\}
+ \]
+ 在上确界范数下对一致极限封闭，并由正文完备性定理证明 \(V_A\) 完备。
+ \exerciseitem{uniform-product-condition}
+ 设 \(f_n\rightrightarrows f\)、\(g_n\rightrightarrows g\)，且这些函数均
+ 属于 \(\mathcal B(E)\)。证明 \(f_ng_n\rightrightarrows fg\)。指出若不控制
+ 有界性，哪一步估计会失效。
+\end{enumerate}
+
+\subsection*{C组　构造与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{moving-spike-integral}
+ 对正文的 \(p_n\) 计算图形面积，并比较峰高、支集长度与上确界范数。
+ \exerciseitem{escaping-maximum-halfline}
+ 对 \(q_n(x)=x/(n+x)\) 证明它在每个 \([0,M]\) 上一致收敛而在
+ \([0,\infty)\) 上不一致收敛。
+ \exerciseitem{pointwise-unbounded-limit}
+ 构造一列在 \([0,1]\) 上有界的函数，使其逐点极限无界。
+ \exerciseitem{uniform-convergence-preserves-infimum}
+ 若 \(f_n,f\in\mathcal B(E)\) 且 \(f_n\rightrightarrows f\)，证明
+ \[
+  \sup_E f_n\to\sup_E f,\qquad \inf_E f_n\to\inf_E f.
+ \]
+ \exerciseitem{uniform-convergence-varying-domain}
+ 令 \(E_n=[0,n]\)，\(f_n(x)=x/n\)。说明“\(f_n\) 在 \(E_n\) 上一致
+ 收敛”这一说法在没有共同定义域与候选极限时为什么不完整；把各函数延拓到
+ \([0,\infty)\) 后给出两种不同延拓，并比较所得收敛性质。
+ \optionalexerciseitem{uniform-convergence-weighted-norm}
+ 在 \([0,\infty)\) 上定义
+ \[
+  \norm f_w=\sup_{x\ge0}e^{-x}|f(x)|.
+ \]
+ 证明它在适当的函数空间上满足范数公理，并讨论 \(f_n(x)=x/n\) 在此范数
+ 下是否收敛。这个例子说明改变范数会改变“共同接近”的含义。
+\end{enumerate}

@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第一卷前四编已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—29章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -189,6 +189,104 @@ Cauchy 条件写为
 \(f:\R\to\R\) 是有限值凸函数，则 \(f^{**}=f\)。对一般扩充实值函数，双共轭公式还需
 下半连续性等条件，不能直接沿用当前版本。
 
+\section{积分与级数记号}
+
+区间分割记为
+\[
+ P:\quad a=x_0<x_1<\cdots<x_n=b,
+ \qquad
+ \norm P=\max_i(x_i-x_{i-1}).
+\]
+标记点 \(\xi_i\in[x_{i-1},x_i]\) 连同分割写作 \(\dot P\)，相应
+Riemann 和为
+\[
+ S(f,\dot P)=\sum_i f(\xi_i)(x_i-x_{i-1}).
+\]
+有界函数关于分割 \(P\) 的 Darboux 上和、下和记为
+\[
+ U(f,P)=\sum_i\sup_{[x_{i-1},x_i]}f\,\Delta x_i,
+ \qquad
+ L(f,P)=\sum_i\inf_{[x_{i-1},x_i]}f\,\Delta x_i.
+\]
+反向积分约定为 \(\int_b^a f=-\int_a^b f\)，退化区间积分为零。
+
+反常积分符号必须连同截断方向理解。例如
+\[
+ \int_a^\infty f
+ =\lim_{R\to\infty}\int_a^R f
+\]
+只在右端有限极限存在时有定义。全实线反常积分要求左右两段分别收敛；
+对称 Cauchy 主值另作说明，不能用同一符号暗中替代。
+
+级数
+\[
+ \sum_{n=1}^\infty a_n
+\]
+按部分和 \(s_N=\sum_{n=1}^N a_n\) 的极限定义。绝对收敛指
+\(\sum\abs{a_n}<\infty\)，条件收敛指原级数收敛而绝对值级数发散。
+二重级数的矩形部分和记为
+\[
+ S_{MN}=\sum_{m=1}^M\sum_{n=1}^N a_{mn}.
+\]
+Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
+
+两个从 \(n=0\) 开始的级数的 Cauchy 乘积通项为
+\[
+ c_n=\sum_{k=0}^n a_kb_{n-k}.
+\]
+无穷乘积 \(\prod p_n\) 由有限部分乘积定义；当前约定只有非零有限极限
+称为收敛，部分乘积趋于零时明确写“乘积趋于零”。
+
+\section{函数列、函数项级数与幂级数}
+
+函数列 \(f_n:E\to\R\) 的逐点收敛写为
+\[
+ f_n(x)\to f(x)\qquad(x\in E).
+\]
+一致收敛写为
+\[
+ f_n\rightrightarrows f\quad\text{于 }E,
+\]
+表示一个只依赖于 \(\varepsilon\) 的尾部指标同时控制所有 \(x\in E\)。
+若函数有界，上确界范数为
+\[
+ \norm f_\infty=\sup_{x\in E}|f(x)|,
+\]
+并有
+\[
+ f_n\rightrightarrows f
+ \quad\Longleftrightarrow\quad
+ \norm{f_n-f}_\infty\to0.
+\]
+定义域 \(E\) 是这个记号的数据之一；函数定义域随 \(n\) 改变时，不能在
+未给共同延拓的情况下直接谈一致收敛。
+
+函数项级数 \(\sum u_n(x)\) 由部分和函数
+\[
+ S_N(x)=\sum_{n=1}^Nu_n(x)
+\]
+定义。逐点绝对收敛指每个 \(x\) 处 \(\sum|u_n(x)|\) 收敛；条件
+\[
+ \sum_{n=1}^\infty\norm{u_n}_\infty<\infty
+\]
+更强，它由 M-判别法推出一致收敛。后者不应与单纯的逐点绝对收敛混用。
+
+中心为 \(x_0\) 的幂级数写为
+\[
+ \sum_{n=0}^\infty a_n(x-x_0)^n.
+\]
+其收敛半径 \(R\in[0,+\infty]\) 满足
+\[
+ \frac1R=\limsup_{n\to\infty}|a_n|^{1/n},
+\]
+并约定 \(1/0=+\infty\)、\(1/(+\infty)=0\)。有限半径只决定开收敛
+区间；两个端点必须分别判断。若和函数在 \(a\) 处解析，则
+\[
+ f(x)=\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n
+\]
+在某邻域成立。一般 \(C^\infty\) 函数只有形式 Taylor 级数，并不保证
+这一级数收敛到原函数。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -218,11 +316,41 @@ Cauchy 条件写为
 
  \item[Darboux 定理]
  当前版本断言导函数即使不连续也具有介值性。它不同于连续函数的介值定理：这里不假设导函数连续，证明依赖原函数与割线斜率构造出的极值问题。
+
+ \item[Cauchy 准则]
+ 数列、函数极限、Riemann 积分、反常积分和级数都有 Cauchy 形式，但所比较
+ 的对象不同：分别是尾部项、邻近函数值、细标记和、尾积分和尾部有限和。
+ 每一版本的完备性都来自值域 \(\R\)，不能只凭名称省略量词。
+
+ \item[Abel 判别与 Abel 变换]
+ Abel 变换是有限和的分部求和恒等式；Abel 判别是由它和单调因子推出的
+ 收敛定理。两者相关但不是同一个结论。后文幂级数的 Abel 定理还会有另一组
+ 假设和结论，引用时必须注明版本。
+
+ \item[Abel 径向极限定理]
+ 若端点数项级数 \(\sum c_n\) 收敛，则
+ \[
+  \lim_{r\to1-}\sum c_nr^n=\sum c_n.
+ \]
+它讨论幂级数和在收敛端点处的连续延伸，不是
+\chapterref{chap:conditional-convergence-rearrangement}以单调有界因子判断
+数项级数收敛的 Abel 判别，也不是有限分部求和恒等式。
+
+ \item[一致 Cauchy 准则]
+\chapterref{chap:pointwise-uniform-convergence}用于函数列时要求
+\(|f_m(x)-f_n(x)|\) 对全部 \(x\) 共同变小；
+\chapterref{chap:function-series}用于函数项级数时写成任意尾部有限和对全部
+\(x\) 共同变小。两者
+ 由部分和函数对应，但不能只检查单项 \(u_n\) 的上确界趋零。
+
+ \item[Darboux 和与 Darboux 定理]
+ Darboux 上下和属于 Riemann 积分的构造；Darboux 定理指导函数的介值性。
+ 二者只共享人名，没有可互换的数学内容。
 \end{description}
 
 \section{当前章节依赖}
 
-第一卷前四编的主要依赖可概括如下：
+第0—29章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -233,5 +361,23 @@ Cauchy 条件写为
 在数列极限之后，单调收敛、子列、上下极限和 Cauchy 准则依次建立；\chapterref{chap:equivalent-completeness}再比较完备性的各种形式，\chapterref{chap:cauchy-construction}用有理 Cauchy 列构造另一个实数模型。函数极限通过 Heine 定理调用数列理论，连续性随后进入闭区间上的紧致与连通结论，最后得到一致连续性。
 
 微分学从\chapterref{chap:derivative-linearization}的局部线性化开始；\chapterref{chap:mean-value-theorems}利用闭区间极值与连续性建立中值定理，再由此得到 L'Hôpital 法则。\chapterref{chap:derivative-darboux}研究导函数在不连续时仍保留的介值性，\chapterref{chap:taylor-theory}在这些结果上建立有限阶余项，\chapterref{chap:convex-functions}则先由割线建立无需可导性的凸函数理论，再与导数和二阶导数衔接。
+
+\chapterref{chap:riemann-integral}从标记和与 Darboux 上下和建立有限区间积分；
+\chapterref{chap:fundamental-theorem-calculus}随后证明积分与导数在准确条件下
+互逆，并补证 Taylor 积分余项。\chapterref{chap:improper-integrals}把超出有限
+闭区间的积分化为截断极限；\chapterref{chap:numerical-series}把无穷求和化为
+部分和数列，再由\chapterref{chap:conditional-convergence-rearrangement}区分
+绝对收敛与依赖抵消次序的条件收敛。最后，
+\chapterref{chap:double-series-infinite-products}比较二重求和的不同极限次序，
+并建立 Cauchy 乘积与无穷乘积。
+
+\chapterref{chap:pointwise-uniform-convergence}把逐点收敛与一致收敛的
+量词差别写成上确界范数和一致 Cauchy 准则；
+\chapterref{chap:uniform-convergence-preservation}分别处理连续性、积分
+和微分的极限交换。\chapterref{chap:function-series}将这些结论用于部分和
+函数列，并建立函数版 M、Dirichlet 与 Abel 判别。
+\chapterref{chap:power-series}利用 Abel 引理得到收敛半径和内闭一致收敛，
+再证明逐项微积分；\chapterref{chap:real-analytic-functions}据此建立解析
+函数的 Taylor 表示、解析运算、零点阶和恒等原理。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

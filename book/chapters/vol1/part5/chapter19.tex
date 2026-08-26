@@ -1,0 +1,530 @@
+\chapter{Riemann 积分}
+\label{chap:riemann-integral}
+
+在微积分计算中，定积分常由原函数公式给出；然而“哪些函数可以积分”并不能由原函数先行回答。阶梯函数没有处处连续的导数，处处振荡的函数甚至可能没有任何适用的原函数公式。Riemann 理论从有限个函数值构成的和出发，考察当区间被不断细分时，这些和是否被迫趋向同一个数。
+
+本章始终设 \(a<b\)，函数取实值。退化区间上的积分约定为
+\(\int_a^a f=0\)，反向积分在后文约定为
+\(\int_b^a f=-\int_a^b f\)。
+
+\section{分割、标记点与 Riemann 和}
+
+\begin{definition}
+\([a,b]\) 的一个\term{分割}是有限点列
+\[
+ P:\quad a=x_0<x_1<\cdots <x_n=b.
+\]
+记
+\[
+ \Delta x_i=x_i-x_{i-1},\qquad
+ \norm P=\max_{1\le i\le n}\Delta x_i.
+\]
+在每个子区间 \([x_{i-1},x_i]\) 中选一点
+\(\xi_i\)，得到\term{标记分割}
+\(\dot P=(P;\xi_1,\ldots,\xi_n)\)。函数 \(f:[a,b]\to\R\)
+关于 \(\dot P\) 的 \term{Riemann 和}为
+\[
+ S(f,\dot P)=\sum_{i=1}^n f(\xi_i)\Delta x_i.
+\]
+\end{definition}
+
+网格 \(\norm P\) 控制最长子区间，而不要求各段等长。标记点可以是左端点、右端点、中点，也可以逐段任意选择。若极限只对某种固定选点规则成立，它仍可能依赖规则；可积性要求所有充分细的标记分割给出同一结果。
+
+\begin{definition}[Riemann 可积]
+\label{def:riemann-integrable}
+函数 \(f:[a,b]\to\R\) 称为 \term{Riemann 可积}，若存在
+\(I\in\R\)，使对任意 \(\varepsilon>0\)，存在
+\(\delta>0\)，只要 \(\dot P\) 是 \([a,b]\) 的标记分割且
+\(\norm P<\delta\)，就有
+\[
+ \abs{S(f,\dot P)-I}<\varepsilon.
+\]
+此时记
+\[
+ I=\int_a^b f(x)\,dx.
+\]
+\end{definition}
+
+量词中的“任意标记分割”同时控制了分割和取样方式。这里也没有先假定
+\(f\) 有界；有界性将由可积性推出。
+
+\begin{proposition}[积分值的唯一性]
+若定义 \ref{def:riemann-integrable} 中的 \(I,J\) 都满足要求，则
+\(I=J\)。
+\end{proposition}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，分别取适用于 \(I,J\) 且误差小于
+\(\varepsilon/2\) 的网格上界。选一个同时满足两者的标记分割，则
+\[
+ \abs{I-J}
+ \le \abs{I-S(f,\dot P)}+\abs{S(f,\dot P)-J}
+ <\varepsilon.
+\]
+故 \(I=J\)。
+\end{proof}
+
+\begin{proposition}[可积函数必有界]
+\label{prop:riemann-integrable-bounded}
+Riemann 可积函数在 \([a,b]\) 上有界。
+\end{proposition}
+
+\begin{proof}
+设 \(f\) 可积。取 \(\varepsilon=1\)，由定义得到 \(\delta>0\)。
+固定一个网格小于 \(\delta\) 的分割 \(P\)，并在每段固定一个标记点，
+所得和记为 \(S_0\)。对任意第 \(j\) 段，只改变该段的标记点为
+\(x\in[x_{j-1},x_j]\)，其余标记点不变。新旧两个和都与积分值相差
+小于 \(1\)，故
+\[
+ \abs{f(x)-f(\xi_j)}\Delta x_j<2.
+\]
+于是 \(f\) 在每个子区间上有界。子区间只有有限个，故 \(f\) 在整个
+\([a,b]\) 上有界。
+\end{proof}
+
+\section{Riemann 可积性与 Cauchy 判据}
+
+定义中的积分值有时并不知道。与数列相同，可以只比较两个充分后期的近似量。
+
+\begin{theorem}[Riemann 可积性的 Cauchy 判据]
+\label{thm:riemann-cauchy}
+函数 \(f:[a,b]\to\R\) Riemann 可积，当且仅当对任意
+\(\varepsilon>0\)，存在 \(\delta>0\)，使任意两个网格均小于
+\(\delta\) 的标记分割 \(\dot P,\dot Q\) 都满足
+\[
+ \abs{S(f,\dot P)-S(f,\dot Q)}<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+必要性由三角不等式立即得到。
+
+反过来，对每个 \(n\in\Npos\) 取网格小于 \(1/n\) 的标记分割
+\(\dot P_n\)，令 \(s_n=S(f,\dot P_n)\)。Cauchy 条件说明
+\((s_n)\) 是实 Cauchy 列，故收敛于某个 \(I\in\R\)。
+
+给定 \(\varepsilon>0\)，取判据中对应于 \(\varepsilon/2\) 的
+\(\delta\)。再取 \(n\) 充分大，使
+\(\norm{P_n}<\delta\) 且 \(\abs{s_n-I}<\varepsilon/2\)。
+任意满足 \(\norm P<\delta\) 的标记分割 \(\dot P\) 都有
+\[
+ \abs{S(f,\dot P)-I}
+ \le \abs{S(f,\dot P)-s_n}+\abs{s_n-I}
+ <\varepsilon.
+\]
+所以 \(f\) 可积，积分为 \(I\)。这里使用了实数的 Cauchy 完备性。
+\end{proof}
+
+\section{Darboux 上下和与上下积分}
+
+Riemann 定义同时量化所有标记点。对有界函数，可以把每个子区间内
+标记点可能产生的最大、最小贡献分别记录下来。
+
+设 \(f\) 在 \([a,b]\) 上有界，\(P\) 为分割。令
+\[
+ M_i=\sup_{x\in[x_{i-1},x_i]}f(x),\qquad
+ m_i=\inf_{x\in[x_{i-1},x_i]}f(x).
+\]
+定义 Darboux 上和与下和
+\[
+ U(f,P)=\sum_{i=1}^n M_i\Delta x_i,\qquad
+ L(f,P)=\sum_{i=1}^n m_i\Delta x_i.
+\]
+任意标记和都满足
+\[
+ L(f,P)\le S(f,\dot P)\le U(f,P).
+\]
+
+\begin{definition}
+若分割 \(Q\) 包含 \(P\) 的全部点，则称 \(Q\) 是 \(P\) 的
+\term{加细}，记作 \(Q\succeq P\)。
+\end{definition}
+
+\begin{lemma}[加细的单调性]
+\label{lem:darboux-refinement}
+若 \(Q\succeq P\)，则
+\[
+ L(f,P)\le L(f,Q)\le U(f,Q)\le U(f,P).
+\]
+任意两个分割 \(P,Q\) 还有
+\[
+ L(f,P)\le U(f,Q).
+\]
+\end{lemma}
+
+\begin{proof}
+插入一个分点时，原区间被分成两段。两段上的上确界都不超过原区间
+上确界，故上和不增；下和的论证相反。逐个插入分点得到第一组不等式。
+对第二式，取公共加细 \(P\cup Q\)，再用第一组不等式。
+\end{proof}
+
+\begin{definition}
+有界函数 \(f\) 的 \term{Darboux 上积分}与\term{下积分}分别定义为
+\[
+ \overline{\int_a^b} f
+ =\inf_P U(f,P),\qquad
+ \underline{\int_a^b} f
+ =\sup_P L(f,P),
+\]
+其中上、下确界遍历 \([a,b]\) 的所有分割。
+\end{definition}
+
+由引理 \ref{lem:darboux-refinement}，
+\[
+ \underline{\int_a^b} f
+ \le \overline{\int_a^b} f.
+\]
+两者相等时，函数称为 Darboux 可积。上确界与下确界在这里不是形式装饰：
+下和从下方逼近所有可能面积，上和从上方逼近；两者之间若仍有正间隙，
+任意细分都不能消除取样的不确定性。
+
+\begin{theorem}[Darboux 判据]
+\label{thm:darboux-criterion}
+有界函数 \(f:[a,b]\to\R\) Darboux 可积，当且仅当对任意
+\(\varepsilon>0\)，存在分割 \(P\)，使
+\[
+ U(f,P)-L(f,P)<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+若上下积分相等为 \(I\)，分别从上积分的下确界定义和下积分的上确界定义
+选分割 \(P_1,P_2\)，使
+\[
+ U(f,P_1)<I+\varepsilon/2,\qquad
+ L(f,P_2)>I-\varepsilon/2.
+\]
+公共加细 \(P=P_1\cup P_2\) 便满足结论。
+
+反之，若可使上下和之差任意小，则
+\[
+ 0\le
+ \overline{\int_a^b}f-\underline{\int_a^b}f
+ \le U(f,P)-L(f,P)
+\]
+可任意小，故上下积分相等。
+\end{proof}
+
+\section{Riemann 定义与 Darboux 定义的等价性}
+
+\begin{theorem}[两种积分定义等价]
+\label{thm:riemann-darboux-equivalence}
+有界函数在 \([a,b]\) 上 Riemann 可积，当且仅当它 Darboux 可积；
+两种定义给出的积分值相同。
+\end{theorem}
+
+\begin{proof}
+先设 \(f\) Darboux 可积，积分值为 \(I\)。给定 \(\varepsilon>0\)，
+取分割 \(P_0\) 使
+\[
+ U(f,P_0)-L(f,P_0)<\varepsilon/2.
+\]
+记 \(P_0\) 有 \(r-1\) 个内分点，且 \(\abs f\le M\)。取
+\[
+ \delta<\frac{\varepsilon}{4Mr}
+\]
+（若 \(M=0\) 则结论平凡）。对任意 \(\norm P<\delta\) 的标记分割，
+把含有 \(P_0\) 内分点的那些子区间称为坏区间。坏区间至多 \(r-1\)
+个，总长度小于 \(r\delta\)；其对上下估计造成的总误差不超过
+\(2Mr\delta<\varepsilon/2\)。其余子区间完全落在 \(P_0\) 的某一段内，
+标记和夹在相应上下和之间。因此
+\[
+ L(f,P_0)-\varepsilon/2
+ \le S(f,\dot P)
+ \le U(f,P_0)+\varepsilon/2.
+\]
+又因 \(L(f,P_0)\le I\le U(f,P_0)\)，可得
+\(\abs{S(f,\dot P)-I}<\varepsilon\)。
+
+反过来，设 \(f\) Riemann 可积，积分为 \(I\)。给定
+\(\varepsilon>0\)，取 \(\delta\) 使网格小于 \(\delta\) 的任意标记和
+都与 \(I\) 相差小于 \(\varepsilon/4\)。固定一个网格小于 \(\delta\)
+的分割 \(P\)。在每个子区间选择两组标记点，使函数值分别在该段上确界
+下方、下确界上方不超过
+\(\varepsilon/(4(b-a))\)。相应两个标记和之差大于
+\[
+ U(f,P)-L(f,P)-\varepsilon/2,
+\]
+而它们都与 \(I\) 相差小于 \(\varepsilon/4\)，故
+\(U(f,P)-L(f,P)<\varepsilon\)。Darboux 判据给出可积性。
+\end{proof}
+
+\section{振幅判据}
+
+对区间 \(J\subset[a,b]\)，定义
+\[
+ \omega(f;J)=\sup_J f-\inf_J f.
+\]
+于是
+\[
+ U(f,P)-L(f,P)
+ =\sum_{i=1}^n\omega(f;[x_{i-1},x_i])\Delta x_i.
+\]
+
+\begin{theorem}[振幅判据]
+\label{thm:riemann-oscillation-criterion}
+有界函数 \(f\) Riemann 可积，当且仅当对任意
+\(\varepsilon>0\)，存在分割 \(P\)，使
+\[
+ \sum_i\omega(f;[x_{i-1},x_i])\Delta x_i<\varepsilon.
+\]
+\end{theorem}
+
+这只是 Darboux 判据的改写，却揭示了可积性的来源。函数可以在少数
+短区间上剧烈振荡，只要这些区间的总长度足够小；若每个子区间上的振幅
+都保持固定正值，则任何分割都无法使总振幅消失。
+
+\begin{proposition}[有限个点的修改]
+\label{prop:riemann-finite-modification}
+若有界函数 \(f,g\) 只在有限个点不同，则 \(f\) 可积当且仅当
+\(g\) 可积，并且二者积分相等。
+\end{proposition}
+
+\begin{proof}
+只需处理一个修改点 \(c\)。取一个分割，使含 \(c\) 的子区间总长度
+小于任意给定的 \(\eta>0\)。除该区间外，两函数的振幅相同；含
+\(c\) 的区间造成的上下和差异由两函数的统一界乘以 \(\eta\) 控制。
+令 \(\eta\to0\)，应用振幅判据即可。
+\end{proof}
+
+\section{连续、单调和分段连续函数的可积性}
+
+\begin{theorem}[连续函数可积]
+\label{thm:continuous-riemann-integrable}
+连续函数 \(f:[a,b]\to\R\) Riemann 可积。
+\end{theorem}
+
+\begin{proof}
+由 Heine--Cantor 定理，\(f\) 一致连续。给定 \(\varepsilon>0\)，
+取 \(\delta>0\)，使 \(\abs{x-y}<\delta\) 时
+\[
+ \abs{f(x)-f(y)}<\frac{\varepsilon}{b-a}.
+\]
+任取网格小于 \(\delta\) 的分割，每段振幅小于
+\(\varepsilon/(b-a)\)，故
+\[
+ U(f,P)-L(f,P)
+ <\frac{\varepsilon}{b-a}\sum_i\Delta x_i
+ =\varepsilon.
+\]
+\end{proof}
+
+\begin{theorem}[单调函数可积]
+\label{thm:monotone-riemann-integrable}
+单调函数 \(f:[a,b]\to\R\) Riemann 可积。
+\end{theorem}
+
+\begin{proof}
+只证单调不减情形。取等距分割 \(x_i=a+i(b-a)/n\)，则
+\[
+ U(f,P)-L(f,P)
+ =\frac{b-a}{n}\sum_{i=1}^n
+   \bigl(f(x_i)-f(x_{i-1})\bigr)
+ =\frac{b-a}{n}\bigl(f(b)-f(a)\bigr).
+\]
+令 \(n\) 充分大即可。单调不增情形对 \(-f\) 使用结论。
+\end{proof}
+
+\begin{definition}
+若存在有限分割，使函数在每个开子区间上连续，并在各分点处具有有限
+单侧极限，则称函数在 \([a,b]\) 上\term{分段连续}。
+\end{definition}
+
+\begin{corollary}
+有界分段连续函数 Riemann 可积。
+\end{corollary}
+
+\begin{proof}
+在各连续片段上取闭子区间，连续性给出可积性；分点附近留下总长度任意小
+的区间，用有界性控制其振幅。也可先在分点处补成单侧连续函数，再用有限
+点修改命题。
+\end{proof}
+
+\section{可积函数的代数、序与不等式}
+
+\begin{theorem}[代数封闭性]
+\label{thm:riemann-algebra}
+若 \(f,g\) 在 \([a,b]\) 上 Riemann 可积，\(\alpha,\beta\in\R\)，则
+\[
+ \alpha f+\beta g,\qquad fg,\qquad \abs f,\qquad
+ \max\{f,g\},\qquad\min\{f,g\}
+\]
+都可积，并且
+\[
+ \int_a^b(\alpha f+\beta g)
+ =\alpha\int_a^b f+\beta\int_a^b g.
+\]
+\end{theorem}
+
+\begin{proof}
+线性组合的结论直接由 Riemann 和得到。对绝对值，利用
+\(\bigl|\abs{f(x)}-\abs{f(y)}\bigr|\le\abs{f(x)-f(y)}\)，故每段上
+\(\abs f\) 的振幅不超过 \(f\) 的振幅。
+
+设 \(\abs f\le M\)、\(\abs g\le N\)。对 \(x,y\) 在同一子区间，
+\[
+ \abs{f(x)g(x)-f(y)g(y)}
+ \le M\abs{g(x)-g(y)}+N\abs{f(x)-f(y)}.
+\]
+把振幅乘以区间长度并求和，得到乘积可积。
+最后由
+\[
+ \max\{f,g\}=\frac{f+g+\abs{f-g}}2,\qquad
+ \min\{f,g\}=\frac{f+g-\abs{f-g}}2
+\]
+完成证明。
+\end{proof}
+
+\begin{theorem}[区间可加性]
+\label{thm:riemann-interval-additivity}
+若 \(c\in(a,b)\)，则 \(f\) 在 \([a,b]\) 可积，当且仅当它在
+\([a,c]\) 与 \([c,b]\) 上都可积；此时
+\[
+ \int_a^b f=\int_a^c f+\int_c^b f.
+\]
+\end{theorem}
+
+\begin{proof}
+对包含 \(c\) 的分割，上下和都分解为左右两段的和，Darboux 判据立即给出
+两个方向。积分等式由上下积分的分解或 Riemann 和的分解得到。
+\end{proof}
+
+\begin{theorem}[序性质与基本估计]
+\label{thm:riemann-order-estimates}
+设 \(f,g\) 可积。若 \(f\le g\)，则
+\[
+ \int_a^b f\le\int_a^b g.
+\]
+并且
+\[
+ \abs{\int_a^b f}
+ \le\int_a^b\abs f
+ \le (b-a)\sup_{[a,b]}\abs f.
+\]
+更一般地，
+\[
+ \abs{\int_a^b f-\int_a^b g}
+ \le\int_a^b\abs{f-g}.
+\]
+\end{theorem}
+
+\begin{proof}
+第一式对每个标记和成立，取极限即可。由
+\(-\abs f\le f\le\abs f\) 得第一条绝对值不等式；由
+\(\abs f\le\sup\abs f\) 得第二条。最后一式应用于 \(f-g\)。
+\end{proof}
+
+\section{Dirichlet 函数、Thomae 函数及其他反例}
+
+\begin{counterexample}[Dirichlet 函数]
+在 \([0,1]\) 上定义
+\[
+ D(x)=
+ \begin{cases}
+  1,&x\in\Q,\\
+  0,&x\notin\Q.
+ \end{cases}
+\]
+每个非退化子区间同时含有有理数和无理数，故振幅恒为 \(1\)。于是对任意
+分割 \(P\)，
+\[
+ U(D,P)-L(D,P)=1,
+\]
+所以 \(D\) 不可积。若只取有理标记点，Riemann 和恒为 \(1\)；只取无理
+标记点，Riemann 和恒为 \(0\)。这正说明定义必须量化所有标记点。
+\end{counterexample}
+
+\begin{example}[Thomae 函数]
+在 \([0,1]\) 上定义
+\[
+ T(x)=
+ \begin{cases}
+  1/q,&x=p/q\text{ 为既约分数， }q\ge1,\\
+  0,&x\notin\Q.
+ \end{cases}
+\]
+则 \(T\) Riemann 可积且积分为 \(0\)。
+\end{example}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，先取 \(N\) 使 \(1/N<\varepsilon/2\)。
+分母不超过 \(N\) 的既约分数在 \([0,1]\) 中只有有限个。用总长度小于
+\(\varepsilon/2\) 的有限个小区间覆盖这些点，并把端点加入分割。
+这些小区间上振幅至多 \(1\)，其余区间上 \(T\le1/N\)。因此
+\[
+ U(T,P)-L(T,P)
+ \le \frac{\varepsilon}{2}
+     +\frac1N<\varepsilon.
+\]
+又因每个子区间含无理数，下和恒为 \(0\)，故积分为 \(0\)。
+\end{proof}
+
+Thomae 函数在所有无理点连续、在所有有理点不连续。它说明稠密的不连续点
+并不自动破坏 Riemann 可积性；关键是大振幅出现在哪些区间以及能否把这些
+区间的总长度压小。对不连续点集合的精确刻画需要测度论，后文将证明：
+有界函数 Riemann 可积当且仅当其不连续点集合为零测集。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与上下和}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{riemann-step-function-direct} 从 Riemann 和定义计算阶梯函数
+ \(f=\mathbf 1_{[c,b]}\) 在 \([a,b]\) 上的积分，并说明标记点落在 \(c\)
+ 时不影响结论。
+ \exerciseitem{riemann-integrable-bounded-reproof} 不引用命题
+ \ref{prop:riemann-integrable-bounded}，用 Cauchy 判据重新证明可积函数有界。
+ \exerciseitem{darboux-common-refinement} 证明任意有限多个分割有公共加细，
+ 并由此证明任意下和不超过任意上和。
+ \exerciseitem{darboux-upper-lower-examples} 对
+ \(f(x)=x\) 和 \(f(x)=x^2\) 在 \([0,1]\) 上的等距分割计算上下和，并直接求极限。
+ \exerciseitem{riemann-oscillation-step} 设有界函数只在有限个点间断，并在其余
+ 点连续。用振幅判据证明它可积。
+ \exerciseitem{riemann-zero-off-finite} 设 \(f\) 只在有限个点非零。证明
+ \(f\) 可积且积分为零。
+\end{enumerate}
+
+\subsection*{B组　判据与运算}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{riemann-restriction-additivity} 从 Darboux 判据完整证明区间可加性
+ 定理的“整体可积推出两段可积”方向。
+ \exerciseitem{riemann-product-oscillation} 设 \(\abs f\le M\)、\(\abs g\le N\)。
+ 证明每个子区间 \(J\) 上
+ \[
+  \omega(fg;J)\le M\omega(g;J)+N\omega(f;J),
+ \]
+ 并据此重证乘积封闭性。
+ \exerciseitem{riemann-lipschitz-composition} 若 \(f\) 可积，\(\Phi\) 在包含
+ \(f([a,b])\) 的区间上 Lipschitz 连续，证明 \(\Phi\circ f\) 可积。
+ \exerciseitem{riemann-continuous-composition} 把上一题推广为 \(\Phi\) 只需连续。
+ 提示：使用紧区间上的一致连续性和振幅判据。
+ \exerciseitem{riemann-integral-zero-positive} 若 \(f\ge0\) 连续且
+ \(\int_a^b f=0\)，证明 \(f\equiv0\)。再举例说明把连续改成 Riemann 可积后
+ 结论失败。
+ \exerciseitem{riemann-monotone-error-bound} 对单调不减函数和任意分割 \(P\)，
+ 证明
+ \[
+ U(f,P)-L(f,P)\le\norm P\,[f(b)-f(a)].
+ \]
+ \exerciseitem{riemann-uniform-limit-preview} 设 \(f_n\) 可积且
+ \(\sup_{[a,b]}\abs{f_n-f}\to0\)。不使用后文函数列理论，直接证明 \(f\) 可积且
+ \[
+ \int_a^b f_n\to\int_a^b f.
+ \]
+\end{enumerate}
+
+\subsection*{C组　反例与推广}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{riemann-dense-countable-spikes} 枚举 \([0,1]\cap\Q=\{r_n:n\ge1\}\)，
+ 定义 \(f(r_n)=2^{-n}\)，无理点取零。证明 \(f\) Riemann 可积且积分为零。
+ \exerciseitem{riemann-thomae-continuity} 完整证明 Thomae 函数在无理点连续、
+ 在有理点不连续。
+ \exerciseitem{riemann-dense-indicator-notintegrable} 若 \(A\subset[a,b]\) 与
+ 其补集都在 \([a,b]\) 中稠密，证明 \(\mathbf1_A\) 不可积。
+ \exerciseitem{riemann-change-single-point-upper-lower} 设 \(f,g\) 仅在一点不同。
+ 直接比较上下积分，证明它们可积性相同且可积时积分相等。
+ \optionalexerciseitem{riemann-regulated-approximation} 设 \(f\) 在 \([a,b]\) 的
+ 每一点都有有限左右极限（端点只取内侧极限）。证明对任意
+ \(\varepsilon>0\)，存在阶梯函数 \(s\) 使
+ \(\sup_{[a,b]}\abs{f-s}<\varepsilon\)，并推出 \(f\) Riemann 可积。
+\end{enumerate}

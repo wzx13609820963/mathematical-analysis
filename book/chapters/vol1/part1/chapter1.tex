@@ -462,7 +462,11 @@
 \end{proposition}
 
 \begin{proof}
-平移是保序双射，正数伸缩保序，负数伸缩反序，因此前三个公式直接由“上界”与“最小上界”的定义得到。以下证明 Minkowski 和的上确界公式。数 \(s=\sup A+\sup B\) 显然控制每个 \(a+b\)，所以是上界。给定 \(\varepsilon>0\)，分别取
+平移是保序双射，正数伸缩保序，负数伸缩反序，因此前三个公式直接由“上界”与“最小上界”的定义得到。以下证明 Minkowski 和的上确界公式。记 \(s=\sup A+\sup B\)。对任意 \(a\in A\) 和 \(b\in B\)，都有
+\[
+ a+b\le \sup A+\sup B=s,
+\]
+故 \(s\) 是 \(A+B\) 的上界。给定 \(\varepsilon>0\)，分别取
 \[
   a>\sup A-\varepsilon/2,\qquad
   b>\sup B-\varepsilon/2.

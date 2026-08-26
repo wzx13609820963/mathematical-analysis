@@ -45,14 +45,14 @@ $retainTaskDirectory = $false
 
 Push-Location -LiteralPath $PSScriptRoot
 try {
-    1..2 | ForEach-Object {
+    1..3 | ForEach-Object {
         & $engine -interaction=nonstopmode -halt-on-error solutions.tex
         if ($LASTEXITCODE -ne 0) {
             throw "LuaLaTeX compilation failed on pass $_."
         }
     }
 
-    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-习题解答-第一卷第一至四编.pdf'
+    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-习题解答-第一卷及第二卷第六编.pdf'
     $builtPdf = Join-Path $PSScriptRoot 'solutions.pdf'
     if (-not (Test-Path -LiteralPath $builtPdf)) {
         throw 'LuaLaTeX did not produce solutions.pdf.'
@@ -61,7 +61,7 @@ try {
 
     $outputDirectory = Join-Path $repositoryRoot 'output\pdf'
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-习题解答-第一卷第一至四编.pdf'
+    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-习题解答-第一卷及第二卷第六编.pdf'
     try {
         Copy-Item -LiteralPath $candidatePath -Destination $releasePath -Force
     }

@@ -1,0 +1,435 @@
+\chapter{数项级数}
+\label{chap:numerical-series}
+
+无穷级数不是一次完成的“无限加法”。给定数列 \((a_n)_{n\ge1}\)，先形成
+有限和
+\[
+ s_n=\sum_{k=1}^n a_k,
+\]
+再研究部分和数列 \((s_n)\) 的极限。所有收敛判别最终都在控制这列有限和。
+
+\section{部分和定义与 Cauchy 准则}
+
+\begin{definition}
+若部分和数列 \(s_n\) 收敛于 \(s\)，就称级数
+\(\sum_{n=1}^\infty a_n\) 收敛，并写
+\[
+ \sum_{n=1}^\infty a_n=s.
+\]
+否则称级数发散。
+\end{definition}
+
+若级数收敛于 \(s\)，则
+\[
+ r_n=s-s_n=\sum_{k=n+1}^{\infty}a_k
+\]
+称为第 \(n\) 个余项。右端仍只是记号：它表示尾部级数的部分和极限。
+因此“从第 \(n+1\) 项一直加到无穷”不能脱离极限单独解释。
+
+\begin{theorem}[级数的 Cauchy 准则]
+\label{thm:series-cauchy}
+\(\sum a_n\) 收敛，当且仅当对任意 \(\varepsilon>0\)，存在
+\(N\)，使任意 \(m>n\ge N\) 都有
+\[
+ \abs{\sum_{k=n+1}^{m}a_k}<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+因为
+\[
+ s_m-s_n=\sum_{k=n+1}^m a_k,
+\]
+题中条件正是部分和数列的 Cauchy 条件；结论来自实数完备性。
+\end{proof}
+
+\begin{corollary}[通项必要条件]
+若 \(\sum a_n\) 收敛，则 \(a_n\to0\)。
+\end{corollary}
+
+\begin{proof}
+\(a_n=s_n-s_{n-1}\to s-s=0\)。
+\end{proof}
+
+逆命题不成立，调和级数是最基本的反例。改变有限项只改变有限个部分和，
+不影响敛散性；收敛时总和按有限改变量相应改变。
+
+\begin{proposition}[有限项的影响]
+\label{prop:series-finite-modification}
+设 \(a_n=b_n\) 从某项起成立，则 \(\sum a_n\) 与 \(\sum b_n\) 同敛散。
+若二者收敛，则其和之差等于有限项差值的和。
+\end{proposition}
+
+\begin{proof}
+取 \(N\) 使 \(a_n=b_n\) 对 \(n>N\) 成立。对 \(m>N\)，
+\[
+ \sum_{n=1}^m a_n-\sum_{n=1}^m b_n
+ =\sum_{n=1}^N(a_n-b_n),
+\]
+右端与 \(m\) 无关。两列部分和相差常数，结论随即成立。
+\end{proof}
+
+\begin{proposition}[线性运算]
+若 \(\sum a_n,\sum b_n\) 收敛，\(\alpha,\beta\in\R\)，则
+\[
+ \sum_{n=1}^\infty(\alpha a_n+\beta b_n)
+ =\alpha\sum_{n=1}^\infty a_n+\beta\sum_{n=1}^\infty b_n.
+\]
+\end{proposition}
+
+\begin{proof}
+对有限部分和使用线性运算，再取极限。
+\end{proof}
+
+\section{正项级数和比较方法}
+
+若 \(a_n\ge0\)，部分和单调不减，因此
+\[
+ \sum a_n\text{ 收敛}
+\quad\Longleftrightarrow\quad
+(s_n)\text{ 有上界}.
+\]
+这个结论是单调有界收敛定理的直接应用。
+
+\begin{theorem}[比较判别]
+\label{thm:series-comparison}
+若从某项起 \(0\le a_n\le b_n\)，则
+\[
+ \sum b_n\text{ 收敛}\Longrightarrow\sum a_n\text{ 收敛},
+\]
+\[
+ \sum a_n\text{ 发散}\Longrightarrow\sum b_n\text{ 发散}.
+\]
+\end{theorem}
+
+\begin{proof}
+取 \(N\) 使不等式对 \(n\ge N\) 成立。对 \(m\ge N\)，
+\[
+ 0\le\sum_{n=N}^m a_n\le\sum_{n=N}^m b_n.
+\]
+若 \(\sum b_n\) 收敛，右端尾部分和有统一上界，故
+\(\sum_{n=N}^m a_n\) 单调有界，因而有有限极限。若 \(\sum a_n\)
+发散，正项部分和必趋于 \(+\infty\)，上式迫使 \(\sum b_n\) 的部分和
+也无界。最后由命题 \ref{prop:series-finite-modification} 补回前 \(N-1\)
+项。
+\end{proof}
+
+\begin{theorem}[极限比较]
+\label{thm:series-limit-comparison}
+若 \(a_n,b_n>0\) 且
+\[
+ \frac{a_n}{b_n}\to L\in(0,\infty),
+\]
+则两级数同敛散。
+\end{theorem}
+
+\begin{proof}
+充分大时
+\[
+ \frac L2 b_n\le a_n\le\frac{3L}{2}b_n,
+\]
+双向使用比较判别。
+\end{proof}
+
+\begin{example}[调和级数]
+按二的幂分组，
+\[
+ 1+\frac12+
+ \left(\frac13+\frac14\right)+
+ \left(\frac15+\cdots+\frac18\right)+\cdots.
+\]
+第 \(j\) 个完整分组有 \(2^{j-1}\) 项，每项至少 \(2^{-j}\)，故每组和
+至少 \(1/2\)。部分和无上界，调和级数发散。
+\end{example}
+
+\section{比值、根值与上极限判据}
+
+\begin{theorem}[根值判别]
+\label{thm:root-test}
+令
+\[
+ \rho=\limsup_{n\to\infty}\sqrt[n]{\abs{a_n}}.
+\]
+若 \(\rho<1\)，则 \(\sum a_n\) 绝对收敛；若 \(\rho>1\)，则
+\(a_n\not\to0\)，级数发散；\(\rho=1\) 时不能判定。
+\end{theorem}
+
+\begin{proof}
+若 \(\rho<r<1\)，由上极限的阈值刻画，充分大时
+\(\sqrt[n]{\abs{a_n}}\le r\)，故 \(\abs{a_n}\le r^n\)，与几何级数
+比较得到绝对收敛。
+
+若 \(\rho>1\)，取 \(1<r<\rho\)。有无穷多个 \(n\) 满足
+\(\sqrt[n]{\abs{a_n}}>r\)，于是相应 \(\abs{a_n}>r^n>1\)，通项不趋零。
+\end{proof}
+
+\begin{corollary}[比值判别]
+\label{thm:ratio-test}
+若 \(a_n\ne0\) 最终成立，并且
+\[
+ q=\limsup_{n\to\infty}\abs{\frac{a_{n+1}}{a_n}}<1,
+\]
+则 \(\sum a_n\) 绝对收敛。若存在 \(N\) 使
+\(\abs{a_{n+1}/a_n}\ge1\) 对所有 \(n\ge N\) 成立，则级数发散。
+\end{corollary}
+
+\begin{proof}
+取 \(q<r<1\)，充分大时
+\(\abs{a_{n+1}}\le r\abs{a_n}\)，迭代后与几何级数比较。第二种情形使
+\(\abs{a_n}\) 从某项起不减且不为零，故通项不趋零。
+\end{proof}
+
+\begin{proposition}[比值控制根值]
+\label{prop:ratio-controls-root}
+若 \(a_n\ne0\) 最终成立，则
+\[
+ \limsup_{n\to\infty}\sqrt[n]{\abs{a_n}}
+ \le
+ \limsup_{n\to\infty}\abs{\frac{a_{n+1}}{a_n}}.
+\]
+\end{proposition}
+
+\begin{proof}
+记右端为 \(q\)。先设 \(q<\infty\)，并任取 \(r>q\)。从某个 \(N\)
+起有 \(\abs{a_{n+1}}\le r\abs{a_n}\)，迭代得
+\[
+ \abs{a_n}\le \abs{a_N}r^{\,n-N}\qquad(n\ge N).
+\]
+取 \(n\) 次方根并令 \(n\to\infty\)，得到左端不超过 \(r\)；再令
+\(r\downarrow q\)。若 \(q=+\infty\)，不等式没有额外内容。
+\end{proof}
+
+比值极限大于 \(1\) 时当然属于第二种情形；比值或根值等于 \(1\) 时，
+\(\sum1/n\) 与 \(\sum1/n^2\) 表明两种结果都可能发生。
+
+\section{积分判别和 Cauchy 凝聚}
+
+\begin{theorem}[积分判别]
+\label{thm:integral-test-series}
+设 \(f:[1,\infty)\to[0,\infty)\) 连续且单调不增。则
+\[
+ \sum_{n=1}^\infty f(n)
+\quad\text{与}\quad
+ \int_1^\infty f(x)\,dx
+\]
+同敛散，并且
+\[
+ \int_1^{N+1}f(x)\,dx
+ \le\sum_{n=1}^N f(n)
+ \le f(1)+\int_1^N f(x)\,dx.
+\]
+\end{theorem}
+
+\begin{proof}
+对 \(x\in[n,n+1]\)，单调性给出
+\[
+ f(n+1)\le f(x)\le f(n).
+\]
+逐段积分并求和即得两侧估计。正项部分和与截断积分同时有界或同时无界。
+\end{proof}
+
+\begin{corollary}[积分判别的余项估计]
+\label{cor:integral-test-remainder}
+在积分判别的条件下，若级数收敛，则
+\[
+ \int_{N+1}^{\infty}f(x)\,dx
+ \le \sum_{n=N+1}^{\infty}f(n)
+ \le \int_N^{\infty}f(x)\,dx.
+\]
+\end{corollary}
+
+\begin{proof}
+把有限区间估计应用于从 \(N+1\) 到 \(M\) 的尾和，再令
+\(M\to\infty\)。两侧的反常积分都收敛，故不等式可通过极限。
+\end{proof}
+
+\begin{corollary}
+\[
+ \sum_{n=1}^\infty\frac1{n^p}
+\]
+恰在 \(p>1\) 时收敛。
+\end{corollary}
+
+\begin{theorem}[Cauchy 凝聚判别]
+\label{thm:cauchy-condensation}
+若 \(a_n\ge0\) 单调不增，则
+\[
+ \sum_{n=1}^\infty a_n
+\quad\text{与}\quad
+ \sum_{k=0}^\infty 2^k a_{2^k}
+\]
+同敛散。
+\end{theorem}
+
+\begin{proof}
+对块 \(2^k\le n<2^{k+1}\)，有
+\[
+ 2^k a_{2^{k+1}}
+ \le\sum_{n=2^k}^{2^{k+1}-1}a_n
+ \le2^k a_{2^k}.
+\]
+从 \(k=0\) 到 \(K\) 相加，得到
+\[
+ \sum_{k=0}^K2^k a_{2^{k+1}}
+ \le \sum_{n=1}^{2^{K+1}-1}a_n
+ \le \sum_{k=0}^K2^k a_{2^k}.
+\]
+右侧凝聚和有界时，中间的原级数部分和有界。反过来，若原级数部分和有界，
+则左侧有界；把指标 \(j=k+1\) 后，
+\[
+ \sum_{k=0}^K2^k a_{2^{k+1}}
+ =\frac12\sum_{j=1}^{K+1}2^j a_{2^j},
+\]
+所以凝聚级数的部分和也有界。两边都是正项级数，故同敛散。
+\end{proof}
+
+\begin{example}
+凝聚判别把
+\[
+ \sum_{n\ge2}\frac1{n(\log n)^q}
+\]
+化为常数倍的 \(\sum k^{-q}\)，故恰在 \(q>1\) 时收敛。
+\end{example}
+
+\section{Raabe 判别与 Gauss 判别}
+
+当相邻项比值趋于 \(1\) 时，普通比值判别失效。下一阶偏离量可以识别
+幂级衰减的指数。
+
+\begin{theorem}[Raabe 判别]
+\label{thm:raabe-test}
+设 \(a_n>0\) 最终成立，并且极限
+\[
+ R=\lim_{n\to\infty}
+ n\left(\frac{a_n}{a_{n+1}}-1\right)
+\]
+存在。若 \(R>1\)，则 \(\sum a_n\) 收敛；若 \(R<1\)，则
+\(\sum a_n\) 发散。\(R=1\) 时不能判定。
+\end{theorem}
+
+\begin{proof}
+若 \(R>1\)，取 \(1<p<R\)。充分大时
+\[
+ \frac{a_n}{a_{n+1}}\ge1+\frac pn.
+\]
+取对数并用
+\(\log(1+t)\ge t-Ct^2\)（\(t\) 充分小），从某个固定指标求和到
+\(n-1\)，得到
+\[
+ \log a_n\le C_0-p\sum_{k=N}^{n-1}\frac1k
+              +C_1\sum_{k=N}^{n-1}\frac1{k^2}
+ \le C_2-p\log n.
+\]
+故 \(a_n\le Cn^{-p}\)，级数收敛。
+
+若 \(R<1\)，取 \(R<p<1\)。充分大时
+\[
+ \frac{a_n}{a_{n+1}}\le1+\frac pn.
+\]
+用 \(\log(1+t)\le t\) 求和可得
+\(\log a_n\ge C-p\log n\)，即
+\(a_n\ge c n^{-p}\)，故发散。
+\end{proof}
+
+\begin{theorem}[Gauss 判别]
+\label{thm:gauss-test}
+设 \(a_n>0\) 最终成立，并且对某个 \(\delta>0\)，
+\[
+ \frac{a_n}{a_{n+1}}
+ =1+\frac{\alpha}{n}
+  +O\!\left(\frac1{n^{1+\delta}}\right).
+\]
+则存在 \(C>0\) 使
+\[
+ a_n\sim Cn^{-\alpha}.
+\]
+因此 \(\sum a_n\) 在 \(\alpha>1\) 时收敛，在
+\(\alpha\le1\) 时发散。
+\end{theorem}
+
+\begin{proof}
+对充分大的 \(n\)，对数展开给出
+\[
+ \log a_{n+1}-\log a_n
+ =-\frac{\alpha}{n}
+  +O\!\left(\frac1{n^{1+\eta}}\right),
+\qquad \eta=\min\{1,\delta\}>0.
+\]
+求和后，误差级数收敛，而
+\(\sum_{k=1}^{n-1}1/k=\log n+\gamma+o(1)\)。所以
+\[
+ \log a_n+\alpha\log n
+\]
+收敛于有限常数。指数化即得渐近等价，再与 \(p\)-级数比较。
+\end{proof}
+
+Gauss 判别在临界值 \(\alpha=1\) 仍能判定发散，因为余项具有可求和的
+精度；Raabe 判别只知道一阶极限，临界时还不能区分
+\(1/(n\log n)\) 与 \(1/(n(\log n)^2)\)。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　部分和与比较}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{series-cauchy-one-term} 从级数 Cauchy 准则推出通项必要条件，
+ 并用调和级数说明逆命题失败。
+ \exerciseitem{series-geometric-complete} 对实数 \(q\) 完整判定
+ \(\sum_{n=0}^\infty q^n\) 的敛散性和收敛时的和。
+ \exerciseitem{series-positive-bounded-partial} 证明正项级数收敛当且仅当其
+ 部分和有上界。
+ \exerciseitem{series-finite-change} 证明有限项修改不影响敛散性，并写出
+ 收敛时新旧总和之差。
+ \exerciseitem{series-limit-comparison-zero-infinity} 分别说明极限比较中
+ \(a_n/b_n\to0\) 与 \(+\infty\) 时可以推出哪些单向结论，并各给一个不能
+ 反推的例子。
+ \exerciseitem{series-harmonic-blocks} 用长度为 \(2^{k-1}\) 的分组证明调和
+ 级数发散，并给出 \(s_{2^m}\) 的显式下界。
+\end{enumerate}
+
+\subsection*{B组　判别法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{series-root-factorial} 用根值或比值判别讨论
+ \(\sum n!/n^n\)。
+ \exerciseitem{series-root-polynomial-exponential} 判定
+ \(\sum n^p r^n\) 对 \(p\in\R\)、\(r\in\R\) 的绝对收敛范围。
+ \exerciseitem{series-ratio-inconclusive-p} 对 \(\sum1/n\) 与
+ \(\sum1/n^2\) 计算比值极限和根值极限，说明临界值为何无判别力。
+ \exerciseitem{series-integral-remainder-estimate} 对 \(p>1\) 证明
+ \[
+ \frac{(N+1)^{1-p}}{p-1}
+ \le\sum_{n=N+1}^\infty\frac1{n^p}
+ \le\frac{N^{1-p}}{p-1}.
+ \]
+ \exerciseitem{series-condensation-log} 用凝聚判别判定
+ \(\sum_{n\ge3}1/(n\log n(\log\log n)^q)\)。
+ \exerciseitem{series-raabe-log-critical} 对
+ \(a_n=1/(n(\log n)^q)\) 计算 Raabe 表达式的极限，说明为什么需要更精细
+ 判别。
+ \exerciseitem{series-gauss-gamma-ratio} 若正项满足
+ \[
+ \frac{a_n}{a_{n+1}}
+ =1+\frac{\alpha}{n}+O(n^{-2}),
+ \]
+ 直接应用 Gauss 判别给出敛散结论，并说明 \(\alpha=1\) 的结果。
+\end{enumerate}
+
+\subsection*{C组　构造与比较}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{series-sparse-harmonic} 证明
+ \(\sum_{n\ge1}\mathbf1_{\{n=2^k\}}/n\) 收敛，而其非零项对应的分母集合
+ 无限。
+ \exerciseitem{series-divergent-slow-terms} 构造一个正项发散级数，使
+ \(a_n\to0\) 比 \(1/n\) 更快地发生在无穷多个指标上。
+ \exerciseitem{series-comparison-oscillation-positive} 构造正项数列
+ \(a_n,b_n\)，使 \(a_n/b_n\) 无极限，但两级数仍可由双边比较判定同敛散。
+ \exerciseitem{series-cauchy-condensation-base} 把凝聚判别中的底数 \(2\)
+ 推广为任意整数 \(m\ge2\)。
+ \optionalexerciseitem{series-kummer-test} 设 \(a_n>0\)、\(p_n>0\)，证明：
+ 若从某项起
+ \[
+  p_n\frac{a_n}{a_{n+1}}-p_{n+1}\ge c>0,
+ \]
+ 则 \(\sum a_n\) 收敛；若该表达式不大于零且 \(\sum1/p_n\) 发散，则
+ \(\sum a_n\) 发散。说明 Raabe 判别可怎样视为其特例。
+\end{enumerate}

@@ -1,0 +1,377 @@
+\chapter{函数项级数}
+\label{chap:function-series}
+
+函数项级数
+\[
+ \sum_{n=1}^\infty u_n(x)
+\]
+不是在一次运算中把无穷多个函数相加；它由部分和函数列
+\(S_N=\sum_{n=1}^Nu_n\) 的极限定义。因此，函数列的逐点收敛、一致收敛
+和保持定理可以直接移植到级数。级数形式又带来一项额外工具：可以从尾和
+估计、绝对值比较和分部求和判断一致收敛，而不必先猜出和函数。
+
+\section{逐点、一致和绝对收敛}
+
+设 \(u_n:E\to\R\)，定义部分和
+\[
+ S_N(x)=\sum_{n=1}^Nu_n(x).
+\]
+
+\begin{definition}
+若 \(S_N(x)\) 对每个 \(x\in E\) 收敛，则称
+\(\sum u_n(x)\) 在 \(E\) 上\term{逐点收敛}。若存在函数 \(S:E\to\R\)
+使 \(S_N\rightrightarrows S\)，则称该级数在 \(E\) 上
+\term{一致收敛}，并写
+\[
+ S(x)=\sum_{n=1}^\infty u_n(x).
+\]
+若对每个固定的 \(x\)，数项级数 \(\sum |u_n(x)|\) 收敛，则称函数项
+级数在 \(E\) 上\term{逐点绝对收敛}。
+\end{definition}
+
+一致收敛与逐点绝对收敛比较的是不同方向。前者要求原级数的尾和对所有
+\(x\) 共同小；后者允许绝对值级数在不同点有不同收敛速度。两者都不自动
+推出另一个。
+
+\begin{example}[一致但不绝对]
+在 \([0,1]\) 上考虑
+\[
+ \sum_{n=1}^\infty\frac{(-1)^{n-1}x^n}{n}.
+\]
+对每个 \(x\)，数列 \(x^n/n\) 关于 \(n\) 递减到零，且
+\[
+ \sup_{0\le x\le1}\frac{x^n}{n}=\frac1n\to0.
+\]
+下一节的一致 Dirichlet 判别将说明该级数一致收敛。它在 \(x=1\) 处成为
+交错调和级数，绝对值级数发散，所以不逐点绝对收敛于整个区间。
+\end{example}
+
+反过来，令互不相交的区间 \(I_n\subset[0,1]\) 向零点聚集，在 \(I_n\)
+上放置高度为 \(1\) 的连续尖峰 \(u_n\)，其余处为零。每个固定点至多落入
+一个支集，故 \(\sum|u_n(x)|\) 逐点收敛；但
+\(\norm{u_n}_\infty=1\)，级数的一致 Cauchy 条件失败。
+
+比逐点绝对收敛强而又容易检验的条件是
+\[
+ \sum_{n=1}^\infty\norm{u_n}_\infty<\infty.
+\]
+它有时称为按上确界范数绝对收敛或正规收敛。本书使用这一术语时，均明确
+指出所采用的范数。
+
+\section{一致 Cauchy 准则与 M-判别法}
+
+\begin{theorem}[函数项级数的一致 Cauchy 准则]
+\label{thm:function-series-uniform-cauchy}
+级数 \(\sum u_n\) 在 \(E\) 上一致收敛，当且仅当对任意
+\(\varepsilon>0\)，存在 \(N\)，使任意 \(q\ge p\ge N\) 及
+\(x\in E\) 都满足
+\[
+ \left|\sum_{n=p}^q u_n(x)\right|<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+部分和之差为
+\[
+ S_q(x)-S_{p-1}(x)=\sum_{n=p}^q u_n(x).
+\]
+所以所写条件正是部分和函数列的一致 Cauchy 条件。由实值函数列的一致
+Cauchy 准则，结论成立。
+\end{proof}
+
+取 \(p=q=n\) 可见，一致收敛必有
+\[
+ \norm{u_n}_\infty\to0.
+\]
+这只是必要条件。正如数项级数中 \(a_n\to0\) 不保证 \(\sum a_n\)
+收敛，上确界范数趋零也不保证函数项级数一致收敛。
+
+\begin{theorem}[Weierstrass M-判别法]
+\label{thm:weierstrass-m-test}
+若存在非负数列 \((M_n)\)，使
+\[
+ |u_n(x)|\le M_n\qquad(x\in E)
+\]
+且数项级数 \(\sum M_n\) 收敛，则 \(\sum u_n\) 在 \(E\) 上一致收敛，
+并在每一点绝对收敛。特别地，
+\[
+ \sum\norm{u_n}_\infty<\infty
+\]
+蕴含一致收敛。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，由数项级数的 Cauchy 准则取 \(N\)，使
+\(q\ge p\ge N\) 时
+\[
+ \sum_{n=p}^qM_n<\varepsilon.
+\]
+于是对所有 \(x\in E\)，
+\[
+ \left|\sum_{n=p}^q u_n(x)\right|
+ \le\sum_{n=p}^q|u_n(x)|
+ \le\sum_{n=p}^qM_n<\varepsilon.
+\]
+一致 Cauchy 准则给出一致收敛。固定 \(x\) 后，同一比较还给出绝对收敛。
+\end{proof}
+
+M-判别法把函数问题化成正项数项级数，但它是充分条件，不是必要条件。
+上一节的交错级数一致收敛，而
+\[
+ \sum_n\norm{(-1)^{n-1}x^n/n}_\infty=\sum_n\frac1n
+\]
+发散。抵消现象不能由逐项绝对值估计看见。
+
+\section{一致 Dirichlet 和 Abel 判别}
+
+函数项级数的分部求和公式与数项级数完全相同。若
+\[
+ A_k(x)=\sum_{n=p}^k a_n(x),
+\]
+则
+\begin{equation}
+\label{eq:uniform-abel-summation}
+ \sum_{n=p}^q a_n(x)b_n(x)
+ =A_q(x)b_q(x)
+  +\sum_{k=p}^{q-1}A_k(x)\bigl(b_k(x)-b_{k+1}(x)\bigr).
+\end{equation}
+一致判别的关键是使右端估计与 \(x\) 无关。
+
+\begin{theorem}[一致 Dirichlet 判别]
+\label{thm:uniform-dirichlet-test}
+设
+\[
+ \left|\sum_{n=1}^Na_n(x)\right|\le M
+ \qquad(N\in\Npos,\ x\in E),
+\]
+并且对每个 \(x\)，
+\[
+ b_1(x)\ge b_2(x)\ge\cdots\ge0,
+\qquad
+ \sup_{x\in E}b_n(x)\to0.
+\]
+则 \(\sum a_n(x)b_n(x)\) 在 \(E\) 上一致收敛。
+\end{theorem}
+
+\begin{proof}
+对 \(q\ge p\)，部分和
+\[
+ A_k(x)=\sum_{n=p}^ka_n(x)
+\]
+是两个从 \(1\) 开始的部分和之差，故 \(|A_k(x)|\le2M\)。由
+\equationref{eq:uniform-abel-summation} 和 \(b_k-b_{k+1}\ge0\)，
+\[
+\begin{aligned}
+ \left|\sum_{n=p}^qa_n(x)b_n(x)\right|
+ &\le2M b_q(x)+2M\sum_{k=p}^{q-1}(b_k(x)-b_{k+1}(x))\\
+ &=2M b_p(x).
+\end{aligned}
+\]
+右端的上确界随 \(p\to\infty\) 趋于零，一致 Cauchy 准则给出结论。
+\end{proof}
+
+\begin{theorem}[一致 Abel 判别]
+\label{thm:uniform-abel-test}
+若 \(\sum a_n(x)\) 在 \(E\) 上一致收敛，并且存在 \(M>0\) 使对每个
+\(x\in E\)，
+\[
+ M\ge b_1(x)\ge b_2(x)\ge\cdots\ge0,
+\]
+则 \(\sum a_n(x)b_n(x)\) 在 \(E\) 上一致收敛。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)。由 \(\sum a_n\) 的一致 Cauchy 条件，取 \(N\)
+使 \(q\ge k\ge p\ge N\) 时
+\[
+ \left|\sum_{n=p}^ka_n(x)\right|<\frac{\varepsilon}{M+1}
+\]
+对所有 \(x\) 成立。将这个尾部上界代入分部求和公式，得到
+\[
+ \left|\sum_{n=p}^qa_n(x)b_n(x)\right|
+ \le\frac{\varepsilon}{M+1}b_p(x)
+ \le\varepsilon.
+\]
+故乘积级数满足一致 Cauchy 条件。
+\end{proof}
+
+Dirichlet 判别中的单调性可以替换为对 \(b_n(x)\) 关于指标的总变差作
+统一控制；这里采用的形式最便于直接应用。Abel 判别也允许一致有界且
+同向单调的有符号 \(b_n\)，只需在分部求和中把总变差估计改为相应常数。
+
+\begin{example}[三角级数的内闭一致收敛]
+对 \(x\notin2\pi\Z\)，
+\[
+ \sum_{k=1}^Ne^{ikx}
+ =e^{ix}\frac{1-e^{iNx}}{1-e^{ix}},
+\]
+因而
+\[
+ \left|\sum_{k=1}^N\sin(kx)\right|
+ \le\frac{2}{|1-e^{ix}|}.
+\]
+在 \([\delta,2\pi-\delta]\)、\(0<\delta<\pi\) 上，分母有统一正下界。
+一致 Dirichlet 判别遂给出
+\[
+ \sum_{n=1}^\infty\frac{\sin(nx)}n
+\]
+在每个这样的内闭区间上一致收敛。它不在 \([0,2\pi]\) 上一致收敛。
+事实上，对 \(N\ge1\) 取 \(x_N=1/(2N)\)，则当
+\(N<n\le2N\) 时 \(1/2<nx_N\le1\)，从而
+\[
+ \sum_{n=N+1}^{2N}\frac{\sin(nx_N)}n
+ \ge \sin(1/2)\sum_{n=N+1}^{2N}\frac1n
+ \ge \frac{\sin(1/2)}2.
+\]
+尾和不能对 \(x\) 一致趋零。
+\end{example}
+
+\section{连续性、逐项积分与逐项求导}
+
+保持定理只需对部分和函数列使用上一章结论。
+
+\begin{theorem}[函数项级数的连续性与逐项积分]
+\label{thm:function-series-continuity-integration}
+设每个 \(u_n\) 在 \([a,b]\) 上连续，且 \(\sum u_n\) 一致收敛于
+\(S\)。则 \(S\) 连续，并且
+\[
+ \int_a^bS(x)\,dx
+ =\sum_{n=1}^\infty\int_a^bu_n(x)\,dx.
+\]
+更强地，对积分上限有一致收敛
+\[
+ \sum_{n=1}^N\int_a^xu_n(t)\,dt
+ \rightrightarrows
+ \int_a^xS(t)\,dt.
+\]
+\end{theorem}
+
+\begin{proof}
+部分和 \(S_N\) 连续，且一致收敛于 \(S\)，所以 \(S\) 连续。积分交换
+来自
+\[
+ \int_a^bS_N=\sum_{n=1}^N\int_a^bu_n
+\]
+和一致极限的积分保持定理。积分上限的结论由
+\[
+ \sup_{x\in[a,b]}
+ \left|\int_a^x(S_N-S)\right|
+ \le(b-a)\norm{S_N-S}_\infty
+\]
+得到。
+\end{proof}
+
+\begin{theorem}[函数项级数的逐项求导]
+\label{thm:function-series-differentiation}
+设 \(u_n\in C[a,b]\) 且在 \((a,b)\) 可导。若对某个
+\(x_0\in[a,b]\)，数项级数 \(\sum u_n(x_0)\) 收敛，并且导数级数
+\[
+ \sum_{n=1}^\infty u_n'(x)
+\]
+在 \((a,b)\) 上一致收敛，则原级数在 \([a,b]\) 上一致收敛于函数
+\(S\)，且
+\[
+ S'(x)=\sum_{n=1}^\infty u_n'(x)
+ \qquad(a<x<b).
+\]
+\end{theorem}
+
+\begin{proof}
+对部分和函数列 \(S_N=\sum_{n=1}^Nu_n\) 使用上一章的逐项求导定理。
+锚点条件正是 \(S_N(x_0)\) 收敛，导数的一致收敛正是
+\(S_N'=\sum_{n=1}^Nu_n'\) 一致收敛。
+\end{proof}
+
+逐项积分只需原级数一致收敛；逐项求导却要求导数级数一致收敛并控制一个
+函数值。这种不对称来自积分对上确界误差的压缩估计与差商对小尺度误差的
+放大。幂级数在收敛区间内部会自动满足这些条件，下一章将证明这一特殊而
+重要的稳定性。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　一致收敛判别}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{function-series-uniform-cauchy-tail}
+ 从部分和函数列的一致 Cauchy 条件推导正文的尾和判据，并说明为何必须
+ 同时控制所有 \(q\ge p\ge N\)。
+ \exerciseitem{function-series-term-necessary}
+ 证明函数项级数一致收敛必有 \(\norm{u_n}_\infty\to0\)，并给出反例说明
+ 这一条件不充分。
+ \exerciseitem{m-test-geometric-parameter}
+ 证明 \(\sum_{n\ge1}x^n/n^2\) 在 \([-1,1]\) 上一致且绝对收敛。
+ \exerciseitem{m-test-exponential}
+ 证明 \(\sum_{n\ge0}x^ne^{-x}/n!\) 在每个 \([0,M]\) 上一致收敛。
+ 它在 \([0,\infty)\) 上能否直接用同一个 M-判别估计？
+ \exerciseitem{pointwise-absolute-not-uniform}
+ 在 \([0,1]\) 内选择两两不交的闭区间并构造连续尖峰 \(u_n\)，使
+ \(\sum|u_n(x)|\) 逐点收敛而 \(\sum u_n\) 不一致收敛。
+ \exerciseitem{uniform-not-normal}
+ 用正文交错级数证明：一致收敛不推出
+ \(\sum\norm{u_n}_\infty<\infty\)。
+\end{enumerate}
+
+\subsection*{B组　Dirichlet 与 Abel 判别}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{abel-summation-function-form}
+ 证明公式 \eqref{eq:uniform-abel-summation}。
+ \exerciseitem{uniform-dirichlet-alternating}
+ 用一致 Dirichlet 判别证明
+ \[
+  \sum_{n=1}^\infty\frac{(-1)^{n-1}x^n}{n}
+ \]
+ 在 \([0,1]\) 上一致收敛。
+ \exerciseitem{uniform-dirichlet-trigonometric}
+ 证明 \(\sum\sin(nx)/n\) 在任意
+ \([\delta,2\pi-\delta]\) 上一致收敛，并解释为什么正文的部分和估计在
+ \(\delta\downarrow0\) 时失去统一性。
+ \exerciseitem{uniform-abel-bounded-monotone}
+ 设 \(\sum a_n\) 一致收敛，\(0\le b_{n+1}\le b_n\le M\)。从尾部
+ 分部求和给出一致 Abel 判别的完整 \(\varepsilon\) 估计。
+ \exerciseitem{dirichlet-uniform-zero-necessary}
+ 在一致 Dirichlet 判别中，把“\(b_n\to0\) 一致”降为逐点趋零。
+ 构造例子说明结论可能失败。
+ \optionalexerciseitem{dirichlet-bounded-variation}
+ 设 \(\sum_{k=1}^Na_k(x)\) 一致有界，并且
+ \[
+  \sup_{x\in E}\left(
+  |b_N(x)|+\sum_{k=N}^\infty|b_{k+1}(x)-b_k(x)|
+  \right)\to0.
+ \]
+ 证明 \(\sum a_nb_n\) 一致收敛。
+\end{enumerate}
+
+\subsection*{C组　保持定理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{series-continuity-m-test}
+ 设 \(u_n\in C[a,b]\) 且 \(|u_n(x)|\le M_n\)、\(\sum M_n<\infty\)。
+ 证明和函数连续，并可逐项积分。
+ \exerciseitem{series-integral-upper-limit-uniform}
+ 证明若 \(\sum u_n\) 在 \([a,b]\) 上一致收敛，则
+ \[
+  \sum_{n=1}^\infty\int_a^x u_n(t)\,dt
+ \]
+ 关于 \(x\) 一致收敛。
+ \exerciseitem{series-differentiation-example}
+ 证明
+ \[
+  \sum_{n=1}^\infty\frac{\sin(nx)}{n^3}
+ \]
+ 在 \(\R\) 上一致收敛且可逐项求一次导；讨论正文定理能否直接保证逐项
+ 求二次导。
+ \exerciseitem{series-uniform-limit-bound}
+ 若 \(\sum u_n\) 一致收敛于 \(S\)，证明对充分大的 \(N\)，
+ \[
+  \norm S_\infty
+  \le \norm{S_N}_\infty+1
+ \]
+ （在这些范数有限时），并说明一致收敛的级数和为何继承有界性。
+ \exerciseitem{series-exchange-double-sum}
+ 设 \(\sum_nu_n(x)\) 在 \(E\) 上按上确界范数绝对收敛，且
+ \(x_m\in E\)。在何种附加条件下可交换
+ \(\lim_{m\to\infty}\) 与 \(\sum_n\)？给出一个基于一致收敛的充分条件
+ 并证明。
+ \optionalexerciseitem{series-cauchy-product-functions}
+ 设 \(\sum u_n\)、\(\sum v_n\) 在 \(E\) 上按上确界范数绝对收敛。
+ 证明其 Cauchy 乘积也按上确界范数绝对收敛，且和函数等于两和函数之积。
+\end{enumerate}

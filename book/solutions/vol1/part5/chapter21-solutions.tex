@@ -1,0 +1,201 @@
+\chapter{反常积分}
+\label{chap:improper-integrals-solutions}
+
+\begin{solution}{improper-p-integrals-complete}
+若 \(p\ne1\)，
+\[
+ \int_1^R x^{-p}\,dx=\frac{R^{1-p}-1}{1-p}.
+\]
+当 \(p>1\) 时趋于 \(1/(p-1)\)，当 \(p<1\) 时趋于 \(+\infty\)。
+\(p=1\) 时积分为 \(\log R\)，发散。
+
+类似地，若 \(p\ne1\)，
+\[
+ \int_\varepsilon^1x^{-p}\,dx
+ =\frac{1-\varepsilon^{1-p}}{1-p}.
+\]
+当 \(p<1\) 时趋于 \(1/(1-p)\)，当 \(p>1\) 时发散；\(p=1\) 时为
+\(-\log\varepsilon\)，也发散。
+\end{solution}
+
+\begin{solution}{improper-split-independence}
+设在分割点 \(c\) 两侧都收敛，另取 \(d>c\)。则
+\[
+ \int_{-\infty}^{d}f
+ =\int_{-\infty}^{c}f+\int_c^d f,
+\qquad
+ \int_d^\infty f
+ =\int_c^\infty f-\int_c^d f.
+\]
+两式相加时有限区间积分消去，故总值不变。\(d<c\) 同理。
+\end{solution}
+
+\begin{solution}{improper-principal-value-not-integral}
+函数为奇函数，故
+\[
+ \int_{-R}^{R}\frac{x}{1+x^2}\,dx=0,
+\]
+对称主值为零。但
+\[
+ \int_0^R\frac{x}{1+x^2}\,dx
+ =\frac12\log(1+R^2)\to+\infty,
+\]
+左半轴积分趋于 \(-\infty\)。两侧都没有有限极限，所以通常反常积分发散。
+\end{solution}
+
+\begin{solution}{improper-interior-singularity-split}
+\[
+ \int_{-1}^{-\varepsilon}\frac{dx}{x}=\log\varepsilon\to-\infty,
+\qquad
+ \int_{\varepsilon}^{1}\frac{dx}{x}=-\log\varepsilon\to+\infty.
+\]
+两侧均发散，故反常积分不存在；但对称截断之和恒为零，所以主值为零。
+\end{solution}
+
+\begin{solution}{improper-cauchy-tail-sequence}
+若 Cauchy 准则成立，任意 \(u_n,v_n\to\infty\) 且 \(u_n<v_n\) 最终
+进入相应尾部，故积分趋零。反之，若 Cauchy 准则失败，则存在
+\(\varepsilon_0>0\)，对每个整数 \(n\) 可选
+\(v_n>u_n\ge n\) 使
+\[
+ \abs{\int_{u_n}^{v_n}f}\ge\varepsilon_0.
+\]
+这给出违背序列条件的两列。
+\end{solution}
+
+\begin{solution}{improper-log-power-infinity}
+令 \(t=\log x\)，则 \(dx=e^t dt\)，积分化为
+\[
+ \int_1^\infty e^{-(p-1)t}t^{-q}\,dt.
+\]
+若 \(p>1\)，指数衰减压过任意幂，积分收敛；若 \(p<1\)，被积函数甚至
+不趋零并最终指数增长，积分发散。若 \(p=1\)，得到
+\(\int_1^\infty t^{-q}dt\)，恰在 \(q>1\) 时收敛。
+
+为补足第一句话，令 \(c=p-1>0\)。由指数函数的幂级数，充分大时
+\(e^{ct/2}\ge t^{\abs q+2}\)，从而
+\[
+ e^{-ct}t^{-q}\le e^{-ct/2}.
+\]
+右端可积。若 \(p<1\)，令 \(c=1-p>0\)，则
+\(e^{ct}t^{-q}\to+\infty\)，所以非负被积函数的积分不可能收敛。
+\end{solution}
+
+\begin{solution}{improper-log-power-zero}
+令 \(t=-\log x\)，则
+\[
+ \int_0^{1/2}\frac{dx}{x^p\abs{\log x}^{q}}
+ =\int_{\log2}^{\infty}e^{(p-1)t}t^{-q}\,dt.
+\]
+因此 \(p<1\) 时收敛，\(p>1\) 时发散；\(p=1\) 时恰在 \(q>1\)
+时收敛。
+\end{solution}
+
+\begin{solution}{improper-sine-over-power}
+当 \(\alpha>0\) 时，\(x^{-\alpha}\) 单调趋零，Dirichlet 判别给出收敛。
+绝对收敛在 \(\alpha>1\) 时由 \(p\)-型比较得到。若
+\(\alpha\le1\)，在区间
+\[
+ I_k=[k\pi+\pi/6,k\pi+5\pi/6]
+\]
+上 \(\abs{\sin x}\ge1/2\)，这些区间上的积分与
+\(\sum k^{-\alpha}\) 比较，故绝对积分发散。
+
+当 \(\alpha=0\) 时截断积分 \(1-\cos R\) 无极限；当
+\(\alpha<0\) 时令 \(\beta=-\alpha>0\)，并取
+\[
+ u_k=2k\pi+\frac{\pi}{6},\qquad
+ v_k=2k\pi+\frac{5\pi}{6}.
+\]
+在 \([u_k,v_k]\) 上 \(\sin x\ge1/2\)，故
+\[
+ \int_{u_k}^{v_k}x^\beta\sin x\,dx
+ \ge\frac{v_k-u_k}{2}\,u_k^\beta\longrightarrow+\infty.
+\]
+这给出两端都趋于无穷而尾积分不趋零的区间列，Cauchy 准则失败。
+所以 \(\alpha>1\) 时绝对收敛，\(0<\alpha\le1\) 时条件收敛，
+\(\alpha\le0\) 时发散。
+\end{solution}
+
+\begin{solution}{improper-dirichlet-quantitative-tail}
+对 \(v>u\) 的分部积分估计给出
+\[
+ \abs{\int_u^vfg}\le2M\abs{g(u)}.
+\]
+令 \(v\to\infty\)，左端趋于尾积分，右端不变，故得到所需估计。
+\end{solution}
+
+\begin{solution}{improper-abel-from-dirichlet}
+单调有界的 \(g\) 有极限 \(L\)。由 \(\int f\) 收敛，函数
+\(F(x)=\int_a^x f\) 收敛，因而有界。第一项
+\(Lf\) 可积；第二项 \(f(g-L)\) 中，\(g-L\) 单调趋零，满足
+Dirichlet 判别的全部条件。两项之和收敛。
+\end{solution}
+
+\begin{solution}{improper-absolute-not-necessary}
+收敛性由 Dirichlet 判别。绝对值积分发散的证明如下：对充分大的 \(k\)，
+\(I_k=[k\pi+\pi/6,k\pi+5\pi/6]\) 上
+\(\abs{\sin x}\ge1/2\)，且 \(x\le(k+1)\pi\)，所以
+\[
+ \int_{I_k}\frac{\abs{\sin x}}x\,dx
+ \ge \frac{1}{2(k+1)\pi}\cdot\frac{2\pi}{3}
+ =\frac1{3(k+1)}.
+\]
+对 \(k\) 求和发散。
+\end{solution}
+
+\begin{solution}{improper-substitution-inversion}
+令 \(x=1/t\)。则
+\[
+ \int_0^1 x^{-p}\,dx
+ =\int_1^\infty t^{p-2}\,dt
+ =\int_1^\infty\frac{dt}{t^{2-p}}.
+\]
+右端在 \(2-p>1\)，即 \(p<1\) 时收敛，与零点附近的判别一致。
+\end{solution}
+
+\begin{solution}{improper-gaussian-convergence}
+在 \([0,1]\) 上函数连续。对 \(x\ge1\)，有 \(x^2\ge x\)，故
+\[
+ 0\le e^{-x^2}\le e^{-x}.
+\]
+而 \(\int_1^\infty e^{-x}dx\) 收敛，比较判别给出结论。
+\end{solution}
+
+\begin{solution}{improper-integration-by-parts-boundary}
+取 \(u(x)\equiv1\)、\(v(x)=\sin x\)。则
+\[
+ \int_0^\infty u'(x)v(x)\,dx=0
+\]
+收敛，但 \(u(R)v(R)=\sin R\) 无极限。相应的
+\(\int_0^\infty uv'=\int_0^\infty\cos x\,dx\) 也发散，说明缺少边界项
+极限时不能由形式分部积分推出收敛。
+\end{solution}
+
+\begin{solution}{improper-conditional-substitution-warning}
+若 \(\phi\) 是题设类型的单调 \(C^1\) 满射，则每个有限截断满足
+\[
+ \int_{\alpha}^{s}
+ \frac{\sin(\phi(t))}{\phi(t)}\phi'(t)\,dt
+ =\int_1^{\phi(s)}\frac{\sin x}{x}\,dx.
+\]
+令 \(s\) 趋于端点，右端按原顺序趋于原积分值。任意重排则把远处不同
+区间的积分块改变顺序，并不由单调变量代换产生；条件收敛时这种重排可能
+改变极限。
+\end{solution}
+
+\begin{solution}{improper-fresnel-dirichlet}
+在 \([1,\infty)\) 令 \(t=x^2\)，得到
+\[
+ \int_1^\infty\sin(x^2)\,dx
+ =\frac12\int_1^\infty\frac{\sin t}{\sqrt t}\,dt,
+\]
+由 Dirichlet 判别收敛，\([0,1]\) 上连续因而无问题。
+
+若取绝对值，则
+\[
+ \frac12\int_1^\infty\frac{\abs{\sin t}}{\sqrt t}\,dt
+\]
+在上述 \(I_k\) 上逐块下界为常数乘 \(k^{-1/2}\)，其和发散。因此原积分
+不绝对收敛。
+\end{solution}

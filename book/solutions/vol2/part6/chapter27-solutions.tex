@@ -1,0 +1,242 @@
+\chapter{函数项级数}
+\label{chap:function-series-solutions}
+
+\begin{solution}{function-series-uniform-cauchy-tail}
+令 \(S_N=\sum_{n=1}^Nu_n\)。部分和函数列满足一致 Cauchy 条件，当且
+仅当对任意 \(\varepsilon>0\)，充分大的 \(r,s\) 有
+\[
+ |S_s(x)-S_r(x)|<\varepsilon
+\]
+对所有 \(x\) 成立。令 \(s=q,r=p-1\)，差正是
+\(\sum_{n=p}^qu_n(x)\)。必须允许任意 \(q\ge p\ge N\)，因为收敛要求
+所有远处有限尾和都小；只控制单项 \(p=q\) 仅能得到 \(u_n\to0\)。
+\end{solution}
+
+\begin{solution}{function-series-term-necessary}
+若部分和 \(S_N\) 一致收敛，则它一致 Cauchy。取相邻部分和，
+\[
+ \norm{u_n}_\infty=\norm{S_n-S_{n-1}}_\infty\to0.
+\]
+反例可取与 \(x\) 无关的常函数 \(u_n(x)=1/n\)。它满足
+\(\norm{u_n}_\infty=1/n\to0\)，但函数项级数在每个点都成为调和级数，
+故连逐点收敛也不成立。
+\end{solution}
+
+\begin{solution}{m-test-geometric-parameter}
+对 \(|x|\le1\)，
+\[
+ \left|\frac{x^n}{n^2}\right|\le\frac1{n^2}.
+\]
+正项级数 \(\sum1/n^2\) 收敛，所以 Weierstrass M-判别法给出整个
+\([-1,1]\) 上的一致收敛和逐点绝对收敛。
+\end{solution}
+
+\begin{solution}{m-test-exponential}
+若 \(0\le x\le M\)，则
+\[
+ 0\le\frac{x^ne^{-x}}{n!}\le\frac{M^n}{n!},
+\]
+而 \(\sum M^n/n!=e^M\) 收敛，故在 \([0,M]\) 上一致收敛。
+在半轴上，级数的和恒为 \(1\)，而任一有限部分和 \(S_N\) 都满足
+\(S_N(x)\to0\ (x\to\infty)\)。若 \(S_N\) 一致趋于 \(1\)，则充分大的
+\(N\) 应满足 \(\sup_{x\ge0}|S_N(x)-1|<1/2\)；固定这样的 \(N\) 再令
+\(x\to\infty\)，左端却趋于 \(1\)，矛盾。因此该级数在半轴上不一致
+收敛，也就不可能存在一组可求和的全局控制数列供 M-判别使用。
+\end{solution}
+
+\begin{solution}{pointwise-absolute-not-uniform}
+取
+\[
+ I_n=[2^{-n},3\cdot2^{-(n+1)}].
+\]
+这些区间两两不交。令 \(u_n\) 是以 \(I_n\) 中点为顶点、高为 \(1\)，
+在两个端点为零，并在 \(I_n\) 外恒为零的分段线性函数。每个 \(x\) 至多
+属于一个 \(I_n\)，所以 \(\sum|u_n(x)|\le1\)，且逐点级数实际上只有
+至多一项非零。另一方面 \(\norm{u_n}_\infty=1\)。一致收敛的必要条件
+失败，故 \(\sum u_n\) 不一致收敛。
+\end{solution}
+
+\begin{solution}{uniform-not-normal}
+令 \(u_n(x)=(-1)^{n-1}x^n/n\) 于 \([0,1]\)。正文的一致 Dirichlet
+判别说明 \(\sum u_n\) 一致收敛。但
+\[
+ \norm{u_n}_\infty=\frac1n,
+\]
+所以 \(\sum\norm{u_n}_\infty\) 是发散的调和级数。一致收敛允许不同项
+之间发生抵消，按范数绝对收敛则抹去了抵消。
+\end{solution}
+
+\begin{solution}{abel-summation-function-form}
+由 \(a_k=A_k-A_{k-1}\)，其中约定 \(A_{p-1}=0\)，有
+\[
+\begin{aligned}
+ \sum_{k=p}^qa_kb_k
+ &=\sum_{k=p}^q(A_k-A_{k-1})b_k\\
+ &=\sum_{k=p}^qA_kb_k-\sum_{k=p}^{q-1}A_kb_{k+1}\\
+ &=A_qb_q+\sum_{k=p}^{q-1}A_k(b_k-b_{k+1}).
+\end{aligned}
+\]
+等式对每个固定 \(x\) 成立，因此保留 \(x\) 参数就是正文公式。
+\end{solution}
+
+\begin{solution}{uniform-dirichlet-alternating}
+取 \(a_n(x)=(-1)^{n-1}\)、\(b_n(x)=x^n/n\)。\(a_n\) 的部分和绝对值
+不超过 \(1\)。对 \(0\le x\le1\)，
+\[
+ \frac{x^{n+1}}{n+1}\le\frac{x^n}{n},\qquad
+ 0\le b_n(x)\le\frac1n.
+\]
+故 \(b_n(x)\) 逐点递减，且 \(\sup_xb_n(x)\le1/n\to0\)。一致
+Dirichlet 判别给出结论。
+\end{solution}
+
+\begin{solution}{uniform-dirichlet-trigonometric}
+复指数几何和给出
+\[
+ \left|\sum_{k=1}^Ne^{ikx}\right|
+ \le\frac2{|1-e^{ix}|}.
+\]
+取虚部后同一上界控制正弦部分和。在
+\([\delta,2\pi-\delta]\) 上，
+\(|1-e^{ix}|\) 有正的最小值，因此部分和一致有界，\(1/n\) 又单调
+趋零，一致 Dirichlet 判别适用。当 \(\delta\downarrow0\) 时，这个最小值
+趋零，部分和上界趋于无穷，无法给出端点附近的共同控制。正文的尾和下界
+进一步说明全闭区间上的一致收敛确实失败。
+\end{solution}
+
+\begin{solution}{uniform-abel-bounded-monotone}
+给定 \(\varepsilon>0\)，由 \(\sum a_n\) 一致 Cauchy，取 \(N\) 使
+\[
+ \left|\sum_{n=p}^ka_n(x)\right|
+ <\frac{\varepsilon}{M+1}
+\]
+对 \(k\ge p\ge N\)、\(x\in E\) 成立。记左侧部分和为 \(A_k(x)\)。
+分部求和和单调性给出
+\[
+\begin{aligned}
+ \left|\sum_{n=p}^qa_nb_n\right|
+ &\le\frac{\varepsilon}{M+1}
+ \left(b_q+\sum_{k=p}^{q-1}(b_k-b_{k+1})\right)\\
+ &=\frac{\varepsilon}{M+1}b_p
+ \le\frac{M}{M+1}\varepsilon<\varepsilon.
+\end{aligned}
+\]
+所以乘积级数一致 Cauchy。
+\end{solution}
+
+\begin{solution}{dirichlet-uniform-zero-necessary}
+取 \(E=\Npos\)、\(a_n(m)=(-1)^n\)，并令
+\[
+ b_n(m)=
+ \begin{cases}
+ 1,&n\le m,\\
+ 0,&n>m.
+ \end{cases}
+\]
+对每个固定 \(m\)，\(b_n(m)\) 关于 \(n\) 非增且最终为零；但
+\(\sup_mb_n(m)=1\)。\(a_n\) 的部分和一致有界。乘积级数在每个
+\(m\) 处只有有限项，故逐点收敛；可是第 \(n\) 项满足
+\[
+ \sup_m|a_n(m)b_n(m)|=1.
+\]
+一致收敛的必要条件失败。因此逐点趋零不能替代一致趋零。
+\end{solution}
+
+\begin{solution}{dirichlet-bounded-variation}
+设从 \(1\) 开始的 \(a_n\) 部分和绝对值不超过 \(M\)，则尾部部分和
+\(A_k=\sum_{n=N}^ka_n\) 的绝对值不超过 \(2M\)。分部求和给出
+\[
+ \left|\sum_{n=N}^qa_nb_n\right|
+ \le2M\left(
+ |b_q|+\sum_{k=N}^{q-1}|b_k-b_{k+1}|
+ \right).
+\]
+右端不超过题设中从 \(N\) 开始的统一变差尾的 \(2M\) 倍，并随
+\(N\to\infty\) 趋于零。一致 Cauchy 准则给出一致收敛。
+\end{solution}
+
+\begin{solution}{series-continuity-m-test}
+M-判别法给出 \(\sum u_n\) 在 \([a,b]\) 上一致收敛。有限部分和连续，
+所以一致极限连续。由一致收敛的积分保持定理，
+\[
+ \int_a^b\sum_{n=1}^\infty u_n
+ =\lim_{N\to\infty}\int_a^b\sum_{n=1}^Nu_n
+ =\sum_{n=1}^\infty\int_a^bu_n.
+\]
+\end{solution}
+
+\begin{solution}{series-integral-upper-limit-uniform}
+设 \(S_N=\sum_{n=1}^Nu_n\)、\(S=\sum_{n=1}^\infty u_n\)。则
+\[
+ \sup_{x\in[a,b]}
+ \left|\sum_{n=1}^N\int_a^xu_n-\int_a^xS\right|
+ =\sup_x\left|\int_a^x(S_N-S)\right|
+ \le(b-a)\norm{S_N-S}_\infty\to0.
+\]
+故积分后的级数关于上限 \(x\) 一致收敛。
+\end{solution}
+
+\begin{solution}{series-differentiation-example}
+原级数各项的绝对值不超过 \(1/n^3\)，故由 M-判别法在 \(\R\) 上一致
+收敛。一次导数级数为
+\[
+ \sum_{n=1}^\infty\frac{\cos(nx)}{n^2},
+\]
+它由 \(\sum1/n^2\) 控制，也一致收敛。因此可逐项求一次导。二次导数
+形式上为
+\[
+ -\sum_{n=1}^\infty\frac{\sin(nx)}n.
+\]
+它不在整个 \(\R\) 上一致收敛，例如正文已证明在一个周期的闭区间上
+一致 Cauchy 条件失败，所以逐项求导定理不能直接保证第二次求导。
+\end{solution}
+
+\begin{solution}{series-uniform-limit-bound}
+一致收敛给出某个 \(N\) 使
+\(\norm{S-S_N}_\infty<1\)。由范数三角不等式，
+\[
+ \norm S_\infty
+ \le\norm{S-S_N}_\infty+\norm{S_N}_\infty
+ <1+\norm{S_N}_\infty.
+\]
+有限部分和有界时，右端有限，故和函数有界。
+\end{solution}
+
+\begin{solution}{series-exchange-double-sum}
+一个充分条件是 \(x_m\to x\in E\)，且每个固定的 \(n\) 都满足
+\(u_n(x_m)\to u_n(x)\)。设
+\(\sum\norm{u_n}_\infty<\infty\)。给定 \(\varepsilon>0\)，先取
+\(N\) 使
+\[
+ 2\sum_{n>N}\norm{u_n}_\infty<\frac{\varepsilon}{2}.
+\]
+再由有限个 \(n\le N\) 的收敛，取充分大的 \(m\) 使
+\[
+ \sum_{n=1}^N|u_n(x_m)-u_n(x)|<\frac{\varepsilon}{2}.
+\]
+于是
+\[
+ \left|\sum_nu_n(x_m)-\sum_nu_n(x)\right|<\varepsilon.
+\]
+故极限与求和可以交换。若 \(u_n\) 连续，第一项条件由 \(x_m\to x\)
+自动满足。
+\end{solution}
+
+\begin{solution}{series-cauchy-product-functions}
+设 \(w_n=\sum_{k=0}^nu_kv_{n-k}\)。则
+\[
+\begin{aligned}
+ \sum_{n=0}^\infty\norm{w_n}_\infty
+ &\le\sum_{n=0}^\infty\sum_{k=0}^n
+   \norm{u_k}_\infty\norm{v_{n-k}}_\infty\\
+ &=\left(\sum_{k=0}^\infty\norm{u_k}_\infty\right)
+   \left(\sum_{j=0}^\infty\norm{v_j}_\infty\right)<\infty.
+\end{aligned}
+\]
+所以 Cauchy 乘积按上确界范数绝对收敛。对每个固定 \(x\)，两个数项级数
+绝对收敛，第一卷的 Cauchy 乘积定理给出
+\[
+ \sum_nw_n(x)=\left(\sum_ku_k(x)\right)
+               \left(\sum_jv_j(x)\right).
+\]
+\end{solution}

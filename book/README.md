@@ -5,6 +5,7 @@
 ```powershell
 lualatex main.tex
 lualatex main.tex
+lualatex main.tex
 ```
 
 也可以在本目录运行：
@@ -21,7 +22,7 @@ lualatex main.tex
 .\build-solutions.ps1
 ```
 
-需要连续编译两次以生成完整目录。当前主文件载入第一卷前四编3.1版第0—18章及附录A—C；解答册只载入正文各章习题，参考型附录不另设习题。
+构建脚本连续编译三次，以稳定目录、书签和交叉引用。当前主文件载入3.2版第0—29章及附录A—C，其中第二卷目前写至第六编；解答册只载入正文各章习题，参考型附录不另设习题。
 
 `analysisbook` 提供两种色彩模式：
 
@@ -35,9 +36,10 @@ lualatex main.tex
 - `main.tex`：全书入口、卷编结构和当前载入范围；
 - `frontmatter/preface.tex`：前言；
 - `analysisbook.sty`：版面、定理环境、提示框和通用命令；
-- `chapters/vol1/`：当前已载入的第一卷前四编正文；路径使用3.1版第0—18章编号。
+- `chapters/vol1/`：第一卷第0—24章正文；
+- `chapters/vol2/part6/`：第二卷第六编第25—29章正文；
 - `solutions.tex`：习题解答册入口，不由教材正文默认载入；
-- `solutions/vol1/`：当前第一卷前四编全部正式习题的详细解答；路径与3.1版正文平行。
+- `solutions/vol1/`、`solutions/vol2/part6/`：当前第0—29章全部正式习题的详细解答；路径与正文平行。
 
 全书正文必须遵守工作区根目录的 `教材写作规范.md`。新增章节前应先完成其中的依赖检查，交付前按单章验收清单复核。
 

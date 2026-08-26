@@ -1,0 +1,440 @@
+\chapter{实解析函数}
+\label{chap:real-analytic-functions}
+
+Taylor 公式只给出有限阶近似。即使函数有任意阶导数，也不能仅凭形式写下
+的无穷 Taylor 级数断言它等于原函数。幂级数的和却具有更强的局部刚性：
+系数由任意一个展开中心处的全部导数唯一确定，非零函数的零点不能在区间
+内部聚集，在一个非空开区间上为零便迫使它在整个连通区间上为零。
+
+这些性质属于实解析函数，而不属于一般的 \(C^\infty\) 函数。本章先从
+幂级数表示给出定义，再研究 Taylor 余项、解析运算和零点。最后的平坦函数
+说明“无穷次可导”与“解析”之间仍有实质差距。
+
+\section{系数唯一性和 Taylor 表示}
+
+\begin{definition}[实解析函数]
+设 \(I\subseteq\R\) 为开区间，\(f:I\to\R\)。若对每个 \(a\in I\)，
+存在 \(r>0\) 和实数列 \((c_n)\)，使
+\((a-r,a+r)\subseteq I\) 且
+\[
+ f(x)=\sum_{n=0}^\infty c_n(x-a)^n
+ \qquad(|x-a|<r),
+\]
+则称 \(f\) 在 \(I\) 上\term{实解析}。若只在某点 \(a\) 的一个邻域
+有这样的表示，则称 \(f\) 在 \(a\) 处解析。
+\end{definition}
+
+闭区间上的解析性通常表示函数能解析地延拓到包含该闭区间的开区间。这样
+端点处不必另造单侧定义。
+
+\begin{theorem}[幂级数系数公式]
+\label{thm:analytic-coefficient-formula}
+若
+\[
+ f(x)=\sum_{n=0}^\infty c_n(x-a)^n
+\]
+在 \(|x-a|<R\) 内成立，则 \(f\in C^\infty(a-R,a+R)\)，并且
+\[
+ c_n=\frac{f^{(n)}(a)}{n!}\qquad(n\in\N).
+\]
+因此同一函数在同一中心的幂级数表示唯一。
+\end{theorem}
+
+\begin{proof}
+幂级数可在收敛区间内部反复逐项求导。第 \(n\) 次导数在 \(x=a\) 处
+只有第 \(n\) 项留下非零值，得到
+\[
+ f^{(n)}(a)=n!c_n.
+\]
+系数公式随即给出唯一性。
+\end{proof}
+
+定义只要求在每个点附近存在某个幂级数。另一方面，一个幂级数在其整个
+开收敛区间内自动解析，而不只是能在原中心展开。
+
+\begin{theorem}[幂级数的重新定心]
+\label{thm:power-series-recentering}
+设
+\[
+ f(x)=\sum_{n=0}^\infty a_n(x-x_0)^n
+\]
+的收敛半径为 \(R>0\)。若 \(|c-x_0|<R\)，则至少在
+\[
+ |x-c|<R-|c-x_0|
+\]
+内，
+\[
+ f(x)=\sum_{k=0}^\infty\frac{f^{(k)}(c)}{k!}(x-c)^k.
+\]
+\end{theorem}
+
+\begin{proof}
+写 \(x=c+h\)，并取 \(|h|<R-|c-x_0|\)。二项式展开给出
+\[
+ a_n(c-x_0+h)^n
+ =a_n\sum_{k=0}^n\binom nk(c-x_0)^{n-k}h^k.
+\]
+相应二重级数的绝对值总和为
+\[
+ \sum_{n=0}^\infty |a_n|
+ \bigl(|c-x_0|+|h|\bigr)^n<\infty.
+\]
+因此可以交换求和次序，得到
+\[
+ f(c+h)
+ =\sum_{k=0}^\infty
+ \left(
+  \sum_{n=k}^\infty a_n\binom nk(c-x_0)^{n-k}
+ \right)h^k.
+\]
+括号内由逐项求导公式等于 \(f^{(k)}(c)/k!\)，结论成立。
+\end{proof}
+
+重新定心的半径下界未必是精确半径。原级数在某个中心遇到的收敛端点，
+换中心后可能因函数可以继续解析延拓而不再是最近的障碍。实变量课程暂不
+系统讨论解析延拓，但重新定心已经表明解析性是局部性质。
+
+\section{余项一致趋零的条件}
+
+设 \(f\in C^\infty(I)\)。在 \(a\in I\) 处的形式 Taylor 级数为
+\[
+ \sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n.
+\]
+它是否收敛、收敛到什么函数，都需要证明。记 \(N\) 阶 Taylor 多项式为
+\[
+ T_{N,a}f(x)=\sum_{n=0}^N\frac{f^{(n)}(a)}{n!}(x-a)^n,
+\]
+余项为
+\[
+ R_{N,a}f(x)=f(x)-T_{N,a}f(x).
+\]
+
+\begin{theorem}[解析性与 Taylor 余项]
+\label{thm:analytic-taylor-remainder}
+函数 \(f\in C^\infty(I)\) 在 \(a\) 处解析，当且仅当存在 \(r>0\)，
+\((a-r,a+r)\subseteq I\)，使对每个 \(0<\rho<r\)，
+\[
+ \sup_{|x-a|\le\rho}|R_{N,a}f(x)|\to0.
+\]
+换言之，Taylor 多项式在某邻域的每个内闭区间上一致趋于 \(f\)。
+\end{theorem}
+
+\begin{proof}
+若 \(f\) 在 \(a\) 处解析，系数公式说明表示它的幂级数就是 Taylor
+级数。幂级数在每个内闭区间上一致收敛，故余项一致趋零。
+
+反之，所给条件特别蕴含对每个 \(|x-a|<r\)，
+\(R_{N,a}f(x)\to0\)。于是
+\[
+ f(x)=\lim_{N\to\infty}T_{N,a}f(x)
+ =\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n,
+\]
+所以 \(f\) 在 \(a\) 处解析。
+\end{proof}
+
+局部一致趋零是与幂级数理论最协调的表述；若只为判定等式，逐点余项趋零
+已经充分。实际应用中常由高阶导数的统一估计控制 Lagrange 余项。
+
+\begin{theorem}[导数增长的充分条件]
+\label{thm:analytic-derivative-growth}
+设 \(f\in C^\infty(a-r,a+r)\)。若存在常数 \(M,A>0\)，使对所有
+\(n\in\N\) 和 \(|x-a|<r\)，
+\[
+ |f^{(n)}(x)|\le M A^n n!,
+\]
+则 \(f\) 在
+\[
+ |x-a|<\min\{r,1/A\}
+\]
+内等于其 Taylor 级数。
+\end{theorem}
+
+\begin{proof}
+固定 \(\rho<\min\{r,1/A\}\)。Lagrange 余项给出：对
+\(|x-a|\le\rho\)，存在介于 \(a,x\) 之间的 \(\xi\)，使
+\[
+ |R_{N,a}f(x)|
+ =\frac{|f^{(N+1)}(\xi)|}{(N+1)!}|x-a|^{N+1}
+ \le M(A\rho)^{N+1}.
+\]
+右端与 \(x\) 无关且趋于零，故上一条定理适用。
+\end{proof}
+
+这个条件是充分而非必要；常数也只需在较小邻域中成立。它说明解析性要求
+全部高阶导数的增长能被同一个几何尺度控制。单独知道每阶导数连续或在闭
+区间上有界，并没有给出随阶数 \(n\) 的统一增长率。
+
+\section{解析函数的代数运算与复合}
+
+\begin{theorem}[解析运算]
+\label{thm:analytic-operations}
+在开区间 \(I\) 上：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 解析函数的线性组合和乘积仍解析；
+ \item 解析函数的各阶导数和原函数仍解析；
+ \item 若 \(f\) 解析且 \(f(a)\ne0\)，则 \(1/f\) 在 \(a\) 的某邻域解析；
+ \item 若 \(f\) 在 \(a\) 处解析，\(g\) 在 \(f(a)\) 处解析，则
+ \(g\circ f\) 在 \(a\) 处解析。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+只需在任一点附近证明。线性组合逐项进行。若
+\[
+ f(x)=\sum_{n\ge0}a_nh^n,\qquad
+ g(x)=\sum_{n\ge0}b_nh^n,\qquad h=x-a,
+\]
+则在共同收敛半径内两级数绝对收敛，Cauchy 乘积给出
+\[
+ f(x)g(x)=\sum_{n=0}^\infty
+ \left(\sum_{k=0}^na_kb_{n-k}\right)h^n.
+\]
+导数和原函数的结论来自幂级数的逐项微积分。
+
+证明复合。写
+\[
+ f(a+h)=f(a)+u(h),\qquad u(h)=\sum_{n\ge1}a_nh^n,
+\]
+并设
+\[
+ g(f(a)+y)=\sum_{m\ge0}b_my^m
+\]
+在 \(|y|<\rho\) 内收敛。取充分小的 \(r>0\)，使
+\[
+ A(r)=\sum_{n\ge1}|a_n|r^n<\rho.
+\]
+当 \(|h|\le r\) 时，把每个 \(u(h)^m\) 展开为幂级数。所有展开项的
+绝对值总和不超过
+\[
+ \sum_{m\ge0}|b_m|A(r)^m<\infty.
+\]
+因此可以按 \(h\) 的幂次重新分组，得到一个在 \(|h|\le r\) 绝对收敛的
+幂级数，并且其和为 \(g(f(a+h))\)。故复合函数在 \(a\) 处解析。
+
+最后，若 \(f(a)\ne0\)，函数 \(g(y)=1/y\) 在 \(y=f(a)\) 附近有几何
+展开
+\[
+ \frac1y=\frac1{f(a)}
+ \sum_{m=0}^\infty
+ \left(-\frac{y-f(a)}{f(a)}\right)^m
+\]
+（取 \(|y-f(a)|<|f(a)|\)）。由复合结论，\(1/f\) 在 \(a\) 附近
+解析。
+\end{proof}
+
+由线性组合、乘积与倒数，若 \(g\) 在某邻域不为零，则 \(f/g\) 解析。
+复合定理的证明中使用绝对收敛来许可多重求和重排；仅有条件收敛时，形式
+代入和重新分组都可能改变结果。
+
+\begin{example}
+指数函数由全实轴收敛的幂级数
+\[
+ e^x=\sum_{n=0}^\infty\frac{x^n}{n!}
+\]
+给出。几何级数和逐项积分给出
+\[
+ -\log(1-x)=\sum_{n=1}^\infty\frac{x^n}{n}
+ \qquad(|x|<1).
+\]
+解析运算随后产生有理函数在非极点处的局部展开，以及
+\(e^{h(x)}\)、\(\log(1+h(x))\) 在相应条件下的局部幂级数。
+\end{example}
+
+\section{零点与恒等原理}
+
+\begin{theorem}[零点的阶]
+\label{thm:analytic-zero-order}
+设 \(f\) 在 \(a\) 处解析。若 \(f\) 不在 \(a\) 的任一邻域恒为零，则
+存在唯一的 \(m\in\N\)，使
+\[
+ f(a)=f'(a)=\cdots=f^{(m-1)}(a)=0,\qquad f^{(m)}(a)\ne0,
+\]
+并可写成
+\[
+ f(x)=(x-a)^m g(x),
+\]
+其中 \(g\) 在 \(a\) 附近解析且 \(g(a)\ne0\)。整数 \(m\) 称为零点
+\(a\) 的阶。
+\end{theorem}
+
+\begin{proof}
+把 \(f\) 展开为
+\[
+ f(x)=\sum_{n=0}^\infty c_n(x-a)^n.
+\]
+若所有 \(c_n\) 都为零，则 \(f\) 在该邻域恒为零，与假设矛盾。因此存在
+最小指标 \(m\) 使 \(c_m\ne0\)。提出 \((x-a)^m\)，得
+\[
+ g(x)=\sum_{k=0}^\infty c_{m+k}(x-a)^k,
+\]
+它具有同样的正收敛半径，且 \(g(a)=c_m\ne0\)。导数条件和唯一性由
+系数公式得到。
+\end{proof}
+
+连续性保证 \(g\) 在 \(a\) 的某邻域不为零，所以非恒零解析函数的每个
+零点都是孤立的。这一局部结论可以沿连通区间传播。
+
+\begin{theorem}[实解析函数的恒等原理]
+\label{thm:real-analytic-identity}
+设 \(I\) 为开区间，\(f:I\to\R\) 解析。若 \(f\) 的零点集在 \(I\)
+内有聚点，则
+\[
+ f\equiv0\quad\text{于 }I.
+\]
+等价地，两个解析函数若在一个有内聚点的集合上相等，便在整个 \(I\)
+上相等。
+\end{theorem}
+
+\begin{proof}
+设零点 \(x_n\to a\in I\)，且可取 \(x_n\ne a\)。若 \(f\) 不在
+\(a\) 的任一邻域恒为零，则零点阶定理说明 \(a\) 是孤立零点，与
+\(x_n\to a\) 矛盾。因此 \(f\) 在 \(a\) 的某邻域恒为零。
+
+令
+\[
+ A=\{x\in I:f\text{ 在 }x\text{ 的某邻域恒为零}\}.
+\]
+集合 \(A\) 非空且在 \(I\) 中开。若 \(x_k\in A\)、\(x_k\to x\in I\)，
+则对每个 \(m\)，\(f^{(m)}(x_k)=0\)。导数连续给出
+\(f^{(m)}(x)=0\)。\(f\) 在 \(x\) 处解析，故其 Taylor 系数全为零，
+从而在 \(x\) 的某邻域恒为零，即 \(x\in A\)。所以 \(A\) 在 \(I\)
+中也闭。区间 \(I\) 连通，非空开闭子集只能是 \(I\)，故 \(f\equiv0\)。
+
+对两个函数应用于差 \(f-g\)，便得等价表述。
+\end{proof}
+
+聚点必须位于定义区间内部。例如 \(\sin(1/x)\) 在 \(x>0\) 上光滑并有
+无穷多个零点趋于边界 \(0\)，这不违反恒等原理；它在 \(0\) 附近也没有
+解析延拓。
+
+\section{光滑而非解析的函数}
+
+定义
+\[
+ \phi(x)=
+ \begin{cases}
+ e^{-1/x^2},&x\ne0,\\
+ 0,&x=0.
+ \end{cases}
+\]
+对 \(x\ne0\) 反复求导可归纳得到
+\[
+ \phi^{(n)}(x)=P_n(1/x)e^{-1/x^2},
+\]
+其中 \(P_n\) 是多项式。另一方面，对任意 \(m>0\)，
+\[
+ \lim_{x\to0}|x|^{-m}e^{-1/x^2}=0;
+\]
+令 \(t=1/x^2\) 后，这归结为 \(t^{m/2}e^{-t}\to0\)。因此上述每阶
+导数在 \(x\to0\) 时都趋于零。
+
+从差商开始作归纳：若 \(\phi^{(n)}(0)=0\)，则
+\[
+ \phi^{(n+1)}(0)
+ =\lim_{h\to0}\frac{\phi^{(n)}(h)}h=0,
+\]
+因为分子仍是一个多项式 \(P_n(1/h)\) 乘以指数衰减项。由此
+\[
+ \phi\in C^\infty(\R),\qquad
+ \phi^{(n)}(0)=0\quad(n\in\N).
+\]
+它在零点的 Taylor 级数恒为零，而 \(\phi(x)>0\) 对 \(x\ne0\) 成立，
+所以 \(\phi\) 在 \(0\) 处不解析。
+
+由同一平坦函数可以构造紧支集光滑函数：
+\[
+ \psi(x)=
+ \begin{cases}
+ \exp\!\left(-\dfrac1{1-x^2}\right),&|x|<1,\\
+ 0,&|x|\ge1.
+ \end{cases}
+\]
+它在 \(\pm1\) 处的各阶导数都为零，因而属于 \(C^\infty(\R)\)，但不
+可能在这些点解析。事实上，若一个实解析函数在连通区间上具有紧支集，它
+在支集外的开区间为零，恒等原理会迫使它处处为零。光滑函数可以局部截断，
+解析函数一般不能；这一差别在单位分解、Fourier 分析和偏微分方程中十分
+重要。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与 Taylor 表示}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{analytic-coefficients-derivatives}
+若 \(f(x)=\sum c_n(x-a)^n\) 在 \(a\) 附近成立，直接计算
+\(c_0,c_1,c_2,c_3\) 与下列四个值的关系：
+\[
+ f(a),\qquad f'(a),\qquad f''(a),\qquad f'''(a).
+\]
+ \exerciseitem{analytic-recentering-geometric}
+ 把 \(1/(1-x)\) 在任意 \(c<1\) 处重新展开，并求新级数的收敛半径。
+ \exerciseitem{analytic-recentering-absolute-regrouping}
+ 在重新定心定理的证明中，逐项说明绝对收敛如何保证二项展开后的二重级数
+ 可以换序。
+ \exerciseitem{analytic-taylor-remainder-equivalence}
+ 证明若 Taylor 余项在某邻域逐点趋零，则 \(f\) 已经在该点解析；再说明
+ 为什么解析性自动把这种逐点收敛加强为内闭一致收敛。
+ \exerciseitem{analytic-derivative-bound-exponential}
+ 对 \(f(x)=e^x\) 在任意有界区间验证导数增长定理的条件，并由此重新证明
+ 它在每一点等于 Taylor 级数。
+ \exerciseitem{smooth-derivatives-bounded-not-enough}
+ 解释“每个 \(f^{(n)}\) 分别在闭区间上有界”为什么不能代替正文中统一的
+ \(MA^nn!\) 估计，并用平坦函数说明结论可能失败。
+\end{enumerate}
+
+\subsection*{B组　解析运算}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{analytic-product-coefficients}
+ 设 \(f=\sum a_nh^n\)、\(g=\sum b_nh^n\)。证明乘积系数为
+ \[
+  c_n=\sum_{k=0}^na_kb_{n-k},
+ \]
+ 并说明绝对收敛在哪一步使用。
+ \exerciseitem{analytic-reciprocal-local}
+ 不引用复合定理，直接从
+ \(f(x)=f(a)(1+u(x))\)、\(u(a)=0\) 和几何级数证明 \(1/f\) 在
+ \(a\) 附近解析。
+ \exerciseitem{analytic-quotient}
+ 若 \(f,g\) 在 \(I\) 上解析且 \(g\) 处处非零，证明 \(f/g\) 在
+ \(I\) 上解析。
+ \exerciseitem{analytic-composition-majorant}
+ 把正文复合定理的绝对值控制写成三级求和，并证明所得幂级数在充分小的
+ \(|x-a|\) 上绝对收敛。
+ \exerciseitem{analytic-log-series}
+ 由几何级数证明
+ \[
+  \log(1+x)=\sum_{n=1}^\infty\frac{(-1)^{n-1}x^n}{n}
+  \qquad(|x|<1).
+ \]
+ \exerciseitem{analytic-rational-expansion}
+ 求 \(1/(1+x^2)\) 在 \(0\) 处的幂级数、收敛半径，并说明其在整个
+ 实轴光滑却不能由这个单一幂级数表示整个实轴。
+\end{enumerate}
+
+\subsection*{C组　零点与非解析函数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{analytic-zero-order-product}
+ 若 \(f,g\) 在 \(a\) 处分别有 \(m,n\) 阶零点，证明 \(fg\) 在
+ \(a\) 处有 \(m+n\) 阶零点。
+ \exerciseitem{analytic-zero-order-derivative}
+ 若 \(f\) 在 \(a\) 处有 \(m\ge1\) 阶零点，证明 \(f'\) 在 \(a\)
+ 处有 \(m-1\) 阶零点。
+ \exerciseitem{analytic-zeros-compact-finite}
+ 设 \(f\) 在包含闭区间 \([a,b]\) 的开区间上解析且不恒为零。证明
+ \(f\) 在 \([a,b]\) 中只有有限多个零点。
+ \exerciseitem{analytic-identity-data-set}
+ 若解析函数 \(f,g\) 在数列 \(x_n\to a\in I\) 上相等，且
+ \(x_n\ne a\)，证明 \(f\equiv g\) 于 \(I\)。
+ \exerciseitem{flat-function-derivative-form}
+ 证明：对每个 \(n\)，存在多项式 \(P_n\) 使
+ \[
+  \phi^{(n)}(x)=P_n(1/x)e^{-1/x^2}\qquad(x\ne0),
+ \]
+ 并给出 \(P_{n+1}\) 关于 \(P_n\) 的递推。
+ \exerciseitem{smooth-bump-not-analytic}
+ 证明正文的 \(\psi\) 属于 \(C^\infty(\R)\)，并分别用 Taylor 系数和
+ 恒等原理说明它不在 \(x=\pm1\) 处解析。
+ \optionalexerciseitem{analytic-compact-support}
+ 证明连通开区间上的实解析函数若具有紧支集，则必为零函数。再说明
+ \(C^\infty\) 范畴中为什么存在非零紧支集函数。
+\end{enumerate}

@@ -1,0 +1,376 @@
+\chapter{反常积分}
+\label{chap:improper-integrals}
+
+Riemann 积分只在有限闭区间上处理有界函数。把区间端点移到无穷远，
+或允许函数在端点、内点附近无界，都超出了这个定义。反常积分不另造一种
+有限和，而是把每个截断后的 Riemann 积分组成一个极限问题。
+
+\section{无穷区间、无界函数和多奇点积分}
+
+\begin{definition}[无穷区间上的积分]
+设 \(f\) 在每个 \([a,R]\) 上 Riemann 可积。若有限极限
+\[
+ \lim_{R\to+\infty}\int_a^R f(x)\,dx
+\]
+存在，则称 \(\int_a^{+\infty}f\) \term{收敛}，并以该极限为其值；
+否则称为发散。
+\end{definition}
+
+对 \((-\infty,b]\) 作相反方向的截断。双无穷区间必须在某个有限点
+\(c\) 分成两段：
+\[
+ \int_{-\infty}^{+\infty}f
+ :=
+ \int_{-\infty}^c f+\int_c^{+\infty}f,
+\]
+且两段都收敛时才称原积分收敛。只考察对称极限
+\(\lim_{R\to\infty}\int_{-R}^R f\) 得到的是 Cauchy 主值，不能代替
+上述定义。例如 \(f(x)=x\) 的对称主值为零，但两侧反常积分都发散。
+
+\begin{definition}[无界点附近的积分]
+设 \(f\) 在每个 \([a,b-\eta]\) 上可积。若
+\[
+ \lim_{\eta\downarrow0}\int_a^{b-\eta}f(x)\,dx
+\]
+存在且有限，就定义 \(\int_a^b f\) 为该极限。左端奇点类似。若
+\(c\in(a,b)\) 是奇点，则必须分别要求
+\[
+ \int_a^c f,\qquad \int_c^b f
+\]
+收敛；不能让两侧发散量互相抵消。
+\end{definition}
+
+若有有限多个奇点，就在每个奇点处分段并逐段要求收敛。这个规则使积分值
+与截断速度无关。
+
+\begin{example}[\(p\)-型积分]
+\label{ex:p-improper-integrals}
+直接计算截断积分可得
+\[
+ \lim_{R\to\infty}\int_1^R \frac{dx}{x^p}
+ =
+ \begin{cases}
+ \dfrac{1}{p-1},&p>1,\\
+ +\infty,&p\le1,
+ \end{cases}
+\qquad
+ \lim_{\eta\downarrow0}\int_\eta^1 \frac{dx}{x^p}
+ =
+ \begin{cases}
+ \dfrac{1}{1-p},&p<1,\\
+ +\infty,&p\ge1.
+ \end{cases}
+\]
+无穷远与零点的临界指数方向相反。
+\end{example}
+
+\section{Cauchy 准则}
+
+\begin{theorem}[无穷区间的 Cauchy 准则]
+\label{thm:improper-cauchy-infinity}
+\(\int_a^\infty f\) 收敛，当且仅当对任意 \(\varepsilon>0\)，存在
+\(A\ge a\)，使任意 \(v>u\ge A\) 都有
+\[
+ \abs{\int_u^v f(x)\,dx}<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+令 \(F(R)=\int_a^R f\)。题中条件正是函数 \(F(R)\) 在
+\(R\to\infty\) 时的 Cauchy 条件，因为
+\[
+ F(v)-F(u)=\int_u^v f.
+\]
+由函数极限的 Cauchy 准则与实数完备性即得。
+\end{proof}
+
+\begin{theorem}[有限奇点的 Cauchy 准则]
+若 \(b\) 是右端奇点，则 \(\int_a^b f\) 收敛，当且仅当对任意
+\(\varepsilon>0\)，存在 \(\delta>0\)，使
+\[
+ b-\delta<u<v<b
+ \quad\Longrightarrow\quad
+ \abs{\int_u^v f}<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+令
+\[
+ G(\eta)=\int_a^{b-\eta}f(x)\,dx,\qquad \eta>0.
+\]
+当 \(\eta,\theta\downarrow0\) 时，\(G(\eta)-G(\theta)\) 正好是靠近
+\(b\) 的一个短区间上的积分，差一个由端点次序决定的符号。因此题设条件
+等价于 \(G(\eta)\) 在 \(\eta\downarrow0\) 时满足函数极限的 Cauchy
+准则。实数完备性给出结论。
+\end{proof}
+
+\begin{proposition}[截断点的无关性]
+\label{prop:improper-splitting-point}
+若 \(f\) 在每个有限闭区间上可积，\(c,d\) 是两个有限截断点，则
+\[
+ \int_c^\infty f\text{ 收敛}
+ \quad\Longleftrightarrow\quad
+ \int_d^\infty f\text{ 收敛}.
+\]
+收敛时两者相差有限积分 \(\int_c^d f\)。双无穷区间定义中的分点也不影响
+收敛性和积分值。
+\end{proposition}
+
+\begin{proof}
+不妨设 \(c<d\)。对每个 \(R>d\)，区间可加性给出
+\[
+ \int_c^R f=\int_c^d f+\int_d^R f.
+\]
+第一项是与 \(R\) 无关的实数，所以两端截断积分同时有有限极限。双无穷
+区间的情形分别在左右两侧应用同一论证。
+\end{proof}
+
+Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，反常积分只在
+奇点或无穷端附近增加了新的收敛问题；远离这些位置的有限一段不会改变
+敛散性。
+
+\section{绝对收敛、条件收敛与比较判别}
+
+\begin{definition}
+若 \(\int_a^\infty\abs f\) 收敛，则称
+\(\int_a^\infty f\) \term{绝对收敛}。积分收敛但不绝对收敛时称为
+\term{条件收敛}。
+\end{definition}
+
+\begin{theorem}[绝对收敛蕴含收敛]
+\label{thm:improper-absolute-convergence}
+若 \(\int_a^\infty\abs f<\infty\)，则
+\(\int_a^\infty f\) 收敛，并且
+\[
+ \abs{\int_a^\infty f}
+ \le\int_a^\infty\abs f.
+\]
+\end{theorem}
+
+\begin{proof}
+对任意 \(v>u\)，
+\[
+ \abs{\int_u^v f}\le\int_u^v\abs f.
+\]
+右端由 \(\int\abs f\) 的 Cauchy 准则在尾部任意小，因此
+\(\int f\) 也满足 Cauchy 准则。对有限截断使用积分不等式，再令端点
+趋于无穷即得最后一式。
+\end{proof}
+
+\begin{theorem}[比较判别]
+\label{thm:improper-comparison}
+设尾部有 \(0\le f\le g\)。若 \(\int g\) 收敛，则 \(\int f\)
+收敛；若 \(\int f\) 发散到 \(+\infty\)，则 \(\int g\) 也发散到
+\(+\infty\)。
+\end{theorem}
+
+\begin{proof}
+取 \(A\) 使 \(0\le f(x)\le g(x)\) 对 \(x\ge A\) 成立。对 \(R\ge A\)，
+\[
+ 0\le\int_A^R f\le\int_A^R g.
+\]
+正函数的两个截断积分都随 \(R\) 单调不减。若 \(\int_A^\infty g\)
+收敛，则左端部分积分有上界，故由单调有界收敛而有有限极限。反之，若
+\(\int_A^R f\to+\infty\)，同一不等式迫使 \(\int_A^R g\to+\infty\)。
+最后用命题 \ref{prop:improper-splitting-point} 把截断点从 \(A\) 换回
+原来的端点。
+\end{proof}
+
+\begin{corollary}[极限比较]
+若 \(f,g>0\) 于尾部，且
+\[
+ \lim_{x\to\infty}\frac{f(x)}{g(x)}=L\in(0,\infty),
+\]
+则 \(\int f\) 与 \(\int g\) 同敛散。
+\end{corollary}
+
+\begin{proof}
+尾部有 \(L/2\le f/g\le 3L/2\)，双向比较即可。
+\end{proof}
+
+若极限是零，只能由 \(\int g\) 收敛推出 \(\int f\) 收敛；若极限为
+\(+\infty\)，只能得到相反方向。临界情形必须另作判断。
+
+比较判别只利用绝对大小，因而特别适合非负函数和绝对值积分。对于带符号
+函数，直接比较 \(f\le g\) 通常没有意义：两个函数的正负抵消可能完全
+不同。此时或者先研究 \(\abs f\)，或者使用下一节的振荡判别。
+
+\section{Dirichlet 与 Abel 判别}
+
+正项比较不能解释振荡产生的抵消。下述证明把振荡部分的原函数和缓慢变化
+部分分开。
+
+\begin{theorem}[反常积分的 Dirichlet 判别]
+\label{thm:improper-dirichlet}
+设 \(f\) 在每个有限区间上连续，并且
+\[
+ F(x)=\int_a^x f(t)\,dt
+\]
+在 \([a,\infty)\) 上有界。设 \(g\in C^1([a,\infty))\) 单调且
+\(g(x)\to0\)。则 \(\int_a^\infty f(x)g(x)\,dx\) 收敛。
+\end{theorem}
+
+\begin{proof}
+不妨设 \(g\) 单调不增；另一情形对 \(-g\) 处理。由 \(g\to0\)，可在
+有限起点后设 \(g\ge0\)。对 \(v>u\)，分部积分给出
+\[
+ \int_u^v fg
+ =F(v)g(v)-F(u)g(u)-\int_u^v F(x)g'(x)\,dx.
+\]
+若 \(\abs F\le M\)，则因 \(g'\le0\)，
+\[
+ \abs{\int_u^v fg}
+ \le M g(v)+M g(u)+M\int_u^v(-g')
+ =2M g(u).
+\]
+当 \(u\to\infty\) 时右端趋于零，Cauchy 准则给出收敛。
+\end{proof}
+
+证明实际上给出了尾积分估计
+\[
+ \abs{\int_u^\infty f(x)g(x)\,dx}\le 2M\abs{g(u)}
+\]
+（在 \(g\) 最终单调并固定符号的尾部成立）。这条估计比“积分收敛”
+提供了更多信息：若知道 \(g\) 的衰减速度，就同时得到余项的数量级。
+
+\begin{example}
+\[
+ \int_1^\infty\frac{\sin x}{x}\,dx
+\]
+由 Dirichlet 判别收敛，因为 \(\int_1^R\sin x\,dx\) 有界而 \(1/x\)
+单调趋零。它不绝对收敛；可在每个
+\([k\pi+\pi/6,k\pi+5\pi/6]\) 上用
+\(\abs{\sin x}\ge1/2\) 与调和型比较证明。
+\end{example}
+
+\begin{theorem}[反常积分的 Abel 判别]
+\label{thm:improper-abel}
+若 \(\int_a^\infty f\) 收敛，\(g\in C^1([a,\infty))\) 单调且有界，
+则 \(\int_a^\infty fg\) 收敛。
+\end{theorem}
+
+\begin{proof}
+单调有界函数有有限极限 \(L\)。写
+\[
+ fg=L f+f(g-L).
+\]
+第一项可积；函数 \(g-L\) 单调趋零，而 \(f\) 的不定积分有界，所以第二项
+由 Dirichlet 判别收敛。
+\end{proof}
+
+\section{反常积分的变量代换与分部积分}
+
+有限区间公式可以对每个截断积分使用，但必须再检查端点极限。
+
+\begin{theorem}[反常积分中的变量代换]
+\label{thm:improper-substitution}
+设 \(\phi:[\alpha,\beta)\to[a,\infty)\) 连续，在
+\((\alpha,\beta)\) 上属于 \(C^1\)，并且严格递增、满射，满足
+\(\phi(\alpha)=a\) 和 \(\phi(t)\to\infty\)（\(t\to\beta-\)）。
+若 \(f\) 在每个有限子区间连续，则
+\[
+ \int_a^\infty f(x)\,dx
+ \quad\text{与}\quad
+ \int_\alpha^\beta f(\phi(t))\phi'(t)\,dt
+\]
+同敛散，并在收敛时取相同值。
+\end{theorem}
+
+\begin{proof}
+对任意 \(s<\beta\)，有限区间代换公式给出
+\[
+ \int_\alpha^s f(\phi(t))\phi'(t)\,dt
+ =\int_a^{\phi(s)}f(x)\,dx.
+\]
+当 \(s\to\beta-\) 时，\(\phi(s)\to\infty\)，两侧极限同时存在且相等。
+\end{proof}
+
+变量代换并不能把一个发散积分自动变成收敛积分。定理中的“同敛散”来自
+截断积分的逐项恒等，而不是来自形式上的微分记号
+\(dx=\phi'(t)\,dt\)。若映射不是单调满射，或者新端点没有对应到原奇点，
+就必须把区间分段并重新核对每一段的极限。
+
+\begin{theorem}[反常分部积分]
+\label{thm:improper-integration-by-parts}
+设 \(u,v\in C^1([a,\infty))\)。若
+\[
+ \lim_{R\to\infty}u(R)v(R)
+\]
+存在且有限，并且 \(\int_a^\infty u'v\) 收敛，则
+\(\int_a^\infty uv'\) 收敛，且
+\[
+ \int_a^\infty uv'
+ =\lim_{R\to\infty}u(R)v(R)-u(a)v(a)
+  -\int_a^\infty u'v.
+\]
+交换两项角色的版本同样成立。
+\end{theorem}
+
+\begin{proof}
+在 \([a,R]\) 上使用分部积分公式，再令 \(R\to\infty\)。题设恰好保证
+右端每一项都有有限极限。
+\end{proof}
+
+若边界项没有极限，不能只写形式上的“无穷端点代入”。同样，内部奇点的
+变量代换必须分别作用于奇点两侧，不能用一个对称截断掩盖两段发散。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义与基本判别}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{improper-p-integrals-complete} 完整计算两类 \(p\)-型积分的截断
+ 极限，包括 \(p=1\) 的对数情形。
+ \exerciseitem{improper-split-independence} 证明若
+ \(\int_{-\infty}^\infty f\) 按定义收敛，则分割点 \(c\) 的选择不影响积分值。
+ \exerciseitem{improper-principal-value-not-integral} 求
+ \(f(x)=x/(1+x^2)\) 在全实线上的对称主值，并证明通常反常积分发散。
+ \exerciseitem{improper-interior-singularity-split} 讨论
+ \(\int_{-1}^1x^{-1}\,dx\) 的两侧积分和 Cauchy 主值，说明两种概念不同。
+ \exerciseitem{improper-cauchy-tail-sequence} 证明无穷区间 Cauchy 准则等价于：
+ 对任意趋于 \(+\infty\) 的 \(u_n<v_n\)，都有
+ \(\int_{u_n}^{v_n}f\to0\)。
+\end{enumerate}
+
+\subsection*{B组　比较与振荡}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{improper-log-power-infinity} 判定
+ \[
+  \int_e^\infty\frac{dx}{x^p(\log x)^q}
+ \]
+ 的敛散性，完整处理 \(p=1\) 的临界情形。
+ \exerciseitem{improper-log-power-zero} 判定
+ \[
+  \int_0^{1/2}\frac{dx}{x^p\abs{\log x}^{\,q}}
+ \]
+ 的敛散性。
+ \exerciseitem{improper-sine-over-power} 判定
+ \(\int_1^\infty \sin x/x^\alpha\,dx\) 的收敛、绝对收敛和发散范围。
+ \exerciseitem{improper-dirichlet-quantitative-tail} 在 Dirichlet 判别的条件下
+ 证明尾积分估计
+ \[
+  \abs{\int_u^\infty fg}\le 2M\abs{g(u)}
+ \]
+ （在单调趋零的固定符号尾部）。
+ \exerciseitem{improper-abel-from-dirichlet} 不直接引用 Abel 判别，按
+ \(g=L+(g-L)\) 的分解逐项验证全部条件。
+ \exerciseitem{improper-absolute-not-necessary} 证明
+ \(\int_1^\infty\sin x/x\) 条件收敛。
+\end{enumerate}
+
+\subsection*{C组　变换与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{improper-substitution-inversion} 用 \(x=1/t\) 把零点附近的
+ 反常积分化为无穷远积分，并重新得到 \(p\)-型判别。
+ \exerciseitem{improper-gaussian-convergence} 不计算具体值，只用比较判别证明
+ \(\int_0^\infty e^{-x^2}\,dx\) 收敛。
+ \exerciseitem{improper-integration-by-parts-boundary} 构造 \(u,v\) 使
+ \(\int u'v\) 收敛但 \(u(R)v(R)\) 无极限，从而说明反常分部积分的边界项
+ 条件不能删去。
+ \exerciseitem{improper-conditional-substitution-warning} 证明
+ \(\int_1^\infty\sin x/x\) 在单调 \(C^1\) 代换下保持其值；说明为什么
+ 任意重排有限区间的贡献不属于变量代换定理。
+ \optionalexerciseitem{improper-fresnel-dirichlet} 用代换 \(t=x^2\) 和
+ Dirichlet 判别证明 \(\int_0^\infty\sin(x^2)\,dx\) 收敛但不绝对收敛。
+\end{enumerate}

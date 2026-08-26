@@ -1,0 +1,203 @@
+\chapter{二重级数与无穷乘积}
+\label{chap:double-series-infinite-products-solutions}
+
+\begin{solution}{double-series-counterexample-verify}
+固定 \(m\)，第 \(m\) 行只有 \(a_{m,m}=1\) 与
+\(a_{m,m+1}=-1\)，行和为零。第一列只有 \(a_{1,1}=1\)；第
+\(n\ge2\) 列含 \(a_{n,n}=1\) 与 \(a_{n-1,n}=-1\)，列和为零。
+所以两种迭代和分别为 \(0,1\)。
+
+在 \(M\times M\) 方阵中，主对角线有 \(M\) 个 \(1\)，上邻对角线有
+\(M-1\) 个 \(-1\)，故 \(S_{M,M}=1\)。在 \(M\times(M+1)\)
+矩形中每一行的两个非零项都出现，故 \(S_{M,M+1}=0\)。
+\end{solution}
+
+\begin{solution}{double-series-diagonal-not-enough}
+沿用正文数组，但把 \(a_{1,1}\) 从 \(1\) 改为 \(0\)。这等于从每个包含
+\((1,1)\) 的矩形部分和中减去 \(1\)。因此
+\[
+ S_{N,N}=0,\qquad S_{N,N+1}=-1.
+\]
+方阵部分和趋于零，但两种矩形路径给出不同极限，Pringsheim 极限不存在。
+\end{solution}
+
+\begin{solution}{double-series-nonnegative-supremum}
+设
+\[
+ T=\sup_{M,N}\sum_{m\le M,n\le N}a_{mn}.
+\]
+固定 \(M\)，随 \(N\) 增大，有限行和单调趋于
+\(\sum_{m=1}^M r_m\)，其中 \(r_m=\sum_na_{mn}\)。故
+\[
+ \sum_{m=1}^M r_m=\sup_NS_{MN}\le T.
+\]
+再对 \(M\) 取上确界得 \(\sum_mr_m\le T\)。反过来每个
+\(S_{MN}\le\sum_mr_m\)，故 \(T\le\sum_mr_m\)。两者相等。
+交换指标得到列版本。
+\end{solution}
+
+\begin{solution}{double-series-absolute-enumeration}
+设全部绝对值总和为 \(A<\infty\)。给定 \(\varepsilon>0\)，取有限矩形
+\(R\) 使其外绝对值总和小于 \(\varepsilon\)。任意枚举最终包含 \(R\)
+内所有项。此后任一枚举部分和与总和的差只由尚未取到的 \(R\) 外项组成，
+其绝对值小于 \(\varepsilon\)。对绝对值级数同理，故重排绝对收敛且和
+不变。
+\end{solution}
+
+\begin{solution}{double-series-product-separable}
+有
+\[
+ \sum_{m,n}\abs{a_mb_n}
+ =\left(\sum_m\abs{a_m}\right)
+  \left(\sum_n\abs{b_n}\right)<\infty,
+\]
+其中等式先在有限矩形成立，再由非负二重级数定理取极限。因此可以换序，
+\[
+ \sum_m\sum_n a_mb_n
+ =\sum_m a_m\left(\sum_n b_n\right)
+ =\left(\sum_ma_m\right)\left(\sum_nb_n\right).
+\]
+\end{solution}
+
+\begin{solution}{cauchy-product-geometric}
+若 \(\abs r,\abs s<1\)，取 \(a_n=r^n,b_n=s^n\)。则
+\[
+ c_n=\sum_{k=0}^nr^ks^{n-k}
+ =\begin{cases}
+ \dfrac{s^{n+1}-r^{n+1}}{s-r},&r\ne s,\\[0.6em]
+ (n+1)r^n,&r=s.
+ \end{cases}
+\]
+两原级数绝对收敛，故 Cauchy 乘积总和为
+\[
+ \frac1{(1-r)(1-s)}.
+\]
+也可对上式直接求和核对。
+\end{solution}
+
+\begin{solution}{cauchy-product-partial-sum-identity}
+\[
+ \sum_{n=0}^Nc_n
+ =\sum_{n=0}^N\sum_{k=0}^na_kb_{n-k}.
+\]
+令 \(j=n-k\)，指标区域变成 \(k,j\ge0\)、\(k+j\le N\)，故
+\[
+ \sum_{k=0}^Na_k\sum_{j=0}^{N-k}b_j
+ =\sum_{k=0}^Na_kB_{N-k}.
+\]
+相对于完整矩形 \(0\le k,j\le N\)，缺失的是 \(k+j>N\) 的右上三角区。
+\end{solution}
+
+\begin{solution}{mertens-proof-tail}
+记 \(C_N=\sum_{n=0}^Nc_n\)，并设 \(\abs{B_N}\le M\)。
+给定 \(\varepsilon>0\)，取 \(K\) 使
+\[
+ \sum_{k>K}\abs{a_k}
+ <\frac{\varepsilon}{3(M+\abs B+1)}.
+\]
+再取 \(N\) 大到对 \(0\le k\le K\) 同时有
+\[
+ \abs{B_{N-k}-B}
+ <\frac{\varepsilon}{3\sum_{k=0}^K\abs{a_k}+1}.
+\]
+于是
+\[
+ \abs{C_N-AB}
+ \le\sum_{k=0}^K\abs{a_k}\abs{B_{N-k}-B}
+ +M\sum_{k>K}\abs{a_k}
+ +\abs B\sum_{k>K}\abs{a_k}
+ <\varepsilon.
+\]
+\end{solution}
+
+\begin{solution}{cauchy-product-conditional-divergence}
+对每个 \(0\le k\le n\)，有
+\[
+ (k+1)(n-k+1)\le(n+1)^2,
+\]
+所以每一项至少为 \(1/(n+1)\)。共有 \(n+1\) 项，故
+\[
+ \abs{c_n}
+ =\sum_{k=0}^n\frac1{\sqrt{(k+1)(n-k+1)}}\ge1.
+\]
+通项不趋零，乘积级数发散。
+\end{solution}
+
+\begin{solution}{cauchy-product-one-finite}
+若 \(a_n=0\) 对 \(n>K\)，则
+\[
+ C_N=\sum_{k=0}^Ka_kB_{N-k}
+\]
+对 \(N\ge K\) 成立。每个 \(B_{N-k}\to B\)，有限和可逐项取极限，
+得到 \(C_N\to B\sum_{k=0}^Ka_k\)。
+\end{solution}
+
+\begin{solution}{infinite-product-telescoping}
+\[
+ 1-\frac1{n^2}=\frac{n-1}{n}\frac{n+1}{n}.
+\]
+因此
+\[
+ \prod_{n=2}^N\left(1-\frac1{n^2}\right)
+ =\left(\prod_{n=2}^N\frac{n-1}{n}\right)
+  \left(\prod_{n=2}^N\frac{n+1}{n}\right)
+ =\frac1N\cdot\frac{N+1}{2}
+ \longrightarrow\frac12.
+\]
+\end{solution}
+
+\begin{solution}{infinite-product-zero-harmonic}
+\[
+ \prod_{n=2}^N\left(1-\frac1n\right)
+ =\prod_{n=2}^N\frac{n-1}{n}
+ =\frac1N\to0.
+\]
+本书把“收敛的无穷乘积”限定为非零极限，以保证尾乘积趋于 \(1\) 并可用
+对数的有限极限刻画；所以此处称乘积趋于零。
+\end{solution}
+
+\begin{solution}{infinite-product-absolute-perturbation}
+绝对可和使 \(\log(1+u_n)\) 在充分大的尾部绝对可和；无零因子保证有限
+前缀乘积非零。因此原乘积收敛到非零数。若只改变前 \(N\) 个因子，并且
+改变后的因子仍非零，则新旧部分乘积从第 \(N\) 项后相差固定倍数
+\[
+ C=\prod_{n=1}^N\frac{\widetilde p_n}{p_n}.
+\]
+无零因子使 \(C\ne0\)，故新乘积收敛到原值的 \(C\) 倍。
+\end{solution}
+
+\begin{solution}{infinite-product-log-second-order}
+充分大时 \(\abs{u_n}\le1/2\)，从而 \(1+u_n>0\)，并且
+\[
+ \log(1+u_n)=u_n+O(u_n^2).
+\]
+题设使右侧两个级数分别收敛、绝对收敛，所以对数级数收敛。有限个早期
+因子均非零，应用对数判别得到非零收敛乘积。
+\end{solution}
+
+\begin{solution}{infinite-product-positive-divergence}
+先分两种情形。若 \(u_n\not\to0\)，则存在 \(\delta>0\) 和无穷多个指标
+使 \(u_n\ge\delta\)。每遇到这样一个指标，部分乘积至少再乘
+\(1+\delta\)，故部分乘积趋于 \(+\infty\)。
+
+若 \(u_n\to0\)，则充分大时 \(0\le u_n\le1\)，并有
+\[
+ \log(1+u_n)\ge\frac12u_n.
+\]
+若 \(\sum u_n=\infty\)，则对数部分和趋于 \(+\infty\)，所以部分乘积
+的对数趋于 \(+\infty\)，部分乘积本身趋于 \(+\infty\)。
+\end{solution}
+
+\begin{solution}{euler-product-finite-stage}
+对每个 \(p\in P\)，几何级数给出
+\[
+ \frac1{1-p^{-s}}=\sum_{k=0}^\infty p^{-ks}.
+\]
+有限个绝对收敛级数相乘，可以逐次使用 Cauchy 乘积。算术基本定理说明，
+每个只含 \(P\) 中素因子的正整数有唯一表示
+\(\prod_{p\in P}p^{k_p}\)，所以展开式中恰出现一次 \(n^{-s}\)。
+
+当 \(P\) 按包含关系扩大时，这些正项部分和单调增加；每个正整数的素因子
+有限，最终会被包含。因此极限为
+\(\sum_{n=1}^\infty n^{-s}\)，其在 \(s>1\) 时收敛。
+\end{solution}

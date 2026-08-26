@@ -1,0 +1,228 @@
+\chapter{逐点收敛与一致收敛}
+\label{chap:pointwise-uniform-convergence-solutions}
+
+\begin{solution}{pointwise-uniform-quantifier-negation}
+否定形式为
+\[
+ \exists\varepsilon_0>0\ \forall N\in\Npos\ \exists n\ge N\
+ \exists x\in E,\qquad |f_n(x)-f(x)|\ge\varepsilon_0.
+\]
+点 \(x\) 可以依赖于 \(N\) 和 \(n\)。若存在固定的 \(x_0\) 使
+\(f_n(x_0)\not\to f(x_0)\)，则逐点收敛已经失败；一致收敛当然也失败。
+而一致收敛可以在逐点收敛成立时失败，此时坏点必须随尾部移动，例如
+\(x^n\) 在 \([0,1)\) 上的情形。
+\end{solution}
+
+\begin{solution}{uniform-power-on-truncated-interval}
+在 \([0,r]\) 上
+\[
+ 0\le x^n\le r^n,
+\]
+且 \(r^n\to0\)，故由上确界判据一致收敛。对 \([0,1)\)，逐点极限仍为
+零，但
+\[
+ \sup_{0\le x<1}x^n=1.
+\]
+这个上确界不必在区间内取得。也可取
+\(x_n=2^{-1/n}\in[0,1)\)，使 \(x_n^n=1/2\)，直接验证一致收敛的
+否定形式。
+\end{solution}
+
+\begin{solution}{uniform-rational-family}
+固定 \(x\in[0,1]\) 时，\(f_n(0)=0\)，而 \(x>0\) 时
+\[
+ 0\le\frac{x}{1+nx}\le\frac1n\to0.
+\]
+事实上后一估计对所有 \(x\in[0,1]\) 同时成立，所以 \(f_n\) 一致趋于
+零。也可注意 \(x\mapsto x/(1+nx)\) 单调递增，因而
+\[
+ \norm{f_n}_\infty=f_n(1)=\frac1{n+1}\to0.
+\]
+\end{solution}
+
+\begin{solution}{uniform-reciprocal-tail}
+在 \([0,1]\) 上，\(f_n(0)=1\)，而每个 \(x>0\) 处 \(f_n(x)\to0\)。
+逐点极限在 \(0\) 处为 \(1\)、其余点为零，因此不连续，且
+\[
+ \sup_{0<x\le1}|f_n(x)-0|=1;
+\]
+收敛不一致。在 \([a,1]\) 上逐点极限为零，并且
+\[
+ 0\le f_n(x)\le\frac1{1+na}\to0,
+\]
+所以收敛一致。
+\end{solution}
+
+\begin{solution}{uniform-finite-union}
+设在 \(A_j\) 上对应 \(\varepsilon\) 的指标为 \(N_j\)。有限最大值
+\(N=\max_jN_j\) 同时控制所有 \(A_j\)，从而控制其并。
+
+可数并反例取 \(E=\R=\bigcup_{m\ge1}[-m,m]\) 和 \(f_n(x)=x/n\)。
+在 \([-m,m]\) 上
+\[
+ \sup|f_n|=\frac mn\to0,
+\]
+但在 \(\R\) 上 \(\sup_x|x|/n=+\infty\)，故不一致收敛。
+\end{solution}
+
+\begin{solution}{supremum-criterion-strict-inequality}
+若对所有 \(x\) 只有 \(h(x)<\varepsilon\)，上确界可能恰等于
+\(\varepsilon\)。先把逐点误差压到 \(\varepsilon/2\)，便可推出
+\(\sup h\le\varepsilon/2<\varepsilon\)。例如在 \(E=(0,1)\) 上取
+\(h(x)=x\)。每个 \(x\) 都满足 \(h(x)<1\)，但 \(\sup_Eh=1\)。
+\end{solution}
+
+\begin{solution}{uniform-cauchy-geometric-sums}
+记 \(S_n(x)=\sum_{k=0}^nx^k\)。若 \(m>n\)，则对 \(x\in[0,r]\)，
+\[
+ |S_m(x)-S_n(x)|
+ \le\sum_{k=n+1}^m r^k
+ \le\frac{r^{n+1}}{1-r}.
+\]
+右端与 \(x,m\) 无关且随 \(n\to\infty\) 趋于零，所以 \((S_n)\)
+满足一致 Cauchy 条件，因而一致收敛。
+\end{solution}
+
+\begin{solution}{uniform-cauchy-pointwise-insufficient}
+取 \(f_n(x)=x^n\) 于 \([0,1]\)。每个固定 \(x\) 处的数列收敛，因而是
+Cauchy 列。若函数列满足一致 Cauchy 条件，它将由正文准则一致收敛；其
+逐点极限只能是正文所写的间断函数。但连续函数的一致极限必连续，下一章
+将给出该定理。也可直接取 \(m=2n\) 和
+\(x_n=2^{-1/n}\)，得到
+\[
+ |f_n(x_n)-f_{2n}(x_n)|=\frac12-\frac14=\frac14,
+\]
+故一致 Cauchy 条件失败。
+\end{solution}
+
+\begin{solution}{sup-norm-basic-identities}
+由三角不等式，
+\[
+ \norm f_\infty
+ \le\norm{f-g}_\infty+\norm g_\infty,
+\]
+故 \(\norm f_\infty-\norm g_\infty\le\norm{f-g}_\infty\)。
+交换 \(f,g\) 得相反方向，合并即得所求。若
+\(\norm{f_n-f}_\infty\to0\)，则
+\[
+ |\norm{f_n}_\infty-\norm f_\infty|
+ \le\norm{f_n-f}_\infty\to0,
+\]
+所以范数函数连续。
+\end{solution}
+
+\begin{solution}{uniform-limit-boundedness}
+取 \(N\) 使 \(\norm{f-f_N}_\infty<1\)。于是
+\[
+ |f(x)|\le1+\norm{f_N}_\infty
+\]
+对所有 \(x\) 成立，故 \(f\) 有界。逐点情形可在 \([0,1]\) 上取
+\[
+ f_n(0)=0,\qquad
+ f_n(x)=\min\{n,1/x\}\quad(x>0).
+\]
+每个 \(f_n\) 有界，而逐点极限在 \(x>0\) 时等于 \(1/x\)，在
+\([0,1]\) 上无界。
+\end{solution}
+
+\begin{solution}{bounded-functions-closed-subspace}
+若 \(f_n\in V_A\) 且 \(f_n\rightrightarrows f\)，则对每个 \(x\in A\)
+有 \(f(x)=\lim_nf_n(x)=0\)，所以 \(f\in V_A\)。现设 \((f_n)\) 是
+\(V_A\) 中的范数 Cauchy 列。它也是 \(\mathcal B(E)\) 中的 Cauchy 列，
+由正文完备性定理收敛于某个 \(f\in\mathcal B(E)\)；刚证明的封闭性给出
+\(f\in V_A\)。故 \(V_A\) 完备。
+\end{solution}
+
+\begin{solution}{uniform-product-condition}
+一致收敛给出：充分大时
+\(\norm{g_n-g}_\infty<1\)，因而
+\(\norm{g_n}_\infty\le\norm g_\infty+1\)。于是
+\[
+ \norm{f_ng_n-fg}_\infty
+ \le\norm{(f_n-f)g_n}_\infty+\norm{f(g_n-g)}_\infty
+\]
+\[
+ \le(\norm g_\infty+1)\norm{f_n-f}_\infty
+   +\norm f_\infty\norm{g_n-g}_\infty\to0.
+\]
+证明需要一个对 \(n\) 统一的 \(\norm{g_n}_\infty\) 上界以及
+\(\norm f_\infty<\infty\)。若函数可能无界，上式右端可能没有有限意义，
+乘积结论也不能由这一步推出。
+\end{solution}
+
+\begin{solution}{moving-spike-integral}
+当 \(n\ge2\) 时，\(p_n\) 的支集为
+\([2/(3n),4/(3n)]\)，图形是高 \(1\)、底长 \(2/(3n)\) 的等腰三角形，
+故
+\[
+ \int_0^1p_n(x)\,dx=\frac1{3n}.
+\]
+峰高恒为 \(1\)，所以 \(\norm{p_n}_\infty=1\)；支集长度和面积都趋于
+零。这说明面积趋零不强迫上确界范数趋零。
+\end{solution}
+
+\begin{solution}{escaping-maximum-halfline}
+在 \([0,M]\) 上，
+\[
+ 0\le q_n(x)\le\frac{M}{n+M}\to0,
+\]
+所以一致收敛。对整个半轴，\(q_n\) 随 \(x\) 递增且趋近 \(1\)，故
+\[
+ \sup_{x\ge0}q_n(x)=1.
+\]
+逐点极限为零，但上确界误差不趋零，因此不一致收敛。
+\end{solution}
+
+\begin{solution}{pointwise-unbounded-limit}
+令
+\[
+ f_n(0)=0,\qquad
+ f_n(x)=\min\{n,1/x\}\quad(0<x\le1).
+\]
+每个 \(f_n\) 的值域包含在 \([0,n]\) 中，因而有界。固定 \(x>0\) 时，
+充分大的 \(n\) 满足 \(n>1/x\)，于是 \(f_n(x)=1/x\)。逐点极限为
+\(f(0)=0\)、\(f(x)=1/x\)（\(x>0\)），它在 \([0,1]\) 上无界。
+\end{solution}
+
+\begin{solution}{uniform-convergence-preserves-infimum}
+对任意有界函数 \(u,v\)，
+\[
+ \sup_Eu\le\sup_Ev+\norm{u-v}_\infty.
+\]
+交换 \(u,v\) 得
+\[
+ |\sup_Eu-\sup_Ev|\le\norm{u-v}_\infty.
+\]
+令 \(u=f_n,v=f\) 即得上确界的收敛。又因
+\(\inf_Eu=-\sup_E(-u)\)，下确界结论随即得到。
+\end{solution}
+
+\begin{solution}{uniform-convergence-varying-domain}
+一致收敛比较的是一列定义在同一集合上的函数；若定义域随 \(n\) 改变，
+量词“对所有 \(x\)”没有固定范围，候选极限也没有固定定义域。
+
+一种延拓是
+\[
+ F_n(x)=
+ \begin{cases}x/n,&0\le x\le n,\\0,&x>n.\end{cases}
+\]
+另一种是 \(G_n(x)=x/n\)（\(x\ge0\)）。两列都逐点趋于零。前者满足
+\(\norm{F_n}_\infty=1\)，后者对每个 \(n\) 都无界；二者都不在半轴上
+一致收敛，但其全局误差性质并不相同。原来在 \(E_n\) 上给出的公式不足以
+决定这些性质。
+\end{solution}
+
+\begin{solution}{uniform-convergence-weighted-norm}
+取
+\[
+ X_w=\{f:[0,\infty)\to\R:\sup_{x\ge0}e^{-x}|f(x)|<\infty\}.
+\]
+非负性、齐次性和三角不等式由绝对值逐点成立后取上确界得到；若范数为零，
+则每个 \(x\) 处 \(e^{-x}|f(x)|=0\)，故 \(f=0\)。因此这是范数。
+对 \(f_n(x)=x/n\)，函数 \(xe^{-x}\) 在 \(x=1\) 取得最大值 \(e^{-1}\)，
+所以
+\[
+ \norm{f_n}_w=\frac1{en}\to0.
+\]
+同一函数列在普通上确界范数下甚至不是有界函数列，却在加权范数下趋于零。
+\end{solution}

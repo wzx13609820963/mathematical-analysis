@@ -1,0 +1,225 @@
+\chapter{数项级数}
+\label{chap:numerical-series-solutions}
+
+\begin{solution}{series-cauchy-one-term}
+在 Cauchy 准则中取 \(m=n+1\)，得到
+\(\abs{a_{n+1}}<\varepsilon\) 对充分大的 \(n\) 成立，故
+\(a_n\to0\)。调和级数通项 \(1/n\to0\)，但按正文分组证明其部分和
+无上界，所以逆命题失败。
+\end{solution}
+
+\begin{solution}{series-geometric-complete}
+若 \(q\ne1\)，
+\[
+ s_n=\sum_{k=0}^nq^k=\frac{1-q^{n+1}}{1-q}.
+\]
+当 \(\abs q<1\) 时 \(q^{n+1}\to0\)，总和为 \(1/(1-q)\)。
+\(q=1\) 时部分和为 \(n+1\)；\(q=-1\) 时部分和振荡；\(\abs q>1\)
+时通项不趋零。故恰在 \(\abs q<1\) 时收敛。
+\end{solution}
+
+\begin{solution}{series-positive-bounded-partial}
+正项级数的部分和单调不减。它收敛则当然有界；若有上界，单调有界收敛
+定理给出有限极限，故级数收敛。
+\end{solution}
+
+\begin{solution}{series-finite-change}
+若只改动前 \(N\) 项，则从第 \(N\) 个部分和以后，新旧部分和相差常数
+\[
+ C=\sum_{k=1}^N(\widetilde a_k-a_k).
+\]
+一个部分和数列收敛当且仅当另一个收敛；收敛时新和等于旧和加 \(C\)。
+\end{solution}
+
+\begin{solution}{series-limit-comparison-zero-infinity}
+若 \(a_n/b_n\to0\)，则尾部 \(a_n\le b_n\)，所以
+\(\sum b_n\) 收敛推出 \(\sum a_n\) 收敛；不能反推，例如
+\(a_n=1/n^2,b_n=1/n\)。若比值趋于无穷，则尾部 \(a_n\ge b_n\)，
+所以 \(\sum b_n\) 发散推出 \(\sum a_n\) 发散；不能反推，例如
+\(a_n=1/n,b_n=1/n^2\)。
+\end{solution}
+
+\begin{solution}{series-harmonic-blocks}
+从 \(2^{k-1}+1\) 到 \(2^k\) 有 \(2^{k-1}\) 项，每项至少 \(2^{-k}\)，
+故该块和至少 \(1/2\)。因此
+\[
+ s_{2^m}\ge1+\frac m2,
+\]
+随 \(m\to\infty\) 无界。
+\end{solution}
+
+\begin{solution}{series-root-factorial}
+设 \(a_n=n!/n^n\)。则
+\[
+ \frac{a_{n+1}}{a_n}
+ =\frac{(n+1)!}{(n+1)^{n+1}}\frac{n^n}{n!}
+ =\left(\frac{n}{n+1}\right)^n\longrightarrow e^{-1}<1.
+\]
+比值判别给出收敛。
+\end{solution}
+
+\begin{solution}{series-root-polynomial-exponential}
+\[
+ \sqrt[n]{\abs{n^pr^n}}
+ =\abs r\,n^{p/n}\longrightarrow\abs r.
+\]
+当 \(\abs r<1\) 时绝对收敛；当 \(\abs r>1\) 时通项不趋零。
+若 \(\abs r=1\)，绝对值级数为 \(\sum n^p\)，由 \(p\)-级数判别，
+它恰在 \(p<-1\) 时收敛。\(r=0\) 时除有限项外全为零。
+\end{solution}
+
+\begin{solution}{series-ratio-inconclusive-p}
+对 \(a_n=n^{-p}\)，
+\[
+ \frac{a_{n+1}}{a_n}=\left(\frac n{n+1}\right)^p\to1,
+\qquad
+ \sqrt[n]{a_n}=n^{-p/n}\to1.
+\]
+\(p=1\) 时级数发散，\(p=2\) 时收敛，所以临界值 \(1\) 不含足够信息。
+\end{solution}
+
+\begin{solution}{series-integral-remainder-estimate}
+对单调递减的 \(f(x)=x^{-p}\)，逐区间比较给出
+\[
+ \int_{N+1}^\infty x^{-p}dx
+ \le\sum_{n=N+1}^\infty n^{-p}
+ \le\int_N^\infty x^{-p}dx.
+\]
+计算两端积分即得题式。
+\end{solution}
+
+\begin{solution}{series-condensation-log}
+对
+\[
+ a_n=\frac1{n\log n(\log\log n)^q}
+\]
+从充分大指标起各因子为正且 \(a_n\) 单调递减，可以使用凝聚判别。凝聚项为
+\[
+ 2^k a_{2^k}
+ =\frac{1}{k\log2\,\bigl(\log(k\log2)\bigr)^q}.
+\]
+由于 \(\log(k\log2)/\log k\to1\)，极限比较把它化为常数倍的
+\[
+ \frac{1}{k(\log k)^q}
+\]
+。再次使用积分判别：令 \(t=\log x\)，则
+\[
+ \int^\infty\frac{dx}{x(\log x)^q}
+ =\int^\infty t^{-q}\,dt,
+\]
+恰在 \(q>1\) 时收敛。因此原级数也恰在 \(q>1\) 时收敛。
+\end{solution}
+
+\begin{solution}{series-raabe-log-critical}
+计算
+\[
+ \frac{a_n}{a_{n+1}}
+ =\frac{n+1}{n}
+  \left(\frac{\log(n+1)}{\log n}\right)^q
+ =1+\frac1n+\frac{q}{n\log n}
+  +o\!\left(\frac1{n\log n}\right).
+\]
+所以 Raabe 表达式趋于 \(1\)，与 \(q\) 无关；但该级数在
+\(q>1\) 时收敛、\(q\le1\) 时发散，说明临界值必须保留更低阶项。
+\end{solution}
+
+\begin{solution}{series-gauss-gamma-ratio}
+题设给出
+\[
+ \frac{a_n}{a_{n+1}}=1+\frac{\alpha}{n}+O(n^{-2}).
+\]
+取对数时 \(\log(1+y)=y+O(y^2)\)，故
+\[
+ \log a_{n+1}-\log a_n
+ =-\frac{\alpha}{n}+O(n^{-2}).
+\]
+从固定指标求和到 \(n-1\)，利用
+\(\sum_{k<n}1/k=\log n+\gamma+o(1)\) 和
+\(\sum k^{-2}<\infty\)，可知
+\[
+ \log a_n+\alpha\log n\longrightarrow\ell
+\]
+对某个实数 \(\ell\) 成立。于是 \(a_nn^\alpha\to e^\ell=:C>0\)，
+即 \(a_n\sim Cn^{-\alpha}\)。与 \(p\)-级数作极限比较可得：
+\(\alpha>1\) 时收敛，\(\alpha\le1\) 时发散；特别地，
+\(\alpha=1\) 时与调和级数等价。
+\end{solution}
+
+\begin{solution}{series-sparse-harmonic}
+非零项只在 \(n=2^k\) 出现，故原级数等于
+\[
+ \sum_{k=0}^\infty\frac1{2^k}=2.
+\]
+分母集合 \(\{2^k:k\ge0\}\) 显然无限。
+\end{solution}
+
+\begin{solution}{series-divergent-slow-terms}
+令
+\[
+ a_n=\begin{cases}
+ n^{-2},&n=2^k,\\
+ n^{-1},&\text{其他 }n.
+ \end{cases}
+\]
+在无穷多个指标 \(2^k\) 上有 \(a_n=o(1/n)\) 的显式更小值。
+从调和级数中删去的项之和
+\(\sum_k2^{-k}\) 收敛，所以剩余调和项仍发散；加上正项
+\(\sum 2^{-2k}\) 后仍发散。
+\end{solution}
+
+\begin{solution}{series-comparison-oscillation-positive}
+取 \(b_n=1/n^2\)，并令
+\[
+ a_n=\begin{cases}
+ b_n,&n\text{ 偶},\\
+ 2b_n,&n\text{ 奇}.
+ \end{cases}
+\]
+则 \(a_n/b_n\) 在 \(1,2\) 之间振荡而无极限，但
+\[
+ b_n\le a_n\le2b_n,
+\]
+所以两级数都收敛。把 \(b_n\) 改为 \(1/n\) 可得同样结构的发散例。
+\end{solution}
+
+\begin{solution}{series-cauchy-condensation-base}
+对块 \(m^k\le n<m^{k+1}\)，其中共有
+\((m-1)m^k\) 个整数。单调性给出
+\[
+ (m^{k+1}-m^k)a_{m^{k+1}}
+ \le\sum_{n=m^k}^{m^{k+1}-1}a_n
+ \le(m^{k+1}-m^k)a_{m^k}.
+\]
+右端表明 \(\sum m^ka_{m^k}\) 收敛时原级数收敛。左端改写为
+\[
+ (m-1)m^k a_{m^{k+1}}
+ =\frac{m-1}{m}\,m^{k+1}a_{m^{k+1}},
+\]
+只差一个正常数和一次指标平移，所以原级数收敛时凝聚级数也收敛。
+\end{solution}
+
+\begin{solution}{series-kummer-test}
+第一种条件乘以 \(a_{n+1}\) 得
+\[
+ p_na_n-p_{n+1}a_{n+1}\ge c\,a_{n+1}.
+\]
+从 \(N\) 到 \(m\) 求和，左端望远镜消去，故
+\[
+ c\sum_{n=N+1}^{m+1}a_n\le p_Na_N.
+\]
+正项部分和有界，级数收敛。
+
+若表达式不大于零，则
+\[
+ p_na_n\le p_{n+1}a_{n+1}.
+\]
+所以 \(p_na_n\ge p_Na_N>0\)，从而
+\(a_n\ge C/p_n\)。若 \(\sum1/p_n\) 发散，比较判别给出
+\(\sum a_n\) 发散。
+
+取 \(p_n=n\)，Kummer 表达式为
+\[
+ n\left(\frac{a_n}{a_{n+1}}-1\right)-1.
+\]
+其最终正下界与最终非正情形分别给出 Raabe 判别的两侧。
+\end{solution}

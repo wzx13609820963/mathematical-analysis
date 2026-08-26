@@ -1,0 +1,245 @@
+\chapter{幂级数}
+\label{chap:power-series-solutions}
+
+\begin{solution}{power-radius-geometric-scaled}
+这是公比 \(3(x-2)\) 的几何级数，故
+\[
+ |3(x-2)|<1
+\]
+时收敛，收敛半径为 \(R=1/3\)、中心为 \(2\)。在
+\(x=2+1/3\) 处通项为 \(1\)，在 \(x=2-1/3\) 处通项为
+\((-1)^n\)，两端通项都不趋于零，故都发散。
+\end{solution}
+
+\begin{solution}{power-radius-polynomial-factor}
+\[
+ \lim_{n\to\infty}(n^2)^{1/n}=1,
+\]
+所以 Cauchy--Hadamard 公式给出 \(R=1\)。在 \(x=1\) 处通项为
+\(n^2\)，在 \(x=-1\) 处通项为 \((-1)^nn^2\)，均不趋零，故两端
+都发散。
+\end{solution}
+
+\begin{solution}{power-radius-factorial}
+由 \((n!)^{1/n}\to\infty\)，系数 \(1/n!\) 的根值趋于零，故
+\(\sum x^n/n!\) 的半径为 \(+\infty\)。系数 \(n!\) 的根值趋于
+\(+\infty\)，故 \(\sum n!x^n\) 的半径为零。
+\end{solution}
+
+\begin{solution}{power-radius-sparse}
+非零指标 \(n=k^2\) 上有 \(|a_n|^{1/n}=1\)，其余指标根值为零。因此
+\[
+ \limsup_{n\to\infty}|a_n|^{1/n}=1,
+\]
+收敛半径为 \(1\)。相邻系数中有无穷多个零，商
+\(a_n/a_{n+1}\) 经常无定义或为零，不能形成可用的比值极限。
+\end{solution}
+
+\begin{solution}{power-radius-limsup-oscillating}
+偶数指标上 \(|a_{2n}|^{1/(2n)}=1\)，奇数指标上
+\[
+ |a_{2n+1}|^{1/(2n+1)}=2.
+\]
+故根值上极限为 \(2\)，收敛半径为 \(R=1/2\)。
+\end{solution}
+
+\begin{solution}{power-endpoints-four-patterns}
+以下级数均以零为中心、半径为 \(1\)：
+\[
+\begin{array}{c|c}
+\text{端点情形}&\text{例子}\\ \hline
+\text{都发散}&\displaystyle\sum_{n=0}^\infty x^n,\\[0.4em]
+\text{仅右端收敛}&\displaystyle\sum_{n=1}^\infty
+ \frac{(-1)^{n-1}x^n}{n},\\[0.7em]
+\text{仅左端收敛}&\displaystyle\sum_{n=1}^\infty\frac{x^n}{n},\\[0.7em]
+\text{都收敛}&\displaystyle\sum_{n=1}^\infty\frac{x^n}{n^2}.
+\end{array}
+\]
+逐项代入 \(x=\pm1\)，分别使用通项判别、交错判别和绝对收敛即可核对。
+\end{solution}
+
+\begin{solution}{power-radius-shift-scale}
+令 \(y=2x-3=2(x-3/2)\)。原级数关于 \(y\) 在 \(|y|<R\) 内收敛，
+所以新级数的中心为 \(3/2\)，条件为
+\[
+ 2|x-3/2|<R.
+\]
+其收敛半径为 \(R/2\)；\(R=0\) 或 \(+\infty\) 时按同样约定解释。
+\end{solution}
+
+\begin{solution}{abel-finite-summation-identity}
+记 \(s_n=\sum_{k=0}^nc_k\)，并约定 \(s_{-1}=0\)。由
+\(c_n=s_n-s_{n-1}\)，
+\[
+\begin{aligned}
+ \sum_{n=0}^Nc_nr^n
+ &=\sum_{n=0}^Ns_nr^n-\sum_{n=1}^Ns_{n-1}r^n\\
+ &=\sum_{n=0}^{N-1}s_nr^n(1-r)+s_Nr^N.
+\end{aligned}
+\]
+这就是所需公式。
+\end{solution}
+
+\begin{solution}{abel-uniform-to-endpoint}
+把收敛数项级数 \(\sum c_n\) 看成常函数级数，它在任意集合上一致收敛。
+令 \(b_n(r)=r^n\)。对 \(r\in[0,1]\)，
+\[
+ 1\ge b_n(r)\ge b_{n+1}(r)\ge0.
+\]
+一致 Abel 判别说明
+\(\sum c_nr^n\) 在整个 \([0,1]\) 上一致收敛。各部分和关于 \(r\)
+连续，所以和函数在端点 \(1\) 连续，其值为 \(\sum c_n\)。这也推出
+Abel 径向极限。
+\end{solution}
+
+\begin{solution}{abel-logarithm-limit}
+取 \(c_n=(-1)^{n-1}/n\)（\(n\ge1\)）。已知 \(\sum c_n=\log2\)，
+Abel 径向极限定理直接给出
+\[
+ \lim_{x\to1-}\sum_{n=1}^\infty c_nx^n
+ =\sum_{n=1}^\infty c_n=\log2.
+\]
+对每个 \(x<1\)，幂级数绝对收敛；端点只条件收敛并不妨碍该定理。
+\end{solution}
+
+\begin{solution}{power-inner-uniform-tail}
+由端点处收敛，存在 \(M>0\) 使
+\(|a_n\rho^n|\le M\)。令 \(q=r/|\rho|<1\)。当
+\(|x-x_0|\le r\) 时，
+\[
+\begin{aligned}
+ \left|\sum_{n=N+1}^\infty a_n(x-x_0)^n\right|
+ &\le M\sum_{n=N+1}^\infty q^n\\
+ &=\frac{Mq^{N+1}}{1-q}.
+\end{aligned}
+\]
+右端与 \(x\) 无关，且随 \(N\to\infty\) 趋于零。
+\end{solution}
+
+\begin{solution}{power-open-interval-not-uniform}
+在 \([-r,r]\)、\(r<1\) 上，
+\[
+ \left|\sum_{n=N+1}^\infty x^n\right|
+ =\left|\frac{x^{N+1}}{1-x}\right|
+ \le\frac{r^{N+1}}{1-r}\to0.
+\]
+而在 \((-1,1)\) 上，对固定 \(N\)，余项 \(x^{N+1}/(1-x)\) 在
+\(x\to1-\) 时无界，故不可能一致趋于零。
+\end{solution}
+
+\begin{solution}{power-endpoint-continuity}
+在每个 \([x_0,x_0+r]\)、\(r<R\) 上，内闭一致收敛说明和函数连续。
+若右端级数收敛，一致 Abel 判别又说明幂级数在
+\([x_0,x_0+R]\) 上一致收敛。部分和多项式连续，所以其一致极限在这个
+闭区间上连续，特别是在右端连续。
+\end{solution}
+
+\begin{solution}{power-differentiate-geometric}
+几何级数在 \(|x|<1\) 上和为 \(1/(1-x)\)，并可在任意内闭区间逐项
+求导。因此
+\[
+ \frac{d}{dx}\sum_{n=0}^\infty x^n
+ =\sum_{n=1}^\infty nx^{n-1}
+ =\frac{d}{dx}\frac1{1-x}
+ =\frac1{(1-x)^2}.
+\]
+\end{solution}
+
+\begin{solution}{power-integrate-geometric-log}
+在从 \(0\) 到任意 \(x\in(-1,1)\) 的闭区间上，几何级数一致收敛，故
+\[
+ \int_0^x\sum_{n=0}^\infty t^n\,dt
+ =\sum_{n=0}^\infty\frac{x^{n+1}}{n+1}.
+\]
+左端为
+\[
+ \int_0^x\frac{dt}{1-t}=-\log(1-x).
+\]
+重新编号即得结论。
+\end{solution}
+
+\begin{solution}{power-derivative-radius-proof}
+设
+\[
+ \rho=\limsup_{n\to\infty}|a_n|^{1/n}.
+\]
+导数级数以 \(m=n-1\) 为指标，其系数为 \(b_m=(m+1)a_{m+1}\)。于是
+\[
+ |b_m|^{1/m}
+ =(m+1)^{1/m}
+ \left(|a_{m+1}|^{1/(m+1)}\right)^{(m+1)/m}.
+\]
+第一因子趋于 \(1\)，第二因子的上极限为 \(\rho\)；当
+\(\rho=0\) 或 \(+\infty\) 时同一式按扩充实数意义仍给出相应极限。
+因此
+\[
+ \limsup_m|b_m|^{1/m}=\rho.
+\]
+Cauchy--Hadamard 公式说明两个级数的收敛半径相同。
+\end{solution}
+
+\begin{solution}{power-coefficient-uniqueness}
+设
+\[
+ \sum a_n(x-x_0)^n=\sum b_n(x-x_0)^n
+\]
+在中心邻域成立。两边均可任意次逐项求导。第 \(k\) 次求导后令
+\(x=x_0\)，得到
+\[
+ k!a_k=k!b_k.
+\]
+所以 \(a_k=b_k\) 对每个 \(k\) 成立。
+\end{solution}
+
+\begin{solution}{power-zero-all-derivatives}
+由逐项求导公式，
+\[
+ a_k=\frac{F^{(k)}(x_0)}{k!}=0
+\]
+对每个 \(k\in\N\) 成立。因此表示 \(F\) 的幂级数所有系数都为零，
+在其整个收敛区间内 \(F(x)=0\)。
+\end{solution}
+
+\begin{solution}{power-ode-exponential}
+逐项求导并比较 \(x^n\) 的系数：
+\[
+ (n+1)a_{n+1}=a_n,\qquad a_0=F(0)=1.
+\]
+递推得到 \(a_n=1/n!\)。由
+\[
+ \limsup|a_n|^{1/n}=0,
+\]
+所得级数收敛半径为 \(+\infty\)，故在整个实轴定义解。
+\end{solution}
+
+\begin{solution}{power-binomial-series}
+代入方程并比较 \(x^n\) 系数，得到
+\[
+ (n+1)a_{n+1}+na_n=\alpha a_n,
+\]
+即
+\[
+ a_{n+1}=\frac{\alpha-n}{n+1}a_n,\qquad a_0=1.
+\]
+所以
+\[
+ a_n=\binom{\alpha}{n}
+ =\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)}{n!}.
+\]
+若 \(\alpha\in\N\)，级数终止，是多项式。否则
+\[
+ \left|\frac{a_n}{a_{n+1}}\right|
+ =\left|\frac{n+1}{\alpha-n}\right|\to1,
+\]
+收敛半径为 \(1\)。
+
+在 \(|x|<1\) 内可以逐项求导，所以和函数 \(F\) 满足
+\((1+x)F'=\alpha F\)、\(F(0)=1\)。令
+\[
+ H(x)=F(x)(1+x)^{-\alpha}.
+\]
+直接求导得 \(H'=0\)，故 \(H\equiv H(0)=1\)。因此
+\[
+ F(x)=(1+x)^\alpha\qquad(|x|<1).
+\]
+\end{solution}

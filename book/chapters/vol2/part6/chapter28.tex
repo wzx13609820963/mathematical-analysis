@@ -1,0 +1,394 @@
+\chapter{幂级数}
+\label{chap:power-series}
+
+一般函数项级数的收敛集合可能十分复杂。幂级数
+\[
+ \sum_{n=0}^\infty a_n(x-x_0)^n
+\]
+却受到代数结构的强烈约束：一旦在某个非中心点收敛，它就在更靠近中心的
+每个点绝对收敛，并在每个内闭区间上一致收敛。收敛集合因此由一个半径和
+至多两个端点决定。这个结构还保证区间内部可以逐项积分、逐项求导，而且
+所得级数具有同一个收敛半径。
+
+本章先讨论实幂级数。为简化公式，若无混淆，常写
+\(y=x-x_0\)。
+
+\section{Abel 引理和收敛半径}
+
+\begin{lemma}[Abel 引理]
+\label{lem:abel-power-series}
+若数列 \((a_ny_0^n)\) 有界，其中 \(y_0\ne0\)，则对每个
+\(|y|<|y_0|\)，级数
+\[
+ \sum_{n=0}^\infty a_ny^n
+\]
+绝对收敛，并且在任意 \(|y|\le r<|y_0|\) 上一致收敛。
+\end{lemma}
+
+\begin{proof}
+设 \(|a_ny_0^n|\le M\)，并令 \(q=r/|y_0|<1\)。当 \(|y|\le r\)
+时，
+\[
+ |a_ny^n|
+ =|a_ny_0^n|\left|\frac y{y_0}\right|^n
+ \le Mq^n.
+\]
+几何级数 \(\sum Mq^n\) 收敛，M-判别法给出内闭区间上的一致绝对收敛；
+固定任意 \(|y|<|y_0|\) 再选 \(r\) 即得逐点绝对收敛。
+\end{proof}
+
+若幂级数在 \(y_0\) 处收敛，则其通项 \(a_ny_0^n\to0\)，因而有界，
+Abel 引理适用。取逆否命题还可得到：若级数在 \(y_1\) 处发散，则它在
+每个 \(|y|>|y_1|\) 的点都发散。
+
+\begin{theorem}[收敛半径]
+\label{thm:power-series-radius}
+对任意实幂级数 \(\sum a_n(x-x_0)^n\)，存在唯一的
+\(R\in[0,+\infty]\)，使得：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 当 \(|x-x_0|<R\) 时，级数绝对收敛；
+ \item 当 \(|x-x_0|>R\) 时，级数发散。
+\end{enumerate}
+数 \(R\) 称为该幂级数的\term{收敛半径}。当 \(0<R<\infty\) 时，
+\(|x-x_0|=R\) 的两个端点必须另行判断。
+\end{theorem}
+
+\begin{proof}
+令
+\[
+ A=\{r\ge0:\text{级数在某个满足 }|x-x_0|=r\text{ 的点收敛}\}.
+\]
+中心 \(r=0\) 总在 \(A\) 中。定义 \(R=\sup A\)，允许 \(A\) 无上界
+时 \(R=+\infty\)。
+
+若 \(|x-x_0|<R\)，由上确界定义可取 \(r\in A\) 使
+\(|x-x_0|<r\)，Abel 引理给出绝对收敛。若 \(|x-x_0|>R\) 而级数
+收敛，则该半径属于 \(A\)，与 \(R\) 是其上界矛盾。唯一性由这两个区域
+的刻画立即得到。
+\end{proof}
+
+收敛半径可能为零，例如 \(\sum n!x^n\)；也可能为无穷，例如
+\(\sum x^n/n!\)。有限半径只决定开区间内部和外部，不能从半径本身读取
+端点结论。
+
+\section{Cauchy--Hadamard 公式}
+
+收敛半径可以直接由系数的指数增长率计算。
+
+\begin{theorem}[Cauchy--Hadamard 公式]
+\label{thm:cauchy-hadamard}
+令
+\[
+ \rho=\limsup_{n\to\infty}|a_n|^{1/n}.
+\]
+则幂级数 \(\sum a_n(x-x_0)^n\) 的收敛半径满足
+\[
+ \frac1R=\rho,
+\]
+其中约定 \(1/0=+\infty\)、\(1/(+\infty)=0\)。
+\end{theorem}
+
+\begin{proof}
+先设 \(0<\rho<\infty\)，并写 \(y=x-x_0\)。若
+\(|y|<1/\rho\)，可取 \(\eta>0\) 使
+\[
+ |y|(\rho+\eta)<1.
+\]
+由上极限的性质，充分大的 \(n\) 有
+\[
+ |a_n|^{1/n}\le\rho+\eta.
+\]
+于是
+\[
+ |a_ny^n|\le\bigl(|y|(\rho+\eta)\bigr)^n,
+\]
+故级数绝对收敛。
+
+若 \(|y|>1/\rho\)，可取 \(\eta>0\) 使
+\[
+ |y|(\rho-\eta)>1.
+\]
+由上极限的定义，存在无穷多个 \(n\) 满足
+\(|a_n|^{1/n}>\rho-\eta\)。沿这些指标，
+\[
+ |a_ny^n|>\bigl(|y|(\rho-\eta)\bigr)^n,
+\]
+通项不趋于零，级数发散。因此 \(R=1/\rho\)。
+
+若 \(\rho=0\)，对任意固定 \(y\) 都可取 \(\eta>0\) 使
+\(|y|\eta<1\)，上述收敛论证给出 \(R=+\infty\)。若
+\(\rho=+\infty\)，对任意 \(y\ne0\) 都可取任意大的下界并找到无穷多个
+通项不趋零，故 \(R=0\)。
+\end{proof}
+
+\begin{example}
+\[
+ \sum_{n=0}^\infty\frac{x^n}{n!}
+\]
+中 \((n!)^{1/n}\to+\infty\)，所以
+\(|1/n!|^{1/n}\to0\)，收敛半径为无穷。对
+\[
+ \sum_{n=1}^\infty n!x^n,
+\]
+系数根值趋于无穷，收敛半径为零。若 \(a_n\) 只在稀疏指标上非零，
+比值判别可能无法形成极限，而 Cauchy--Hadamard 公式仍然适用。
+\end{example}
+
+若系数最终非零且极限
+\[
+ L=\lim_{n\to\infty}\left|\frac{a_n}{a_{n+1}}\right|
+\]
+存在，则比值判别给出 \(R=L\)。这只是便捷的推论；系数含无穷多个零或
+比值振荡时，应回到根值上极限。
+
+\section{端点问题和 Abel 径向极限定理}
+
+同一收敛半径可以对应四种端点组合。以中心 \(0\)、半径 \(1\) 为例：
+\[
+ \sum x^n
+\]
+在 \(x=\pm1\) 都发散；
+\[
+ \sum_{n=1}^\infty\frac{x^n}{n}
+\]
+在 \(x=1\) 发散、在 \(x=-1\) 收敛；
+\[
+ \sum_{n=1}^\infty\frac{x^n}{n^2}
+\]
+在两个端点都绝对收敛。把 \(x\) 换成 \(-x\) 可交换左右端点的行为。
+
+端点收敛不仅给出该点的一个数值，还控制从区间内部趋近端点时的和函数。
+
+\begin{theorem}[Abel 径向极限定理]
+\label{thm:abel-radial-limit}
+若数项级数 \(\sum_{n=0}^\infty c_n\) 收敛于 \(s\)，则对
+\(0\le r<1\)，级数 \(\sum c_nr^n\) 收敛，并且
+\[
+ \lim_{r\to1-}\sum_{n=0}^\infty c_nr^n=s.
+\]
+\end{theorem}
+
+\begin{proof}
+令 \(s_n=\sum_{k=0}^nc_k\)。对固定 \(0\le r<1\)，有限分部求和给出
+\[
+ \sum_{n=0}^Nc_nr^n
+ =(1-r)\sum_{n=0}^{N-1}s_nr^n+s_Nr^N.
+\]
+数列 \((s_n)\) 有界，令 \(N\to\infty\)，得到
+\[
+ \sum_{n=0}^\infty c_nr^n
+ =(1-r)\sum_{n=0}^\infty s_nr^n.
+\]
+又因 \((1-r)\sum_{n=0}^\infty sr^n=s\)，所以差等于
+\[
+ (1-r)\sum_{n=0}^\infty(s_n-s)r^n.
+\]
+给定 \(\varepsilon>0\)，取 \(N_0\) 使 \(n\ge N_0\) 时
+\(|s_n-s|<\varepsilon\)。尾部的绝对值不超过
+\[
+ \varepsilon(1-r)\sum_{n=N_0}^\infty r^n
+ =\varepsilon r^{N_0}\le\varepsilon.
+\]
+前面有限项乘以 \(1-r\)，在 \(r\to1-\) 时趋于零。因此整个差趋于零。
+\end{proof}
+
+对中心 \(x_0\)、有限半径 \(R\) 的幂级数，若它在某个端点
+\(x_*=x_0\pm R\) 收敛，则令
+\[
+ c_n=a_n(x_*-x_0)^n,\qquad
+ x=x_0+r(x_*-x_0),
+\]
+便得
+\[
+ \lim_{\substack{x\to x_*\\x\text{ 沿半径内侧}}}
+ \sum_{n=0}^\infty a_n(x-x_0)^n
+ =\sum_{n=0}^\infty a_n(x_*-x_0)^n.
+\]
+此外，一致 Abel 判别说明级数在从中心到该端点的闭线段上一致收敛。
+径向极限定理不能从发散端点“赋予”一个普通级数和；它的前提仍是端点数项
+级数收敛。
+
+\section{内闭一致收敛}
+
+\begin{theorem}
+\label{thm:power-series-compact-uniform}
+设幂级数的收敛半径为 \(R>0\)。对每个 \(0<r<R\)，该级数在
+\[
+ [x_0-r,x_0+r]
+\]
+上一致且绝对收敛。其和函数在开区间
+\((x_0-R,x_0+R)\) 上连续。
+\end{theorem}
+
+\begin{proof}
+选取 \(r<\rho<R\)。级数在 \(x_0+\rho\) 处收敛，所以
+\((a_n\rho^n)\) 有界，设 \(|a_n\rho^n|\le M\)。当
+\(|x-x_0|\le r\) 时，
+\[
+ |a_n(x-x_0)^n|
+ \le M\left(\frac r\rho\right)^n.
+\]
+M-判别法给出内闭区间上的一致绝对收敛。有限部分和是多项式，故和函数在
+每个内闭区间上连续；任一点都包含在某个这样的区间内部，所以和函数在
+整个开收敛区间上连续。
+\end{proof}
+
+“内闭”不能改成整个开收敛区间。例如几何级数在 \((-1,1)\) 上收敛，
+但余项
+\[
+ \frac{x^{N+1}}{1-x}
+\]
+在 \(x\to1-\) 时无界。若端点级数收敛，可以由上一节的 Abel 判别把某一
+侧内闭一致收敛延伸到该端点；两个端点必须分别处理。
+
+内闭一致收敛还允许在任何严格位于收敛区间内部的闭区间上逐项积分，并
+保证对参数的局部估计不受端点影响。这种“先缩小到紧子区间，再作一致
+运算”的方法将在复分析和微分方程中反复使用。
+
+\section{逐项积分、逐项求导与收敛半径}
+
+先记录一个系数事实。若
+\[
+ \rho=\limsup|a_n|^{1/n},
+\]
+则乘上或除以 \(n+1\) 不改变指数增长率，因为
+\[
+ (n+1)^{1/n}\to1.
+\]
+指标平移也不改变相应的收敛半径。因此以下三个幂级数具有同一收敛半径：
+\[
+ \sum_{n=0}^\infty a_ny^n,\qquad
+ \sum_{n=0}^\infty\frac{a_n}{n+1}y^{n+1},\qquad
+ \sum_{n=1}^\infty na_ny^{n-1}.
+\]
+
+\begin{theorem}[幂级数的逐项微积分]
+\label{thm:power-series-calculus}
+设
+\[
+ F(x)=\sum_{n=0}^\infty a_n(x-x_0)^n
+\]
+的收敛半径为 \(R>0\)。则在 \(|x-x_0|<R\) 内，
+\[
+ F'(x)=\sum_{n=1}^\infty na_n(x-x_0)^{n-1},
+\]
+并且
+\[
+ \int_{x_0}^xF(t)\,dt
+ =\sum_{n=0}^\infty\frac{a_n}{n+1}(x-x_0)^{n+1}.
+\]
+原级数、导数级数和积分级数的收敛半径都等于 \(R\)。上述等式在每个
+内闭区间上可以按一致收敛理解。
+\end{theorem}
+
+\begin{proof}
+半径相同由 Cauchy--Hadamard 公式和前述系数事实得到。固定
+\(r<R\)。原级数在 \([x_0-r,x_0+r]\) 上一致收敛，所以可逐项积分，
+得到积分公式。
+
+再令
+\[
+ G(x)=\sum_{n=1}^\infty na_n(x-x_0)^{n-1}.
+\]
+导数级数在同一内闭区间上一致收敛，因此可逐项积分：
+\[
+ \int_{x_0}^xG(t)\,dt
+ =\sum_{n=1}^\infty a_n(x-x_0)^n
+ =F(x)-a_0.
+\]
+积分上限函数的微积分基本定理给出 \(F'=G\)。因 \(r<R\) 任意，结论在
+整个开收敛区间成立。
+\end{proof}
+
+反复应用定理可知幂级数的和函数在收敛区间内无穷次可导，并且
+\[
+ F^{(k)}(x)
+ =\sum_{n=k}^\infty
+ n(n-1)\cdots(n-k+1)a_n(x-x_0)^{n-k}.
+\]
+在 \(x=x_0\) 处，
+\[
+ F^{(k)}(x_0)=k!a_k.
+\]
+这已经说明幂级数表示若存在，其系数由函数唯一决定。下一章将据此研究
+Taylor 级数何时等于原函数，以及实解析函数的零点结构。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　收敛半径与端点}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{power-radius-geometric-scaled}
+ 求 \(\sum_{n\ge0}3^n(x-2)^n\) 的收敛半径和端点行为。
+ \exerciseitem{power-radius-polynomial-factor}
+ 求 \(\sum_{n\ge1}n^2x^n\) 的收敛半径，并判断两个端点。
+ \exerciseitem{power-radius-factorial}
+ 分别求 \(\sum x^n/n!\) 与 \(\sum n!x^n\) 的收敛半径。
+ \exerciseitem{power-radius-sparse}
+ 设 \(a_n=1\) 当 \(n=k^2\)，其余 \(a_n=0\)。求
+ \(\sum a_nx^n\) 的收敛半径，并说明比值公式为何不便使用。
+ \exerciseitem{power-radius-limsup-oscillating}
+ 设 \(a_{2n}=1\)、\(a_{2n+1}=2^{2n+1}\)。用 Cauchy--Hadamard 公式
+ 求收敛半径。
+ \exerciseitem{power-endpoints-four-patterns}
+ 各举一个收敛半径为 \(1\) 的实幂级数，使两个端点分别呈现：都发散、
+ 仅右端收敛、仅左端收敛、都收敛。
+ \exerciseitem{power-radius-shift-scale}
+ 若 \(\sum a_nx^n\) 的半径为 \(R\)，求
+ \(\sum a_n(2x-3)^n\) 的中心和收敛半径。
+\end{enumerate}
+
+\subsection*{B组　Abel 定理与一致性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{abel-finite-summation-identity}
+ 证明 Abel 径向极限定理中使用的有限分部求和公式。
+ \exerciseitem{abel-uniform-to-endpoint}
+ 若 \(\sum c_n\) 收敛，使用上一章的一致 Abel 判别证明
+ \(\sum c_nr^n\) 在 \(r\in[0,1]\) 上一致收敛。
+ \exerciseitem{abel-logarithm-limit}
+ 已知 \(\sum_{n\ge1}(-1)^{n-1}/n=\log2\)。用 Abel 径向极限定理证明
+ \[
+  \lim_{x\to1-}\sum_{n=1}^\infty\frac{(-1)^{n-1}x^n}{n}=\log2.
+ \]
+ \exerciseitem{power-inner-uniform-tail}
+ 设幂级数在 \(x_0+\rho\) 处收敛。对 \(r<|\rho|\) 给出内闭区间上余项
+ \(\sum_{n>N}a_n(x-x_0)^n\) 的显式几何上界。
+ \exerciseitem{power-open-interval-not-uniform}
+ 证明几何级数 \(\sum x^n\) 不在 \((-1,1)\) 上一致收敛，并比较它在
+ \([-r,r]\) 上的余项。
+ \exerciseitem{power-endpoint-continuity}
+ 若半径为 \(R<\infty\) 的幂级数在右端点收敛，证明和函数在
+ \([x_0,x_0+R]\) 上连续。
+\end{enumerate}
+
+\subsection*{C组　逐项微积分与系数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{power-differentiate-geometric}
+ 从几何级数出发逐项求导，证明
+ \[
+  \sum_{n=1}^\infty nx^{n-1}=\frac1{(1-x)^2}
+  \qquad(|x|<1).
+ \]
+ \exerciseitem{power-integrate-geometric-log}
+ 逐项积分几何级数，证明
+ \[
+  \sum_{n=1}^\infty\frac{x^n}{n}=-\log(1-x)
+  \qquad(|x|<1).
+ \]
+ \exerciseitem{power-derivative-radius-proof}
+ 不直接引用正文“系数事实”，从 Cauchy--Hadamard 公式完整证明导数
+ 级数与原级数收敛半径相同。
+ \exerciseitem{power-coefficient-uniqueness}
+ 若两个幂级数在中心的某个邻域表示同一函数，证明对应系数逐项相等。
+ \exerciseitem{power-zero-all-derivatives}
+ 设幂级数和函数 \(F\) 在中心满足 \(F^{(k)}(x_0)=0\) 对所有
+ \(k\in\N\) 成立。证明 \(F\) 在整个收敛区间内恒为零。
+ \exerciseitem{power-ode-exponential}
+ 设 \(F(x)=\sum_{n\ge0}a_nx^n\) 满足 \(F'=F\)、\(F(0)=1\)。
+ 比较系数求出 \(a_n\)，并说明所得级数在整个实轴收敛。
+ \optionalexerciseitem{power-binomial-series}
+ 对实数 \(\alpha\)，形式地把
+ \(F(x)=\sum_{n\ge0}a_nx^n\) 代入
+ \((1+x)F'(x)=\alpha F(x)\)、\(F(0)=1\)。求递推公式与系数，并证明
+ 所得级数在 \(|x|<1\) 收敛且等于 \((1+x)^\alpha\)。
+\end{enumerate}

@@ -1,0 +1,362 @@
+\chapter{条件收敛与重排}
+\label{chap:conditional-convergence-rearrangement}
+
+正项级数依靠单调性收敛；带符号级数还可能依靠正负项抵消。绝对收敛时，
+抵消并非收敛的必要条件，项的次序不会影响总和。条件收敛时，抵消的顺序
+本身成为总和的一部分。
+
+\section{绝对收敛与条件收敛}
+
+\begin{definition}
+若 \(\sum\abs{a_n}\) 收敛，则称 \(\sum a_n\) \term{绝对收敛}。
+若 \(\sum a_n\) 收敛而 \(\sum\abs{a_n}\) 发散，则称它
+\term{条件收敛}。
+\end{definition}
+
+\begin{theorem}[绝对收敛蕴含收敛]
+\label{thm:absolute-series-converges}
+绝对收敛级数收敛，并且
+\[
+ \abs{\sum_{n=1}^\infty a_n}
+ \le\sum_{n=1}^\infty\abs{a_n}.
+\]
+\end{theorem}
+
+\begin{proof}
+对任意尾段，
+\[
+ \abs{\sum_{k=n+1}^m a_k}
+ \le\sum_{k=n+1}^m\abs{a_k}.
+\]
+右端由绝对值级数的 Cauchy 准则任意小，所以原级数收敛。对有限部分和
+使用三角不等式再取极限，得到最后一式。
+\end{proof}
+
+写
+\[
+ a_n^+=\max\{a_n,0\},\qquad
+ a_n^-=\max\{-a_n,0\},
+\]
+则
+\[
+ a_n=a_n^+-a_n^-,
+\qquad
+ \abs{a_n}=a_n^++a_n^-.
+\]
+
+\begin{proposition}
+\label{prop:positive-negative-parts-series}
+\(\sum a_n\) 绝对收敛，当且仅当
+\(\sum a_n^+\) 与 \(\sum a_n^-\) 都收敛；此时
+\[
+ \sum a_n=\sum a_n^+-\sum a_n^-.
+\]
+\end{proposition}
+
+\begin{proof}
+恒等式
+\[
+ a_n^+=\frac{\abs{a_n}+a_n}{2},\qquad
+ a_n^-=\frac{\abs{a_n}-a_n}{2}
+\]
+说明，若 \(\sum\abs{a_n}\) 与 \(\sum a_n\) 都收敛，则两个正项级数
+\(\sum a_n^+\)、\(\sum a_n^-\) 都收敛。反过来，若后两者收敛，则
+\[
+ \sum\abs{a_n}=\sum a_n^++\sum a_n^-<\infty,
+\]
+并且对有限部分和使用 \(a_n=a_n^+-a_n^-\)，再取极限便得所述和式。
+\end{proof}
+
+\section{交错级数和余项估计}
+
+\begin{theorem}[Leibniz 判别]
+\label{thm:leibniz-alternating}
+若 \(b_n\ge0\) 单调不增且 \(b_n\to0\)，则
+\[
+ \sum_{n=1}^\infty(-1)^{n-1}b_n
+\]
+收敛。若总和为 \(s\)，则
+\[
+ \abs{s-s_n}\le b_{n+1},
+\]
+且余项与第一项 \((-1)^n b_{n+1}\) 同号。
+\end{theorem}
+
+\begin{proof}
+偶数部分和满足
+\[
+ s_{2m}=(b_1-b_2)+\cdots+(b_{2m-1}-b_{2m}),
+\]
+故单调不减；奇数部分和满足
+\[
+ s_{2m+1}=b_1-(b_2-b_3)-\cdots-(b_{2m}-b_{2m+1}),
+\]
+故单调不增。又有
+\[
+ s_{2m+1}-s_{2m}=b_{2m+1}\to0,
+\]
+并且每个偶数部分和不超过每个奇数部分和。两列趋于同一极限。
+
+从第 \(n+1\) 项开始重复同一夹逼，极限落在 \(s_n\) 与
+\(s_{n+1}\) 之间，所以余项同号且绝对值不超过 \(b_{n+1}\)。
+\end{proof}
+
+\begin{example}
+交错调和级数
+\[
+ 1-\frac12+\frac13-\frac14+\cdots
+\]
+收敛但不绝对收敛，是条件收敛的标准例。
+\end{example}
+
+条件 \(b_n\downarrow0\) 不能只换成 \(b_n\to0\)。例如令
+\[
+ b_{2k-1}=\frac1k,\qquad b_{2k}=\frac1{2k}.
+\]
+虽然 \(b_n>0\) 且 \(b_n\to0\)，但每一对交错项的和为
+\[
+ b_{2k-1}-b_{2k}=\frac1{2k},
+\]
+所以 \(\sum(-1)^{n-1}b_n\) 发散。单调性在 Leibniz 证明中保证偶、奇
+部分和从两侧夹住同一极限；失去它以后，这种夹逼不再存在。
+
+\section{Abel 变换与分部求和}
+
+\begin{theorem}[Abel 变换]
+\label{thm:abel-summation}
+令 \(A_k=\sum_{j=1}^k a_j\)，并约定 \(A_0=0\)。对
+\(1\le m\le n\)，
+\[
+ \sum_{k=m}^n a_kb_k
+ =A_nb_n-A_{m-1}b_m
+  +\sum_{k=m}^{n-1}A_k(b_k-b_{k+1}).
+\]
+\end{theorem}
+
+\begin{proof}
+代入 \(a_k=A_k-A_{k-1}\)，得到
+\[
+ \sum_{k=m}^n(A_k-A_{k-1})b_k.
+\]
+把第二部分指标平移并合并同一 \(A_k\) 的系数，即得公式。
+\end{proof}
+
+这是离散的分部积分。连续情形中导数从一个因子移到另一个因子；这里差分
+\(b_k-b_{k+1}\) 取代导数，部分和 \(A_k\) 取代原函数。
+
+\begin{corollary}[Abel 估计]
+\label{cor:abel-summation-estimate}
+若 \(b_k\ge0\) 单调不增，且
+\(\abs{\sum_{k=m}^j a_k}\le M\) 对 \(m\le j\le n\) 成立，则
+\[
+ \abs{\sum_{k=m}^n a_kb_k}\le Mb_m.
+\]
+\end{corollary}
+
+\begin{proof}
+对尾部部分和 \(B_j=\sum_{k=m}^j a_k\) 使用 Abel 变换。由于
+\(b_k-b_{k+1}\ge0\)，各项绝对值之和不超过
+\[
+ M b_n+M\sum_{k=m}^{n-1}(b_k-b_{k+1})
+ =M b_m.
+\]
+这正是所需估计。若只知道全局部分和
+\(A_j=\sum_{k=1}^j a_k\) 满足 \(\abs{A_j}\le K\)，则尾部部分和满足
+\(\abs{A_j-A_{m-1}}\le2K\)，于是同一结论给出
+\[
+ \abs{\sum_{k=m}^n a_kb_k}\le2K b_m.
+\]
+\end{proof}
+
+\section{Dirichlet 与 Abel 判别}
+
+\begin{theorem}[级数的 Dirichlet 判别]
+\label{thm:series-dirichlet}
+若部分和 \(A_n=\sum_{k=1}^n a_k\) 有界，\(b_n\) 单调且趋于零，则
+\(\sum a_nb_n\) 收敛。
+\end{theorem}
+
+\begin{proof}
+从某项起 \(b_n\) 固定符号；不妨设非负单调不增。若
+\(\abs{A_n}\le K\)，则任意尾部部分和满足
+\[
+ \abs{\sum_{k=m}^j a_k}
+ =\abs{A_j-A_{m-1}}
+ \le2K.
+\]
+对 \(\sum_{k=m}^n a_kb_k\) 使用 Abel 估计，得到
+\[
+ \abs{\sum_{k=m}^n a_kb_k}\le2K b_m.
+\]
+右端与 \(n\) 无关，并随 \(m\to\infty\) 趋零，故级数满足 Cauchy
+准则。
+\end{proof}
+
+\begin{theorem}[级数的 Abel 判别]
+\label{thm:series-abel}
+若 \(\sum a_n\) 收敛，\(b_n\) 单调且有界，则
+\(\sum a_nb_n\) 收敛。
+\end{theorem}
+
+\begin{proof}
+单调有界数列 \(b_n\to L\)。写
+\[
+ a_nb_n=L a_n+a_n(b_n-L).
+\]
+第一项级数收敛；第二项中 \(a_n\) 的部分和有界，而
+\(b_n-L\) 单调趋零，应用 Dirichlet 判别。
+\end{proof}
+
+\begin{example}
+若 \(x\notin2\pi\Z\)，则
+\[
+ \sum_{k=1}^n e^{ikx}
+ =e^{ix}\frac{1-e^{inx}}{1-e^{ix}}
+\]
+一致有界于 \(n\)。因此只要 \(b_n\downarrow0\)，
+\(\sum b_ne^{inx}\) 收敛；分别取实部、虚部可得三角级数的对应结论。
+\end{example}
+
+\section{正负项子级数}
+
+\begin{theorem}
+\label{thm:conditional-positive-negative-diverge}
+若 \(\sum a_n\) 条件收敛，则
+\[
+ \sum a_n^+=+\infty,\qquad
+ \sum a_n^-=+\infty.
+\]
+\end{theorem}
+
+\begin{proof}
+若两者都收敛，则由命题
+\ref{prop:positive-negative-parts-series} 原级数绝对收敛。若其中一个
+收敛、另一个发散，则
+\[
+ \sum_{k=1}^n a_k
+ =\sum_{k=1}^n a_k^+-\sum_{k=1}^n a_k^-
+\]
+趋于 \(+\infty\) 或 \(-\infty\)，与原级数收敛矛盾。因此二者都发散。
+\end{proof}
+
+这说明条件收敛的有限总和来自两个无穷大的正负累积量按给定次序不断抵消。
+改变次序可能改变抵消过程。
+
+这里的 \(\sum a_n^+\) 和 \(\sum a_n^-\) 是按原指标抽出的子级数，
+不是把 \(+\infty-\infty\) 当作一种运算。式
+\[
+ s_n=\sum_{k=1}^n a_k^+-\sum_{k=1}^n a_k^-
+\]
+只在每个有限 \(n\) 上成立；两个正项部分和都趋于无穷时，不能分别取极限
+后再相减。重排定理正是利用了这两个子级数都拥有任意大的可用尾和。
+
+\section{Riemann 重排定理}
+
+\begin{definition}
+设 \(\pi:\Npos\to\Npos\) 为双射。级数
+\[
+ \sum_{n=1}^\infty a_{\pi(n)}
+\]
+称为原级数的一个\term{重排}。
+\end{definition}
+
+\begin{theorem}[绝对收敛级数的重排不变性]
+\label{thm:absolute-rearrangement-invariance}
+若 \(\sum a_n\) 绝对收敛，则每个重排都绝对收敛，且总和不变。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，取 \(N\) 使
+\(\sum_{n>N}\abs{a_n}<\varepsilon\)。重排的某个前 \(M\) 项已经包含
+\(a_1,\ldots,a_N\)。此后任一部分和与原总和之差，只涉及尚未取到的
+前 \(N\) 项（实际已无）和指标大于 \(N\) 的一部分，绝对值小于
+\(\varepsilon\)。同样论证用于绝对值级数。
+\end{proof}
+
+\begin{theorem}[Riemann 重排定理]
+\label{thm:riemann-rearrangement}
+若实级数 \(\sum a_n\) 条件收敛，则：
+
+\begin{enumerate}
+ \item 对任意 \(s\in\R\)，存在一个重排收敛于 \(s\)；
+ \item 存在重排发散到 \(+\infty\)，也存在重排发散到 \(-\infty\)；
+ \item 存在上极限为 \(+\infty\)、下极限为 \(-\infty\) 的重排。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+删去零项后，按原指标次序把正项记为 \(p_1,p_2,\ldots\)，负项的绝对值
+记为 \(q_1,q_2,\ldots\)。上一节说明
+\[
+ \sum p_k=\sum q_k=+\infty,
+\qquad p_k,q_k\to0.
+\]
+
+固定 \(s\in\R\)。先依次加入尚未使用的正项，直到部分和第一次大于
+\(s\)；再依次加入负项，直到第一次小于 \(s\)；如此反复。每次越过
+\(s\) 的超出量不超过最后加入的那一项，故超出量趋于零。上下穿越的
+部分和都趋于 \(s\)，中间部分和被相邻两次穿越夹住，也趋于 \(s\)。
+正负项各自按原顺序使用；由于每轮都至少加入一个相应符号的项，最终每项
+都会出现。把零项插入任意位置，得到一个重排。
+
+若要趋于 \(+\infty\)，先取足够多正项使部分和超过 \(1\)，插入一个负项；
+再取正项使部分和超过 \(2\)，插入下一个负项，依此进行。因负项趋零，
+阶段末以及阶段内部的部分和最终都超过任意给定界。趋于 \(-\infty\)
+对称构造。
+
+最后，交替取足够多正项使部分和超过 \(1\)，足够多负项使其低于
+\(-1\)，再超过 \(2\)、低于 \(-2\)，依此进行，即得第三种重排。
+\end{proof}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　交错与分部求和}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{alternating-remainder-sign} 从偶、奇部分和的夹逼完整证明
+ Leibniz 余项的符号与大小估计。
+ \exerciseitem{alternating-harmonic-error} 估计交错调和级数用前 \(N\) 项
+ 逼近时的误差，并给出保证误差小于 \(10^{-4}\) 的充分 \(N\)。
+ \exerciseitem{abel-summation-direct-check} 对 \(m=2,n=4\) 展开 Abel 变换
+ 两边，逐项核对恒等式。
+ \exerciseitem{dirichlet-geometric-partial-sums} 证明
+ \(\sum_{k=1}^n e^{ikx}\) 在 \(x\notin2\pi\Z\) 时关于 \(n\) 有界，并
+ 说明界如何依赖 \(x\)。
+ \exerciseitem{series-sine-over-n} 证明
+ \(\sum_{n=1}^\infty\sin(nx)/n\) 对 \(x\notin2\pi\Z\) 收敛。
+ \exerciseitem{series-abel-monotone-factor} 设 \(\sum a_n\) 收敛、
+ \(b_n\downarrow L\)。从 Abel 变换直接证明 \(\sum a_nb_n\) 收敛。
+\end{enumerate}
+
+\subsection*{B组　绝对收敛与重排}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{positive-negative-parts-equivalence} 完整证明
+ \(\sum a_n\) 绝对收敛当且仅当正部、负部级数都收敛。
+ \exerciseitem{conditional-both-signs-infinite} 证明条件收敛级数必有无穷多个
+ 正项和无穷多个负项。
+ \exerciseitem{absolute-rearrangement-cauchy} 用 Cauchy 准则重证绝对收敛
+ 级数的任意重排收敛到同一总和。
+ \exerciseitem{conditional-even-odd-rearrangement} 对交错调和级数构造
+ “取两个正项、再取一个负项”的重排，计算其总和与原和的关系。
+ \exerciseitem{riemann-target-construction-detail} 对给定 \(s\in\R\)，把
+ Riemann 重排构造写成递归指标，并证明所得排列确为 \(\Npos\) 的双射。
+ \exerciseitem{riemann-divergent-rearrangements} 对一个条件收敛级数分别写出
+ 趋于 \(+\infty\) 与上下无界振荡的具体分块算法。
+\end{enumerate}
+
+\subsection*{C组　条件与推广}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{alternating-not-monotone-counterexample} 构造 \(b_n\to0\) 但
+ 不单调，使 \(\sum(-1)^{n-1}b_n\) 发散。
+ \exerciseitem{dirichlet-boundedness-necessary-example} 取 \(b_n\downarrow0\)，
+ 构造部分和无界的 \(a_n\)，使 \(\sum a_nb_n\) 发散，说明 Dirichlet
+ 判别的有界性条件不能任意删去。
+ \exerciseitem{conditional-subseries-range} 证明条件收敛级数可以选取一个
+ 子级数收敛于任意给定的正数。
+ \exerciseitem{complex-rearrangement-warning} 说明实数 Riemann 重排证明
+ 为什么依赖正负次序；给出复数项级数中不能照搬“正部、负部”的原因。
+ \optionalexerciseitem{levy-steinitz-finite-dimensional-note} 在不调用一般
+ Lévy--Steinitz 定理的前提下，研究由两条互相垂直方向上的两个条件收敛
+ 实级数组成的平面向量级数，构造若干不同的重排极限，并说明可达到集合
+ 与一维情形可能不同。
+\end{enumerate}

@@ -1,0 +1,185 @@
+\chapter{微积分基本定理}
+\label{chap:fundamental-theorem-calculus-solutions}
+
+\begin{solution}{ftc-indefinite-step-function}
+对
+\[
+ f(x)=0\ (x<0),\qquad f(x)=1\ (x\ge0)
+\]
+于 \([-1,1]\)，积分上限函数为 \(F(x)=0\)（\(x\le0\)）和
+\(F(x)=x\)（\(x\ge0\)）。在 \(x<0\) 有 \(F'=0=f\)，在 \(x>0\)
+有 \(F'=1=f\)。在 \(0\) 处左导数为 \(0\)、右导数为 \(1\)，所以不可导。
+这恰与 \(f\) 只在 \(0\) 不连续相对应。
+\end{solution}
+
+\begin{solution}{ftc-continuity-point-general}
+若 \(h>0\)，则
+\[
+ \abs{\frac{F(x_0+h)-F(x_0)}h-f(x_0)}
+ \le\sup_{x_0\le t\le x_0+h}\abs{f(t)-f(x_0)}.
+\]
+若 \(h<0\)，反向积分给出
+\[
+ \frac{F(x_0+h)-F(x_0)}h
+ =\frac1{\abs h}\int_{x_0+h}^{x_0}f(t)\,dt,
+\]
+故得到同样的上界，只需把区间改为
+\([x_0+h,x_0]\)。连续性使两侧上界都趋于零。
+\end{solution}
+
+\begin{solution}{ftc-antiderivative-difference}
+在任意闭子区间 \([x,y]\) 上，Lagrange 中值定理给出
+\[
+ (F-G)(y)-(F-G)(x)=(F-G)'(\xi)(y-x)=0.
+\]
+所以在一个区间上差为常数。若定义域不是区间，只能断言它在每个连通分支
+（实线上即每个区间分支）上为常数，不同分支的常数可以不同。
+\end{solution}
+
+\begin{solution}{ftc-integral-zero-continuous}
+令 \(F(x)=\int_a^x f\)。题设说 \(F\equiv0\)。由微积分基本定理第一部分，
+\(f=F'\equiv0\) 于开区间；端点由连续性得到同样结论。
+\end{solution}
+
+\begin{solution}{ftc-derivative-integrable-newton}
+任取分割 \(P\)。对每段应用中值定理，选
+\(\xi_i\in(x_{i-1},x_i)\) 使
+\[
+ F(x_i)-F(x_{i-1})=F'(\xi_i)\Delta x_i.
+\]
+相加得 \(F(b)-F(a)=S(F',\dot P)\)。取一列网格趋于零的分割，
+Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
+\end{solution}
+
+\begin{solution}{ftc-integrable-no-primitive-darboux}
+可取
+\[
+ f(x)=\begin{cases}0,&x<0,\\1,&x\ge0,\end{cases}
+\]
+于 \([-1,1]\)。它单调，故 Riemann 可积。若 \(f=F'\)，Darboux 定理
+要求 \(F'\) 在连接任意两点的区间上取遍中间值；但 \(f\) 不取
+\((0,1)\) 中任何数，矛盾。
+\end{solution}
+
+\begin{solution}{integral-mean-value-weight-sign}
+在 \([-1,1]\) 上取 \(f(x)=x\)、\(g(x)=x\)。则
+\[
+ \int_{-1}^1g=0,\qquad
+ \int_{-1}^1fg=\int_{-1}^1x^2\,dx=\frac23.
+\]
+若中值公式成立，右端应为 \(f(\xi)\int g=0\)，矛盾。这里权函数变号。
+\end{solution}
+
+\begin{solution}{integral-average-between-extrema}
+平均值总在 \([m,M]\) 中。若平均值等于 \(M\)，则连续非负函数
+\(M-f\) 的积分为零，故 \(f\equiv M\)。等于 \(m\) 同理。因此非常值时
+平均值严格介于两端。常函数显然在端点取平均值。
+\end{solution}
+
+\begin{solution}{integration-by-parts-log}
+在 \([1,b]\) 上取 \(u=\log x\)、\(v'=1\)，于是 \(v=x\)。
+两函数均为 \(C^1\)，故分部积分合法：
+\[
+ \int_1^b\log x\,dx
+ =[x\log x]_1^b-\int_1^b1\,dx
+ =b\log b-b+1.
+\]
+\end{solution}
+
+\begin{solution}{substitution-nonmonotone}
+若 \(f=1\)，左端为
+\[
+ \int_{-1}^1 2t\,dt=0,
+\]
+右端为 \(\int_{\phi(-1)}^{\phi(1)}1\,dx=\int_1^1 1\,dx=0\)。
+若 \(f(x)=x\)，左端为
+\[
+ \int_{-1}^1 t^2(2t)\,dt=0,
+\]
+右端仍是从 \(1\) 到 \(1\) 的积分。参数从 \(1\) 降至 \(0\) 再升至
+\(1\)，两段方向相反，贡献抵消。
+\end{solution}
+
+\begin{solution}{substitution-oriented-integral}
+令 \(x=-u\)，即 \(\phi(u)=-u\)，并令 \(u\) 从 \(-a\) 到 \(-b\)。
+代换公式给出
+\[
+ \int_{-a}^{-b}f(-u)(-1)\,du=\int_a^b f(x)\,dx,
+\]
+整理即得题式。若 \(f\) 为奇函数，两半区间积分互相抵消；若为偶函数，
+\[
+ \int_{-c}^c f=2\int_0^c f.
+\]
+\end{solution}
+
+\begin{solution}{ftc-taylor-integral-remainder-bound}
+从积分余项，
+\[
+ \abs{R_{n,a}f(x)}
+ \le\frac{M}{n!}\int_{\min(a,x)}^{\max(a,x)}
+       \abs{x-t}^n\,dt
+ =\frac{M}{(n+1)!}\abs{x-a}^{n+1}.
+\]
+这个论证只把整个积分用统一上界控制，没有证明积分等于某个中间点函数值
+乘以长度；后者需要积分中值定理和相应连续性。
+\end{solution}
+
+\begin{solution}{integral-jensen-square}
+对凸函数 \(\Phi(u)=u^2\) 和常权 \(w=1\) 应用积分 Jensen 不等式即得。
+等号条件也可直接由
+\[
+ \frac1{b-a}\int_a^b(f-\bar f)^2
+ =\frac1{b-a}\int_a^b f^2-\bar f^{\,2}
+\]
+判断，其中 \(\bar f=(b-a)^{-1}\int f\)。连续非负函数
+\((f-\bar f)^2\) 积分为零当且仅当它恒为零，即 \(f\) 为常函数。
+\end{solution}
+
+\begin{solution}{ftc-absolute-value-antiderivative}
+函数
+\[
+ F(x)=\frac12x\abs x
+\]
+在 \(x\ne0\) 的导数为 \(\abs x\)，在 \(0\) 的差商为
+\(\frac12\abs h\to0\)，故 \(F'=\abs x\)，且导数连续，所以
+\(F\in C^1\)。符号函数在 \(0\) 有跳跃，不具 Darboux 性质，因而不能
+成为任何导函数。
+\end{solution}
+
+\begin{solution}{ftc-integral-upper-function-convex}
+由基本定理 \(F'=f\)。若 \(f\) 单调不减，则可导函数的导数判据说明
+\(F\) 凸。若 \(f\) 严格递增，则 \(F'\) 在任何非退化子区间上都不恒定，
+因而 \(F\) 严格凸。更弱的充分条件是：\(f\) 单调不减且不在任何非退化
+子区间上为常数。
+\end{solution}
+
+\begin{solution}{ftc-second-derivative-integral-reconstruction}
+对函数 \(f\) 应用本章 Taylor 积分余项的 \(n=1\) 情形，直接得到
+\[
+ f(x)=f(a)+f'(a)(x-a)+\int_a^x(x-t)f''(t)\,dt.
+\]
+这里没有使用二重积分换序；所需公式已经由一元分部积分证明。
+
+若 \(f''\ge0\)，则余项
+\(\int_a^x(x-t)f''(t)\,dt\ge0\)（\(x>a\)），从而函数位于每条切线
+上方；这等价于凸性。
+\end{solution}
+
+\begin{solution}{integral-jensen-weighted-equality}
+记加权平均为 \(m\)。严格凸性给出：对每个 \(u\ne m\)，
+\(\Phi(u)\) 严格高于 \(\Phi\) 在 \(m\) 处的任一支撑线。若 \(f\)
+非常值，由连续性存在一段区间使 \(f\ne m\)，且 \(w>0\)；在该段上严格
+差值连续且为正，因此积分后的 Jensen 不等式严格。反之，若 \(f\) 常值，
+显然取等。
+\end{solution}
+
+\begin{solution}{ftc-derivative-discontinuity-primitive}
+对 \(x\ne0\)，
+\[
+ F'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2),
+\]
+而 \(F'(0)=\lim_{h\to0}h\sin(1/h^2)=0\)。第二项使 \(F'\) 在
+\(0\) 附近无界，故不连续，但它按定义仍是 \(F\) 的导函数。Riemann
+可积函数必须有界，所以 \(F'\) 在任何包含 \(0\) 的闭区间上都不
+Riemann 可积。
+\end{solution}

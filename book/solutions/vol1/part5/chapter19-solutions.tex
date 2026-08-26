@@ -1,0 +1,223 @@
+\chapter{Riemann 积分}
+\label{chap:riemann-integral-solutions}
+
+\begin{solution}{riemann-step-function-direct}
+设 \(f=\mathbf1_{[c,b]}\)，其中 \(a<c<b\)。对任意标记分割，与
+\(c\) 不相邻的子区间，其贡献恰为该段落在 \((c,b]\) 中的长度。若
+\(c\) 是分点，左右两段都可能以 \(c\) 为标记；若 \(c\) 落在某一子区间
+内部，则只有这一段需要单独处理。故至多有两个子区间产生误差，每段误差
+不超过其长度，从而
+\[
+ \abs{S(f,\dot P)-(b-c)}\le2\norm P.
+\]
+当 \(\norm P\to0\) 时右端趋于零，故积分为 \(b-c\)。这个估计也覆盖
+标记点恰等于 \(c\) 的情形。
+\end{solution}
+
+\begin{solution}{riemann-integrable-bounded-reproof}
+若 \(f\) 无界，固定任意网格充分小的分割 \(P\)。总有一个子区间
+\(J=[x_{j-1},x_j]\) 上 \(f\) 无界，否则有限个局部界会给出整体界。
+固定其余标记点，在 \(J\) 中可选 \(u,v\) 使
+\[
+ \abs{f(u)-f(v)}\Delta x_j>1.
+\]
+由此得到两个具有同一细分的标记和，其差大于 \(1\)，与 Cauchy 判据在
+\(\varepsilon=1\) 时的结论矛盾。
+\end{solution}
+
+\begin{solution}{darboux-common-refinement}
+有限多个分割的全部分点之并仍是有限集，按从小到大排列即得公共加细。
+对分割 \(P,Q\)，令 \(R=P\cup Q\)。加细单调性给出
+\[
+ L(f,P)\le L(f,R)\le U(f,R)\le U(f,Q).
+\]
+\end{solution}
+
+\begin{solution}{darboux-upper-lower-examples}
+令 \(x_i=i/n\)。对 \(f(x)=x\)，
+\[
+ L_n=\frac1n\sum_{i=1}^n\frac{i-1}{n}
+ =\frac{n-1}{2n},\qquad
+ U_n=\frac1n\sum_{i=1}^n\frac{i}{n}
+ =\frac{n+1}{2n},
+\]
+二者都趋于 \(1/2\)。
+
+对 \(f(x)=x^2\)，
+\[
+ L_n=\frac1{n^3}\sum_{k=0}^{n-1}k^2
+ =\frac{(n-1)n(2n-1)}{6n^3},
+\]
+\[
+ U_n=\frac1{n^3}\sum_{k=1}^{n}k^2
+ =\frac{n(n+1)(2n+1)}{6n^3}.
+\]
+二者都趋于 \(1/3\)，故相应积分分别为 \(1/2\) 与 \(1/3\)。
+\end{solution}
+
+\begin{solution}{riemann-oscillation-step}
+设间断点为 \(c_1,\ldots,c_m\)，且 \(\abs f\le M\)。给定
+\(\varepsilon>0\)，用总长度小于
+\(\varepsilon/(4M)\) 的有限个区间覆盖这些点。删去这些区间后留下有限个
+紧区间，\(f\) 在其并上连续，故一致连续。把覆盖区间端点和足够细的等距点
+加入分割，使其余各段振幅之和乘长度小于 \(\varepsilon/2\)。覆盖部分的
+振幅至多 \(2M\)，贡献小于 \(\varepsilon/2\)。总振幅和小于
+\(\varepsilon\)，故可积。
+\end{solution}
+
+\begin{solution}{riemann-zero-off-finite}
+零函数可积且积分为零。题设函数由零函数在有限个点修改得到，应用有限点
+修改命题即得。也可直接把这些点放入总长度任意小的子区间中，使用振幅判据。
+\end{solution}
+
+\begin{solution}{riemann-restriction-additivity}
+设 \(f\) 在 \([a,b]\) 可积。给定 \(\varepsilon>0\)，取 \([a,b]\)
+上的分割 \(P\) 使
+\[
+ U_{[a,b]}(f,P)-L_{[a,b]}(f,P)<\varepsilon.
+\]
+把 \(c\) 加入 \(P\)。加细后差值不增，并且新的上下和差分解为左右两段
+非负差值之和。因此每一段的差值都小于 \(\varepsilon\)，Darboux 判据
+说明 \(f\) 在两段上都可积。
+\end{solution}
+
+\begin{solution}{riemann-product-oscillation}
+任取 \(x,y\in J\)，
+\[
+ \abs{f(x)g(x)-f(y)g(y)}
+ \le \abs{f(x)}\abs{g(x)-g(y)}
+     +\abs{g(y)}\abs{f(x)-f(y)}.
+\]
+用统一界 \(M,N\) 控制两因子，再对 \(x,y\) 取上确界，即得题中振幅
+不等式。对分割各段乘长度求和；分别选择使 \(f,g\) 的总振幅小于
+\(\varepsilon/(2N)\)、\(\varepsilon/(2M)\) 的分割并取公共加细，即得
+\(fg\) 的 Darboux 差小于 \(\varepsilon\)。零界情形单独立即成立。
+\end{solution}
+
+\begin{solution}{riemann-lipschitz-composition}
+设 \(\Phi\) 的 Lipschitz 常数为 \(L\)。对任意子区间 \(J\)，
+\[
+ \omega(\Phi\circ f;J)\le L\,\omega(f;J).
+\]
+因此任何使 \(f\) 的振幅和小于 \(\varepsilon/L\) 的分割，都使
+\(\Phi\circ f\) 的振幅和小于 \(\varepsilon\)。若 \(L=0\)，结论平凡。
+\end{solution}
+
+\begin{solution}{riemann-continuous-composition}
+可积函数 \(f\) 有界，故其值域包含于某紧区间 \(K\)。函数 \(\Phi\) 在
+\(K\) 上一致连续。给定 \(\varepsilon>0\)，先取 \(\eta>0\)，使
+\(\abs{u-v}<\eta\) 蕴含
+\(\abs{\Phi(u)-\Phi(v)}<\varepsilon/(2(b-a))\)。设
+\(\abs{\Phi}\le M\) 于 \(K\)。由 \(f\) 的振幅判据取分割，使
+\[
+ \sum_i\omega(f;I_i)\Delta x_i
+ <\frac{\eta\varepsilon}{4M}.
+\]
+把指标分成 \(\omega(f;I_i)<\eta\) 与其余两类。第一类上复合振幅小于
+\(\varepsilon/(2(b-a))\)，总贡献小于 \(\varepsilon/2\)；第二类区间
+总长度不超过
+\(\eta^{-1}\sum_i\omega(f;I_i)\Delta x_i\)，其复合振幅至多
+\(2M\)，贡献也小于 \(\varepsilon/2\)。故复合函数可积。
+\end{solution}
+
+\begin{solution}{riemann-integral-zero-positive}
+若存在 \(x_0\) 使 \(f(x_0)>0\)，连续性给出一个与 \([a,b]\) 相交的
+非退化区间 \(J\)，使 \(f\ge f(x_0)/2\) 于 \(J\)。于是
+\[
+ \int_a^b f\ge \frac{f(x_0)}2\,|J|>0,
+\]
+矛盾。故 \(f\equiv0\)。若只要求可积，可取只在一点等于 \(1\)、其余
+处等于 \(0\) 的函数；它的积分为零但不恒为零。
+\end{solution}
+
+\begin{solution}{riemann-monotone-error-bound}
+若 \(f\) 单调不减，则
+\[
+ U(f,P)-L(f,P)
+ =\sum_i\bigl(f(x_i)-f(x_{i-1})\bigr)\Delta x_i
+ \le\norm P\sum_i\bigl(f(x_i)-f(x_{i-1})\bigr),
+\]
+最后一和望远镜消去，等于 \(f(b)-f(a)\)。
+\end{solution}
+
+\begin{solution}{riemann-uniform-limit-preview}
+给定 \(\varepsilon>0\)，取 \(n\) 使
+\[
+ \norm{f_n-f}_\infty<\frac{\varepsilon}{4(b-a)}.
+\]
+再取分割 \(P\) 使
+\(U(f_n,P)-L(f_n,P)<\varepsilon/2\)。对每段，
+\[
+ \omega(f;I_i)\le \omega(f_n;I_i)+2\norm{f-f_n}_\infty,
+\]
+故 \(f\) 的总振幅小于 \(\varepsilon\)，从而可积。基本估计给出
+\[
+ \abs{\int f_n-\int f}
+ \le(b-a)\norm{f_n-f}_\infty\to0.
+\]
+\end{solution}
+
+\begin{solution}{riemann-dense-countable-spikes}
+给定 \(\varepsilon>0\)，先取 \(N\) 使 \(2^{-N}<\varepsilon/2\)。
+用总长度小于 \(\varepsilon/2\) 的有限个区间覆盖
+\(r_1,\ldots,r_N\)，并把端点加入分割。覆盖部分振幅至多 \(1\)；
+其余部分函数值至多 \(2^{-N}\)。因此上和小于 \(\varepsilon\)。
+无理点在每段稠密，故下和为零。积分为零。
+\end{solution}
+
+\begin{solution}{riemann-thomae-continuity}
+若 \(x_0=p/q\) 为既约有理数，则 \(T(x_0)=1/q>0\)，而任意邻域含无理数
+点列 \(x_n\to x_0\)，其函数值为零，故不连续。
+
+若 \(x_0\) 无理，给定 \(\varepsilon>0\)，取 \(N\) 使 \(1/N<\varepsilon\)。
+分母不超过 \(N\) 的既约有理数在 \([0,1]\) 中有限，且不含
+\(x_0\)。取 \(\delta>0\) 使
+\((x_0-\delta,x_0+\delta)\) 避开这些点。邻域内任一有理数的分母
+大于 \(N\)，故 \(T(x)<\varepsilon\)；无理点函数值为零。因此
+\(T(x)\to0=T(x_0)\)。
+\end{solution}
+
+\begin{solution}{riemann-dense-indicator-notintegrable}
+每个非退化子区间同时与 \(A\) 和 \(A^c\) 相交，所以
+\(\mathbf1_A\) 在每段的上确界为 \(1\)、下确界为 \(0\)。任意分割均有
+\[
+ U(\mathbf1_A,P)-L(\mathbf1_A,P)=b-a>0,
+\]
+故不可积。
+\end{solution}
+
+\begin{solution}{riemann-change-single-point-upper-lower}
+设两函数只在 \(c\) 处不同，并都由 \(M\) 控制绝对值。给定分割，再加入
+\(c-\eta,c,c+\eta\) 中落在区间内的点。除与 \(c\) 相邻的至多两个
+小区间外，上下和完全相同；这些区间总长度至多 \(2\eta\)，因而两函数
+的 Darboux 差相差不超过 \(4M\eta\)。令 \(\eta\to0\)，一个函数可使
+上下和差任意小当且仅当另一个也可以。对上下积分分别作同样比较，积分值
+之差为零。
+\end{solution}
+
+\begin{solution}{riemann-regulated-approximation}
+固定 \(\varepsilon>0\)。对每个 \(x\in(a,b)\)，左、右极限的存在给出
+\(\delta_x>0\)，使 \(f\) 在
+\((x-\delta_x,x)\) 和 \((x,x+\delta_x)\) 上的振幅都小于
+\(\varepsilon\)；端点只保留区间内的一侧。较小的开区间
+\[
+ U_x=(x-\delta_x/2,x+\delta_x/2)\cap[a,b]
+\]
+覆盖 \([a,b]\)。取有限子覆盖
+\(U_{x_1},\ldots,U_{x_r}\)，并取其一个 Lebesgue 数 \(\lambda>0\)。
+
+构造一个网格小于 \(\lambda\) 的分割，同时把所有 \(x_j\) 加为分点。
+任一相邻分点之间的开区间 \(I\) 落在某个 \(U_{x_j}\) 中；由于 \(I\)
+内部不含 \(x_j\)，它完全位于 \(x_j\) 的一侧。因此
+\(\omega(f;I)<\varepsilon\)。在每个开段 \(I_i\) 任选
+\(\xi_i\)，令阶梯函数 \(s=f(\xi_i)\) 于 \(I_i\)，并在分点处令
+\(s=f\)。于是每个非分点 \(y\in I_i\) 满足
+\[
+ \abs{f(y)-s(y)}<\varepsilon,
+\]
+分点处差为零，故 \(\norm{f-s}_\infty\le\varepsilon\)。
+
+阶梯函数可积；又可将 \(\varepsilon\) 任意缩小，所以 \(f\) 是一列
+阶梯函数的一致极限。由习题 \ref{ex:riemann-uniform-limit-preview}，
+\(f\) 可积。
+\end{solution}

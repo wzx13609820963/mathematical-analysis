@@ -1,0 +1,435 @@
+\chapter{二重级数与无穷乘积}
+\label{chap:double-series-infinite-products}
+
+一列部分和只有一个趋向无穷的指标。二重级数有矩形扩大、先按行求和、
+先按列求和以及把所有项排成一列等多种极限过程；缺少非负性或绝对收敛时，
+它们可能给出不同结果。无穷乘积也必须通过有限部分乘积定义，并且零极限
+与非零极限在理论中承担不同角色。
+
+\section{二重数列、矩形部分和与 Pringsheim 收敛}
+
+设 \((a_{mn})_{m,n\ge1}\) 为二重数列，定义矩形部分和
+\[
+ S_{MN}=\sum_{m=1}^M\sum_{n=1}^N a_{mn}.
+\]
+
+\begin{definition}
+若存在 \(s\in\R\)，使对任意 \(\varepsilon>0\)，存在
+\(N_0\)，只要 \(M,N\ge N_0\)，就有
+\[
+ \abs{S_{MN}-s}<\varepsilon,
+\]
+则称二重级数 \(\sum_{m,n\ge1}a_{mn}\) 按
+\term{Pringsheim 意义}收敛于 \(s\)。
+\end{definition}
+
+两个边长必须同时趋于无穷，但速度可以不同。只检查方阵
+\(S_{NN}\) 不够，因为长而窄的矩形可能保留不同的尾部贡献。
+
+\begin{theorem}[矩形部分和的 Cauchy 准则]
+\label{thm:double-series-cauchy}
+Pringsheim 收敛等价于：对任意 \(\varepsilon>0\)，存在 \(N_0\)，使
+\(M,N,P,Q\ge N_0\) 时
+\[
+ \abs{S_{MN}-S_{PQ}}<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+必要性由
+\[
+ \abs{S_{MN}-S_{PQ}}
+ \le\abs{S_{MN}-s}+\abs{S_{PQ}-s}
+\]
+得到。反之，对每个 \(k\) 取 \(N_k\)，使四个指标都不小于 \(N_k\) 时
+两矩形和之差小于 \(2^{-k}\)，并令 \(n_k\ge\max\{N_1,\ldots,N_k,k\}\)
+严格递增。对充分大的 \(j,k\)，
+\[
+ \abs{S_{n_jn_j}-S_{n_kn_k}}
+\]
+任意小，所以对角序列 \((S_{n_kn_k})\) 是实 Cauchy 列，设其极限为
+\(s\)。若 \(M,N\ge N_k\)，先把 \(S_{MN}\) 与一个充分靠后的
+\(S_{n_jn_j}\) 比较，再令 \(j\to\infty\)，便得
+\(\abs{S_{MN}-s}\le2^{-k}\)。因此矩形部分和按 Pringsheim 意义收敛。
+\end{proof}
+
+Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还要任意远处
+小矩形的和一致变小，需要更强的正则收敛条件；绝对收敛会自动提供这种控制。
+
+\begin{definition}[正则收敛]
+\label{def:double-series-regular}
+若对任意 \(\varepsilon>0\)，存在 \(N\)，使任意有限矩形
+\[
+ R=\{m_0,\ldots,m_1\}\times\{n_0,\ldots,n_1\}
+\]
+只要 \(m_0\ge N\) 或 \(n_0\ge N\)，就有
+\[
+ \abs{\sum_{(m,n)\in R}a_{mn}}<\varepsilon,
+\]
+则称二重级数正则收敛。
+\end{definition}
+
+正则收敛要求矩形只要沿一个方向远离原点，其和就很小；这正是逐行、逐列
+极限与矩形极限能够协调所需的尾部控制。这里只把它作为换序问题的参照，
+后续结论主要在更容易核验的绝对收敛条件下陈述。
+
+\section{逐行和、逐列和及换序问题}
+
+若每行级数收敛，可先形成
+\[
+ r_m=\sum_{n=1}^\infty a_{mn},
+\]
+再考察 \(\sum_m r_m\)。逐列迭代和类似。这两种极限不必相等，甚至不必
+与矩形极限同时存在。
+
+\begin{counterexample}[两种迭代和不同]
+\label{ex:double-series-order-counterexample}
+令
+\[
+ a_{m,n}=
+ \begin{cases}
+ 1,&n=m,\\
+ -1,&n=m+1,\\
+ 0,&\text{其他}.
+ \end{cases}
+\]
+每行和为 \(0\)，所以先行后列的和为 \(0\)。第一列和为 \(1\)，其余每列
+和为 \(0\)，所以先列后行的和为 \(1\)。此外
+\[
+ S_{M,M}=1,\qquad S_{M,M+1}=0,
+\]
+故矩形极限不存在。
+\end{counterexample}
+
+这个例子中的每一行、每一列只有有限个非零项，问题并非单行求和本身，
+而是无限多行之间缺少统一尾部控制。
+
+\section{非负项与绝对收敛情形}
+
+\begin{theorem}[非负二重级数]
+\label{thm:double-series-nonnegative}
+若 \(a_{mn}\ge0\)，则扩充实数意义下
+\[
+ \sup_{M,N}S_{MN}
+ =\sum_{m=1}^\infty\left(\sum_{n=1}^\infty a_{mn}\right)
+ =\sum_{n=1}^\infty\left(\sum_{m=1}^\infty a_{mn}\right).
+\]
+因此任一边有限时，三者都有限且相等。
+\end{theorem}
+
+\begin{proof}
+固定 \(M\)。随 \(N\) 增大，
+\[
+ S_{MN}\uparrow\sum_{m=1}^M r_m,
+\qquad
+ r_m=\sum_{n=1}^\infty a_{mn}.
+\]
+再令 \(M\to\infty\)，得到
+\[
+ \sum_m r_m=\sup_M\sup_N S_{MN}=\sup_{M,N}S_{MN}.
+\]
+交换 \(m,n\) 得到列版本。
+\end{proof}
+
+\begin{definition}
+若
+\[
+ \sup_{M,N}\sum_{m=1}^M\sum_{n=1}^N\abs{a_{mn}}<\infty,
+\]
+则称二重级数\term{绝对收敛}。
+\end{definition}
+
+由非负二重级数定理，绝对收敛还等价于
+\[
+ \sum_{m=1}^{\infty}\sum_{n=1}^{\infty}\abs{a_{mn}}<\infty,
+\]
+也等价于所有有限指标集上的绝对值和具有统一上界。这三个表述分别适合
+矩形极限、逐行求和和任意枚举。
+
+\begin{theorem}[绝对收敛下的换序]
+\label{thm:double-series-absolute-fubini}
+若二重级数绝对收敛，则每行、每列都绝对收敛，两个迭代和与矩形和都存在
+且相等。把 \(\Npos^2\) 按任意双射排列为一列后，所得级数也绝对收敛到
+同一总和。
+\end{theorem}
+
+\begin{proof}
+对非负二重数列 \(\abs{a_{mn}}\) 使用上一条定理，得到所有行、列绝对值
+之和的总和有限。写
+\[
+ a_{mn}=a_{mn}^+-a_{mn}^-,
+\]
+分别对两个非负二重级数换序，即得各求和方式相同。
+
+任意枚举后的绝对值部分和不超过全部绝对值总和，故绝对收敛。给定
+\(\varepsilon>0\)，选有限矩形使其外绝对值总和小于 \(\varepsilon\)；
+枚举最终包含该矩形全部项，此后与矩形总和的差只来自矩形外，故极限相同。
+\end{proof}
+
+\section{Cauchy 乘积、Mertens 定理与条件收敛反例}
+
+从 \(n=0\) 开始写两个级数
+\(\sum a_n,\sum b_n\)，定义其 \term{Cauchy 乘积}为
+\[
+ \sum_{n=0}^\infty c_n,\qquad
+ c_n=\sum_{k=0}^n a_kb_{n-k}.
+\]
+每个 \(c_n\) 沿二重数组的一条反对角线求和。
+
+\begin{theorem}[Mertens 定理]
+\label{thm:mertens-cauchy-product}
+若 \(\sum a_n\) 绝对收敛、\(\sum b_n\) 收敛，则 Cauchy 乘积收敛，且
+\[
+ \sum_{n=0}^\infty c_n
+ =\left(\sum_{n=0}^\infty a_n\right)
+  \left(\sum_{n=0}^\infty b_n\right).
+\]
+两级数的角色可以交换。
+\end{theorem}
+
+\begin{proof}
+记 \(A=\sum a_n\)，\(B_N=\sum_{j=0}^N b_j\)，则
+\[
+ \sum_{n=0}^N c_n
+ =\sum_{k=0}^N a_kB_{N-k}.
+\]
+序列 \((B_N)\) 有界，设 \(\abs{B_N}\le M\)。给定
+\(\varepsilon>0\)，先取 \(K\) 使
+\[
+ \sum_{k>K}\abs{a_k}<\frac{\varepsilon}{3(M+\abs B+1)}.
+\]
+再取 \(N\) 足够大，使
+\[
+ \abs{\sum_{k=0}^K a_k(B_{N-k}-B)}<\frac{\varepsilon}{3}.
+\]
+于是
+\[
+\begin{aligned}
+ \abs{\sum_{n=0}^N c_n-AB}
+ &\le
+ \abs{\sum_{k=0}^K a_k(B_{N-k}-B)}
+ +\abs{\sum_{k=K+1}^N a_kB_{N-k}}\\
+ &\qquad
+ +\abs{B}\abs{\sum_{k=K+1}^{\infty}a_k}\\
+ &<\frac{\varepsilon}{3}
+ +(M+\abs B)\sum_{k>K}\abs{a_k}
+ <\varepsilon.
+\end{aligned}
+\]
+因此 Cauchy 乘积的部分和趋于 \(AB\)。
+\end{proof}
+
+\begin{corollary}
+若两个级数都绝对收敛，则其 Cauchy 乘积绝对收敛，且和为两和之积。
+\end{corollary}
+
+\begin{proof}
+反对角线上的项只有有限个，故三角不等式与非负二重级数的换序给出
+\[
+ \sum_{n=0}^\infty\abs{c_n}
+ \le \sum_{n=0}^\infty\sum_{k=0}^n\abs{a_k}\abs{b_{n-k}}
+ =\left(\sum_{k=0}^\infty\abs{a_k}\right)
+  \left(\sum_{j=0}^\infty\abs{b_j}\right)<\infty.
+\]
+和的公式再由 Mertens 定理得到。
+\end{proof}
+
+\begin{counterexample}
+令
+\[
+ a_n=b_n=\frac{(-1)^n}{\sqrt{n+1}}\qquad(n\ge0).
+\]
+两个级数都由 Leibniz 判别收敛。其 Cauchy 乘积通项为
+\[
+ c_n=(-1)^n\sum_{k=0}^n
+ \frac1{\sqrt{(k+1)(n-k+1)}}.
+\]
+中间一半的指标中，每个分母至多 \(n+1\)，而这样的项有比例为正的
+\(n\) 项，所以 \(\abs{c_n}\) 有固定正下界，不趋于零。Cauchy 乘积发散。
+\end{counterexample}
+
+\section{无穷乘积的定义和 Cauchy 准则}
+
+给定实数列 \((p_n)\)，有限部分乘积为
+\[
+ P_N=\prod_{n=1}^Np_n.
+\]
+
+\begin{definition}
+若 \(P_N\to P\ne0\)，称无穷乘积
+\(\prod_{n=1}^\infty p_n\) \term{收敛}，并以 \(P\) 为其值。
+若 \(P_N\to0\)，称乘积\term{趋于零}，但按本书约定不称为收敛。
+\end{definition}
+
+非零极限的约定使有限个因子的改变只按一个非零常数缩放乘积，也使尾乘积
+趋于 \(1\)。
+
+\begin{theorem}[无穷乘积的 Cauchy 准则]
+\label{thm:infinite-product-cauchy}
+假设每个 \(p_n\ne0\)。无穷乘积收敛，当且仅当对任意
+\(\varepsilon>0\)，存在 \(N\)，使 \(n\ge m\ge N\) 时
+\[
+ \abs{\prod_{k=m}^n p_k-1}<\varepsilon.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(P_N\to P\ne0\)，则
+\[
+ \prod_{k=m}^n p_k=\frac{P_n}{P_{m-1}}\to1
+\]
+在 \(m,n\to\infty\) 时成立。
+
+反之，先取 \(N_0\) 使一切从 \(N_0\) 开始的有限尾乘积落在
+\((1/2,3/2)\)。固定 \(m=N_0\)，可知
+\(P_n/P_{N_0-1}\) 有界，因而 \((P_n)\) 最终有界。记
+\(\abs{P_n}\le C\)（\(n\ge N_0\)）。给定 \(\eta>0\)，再由题设取
+\(N\ge N_0\)，使 \(n>\ell\ge N\) 时
+\[
+ \abs{\frac{P_n}{P_\ell}-1}<\frac{\eta}{C}.
+\]
+于是
+\[
+ \abs{P_n-P_\ell}
+ =\abs{P_\ell}\abs{\frac{P_n}{P_\ell}-1}<\eta.
+\]
+所以 \((P_n)\) 是 Cauchy 列，设其极限为 \(P\)。另一方面，对
+\(n\ge m\ge N_0\) 的尾乘积有下界 \(1/2\)。先令 \(n\to\infty\)，
+再固定任一 \(m\ge N_0\)，可得
+\(\abs{P/P_{m-1}}\ge1/2\)，从而 \(P\ne0\)。
+\end{proof}
+
+\section{对数判别、零因子与乘积表示}
+
+以下主要写 \(p_n=1+u_n\)。若乘积收敛，则尾因子
+\[
+ 1+u_n=\frac{P_n}{P_{n-1}}\to1,
+\]
+所以 \(u_n\to0\) 是必要条件。
+
+早期因子的作用必须与尾部判别分开。一个零因子使此后所有部分乘积都等于
+零；有限个非零因子只把尾乘积乘以一个非零常数。对数判别处理的是最终
+接近 \(1\) 的尾部，有限前缀的符号由其本身决定。
+
+\begin{theorem}[正因子的对数判别]
+\label{thm:infinite-product-log}
+假设没有零因子，并且 \(1+u_n>0\) 最终成立。则
+\[
+ \prod_{n=1}^\infty(1+u_n)
+\]
+收敛，当且仅当从某个充分大的 \(N_0\) 起的对数级数
+\[
+ \sum_{n=N_0}^\infty\log(1+u_n)
+\]
+收敛于有限实数；乘积趋于零，当且仅当该对数级数趋于 \(-\infty\)。
+\end{theorem}
+
+\begin{proof}
+取 \(N_0\) 使 \(1+u_n>0\) 对 \(n\ge N_0\) 成立。由于此前没有零因子，
+有限前缀乘积 \(P_{N_0-1}\ne0\)，并且
+\[
+ \log\abs{P_N}=\log\abs{P_{N_0-1}}
+ +\sum_{n=N_0}^N\log(1+u_n).
+\]
+尾部各因子为正，故 \(P_N\) 的符号最终固定。指数函数连续且把有限实数
+映成正数，所以对数部分和有有限极限，当且仅当 \(P_N\) 有非零极限。
+若对数部分和趋于 \(-\infty\)，则 \(\abs{P_N}\to0\)；反向也成立。
+\end{proof}
+
+\begin{corollary}
+若 \(\sum\abs{u_n}<\infty\)，则
+\(\prod(1+u_n)\) 在没有零因子时收敛。若 \(u_n\ge0\)，则
+\[
+ \prod(1+u_n)\text{ 收敛}
+\quad\Longleftrightarrow\quad
+\sum u_n\text{ 收敛}.
+\]
+\end{corollary}
+
+\begin{proof}
+充分大时 \(\abs{u_n}\le1/2\)，并有
+\[
+ \abs{\log(1+u_n)}\le2\abs{u_n}.
+\]
+故绝对收敛推出对数级数收敛。若 \(u_n\ge0\) 且趋零，则充分大时
+\[
+ \frac12u_n\le\log(1+u_n)\le u_n,
+\]
+比较判别给出等价性。
+\end{proof}
+
+条件收敛的 \(\sum u_n\) 仍可能给出收敛乘积，但需控制二次误差。
+例如从 \(n=2\) 开始取 \(u_n=(-1)^n/n\)，则
+\[
+ \log(1+u_n)=u_n+O(u_n^2).
+\]
+第一项级数收敛，第二项绝对可和，所以乘积收敛到非零数。
+这里使用的是：当 \(\abs u\le1/2\) 时，存在常数 \(C\) 使
+\[
+ \abs{\log(1+u)-u}\le C u^2.
+\]
+因此“\(\sum u_n\) 收敛且 \(\sum u_n^2\) 收敛”足以控制取对数产生的
+累计误差；只有 \(\sum u_n\) 收敛一般还不够。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　二重求和}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{double-series-counterexample-verify} 对正文反例逐项计算行和、列和、
+ \(S_{M,M}\) 与 \(S_{M,M+1}\)。
+ \exerciseitem{double-series-diagonal-not-enough} 构造二重数列使
+ \(S_{N,N}\to0\)，但 Pringsheim 极限不存在。
+ \exerciseitem{double-series-nonnegative-supremum} 从有限矩形上确界出发，
+ 完整证明非负二重级数两个迭代和相等。
+ \exerciseitem{double-series-absolute-enumeration} 证明绝对收敛二重级数按
+ \(\Npos^2\) 的任意枚举求和都得到同一值。
+ \exerciseitem{double-series-product-separable} 若
+ \(\sum\abs{a_m}<\infty\)、\(\sum\abs{b_n}<\infty\)，证明
+ \[
+  \sum_{m,n\ge1}a_mb_n
+  =\left(\sum_ma_m\right)\left(\sum_nb_n\right).
+ \]
+\end{enumerate}
+
+\subsection*{B组　Cauchy 乘积}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{cauchy-product-geometric} 直接计算两个几何级数的 Cauchy
+ 乘积，并核对总和公式。
+ \exerciseitem{cauchy-product-partial-sum-identity} 证明
+ \[
+  \sum_{n=0}^Nc_n=\sum_{k=0}^Na_kB_{N-k}
+ \]
+ 并用图示或指标区域说明缺失的是哪一块二重尾项。
+ \exerciseitem{mertens-proof-tail} 把 Mertens 定理证明中的有限头部与绝对
+ 可和尾部估计写成完整的 \(\varepsilon\) 证明。
+ \exerciseitem{cauchy-product-conditional-divergence} 对
+ \(a_n=(-1)^n/\sqrt{n+1}\) 给出 \(\abs{c_n}\) 的显式统一正下界。
+ \exerciseitem{cauchy-product-one-finite} 若一个级数只有有限个非零项，证明
+ 它与任意收敛级数的 Cauchy 乘积收敛到两和之积。
+\end{enumerate}
+
+\subsection*{C组　无穷乘积}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{infinite-product-telescoping} 计算
+ \[
+  \prod_{n=2}^\infty\left(1-\frac1{n^2}\right).
+ \]
+ \exerciseitem{infinite-product-zero-harmonic} 证明
+ \(\prod_{n=2}^\infty(1-1/n)=0\)，并解释为何本书不称其为收敛乘积。
+ \exerciseitem{infinite-product-absolute-perturbation} 证明若
+ \(\sum\abs{u_n}<\infty\) 且无零因子，则改变有限多个因子只把乘积乘以
+ 一个非零常数。
+ \exerciseitem{infinite-product-log-second-order} 若 \(u_n\to0\)、
+ \(\sum u_n\) 收敛且 \(\sum u_n^2<\infty\)，证明
+ \(\prod(1+u_n)\) 在无零因子时收敛。
+ \exerciseitem{infinite-product-positive-divergence} 若 \(u_n\ge0\) 且
+ \(\sum u_n=\infty\)，证明部分乘积趋于 \(+\infty\)。
+ \optionalexerciseitem{euler-product-finite-stage}
+ 对有限素数集 \(P\) 和 \(s>1\)，展开有限乘积
+ \[
+  \prod_{p\in P}\frac1{1-p^{-s}},
+ \]
+ 说明每个只含 \(P\) 中素因子的正整数恰出现一次。再讨论把 \(P\) 扩大时，
+ 这些有限乘积与 \(\sum_{n\ge1}n^{-s}\) 的关系。
+\end{enumerate}

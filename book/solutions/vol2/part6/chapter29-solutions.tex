@@ -1,0 +1,252 @@
+\chapter{实解析函数}
+\label{chap:real-analytic-functions-solutions}
+
+\begin{solution}{analytic-coefficients-derivatives}
+逐项求导并在 \(x=a\) 处代入，得到
+\[
+ c_0=f(a),\qquad c_1=f'(a),\qquad
+ c_2=\frac{f''(a)}{2!},\qquad
+ c_3=\frac{f'''(a)}{3!}.
+\]
+一般地 \(c_n=f^{(n)}(a)/n!\)。
+\end{solution}
+
+\begin{solution}{analytic-recentering-geometric}
+写
+\[
+ \frac1{1-x}
+ =\frac1{1-c-(x-c)}
+ =\frac1{1-c}\frac1{1-\dfrac{x-c}{1-c}}.
+\]
+因此
+\[
+ \frac1{1-x}
+ =\sum_{n=0}^\infty\frac{(x-c)^n}{(1-c)^{n+1}},
+ \qquad |x-c|<1-c.
+\]
+新中心为 \(c\)，收敛半径为 \(1-c\)，它等于中心到实奇点 \(1\) 的距离。
+\end{solution}
+
+\begin{solution}{analytic-recentering-absolute-regrouping}
+对 \(x=c+h\)，二项展开后的项为
+\[
+ a_n\binom nk(c-x_0)^{n-k}h^k,\qquad0\le k\le n.
+\]
+其绝对值的全部总和是
+\[
+\begin{aligned}
+ \sum_{n=0}^\infty\sum_{k=0}^n
+ |a_n|\binom nk|c-x_0|^{n-k}|h|^k
+ &=\sum_{n=0}^\infty|a_n|
+ (|c-x_0|+|h|)^n.
+\end{aligned}
+\]
+当 \(|c-x_0|+|h|<R\) 时最后的幂级数收敛。绝对收敛的二重级数可按
+\(k\) 重新求和，所以交换次序和按 \(h^k\) 合并都合法。
+\end{solution}
+
+\begin{solution}{analytic-taylor-remainder-equivalence}
+若在 \(|x-a|<r\) 内对每个 \(x\) 都有 \(R_{N,a}f(x)\to0\)，则
+\[
+ f(x)=\lim_{N\to\infty}T_{N,a}f(x)
+ =\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n.
+\]
+这就是 \(a\) 处的解析表示。反过来，一旦得到幂级数表示，幂级数在每个
+\(|x-a|\le\rho<r\) 上一致收敛，故 Taylor 余项在这些内闭区间上一致
+趋零。
+\end{solution}
+
+\begin{solution}{analytic-derivative-bound-exponential}
+固定 \(a\) 和 \(r>0\)。在 \((a-r,a+r)\) 上，
+\[
+ |(e^x)^{(n)}|=e^x\le e^{a+r}\le e^{a+r}\,1^n n!.
+\]
+所以可取 \(M=e^{a+r}\)、\(A=1\)。导数增长定理先在
+\(|x-a|<\min\{r,1\}\) 内给出 Taylor 表示。由于 \(r\) 可任意选择，
+或直接使用余项
+\[
+ |R_N(x)|\le e^{\max\{a,x\}}\frac{|x-a|^{N+1}}{(N+1)!}\to0,
+\]
+可知 \(e^x\) 在任意 \(x\in\R\) 处等于其 Taylor 级数。
+\end{solution}
+
+\begin{solution}{smooth-derivatives-bounded-not-enough}
+闭区间上每个固定的连续函数 \(f^{(n)}\) 都有界，但所得上界可随 \(n\)
+任意快地增长。Lagrange 余项需要比较
+\[
+ \frac{\sup|f^{(N+1)}|}{(N+1)!}|x-a|^{N+1}
+\]
+随 \(N\) 的行为；逐阶存在有限上界并不能使该量趋零。平坦函数
+\(\phi(x)=e^{-1/x^2}\)（\(x\ne0\)）、\(\phi(0)=0\) 在任意闭区间上
+每阶导数都连续有界，却在零点所有 Taylor 系数为零而函数不恒为零，故不
+解析。
+\end{solution}
+
+\begin{solution}{analytic-product-coefficients}
+在共同收敛邻域内两个幂级数绝对收敛，因此二重级数
+\[
+ \sum_{j,k\ge0}a_jb_kh^{j+k}
+\]
+绝对收敛，可以按对角线 \(j+k=n\) 分组。于是
+\[
+ f(h)g(h)=\sum_{n=0}^\infty
+ \left(\sum_{k=0}^na_kb_{n-k}\right)h^n.
+\]
+绝对收敛正用于保证重排和分组不改变总和。
+\end{solution}
+
+\begin{solution}{analytic-reciprocal-local}
+令
+\[
+ u(x)=\frac{f(x)-f(a)}{f(a)}.
+\]
+它在 \(a\) 处解析且 \(u(a)=0\)。缩小邻域可使 \(|u(x)|<q<1\)，从而
+\[
+ \frac1{f(x)}
+ =\frac1{f(a)}\frac1{1+u(x)}
+ =\frac1{f(a)}\sum_{m=0}^\infty(-u(x))^m.
+\]
+若 \(u(a+h)=\sum_{n\ge1}c_nh^n\)，再缩小 \(r\) 使
+\(\sum_{n\ge1}|c_n|r^n<1\)。把各次幂展开后，所有项的绝对值由一个
+几何级数控制，故可按 \(h\) 的次数分组为收敛幂级数。这直接证明倒数
+解析。
+\end{solution}
+
+\begin{solution}{analytic-quotient}
+对任意 \(a\in I\)，因 \(g(a)\ne0\)，解析倒数定理说明 \(1/g\) 在
+\(a\) 的某邻域解析。解析函数的乘积仍解析，所以
+\[
+ \frac fg=f\cdot\frac1g
+\]
+在 \(a\) 附近解析。因 \(a\) 任意，商在整个 \(I\) 上解析。
+\end{solution}
+
+\begin{solution}{analytic-composition-majorant}
+写
+\[
+ u(h)=\sum_{n\ge1}a_nh^n,\qquad
+ g(f(a)+y)=\sum_{m\ge0}b_my^m.
+\]
+将 \(u(h)^m\) 展开后得到
+\[
+ \sum_{m=0}^\infty b_m
+ \sum_{n_1,\ldots,n_m\ge1}
+ a_{n_1}\cdots a_{n_m}h^{n_1+\cdots+n_m}.
+\]
+取 \(r\) 使 \(A(r)=\sum_{n\ge1}|a_n|r^n\) 落在外层幂级数的绝对
+收敛区间。上述三级求和在 \(|h|\le r\) 上的绝对值总和不超过
+\[
+ \sum_{m=0}^\infty|b_m|A(r)^m<\infty.
+\]
+故可按总次数 \(n_1+\cdots+n_m\) 分组，得到关于 \(h\) 的绝对收敛
+幂级数。
+\end{solution}
+
+\begin{solution}{analytic-log-series}
+在 \(|x|<1\) 内，
+\[
+ \frac1{1+x}=\sum_{n=0}^\infty(-1)^nx^n.
+\]
+在从 \(0\) 到 \(x\) 的内闭区间上逐项积分，
+\[
+ \log(1+x)
+ =\int_0^x\frac{dt}{1+t}
+ =\sum_{n=0}^\infty\frac{(-1)^nx^{n+1}}{n+1}.
+\]
+重新编号即得题中公式。
+\end{solution}
+
+\begin{solution}{analytic-rational-expansion}
+由几何级数，
+\[
+ \frac1{1+x^2}
+ =\sum_{n=0}^\infty(-1)^nx^{2n}
+ \qquad(|x|<1).
+\]
+系数根值上极限为 \(1\)，故收敛半径为 \(1\)。函数在整个实轴分母不为
+零，因而 \(C^\infty\)。但它在零点的 Taylor 系数已经由唯一性确定为
+上述系数，而该级数在 \(|x|>1\) 时通项不趋零，所以不能用这一单一展开
+表示整个实轴。
+\end{solution}
+
+\begin{solution}{analytic-zero-order-product}
+写
+\[
+ f(x)=(x-a)^mF(x),\qquad
+ g(x)=(x-a)^nG(x),
+\]
+其中 \(F,G\) 解析且 \(F(a)G(a)\ne0\)。则
+\[
+ f(x)g(x)=(x-a)^{m+n}F(x)G(x),
+\]
+而 \(FG\) 在 \(a\) 处非零，故乘积零点阶为 \(m+n\)。
+\end{solution}
+
+\begin{solution}{analytic-zero-order-derivative}
+写 \(f(x)=(x-a)^mg(x)\)，其中 \(g(a)\ne0\)。则
+\[
+ f'(x)=(x-a)^{m-1}
+ \bigl(mg(x)+(x-a)g'(x)\bigr).
+\]
+括号内函数在 \(a\) 处取值 \(mg(a)\ne0\)，所以 \(f'\) 的零点阶恰为
+\(m-1\)。
+\end{solution}
+
+\begin{solution}{analytic-zeros-compact-finite}
+若 \([a,b]\) 中有无穷多个零点，紧致性和 Bolzano--Weierstrass 定理
+给出一个收敛零点子列，其极限 \(c\in[a,b]\)。由于函数在包含
+\([a,b]\) 的开区间上解析，\(c\) 是定义域内部的零点聚点。恒等原理迫使
+\(f\) 在整个连通开区间上恒为零，与假设矛盾。因此零点只能有有限多个。
+\end{solution}
+
+\begin{solution}{analytic-identity-data-set}
+差函数 \(h=f-g\) 在 \(I\) 上解析，并满足 \(h(x_n)=0\)。
+\(x_n\to a\in I\)、\(x_n\ne a\) 说明其零点在定义域内部有聚点。由
+恒等原理 \(h\equiv0\)，即 \(f\equiv g\)。
+\end{solution}
+
+\begin{solution}{flat-function-derivative-form}
+初始 \(P_0(t)=1\)。若
+\[
+ \phi^{(n)}(x)=P_n(1/x)e^{-1/x^2},
+\]
+则令 \(t=1/x\)，有
+\[
+\begin{aligned}
+ \phi^{(n+1)}(x)
+ &=\left[-x^{-2}P_n'(1/x)+2x^{-3}P_n(1/x)\right]e^{-1/x^2}.
+\end{aligned}
+\]
+所以
+\[
+ P_{n+1}(t)=-t^2P_n'(t)+2t^3P_n(t),
+\]
+仍是多项式。归纳完成。
+\end{solution}
+
+\begin{solution}{smooth-bump-not-analytic}
+在 \(|x|<1\) 内有 \(1-x^2>0\)，函数 \(x\mapsto1/(1-x^2)\) 光滑；
+与指数函数复合后，\(\psi\) 在该区间内光滑。靠近 \(x=1\) 时，
+\[
+ 1-x^2=(1-x)(1+x)
+\]
+与 \(1-x\) 同阶；靠近 \(x=-1\) 时与 \(1+x\) 同阶。反复求导得到的
+每一项都是 \((1-x^2)^{-1}\) 的某个多项式乘以
+\(\exp[-1/(1-x^2)]\)。指数衰减快于任意负幂，所以函数及各阶导数在
+\(\pm1\) 的内侧都趋于零，与外侧零函数的各阶导数相接。因此
+\(\psi\in C^\infty(\R)\)。
+
+在 \(x=1\) 处所有 Taylor 系数为零，但左侧邻域函数为正，故不解析；
+\(x=-1\) 同理。也可反设它在边界解析：它在边界外侧一个开区间恒为零，
+恒等原理便迫使它在包含边界的连通邻域恒为零，与内侧正值矛盾。
+\end{solution}
+
+\begin{solution}{analytic-compact-support}
+设 \(f\) 在连通开区间 \(I\) 上解析且支集 \(K\Subset I\)。若
+\(I\setminus K\) 非空，其中含有一个开子区间，\(f\) 在该开区间恒为零。
+其零点有内部聚点，恒等原理给出 \(f\equiv0\)。若 \(K=I\) 且 \(K\)
+紧，则开区间 \(I\) 不可能等于紧集，故仍有支集外点。
+
+\(C^\infty\) 范畴没有恒等原理。正文的 \(\psi\) 是非零、光滑且支集
+包含在 \([-1,1]\) 中的函数，直接给出反例。
+\end{solution}
