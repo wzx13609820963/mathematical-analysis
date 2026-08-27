@@ -69,6 +69,32 @@
 \([-r,r]\)、\(r<1\) 上的几何尾项都有共同估计；它不在整个
 \((-1,1)\) 上一致收敛。
 
+\section{有界连续函数空间}
+
+设 \(E\subseteq\R\) 非空，并给它从实直线继承的相对拓扑。记
+\[
+ C_b(E)=\{f:E\to\R:f\text{ 连续且有界}\}.
+\]
+它是 \(\mathcal B(E)\) 的线性子空间，使用同一个上确界范数。
+
+\begin{corollary}[\(C_b(E)\) 的完备性]
+\label{cor:bounded-continuous-functions-complete}
+空间 \(C_b(E)\) 在上确界范数下完备。
+\end{corollary}
+
+\begin{proof}
+设 \((f_n)\) 是 \(C_b(E)\) 中的范数 Cauchy 列。由
+\theoremref{thm:bounded-functions-complete}，存在
+\(f\in\mathcal B(E)\) 使 \(f_n\rightrightarrows f\)。每个 \(f_n\)
+连续，而一致极限保持连续，所以 \(f\in C_b(E)\)。这说明任意 Cauchy
+列都在该空间内收敛。
+\end{proof}
+
+换言之，\(C_b(E)\) 是完备空间 \(\mathcal B(E)\) 的闭子空间。若 \(E\)
+是紧集，连续函数自动有界，因而通常记作 \(C(E)\) 而不再写下标 \(b\)。
+后文研究 \(C(K)\) 时，完备性将直接引用这里的结论；新的问题是函数族何时
+具有紧性，以及哪些较简单的函数族在其中稠密。
+
 \section{极限与 Riemann 积分交换}
 
 闭区间上的 Riemann 积分满足
@@ -308,6 +334,9 @@ Lagrange 中值定理用于 \(f_m-f_n\) 在 \(x\) 与 \(x_0\) 之间的区间，
  \exerciseitem{local-uniform-geometric-series}
  证明几何部分和在 \((-1,1)\) 上局部一致收敛于 \(1/(1-x)\)，但不在
  整个区间上一致收敛。
+ \exerciseitem{bounded-continuous-completeness}
+ 证明 \(C_b(E)\) 是 \(\mathcal B(E)\) 的闭子空间，并由此重新证明它在
+ 上确界范数下完备；再说明当 \(E\) 紧时为何 \(C_b(E)=C(E)\)。
  \exerciseitem{uniform-integrability-darboux}
  把正文中一致极限可积性的 Darboux 估计逐个子区间写出，并说明为何只需
  选取一个 \(f_N\)。

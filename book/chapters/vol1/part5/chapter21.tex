@@ -315,6 +315,67 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
 若边界项没有极限，不能只写形式上的“无穷端点代入”。同样，内部奇点的
 变量代换必须分别作用于奇点两侧，不能用一个对称截断掩盖两段发散。
 
+\section{Cauchy 主值}
+
+通常反常积分要求每个无穷端点或奇点一侧的截断极限分别存在。某些带抵消
+的积分还会采用对称截断；所得极限称为 Cauchy 主值，它是另一种极限。
+
+\begin{definition}[无穷区间上的 Cauchy 主值]
+设 \(f\) 在每个有限区间上可积。若极限
+\[
+ \lim_{R\to\infty}\int_{-R}^{R}f(x)\,dx
+\]
+存在且有限，则称它为 \(f\) 在全实线上的 \term{Cauchy 主值}，记作
+\[
+ \operatorname{p.v.}\!\int_{-\infty}^{\infty}f(x)\,dx.
+\]
+\end{definition}
+
+\begin{definition}[内部奇点处的 Cauchy 主值]
+设 \(a<c<b\)，且 \(f\) 在 \([a,c)\) 与 \((c,b]\) 的每个闭子区间
+上可积。若
+\[
+ \lim_{\varepsilon\downarrow0}
+ \left(\int_a^{c-\varepsilon}f(x)\,dx
+       +\int_{c+\varepsilon}^b f(x)\,dx\right)
+\]
+存在且有限，则称该极限为 \(f\) 在 \(c\) 处的 Cauchy 主值。
+\end{definition}
+
+若通常反常积分收敛，则相应主值必存在且数值相同。这只需把两个分别收敛
+的截断积分沿同一参数相加。反命题不成立，因为主值允许左右两侧的发散量
+在取极限以前抵消。
+
+\begin{example}[无穷远处的对称抵消]
+函数 \(f(x)=x/(1+x^2)\) 为奇函数，所以
+\[
+ \int_{-R}^{R}\frac{x}{1+x^2}\,dx=0
+\]
+对每个 \(R>0\) 都成立，主值为零。然而
+\[
+ \int_0^R\frac{x}{1+x^2}\,dx=\frac12\log(1+R^2)\longrightarrow+\infty.
+\]
+左右两侧的通常反常积分均不收敛，因而全实线上的通常反常积分不存在。
+\end{example}
+
+\begin{example}[内部奇点与截断方式]
+在 \([-1,1]\) 上，
+\[
+ \int_{-1}^{-\varepsilon}\frac{dx}{x}
+ +\int_{\varepsilon}^{1}\frac{dx}{x}=0,
+\]
+所以 \(1/x\) 在零点处的主值为零；但两侧积分分别趋于
+\(-\infty\) 与 \(+\infty\)。而采用不对称截断时，\(\alpha,\beta>0\)
+给出
+\[
+ \int_{-1}^{-\alpha\varepsilon}\frac{dx}{x}
+ +\int_{\beta\varepsilon}^{1}\frac{dx}{x}
+ =\log\frac{\alpha}{\beta}.
+\]
+因此主值中的对称方式是定义的一部分，不能把不同截断方式得到的抵消结果
+混同为通常积分。
+\end{example}
+
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 

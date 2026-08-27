@@ -250,6 +250,26 @@
 只在每个有限 \(n\) 上成立；两个正项部分和都趋于无穷时，不能分别取极限
 后再相减。重排定理正是利用了这两个子级数都拥有任意大的可用尾和。
 
+设 \(n_1<n_2<\cdots\)，级数 \(\sum_{k=1}^\infty a_{n_k}\) 称为
+\(\sum a_n\) 的一个子级数。绝对收敛也可以由全体子级数的行为刻画。
+
+\begin{theorem}[绝对收敛的子级数刻画]
+\label{thm:absolute-convergence-subseries}
+实级数 \(\sum a_n\) 绝对收敛，当且仅当它的每个子级数都收敛。
+\end{theorem}
+
+\begin{proof}
+若 \(\sum|a_n|<\infty\)，则任意子级数满足
+\[
+ \sum_{k=1}^N|a_{n_k}|\le\sum_{n=1}^{n_N}|a_n|,
+\]
+故它绝对收敛。
+
+反之，假设每个子级数都收敛。取 \(n_k=k\) 可知原级数收敛。若它不绝对
+收敛，就只能条件收敛。此时正项子级数发散到 \(+\infty\)，负项子级数
+发散到 \(-\infty\)，与“每个子级数都收敛”矛盾。因此原级数绝对收敛。
+\end{proof}
+
 \section{Riemann 重排定理}
 
 \begin{definition}
@@ -332,6 +352,9 @@
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{positive-negative-parts-equivalence} 完整证明
  \(\sum a_n\) 绝对收敛当且仅当正部、负部级数都收敛。
+ \exerciseitem{subseries-absolute-characterization} 不引用正文定理，证明实级数
+ 绝对收敛当且仅当它的每个子级数都收敛；并指出为何只要求“存在一个
+ 收敛子级数”远远不够。
  \exerciseitem{conditional-both-signs-infinite} 证明条件收敛级数必有无穷多个
  正项和无穷多个负项。
  \exerciseitem{absolute-rearrangement-cauchy} 用 Cauchy 准则重证绝对收敛

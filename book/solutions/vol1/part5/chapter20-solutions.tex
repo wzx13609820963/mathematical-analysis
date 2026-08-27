@@ -61,6 +61,32 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
 \((0,1)\) 中任何数，矛盾。
 \end{solution}
 
+\begin{solution}{hermite-hadamard}
+记 \(m=(a+b)/2\)。对 \(x\in[a,m]\)，凸性给出
+\[
+ f(m)\le\frac{f(x)+f(a+b-x)}2.
+\]
+积分并在第二项中作代换 \(u=a+b-x\)，可得
+\[
+ (b-a)f(m)\le\int_a^b f(x)\,dx.
+\]
+又因
+\[
+ x=\frac{b-x}{b-a}a+\frac{x-a}{b-a}b,
+\]
+弦下估计给出
+\[
+ f(x)\le\frac{b-x}{b-a}f(a)+\frac{x-a}{b-a}f(b).
+\]
+在 \([a,b]\) 上积分，右端两个权函数的积分都等于 \((b-a)/2\)，故
+\[
+ \frac1{b-a}\int_a^bf(x)\,dx\le\frac{f(a)+f(b)}2.
+\]
+若 \(f\) 严格凸，则第一组点对在 \(x\ne m\) 时互异，第二个弦下估计在
+\(a<x<b\) 时严格。相应严格不等式都在正长度的区间上成立，因此积分后
+仍为严格不等式。
+\end{solution}
+
 \begin{solution}{integral-mean-value-weight-sign}
 在 \([-1,1]\) 上取 \(f(x)=x\)、\(g(x)=x\)。则
 \[

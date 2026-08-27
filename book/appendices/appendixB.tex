@@ -216,7 +216,13 @@ Riemann 和为
  =\lim_{R\to\infty}\int_a^R f
 \]
 只在右端有限极限存在时有定义。全实线反常积分要求左右两段分别收敛；
-对称 Cauchy 主值另作说明，不能用同一符号暗中替代。
+对称 Cauchy 主值写作
+\[
+ \operatorname{p.v.}\!\int_{-\infty}^{\infty}f
+ =\lim_{R\to\infty}\int_{-R}^{R}f,
+\]
+不能用通常积分符号暗中替代。内部奇点的主值同样要求在奇点两侧按定义中
+指定的对称距离截断。
 
 级数
 \[
@@ -261,6 +267,13 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 定义域 \(E\) 是这个记号的数据之一；函数定义域随 \(n\) 改变时，不能在
 未给共同延拓的情况下直接谈一致收敛。
 
+有界连续函数空间记为
+\[
+ C_b(E)=\{f:E\to\R:f\text{ 连续且有界}\}.
+\]
+它在上确界范数下完备；当 \(E\) 紧时，连续函数自动有界，故
+\(C_b(E)=C(E)\)。
+
 函数项级数 \(\sum u_n(x)\) 由部分和函数
 \[
  S_N(x)=\sum_{n=1}^Nu_n(x)
@@ -270,6 +283,13 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
  \sum_{n=1}^\infty\norm{u_n}_\infty<\infty
 \]
 更强，它由 M-判别法推出一致收敛。后者不应与单纯的逐点绝对收敛混用。
+若 \(\sum u_n\) 与 \(\sum v_n\) 都按上确界范数绝对收敛，并从指标
+\(1\) 开始，则函数项 Cauchy 乘积写作
+\[
+ w_n=\sum_{k=1}^n u_kv_{n+1-k}.
+\]
+此时 \(\sum\norm{w_n}_\infty<\infty\)，且和函数等于两个原和函数之积。
+这里只假设两个原级数一致收敛并不够。
 
 中心为 \(x_0\) 的幂级数写为
 \[
@@ -364,7 +384,7 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 
 \chapterref{chap:riemann-integral}从标记和与 Darboux 上下和建立有限区间积分；
 \chapterref{chap:fundamental-theorem-calculus}随后证明积分与导数在准确条件下
-互逆，并补证 Taylor 积分余项。\chapterref{chap:improper-integrals}把超出有限
+互逆，并补证 Taylor 积分余项以及 Hermite--Hadamard 不等式。\chapterref{chap:improper-integrals}把超出有限
 闭区间的积分化为截断极限；\chapterref{chap:numerical-series}把无穷求和化为
 部分和数列，再由\chapterref{chap:conditional-convergence-rearrangement}区分
 绝对收敛与依赖抵消次序的条件收敛。最后，
@@ -374,10 +394,12 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 \chapterref{chap:pointwise-uniform-convergence}把逐点收敛与一致收敛的
 量词差别写成上确界范数和一致 Cauchy 准则；
 \chapterref{chap:uniform-convergence-preservation}分别处理连续性、积分
-和微分的极限交换。\chapterref{chap:function-series}将这些结论用于部分和
-函数列，并建立函数版 M、Dirichlet 与 Abel 判别。
+和微分的极限交换，并由一致极限保持连续推出 \(C_b(E)\) 的完备性。
+\chapterref{chap:function-series}将这些结论用于部分和函数列，建立函数版
+M、Dirichlet 与 Abel 判别以及范数绝对收敛下的 Cauchy 乘积。
 \chapterref{chap:power-series}利用 Abel 引理得到收敛半径和内闭一致收敛，
 再证明逐项微积分；\chapterref{chap:real-analytic-functions}据此建立解析
-函数的 Taylor 表示、解析运算、零点阶和恒等原理。
+函数的 Taylor 表示、解析运算、零点阶和恒等原理，并推出非恒零解析函数
+在紧子集上只有有限个零点。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

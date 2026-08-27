@@ -223,14 +223,14 @@ M-判别法给出 \(\sum u_n\) 在 \([a,b]\) 上一致收敛。有限部分和�
 \end{solution}
 
 \begin{solution}{series-cauchy-product-functions}
-设 \(w_n=\sum_{k=0}^nu_kv_{n-k}\)。则
+设 \(w_n=\sum_{k=1}^nu_kv_{n+1-k}\)。则
 \[
 \begin{aligned}
- \sum_{n=0}^\infty\norm{w_n}_\infty
- &\le\sum_{n=0}^\infty\sum_{k=0}^n
-   \norm{u_k}_\infty\norm{v_{n-k}}_\infty\\
- &=\left(\sum_{k=0}^\infty\norm{u_k}_\infty\right)
-   \left(\sum_{j=0}^\infty\norm{v_j}_\infty\right)<\infty.
+ \sum_{n=1}^\infty\norm{w_n}_\infty
+ &\le\sum_{n=1}^\infty\sum_{k=1}^n
+   \norm{u_k}_\infty\norm{v_{n+1-k}}_\infty\\
+ &=\left(\sum_{k=1}^\infty\norm{u_k}_\infty\right)
+   \left(\sum_{j=1}^\infty\norm{v_j}_\infty\right)<\infty.
 \end{aligned}
 \]
 所以 Cauchy 乘积按上确界范数绝对收敛。对每个固定 \(x\)，两个数项级数
@@ -239,4 +239,18 @@ M-判别法给出 \(\sum u_n\) 在 \([a,b]\) 上一致收敛。有限部分和�
  \sum_nw_n(x)=\left(\sum_ku_k(x)\right)
                \left(\sum_jv_j(x)\right).
 \]
+
+现在令 \(u_n=v_n=(-1)^{n-1}/\sqrt n\)，并把它们看成任意非空 \(E\) 上的
+常值函数。Leibniz 判别说明两级数收敛；常值函数级数的一致收敛与相应
+数项级数收敛等价。其 Cauchy 乘积通项为
+\[
+ w_n=(-1)^{n-1}\sum_{k=1}^n\frac1{\sqrt{k(n+1-k)}}.
+\]
+由算术--几何平均不等式，
+\(\sqrt{k(n+1-k)}\le(n+1)/2\)，所以
+\[
+ |w_n|\ge\frac{2n}{n+1}\ge1.
+\]
+通项不趋于零，Cauchy 乘积发散。这说明仅有两个因子级数一致收敛并不足以
+保证乘积级数收敛。
 \end{solution}

@@ -27,6 +27,19 @@
 \(+\infty\)，所以误差在 \((-1,1)\) 上甚至无界，不可能全局一致收敛。
 \end{solution}
 
+\begin{solution}{bounded-continuous-completeness}
+设 \(f_n\in C_b(E)\) 且 \(f_n\to f\) 于 \(\mathcal B(E)\) 的上确界范数。
+这正是 \(f_n\rightrightarrows f\) 于 \(E\)。一致极限保持连续性说明
+\(f\) 连续；\(f\in\mathcal B(E)\) 已保证其有界。因此
+\(f\in C_b(E)\)，即 \(C_b(E)\) 对 \(\mathcal B(E)\) 中的范数极限封闭。
+
+若 \((f_n)\) 是 \(C_b(E)\) 中的 Cauchy 列，\(\mathcal B(E)\) 的完备性
+先给出某个 \(f\in\mathcal B(E)\) 使 \(f_n\to f\)；闭性再给出
+\(f\in C_b(E)\)。故 \(C_b(E)\) 完备。若 \(E\) 紧，连续函数的有界性
+来自紧集上的极值定理，所以所有连续函数都属于 \(C_b(E)\)，即
+\(C(E)=C_b(E)\)。
+\end{solution}
+
 \begin{solution}{uniform-integrability-darboux}
 设分割 \(P:a=x_0<\cdots<x_m=b\)，\(I_j=[x_{j-1},x_j]\)。由
 \[

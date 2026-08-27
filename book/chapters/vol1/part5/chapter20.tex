@@ -328,6 +328,41 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 得到结论。
 \end{proof}
 
+取等权函数和线性参数，可以从凸性得到区间中点、积分平均与端点值之间的
+另一组基本估计。
+
+\begin{theorem}[Hermite--Hadamard 不等式]
+\label{thm:hermite-hadamard}
+设 \(f:[a,b]\to\R\) 连续且凸，其中 \(a<b\)。则
+\begin{equation}
+ f\!\left(\frac{a+b}{2}\right)
+ \le \frac1{b-a}\int_a^b f(x)\,dx
+ \le \frac{f(a)+f(b)}2.
+ \label{eq:hermite-hadamard}
+\end{equation}
+若 \(f\) 严格凸，则两侧不等式都严格。
+\end{theorem}
+
+\begin{proof}
+令 \(m=(a+b)/2\)。对 \(x\in[a,m]\)，点 \(m\) 是 \(x\) 与
+\(a+b-x\) 的中点，故
+\[
+ 2f(m)\le f(x)+f(a+b-x).
+\]
+在 \([a,m]\) 上积分，并对第二项作变量代换，得到
+\[
+ (b-a)f(m)\le\int_a^b f(x)\,dx.
+\]
+另一方面，把 \(x\in[a,b]\) 写成
+\(x=(1-t)a+tb\)，其中 \(t=(x-a)/(b-a)\)。凸性给出
+\[
+ f(x)\le\frac{b-x}{b-a}f(a)+\frac{x-a}{b-a}f(b).
+\]
+两边在 \([a,b]\) 上积分即得右侧不等式。若 \(f\) 严格凸，则上述点对
+在除端点或中点外均为真凸组合，严格不等式在正长度的区间上成立，积分后
+仍严格。
+\end{proof}
+
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
@@ -353,6 +388,9 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
  \(g\ge0\) 不能简单删去。
  \exerciseitem{integral-average-between-extrema} 证明连续函数的积分平均值严格
  介于最小值和最大值之间，当且仅当函数不是常函数。
+ \exerciseitem{hermite-hadamard} 不引用正文结论，分别从中点凸性和弦下估计
+ 证明 Hermite--Hadamard 不等式；再证明：若 \(f\) 严格凸且 \(a<b\)，
+ 则两个不等号都严格。
  \exerciseitem{integration-by-parts-log} 用分部积分计算
  \(\int_1^b\log x\,dx\)，并只引用已经证明的定理说明每一步合法。
  \exerciseitem{substitution-nonmonotone} 取 \(\phi(t)=t^2\) 于 \([-1,1]\)，

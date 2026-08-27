@@ -340,7 +340,7 @@ Riemann 定义同时量化所有标记点。对有界函数，可以把每个子
 点修改命题。
 \end{proof}
 
-\section{可积函数的代数、序与不等式}
+\section{可积函数的运算、连续复合与估计}
 
 \begin{theorem}[代数封闭性]
 \label{thm:riemann-algebra}
@@ -373,6 +373,57 @@ Riemann 定义同时量化所有标记点。对有界函数，可以把每个子
  \min\{f,g\}=\frac{f+g-\abs{f-g}}2
 \]
 完成证明。
+\end{proof}
+
+代数封闭性之外，还经常需要对可积函数施加非线性的连续变换。下一结论
+不要求外层函数满足全局 Lipschitz 条件；紧值域上的一致连续性已经足够。
+
+\begin{theorem}[连续复合的可积性]
+\label{thm:riemann-continuous-composition}
+设 \(f:[a,b]\to\R\) Riemann 可积，令
+\[
+ K=\overline{f([a,b])}.
+\]
+若 \(\Phi:K\to\R\) 连续，则 \(\Phi\circ f\) Riemann 可积。
+\end{theorem}
+
+\begin{proof}
+可积函数有界，所以 \(K\) 是紧集。因而 \(\Phi\) 在 \(K\) 上一致连续
+且有界。只需讨论 \(a<b\)；记 \(L=b-a\) 以及
+\(A=\max\{1,\sup_K|\Phi|\}\)。给定 \(\varepsilon>0\)，取
+\(\eta>0\)，使 \(u,v\in K\)、\(|u-v|<\eta\) 时
+\[
+ |\Phi(u)-\Phi(v)|<\frac{\varepsilon}{2L}.
+\]
+由 \(f\) 的振幅判据，可取分割 \(P\) 使
+\[
+ \sum_i\omega(f;I_i)|I_i|
+ <\frac{\eta\varepsilon}{4A}.
+\]
+把子区间分为两类。若 \(\omega(f;I_i)<\eta\)，则
+\(\omega(\Phi\circ f;I_i)\le\varepsilon/(2L)\)，这类区间的总贡献
+不超过 \(\varepsilon/2\)。其余区间的总长度满足
+\[
+ \sum_{\omega(f;I_i)\ge\eta}|I_i|
+ \le \frac1\eta\sum_i\omega(f;I_i)|I_i|
+ <\frac{\varepsilon}{4A}.
+\]
+而 \(\Phi\circ f\) 在任一子区间上的振幅至多 \(2A\)，故第二类的
+贡献也小于 \(\varepsilon/2\)。复合函数的振幅和可以任意小，结论由
+Darboux 判据得到。
+\end{proof}
+
+\begin{corollary}[倒数与商]
+\label{cor:riemann-reciprocal-quotient}
+若 \(g\) 在 \([a,b]\) 上 Riemann 可积，并且存在 \(c>0\) 使
+\(|g(x)|\ge c\) 对所有 \(x\) 成立，则 \(1/g\) 可积。若 \(f\) 也可积，
+则 \(f/g\) 可积。
+\end{corollary}
+
+\begin{proof}
+函数 \(t\mapsto1/t\) 在闭集
+\(\overline{g([a,b])}\subset(-\infty,-c]\cup[c,+\infty)\) 上连续，
+故上一定理给出 \(1/g\) 可积。再用乘积封闭性即可。
 \end{proof}
 
 \begin{theorem}[区间可加性]

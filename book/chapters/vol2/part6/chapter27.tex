@@ -287,6 +287,64 @@ Dirichlet 判别中的单调性可以替换为对 \(b_n(x)\) 关于指标的总�
 放大。幂级数在收敛区间内部会自动满足这些条件，下一章将证明这一特殊而
 重要的稳定性。
 
+\section{函数项级数的 Cauchy 乘积}
+
+对两个从 \(n=1\) 起编号的函数项级数，定义
+\[
+ w_n(x)=\sum_{k=1}^n u_k(x)v_{n+1-k}(x)\qquad(n\ge1).
+\]
+级数 \(\sum w_n\) 称为 \(\sum u_n\) 与 \(\sum v_n\) 的 Cauchy
+乘积。它沿有限斜线收集乘积项，与数项级数的定义相同。
+
+\begin{theorem}[按上确界范数绝对收敛时的乘法]
+\label{thm:function-series-cauchy-product}
+设 \(u_n,v_n\in\mathcal B(E)\)，并且
+\[
+ \sum_{n=1}^\infty\norm{u_n}_\infty<\infty,
+ \qquad
+ \sum_{n=1}^\infty\norm{v_n}_\infty<\infty.
+\]
+则 Cauchy 乘积满足
+\begin{equation}
+ \sum_{n=1}^\infty\norm{w_n}_\infty
+ \le
+ \left(\sum_{n=1}^\infty\norm{u_n}_\infty\right)
+ \left(\sum_{n=1}^\infty\norm{v_n}_\infty\right),
+ \label{eq:function-series-cauchy-product-bound}
+\end{equation}
+因而绝对一致收敛，而且
+\[
+ \sum_{n=1}^\infty w_n(x)
+ =\left(\sum_{n=1}^\infty u_n(x)\right)
+  \left(\sum_{n=1}^\infty v_n(x)\right)
+ \qquad(x\in E).
+\]
+\end{theorem}
+
+\begin{proof}
+三角不等式给出
+\[
+ \norm{w_n}_\infty
+ \le\sum_{k=1}^n
+       \norm{u_k}_\infty\norm{v_{n+1-k}}_\infty.
+\]
+对 \(n\) 求和，并把非负二重级数按斜线分组，得到
+\[
+ \sum_{n=1}^\infty\norm{w_n}_\infty
+ \le\sum_{k=1}^\infty\sum_{j=1}^\infty
+       \norm{u_k}_\infty\norm{v_j}_\infty,
+\]
+右端正是式 \eqref{eq:function-series-cauchy-product-bound} 的乘积。M-判别法
+说明 \(\sum w_n\) 一致收敛。对每个固定的 \(x\)，两个数项级数都绝对
+收敛；数项级数的 Cauchy 乘积定理于是给出所写乘积恒等式。
+\end{proof}
+
+这里的范数绝对收敛不能简单换成两个原级数各自一致收敛。即使所有函数都
+是常值函数，问题也退化为两个条件收敛数项级数的乘法；此时 Cauchy 乘积
+甚至可能不满足通项趋零。\chapterref{chap:double-series-infinite-products}
+中的 Mertens 定理给出一种较弱但仍可靠的标量条件；一般函数空间中的
+进一步版本要明确说明采用何种范数和完备性。
+
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
@@ -373,5 +431,7 @@ Dirichlet 判别中的单调性可以替换为对 \(b_n(x)\) 关于指标的总�
  并证明。
  \optionalexerciseitem{series-cauchy-product-functions}
  设 \(\sum u_n\)、\(\sum v_n\) 在 \(E\) 上按上确界范数绝对收敛。
- 证明其 Cauchy 乘积也按上确界范数绝对收敛，且和函数等于两和函数之积。
+ 重证估计 \eqref{eq:function-series-cauchy-product-bound}。再取两个常值函数
+ 级数 \(u_n=v_n=(-1)^{n-1}/\sqrt n\)，证明它们都一致收敛，而 Cauchy
+ 乘积的通项不趋于零。
 \end{enumerate}

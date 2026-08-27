@@ -75,6 +75,23 @@ Leibniz 估计给出
 \(\sum a_n=\sum a_n^+-\sum a_n^-\) 取极限得到。
 \end{solution}
 
+\begin{solution}{subseries-absolute-characterization}
+若 \(\sum|a_n|<\infty\)，则任意严格递增指标列 \((n_k)\) 都满足
+\[
+ \sum_{k=1}^N|a_{n_k}|
+ \le\sum_{n=1}^{n_N}|a_n|
+ \le\sum_{n=1}^{\infty}|a_n|,
+\]
+所以对应子级数绝对收敛。
+
+反向假设每个子级数都收敛。全指标列 \(n_k=k\) 给出原级数收敛。若原级数
+不绝对收敛，它便条件收敛；正项子级数与负项子级数分别发散到
+\(+\infty\) 和 \(-\infty\)，矛盾。因此原级数绝对收敛。
+
+“存在一个收敛子级数”不提供这种控制。例如调和级数发散，但取
+\(n_k=2^k\) 得子级数 \(\sum2^{-k}\) 收敛。
+\end{solution}
+
 \begin{solution}{conditional-both-signs-infinite}
 若正项只有有限多个，则 \(\sum a_n^+\) 收敛。原级数收敛会迫使
 \(\sum a_n^-\) 也有有限极限，于是原级数绝对收敛，矛盾。负项有限同理。
