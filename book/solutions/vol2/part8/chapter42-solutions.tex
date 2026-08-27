@@ -1,0 +1,276 @@
+\chapter{局部凸空间}
+\label{chap:locally-convex-spaces-solutions}
+
+\begin{solution}{tvs-translations-homeomorphisms}
+平移 \(\tau_a(x)=a+x\) 连续，逆映射 \(\tau_{-a}\) 也连续，所以是同胚。
+对 \(\lambda\ne0\)，数乘映射 \(M_\lambda(x)=\lambda x\) 连续，逆映射
+为 \(M_{1/\lambda}\)，故也是同胚。
+
+若 \(\mathcal B\) 是零点邻域基，则 \(a+\mathcal B=\{a+U:U\in
+\mathcal B\}\) 是 \(a\) 的邻域基。一个集合 \(O\) 开当且仅当对每个
+\(a\in O\) 都有某个 \(U\in\mathcal B\) 使 \(a+U\subseteq O\)，
+所以零点邻域完全确定拓扑。
+\end{solution}
+
+\begin{solution}{balanced-absorbing-neighborhood}
+设 \(U\) 为零点邻域，\(x\in E\)。映射
+\(\lambda\mapsto\lambda x\) 在 \(0\) 连续，故存在 \(\delta>0\)，使
+\(|\lambda|<\delta\) 时 \(\lambda x\in U\)。取非零这样的 \(\lambda\)，
+得到 \(x\in\lambda^{-1}U\)，故 \(U\) 吸收。
+
+在 \(\R^2\) 中：
+\begin{itemize}
+ \item 半平面 \(\{(x,y):x<1\}\) 吸收，但不平衡；
+ \item 两坐标轴的并
+ \(\{(x,0):x\in\R\}\cup\{(0,y):y\in\R\}\) 平衡，但不凸；
+ \item 圆盘 \(\{(x,y):(x-1)^2+y^2<4\}\) 凸且含零点附近，
+ 但不平衡，例如 \((2.9,0)\) 在其中而其相反数不在。
+\end{itemize}
+第一例吸收是因为对任意 \((a,b)\)，取充分大的 \(t>0\) 即有
+\((a,b)\in t\{x<1\}=\{x<t\}\)。
+\end{solution}
+
+\begin{solution}{minkowski-open-unit-ball}
+设 \(\lambda\ne0\)，写 \(\lambda=|\lambda|\theta\)，其中
+\(|\theta|=1\)。平衡性同时给出 \(\theta A\subseteq A\) 和
+\(\theta^{-1}A\subseteq A\)，所以 \(\theta A=A\)。于是
+\[
+ \lambda x\in tA
+ \Longleftrightarrow |\lambda|x\in tA
+ \Longleftrightarrow x\in(t/|\lambda|)A,
+\]
+取下确界得 \(p_A(\lambda x)=|\lambda|p_A(x)\)。
+
+若 \(p_A(x)<1\)，选 \(t\) 使 \(p_A(x)<t<1\)。由下确界定义，存在
+\(s<t\) 使 \(x\in sA\)，而 \(sA\subseteq A\)，故 \(x\in A\)。
+反之，若 \(A\) 开且 \(x\in A\)，连续曲线 \(r\mapsto rx\) 在
+\(r=1\) 附近仍落在 \(A\)，可取 \(r>1\) 使 \(rx\in A\)。于是
+\(x\in r^{-1}A\)，故 \(p_A(x)\le r^{-1}<1\)。
+
+开性不可删除。取 \(E=\R\)、\(A=[-1,1]\)。则 \(A\) 吸收且绝对凸，
+\(p_A(x)=|x|\)，但 \(A=\{p_A\le1\}\ne\{p_A<1\}\)。
+\end{solution}
+
+\begin{solution}{seminorm-quotient-norm}
+若 \([x]=[y]\)，则 \(x-y\in\ker p\)。由三角不等式，
+\[
+ p(x)\le p(y)+p(x-y)=p(y),
+\]
+交换 \(x,y\) 得 \(p(x)=p(y)\)，所以定义与代表元无关。齐次性和三角
+不等式直接从 \(p\) 继承。若 \(\norm{[x]}=p(x)=0\)，则
+\(x\in\ker p\)，故 \([x]=[0]\)。因此它是范数。
+\end{solution}
+
+\begin{solution}{linear-map-seminorm-bound}
+对非负数 \(a_1,\ldots,a_n\)，有
+\[
+ \max_ka_k\le\sum_{k=1}^na_k\le n\max_ka_k.
+\]
+因此若
+\(q(Tx)\le C\max_kp_k(x)\)，则也有
+\(q(Tx)\le C\sum_kp_k(x)\)。反之，若
+\(q(Tx)\le C\sum_kp_k(x)\)，则
+\(q(Tx)\le Cn\max_kp_k(x)\)。常数改变不影响连续性判据。
+\end{solution}
+
+\begin{solution}{finite-dimensional-topology-uniqueness}
+由定理 \ref{thm:finite-dimensional-tvs-euclidean}，可把空间线性同胚地
+识别为 \(\mathbb K^n\)。任意线性子空间在选取一组基后是有限个连续
+坐标线性方程的公共零点，因此闭。更具体地，若子空间 \(M\) 的余维为
+\(r\)，可取线性泛函 \(f_1,\ldots,f_r\) 使
+\(M=\bigcap_k\ker f_k\)；有限维空间上这些泛函连续。
+
+任意有限维空间之间的线性映射在坐标下由有限矩阵给出，各坐标是有限线性
+组合，故连续。也可直接应用正文的半范数估计。
+\end{solution}
+
+\begin{solution}{product-seminorm-topology}
+乘积拓扑的零点基本邻域只限制有限多个坐标：
+\[
+ \{x:|x(s_k)|<\varepsilon_k, 1\le k\le n\}.
+\]
+它是坐标半范数 \(p_{s_k}(x)=|x(s_k)|\) 的有限交小球；反过来每个这种
+半范数基本邻域也是乘积基本邻域，所以两种拓扑相同。
+
+设 \(S\) 无限，\(U\) 为任意零点邻域。在其中取只限制有限坐标
+\(F\subseteq S\) 的基本邻域 \(V\subseteq U\)，并选
+\(s_0\in S\setminus F\)。整条直线
+\(\{te_{s_0}:t\in\mathbb K\}\) 都在 \(V\subseteq U\) 中。取零点邻域
+\(W=\{x:|x(s_0)|<1\}\)。对任意 \(r>0\)，\(U\) 中都有
+\(te_{s_0}\) 满足 \(|t|\ge r\)，故 \(U\not\subseteq rW\)。因此没有
+零点邻域有界，由赋范化判据，乘积拓扑不可赋范化。
+\end{solution}
+
+\begin{solution}{countable-seminorm-metric-details}
+令 \(h(t)=t/(1+t)\)。对 \(s,t\ge0\)，直接通分可得
+\[
+ h(s+t)\le h(s)+h(t).
+\]
+半范数三角不等式和 \(h\) 的单调性于是给出每一项的三角不等式，求和得
+\(d(x,z)\le d(x,y)+d(y,z)\)。每一项只含 \(x-y\) 且关于交换
+\(x,y\) 不变，所以 \(d\) 对称并且平移不变；半范数族分离
+点保证正定性。
+
+证明拓扑相同。给定 \(d\)-球半径 \(\varepsilon\)，先取 \(N\) 使
+\(\sum_{n>N}2^{-n}<\varepsilon/2\)。再对 \(1\le n\le N\) 取
+\(p_n(x)\) 足够小，使每项之和小于 \(\varepsilon/2\)。所得有限半范数
+邻域包含于 \(d\)-球。
+
+反过来，给定有限条件 \(p_{n_k}(x)<\varepsilon_k\)，对每个 \(k\) 取
+\(\delta_k>0\)，使
+\[
+ d(x,0)<\delta_k
+ \Longrightarrow
+ 2^{-n_k}\frac{p_{n_k}(x)}{1+p_{n_k}(x)}
+ <2^{-n_k}\frac{\varepsilon_k}{1+\varepsilon_k}.
+\]
+取 \(\delta=\min_k\delta_k\)，则 \(d(x,0)<\delta\) 推出全部有限条件。
+所以两个零点邻域系互相细化。
+\end{solution}
+
+\begin{solution}{bounded-set-seminorm-characterization}
+若 \(B\) 拓扑有界，固定 \(p\in\mathcal P\)，对零点邻域
+\(U=\{x:p(x)<1\}\)，存在 \(t>0\) 使 \(B\subseteq tU\)。因此
+\(p(x)<t\) 对所有 \(x\in B\) 成立，\(p\) 在 \(B\) 上有界。
+
+反之，设每个 \(p\) 在 \(B\) 上有界。给定基本邻域
+\[
+ U=\{x:p_k(x)<\varepsilon, 1\le k\le n\},
+\]
+记 \(M_k=\sup_{x\in B}p_k(x)<\infty\)，取
+\(t>\max_k M_k/\varepsilon\)。则对 \(x\in B\)，有
+\(p_k(x/t)<\varepsilon\)，即 \(x\in tU\)。一般零点邻域含一个基本
+邻域，故 \(B\) 有界。
+\end{solution}
+
+\begin{solution}{smooth-space-not-normable}
+任一零点邻域 \(U\) 含有基本邻域
+\[
+ V=\{f:p_m(f)<\varepsilon\}
+\]
+（有限多个 \(p_k\) 可由最大的指标 \(m\) 合并）。取零点邻域
+\(W=\{f:p_{m+1}(f)<1\}\)。对每个固定 \(t>0\)，构造
+\[
+ f_N(x)=c_N\sin(Nx),
+\]
+其中先取 \(c_N>0\) 使前 \(m\) 阶导数的上确界小于 \(\varepsilon\)，
+例如 \(c_N=\varepsilon/(2N^m)\)。则 \(f_N\in V\subseteq U\)。当
+\(N\) 充分大时，区间 \([a,b]\) 含有 \(\sin(Nx)\) 或
+\(\cos(Nx)\) 的一个振幅点，因而
+\[
+ p_{m+1}(f_N)\ge c_NN^{m+1}=\varepsilon N/2.
+\]
+取 \(N>2t/\varepsilon\)，得 \(f_N\notin tW\)。所以 \(U\) 不有界。
+任意零点邻域都如此，故该拓扑不可赋范化。
+\end{solution}
+
+\begin{solution}{product-completeness-coordinates}
+设 \((x_i)\) 是乘积 \(X=\prod_{s\in S}X_s\) 中的 Cauchy 网。坐标投影
+一致连续，所以对每个 \(s\)，坐标网 \((x_i(s))\) 在 \(X_s\) 中
+Cauchy，完备性给出极限 \(x(s)\)。令 \(x=(x(s))\)。
+
+给定乘积基本邻域，它只要求有限坐标 \(s_1,\ldots,s_n\) 落入各自的
+邻域。每个坐标收敛给出一个最终指标；有向性把有限多个指标合并，得到
+\(x_i\) 最终落在该乘积邻域中。因此 \(x_i\to x\)。一般 Cauchy 滤子
+可由规范网表示，故网版本也推出滤子完备性。
+\end{solution}
+
+\begin{solution}{smooth-frechet-completeness}
+由 \((f_n)\) 在每个 \(p_m\) 下 Cauchy，可知对固定 \(k\)，
+\((f_n^{(k)})\) 在上确界范数下 Cauchy，故一致收敛到连续函数 \(g_k\)。
+对函数列 \(h_n=f_n^{(k)}\)，
+\chapterref{chap:uniform-convergence-preservation}逐项求导定理的两项
+假设为：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 在某一点 \(x_0\in[a,b]\)，\(h_n(x_0)\) 收敛；这由
+ \(h_n\) 一致 Cauchy 得到；
+ \item 导函数 \(h_n'=f_n^{(k+1)}\) 一致收敛；其极限为 \(g_{k+1}\)。
+\end{enumerate}
+所以 \(g_k\) 可导且 \(g_k'=g_{k+1}\)。递推得到
+\(g_0\in C^\infty[a,b]\)。最后对固定 \(m\)，
+\[
+ p_m(f_n-g_0)
+ =\max_{0\le k\le m}\norm{f_n^{(k)}-g_k}_\infty\to0,
+\]
+因为这里只取有限个一致趋零的量的最大值。
+\end{solution}
+
+\begin{solution}{weak-convergence-net-criterion}
+若 \(x_i\to x\) 于弱拓扑，每个 \(\varphi\in F\) 按定义连续，故
+\(\varphi(x_i)\to\varphi(x)\)。反之，设所有标量坐标都收敛。给定
+\(x\) 的基本弱邻域
+\[
+ x+U(\varphi_1,\ldots,\varphi_n;\varepsilon),
+\]
+每个坐标收敛给出
+\(|\varphi_k(x_i-x)|<\varepsilon\) 的最终条件。有向性合并这有限多个
+条件，得到 \(x_i\) 最终落在该邻域中，故弱收敛。
+\end{solution}
+
+\begin{solution}{weak-dual-finite-coordinate-factorization}
+设 \(g\) 在 \(\sigma(E,F)\) 下连续。零点连续性给出有限多个
+\(\varphi_1,\ldots,\varphi_n\in F\) 和 \(\varepsilon>0\)，使相应基本
+邻域包含于 \(\{|g|<1\}\)。若 \(x\) 属于全部 \(\ker\varphi_k\)，则
+任意 \(tx\) 都在该基本邻域，故 \(|t g(x)|<1\) 对所有 \(t>0\) 成立，
+只能有 \(g(x)=0\)。
+
+令 \(T(x)=(\varphi_1(x),\ldots,\varphi_n(x))\)。若 \(T(x)=T(y)\)，
+则 \(x-y\) 属于全部核，故 \(g(x)=g(y)\)。因此
+\(\widetilde g(Tx)=g(x)\) 在 \(T(E)\) 上良定义且线性。把
+\(\widetilde g\) 从有限维子空间 \(T(E)\) 线性延拓到 \(\mathbb K^n\)，
+可写为 \(\sum a_kz_k\)，于是 \(g=\sum a_k\varphi_k\)。
+
+若 \(F\) 只是一族泛函而不对线性组合封闭，结论应写成“连续对偶是
+\(F\) 的线性张成”。正文为了使结果恰等于 \(F\)，假定它是线性子空间。
+\end{solution}
+
+\begin{solution}{weak-star-product-embedding}
+定义
+\[
+ J:E'\to\mathbb K^E,\qquad J(\varphi)=(\varphi(x))_{x\in E}.
+\]
+乘积空间的坐标投影 \(\pi_x\) 满足
+\(\pi_x\circ J=\operatorname{ev}_x\)。因此拉回乘积拓扑正是使全部
+评价泛函连续的最弱拓扑，即 \(\sigma(E',E)\)。
+
+若 \(\varphi\ne\psi\)，存在 \(x\in E\) 使
+\(\varphi(x)\ne\psi(x)\)，所以 \(J(\varphi)\ne J(\psi)\)。映射
+\(J\) 单射，而乘积 \(\mathbb K^E\) Hausdorff，故其子空间拓扑拉回到
+\(E'\) 后也 Hausdorff。
+\end{solution}
+
+\begin{solution}{weak-topology-finite-dimensional}
+设 \(\dim E=n\)。分离点意味着线性映射
+\[
+ J:E\to\mathbb K^F,\qquad J(x)=(\varphi(x))_{\varphi\in F}
+\]
+单射。在线性代数中，可从 \(F\) 选出 \(n\) 个
+\(\varphi_1,\ldots,\varphi_n\) 使公共核已经
+为 \(\{0\}\)。于是
+\(T:E\to\mathbb K^n\)、\(T(x)=(\varphi_1(x),\ldots,\varphi_n(x))\)
+是线性单射。
+
+弱拓扑不强于通常有限维拓扑，因为所有线性泛函在有限维空间连续。反过来，
+\(T(E)\) 是有限维子空间，\(T:E\to T(E)\) 的逆线性且在有限维空间上
+连续；而 \(T\) 的各坐标在弱拓扑下连续。所以通常拓扑也不强于弱拓扑，
+二者相同。
+\end{solution}
+
+\begin{solution}{canonical-map-second-dual-injectivity}
+若 \(E'\) 分离点且 \(x\ne y\)，存在 \(f\in E'\) 使
+\(f(x-y)\ne0\)。于是
+\[
+ J(x)(f)-J(y)(f)=f(x-y)\ne0,
+\]
+故 \(J(x)\ne J(y)\)，\(J\) 单射。
+
+反之，若 \(E'\) 不分离点，存在 \(0\ne x\in E\) 使
+\(f(x)=0\) 对所有 \(f\in E'\) 成立。于是 \(J(x)=J(0)\)，\(J\) 不
+单射。
+
+Hausdorff 性只保证拓扑邻域能够分离点，并不直接制造线性泛函。对局部凸
+空间，需要先以排除 \(x\) 的绝对凸邻域构造 Minkowski 半范数，再把
+\(\operatorname{span}\{x\}\) 上的泛函在该半范数控制下延拓到全空间。
+这个延拓步骤就是后文 Hahn--Banach 定理，故在该定理证明前不能无条件
+调用 \(J\) 的单射性。
+\end{solution}

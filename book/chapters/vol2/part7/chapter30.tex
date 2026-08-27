@@ -1,0 +1,523 @@
+\chapter{欧氏空间中的极限}
+\label{chap:euclidean-limits}
+
+一元分析中的距离由绝对值给出。进入多个变量以后，点之间的接近不能再用
+一个坐标的大小表示，但极限定义所需要的仍只是“距离小于给定尺度”这件事。
+欧氏范数把坐标差合成一个数；开球、邻域、开集与闭集随后都可由这个距离
+定义。这样建立的语言既保留了一元极限的量词结构，也能处理从任意方向趋近
+一点的情形。
+
+本章固定正整数 \(n,m\in\Npos\)。向量写作
+\(x=(x_1,\ldots,x_n)\in\R^n\)，零向量记为 \(0\)。
+
+\section{距离和开球}
+
+定义欧氏内积与欧氏范数
+\[
+ \langle x,y\rangle=\sum_{j=1}^n x_jy_j,
+ \qquad
+ \norm{x}_2=\sqrt{\langle x,x\rangle}.
+\]
+下标 \(2\) 在不会与其他范数混淆时省略。欧氏距离为
+\[
+ d_2(x,y)=\norm{x-y}_2.
+\]
+
+\begin{theorem}[Cauchy--Schwarz 不等式]
+\label{thm:euclidean-cauchy-schwarz}
+对任意 \(x,y\in\R^n\)，
+\[
+ \abs{\langle x,y\rangle}\le \norm{x}_2\norm{y}_2.
+\]
+等号成立当且仅当 \(x,y\) 线性相关。
+\end{theorem}
+
+\begin{proof}
+若 \(y=0\)，不等式两端都为零；此时等号成立，而且含有零向量的向量组
+\(\{x,y\}\) 线性相关。设 \(y\ne0\)。对任意 \(t\in\R\)，
+\[
+ 0\le \norm{x-ty}_2^2
+ =\norm{x}_2^2-2t\langle x,y\rangle+t^2\norm{y}_2^2.
+\]
+右端关于 \(t\) 的二次多项式处处非负，故判别式不大于零，得到
+\(\langle x,y\rangle^2\le\norm{x}_2^2\norm{y}_2^2\)。等号成立恰好
+在这个二次式能取到零时，即存在 \(t\) 使 \(x=ty\)。
+\end{proof}
+
+Cauchy--Schwarz 不等式给出三角不等式：
+\[
+ \norm{x+y}_2^2
+ =\norm{x}_2^2+2\langle x,y\rangle+\norm{y}_2^2
+ \le(\norm{x}_2+\norm{y}_2)^2.
+\]
+因此 \(d_2\) 满足非负性、正定性、对称性和三角不等式。反向三角不等式
+\[
+ \bigl|\norm{x}_2-\norm{y}_2\bigr|\le\norm{x-y}_2
+\]
+说明范数本身是一个连续函数；这个估计以后会反复使用。
+
+\begin{definition}[开球与闭球]
+给定 \(a\in\R^n\) 和 \(r>0\)，定义
+\[
+ B(a,r)=\{x\in\R^n:\norm{x-a}_2<r\},\qquad
+ \overline B(a,r)=\{x\in\R^n:\norm{x-a}_2\le r\}.
+\]
+它们分别称为中心 \(a\)、半径 \(r\) 的开球与闭球。
+\end{definition}
+
+球的名称来自 \(n=3\) 的几何图形；在 \(n=1\) 时，\(B(a,r)\) 就是
+开区间 \((a-r,a+r)\)。本章所有局部概念都只用开球定义，不依赖坐标轴
+的方向。
+
+\section{邻域与点的分类}
+
+设 \(E\subset\R^n\)。若集合 \(U\subset\R^n\) 含有某个开球
+\(B(a,r)\)，则称 \(U\) 是 \(a\) 的一个\term{邻域}。邻域本身不要求
+是开集；定义只要求它在 \(a\) 周围含有一个正半径的开球。
+
+\begin{definition}[内点、外点、边界点]
+点 \(a\in\R^n\) 称为
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(E\) 的内点，如果某个 \(r>0\) 满足 \(B(a,r)\subset E\)；
+ \item \(E\) 的外点，如果某个 \(r>0\) 满足
+ \(B(a,r)\subset\R^n\setminus E\)；
+ \item \(E\) 的边界点，如果每个 \(B(a,r)\) 都同时与 \(E\) 和
+ \(\R^n\setminus E\) 相交。
+\end{enumerate}
+\end{definition}
+
+任一点恰属于这三类中的一类。若它不是内点，也不是外点，则每个球既不能
+包含于 \(E\)，也不能包含于补集，因而必同时遇到两者。
+
+\begin{definition}[聚点与孤立点]
+若对每个 \(r>0\)，删心球
+\[
+ B(a,r)\setminus\{a\}
+\]
+都与 \(E\) 相交，则称 \(a\) 为 \(E\) 的\term{聚点}。若
+\(a\in E\) 且某个删心球不再含 \(E\) 中的点，则称 \(a\) 为 \(E\)
+的\term{孤立点}。
+\end{definition}
+
+聚点不必属于集合。例如 \(0\) 是
+\(\{(1/k,0):k\in\Npos\}\subset\R^2\) 的聚点，却不是该集合的
+成员。边界点也未必是聚点：单点集的唯一元素是边界点，同时又是孤立点。
+这两组概念回答不同问题；边界比较集合与补集，聚点则要求集合自身在删心
+邻域中反复出现。
+
+\section{开集和闭集}
+
+\begin{definition}[开集与闭集]
+集合 \(G\subset\R^n\) 称为开集，如果它的每一点都是内点。集合
+\(F\subset\R^n\) 称为闭集，如果补集 \(\R^n\setminus F\) 是开集。
+\end{definition}
+
+空集和整个 \(\R^n\) 都是开集，也分别是彼此的补集，因而二者也都是闭集。
+开球是开集：若 \(x\in B(a,r)\)，取
+\(\rho=r-\norm{x-a}_2>0\)，则三角不等式给出
+\(B(x,\rho)\subset B(a,r)\)。闭球是闭集，因为若
+\(\norm{x-a}_2>r\)，取
+\(\rho=\norm{x-a}_2-r\)，则 \(B(x,\rho)\) 不与闭球相交。
+
+\begin{theorem}[开集与闭集的运算]
+\label{thm:euclidean-open-closed-operations}
+任意多个开集的并与有限多个开集的交仍是开集；任意多个闭集的交与有限
+多个闭集的并仍是闭集。
+\end{theorem}
+
+\begin{proof}
+设 \(x\in\bigcup_{\lambda\in\Lambda}G_\lambda\)。它属于某个
+\(G_{\lambda_0}\)，而后者含有一个以 \(x\) 为中心的开球，所以这个球也
+包含于并集。若 \(x\in G_1\cap\cdots\cap G_k\)，分别取
+\(B(x,r_j)\subset G_j\)，令 \(r=\min_jr_j>0\)，便有
+\(B(x,r)\subset\bigcap_jG_j\)。闭集结论由 De Morgan 公式取补集得到。
+\end{proof}
+
+有限交不能换成任意交。例如
+\[
+ \bigcap_{k=1}^{\infty}B(0,1/k)=\{0\},
+\]
+而单点集在 \(\R^n\) 中不是开集。类似地，任意并不能加入闭集的运算规则。
+
+\begin{theorem}[闭集的聚点判据]
+\label{thm:euclidean-closed-accumulation}
+集合 \(F\subset\R^n\) 闭，当且仅当它包含自己的全部聚点。
+\end{theorem}
+
+\begin{proof}
+若 \(F\) 闭而 \(a\notin F\)，补集的开性给出一个不与 \(F\) 相交的
+开球，故 \(a\) 不是聚点。反之，若 \(F\) 包含全部聚点而
+\(a\notin F\)，则 \(a\) 也不是聚点；又因 \(a\notin F\)，存在
+\(r>0\) 使 \(B(a,r)\cap F=\varnothing\)。所以补集的每一点都是内点，
+补集开，\(F\) 闭。
+\end{proof}
+
+\section{内部、闭包与边界}
+
+集合 \(E\) 的全体内点、全体闭包点和全体边界点分别记为
+\[
+ E^\circ,\qquad \overline E,\qquad \partial E.
+\]
+这里 \(a\in\overline E\) 的定义是每个 \(B(a,r)\) 都与 \(E\) 相交。
+因此闭包点或者属于 \(E\)，或者是 \(E\) 的聚点；更精确地，
+\[
+ \overline E=E\cup E',
+\]
+其中 \(E'\) 表示聚点集。
+
+\begin{theorem}[内部与闭包的极值性质]
+\label{thm:interior-closure-extremal}
+对任意 \(E\subset\R^n\)：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(E^\circ\) 是包含于 \(E\) 的最大开集；
+ \item \(\overline E\) 是包含 \(E\) 的最小闭集；
+ \item \(\partial E=\overline E\setminus E^\circ
+ =\overline E\cap\overline{\R^n\setminus E}\)；
+ \item \(\overline E=E\) 当且仅当 \(E\) 闭，\(E^\circ=E\) 当且仅当
+ \(E\) 开。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+每个内点都带有一个包含于 \(E\) 的开球；这些球的并正是 \(E^\circ\)，
+故 \(E^\circ\) 开。任意开集 \(G\subset E\) 的每一点都是 \(E\) 的内点，
+所以 \(G\subset E^\circ\)。
+
+由闭包点的定义，\(a\notin\overline E\) 当且仅当某个以 \(a\) 为中心的
+开球避开 \(E\)。这说明 \(\R^n\setminus\overline E\) 开，故
+\(\overline E\) 闭。若闭集 \(F\supset E\)，则 \(F\) 包含 \(E\) 的
+全部聚点，从而 \(\overline E\subset F\)。第三项直接翻译“每个球同时
+遇到集合及其补集”，第四项由前两项得到。
+\end{proof}
+
+从极值性质可推出
+\[
+ \overline{E\cup F}=\overline E\cup\overline F,
+ \qquad
+ (E\cap F)^\circ=E^\circ\cap F^\circ.
+\]
+相似的反向公式一般只有包含关系。例如在 \(\R\) 中取
+\(E=(0,1)\)、\(F=(1,2)\)，则
+\(\overline E\cap\overline F=\{1\}\)，而
+\(\overline{E\cap F}=\varnothing\)。
+
+\section{数列收敛与有限维范数等价}
+
+\subsection{坐标判据}
+
+\begin{definition}[欧氏空间中的数列收敛]
+称 \(x^{(k)}\in\R^n\) 收敛到 \(x\in\R^n\)，如果
+\[
+ \norm{x^{(k)}-x}_2\longrightarrow0.
+\]
+\end{definition}
+
+定义另外两种常用范数
+\[
+ \norm{x}_1=\sum_{j=1}^n|x_j|,
+ \qquad
+ \norm{x}_\infty=\max_{1\le j\le n}|x_j|.
+\]
+有
+\[
+ \norm{x}_\infty\le\norm{x}_2
+ \le\norm{x}_1\le n\norm{x}_\infty,
+ \qquad
+ \norm{x}_2\le\sqrt n\norm{x}_\infty.
+\]
+因此这三种范数给出相同的收敛概念。
+
+\begin{theorem}[坐标收敛判据]
+\label{thm:euclidean-coordinate-convergence}
+若 \(x^{(k)}=(x^{(k)}_1,\ldots,x^{(k)}_n)\)，则
+\[
+ x^{(k)}\to x
+ \quad\Longleftrightarrow\quad
+ x^{(k)}_j\to x_j\quad(1\le j\le n).
+\]
+\end{theorem}
+
+\begin{proof}
+若欧氏范数趋零，则
+\(|x_j^{(k)}-x_j|\le\norm{x^{(k)}-x}_2\to0\)。反之，有限个坐标差
+都趋零时，其绝对值的最大值趋零，再由
+\(\norm{z}_2\le\sqrt n\norm{z}_\infty\) 得结论。
+\end{proof}
+
+\subsection{任意有限维范数}
+
+\begin{theorem}[有限维范数等价]
+\label{thm:finite-dimensional-norm-equivalence}
+设 \(N\) 是 \(\R^n\) 上任意一个范数。存在常数 \(c,C>0\)，使
+\[
+ c\norm{x}_\infty\le N(x)\le C\norm{x}_\infty
+ \qquad(x\in\R^n).
+\]
+所以任意两个有限维范数给出相同的收敛列、开集和闭集。
+\end{theorem}
+
+\begin{proof}
+令 \(e_1,\ldots,e_n\) 为标准基。三角不等式给出
+\[
+ N(x)\le\sum_{j=1}^n|x_j|N(e_j)
+ \le C\norm{x}_\infty,
+ \qquad C=\sum_{j=1}^nN(e_j).
+\]
+若不存在正的下界，则可取 \(x^{(k)}\) 满足
+\(\norm{x^{(k)}}_\infty=1\) 且 \(N(x^{(k)})<1/k\)。各坐标列有界，
+反复使用一维 Bolzano--Weierstrass 定理，可抽出一个子列使所有坐标同时
+收敛，记极限为 \(x\)。再从有限多个坐标中抽取，使
+\(|x^{(k)}_{j_0}|=1\) 的指标 \(j_0\) 固定，得到
+\(\norm{x}_\infty=1\)。另一方面，上面的上界估计说明
+\(N(x^{(k)}-x)\to0\)，故
+\[
+ N(x)\le N(x-x^{(k)})+N(x^{(k)})\longrightarrow0.
+\]
+于是 \(N(x)=0\)，与 \(x\ne0\) 矛盾。故单位
+\(\norm{\cdot}_\infty\)-球面上 \(N\) 有正下界 \(c\)，齐次性把它
+推广到所有 \(x\)。
+\end{proof}
+
+有限维性用在“有限次抽取后所有坐标同时收敛”。这个证明只调用一维
+Bolzano--Weierstrass 定理，没有预用下一章的多维紧致性。无限维空间中的
+不同范数可以产生不同的收敛概念，后文将给出具体例子。
+
+\section{多元函数极限}
+
+设 \(E\subset\R^n\)，\(a\) 是 \(E\) 的聚点，函数
+\(f:E\to\R^m\)。
+
+\begin{definition}[多元函数极限]
+若对每个 \(\varepsilon>0\)，存在 \(\delta>0\)，使
+\[
+ x\in E,\quad0<\norm{x-a}_2<\delta
+ \quad\Longrightarrow\quad
+ \norm{f(x)-L}_2<\varepsilon,
+\]
+则称 \(f(x)\) 在 \(x\to a\)、\(x\in E\) 时趋于 \(L\in\R^m\)，记作
+\[
+ \lim_{\substack{x\to a\\x\in E}}f(x)=L.
+\]
+\end{definition}
+
+与一元定义相同，点 \(a\) 本身的函数值不影响极限；要求 \(a\) 为聚点，
+是为了排除删心邻域中没有定义域点而使任意 \(L\) 都满足定义的空真情形。
+极限唯一性和局部有界性的证明只用三角不等式，因而把绝对值换成范数即可
+沿用。两个同维向量值函数的和、向量值函数与标量函数的乘积，也由相应的
+范数估计得到极限法则。保号性以及两个函数的积、商只对实值或复值函数有
+直接含义，仍使用一元结论；一般向量之间并没有预先规定的次序、乘法或
+除法。向量值函数的极限还可逐坐标判断。
+
+\begin{proposition}[分量判据]
+若 \(f=(f_1,\ldots,f_m):E\to\R^m\)，则
+\[
+ f(x)\to L=(L_1,\ldots,L_m)
+ \quad\Longleftrightarrow\quad
+ f_j(x)\to L_j\quad(1\le j\le m).
+\]
+\end{proposition}
+
+\begin{proof}
+使用
+\[
+ |f_j(x)-L_j|\le\norm{f(x)-L}_2
+ \le\sqrt m\max_j|f_j(x)-L_j|.
+\]
+正向逐坐标成立；反向对有限多个分量分别取半径，再取这些半径的最小值。
+\end{proof}
+
+\begin{example}
+对 \(x=(x_1,x_2)\ne0\)，令
+\[
+ f(x)=\frac{x_1^2x_2}{x_1^2+x_2^2}.
+\]
+由于
+\[
+ |f(x)|\le |x_2|\le\norm{x}_2,
+\]
+故 \(x\to0\) 时 \(f(x)\to0\)。这个证明控制了所有趋近方向，而不是逐条
+列举路径。
+\end{example}
+
+\section{Heine 判据与路径法}
+
+\begin{theorem}[多元 Heine 判据]
+\label{thm:multivariable-heine}
+设 \(a\) 是 \(E\subset\R^n\) 的聚点。则
+\[
+ \lim_{\substack{x\to a\\x\in E}}f(x)=L
+\]
+当且仅当对每个满足 \(x_k\in E\setminus\{a\}\)、\(x_k\to a\) 的数列，
+都有 \(f(x_k)\to L\)。
+\end{theorem}
+
+\begin{proof}
+极限成立时，把给定 \(\varepsilon\) 对应的 \(\delta\) 用于充分大的
+\(x_k\)，即得像列收敛。反之，若极限不成立，则存在
+\(\varepsilon_0>0\)，使对每个 \(k\in\Npos\) 都可选
+\[
+ x_k\in E,\qquad0<\norm{x_k-a}_2<\frac1k,\qquad
+ \norm{f(x_k)-L}_2\ge\varepsilon_0.
+\]
+于是 \(x_k\to a\)，而 \(f(x_k)\) 不趋于 \(L\)，与序列条件矛盾。
+\end{proof}
+
+路径法是 Heine 判据的一种使用方式。若存在连续曲线
+\(\gamma:(0,r)\to E\setminus\{a\}\)，满足
+\(\gamma(t)\to a\) 而 \(f(\gamma(t))\) 没有目标极限，则总极限不
+存在。两条路径给出不同极限已经足够否定总极限。
+
+\begin{counterexample}[沿直线一致仍不足]
+定义 \(f:\R^2\to\R\) 为
+\[
+ f(x,y)=
+ \begin{cases}
+ \dfrac{x^2y}{x^4+y^2},&(x,y)\ne(0,0),\\[0.5em]
+ 0,&(x,y)=(0,0).
+ \end{cases}
+\]
+沿任意直线 \(y=mx\)，有
+\[
+ f(x,mx)=\frac{mx}{x^2+m^2}\longrightarrow0
+\]
+（\(m=0\) 时恒为零）；沿竖直线也恒为零。但沿抛物线 \(y=x^2\)，
+\(f(x,x^2)=1/2\)。所以检查所有过原点的直线仍不能推出二元极限存在。
+\end{counterexample}
+
+要证明极限存在，通常需要范数估计、变量替换后的一致控制，或把表达式夹在
+只依赖 \(\norm{x-a}\) 且趋零的函数之间。路径检验提供必要条件，只有当
+所研究的路径族确实覆盖了全部趋近方式并带有统一估计时，才可能构成充分
+判据。
+
+\section{多元连续映射}
+
+\begin{definition}[相对连续]
+设 \(E\subset\R^n\)，\(a\in E\)。映射 \(f:E\to\R^m\) 在 \(a\) 连续，
+如果对每个 \(\varepsilon>0\)，存在 \(\delta>0\)，使
+\[
+ x\in E,\quad\norm{x-a}_2<\delta
+ \Longrightarrow \norm{f(x)-f(a)}_2<\varepsilon.
+\]
+若它在 \(E\) 的每一点连续，就称它在 \(E\) 上连续。
+\end{definition}
+
+当 \(a\) 是 \(E\) 的聚点时，连续等价于
+\(\lim_{x\to a,\,x\in E}f(x)=f(a)\)；孤立点处任意函数都连续。Heine
+判据立即给出连续性的序列刻画。
+
+\begin{theorem}[连续性的开集原像判据]
+\label{thm:euclidean-continuity-open-preimage}
+映射 \(f:E\to\R^m\) 连续，当且仅当对每个开集
+\(G\subset\R^m\)，原像 \(f^{-1}(G)\) 在 \(E\) 中相对开。
+\end{theorem}
+
+\begin{proof}
+若 \(f\) 连续且 \(x\in f^{-1}(G)\)，由 \(G\) 开可取
+\(B(f(x),\varepsilon)\subset G\)。连续性给出 \(\delta>0\)，使
+\(E\cap B(x,\delta)\subset f^{-1}(G)\)，故原像相对开。
+
+反之，给定 \(x\in E\) 与 \(\varepsilon>0\)，开球
+\(B(f(x),\varepsilon)\) 的原像是含 \(x\) 的相对开集，所以存在
+\(\delta>0\) 使
+\(E\cap B(x,\delta)\) 包含在该原像中。这正是点连续定义。
+\end{proof}
+
+坐标投影、线性映射与多项式映射都连续。对线性映射
+\(A:\R^n\to\R^m\)，矩阵元素的有限性给出常数 \(C_A\) 使
+\(\norm{Ax}_2\le C_A\norm{x}_2\)，因而它甚至是 Lipschitz 的。
+连续映射的复合连续；实值连续函数可作和、积，并可在分母非零处作商。
+这些结论把高等数学中的多元连续运算置于同一距离估计之下。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　距离、集合和收敛}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{euclidean-parallelogram-identity}
+ 证明欧氏范数的平行四边形恒等式
+ \[
+  \norm{x+y}_2^2+\norm{x-y}_2^2
+  =2\norm{x}_2^2+2\norm{y}_2^2.
+ \]
+ \exerciseitem{euclidean-ball-nesting}
+ 若 \(y\in B(x,r)\)，求一个显式的 \(\rho>0\)，使
+ \(B(y,\rho)\subset B(x,r)\)。
+ \exerciseitem{point-classification-examples}
+ 对 \(E=\Q^2\subset\R^2\) 和
+ \(F=\{(x,0):x\in\R\}\)，分别求内点、外点、边界点、聚点与孤立点。
+ \exerciseitem{open-closed-set-operations}
+ 完整证明任意闭集交与有限闭集并仍闭，并各给一个说明“有限”不可删除的
+ 例子。
+ \exerciseitem{closure-by-balls}
+ 证明 \(x\in\overline E\) 当且仅当
+ \(\operatorname{dist}(x,E):=\inf_{y\in E}\norm{x-y}_2=0\)，其中
+ 约定 \(E\ne\varnothing\)。
+ \exerciseitem{boundary-identities}
+ 证明
+ \(\partial E=\partial(\R^n\setminus E)\) 且
+ \(\partial E=\overline E\setminus E^\circ\)，并说明边界总是闭集。
+ \exerciseitem{coordinate-convergence}
+ 不使用定理名称，直接从定义证明向量列收敛等价于逐坐标收敛。
+ \exerciseitem{lp-norm-comparison-finite}
+ 对 \(1\le p<q<\infty\)，令
+ \(\norm{x}_r=(\sum_{j=1}^n|x_j|^r)^{1/r}\)（\(r=p,q\)）。证明
+ 在 \(\R^n\) 上
+ \[
+  \norm{x}_q\le\norm{x}_p\le n^{1/p-1/q}\norm{x}_q.
+ \]
+\end{enumerate}
+
+\subsection*{B组　极限与连续}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{multivariable-radial-squeeze}
+ 证明
+ \[
+  \lim_{(x,y)\to(0,0)}
+  \frac{x^3-xy^2}{x^2+y^2}=0.
+ \]
+ \exerciseitem{multivariable-product-over-radius}
+ 求
+ \[
+  \lim_{(x,y)\to(0,0)}\frac{x^2y^2}{x^2+y^2},
+ \]
+ 并给出只依赖 \(\sqrt{x^2+y^2}\) 的估计。
+ \exerciseitem{path-counterexample-lines}
+ 对正文中
+ \(x^2y/(x^4+y^2)\) 的例子，核对所有过原点直线以及路径 \(y=x^2\)
+ 上的极限；再说明它沿路径 \(y=cx^2\) 的极限随 \(c\) 怎样变化。
+ \exerciseitem{heine-criterion-vector-valued}
+ 从标量值 Heine 判据和分量判据推出向量值版本；指出有限维性在哪一步使用。
+ \exerciseitem{continuity-closed-preimage}
+ 证明映射 \(f:E\to\R^m\) 连续，当且仅当每个闭集的原像在 \(E\) 中
+ 相对闭。
+ \exerciseitem{linear-map-lipschitz}
+ 设 \(A=(a_{ij})\) 为 \(m\times n\) 实矩阵。给出只依赖矩阵元素的常数
+ \(C_A\)，使 \(\norm{Ax}_2\le C_A\norm{x}_2\)，并由此证明矩阵映射连续。
+ \exerciseitem{graph-closed-continuous}
+ 若 \(f:E\to\R^m\) 连续且 \(E\subset\R^n\) 闭，证明其图像
+ \(\{(x,f(x)):x\in E\}\subset\R^{n+m}\) 闭。
+\end{enumerate}
+
+\subsection*{C组　结构与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{norm-equivalence-proof-details}
+ 补全有限维范数等价证明中的反复抽取：从
+ \(\norm{x^{(k)}}_\infty=1\) 构造所有坐标同时收敛且某个固定坐标绝对值
+ 恒为 \(1\) 的子列。
+ \exerciseitem{closure-intersection-strict}
+ 构造非空集合 \(E,F\subset\R\)，使
+ \(\overline{E\cap F}\subsetneq\overline E\cap\overline F\)，并核对每个
+ 集合的闭包。
+ \exerciseitem{isolated-points-continuity}
+ 设 \(D\subseteq\R^n\)，且任意不同的 \(x,y\in D\) 都满足
+ \(\norm{x-y}_2\ge1\)。证明：对任意度量空间 \((Y,d_Y)\)，每个映射
+ \(f:D\to Y\) 都连续。
+ \optionalexerciseitem{rational-direction-test-fails}
+ 构造 \(f:\R^2\to\R\)，使它沿每条斜率为有理数的过原点直线都趋于零，
+ 但在原点没有极限。须明确函数在各点的定义并验证两项结论。
+ \optionalexerciseitem{finite-dimensional-norm-topology}
+ 设 \(N\) 是 \(\R^n\) 上的任意范数。由有限维范数等价证明：\(N\) 与
+ 欧氏范数定义相同的开集、闭集与闭包。进一步证明，对任意度量空间 \(Y\)，
+ 映射 \(f:Y\to\R^n\) 或 \(g:\R^n\to Y\) 的连续性都不依赖在
+ \(\R^n\) 上选用这两个范数中的哪一个。
+\end{enumerate}

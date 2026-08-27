@@ -69,6 +69,7 @@ Add-Matches $bodyFiles '^\s*\\item\s*(?=\\(?:mustdo|optionaldo|projectdo|opendo)
     'Formal exercise does not use \exerciseitem' $errors
 Add-Matches $bodyFiles '\\exerciseitem\{[^}]+\}\s*\\(?:mustdo|optionaldo|projectdo|opendo)' `
     'Legacy exercise marker follows the item number' $errors
+Add-Matches $allTexFiles '[\x00-\x08\x0B\x0C\x0E-\x1F]' 'ASCII control character in TeX source (possible escaped-command corruption)' $errors
 Add-Matches $allTexFiles '\u7B2C\d+\u7AE0' 'Hard-coded chapter number' $errors
 Add-Matches $allTexFiles '\u4E60\u9898(?:II|III|[A-G]|\d+)\.\d+' 'Hard-coded exercise reference' $errors
 

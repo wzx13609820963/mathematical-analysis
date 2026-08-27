@@ -1,0 +1,360 @@
+\chapter{紧致度量空间}
+\label{chap:compact-metric-spaces}
+
+在欧氏空间中，紧致、序列紧致和闭有界等价；证明同时使用了有限维坐标与
+有限网。一般度量空间仍有开球和数列，却未必有坐标。要恢复同样的紧致性
+判据，需要把欧氏有界集的“每个尺度都有有限网”单独提出，这就是全有界性。
+紧致度量空间恰好是既完备又全有界的空间。
+
+\section{开覆盖紧致和序列紧致}
+
+\begin{definition}[紧致与序列紧致]
+度量空间 \(X\) 称为紧致的，如果每个开覆盖都有有限子覆盖。若 \(X\) 中
+每个数列都有收敛到 \(X\) 中某点的子列，则称 \(X\) 序列紧致。
+\end{definition}
+
+\begin{lemma}[紧致空间中的无限集]
+\label{lem:compact-metric-infinite-set-cluster}
+紧致度量空间中的每个无限子集都有聚点。
+\end{lemma}
+
+\begin{proof}
+反设无限集 \(A\subset X\) 没有聚点。若 \(x\in A\)，可取开邻域
+\(U_x\) 使 \(U_x\cap A=\{x\}\)；若 \(x\notin A\)，可取 \(U_x\) 与
+\(A\) 不相交。开集族 \(\{U_x:x\in X\}\) 覆盖 \(X\)，紧致性给出有限
+子覆盖。但每个被选出的 \(U_x\) 至多含 \(A\) 的一个点，有限个这样的集合
+不可能覆盖无限集 \(A\)，矛盾。
+\end{proof}
+
+\begin{theorem}[度量空间中两种紧致性的等价]
+\label{thm:metric-compact-sequential-equivalence}
+度量空间紧致，当且仅当它序列紧致。
+\end{theorem}
+
+\begin{proof}
+先设 \(X\) 紧。给定数列 \((x_n)\)。若某个值出现无穷多次，便有常值
+子列。否则值集必为无限集，从原列中按首次出现的次序抽出一条各项互异的
+子列，并重新记作 \((x_n)\)。其值集有聚点 \(x\)。每个
+\(B(x,1/k)\) 含值集中的无穷多个点，否则缩小半径即可避开
+其中除 \(x\) 外的有限多个点，与聚点定义矛盾。于是可递归选择
+\[
+ n_1<n_2<\cdots,\qquad x_{n_k}\in B(x,1/k),
+\]
+得到 \(x_{n_k}\to x\)。
+
+反过来，设 \(X\) 序列紧致。先证明两个辅助事实。
+
+第一，对每个 \(\varepsilon>0\)，有限多个半径为 \(\varepsilon\) 的开球
+可以覆盖 \(X\)。否则可递归取点 \(x_n\)，使
+\[
+ d(x_n,x_j)\ge\varepsilon\qquad(j<n).
+\]
+这条序列的任意子列都不是 Cauchy 列，因而不可能收敛，与序列紧致矛盾。
+
+第二，\(X\) 的每个开覆盖 \(\mathcal U\) 都有 Lebesgue 数：存在
+\(\lambda>0\)，使每个 \(B(x,\lambda)\) 都包含于某个 \(U\in\mathcal U\)。
+若不存在，可对每个 \(n\) 取 \(x_n\)，使
+\(B(x_n,1/n)\) 不包含于任何覆盖成员。抽取
+\(x_{n_k}\to x\)。选 \(U\in\mathcal U\) 含 \(x\)，再取
+\(r>0\) 使 \(B(x,r)\subset U\)。充分大时
+\(d(x_{n_k},x)<r/2\) 且 \(1/n_k<r/2\)，于是
+\(B(x_{n_k},1/n_k)\subset U\)，矛盾。
+
+取有限 \(\lambda/2\)-球覆盖，中心记为 \(a_1,\ldots,a_N\)。为每个中心
+选择 \(U_j\in\mathcal U\)，使 \(B(a_j,\lambda)\subset U_j\)。因
+\(B(a_j,\lambda/2)\subset U_j\)，有限多个 \(U_j\) 覆盖 \(X\)。所以
+\(X\) 紧。
+\end{proof}
+
+等价证明依赖度量提供的可数尺度 \(1/n\) 和有限半径球。一般拓扑空间中，
+开覆盖紧致与序列紧致可以分离。
+\chapterref{chap:compact-topological-spaces}和
+\chapterref{chap:nets-filters}会分别采用覆盖、网与滤子处理这一差别。
+
+\section{全有界性}
+
+\begin{definition}[全有界]
+度量空间 \(X\) 称为全有界的，如果对每个 \(\varepsilon>0\)，存在有限
+\(\varepsilon\)-网，即有限点集 \(a_1,\ldots,a_N\in X\) 满足
+\[
+ X=\bigcup_{j=1}^N B(a_j,\varepsilon).
+\]
+\end{definition}
+
+全有界必有界：取 \(\varepsilon=1\) 的有限网和其中一个中心，用有限多个
+中心间距离的最大值控制整个空间。反向不成立；无限离散度量空间的直径为一，
+却在 \(\varepsilon<1\) 时每个球只有一个点，不可能有有限网。
+
+\begin{definition}[\(\varepsilon\)-分离集]
+集合 \(A\subset X\) 称为 \(\varepsilon\)-分离的，如果任意不同
+\(x,y\in A\) 都满足 \(d(x,y)\ge\varepsilon\)。
+\end{definition}
+
+\begin{theorem}[全有界性的序列判据]
+\label{thm:total-bounded-characterizations}
+对度量空间 \(X\)，以下条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(X\) 全有界；
+ \item \(X\) 中每个数列都有 Cauchy 子列；
+ \item 对每个 \(\varepsilon>0\)，\(X\) 中的
+ \(\varepsilon\)-分离集都是有限集；
+ \item 对每个 \(\varepsilon>0\)，\(X\) 可由有限多个直径小于
+ \(\varepsilon\) 的集合覆盖。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) 推出 (ii)。依次取有限 \(1,1/2,1/3,\ldots\)-网。在第一个有限球
+覆盖中，至少一个球含原序列的无穷多项；限制到这些项，在第二个覆盖中再取
+含无穷多项的球，如此继续。第 \(k\) 步保留的指标集嵌套，并且相应各点都
+落在同一半径 \(1/k\) 的球中。递归选择严格递增指标 \(n_k\)，使从第
+\(k\) 项起都留在第 \(k\) 步的指标集中。若 \(p,q\ge k\)，则
+\[
+ d(x_{n_p},x_{n_q})<2/k,
+\]
+所以所得子列为 Cauchy 列。
+
+(ii) 推出 (iii)。若存在无限 \(\varepsilon\)-分离集，从中选两两不同的
+点列；它的任意子列中不同项距离都不小于 \(\varepsilon\)，不可能是
+Cauchy 列。
+
+(iii) 推出 (i)。固定 \(\varepsilon>0\)，从任一点开始逐次加入与已选
+各点距离至少为 \(\varepsilon\) 的新点。若过程不停止，所选点构成无限
+\(\varepsilon\)-分离集；所以有限步后停止。此时极大性说明每个 \(x\in X\)
+都距某个已选点小于 \(\varepsilon\)，故这些点构成有限网。
+
+(i) 推出 (iv)：用半径 \(\varepsilon/3\) 的有限球覆盖，每个球的直径小于
+\(2\varepsilon/3<\varepsilon\)。(iv) 推出 (i)：在每个非空覆盖成员中
+选一点；若该集合直径小于 \(\varepsilon\)，它包含于以所选点为中心的
+\(\varepsilon\)-球。有限多个所选点构成有限网。
+\end{proof}
+
+\begin{proposition}[全有界性的保持]
+\label{prop:total-bounded-preservation}
+全有界空间的子集和闭包全有界；有限多个全有界子集的并全有界。一致连续
+映射把全有界空间映为全有界空间。
+\end{proposition}
+
+\begin{proof}
+子集可沿用原空间有限网，但若要求网点属于子集，就从每个与子集相交的网球
+中另选一点，并把半径放大一倍。对闭包，先以半径 \(\varepsilon/2\) 覆盖
+原集合；任一闭包点可由原集合点逼近到 \(\varepsilon/2\) 内，所以落在同一
+中心的 \(\varepsilon\)-球中。有限并分别取有限网后合并。
+
+设 \(f:X\to Y\) 一致连续。给定 \(\varepsilon>0\)，取 \(\delta>0\)
+使 \(d_X(x,y)<\delta\) 推出
+\(d_Y(f(x),f(y))<\varepsilon\)。取 \(X\) 的有限 \(\delta\)-网，网点的
+像便构成 \(f(X)\) 的有限 \(\varepsilon\)-网。
+\end{proof}
+
+\section{紧致等价于完备且全有界}
+
+\subsection{完备性补上极限}
+
+\begin{theorem}[紧致度量空间的判据]
+\label{thm:compact-iff-complete-totally-bounded}
+度量空间 \(X\) 紧，当且仅当 \(X\) 完备且全有界。
+\end{theorem}
+
+\begin{proof}
+若 \(X\) 紧，则由上一节证明中的有限球覆盖可知它全有界。任取 Cauchy 列，
+序列紧致性给出收敛子列；Cauchy 列只要有一个收敛子列，整列就收敛到同一
+极限，所以 \(X\) 完备。
+
+反过来，若 \(X\) 全有界，则每个数列都有 Cauchy 子列；完备性使这条子列
+在 \(X\) 中收敛。因此 \(X\) 序列紧致，再由度量空间中两种紧致性的等价
+得到紧致性。
+\end{proof}
+
+两个条件承担不同任务。全有界性负责从任意数列中取得 Cauchy 子列，完备性
+负责让这条子列在空间内有极限。只保留前者时，\((0,1)\) 全有界却不紧；
+只保留后者时，无限离散度量空间完备却不紧。
+
+\subsection{预紧性与完备化}
+
+有些文献称闭包紧致的集合为相对紧或预紧。对度量空间，全有界正好描述
+其完备化中的这种性质。
+
+\begin{corollary}[全有界空间的完备化]
+\label{cor:completion-total-bounded-compact}
+度量空间 \(X\) 全有界，当且仅当它的完备化 \(\widehat X\) 紧。
+\end{corollary}
+
+\begin{proof}
+若 \(X\) 全有界，它在 \(\widehat X\) 中的像全有界，闭包
+\(\widehat X\) 也全有界；完备化本身完备，故紧。反之，若
+\(\widehat X\) 紧，则它全有界，其子空间 \(X\) 也全有界。
+\end{proof}
+
+\begin{corollary}[有限乘积]
+有限多个紧致度量空间配最大值度量的乘积仍紧。
+\end{corollary}
+
+\begin{proof}
+有限乘积的 Cauchy 列逐坐标 Cauchy，所以完备性由各因子完备性得到。对
+给定 \(\varepsilon\)，分别取各因子的有限 \(\varepsilon\)-网，所有网点的
+有限笛卡儿积构成乘积空间的有限 \(\varepsilon\)-网。判据给出紧致性。
+\end{proof}
+
+\section{紧致空间上的一致连续性}
+
+\begin{theorem}[度量空间的 Heine--Cantor 定理]
+\label{thm:heine-cantor-metric}
+若 \(X\) 紧，\(f:X\to Y\) 连续，则 \(f\) 一致连续。
+\end{theorem}
+
+\begin{proof}
+若不一致连续，存在 \(\varepsilon_0>0\) 及点列 \(x_n,y_n\in X\)，使
+\[
+ d_X(x_n,y_n)<1/n,\qquad
+ d_Y(f(x_n),f(y_n))\ge\varepsilon_0.
+\]
+由序列紧致性，某子列 \(x_{n_k}\to x\in X\)。三角不等式给出
+\(y_{n_k}\to x\)。连续性迫使两条像子列都趋于 \(f(x)\)，故二者距离趋零，
+与统一下界矛盾。
+\end{proof}
+
+因此紧空间上的连续映射保持 Cauchy 列。更一般地，一致连续映射把全有界
+空间映成全有界空间；给定像空间中的误差，只需先选取相应的一致连续尺度
+\(\delta\)，再对定义域取有限 \(\delta\)-网。另一方面，紧空间的连续像本身紧；特别地，实值连续函数有界且取得
+上下确界。若
+\(f:X\to Y\) 是紧空间到度量空间的连续双射，则对任意闭集
+\(F\subset X\)，集合 \(F\) 紧，\(f(F)\) 紧而在 \(Y\) 中闭，所以
+\(f^{-1}\) 连续。由此得到紧空间上的连续双射自动为同胚。
+
+紧致性不是一致连续的必要条件。以离散度量为定义域时，任意映射都一致连续：
+给定任意正误差，只需取 \(\delta<1\)，条件 \(d_X(x,y)<\delta\) 就迫使
+\(x=y\)。通常距离下的恒等映射
+\(\R\to\R\) 也一致连续，而 \(\R\) 不紧。
+
+\section{Cantor 交集定理及闭有界反例}
+
+\subsection{直径趋零的闭集套}
+
+非空集合 \(A\subset X\) 的直径定义为
+\[
+ \operatorname{diam}A=\sup\{d(x,y):x,y\in A\},
+\]
+允许取 \(+\infty\)。
+
+\begin{theorem}[Cantor 交集定理]
+\label{thm:cantor-intersection-complete-metric}
+度量空间 \(X\) 完备，当且仅当每个满足
+\[
+ F_1\supset F_2\supset\cdots,\qquad
+ F_n\ne\varnothing,\quad F_n\text{ 闭},\quad
+ \operatorname{diam}F_n\to0
+\]
+的闭集套都有非空交。此时交集恰含一个点。
+\end{theorem}
+
+\begin{proof}
+先设 \(X\) 完备。从每个 \(F_n\) 取 \(x_n\)。给定 \(\varepsilon>0\)，
+取 \(N\) 使 \(\operatorname{diam}F_N<\varepsilon\)。若 \(m,n\ge N\)，
+则 \(x_m,x_n\in F_N\)，所以 \(d(x_m,x_n)<\varepsilon\)。故
+\((x_n)\) 为 Cauchy 列，收敛到某个 \(x\in X\)。固定 \(N\) 后，尾列
+都在闭集 \(F_N\) 中，故 \(x\in F_N\)。于是
+\(x\in\bigcap_nF_n\)。若 \(x,y\) 都属于交集，则
+\(d(x,y)\le\operatorname{diam}F_n\) 对每个 \(n\) 成立，令 \(n\to\infty\)
+得 \(x=y\)。
+
+反过来，假设闭集套性质成立，令 \((x_n)\) 为任意 Cauchy 列。定义
+\[
+ F_n=\overline{\{x_k:k\ge n\}}.
+\]
+这些集合非空、闭且递减。给定 \(\varepsilon>0\)，Cauchy 性给出 \(N\)，
+使 \(k,\ell\ge N\) 时 \(d(x_k,x_\ell)<\varepsilon/2\)。取闭包不把直径
+增加到 \(\varepsilon\) 以上，故
+\(\operatorname{diam}F_N\le\varepsilon/2<\varepsilon\)；于是直径趋零。
+交集中存在唯一点 \(x\)。因 \(x\in F_n\) 且
+\(\operatorname{diam}F_n\to0\)，有
+\(d(x_n,x)\le\operatorname{diam}F_n\to0\)。所以每个 Cauchy 列收敛，
+\(X\) 完备。
+\end{proof}
+
+\subsection{紧集套不需要直径条件}
+
+\begin{theorem}[紧空间中的闭集套]
+\label{thm:nested-closed-compact-metric}
+若 \(X\) 紧，\(F_1\supset F_2\supset\cdots\) 是非空闭集套，则
+\(\bigcap_nF_n\ne\varnothing\)；这里不要求直径趋零。
+\end{theorem}
+
+\begin{proof}
+若交为空，则开集 \(X\setminus F_n\) 覆盖 \(X\)。取有限子覆盖并令 \(N\)
+为其中最大指标。因集合递减，补集递增，所以
+\[
+ X=\bigcup_{n\le N}(X\setminus F_n)=X\setminus F_N,
+\]
+这迫使 \(F_N=\varnothing\)，与非空性矛盾。
+\end{proof}
+
+直径条件在完备空间中补足紧致性所提供的全有界控制；没有它，完备空间中的
+闭集套可以有空交，例如在 \(\R\) 中取 \(F_n=[n,\infty)\)。
+
+\subsection{闭有界不再充分}
+
+无限集合配离散度量时，整个空间闭且有界，并且完备，但不全有界，因而不紧。
+同样的现象出现在函数空间
+\(\mathcal B(\Npos)\) 的闭单位球中：标准函数 \(e_n\) 两两距离为一，
+所以闭单位球不可能被有限多个半径小于 \(1/2\) 的球覆盖。一般度量空间中，
+“闭且有界”只保留了欧氏 Heine--Borel 定理的两个必要条件；充分条件应换成
+“完备且全有界”。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　紧致与全有界}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{compact-infinite-set-cluster}
+ 完整证明紧致度量空间中的无限集有聚点，并处理覆盖中心属于或不属于该
+ 无限集的两种情形。
+ \exerciseitem{compact-to-sequential-subsequence}
+ 从聚点引理构造收敛子列，说明为什么聚点的每个邻域必须含原序列的无穷多项。
+ \exerciseitem{sequential-compact-lebesgue-number}
+ 从序列紧致性证明任意开覆盖有 Lebesgue 数，再用有限球覆盖推出紧致性。
+ \exerciseitem{total-bounded-implies-bounded}
+ 证明全有界空间有界，并给出有界但不全有界的完备空间。
+ \exerciseitem{separated-set-characterization}
+ 证明全有界性等价于每个 \(\varepsilon\)-分离集有限。
+ \exerciseitem{total-bounded-cauchy-subsequence}
+ 把有限 \(1/k\)-网的逐层抽取写成严格递增指标，证明所得子列为 Cauchy 列。
+ \exerciseitem{total-bounded-closure}
+ 证明全有界子集的闭包仍全有界；核对为何需要把初始网半径缩小一半。
+\end{enumerate}
+
+\subsection*{B组　完备性与紧致性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{compact-complete-proof}
+ 证明紧致度量空间完备，且不得直接引用“紧致等价于完备且全有界”的结论。
+ \exerciseitem{complete-total-bounded-compact}
+ 从“每列有 Cauchy 子列”重建完备且全有界推出紧致的证明链。
+ \exerciseitem{completion-compact-characterization}
+ 证明 \(X\) 全有界当且仅当其完备化紧。
+ \exerciseitem{finite-product-total-bounded}
+ 证明有限多个全有界空间的最大值度量乘积全有界；说明为什么任意多个因子的
+ 结论不能直接沿用有限网的笛卡儿积。
+ \exerciseitem{uniform-image-total-bounded}
+ 证明一致连续像保持全有界；构造连续但非一致连续映射把全有界空间映成
+ 非有界空间。
+ \exerciseitem{metric-heine-cantor}
+ 分别用序列紧致性和 Lebesgue 数证明度量空间版 Heine--Cantor 定理。
+\end{enumerate}
+
+\subsection*{C组　闭集套与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{cantor-intersection-forward}
+ 在完备空间中证明直径趋零的非空闭集套交于唯一一点，并逐项指出闭性、
+ 完备性与直径条件的使用位置。
+ \exerciseitem{cantor-intersection-converse}
+ 从 Cauchy 列的尾集闭包构造闭集套，证明 Cantor 交集性质推出完备性。
+ \exerciseitem{compact-nested-closed}
+ 用开覆盖定义证明紧空间中非空闭集套交非空，并给出交集含多个点的例子。
+ \exerciseitem{closed-bounded-discrete-counterexample}
+ 在无限离散度量空间中验证整个空间闭、有界、完备但不紧。
+ \exerciseitem{closed-ball-function-space-not-compact}
+ 在 \(\mathcal B(\Npos)\) 的闭单位球中构造无限 \(1\)-分离集，由此证明
+ 该闭球不紧。
+ \optionalexerciseitem{compactness-finite-intersection-property}
+ 证明空间 \(X\) 紧，当且仅当每族具有有限交性质的闭集的总交非空。
+\end{enumerate}

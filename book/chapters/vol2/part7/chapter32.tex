@@ -1,0 +1,513 @@
+\chapter{完备度量空间}
+\label{chap:complete-metric-spaces}
+
+欧氏距离的证明大多只用了非负性、对称性和三角不等式。把这三项抽出后，
+数列收敛、连续、Cauchy 条件和完备性便可在同一语言中讨论。抽象化并不保证
+欧氏空间的一切结论仍然成立：不同度量可以给出相同的开集，却改变哪些数列
+是 Cauchy 列；闭且有界也不再保证紧致。本章先建立度量空间的基本语言，再
+给出完备化的构造。
+
+\section{度量与典型空间}
+
+\begin{definition}[度量空间]
+设 \(X\) 是非空集合。映射 \(d:X\times X\to[0,\infty)\) 若对所有
+\(x,y,z\in X\) 满足
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(d(x,y)=0\) 当且仅当 \(x=y\)；
+ \item \(d(x,y)=d(y,x)\)；
+ \item \(d(x,z)\le d(x,y)+d(y,z)\)，
+\end{enumerate}
+则称 \(d\) 为 \(X\) 上的度量，\((X,d)\) 称为度量空间。
+\end{definition}
+
+非负性已经写进值域。第一项中的“仅当”不能删去；若允许不同点距离为零，
+得到的是伪度量，必须再取零距离等价类才能成为度量空间。
+
+\paragraph{范数诱导的度量。}
+赋范线性空间 \(V\) 上
+\(d(x,y)=\norm{x-y}\) 是度量。欧氏空间和前文的有界函数空间
+\(\mathcal B(E)\) 都属于这种情形。
+
+\paragraph{离散度量。}
+任意集合 \(X\) 上令
+\[
+ d(x,y)=
+ \begin{cases}0,&x=y,\\1,&x\ne y,
+ \end{cases}
+\]
+便得到离散度量。半径不超过一的开球是单点，所以每个子集都开，也都闭。
+
+\paragraph{函数空间的上确界度量。}
+若 \(E\ne\varnothing\)，\(Y\) 是度量空间，称映射 \(f:E\to Y\) 有界，是指其像包含在 \(Y\)
+的某个球中。全体有界映射记为 \(\mathcal B(E,Y)\)。任意两个有界映射
+之间可定义
+\[
+ d_\infty(f,g)=\sup_{t\in E}d_Y(f(t),g(t)).
+\]
+因为两个有界像的并仍有有限直径，上式取有限值。值域为 \(\R\) 时，这就是
+有界实值函数空间上的上确界范数距离。
+
+\paragraph{有限乘积。}
+若 \((X_j,d_j)\)、\(1\le j\le N\) 是度量空间，则
+\[
+ d(x,y)=\max_{1\le j\le N}d_j(x_j,y_j)
+\]
+给出乘积集合上的度量。有限最大值使各坐标同时受到控制。
+
+度量空间中的开球写作
+\(B_d(x,r)=\{y:d(x,y)<r\}\)，不会混淆时省略下标。
+
+\section{等价度量}
+
+同一集合上的两个度量可能只改变距离的数值尺度，也可能改变局部结构。
+
+\begin{definition}[拓扑等价与一致等价]
+集合 \(X\) 上的度量 \(d,\rho\) 若产生相同的开集，称为拓扑等价。若恒等
+映射
+\[
+ \operatorname{id}:(X,d)\to(X,\rho),\qquad
+ \operatorname{id}:(X,\rho)\to(X,d)
+\]
+都一致连续，则称两度量一致等价。若存在 \(c,C>0\) 使
+\[
+ c\,d(x,y)\le\rho(x,y)\le C\,d(x,y),
+\]
+则称它们双 Lipschitz 等价；这蕴含一致等价。
+\end{definition}
+
+\begin{proposition}
+\label{prop:equivalent-metrics-hierarchy}
+双 Lipschitz 等价推出一致等价，一致等价推出拓扑等价。拓扑等价的度量有
+相同的收敛列；一致等价的度量还有相同的 Cauchy 列，因而一个完备当且仅当
+另一个完备。
+\end{proposition}
+
+\begin{proof}
+双边线性估计直接给出两个恒等映射的 Lipschitz 连续性。一致连续必连续，
+所以一致等价给出同一开集。拓扑等价时，两恒等映射连续，故一度量下收敛的
+列在另一度量下也收敛到同一点。若恒等映射一致连续，则它把 Cauchy 列映成
+Cauchy 列；双向使用即得 Cauchy 列相同，完备性也随之保持。
+\end{proof}
+
+任意度量 \(d\) 与
+\[
+ \rho(x,y)=\min\{d(x,y),1\}
+\]
+一致等价。截断只改变大尺度距离，半径小于一的球完全相同。
+
+拓扑等价不足以保持完备性。在 \(\R\) 上，通常距离与
+\[
+ \rho(x,y)=|\arctan x-\arctan y|
+\]
+拓扑等价，因为 \(\arctan:\R\to(-\pi/2,\pi/2)\) 是同胚。然而
+正整数列在 \(\rho\) 下是 Cauchy 列，却没有 \(\rho\)-极限于 \(\R\)。
+通常欧氏距离则是完备的。完备性涉及统一的小尺度控制，而不只涉及哪些集合
+开。
+
+\section{开集、闭集与闭包}
+
+邻域、内点、边界点、聚点、开集、闭集、内部与闭包的定义，只需把欧氏球
+换成度量球。开集的任意并和有限交仍开，闭集的任意交和有限并仍闭；证明与
+欧氏情形相同。
+
+\begin{theorem}[闭包的球刻画]
+\label{thm:metric-closure-characterizations}
+对 \(A\subset X\) 与 \(x\in X\)，以下条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(x\in\overline A\)；
+ \item 对每个 \(r>0\)，\(B(x,r)\cap A\ne\varnothing\)；
+ \item 存在点列 \(a_n\in A\) 使 \(a_n\to x\)。
+\end{enumerate}
+若 \(A=\varnothing\)，三项都不成立。
+\end{theorem}
+
+\begin{proof}
+前两项只是闭包点的定义。若 (ii) 成立，对每个 \(n\in\Npos\) 取
+\(a_n\in A\cap B(x,1/n)\)，则 \(a_n\to x\)。若 (iii) 成立，任意
+\(r>0\) 下充分大的 \(a_n\) 落在 \(B(x,r)\)，所以 (ii) 成立。
+\end{proof}
+
+对非空 \(A\subset X\)，定义
+\[
+ d(x,A)=\inf_{a\in A}d(x,a).
+\]
+同欧氏情形一样，反向三角不等式给出
+\[
+ |d(x,A)-d(y,A)|\le d(x,y).
+\]
+所以到集合的距离是 \(1\)-Lipschitz 函数，并且
+\[
+ \overline A=\{x:d(x,A)=0\}.
+\]
+不过 \(d(x,A)=0\) 不保证最近点在 \(A\) 中取得；即使 \(A\) 闭，在一般
+度量空间中也未必存在最近点。紧致性才会保证连续距离函数取得最小值。
+
+\begin{proposition}[闭集的分离函数]
+若非空集合 \(A\subset X\) 闭，\(x_0\notin A\)，则连续函数
+\[
+ f(x)=\frac{d(x,A)}{d(x,A)+d(x,x_0)}
+\]
+满足 \(f|_A=0\)、\(f(x_0)=1\)，且值域包含于 \([0,1]\)。
+\end{proposition}
+
+\begin{proof}
+分母不会为零：若两项同时为零，则 \(x=x_0\) 且
+\(x_0\in\overline A=A\)，矛盾。分子、分母连续，故商连续。其余结论
+直接代入得到。
+\end{proof}
+
+\section{收敛的序列刻画}
+
+在度量空间中，\(x_n\to x\) 定义为 \(d(x_n,x)\to0\)。极限唯一性来自
+三角不等式；收敛列必有界，其中有界指存在 \(x_0\in X,R>0\) 使所有项
+落在 \(B(x_0,R)\) 中。
+
+\begin{theorem}[开闭集与序列]
+\label{thm:metric-sequential-open-closed}
+设 \(A\subset X\)。则
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(A\) 开，当且仅当每个收敛到 \(A\) 中点的数列最终属于 \(A\)；
+ \item \(A\) 闭，当且仅当每个 \(A\) 中收敛列的极限仍属于 \(A\)。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+若 \(A\) 开且 \(x_n\to x\in A\)，取 \(B(x,r)\subset A\)，则 \(x_n\)
+最终落在该球内。反之，若 \(A\) 不开，存在 \(x\in A\) 使每个
+\(B(x,1/n)\) 都含某个 \(x_n\notin A\)；于是 \(x_n\to x\)，但不最终
+属于 \(A\)。闭集结论可对补集使用第一项，也可由闭包的序列刻画直接得到。
+\end{proof}
+
+\begin{theorem}[连续性的序列判据]
+\label{thm:metric-continuity-sequential}
+映射 \(f:(X,d_X)\to(Y,d_Y)\) 在 \(x\in X\) 连续，当且仅当对每个
+\(x_n\to x\)，都有 \(f(x_n)\to f(x)\)。
+\end{theorem}
+
+\begin{proof}
+正向直接把连续性给出的 \(\delta\) 用于充分大的 \(x_n\)。若不连续，存在
+\(\varepsilon_0>0\)，使对每个 \(n\) 可取
+\[
+ d_X(x_n,x)<1/n,\qquad
+ d_Y(f(x_n),f(x))\ge\varepsilon_0.
+\]
+于是 \(x_n\to x\)，而像列不趋于 \(f(x)\)。
+\end{proof}
+
+这些序列刻画在度量空间中成立，是因为每点都有可数的邻域基
+\(B(x,1/n)\)。一般拓扑空间未必具有这种性质，因此后文需要网和滤子来
+替代单纯序列。
+
+\section{连续映射与一致连续映射}
+
+度量空间之间的点连续与一致连续分别定义为
+\[
+ \forall x\in X\ \forall\varepsilon>0\ \exists\delta>0\quad
+ \forall y\in X,\quad
+ d_X(x,y)<\delta\Rightarrow d_Y(f(x),f(y))<\varepsilon,
+\]
+以及
+\[
+ \forall\varepsilon>0\ \exists\delta>0\ \forall x,y\in X,\quad
+ d_X(x,y)<\delta\Rightarrow d_Y(f(x),f(y))<\varepsilon.
+\]
+开集原像判据、闭集原像判据和复合定理均保持原样。
+
+\begin{proposition}[Lipschitz 与等距映射]
+若存在 \(L\ge0\) 使
+\[
+ d_Y(f(x),f(y))\le Ld_X(x,y),
+\]
+则 \(f\) 一致连续。若对所有 \(x,y\in X\) 都有
+\[
+ d_Y(f(x),f(y))=d_X(x,y),
+\]
+则称 \(f\) 为等距嵌入；距离保持已经保证 \(f\) 为单射。若 \(f\) 还满射，
+则称为等距同构。
+\end{proposition}
+
+等距嵌入保持所有距离，因而保持收敛、Cauchy 性、有界性和直径。它不必把
+\(X\) 映成 \(Y\) 的全部；“嵌入”只说明 \(X\) 可作为一个等距子空间出现。
+
+\begin{theorem}[一致连续映射保持 Cauchy 列]
+\label{thm:uniform-continuity-preserves-cauchy-metric}
+若 \(f:X\to Y\) 一致连续，\((x_n)\) 在 \(X\) 中是 Cauchy 列，则
+\((f(x_n))\) 在 \(Y\) 中是 Cauchy 列。
+\end{theorem}
+
+\begin{proof}
+给定 \(\varepsilon>0\)，取一致连续性对应的 \(\delta>0\)。由
+\((x_n)\) 的 Cauchy 性，存在 \(N\) 使 \(m,n\ge N\) 时
+\(d_X(x_m,x_n)<\delta\)，于是
+\(d_Y(f(x_m),f(x_n))<\varepsilon\)。
+\end{proof}
+
+点连续一般不够。函数 \(f(x)=1/x\) 在不完备空间 \((0,1)\) 上连续，而
+\(x_n=1/n\) 是 Cauchy 列，像列 \(n\) 却不是 Cauchy 列。
+
+\section{Cauchy 列和完备空间}
+
+\begin{definition}[Cauchy 列与完备性]
+若对每个 \(\varepsilon>0\)，存在 \(N\)，使
+\[
+ m,n\ge N\Longrightarrow d(x_m,x_n)<\varepsilon,
+\]
+则称 \((x_n)\) 为 Cauchy 列。若 \(X\) 中每个 Cauchy 列都收敛到
+\(X\) 中一点，则称 \(X\) 完备。
+\end{definition}
+
+任意收敛列都是 Cauchy 列，证明只需把总误差分为两半。反向恰是完备性的
+内容。
+
+\begin{theorem}[基本完备空间]
+\label{thm:basic-complete-metric-spaces}
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(\R^n\) 配任一范数都是完备的；
+ \item 若 \(E\ne\varnothing\)、\(Y\) 完备，则有界映射空间
+ \(\mathcal B(E,Y)\) 完备；
+ \item 有限多个完备度量空间的最大值度量乘积仍完备。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+在欧氏范数下，向量 Cauchy 列的每个坐标都是实 Cauchy 列，故逐坐标有
+极限；坐标判据给出向量收敛。任一有限维范数与欧氏范数等价，而且是双
+Lipschitz 等价，所以完备性保持。
+
+设 \((f_n)\) 在上确界距离下为 Cauchy 列。固定 \(t\in E\)，则
+\((f_n(t))\) 在 \(Y\) 中 Cauchy，完备性给出极限 \(f(t)\)。给定
+\(\varepsilon>0\)，取 \(N\) 使 \(m,n\ge N\) 时
+\(d_\infty(f_m,f_n)<\varepsilon/2\)。固定 \(n\ge N,t\in E\)，令
+\(m\to\infty\)，得
+\[
+ d_Y(f_n(t),f(t))\le\varepsilon/2.
+\]
+对 \(t\) 取上确界，得到 \(d_\infty(f_n,f)<\varepsilon\)，故一致收敛。
+取一个 \(f_N\) 作为基准，上一致估计还说明 \(f(E)\) 落在
+\(f_N(E)\) 的固定邻域内；因 \(f_N\) 有界，极限映射 \(f\) 仍有界。
+
+有限乘积中，Cauchy 性等价于有限多个坐标列分别 Cauchy。逐坐标取极限后，
+最大值度量下收敛。
+\end{proof}
+
+离散度量空间总是完备，因为取 \(\varepsilon<1\) 后 Cauchy 列必须最终
+常值。有理数配通常距离不完备；例如逼近 \(\sqrt2\) 的有理 Cauchy 列在
+\(\Q\) 中没有极限。开区间 \((0,1)\) 也不完备，因为 \(1/n\) 的极限落在
+空间外。
+
+\section{完备子空间}
+
+子集 \(A\subset X\) 配限制度量，称为 \(X\) 的度量子空间。
+
+\begin{theorem}[完备子空间判据]
+\label{thm:complete-subspace-closed}
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 完备度量空间的闭子空间完备；
+ \item 任意度量空间中的完备子空间必为闭集。
+\end{enumerate}
+因此若 \(X\) 完备，则 \(A\subset X\) 完备当且仅当 \(A\) 闭。
+\end{theorem}
+
+\begin{proof}
+若 \(A\) 闭且 \((a_n)\subset A\) 为 Cauchy 列，它也是 \(X\) 中 Cauchy
+列，故收敛到某个 \(x\in X\)；闭性给出 \(x\in A\)。
+
+反过来，设 \(A\) 完备且 \(x\in\overline A\)。取 \(a_n\in A\) 使
+\(a_n\to x\)。收敛列为 Cauchy 列，故由 \(A\) 的完备性还存在
+\(a\in A\) 使 \(a_n\to a\)。极限唯一性给出 \(x=a\in A\)，所以
+\(A\) 闭。
+\end{proof}
+
+第一项不能把闭性换成开性；\((0,1)\) 是完备空间 \(\R\) 的开子空间，却
+不完备。第二项不要求环境空间完备，这一点常用于判断一个候选子空间不可能
+完备。
+
+\section{完备化的构造与唯一性}
+
+\begin{definition}[完备化]
+度量空间 \(X\) 的完备化是一个完备度量空间 \(\widehat X\) 及等距嵌入
+\(i:X\to\widehat X\)，使 \(i(X)\) 在 \(\widehat X\) 中稠密。
+\end{definition}
+
+\subsection{Cauchy 列的等价类}
+
+令 \(\mathcal C\) 为 \(X\) 中所有 Cauchy 列的集合。对
+\(x=(x_n),y=(y_n)\in\mathcal C\)，定义
+\[
+ x\sim y\quad\Longleftrightarrow\quad d(x_n,y_n)\to0.
+\]
+三角不等式说明这是等价关系。令
+\(\widehat X=\mathcal C/{\sim}\)，并令
+\[
+ \widehat d([x],[y])=\lim_{n\to\infty}d(x_n,y_n).
+\]
+
+\begin{proposition}
+\label{prop:completion-quotient-metric}
+上式给出 \(\widehat X\) 上良定义的度量。
+\end{proposition}
+
+\begin{proof}
+这个实数极限存在，因为
+\[
+ |d(x_n,y_n)-d(x_m,y_m)|
+ \le d(x_n,x_m)+d(y_n,y_m),
+\]
+所以数列 \(d(x_n,y_n)\) 为实 Cauchy 列。若替换代表元，三角不等式又给出
+两组距离之差趋零，故定义与代表元无关。非负、对称和三角不等式由逐项性质
+取极限得到；若 \(\widehat d([x],[y])=0\)，正是 \(x\sim y\)，所以
+正定性也成立。
+\end{proof}
+
+\subsection{原空间的等距嵌入}
+
+\begin{proposition}
+\label{prop:completion-dense-embedding}
+把 \(a\in X\) 映到常值列的等价类 \(i(a)=[(a,a,\ldots)]\)。则
+\(i:X\to\widehat X\) 是等距嵌入，并且 \(i(X)\) 在 \(\widehat X\)
+中稠密。
+\end{proposition}
+
+\begin{proof}
+由定义，
+\(\widehat d(i(a),i(b))=d(a,b)\)，故 \(i\) 等距。若
+\(\xi=[(x_n)]\)，Cauchy 性给出
+\[
+ \widehat d(i(x_N),\xi)=\lim_{m\to\infty}d(x_N,x_m)\longrightarrow0
+ \quad(N\to\infty),
+\]
+所以 \(i(X)\) 稠密。
+\end{proof}
+
+\subsection{所构造空间的完备性}
+
+\begin{proposition}
+\label{prop:completion-space-complete}
+度量空间 \((\widehat X,\widehat d)\) 完备。
+\end{proposition}
+
+\begin{proof}
+设 \((\xi_k)\) 是 \(\widehat X\) 中的 Cauchy 列。抽取子列
+\((\xi_{k_j})\)，使
+\[
+ \widehat d(\xi_{k_{j+1}},\xi_{k_j})<2^{-j}.
+\]
+由 \(i(X)\) 稠密，选 \(a_j\in X\) 使
+\(\widehat d(i(a_j),\xi_{k_j})<2^{-j}\)。于是
+\[
+ d(a_{j+1},a_j)
+ \le 2^{-(j+1)}+2^{-j}+2^{-j}<4\,2^{-j}.
+\]
+若 \(\ell>j\)，尾部几何级数给出
+\[
+ d(a_\ell,a_j)
+ \le\sum_{r=j}^{\ell-1}d(a_{r+1},a_r)
+ <4\sum_{r=j}^{\infty}2^{-r}=8\,2^{-j}.
+\]
+所以 \((a_j)\) 在 \(X\) 中 Cauchy，可定义
+\(\xi=[(a_j)]\in\widehat X\)。令 \(\ell\to\infty\) 还得到
+\(\widehat d(i(a_j),\xi)\le8\,2^{-j}\)，从而
+\[
+ \widehat d(\xi_{k_j},\xi)
+ \le\widehat d(\xi_{k_j},i(a_j))
+   +\widehat d(i(a_j),\xi)
+ <9\,2^{-j}\longrightarrow0.
+\]
+原列是 Cauchy 列而有一个收敛子列，所以整列也趋于 \(\xi\)。因此
+\(\widehat X\) 完备。
+\end{proof}
+
+\subsection{完备化的唯一性}
+
+\begin{theorem}[度量空间的完备化]
+\label{thm:metric-completion-existence-uniqueness}
+每个度量空间都有完备化。若
+\((\widehat X_1,i_1)\)、\((\widehat X_2,i_2)\) 是两个完备化，则存在唯一
+等距同构 \(T:\widehat X_1\to\widehat X_2\) 满足
+\[
+ T\circ i_1=i_2.
+\]
+\end{theorem}
+
+\begin{proof}
+前面三个命题已经给出完备化的存在性。以下证明唯一性。
+对 \(u\in\widehat X_1\)，由稠密性取 \(x_n\in X\) 使
+\(i_1(x_n)\to u\)。等距性使 \((i_2(x_n))\) 为 Cauchy 列，
+\(\widehat X_2\) 完备，故有极限。定义
+\[
+ Tu=\lim_{n\to\infty}i_2(x_n).
+\]
+若换一条逼近 \(u\) 的列，两列对应项距离趋零，故极限相同，\(T\) 良定义。
+对两点同时取逼近列并让距离取极限，得到 \(T\) 保持距离。交换两个完备化
+构造逆映射，故 \(T\) 满射；对常值逼近立即有 \(T\circ i_1=i_2\)。任何
+满足该式的连续映射在稠密集 \(i_1(X)\) 上已被确定，故 \(T\) 唯一。
+\end{proof}
+
+有理数的完备化与实数等距同构；这与前文用有理 Cauchy 列构造实数是同一
+构造的抽象形式。完备化增加的是所有“应有极限而尚无极限”的 Cauchy 列
+所代表的点，并且不改变原空间中已有的距离。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　度量、拓扑与序列}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{metric-discrete-verification}
+ 验证离散度量满足三角不等式，并求任意半径 \(r\le1\) 与 \(r>1\) 的开球。
+ \exerciseitem{metric-truncation}
+ 证明 \(\rho(x,y)=\min\{d(x,y),1\}\) 是度量，并与 \(d\) 一致等价。
+ \exerciseitem{arctangent-metric-incomplete}
+ 证明 \(\rho(x,y)=|\arctan x-\arctan y|\) 与通常距离拓扑等价，但
+ \((\R,\rho)\) 不完备。
+ \exerciseitem{metric-closure-sequence}
+ 完整证明度量空间中闭包的球刻画和序列刻画等价。
+ \exerciseitem{distance-to-set-lipschitz}
+ 证明 \(x\mapsto d(x,A)\) 为 \(1\)-Lipschitz，并由此证明
+ \(\overline A=\{x:d(x,A)=0\}\)。
+ \exerciseitem{metric-closed-sequential}
+ 从定义证明闭集的序列刻画；说明证明为何使用半径 \(1/n\)。
+ \exerciseitem{metric-continuity-open-preimage}
+ 证明度量空间之间的映射连续，当且仅当每个开集的原像开。
+\end{enumerate}
+
+\subsection*{B组　完备性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{cauchy-bounded-metric}
+ 证明任意度量空间中的 Cauchy 列有界；给出有界但无 Cauchy 子列的例子。
+ \exerciseitem{cauchy-convergent-subsequence}
+ 证明：Cauchy 列若有一个收敛子列，则原列收敛到同一极限。
+ \exerciseitem{finite-product-complete}
+ 对有限乘积的最大值度量，证明乘积完备当且仅当每个因子完备。
+ \exerciseitem{continuous-bounded-functions-complete}
+ 若 \(X\) 为非空度量空间、\(Y\) 完备，证明所有有界连续映射
+ \(X\to Y\) 在上确界度量下构成完备空间。
+ \exerciseitem{closed-complete-subspace}
+ 完整证明“完备空间的闭子空间完备”和“完备子空间必闭”，并指出两个方向
+ 对环境空间的假设差异。
+ \exerciseitem{open-subspace-incomplete}
+ 给出完备度量空间的一个开子空间及其中一条无极限 Cauchy 列；再给出一个
+ 非开但仍不完备的子空间。
+ \exerciseitem{uniform-equivalence-completeness}
+ 证明一致等价度量保持完备性，并用反正切度量说明拓扑等价不够。
+\end{enumerate}
+
+\subsection*{C组　完备化}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{completion-equivalence-relation}
+ 验证 Cauchy 列上的关系
+ \((x_n)\sim(y_n)\iff d(x_n,y_n)\to0\) 是等价关系。
+ \exerciseitem{completion-distance-well-defined}
+ 证明 \(\lim_nd(x_n,y_n)\) 存在，并且替换任一代表元都不改变极限。
+ \exerciseitem{completion-density}
+ 对 \(\xi=[(x_n)]\)，直接证明常值类 \(i(x_N)\to\xi\)。
+ \exerciseitem{completion-fast-subsequence}
+ 补全完备化证明中的几何尾和估计，证明所构造的 \((a_j)\) 为 Cauchy 列且
+ \(\xi_{k_j}\to[(a_j)]\)。
+ \exerciseitem{completion-extension-uniform}
+ 设 \(X\) 在完备化 \(\widehat X\) 中稠密，\(Y\) 完备，且
+ \(f:X\to Y\) 一致连续。证明 \(f\) 唯一延拓为
+ \(\widehat f:\widehat X\to Y\) 的一致连续映射。
+ \optionalexerciseitem{completion-rationals-reals}
+ 以有理 Cauchy 列为代表，说明 \(\Q\) 的抽象完备化怎样与前文构造的
+ \(\R\) 建立保持距离的同构。
+\end{enumerate}

@@ -1,0 +1,241 @@
+\chapter{紧致度量空间}
+\label{chap:compact-metric-spaces-solutions}
+
+\begin{solution}{compact-infinite-set-cluster}
+反设无限集 \(A\subset X\) 没有聚点。若 \(x\in A\)，因 \(x\) 不是聚点，
+存在 \(r_x>0\) 使
+\[
+ (B(x,r_x)\setminus\{x\})\cap A=\varnothing,
+\]
+所以该球与 \(A\) 的交只有 \(x\)。若 \(x\notin A\)，同一个非聚点条件
+给出 \(r_x>0\)，使删心球避开 \(A\)；由于中心也不在 \(A\)，整个球都
+避开 \(A\)。这些球覆盖 \(X\)。有限子覆盖中的每个球至多含 \(A\) 的
+一个点，故它们只能覆盖 \(A\) 的有限多个点，与 \(A\) 无限矛盾。
+\end{solution}
+
+\begin{solution}{compact-to-sequential-subsequence}
+若某个值在序列中出现无穷多次，直接取常值子列。否则值集无限，可选一条
+两两不同的子列；把它重新记作 \((x_n)\)。紧致性给出值集的聚点 \(x\)。
+若某个 \(B(x,r)\) 除 \(x\) 外不含值集中的点，则它的删心球已经与值集
+不交，和 \(x\) 是聚点矛盾。若它除 \(x\) 外只含值集中的有限多个点
+\(a_1,\ldots,a_N\)，其中 \(N\ge1\)，取
+\[
+ 0<\rho<\min\{r,d(x,a_1),\ldots,d(x,a_N)\},
+\]
+就会使删心球 \(B(x,\rho)\setminus\{x\}\) 避开值集，与聚点定义矛盾。
+所以每个 \(B(x,1/k)\) 含序列的无穷多项。可依次选
+\(n_k>n_{k-1}\) 使 \(x_{n_k}\in B(x,1/k)\)，于是子列趋于 \(x\)。
+\end{solution}
+
+\begin{solution}{sequential-compact-lebesgue-number}
+若开覆盖 \(\mathcal U\) 没有 Lebesgue 数，对每个 \(n\) 取 \(x_n\)，
+使 \(B(x_n,1/n)\) 不包含于任何 \(U\in\mathcal U\)。序列紧致性给出
+\(x_{n_k}\to x\)。选 \(U\) 含 \(x\)，并取
+\(B(x,r)\subset U\)。充分大时
+\(d(x_{n_k},x)<r/2\)、\(1/n_k<r/2\)，故
+\(B(x_{n_k},1/n_k)\subset U\)，矛盾。于是有 Lebesgue 数
+\(\lambda>0\)。
+
+序列紧致还推出存在有限 \(\lambda/2\)-网；否则可递归构造两两距离至少
+\(\lambda/2\) 的序列，它没有收敛子列。设网点为 \(a_j\)，为每个 \(a_j\)
+选 \(U_j\) 使 \(B(a_j,\lambda)\subset U_j\)。有限多个 \(U_j\) 覆盖
+\(X\)，所以任意开覆盖都有有限子覆盖。
+\end{solution}
+
+\begin{solution}{total-bounded-implies-bounded}
+取有限 \(1\)-网 \(a_1,\ldots,a_N\)，并固定中心 \(a_1\)。对任意
+\(x\in X\)，存在 \(j\) 使 \(d(x,a_j)<1\)，于是
+\[
+ d(x,a_1)<1+\max_{1\le j\le N}d(a_j,a_1).
+\]
+所以 \(X\) 有界。
+
+任意无限集合配离散度量都是完备的，直径为一，故有界。但当
+\(\varepsilon<1\) 时每个 \(\varepsilon\)-球只有一个点，有限多个球不能
+覆盖无限集合，所以不全有界。
+\end{solution}
+
+\begin{solution}{separated-set-characterization}
+若 \(X\) 全有界，取有限 \(\varepsilon/2\)-网。任一
+\(\varepsilon\)-分离集中，同一个网球不能含两个不同点，否则它们距离小于
+\(\varepsilon\)。因此分离集的点数不超过网球数，必有限。
+
+反之，固定 \(\varepsilon>0\)。从任一点开始，只要已选点的
+\(\varepsilon\)-球尚未覆盖 \(X\)，就在未覆盖处选一个新点。新点与此前
+各点距离至少为 \(\varepsilon\)，所选集合是
+\(\varepsilon\)-分离集，故过程有限步停止。停止时所得点正构成有限
+\(\varepsilon\)-网。
+\end{solution}
+
+\begin{solution}{total-bounded-cauchy-subsequence}
+用有限半径 \(1\) 的球覆盖原序列，其中至少一球包含无穷多项，记这些项的
+指标集为 \(I_1\)。在 \(I_1\) 对应的子列中，用有限半径 \(1/2\) 的球
+覆盖并选含无穷多项者，得无限指标集
+\(I_2\subset I_1\)。继续得到
+\[
+ I_1\supset I_2\supset\cdots,
+\]
+其中 \(I_k\) 对应的点都在同一半径 \(1/k\) 的球中。递归取
+\(n_k\in I_k\) 且 \(n_k>n_{k-1}\)。若 \(p,q\ge k\)，则
+\(n_p,n_q\in I_k\)，故
+\[
+ d(x_{n_p},x_{n_q})<2/k.
+\]
+给定 \(\varepsilon>0\)，取 \(k>2/\varepsilon\)，便得 Cauchy 条件。
+\end{solution}
+
+\begin{solution}{total-bounded-closure}
+给定 \(\varepsilon>0\)，取 \(A\) 的有限 \(\varepsilon/2\)-网
+\(a_1,\ldots,a_N\)。若 \(x\in\overline A\)，可取 \(y\in A\) 使
+\(d(x,y)<\varepsilon/2\)，再取 \(a_j\) 使
+\(d(y,a_j)<\varepsilon/2\)。于是
+\[
+ d(x,a_j)<\varepsilon.
+\]
+所以这些中心构成 \(\overline A\) 的有限 \(\varepsilon\)-网。初始半径
+缩小一半，是为闭包点到 \(A\) 的逼近误差留下另一半预算。
+\end{solution}
+
+\begin{solution}{compact-complete-proof}
+设 \((x_n)\) 是紧致度量空间中的 Cauchy 列。紧致等价于序列紧致，所以
+存在子列 \(x_{n_k}\to x\in X\)。给定 \(\varepsilon>0\)，先由 Cauchy
+性取 \(N\)，使 \(m,n\ge N\) 时
+\(d(x_m,x_n)<\varepsilon/2\)；再取 \(k\) 使 \(n_k\ge N\) 且
+\(d(x_{n_k},x)<\varepsilon/2\)。则对所有 \(n\ge N\)，
+\[
+ d(x_n,x)\le d(x_n,x_{n_k})+d(x_{n_k},x)<\varepsilon.
+\]
+故整列收敛，空间完备。
+\end{solution}
+
+\begin{solution}{complete-total-bounded-compact}
+全有界性通过逐层有限网抽取，保证任意序列都有 Cauchy 子列。完备性使这条
+Cauchy 子列收敛到空间中的点。因此每个数列都有收敛子列，即空间序列紧致。
+度量空间中序列紧致与开覆盖紧致等价，所以空间紧致。两项假设分别用于
+“抽取 Cauchy 子列”和“使子列收敛”，不能互相替代。
+\end{solution}
+
+\begin{solution}{completion-compact-characterization}
+若 \(X\) 全有界，其在完备化 \(\widehat X\) 中的等距像仍全有界。全有界
+集合的闭包全有界，而该像的闭包等于 \(\widehat X\)。完备化完备，所以
+\(\widehat X\) 完备且全有界，因而紧。
+
+反之，若 \(\widehat X\) 紧，则它全有界。全有界空间的任意子空间仍全有界，
+故其中的等距子空间 \(X\) 全有界。
+\end{solution}
+
+\begin{solution}{finite-product-total-bounded}
+设 \(X_j\) 有有限 \(\varepsilon\)-网 \(A_j\)，\(1\le j\le N\)。有限集
+\[
+ A_1\times\cdots\times A_N
+\]
+是最大值度量乘积的有限 \(\varepsilon\)-网：逐坐标选择网点后，各坐标
+距离都小于 \(\varepsilon\)，最大值也小于 \(\varepsilon\)。
+
+若因子有无穷多个，即使每个 \(A_j\) 有限，它们的笛卡儿积一般也不是有限
+集；而对所有坐标取最大值的表达式还可能不适合任意乘积。因此有限乘积证明
+不能直接推广。后文的一般乘积拓扑需要不同的邻域结构和 Tychonoff 定理。
+\end{solution}
+
+\begin{solution}{uniform-image-total-bounded}
+给定 \(\varepsilon>0\)，一致连续性给出 \(\delta>0\)，使
+\[
+ d_X(x,y)<\delta
+ \quad\Longrightarrow\quad
+ d_Y\bigl(f(x),f(y)\bigr)<\varepsilon.
+\]
+取 \(X\) 的有限 \(\delta\)-网 \(x_1,\ldots,x_N\)。任意 \(f(x)\)
+距某个 \(f(x_j)\) 小于 \(\varepsilon\)，故这些像点构成 \(f(X)\)
+的有限网。
+
+定义域 \(X=(0,1)\) 是 \(\R\) 的全有界子空间。函数
+\(f(x)=1/x\) 连续但不一致连续，其像为 \((1,\infty)\)，无界，因而不
+全有界。这说明一致连续性不能只换成连续性。
+\end{solution}
+
+\begin{solution}{metric-heine-cantor}
+\textit{序列证明。}
+若 \(f\) 不一致连续，存在 \(\varepsilon_0>0\) 及
+\(x_n,y_n\in X\)，满足 \(d_X(x_n,y_n)<1/n\) 而像距至少为
+\(\varepsilon_0\)。紧致性给出 \(x_{n_k}\to x\)，三角不等式又给出
+\(y_{n_k}\to x\)。连续性使两像列趋于同一点，矛盾。
+
+\textit{覆盖证明。}
+给定 \(\varepsilon>0\)。对每个 \(x\in X\)，由连续性取 \(r_x>0\)，
+使 \(y\in B(x,2r_x)\) 时
+\(d_Y(f(y),f(x))<\varepsilon/2\)。较小球 \(B(x,r_x)\) 覆盖 \(X\)，
+取有限子覆盖并令 \(\delta\) 为这些 \(r_x\) 的最小值。若
+\(d_X(u,v)<\delta\)，取被选中心 \(x\) 使 \(u\in B(x,r_x)\)，则
+\(v\in B(x,2r_x)\)。三角不等式给出
+\(d_Y(f(u),f(v))<\varepsilon\)。
+\end{solution}
+
+\begin{solution}{cantor-intersection-forward}
+从每个 \(F_n\) 取 \(x_n\)。直径趋零说明：给定 \(\varepsilon>0\)，取
+\(N\) 使 \(\operatorname{diam}F_N<\varepsilon\)；因集合递减，
+\(m,n\ge N\) 时 \(x_m,x_n\in F_N\)，所以点列 Cauchy。完备性给出
+\(x_n\to x\in X\)。固定 \(N\) 后尾列属于 \(F_N\)，闭性使
+\(x\in F_N\)；对所有 \(N\) 成立，交非空。若 \(x,y\) 都在交中，则
+\(d(x,y)\le\operatorname{diam}F_N\to0\)，故唯一。
+
+因此直径条件产生 Cauchy 列，完备性产生环境空间中的极限，闭性把极限留在
+每个集合中；直径条件还保证交点唯一。
+\end{solution}
+
+\begin{solution}{cantor-intersection-converse}
+给定 Cauchy 列 \((x_n)\)，令
+\[
+ F_n=\overline{\{x_k:k\ge n\}}.
+\]
+这些集合非空、闭且递减。给定 \(\varepsilon>0\)，取 \(N\) 使
+\(k,\ell\ge N\) 时 \(d(x_k,x_\ell)<\varepsilon/2\)。尾集直径不超过
+\(\varepsilon/2\)，取闭包后任意两点可分别由尾集点逼近，故
+\(\operatorname{diam}F_N\le\varepsilon/2<\varepsilon\)。所以直径趋零。
+由假设，交集中有一点 \(x\)。因 \(x_n,x\in F_n\)，
+\[
+ d(x_n,x)\le\operatorname{diam}F_n\longrightarrow0.
+\]
+故任意 Cauchy 列收敛，空间完备。
+\end{solution}
+
+\begin{solution}{compact-nested-closed}
+若 \(\bigcap_nF_n=\varnothing\)，则开集 \(X\setminus F_n\) 覆盖
+\(X\)。紧致性给出有限子覆盖。令 \(N\) 为其中最大指标；由于
+\(F_n\) 递减，补集递增，有限并就是 \(X\setminus F_N\)。它等于
+\(X\)，迫使 \(F_N=\varnothing\)，矛盾。
+
+例如在紧区间 \([0,1]\) 中取 \(F_n=[0,1]\) 对所有 \(n\)，交集含无穷
+多个点。也可取 \(F_n=[0,1+1/n]\cap[0,1]=[0,1]\)。
+\end{solution}
+
+\begin{solution}{closed-bounded-discrete-counterexample}
+设 \(X\) 是无限集合并配离散度量。整个 \(X\) 在自身中既开又闭，直径为
+一，所以有界。若 \((x_n)\) 是 Cauchy 列，取
+\(\varepsilon=1/2\)，充分大时任意两项距离小于 \(1/2\)，只能相等；故
+数列最终常值，空间完备。
+
+但单点开集族 \(\{\{x\}:x\in X\}\) 覆盖 \(X\) 而无有限子覆盖，所以
+\(X\) 不紧。等价地，它在半径小于一时没有有限网。
+\end{solution}
+
+\begin{solution}{closed-ball-function-space-not-compact}
+在 \(\mathcal B(\Npos)\) 中定义 \(e_n(k)=1\) 当 \(k=n\)，否则为零。
+每个 \(\norm{e_n}_\infty=1\)，所以都在闭单位球内；而 \(m\ne n\) 时
+\[
+ \norm{e_m-e_n}_\infty=1.
+\]
+故 \(\{e_n\}\) 是无限 \(1\)-分离集。若闭单位球紧，则它全有界，其中每个
+\(1/2\)-分离集都应有限，矛盾。因此闭单位球不紧。
+\end{solution}
+
+\begin{solution}{compactness-finite-intersection-property}
+设 \(X\) 紧，闭集族 \(\{F_\lambda\}\) 的每个有限子族交非空。若总交为空，
+则开集 \(X\setminus F_\lambda\) 覆盖 \(X\)。有限子覆盖意味着相应有限
+多个闭集之交为空，与有限交性质矛盾。
+
+反之，假设每族具有有限交性质的闭集总交非空。给定开覆盖
+\(\{U_\lambda\}\)，若它没有有限子覆盖，则闭集
+\(F_\lambda=X\setminus U_\lambda\) 的每个有限子族交非空。假设给出
+\(\bigcap_\lambda F_\lambda\ne\varnothing\)，即存在点不属于任何
+\(U_\lambda\)，与开覆盖矛盾。因此每个开覆盖都有有限子覆盖，\(X\) 紧。
+\end{solution}

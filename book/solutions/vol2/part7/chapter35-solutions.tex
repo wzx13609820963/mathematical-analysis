@@ -1,0 +1,470 @@
+\chapter{Banach 压缩映射原理}
+\label{chap:banach-contraction-solutions}
+
+\begin{solution}{contraction-continuity-and-uniqueness}
+设 \(T:X\to Y\) 的 Lipschitz 常数为 \(L\)。若 \(L>0\)，给定
+\(\varepsilon>0\)，取 \(\delta=\varepsilon/L\)；当
+\(d_X(x,y)<\delta\) 时，
+\[
+ d_Y(Tx,Ty)\le Ld_X(x,y)<\varepsilon.
+\]
+这里的 \(\delta\) 与点 \(x,y\) 无关，所以 \(T\) 一致连续。若
+\(L=0\)，则 \(T\) 为常值映射，结论也成立。
+
+若压缩映射 \(T:X\to X\) 的两个不动点为 \(x,y\)，则
+\[
+ d(x,y)=d(Tx,Ty)\le qd(x,y).
+\]
+由 \(q<1\) 得 \((1-q)d(x,y)\le0\)，故 \(d(x,y)=0\)，即 \(x=y\)。
+\end{solution}
+
+\begin{solution}{iterate-contraction-factor}
+用归纳法。\(n=1\) 时就是已知条件。若
+\[
+ d(T^nx,T^ny)\le q^n d(x,y),
+\]
+则
+\[
+ d(T^{n+1}x,T^{n+1}y)
+ \le q\,d(T^nx,T^ny)
+ \le q^{n+1}d(x,y).
+\]
+因此 \(q^n\) 是 \(T^n\) 的一个 Lipschitz 常数。
+
+这个常数由逐次相乘得到，未必最小。例如常值映射的最小 Lipschitz 常数
+是 \(0\)，但也可以把任意给定的 \(q\in(0,1)\) 当作它的压缩常数；由此
+得到的 \(q^n\) 仍不是 \(T^n\) 的最小常数。
+\end{solution}
+
+\begin{solution}{affine-contraction-neumann-series}
+记 \(q=\|A\|<1\)。对任意 \(x,y\in E\)，
+\[
+ \|T(x)-T(y)\|=\|A(x-y)\|\le q\|x-y\|,
+\]
+所以 \(T(x)=Ax+b\) 是压缩映射。有限维赋范空间完备，Banach 压缩映射
+原理给出唯一不动点 \(x^\ast\)，它满足
+\((I-A)x^\ast=b\)。
+
+令 \(s_N=\sum_{k=0}^{N}A^kb\)。由
+\(\|A^kb\|\le q^k\|b\|\)，级数在 \(E\) 中绝对收敛，故
+\(s_N\to s\)。有限和满足
+\[
+ (I-A)s_N=b-A^{N+1}b.
+\]
+右端趋于 \(b\)，而 \(I-A\) 连续，所以 \((I-A)s=b\)。唯一性说明
+\[
+ x^\ast=s=\sum_{k=0}^{\infty}A^kb.
+\]
+对每个 \(b\) 都有唯一解，故 \(I-A\) 可逆，上式给出其作用于 \(b\)
+的 Neumann 级数。
+\end{solution}
+
+\begin{solution}{nonexpansive-fixed-point-failure}
+在 \(\R\) 上，恒等映射 \(T(x)=x\) 的 Lipschitz 常数为 \(1\)，且每个
+实数都是不动点。平移 \(S(x)=x+1\) 的 Lipschitz 常数也为 \(1\)，但
+方程 \(S(x)=x\) 无解。这两例都定义在完备空间上，说明把 \(q<1\)
+放宽为 \(q\le1\) 后，存在性和唯一性都可能失败。
+\end{solution}
+
+\begin{solution}{closed-ball-invariance}
+若 \(x\in\overline B(x_0,r)\)，则
+\[
+\begin{aligned}
+ d(Tx,x_0)
+ &\le d(Tx,Tx_0)+d(Tx_0,x_0)\\
+ &\le qd(x,x_0)+(1-q)r\\
+ &\le qr+(1-q)r=r.
+\end{aligned}
+\]
+故 \(Tx\in\overline B(x_0,r)\)，闭球在 \(T\) 下不变。
+
+当 \(X\) 完备时，闭球作为闭子空间也完备。把 \(T\) 限制在该球上应用
+压缩映射原理，得到球中的不动点。由于 \(T\) 在整个 \(X\) 上压缩，
+不动点至多一个，所以这个点也是 \(X\) 中唯一的不动点。
+\end{solution}
+
+\begin{solution}{closed-invariant-subset-contraction}
+完备空间中的闭子集 \(A\) 完备。条件 \(T(A)\subset A\) 使
+\(T|_A:A\to A\) 成为自映射；它在 \(A\) 上压缩，所以 Banach 定理给出
+唯一 \(x^\ast\in A\)，满足 \(Tx^\ast=x^\ast\)，并且从 \(A\) 中任意
+初值开始的迭代收敛于它。
+
+证明从未比较 \(X\setminus A\) 中的点，也没有比较 \(A\) 中的点与
+\(X\setminus A\) 中的点。因此 \(T\) 在补集上的 Lipschitz 性质不影响
+这个局部结论。若只把 \(T\) 定义在 \(A\) 上，结论仍然成立。
+\end{solution}
+
+\begin{solution}{banach-proof-reconstruction}
+任取 \(x_0\in X\)，令 \(x_{n+1}=Tx_n\)。若 \(T\) 的压缩常数为
+\(q<1\)，则归纳得到
+\[
+ d(x_{n+1},x_n)\le q^n d(x_1,x_0).
+\]
+所以对 \(m>n\)，
+\[
+\begin{aligned}
+ d(x_m,x_n)
+ &\le\sum_{k=n}^{m-1}d(x_{k+1},x_k)\\
+ &\le d(x_1,x_0)\sum_{k=n}^{m-1}q^k
+ \le\frac{q^n}{1-q}d(x_1,x_0).
+\end{aligned}
+\]
+右端随 \(n\to\infty\) 趋于零，故 \((x_n)\) 是 Cauchy 列。
+
+此处使用完备性：存在 \(x^\ast\in X\)，使 \(x_n\to x^\ast\)。压缩
+条件给出
+\[
+ d(Tx_n,Tx^\ast)\le qd(x_n,x^\ast)\to0,
+\]
+所以 \(Tx_n\to Tx^\ast\)。但 \(Tx_n=x_{n+1}\to x^\ast\)，极限唯一性
+给出 \(Tx^\ast=x^\ast\)。若 \(y^\ast\) 也是不动点，则
+\[
+ d(x^\ast,y^\ast)\le qd(x^\ast,y^\ast),
+\]
+从而二者相等。任意初值均产生上述极限，故迭代从任意点收敛到这个唯一
+不动点。
+\end{solution}
+
+\begin{solution}{contraction-apriori-aposteriori}
+对 \(m>n\)，证明中的尾和估计为
+\[
+ d(x_m,x_n)\le
+ \frac{q^n(1-q^{m-n})}{1-q}d(x_1,x_0).
+\]
+令 \(m\to\infty\)，得到
+\[
+ d(x_n,x^\ast)\le
+ \frac{q^n}{1-q}d(x_1,x_0).
+\]
+若把 \(x_n\) 视为新的初值，同一公式给出
+\[
+ d(x_n,x^\ast)\le\frac{d(x_{n+1},x_n)}{1-q}.
+\]
+再用
+\(d(x_{n+1},x_n)\le qd(x_n,x_{n-1})\)，便得第二个后验估计
+\[
+ d(x_n,x^\ast)\le
+ \frac{q}{1-q}d(x_n,x_{n-1}).
+\]
+
+题设数据下，先验界为
+\[
+ d(x_n,x^\ast)\le5(0.8)^n.
+\]
+要求 \(5(0.8)^n<10^{-6}\)，等价于
+\[
+ n>\frac{\log(2\times10^{-7})}{\log0.8}.
+\]
+右端约为 \(69.13\)，所以 \(n=70\) 可以保证所需精度。
+\end{solution}
+
+\begin{solution}{contraction-residual-bound}
+由 \(Tx^\ast=x^\ast\) 及三角不等式，
+\[
+\begin{aligned}
+ d(x,x^\ast)
+ &\le d(x,Tx)+d(Tx,Tx^\ast)\\
+ &\le d(x,Tx)+q\,d(x,x^\ast).
+\end{aligned}
+\]
+移项得到
+\[
+ d(x,x^\ast)\le\frac{d(x,Tx)}{1-q}.
+\]
+
+对 \(0<q<1\)，在 \(\R\) 上取 \(T_q(x)=qx\)。其不动点为 \(0\)。
+在 \(x=1\) 处，
+\[
+ |x-x^\ast|=1,\qquad |x-T_qx|=1-q,
+\]
+所以残量估计恰好取等号。若存在与 \(q\) 无关的常数 \(C\)，使误差总不
+超过 \(C\) 倍残量，就会有 \(1\le C(1-q)\) 对所有 \(q<1\) 成立；
+令 \(q\uparrow1\) 即得矛盾。
+\end{solution}
+
+\begin{solution}{incomplete-space-contraction}
+对 \(x,y\in(0,1)\)，
+\[
+ |T(x)-T(y)|=\frac12|x-y|,
+\]
+故 \(T(x)=x/2\) 是压缩映射，并且 \(T((0,1))\subset(0,1)\)。
+不动点方程 \(x=x/2\) 只有解 \(x=0\)，它不在该空间中，所以 \(T\)
+没有不动点。
+
+由归纳 \(x_n=x_0/2^n\)。它在 \(\R\) 中趋于 \(0\)，也在
+\((0,1)\) 中构成 Cauchy 列，但没有该空间内的极限。这正是
+\((0,1)\) 不完备造成的缺口。
+\end{solution}
+
+\begin{solution}{strict-distance-decrease-no-fixed-point}
+函数
+\[
+ T(x)=x+\frac1{x+1}
+\]
+满足 \(T(x)>x\)，故不可能有不动点。又
+\[
+ T'(x)=1-\frac1{(x+1)^2}\in[0,1)
+\qquad(x\ge0).
+\]
+若 \(x<y\)，中值定理给出某个 \(\xi\in(x,y)\)，使
+\[
+ |T(y)-T(x)|=T'(\xi)|y-x|<|y-x|.
+\]
+
+若存在统一的压缩常数 \(q<1\)，则可导性会给出
+\(|T'(x)|\le q\) 对所有 \(x\ge0\) 成立，因为导数是差商的极限。但
+\(T'(x)\to1\) 当 \(x\to\infty\)，矛盾。逐对严格缩短没有产生统一的
+几何衰减率。
+\end{solution}
+
+\begin{solution}{contraction-perturbation-bound}
+设 \(Tx_T=x_T\)、\(Sx_S=x_S\)，且
+\(d(Tx,Sx)\le\eta\)。则
+\[
+\begin{aligned}
+ d(x_T,x_S)
+ &=d(Tx_T,Sx_S)\\
+ &\le d(Tx_T,Tx_S)+d(Tx_S,Sx_S)\\
+ &\le qd(x_T,x_S)+\eta.
+\end{aligned}
+\]
+所以
+\[
+ d(x_T,x_S)\le\frac{\eta}{1-q}.
+\]
+
+在 \(\R\) 上取
+\[
+ T(x)=qx,\qquad S(x)=qx+\eta
+\]
+其中 \(0\le q<1\)、\(\eta>0\)。两者都是压缩映射，且
+\(|T(x)-S(x)|=\eta\)。不动点分别为 \(0\) 与
+\(\eta/(1-q)\)，所以估计取等号。
+\end{solution}
+
+\begin{solution}{inexact-picard-iteration}
+记 \(e_n=d(x_n,x^\ast)\)。由三角不等式、近似迭代条件和压缩性，
+\[
+\begin{aligned}
+ e_{n+1}
+ &\le d(x_{n+1},Tx_n)+d(Tx_n,Tx^\ast)\\
+ &\le\varepsilon_n+qe_n.
+\end{aligned}
+\]
+反复代入可得
+\[
+ e_n\le q^ne_0+\sum_{k=0}^{n-1}q^{\,n-1-k}\varepsilon_k.
+\]
+
+现设 \(\varepsilon_n\to0\)。给定 \(\delta>0\)，取 \(K\) 使
+\(\varepsilon_k\le\delta(1-q)/3\) 对 \(k\ge K\) 成立。把卷积和拆成
+\(k<K\) 与 \(k\ge K\) 两段。前一段只有有限项，随 \(n\to\infty\)
+趋于零；后一段满足
+\[
+ \sum_{k=K}^{n-1}q^{\,n-1-k}\varepsilon_k
+ \le\frac{\delta(1-q)}{3}\sum_{j=0}^{\infty}q^j
+ =\frac{\delta}{3}.
+\]
+同时 \(q^ne_0\to0\)。充分大时三部分之和小于 \(\delta\)，故
+\(e_n\to0\)，即 \(x_n\to x^\ast\)。
+\end{solution}
+
+\begin{solution}{fixed-point-of-contractive-iterate}
+令 \(S=T^m\)。Banach 定理给出 \(S\) 的唯一不动点 \(x^\ast\)。由于
+\(S\) 与 \(T\) 可交换，
+\[
+ S(Tx^\ast)=T(Sx^\ast)=Tx^\ast,
+\]
+所以 \(Tx^\ast\) 也是 \(S\) 的不动点。由唯一性
+\(Tx^\ast=x^\ast\)，故 \(x^\ast\) 是 \(T\) 的不动点。反过来，
+\(T\) 的任何不动点也是 \(S\) 的不动点，所以 \(T\) 的不动点唯一。
+
+任取 \(x\in X\)。对每个 \(r=0,\ldots,m-1\)，把 \(T^rx\) 作为
+压缩映射 \(S\) 的初值；Banach 定理给出
+\[
+ T^{mk+r}x=S^k(T^rx)\longrightarrow x^\ast.
+\]
+原序列按模 \(m\) 分成有限条子列，它们都有同一极限，因此整个
+\(T\)-迭代轨道趋于 \(x^\ast\)。
+\end{solution}
+
+\begin{solution}{cosine-fixed-point-iteration}
+若 \(x\in[0,1]\)，则
+\[
+ \cos1\le\cos x\le1,
+\]
+所以 \(\varphi([0,1])\subset[0,1]\)。由中值定理，
+\[
+ |\cos x-\cos y|\le(\sin1)|x-y|,
+\]
+且 \(q=\sin1<1\)，故 \(\varphi\) 是压缩映射。
+
+从 \(x_0=0\) 出发有 \(x_1=1\)，所以先验估计为
+\[
+ |x_n-x^\ast|\le\frac{q^n}{1-q}.
+\]
+因此任取满足
+\[
+ n>\frac{\log(10^{-6}(1-\sin1))}{\log(\sin1)}
+\]
+的整数即可；因分母为负，变形不等号时方向已经反转。若要写成整数公式，
+可取
+\[
+ n=\left\lfloor
+ \frac{\log(10^{-6}(1-\sin1))}{\log(\sin1)}
+ \right\rfloor+1.
+\]
+\end{solution}
+
+\begin{solution}{monotone-root-fixed-point-scheme}
+由 \(F(a)\le0\le F(b)\) 和连续性，存在 \(r\in[a,b]\) 使
+\(F(r)=0\)。又因 \(F'\ge m>0\)，函数严格递增，根唯一。
+
+令 \(T(x)=x-F(x)/M\)。有
+\[
+ 0\le T'(x)=1-\frac{F'(x)}M
+ \le1-\frac mM=q<1,
+\]
+所以 \(T\) 单调且是压缩映射。由中值定理，
+\[
+ -F(a)\le M(r-a),\qquad F(b)\le M(b-r).
+\]
+因此
+\[
+ a\le T(a)=a-\frac{F(a)}M\le r,\qquad
+ r\le T(b)=b-\frac{F(b)}M\le b.
+\]
+单调性于是给出
+\[
+ T([a,b])=[T(a),T(b)]\subset[a,b].
+\]
+压缩映射原理可用于这个闭区间，并给出
+\[
+ |x_n-r|
+ \le\frac{q^n}{1-q}|x_1-x_0|,
+\qquad
+ |x_n-r|\le\frac{|x_{n+1}-x_n|}{1-q}.
+\]
+\end{solution}
+
+\begin{solution}{babylonian-square-root-iteration}
+令
+\[
+ T(x)=\frac12\left(x+\frac ax\right),\qquad
+ I=[\sqrt a,x_0].
+\]
+当 \(x\in I\) 时，算术--几何平均不等式给出
+\[
+ T(x)\ge\sqrt{x\cdot a/x}=\sqrt a,
+\]
+而 \(x\ge\sqrt a\) 给出 \(a/x\le x\)，故 \(T(x)\le x\le x_0\)。
+所以 \(T(I)\subset I\)。
+
+在 \(I\) 上，
+\[
+ 0\le T'(x)=\frac12\left(1-\frac a{x^2}\right)
+ \le\frac12\left(1-\frac a{x_0^2}\right)=q<1.
+\]
+闭区间 \(I\) 完备，故迭代收敛于 \(I\) 中唯一不动点。不动点方程等价于
+\(x^2=a\)，而 \(I\) 中点为正，所以极限是 \(\sqrt a\)。
+
+记 \(e_n=x_n-\sqrt a\ge0\)。题给恒等式说明
+\[
+ e_{n+1}=\frac{e_n^2}{2x_n}
+ \le\frac{e_n^2}{2\sqrt a}.
+\]
+特别地，
+\[
+ \frac{e_{n+1}}{e_n}=\frac{e_n}{2x_n}\longrightarrow0,
+\]
+所以当迭代接近极限后，误差比任意固定比率的几何衰减更快；这比只使用
+全区间压缩常数所得的估计精细。
+\end{solution}
+
+\begin{solution}{parameter-dependent-fixed-points}
+设 \(T_\lambda x_\lambda^\ast=x_\lambda^\ast\)。则
+\[
+\begin{aligned}
+ d(x_\lambda^\ast,x_\mu^\ast)
+ &\le d(T_\lambda x_\lambda^\ast,T_\lambda x_\mu^\ast)
+   +d(T_\lambda x_\mu^\ast,T_\mu x_\mu^\ast)\\
+ &\le qd(x_\lambda^\ast,x_\mu^\ast)
+   +L\rho(\lambda,\mu).
+\end{aligned}
+\]
+移项得到
+\[
+ d(x_\lambda^\ast,x_\mu^\ast)
+ \le\frac{L}{1-q}\rho(\lambda,\mu),
+\]
+所以不动点映射是 Lipschitz 的。
+
+更一般地，若
+\[
+ \omega(\lambda,\mu)
+ =\sup_{x\in X}d(T_\lambda x,T_\mu x)\longrightarrow0
+ \quad(\mu\to\lambda),
+\]
+同一证明给出
+\[
+ d(x_\lambda^\ast,x_\mu^\ast)
+ \le\frac{\omega(\lambda,\mu)}{1-q}\longrightarrow0.
+\]
+因此不动点映射连续。
+\end{solution}
+
+\begin{solution}{optimal-affine-relaxation}
+对称正定矩阵可正交对角化。在线性误差
+\(e_n=x_n-x^\ast\) 上，迭代矩阵为 \(I-\lambda A\)，其欧氏算子范数为
+\[
+ q(\lambda)=\max_{\mu\in\sigma(A)}|1-\lambda\mu|
+ \le\max_{\mu\in[m,M]}|1-\lambda\mu|.
+\]
+若只利用区间端点信息，右端等于
+\[
+ \max\{|1-\lambda m|,\ |1-\lambda M|\},
+\]
+因为绝对值函数在区间上的最大值取于端点。
+
+最优点使两个端点误差大小相等、符号相反：
+\[
+ 1-\lambda m=-(1-\lambda M).
+\]
+解得
+\[
+ \lambda_{\mathrm{opt}}=\frac{2}{m+M},\qquad
+ q_{\mathrm{opt}}=\frac{M-m}{M+m}.
+\]
+若两端不等高，略微移动 \(\lambda\) 可降低较大的一端而尚未让另一端超过
+它，所以不可能达到最小值。由于 \(0<m\le M\)，有
+\(0\le q_{\mathrm{opt}}<1\)，相应迭代为压缩映射。
+\end{solution}
+
+\begin{solution}{linear-data-stability}
+令
+\[
+ T_b(x)=Ax+b,\qquad T_c(x)=Ax+c.
+\]
+二者共享压缩常数 \(q\)，并且
+\[
+ \|T_b(x)-T_c(x)\|=\|b-c\|.
+\]
+不动点扰动估计立即给出
+\[
+ \|x_b-x_c\|\le\frac{\|b-c\|}{1-q}.
+\]
+
+另一方面，Neumann 级数给出
+\[
+ x_b-x_c=(I-A)^{-1}(b-c)
+ =\sum_{k=0}^{\infty}A^k(b-c).
+\]
+因此
+\[
+ \|x_b-x_c\|
+ \le\sum_{k=0}^{\infty}\|A\|^k\|b-c\|
+ \le\frac{\|b-c\|}{1-q}.
+\]
+两种证明分别把稳定性看作一般压缩映射的扰动结论和算子几何级数的范数
+估计。
+\end{solution}

@@ -1,0 +1,515 @@
+\chapter{Banach 压缩映射原理}
+\label{chap:banach-contraction}
+
+许多方程没有可供直接计算的闭式解，却能改写成
+\[
+ x=T(x).
+\]
+若从一个初值 \(x_0\) 出发反复代入，
+\(x_{n+1}=T(x_n)\)，便得到一条候选近似序列。要使这套办法成为定理，
+至少要回答三个问题：迭代是否收敛，极限是否满足方程，方程是否只有一个
+解。压缩映射原理用一个定量的距离缩短条件同时回答这三个问题；完备性则
+保证逐步逼近不会收敛到空间外的缺口。
+
+\section{不动点和迭代}
+
+\begin{definition}[不动点与迭代轨道]
+设 \(T:X\to X\)。满足 \(T(x)=x\) 的点称为 \(T\) 的不动点。给定
+\(x_0\in X\)，递归定义
+\[
+ x_{n+1}=T(x_n)\qquad(n\ge0),
+\]
+所得序列称为从 \(x_0\) 出发的迭代轨道，也写作 \(x_n=T^n(x_0)\)。
+\end{definition}
+
+在方程求根中，写成 \(x=T(x)\) 的方式通常不止一种；不同的 \(T\)
+可能有同样的不动点，却产生完全不同的迭代行为。例如方程 \(x^2=2\)
+既可写成 \(x=x+(2-x^2)\)，也可写成
+\[
+ x=\frac12\left(x+\frac2x\right).
+\]
+前一种迭代在正根附近未必缩短误差，后一种则是常用的平方根迭代。
+
+\begin{definition}[Lipschitz 映射与压缩映射]
+设 \((X,d_X)\)、\((Y,d_Y)\) 为度量空间。若存在 \(L\ge0\)，使
+\[
+ d_Y(Tx,Ty)\le Ld_X(x,y)\qquad(x,y\in X),
+\]
+则称 \(T:X\to Y\) 为 Lipschitz 映射。若 \(X=Y\)，并且上式可取
+\(0\le q<1\)，则称 \(T\) 为压缩映射，\(q\) 称为一个压缩常数。
+\end{definition}
+
+压缩常数不要求是所有可取常数中的最小值。条件中的同一个 \(q<1\) 必须
+对所有点对成立；仅有
+\[
+ x\ne y\quad\Longrightarrow\quad d(Tx,Ty)<d(x,y)
+\]
+还不足以应用压缩映射原理。
+
+Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 \(L\)，
+归纳可得
+\[
+ d(T^nx,T^ny)\le L^n d(x,y).
+\]
+特别地，压缩映射的高次迭代会以几何速度消除不同初值之间的距离。
+
+\begin{proposition}[压缩映射至多有一个不动点]
+\label{prop:contraction-fixed-point-unique}
+压缩映射 \(T:X\to X\) 至多有一个不动点。
+\end{proposition}
+
+\begin{proof}
+若 \(Tx=x\)、\(Ty=y\)，则
+\[
+ d(x,y)=d(Tx,Ty)\le qd(x,y).
+\]
+因为 \(1-q>0\)，只能有 \(d(x,y)=0\)，即 \(x=y\)。
+\end{proof}
+
+“至多一个”尚不说明存在性。映射 \(T(x)=x/2\) 在不完备空间
+\((0,1)\) 上是压缩映射，却没有不动点；它的迭代趋于被空间删去的点
+\(0\)。下一节的证明将指出，完备性恰好用于接住这条 Cauchy 轨道。
+
+\section{压缩映射定理的完整证明}
+
+\begin{theorem}[Banach 压缩映射原理]
+\label{thm:banach-contraction}
+设 \((X,d)\) 是非空完备度量空间，\(T:X\to X\) 是压缩映射，压缩
+常数为 \(q<1\)。则 \(T\) 有唯一不动点 \(x^\ast\)。对任意初值
+\(x_0\in X\)，迭代 \(x_{n+1}=T(x_n)\) 都收敛于 \(x^\ast\)。
+\end{theorem}
+
+\begin{proof}
+任取 \(x_0\in X\)，令 \(x_{n+1}=T(x_n)\)。相邻项之间有
+\[
+ d(x_{n+1},x_n)
+ =d(Tx_n,Tx_{n-1})
+ \le q\,d(x_n,x_{n-1}),
+\]
+从而归纳得到
+\begin{equation}
+\label{eq:contraction-successive-step}
+ d(x_{n+1},x_n)\le q^n d(x_1,x_0).
+\end{equation}
+若 \(m>n\)，三角不等式和几何级数给出
+\begin{equation}
+\label{eq:contraction-cauchy-tail}
+\begin{aligned}
+ d(x_m,x_n)
+ &\le \sum_{k=n}^{m-1}d(x_{k+1},x_k)\\
+ &\le \sum_{k=n}^{m-1}q^k d(x_1,x_0)
+ \le \frac{q^n}{1-q}d(x_1,x_0).
+\end{aligned}
+\end{equation}
+右端随 \(n\to\infty\) 趋于零，所以 \((x_n)\) 是 Cauchy 列。完备性
+给出 \(x^\ast\in X\)，使 \(x_n\to x^\ast\)。
+
+压缩条件还给出
+\[
+ d(Tx_n,Tx^\ast)\le qd(x_n,x^\ast)\longrightarrow0,
+\]
+即 \(Tx_n\to Tx^\ast\)。另一方面 \(Tx_n=x_{n+1}\to x^\ast\)。
+极限的唯一性说明 \(Tx^\ast=x^\ast\)，所以不动点存在。唯一性由
+命题~\ref{prop:contraction-fixed-point-unique} 得到。
+
+上述构造从任意 \(x_0\) 开始都得到不动点，而不动点只有一个，故所有
+迭代轨道都收敛于同一个 \(x^\ast\)。
+\end{proof}
+
+证明中各条件的作用可以逐行定位。压缩条件先控制相邻步长，再通过几何级数
+使轨道成为 Cauchy 列；完备性只在“Cauchy 列在 \(X\) 中有极限”处
+使用；最后再次使用压缩条件所含的连续性，把极限代入 \(T\)。因此这一定理
+既是存在唯一性定理，也是带有明确算法的构造定理。
+
+\begin{corollary}[闭不变子集上的压缩]
+\label{cor:contraction-closed-invariant-subset}
+设 \(X\) 完备，\(A\subset X\) 非空且闭。若 \(T:A\to A\) 是压缩
+映射，则 \(T\) 在 \(A\) 中有唯一不动点，且从 \(A\) 中任意初值出发的
+迭代都收敛到它。
+\end{corollary}
+
+\begin{proof}
+闭子空间 \(A\) 完备，在 \(A\) 上应用
+\theoremref{thm:banach-contraction} 即得结论。
+\end{proof}
+
+这个形式在应用中更常见。通常先找一个闭集合 \(A\)，证明 \(T(A)\subset A\)，
+再在 \(A\) 上估计压缩常数。全空间之外的行为不影响结论。
+
+\section{误差估计与完备性条件}
+
+\subsection{先验估计、后验估计与残量}
+
+压缩映射定理的证明已经包含误差界。令 \(x^\ast\) 为不动点。由
+\eqref{eq:contraction-cauchy-tail} 令 \(m\to\infty\)，得到
+\begin{equation}
+\label{eq:contraction-apriori-error}
+ d(x_n,x^\ast)
+ \le \frac{q^n}{1-q}d(x_1,x_0).
+\end{equation}
+它只用初始步长和已知的 \(q\)，称为先验估计。若迭代已经进行到第
+\(n\) 步，则从该步重新应用同一估计可得
+\begin{equation}
+\label{eq:contraction-aposteriori-error}
+ d(x_n,x^\ast)
+ \le \frac{1}{1-q}d(x_{n+1},x_n)
+ \le \frac{q}{1-q}d(x_n,x_{n-1})\quad(n\ge1).
+\end{equation}
+这是后验估计：它用已经算出的相邻两项决定是否停止。
+
+还可直接比较当前点与它的像。对任意 \(x\in X\)，
+\[
+\begin{aligned}
+ d(x,x^\ast)
+ &\le d(x,Tx)+d(Tx,Tx^\ast)\\
+ &\le d(x,Tx)+q\,d(x,x^\ast),
+\end{aligned}
+\]
+所以
+\begin{equation}
+\label{eq:contraction-residual-error}
+ d(x,x^\ast)\le\frac{d(x,Tx)}{1-q}.
+\end{equation}
+量 \(d(x,Tx)\) 是不动点方程的残量。它小并不单独保证 \(x\) 接近某个
+任意映射的不动点；分母 \(1-q\) 记录了压缩条件提供的稳定性。当
+\(q\) 接近 \(1\) 时，小残量可能被明显放大。
+
+若已知初值到不动点的距离，也有更直接的估计
+\begin{equation}
+\label{eq:contraction-direct-error}
+ d(x_n,x^\ast)=d(T^nx_0,T^nx^\ast)
+ \le q^n d(x_0,x^\ast).
+\end{equation}
+它形式最简，但 \(d(x_0,x^\ast)\) 往往正是未知量。
+
+\subsection{两个不可删除的条件}
+
+完备性不能省略。前述 \(T(x)=x/2\) 把 \((0,1)\) 映入自身，压缩常数
+为 \(1/2\)，轨道却趋于 \(0\notin(0,1)\)。若工作集合不是全空间，要求
+它闭也是为了保证它作为子空间完备。
+
+统一的 \(q<1\) 同样不能换成逐点的严格缩短。令
+\[
+ X=[0,\infty),\qquad T(x)=x+\frac{1}{x+1}.
+\]
+空间 \(X\) 完备，且 \(T(x)>x\)，所以没有不动点。另一方面
+\[
+ T'(x)=1-\frac{1}{(x+1)^2}\in[0,1),
+\]
+由中值定理，对任意 \(x\ne y\) 都有
+\[
+ |T(x)-T(y)|<|x-y|.
+\]
+但 \(T'(x)\to1\)，不存在对所有点都适用的 \(q<1\)。这个例子说明，
+证明所需的是可求和的几何衰减，而非每一步某种没有统一幅度的缩短。
+
+\subsection{不动点对映射的稳定性}
+
+\begin{theorem}[压缩映射的扰动估计]
+\label{thm:contraction-perturbation}
+设 \(X\) 完备，\(T,S:X\to X\) 均为压缩映射，其中 \(T\) 的一个压缩
+常数为 \(q<1\)。设其不动点分别为 \(x_T,x_S\)。若存在
+\(\eta\ge0\)，使
+\[
+ d(Tx,Sx)\le\eta\qquad(x\in X),
+\]
+则
+\[
+ d(x_T,x_S)\le\frac{\eta}{1-q}.
+\]
+\end{theorem}
+
+\begin{proof}
+利用两个不动点等式，并在 \(Tx_S\) 处插入中间项，
+\[
+\begin{aligned}
+ d(x_T,x_S)
+ &=d(Tx_T,Sx_S)\\
+ &\le d(Tx_T,Tx_S)+d(Tx_S,Sx_S)\\
+ &\le qd(x_T,x_S)+\eta.
+\end{aligned}
+\]
+移项即得结论。
+\end{proof}
+
+这里不要求 \(S\) 与 \(T\) 具有同一个压缩常数；\(S\) 的压缩性只用来
+保证 \(x_S\) 存在。若一族映射 \(T_\lambda\) 具有共同的压缩常数
+\(q<1\)，且
+\[
+ d(T_\lambda x,T_\mu x)\le L\,\rho(\lambda,\mu)
+ \qquad(x\in X),
+\]
+则相应不动点满足
+\begin{equation}
+\label{eq:parametric-fixed-point-bound}
+ d(x_\lambda^\ast,x_\mu^\ast)
+ \le\frac{L}{1-q}\rho(\lambda,\mu).
+\end{equation}
+这给出解对参数的 Lipschitz 连续依赖。
+
+\section{方程求根、递推数列与含参数不动点}
+
+\subsection{闭区间上的不动点迭代}
+
+\begin{proposition}[一元压缩迭代]
+\label{prop:scalar-contraction-iteration}
+设 \(I=[a,b]\)，函数 \(\varphi:I\to I\) 可导，并满足
+\[
+ \sup_{x\in I}|\varphi'(x)|\le q<1.
+\]
+则方程 \(x=\varphi(x)\) 在 \(I\) 中有唯一解 \(\alpha\)，且对任意
+\(x_0\in I\)，递推
+\[
+ x_{n+1}=\varphi(x_n)
+\]
+收敛于 \(\alpha\)。误差满足
+\eqref{eq:contraction-apriori-error}--\eqref{eq:contraction-direct-error}
+中相应估计。
+\end{proposition}
+
+\begin{proof}
+中值定理给出
+\[
+ |\varphi(x)-\varphi(y)|\le q|x-y|.
+\]
+闭区间 \(I\) 完备，所以结论由压缩映射原理得到。
+\end{proof}
+
+以 \(\varphi(x)=\cos x\) 为例，它把 \([0,1]\) 映入
+\([\cos1,1]\subset[0,1]\)，并且
+\[
+ |\varphi'(x)|=\sin x\le\sin1<1.
+\]
+因此 \(x=\cos x\) 在 \([0,1]\) 中有唯一解；从该区间任一点开始的递推
+\(x_{n+1}=\cos x_n\) 都收敛。介值定理只给出解的存在，单调性可以给出
+唯一性，而压缩映射原理还同时给出可执行的近似方法和误差界。
+
+\subsection{单调方程的一种迭代格式}
+
+\begin{theorem}[带导数界的求根迭代]
+\label{thm:monotone-root-contraction}
+设 \(F\in C^1([a,b])\)，并且存在常数 \(0<m\le M\)，使
+\[
+ m\le F'(x)\le M\qquad(a\le x\le b).
+\]
+若 \(F(a)\le0\le F(b)\)，则 \(F(x)=0\) 在 \([a,b]\) 中有唯一根
+\(r\)。映射
+\[
+ T(x)=x-\frac{F(x)}{M}
+\]
+把 \([a,b]\) 映入自身，并且是压缩映射，压缩常数可取
+\[
+ q=1-\frac{m}{M}.
+\]
+因此任意 \(x_0\in[a,b]\) 所生成的 \(x_{n+1}=T(x_n)\) 都收敛于
+\(r\)。
+\end{theorem}
+
+\begin{proof}
+介值定理给出一个根；\(F'>0\) 说明 \(F\) 严格递增，所以根唯一。又
+\[
+ 0\le T'(x)=1-\frac{F'(x)}{M}\le1-\frac{m}{M}=q<1,
+\]
+故 \(T\) 单调且满足压缩估计。
+
+由中值定理，存在 \(\xi,\eta\in(a,b)\)，使
+\[
+ -F(a)=F'(\xi)(r-a)\le M(r-a),\qquad
+ F(b)=F'(\eta)(b-r)\le M(b-r).
+\]
+于是
+\[
+ a\le T(a)\le r,\qquad r\le T(b)\le b.
+\]
+因 \(T\) 单调，
+\[
+ T([a,b])=[T(a),T(b)]\subset[a,b].
+\]
+现在可在完备空间 \([a,b]\) 上应用压缩映射原理。
+\end{proof}
+
+这个结果的导数下界 \(m>0\) 同时承担两项任务：保证根唯一，并把
+\(T'\) 与 \(1\) 隔开。若只有 \(F'\ge0\)，则 \(q\) 可能等于 \(1\)，
+几何误差估计随之消失。
+
+\subsection{递推数列与线性迭代}
+
+对递推数列，压缩映射原理把常见的“先证有界、再证单调、最后求极限”
+换成另一条路线。它不要求序列单调；只要递推映射在一个完备不变集上压缩，
+收敛和极限的唯一性便同时得到。
+
+例如 \(a>0\)、\(x_0>\sqrt a\) 时，令
+\[
+ T(x)=\frac12\left(x+\frac{a}{x}\right),\qquad
+ I=[\sqrt a,x_0].
+\]
+算术--几何平均不等式和 \(x\ge\sqrt a\) 给出
+\[
+ \sqrt a\le T(x)\le x,
+\]
+所以 \(T(I)\subset I\)。并且
+\[
+ 0\le T'(x)=\frac12\left(1-\frac{a}{x^2}\right)
+ \le\frac12\left(1-\frac{a}{x_0^2}\right)<1.
+\]
+故平方根迭代在 \(I\) 上压缩并收敛于唯一不动点 \(\sqrt a\)。这项证明
+给出全程有效的几何误差界；若进一步利用迭代公式的特殊代数结构，还可得到
+更快的二次误差估计。
+
+在线性空间中，设 \(E\) 是有限维赋范空间，线性算子 \(A:E\to E\)
+的算子范数
+\[
+ \|A\|:=\sup_{x\ne0}\frac{\|Ax\|}{\|x\|}
+\]
+满足 \(\|A\|\le q<1\)。对任意 \(b\in E\)，仿射映射
+\[
+ T(x)=Ax+b
+\]
+是压缩映射。因此 \(x=Ax+b\) 有唯一解，并且
+\[
+ x^\ast=\lim_{n\to\infty}
+ \bigl(b+Ab+\cdots+A^{n-1}b+A^nx_0\bigr).
+\]
+取 \(x_0=0\) 得
+\[
+ x^\ast=\sum_{k=0}^{\infty}A^k b.
+\]
+这就是几何级数在算子情形的对应形式，也说明 \(I-A\) 可逆。
+
+\subsection{含参数的不动点}
+
+设参数空间为 \((\Lambda,\rho)\)，每个 \(\lambda\in\Lambda\) 对应
+压缩映射 \(T_\lambda:X\to X\)。若所有映射共享同一个 \(q<1\)，
+则 \eqref{eq:parametric-fixed-point-bound} 把映射随参数的变化直接传给
+不动点。共同压缩常数不可由
+“每个参数各有一个 \(q_\lambda<1\)”代替；若
+\(q_\lambda\to1\)，估计中的 \(1/(1-q_\lambda)\) 会失去统一控制。
+
+作为简单例子，若 \(A:E\to E\) 满足 \(\|A\|\le q<1\)，并令
+\[
+ T_b(x)=Ax+b,
+\]
+则不动点 \(x_b^\ast\) 对右端项满足
+\[
+ \|x_b^\ast-x_c^\ast\|
+ \le\frac{1}{1-q}\|b-c\|.
+\]
+线性方程 \((I-A)x=b\) 的解因此不仅存在唯一，而且连续依赖于数据
+\(b\)。以后讨论微分方程和积分方程时，同一估计会用于解对初值、参数和
+右端项的稳定性。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　压缩条件与不动点}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{contraction-continuity-and-uniqueness}
+ 证明 Lipschitz 映射一致连续；再直接证明压缩映射至多有一个不动点。
+ \exerciseitem{iterate-contraction-factor}
+ 若 \(T\) 的压缩常数为 \(q\)，证明 \(T^n\) 的 Lipschitz 常数可取
+ \(q^n\)。说明这并不意味着 \(q^n\) 必为最小 Lipschitz 常数。
+ \exerciseitem{affine-contraction-neumann-series}
+ 设有限维赋范空间 \(E\) 上的线性算子满足 \(\|A\|<1\)。证明
+ \(T(x)=Ax+b\) 有唯一不动点，并证明
+ \[
+  (I-A)^{-1}b=\sum_{k=0}^{\infty}A^kb.
+ \]
+ \exerciseitem{nonexpansive-fixed-point-failure}
+ 分别构造 Lipschitz 常数为 \(1\) 而有多个不动点、没有不动点的自映射，
+ 说明 \(q<1\) 不能放宽为 \(q\le1\)。
+ \exerciseitem{closed-ball-invariance}
+ 设 \(T:X\to X\) 的压缩常数为 \(q<1\)。若
+ \[
+  d(Tx_0,x_0)\le(1-q)r,
+ \]
+ 证明闭球 \(\overline B(x_0,r)\) 在 \(T\) 下不变。若 \(X\) 完备，
+ 由此得到球中的唯一不动点。
+ \exerciseitem{closed-invariant-subset-contraction}
+ 设 \(X\) 完备，\(A\subset X\) 非空且闭，且 \(T(A)\subset A\)。
+ 若 \(T|_A\) 为压缩映射，证明它在 \(A\) 中有唯一不动点；说明
+ \(T\) 在 \(X\setminus A\) 上是否压缩与结论无关。
+\end{enumerate}
+
+\subsection*{B组　证明与误差}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{banach-proof-reconstruction}
+ 不引用正文定理，从相邻项估计开始完整证明 Banach 压缩映射原理，并在
+ 证明中标出完备性使用的位置。
+ \exerciseitem{contraction-apriori-aposteriori}
+ 推导先验估计 \eqref{eq:contraction-apriori-error} 和两个后验估计
+ \eqref{eq:contraction-aposteriori-error}。若
+ \(q=0.8\)、\(d(x_1,x_0)=1\)，求保证
+ \(d(x_n,x^\ast)<10^{-6}\) 的一个先验步数。
+ \exerciseitem{contraction-residual-bound}
+ 证明残量估计 \eqref{eq:contraction-residual-error}。构造 \(q\) 接近
+ \(1\) 的仿射压缩映射，
+ 说明不能把系数 \(1/(1-q)\) 换成一个与 \(q\) 无关的常数。
+ \exerciseitem{incomplete-space-contraction}
+ 在 \((0,1)\) 上分析 \(T(x)=x/2\)：证明它是压缩映射、没有不动点，
+ 并确定任意迭代轨道在 \(\R\) 中的极限。
+ \exerciseitem{strict-distance-decrease-no-fixed-point}
+ 对 \(X=[0,\infty)\) 和 \(T(x)=x+1/(x+1)\)，证明
+ \(x\ne y\) 时 \(|T(x)-T(y)|<|x-y|\)，但 \(T\) 没有不动点。
+ 说明为何不存在统一的压缩常数。
+ \exerciseitem{contraction-perturbation-bound}
+ 完整证明扰动估计
+ \(d(x_T,x_S)\le\eta/(1-q)\)，并给出等号成立的一维仿射例子。
+ \exerciseitem{inexact-picard-iteration}
+ 设 \(T\) 的压缩常数为 \(q<1\)，\(x^\ast\) 为其不动点，而近似迭代满足
+ \[
+  d(x_{n+1},Tx_n)\le\varepsilon_n.
+ \]
+ 证明
+ \[
+  d(x_n,x^\ast)
+  \le q^n d(x_0,x^\ast)
+    +\sum_{k=0}^{n-1}q^{\,n-1-k}\varepsilon_k.
+ \]
+ 由此给出 \(\varepsilon_n\to0\) 时 \(x_n\to x^\ast\) 的证明。
+ \exerciseitem{fixed-point-of-contractive-iterate}
+ 设 \(X\) 完备，\(T:X\to X\) 为映射，且某个 \(T^m\) 是压缩映射。
+ 证明 \(T\) 有唯一不动点，并且每条 \(T\)-迭代轨道都收敛到该点。
+\end{enumerate}
+
+\subsection*{C组　迭代模型}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{cosine-fixed-point-iteration}
+ 证明 \(\varphi(x)=\cos x\) 把 \([0,1]\) 映入自身且为压缩映射。
+ 从 \(x_0=0\) 出发，写出保证误差小于 \(10^{-6}\) 的先验步数表达式。
+ \exerciseitem{monotone-root-fixed-point-scheme}
+ 在 \theoremref{thm:monotone-root-contraction} 的条件下，逐步证明
+ \(T([a,b])\subset[a,b]\)，并推导根的迭代误差界。
+ \exerciseitem{babylonian-square-root-iteration}
+ 对 \(a>0\)、\(x_0>\sqrt a\)，证明
+ \[
+  x_{n+1}=\frac12\left(x_n+\frac{a}{x_n}\right)
+ \]
+ 在 \([\sqrt a,x_0]\) 上由压缩映射原理收敛于 \(\sqrt a\)。再由
+ \[
+  x_{n+1}-\sqrt a
+  =\frac{(x_n-\sqrt a)^2}{2x_n}
+ \]
+ 说明误差比几何估计所显示的还要快。
+ \exerciseitem{parameter-dependent-fixed-points}
+ 设 \(T_\lambda:X\to X\) 共享压缩常数 \(q<1\)，且
+ \[
+  d(T_\lambda x,T_\mu x)\le L\rho(\lambda,\mu).
+ \]
+ 证明不动点映射 \(\lambda\mapsto x_\lambda^\ast\) 是 Lipschitz 的。
+ 若右端只在 \(\mu\to\lambda\) 时一致趋于零，证明不动点映射连续。
+ \optionalexerciseitem{optimal-affine-relaxation}
+ 设对称正定矩阵 \(A\) 的特征值都在 \([m,M]\subset(0,\infty)\)。
+ 对迭代
+ \[
+  x_{n+1}=x_n-\lambda(Ax_n-b)
+ \]
+ 在欧氏范数下求使压缩常数
+ \(\max_{\mu\in[m,M]}|1-\lambda\mu|\) 最小的 \(\lambda>0\)，并求该
+ 最小压缩常数。
+ \exerciseitem{linear-data-stability}
+ 设 \(\|A\|\le q<1\)，\(x_b\) 是 \((I-A)x=b\) 的解。证明
+ \[
+  \|x_b-x_c\|\le\frac{\|b-c\|}{1-q},
+ \]
+ 并说明该估计怎样由不动点扰动定理和 Neumann 级数分别得到。
+\end{enumerate}

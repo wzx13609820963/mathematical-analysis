@@ -1,0 +1,232 @@
+\chapter{欧氏空间中的紧致性}
+\label{chap:euclidean-compactness-solutions}
+
+\begin{solution}{multidimensional-bw-diagonal}
+写 \(x_k=(a_k,b_k,c_k)\)。先从指标列 \((k)\) 中取严格递增子列
+\((k_j^{(1)})\)，使 \(a_{k_j^{(1)}}\) 收敛。再从这些指标中取子列
+\[
+ k_j^{(2)}=k_{\ell_j}^{(1)},
+\]
+使 \(b_{k_j^{(2)}}\) 收敛。第一坐标在子列上仍收敛。最后从
+\((k_j^{(2)})\) 中取
+\(k_j^{(3)}=k_{r_j}^{(2)}\)，使第三坐标收敛。最终
+\((x_{k_j^{(3)}})\) 的三个坐标同时收敛，因而向量列收敛。关键包含关系是
+\[
+ \{k_j^{(3)}\}\subset\{k_j^{(2)}\}
+ \subset\{k_j^{(1)}\}
+\]
+（均按子列意义理解）。
+\end{solution}
+
+\begin{solution}{bounded-infinite-accumulation}
+从无限集 \(A\) 递归选择两两不同的点 \(x_k\in A\)。该列有界，故有子列
+\(x_{k_j}\to x\)。给定 \(r>0\)，充分大时
+\(x_{k_j}\in B(x,r)\)。因为所有点互异，球中可选到不等于 \(x\) 的
+一项，所以删心球与 \(A\) 相交，\(x\) 是聚点。若不要求所选点互异，
+常值列也会收敛，但它的极限可能只是孤立点，不能推出聚点性质。
+\end{solution}
+
+\begin{solution}{euclidean-grid-net-count}
+把每条边长 \(2M\) 的坐标区间分成
+\[
+ N=\left\lceil\frac{2M\sqrt n}{r}\right\rceil+1
+\]
+段，则每段长度严格小于 \(r/\sqrt n\)。小立方体数至多 \(N^n\)。
+在每个与 \(E\) 相交的小立方体中选一点，所得网点数不超过 \(N^n\)，且
+同一小立方体中两点的欧氏距离小于 \(r\)。这些点构成开球意义下的
+\(r\)-网。
+\end{solution}
+
+\begin{solution}{compact-implies-closed-direct}
+空集已经是闭集。以下设 \(K\ne\varnothing\)。
+固定 \(a\notin K\)。对 \(x\in K\) 令
+\(r_x=\norm{x-a}_2/3\)。球 \(B(x,r_x)\) 覆盖 \(K\)，紧致性给出有限
+子覆盖 \(B(x_j,r_{x_j})\)。取 \(r=\min_jr_{x_j}>0\)。若某点
+\(y\in B(a,r)\) 又属于 \(B(x_j,r_{x_j})\)，三角不等式给出
+\[
+ \norm{x_j-a}_2<r_{x_j}+r\le2r_{x_j},
+\]
+与其等于 \(3r_{x_j}\) 矛盾。故 \(B(a,r)\subset\R^n\setminus K\)。
+补集每点都是内点，\(K\) 闭。
+\end{solution}
+
+\begin{solution}{heine-borel-lebesgue-number}
+若 \(K=\varnothing\)，任意正数都可作为 Lebesgue 数，有限子覆盖也可
+取为空族。以下设 \(K\ne\varnothing\)。
+反设开覆盖 \(\mathcal U\) 没有 Lebesgue 数。对每个 \(j\) 可选
+\(x_j\in K\)，使 \(B(x_j,1/j)\cap K\) 不包含于任何覆盖成员。紧集
+闭有界，故某子列 \(x_{j_k}\to x\in K\)。取 \(U\in\mathcal U\) 含
+\(x\)，再取 \(r>0\) 使 \(B(x,r)\subset U\)。充分大时
+\(\norm{x_{j_k}-x}<r/2\) 且 \(1/j_k<r/2\)，所以
+\(B(x_{j_k},1/j_k)\subset U\)，矛盾。因此存在 Lebesgue 数
+\(\lambda>0\)。
+
+取 \(K\) 的有限 \(\lambda/2\)-网 \(a_1,\ldots,a_N\)。为每个 \(a_i\)
+选 \(U_i\in\mathcal U\)，使
+\(B(a_i,\lambda)\cap K\subset U_i\)。任意 \(x\in K\) 落在某个
+\(B(a_i,\lambda/2)\) 中，故属于 \(U_i\)。这些 \(U_i\) 构成有限子覆盖。
+\end{solution}
+
+\begin{solution}{sequential-compactness-equivalence}
+紧致推出闭有界由正文 Heine--Borel 证明。闭有界时，任意 \(K\) 中点列
+有界，多维 Bolzano--Weierstrass 给出收敛子列；闭性使极限仍在 \(K\)，
+故序列紧致。
+
+若序列紧致但不有界，对每个 \(j\) 取 \(x_j\in K\) 满足
+\(\norm{x_j}>j\)，其任一子列仍无界，不能收敛。若 \(K\) 不闭，则有
+\(x_j\in K\) 收敛到 \(x\notin K\)；任一收敛子列仍以 \(x\) 为极限，
+不能收敛到 \(K\) 中点。故序列紧致推出闭有界。最后闭有界再由
+Heine--Borel 推出开覆盖紧致，三者等价。
+\end{solution}
+
+\begin{solution}{compact-product-euclidean}
+集合 \(K\times L\) 有界，因为
+\[
+ \norm{(x,y)}_2^2=\norm{x}_2^2+\norm{y}_2^2
+\]
+且两个因子都有界。若 \((x_j,y_j)\in K\times L\) 收敛到 \((x,y)\)，
+则逐分量有 \(x_j\to x,y_j\to y\)。因 \(K,L\) 闭，得到
+\(x\in K,y\in L\)，所以积集闭。由欧氏 Heine--Borel 定理，积集紧。
+\end{solution}
+
+\begin{solution}{compact-sum-set}
+映射 \(F:K\times L\to\R^n\)、\(F(x,y)=x+y\) 连续。上一题说明
+\(K\times L\) 紧，而
+\[
+ F(K\times L)=K+L.
+\]
+连续像保持紧致，故 \(K+L\) 紧。
+\end{solution}
+
+\begin{solution}{compact-distance-attained}
+积集 \(K\times L\) 紧，函数
+\[
+ \Phi(x,y)=\norm{x-y}_2
+\]
+连续。因此 \(\Phi\) 在 \(K\times L\) 上取得最小值。取一个最小点
+\((x_0,y_0)\)，其函数值正是题中下确界。
+\end{solution}
+
+\begin{solution}{compact-closed-positive-distance}
+函数 \(x\mapsto d(x,F)\) 为 \(1\)-Lipschitz，故在紧集 \(K\) 上取得
+最小值。若最小值为零，则有 \(x_0\in K\) 满足
+\(d(x_0,F)=0\)，即 \(x_0\in\overline F=F\)，与不相交矛盾。因此
+最小值为正。
+
+在 \(\R^2\) 中可取
+\[
+ K=\{(x,0):x\ge1\},\qquad
+ F=\{(x,1/x):x\ge1\}.
+\]
+两者不相交。第一集合闭；第二集合中任一收敛点列的第一坐标必有界，极限
+仍形如 \((x,1/x)\)，故也闭。然而
+\(\norm{(n,0)-(n,1/n)}=1/n\to0\)，所以二者距离为零。
+\end{solution}
+
+\begin{solution}{convex-connected}
+若 \(C\) 凸，任取 \(x,y\in C\)，曲线
+\(\gamma(t)=(1-t)x+ty\) 连续且完全位于 \(C\)，故 \(C\) 道路连通。
+例如单位圆周
+\[
+ S^1=\{(x,y):x^2+y^2=1\}
+\]
+是紧集，并可用圆弧连接任意两点，所以道路连通；但
+\((1,0),(-1,0)\in S^1\)，其中点 \((0,0)\notin S^1\)，故不凸。
+\end{solution}
+
+\begin{solution}{open-connected-polygonal}
+固定 \(x_0\in G\)，令 \(A\) 为可由有限折线从 \(x_0\) 到达的点。若
+\(x\in A\)，开性给出球 \(B(x,r)\subset G\)，其中每一点都可在原折线
+后加上线段到达，故 \(A\) 相对开。对 \(x\notin A\)，同样的球若遇到
+\(A\)，便可从相交点添一条线段到 \(x\)，矛盾；所以补集相对开。连通性
+与 \(A\ne\varnothing\) 给出 \(A=G\)。
+
+若折线顶点依次为 \(p_0,\ldots,p_N\)，把 \([0,1]\) 等分为 \(N\) 段，
+在第 \(j\) 段上线性地从 \(p_{j-1}\) 走到 \(p_j\)。相邻线性段在公共端点
+取相同值，拼接得到连续道路。
+\end{solution}
+
+\begin{solution}{continuous-image-properties}
+紧致性使用开覆盖：像集的开覆盖拉回为定义域的相对开覆盖，取有限子覆盖
+后再推回。连通性使用分离：若像可由两个相对开集分离，它们的非空原像会
+分离定义域。道路连通性使用曲线：连接 \(x,y\) 的道路 \(\gamma\) 与
+\(f\) 复合，得到连接 \(f(x),f(y)\) 的道路。三个结论都依赖连续原像保持
+开性，但分别作用于有限覆盖、分离和区间参数化。
+\end{solution}
+
+\begin{solution}{compact-bijection-homeomorphism}
+设 \(C\subset K\) 相对闭。紧集的闭子集紧，故 \(C\) 紧；连续像
+\(f(C)\) 紧，在欧氏空间中因而闭。由双射性，
+\((f^{-1})^{-1}(C)=f(C)\)，所以逆映射满足闭集原像判据，因而连续。
+
+映射 \(t\mapsto(\cos t,\sin t)\) 从 \([0,2\pi)\) 到 \(S^1\) 连续且双射。
+取 \(t_k=2\pi-1/k\)，则像趋于 \((1,0)\)，但逆像 \(t_k\) 不趋于
+\(f^{-1}(1,0)=0\)，所以逆映射在 \((1,0)\) 不连续。定义域不是紧集。
+\end{solution}
+
+\begin{solution}{unit-sphere-compact-any-norm}
+设 \(N\) 是任意范数。有限维范数等价给出 \(c,C>0\)，使
+\(c\norm{x}_2\le N(x)\le C\norm{x}_2\)。集合
+\[
+ \{x:N(x)\le1\}
+\]
+包含于欧氏闭球 \(\norm{x}_2\le1/c\)，故有界；又因
+\(|N(x)-N(y)|\le N(x-y)\le C\norm{x-y}_2\)，函数 \(N\) 欧氏连续，
+闭单位球是闭集。Heine--Borel 给出紧致。单位球面
+\(\{x:N(x)=1\}\) 同样是连续函数 \(N\) 对闭集 \(\{1\}\) 的原像且
+有界，所以紧。
+\end{solution}
+
+\begin{solution}{bounded-function-basis-closed}
+每个 \(e_k\) 的上确界范数为一，所以集合有界。若 \(k\ne l\)，在坐标
+\(k\) 处有 \(|e_k(k)-e_l(k)|=1\)，故
+\(\norm{e_k-e_l}_\infty=1\)。因此 \((e_k)\) 的任何含无穷多个不同项的
+子列都不是 Cauchy 列，不能收敛。
+
+若 \(f_j\in A=\{e_k\}\) 且 \(f_j\to f\)，则 \((f_j)\) 是 Cauchy 列。
+取阈值 \(1/2\)，充分大的任意两项距离小于 \(1/2\)；由两两不同元素距离
+为一，它们只能相等。因此 \(f_j\) 最终恒等于某个 \(e_k\)，于是
+\(f=e_k\in A\)。序列闭性给出 \(A\) 闭。序列 \((e_k)\) 无收敛子列，故
+\(A\) 不紧。
+\end{solution}
+
+\begin{solution}{continuous-proper-level-set}
+取任意 \(x_0\in\R^n\)，令 \(c=f(x_0)\)。由无穷远处趋于正无穷，存在
+\(R>0\)，使 \(\norm{x}\ge R\) 时 \(f(x)>c+1\)，并可增大 \(R\) 使
+\(x_0\in\overline B(0,R)\)。连续函数在紧球
+\(\overline B(0,R)\) 上取得最小值，记最小点为 \(x_*\)。因
+\(f(x_*)\le f(x_0)=c\)，而球外函数值大于 \(c+1\)，故 \(x_*\) 也是
+整个 \(\R^n\) 上的全局最小点。
+\end{solution}
+
+\begin{solution}{cantor-set-compact-first-view}
+记第 \(j\) 阶剩余集合为 \(K_j\)。每个 \(K_j\) 是有限个闭区间之并，
+故闭且有界，从而紧；并且
+\(K_0\supset K_1\supset\cdots\)。任取 \(x_j\in K_j\)，由 \(K_0\)
+紧可抽出子列 \(x_{j_k}\to x\in K_0\)。固定 \(N\) 后，充分大的
+\(j_k\ge N\)，故 \(x_{j_k}\in K_N\)；\(K_N\) 闭，得到 \(x\in K_N\)。
+对所有 \(N\) 都成立，所以 \(x\in\bigcap_NK_N\)，交集非空且作为闭区间
+中的闭集仍紧。
+
+每一步保留左三分之一或右三分之一，分别记录数字 \(0\) 或 \(2\)。嵌套区间
+长度趋零，唯一交点满足
+\[
+ x=\sum_{j=1}^{\infty}\frac{a_j}{3^j},
+ \qquad a_j\in\{0,2\}.
+\]
+反过来，任意这样的级数在第 \(N\) 步都落入由前 \(N\) 个数字指定的剩余
+闭区间，故属于交集。三进制展开不唯一的端点可选择只含 \(0,2\) 的那一个
+展开。
+\end{solution}
+
+\begin{solution}{space-filling-warning}
+Peano 曲线定理的一种准确表述是：存在连续满射
+\[
+ P:[0,1]\longrightarrow[0,1]^2.
+\]
+因此“连续像的几何维数不超过定义域维数”若按通常直观理解，是错误的。
+这项结果不与本章结论冲突：\([0,1]\) 紧且连通，所以其连续像必紧且连通；
+正方形 \([0,1]^2\) 恰好也同时具备这两项性质。本章的保持定理没有声称
+连续映射保持一一性、局部结构或任何维数概念。Peano 曲线不是同胚；它必须
+把大量不同参数值映到同一点。
+\end{solution}

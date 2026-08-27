@@ -1,0 +1,324 @@
+\chapter{度量空间的连通性}
+\label{chap:metric-connectedness}
+
+紧致性限制点列和开覆盖的逃逸，连通性则排除空间被两个互不接触的开部分
+分开。道路连通用连续曲线连接点，因而带有更强的几何含义；在开子集或局部
+道路连通空间中，两者相合，在一般闭子集中却可能分离。本章先建立连通分支
+与道路分支，再用拓扑学正弦曲线说明两种概念的差别，最后讨论商映射和粘合。
+
+\section{分离、连通集和连通分支}
+
+\begin{definition}[分离与连通]
+度量空间 \(X\) 的一个分离，是一对非空、不交的开集 \(U,V\subset X\)，
+满足 \(X=U\cup V\)。不存在分离时，称 \(X\) 连通。子集
+\(A\subset X\) 是否连通，总是按限制度量即相对拓扑判断。
+\end{definition}
+
+在分离 \(X=U\cup V\) 中，\(U=X\setminus V\)、\(V=X\setminus U\)，
+所以二者也都闭。因此 \(X\) 连通，当且仅当 \(X\) 的既开又闭子集只有
+\(\varnothing\) 与 \(X\)。这项判据常比直接寻找两组开集方便。
+
+\begin{proposition}[连通集的并与闭包]
+\label{prop:connected-union-closure}
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若一族连通子集 \(\{C_\lambda\}\) 有公共点，则
+ \(\bigcup_\lambda C_\lambda\) 连通；
+ \item 连通集 \(C\) 的闭包 \(\overline C\) 连通；
+ \item 若 \(C\) 连通且 \(C\subset A\subset\overline C\)，则 \(A\) 连通。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+设 \(p\in\bigcap_\lambda C_\lambda\)。若并集被相对开集 \(U,V\) 分离，
+设 \(p\in U\)。每个 \(C_\lambda\) 连通且遇到 \(U\)，所以不能遇到
+\(V\)；故整个并集包含于 \(U\)，与 \(V\) 非空矛盾。
+
+若 \(\overline C=U\cup V\) 是分离，连通集 \(C\) 必完全包含于其中一边，
+设 \(C\subset U\)。因为 \(U\) 在 \(\overline C\) 中也是闭集，包含
+\(C\) 就包含其在 \(\overline C\) 中的闭包，即整个 \(\overline C\)，
+与 \(V\) 非空矛盾。第三项使用同一论证：若 \(A\) 被分离，\(C\) 完全落在
+一边；该边在 \(A\) 中闭，因而包含 \(A\cap\overline C=A\)。
+\end{proof}
+
+\begin{definition}[连通分支]
+点 \(x\in X\) 的连通分支，是所有包含 \(x\) 的连通子集之并，记为
+\(C(x)\)。
+\end{definition}
+
+\begin{theorem}[连通分支的基本性质]
+\label{thm:connected-components-basic}
+每个 \(C(x)\) 是包含 \(x\) 的极大连通子集。任意两个连通分支或者相等，
+或者不交；所有连通分支组成 \(X\) 的一个分划。每个连通分支都是闭集，但
+一般未必开。
+\end{theorem}
+
+\begin{proof}
+所有参与并集的连通集含公共点 \(x\)，故上一命题说明 \(C(x)\) 连通。
+任何含 \(x\) 的连通集都已包含在此并中，所以它极大。若
+\(C(x)\cap C(y)\ne\varnothing\)，两连通集有公共点，其并连通；极大性
+迫使二者相等。这也给出分划。
+
+\(\overline{C(x)}\) 连通并含 \(x\)，由极大性
+\(\overline{C(x)}\subset C(x)\)，故 \(C(x)\) 闭。分支不必开：在
+\[
+ X=\{0\}\cup\{1/n:n\in\N,\ n\ge1\}\subset\R
+\]
+中，每个连通分支都是单点，而分支 \(\{0\}\) 不是 \(X\) 中的开集。
+\end{proof}
+
+一个空间可能只有一个连通分支却仍有很复杂的局部结构；连通分支描述全局
+不可分性，不提供附近点之间的具体道路。
+
+\section{道路连通与局部道路连通}
+
+\begin{definition}[道路与道路分支]
+从 \(x\) 到 \(y\) 的道路是连续映射
+\(\gamma:[0,1]\to X\)，满足 \(\gamma(0)=x,\gamma(1)=y\)。若任意两点
+之间都有道路，称 \(X\) 道路连通。可由道路互相连接是一种等价关系，其
+等价类称为道路分支。
+\end{definition}
+
+道路连通空间连通：若 \(X=U\cup V\) 是分离，连接两边各一点的道路会使
+区间 \([0,1]\) 的连续像同时遇到两边，等价地，\(U,V\) 的原像会分离
+\([0,1]\)。
+
+\begin{definition}[局部道路连通]
+若对每个 \(x\in X\) 及每个含 \(x\) 的开集 \(U\)，都存在道路连通开集
+\(V\)，使
+\[
+ x\in V\subset U,
+\]
+则称 \(X\) 局部道路连通。
+\end{definition}
+
+这一定义要求每个点有由道路连通开集组成的邻域基；仅仅要求“每点有某一个
+道路连通邻域”不足以控制任意小的尺度。
+
+\begin{theorem}[局部道路连通空间的分支]
+\label{thm:metric-locally-path-connected-components}
+在局部道路连通空间中，每个道路分支都是开集；连通分支与道路分支相同。
+特别地，若空间同时连通且局部道路连通，则它道路连通。
+\end{theorem}
+
+\begin{proof}
+设 \(P\) 是一个道路分支，\(x\in P\)。局部道路连通性给出含 \(x\) 的
+道路连通开邻域 \(V\)。\(V\) 中每点都可先在 \(V\) 中连接到 \(x\)，再
+沿已有道路连接到 \(P\) 中任意基点，故 \(V\subset P\)。所以 \(P\) 开。
+其补集是其他道路分支之并，也开；因此 \(P\) 又闭。
+
+道路分支本身连通，故包含于某个连通分支 \(C\)。若 \(C\) 遇到两个不同的
+道路分支，其中任一个道路分支在 \(C\) 中都是非空开闭集，会分离 \(C\)。
+所以 \(C\) 只能含一个道路分支，两者相等。
+\end{proof}
+
+赋范空间中的开球是凸集，因而道路连通。每个开集在其任一点都含一个开球，
+所以赋范空间的开子集局部道路连通。由定理再次得到：欧氏空间或赋范空间中
+的开连通集必道路连通；这与上一章的折线证明相合。
+
+局部道路连通不推出整体连通，例如两个不交开球之并。道路连通也不推出局部
+道路连通；梳状空间将提供一个常用例子。
+
+\section{连通但非道路连通的例子}
+
+\subsection{拓扑学正弦曲线}
+
+在 \(\R^2\) 中令
+\[
+ G=\{(x,\sin(1/x)):0<x\le1\},
+\qquad
+ S=G\cup\bigl(\{0\}\times[-1,1]\bigr).
+\]
+映射 \(x\mapsto(x,\sin(1/x))\) 是 \((0,1]\) 到 \(G\) 的连续满射，
+所以 \(G\) 连通。并且 \(S=\overline G\)：对每个 \(y\in[-1,1]\)，选
+\(\theta\) 使 \(\sin\theta=y\)，再令
+\(x_n=(2\pi n+\theta)^{-1}\)（必要时从充分大的 \(n\) 开始），便有
+\[
+ (x_n,\sin(1/x_n))\longrightarrow(0,y).
+\]
+反过来，\(G\) 的任一极限点若第一坐标为正，连续性迫使它仍在图像上；若
+第一坐标为零，第二坐标必在 \([-1,1]\) 中。因此闭包没有其他点。连通集的
+闭包连通，故 \(S\) 连通。
+
+\begin{theorem}[拓扑学正弦曲线不是道路连通的]
+\label{thm:topologists-sine-curve-not-path-connected}
+集合 \(S\) 没有从竖直线段 \(\{0\}\times[-1,1]\) 到图像 \(G\) 的道路。
+因此 \(S\) 连通但不道路连通。
+\end{theorem}
+
+\begin{proof}
+反设道路 \(\gamma(t)=(u(t),v(t))\)、\(0\le t\le1\)，满足
+\(u(0)=0\)、\(u(1)>0\)。令
+\[
+ t_0=\max\{t\in[0,1]:u(t)=0\}.
+\]
+零点集闭且非空，而 \(u(1)>0\)，故 \(t_0<1\)；由最大性，
+\(u(t)>0\) 对 \(t_0<t\le1\) 成立。连续性给出
+\(u(t)\to0\) 当 \(t\downarrow t_0\)，所以
+\(h(t)=1/u(t)\to+\infty\)。
+
+函数 \(h\) 在 \((t_0,1]\) 上连续。对所有充分大的整数 \(n\)，介值定理
+分别给出 \(s_n,r_n\in(t_0,1]\)，使
+\[
+ h(s_n)=2\pi n+\frac{\pi}{2},\qquad
+ h(r_n)=2\pi n+\frac{3\pi}{2}.
+\]
+这些点必趋于 \(t_0\)：若有子列远离 \(t_0\)，\(h\) 会在相应紧区间上
+有界。由于道路落在 \(S\) 中且 \(u>0\) 时只能落在图像 \(G\)，
+\[
+ v(s_n)=1,\qquad v(r_n)=-1.
+\]
+这与 \(v\) 在 \(t_0\) 连续矛盾。
+\end{proof}
+
+图像 \(G\) 自身道路连通，竖直线段也道路连通；上一定理说明它们正是
+\(S\) 的两个道路分支。整个 \(S\) 却只有一个连通分支。
+
+\subsection{梳状空间}
+
+令
+\[
+ C=([0,1]\times\{0\})\cup(\{0\}\times[0,1])
+ \cup\bigcup_{n=1}^{\infty}(\{1/n\}\times[0,1]).
+\]
+任一点可沿所属竖直线段走到底边，再沿底边走到其他竖直线段，所以 \(C\)
+道路连通。可是它在 \((0,y)\)、\(y>0\) 处不局部道路连通。取半径小于
+\(y/2\) 的球，使相应相对邻域不遇到底边；这个邻域同时遇到
+\(x=0\) 的竖直线和无穷多条 \(x=1/n\) 的竖直线，却没有道路在邻域内
+跨越不同竖线。任何更小的相对开邻域仍遇到充分靠近 \(x=0\) 的竖线，故
+不可能道路连通。
+
+拓扑学正弦曲线说明“连通推出道路连通”失败；梳状空间说明“道路连通推出
+局部道路连通”也失败。两例的障碍都集中在一个由无穷多部分积聚而成的边缘。
+
+\section{连续映射、商映射与粘合例子}
+
+连续映射保持连通与道路连通：连通像若可分离，两个开部分的非空原像会分离
+定义域；道路与映射复合仍是道路。这解释了许多通过参数化得到的连通集。
+
+\begin{definition}[商映射]
+设 \(q:X\to Y\) 是满射。若对任意 \(U\subset Y\)，
+\[
+ U\text{ 在 }Y\text{ 中开}
+ \quad\Longleftrightarrow\quad
+ q^{-1}(U)\text{ 在 }X\text{ 中开},
+\]
+则称 \(q\) 为商映射。给定等价关系 \(\sim\)，在集合 \(X/{\sim}\) 上用
+上述条件定义开集，所得拓扑称为商拓扑，典范投影
+\(q:X\to X/{\sim}\) 按定义是商映射。
+\end{definition}
+
+连续满射只保证从左到右的一项，未必是商映射。例如从无限离散度量空间
+\(X\) 到同一集合上一个非离散度量拓扑的恒等映射连续且满射；所有子集的
+原像在离散空间中都开，但目标中并非所有子集都开，所以它不是商映射。
+
+\begin{proposition}[商映射的连续性判据]
+\label{prop:quotient-map-continuity-test}
+若 \(q:X\to Y\) 是商映射，则映射 \(g:Y\to Z\) 连续，当且仅当
+\(g\circ q:X\to Z\) 连续。
+\end{proposition}
+
+\begin{proof}
+正向由复合定理得到。反之，若 \(g\circ q\) 连续，对任意开集
+\(W\subset Z\)，
+\[
+ q^{-1}(g^{-1}(W))=(g\circ q)^{-1}(W)
+\]
+在 \(X\) 中开。商映射定义给出 \(g^{-1}(W)\) 在 \(Y\) 中开，故 \(g\)
+连续。
+\end{proof}
+
+把区间 \([0,1]\) 的两个端点等同，得到商空间
+\([0,1]/(0\sim1)\)。映射
+\[
+ p(t)=(\cos2\pi t,\sin2\pi t)
+\]
+在等价类上取相同值，故诱导连续双射
+\[
+ \bar p:[0,1]/(0\sim1)\longrightarrow S^1.
+\]
+商空间是紧区间的连续像，因而紧；圆周是度量空间。紧空间到度量空间的连续
+双射是同胚。这里所用的一般事实可直接核验：紧空间的闭子集仍紧，其连续像
+在度量空间中紧而闭，所以连续双射把闭集映成闭集，逆映射连续。因此这个
+商空间正好给出圆周。端点粘合改变了全局结构，却没有要求在参数区间中人为
+制造一条逆函数。
+
+\begin{theorem}[有限闭集粘合引理]
+\label{thm:finite-closed-pasting}
+设 \(X=A_1\cup\cdots\cup A_N\)，其中每个 \(A_j\) 闭。若映射
+\(f:X\to Y\) 的每个限制 \(f|_{A_j}\) 连续，则 \(f\) 连续。
+\end{theorem}
+
+\begin{proof}
+对任意闭集 \(F\subset Y\)，
+\[
+ f^{-1}(F)=\bigcup_{j=1}^N(f|_{A_j})^{-1}(F).
+\]
+每个右端集合在 \(A_j\) 中闭；因 \(A_j\) 在 \(X\) 中闭，它也在 \(X\)
+中闭。有限并仍闭，所以 \(f\) 满足闭集原像判据。
+\end{proof}
+
+有限性不能直接删除。把函数在无穷多个闭片段上分别定义并逐片验证连续，
+并不能控制这些片段的聚积位置；若片段在某点无限聚积，还必须另行检验该点
+处的极限。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　连通分支与道路}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{connected-clopen-criterion}
+ 证明空间连通当且仅当其既开又闭子集只有空集和整个空间。
+ \exerciseitem{connected-common-point-union}
+ 证明具有公共点的一族连通子集之并连通。再设 \(D\) 与各
+ \(C_\lambda\) 都连通，且 \(D\cap C_\lambda\ne\varnothing\)；证明
+ \(D\cup\bigcup_\lambda C_\lambda\) 连通，并说明删去 \(D\) 后结论为何
+ 未必成立。
+ \exerciseitem{connected-closure}
+ 证明连通集的闭包连通，并给出闭包严格大于原集的例子。
+ \exerciseitem{components-partition-closed}
+ 证明连通分支构成分划且每个分支闭；给出分支不是开集的例子。
+ \exerciseitem{path-equivalence-relation}
+ 证明“存在道路相连”是等价关系，反向道路可由 \(t\mapsto1-t\) 得到，
+ 两条道路的拼接须写出参数公式并验证连续。
+ \exerciseitem{locally-path-components-open}
+ 证明局部道路连通空间的道路分支开，并由此证明连通分支等于道路分支。
+\end{enumerate}
+
+\subsection*{B组　标准反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{sine-curve-closure}
+ 完整证明拓扑学正弦曲线 \(S\) 等于图像 \(G\) 的闭包。
+ \exerciseitem{sine-curve-connected}
+ 证明 \(G\) 连通，再由闭包定理证明 \(S\) 连通。
+ \exerciseitem{sine-curve-no-path}
+ 重建“最后离开竖直线”的证明，严格说明 \(t_0\) 存在以及产生
+ \(v=1,-1\) 的两列参数都趋于 \(t_0\)。
+ \exerciseitem{sine-curve-path-components}
+ 证明 \(G\) 与 \(\{0\}\times[-1,1]\) 分别道路连通，并由正文定理确定
+ \(S\) 的全部道路分支。
+ \exerciseitem{comb-path-connected}
+ 证明梳状空间道路连通，但在每个 \((0,y)\)、\(y>0\) 处不局部道路连通。
+ \exerciseitem{rational-space-disconnected}
+ 证明 \(\Q\) 配通常距离是完全不连通的：每个连通分支都是单点。
+\end{enumerate}
+
+\subsection*{C组　商与粘合}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{quotient-continuity-test}
+ 证明商映射的连续性判据，并指出满射性在哪里使用。
+ \exerciseitem{continuous-surjection-not-quotient}
+ 用同一无限集合上的离散拓扑和一个非离散度量拓扑，构造连续满射但非商映射
+ 的具体例子。
+ \exerciseitem{interval-endpoints-circle}
+ 证明 \([0,1]/(0\sim1)\) 与 \(S^1\) 同胚，逐项核对诱导映射的良定义、
+ 连续、双射和逆连续。
+ \exerciseitem{finite-closed-pasting}
+ 证明有限闭集粘合引理；再证明有限开集覆盖也有相应的粘合结论。
+ \exerciseitem{infinite-pasting-fails}
+ 在 \([0,1]\) 上构造函数，使它在闭集
+ \(A_n=\{0\}\cup[1/(n+1),1/n]\) 的每个限制都连续，但整体在 \(0\)
+ 不连续。
+ \optionalexerciseitem{wedge-of-circles}
+ 从两个不交圆周各选一点并将二点等同。用商空间给出“八字形”空间的严格
+ 构造，证明它道路连通，并确定删除粘合点后的连通分支。
+\end{enumerate}

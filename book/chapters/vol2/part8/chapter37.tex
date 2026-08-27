@@ -1,0 +1,452 @@
+\chapter{分离公理与度量化}
+\label{chap:separation-metrization}
+
+拓扑公理没有规定不同的点能否由开集区分。不可分拓扑中，任何两个点具有完全相同的邻域；余有限拓扑中单点已经闭，却未必能给两个点找到不相交邻域。极限的唯一性、紧集的闭性以及连续函数延拓都要求不同程度的分离条件。
+
+本章先按“点与点”“点与闭集”“闭集与闭集”整理常用分离公理，继而证明 Urysohn 引理和 Tietze 延拓定理。最后说明，在第二可数性的配合下，正则性已经足以构造一个产生原拓扑的度量。
+
+\section{\texorpdfstring{\(T_0\)、\(T_1\)}{T0、T1} 与 Hausdorff 空间}
+
+\begin{definition}[低阶分离公理]
+设 \(X\) 为拓扑空间。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若任意两个不同点中，至少有一个点具有不含另一个点的开邻域，则称 \(X\) 为 \(T_0\) 空间；
+ \item 若任意两个不同点各自都有不含另一点的开邻域，则称 \(X\) 为 \(T_1\) 空间；
+ \item 若任意两个不同点 \(x,y\) 有不相交的开邻域 \(U\ni x\)、\(V\ni y\)，则称 \(X\) 为 Hausdorff 空间或 \(T_2\) 空间。
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}
+\label{prop:t1-singletons-closed}
+空间 \(X\) 为 \(T_1\) 当且仅当每个单点集闭。Hausdorff 空间必为 \(T_1\)，并且其中收敛数列的极限唯一。
+\end{proposition}
+
+\begin{proof}
+若 \(X\) 为 \(T_1\)，固定 \(y\)。对每个 \(x\ne y\)，存在含 \(x\) 而不含 \(y\) 的开集，故 \(X\setminus\{y\}\) 开。反之，若单点闭，则 \(X\setminus\{y\}\) 是 \(x\ne y\) 的所需邻域。
+
+Hausdorff 条件直接给出 \(T_1\) 所需的两个邻域。若数列同时趋于不同点 \(x,y\)，取不相交邻域 \(U,V\)。它最终同时落在 \(U,V\) 中，与 \(U\cap V=\varnothing\) 矛盾。
+\end{proof}
+
+Sierpiński 空间是 \(T_0\) 而非 \(T_1\)。无限集上的余有限拓扑是 \(T_1\)；若 \(X\) 至少有两个点，任意两个非空开集相交，所以它不是 Hausdorff。由此可见三条条件确实逐级加强。
+
+\section{正则、完全正则与正规空间}
+
+本书采用把 \(T_1\) 条件包含在高阶分离公理中的约定。不同教材有时把“正则”和“正则 \(T_1\)”分开命名，引用结果时应先核对约定。
+
+\begin{definition}[正则性、完全正则性与正规性]
+设 \(X\) 为 \(T_1\) 空间。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若对每个闭集 \(F\) 和每个 \(x\notin F\)，存在不相交开集 \(U,V\) 使 \(x\in U\)、\(F\subseteq V\)，则称 \(X\) 正则；
+ \item 若对每个这样的 \(x,F\)，存在连续函数 \(f:X\to[0,1]\) 使 \(f(x)=0\)、\(f|_F=1\)，则称 \(X\) 完全正则；
+ \item 若任意两个不相交闭集 \(A,B\) 都有不相交开邻域，则称 \(X\) 正规。
+\end{enumerate}
+完全正则 Hausdorff 空间也常称为 Tychonoff 空间。
+\end{definition}
+
+\begin{proposition}[闭包缩小判据]
+\label{prop:regular-shrinking}
+对 \(T_1\) 空间 \(X\)，下列条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(X\) 正则；
+ \item 对任意 \(x\in U\)，其中 \(U\) 开，存在开集 \(V\) 使
+ \[
+  x\in V\subseteq\overline V\subseteq U.
+ \]
+\end{enumerate}
+将点 \(x\) 换成闭集 \(A\subseteq U\)，相应的闭包缩小条件与正规性等价。
+\end{proposition}
+
+\begin{proof}
+若 \(X\) 正则，对点 \(x\) 与闭集 \(X\setminus U\) 取不相交开邻域 \(V,W\)。因 \(V\cap W=\varnothing\)，有 \(\overline V\subseteq X\setminus W\subseteq U\)。
+
+反之，给定 \(x\notin F\)，对 \(U=X\setminus F\) 取 \(V\) 满足(ii)。则 \(V\) 与 \(X\setminus\overline V\) 分别是 \(x,F\) 的不相交开邻域。闭集版本的证明完全相同：先对两个闭集应用分离条件，或对 \(A\subseteq U\) 与 \(X\setminus U\) 分离。
+\end{proof}
+
+完全正则性推出正则性：若 \(f(x)=0\)、\(f(F)=1\)，则
+\(f^{-1}([0,1/3))\) 与 \(f^{-1}((2/3,1])\) 给出分离。正规 \(T_1\) 空间也正则，因为点集闭。正规性还将给出比开集分离强得多的连续函数分离。
+
+\begin{theorem}[度量空间的函数分离]
+\label{thm:metric-spaces-normal}
+每个度量空间都是正规空间。更准确地，若 \(A,B\) 是度量空间
+\((X,d)\) 中非空且不相交的闭集，则
+\[
+ f(x)=\frac{d(x,A)}{d(x,A)+d(x,B)}
+\]
+是连续的 \([0,1]\)-值函数，并满足 \(f|_A=0\)、\(f|_B=1\)。
+\end{theorem}
+
+\begin{proof}
+若 \(A\) 为空，常值函数 \(1\) 可以分离 \(A,B\)；若 \(B\) 为空，常值
+函数 \(0\) 可以分离二者。因此正规性的分离结论在这些情形下成立。以下设
+二者均非空。
+对非空集合 \(A\)，记
+\[
+ d(x,A)=\inf_{a\in A}d(x,a).
+\]
+三角不等式给出
+\[
+ d(x,A)\le d(x,y)+d(y,A),
+\]
+交换 \(x,y\) 后得到
+\[
+ |d(x,A)-d(y,A)|\le d(x,y).
+\]
+所以到集合的距离函数连续。若 \(A\) 闭，则
+\(d(x,A)=0\) 当且仅当 \(x\in A\)。因 \(A,B\) 不相交，两个距离不会在同一点同时为零，故分母处处为正，\(f\) 连续。它在 \(A\) 上为零，在 \(B\) 上为一。取
+\[
+ f^{-1}([0,1/3)),\qquad f^{-1}((2/3,1])
+\]
+便得到 \(A,B\) 的不相交开邻域。
+\end{proof}
+
+两个不相交闭集之间的集合距离可能等于零，例如实直线中的
+\[
+ A=\{n:n\in\Npos\},\qquad
+ B=\{n+1/n:n\in\Npos,\ n\ge2\}.
+\]
+因此不能先寻找一个对所有点都有效的正间距。上式采用随 \(x\) 变化的两个距离，其和在每个固定点为正，已经足够保证连续函数定义良好。
+
+若空间的每个开覆盖都有至多可数的子覆盖，称它为 Lindelöf 空间。命题
+\ref{prop:second-countable-consequences}说明第二可数空间具有这一性质。
+
+\begin{theorem}[正则第二可数空间正规]
+\label{thm:regular-second-countable-normal}
+每个正则第二可数空间都是正规空间。
+\end{theorem}
+
+\begin{proof}
+第二可数空间的子空间仍第二可数，因而每个子空间的开覆盖都有可数子覆盖。设 \(A,B\) 为不相交闭集。对每个 \(a\in A\)，由正则性取开集 \(U_a\ni a\)，使 \(\overline{U_a}\cap B=\varnothing\)；对每个 \(b\in B\)，取开集 \(V_b\ni b\)，使 \(\overline{V_b}\cap A=\varnothing\)。把两族分别限制到 \(A,B\)，再抽出可数子覆盖 \((U_n)\) 与 \((V_n)\)。
+
+令
+\[
+ U=\bigcup_{n\in\N}\left(U_n\setminus\bigcup_{k\le n}\overline{V_k}\right),
+ \qquad
+ V=\bigcup_{n\in\N}\left(V_n\setminus\bigcup_{k\le n}\overline{U_k}\right).
+\]
+两者开。每个 \(a\in A\) 落在某个 \(U_n\)，且不在任何 \(\overline{V_k}\) 中，故 \(A\subseteq U\)；同理 \(B\subseteq V\)。若一点同时属于上式中第 \(n\) 个 \(U\)-项和第 \(m\) 个 \(V\)-项，当 \(m\le n\) 时第一项已经排除 \(\overline{V_m}\)，当 \(n\le m\) 时第二项已经排除 \(\overline{U_n}\)，均矛盾。因此 \(U\cap V=\varnothing\)。
+\end{proof}
+
+\section{Urysohn 引理}
+
+\subsection{二进有理指标的开集族}
+
+\begin{theorem}[Urysohn 引理]
+\label{thm:urysohn-lemma}
+设 \(X\) 为正规空间，\(A,B\subseteq X\) 是不相交闭集。则存在连续函数
+\[
+ f:X\to[0,1]
+\]
+使 \(f|_A=0\)、\(f|_B=1\)。
+\end{theorem}
+
+\begin{proof}
+记 \(D=\{k/2^n:n\in\N,\ 0\le k\le2^n\}\)，即 \([0,1]\) 中的二进有理数。先构造开集 \(U_r\)（\(r\in D\)），使
+\[
+ A\subseteq U_0,\qquad U_1=X\setminus B,\qquad
+ r<s\Longrightarrow\overline{U_r}\subseteq U_s.
+\label{eq:urysohn-dyadic-nesting}
+\]
+由正规性的闭包缩小判据，可取 \(A\subseteq U_0\subseteq\overline{U_0}\subseteq X\setminus B=U_1\)。
+
+按分母递归。假设第 \(n\) 层的集合已经构造；每两个相邻数 \(k/2^n\) 与 \((k+1)/2^n\) 之间插入中点 \(r=(2k+1)/2^{n+1}\)。由
+\(\overline{U_{k/2^n}}\subseteq U_{(k+1)/2^n}\) 和闭包缩小判据，取
+\[
+ \overline{U_{k/2^n}}\subseteq U_r
+ \subseteq\overline{U_r}\subseteq U_{(k+1)/2^n}.
+\]
+逐层进行便得到 \eqref{eq:urysohn-dyadic-nesting}。
+
+定义
+\[
+ f(x)=\inf\{r\in D:x\in U_r\},
+\]
+并约定右侧集合为空时下确界为 \(1\)。若 \(x\in A\)，则 \(x\in U_0\)，故 \(f(x)=0\)；若 \(x\in B\)，则 \(x\notin U_r\) 对所有 \(r<1\) 成立，故 \(f(x)=1\)。
+
+验证连续性。对 \(a\in(0,1]\)，
+\[
+ \{x:f(x)<a\}=\bigcup_{\substack{r\in D\\r<a}}U_r,
+\]
+所以它开。若 \(a\in[0,1)\) 且 \(f(x)>a\)，可取 \(a<r<s<f(x)\)、\(r,s\in D\)。此时 \(x\notin U_s\)，而 \(\overline{U_r}\subseteq U_s\)，故 \(x\in X\setminus\overline{U_r}\)。对任意 \(y\notin\overline{U_r}\)，由 \(U_t\subseteq\overline{U_r}\)（\(t<r\)）可知 \(f(y)\ge r>a\)。因此
+\[
+ \{x:f(x)>a\}
+ =\bigcup_{\substack{r\in D\\r>a}}\bigl(X\setminus\overline{U_r}\bigr)
+\]
+也是开集。区间的开射线构成子基，故 \(f\) 连续。
+\end{proof}
+
+Urysohn 引理给出“正规 \(\Rightarrow\) 完全正则”。它还把集合分离转成函数分离，后者可以相加、取极限并嵌入乘积空间。
+
+\section{Tietze 延拓定理}
+
+\subsection{一次定量修正}
+
+先证明一个定量近似步骤。常数 \(1/3\) 与 \(2/3\) 没有特殊意义；它们只需产生一个收敛几何级数。
+
+\begin{lemma}[延拓近似]
+\label{lem:tietze-approximation}
+设 \(X\) 正规，\(A\subseteq X\) 闭，且 \(f:A\to[-M,M]\) 连续，其中 \(M>0\)。存在连续 \(g:X\to[-M/3,M/3]\)，使
+\[
+ |f(a)-g(a)|\le\frac{2M}{3}\qquad(a\in A).
+\]
+\end{lemma}
+
+\begin{proof}
+因为 \(A\) 在 \(X\) 中闭，下列两个集合既在 \(A\) 中闭，也在 \(X\) 中闭：
+\[
+ A_-=\{a\in A:f(a)\le-M/3\},\qquad
+ A_+=\{a\in A:f(a)\ge M/3\}
+\]
+不相交。由 Urysohn 引理取 \(u:X\to[0,1]\)，在 \(A_-\) 上为 \(0\)，在 \(A_+\) 上为 \(1\)。令 \(g=M(2u-1)/3\)。若 \(a\in A_+\) 或 \(a\in A_-\)，估计直接成立；若 \(|f(a)|<M/3\)，则 \(|g(a)|\le M/3\)，仍有 \(|f(a)-g(a)|<2M/3\)。
+\end{proof}
+
+\subsection{几何级数修正与端点避让}
+
+\begin{theorem}[Tietze 延拓定理]
+\label{thm:tietze-extension}
+设 \(X\) 为正规空间，\(A\subseteq X\) 闭。每个连续函数 \(f:A\to\R\) 都有连续延拓 \(F:X\to\R\)。若 \(f(A)\subseteq[-M,M]\)，可使 \(F(X)\subseteq[-M,M]\)。
+\end{theorem}
+
+\begin{proof}
+先设 \(|f|\le1\)。反复应用引理，构造 \(g_n:X\to\R\)。令 \(r_0=f\)；若 \(r_n\) 已在 \(A\) 上定义且 \(\norm{r_n}_{\infty,A}\le(2/3)^n\)，对 \(r_n\) 应用引理，得到
+\[
+ \norm{g_n}_\infty\le\frac13\left(\frac23\right)^n,\qquad
+ \norm{r_n-g_n|_A}_{\infty,A}\le\left(\frac23\right)^{n+1},
+\]
+并令 \(r_{n+1}=r_n-g_n|_A\)。级数 \(\sum g_n\) 在 \(X\) 上一致收敛，因为
+\[
+ \sum_{n=0}^\infty\norm{g_n}_\infty\le1.
+\]
+其和 \(F\) 连续且 \(|F|\le1\)。在 \(A\) 上，
+\[
+ f-\sum_{n=0}^{N}g_n|_A=r_{N+1}\longrightarrow0
+\]
+一致成立，故 \(F|_A=f\)。缩放给出任意有界版本。
+
+现设 \(f\) 不一定有界。取同胚
+\[
+ h:\R\to(-1,1),\qquad h(t)=\frac{t}{1+|t|}.
+\]
+由有界版本，把 \(h\circ f\) 延拓为 \(G:X\to[-1,1]\)。闭集
+\[
+ H=G^{-1}(\{-1,1\})
+\]
+与 \(A\) 不交。再由 Urysohn 引理取连续 \(u:X\to[0,1]\)，使 \(u|_A=0\)、\(u|_H=1\)。令
+\[
+ \widetilde G=(1-u/2)G.
+\]
+在 \(A\) 上它等于 \(h\circ f\)；若 \(x\in H\)，则 \(|\widetilde G(x)|=1/2\)，若 \(x\notin H\)，则 \(|G(x)|<1\) 且乘子不超过 \(1\)。所以 \(\widetilde G(X)\subseteq(-1,1)\)。于是
+\[
+ F=h^{-1}\circ\widetilde G
+\]
+连续，并在 \(A\) 上等于 \(f\)。
+\end{proof}
+
+闭性不可删。函数 \(f(x)=1/x\) 在子集 \(A=(0,1]\subseteq\R\) 上连续，却不可能连续延拓到 \(0\)。正规性也不是纯粹的证明便利：对 \(T_1\) 空间，所有闭子集上的 \([0,1]\)-值连续函数都可延拓这一性质反过来蕴含正规性。
+
+\section{Urysohn 度量化定理}
+
+\subsection{可数连续函数族}
+
+\begin{theorem}[Urysohn 度量化定理]
+\label{thm:urysohn-metrization}
+每个正则第二可数空间都可度量化。
+\end{theorem}
+
+\begin{proof}
+设 \(\mathcal B=\{B_0,B_1,\ldots\}\) 是可数基。若 \(x\in U\) 且 \(U\) 开，先选基元素 \(B_j\) 使
+\(x\in B_j\subseteq U\)。由正则性取开集 \(V\) 使
+\[
+ x\in V\subseteq\overline V\subseteq B_j,
+\]
+再选基元素 \(B_i\) 使 \(x\in B_i\subseteq V\)。于是
+\(\overline{B_i}\subseteq\overline V\subseteq B_j\subseteq U\)。因此，所有满足
+\[
+ \overline{B_i}\subseteq B_j
+\]
+的指标对 \((i,j)\) 形成可数族，并且对每个 \(x\in U\) 至少有一对满足
+\[
+ x\in B_i\subseteq\overline{B_i}\subseteq B_j\subseteq U.
+\label{eq:metrization-basis-pair}
+\]
+
+由定理 \ref{thm:regular-second-countable-normal}，\(X\) 正规。对每个上述指标对，用 Urysohn 引理取连续函数
+\[
+ f_{ij}:X\to[0,1],\qquad
+ f_{ij}|_{\overline{B_i}}=0,\qquad
+ f_{ij}|_{X\setminus B_j}=1.
+\]
+枚举这些函数为 \(f_0,f_1,\ldots\)，并定义
+\[
+ d(x,y)=\sum_{n=0}^{\infty}2^{-n-1}|f_n(x)-f_n(y)|.
+\]
+级数由 \(\sum2^{-n-1}=1\) 一致控制，故 \(d\) 有限。每一项关于 \(x,y\) 对称，逐项使用
+\[
+ |f_n(x)-f_n(z)|
+ \le |f_n(x)-f_n(y)|+|f_n(y)-f_n(z)|
+\]
+再求和，得到三角不等式。若 \(x\ne y\)，对开集 \(X\setminus\{y\}\) 使用
+\eqref{eq:metrization-basis-pair}，可取某个 \(f_n\) 使 \(f_n(x)=0\)、\(f_n(y)=1\)，所以 \(d(x,y)>0\)。因此 \(d\) 是度量。
+
+每个 \(f_n\) 对原拓扑连续。给定 \(x\) 与 \(\varepsilon>0\)，先取 \(N\) 使 \(\sum_{n>N}2^{-n-1}<\varepsilon/2\)，再由有限多个 \(f_0,\ldots,f_N\) 的连续性取 \(x\) 的开邻域 \(W\)，使
+\[
+ |f_n(x)-f_n(y)|<\varepsilon/2\qquad(y\in W,\ n\le N).
+\]
+于是 \(d(x,y)<\varepsilon\)，说明原拓扑比 \(d\)-拓扑细。
+
+反过来，给定原开集 \(U\ni x\)，按 \eqref{eq:metrization-basis-pair} 取某个 \(f_n\) 满足 \(f_n(x)=0\)、\(f_n=1\) 于 \(X\setminus U\)。若
+\(d(x,y)<2^{-n-1}\)，则不可能有 \(f_n(y)=1\)，故 \(y\in U\)。所以某个 \(d\)-球包含于 \(U\)，两种拓扑相同。
+\end{proof}
+
+第二可数性不能只换成第一可数性；度量化需要把所有局部分离函数组织成至多可数族，才能用一个收敛级数合成为距离。后续会遇到其他度量化判据，但它们都必须补充某种全局可数条件。
+
+\section{遗传与乘积}
+
+\begin{proposition}[分离性质的基本稳定性]
+\label{prop:separation-heredity-products}
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(T_0\)、\(T_1\)、Hausdorff、正则和完全正则性对子空间遗传；
+ \item 正规性的闭子空间仍正规；
+ \item 任意多个 \(T_0\)、\(T_1\)、Hausdorff 或完全正则空间的积仍具有相应性质。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+前三种性质的子空间结论直接把原空间中的分离邻域与子空间相交。若 \(A\subseteq X\)、\(F\subseteq A\) 在 \(A\) 中闭，写 \(F=A\cap C\)，其中 \(C\) 在 \(X\) 中闭。对 \(x\in A\setminus F\)，正则性先在 \(X\) 中分离 \(x\) 与 \(C\)，再与 \(A\) 相交。完全正则情形把相应函数限制到 \(A\)。若 \(A\) 本身在正规空间 \(X\) 中闭，则 \(A\) 的两个闭集也是 \(X\) 的闭集，故正规性遗传给闭子空间。
+
+乘积中的两个不同点至少在一个坐标不同；在该坐标分离后取投影原像，得到 \(T_0\)、\(T_1\) 或 Hausdorff 结论。对完全正则性，设 \(x\notin F\)，其中 \(F\) 在积空间中闭。取基本柱集
+\[
+ x\in U=\bigcap_{k=1}^m\pi_{i_k}^{-1}(U_k)
+ \subseteq X\setminus F.
+\]
+在每个因子中取连续 \(g_k:X_{i_k}\to[0,1]\)，使 \(g_k(x_{i_k})=0\)、在 \(X_{i_k}\setminus U_k\) 上为 \(1\)。函数
+\[
+ g(y)=\max_{1\le k\le m}g_k(y_{i_k})
+\]
+连续，在 \(x\) 为零，并在 \(F\subseteq X\setminus U\) 上为一。
+\end{proof}
+
+正规性对子空间只保证闭子空间遗传，对乘积也没有一般保持定理。下面给出经典的乘积反例；它也说明 Tietze 延拓定理能够检验一个空间不正规。
+
+\begin{example}[Sorgenfrey 平面不是正规空间]
+\label{ex:sorgenfrey-plane-not-normal}
+在 \(\R\) 上以半开区间
+\[
+ [a,b)\qquad(a<b)
+\]
+为基，所得空间记为 \(\mathbb S\)，称为 Sorgenfrey 直线。每个基元素开闭，因为其补集为
+\[
+ (-\infty,a)\cup[b,\infty),
+\]
+两部分都是基元素之并。因此 \(\mathbb S\) 是正则 \(T_1\) 空间。
+
+\(\mathbb S\) 还是 Lindelöf 空间。给定开覆盖，对每个 \(x\in\R\) 取
+\[
+ x\in[x,b_x)\subseteq U_x
+\]
+且 \(U_x\) 属于该覆盖。令
+\[
+ G=\bigcup_{x\in\R}(x,b_x).
+\]
+\(G\) 在通常实直线中开，故从这些通常开区间中可抽出可数子族覆盖 \(G\)。若 \(C=\R\setminus G\)，则对不同的 \(x,y\in C\)，区间
+\((x,b_x)\)、\((y,b_y)\) 不相交：例如 \(x<y\) 时，若 \(y<b_x\) 就会有 \(y\in G\)。在每个非空区间 \((x,b_x)\) 中选一个有理数，得到从 \(C\) 到 \(\Q\) 的单射，所以 \(C\) 至多可数。再为 \(C\) 中每点保留一个 \(U_x\)，得到原覆盖的可数子覆盖。定理
+\ref{thm:regular-second-countable-normal}的证明只使用 Lindelöf 性，故
+\(\mathbb S\) 正规。
+
+考虑乘积 \(\mathbb S^2\) 和反对角线
+\[
+ D=\{(x,-x):x\in\R\}.
+\]
+\(D\) 是闭离散子空间。若 \((a,b)\notin D\)，取充分小的
+\(\varepsilon>0\)，可使矩形
+\([a,a+\varepsilon)\times[b,b+\varepsilon)\) 中所有点的两坐标之和与 \(a+b\) 同号，故该矩形不交 \(D\)。而
+\[
+ [x,x+\varepsilon)\times[-x,-x+\varepsilon)
+\]
+与 \(D\) 只交于 \((x,-x)\)，所以 \(D\) 离散。
+
+另一方面，\(\Q^2\) 与每个非空基本矩形相交，故 \(\mathbb S^2\) 可分。若
+\(\mathbb S^2\) 正规，Tietze 定理会把离散闭集 \(D\) 上的每个
+\(\{0,1\}\)-值函数延拓为 \(\mathbb S^2\) 上的连续实值函数。这样的函数在 \(D\) 上有
+\(2^{|\R|}\) 种。可是可分空间上的连续实值函数由其在一个可数稠密集上的
+值唯一决定。下面把由此得到的基数上界写成一个具体编码。固定 \(\Q\) 的枚举
+\((q_k)_{k\in\N}\)。对实数列 \(a=(a_n)_{n\in\N}\)，令
+\[
+ E_a=\{(n,k)\in\N^2:q_k<a_n\}.
+\]
+有理数的稠密性说明 \(a\mapsto E_a\) 是单射。再固定双射
+\(\pi:\N^2\to\N\)，并把 \(E\subseteq\N^2\) 映为
+\[
+ \Phi(E)=\sum_{(n,k)\in E}2\,3^{-\pi(n,k)-1}\in[0,1].
+\]
+三进制展开的首个不同数字说明 \(\Phi\) 是单射。因此实数列的总数至多为
+\(|\R|\)，从而 \(\mathbb S^2\) 上连续实值函数的总数也至多为 \(|\R|\)。
+Cantor 定理给出 \(2^{|\R|}>|\R|\)，矛盾。因此两个正规空间的乘积未必正规。
+\end{example}
+
+命题 \ref{prop:separation-heredity-products} 说明 \(\mathbb S^2\) 仍完全正则。
+\chapterref{chap:compact-topological-spaces}将把每个完全正则 Hausdorff 空间嵌入其 Stone--Čech 紧致化；该紧致化是正规空间。因此
+\(\mathbb S^2\subseteq\beta(\mathbb S^2)\) 也给出“正规性不对任意子空间遗传”的反例。另一方面，同一章会证明紧 Hausdorff 空间正规，从而在紧致乘积中重新得到正规性。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　分离条件}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{separation-implication-chain}
+ 证明
+ \[
+ \text{正规 }T_1\Longrightarrow\text{完全正则}
+ \Longrightarrow\text{正则}\Longrightarrow\text{Hausdorff}
+ \Longrightarrow T_1\Longrightarrow T_0.
+ \]
+ 指出哪一步使用 Urysohn 引理。
+ \exerciseitem{cofinite-t1-not-hausdorff}
+ 证明无限集的余有限拓扑是 \(T_1\) 但非 Hausdorff。再以
+ \(E=\{0\}\cup\{1/n:n\in\Npos\}\) 为底集，分别赋予从 \(\R\) 继承的
+ 拓扑和余有限拓扑，证明两者之间的恒等映射连续；说明数列 \((1/n)\)
+ 在定义域中有唯一极限，而其像在值域中有多个极限。
+ \exerciseitem{hausdorff-diagonal}
+ 证明 \(X\) 为 Hausdorff 空间，当且仅当对角线
+ \(\Delta=\{(x,x):x\in X\}\) 在 \(X\times X\) 中闭。
+ \exerciseitem{regular-shrinking-closed-set}
+ 完成闭包缩小判据的闭集版本：证明 \(X\) 正规当且仅当每当闭集 \(A\subseteq U\) 且 \(U\) 开时，存在开集 \(V\) 使
+ \(A\subseteq V\subseteq\overline V\subseteq U\)。
+ \exerciseitem{regular-lindelof-normal}
+ 把正文证明改写为：每个正则 Lindelöf 空间正规。说明第二可数性只用于何处。
+ \exerciseitem{metric-normal-zero-set-distance}
+ 证明两个不相交闭集可以有集合距离零，并核对定理
+ \ref{thm:metric-spaces-normal} 的分母仍在每一点严格为正。再证明若其中一个闭集紧，则两集合的距离严格为正。
+\end{enumerate}
+
+\subsection*{B组　连续函数分离与延拓}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{urysohn-level-separation}
+ 在 Urysohn 引理中证明：对 \(0<a<b<1\)，闭集
+ \(\{f\le a\}\) 与 \(\{f\ge b\}\) 有不相交开邻域。
+ \exerciseitem{urysohn-converse-normal}
+ 设 \(X\) 为 \(T_1\) 空间，并假设任意两个不相交闭集都可由某个 \([0,1]\)-值连续函数分别取值 \(0,1\)。证明 \(X\) 正规。
+ \exerciseitem{tietze-series-error}
+ 在 Tietze 定理的有界证明中，写出第 \(N\) 个部分和的统一误差，并直接验证所得延拓的上确界不超过 \(1\)。
+ \exerciseitem{tietze-range-interval}
+ 若 \(f:A\to[a,b]\) 连续，证明可取延拓 \(F:X\to[a,b]\)。若目标是开区间 \((a,b)\)，说明仅用有界版本为何还不够，并仿照正文的端点避让完成延拓。
+ \exerciseitem{tietze-closedness-counterexample}
+ 给出闭性条件不能删除的两个反例：一个函数在非闭子集上无界，另一个函数有界但在缺失边界点处振荡。
+ \exerciseitem{normality-from-extension}
+ 设 \(X\) 为 \(T_1\) 空间，且每个闭子集上的 \([0,1]\)-值连续函数均可延拓到 \(X\)。证明 \(X\) 正规。
+\end{enumerate}
+
+\subsection*{C组　度量化与稳定性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{metrization-separating-family}
+ 设 \((f_n)\) 是从 \(X\) 到 \([0,1]\) 的可数连续函数族，并且它分离点且决定原拓扑。证明
+ \[
+ d(x,y)=\sum_{n=0}^{\infty}2^{-n-1}|f_n(x)-f_n(y)|
+ \]
+ 是产生原拓扑的度量。
+ \exerciseitem{metrization-basis-pair-detail}
+ 补足度量化定理中式 \eqref{eq:metrization-basis-pair} 的构造：从正则性和基性质严格选取 \(B_i,B_j\)。
+ \exerciseitem{normal-closed-hereditary}
+ 证明正规性对闭子空间遗传，并说明正文证明为什么不能直接用于任意子空间。
+ \exerciseitem{complete-regular-product}
+ 补足命题 \ref{prop:separation-heredity-products} 中完全正则乘积的每一步，特别验证有限最大值函数连续。
+\end{enumerate}

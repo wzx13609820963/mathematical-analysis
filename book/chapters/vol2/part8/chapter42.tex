@@ -1,0 +1,639 @@
+\chapter{局部凸空间}
+\label{chap:locally-convex-spaces}
+
+范数用一个非负数同时控制向量的所有方向。许多函数空间却有一系列自然的
+控制量。例如，对 \(C^\infty[a,b]\) 中的函数，可能要求函数本身一致
+接近，也可能同时要求前 \(m\) 阶导数一致接近；随着 \(m\) 改变，得到的
+控制条件不能总由一个范数完整表达。局部凸空间以一族半范数代替单一范数，
+同时保留线性运算、凸集和连续线性泛函所需的结构。
+
+本章固定标量域 \(\mathbb K\in\{\R,\C\}\)。前半章从拓扑向量空间的
+零点邻域出发，建立平衡集、吸收集、Minkowski 泛函和半范数族。后半章
+讨论可度量性、完备性、弱拓扑与弱星拓扑。一般局部凸空间中用连续线性
+泛函分离点或凸集所需的 Hahn--Banach 定理留到第四卷；本章只证明不依赖
+该定理的有限维结论和弱拓扑的代数刻画。
+
+\section{拓扑向量空间}
+
+\begin{definition}[拓扑向量空间]
+向量空间 \(E\) 若带有 Hausdorff 拓扑，并且加法
+\[
+ E\times E\to E,\qquad(x,y)\mapsto x+y
+\]
+与数乘
+\[
+ \mathbb K\times E\to E,\qquad(\lambda,x)\mapsto\lambda x
+\]
+连续，则称 \(E\) 为\term{拓扑向量空间}。
+\end{definition}
+
+每个平移 \(\tau_a(x)=a+x\) 都是同胚，逆映射为 \(\tau_{-a}\)。因此
+拓扑完全由零向量的邻域决定，点 \(a\) 的邻域恰为 \(a+U\)，其中 \(U\)
+遍历零点邻域。连续性还给出两条经常使用的缩小规则：对每个零点邻域
+\(U\)，存在零点邻域 \(V\) 使
+\[
+ V+V\subseteq U,
+\]
+并可令 \(V=-V\)。
+
+\begin{proposition}[线性映射只需在零点检验]
+\label{prop:linear-map-continuity-zero}
+设 \(E,F\) 为拓扑向量空间，\(T:E\to F\) 线性。下列条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(T\) 连续；
+ \item \(T\) 在 \(0\) 处连续；
+ \item 对 \(F\) 的每个零点邻域 \(V\)，\(T^{-1}(V)\) 是 \(E\) 的
+ 零点邻域。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+前两项及第三项的等价是点连续性的原像表述。若 \(T\) 在零点连续，给定
+\(a\in E\) 与 \(T(a)\) 的邻域 \(T(a)+V\)，可取零点邻域 \(U\) 使
+\(T(U)\subseteq V\)。于是
+\[
+ T(a+U)=T(a)+T(U)\subseteq T(a)+V,
+\]
+故 \(T\) 在 \(a\) 处连续。
+\end{proof}
+
+拓扑向量空间作为加法群，具有
+\chapterref{chap:uniform-spaces-topological-groups}所述的平移不变一致结构；
+因加法交换，
+左右一致结构相同。其基本周围可写成
+\[
+ \widetilde U=\{(x,y):x-y\in U\},
+\]
+其中 \(U\) 是零点邻域。于是 Cauchy 网的条件成为：对每个零点邻域
+\(U\)，最终有 \(x_i-x_j\in U\)。
+
+\section{平衡集、吸收集与凸邻域}
+
+\begin{definition}[平衡、吸收与绝对凸]
+设 \(A\subseteq E\)。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若 \(|\lambda|\le1\) 蕴含 \(\lambda A\subseteq A\)，称 \(A\)
+ \term{平衡}；
+ \item 若对每个 \(x\in E\)，存在 \(t>0\) 使 \(x\in tA\)，称 \(A\)
+ \term{吸收}；
+ \item 若 \(A\) 同时凸且平衡，称 \(A\) \term{绝对凸}。
+\end{enumerate}
+\end{definition}
+
+每个零点邻域都是吸收集：对固定 \(x\)，映射 \(\lambda\mapsto\lambda x\)
+在 \(0\) 连续，故充分小的 \(\lambda\ne0\) 满足 \(\lambda x\in U\)，
+即 \(x\in\lambda^{-1}U\)。平衡性则使从较小倍数回到集合内部的操作
+合法。
+
+\begin{proposition}[平衡邻域]
+\label{prop:balanced-neighborhood-base}
+拓扑向量空间中每个零点邻域都含有平衡的零点邻域。若空间还有由凸集组成
+的零点邻域基，则每个零点邻域都含有绝对凸的零点邻域。
+\end{proposition}
+
+\begin{proof}
+给定零点邻域 \(U\)，先在其中取一个开零点邻域并仍记为 \(U\)。数乘在紧集
+\(\{\lambda:|\lambda|\le1\}\times\{0\}\) 的每一点连续。对每个
+\(|\lambda|\le1\)，可取标量邻域 \(D_\lambda\) 与零点邻域
+\(W_\lambda\)，使 \(D_\lambda W_\lambda\subseteq U\)。闭单位圆盘的
+紧致性给出有限多个 \(D_{\lambda_k}\) 覆盖它。令
+\(W=\bigcap_kW_{\lambda_k}\)，则 \(\mu W\subseteq U\) 对所有
+\(|\mu|\le1\) 成立。集合
+\[
+ V=\bigcup_{|\mu|\le1}\mu W
+\]
+平衡、含 \(W\)，且包含于 \(U\)，所以是所需邻域。
+
+若有凸邻域基，先在 \(U\) 内取凸邻域 \(U_0\)，再按上段取平衡邻域
+\(V\subseteq U_0\)。\(V\) 的绝对凸包仍包含一个零点邻域，并因
+\(U_0\) 凸而包含于 \(U_0\subseteq U\)。
+\end{proof}
+
+\begin{definition}[Minkowski 泛函]
+若 \(A\subseteq E\) 吸收，定义
+\[
+ p_A(x)=\inf\{t>0:x\in tA\},
+\]
+称为 \(A\) 的\term{Minkowski 泛函}。
+\end{definition}
+
+\begin{theorem}[绝对凸集的 Minkowski 泛函]
+\label{thm:minkowski-functional-seminorm}
+若 \(A\) 吸收且绝对凸，则 \(p_A\) 是半范数，即
+\[
+ p_A(\lambda x)=|\lambda|p_A(x),\qquad
+ p_A(x+y)\le p_A(x)+p_A(y).
+\]
+并且
+\[
+ \{x:p_A(x)<1\}\subseteq A\subseteq\{x:p_A(x)\le1\}.
+\]
+若 \(A\) 还是开集，则第一处包含为等号：
+\(A=\{x:p_A(x)<1\}\)。
+\end{theorem}
+
+\begin{proof}
+吸收性保证定义中的集合非空。对 \(\lambda\ne0\)，
+\[
+ \lambda x\in tA
+ \quad\Longleftrightarrow\quad
+ x\in(t/|\lambda|)A,
+\]
+其中使用平衡性处理复数相位，故齐次性成立；\(\lambda=0\) 直接。
+
+若 \(x\in rA\)、\(y\in sA\)，其中 \(r,s>0\)，则
+\[
+ \frac{x+y}{r+s}
+ =\frac r{r+s}\frac xr+\frac s{r+s}\frac ys\in A
+\]
+由凸性成立，因而 \(p_A(x+y)\le r+s\)。令
+\(r\downarrow p_A(x)\)、\(s\downarrow p_A(y)\) 得三角不等式。
+
+若 \(p_A(x)<1\)，取 \(p_A(x)<t<1\)。由下确界定义，存在 \(s<t\)
+使 \(x\in sA\)，而平衡性给出 \(sA\subseteq A\)。若 \(x\in A\)，
+则 \(p_A(x)\le1\)。最后设
+\(A\) 开且 \(x\in A\)。映射 \(s\mapsto sx\) 在 \(s=1\) 连续，故
+可取 \(s>1\) 使 \(sx\in A\)。于是 \(x\in s^{-1}A\)，
+\(p_A(x)\le s^{-1}<1\)。
+\end{proof}
+
+\begin{theorem}[有限维拓扑向量空间]
+\label{thm:finite-dimensional-tvs-euclidean}
+每个有限维 Hausdorff 拓扑向量空间都线性同胚于
+\(\mathbb K^n\) 的通常拓扑。特别地，它的所有线性泛函都连续。
+\end{theorem}
+
+\begin{proof}
+取基 \(e_1,\ldots,e_n\)，线性双射
+\[
+ T:\mathbb K^n\to E,\qquad T(a_1,\ldots,a_n)=\sum_{k=1}^na_ke_k
+\]
+由有限次加法与数乘的连续性而连续。只需证 \(T^{-1}\) 在零点连续。
+
+令 \(S\) 为 \(\mathbb K^n\) 的欧氏单位球面。\(T(S)\) 紧，而 \(E\)
+Hausdorff，所以 \(T(S)\) 闭且不含零点。取平衡零点邻域
+\(V\subseteq E\setminus T(S)\)。若 \(T(a)\in V\) 且
+\(\norm{a}_2\ge1\)，则 \(a=rs\)，其中 \(r\ge1\)、\(s\in S\)。平衡性
+给出 \(T(s)=r^{-1}T(a)\in V\)，与 \(V\cap T(S)=\varnothing\) 矛盾。
+因此 \(T^{-1}(V)\) 包含于欧氏单位球；对任意 \(\varepsilon>0\)，
+\(T^{-1}(\varepsilon V)\) 包含于半径 \(\varepsilon\) 的球。这证明逆映射
+在零点连续。
+
+任意线性泛函与 \(T\) 复合后是 \(\mathbb K^n\) 上的坐标线性组合，
+所以连续。
+\end{proof}
+
+\section{半范数族}
+
+\begin{definition}[半范数]
+映射 \(p:E\to[0,+\infty)\) 若满足
+\[
+ p(\lambda x)=|\lambda|p(x),\qquad
+ p(x+y)\le p(x)+p(y),
+\]
+则称为\term{半范数}。半范数允许 \(p(x)=0\) 而 \(x\ne0\)。
+\end{definition}
+
+设 \(\mathcal P\) 是 \(E\) 上的一族半范数。有限多个半范数和
+\(\varepsilon>0\) 给出集合
+\[
+ U(p_1,\ldots,p_n;\varepsilon)
+ =\{x\in E:p_k(x)<\varepsilon, 1\le k\le n\}.
+\]
+
+\begin{theorem}[半范数族生成的拓扑]
+\label{thm:seminorm-generated-topology}
+上述集合构成一个向量拓扑的零点邻域基。该拓扑是使
+\(\mathcal P\) 中每个半范数连续的最弱向量拓扑，并且它为 Hausdorff
+拓扑当且仅当 \(\mathcal P\) 分离点，即
+\[
+ \bigcap_{p\in\mathcal P}\ker p=\{0\}.
+\]
+只有在这一分离条件成立时，它才按本书的 Hausdorff 约定成为拓扑向量
+空间。
+\end{theorem}
+
+\begin{proof}
+有限交仍可通过合并半范数得到更小的同类集合；三角不等式给出
+\[
+ U(p_1,\ldots,p_n;\varepsilon/2)
+ +U(p_1,\ldots,p_n;\varepsilon/2)
+ \subseteq U(p_1,\ldots,p_n;\varepsilon),
+\]
+齐次性则给出数乘在零点附近的连续性。平移这些零点邻域便得到向量拓扑。
+每个 \(p\in\mathcal P\) 连续，因为 \(\{x:p(x)<\varepsilon\}\) 是零点
+邻域；任何使全部 \(p\) 连续的向量拓扑都必须包含这些有限交，故当前
+拓扑最弱。
+
+若非零 \(x\) 被某个 \(p\) 检出，即 \(p(x)>0\)，则
+\(p\)-小球可把 \(0,x\) 分开。若 \(x\ne0\) 属于全部核，则它属于每个
+零点基本邻域，拓扑不可能 Hausdorff。
+\end{proof}
+
+\begin{proposition}[半范数空间中的连续线性映射]
+\label{prop:linear-map-seminorm-estimate}
+设 \(E,F\) 的拓扑分别由半范数族 \(\mathcal P,\mathcal Q\) 生成。
+线性映射 \(T:E\to F\) 连续，当且仅当对每个 \(q\in\mathcal Q\)，
+存在 \(p_1,\ldots,p_n\in\mathcal P\) 和 \(C>0\)，使
+\[
+ q(Tx)\le C\max_{1\le k\le n}p_k(x)\qquad(x\in E).
+\]
+\end{proposition}
+
+\begin{proof}
+若上述估计成立，则对任意 \(\varepsilon>0\)，只要
+\(\max_k p_k(x)<\varepsilon/C\)，便有 \(q(Tx)<\varepsilon\)，故
+\(T\) 在零点连续。反之，若 \(T\) 连续，则对集合
+\(\{y:q(y)<1\}\) 的原像，可取 \(\varepsilon>0\) 和
+\(p_1,\ldots,p_n\)，使
+\[
+ \max_kp_k(x)<\varepsilon\quad\Longrightarrow\quad q(Tx)<1.
+\]
+记 \(r=\max_kp_k(x)\)。若 \(r>0\)，对
+\(\lambda=\varepsilon/(2r)\) 应用上式，得
+\(q(Tx)<2r/\varepsilon\)。若 \(r=0\)，则对任意 \(t>0\) 都可把
+\(tx\) 代入，齐次性迫使 \(q(Tx)=0\)。故可取 \(C=2/\varepsilon\)。
+\end{proof}
+
+\begin{example}[乘积空间]
+在 \(\mathbb K^S\) 上，对每个 \(s\in S\) 令
+\(p_s(x)=|x(s)|\)。坐标半范数族生成的拓扑正是乘积拓扑。它允许在一个
+基本邻域中只限制有限多个坐标。
+\end{example}
+
+\begin{example}[光滑函数空间]
+在 \(C^\infty[a,b]\) 上定义
+\[
+ p_m(f)=\max_{0\le k\le m}\norm{f^{(k)}}_\infty,
+ \qquad m\in\N.
+\]
+这些半范数分离点。相应拓扑中的 \(f_n\to f\) 表示对每个固定
+\(m\)，前 \(m\) 阶导数都一致收敛；这里的 \(m\) 可以随所考察的邻域
+改变，不要求存在一个同时控制全部阶导数的有限常数。
+\end{example}
+
+\section{局部凸拓扑}
+
+\begin{definition}[局部凸空间]
+若拓扑向量空间 \(E\) 的零点具有由凸集组成的邻域基，则称 \(E\) 为
+\term{局部凸空间}。
+\end{definition}
+
+半范数球是绝对凸集，所以半范数族生成的 Hausdorff 拓扑局部凸。反向也
+成立。
+
+\begin{theorem}[局部凸拓扑的半范数表示]
+\label{thm:locally-convex-seminorm-representation}
+Hausdorff 拓扑向量空间局部凸，当且仅当其拓扑由一族分离点的连续半范数
+生成。
+\end{theorem}
+
+\begin{proof}
+只需证明正向。由命题 \ref{prop:balanced-neighborhood-base}，每个零点邻域
+都含有一个绝对凸的零点邻域；再取其内部，便得到由开绝对凸集组成的
+零点邻域基 \(\mathcal B\)。对每个 \(U\in\mathcal B\)，
+Minkowski 泛函 \(p_U\) 是半范数，并且
+\[
+ U=\{x:p_U(x)<1\}.
+\]
+所以 \(p_U\) 连续，且这些单位球恰好恢复原零点邻域基。Hausdorff 性说明
+任意 \(x\ne0\) 都被某个零点邻域排除，因而某个 \(p_U(x)>0\)；半范数
+族分离点。
+\end{proof}
+
+为了判断一个局部凸拓扑能否来自单一范数，需要一个不依赖范数的有界概念。
+
+\begin{definition}[拓扑有界集]
+集合 \(B\subseteq E\) 称为\term{有界}，若对每个零点邻域 \(U\)，
+存在 \(t>0\) 使 \(B\subseteq tU\)。
+\end{definition}
+
+\begin{theorem}[局部凸空间的赋范化判据]
+\label{thm:locally-convex-normability}
+Hausdorff 局部凸空间的拓扑可由一个范数生成，当且仅当零点有一个有界
+邻域。
+\end{theorem}
+
+\begin{proof}
+范数拓扑的单位球是有界零点邻域。反之，设 \(B\) 是有界零点邻域。在
+\(B\) 内取开绝对凸邻域 \(U\)，则 \(U\) 仍有界。其 Minkowski 泛函
+\(p_U\) 是半范数。若 \(p_U(x)=0\) 且 \(x\ne0\)，取平衡零点邻域
+\(V\) 使 \(x\notin V\)。有界性给出 \(U\subseteq rV\)。而
+\(p_U(x)=0\) 蕴含 \(x\in r^{-1}U\subseteq V\)，矛盾。因此
+\(p_U\) 是范数。
+
+集合 \(U=\{p_U<1\}\) 是原拓扑中的开邻域，所以每个范数球都是原拓扑
+开集。对任意原零点邻域 \(W\)，有界性给出 \(U\subseteq tW\)，即
+\(t^{-1}U\subseteq W\)，所以每个原邻域又含有一个范数球。两种拓扑相同。
+\end{proof}
+
+若 \(S\) 无限，乘积空间 \(\mathbb K^S\) 没有有界零点邻域。事实上，
+任一基本邻域只限制有限坐标；选一个未受限制的坐标 \(s\)，该邻域便包含
+整条直线 \(\{te_s:t\in\mathbb K\}\)，不可能被固定倍数的
+\(\{|x(s)|<1\}\) 吸收。因此乘积拓扑局部凸，却不可赋范化。
+
+\section{可度量化}
+
+\begin{theorem}[局部凸空间的可度量化]
+\label{thm:locally-convex-metrizable}
+Hausdorff 局部凸空间可度量化，当且仅当其拓扑可由可数族半范数
+\((p_n)_{n\in\Npos}\) 生成。此时可取平移不变度量
+\[
+ d(x,y)=\sum_{n=1}^\infty2^{-n}
+ \frac{p_n(x-y)}{1+p_n(x-y)}.
+\]
+\end{theorem}
+
+\begin{proof}
+若有可数生成族，级数一致收敛且每项非负。分离点保证 \(d(x,y)=0\)
+只在 \(x=y\) 时成立。令 \(h(t)=t/(1+t)\)。对 \(s,t\ge0\)，有
+\[
+ h(s)+h(t)-h(s+t)
+ =\frac{st(2+s+t)}{(1+s)(1+t)(1+s+t)}\ge0.
+\]
+函数 \(h\) 又单调递增，故半范数三角不等式给出
+\[
+ h\bigl(p_n(x-z)\bigr)
+ \le h\bigl(p_n(x-y)\bigr)+h\bigl(p_n(y-z)\bigr).
+\]
+逐项乘以 \(2^{-n}\) 并求和，得到 \(d\) 的三角不等式。由于
+\(0\le h\le1\)，定义 \(d\) 的级数在 \(E\times E\) 上一致收敛。
+
+下面比较两个零点邻域系。给定 \(d\)-球 \(B_d(0,r)\)，先取 \(N\) 使
+\[
+ \sum_{n>N}2^{-n}<\frac r2.
+\]
+再对 \(1\le n\le N\) 选取 \(\eta_n>0\)，使
+\[
+ \sum_{n=1}^N2^{-n}h(\eta_n)<\frac r2.
+\]
+于是有限半范数邻域
+\[
+ U=\{x:p_n(x)<\eta_n,\ 1\le n\le N\}
+\]
+包含于 \(B_d(0,r)\)。反过来，给定基本邻域
+\[
+ W=\{x:p_{n_k}(x)<\varepsilon_k,\ 1\le k\le m\},
+\]
+取
+\[
+ 0<\delta<\min_{1\le k\le m}
+ 2^{-n_k}h(\varepsilon_k).
+\]
+若 \(d(x,0)<\delta\)，则对每个 \(k\)，
+\[
+ 2^{-n_k}h\bigl(p_{n_k}(x)\bigr)\le d(x,0)
+ <2^{-n_k}h(\varepsilon_k),
+\]
+由 \(h\) 严格递增可知 \(p_{n_k}(x)<\varepsilon_k\)。所以
+\(B_d(0,\delta)\subseteq W\)，两种拓扑相同。
+
+反之，若空间可度量化，则零点第一可数。取递减的可数零点邻域基
+\((U_n)\)，并在每个 \(U_n\) 内取开绝对凸邻域 \(V_n\)。Minkowski
+半范数 \(p_{V_n}\) 的单位球就是 \(V_n\)，所以这个可数半范数族生成
+原拓扑。
+\end{proof}
+
+可度量化不等于可赋范化。\(C^\infty[a,b]\) 由可数半范数 \(p_m\)
+生成，因而可度量化；但任何零点邻域只限制有限阶导数，高阶方向仍可任意
+放大，所以没有有界零点邻域，不能由一个范数生成。
+
+\section{完备局部凸空间}
+
+局部凸空间采用其加法群的一致结构。网 \((x_i)\) 为 Cauchy 网，当且仅当
+对每个连续半范数 \(p\) 和 \(\varepsilon>0\)，最终有
+\[
+ p(x_i-x_j)<\varepsilon.
+\]
+在可度量化情形，只需检验 Cauchy 列；一般情形仍应使用网或滤子。
+
+\begin{definition}[Fréchet 空间]
+完备、可度量化的局部凸空间称为\term{Fréchet 空间}。
+\end{definition}
+
+\begin{proposition}[乘积的完备性]
+\label{prop:product-locally-convex-complete}
+任意一族完备局部凸空间的乘积在乘积拓扑下完备。特别地，
+\(\mathbb K^S\) 对任意集合 \(S\) 都完备。
+\end{proposition}
+
+\begin{proof}
+设 \(\mathcal F\) 是乘积中的 Cauchy 滤子。每个坐标投影一致连续，所以
+像滤子在相应因子中 Cauchy，因而收敛到某个 \(x_s\)。令
+\(x=(x_s)_{s\in S}\)。乘积基本邻域只限制有限多个坐标；把这些坐标上
+的最终条件作有限交，便得到 \(\mathcal F\to x\)。
+\end{proof}
+
+\begin{theorem}[光滑函数空间的完备性]
+\label{thm:smooth-function-frechet}
+设 \(a<b\)。空间 \(C^\infty[a,b]\) 配备半范数
+\[
+ p_m(f)=\max_{0\le k\le m}\norm{f^{(k)}}_\infty
+\]
+时是 Fréchet 空间。
+\end{theorem}
+
+\begin{proof}
+可数半范数族给出可度量化。设 \((f_n)\) 是 Cauchy 列。对每个
+\(k\in\N\)，\((f_n^{(k)})\) 在 \(C[a,b]\) 的上确界范数下 Cauchy，
+故一致收敛到某个连续函数 \(g_k\)。
+
+\chapterref{chap:uniform-convergence-preservation}的逐项求导定理应用于
+函数列 \((f_n^{(k)})\)：其在一点的值收敛，导函数
+\(f_n^{(k+1)}\) 一致收敛到 \(g_{k+1}\)，所以
+\(g_k\) 可导且 \(g_k'=g_{k+1}\)。从 \(k=0\) 递推，得到
+\(g_0\in C^\infty[a,b]\) 且 \(g_0^{(k)}=g_k\)。每个固定 \(m\) 下
+前 \(m\) 阶一致收敛，故 \(p_m(f_n-g_0)\to0\)。所以空间完备。
+\end{proof}
+
+完备性依赖所取拓扑。同一个向量空间换用更弱的半范数族，Cauchy 对象会
+增多；换用更强的半范数族，收敛要求会增加。因而写“函数空间完备”时，
+必须同时给出其拓扑。
+
+\section{弱拓扑和弱星拓扑}
+
+设 \(E\) 为向量空间，\(F\subseteq E^\#\) 为代数对偶中的线性子空间；
+这里 \(E^\#\) 表示全部线性泛函。对 \(\varphi\in F\)，令
+\(p_\varphi(x)=|\varphi(x)|\)。
+
+\begin{definition}[弱拓扑]
+由半范数族 \(\{p_\varphi:\varphi\in F\}\) 生成的拓扑称为
+\(E\) 关于 \(F\) 的\term{弱拓扑}，记作 \(\sigma(E,F)\)。它是使
+\(F\) 中全部线性泛函连续的最弱向量拓扑。
+\end{definition}
+
+零点的基本弱邻域为
+\[
+ U(\varphi_1,\ldots,\varphi_n;\varepsilon)
+ =\{x:|\varphi_k(x)|<\varepsilon, 1\le k\le n\}.
+\]
+因而网 \(x_i\) 在 \(\sigma(E,F)\) 中趋于 \(x\)，当且仅当
+\[
+ \varphi(x_i)\to\varphi(x)\qquad(\varphi\in F).
+\]
+该拓扑 Hausdorff 当且仅当 \(F\) 分离 \(E\) 中的点。
+若 \(F\) 不分离点，\(\sigma(E,F)\) 仍是有用的线性拓扑，但不符合本书
+对拓扑向量空间所作的 Hausdorff 约定。
+
+若 \(E\) 已是拓扑向量空间，记其连续对偶为
+\[
+ E'=\{\varphi:E\to\mathbb K:\varphi\text{ 线性且连续}\}.
+\]
+此时 \(\sigma(E,E')\) 简称 \(E\) 的弱拓扑。它不强于原拓扑；原拓扑
+的收敛必推出弱收敛，逆向通常不成立。
+
+\begin{definition}[弱星拓扑]
+在 \(E'\) 上，由评价泛函
+\[
+ \operatorname{ev}_x:E'\to\mathbb K,\qquad
+ \operatorname{ev}_x(\varphi)=\varphi(x),\qquad x\in E,
+\]
+生成的拓扑称为\term{弱星拓扑}，记作 \(\sigma(E',E)\)。
+\end{definition}
+
+网 \(\varphi_i\) 弱星收敛到 \(\varphi\)，当且仅当对每个固定
+\(x\in E\)，\(\varphi_i(x)\to\varphi(x)\)。不同线性泛函必在某个
+向量上取值不同，所以弱星拓扑总是 Hausdorff。第四卷的
+Banach--Alaoglu 定理将把弱星拓扑解释为某个乘积空间子空间上的拓扑，
+并用 Tychonoff 定理得到紧致性。
+
+\section{连续线性泛函的分离作用}
+
+弱拓扑的连续泛函没有隐藏的新成员；连续性迫使它只依赖有限多个定义弱
+拓扑的坐标。
+
+\begin{theorem}[弱拓扑的连续对偶]
+\label{thm:dual-of-weak-topology}
+设 \(F\subseteq E^\#\) 为线性子空间。在 \(E\) 配备
+\(\sigma(E,F)\) 后，其连续对偶恰为 \(F\)。
+\end{theorem}
+
+\begin{proof}
+按定义，\(F\) 中每个泛函连续。反过来，设 \(g:E\to\mathbb K\) 在弱
+拓扑下连续。存在 \(\varphi_1,\ldots,\varphi_n\in F\) 和
+\(\varepsilon>0\)，使
+\[
+ |\varphi_k(x)|<\varepsilon\ (1\le k\le n)
+ \quad\Longrightarrow\quad |g(x)|<1.
+\]
+若 \(x\in\bigcap_k\ker\varphi_k\)，则对任意 \(t>0\)，\(tx\) 仍满足
+左侧条件，于是 \(t|g(x)|<1\)。令 \(t\to\infty\)，得 \(g(x)=0\)。
+所以
+\[
+ \bigcap_{k=1}^n\ker\varphi_k\subseteq\ker g.
+\]
+定义 \(T:E\to\mathbb K^n\) 为
+\(T(x)=(\varphi_1(x),\ldots,\varphi_n(x))\)。上式保证
+可以在子空间 \(T(E)\) 上定义线性泛函
+\[
+ \widetilde g(Tx)=g(x).
+\]
+事实上，若 \(Tx=Ty\)，则 \(x-y\in\bigcap_k\ker\varphi_k\subseteq
+\ker g\)，所以右端与代表元无关。
+有限维线性代数把 \(\widetilde g\) 延拓到 \(\mathbb K^n\)，故存在
+\(a_1,\ldots,a_n\) 使
+\[
+ g(x)=\sum_{k=1}^na_k\varphi_k(x).
+\]
+由于 \(F\) 是线性子空间，\(g\in F\)。
+\end{proof}
+
+\begin{corollary}[点分离与弱拓扑]
+\label{cor:weak-topology-separation}
+\(\sigma(E,F)\) 为 Hausdorff 拓扑，当且仅当 \(F\) 分离点。若成立，
+映射
+\[
+ J:E\to\mathbb K^F,\qquad J(x)=(\varphi(x))_{\varphi\in F}
+\]
+是线性单射，且弱拓扑正是由乘积拓扑在 \(J(E)\) 上诱导的拓扑。
+\end{corollary}
+
+\begin{proof}
+Hausdorff 判据已由半范数族的核交给出。若 \(F\) 分离点，\(J\) 单射；
+乘积拓扑由有限多个坐标控制，拉回后的基本邻域正是弱基本邻域。因此
+\(J\) 是到其像的线性同胚。
+\end{proof}
+
+有限维 Hausdorff 拓扑向量空间的连续对偶由坐标泛函组成，当然分离点。
+对一般 Hausdorff 局部凸空间，结论仍成立，但证明需要把某个非零向量上
+定义的线性泛函延拓到全空间，同时保持一个 Minkowski 半范数控制；这正是
+Hahn--Banach 定理承担的工作。后文将证明：若 \(x\ne0\)，存在
+\(f\in E'\) 使 \(f(x)\ne0\)；更强地，点与适当闭凸集可由连续线性
+泛函分离。在该定理建立以前，本章不把这一结论当作已知事实使用。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　邻域、半范数与连续性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{tvs-translations-homeomorphisms}
+ 证明拓扑向量空间中的平移和非零数乘都是同胚，并由此说明零点邻域确定
+ 全部拓扑。
+ \exerciseitem{balanced-absorbing-neighborhood}
+ 证明每个零点邻域吸收；给出吸收但不平衡、平衡但不凸、凸但不平衡的
+ \(\R^2\) 中例子。
+ \exerciseitem{minkowski-open-unit-ball}
+ 补全定理 \ref{thm:minkowski-functional-seminorm} 中复数齐次性和
+ \(A=\{p_A<1\}\) 的证明，并说明开性为何不能随意删除。
+ \exerciseitem{seminorm-quotient-norm}
+ 设 \(p\) 为半范数。证明 \(E/\ker p\) 上
+ \(\norm{[x]}=p(x)\) 良定义且为范数。
+ \exerciseitem{linear-map-seminorm-bound}
+ 对命题 \ref{prop:linear-map-seminorm-estimate}，证明用
+ \(p_1+\cdots+p_n\) 替代 \(\max p_k\) 得到等价判据。
+ \exerciseitem{finite-dimensional-topology-uniqueness}
+ 证明有限维 Hausdorff 拓扑向量空间的任意线性子空间闭，任意线性映射到
+ 另一个有限维拓扑向量空间都连续。
+\end{enumerate}
+
+\subsection*{B组　局部凸、可度量与完备}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{product-seminorm-topology}
+ 证明坐标半范数在 \(\mathbb K^S\) 上生成乘积拓扑，并证明当 \(S\)
+ 无限时该空间不可赋范化。
+ \exerciseitem{countable-seminorm-metric-details}
+ 验证
+ \[
+ d(x,y)=\sum_{n\ge1}2^{-n}\frac{p_n(x-y)}{1+p_n(x-y)}
+ \]
+ 的三角不等式，并证明它与半范数族生成同一拓扑。
+ \exerciseitem{bounded-set-seminorm-characterization}
+ 设拓扑由半范数族 \(\mathcal P\) 生成。证明 \(B\subseteq E\) 有界，
+ 当且仅当
+ \[
+  \sup_{x\in B}p(x)<\infty\qquad(p\in\mathcal P).
+ \]
+ \exerciseitem{smooth-space-not-normable}
+ 证明 \(C^\infty[a,b]\) 在半范数 \(p_m\) 下没有有界零点邻域，因而
+ 不可赋范化。
+ \exerciseitem{product-completeness-coordinates}
+ 用 Cauchy 网而非滤子重新证明任意完备局部凸空间的乘积完备。
+ \exerciseitem{smooth-frechet-completeness}
+ 逐项核对光滑函数空间完备性证明中
+ \chapterref{chap:uniform-convergence-preservation}逐项求导定理的假设，
+ 并证明极限确在每个 \(p_m\) 下收敛。
+\end{enumerate}
+
+\subsection*{C组　弱拓扑与连续泛函}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{weak-convergence-net-criterion}
+ 从基本邻域定义证明：\(x_i\to x\) 于 \(\sigma(E,F)\) 当且仅当
+ \(\varphi(x_i)\to\varphi(x)\) 对每个 \(\varphi\in F\) 成立。
+ \exerciseitem{weak-dual-finite-coordinate-factorization}
+ 不引用定理 \ref{thm:dual-of-weak-topology} 的结论，完整重建其中的有限
+ 坐标分解，并说明 \(F\) 必须取线性子空间。
+ \exerciseitem{weak-star-product-embedding}
+ 证明弱星拓扑是映射
+ \[
+ E'\to\mathbb K^E,\qquad\varphi\mapsto(\varphi(x))_{x\in E}
+ \]
+ 拉回的乘积拓扑，并据此证明它 Hausdorff。
+ \exerciseitem{weak-topology-finite-dimensional}
+ 设 \(E\) 有限维且 \(F\subseteq E^\#\) 分离点。证明
+ \(\sigma(E,F)\) 等于 \(E\) 的通常有限维拓扑。
+ \optionalexerciseitem{canonical-map-second-dual-injectivity}
+ 对拓扑向量空间 \(E\)，定义
+ \(J:E\to(E')^\#\) 为 \(J(x)(f)=f(x)\)。证明 \(J\) 单射当且仅当
+ \(E'\) 分离点；解释为何一般 Hausdorff 局部凸空间中的单射性需等到
+ Hahn--Banach 定理后才能使用。
+\end{enumerate}

@@ -1,0 +1,160 @@
+\chapter{分离公理与度量化}
+\label{chap:separation-metrization-solutions}
+
+\begin{solution}{separation-implication-chain}
+正规 \(T_1\) 空间中，点集闭。对 \(x\notin F\)，Urysohn 引理给出 \(f(x)=0\)、\(f(F)=1\)，所以空间完全正则；只有这一步使用 Urysohn 引理。完全正则时，\(f^{-1}([0,1/3))\) 与 \(f^{-1}((2/3,1])\) 分离点和闭集，故正则。正则空间中用点 \(x\) 与闭点集 \(\{y\}\) 得到 Hausdorff；后两步由定义和单点闭刻画成立。
+\end{solution}
+
+\begin{solution}{cofinite-t1-not-hausdorff}
+单点有限，故闭，所以空间 \(T_1\)。任意两个非空开集的补集有限；若它们不交，则 \(X\) 是两个有限补集之并，从而有限，矛盾。因此非空开集不能分离不同点。
+
+令 \(E=\{0\}\cup\{1/n:n\in\Npos\}\)。记 \(E_{\mathrm{eucl}}\) 为它的
+欧氏子空间拓扑，\(E_{\mathrm{cof}}\) 为同一底集上的余有限拓扑。因为
+\(E_{\mathrm{eucl}}\) 是 \(T_1\) 空间，每个有限集都闭，所以每个余有限集
+都在 \(E_{\mathrm{eucl}}\) 中开。因此恒等映射
+\[
+ \operatorname{id}:E_{\mathrm{eucl}}\longrightarrow E_{\mathrm{cof}}
+\]
+连续。数列 \((1/n)\) 在 Hausdorff 空间 \(E_{\mathrm{eucl}}\) 中收敛到
+且只收敛到 \(0\)。在余有限拓扑中，给定任意 \(a\in E\) 及其邻域
+\(U\)，补集 \(E\setminus U\) 有限；而 \((1/n)\) 的各项互异，所以只有
+有限多项落在 \(E\setminus U\) 中。故同一数列在
+\(E_{\mathrm{cof}}\) 中收敛到每个 \(a\in E\)。连续映射保持给定的
+收敛关系，却不能使非 Hausdorff 值域中的极限变得唯一。
+\end{solution}
+
+\begin{solution}{hausdorff-diagonal}
+若 \(X\) Hausdorff，点 \((x,y)\notin\Delta\) 有不相交邻域 \(U\ni x\)、\(V\ni y\)，于是 \(U\times V\) 与 \(\Delta\) 不交，故 \(\Delta\) 闭。
+
+反之，若 \(\Delta\) 闭，对 \(x\ne y\)，点 \((x,y)\) 落在开集
+\((X\times X)\setminus\Delta\) 中。取基本开集 \(U\times V\) 含 \((x,y)\) 且不交 \(\Delta\)。若 \(U\cap V\ne\varnothing\)，则某个 \((z,z)\in U\times V\cap\Delta\)，矛盾。因此 \(U,V\) 分离 \(x,y\)。
+\end{solution}
+
+\begin{solution}{regular-shrinking-closed-set}
+若 \(X\) 正规，分离闭集 \(A\) 与 \(X\setminus U\)，取不相交开邻域 \(V,W\)。则
+\[
+ A\subseteq V\subseteq\overline V\subseteq X\setminus W\subseteq U.
+\]
+反之，给定不相交闭集 \(A,B\)，对 \(A\subseteq X\setminus B\) 取 \(V\) 满足闭包缩小条件。于是 \(V\) 与 \(X\setminus\overline V\) 是 \(A,B\) 的不相交开邻域。
+\end{solution}
+
+\begin{solution}{regular-lindelof-normal}
+正文证明中只需从 \(\{U_a:a\in A\}\) 与 \(\{V_b:b\in B\}\) 各抽出可数子覆盖。若整个空间 Lindelöf，把每族连同 \(X\setminus A\) 或 \(X\setminus B\) 补成 \(X\) 的开覆盖，即可得到相应子覆盖。其余交错删去闭包的构造不使用第二可数性。因此“正则且 Lindelöf”已经充分。
+\end{solution}
+
+\begin{solution}{metric-normal-zero-set-distance}
+在正文的例子中，
+\[
+ d(A,B)\le\left|n-\left(n+\frac1n\right)\right|=\frac1n\longrightarrow0,
+\]
+故 \(d(A,B)=0\)，但两个集合没有公共点。它们都闭：每个有界区间只含各集合有限多个点，因而不存在有限聚点。
+
+对任意固定 \(x\)，若
+\(d(x,A)+d(x,B)=0\)，则两个非负项都为零。闭性给出
+\(x\in A\cap B\)，矛盾，所以分母严格为正。
+
+若 \(A\) 紧、\(B\) 闭且不相交，连续函数 \(x\mapsto d(x,B)\) 在 \(A\) 上取得最小值。该最小值不能为零，否则某个 \(a\in A\) 满足
+\(d(a,B)=0\)，闭性给出 \(a\in B\)。所以
+\[
+ d(A,B)=\min_{a\in A}d(a,B)>0.
+\]
+\end{solution}
+
+\begin{solution}{urysohn-level-separation}
+取数 \(a<c<d<b\)。集合
+\[
+ U=f^{-1}((-\infty,c)),\qquad V=f^{-1}((d,\infty))
+\]
+开，分别包含 \(\{f\le a\}\) 与 \(\{f\ge b\}\)，并且因 \(c<d\) 而不交。
+\end{solution}
+
+\begin{solution}{urysohn-converse-normal}
+给不相交闭集 \(A,B\)，取连续 \(f:X\to[0,1]\) 使 \(f(A)=0\)、\(f(B)=1\)。则
+\[
+ f^{-1}([0,1/3)),\qquad f^{-1}((2/3,1])
+\]
+是分别包含 \(A,B\) 的不相交开集，所以 \(X\) 正规。
+\end{solution}
+
+\begin{solution}{tietze-series-error}
+构造给出
+\[
+ \left\|f-\sum_{n=0}^{N}g_n|_A\right\|_{\infty,A}
+ =\norm{r_{N+1}}_{\infty,A}
+ \le\left(\frac23\right)^{N+1}.
+\]
+同时
+\[
+ \left\|\sum_{n=0}^{N}g_n\right\|_\infty
+ \le\sum_{n=0}^{N}\frac13\left(\frac23\right)^n
+ =1-\left(\frac23\right)^{N+1}<1.
+\]
+一致取极限得到 \(\norm F_\infty\le1\)。
+\end{solution}
+
+\begin{solution}{tietze-range-interval}
+先把 \(f\) 仿射变换到 \([-1,1]\)，用有界 Tietze 定理延拓，再逆变换，即得 \([a,b]\)-值延拓。
+
+若目标是 \((a,b)\)，有界延拓可能在 \(A\) 外取端点。把 \((a,b)\) 先同胚到 \((-1,1)\)，延拓为 \(G:X\to[-1,1]\)。令 \(H=G^{-1}(\{-1,1\})\)，它闭且与 \(A\) 不交。取 Urysohn 函数 \(u\) 在 \(A\) 为零、在 \(H\) 为一，令
+\(\widetilde G=(1-u/2)G\)。则 \(\widetilde G\) 在 \(A\) 不变且处处落在 \((-1,1)\)。复合逆同胚即可。
+\end{solution}
+
+\begin{solution}{tietze-closedness-counterexample}
+无界例为 \(A=(0,1]\subseteq\R\) 上的 \(f(x)=1/x\)。若能延拓到 \([0,1]\)，连续性会使它在零点附近局部有界，矛盾。
+
+有界例为 \(f(x)=\sin(1/x)\)。若有连续延拓 \(F:[0,1]\to\R\)，则 \(x\to0^+\) 时 \(f(x)\) 必有极限 \(F(0)\)。但沿
+\[
+ x_n=(\pi/2+2\pi n)^{-1},\qquad
+ y_n=(3\pi/2+2\pi n)^{-1}
+\]
+函数值分别为 \(1,-1\)，矛盾。
+\end{solution}
+
+\begin{solution}{normality-from-extension}
+给不相交闭集 \(A,B\)。并集 \(A\cup B\) 闭；在其上定义 \(f=0\) 于 \(A\)、\(f=1\) 于 \(B\)。由于 \(A,B\) 在子空间 \(A\cup B\) 中都是开闭集，\(f\) 连续。按假设延拓为 \(F:X\to[0,1]\)。再取
+\[
+ F^{-1}([0,1/3)),\qquad F^{-1}((2/3,1])
+\]
+即可分离 \(A,B\)。
+\end{solution}
+
+\begin{solution}{metrization-separating-family}
+非负性、对称性和三角不等式逐项成立，级数由 \(\sum2^{-n-1}=1\) 控制。分离点保证 \(x\ne y\) 时某个 \(f_n(x)\ne f_n(y)\)，故 \(d(x,y)>0\)。
+
+每个 \(f_n\) 连续和尾项的一致控制说明原拓扑收敛蕴含 \(d\)-收敛。所谓函数族“决定原拓扑”，是指映射
+\[
+ e:X\to[0,1]^{\N},\qquad e(x)=(f_n(x))
+\]
+是到其像的拓扑嵌入；于是给定原邻域 \(U\ni x\)，有有限多个坐标及相应开区间组成的柱集，其在 \(e(X)\) 中的原像包含 \(x\) 且包含于 \(U\)。取这些坐标对应的有限个正距离阈值的最小加权值，即得到 \(d\)-球包含于 \(U\)。故两种拓扑一致。
+\end{solution}
+
+\begin{solution}{metrization-basis-pair-detail}
+给 \(x\in U\)，先由基性质取 \(B_j\) 使 \(x\in B_j\subseteq U\)。再由正则性取开集 \(V\) 使
+\[
+ x\in V\subseteq\overline V\subseteq B_j.
+\]
+最后取基元素 \(B_i\) 满足 \(x\in B_i\subseteq V\)。于是
+\[
+ x\in B_i\subseteq\overline{B_i}
+ \subseteq\overline V\subseteq B_j\subseteq U,
+\]
+这正是式 \eqref{eq:metrization-basis-pair} 所需的指标对。
+\end{solution}
+
+\begin{solution}{normal-closed-hereditary}
+设 \(A\) 是正规空间 \(X\) 的闭子空间。若 \(F,G\) 在 \(A\) 中闭，则因 \(A\) 闭，它们也在 \(X\) 中闭。由 \(X\) 正规，取不相交开集 \(U,V\subseteq X\) 分别包含 \(F,G\)；则 \(A\cap U,A\cap V\) 是 \(A\) 中所需开集。
+
+若 \(A\) 不闭，\(A\) 中闭集只可写成 \(A\cap F\)，未必在 \(X\) 中闭，故不能直接调用 \(X\) 的正规性。
+\end{solution}
+
+\begin{solution}{complete-regular-product}
+设 \(F\) 是积空间中的闭集且 \(x\notin F\)。取基本柱集
+\[
+ x\in U=\bigcap_{k=1}^m\pi_{i_k}^{-1}(U_k)\subseteq X\setminus F.
+\]
+完全正则性给出连续 \(g_k:X_{i_k}\to[0,1]\)，在 \(x_{i_k}\) 为零，在闭集 \(X_{i_k}\setminus U_k\) 上为一。每个 \(g_k\circ\pi_{i_k}\) 连续；两个实值连续函数的最大值可写成
+\[
+ \max\{u,v\}=\frac{u+v+|u-v|}{2},
+\]
+故有限最大值连续。所得 \(g\) 在 \(x\) 为零。若 \(y\in F\)，则 \(y\notin U\)，所以至少一个 \(y_{i_k}\notin U_k\)，相应 \(g_k(y_{i_k})=1\)，故 \(g(y)=1\)。
+\end{solution}

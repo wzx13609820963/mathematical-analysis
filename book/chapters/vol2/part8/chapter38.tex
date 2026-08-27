@@ -1,0 +1,398 @@
+\chapter{紧致空间}
+\label{chap:compact-topological-spaces}
+
+在度量空间中，紧致性可以用开覆盖、收敛子列、完备性与全有界性等多种方式表达。一般拓扑空间没有距离，也未必能由数列检测闭包；开覆盖定义却仍然有效。它将导出紧集闭性、连续像紧致以及乘积紧致性，并支持一点紧化和 Stone--Čech 紧致化。
+
+本章有一处必须明确的集合论依赖。任意多个紧空间的乘积仍紧这一结论需要选择原则；这里在全书约定的 ZFC 背景下使用 Zorn 引理。有限乘积和许多可数情形所需的选择强度较弱，不能由本章采用的证明自动看出最弱公理。
+
+\section{开覆盖紧致性和有限交性质}
+
+\begin{definition}[紧致空间]
+拓扑空间 \(X\) 称为紧致，如果它的每个开覆盖都有有限子覆盖。子集 \(K\subseteq X\) 称为紧集，如果带子空间拓扑的 \(K\) 紧致。
+\end{definition}
+
+这里不把 Hausdorff 条件并入紧致定义。这样连续像定理无需分离假设；另一方面，“紧集闭”必须另外要求环境空间 Hausdorff。
+
+\begin{definition}[有限交性质]
+集合族 \(\mathcal F\) 称为具有有限交性质，如果 \(\mathcal F\) 中任意有限多个成员的交非空。空的有限子族之交约定为全空间。
+\end{definition}
+
+\begin{theorem}[紧致性的闭集形式]
+\label{thm:compact-fip-equivalence}
+拓扑空间 \(X\) 紧致，当且仅当 \(X\) 中每个具有有限交性质的闭集族 \(\mathcal F\) 都满足
+\[
+ \bigcap_{F\in\mathcal F}F\ne\varnothing.
+\]
+\end{theorem}
+
+\begin{proof}
+若闭集族总交为空，则其补集组成开覆盖。这个覆盖没有有限子覆盖，当且仅当原闭集族的每个有限交非空。对命题及其逆否命题分别应用 De Morgan 律即可。
+\end{proof}
+
+\begin{proposition}[闭子集与有限并]
+\label{prop:compact-closed-subsets-finite-unions}
+紧空间的闭子集紧致；有限多个紧子集的并紧致。
+\end{proposition}
+
+\begin{proof}
+若 \(F\subseteq X\) 闭，\(F\) 的相对开覆盖可写为 \(F\cap U_\alpha\)。把 \(X\setminus F\) 加入 \((U_\alpha)\) 得到 \(X\) 的开覆盖，抽出有限子覆盖后删去 \(X\setminus F\) 即可。有限并的开覆盖分别限制到各紧子集，每一部分取有限子覆盖，再取有限并。
+\end{proof}
+
+\section{紧致空间的闭集和连续像}
+
+\begin{theorem}[Hausdorff 空间中的紧集]
+\label{thm:compact-subset-hausdorff-closed}
+若 \(K\) 是 Hausdorff 空间 \(X\) 的紧子集，则 \(K\) 在 \(X\) 中闭。
+\end{theorem}
+
+\begin{proof}
+固定 \(x\in X\setminus K\)。对每个 \(y\in K\)，取不相交开邻域
+\(U_y\ni x\)、\(V_y\ni y\)。有限多个 \(V_{y_1},\ldots,V_{y_m}\) 已覆盖 \(K\)。令
+\[
+ U=U_{y_1}\cap\cdots\cap U_{y_m}.
+\]
+则 \(U\) 是 \(x\) 的开邻域，并与 \(\bigcup_{k=1}^mV_{y_k}\supseteq K\) 不交。因此 \(X\setminus K\) 开。
+\end{proof}
+
+\begin{theorem}[紧致性的映射性质]
+\label{thm:compact-continuous-image}
+紧空间的连续像紧致。因而，从紧空间到 Hausdorff 空间的连续双射是同胚。
+\end{theorem}
+
+\begin{proof}
+若 \(f:X\to Y\) 连续且 \(X\) 紧，给 \(f(X)\) 的开覆盖取原像，得到 \(X\) 的开覆盖；有限子覆盖映回去即覆盖 \(f(X)\)。
+
+若 \(f:X\to Y\) 还是双射且 \(Y\) Hausdorff，任取 \(X\) 中闭集 \(F\)。它是紧空间的闭子集，故紧；\(f(F)\) 紧，从而在 \(Y\) 中闭。因此 \(f\) 是闭映射，\(f^{-1}\) 连续。
+\end{proof}
+
+\begin{theorem}[紧 Hausdorff 空间正规]
+\label{thm:compact-hausdorff-normal}
+每个紧 Hausdorff 空间都是正规空间。
+\end{theorem}
+
+\begin{proof}
+先分离点 \(x\) 与不含 \(x\) 的闭集 \(F\)。闭集 \(F\) 紧；逐点使用 Hausdorff 条件，再由有限子覆盖把 \(x\) 的有限多个邻域相交，得到 \(x\) 与 \(F\) 的不相交开邻域。因此空间正则。
+
+现设 \(A,B\) 为不相交闭集。对每个 \(a\in A\)，由刚证的正则性取开集
+\[
+ a\in U_a\subseteq\overline{U_a}\subseteq X\setminus B.
+\]
+闭集 \(A\) 紧，故有限多个 \(U_{a_k}\) 覆盖 \(A\)。令
+\[
+ U=\bigcup_{k=1}^mU_{a_k},\qquad
+ V=X\setminus\bigcup_{k=1}^m\overline{U_{a_k}}.
+\]
+则 \(U,V\) 是分别包含 \(A,B\) 的不相交开集。
+\end{proof}
+
+因此紧 Hausdorff 空间中可使用 Urysohn 引理和 Tietze 延拓定理。这个事实将在 Stone--Čech 构造中用于把紧空间嵌入函数立方体。
+
+\begin{lemma}[管状引理]
+\label{lem:tube-lemma}
+设 \(Y\) 紧，\(X\) 为任意拓扑空间。若开集
+\(W\subseteq X\times Y\) 包含切片 \(\{x_0\}\times Y\)，则存在
+\(x_0\) 的开邻域 \(U\subseteq X\)，使
+\[
+ U\times Y\subseteq W.
+\]
+\end{lemma}
+
+\begin{proof}
+对每个 \(y\in Y\)，由积拓扑的基取开集 \(U_y\ni x_0\) 与
+\(V_y\ni y\)，使
+\[
+ U_y\times V_y\subseteq W.
+\]
+\((V_y)_{y\in Y}\) 覆盖 \(Y\)，故有限多个
+\(V_{y_1},\ldots,V_{y_m}\) 已覆盖 \(Y\)。令
+\[
+ U=U_{y_1}\cap\cdots\cap U_{y_m}.
+\]
+若 \((x,y)\in U\times Y\)，选 \(k\) 使 \(y\in V_{y_k}\)，便有
+\((x,y)\in U_{y_k}\times V_{y_k}\subseteq W\)。
+\end{proof}
+
+\begin{corollary}[有限乘积紧致性]
+\label{cor:finite-product-compact}
+两个紧空间的积紧致，因而有限多个紧空间的积紧致。
+\end{corollary}
+
+\begin{proof}
+设 \(\mathcal U\) 是 \(X\times Y\) 的开覆盖。固定 \(x\in X\)，紧切片
+\(\{x\}\times Y\) 已被 \(\mathcal U\) 中有限多个成员覆盖；记这些成员之并为 \(W_x\)。由管状引理，存在开邻域 \(O_x\ni x\) 使
+\[
+ O_x\times Y\subseteq W_x.
+\]
+\((O_x)_{x\in X}\) 覆盖紧空间 \(X\)，故有限多个 \(O_{x_j}\) 已覆盖
+\(X\)。与每个 \(W_{x_j}\) 对应的原覆盖成员总共只有有限多个，并覆盖
+\(X\times Y\)。有限积结论由归纳得到。
+\end{proof}
+
+\section{局部紧致与一点紧化}
+
+\begin{definition}[局部紧 Hausdorff 空间]
+Hausdorff 空间 \(X\) 称为局部紧致，如果每个点都有一个紧邻域。等价地，每个点 \(x\) 都有开邻域 \(U\)，使 \(\overline U\) 紧。
+\end{definition}
+
+若已有开邻域 \(U\) 且 \(\overline U\) 紧，则 \(\overline U\) 本身是紧邻域。反过来，若 \(N\) 是点 \(x\) 的紧邻域，取开集 \(x\in U\subseteq N\)；Hausdorff 性保证 \(N\) 闭，因而 \(\overline U\subseteq N\)，而 \(\overline U\) 是紧集 \(N\) 的闭子集。
+
+\begin{theorem}[一点紧化]
+\label{thm:one-point-compactification}
+设 \(X\) 为非紧的局部紧 Hausdorff 空间，取新点 \(\infty\notin X\)。在
+\[
+ X^*=X\cup\{\infty\}
+\]
+上规定：\(X\) 中原有开集仍开；含 \(\infty\) 的开集恰为
+\[
+ \{\infty\}\cup(X\setminus K),
+\]
+其中 \(K\subseteq X\) 紧。则 \(X^*\) 是紧 Hausdorff 空间，\(X\) 是其中的开稠密子空间。它在保持 \(X\) 不变的同胚意义下唯一。
+\end{theorem}
+
+\begin{proof}
+先验证拓扑。两个含 \(\infty\) 的基本邻域之交对应紧集之并。任意一族开集的并若不含 \(\infty\)，就是 \(X\) 中的开集；若含 \(\infty\)，先固定族中一个
+\(\{\infty\}\cup(X\setminus K_0)\)，则整个并在 \(X\) 中的补集是 \(K_0\) 的闭子集，因而紧。含 \(\infty\) 的邻域与 \(X\) 中开集作交仍是 \(X\) 中开集。故开集公理成立。
+
+若 \(x\in X\)，由局部紧性取开集 \(U\ni x\) 且 \(\overline U\) 紧。于是
+\[
+ U,\qquad \{\infty\}\cup(X\setminus\overline U)
+\]
+是 \(x,\infty\) 的不相交邻域；\(X\) 内两点由原 Hausdorff 性分离。因此 \(X^*\) Hausdorff。
+
+给 \(X^*\) 的开覆盖，其中某个成员 \(W\) 含 \(\infty\)，并包含
+\(\{\infty\}\cup(X\setminus K)\) 形式的邻域。剩余未覆盖部分包含于紧集 \(K\)，可由有限多个覆盖成员覆盖；连同 \(W\) 得有限子覆盖。若 \(X\) 在 \(X^*\) 中不稠密，则 \(\{\infty\}\) 开，等价于 \(X\) 紧，与假设矛盾。
+
+若 \(Y=X\cup\{\omega\}\) 是另一个满足条件的紧 Hausdorff 空间，恒等映射在 \(X\) 上并把 \(\infty\) 送到 \(\omega\)，得到 \(X^*\to Y\) 的双射。对含 \(\omega\) 的邻域 \(W\)，其补集是 \(Y\) 的闭集，故紧；作为 \(X\) 的子集仍紧，所以原像在 \(X^*\) 中开。映射连续，再用紧空间到 Hausdorff 空间的连续双射定理得同胚。
+\end{proof}
+
+\begin{example}
+\(\R\) 的一点紧化同胚于圆周 \(S^1\)。立体投影给出
+\(S^1\setminus\{(0,1)\}\cong\R\)，补回的点对应 \(\infty\)。同理，
+\(\R^n\) 的一点紧化同胚于 \(n\) 维球面 \(S^n\)。
+\end{example}
+
+\section{Alexander 子基定理}
+
+\subsection{选择原则与极大有限交族}
+
+下面将使用 Zorn 引理：若偏序集中的每条链都有上界，则该偏序集有极大元。在 ZFC 中它与选择公理等价。本章不把 Zorn 引理伪装成拓扑结论；它只用于把一个有限交性质族扩张为极大族。
+
+\begin{lemma}[极大闭集有限交族]
+\label{lem:maximal-fip-family}
+每个具有有限交性质的闭集族 \(\mathcal F\) 都包含在一个极大的、由闭集组成的有限交性质族 \(\mathcal M\) 中。这样的 \(\mathcal M\) 满足：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(M_1,M_2\in\mathcal M\) 蕴含 \(M_1\cap M_2\in\mathcal M\)；
+ \item \(M\in\mathcal M\)、\(M\subseteq A\) 且 \(A\) 闭，蕴含 \(A\in\mathcal M\)；
+ \item 对闭集 \(A,B\)，\(A\cup B\in\mathcal M\) 蕴含 \(A\in\mathcal M\) 或 \(B\in\mathcal M\)。
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+考虑所有包含 \(\mathcal F\)、且成员均为闭集的有限交性质族，按包含关系排序。一条链的并仍具有有限交性质，因为任意有限多个成员已同时落在链中的某一个族内；其成员仍都是闭集。Zorn 引理给出极大元 \(\mathcal M\)。
+
+对(i)，任意有限多个 \(\mathcal M\) 的成员与 \(M_1\cap M_2\) 的交，仍是 \(\mathcal M\) 中有限多个集合的交，故非空；由极大性可把 \(M_1\cap M_2\) 加入。对(ii)同理。
+
+若 \(A,B\notin\mathcal M\)，极大性分别给出 \(M_A,M_B\)，它们是 \(\mathcal M\) 中有限多个成员的交，并满足
+\[
+ M_A\cap A=\varnothing,\qquad M_B\cap B=\varnothing.
+\]
+于是 \(M_A\cap M_B\in\mathcal M\)，且与 \(A\cup B\) 不交，所以
+\(A\cup B\notin\mathcal M\)。取逆否命题得(iii)。
+\end{proof}
+
+\subsection{从子基本覆盖推出任意覆盖}
+
+\begin{theorem}[Alexander 子基定理]
+\label{thm:alexander-subbasis}
+设 \(\mathcal S\) 是拓扑空间 \(X\) 的一个开子基。若每个由 \(\mathcal S\) 中成员组成的 \(X\) 的覆盖都有有限子覆盖，则 \(X\) 紧致。
+\end{theorem}
+
+\begin{proof}
+记闭子基 \(\mathcal C=\{X\setminus S:S\in\mathcal S\}\)。反设 \(X\) 不紧。由闭集形式，可取具有有限交性质、总交为空的闭集族 \(\mathcal F\)。用引理扩张为极大有限交族 \(\mathcal M\)；它仍总交为空。
+
+固定 \(x\in X\)。因 \(\bigcap\mathcal M=\varnothing\)，存在 \(M_x\in\mathcal M\) 使 \(x\notin M_x\)。开集 \(X\setminus M_x\) 含 \(x\)，故存在有限多个子基元素 \(S_{x,1},\ldots,S_{x,n}\) 使
+\[
+ x\in\bigcap_{k=1}^nS_{x,k}\subseteq X\setminus M_x.
+\]
+令 \(C_{x,k}=X\setminus S_{x,k}\in\mathcal C\)。于是
+\[
+ M_x\subseteq\bigcup_{k=1}^nC_{x,k}.
+\]
+由极大族的(ii)，右侧有限并属于 \(\mathcal M\)；再反复使用(iii)，至少一个 \(C_{x,k}\) 属于 \(\mathcal M\)。选取其中一个记为 \(C_x\)。因为 \(x\) 属于每个 \(S_{x,k}\)，有 \(x\notin C_x\)。
+
+所以 \(\{X\setminus C:C\in\mathcal C\cap\mathcal M\}\) 是 \(X\) 的子基本开覆盖。按假设它有有限子覆盖，这意味着 \(\mathcal C\cap\mathcal M\) 中有限多个集合交为空，与 \(\mathcal M\) 的有限交性质矛盾。
+\end{proof}
+
+\section{Tychonoff 乘积定理}
+
+\subsection{闭柱集的有限交}
+
+\begin{theorem}[Tychonoff 乘积定理]
+\label{thm:tychonoff-product}
+任意一族紧致空间 \((X_i)_{i\in I}\) 的积
+\[
+ X=\prod_{i\in I}X_i
+\]
+在积拓扑下紧致。
+\end{theorem}
+
+\begin{proof}
+若某个 \(X_i\) 为空，则 \(X=\varnothing\) 紧致。以下设每个因子非空。积拓扑的开子基为
+\[
+ \mathcal S=\{\pi_i^{-1}(U):i\in I,\ U\subseteq X_i\text{ 开}\}.
+\]
+依 Alexander 子基定理，只需证明每个子基本开覆盖有有限子覆盖。
+
+反设某个子基本开覆盖没有有限子覆盖。取补以后，闭柱集族
+\[
+ \mathcal F=\{\pi_i^{-1}(F):F\subseteq X_i\text{ 闭，且相应柱集出现}\}
+\]
+具有有限交性质。对每个 \(i\)，令
+\[
+ \mathcal F_i=\{F\subseteq X_i:\pi_i^{-1}(F)\in\mathcal F\}.
+\]
+若 \(\mathcal F_i\) 非空，它具有有限交性质：同一坐标的有限个闭集交若为空，相应有限个柱集交也为空。由 \(X_i\) 紧，
+\[
+ K_i=\bigcap_{F\in\mathcal F_i}F\ne\varnothing.
+\]
+若 \(\mathcal F_i\) 为空，令 \(K_i=X_i\)。选择 \(x_i\in K_i\)（对所有 \(i\) 同时作此选择使用选择公理），得到 \(x=(x_i)\in X\)。它属于 \(\mathcal F\) 的每个闭柱集，与这些柱集总交为空矛盾。
+\end{proof}
+
+\section{乘积紧致性与选择原则}
+
+上面的证明在两个位置使用选择原则：Zorn 引理产生极大有限交族；最后从所有非空 \(K_i\) 中同时选点。对任意紧空间的完整 Tychonoff 定理在 ZF 中与选择公理等价。仅限紧 Hausdorff 因子的版本则与布尔素理想定理（也称超滤子引理）等价；该原则在 ZF 中弱于选择公理。因而引用“乘积紧致”时应同时说明空间类别与所采用的集合论背景。
+
+\begin{corollary}[紧 Hausdorff 乘积]
+\label{cor:compact-hausdorff-product}
+任意多个紧 Hausdorff 空间的积仍是紧 Hausdorff 空间。
+\end{corollary}
+
+\begin{proof}
+紧致性来自 Tychonoff 定理；Hausdorff 性来自
+\chapterref{chap:separation-metrization}的乘积分离性质。
+\end{proof}
+
+\section{Stone--Čech 紧致化}
+
+\begin{definition}[紧致化]
+Hausdorff 空间 \(X\) 的一个紧致化是二元组 \((K,j)\)，其中 \(K\) 为紧 Hausdorff 空间，\(j:X\to K\) 是到稠密子空间 \(j(X)\) 的同胚。
+\end{definition}
+
+一点紧化只适用于局部紧 Hausdorff 空间，并且只为所有“趋向无穷”的方向增加一个点。Stone--Čech 紧致化适用于每个完全正则 Hausdorff 空间；它由全体有界连续函数同时决定。
+
+\subsection{评价嵌入与紧目标延拓}
+
+\begin{theorem}[Stone--Čech 紧致化]
+\label{thm:stone-cech-compactification}
+设 \(X\) 为完全正则 Hausdorff 空间。存在紧致化
+\[
+ j:X\longrightarrow\beta X
+\]
+满足如下泛性质：对任意紧 Hausdorff 空间 \(K\) 和连续映射 \(f:X\to K\)，存在唯一连续映射 \(\widetilde f:\beta X\to K\) 使
+\[
+ \widetilde f\circ j=f.
+\]
+具有此性质的紧致化在保持 \(X\) 不变的同胚意义下唯一。
+\end{theorem}
+
+\begin{proof}
+令
+\[
+ E=C(X,[0,1]),\qquad Q=[0,1]^E,
+\]
+并定义评价映射
+\[
+ e:X\to Q,\qquad e(x)=(\varphi(x))_{\varphi\in E}.
+\]
+它按积拓扑的泛性质连续。若 \(x\ne y\)，完全正则性可用连续函数分离 \(x\) 与闭点集 \(\{y\}\)，故 \(e(x)\ne e(y)\)。若 \(U\ni x\) 开，再用完全正则性取
+\(\varphi(x)=0\)、\(\varphi|_{X\setminus U}=1\)，则
+\[
+ x\in e^{-1}\!\left(\pi_\varphi^{-1}([0,1/2))\right)\subseteq U.
+\]
+所以 \(e\) 是拓扑嵌入。令
+\[
+ \beta X=\overline{e(X)}^{\,Q}.
+\]
+由 Tychonoff 定理，\(Q\) 紧 Hausdorff；\(\beta X\) 是其闭子集，因而紧 Hausdorff，且 \(e(X)\) 在其中稠密。
+
+给定 \(f:X\to K\)，其中 \(K\) 紧 Hausdorff。定理
+\ref{thm:compact-hausdorff-normal} 和 Urysohn 引理说明 \(K\) 完全正则，所以其评价映射
+\[
+ e_K:K\to[0,1]^{C(K,[0,1])}
+\]
+也是拓扑嵌入。对每个 \(h\in C(K,[0,1])\)，复合 \(h\circ f\) 属于 \(E\)，故坐标投影
+\[
+ z\longmapsto z_{h\circ f}\qquad(z\in\beta X)
+\]
+是 \(h\circ f\) 从 \(e(X)\) 到 \(\beta X\) 的连续延拓。把这些坐标合在一起，得到连续映射
+\[
+ G:\beta X\to[0,1]^{C(K,[0,1])},
+\]
+且 \(G\circ e=e_K\circ f\)。
+
+\(e_K(K)\) 是 Hausdorff 立方体中的紧集，故闭。闭集
+\(G^{-1}(e_K(K))\) 含稠密集 \(e(X)\)，所以等于 \(\beta X\)。因此
+\[
+ \widetilde f=e_K^{-1}\circ G
+\]
+定义良好且连续，并满足所需等式。
+
+若两个连续映射 \(\beta X\to K\) 在稠密集 \(e(X)\) 上相等，因为 \(K\) Hausdorff，它们的等值集是闭集，故二者处处相等。唯一性得到。若 \((K_1,j_1)\)、\((K_2,j_2)\) 都有泛性质，先把同一底空间上的映射 \(j_2:X\to K_2\) 沿 \(j_1:X\to K_1\) 唯一延拓为 \(K_1\to K_2\)，再对 \(j_1\) 作对称构造。两个复合在各自的稠密像上是恒等，因唯一性处处为恒等，所以两紧致化同胚。
+\end{proof}
+
+取 \(K=[-M,M]\) 可知，每个有界实值连续函数都唯一延拓到 \(\beta X\)。反过来，正是这些函数决定了构造中的坐标。若 \(X\) 已紧 Hausdorff，则 \(e(X)\) 在立方体中紧而闭，所以 \(\beta X=e(X)\)，没有增加新点。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　紧致性的基本运算}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{compact-fip-de-morgan}
+ 从开覆盖定义逐行推出有限交性质刻画，并说明空闭集族的情形。
+ \exerciseitem{compact-subspace-criterion}
+ 证明 \(K\subseteq X\) 紧，当且仅当每个由 \(X\) 中开集组成且覆盖 \(K\) 的族都有有限子族覆盖 \(K\)。
+ \exerciseitem{compact-finite-union}
+ 证明有限个紧子集的并紧，并构造一个拓扑空间，其中可数个紧子集的并不紧。
+ \exerciseitem{compact-hausdorff-bijection}
+ 设 \(f:X\to Y\) 是连续单射，\(X\) 紧而 \(Y\) Hausdorff。证明 \(f\) 是到 \(f(X)\) 的同胚。
+ \exerciseitem{compact-graph}
+ 若 \(X\) 紧、\(Y\) Hausdorff且 \(f:X\to Y\) 连续，证明图像
+ \(\{(x,f(x)):x\in X\}\) 是 \(X\times Y\) 的闭集。
+\end{enumerate}
+
+\subsection*{B组　局部紧致与乘积}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{local-compact-shrinking}
+ 证明局部紧 Hausdorff 空间中，对每个 \(x\in U\)（\(U\) 开），存在开集 \(V\) 使
+ \(x\in V\subseteq\overline V\subseteq U\)，且 \(\overline V\) 紧。
+ \exerciseitem{one-point-neighborhoods}
+ 本题在学完\chapterref{chap:nets-filters}后回做。证明一点紧化中，一个网趋于 \(\infty\) 当且仅当它最终离开 \(X\) 的每个紧子集。
+ \exerciseitem{one-point-real-line-circle}
+ 用显式公式构造 \(\R^*=\R\cup\{\infty\}\) 到 \(S^1\) 的同胚。
+ \exerciseitem{alexander-closed-subbasis}
+ 把 Alexander 子基定理改写成闭子基形式：若闭子基中每个具有有限交性质的子族总交非空，则 \(X\) 紧。
+ \exerciseitem{maximal-fip-prime}
+ 不略去反证步骤，证明极大有限交族的有限并素性，并推广到有限多个集合的并。
+ \exerciseitem{tychonoff-finite-direct}
+ 不用选择公理和 Alexander 子基定理，直接由开覆盖定义证明两个紧空间的积紧致。
+ \exerciseitem{product-closed-sets}
+ 若每个 \(F_i\subseteq X_i\) 非空闭且每个 \(X_i\) 紧，证明
+ \(\prod_iF_i\) 是 \(\prod_iX_i\) 的非空紧闭子集，并指出非空性使用的选择。
+\end{enumerate}
+
+\subsection*{C组　紧致化}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{compactification-locally-compact-open}
+ 设 \(X\) 是紧 Hausdorff 空间 \(K\) 的稠密子空间。证明 \(X\) 在 \(K\) 中开，当且仅当 \(X\) 局部紧。
+ \exerciseitem{stone-cech-bounded-extension}
+ 由泛性质证明每个有界连续 \(u:X\to\R\) 唯一延拓为 \(\beta X\) 上的连续函数。
+ \exerciseitem{stone-cech-discrete-sequences}
+ 令 \(\N\) 带离散拓扑。证明每个有界数列 \((a_n)\) 都唯一决定 \(\beta\N\) 上的连续函数；说明这比在一点紧化上延拓严格更强。
+ \exerciseitem{stone-cech-functoriality}
+ 若 \(f:X\to Y\) 是完全正则 Hausdorff 空间之间的连续映射，证明存在唯一
+ \(\beta f:\beta X\to\beta Y\) 延拓 \(f\)，并验证
+ \(\beta(\operatorname{id})=\operatorname{id}\) 与
+ \(\beta(g\circ f)=\beta g\circ\beta f\)。
+ \optionalexerciseitem{compactification-universal-uniqueness}
+ 不引用正文最后一段，完整证明满足 Stone--Čech 泛性质的两个紧致化之间存在唯一保持 \(X\) 不变的同胚。
+\end{enumerate}

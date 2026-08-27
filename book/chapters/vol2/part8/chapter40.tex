@@ -1,0 +1,434 @@
+\chapter{网与滤子}
+\label{chap:nets-filters}
+
+在度量空间中，许多拓扑问题都可以交给数列处理：闭包中的点是某个数列的
+极限，紧致性可以表述为每个数列都有收敛子列，连续性也可由保持数列极限
+刻画。一般拓扑空间未必有可数邻域基。此时，一个数列只能依次满足可数多
+个邻域条件，不能保证它最终进入点的全部邻域。
+
+网把指标集从 \(\N\) 换成任意有向集；滤子则直接记录“最终必然发生”的
+集合。两种语言携带同一类渐近信息，但各有适合的论证：网保留逐项逼近的
+形式，滤子在紧致性、乘积和一致结构中往往更简洁。本章建立两者的换译，
+并用它们给出不附加可数性假设的闭包、连续性与紧致性判据。
+
+\section{有向集和网}
+
+\begin{definition}[有向集]
+非空集合 \(I\) 上的关系 \(\preccurlyeq\) 若满足
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(i\preccurlyeq i\)；
+ \item \(i\preccurlyeq j\preccurlyeq k\) 蕴含 \(i\preccurlyeq k\)；
+ \item 对任意 \(i,j\in I\)，存在 \(k\in I\) 使
+ \(i\preccurlyeq k\) 且 \(j\preccurlyeq k\)，
+\end{enumerate}
+则称 \((I,\preccurlyeq)\) 为\term{有向集}。这里不要求反对称性。
+\end{definition}
+
+第三条只要求任意有限组条件能够同时向后推进。通常的
+\((\N,\le)\) 是有向集；一个集合的有限子集全体按包含关系排序也是有向
+集；若 \(x\) 是拓扑空间中的点，则 \(x\) 的邻域全体按反向包含
+\[
+ U\preccurlyeq V\quad\Longleftrightarrow\quad V\subseteq U
+\]
+排序同样是有向集。最后一个例子已经表明，有向关系表示“信息变得更精细”，
+不一定表示数值增大。
+
+\begin{definition}[网]
+设 \(I\) 为有向集，映射 \(x:I\to X\) 称为 \(X\) 中的一个\term{网}，
+记作 \((x_i)_{i\in I}\)。若性质 \(P(i)\) 对某个 \(i_0\in I\) 之后
+的全部指标成立，即
+\[
+ i\succcurlyeq i_0\quad\Longrightarrow\quad P(i),
+\]
+则称 \(P(i)\) \term{最终成立}；若对每个 \(i_0\) 都存在
+\(i\succcurlyeq i_0\) 使 \(P(i)\) 成立，则称它\term{频繁成立}。
+\end{definition}
+
+数列是指标集为 \(\N\) 的网。更能体现一般性的例子来自有限逼近。设
+\(S\) 是任意集合，\(\mathcal D\) 为 \(S\) 的有限子集全体，按包含排序。
+若对每个 \(F\in\mathcal D\) 构造一个同时满足 \(F\) 中全部条件的对象
+\(x_F\)，那么“对每个固定条件 \(s\in S\)，当 \(F\) 充分大时该条件
+成立”就成为普通的最终性陈述。
+
+\begin{definition}[网的收敛]
+设 \(X\) 为拓扑空间。网 \((x_i)_{i\in I}\) \term{收敛}到
+\(x\in X\)，若对 \(x\) 的每个邻域 \(U\)，都有 \(x_i\in U\)
+最终成立，记作 \(x_i\to x\)。
+\end{definition}
+
+若把 \(x\) 的邻域全体作为指标集，并在每个邻域 \(U\) 中选取一点
+\(x_U\)，则所得网自动趋于 \(x\)。为了避免在任意多邻域上预先作选择，
+也可把指标写成
+\[
+ I=\{(U,y):U\text{ 是 }x\text{ 的邻域},\ y\in U\},
+\]
+并令 \(x_{(U,y)}=y\)。按邻域反向包含排序后，它同样趋于 \(x\)。
+
+\begin{proposition}[极限的唯一性]
+\label{prop:net-limits-hausdorff}
+拓扑空间 \(X\) 为 Hausdorff 空间，当且仅当 \(X\) 中每个收敛网的
+极限唯一。
+\end{proposition}
+
+\begin{proof}
+若 \(X\) 为 Hausdorff 空间，而同一网同时趋于 \(x\ne y\)，取不交邻域
+\(U\ni x\)、\(V\ni y\)。网最终在 \(U\) 中，也最终在 \(V\) 中；有向
+性使这两个最终条件可以同时满足，得到某项属于 \(U\cap V\)，矛盾。
+
+反之，若 \(x\ne y\) 不能由不交邻域分开，令指标集由三元组
+\((U,V,z)\) 组成，其中 \(U\ni x\)、\(V\ni y\) 为邻域且
+\(z\in U\cap V\)，按 \(U,V\) 同时反向包含排序，并取网值为 \(z\)。
+这个网既趋于 \(x\) 又趋于 \(y\)，故极限不唯一。
+\end{proof}
+
+\section{网的收敛及子网}
+
+数列的子列由严格递增指标给出。一般有向集没有一个适用的“严格递增整数
+指标”，需要直接规定新指标最终越过旧指标的每个阶段。
+
+\subsection{最终共尾映射与聚点}
+
+\begin{definition}[子网]
+设 \((x_i)_{i\in I}\) 是网。若 \(J\) 是有向集，映射
+\(\phi:J\to I\) 满足
+\[
+ \forall i_0\in I\ \exists j_0\in J\ \forall j\succcurlyeq j_0,
+ \qquad \phi(j)\succcurlyeq i_0,
+\]
+则称 \(\phi\) 为\term{最终共尾映射}，并称
+\((x_{\phi(j)})_{j\in J}\) 为 \((x_i)\) 的一个\term{子网}。
+\end{definition}
+
+有些文献还要求 \(\phi\) 保序。本书采用上面的最终共尾定义；它恰好保证
+原网最终成立的每个性质在子网上仍最终成立。因此，收敛网的每个子网收敛
+到同一极限。
+
+\begin{definition}[网的聚点]
+点 \(x\in X\) 称为网 \((x_i)\) 的\term{聚点}，若对 \(x\) 的每个
+邻域 \(U\) 和每个 \(i_0\in I\)，都存在 \(i\succcurlyeq i_0\) 使
+\(x_i\in U\)。也就是说，\(x_i\in U\) 对每个邻域 \(U\) 都频繁成立。
+\end{definition}
+
+\begin{theorem}[聚点与收敛子网]
+\label{thm:net-cluster-subnet}
+点 \(x\) 是网 \((x_i)_{i\in I}\) 的聚点，当且仅当该网有一个收敛
+到 \(x\) 的子网。
+\end{theorem}
+
+\begin{proof}
+若子网 \(x_{\phi(j)}\to x\)，给定邻域 \(U\) 和 \(i_0\)，子网最终进入
+\(U\)，而 \(\phi\) 最终越过 \(i_0\)。把两个最终条件合并，便得到某个
+\(i=\phi(j)\succcurlyeq i_0\) 且 \(x_i\in U\)。
+
+反过来，设 \(x\) 是聚点。令
+\[
+ J=\{(i,U):i\in I, U\text{ 是 }x\text{ 的邻域},\ x_i\in U\}.
+\]
+规定
+\[
+ (i,U)\preccurlyeq(j,V)
+ \quad\Longleftrightarrow\quad i\preccurlyeq j\text{ 且 }V\subseteq U.
+\]
+给定 \((i,U),(j,V)\)，先取 \(k_0\succcurlyeq i,j\)，再由聚点性质取
+\(k\succcurlyeq k_0\) 使 \(x_k\in U\cap V\)。于是
+\((k,U\cap V)\) 是共同上界，故 \(J\) 有向。令
+\(\phi(i,U)=i\)。聚点性质保证 \(J\) 非空；给定 \(i_0\)，取某个
+\(i\succcurlyeq i_0\) 和邻域 \(X\) 得到 \((i,X)\in J\)，其后的
+指标都被 \(\phi\) 送到 \(i_0\) 之后，所以 \(\phi\) 最终共尾。
+最后，给定邻域 \(U_0\)，从某个 \((i,U_0)\in J\) 开始，后继
+\((j,V)\) 满足 \(x_j\in V\subseteq U_0\)。所得子网收敛到 \(x\)。
+\end{proof}
+
+网之所以能够恢复一般拓扑，关键是指标集可以同时编码全部邻域。
+
+\subsection{闭包与连续性}
+
+\begin{theorem}[闭包的网刻画]
+\label{thm:closure-by-nets}
+设 \(A\subseteq X\)。则
+\[
+ x\in\overline A
+ \quad\Longleftrightarrow\quad
+ \text{存在 }A\text{ 中的网收敛到 }x.
+\]
+因而，\(A\) 闭当且仅当 \(A\) 中每个收敛网的极限仍在 \(A\) 中。
+\end{theorem}
+
+\begin{proof}
+若 \(x\in\overline A\)，每个邻域 \(U\) 都与 \(A\) 相交。取指标集
+\[
+ I=\{(U,a):U\ni x\text{ 为邻域},\ a\in A\cap U\},
+\]
+按邻域反向包含排序，并令 \(x_{(U,a)}=a\)。这给出 \(A\) 中趋于
+\(x\) 的网。反向结论直接来自闭包 \(\overline A\) 是含 \(A\) 的闭集：
+若网始终在 \(A\) 中并趋于 \(x\)，则每个 \(x\) 的邻域都与 \(A\)
+相交，故 \(x\in\overline A\)。闭集刻画由
+\(A=\overline A\) 得到。
+\end{proof}
+
+\begin{theorem}[连续性的网判据]
+\label{thm:continuity-by-nets}
+映射 \(f:X\to Y\) 在 \(x\in X\) 连续，当且仅当对每个
+\(x_i\to x\)，都有 \(f(x_i)\to f(x)\)。
+\end{theorem}
+
+\begin{proof}
+连续性立即推出保持网的极限。反之，若 \(f\) 在 \(x\) 不连续，则存在
+\(f(x)\) 的邻域 \(V\)，使 \(f^{-1}(V)\) 不是 \(x\) 的邻域。
+因此每个 \(x\) 的邻域 \(U\) 都含有一点
+\(x_U\notin f^{-1}(V)\)。用成对指标 \((U,y)\) 可避免选择：令
+\[
+ I=\{(U,y):U\ni x, y\in U\setminus f^{-1}(V)\},
+\]
+按 \(U\) 反向包含排序。网 \(y_{(U,y)}=y\) 趋于 \(x\)，但其像网
+没有任何一项落在 \(V\) 中，故不趋于 \(f(x)\)，与假设矛盾。
+\end{proof}
+
+\begin{example}[序列不能刻画的闭包]
+取不可数集合 \(S\)，令 \(X=\{0,1\}^{S}\) 取乘积拓扑，\(A\) 为所有
+只有有限多个坐标等于 \(1\) 的点。恒等于 \(1\) 的点记为 \(\boldsymbol1\)。
+每个基本邻域只限制有限多个坐标，故与 \(A\) 相交，于是
+\(\boldsymbol1\in\overline A\)。
+
+然而，\(A\) 中任一数列 \((a_n)\) 的支集并集仍至多可数。可取
+\(s\in S\) 不在这个并集中，于是 \(a_n(s)=0\) 对所有 \(n\) 成立，
+该数列不可能趋于 \(\boldsymbol1\)。另一方面，以 \(S\) 的有限子集
+\(F\) 为指标，令 \(a_F=\boldsymbol1_F\)，则 \(a_F\to\boldsymbol1\)。
+\end{example}
+
+\section{滤子和滤子基}
+
+\begin{definition}[滤子]
+集合 \(X\) 上的一个\term{滤子}是子集族 \(\mathcal F\subseteq
+\mathcal P(X)\)，满足
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(\varnothing\notin\mathcal F\)，且 \(X\in\mathcal F\)；
+ \item \(A,B\in\mathcal F\) 蕴含 \(A\cap B\in\mathcal F\)；
+ \item \(A\in\mathcal F\) 且 \(A\subseteq B\subseteq X\) 蕴含
+ \(B\in\mathcal F\)。
+\end{enumerate}
+若 \(\mathcal F\subseteq\mathcal G\)，称 \(\mathcal G\) 比
+\(\mathcal F\) \term{更细}。
+\end{definition}
+
+滤子中的集合可理解为最终必须进入的集合。点 \(x\) 的邻域滤子
+\(\mathcal N(x)\) 由所有含 \(x\) 的邻域组成；网 \((x_i)\) 的
+\term{尾滤子}为
+\[
+ \mathcal F_x=\{A\subseteq X:\text{存在 }i_0,
+ \{x_i:i\succcurlyeq i_0\}\subseteq A\}.
+\]
+
+\subsection{滤子基与网的换译}
+
+\begin{definition}[滤子基]
+非空集合族 \(\mathcal B\subseteq\mathcal P(X)\setminus\{\varnothing\}\)
+称为\term{滤子基}，若对任意 \(B_1,B_2\in\mathcal B\)，存在
+\(B_3\in\mathcal B\) 使 \(B_3\subseteq B_1\cap B_2\)。它生成的滤子为
+\[
+ \langle\mathcal B\rangle
+ =\{A\subseteq X:\text{存在 }B\in\mathcal B, B\subseteq A\}.
+\]
+\end{definition}
+
+网的尾部集合构成滤子基。反过来，给定滤子基 \(\mathcal B\)，令
+\[
+ I_{\mathcal B}=\{(B,x):B\in\mathcal B, x\in B\},
+\]
+并按 \(B\) 的反向包含排序，取 \(x_{(B,x)}=x\)，便得到与
+\(\langle\mathcal B\rangle\) 携带同样最终信息的网。使用成对指标使这个
+构造不需要为每个 \(B\) 预先选点。
+
+\subsection{收敛与聚集}
+
+\begin{definition}[滤子的收敛与聚点]
+滤子 \(\mathcal F\) \term{收敛}到 \(x\)，若
+\(\mathcal N(x)\subseteq\mathcal F\)，记作 \(\mathcal F\to x\)。
+点 \(x\) 是 \(\mathcal F\) 的\term{聚点}，若
+\[
+ A\cap U\ne\varnothing
+ \quad(A\in\mathcal F, U\in\mathcal N(x)).
+\]
+等价地，\(x\in\bigcap_{A\in\mathcal F}\overline A\)。
+\end{definition}
+
+对网的尾滤子，滤子收敛等价于网收敛，滤子聚点等价于网聚点。更细的滤子
+保留收敛，但未必保留聚点。
+
+\subsection{超滤子}
+
+\begin{definition}[超滤子]
+在包含关系下极大的滤子称为\term{超滤子}。
+\end{definition}
+
+\begin{proposition}[超滤子的二分性质]
+\label{prop:ultrafilter-dichotomy}
+滤子 \(\mathcal U\) 是超滤子，当且仅当对每个 \(A\subseteq X\)，
+恰有 \(A\in\mathcal U\) 与 \(X\setminus A\in\mathcal U\) 之一成立。
+\end{proposition}
+
+\begin{proof}
+两者不能同时成立，否则空集属于 \(\mathcal U\)。若两者都不属于
+\(\mathcal U\)，则每个 \(F\in\mathcal U\) 都与 \(A\) 相交；否则
+\(F\subseteq X\setminus A\) 会推出补集属于 \(\mathcal U\)。于是
+\(\{F\cap A:F\in\mathcal U\}\) 是滤子基，生成严格包含
+\(\mathcal U\) 的滤子，违背极大性。反向结论也直接：若
+\(\mathcal G\supsetneq\mathcal U\) 是滤子，取
+\(A\in\mathcal G\setminus\mathcal U\)，则 \(X\setminus A\in\mathcal U
+\subseteq\mathcal G\)，从而空集属于 \(\mathcal G\)，矛盾。
+\end{proof}
+
+任意滤子都能扩张为超滤子。这一超滤子扩张原理使用选择原则；
+\chapterref{chap:compact-topological-spaces}在证明任意乘积紧致性时已经
+说明了本书采用的相应形式。这里不把它误写成有限选择的推论。
+
+\section{紧致性、连续性与三种收敛语言}
+
+\subsection{紧致性的等价判据}
+
+\begin{theorem}[紧致性的网与滤子刻画]
+\label{thm:compactness-nets-filters}
+对拓扑空间 \(X\)，下列命题等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(X\) 紧致；
+ \item \(X\) 中每个滤子都有聚点；
+ \item \(X\) 中每个超滤子都收敛；
+ \item \(X\) 中每个网都有收敛子网。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\((\mathrm i)\Rightarrow(\mathrm{ii})\)。对滤子 \(\mathcal F\)，闭集族
+\(\{\overline A:A\in\mathcal F\}\) 具有有限交性质。事实上，滤子中的
+有限交非空，并且
+\[
+ \overline{A_1\cap\cdots\cap A_n}
+ \subseteq\overline A_1\cap\cdots\cap\overline A_n.
+\]
+紧致性给出
+\[
+ \bigcap_{A\in\mathcal F}\overline A\ne\varnothing,
+\]
+其中任一点都是聚点。
+
+\((\mathrm{ii})\Rightarrow(\mathrm{iii})\)。设超滤子 \(\mathcal U\)
+有聚点 \(x\)。若某邻域 \(V\ni x\) 不属于 \(\mathcal U\)，二分性质
+给出 \(X\setminus V\in\mathcal U\)，这与聚点条件矛盾。因此
+\(\mathcal N(x)\subseteq\mathcal U\)，即 \(\mathcal U\to x\)。
+
+\((\mathrm{iii})\Rightarrow(\mathrm{ii})\)。把 \(\mathcal F\) 扩张为
+超滤子 \(\mathcal U\)。若 \(\mathcal U\to x\)，则 \(x\) 是
+\(\mathcal U\) 的聚点，更是较粗滤子 \(\mathcal F\) 的聚点。
+
+\((\mathrm{ii})\Rightarrow(\mathrm{iv})\)。任一网的尾滤子有聚点；该点
+也是网的聚点，由定理 \ref{thm:net-cluster-subnet} 得到收敛子网。
+
+\((\mathrm{iv})\Rightarrow(\mathrm i)\)。若开覆盖 \(\mathcal O\) 没有
+有限子覆盖，令
+\[
+ I=\{(\mathcal E,x):\mathcal E\subseteq\mathcal O\text{ 有限},
+ x\notin\bigcup\mathcal E\},
+\]
+按有限族 \(\mathcal E\) 的包含关系定向，并取网值为第二坐标 \(x\)。
+这是非空有向集：两个有限族的并仍不能覆盖 \(X\)。若某子网趋于
+\(x_0\)，取 \(O_0\in\mathcal O\) 使 \(x_0\in O_0\)。共尾性保证子网
+最终对应于含 \(O_0\) 的有限族，因此其值最终不在 \(O_0\) 中；收敛性
+却要求它最终在 \(O_0\) 中，矛盾。故 \(\mathcal O\) 必有有限子覆盖。
+\end{proof}
+
+对映射 \(f:X\to Y\) 和滤子 \(\mathcal F\)，定义像滤子
+\[
+ f_*\mathcal F
+ =\{B\subseteq Y:f^{-1}(B)\in\mathcal F\}.
+\]
+它是由集合族 \(\{f(A):A\in\mathcal F\}\) 生成的滤子。
+
+\subsection{连续映射与可数性}
+
+\begin{corollary}[连续性的三种表述]
+映射 \(f:X\to Y\) 在 \(x\) 连续，当且仅当下列任一条件成立：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 对每个网 \(x_i\to x\)，有 \(f(x_i)\to f(x)\)；
+ \item 对每个滤子 \(\mathcal F\to x\)，有
+ \(f_*\mathcal F\to f(x)\)；
+ \item \(f_*\mathcal N(x)\to f(x)\)。
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+网的表述已由定理 \ref{thm:continuity-by-nets} 证明。若 \(f\) 连续，
+则每个 \(f(x)\) 的邻域 \(V\) 都满足
+\(f^{-1}(V)\in\mathcal N(x)\subseteq\mathcal F\)，故
+\(V\in f_*\mathcal F\)。取 \(\mathcal F=\mathcal N(x)\) 得到第三条。
+反之，第三条说明每个 \(f(x)\) 的邻域 \(V\) 都有
+\(f^{-1}(V)\in\mathcal N(x)\)，正是点连续性的邻域定义。
+\end{proof}
+
+若 \(x\) 有递减的可数邻域基 \((U_n)\)，则从
+\(x\in\overline A\) 可逐项取 \(a_n\in A\cap U_n\)，得到
+\(a_n\to x\)。因此第一可数空间中的闭包与连续性仍可用数列刻画。
+紧致性的序列刻画还需要额外条件；在度量空间中，这些条件自动满足。一般
+拓扑中，网或滤子的判据不需要补充可数性假设。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　网与滤子的基本运算}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{directed-finite-subsets}
+ 设 \(S\) 为集合。证明其有限子集全体按包含关系构成有向集，并说明当
+ \(S\) 不可数时，该有向集不存在可数共尾子集。
+ \exerciseitem{net-eventual-frequent-negation}
+ 证明：性质 \(P\) 频繁成立当且仅当“\(P\) 最终不成立”为假；并说明
+ “\(P\) 不最终成立”不等于“\(P\) 最终不成立”。
+ \exerciseitem{subnet-preserves-limit}
+ 从最终共尾映射的定义证明收敛网的每个子网收敛到同一极限。
+ \exerciseitem{closure-neighborhood-net}
+ 不预先选取邻域中的点，用成对指标重新证明闭包的网刻画。
+ \exerciseitem{tail-filter-verification}
+ 证明任一网的尾部集合生成一个滤子，并证明网收敛等价于其尾滤子收敛。
+ \exerciseitem{filter-base-canonical-net}
+ 验证正文中 \(I_{\mathcal B}\) 有向，并证明其规范网与
+ \(\langle\mathcal B\rangle\) 有相同的收敛点。
+\end{enumerate}
+
+\subsection*{B组　聚点、连续与紧致}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{net-cluster-tail-closure}
+ 证明 \(x\) 是网 \((x_i)\) 的聚点，当且仅当
+ \[
+  x\in\bigcap_{i_0\in I}\overline{\{x_i:i\succcurlyeq i_0\}}.
+ \]
+ \exerciseitem{ultrafilter-cluster-converges}
+ 设 \(\mathcal U\) 为超滤子。证明 \(x\) 是 \(\mathcal U\) 的聚点
+ 当且仅当 \(\mathcal U\to x\)。
+ \exerciseitem{continuous-filter-image}
+ 证明像滤子的两种定义一致：
+ \[
+ f_*\mathcal F=\{B:f^{-1}(B)\in\mathcal F\}
+ \]
+ 等于由 \(\{f(A):A\in\mathcal F\}\) 生成的滤子。
+ \exerciseitem{compact-closed-subspace-filters}
+ 用滤子刻画证明：紧致空间的闭子空间紧致；Hausdorff 空间的紧致子集闭。
+ \exerciseitem{product-coordinate-net-convergence}
+ 设 \(X=\prod_{s\in S}X_s\) 取乘积拓扑。证明网 \(x_i\to x\) 当且仅当
+ 对每个 \(s\in S\)，坐标网 \(x_i(s)\to x(s)\)。
+ \exerciseitem{first-countable-sequential-closure}
+ 设 \(X\) 第一可数。证明 \(A\) 闭当且仅当 \(A\) 中每个收敛数列的
+ 极限仍在 \(A\) 中，并由此证明序列连续等价于连续。
+\end{enumerate}
+
+\subsection*{C组　不可数坐标与选择原则}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{finite-support-product-closure}
+ 把正文有限支集例子的每一步写完整：证明
+ \(\boldsymbol1\in\overline A\)，构造趋于它的网，并证明不存在
+ \(A\) 中趋于它的数列。
+ \optionalexerciseitem{universal-subnet-ultrafilter}
+ 设 \((x_i)\) 为网，把其尾滤子扩张为超滤子 \(\mathcal U\)。由
+ \(\mathcal U\) 的一个滤子基构造原网的子网，并证明该子网对每个
+ \(A\subseteq X\) 都最终位于 \(A\) 或最终位于 \(X\setminus A\)。
+ \optionalexerciseitem{compact-map-closed}
+ 设 \(X\) 紧致、\(Y\) Hausdorff，\(f:X\to Y\) 连续。用网证明
+ \(f\) 是闭映射；若 \(f\) 还是双射，证明它是同胚。
+\end{enumerate}

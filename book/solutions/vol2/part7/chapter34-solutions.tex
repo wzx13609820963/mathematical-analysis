@@ -1,0 +1,318 @@
+\chapter{度量空间的连通性}
+\label{chap:metric-connectedness-solutions}
+
+\begin{solution}{connected-clopen-criterion}
+若 \(X=U\cup V\) 是分离，则 \(U=X\setminus V\) 且
+\(V=X\setminus U\)。因此 \(U,V\) 都既开又闭，并且都是非平凡子集。
+
+反过来，若 \(A\subset X\) 既开又闭，且
+\(\varnothing\ne A\ne X\)，则 \(A\) 与 \(X\setminus A\) 是两个
+非空、不交的开集，其并为 \(X\)。它们构成 \(X\) 的一个分离。故
+\(X\) 连通当且仅当不存在非平凡的既开又闭子集。
+\end{solution}
+
+\begin{solution}{connected-common-point-union}
+设 \(p\in\bigcap_{\lambda}C_\lambda\)，并反设
+\(C=\bigcup_\lambda C_\lambda\) 有分离 \(C=U\cup V\)。不妨设
+\(p\in U\)。对每个 \(\lambda\)，集合
+\(C_\lambda\cap U\) 与 \(C_\lambda\cap V\) 是 \(C_\lambda\) 中的
+相对开集。前者非空；由 \(C_\lambda\) 连通，后者必为空。因此
+\(C_\lambda\subset U\) 对所有 \(\lambda\) 成立，进而 \(V=\varnothing\)，
+矛盾。
+
+更一般地，设连通集 \(D\) 与每个 \(C_\lambda\) 相交。由于
+\(D\cap C_\lambda\ne\varnothing\)，集合 \(D\cup C_\lambda\) 连通。
+这族连通集都包含 \(D\)，所以它们有公共点；应用刚证结论可知
+\[
+ D\cup\bigcup_\lambda C_\lambda
+   =\bigcup_\lambda(D\cup C_\lambda)
+\]
+连通。原来的并集不必连通，例如
+\((0,1)\cup(1,2)\)；加入与两部分都相交的连通集后才得到上述结论。
+\end{solution}
+
+\begin{solution}{connected-closure}
+设 \(\overline C=U\cup V\) 是一个分离。集合
+\(C\cap U,C\cap V\) 在 \(C\) 中相对开且不交。因 \(C\) 连通，它只能
+完全落在一边；设 \(C\subset U\)。分离中的 \(U\) 在
+\(\overline C\) 中也闭，所以它包含 \(C\) 在 \(\overline C\) 中的闭包，
+即包含整个 \(\overline C\)。这迫使 \(V=\varnothing\)，矛盾。
+
+例如 \(C=(0,1)\subset\R\) 连通，而
+\(\overline C=[0,1]\) 严格大于 \(C\)；闭包仍连通。
+\end{solution}
+
+\begin{solution}{components-partition-closed}
+固定 \(x\in X\)。所有含 \(x\) 的连通子集有公共点 \(x\)，所以它们的并
+\(C(x)\) 连通，并且它包含所有含 \(x\) 的连通集。因此 \(C(x)\) 是含
+\(x\) 的极大连通集。
+
+若 \(C(x)\cap C(y)\ne\varnothing\)，则两者之并连通；极大性给出
+\(C(x)=C(y)\)。所以两个分支相等或不交，而每点都属于自己的分支，故这些
+分支构成 \(X\) 的分划。又因连通集的闭包连通，
+\(\overline{C(x)}\) 是含 \(x\) 的连通集。极大性给出
+\(\overline{C(x)}=C(x)\)，所以分支闭。
+
+令
+\[
+ X=\{0\}\cup\{1/n:n\ge1\}\subset\R .
+\]
+若 \(a<b\) 是 \(X\) 中两点，可在其间选一个无理数 \(\alpha\)；
+\(X\cap(-\infty,\alpha)\) 与 \(X\cap(\alpha,\infty)\) 把任何同时含
+\(a,b\) 的子集分开。因此 \(X\) 的连通分支全是单点。分支
+\(\{0\}\) 不是 \(X\) 中的开集，因为每个 \(0\) 的相对邻域都含充分小的
+\(1/n\)。
+\end{solution}
+
+\begin{solution}{path-equivalence-relation}
+记 \(x\sim y\) 表示存在从 \(x\) 到 \(y\) 的道路。常值映射给出
+\(x\sim x\)。若 \(\gamma\) 从 \(x\) 到 \(y\)，则
+\(\bar\gamma(t)=\gamma(1-t)\) 从 \(y\) 到 \(x\)，所以关系对称。
+
+若 \(\gamma\) 从 \(x\) 到 \(y\)，\(\eta\) 从 \(y\) 到 \(z\)，定义
+\[
+ \omega(t)=
+ \begin{cases}
+  \gamma(2t),&0\le t\le\tfrac12,\\
+  \eta(2t-1),&\tfrac12\le t\le1.
+ \end{cases}
+\]
+两式在 \(t=1/2\) 都取值 \(y\)。闭集粘合引理，或直接用连续性的邻域
+定义，说明 \(\omega\) 连续。它从 \(x\) 到 \(z\)，故关系传递。于是
+\(\sim\) 是等价关系，其等价类正是道路分支。
+\end{solution}
+
+\begin{solution}{locally-path-components-open}
+设 \(P\) 是道路分支且 \(x\in P\)。局部道路连通性给出道路连通开集
+\(V\)，使 \(x\in V\)。\(V\) 中每一点都能在 \(V\) 内连接到 \(x\)，
+故 \(V\subset P\)。因此 \(P\) 是开集。其补集是其余道路分支的并，也开，
+所以 \(P\) 同时是闭集。
+
+每个道路分支连通，因而包含于某个连通分支 \(C\)。若 \(C\) 含两个不同
+道路分支 \(P,Q\)，则 \(P\cap C=P\) 在 \(C\) 中既开又闭，并且非空且
+不等于 \(C\)，与 \(C\) 连通矛盾。因此每个连通分支只含一个道路分支，
+二者相等。
+\end{solution}
+
+\begin{solution}{sine-curve-closure}
+令
+\[
+ G=\{(x,\sin(1/x)):0<x\le1\},\qquad
+ L=\{0\}\times[-1,1].
+\]
+先证 \(L\subset\overline G\)。给定 \(y\in[-1,1]\)，取
+\(\theta\in[-\pi/2,\pi/2]\) 使 \(\sin\theta=y\)，并对充分大的 \(n\)
+令 \(x_n=(2\pi n+\theta)^{-1}\)。则 \(x_n\downarrow0\)，且
+\[
+ (x_n,\sin(1/x_n))=(x_n,y)\longrightarrow(0,y).
+\]
+故 \(G\cup L\subset\overline G\)。
+
+反之，若 \((x_k,\sin(1/x_k))\to(a,b)\)，则 \(a\in[0,1]\) 且
+\(b\in[-1,1]\)。若 \(a=0\)，极限点属于 \(L\)；若 \(a>0\)，函数
+\(x\mapsto\sin(1/x)\) 在 \(a\) 连续，故 \(b=\sin(1/a)\)，极限点属于
+\(G\)。因此 \(\overline G\subset G\cup L\)，从而
+\(S=G\cup L=\overline G\)。
+\end{solution}
+
+\begin{solution}{sine-curve-connected}
+区间 \((0,1]\) 连通，而映射
+\[
+ \phi:(0,1]\longrightarrow\R^2,\qquad
+ \phi(x)=(x,\sin(1/x))
+\]
+连续且像为 \(G\)。连续像保持连通，所以 \(G\) 连通。由上一题
+\(S=\overline G\)，连通集的闭包连通，故 \(S\) 连通。
+\end{solution}
+
+\begin{solution}{sine-curve-no-path}
+反设 \(\gamma(t)=(u(t),v(t))\) 是从竖直线段到 \(G\) 的道路。必要时
+反向参数化，可设 \(u(0)=0\)、\(u(1)>0\)。集合
+\[
+ Z=\{t\in[0,1]:u(t)=0\}
+\]
+是连续函数 \(u\) 的闭零点集，故是紧集；它非空而不含 \(1\)，所以
+\(t_0=\max Z<1\)。在 \(t_0<t\le1\) 上有 \(u(t)>0\)，并且
+\(u(t)\to0\) 当 \(t\downarrow t_0\)。于是
+\(h(t)=1/u(t)\to+\infty\)。
+
+固定 \(b\in(t_0,1]\)。对充分大的 \(n\)，数
+\[
+ a_n=2\pi n+\frac{\pi}{2},\qquad
+ b_n=2\pi n+\frac{3\pi}{2}
+\]
+都大于 \(h(b)\)。由 \(h(t)\to\infty\)，可分别取
+\(t_n',t_n''\in(t_0,b)\)，使 \(h(t_n')>a_n\)、\(h(t_n'')>b_n\)；
+再在相应区间应用介值定理，得到 \(s_n,r_n\in(t_0,b]\) 满足
+\[
+ h(s_n)=a_n,\qquad h(r_n)=b_n.
+\]
+实际上 \(s_n,r_n\to t_0\)：若例如某子列满足
+\(s_n\ge t_0+\delta\)，连续函数 \(h\) 在
+\([t_0+\delta,1]\) 上有界，不能取到趋于无穷的 \(a_n\)。
+
+当 \(t>t_0\) 时道路点第一坐标为正，故必在 \(G\) 上。因此
+\[
+ v(s_n)=\sin a_n=1,\qquad v(r_n)=\sin b_n=-1.
+\]
+两列参数都趋于 \(t_0\)，却使连续函数 \(v\) 分别趋于 \(1\) 和
+\(-1\)，矛盾。
+\end{solution}
+
+\begin{solution}{sine-curve-path-components}
+对 \(G\) 中两点
+\((a,\sin(1/a))\)、\((b,\sin(1/b))\)，令
+\[
+ \gamma(t)=\bigl((1-t)a+tb,\,
+       \sin(1/((1-t)a+tb))\bigr).
+\]
+分母始终为正，故 \(\gamma\) 是 \(G\) 中连接两点的道路。竖直线段
+\(L=\{0\}\times[-1,1]\) 的两点可用线性道路
+\((0,(1-t)y_0+ty_1)\) 连接。因此 \(G,L\) 分别道路连通。
+
+正文定理排除了从 \(G\) 到 \(L\) 的道路，所以没有道路分支能同时遇到
+二者。又 \(S=G\cup L\)，故 \(G\) 与 \(L\) 正是 \(S\) 的两个道路
+分支。
+\end{solution}
+
+\begin{solution}{comb-path-connected}
+记梳状空间为 \(C\)。点 \((1/n,y)\) 可沿道路
+\(t\mapsto(1/n,(1-t)y)\) 到达底边；点 \((0,y)\) 也可沿 \(x=0\)
+的竖线到底边。底边本身是线段。拼接这些线段即可把任意两点连接，所以
+\(C\) 道路连通。
+
+固定 \(p=(0,y)\) 且 \(y>0\)，取
+\(U=C\cap B(p,y/2)\)。它不遇到底边。若 \(V\) 是 \(p\) 的任意相对
+开邻域且 \(V\subset U\)，存在 \(\delta>0\) 使
+\(C\cap B(p,\delta)\subset V\)。取充分大的 \(n\) 使 \(1/n<\delta\)，
+则 \(q=(1/n,y)\in V\)。
+
+若 \(V\) 中存在从 \(p\) 到 \(q\) 的道路 \(\gamma\)，其第一坐标是从
+\(0\) 到 \(1/n\) 的连续函数，故取到某个不属于
+\(\{0\}\cup\{1/k:k\ge1\}\) 的中间值。可是 \(U\) 不遇到底边，\(U\)
+中点的第一坐标只能属于上述集合，矛盾。因此任何这样的 \(V\) 都不道路
+连通，\(C\) 在 \(p\) 处不局部道路连通。
+\end{solution}
+
+\begin{solution}{rational-space-disconnected}
+设 \(A\subset\Q\) 含两个不同点 \(p<q\)。取无理数
+\(\alpha\in(p,q)\)。则
+\[
+ A_-=A\cap(-\infty,\alpha),\qquad
+ A_+=A\cap(\alpha,\infty)
+\]
+是 \(A\) 中不交的相对开集，分别含 \(p,q\)，且并为 \(A\)；它们也都
+非空。因此任何含两个点的子集都不连通。于是 \(\Q\) 的连通子集至多为
+单点，每个连通分支恰为一个单点。
+\end{solution}
+
+\begin{solution}{quotient-continuity-test}
+若 \(g:Y\to Z\) 连续，则 \(g\circ q\) 是连续映射的复合。
+
+反过来，设 \(g\circ q\) 连续。对任意开集 \(W\subset Z\)，有
+\[
+ q^{-1}\bigl(g^{-1}(W)\bigr)=(g\circ q)^{-1}(W),
+\]
+右端在 \(X\) 中开。由商映射的定义，\(g^{-1}(W)\) 在 \(Y\) 中开；
+故 \(g\) 连续。这里需要 \(q\) 满射，才能把 \(Y\) 的开集完全由原像
+判定；若 \(q(X)\ne Y\)，原像看不到 \(Y\setminus q(X)\) 上的拓扑信息。
+\end{solution}
+
+\begin{solution}{continuous-surjection-not-quotient}
+取底集 \(X=\R\)，在定义域上赋离散度量
+\[
+ d_{\mathrm{dis}}(x,y)=
+ \begin{cases}0,&x=y,\\1,&x\ne y,\end{cases}
+\]
+在值域上赋通常距离。恒等映射
+\[
+ \operatorname{id}:(\R,d_{\mathrm{dis}})\longrightarrow(\R,|\cdot|)
+\]
+满射；通常开集的原像是定义域的一个子集，因定义域离散而开，所以映射
+连续。
+
+它不是商映射。例如 \(\{0\}\) 在通常拓扑中不开，但其原像 \(\{0\}\)
+在离散定义域中开，商映射定义中的反向蕴含失败。
+\end{solution}
+
+\begin{solution}{interval-endpoints-circle}
+令 \(q:[0,1]\to[0,1]/(0\sim1)\) 是商投影，并令
+\[
+ p(t)=(\cos2\pi t,\sin2\pi t).
+\]
+若 \(q(s)=q(t)\)，则要么 \(s=t\)，要么 \(\{s,t\}=\{0,1\}\)；两种
+情形都有 \(p(s)=p(t)\)。故
+\(\bar p(q(t))=p(t)\) 良定义。因
+\(\bar p\circ q=p\) 连续，商映射判据说明 \(\bar p\) 连续。
+
+每个圆周点都有某个角参数 \(2\pi t\)，所以 \(\bar p\) 满射。若
+\(\bar p(q(s))=\bar p(q(t))\)，则 \(s-t\in\mathbb Z\)；在
+\([0,1]\) 中，这只可能给出 \(s=t\) 或端点对 \(0,1\)，两种情形均有
+\(q(s)=q(t)\)。故 \(\bar p\) 单射。
+
+商空间是紧区间在 \(q\) 下的连续像，所以紧；\(S^1\) 是度量空间，因而
+Hausdorff。紧空间到 Hausdorff 空间的连续双射是同胚，故
+\(\bar p^{-1}\) 连续。
+\end{solution}
+
+\begin{solution}{finite-closed-pasting}
+设 \(X=A_1\cup\cdots\cup A_N\)，各 \(A_j\) 闭，并且
+\(f|_{A_j}\) 连续。对闭集 \(F\subset Y\)，集合
+\((f|_{A_j})^{-1}(F)\) 在 \(A_j\) 中闭；因 \(A_j\) 在 \(X\) 中闭，
+它也在 \(X\) 中闭。于是
+\[
+ f^{-1}(F)=\bigcup_{j=1}^N(f|_{A_j})^{-1}(F)
+\]
+是有限个闭集之并，故闭。闭集原像判据给出 \(f\) 连续。
+
+若改为有限开覆盖 \(X=U_1\cup\cdots\cup U_N\)，且每个
+\(f|_{U_j}\) 连续，则对开集 \(G\subset Y\)，
+\[
+ f^{-1}(G)=\bigcup_{j=1}^N(f|_{U_j})^{-1}(G).
+\]
+每一项在 \(U_j\) 中开，而 \(U_j\) 在 \(X\) 中开，所以每一项也在
+\(X\) 中开。事实上这一论证对任意开覆盖都成立，不需要有限性。
+\end{solution}
+
+\begin{solution}{infinite-pasting-fails}
+定义
+\[
+ f:[0,1]\to\R,\qquad
+ f(x)=
+ \begin{cases}
+  1,&x>0,\\
+  0,&x\le0.
+ \end{cases}
+\]
+它在 \(0\) 不连续。对
+\(A_n=\{0\}\cup[1/(n+1),1/n]\)，点 \(0\) 在子空间 \(A_n\) 中是
+孤立点，而 \(f\) 在闭区间 \([1/(n+1),1/n]\) 上恒为 \(1\)。
+因此 \(f|_{A_n}\) 连续。各 \(A_n\) 都是 \([0,1]\) 中闭集，并且
+\(\bigcup_{n\ge1}A_n=[0,1]\)，却在 \(0\) 处无限聚积；这正是把有限闭集
+粘合引理直接推广到可数覆盖时遗漏的条件。
+\end{solution}
+
+\begin{solution}{wedge-of-circles}
+取不交并
+\[
+ X=(S^1\times\{1\})\sqcup(S^1\times\{2\}),
+\]
+固定 \(p=(1,0)\in S^1\)，只把 \((p,1)\) 与 \((p,2)\) 等同，其他点
+各自成等价类。商空间 \(W=X/{\sim}\) 就是两个圆周在一点粘合所得的
+八字形，粘合点记为 \(w_0\)。
+
+每个圆周的像都是道路连通的，并且二者都含 \(w_0\)。两道路连通集有公共
+点时其并道路连通：从第一点先走到公共点，再走到第二点即可。因此 \(W\)
+道路连通。
+
+删除 \(w_0\) 后，
+\[
+ W\setminus\{w_0\}
+   =q\bigl((S^1\setminus\{p\})\times\{1\}\bigr)
+    \,\sqcup\,
+    q\bigl((S^1\setminus\{p\})\times\{2\}\bigr).
+\]
+每一项同胚于 \(S^1\setminus\{p\}\)，继而同胚于开区间，故道路连通。
+两项在删点空间中都是开闭集；任何连通子集不能同时遇到二者。所以它们正是
+\(W\setminus\{w_0\}\) 的两个连通分支，也正是两个道路分支。
+\end{solution}

@@ -1,0 +1,256 @@
+\chapter{欧氏空间中的极限}
+\label{chap:euclidean-limits-solutions}
+
+\begin{solution}{euclidean-parallelogram-identity}
+展开内积得
+\[
+\begin{aligned}
+ \norm{x+y}_2^2+\norm{x-y}_2^2
+ &=\langle x+y,x+y\rangle+\langle x-y,x-y\rangle\\
+ &=2\langle x,x\rangle+2\langle y,y\rangle.
+\end{aligned}
+\]
+交叉项 \(2\langle x,y\rangle\) 与 \(-2\langle x,y\rangle\) 抵消，故得到
+题中等式。
+\end{solution}
+
+\begin{solution}{euclidean-ball-nesting}
+取
+\[
+ \rho=r-\norm{y-x}_2>0.
+\]
+若 \(z\in B(y,\rho)\)，则三角不等式给出
+\[
+ \norm{z-x}_2\le\norm{z-y}_2+\norm{y-x}_2
+ <\rho+\norm{y-x}_2=r.
+\]
+所以 \(z\in B(x,r)\)。
+\end{solution}
+
+\begin{solution}{point-classification-examples}
+对 \(E=\Q^2\)，任意开球既含两个坐标均为有理数的点，也含至少一个坐标
+为无理数的点。因此 \(E^\circ=\varnothing\)，外点集合也为空，
+\(\partial E=\R^2\)。每一点都是 \(E\) 的聚点，且 \(E\) 没有孤立点。
+
+对 \(F=\R\times\{0\}\)，任意以 \(F\) 中点为中心的球都含横轴外的点，
+所以 \(F^\circ=\varnothing\)；每个 \(F\) 中点又是聚点。若
+\((a,b)\notin F\)，则 \(b\ne0\)，球 \(B((a,b),|b|/2)\) 避开 \(F\)，
+故该点是外点。因此 \(\partial F=F\)，聚点集也是 \(F\)，没有孤立点。
+\end{solution}
+
+\begin{solution}{open-closed-set-operations}
+设 \(F_\lambda\) 闭。由 De Morgan 公式，
+\[
+ \R^n\setminus\bigcap_\lambda F_\lambda
+ =\bigcup_\lambda(\R^n\setminus F_\lambda),
+\]
+右端是开集，所以任意闭集交闭。若 \(F_1,\ldots,F_k\) 闭，则
+\[
+ \R^n\setminus\bigcup_{j=1}^kF_j
+ =\bigcap_{j=1}^k(\R^n\setminus F_j)
+\]
+是有限开集交，故有限闭集并闭。
+
+任意开集交未必开：
+\(\bigcap_{k\ge1}(-1/k,1/k)=\{0\}\)。任意闭集并未必闭：
+\(\bigcup_{k\ge2}[1/k,1]=(0,1]\)。
+\end{solution}
+
+\begin{solution}{closure-by-balls}
+若 \(x\in\overline E\)，则对每个 \(k\) 可取
+\(y_k\in E\cap B(x,1/k)\)，所以
+\[
+ 0\le\operatorname{dist}(x,E)\le\norm{x-y_k}_2<1/k.
+\]
+令 \(k\to\infty\) 得距离为零。反之，若距离为零而某个
+\(B(x,r)\) 避开 \(E\)，则对每个 \(y\in E\) 都有
+\(\norm{x-y}_2\ge r\)，从而距离至少为 \(r>0\)，矛盾。
+\end{solution}
+
+\begin{solution}{boundary-identities}
+边界点的定义对 \(E\) 与其补集完全对称，所以
+\(\partial E=\partial(\R^n\setminus E)\)。点 \(x\) 属于
+\(\overline E\setminus E^\circ\)，当且仅当每个球遇到 \(E\)，同时没有
+任何球包含于 \(E\)；后一条件等价于每个球也遇到补集。因此
+\[
+ \partial E=\overline E\setminus E^\circ
+ =\overline E\cap\overline{\R^n\setminus E}.
+\]
+右端是两个闭集的交，所以边界闭。
+\end{solution}
+
+\begin{solution}{coordinate-convergence}
+若 \(\norm{x^{(k)}-x}_2<\varepsilon\)，则对每个 \(j\)，
+\[
+ |x_j^{(k)}-x_j|\le\norm{x^{(k)}-x}_2<\varepsilon.
+\]
+所以向量收敛推出逐坐标收敛。反之，给定 \(\varepsilon>0\)，为每个坐标
+选择 \(N_j\)，使 \(k\ge N_j\) 时
+\(|x_j^{(k)}-x_j|<\varepsilon/\sqrt n\)。令
+\(N=\max_jN_j\)。当 \(k\ge N\) 时，
+\[
+ \norm{x^{(k)}-x}_2^2
+ =\sum_{j=1}^n|x_j^{(k)}-x_j|^2<\varepsilon^2.
+\]
+\end{solution}
+
+\begin{solution}{lp-norm-comparison-finite}
+先由每一项满足 \(|x_j|\le\norm{x}_p\) 得
+\[
+ \norm{x}_q^q
+ =\sum_j|x_j|^{q-p}|x_j|^p
+ \le\norm{x}_p^{q-p}\sum_j|x_j|^p
+ =\norm{x}_p^q,
+\]
+故 \(\norm{x}_q\le\norm{x}_p\)。对另一方向，函数
+\(t\mapsto t^{p/q}\) 在 \([0,+\infty)\) 上凹。对凸函数
+\(-t^{p/q}\) 应用 \theoremref{thm:finite-jensen}，得到
+\[
+ \frac1n\sum_{j=1}^n(|x_j|^q)^{p/q}
+ \le\left(\frac1n\sum_{j=1}^n|x_j|^q\right)^{p/q}.
+\]
+整理即得
+\[
+ \sum_j|x_j|^p
+ \le n^{1-p/q}\left(\sum_j|x_j|^q\right)^{p/q}.
+\]
+两边取 \(p\) 次方根得到
+\(\norm{x}_p\le n^{1/p-1/q}\norm{x}_q\)。
+\end{solution}
+
+\begin{solution}{multivariable-radial-squeeze}
+令 \(r=\sqrt{x^2+y^2}\)。因 \(|x|,|y|\le r\)，
+\[
+ \left|\frac{x^3-xy^2}{x^2+y^2}\right|
+ \le\frac{|x|^3+|x||y|^2}{r^2}
+ \le\frac{r^3+r^3}{r^2}=2r.
+\]
+当 \((x,y)\to(0,0)\) 时 \(r\to0\)，夹逼得极限为零。
+\end{solution}
+
+\begin{solution}{multivariable-product-over-radius}
+令 \(r^2=x^2+y^2\)。由
+\(2|xy|\le x^2+y^2=r^2\)，
+\[
+ 0\le\frac{x^2y^2}{x^2+y^2}
+ \le\frac{r^4/4}{r^2}=\frac{r^2}{4}\longrightarrow0.
+\]
+所以所求极限为零。
+\end{solution}
+
+\begin{solution}{path-counterexample-lines}
+沿 \(y=mx\)，当 \(m\ne0\) 时
+\[
+ \frac{x^2(mx)}{x^4+m^2x^2}
+ =\frac{mx}{x^2+m^2}\to0;
+\]
+\(m=0\) 时表达式恒为零，竖直线 \(x=0\) 上也恒为零。沿
+\(y=x^2\) 时值为 \(1/2\)。更一般地，沿 \(y=cx^2\)，
+\[
+ f(x,cx^2)=\frac{cx^4}{x^4+c^2x^4}
+ =\frac{c}{1+c^2}
+\]
+（\(c=0\) 也符合）。因此不同 \(c\) 给出不同的路径极限，总极限不存在。
+\end{solution}
+
+\begin{solution}{heine-criterion-vector-valued}
+设 \(f=(f_1,\ldots,f_m)\)。若向量极限为 \(L\)，分量判据说明每个
+\(f_j(x)\to L_j\)，标量 Heine 判据再给出任意 \(x_k\to a\) 时
+\(f_j(x_k)\to L_j\)。有限多个分量同时收敛等价于
+\(f(x_k)\to L\)。反向同理：序列条件先逐分量化，再由标量 Heine 判据
+得到每个分量的函数极限，最后合成向量极限。有限维性用在“有限多个分量
+分别收敛可取共同指标”；无限坐标族不能仅由逐坐标收敛推出范数收敛。
+\end{solution}
+
+\begin{solution}{continuity-closed-preimage}
+若 \(f\) 连续而 \(F\subset\R^m\) 闭，则
+\[
+ E\setminus f^{-1}(F)=f^{-1}(\R^m\setminus F)
+\]
+由开集原像判据在 \(E\) 中相对开，故 \(f^{-1}(F)\) 相对闭。反之，若
+所有闭集原像相对闭，则对任意开集 \(G\)，其补集闭，且
+\[
+ f^{-1}(G)=E\setminus f^{-1}(\R^m\setminus G)
+\]
+相对开。再用开集原像判据即得连续性。
+\end{solution}
+
+\begin{solution}{linear-map-lipschitz}
+令 \(M^2=\sum_{i=1}^m\sum_{j=1}^na_{ij}^2\)。对每个 \(i\)，
+Cauchy--Schwarz 不等式给出
+\[
+ \left|\sum_ja_{ij}x_j\right|^2
+ \le\left(\sum_ja_{ij}^2\right)\norm{x}_2^2.
+\]
+对 \(i\) 求和得
+\[
+ \norm{Ax}_2^2\le M^2\norm{x}_2^2.
+\]
+因此可取 \(C_A=M\)。进一步，
+\(\norm{Ax-Ay}_2\le C_A\norm{x-y}_2\)，所以 \(A\) 为 Lipschitz 映射，
+从而连续。
+\end{solution}
+
+\begin{solution}{graph-closed-continuous}
+设 \((x_k,f(x_k))\) 是图像中的收敛列，且
+\((x_k,f(x_k))\to(x,y)\)。逐坐标收敛给出 \(x_k\to x\) 与
+\(f(x_k)\to y\)。因 \(E\) 闭且 \(x_k\in E\)，有 \(x\in E\)。连续性
+又给出 \(f(x_k)\to f(x)\)，由极限唯一性 \(y=f(x)\)。故极限点仍在图像
+中；由闭集的序列刻画，图像闭。
+\end{solution}
+
+\begin{solution}{norm-equivalence-proof-details}
+对每个 \(k\)，从有限指标集合中选 \(j_k\) 使
+\(|x_{j_k}^{(k)}|=1\)。至少一个指标出现无穷多次；先取子列使这个指标
+固定为 \(j_0\)。该子列的第一坐标有界，由一维
+Bolzano--Weierstrass 定理取第一坐标收敛的子列；再从它取第二坐标收敛的
+子列，如此有限次后得到所有坐标同时收敛的子列。每次只取子列，所以
+\(|x_{j_0}^{(k)}|=1\) 始终保留；取极限得
+\(|x_{j_0}|=1\)，从而极限向量非零。
+\end{solution}
+
+\begin{solution}{closure-intersection-strict}
+取 \(E=(0,1)\)、\(F=(1,2)\)。两者不相交，故
+\(\overline{E\cap F}=\varnothing\)。另一方面
+\[
+ \overline E=[0,1],\qquad \overline F=[1,2],
+\]
+所以 \(\overline E\cap\overline F=\{1\}\)。包含关系严格。
+\end{solution}
+
+\begin{solution}{isolated-points-continuity}
+固定 \(x\in D\)。球 \(B(x,1/2)\) 与 \(D\) 的交只有 \(x\)。给定任意
+\(\varepsilon>0\)，取 \(\delta=1/2\)。若 \(y\in D\) 且
+\(\norm{x-y}_2<\delta\)，便只能有 \(y=x\)，于是
+\(d_Y(f(y),f(x))=0<\varepsilon\)。故 \(f\) 在每个点连续。
+\end{solution}
+
+\begin{solution}{rational-direction-test-fails}
+令
+\[
+ S=\{(x,y)\in\R^2:x\ne0,\ y/x\in\Q\}\cup\{(0,y):y\in\R\},
+\]
+并定义 \(f=0\) 于 \(S\)，\(f=1\) 于 \(\R^2\setminus S\)，另令
+\(f(0,0)=0\)。每条斜率为有理数的过原点直线（以及竖直线）都包含于
+\(S\)，所以沿其趋近原点时 \(f\) 恒为零。
+
+取任意无理数 \(\alpha\)，沿直线 \(y=\alpha x\)、\(x\ne0\) 时点不在
+\(S\)，故 \(f\) 恒为 \(1\)。两类路径给出不同极限，所以原点处总极限
+不存在。
+\end{solution}
+
+\begin{solution}{finite-dimensional-norm-topology}
+设范数 \(N\) 与欧氏范数满足
+\(c\norm z_2\le N(z)\le C\norm z_2\)。于是
+\[
+ B_2(x,r/C)\subset B_N(x,r)
+ \subset B_2(x,r/c).
+\]
+若集合对 \(N\) 开，则每点含一个 \(N\)-球，第一项说明它也含欧氏球；
+反向用第二项并适当缩放半径。故两者开集完全相同，闭集和闭包也相同。
+
+设 \(Y\) 为任意度量空间。对 \(f:Y\to\R^n\)，连续性可由目标空间开集
+的原像判定；对 \(g:\R^n\to Y\)，可由定义域中各点的邻域判定。由于
+\(N\) 与欧氏范数在 \(\R^n\) 上给出同一族开集，两种情形下连续性都不因
+范数的选择而改变。
+\end{solution}

@@ -1,0 +1,112 @@
+\chapter{拓扑空间}
+\label{chap:topological-spaces-solutions}
+
+\begin{solution}{topology-intersection-lattice}
+设 \((\mathcal T_i)_{i\in I}\) 是 \(X\) 上的一族拓扑。空集和 \(X\) 属于每个 \(\mathcal T_i\)，所以属于其交；一族同时属于每个 \(\mathcal T_i\) 的集合，其任意并和有限交仍同时属于每个 \(\mathcal T_i\)。故 \(\bigcap_i\mathcal T_i\) 是拓扑。
+
+并集未必为拓扑。例如在 \(X=\{1,2,3\}\) 上取
+\[
+ \mathcal T_1=\{\varnothing,X,\{1\}\},\qquad
+ \mathcal T_2=\{\varnothing,X,\{2\}\}.
+\]
+其并不含 \(\{1,2\}\)，因而不对并封闭。包含两者的最粗拓扑，是所有同时包含 \(\mathcal T_1\cup\mathcal T_2\) 的拓扑之交；等价地，它是以 \(\mathcal T_1\cup\mathcal T_2\) 为子基生成的拓扑。
+\end{solution}
+
+\begin{solution}{cofinite-closure-convergence}
+有限集闭；若 \(A\) 无限，则每个非空开集的补集有限，不可能包含 \(A\)，故每个非空开集与 \(A\) 相交，于是 \(\overline A=X\)。因此有限 \(A\) 的闭包为 \(A\)，无限 \(A\) 的闭包为 \(X\)。
+
+数列 \((x_n)\) 收敛到 \(x\)，当且仅当对每个有限集 \(F\subseteq X\setminus\{x\}\)，最终有 \(x_n\notin F\)。这又等价于每个 \(y\ne x\) 只在序列中出现有限次。必要性取邻域 \(X\setminus\{y\}\)；充分性对有限多个 \(y\in F\) 取各自最后出现位置的最大值。
+\end{solution}
+
+\begin{solution}{neighborhood-interior-closure}
+若 \(x\in\operatorname{int}A\)，则存在开集 \(U\) 使 \(x\in U\subseteq A\)，这正说 \(A\) 是 \(x\) 的邻域；反向相同。若 \(x\notin\overline A\)，则开集 \(X\setminus\overline A\) 是 \(x\) 的邻域且与 \(A\) 不交。反之，若某邻域 \(N\) 与 \(A\) 不交，在 \(N\) 内取含 \(x\) 的开集 \(U\)，则闭集 \(X\setminus U\) 包含 \(A\) 而不含 \(x\)，故 \(x\notin\overline A\)。
+\end{solution}
+
+\begin{solution}{basis-comparison}
+若 \(\mathcal T_1\subseteq\mathcal T_2\)，每个 \(B\in\mathcal B_1\) 是 \(\mathcal T_2\)-开集，故对 \(x\in B\) 可在 \(\mathcal B_2\) 中取 \(x\in C\subseteq B\)。反之，任意 \(\mathcal T_1\)-开集是若干 \(\mathcal B_1\) 元素之并；每个这样的元素又按假设是 \(\mathcal B_2\) 元素之并，所以它属于 \(\mathcal T_2\)。
+\end{solution}
+
+\begin{solution}{rational-interval-basis}
+集合 \(\{(p,q):p,q\in\Q,p<q\}\) 至多可数。若 \(U\subseteq\R\) 开且 \(x\in U\)，取 \(\varepsilon>0\) 使 \((x-\varepsilon,x+\varepsilon)\subseteq U\)。由有理数稠密性，可取
+\[
+ x-\varepsilon<p<x<q<x+\varepsilon,
+\]
+于是 \(x\in(p,q)\subseteq U\)。基判据给出结论。
+\end{solution}
+
+\begin{solution}{particular-point-countability}
+拓扑为 \(\{\varnothing\}\cup\{U:p\in U\}\)。每个非空开集含 \(p\)，故 \(\{p\}\) 稠密。点 \(p\) 有单元素邻域基 \(\{\{p\}\}\)；若 \(x\ne p\)，\(\{p,x\}\) 是 \(x\) 的最小邻域，所以空间第一可数。
+
+若有可数基 \(\mathcal B\)，对每个 \(x\ne p\)，开集 \(\{p,x\}\) 必含一个基元素 \(B_x\) 满足 \(x\in B_x\subseteq\{p,x\}\)，故 \(B_x=\{p,x\}\)。不同 \(x\) 给出不同基元素，与 \(X\) 不可数矛盾。
+\end{solution}
+
+\begin{solution}{sierpinski-open-classifier}
+Sierpiński 空间唯一需要检验的非平凡开集是 \(\{1\}\)。而
+\[
+ \mathbf1_U^{-1}(\{1\})=U.
+\]
+所以示性函数连续恰好等价于 \(U\) 开。
+\end{solution}
+
+\begin{solution}{continuity-basis-subbasis}
+若基中每个集合的原像开，则任意开集作为基元素之并，其原像也是相应原像之并，故开。若只知子基元素的原像开，则有限交组成的基元素之原像是有限个开集之交，仍开，再用前一结论即可。
+\end{solution}
+
+\begin{solution}{second-countable-hereditary-product}
+若 \(\mathcal B\) 是 \(X\) 的可数基，则 \(\{A\cap B:B\in\mathcal B\}\) 是子空间 \(A\) 的可数基。
+
+设 \((X_n)_{n\in\N}\) 各有可数基 \(\mathcal B_n\)。积拓扑的基本柱集只在有限坐标集 \(F\subseteq\N\) 上选取 \(B_n\in\mathcal B_n\)。有限子集族至多可数；对每个固定 \(F\)，有限个可数集的积至多可数。对所有 \(F\) 取并仍至多可数，故得到可数基。
+\end{solution}
+
+\begin{solution}{initial-topology-composition}
+先在 \(Y\) 上由 \(g_i\) 取初始拓扑，再由 \(f\) 拉回时，所得子基为
+\[
+ f^{-1}(g_i^{-1}(U))=(g_i\circ f)^{-1}(U),
+\]
+恰是复合映射族直接诱导的子基。因此两次构造相等。
+\end{solution}
+
+\begin{solution}{product-coordinate-continuity}
+积拓扑是投影 \(\pi_X,\pi_Y\) 诱导的初始拓扑。按其泛性质，\(h\) 连续当且仅当 \(\pi_X\circ h\) 与 \(\pi_Y\circ h\) 连续。有限积时完全相同：\(h:Z\to\prod_{k=1}^nX_k\) 连续当且仅当每个 \(\pi_k\circ h\) 连续。
+\end{solution}
+
+\begin{solution}{box-versus-product}
+箱拓扑允许每一坐标都选开集，所以该乘积按定义开。若它在积拓扑中开并含零点，则存在只限制有限坐标集 \(F\) 的基本柱集 \(B\) 满足
+\[
+ 0\in B\subseteq\prod_n(-1/n,1/n).
+\]
+取 \(m\notin F\)，在 \(B\) 中可令第 \(m\) 坐标等于 \(1\)，但 \(1\notin(-1/m,1/m)\)，矛盾。
+\end{solution}
+
+\begin{solution}{quotient-saturated-open}
+对任意 \(U\subseteq Y\)，集合 \(q^{-1}(U)\) 自动饱和，因为
+\(q^{-1}(q(q^{-1}(U)))=q^{-1}(U)\)。商拓扑定义直接给出 \(U\) 开当且仅当该原像开。反过来，任意饱和集 \(A\) 等于 \(q^{-1}(q(A))\)，故与 \(Y\) 的子集一一对应。
+
+商映射未必开。例如把 \(\R\) 中所有整数压成一个点。开区间 \((-1/4,1/4)\) 的像原像为该区间与全部整数之并，后者在非零整数点附近不开，所以其像不是商空间中的开集。
+\end{solution}
+
+\begin{solution}{circle-as-quotient}
+映射 \(q\) 连续、满射，并且恰好把 \(0,1\) 识别，其他纤维都是单点。因此它在集合层面诱导连续双射
+\[
+ \widetilde q:[0,1]/(0\sim1)\longrightarrow S^1.
+\]
+商空间是紧空间的连续像，故紧；\(S^1\subseteq\R^2\) 为 Hausdorff 空间。定理 \ref{thm:compact-continuous-image} 说明紧空间到 Hausdorff 空间的连续双射是同胚。
+\end{solution}
+
+\begin{solution}{first-countable-sequential-continuity}
+连续映射总保持数列极限。反之，若 \(f\) 在 \(x\) 不连续，则存在 \(f(x)\) 的开邻域 \(V\)，使每个 \(x\) 的邻域都含某点 \(y\) 满足 \(f(y)\notin V\)。取递减可数邻域基 \((N_n)\)，逐个选 \(x_n\in N_n\) 且 \(f(x_n)\notin V\)。于是 \(x_n\to x\)，但 \(f(x_n)\) 不可能趋于 \(f(x)\)，矛盾。
+\end{solution}
+
+\begin{solution}{uncountable-cube-no-countable-base}
+设 \(p\in\{0,1\}^{I}\)，假定 \((N_n)\) 是其可数邻域基。每个 \(N_n\) 含一个基本柱集 \(B_n\ni p\)，后者只限制有限坐标集 \(F_n\)。集合 \(F=\bigcup_nF_n\) 至多可数。取 \(i_0\in I\setminus F\)，令
+\[
+ V=\{x:x_{i_0}=p_{i_0}\}.
+\]
+这是 \(p\) 的开邻域，但没有 \(B_n\subseteq V\)：因 \(B_n\) 不限制 \(i_0\)，可在该坐标改值而仍留在 \(B_n\)。于是也没有 \(N_n\subseteq V\)，矛盾。
+\end{solution}
+
+\begin{solution}{finite-support-sequential-closure}
+若 \((x^{(n)})\subseteq A\) 收敛到 \(x\)，则对任意 \(i\) 满足 \(x_i=1\)，坐标收敛迫使最终 \(x_i^{(n)}=1\)，特别地 \(i\in\bigcup_n\operatorname{supp}x^{(n)}\)。右端至多可数，故 \(x\) 支集至多可数。
+
+反之，若 \(\operatorname{supp}x=\{i_0,i_1,\ldots\}\) 至多可数，令 \(x^{(n)}\) 在前 \(n\) 个这些坐标上与 \(x\) 相同、其余为零。对每个固定坐标，数列最终等于 \(x\) 的该坐标，故在积拓扑中收敛到 \(x\)。所以序列闭包正是支集至多可数的点集；它严格小于 \(X=\overline A\)。
+\end{solution}

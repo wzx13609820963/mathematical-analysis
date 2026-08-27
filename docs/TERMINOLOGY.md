@@ -59,12 +59,36 @@
 | Abel 径向极限定理 | Abel's radial limit theorem | 端点级数收敛时，幂级数和沿区间内侧趋于端点和；与 Abel 判别区分 |
 | 零点的阶 | order of a zero | 解析函数展开中首个非零系数的次数 |
 | 恒等原理（实解析） | identity theorem for real-analytic functions | 连通区间上零点有内聚点即恒为零；不适用于一般 \(C^\infty\) 函数 |
-| 紧致 | compact | 当前实线章节先以有限覆盖性质出现，后续度量空间中给一般定义 |
+| 紧致 | compact | 以有限子覆盖性质定义；在欧氏空间中等价于闭且有界，在度量空间中等价于序列紧致，也等价于完备且全有界 |
 | 单位分解 | partition of unity | 流形部分统一采用此译名，不使用“分割统一” |
 | Vitali 收敛定理 | Vitali convergence theorem | 实分析中指依测度收敛加一致可积性推出 \(L^1\) 收敛的定理 |
 | Vitali--Porter 收敛定理 | Vitali--Porter theorem | 复分析中指正规族背景下由具有聚点的点集上的收敛推出局部一致收敛；不得简称为上一条 |
 | Tychonoff 乘积定理 | Tychonoff product theorem | 正文须说明采用任意乘积、紧 Hausdorff 乘积或其他版本，以及相应选择原则 |
 | Euclidean 空间 | Euclidean space | 中文统一写“欧氏空间”；英文不写“Euclid 空间” |
+| 拓扑等价度量 | topologically equivalent metrics | 生成同一拓扑；不自动保持 Cauchy 性或完备性 |
+| 一致等价度量 | uniformly equivalent metrics | 两个恒等映射均一致连续；保持 Cauchy 性和完备性 |
+| 序列紧致 | sequential compactness | 每个序列都有收敛子列；在度量空间中等价于开覆盖紧致，在一般拓扑空间中不可混同 |
+| 全有界 | totally bounded | 对每个正半径都有有限球覆盖；不得简称为“有界” |
+| 完备化 | completion | 原空间等距或一致嵌入为稠密子空间的完备空间，并按相应意义唯一 |
+| 连通分支 | connected component | 含给定点的极大连通子集；总是闭，但未必开 |
+| 道路分支 | path component | 含给定点的极大道路连通子集；未必闭，也未必与连通分支相同 |
+| 商映射 | quotient map | 满射 \(q:X\to Y\) 满足 \(U\subseteq Y\) 开当且仅当 \(q^{-1}(U)\) 开 |
+| 拓扑基、子基 | basis, subbasis | 基元素直接生成开集；子基先取有限交再取任意并 |
+| 第一可数、第二可数 | first countable, second countable | 前者要求每点有可数邻域基，后者要求全空间有可数拓扑基 |
+| 正则、完全正则、正规 | regular, completely regular, normal | 本书把相应 \(T_1\) 条件写入定义；引用外文资料时须核对约定 |
+| 一点紧化 | one-point compactification | 局部紧 Hausdorff 空间增加一个无穷远点所得的紧 Hausdorff 空间 |
+| Stone--Čech 紧致化 | Stone--Čech compactification | 完全正则 Hausdorff 空间的最大紧 Hausdorff 紧致化，以紧目标延拓泛性质刻画 |
+| 网、子网 | net, subnet | 网以非空有向集为指标；本书只要求子网的指标映射最终共尾，不另要求保序；不等同于抽取子序列 |
+| 滤子、滤子基、超滤子 | filter, filter base, ultrafilter | 滤子不含空集并向上封闭、对有限交封闭；超滤子是极大真滤子 |
+| 一致空间 | uniform space | 由对角线邻域族同时控制所有点对；其诱导拓扑只保留局部信息 |
+| Cauchy 滤子、Cauchy 网 | Cauchy filter, Cauchy net | 用一致结构中的周围控制尾部点对；一般一致空间中不得只用序列替代 |
+| 拓扑群 | topological group | 带有 Hausdorff 拓扑且乘法与求逆连续的群；本书把 Hausdorff 性写入约定，左、右一致结构一般不必相同 |
+| 拓扑向量空间 | topological vector space | 带有 Hausdorff 拓扑且向量加法、标量乘法连续的向量空间；默认底域为 \(\R\) 或 \(\C\) |
+| 半范数 | seminorm | 满足齐次性和三角不等式，允许非零向量取值为零 |
+| 局部凸空间 | locally convex space | 具有凸零邻域基的 Hausdorff 拓扑向量空间；等价地由分离点的半范数族生成 |
+| Fréchet 空间 | Fréchet space | 完备、可度量的局部凸空间；不等同于一般 Banach 空间，也不要求由单个范数给拓扑 |
+| 弱拓扑、弱星拓扑 | weak topology, weak-star topology | 分别写 \(\sigma(E,E')\)、\(\sigma(E',E)\)；必须注明所用对偶配对 |
+| Minkowski 泛函 | Minkowski functional / gauge | 由吸收集定义；对绝对凸集给出半范数，未必是范数 |
 
 ## 风格约定
 

@@ -1,0 +1,289 @@
+\chapter{完备度量空间}
+\label{chap:complete-metric-spaces-solutions}
+
+\begin{solution}{metric-discrete-verification}
+非负、正定与对称直接成立。若 \(x=z\)，三角不等式左端为零。若
+\(x\ne z\)，则左端为一；此时不可能同时有 \(x=y\) 与 \(y=z\)，所以
+\(d(x,y)+d(y,z)\ge1\)。故三角不等式成立。
+
+当 \(0<r\le1\) 时，\(B(x,r)=\{x\}\)，因为其他点到 \(x\) 的距离为一，
+不严格小于 \(r\)。当 \(r>1\) 时，所有点到 \(x\) 的距离都小于 \(r\)，
+所以 \(B(x,r)=X\)。
+\end{solution}
+
+\begin{solution}{metric-truncation}
+正定和对称性直接继承自 \(d\)。由 \(d(x,z)\le d(x,y)+d(y,z)\)，
+\[
+ \rho(x,z)\le\min\{d(x,y)+d(y,z),1\}.
+\]
+对非负数 \(a,b\)，有
+\[
+ \min\{a+b,1\}\le\min\{a,1\}+\min\{b,1\};
+\]
+若 \(a\ge1\) 或 \(b\ge1\)，右端至少为一；否则右端等于 \(a+b\)。
+因此 \(\rho\) 满足三角不等式。
+
+恒等映射 \((X,d)\to(X,\rho)\) 为 \(1\)-Lipschitz。反向给定
+\(\varepsilon>0\)，取 \(\delta=\min\{\varepsilon,1/2\}\)。若
+\(\rho(x,y)<\delta\)，则必有 \(d(x,y)<1\)，从而
+\(d(x,y)=\rho(x,y)<\varepsilon\)。故两个恒等映射都一致连续。
+\end{solution}
+
+\begin{solution}{arctangent-metric-incomplete}
+映射 \(h(x)=\arctan x\) 是从 \(\R\) 到
+\((-\pi/2,\pi/2)\) 的同胚，而
+\(\rho(x,y)=|h(x)-h(y)|\) 是由值域欧氏距离拉回的度量。因此
+\(\rho\) 产生的开集与通常拓扑相同。
+
+数列 \(x_n=n\) 在 \(\rho\) 下为 Cauchy 列，因为
+\(\arctan n\to\pi/2\)。若它在 \((\R,\rho)\) 中收敛到 \(x\)，则
+\[
+ |\arctan n-\arctan x|\to0,
+\]
+迫使 \(\arctan x=\pi/2\)，但没有实数满足这一等式。故该度量不完备。
+\end{solution}
+
+\begin{solution}{metric-closure-sequence}
+按定义，\(x\in\overline A\) 当且仅当每个开球 \(B(x,r)\) 与 \(A\)
+相交。若该条件成立，对每个 \(n\ge1\) 选
+\(a_n\in A\cap B(x,1/n)\)，则
+\(d(a_n,x)<1/n\)，故 \(a_n\to x\)。反之，若存在
+\(a_n\in A\) 收敛到 \(x\)，则给定 \(r>0\)，充分大的 \(n\) 满足
+\(a_n\in B(x,r)\)，所以该球与 \(A\) 相交。空集没有这样的点或点列，
+两边同为假。
+\end{solution}
+
+\begin{solution}{distance-to-set-lipschitz}
+对任意 \(a\in A\)，三角不等式给出
+\[
+ d(x,A)\le d(x,a)\le d(x,y)+d(y,a).
+\]
+对 \(a\) 取下确界，得
+\(d(x,A)-d(y,A)\le d(x,y)\)。交换 \(x,y\) 得
+\[
+ |d(x,A)-d(y,A)|\le d(x,y).
+\]
+若 \(x\in\overline A\)，每个 \(1/n\)-球遇到 \(A\)，故
+\(d(x,A)\le1/n\) 对所有 \(n\) 成立，从而距离为零。若距离为零，则任意
+\(r>0\) 下不可能所有 \(a\in A\) 都满足 \(d(x,a)\ge r\)，故
+\(B(x,r)\cap A\ne\varnothing\)，即 \(x\in\overline A\)。
+\end{solution}
+
+\begin{solution}{metric-closed-sequential}
+若 \(F\) 闭、\(x_n\in F\) 且 \(x_n\to x\)，而 \(x\notin F\)，则补集
+开，某球 \(B(x,r)\) 包含于补集；但 \(x_n\) 最终进入该球，与
+\(x_n\in F\) 矛盾。
+
+反之，若 \(F\) 不闭，存在 \(x\in\overline F\setminus F\)。由闭包的球
+刻画，对每个 \(n\) 选 \(x_n\in F\cap B(x,1/n)\)。于是
+\(x_n\to x\notin F\)，序列条件失败。半径 \(1/n\) 构成趋零的可数尺度，
+把“每个邻域相交”转换成一条普通数列。
+\end{solution}
+
+\begin{solution}{metric-continuity-open-preimage}
+若 \(f\) 连续，\(G\subset Y\) 开且 \(x\in f^{-1}(G)\)，取
+\(\varepsilon>0\) 使 \(B_Y(f(x),\varepsilon)\subset G\)。连续性给出
+\(\delta>0\)，于是
+\[
+ B_X(x,\delta)\subset f^{-1}(G).
+\]
+故原像开。反之，若所有开集原像开，固定 \(x\in X,\varepsilon>0\)。
+集合 \(f^{-1}(B_Y(f(x),\varepsilon))\) 是含 \(x\) 的开集，故包含某个
+\(B_X(x,\delta)\)。这正是 \(f\) 在 \(x\) 连续的定义。
+\end{solution}
+
+\begin{solution}{cauchy-bounded-metric}
+取 Cauchy 条件对 \(\varepsilon=1\) 的指标 \(N\)。当 \(n\ge N\) 时
+\(d(x_n,x_N)<1\)。有限多个初始项到 \(x_N\) 的距离有最大值，令
+\[
+ R=1+\max_{1\le n<N}d(x_n,x_N).
+\]
+则所有 \(x_n\in B(x_N,R)\)，故数列有界。
+
+在无限集合上取离散度量，任取两两不同的点列。整个空间直径为一，所以点列
+有界；任意含无穷多个不同项的子列在距离阈值 \(1/2\) 下都不是 Cauchy 列。
+\end{solution}
+
+\begin{solution}{cauchy-convergent-subsequence}
+设 \(x_{n_k}\to x\)。给定 \(\varepsilon>0\)，由 Cauchy 性取 \(N_1\)，
+使 \(m,n\ge N_1\) 时 \(d(x_m,x_n)<\varepsilon/2\)。再取 \(k\) 充分大，
+使 \(n_k\ge N_1\) 且 \(d(x_{n_k},x)<\varepsilon/2\)。于是对任意
+\(n\ge N_1\)，
+\[
+ d(x_n,x)\le d(x_n,x_{n_k})+d(x_{n_k},x)<\varepsilon.
+\]
+故整列趋于 \(x\)。
+\end{solution}
+
+\begin{solution}{finite-product-complete}
+设 \(X=X_1\times\cdots\times X_N\)，距离为
+\(d(x,y)=\max_jd_j(x_j,y_j)\)。若每个因子完备，乘积中的 Cauchy 列
+逐坐标都是 Cauchy 列，故各自收敛；有限个坐标的最大距离趋零，得到乘积中
+收敛。
+
+反之，若乘积完备，固定其他坐标的点，只让第 \(j\) 个坐标变化，便得到
+\(X_j\) 到乘积的等距嵌入，其像是闭集：坐标投影连续，固定坐标条件是闭集
+原像的有限交。因此该像作为完备空间的闭子空间完备，与 \(X_j\) 等距，故
+\(X_j\) 完备。
+\end{solution}
+
+\begin{solution}{continuous-bounded-functions-complete}
+设 \((f_n)\) 是有界连续映射空间中的上确界 Cauchy 列。固定 \(x\in X\)，
+\((f_n(x))\) 在完备空间 \(Y\) 中有极限，记为 \(f(x)\)。与正文相同，令
+一个指标趋于无穷可得 \(f_n\to f\) 一致。为证明连续，固定
+\(x_0\) 与 \(\varepsilon>0\)，先取 \(n\) 使
+\[
+ \sup_xd_Y(f_n(x),f(x))<\varepsilon/3.
+\]
+由 \(f_n\) 在 \(x_0\) 连续，取 \(\delta>0\) 使
+\(d_X(x,x_0)<\delta\) 时
+\(d_Y(f_n(x),f_n(x_0))<\varepsilon/3\)。三角不等式给出
+\(d_Y(f(x),f(x_0))<\varepsilon\)，故 \(f\) 连续。
+
+取一个固定 \(x_0\in X\)。某个 \(f_N\) 的像有界，而
+\(d_\infty(f,f_N)<\infty\)，所以 \(f\) 的像也有界。故极限仍属于该
+函数空间，空间完备。
+\end{solution}
+
+\begin{solution}{closed-complete-subspace}
+若 \(A\) 是完备空间 \(X\) 的闭子集，\(A\) 中 Cauchy 列也是 \(X\) 中
+Cauchy 列，故在 \(X\) 中收敛；闭性使极限属于 \(A\)，所以 \(A\) 完备。
+这里需要环境空间完备。
+
+若 \(A\) 本身完备而 \(x\in\overline A\)，取 \(a_n\in A\) 使
+\(a_n\to x\)。它是 \(A\) 中 Cauchy 列，故还收敛到某个 \(a\in A\)。
+在环境空间中极限唯一，得到 \(x=a\in A\)。所以 \(A\) 闭。这个方向只用
+环境空间提供距离和极限唯一性，不要求环境空间完备。
+\end{solution}
+
+\begin{solution}{open-subspace-incomplete}
+在完备空间 \(\R\) 中，开子空间 \((0,1)\) 不完备，因为
+\(x_n=1/n\) 是其中的 Cauchy 列，但其唯一实极限 \(0\) 不在子空间中。
+
+非开例子可取
+\[
+ A=\{0\}\cup(1,2)\subset\R.
+\]
+它不是开集，因为 \(0\) 不是内点；也不完备，因为
+\(1+1/n\in A\)（\(n\ge2\)）是 Cauchy 列，极限 \(1\notin A\)。
+\end{solution}
+
+\begin{solution}{uniform-equivalence-completeness}
+若 \(d,\rho\) 一致等价，则恒等映射的双向一致连续性说明：一个度量下的
+Cauchy 列恰好也是另一个度量下的 Cauchy 列。两度量拓扑等价，故它们又有
+相同的收敛列及相同极限。因此 \(d\) 下每个 Cauchy 列收敛，当且仅当
+\(\rho\) 下每个 Cauchy 列收敛。
+
+反正切度量与通常距离拓扑等价，但正整数列只在前者下是 Cauchy 列且没有
+极限，说明拓扑等价不能保证上述第一步。
+\end{solution}
+
+\begin{solution}{completion-equivalence-relation}
+反身性由 \(d(x_n,x_n)=0\) 得到；对称性来自度量对称性。若
+\((x_n)\sim(y_n)\) 且 \((y_n)\sim(z_n)\)，则
+\[
+ d(x_n,z_n)\le d(x_n,y_n)+d(y_n,z_n)\longrightarrow0,
+\]
+故 \((x_n)\sim(z_n)\)。所以该关系是等价关系。
+\end{solution}
+
+\begin{solution}{completion-distance-well-defined}
+若 \((x_n),(y_n)\) 都是 Cauchy 列，则
+\[
+ |d(x_n,y_n)-d(x_m,y_m)|
+ \le d(x_n,x_m)+d(y_n,y_m).
+\]
+右端在 \(m,n\to\infty\) 时趋零，因此 \((d(x_n,y_n))\) 是实 Cauchy
+列，极限存在。
+
+若 \(x_n\sim x_n'\)、\(y_n\sim y_n'\)，则反向三角不等式给出
+\[
+ |d(x_n,y_n)-d(x_n',y_n')|
+ \le d(x_n,x_n')+d(y_n,y_n')\longrightarrow0.
+\]
+所以两组距离有同一极限，定义不依赖代表元。
+\end{solution}
+
+\begin{solution}{completion-density}
+设 \(\xi=[(x_n)]\)。给定 \(\varepsilon>0\)，由 \((x_n)\) 的 Cauchy
+性取 \(N_0\)，使 \(m,N\ge N_0\) 时
+\(d(x_N,x_m)<\varepsilon\)。对固定 \(N\ge N_0\)，令 \(m\to\infty\)，
+\[
+ \widehat d(i(x_N),\xi)
+ =\lim_{m\to\infty}d(x_N,x_m)\le\varepsilon.
+\]
+采用 \(\varepsilon/2\) 作为初始阈值即可得到严格小于
+\(\varepsilon\)。故 \(i(x_N)\to\xi\)，常值类的像稠密。
+\end{solution}
+
+\begin{solution}{completion-fast-subsequence}
+按正文选择后，
+\[
+ d(a_{j+1},a_j)
+ \le2^{-(j+1)}+2^{-j}+2^{-j}<4\,2^{-j}.
+\]
+若 \(\ell>j\)，则
+\[
+ d(a_\ell,a_j)
+ \le\sum_{r=j}^{\ell-1}d(a_{r+1},a_r)
+ <4\sum_{r=j}^{\infty}2^{-r}=8\,2^{-j}.
+\]
+所以 \((a_j)\) 是 Cauchy 列。令 \(\xi=[(a_j)]\)。由上式让
+\(\ell\to\infty\)，
+\[
+ \widehat d(i(a_j),\xi)\le8\,2^{-j}.
+\]
+再用三角不等式，
+\[
+ \widehat d(\xi_{k_j},\xi)
+ \le\widehat d(\xi_{k_j},i(a_j))
+   +\widehat d(i(a_j),\xi)
+ <9\,2^{-j}\to0.
+\]
+\end{solution}
+
+\begin{solution}{completion-extension-uniform}
+对 \(\hat x\in\widehat X\)，取 \(x_n\in X\) 使 \(x_n\to\hat x\)。
+该列是 Cauchy 列，一致连续性使 \(f(x_n)\) 在完备空间 \(Y\) 中 Cauchy，
+定义
+\[
+ \widehat f(\hat x)=\lim_nf(x_n).
+\]
+若 \(y_n\to\hat x\)，则 \(d(x_n,y_n)\to0\)；一致连续性给出
+\(d_Y(f(x_n),f(y_n))\to0\)，所以两极限相同，定义良好。常值列表明该
+映射延拓 \(f\)。
+
+给定 \(\varepsilon>0\)，取原映射对 \(\varepsilon/3\) 的半径
+\(\delta>0\)。若 \(d(\hat x,\hat y)<\delta/3\)，可分别取
+\(x,y\in X\) 足够接近 \(\hat x,\hat y\)，使
+\[
+ d(x,\hat x)<\delta/3,\quad d(y,\hat y)<\delta/3,
+\]
+并同时使
+\[
+ d_Y(f(x),\widehat f(\hat x))<\varepsilon/3,\quad
+ d_Y(f(y),\widehat f(\hat y))<\varepsilon/3.
+\]
+把近似再取得稍严格些，便有 \(d(x,y)<\delta\)，所以
+\(d_Y(f(x),f(y))<\varepsilon/3\)。三角不等式给出
+\(d_Y(\widehat f(\hat x),\widehat f(\hat y))<\varepsilon\)，故延拓一致
+连续。若有两个连续延拓，它们在稠密集 \(X\) 上相等；取逼近列即知在
+\(\widehat X\) 上处处相等。
+\end{solution}
+
+\begin{solution}{completion-rationals-reals}
+抽象完备化的元素是有理 Cauchy 列的等价类。把类
+\([(q_n)]\) 映到该列在实数中的极限：
+\[
+ T([(q_n)])=\lim_{n\to\infty}^{\R}q_n.
+\]
+若两列之差趋零，它们有相同实极限；反之，同极限的两列对应项之差趋零，
+所以 \(T\) 良定义且单射。每个实数都有有理逼近列，故 \(T\) 满射。又有
+\[
+ |T([(q_n)])-T([(r_n)])|
+ =\lim_n|q_n-r_n|
+ =\widehat d([(q_n)],[(r_n)]),
+\]
+所以 \(T\) 保持距离。常值有理列被送回原有理数，因此该等距同构也与
+\(\Q\) 的自然嵌入相容。
+\end{solution}
