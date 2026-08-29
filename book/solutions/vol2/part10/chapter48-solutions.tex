@@ -1,0 +1,143 @@
+\chapter{参数化积分}
+\label{chap:parametric-integrals-solutions}
+
+\begin{solution}{arc-length-proof-details}
+对 $C^1$ 曲线 $\gamma:[a,b]\to\R^n$，一致连续性给出：分割足够细时，
+$\gamma'(t)$ 在每段 $I_i$ 上与 $\gamma'(\xi_i)$ 相差不超过 $\eta$。由
+\[
+ \gamma(t_i)-\gamma(t_{i-1})
+ =\gamma'(\xi_i)\Delta t_i+
+   \int_{t_{i-1}}^{t_i}(\gamma'(s)-\gamma'(\xi_i))\,ds
+\]
+得余项范数不超过 $\eta\Delta t_i$。利用反三角不等式，各弦长和与
+$\sum_i\norm{\gamma'(\xi_i)}\Delta t_i$ 的差不超过
+$\eta(b-a)$。先令网径趋零，再令 $\eta\downarrow0$，便得到弧长公式。
+\end{solution}
+
+\begin{solution}{arc-length-reparametrization}
+设 $t=\phi(s)$。若 $\phi$ 严格递增且为 $C^1$ 微分同胚，
+\[
+ \int\norm{(\gamma\circ\phi)'(s)}\,ds
+ =\int\norm{\gamma'(\phi(s))}\phi'(s)\,ds
+ =\int\norm{\gamma'(t)}\,dt.
+\]
+若严格递减，则 $\phi'<0$，范数产生 $|\phi'|=-\phi'$，换元时上下限也
+交换，最后仍得同一积分。因此弧长与方向无关，只依赖几何轨迹及其重数。
+\end{solution}
+
+\begin{solution}{helix-length-line-integral}
+$\gamma'(t)=(-\sin t,\cos t,1)$，故速度为 $\sqrt2$。长度为
+$2\sqrt2\pi$。又 $z=t$，所以
+\[
+ \int_\gamma z\,ds=\int_0^{2\pi}t\sqrt2\,dt=2\sqrt2\pi^2.
+\]
+\end{solution}
+
+\begin{solution}{orientation-vector-line-integral}
+反向参数可写为 $\widetilde\gamma(t)=\gamma(a+b-t)$。于是
+$\widetilde\gamma'(t)=-\gamma'(a+b-t)$。第二型积分中的切向量因此带来负号，
+换元后得 $\int_{-\gamma}F\cdot dr=-\int_\gamma F\cdot dr$；第一型积分含
+$\norm{\gamma'}$，负号被范数消去，故保持不变。
+\end{solution}
+
+\begin{solution}{gradient-fundamental-line-integral}
+链式法则给出
+$\frac d{dt}\varphi(\gamma(t))=\nabla\varphi(\gamma(t))\cdot\gamma'(t)$，积分后
+\[
+ \int_\gamma\nabla\varphi\cdot dr=\varphi(\gamma(b))-\varphi(\gamma(a)).
+\]
+对 $\varphi=x^2y+z$，若端点为 $p=(x_0,y_0,z_0)$、
+$q=(x_1,y_1,z_1)$，积分等于
+$x_1^2y_1+z_1-x_0^2y_0-z_0$，与所选曲线无关。
+\end{solution}
+
+\begin{solution}{curve-multiple-traversal}
+单位圆一周取 $\gamma(t)=(\cos t,\sin t)$，$0\le t\le2\pi$；两周把上限换成
+$4\pi$。对标量积分，两周是一次的两倍，先正后反也仍是两倍，因为弧长无向。
+对向量积分，两周同样是一次的两倍；先正后反的两段互相抵消。若被积函数或
+场沿圆连续，这些结论由参数积分直接换元得到。
+\end{solution}
+
+\begin{solution}{surface-reparametrization-cross-product}
+若 $Y=X\circ\Phi$ 且 $\Phi(s,t)=(u(s,t),v(s,t))$，链式法则给出
+$Y_s=X_u u_s+X_vv_s$、$Y_t=X_u u_t+X_vv_t$。双线性和交错性产生
+\[
+ Y_s\times Y_t=(u_sv_t-v_su_t)X_u\times X_v
+ =\det D\Phi\,(X_u\times X_v)\circ\Phi.
+\]
+取范数便得到面积元的换元律，保留符号则得到定向变换律。
+\end{solution}
+
+\begin{solution}{graph-surface-area}
+图形参数 $X(x,y)=(x,y,f(x,y))$ 满足
+$\norm{X_x\times X_y}=\sqrt{1+f_x^2+f_y^2}$。对
+$f=x^2+y^2$ 和单位圆盘，面积为
+\[
+ \int_0^{2\pi}\int_0^1\sqrt{1+4r^2}\,r\,dr\,d\theta
+ =\frac\pi6(5\sqrt5-1).
+\]
+\end{solution}
+
+\begin{solution}{sphere-area-parametric}
+取 $X(\varphi,\theta)=R(\sin\varphi\cos\theta,
+\sin\varphi\sin\theta,\cos\varphi)$。叉积范数为 $R^2\sin\varphi$，故
+\[
+ |S_R|=\int_0^{2\pi}\int_0^\pi R^2\sin\varphi\,d\varphi\,d\theta=4\pi R^2.
+\]
+两极的参数秩下降，但它们是两个点，面积为零。可先在
+$\eta\le\varphi\le\pi-\eta$ 积分，再令 $\eta\downarrow0$。
+\end{solution}
+
+\begin{solution}{sphere-radial-flux}
+球面外法向为 $n=x/R$，故 $F(x)=x$ 满足 $F\cdot n=R$。通量为
+$R\cdot4\pi R^2=4\pi R^3$。这也与散度为 $3$、球体积为
+$4\pi R^3/3$ 相符，但本题可直接由参数化计算。
+\end{solution}
+
+\begin{solution}{surface-orientation-change}
+交换参数相当于用 $(s,t)\mapsto(t,s)$，其 Jacobian 为 $-1$。于是有向面积
+向量 $X_s\times X_t$ 变号，通量积分变号；标量面积元取叉积范数，故不变。
+更一般地，反向定向的重新参数化均有负 Jacobian，结论相同。
+\end{solution}
+
+\begin{solution}{cylinder-side-flux}
+半径 $R$、高 $h$ 的侧面可取
+$X(\theta,z)=(R\cos\theta,R\sin\theta,z)$，外向面积向量为
+$(R\cos\theta,R\sin\theta,0)\,d\theta dz$。常向量 $c$ 的通量为
+\[
+ \int_0^h\int_0^{2\pi}R(c_1\cos\theta+c_2\sin\theta)\,d\theta dz=0.
+\]
+径向场 $F=(x,y,0)$ 的通量为
+$\int_0^h\int_0^{2\pi}R^2\,d\theta dz=2\pi R^2h$。
+\end{solution}
+
+\begin{solution}{nonregular-curve-warning}
+取 $\gamma(t)=(t^3,0)$，$-1\le t\le1$。其像是线段
+$[-1,1]\times\{0\}$，但 $\gamma'(0)=(0,0)$，故该参数不是正则的。它仍可
+求长，且
+$\int_{-1}^1\norm{\gamma'(t)}dt=\int_{-1}^13t^2dt=2$，恰为线段长度。
+正则性是参数化局部坐标的条件，并非可求长的必要条件。
+\end{solution}
+
+\begin{solution}{surface-double-cover}
+球面参数若令 $0\le\theta\le4\pi$，除经线切口和两极外，每个球面点出现
+两次。面积积分于是为
+\[
+ \int_0^{4\pi}\int_0^\pi R^2\sin\varphi\,d\varphi d\theta=8\pi R^2,
+\]
+是真实面积的两倍。非单射参数积分按原像重数计数，不能不加说明地当作几何
+曲面的面积。
+\end{solution}
+
+\begin{solution}{mobius-nonorientable-normal}
+用标准参数
+\[
+ X(u,v)=((1+v\cos(u/2))\cos u,
+ (1+v\cos(u/2))\sin u,v\sin(u/2))
+\]
+表示 Möbius 带，$0\le u\le2\pi$。沿中心线 $v=0$ 选连续法向
+$N(u)$（例如由 $X_u\times X_v$ 归一化）。直接代入可见
+$N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局连续
+法向，其沿中心线限制必须在同一点取同一值，与此反向关系矛盾。因此 Möbius
+带不可定向。
+\end{solution}

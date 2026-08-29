@@ -1,0 +1,151 @@
+\chapter{经典积分定理}
+\label{chap:classical-integral-theorems-solutions}
+
+\begin{solution}{green-simple-domain-proof}
+设 $D=\{(x,y):a\le x\le b,\ \alpha(x)\le y\le\beta(x)\}$。沿正向边界积分
+$P\,dx$ 时，两条竖边没有贡献，上、下图线方向相反，故
+\[
+ \int_{\partial D}P\,dx
+ =\int_a^b[P(x,\alpha(x))-P(x,\beta(x))]dx
+ =-\iint_D P_y\,dxdy.
+\]
+若又写成
+$D=\{(x,y):c\le y\le d,\ \gamma(y)\le x\le\delta(y)\}$，同理
+\[
+ \int_{\partial D}Q\,dy
+ =\int_c^d[Q(\delta(y),y)-Q(\gamma(y),y)]dy
+ =\iint_D Q_x\,dxdy.
+\]
+两式相加得到 Green 公式。端点重合处只影响有限个点，不改变积分。
+\end{solution}
+
+\begin{solution}{green-annulus-orientation}
+圆环的正向边界由外圆逆时针和内圆顺时针组成，使区域始终位于行进方向左侧。
+例如取 $P=-y/2,Q=x/2$，则 $Q_x-P_y=1$。半径为 $R>r$ 的圆环上
+\[
+ \int_{\partial D}\frac{-y\,dx+x\,dy}{2}
+ =\pi R^2-\pi r^2=|D|.
+\]
+若把内圆也取逆时针，左端会变成两圆面积之和，说明内边界定向不能省略。
+\end{solution}
+
+\begin{solution}{green-area-formula}
+在 Green 公式中依次取 $(P,Q)=(0,x)$、$(-y,0)$ 和
+$(-y/2,x/2)$，均有 $Q_x-P_y=1$。因此
+\[
+ |D|=\int_{\partial D}x\,dy
+ =-\int_{\partial D}y\,dx
+ =\frac12\int_{\partial D}(x\,dy-y\,dx).
+\]
+这些公式均要求边界按正向取向。
+\end{solution}
+
+\begin{solution}{green-internal-boundary-cancellation}
+把区域分成有限片后，每条内部公共弧分别作为相邻两片边界出现。两片的正向
+规定使这两次走向相反，因而同一连续一次形式在线积分中逐项抵消。若三片在
+一个点相交，该点对一维 Riemann 积分没有贡献；公共弧仍成对归属。相加后
+只留下整体外边界，右端的面积积分则由有限可加性合并。
+\end{solution}
+
+\begin{solution}{gauss-box-direct}
+对盒 $[a,b]\times[c,d]\times[e,f]$，$x=b$ 与 $x=a$ 两面的外向通量之和为
+\[
+ \int_c^d\int_e^f(F_1(b,y,z)-F_1(a,y,z))\,dzdy
+ =\iiint_Q\partial_xF_1\,dV.
+\]
+$y$、$z$ 两对面同理给出 $\iiint_Q\partial_yF_2$ 与
+$\iiint_Q\partial_zF_3$。六面相加即为 $\iiint_Q\operatorname{div}F$。每一步只用一元
+微积分基本定理和 Fubini 定理。
+\end{solution}
+
+\begin{solution}{gauss-volume-formula}
+令 $F(x)=x/3$，则 $\operatorname{div}F=1$，所以
+\[
+ |\Omega|=\frac13\int_{\partial\Omega}x\cdot n\,dS.
+\]
+半径 $R$ 的球上 $x\cdot n=R$，得 $|B_R|=4\pi R^3/3$。对底半径 $R$、高
+$h$ 的直圆锥，把原点取在锥顶，侧面母线方向与 $x$ 相切，故
+$x\cdot n=0$；只有底面贡献，得到体积 $\pi R^2h/3$。
+\end{solution}
+
+\begin{solution}{gauss-inverse-square-flux}
+在球面 $S_R$ 上，$n=x/R$，故
+$F\cdot n=(x/\norm{x}^3)\cdot(x/R)=1/R^2$。通量为
+$4\pi R^2/R^2=4\pi$。虽然 $\operatorname{div}F=0$ 在 $x\ne0$ 处成立，包含原点的球
+内 $F$ 不定义，更不属于 $C^1$，不能直接应用散度定理。对球壳应用定理，
+内外球面通量相消，恰好说明通量与半径无关。
+\end{solution}
+
+\begin{solution}{stokes-parameter-expansion}
+写 $F=(P,Q,R)$、$X=(x,y,z)$。链式法则展开
+\[
+ \partial_u(F(X)\cdot X_v)-\partial_v(F(X)\cdot X_u).
+\]
+含 $X_{uv}$ 的两项相消；余项按 $P,Q,R$ 的偏导归组，得到
+\[
+ (R_y-Q_z)(y_uz_v-z_uy_v)
+ +(P_z-R_x)(z_ux_v-x_uz_v)
+ +(Q_x-P_y)(x_uy_v-y_ux_v),
+\]
+这正是 $\operatorname{curl}F(X)\cdot(X_u\times X_v)$。
+\end{solution}
+
+\begin{solution}{stokes-hemisphere-disk}
+只要两个定向曲面具有同一条正向边界，Stokes 公式都给出
+$\int_C F\cdot dr=\int_S\operatorname{curl}F\cdot n\,dS$。例如取
+$F=(-y/2,x/2,0)$，则 $\operatorname{curl}F=(0,0,1)$。单位圆盘上通量为 $\pi$；上半球
+上为 $\int_S n_3\,dS$，这是其向 $xy$ 平面的投影面积，也为 $\pi$。两种
+曲面得到同一环流，所依赖的是公共边界及相容定向。
+\end{solution}
+
+\begin{solution}{curl-gradient-divcurl}
+若 $\varphi\in C^2$，则
+\[
+ \operatorname{curl}\nabla\varphi=(\varphi_{zy}-\varphi_{yz},
+ \varphi_{xz}-\varphi_{zx},\varphi_{yx}-\varphi_{xy})=0.
+\]
+若 $F=(P,Q,R)\in C^2$，展开 $\operatorname{div}\operatorname{curl}F$ 后得到六个二阶混合偏导，
+每一对由 Schwarz 定理相消。$C^2$ 条件保证相关混合偏导连续并可交换。
+\end{solution}
+
+\begin{solution}{path-independent-potential-construction}
+固定 $x_0$，定义 $\varphi(x)$ 为从 $x_0$ 到 $x$ 的任一路径积分；路径无关使
+定义良好。对坐标方向 $e_i$ 和充分小 $h$，可把到 $x+he_i$ 的路径取为先到
+$x$ 再走线段，故
+\[
+ \frac{\varphi(x+he_i)-\varphi(x)}h
+ =\frac1h\int_0^hF_i(x+te_i)dt\longrightarrow F_i(x).
+\]
+因此所有偏导为 $F_i$；$F$ 连续又使这些偏导连续，故
+$\varphi\in C^1$ 且 $\nabla\varphi=F$。
+\end{solution}
+
+\begin{solution}{punctured-plane-circulation}
+令 $F(x,y)=(-y/(x^2+y^2),x/(x^2+y^2))$。在穿孔平面直接求导得
+$Q_x-P_y=0$。单位圆参数 $(\cos t,\sin t)$ 上
+$F=(-\sin t,\cos t)$，与切向量相同，所以
+\[
+ \int_C F\cdot dr=\int_0^{2\pi}1\,dt=2\pi.
+\]
+因此 $F$ 不可能是穿孔平面上的全局梯度场；局部无旋并不足以排除绕孔环流。
+\end{solution}
+
+\begin{solution}{star-shaped-curl-free-potential}
+不妨星心为零。令
+$\varphi(x)=\int_0^1F(tx)\cdot x\,dt$。对第 $j$ 个坐标求导，
+\[
+ \partial_j\varphi(x)=\int_0^1\left[F_j(tx)+t\sum_i x_i\partial_jF_i(tx)\right]dt.
+\]
+无旋给出 $\partial_jF_i=\partial_iF_j$，故被积式为
+$\frac d{dt}[tF_j(tx)]$。积分得到 $F_j(x)$。所以
+$\nabla\varphi=F$；星形性保证整条线段 $tx$ 留在定义域中。
+\end{solution}
+
+\begin{solution}{classical-theorem-hypothesis-audit}
+本章 Green 公式要求平面区域可有限分割为简单区域，边界分段 $C^1$，场在
+邻域中 $C^1$；Gauss 公式要求三维区域可作坐标简单分割，边界分片光滑并
+定向；Stokes 公式要求定向分片正则曲面及相容的分段光滑边界。连续但无
+连续偏导的场、分形边界、不可定向曲面以及含场奇点的区域均不由这些证明
+覆盖。某些结论可在更弱条件下成立，但需要测度论、弱导数或几何测度论工具，
+不能从本章的 Riemann 分割论证直接推出。
+\end{solution}

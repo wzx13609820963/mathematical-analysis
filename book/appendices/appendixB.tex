@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—46章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—53章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -413,6 +413,36 @@ $I(a)=\{i:g_i(a)=0\}$，相应 KKT 乘子满足 $\mu_i\ge0$ 与
 $\mu_i g_i(a)=0$。若把约束改写为 $g_i\ge0$，驻点方程中的乘子符号须
 同时改变。
 
+\section{多重积分、微分形式与函数空间}
+
+闭矩形 $Q=\prod_{j=1}^n[a_j,b_j]$ 的体积记为
+$|Q|=\prod_j(b_j-a_j)$。矩形分割的网格仍写作 $\norm P$，但此时取各子矩形
+直径的最大值。Jordan 可测集 $E$ 的体积也写作 $|E|$；它由指标函数的
+多重 Riemann 积分给出，不应与后文的 Lebesgue 测度预先等同。
+
+曲线和曲面上的四种积分分别写成
+\[
+ \int_\gamma f\,ds,\qquad \int_\gamma F\cdot dr,
+ \qquad \int_S f\,dS,\qquad \int_S F\cdot n\,dS.
+\]
+第一、第三个是无向标量积分；第二个随曲线方向反转而变号，第四个随曲面
+定向反转而变号。参数化若重复覆盖几何对象，积分按覆盖重数计数。
+
+有限维空间 $V$ 上的交错 $k$-形式空间记为 $\Lambda^kV^*$；开集 $U$ 上
+的光滑 $k$-形式空间记为 $\Omega^k(U)$。外微分写作 $d\omega$，拉回写作
+$F^*\omega$。闭形式满足 $d\omega=0$，恰当形式写成 $\omega=d\eta$。
+拉回保留有向 Jacobian 的符号，而普通多重积分的变量代换使用
+$|\det D\Phi|$。
+
+若 $K$ 紧，$C(K;\mathbb F)$ 表示连续 $\mathbb F$ 值函数空间，
+$\mathbb F=\R$ 或 $\C$，默认范数为
+\[
+ \norm f_\infty=\max_{x\in K}|f(x)|.
+\]
+点值泛函写作 $\delta_x(f)=f(x)$。函数族通常记为 $\mathcal F$；等度连续
+要求连续性估计对族中全部函数共同成立。Bernstein 多项式记为 $B_nf$，其
+误差由连续模 $\omega_f(\delta)$ 控制。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -495,11 +525,33 @@ $\mu_i g_i(a)=0$。若把约束改写为 $g_i\ge0$，驻点方程中的乘子符
  \item[弱拓扑]
  \(\sigma(E,E')\) 是向量空间 \(E\) 上由连续对偶生成的弱拓扑；
  \(\sigma(E',E)\) 是对偶空间上的弱星拓扑。二者一般定义在不同集合上，即使记号中出现同一对偶配对，也不能互换。后文 Banach--Alaoglu 定理讨论的是对偶球的弱星紧致性。
+
+ \item[Fubini 定理]
+ \chapterref{chap:multiple-integrals}只证明连续函数以及具有全部可积截面的
+ Riemann 安全版本；个别截面甚至可以不可 Riemann 积。第三卷的
+ Lebesgue--Fubini 定理使用可测性和绝对可积等条件，覆盖范围更大。引用时
+ 不能只写“由 Fubini 定理”而省略所处积分理论。
+
+ \item[Stokes 定理]
+ \chapterref{chap:classical-integral-theorems}的经典版本以旋度和向量面积元
+ 表述；\chapterref{chap:differential-forms-euclidean}在欧氏参数化子流形上
+ 写成 $\int_Md\omega=\int_{\partial M}\omega$。后文流形版本还需抽象
+ 流形、单位分解和边界定向，当前证明不能无条件移植到任意流形。
+
+ \item[紧致性与 Arzelà--Ascoli 定理]
+ Heine--Borel 定理描述有限维欧氏空间中的点集；
+ \chapterref{chap:arzela-ascoli}描述 $C(K)$ 中函数族的相对紧致性。函数值
+ 一致有界只相当于普通有界，还必须用等度连续控制自变量方向的振荡。
+
+ \item[Weierstrass 与 Stone--Weierstrass 定理]
+ Weierstrass 定理断言闭区间上的多项式一致稠密，Bernstein 多项式给出显式
+ 构造。Stone--Weierstrass 定理把多项式的具体形式换成“含常数并分离点的
+ 函数代数”；复版本还要求共轭封闭。三者结论相关，假设和证明任务并不相同。
 \end{description}
 
 \section{当前章节依赖}
 
-第0—46章的主要依赖可概括如下：
+第0—53章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -554,5 +606,19 @@ M、Dirichlet 与 Abel 判别以及范数绝对收敛下的 Cauchy 乘积。
 \chapterref{chap:local-inversion}利用压缩映射原理证明逆函数定理，再推出隐函数、
 正则水平集和常秩定理。\chapterref{chap:constrained-extrema}据此识别约束集的
 切空间，建立 Lagrange 乘子、受限二阶判别与 KKT 条件。
+
+\chapterref{chap:multiple-integrals}在一元 Riemann 理论和欧氏紧致性上建立
+多重积分、Jordan 体积、连续函数的 Fubini 公式与 Jacobian 变量代换；
+\chapterref{chap:parametric-integrals}用可微参数化定义曲线和曲面上的积分。
+\chapterref{chap:classical-integral-theorems}先在经典坐标区域上证明 Green、
+Gauss 和 Stokes 定理，再由势函数判据说明定义域拓扑的作用；
+\chapterref{chap:differential-forms-euclidean}以交错形式、拉回和外微分把这些
+公式写成欧氏参数化 Stokes 公式，并证明星形域 Poincaré 引理。
+
+\chapterref{chap:continuous-function-space}把一致收敛改写为 $C(K)$ 中的范数
+收敛，建立完备性、连续泛函和无限维单位球非紧性；
+\chapterref{chap:arzela-ascoli}以等度连续补足普通有界性，给出函数族相对
+紧致性的判据。最后，\chapterref{chap:polynomial-approximation}先用 Bernstein
+多项式构造一致逼近，再以格闭包证明实、复 Stone--Weierstrass 定理。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

@@ -1,0 +1,157 @@
+\chapter{欧氏空间中的微分形式}
+\label{chap:euclidean-differential-forms-solutions}
+
+\begin{solution}{alternating-form-basis}
+交错 $k$-线性形式由其在标准基向量组上的值决定；若指标重复则值为零，若
+指标互异则只差一个置换符号。因此
+$dx^{i_1}\wedge\cdots\wedge dx^{i_k}$（$i_1<\cdots<i_k$）张成且线性无关，
+共有 $\binom nk$ 个。$n=4,k=2$ 时标准基为
+\[
+ dx^1\wedge dx^2,dx^1\wedge dx^3,dx^1\wedge dx^4,
+ dx^2\wedge dx^3,dx^2\wedge dx^4,dx^3\wedge dx^4.
+\]
+\end{solution}
+
+\begin{solution}{wedge-sign-computation}
+例如
+$(dx+dy)\wedge(dx-dy)=-2dx\wedge dy$，因为
+$dx\wedge dx=dy\wedge dy=0$ 且 $dy\wedge dx=-dx\wedge dy$。
+一般地，一项若含两个相同的一次形式，交换这两个因子一方面不改变该项，
+另一方面产生负号，故该项等于自身的负数，只能为零。
+\end{solution}
+
+\begin{solution}{top-form-determinant-pullback}
+设线性映射矩阵为 $A=(a_{ij})$。有
+$A^*dx^i=\sum_j a_{ij}dx^j$。展开
+\[
+ A^*(dx^1\wedge\cdots\wedge dx^n)
+ =\bigwedge_{i=1}^n\sum_ja_{ij}dx^j.
+\]
+含重复指标的项全为零，剩余项按置换求和，其系数正是 $\det A$。因此
+\[
+ A^*(dx^1\wedge\cdots\wedge dx^n)
+ =(\det A)\,dx^1\wedge\cdots\wedge dx^n.
+\]
+\end{solution}
+
+\begin{solution}{exterior-derivative-leibniz}
+对齐次形式 $\alpha=\sum_Ia_I dx^I$、$\beta=\sum_Jb_Jdx^J$，用普通乘积法则
+$d(a_Ib_J)=b_Jda_I+a_Idb_J$。把 $db_J$ 从 $dx^I$ 左侧移到右侧要交换
+$\deg\alpha$ 次，产生 $(-1)^{\deg\alpha}$，于是
+\[
+ d(\alpha\wedge\beta)=d\alpha\wedge\beta
+ +(-1)^{\deg\alpha}\alpha\wedge d\beta.
+\]
+双线性再把结论推广到有限和。
+\end{solution}
+
+\begin{solution}{exterior-derivative-square-zero}
+对 $\alpha=\sum_Ia_I dx^I$，
+\[
+ d^2\alpha=\sum_{I,j,k}\partial_k\partial_ja_I
+ \,dx^k\wedge dx^j\wedge dx^I.
+\]
+$j=k$ 的项因楔积为零；$j\ne k$ 的两项系数由 Schwarz 定理相等，而
+$dx^k\wedge dx^j=-dx^j\wedge dx^k$，故成对相消。前者使用交错性，后者
+使用二阶混合偏导可交换。
+\end{solution}
+
+\begin{solution}{pullback-commutes-d}
+对一次形式 $\omega=\sum_i a_i(y)dy^i$ 与 $F=(F^i)$，
+$F^*\omega=\sum_i(a_i\circ F)dF^i$。于是
+\[
+ d(F^*\omega)=\sum_i d(a_i\circ F)\wedge dF^i
+ =\sum_{i,j}(\partial_ja_i\circ F)dF^j\wedge dF^i=F^*(d\omega).
+\]
+函数情形是链式法则。一般形式写成函数与坐标一次形式的楔积，再由分次
+Leibniz 公式归纳即可。
+\end{solution}
+
+\begin{solution}{stokes-rectangle-coordinate-proof}
+设 $\omega=P\,dy\wedge dz+Q\,dz\wedge dx+R\,dx\wedge dy$。则
+$d\omega=(P_x+Q_y+R_z)dx\wedge dy\wedge dz$。在长方体六个面上按外法向
+诱导定向积分：$x$ 两面之和为 $\iiint P_x$，$y$ 两面之和为
+$\iiint Q_y$，$z$ 两面之和为 $\iiint R_z$。三式来自一元基本定理与
+Fubini，合并便是 $\int_{\partial Q}\omega=\int_Qd\omega$。
+\end{solution}
+
+\begin{solution}{boundary-orientation-square}
+给平面区域取定向基 $(e_1,e_2)$。边界上“外法向优先”约定要求
+$(n_{\rm out},\tau)$ 与 $(e_1,e_2)$ 同向。底边外法向 $-e_2$，故切向应为
+$e_1$；右边依次向上，顶边向左，左边向下。所得方向正是逆时针方向。
+\end{solution}
+
+\begin{solution}{poincare-one-form-potential}
+星形域星心取零，闭一次形式写成
+$\omega=\sum_i a_i(x)dx^i$。同伦算子给出函数
+\[
+ \varphi(x)=\int_0^1\sum_i a_i(tx)x_i\,dt.
+\]
+求 $\partial_j$ 后利用闭性 $\partial_ja_i=\partial_i a_j$，被积式化为
+$\frac d{dt}[t a_j(tx)]$，故 $\partial_j\varphi=a_j(x)$，即
+$d\varphi=\omega$。
+\end{solution}
+
+\begin{solution}{poincare-homotopy-identity}
+令 $F(t,x)=tx$，$\partial_t$ 为区间方向。对 $k$-形式定义
+$H\omega=\int_0^1\iota_{\partial_t}F^*\omega\,dt$。坐标展开给出同伦公式
+\[
+ \partial_t(F_t^*\omega)=d\iota_{\partial_t}F^*\omega
+ +\iota_{\partial_t}F^*d\omega.
+\]
+从 $0$ 到 $1$ 积分，左端为 $F_1^*\omega-F_0^*\omega$，右端为
+$dH\omega+Hd\omega$。由于 $F_1=I$、$F_0=s_0$，得到
+$dH+Hd=I-s_0^*$。所有换序只涉及有限和及连续函数的定积分。
+\end{solution}
+
+\begin{solution}{punctured-plane-closed-not-exact-form}
+角形式 $\omega=(-y\,dx+x\,dy)/(x^2+y^2)$ 在
+$\R^2\setminus\{0\}$ 上满足 $d\omega=0$。若它等于 $d\varphi$，则沿任何
+闭曲线的积分应为零。但单位圆上 $\omega=dt$，故积分为 $2\pi$。矛盾说明
+它闭而不恰当；障碍来自定义域的孔，不是局部微分计算。
+\end{solution}
+
+\begin{solution}{local-poincare-lemma}
+给定开集 $U$ 中一点 $a$，可取足够小的球 $B(a,r)\subset U$。球关于 $a$
+星形。若 $\omega$ 在 $U$ 上闭，则其限制在球上仍闭；星形域 Poincaré 引理
+给出 $\omega|_{B(a,r)}=d\eta$。因此每个闭形式在每一点的某邻域上恰当。
+\end{solution}
+
+\begin{solution}{green-as-differential-form}
+令 $\omega=Pdx+Qdy$，则
+$d\omega=(Q_x-P_y)dx\wedge dy$。平面区域采用标准定向时，Stokes 公式
+$\int_{\partial D}\omega=\int_Dd\omega$ 正好写成
+\[
+ \int_{\partial D}Pdx+Qdy=\iint_D(Q_x-P_y)dxdy,
+\]
+边界诱导定向即逆时针方向。
+\end{solution}
+
+\begin{solution}{gauss-as-differential-form}
+对 $F=(P,Q,R)$ 取
+$\omega=P\,dy\wedge dz+Q\,dz\wedge dx+R\,dx\wedge dy$。直接求外微分得
+\[
+ d\omega=(P_x+Q_y+R_z)dx\wedge dy\wedge dz
+ =(\operatorname{div}F)dV.
+\]
+在定向曲面上，$\omega$ 的拉回等于 $F\cdot n\,dS$，所以 Stokes 公式恢复
+散度定理。
+\end{solution}
+
+\begin{solution}{curl-as-exterior-derivative}
+若 $\alpha=Pdx+Qdy+Rdz$，则
+\[
+ d\alpha=(R_y-Q_z)dy\wedge dz+(P_z-R_x)dz\wedge dx
+ +(Q_x-P_y)dx\wedge dy.
+\]
+三个系数依次是 $\operatorname{curl}F$ 的三个分量。借助欧氏度量和定向把
+二次形式识别为向量场后，$d\alpha$ 正对应旋度。
+\end{solution}
+
+\begin{solution}{forms-metric-independence-audit}
+交错形式、楔积、外微分、拉回、定向以及 Stokes 公式只需光滑坐标结构和
+定向，不需要长度或角度。把向量场变为一次形式、定义梯度、法向单位向量、
+面积元以及把二次形式识别为旋度或通量形式，都使用欧氏内积；Hodge 星算子
+更同时依赖度量与定向。因此微分形式版 Stokes 比向量分析的三个公式使用的
+附加结构更少。
+\end{solution}

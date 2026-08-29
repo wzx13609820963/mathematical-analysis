@@ -1,0 +1,143 @@
+\chapter{函数空间 \texorpdfstring{$C(K)$}{C(K)}}
+\label{chap:continuous-function-space-solutions}
+
+\begin{solution}{ck-sup-norm-details}
+紧致性和连续性保证 $|f|$ 取得有限最大值，所以范数定义良好。若
+$\norm f_\infty=0$，则每点 $|f(x)|=0$，故 $f=0$；反向显然。齐次性由
+$\max|\lambda f|=|\lambda|\max|f|$ 得到。逐点三角不等式给出
+$|f(x)+g(x)|\le\norm f_\infty+\norm g_\infty$，再取最大值得三角不等式。
+若 $K$ 非紧，连续函数可能无界，例如 $f(x)=x$ 在 $\R$ 上，所以上确界未必
+有限；也可能只有上确界而不取得最大值。
+\end{solution}
+
+\begin{solution}{ck-uniform-cauchy-criterion}
+若 $f_n\to f$ 于上确界范数，则
+$\norm{f_n-f_m}_\infty\le\norm{f_n-f}_\infty+\norm{f_m-f}_\infty$，故为
+Cauchy 列。反之，定理 \ref{thm:ck-banach} 说明 $C(K)$ 完备，所以每个
+上确界范数 Cauchy 列收敛于某个 $f\in C(K)$。由命题
+\ref{prop:sup-norm-on-ck}，这种收敛就是一致收敛。
+\end{solution}
+
+\begin{solution}{integral-norm-triangle-minkowski-finite}
+$p=1$ 时由 $|f+g|\le|f|+|g|$ 积分即得。$p=2$ 时先由
+Cauchy--Schwarz 不等式得
+$|\int fg|\le\norm f_2\norm g_2$，再展开
+\[
+ \norm{f+g}_2^2=\norm f_2^2+2\operatorname{Re}\int f\bar g+\norm g_2^2
+ \le(\norm f_2+\norm g_2)^2.
+\]
+两边取非负平方根即得三角不等式。
+\end{solution}
+
+\begin{solution}{spike-integral-norms}
+在中心两侧以 $t$ 表示到端点的线性坐标，一边的积分为
+$\int_0^{1/n}(nt)^pdt=1/(n(p+1))$。两边相加得
+\[
+ \norm{f_n}_p=\left(\frac{2}{n(p+1)}\right)^{1/p}\to0.
+\]
+对 $x\ne1/2$，充分大 $n$ 时 $x$ 落在支集外，故 $f_n(x)\to0$；但
+$f_n(1/2)=1$，所以在中心点不收敛于零。
+\end{solution}
+
+\begin{solution}{c-not-complete-lp}
+沿用正文的 $f_n$ 与阶跃函数 $h$。二者只在长度 $2/n$ 的区间上不同且差的
+绝对值不超过 $1$，故
+$\norm{f_n-h}_p^p\le2/n\to0$。若 $f_n$ 在 $C([0,1])$ 中以 $p$-范数收敛于
+连续 $g$，则 $\int|g-h|^p=0$。连续性迫使 $g$ 在左半区恒为零、右半区恒为
+一，仍在 $1/2$ 处矛盾。因此所有有限 $p$ 都不完备。
+\end{solution}
+
+\begin{solution}{evaluation-functional-norm}
+上界为
+$|T(f)|\le\sum_j|a_j|\norm f_\infty$。由紧致 Hausdorff 空间的正规性和
+有限点集的分离，可构造 $f\in C(K)$，满足 $\norm f_\infty\le1$ 且
+$f(x_j)=\overline{a_j}/|a_j|$（实数情形取符号；$a_j=0$ 任取）。于是
+$T(f)=\sum_j|a_j|$，故
+$\norm T=\sum_j|a_j|$。
+\end{solution}
+
+\begin{solution}{weighted-integral-functional-norm}
+上界已由 $|I_g(f)|\le\norm f_\infty\int|g|$ 得到。取
+$f_\eta=\overline g/\sqrt{|g|^2+\eta^2}$，则 $f_\eta$ 连续且范数不超过
+$1$，并且
+$I_g(f_\eta)=\int |g|^2/\sqrt{|g|^2+\eta^2}$。对 $r\ge0$，
+\[
+ 0\le r-\frac{r^2}{\sqrt{r^2+\eta^2}}\le\eta,
+\]
+故两积分之差不超过 $(b-a)\eta$，从而前者趋于 $\int|g|$。范数至少为
+该值。若 $g$ 在变号处为零，
+$\operatorname{sgn}g$ 通常发生跳跃，不属于 $C([a,b])$，所以只能连续逼近。
+\end{solution}
+
+\begin{solution}{point-evaluation-l1-discontinuous}
+固定 $x_0\in(0,1)$，取以 $x_0$ 为中心、高为 $1$、底宽 $2/n$ 的三角形函数
+$f_n$。则 $f_n(x_0)=1$，而 $\norm{f_n}_1=1/n\to0$。若点值泛函连续，
+$f_n\to0$ 应推出 $f_n(x_0)\to0$，矛盾。端点处可取单边三角形作同样构造。
+\end{solution}
+
+\begin{solution}{ck-lattice-lipschitz}
+反三角不等式给出 $||f(x)|-|g(x)||\le|f(x)-g(x)|$，取上确界即得
+$\norm{|f|-|g|}_\infty\le\norm{f-g}_\infty$。利用
+$f\vee g=(f+g+|f-g|)/2$ 可得
+\[
+ \norm{(f\vee g)-(f'\vee g')}_\infty
+ \le\norm{f-f'}_\infty+\norm{g-g'}_\infty,
+\]
+最小值同理。因此两种二元格运算连续。
+\end{solution}
+
+\begin{solution}{neumann-inverse-function-algebra}
+由次乘性，$\norm{f^n}_\infty\le\norm f_\infty^n$，所以几何级数在完备空间
+$C(K)$ 中绝对收敛。其部分和 $S_N=1+f+\cdots+f^N$ 满足
+$(1-f)S_N=1-f^{N+1}$。令 $N\to\infty$，右端一致趋于 $1$，连续乘法给出
+$(1-f)S=1$；交换性也给出 $S(1-f)=1$。故 $S=(1-f)^{-1}$。
+\end{solution}
+
+\begin{solution}{ck-infinite-dimensional}
+从无限 $K$ 中任取互异点 $x_1,\ldots,x_n$。有限点集闭，利用正规性可构造
+$f_j\in C(K)$，使 $f_j(x_j)=1$ 而 $f_j(x_i)=0$（$i\ne j$）。若
+$\sum c_jf_j=0$，在 $x_i$ 取值得 $c_i=0$，故这些函数线性无关。$n$ 任意，
+所以 $C(K)$ 不可能有限维。
+\end{solution}
+
+\begin{solution}{disjoint-tent-no-uniform-subsequence}
+取两两不交的小区间 $I_n\subset(0,1)$，例如围绕 $2^{-n}$ 并令半径足够小。
+令 $f_n$ 是支集在 $I_n$ 内、高为 $1$ 的三角形函数。则
+$\norm{f_n}_\infty=1$；若 $m\ne n$，在 $f_n$ 的峰点有 $f_m=0$，故
+$\norm{f_n-f_m}_\infty=1$。因此该序列没有 Cauchy 子列，也没有一致收敛
+子列。
+\end{solution}
+
+\begin{solution}{finite-dimensional-unit-ball-compact}
+在 $n$ 维空间 $X$ 选基 $e_1,\ldots,e_n$，令
+$T:\mathbb F^n\to X$，$T(a)=\sum a_ie_i$。单位坐标球面紧，连续函数
+$a\mapsto\norm{T(a)}$ 在其上取得正的最小值 $m$ 和有限最大值 $M$；最小值
+为正是因为基线性无关。故
+$m\norm a_2\le\norm{T(a)}\le M\norm a_2$。$X$ 的闭单位球在 $T^{-1}$ 下
+对应欧氏空间中的闭有界集，因而紧；连续像仍紧。这同时证明了所需的范数
+等价，无须预先假定。
+\end{solution}
+
+\begin{solution}{riesz-lemma-closedness}
+在 $X=C([0,1])$ 中，令 $M$ 为所有分段线性函数组成的子空间。它是真
+子空间；另一方面，连续函数一致连续，在足够细的分割节点上作线性插值，
+便可在上确界范数下任意逼近原函数。因此 $M$ 在 $X$ 中稠密。任意
+$x\in X$ 到 $M$ 的距离都是零，不可能大于给定 $\alpha>0$。Riesz 引理
+证明中 $d(z,M)>0$ 正是由 $M$ 闭且 $z\notin M$ 得到；删去闭性后这一步
+失败。
+\end{solution}
+
+\begin{solution}{compact-operator-first-example}
+有界性由
+\[
+ |Tf(x)|\le\norm f_\infty\int_0^1|k(x,y)|dy
+ \le\norm k_\infty\norm f_\infty
+\]
+得到，故 $\norm T\le\norm k_\infty$。若 $\norm f_\infty\le1$，则
+$|Tf(x)|\le\norm k_\infty$；并且
+\[
+ |Tf(x)-Tf(x')|\le\int_0^1|k(x,y)-k(x',y)|dy.
+\]
+$k$ 在紧方形上一致连续，所以右端对整个单位球一致趋于零。像集因而一致
+有界且等度连续；下一章的 Arzelà--Ascoli 定理将说明其闭包紧致。
+\end{solution}

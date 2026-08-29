@@ -1,0 +1,253 @@
+\chapter{Arzelà--Ascoli 定理}
+\label{chap:arzela-ascoli}
+
+$C(K)$ 的闭单位球通常不紧，是因为范数只限制函数值的大小，并不限制函数
+在相近点之间怎样变化。一个函数族即使全部落在 $[-1,1]$ 内，也可以出现
+越来越尖的峰或越来越快的振荡。Arzelà--Ascoli 定理表明，在紧致定义域上，
+只需再加入对这种局部变化的一致控制，便能恢复有限维空间中有界序列所具有
+的子列紧致性。
+
+本章设 $(K,d)$ 为紧致度量空间，$\mathcal F\subset C(K;\R^m)$。
+
+\section{等度连续与一致有界}
+
+\begin{definition}
+\label{def:equicontinuity}
+函数族 $\mathcal F$ 称为在 $x_0\in K$ 等度连续，如果对每个
+$\varepsilon>0$，存在 $\delta>0$，使
+\[
+ d(x,x_0)<\delta\quad\Longrightarrow\quad
+ \norm{f(x)-f(x_0)}<\varepsilon
+\]
+对所有 $f\in\mathcal F$ 同时成立。若它在每一点等度连续，则称
+$\mathcal F$ 等度连续。
+\end{definition}
+
+这里的 $\delta$ 可以依赖于 $x_0$ 和 $\varepsilon$，但不能依赖于族中的
+函数。单个连续函数组成的有限族总是等度连续；无限族则未必。例如
+$f_n(x)=x^n$ 在 $[0,1]$ 上不是等度连续的，因为在端点 $1$ 附近的变化越来越
+集中。
+
+紧致性把逐点的等度连续提升为全局的一致控制。
+
+\begin{proposition}
+\label{prop:equicontinuity-uniform-on-compact}
+若 $\mathcal F$ 在紧致度量空间 $K$ 上等度连续，则对每个
+$\varepsilon>0$，存在 $\delta>0$，使
+\[
+ d(x,y)<\delta\quad\Longrightarrow\quad
+ \norm{f(x)-f(y)}<\varepsilon
+\]
+对所有 $f\in\mathcal F$ 同时成立。
+\end{proposition}
+
+\begin{proof}
+对每个 $a\in K$ 选 $r_a>0$，使 $d(x,a)<2r_a$ 时
+$\norm{f(x)-f(a)}<\varepsilon/2$ 对全部 $f$ 成立。有限个球
+$B(a_j,r_{a_j})$ 覆盖 $K$。取 $\delta$ 为这些半径的最小值。若
+$d(x,y)<\delta$，选 $j$ 使 $x\in B(a_j,r_{a_j})$；则 $x,y$ 都在
+$B(a_j,2r_{a_j})$ 内，由三角不等式得到所需估计。
+\end{proof}
+
+函数族称为逐点有界，如果每个 $x\in K$ 都有
+$\sup_{f\in\mathcal F}\norm{f(x)}<\infty$；称为一致有界，如果存在一个
+$M$ 使 $\norm f_\infty\le M$ 对所有 $f$ 成立。一般而言逐点有界远弱于
+一致有界，但与等度连续结合后，在紧集上两者相同。
+
+\begin{proposition}
+\label{prop:equicont-pointwise-to-uniform-bounded}
+紧致 $K$ 上的等度连续、逐点有界函数族必一致有界。
+\end{proposition}
+
+\begin{proof}
+在命题 \ref{prop:equicontinuity-uniform-on-compact} 中取
+$\varepsilon=1$，得到 $\delta$。由紧致性选有限 $\delta$-网
+$x_1,\ldots,x_N$。逐点有界使
+$M_0=\max_j\sup_{f\in\mathcal F}\norm{f(x_j)}<\infty$。任给 $x$，选
+$x_j$ 使 $d(x,x_j)<\delta$，便有
+$\norm{f(x)}\le\norm{f(x_j)}+1\le M_0+1$。
+\end{proof}
+
+把两条命题合在一起，可以用一个函数记录整族的局部变化。若
+$\mathcal F$ 等度连续且逐点有界，定义
+\[
+ \omega_{\mathcal F}(t)
+ =\sup\{\norm{f(x)-f(y)}:f\in\mathcal F,\ d(x,y)\le t\}.
+\]
+一致有界性保证这个上确界有限；它随 $t$ 单调不减，而紧致性上的共同
+$\delta$ 说明 $\omega_{\mathcal F}(t)\to0$ 当 $t\downarrow0$。单个函数的
+连续模因此被一个共同连续模取代。Lipschitz 族满足
+$\omega_{\mathcal F}(t)\le Lt$，Hölder 族满足
+$\omega_{\mathcal F}(t)\le Ct^\alpha$。
+
+\section{稠密点上的对角抽取}
+
+紧致度量空间是可分的。事实上，对每个 $n$ 取有限 $1/n$-网，把这些有限
+集合求可数并，便得到可数稠密集 $D=\{x_1,x_2,\ldots\}$。
+
+设 $(f_n)$ 来自逐点有界族。数列 $(f_n(x_1))$ 在有限维空间中有收敛子列；
+从这条子列中再抽取，使 $x_2$ 处的值收敛；继续下去。取第 $j$ 层子列的
+第 $j$ 项组成对角子列 $(g_j)$，则对每个固定 $k$，$(g_j(x_k))$ 最终落在
+第 $k$ 层子列中，因而收敛。
+
+只在稠密集上收敛还不能保证一致收敛。等度连续性补上了稠密点之间的空隙。
+
+\begin{lemma}[稠密点收敛与一致 Cauchy 控制]
+\label{lem:dense-convergence-equicont-uniform-cauchy}
+若 $(g_j)$ 等度连续，并且在稠密集 $D\subset K$ 的每一点都收敛，则
+$(g_j)$ 在上确界范数下为 Cauchy 列。
+\end{lemma}
+
+\begin{proof}
+给定 $\varepsilon>0$，由一致等度连续性取 $\delta>0$，使
+$d(x,y)<\delta$ 时
+$\norm{g_j(x)-g_j(y)}<\varepsilon/3$ 对每个 $j$ 成立。从 $D$ 中选有限
+$\delta$-网 $x_1,\ldots,x_N$。每个 $(g_j(x_i))$ 都是 Cauchy 列，有限取
+最大可得 $J$，使 $j,k\ge J$ 时这些网点上的差均小于 $\varepsilon/3$。
+任给 $x$，选相邻网点 $x_i$，则
+\[
+ \norm{g_j(x)-g_k(x)}
+ \le\norm{g_j(x)-g_j(x_i)}+
+    \norm{g_j(x_i)-g_k(x_i)}+
+    \norm{g_k(x_i)-g_k(x)}<\varepsilon.
+\]
+取上确界即得结论。
+\end{proof}
+
+\section{Arzelà--Ascoli 定理}
+
+\begin{theorem}[Arzelà--Ascoli]
+\label{thm:arzela-ascoli-sequential}
+设 $K$ 为紧致度量空间。若序列 $(f_n)\subset C(K;\R^m)$ 等度连续且逐点
+有界，则它有一致收敛子列。
+\end{theorem}
+
+\begin{proof}
+取 $K$ 的可数稠密集。由逐点有界性和有限维 Bolzano--Weierstrass 定理，
+按上一节作对角抽取，得到在稠密集每一点都收敛的子列 $(g_j)$。引理
+\ref{lem:dense-convergence-equicont-uniform-cauchy} 说明它在 $C(K;\R^m)$
+中为 Cauchy 列。定理 \ref{thm:ck-banach} 的向量值版本给出
+$g_j\to g\in C(K;\R^m)$ 于上确界范数。
+\end{proof}
+
+逐点有界可以换成一致有界，后者在应用中往往更容易验证。反过来，若一个
+函数族的闭包在 $C(K;\R^m)$ 中紧致，则它必逐点有界且等度连续。
+
+\begin{proof}[必要性的说明]
+紧集在连续映射 $f\mapsto f(x)$ 下的像紧，故每一点的函数值有界。若闭包
+不等度连续，则存在 $\varepsilon_0>0$、$f_n$ 和 $x_n,y_n$，使
+$d(x_n,y_n)\to0$ 而
+$\norm{f_n(x_n)-f_n(y_n)}\ge\varepsilon_0$。由紧致性抽取
+$f_{n_k}\to f$ 一致；再由 $K$ 的紧致性抽取 $x_{n_k}\to x$，于是也有
+$y_{n_k}\to x$。一致收敛和 $f$ 的连续性使上述差趋于零，矛盾。
+\end{proof}
+
+由此得到集合形式的完整刻画。
+
+\begin{theorem}[相对紧致性判据]
+\label{thm:arzela-ascoli-relative-compactness}
+对 $\mathcal F\subset C(K;\R^m)$，下列条件等价：
+\begin{enumerate}
+ \item $\overline{\mathcal F}$ 在上确界范数下紧致；
+ \item $\mathcal F$ 等度连续且逐点有界；
+ \item $\mathcal F$ 等度连续且一致有界。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+前面的必要性给出 (1)$\Rightarrow$(2)，命题
+\ref{prop:equicont-pointwise-to-uniform-bounded} 给出
+(2)$\Rightarrow$(3)。设 (3) 成立，并取任意序列
+$(g_n)\subset\overline{\mathcal F}$。对每个 $n$ 选
+$f_n\in\mathcal F$，使 $\norm{g_n-f_n}_\infty<1/n$。由定理
+\ref{thm:arzela-ascoli-sequential}，某个子列 $f_{n_k}$ 一致收敛于
+$f\in C(K;\R^m)$；于是 $g_{n_k}$ 也一致收敛于 $f$。这证明闭包序列紧致。
+度量空间中序列紧致等价于紧致，故 (3)$\Rightarrow$(1)。
+\end{proof}
+
+条件中的两个部分彼此独立。常函数族 $f_n\equiv n$ 等度连续却不逐点有界；
+$f_n(x)=\sin(nx)$ 在 $[0,2\pi]$ 上一致有界却不等度连续。两族都没有一致
+收敛子列。
+
+\section{两个常用判据}
+
+\begin{corollary}[导数有界的函数族]
+\label{cor:bounded-derivative-ascoli}
+设 $\mathcal F\subset C^1([a,b];\R^m)$。若对某个 $x_0$，
+$\{f(x_0):f\in\mathcal F\}$ 有界，且
+$\sup_{f\in\mathcal F}\norm{f'}_\infty<\infty$，则 $\mathcal F$ 在
+$C([a,b];\R^m)$ 中相对紧致。
+\end{corollary}
+
+\begin{proof}
+中值不等式给出共同的 Lipschitz 常数，故等度连续；再由
+$\norm{f(x)}\le\norm{f(x_0)}+M|x-x_0|$ 得一致有界。应用相对紧致性判据。
+\end{proof}
+
+积分算子提供另一类重要例子。若 $k\in C([a,b]\times[c,d])$，定义
+\[
+ (Tf)(x)=\int_c^d k(x,y)f(y)\,dy.
+\]
+对 $C([c,d])$ 的单位球，像函数一致有界；而
+\[
+ |Tf(x)-Tf(x')|
+ \le(d-c)\sup_y|k(x,y)-k(x',y)|.
+\]
+$k$ 的一致连续性使右端与 $f$ 无关地趋于零。故 $T$ 把有界集送入相对紧
+的函数族。这样的算子称为紧算子；它们将在泛函分析中扮演类似有限维矩阵的
+角色。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　等度连续}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{finite-family-equicontinuous}
+ 证明紧致空间上的有限连续函数族等度连续。
+ \exerciseitem{power-family-not-equicontinuous}
+ 直接从定义证明 $\{x^n:n\ge1\}$ 在 $[0,1]$ 上不等度连续。
+ \exerciseitem{equicontinuity-uniform-proof-details}
+ 检查命题 \ref{prop:equicontinuity-uniform-on-compact} 中球半径的选择，并给出
+ 不紧定义域上结论失败的例子。
+ \exerciseitem{pointwise-bounded-to-uniform}
+ 不引用正文证明，重新证明等度连续且逐点有界的函数族在紧集上一致有界。
+ \exerciseitem{common-modulus-equicontinuity}
+ 设函数族等度连续且逐点有界。证明存在递增函数 $\omega$，当
+ $t\downarrow0$ 时有 $\omega(t)\downarrow0$，并且
+ \[
+  \norm{f(x)-f(y)}\le\omega(d(x,y)).
+ \]
+\end{enumerate}
+
+\subsection*{B组　抽取与紧致性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{compact-metric-separable}
+ 详细证明每个紧致度量空间都有可数稠密子集。
+ \exerciseitem{diagonal-subsequence-bookkeeping}
+ 写出对角子列的严格指标构造，并证明它在每个稠密点收敛。
+ \exerciseitem{dense-convergence-not-uniform-without-equicont}
+ 构造在稠密集上收敛但没有一致收敛子列的连续函数序列。
+ \exerciseitem{ascoli-necessity-direct}
+ 补全相对紧族必等度连续的反证法，明确每次抽取所用的紧致性。
+ \exerciseitem{ascoli-closed-family-compact}
+ 证明等度连续、逐点有界且在上确界范数下闭的函数族是紧集。
+\end{enumerate}
+
+\subsection*{C组　应用}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{bounded-derivative-family-compactness}
+ 证明推论 \ref{cor:bounded-derivative-ascoli}，并说明只控制导数而不控制一个
+ 点的函数值为何不够。
+ \exerciseitem{holder-family-relative-compact}
+ 证明满足 $|f(x)|\le M$、$|f(x)-f(y)|\le C|x-y|^\alpha$ 的函数族在
+ $C([0,1])$ 中相对紧致。
+ \exerciseitem{integral-operator-compact}
+ 详细证明连续核积分算子把任意有界集送入相对紧集。
+ \exerciseitem{primitive-family-ascoli}
+ 若 $f_n\in C([0,1])$ 且 $|f_n|\le1$，令
+ $F_n(x)=\int_0^xf_n(t)\,dt$。证明 $(F_n)$ 有一致收敛子列，并说明不能
+ 由此断言 $(f_n)$ 有一致收敛子列。
+ \optionalexerciseitem{ascoli-metric-valued}
+ 把定理推广到取值于完备度量空间 $Y$ 的连续映射族，其中“逐点有界”应改为
+ 每个点值集合在 $Y$ 中相对紧。
+\end{enumerate}

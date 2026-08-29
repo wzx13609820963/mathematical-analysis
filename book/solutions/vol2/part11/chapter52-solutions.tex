@@ -1,0 +1,124 @@
+\chapter{Arzelà--Ascoli 定理}
+\label{chap:arzela-ascoli-solutions}
+
+\begin{solution}{finite-family-equicontinuous}
+设函数族为 $f_1,\ldots,f_N$。给定 $x_0,\varepsilon$，对每个 $j$ 由连续性取
+$\delta_j>0$，使 $d(x,x_0)<\delta_j$ 时
+$\norm{f_j(x)-f_j(x_0)}<\varepsilon$。取有限个正数的最小值
+$\delta=\min_j\delta_j$，便同时适用于全部函数，故该族等度连续。
+\end{solution}
+
+\begin{solution}{power-family-not-equicontinuous}
+取 $\varepsilon=1/2$。若在 $1$ 处等度连续，则存在 $\delta>0$，使
+$|x-1|<\delta$ 时 $|x^n-1|<1/2$ 对所有 $n$ 成立。取
+$x=1-\delta/2\in[0,1)$，则 $x^n\to0$，充分大 $n$ 时
+$|x^n-1|>1/2$，矛盾。因此该族在端点 $1$ 不等度连续。
+\end{solution}
+
+\begin{solution}{equicontinuity-uniform-proof-details}
+在每个 $a$ 处先取得半径 $2r_a$ 上的 $\varepsilon/2$ 控制，再用较小的球
+$B(a,r_a)$ 覆盖；这样若 $x$ 落在小球且 $d(x,y)<\min r_a$，则 $x,y$ 都
+落在同一个 $2r_a$ 球中。若定义域为 $\R$，单函数族 $\{x\mapsto x^2\}$
+逐点等度连续，却不一致连续：取 $y=x+1/x$，则 $|x-y|\to0$ 而
+$|x^2-y^2|\to2$。故紧致性不能删除。
+\end{solution}
+
+\begin{solution}{pointwise-bounded-to-uniform}
+取共同的全局 $\delta$，使距离小于 $\delta$ 时函数值差小于 $1$。有限
+$\delta$-网 $x_1,\ldots,x_N$ 上，各点的族值有界；令这些界的最大值为
+$M$。任意 $x$ 距某个网点小于 $\delta$，故
+$\norm{f(x)}\le\norm{f(x_i)}+1\le M+1$。这个界与 $f,x$ 都无关。
+\end{solution}
+
+\begin{solution}{common-modulus-equicontinuity}
+由等度连续和逐点有界，命题
+\ref{prop:equicont-pointwise-to-uniform-bounded} 先给出全族的一致界。令
+$\omega_0(t)=\sup\{\norm{f(x)-f(y)}:f\in\mathcal F,d(x,y)\le t\}$。
+一致有界性保证它有限，且它递增。等度连续的全局形式等价于
+$\omega_0(t)\to0$。因此直接取 $\omega=\omega_0$ 即满足题意。反向若已有
+这样的 $\omega$，给定 $\varepsilon>0$，取 $\delta>0$ 使
+$\omega(\delta)<\varepsilon$，便得到对全族共同有效的等度连续估计。
+\end{solution}
+
+\begin{solution}{compact-metric-separable}
+对每个 $n$，开球族 $\{B(x,1/n):x\in K\}$ 覆盖 $K$；紧致性给出有限子覆盖，
+取其球心集 $D_n$。可数并 $D=\bigcup_nD_n$ 可数。给定 $x$ 的任意半径
+$r>0$，选 $n$ 使 $1/n<r$，某个 $D_n$ 中的点距 $x$ 小于 $1/n$，所以
+$D$ 与该球相交。故 $D$ 稠密。
+\end{solution}
+
+\begin{solution}{diagonal-subsequence-bookkeeping}
+令 $n^{(1)}_1<n^{(1)}_2<\cdots$ 使 $f_{n^{(1)}_j}(x_1)$ 收敛；递归从第
+$k-1$ 层抽取第 $k$ 层 $n^{(k)}_j$，使在 $x_k$ 处也收敛。定义
+$g_j=f_{n^{(j)}_j}$。固定 $k$ 后，$j\ge k$ 时第 $j$ 层子列包含于第 $k$
+层，故 $n^{(j)}_j$ 是第 $k$ 层指标序列中的一项，且随 $j$ 严格增大。因此
+$(g_j(x_k))$ 是第 $k$ 层收敛序列的子列，仍收敛。
+\end{solution}
+
+\begin{solution}{dense-convergence-not-uniform-without-equicont}
+在 $[0,1]$ 上取枚举的有理数集 $D$，更简单可令
+$f_n(x)=x^n$。它在稠密集 $D=[0,1)\cap\Q$ 上趋于零，但
+$\norm{f_n}_\infty=1$。任何子列在 $x<1$ 处仍趋零而在 $1$ 处恒为一；若有
+一致收敛子列，其极限应连续，却只能是这个不连续逐点极限，矛盾。失败原因
+正是端点附近不等度连续。
+\end{solution}
+
+\begin{solution}{ascoli-necessity-direct}
+若不等度连续，可取 $\varepsilon_0>0$，以及 $f_n,x_n,y_n$，使
+$d(x_n,y_n)<1/n$ 而两函数值之差至少为 $\varepsilon_0$。由 $K$ 紧，先取
+子列使 $x_n\to x$；于是 $y_n\to x$。由 $\overline{\mathcal F}$ 紧，再从
+对应的 $f_n$ 抽取一致收敛子列 $f_n\to f$。最后
+\[
+ \norm{f_n(x_n)-f_n(y_n)}
+ \le2\norm{f_n-f}_\infty+\norm{f(x_n)-f(y_n)}\to0,
+\]
+与选择矛盾。
+\end{solution}
+
+\begin{solution}{ascoli-closed-family-compact}
+由 Arzelà--Ascoli，族中任意序列都有一致收敛子列，极限属于 $C(K)$。由于
+该族闭，极限仍在族内，所以该族序列紧致。上确界范数给出度量；在度量空间
+中序列紧致等价于紧致，故该族紧。
+\end{solution}
+
+\begin{solution}{bounded-derivative-family-compactness}
+若共同导数界为 $M$，中值定理给出
+$\norm{f(x)-f(y)}\le M|x-y|$，故等度连续。固定点值界为 $A$ 时
+$\norm{f(x)}\le A+M(b-a)$，故一致有界，应用 Ascoli。若不控制任何点，
+常函数族 $f_n\equiv n$ 的导数全为零，却不逐点有界，也无一致收敛子列。
+\end{solution}
+
+\begin{solution}{holder-family-relative-compact}
+共同 Hölder 估计直接给出等度连续：给定 $\varepsilon$，取
+$\delta=(\varepsilon/C)^{1/\alpha}$。$|f(x)|\le M$ 给出一致有界。故由
+定理 \ref{thm:arzela-ascoli-relative-compactness}，该族在 $C([0,1])$ 中
+相对紧致。
+\end{solution}
+
+\begin{solution}{integral-operator-compact}
+若 $\norm f_\infty\le M$，则
+$|Tf(x)|\le M(d-c)\norm k_\infty$。又
+\[
+ |Tf(x)-Tf(x')|
+ \le M(d-c)\sup_{y\in[c,d]}|k(x,y)-k(x',y)|.
+\]
+$k$ 在紧矩形上一致连续，所以右端对所有 $f$ 共同趋于零。因此任意有界集
+的像一致有界且等度连续，Ascoli 定理说明其闭包紧致。
+\end{solution}
+
+\begin{solution}{primitive-family-ascoli}
+$|F_n(x)|\le x\le1$，且
+$|F_n(x)-F_n(y)|\le|x-y|$，所以 $(F_n)$ 一致有界并具有共同 Lipschitz
+常数 $1$。Ascoli 定理给出一致收敛子列。另一方面取 $f_n(x)=x^n$。若某个
+子列一致收敛，则它也逐点收敛于在 $[0,1)$ 上为 $0$、在 $1$ 处为 $1$ 的
+函数，与连续函数的一致极限仍连续矛盾。因此原函数列不一定有一致收敛
+子列；积分提供的平滑作用不能反推回来。
+\end{solution}
+
+\begin{solution}{ascoli-metric-valued}
+在可数稠密集每一点，点值集合相对紧，所以任意序列可逐点抽取收敛子列；
+作对角抽取后，等度连续性仍用三项三角不等式把稠密点收敛提升为一致 Cauchy。
+完备性保证极限落在 $Y$ 中，一致极限仍连续。必要性证明同样成立：紧函数族
+在每个点值映射下的像相对紧；若不等度连续，抽取一致收敛子列便得矛盾。
+因此条件是等度连续且每个 $\{f(x):f\in\mathcal F\}$ 在 $Y$ 中相对紧。
+\end{solution}

@@ -1,0 +1,242 @@
+\chapter{欧氏空间中的微分形式}
+\label{chap:differential-forms-euclidean}
+
+上一章的三个积分定理使用了不同的符号：线积分、通量、散度和旋度。微分
+形式把它们写成同一条公式
+\[
+ \int_Md\omega=\int_{\partial M}\omega.
+\]
+这里的统一并非只改记号。交错性编码定向体积，拉回保证参数化不变，外微分
+则同时包含梯度、旋度和散度。
+
+\section{交错形式与外代数}
+
+设 $V$ 为有限维实向量空间。$k$-线性泛函
+$\omega:V^k\to\R$ 若交换任意两个变量便变号，称为交错 $k$-形式；其空间
+记为 $\Lambda^kV^*$。约定 $\Lambda^0V^*=\R$。
+
+若 $e^1,\ldots,e^n$ 是对偶基，则
+\[
+ e^{i_1}\wedge\cdots\wedge e^{i_k},\qquad i_1<\cdots<i_k,
+\]
+构成 $\Lambda^kV^*$ 的基，维数为 $\binom nk$。楔积由交错化定义，并满足
+\[
+ (\alpha\wedge\beta)(v_1,\ldots,v_{k+\ell})
+ =\frac1{k!\ell!}\sum_{\sigma\in S_{k+\ell}}
+ \operatorname{sgn}(\sigma)\,
+ \alpha(v_{\sigma(1)},\ldots,v_{\sigma(k)})
+ \beta(v_{\sigma(k+1)},\ldots,v_{\sigma(k+\ell)}).
+\]
+这个归一化使
+$e^{i_1}\wedge\cdots\wedge e^{i_k}(e_{i_1},\ldots,e_{i_k})=1$
+（指标递增）。从定义交换前 $k$ 个变量和后 $\ell$ 个变量可得
+\[
+ \alpha\wedge\beta=(-1)^{k\ell}\beta\wedge\alpha,
+ \qquad \alpha\in\Lambda^kV^*,\ \beta\in\Lambda^\ell V^*.
+\]
+特别地，任一一次形式与自身的楔积为零；重复微分符号的项自动消失。
+
+线性映射 $A:V\to W$ 的拉回定义为
+\[
+ (A^*\omega)(v_1,\ldots,v_k)=\omega(Av_1,\ldots,Av_k).
+\]
+若 $B:W\to Z$，则直接代入定义得到
+$(B\circ A)^*=A^*\circ B^*$；拉回的次序与映射复合的次序相反。
+对顶次形式，$A^*(dy^1\wedge\cdots\wedge dy^n)
+=\det(A)dx^1\wedge\cdots\wedge dx^n$，这正是变量代换中的有向
+Jacobian。
+
+\section{微分形式与外微分}
+
+开集 $U\subset\R^n$ 上的 $C^r$ 微分 $k$-形式写成
+\[
+ \omega=\sum_{|I|=k}a_I(x)\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}.
+\]
+外微分定义为
+\[
+ d\omega=\sum_{|I|=k}\sum_{j=1}^n
+ \partial_ja_I\,dx^j\wedge dx^{i_1}\wedge\cdots\wedge dx^{i_k}.
+\]
+
+\begin{theorem}[外微分的代数性质]
+\label{thm:exterior-derivative-properties}
+对适当光滑的形式，
+\begin{align*}
+ d(\alpha\wedge\beta)&=d\alpha\wedge\beta+(-1)^k\alpha\wedge d\beta,
+ &&\alpha\in\Omega^k(U),\\
+ d(d\alpha)&=0.
+\end{align*}
+若 $F:U\to V$ 为 $C^2$ 映射，则
+$d(F^*\omega)=F^*(d\omega)$。
+\end{theorem}
+
+\begin{proof}
+第一式由乘积求导和把 $dx^j$ 越过 $k$ 个一次形式产生的符号得到。
+$d^2=0$ 中，混合偏导由 Schwarz 定理相等，而
+$dx^i\wedge dx^j=-dx^j\wedge dx^i$，故成对相消。拉回公式先对
+$\omega=f\,dy^{i_1}\wedge\cdots\wedge dy^{i_k}$ 用链式法则验证，再由
+线性性相加。
+\end{proof}
+
+在 $\R^3$ 中，若 $\alpha=P\,dx+Q\,dy+R\,dz$，则
+\[
+ d\alpha
+ =(Q_x-P_y)\,dx\wedge dy
+ +(R_x-P_z)\,dx\wedge dz
+ +(R_y-Q_z)\,dy\wedge dz.
+\]
+看似重复的九个偏导项中，有三个因 $dx^i\wedge dx^i=0$ 消失，其余六个
+按反对称性两两合并。这个计算解释了旋度各分量中的符号从何而来。
+
+满足 $d\omega=0$ 的形式称为闭形式；能写成 $\omega=d\eta$ 的形式称为
+恰当形式。$d^2=0$ 说明恰当必闭，反向是否成立取决于定义域。
+
+\section{形式的积分与定向}
+
+设 $X:D\subset\R^k\to\R^n$ 是保持给定定向的正则参数化。对紧支撑或
+定义在紧参数域上的 $k$-形式，定义
+\[
+ \int_{X(D)}\omega:=\int_DX^*\omega.
+\]
+若重新参数化保持定向，拉回的复合律和变量代换中的 Jacobian 绝对值使积分
+不变；反向定向则变号。多个参数片之间需要相容定向，并按有限分割相加。
+
+边界定向采用“先外法向，后边界正向基给出内部正向基”的约定。对平面区域，
+这给出熟悉的逆时针外边界；对定向曲面，则等价于右手规则。
+
+\section{Stokes 公式}
+
+\begin{theorem}[欧氏参数化 Stokes 公式]
+\label{thm:stokes-differential-forms-euclidean}
+设 $D\subset\R^k$ 为紧区域，并且具有有限个定向相容的 $C^1$ 参数胞腔；
+每个胞腔是闭矩形的 $C^1$ 正则像，两个胞腔只沿整张边界面相交。设 $X$ 是
+在 $D$ 的邻域定义的保持定向 $C^2$ 嵌入，$M=X(D)$。若 $\omega$ 是 $M$
+邻域中的 $C^1$ 的 $(k-1)$-形式，则
+\[
+ \int_Md\omega=\int_{\partial M}\omega.
+\]
+有限个相容参数片覆盖且交叠处可作上述有限细分的情形同样成立。
+\end{theorem}
+
+\begin{proof}
+由拉回与外微分可交换，左端为 $\int_Dd(X^*\omega)$。先设 $D$ 是坐标
+矩形，并写
+\[
+ X^*\omega=\sum_{j=1}^k(-1)^{j-1}a_j(t)\,
+ dt^1\wedge\cdots\wedge\widehat{dt^j}\wedge\cdots\wedge dt^k.
+\]
+于是
+\[
+ d(X^*\omega)=\left(\sum_{j=1}^k\partial_ja_j\right)
+ dt^1\wedge\cdots\wedge dt^k.
+\]
+对第 $j$ 项沿 $t^j$ 使用 Newton--Leibniz 公式，其余坐标使用 Fubini
+定理，得到矩形上、下两张 $j$-边界面的积分；系数 $(-1)^{j-1}$ 正是诱导
+边界定向的符号。
+
+对一般 $D$，把公式逐胞腔相加。每一张内部公共面在相邻胞腔中带相反的
+诱导定向，故积分相消，只留下 $\partial D$。最后用
+$X|_{\partial D}$ 参数化边界，并利用拉回的复合律，得到
+$\int_{\partial M}\omega$。
+\end{proof}
+
+\section{星形域上的 Poincaré 引理}
+
+开集 $U$ 关于 $a$ 星形，是指每条线段 $[a,x]$ 都包含于 $U$。
+
+\begin{theorem}[Poincaré 引理]
+\label{thm:poincare-lemma-star-shaped}
+若 $U\subset\R^n$ 关于 $0$ 星形，$k\ge1$，且
+$\omega\in\Omega^k(U)$ 闭，则存在 $\eta\in\Omega^{k-1}(U)$ 使
+$\omega=d\eta$。
+\end{theorem}
+
+\begin{proof}
+令径向向量场 $R_x=x$，定义同伦算子
+\[
+ (H\omega)_x(v_1,\ldots,v_{k-1})
+ =\int_0^1t^{k-1}\omega_{tx}(x,v_1,\ldots,v_{k-1})\,dt.
+\]
+为看清同伦恒等式，先把 $dH\omega+Hd\omega$ 作用在固定向量
+$v_1,\ldots,v_k$ 上。按外微分的坐标公式逐项展开后，含有 $x$ 的导数项
+和含有 $v_j$ 的交错项正好组合成
+\[
+ \frac{d}{dt}\left[
+ t^k\omega_{tx}(v_1,\ldots,v_k)\right].
+\]
+于是对 $t$ 积分并使用一元基本定理，得到
+\[
+ dH\omega+Hd\omega=\omega-s_0^*\omega,
+\]
+其中 $s_0(x)=0$；右端两项分别来自 $t=1$ 与 $t=0$。当 $k\ge1$ 时，
+常值映射的导数为零，所以 $s_0^*\omega=0$。又因 $d\omega=0$，
+$d(H\omega)=\omega$。令 $\eta=H\omega$ 即得。上述求导移入积分可对
+每个坐标系数分别验证；在任一紧子集上，被积系数及其一阶偏导连续且一致
+有界，故差商收敛是统一的。
+\end{proof}
+
+对任意开集 $U$ 和任意 $x\in U$，都可取一个以 $x$ 为中心、闭包仍包含于
+$U$ 的小开球。开球关于其中心星形，因而上一定理逐点给出：闭形式总是局部
+恰当。要把这些局部原函数拼成全局原函数，还需要控制定义域的拓扑；穿孔平面
+上的角形式 $(-y\,dx+x\,dy)/(x^2+y^2)$ 就是不能全局拼合的基本例子。
+
+\section{经典公式的形式表述}
+
+在 $\R^3$ 中，标量函数 $f$ 对应 $0$-形式，向量场
+$F=(P,Q,R)$ 可对应
+\[
+ \alpha=Pdx+Qdy+Rdz,
+ \qquad
+ \beta=P\,dy\wedge dz+Q\,dz\wedge dx+R\,dx\wedge dy.
+\]
+于是 $df$ 对应梯度，$d\alpha$ 对应旋度，$d\beta$ 对应散度。对曲线、曲面
+和区域应用同一 Stokes 公式，分别得到 Newton--Leibniz、经典 Stokes 与
+Gauss 定理；二维的 $Pdx+Qdy$ 则给出 Green 定理。
+
+这种对应依赖欧氏内积和定向，而外微分本身不依赖度量。后续流形章节会把
+积分与 Stokes 定理保留在抽象流形上；梯度、散度和 Hodge 星算子则需要额外
+的度量结构。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　外代数与外微分}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{alternating-form-basis}
+ 证明 $\dim\Lambda^k(\R^n)^*=\binom nk$，并写出 $n=4,k=2$ 的标准基。
+ \exerciseitem{wedge-sign-computation}
+ 计算若干一次形式的楔积，说明含重复因子的项为何为零。
+ \exerciseitem{top-form-determinant-pullback}
+ 证明线性映射对顶次体积形式的拉回乘以行列式。
+ \exerciseitem{exterior-derivative-leibniz}
+ 在坐标中证明外微分的分次 Leibniz 公式。
+ \exerciseitem{exterior-derivative-square-zero}
+ 完整证明 $d^2=0$，指出 Schwarz 定理和交错性各自的作用。
+ \exerciseitem{pullback-commutes-d}
+ 对一次形式先证明 $d(F^*\omega)=F^*(d\omega)$，再推广到一般形式。
+\end{enumerate}
+\subsection*{B组　Stokes 与 Poincaré}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{stokes-rectangle-coordinate-proof}
+ 在三维长方体上对一般二次形式逐项验证 Stokes 公式。
+ \exerciseitem{boundary-orientation-square}
+ 从“外法向优先”约定推导平面正方形边界的逆时针方向。
+ \exerciseitem{poincare-one-form-potential}
+ 把同伦算子用于闭一次形式，写出显式势函数并直接求导验证。
+ \exerciseitem{poincare-homotopy-identity}
+ 对一般 $k$-形式逐项验证 $dH+Hd=I-s_0^*$。
+ \exerciseitem{punctured-plane-closed-not-exact-form}
+ 证明角形式闭但不恰当，并用单位圆积分说明原因。
+ \exerciseitem{local-poincare-lemma}
+ 由星形域版本证明闭形式在每一点附近恰当。
+\end{enumerate}
+\subsection*{C组　经典对应}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{green-as-differential-form}
+ 把 Green 定理写成一次形式的 Stokes 公式并核对符号。
+ \exerciseitem{gauss-as-differential-form}
+ 计算与向量场对应的二次形式的外微分，恢复散度定理。
+ \exerciseitem{curl-as-exterior-derivative}
+ 计算 $d(Pdx+Qdy+Rdz)$ 并恢复旋度的三个分量。
+ \optionalexerciseitem{forms-metric-independence-audit}
+ 区分本章哪些构造只需光滑结构与定向，哪些还使用欧氏内积。
+\end{enumerate}

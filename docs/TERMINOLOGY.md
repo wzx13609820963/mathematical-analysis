@@ -101,6 +101,22 @@
 | LICQ | linear independence constraint qualification | 等式约束梯度与全部活跃不等式约束梯度线性无关 |
 | KKT 条件 | Karush--Kuhn--Tucker conditions | 包括原可行性、对偶可行性、驻点条件与互补松弛；本书不等式统一写成 (g_i\le0) |
 | 互补松弛 | complementary slackness | `\mu_i g_i(a)=0`；非活跃约束的乘子必须为零 |
+| Jordan 零测集 | Jordan null set | 可由总体积任意小的有限矩形族覆盖；与允许可数覆盖的 Lebesgue 零测集区分 |
+| Jordan 可测集 | Jordan measurable set | 本书定义为边界是 Jordan 零测集的有界集合；其指标函数恰好 Riemann 可积 |
+| 多重积分变量代换 | change of variables for multiple integrals | 当前证明有限分片的 (C^1) 微分同胚版本；普通体积使用 Jacobian 绝对值 |
+| 第一型、第二型曲线积分 | scalar and vector line integrals | 正文也写“标量曲线积分”“向量曲线积分”；第二型依赖曲线方向 |
+| 第一型、第二型曲面积分 | scalar surface integral and flux integral | 正文优先写“标量曲面积分”“通量”；通量依赖曲面定向 |
+| 微分形式 | differential form | 当前只在 Euclidean 开集及参数化子流形上建立；抽象流形版本后置 |
+| 外微分 | exterior derivative | 记作 (d)，满足分次 Leibniz 公式和 (d^2=0)，并与拉回交换 |
+| 闭形式、恰当形式 | closed form, exact form | 分别满足 (d\omega=0) 和 (\omega=d\eta)；恰当必闭，反向需定义域条件 |
+| Poincaré 引理 | Poincaré lemma | 当前版本断言星形域上的正次数闭形式恰当；不得用于任意穿孔开集 |
+| Banach 空间 | Banach space | 完备赋范线性空间；第51章的 (C(K)) 是首个系统研究的函数空间实例 |
+| 有界线性算子 | bounded linear operator | 线性算子满足统一范数估计；在线性映射情形与连续性等价 |
+| 等度连续 | equicontinuous | 连续性中的邻域或 (delta) 对函数族全体共同有效；不得与各函数分别连续混同 |
+| 相对紧致 | relatively compact | 集合的闭包紧致；在 (C(K)) 中由 Arzelà--Ascoli 定理刻画 |
+| Arzelà--Ascoli 定理 | Arzelà--Ascoli theorem | 当前版本针对紧致度量定义域和有限维值域，以等度连续及逐点相对紧刻画函数族相对紧致性 |
+| Bernstein 多项式 | Bernstein polynomial | 以非负二项权重对采样值作凸组合，给出 Weierstrass 逼近的构造性证明 |
+| Stone--Weierstrass 定理 | Stone--Weierstrass theorem | 实版本要求含常数并分离点；复版本还要求对共轭封闭 |
 
 ## 风格约定
 

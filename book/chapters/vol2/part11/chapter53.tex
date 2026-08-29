@@ -1,0 +1,288 @@
+\chapter{多项式逼近}
+\label{chap:polynomial-approximation}
+
+Taylor 多项式来自函数在一点的导数，只在余项可控时才逼近原函数。连续函数
+可能处处不可导，却仍能在整个闭区间上被多项式一致逼近。这里的多项式不再
+由某一点的局部数据决定，而是由函数在许多采样点的值共同构造。
+
+本章先给出 Bernstein 的显式构造，再证明更一般的 Stone--Weierstrass
+定理。前者回答“怎样逼近”，后者说明“哪些函数代数足以逼近”。
+
+\section{稠密性与一致逼近}
+
+设 $A$ 是赋范空间 $X$ 的子集。若对每个 $x\in X$ 和每个
+$\varepsilon>0$，都存在 $a\in A$ 使 $\norm{x-a}<\varepsilon$，则称 $A$
+在 $X$ 中稠密，等价地 $\overline A=X$。
+
+对 $C([a,b])$ 的多项式子空间，稠密性意味着：任给连续函数 $f$ 与误差
+$\varepsilon>0$，可以找到一个多项式 $p$，使
+\[
+ |f(x)-p(x)|<\varepsilon\qquad(a\le x\le b)
+\]
+同时成立。这里的多项式次数可以依赖于 $f$ 和 $\varepsilon$，但不能依赖于
+$x$。逐点为每个 $x$ 另选一个多项式并不能得到一致逼近。
+
+稠密子空间不必等于整个空间。多项式集合只是可数维线性空间，而
+$C([a,b])$ 是无限维的；极限过程填补了二者之间的差距。若限制多项式次数
+不超过固定 $N$，所得有限维子空间是闭的，不可能稠密于 $C([a,b])$。
+
+\section{Bernstein 多项式}
+
+先在 $[0,1]$ 上工作。对 $f\in C([0,1])$，定义第 $n$ 个 Bernstein 多项式
+\[
+ B_nf(x)=\sum_{k=0}^n f\left(\frac kn\right)
+ \binom nk x^k(1-x)^{n-k}.
+\]
+基函数非负，且由二项式定理
+\[
+ \sum_{k=0}^n\binom nkx^k(1-x)^{n-k}=1.
+\]
+因此 $B_nf(x)$ 是采样值 $f(k/n)$ 的凸组合，特别有
+$\norm{B_nf}_\infty\le\norm f_\infty$，并保持常数和函数值的上下界。
+映射 $B_n:C([0,1])\to C([0,1])$ 是正线性算子：$f\ge0$ 推出
+$B_nf\ge0$，并且 $B_n1=1$。这些性质使误差估计可以直接从函数值之差
+出发，而无须控制多项式系数。
+
+三个矩恒等式决定了逼近误差：
+\begin{align}
+ B_n1(x)&=1,\\
+ B_n(t)(x)&=x,\\
+ B_n((t-x)^2)(x)&=\frac{x(1-x)}n.
+ \label{eq:bernstein-moments}
+\end{align}
+第二式可对 $(u+v)^n$ 求导后令 $u=x,v=1-x$ 得到；再求一次导数可算出
+$k(k-1)$ 的和，从而得到第三式。
+
+定义连续模
+\[
+ \omega_f(\delta)=\sup\{|f(s)-f(t)|:s,t\in[0,1],\ |s-t|\le\delta\}.
+\]
+一致连续性说明 $\omega_f(\delta)\to0$。若 $|s-t|>\delta$，把区间分成
+不超过 $1+|s-t|/\delta$ 段，便有
+\begin{equation}
+ |f(s)-f(t)|\le
+ \left(1+\frac{|s-t|}{\delta}\right)\omega_f(\delta).
+ \label{eq:modulus-telescoping}
+\end{equation}
+
+\begin{theorem}[Bernstein 逼近]
+\label{thm:bernstein-uniform-approximation}
+对每个 $f\in C([0,1])$，$B_nf\to f$ 一致成立。更具体地，
+\[
+ \norm{B_nf-f}_\infty
+ \le\omega_f(\delta)
+ \left(1+\frac{1}{2\delta\sqrt n}\right)
+ \qquad(\delta>0).
+\]
+\end{theorem}
+
+\begin{proof}
+记 $p_{n,k}(x)=\binom nkx^k(1-x)^{n-k}$。由
+\eqref{eq:modulus-telescoping}，
+\[
+ |B_nf(x)-f(x)|
+ \le\omega_f(\delta)
+ \left(1+\frac1\delta\sum_{k=0}^n
+ \left|\frac kn-x\right|p_{n,k}(x)\right).
+\]
+对有限和使用 Cauchy--Schwarz，并利用 \eqref{eq:bernstein-moments}，
+\[
+ \sum_k\left|\frac kn-x\right|p_{n,k}(x)
+ \le\left(\sum_k\left(\frac kn-x\right)^2p_{n,k}(x)\right)^{1/2}
+ \le\frac1{2\sqrt n}.
+\]
+估计与 $x$ 无关。取 $\delta=n^{-1/4}$，右端趋于零。
+\end{proof}
+
+这个证明没有假设 $f$ 可导。逼近来自两点：权重集中在 $k/n\approx x$ 的
+位置，连续函数在相近点的值相近。若 $f$ 是 Lipschitz 函数，直接取
+$|f(k/n)-f(x)|\le L|k/n-x|$ 可得
+$\norm{B_nf-f}_\infty\le L/(2\sqrt n)$。
+
+\section{Weierstrass 逼近定理}
+
+\begin{theorem}[Weierstrass]
+\label{thm:weierstrass-polynomial-approximation}
+实多项式在 $C([a,b];\R)$ 的上确界范数下稠密。
+\end{theorem}
+
+\begin{proof}
+仿射变换 $x=a+(b-a)t$ 把 $[0,1]$ 映到 $[a,b]$。令
+$g(t)=f(a+(b-a)t)$。定理 \ref{thm:bernstein-uniform-approximation} 给出
+多项式 $B_ng(t)$ 一致逼近 $g$。把 $t=(x-a)/(b-a)$ 代回，仍得到 $x$ 的
+多项式，并一致逼近 $f$。若 $a=b$，常多项式已经足够。
+\end{proof}
+
+逼近多项式一般不是 Taylor 多项式。连续函数没有导数时，Taylor 展开甚至
+无从定义；即使函数无穷次可导，Taylor 级数也可能不等于原函数。Weierstrass
+定理只要求每个误差水平存在某个多项式，并不要求这些多项式由同一组局部
+导数生成。
+
+Bernstein 算子还保持单调性和凸性。记
+$\Delta f_k=f((k+1)/n)-f(k/n)$，直接求导得
+\[
+ (B_nf)'(x)
+ =n\sum_{k=0}^{n-1}\Delta f_k
+ \binom{n-1}{k}x^k(1-x)^{n-1-k}.
+\]
+若 $f$ 单调递增，则每个 $\Delta f_k\ge0$，所以 $B_nf$ 也单调递增。
+再求一次导数，
+\[
+ (B_nf)''(x)
+ =n(n-1)\sum_{k=0}^{n-2}
+ \left[f\!\left(\frac{k+2}{n}\right)
+ -2f\!\left(\frac{k+1}{n}\right)
+ +f\!\left(\frac{k}{n}\right)\right]
+ \binom{n-2}{k}x^k(1-x)^{n-2-k}.
+\]
+凸函数在等距节点上的二阶差分非负，故 $B_nf$ 保持凸性。这些保形性质是
+显式构造相对于纯存在性证明的优点；Weierstrass 定理本身只给存在性，不会
+自动给出这样的形状控制。
+
+\section{分离点的函数代数}
+
+设 $K$ 为紧致 Hausdorff 空间，$A\subset C(K;\R)$ 是子代数。称 $A$
+含常数，如果所有常函数属于 $A$；称 $A$ 分离 $K$ 中的点，如果任意
+$x\ne y$，都存在 $f\in A$ 使 $f(x)\ne f(y)$。
+
+分离点是必要条件：若 $f(x)=f(y)$ 对每个 $f\in A$ 都成立，那么该等式在
+$\overline A$ 中仍成立，$A$ 不可能逼近一个在 $x,y$ 取不同值的连续函数。
+含常数则保证能同时调节函数的平移和尺度。
+
+证明一般定理还需要一个格闭包事实。
+
+\begin{lemma}[代数闭包的格性质]
+\label{lem:stone-weierstrass-lattice-closure}
+若 $A\subset C(K;\R)$ 是含常数的子代数，则其一致闭包
+$\overline A$ 对绝对值、有限最大值和有限最小值封闭。
+\end{lemma}
+
+\begin{proof}
+给定 $f\in\overline A$，设 $M=\norm f_\infty$。由 Weierstrass 定理，在
+$[-M,M]$ 上存在实多项式 $p_n$ 一致逼近 $|t|$；可把常数项稍作调整使
+$p_n(0)=0$。由于 $\overline A$ 是闭子代数且含常数，$p_n\circ f\in
+\overline A$，并一致趋于 $|f|$，故 $|f|\in\overline A$。再利用
+\[
+ f\vee g=(f+g+|f-g|)/2,
+ \qquad f\wedge g=(f+g-|f-g|)/2
+\]
+得到有限最大、最小值的封闭性。
+\end{proof}
+
+\section{Stone--Weierstrass 定理}
+
+\begin{theorem}[实 Stone--Weierstrass 定理]
+\label{thm:real-stone-weierstrass}
+设 $K$ 为紧致 Hausdorff 空间。若子代数 $A\subset C(K;\R)$ 含常数并
+分离点，则 $A$ 在 $C(K;\R)$ 中一致稠密。
+\end{theorem}
+
+\begin{proof}
+固定 $f\in C(K;\R)$ 和 $\varepsilon>0$。对任意 $x\ne y$，由分离点性
+取 $h\in A$ 使 $h(x)\ne h(y)$。对 $h$ 作仿射变换，可得
+$g_{x,y}\in A$ 满足
+$g_{x,y}(x)=f(x)$、$g_{x,y}(y)=f(y)$；$x=y$ 时取常函数 $f(x)$。
+
+先固定 $x$。对每个 $y$，连续性给出 $y$ 的邻域 $V_y$，其上
+$g_{x,y}>f-\varepsilon$。有限个 $V_{y_1},\ldots,V_{y_r}$ 覆盖 $K$。由
+引理 \ref{lem:stone-weierstrass-lattice-closure}，
+\[
+ g_x=g_{x,y_1}\vee\cdots\vee g_{x,y_r}\in\overline A.
+\]
+于是 $g_x>f-\varepsilon$ 于 $K$，且 $g_x(x)=f(x)$。再由连续性，存在
+$x$ 的邻域 $U_x$，其上 $g_x<f+\varepsilon$。
+
+有限个 $U_{x_1},\ldots,U_{x_s}$ 覆盖 $K$。令
+$g=g_{x_1}\wedge\cdots\wedge g_{x_s}\in\overline A$。每个 $g_{x_i}$ 都
+大于 $f-\varepsilon$，而每一点落在某个 $U_{x_i}$ 中，故
+\[
+ f-\varepsilon<g<f+\varepsilon\quad\text{于 }K.
+\]
+于是 $\norm{g-f}_\infty\le\varepsilon$。因为 $g\in\overline A$，还可从
+$A$ 中选函数任意逼近 $g$；合并误差即知 $f\in\overline A$。
+\end{proof}
+
+对复函数，分离点和含常数还不够。需要 $A$ 对复共轭封闭，即
+$f\in A\Rightarrow\bar f\in A$。令 $A_{\R}$ 为 $A$ 中的实值函数。共轭
+封闭保证 $\operatorname{Re}f,\operatorname{Im}f\in A_{\R}$；若
+$f(x)\ne f(y)$，二者中至少一个分离 $x,y$，所以 $A_{\R}$ 仍分离点。
+对实部和虚部分别应用实定理便得到：
+
+\begin{corollary}[复 Stone--Weierstrass 定理]
+\label{cor:complex-stone-weierstrass}
+设 $A\subset C(K;\C)$ 是含常数、分离点且对共轭封闭的复子代数，则
+$\overline A=C(K;\C)$。
+\end{corollary}
+
+几个稠密性结论现在可由同一判据得到：
+\begin{enumerate}
+ \item $K\subset\R^n$ 紧时，坐标多项式限制在 $K$ 上含常数并分离点，故
+ 多元多项式在 $C(K;\R)$ 中稠密；
+ \item 圆周上的三角多项式由 $e^{int}$（$n\in\Z$）生成，含共轭并分离点，
+ 故在连续周期函数中一致稠密；
+ \item 若复代数不含共轭，结论可能失败。在单位圆
+ $\mathbb T=\{z:|z|=1\}$ 上，只含非负幂的多项式构成含常数并分离点的
+ 复代数，却不能一致逼近 $\bar z$。事实上，连续线性泛函
+ \[
+  L(f)=\int_0^{2\pi}f(e^{it})e^{it}\,dt
+ \]
+ 在每个多项式 $\sum_{k=0}^Na_kz^k$ 上取零，而 $L(\bar z)=2\pi$；故
+ $\bar z$ 不属于该代数的一致闭包。
+\end{enumerate}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　Bernstein 构造}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{bernstein-moment-identities}
+ 从二项式定理完整推导三个 Bernstein 矩恒等式。
+ \exerciseitem{bernstein-positive-contraction}
+ 证明 $B_n$ 是正线性算子、保持常数，并满足
+ $\norm{B_nf}\le\norm f$。
+ \exerciseitem{bernstein-modulus-estimate}
+ 补全定理 \ref{thm:bernstein-uniform-approximation} 的每一步估计。
+ \exerciseitem{bernstein-lipschitz-rate}
+ 若 $f$ 的 Lipschitz 常数为 $L$，证明
+ $\norm{B_nf-f}_\infty\le L/(2\sqrt n)$。
+ \exerciseitem{bernstein-linear-quadratic}
+ 计算 $B_n1$、$B_nt$、$B_nt^2$，并判断哪些多项式被精确保持。
+ \exerciseitem{bernstein-monotonicity}
+ 用相邻差分证明 $f$ 单调时 $B_nf$ 单调。
+\end{enumerate}
+
+\subsection*{B组　稠密性与格方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{fixed-degree-polynomials-closed}
+ 证明次数不超过 $N$ 的多项式在 $C([a,b])$ 中构成闭子空间。
+ \exerciseitem{dense-subspace-propagates-linear-identity}
+ 证明连续线性泛函若在稠密子集上为零，则在全空间为零。
+ \exerciseitem{absolute-value-polynomial-approximation}
+ 说明引理 \ref{lem:stone-weierstrass-lattice-closure} 中可要求逼近多项式
+ 满足 $p_n(0)=0$，并完成复合函数的一致估计。
+ \exerciseitem{two-point-interpolation-from-separation}
+ 证明分离点的含常数代数能为任意 $x\ne y$ 和任意实数 $a,b$ 构造
+ $g(x)=a,g(y)=b$ 的函数 $g$。
+ \exerciseitem{stone-weierstrass-finite-cover-proof}
+ 重写 Stone--Weierstrass 证明，逐一说明两次有限子覆盖和最大、最小运算
+ 的作用。
+\end{enumerate}
+
+\subsection*{C组　典型稠密性结论}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{multivariate-polynomial-density}
+ 对任意紧集 $K\subset\R^n$，证明多元实多项式在 $C(K;\R)$ 中稠密。
+ \exerciseitem{trigonometric-polynomial-density}
+ 用复 Stone--Weierstrass 定理证明三角多项式在连续 $2\pi$-周期函数中一致
+ 稠密。
+ \exerciseitem{even-polynomial-density}
+ 判断偶多项式在 $C([-1,1])$ 中的闭包，并证明你的结论。
+ \exerciseitem{polynomials-with-zero-at-origin}
+ 求满足 $p(0)=0$ 的多项式在 $C([0,1])$ 中的闭包。
+ \exerciseitem{complex-conjugation-necessity}
+ 设 $\mathbb T=\{z\in\C:|z|=1\}$。证明只含非负频率的多项式
+ $\sum_{k=0}^Na_kz^k$ 不能在 $\mathbb T$ 上一致逼近 $\bar z$。
+ \optionalexerciseitem{bernstein-convexity-preservation}
+ 用二阶差分证明 Bernstein 算子保持凸性，并由此说明它对凸函数给出何种
+ 单侧估计。
+\end{enumerate}

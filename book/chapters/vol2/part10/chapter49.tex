@@ -1,0 +1,234 @@
+\chapter{经典积分定理}
+\label{chap:classical-integral-theorems}
+
+Newton--Leibniz 公式把区间内部的导数积分化为两个端点的差。Green、Gauss
+和 Stokes 定理把同一原则分别写在平面区域、空间区域和曲面上：内部微分
+经过积分后，只留下带有诱导定向的边界项。边界的光滑性和定向不是附属约定，
+而是公式符号的一部分。
+
+本章先在可由有限个 $C^1$ 图形分片描述的紧区域上证明公式。更一般的分片
+光滑区域可通过有限分割归入这一类；相邻分片的公共边界以相反方向出现并
+相消。
+
+\section{Green 定理}
+
+平面有界区域 $D$ 的边界取正向：沿边界行进时，区域位于左侧。若
+$D=\{(x,y):a\le x\le b,\alpha(x)\le y\le\beta(x)\}$，其中
+$\alpha,\beta$ 分段 $C^1$，则由一元基本定理
+\[
+ \iint_D\partial_yP\,dxdy
+ =\int_a^b[P(x,\beta(x))-P(x,\alpha(x))]dx
+ =-\int_{\partial D}P\,dx.
+\]
+对 $x$-方向的简单区域同理得到 $\iint_D\partial_xQ=\int_{\partial D}Qdy$。
+
+\begin{theorem}[Green 定理]
+\label{thm:green-classical}
+设 $D\subset\R^2$ 是有限个上述简单区域的并，内部互不相交，边界分段
+$C^1$；$P,Q$ 在 $\overline D$ 的邻域属于 $C^1$。则
+\[
+ \int_{\partial D}P\,dx+Q\,dy
+ =\iint_D(\partial_xQ-\partial_yP)\,dxdy.
+\]
+有洞区域的外边界取逆时针，内边界取顺时针。
+\end{theorem}
+
+\begin{proof}
+对同时为两种简单区域的情形，将上面的两个一元基本定理相加。一般分片区域
+逐片应用；每条内部公共弧在两个分片中方向相反，线积分相消，只余外边界。
+若有洞，内边界也是剩余边界，但其诱导方向与外边界相反。
+\end{proof}
+
+取 $P=-y/2,Q=x/2$ 得面积公式
+\[
+ |D|=\frac12\int_{\partial D}(x\,dy-y\,dx).
+\]
+删去分片或边界正则性后，公式未必仍能在 Riemann 意义下表述；后续测度论
+和弱导数理论会给出更广的版本。
+
+\section{Gauss 散度定理}
+
+对 $F=(F_1,F_2,F_3)$，散度为
+$\operatorname{div}F=\partial_xF_1+\partial_yF_2+\partial_zF_3$。
+
+\begin{theorem}[Gauss 散度定理]
+\label{thm:gauss-divergence-classical}
+设 $\Omega\subset\R^3$ 是可分成有限个坐标方向简单区域的有界区域，边界
+分片 $C^1$，$n$ 为外单位法向。若 $F$ 在 $\overline\Omega$ 的邻域属于
+$C^1$，则
+\[
+ \iiint_\Omega\operatorname{div}F\,dV
+ =\iint_{\partial\Omega}F\cdot n\,dS.
+\]
+\end{theorem}
+
+\begin{proof}
+只证 $F=(0,0,R)$ 的分量公式。若
+$\Omega=\{(x,y,z):(x,y)\in D,\alpha(x,y)\le z\le\beta(x,y)\}$，
+Fubini 定理和一元基本定理给出
+\[
+ \iiint_\Omega\partial_zR\,dV
+ =\iint_D[R(x,y,\beta)-R(x,y,\alpha)]dxdy.
+\]
+上、下图面的有向面积向量的第三分量分别为 $1$ 和 $-1$，侧面的第三分量
+为零，故右端正是 $\iint_{\partial\Omega}F\cdot n\,dS$。另外两个分量
+循环置换坐标。有限分片后，内部曲面的法向相反，通量相消。
+\end{proof}
+
+散度描述单位体积的净流出率。取 $F(x)=x/3$ 便得到
+$|\Omega|=\frac13\int_{\partial\Omega}x\cdot n\,dS$。
+
+定理要求向量场在区域的一个邻域中光滑，不能只检查边界附近。令
+\[
+ F(x)=\frac{x}{\norm{x}^3}\qquad(x\ne0).
+\]
+直接计算得 $\operatorname{div}F=0$ 于 $\R^3\setminus\{0\}$，但在半径
+$R$ 的球面上，$F\cdot n=1/R^2$，故外向通量恒为 $4\pi$。若球包含原点，
+散度定理的光滑性假设不成立；这个非零通量不能与区域内的零散度相矛盾。
+删去半径 $\rho$ 的小球后应用定理，内球面的诱导法向指向原点，其通量为
+$-4\pi$，两条边界的贡献恰好相消。
+
+\section{经典 Stokes 定理}
+
+对 $F=(P,Q,R)$，旋度定义为
+\[
+ \operatorname{curl}F=
+ (R_y-Q_z,\ P_z-R_x,\ Q_x-P_y).
+\]
+
+\begin{theorem}[经典 Stokes 定理]
+\label{thm:stokes-classical-surface}
+设 $S=X(D)$ 是定向分片 $C^2$ 曲面，$D$ 为 Green 定理适用的平面区域，
+边界定向与法向满足右手规则。若 $F$ 在 $S$ 的邻域属于 $C^1$，则
+\[
+ \int_{\partial S}F\cdot dx
+ =\iint_S(\operatorname{curl}F)\cdot n\,dS.
+\]
+\end{theorem}
+
+\begin{proof}
+把边界线积分拉回参数域。令
+$A(u,v)=F(X(u,v))\cdot X_u$、
+$B(u,v)=F(X(u,v))\cdot X_v$。Green 定理给出
+\[
+ \int_{\partial D}A\,du+B\,dv
+ =\iint_D(\partial_uB-\partial_vA)\,du\,dv.
+\]
+链式法则展开后，$F\cdot X_{uv}$ 项相消，余项恰为
+\[
+ \partial_uB-\partial_vA
+ =\operatorname{curl}F(X)\cdot(X_u\times X_v).
+\]
+这就是所需曲面积分。分片曲面仍由内部边界相消得到。
+\end{proof}
+
+\section{势函数与路径无关}
+
+\begin{theorem}[保守场判据]
+\label{thm:conservative-field-path-independence}
+设 $U\subset\R^n$ 开且道路连通，$F:U\to\R^n$ 连续。以下条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 存在 $C^1$ 函数 $\varphi$ 使 $F=\nabla\varphi$；
+ \item 任意分段 $C^1$ 曲线的积分只依赖端点；
+ \item 每条分段 $C^1$ 闭曲线上的积分为零。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) 推出 (ii) 是链式法则，(ii) 推出 (iii) 显然。设 (iii) 成立，固定
+$x_0\in U$，对 $x\in U$ 选道路 $\gamma_x$ 从 $x_0$ 到 $x$，定义
+$\varphi(x)=\int_{\gamma_x}F\cdot dx$。任意两条道路首尾拼接成闭路，故
+定义与道路无关。在 $x$ 附近取完全落在 $U$ 中的短线段，则
+\[
+ \varphi(x+he_j)-\varphi(x)=\int_0^hF_j(x+te_j)dt.
+\]
+一元基本定理给出 $\partial_j\varphi=F_j$，所以 $\varphi\in C^1$。
+\end{proof}
+
+若 $U\subset\R^2$ 单连通且 $P_y=Q_x$，先对分段 $C^1$ 简单闭曲线应用
+Green 定理；单连通性保证曲线围成的有界区域仍包含于 $U$。一般闭路可先
+在有限个自交点处分割成简单闭路，再由分段逼近处理。于是所有闭路积分为零。
+对有洞区域结论会失败：在
+$\R^2\setminus\{0\}$ 上
+\[
+ F(x,y)=\frac{1}{x^2+y^2}(-y,x)
+\]
+满足 $Q_x-P_y=0$，但沿单位圆积分为 $2\pi$，所以不存在全局势函数。
+局部无旋与全局保守之间缺少的是定义域的拓扑条件。
+
+在星形域上，可以不经过闭路分解而直接写出势函数。以下结论也是下一章
+Poincaré 引理在一次形式情形的坐标版本。
+
+\begin{proposition}[星形域上的势函数]
+\label{prop:star-shaped-potential}
+设 $U\subset\R^n$ 关于 $a\in U$ 星形，$F\in C^1(U;\R^n)$，并且
+\[
+ \partial_iF_j=\partial_jF_i\qquad(1\le i,j\le n).
+\]
+则
+\[
+ \varphi(x)=\int_0^1F(a+t(x-a))\cdot(x-a)\,dt
+\]
+满足 $\nabla\varphi=F$。
+\end{proposition}
+
+\begin{proof}
+记 $z=x-a$。对第 $i$ 个变量求导，并把对称偏导条件用在第一项，得到
+\begin{align*}
+ \partial_i\varphi(x)
+ &=\int_0^1\left[
+ t\sum_{j=1}^n\partial_iF_j(a+tz)z_j+F_i(a+tz)\right]dt\\
+ &=\int_0^1\left[
+ t\sum_{j=1}^n\partial_jF_i(a+tz)z_j+F_i(a+tz)\right]dt\\
+ &=\int_0^1\frac{d}{dt}\bigl[tF_i(a+tz)\bigr]dt
+ =F_i(x).
+\end{align*}
+被积函数及其偏导在每条紧线段上连续，因而这里可以按第
+\chapterref{chap:uniform-convergence-preservation}中含参数积分的初等结论
+逐项求导；也可直接对差商使用一致连续性。
+\end{proof}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　Green 定理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{green-simple-domain-proof}
+ 对同时为两种简单区域的 $D$ 完整写出 Green 定理证明。
+ \exerciseitem{green-annulus-orientation}
+ 在圆环上验证内外边界的定向，并用 Green 定理计算一个具体线积分。
+ \exerciseitem{green-area-formula}
+ 推导三种面积公式 $\int x\,dy$、$-\int y\,dx$ 和正文的对称形式。
+ \exerciseitem{green-internal-boundary-cancellation}
+ 证明有限分片时公共边界积分相消，并说明三片交于一点不产生额外项。
+\end{enumerate}
+\subsection*{B组　Gauss 与 Stokes}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{gauss-box-direct}
+ 对长方体直接证明散度定理，并与六个面的通量逐项比较。
+ \exerciseitem{gauss-volume-formula}
+ 用 $F=x/3$ 推导体积公式，并计算球和圆锥的体积。
+ \exerciseitem{gauss-inverse-square-flux}
+ 计算 $F(x)=x/\norm{x}^3$ 穿过包围原点的球面的通量，并解释为何不能直接在
+ 含原点区域上应用散度定理。
+ \exerciseitem{stokes-parameter-expansion}
+ 展开 $\partial_u(F(X)\cdot X_v)-\partial_v(F(X)\cdot X_u)$，验证旋度恒等式。
+ \exerciseitem{stokes-hemisphere-disk}
+ 分别用上半球和其边界圆盘计算同一闭曲线积分，说明 Stokes 定理只依赖边界。
+ \exerciseitem{curl-gradient-divcurl}
+ 对 $C^2$ 函数和向量场证明 $\operatorname{curl}\nabla\varphi=0$ 及
+ $\operatorname{div}\operatorname{curl}F=0$。
+\end{enumerate}
+\subsection*{C组　势函数与条件}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{path-independent-potential-construction}
+ 补全保守场判据中势函数连续可微性的证明。
+ \exerciseitem{punctured-plane-circulation}
+ 核对穿孔平面向量场处处无旋，并计算其单位圆环流。
+ \exerciseitem{star-shaped-curl-free-potential}
+ 在星形域中直接定义
+ $\varphi(x)=\int_0^1F(tx)\cdot x\,dt$，证明 $C^1$ 无旋场满足
+ $\nabla\varphi=F$。
+ \optionalexerciseitem{classical-theorem-hypothesis-audit}
+ 比较三条经典积分定理对区域、边界和被积场正则性的要求，列出不能由本章
+ 证明覆盖的边界例。
+\end{enumerate}

@@ -22,7 +22,7 @@ lualatex main.tex
 .\build-solutions.ps1
 ```
 
-构建脚本连续编译三次，以稳定目录、书签和交叉引用。当前主文件载入3.3版第0—46章及附录A—C，其中第二卷目前写至第九编；解答册只载入正文各章习题，参考型附录不另设习题。
+构建脚本连续编译三次，以稳定目录、书签和交叉引用。当前主文件载入3.3版第0—53章及附录A—C，第一卷和第二卷均已完整接入；解答册只载入正文各章习题，参考型附录不另设习题。
 
 `analysisbook` 提供两种色彩模式：
 
@@ -41,8 +41,10 @@ lualatex main.tex
 - `chapters/vol2/part7/`：第二卷第七编第30—35章正文；
 - `chapters/vol2/part8/`：第二卷第八编第36—42章正文；
 - `chapters/vol2/part9/`：第二卷第九编第43—46章正文；
+- `chapters/vol2/part10/`：第二卷第十编第47—50章正文；
+- `chapters/vol2/part11/`：第二卷第十一编第51—53章正文；
 - `solutions.tex`：习题解答册入口，不由教材正文默认载入；
-- `solutions/vol1/`、`solutions/vol2/part6/`、`solutions/vol2/part7/`、`solutions/vol2/part8/`、`solutions/vol2/part9/`：当前第0—46章全部正式习题的详细解答；路径与正文平行。
+- `solutions/vol1/`、`solutions/vol2/part6/` 至 `solutions/vol2/part11/`：当前第0—53章全部正式习题的详细解答；路径与正文平行。
 
 全书正文必须遵守工作区根目录的 `教材写作规范.md`。新增章节前应先完成其中的依赖检查，交付前按单章验收清单复核。
 

@@ -1,0 +1,183 @@
+\chapter{多重积分}
+\label{chap:multiple-integrals-solutions}
+
+\begin{solution}{multiple-integral-product-function}
+设 $f\in\mathcal R([a,b])$、$g\in\mathcal R([c,d])$，并取乘积分割
+$P=P_x\times P_y$。若样点为 $(\xi_i,\eta_j)$，则
+\[
+ \sum_{i,j}f(\xi_i)g(\eta_j)\Delta x_i\Delta y_j
+ =\left(\sum_i f(\xi_i)\Delta x_i\right)
+  \left(\sum_j g(\eta_j)\Delta y_j\right).
+\]
+令两个分割的网径同时趋于零，右端两个因子分别趋于一元积分，故
+\[
+ \int_{[a,b]\times[c,d]}f(x)g(y)\,d(x,y)
+ =\int_a^bf(x)\,dx\int_c^dg(y)\,dy.
+\]
+一般矩形分割可由乘积分割加细；Riemann 可积性的 Cauchy 判据说明加细
+不会改变极限。
+\end{solution}
+
+\begin{solution}{multiple-continuous-integrability}
+设 $Q\subset\R^n$ 是非退化闭矩形。连续函数在紧集 $Q$ 上一致连续，故给定
+$\varepsilon>0$，存在 $\delta>0$，使同一子矩形中任意两点距离小于
+$\delta$ 时函数值之差小于 $\varepsilon/|Q|$。取网径充分小的分割，
+每个子矩形 $Q_j$ 上的振幅 $\omega_j$ 都小于该数，因而
+\[
+ U(f,P)-L(f,P)=\sum_j\omega_j|Q_j|<\varepsilon.
+\]
+Darboux 判据给出可积性。若 $Q$ 有一个边长为零，则每个子矩形的 $n$ 维
+体积均为零，上和与下和都为零；按照本章约定积分为零。
+\end{solution}
+
+\begin{solution}{jordan-boundary-indicator}
+设 $E\subset Q$ 有界。若 $\mathbf1_E$ Riemann 可积，则其不连续点集恰为
+$\partial E$：在内点和外点附近指标函数恒定；在边界点的每个邻域中同时有
+$E$ 与补集中的点，故发生振荡。对指标函数，每个子矩形上的振幅不是 $0$
+就是 $1$，且等于 $1$ 当且仅当子矩形碰到边界两侧。因此振幅和可任意小
+等价于可用总体积任意小的有限个矩形覆盖 $\partial E$，即边界为 Jordan
+零测集。此时
+$\int_Q\mathbf1_E$ 与包住 $E$ 的矩形 $Q$ 无关：换一个矩形只在指标函数
+恒为零的区域上增加积分。它便定义了 $E$ 的 Jordan 体积。
+\end{solution}
+
+\begin{solution}{graph-jordan-null}
+设 $f:[a,b]\to\R$ 的 Lipschitz 常数为 $L$。把 $[a,b]$ 等分为 $N$ 段，
+长度 $h=(b-a)/N$。每段上的函数振幅不超过 $Lh$，故该段上方的图像可由
+一个宽 $h$、高 $2Lh$（端点稍加任意小余量）的矩形覆盖。总面积不超过
+$2LN h^2=2L(b-a)^2/N$，趋于零。若 $L=0$，同样可用任意小高度的矩形条
+覆盖。故图像为 Jordan 零测集。
+\end{solution}
+
+\begin{solution}{dense-countable-not-jordan-null}
+若有限个闭矩形覆盖 $\Q^n\cap[0,1]^n$，其并集是闭集；由于有理点在立方体
+中稠密，该并集也覆盖其闭包 $[0,1]^n$。所以这些矩形体积之和至少为 $1$，
+不可能任意小，故该集合不是 Jordan 零测集。Lebesgue 零测允许可数个区间
+覆盖：逐个有理点用体积总和小于 $\varepsilon$ 的小立方体覆盖即可。Jordan
+理论只允许有限覆盖，两种结论因覆盖族不同而不冲突。
+\end{solution}
+
+\begin{solution}{jordan-volume-finite-union}
+先证两个集合。若 $E,F$ Jordan 可测且 $\partial E\cap\partial F$ 为
+Jordan 零测集，则除这个零测集合外，指标恒等式
+\[
+ \mathbf1_{E\cup F}=\mathbf1_E+\mathbf1_F-\mathbf1_{E\cap F}
+\]
+逐点成立，其实该式处处成立；各指标函数均可积，因为
+$\partial(E\cap F)\subset\partial E\cup\partial F$。积分的线性性给出
+$m(E\cup F)=m(E)+m(F)-m(E\cap F)$。若各集合内部两两不交，交集包含于
+边界交，体积为零，因而得到可加性。有限多个集合用归纳法处理；有限个
+Jordan 零测集的并仍为 Jordan 零测集。
+\end{solution}
+
+\begin{solution}{fubini-uniform-section-proof}
+设 $f$ 在 $Q=[a,b]\times[c,d]$ 上连续。给定 $\varepsilon>0$，由一致连续性
+取 $y$ 方向分割 $P_y$，使每个小区间内
+\[
+ |f(x,y)-f(x,y')|<\frac{\varepsilon}{2(d-c)}
+ \quad\text{对所有 }x\in[a,b]
+\]
+成立。于是任取样点 $\eta_j$，内层和满足一致估计
+\[
+ \left|\sum_j f(x,\eta_j)\Delta y_j-
+       \int_c^d f(x,y)\,dy\right|<\varepsilon/2
+ \quad(x\in[a,b]).
+\]
+再对 $x$ 作 Riemann 求和，误差至多 $(b-a)\varepsilon/2$（开始时可相应
+缩放 $\varepsilon$）。二维乘积和与外层积分的和因而有同一极限，这便给出
+Fubini 等式；关键是误差对 $x$ 一致。
+\end{solution}
+
+\begin{solution}{triangle-iterated-integral}
+令
+$D=\{(x,y):a\le x\le b,\ \alpha(x)\le y\le\beta(x)\}$，其中边界函数连续。
+其边界由有限条连续图线组成，因而为 Jordan 零测集，$D$ Jordan 可测。
+把 $f\mathbf1_D$ 延为包围矩形上的函数。它只可能在 $\partial D$ 或 $f$ 的
+不连续点处不连续；连续 $f$ 情形下故可积。对每个 $x$，截面函数的积分是
+\[
+ \int_c^d f(x,y)\mathbf1_D(x,y)\,dy
+ =\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy.
+\]
+该截面积分连续（可由 $f$ 的一致连续性和端点连续性证明），应用矩形上的
+Fubini 定理即得所求公式。
+\end{solution}
+
+\begin{solution}{polar-coordinate-disk}
+在 $0<r<1$、$0<\theta<2\pi$ 上，极坐标 Jacobian 为 $r$，故
+\[
+ \int_{x^2+y^2\le1}(x^2+y^2)\,dx\,dy
+ =\int_0^{2\pi}\int_0^1 r^2 r\,dr\,d\theta
+ =\frac\pi2.
+\]
+原点对应整条 $r=0$，正半轴切口对应 $\theta=0,2\pi$；它们都是 Jordan
+零测集，删去或补回均不改变积分。变量代换先在
+$\rho\le r\le1$、$\eta\le\theta\le2\pi-\eta$ 上应用，再令
+$\rho,\eta\downarrow0$，即可避免退化和非单射点。
+\end{solution}
+
+\begin{solution}{linear-change-volume}
+先对长方体和对角矩阵成立，比例为各轴伸缩率绝对值之积。初等剪切保持
+平行截面的底和高，故保持体积；置换和反射只改变定向，不改变体积。任意
+可逆矩阵可分解为初等矩阵，所得比例正是 $|\det A|$。对 Jordan 可测集
+$E$，用有限个矩形从内外逼近。线性像是平行多面体，可再由矩形网格内外
+逼近，其边界像仍为零测集。令逼近误差趋零，得到
+$m(AE)=|\det A|m(E)$。
+\end{solution}
+
+\begin{solution}{change-variable-orientation-absolute}
+取 $T(u,v)=(-u,v)$。它把单位正方形映为面积仍为 $1$ 的正方形，而
+$\det DT=-1$。若公式使用 $\det DT$ 而不用绝对值，常函数 $1$ 的积分会变成
+$-1$，与面积非负矛盾。行列式符号记录定向，Riemann 体积只记录无向体积，
+故必须使用 $|\det DT|$。
+\end{solution}
+
+\begin{solution}{spherical-coordinate-jacobian}
+取
+$\Phi(r,\varphi,\theta)=(r\sin\varphi\cos\theta,
+r\sin\varphi\sin\theta,r\cos\varphi)$。直接计算三个偏导列向量的混合积得
+\[
+ \det D\Phi=r^2\sin\varphi.
+\]
+在 $r=0$ 和 $\varphi=0,\pi$ 处退化；$\theta=0$ 与 $2\pi$ 表示同一半平面，
+故闭参数盒上也非单射。应先在
+$r>0,0<\varphi<\pi,0<\theta<2\pi$ 的适当开子区域应用公式，再利用这些
+退化集及切口的零体积补回边界。
+\end{solution}
+
+\begin{solution}{riemann-section-nonintegrable}
+在 $[-1,1]^2$ 上令
+\[
+ f(x,y)=\begin{cases}\mathbf1_{\Q}(y),&x=0,\\0,&x\ne0.\end{cases}
+\]
+它的不连续点至多落在竖线 $x=0$ 上；该线是 Jordan 零测集，因此振幅判据
+给出 $f$ Riemann 可积且积分为零。但 $x=0$ 的截面是 Dirichlet 函数
+$\mathbf1_{\Q}$，在任何区间上都不可 Riemann 积。这说明多重可积不能保证
+每一条截面可积。
+\end{solution}
+
+\begin{solution}{piecewise-diffeomorphism-multiplicity}
+在参数域 $(0,1)\times(0,4\pi)$ 中，除切口外圆盘内每个非零点恰有两个原像，
+分别相差 $2\pi$。故对非负连续 $g$，把角区间分成两个周期并分别变量代换，
+\[
+ \int_0^{4\pi}\int_0^1g(r\cos\theta,r\sin\theta)r\,dr\,d\theta
+ =2\int_{B(0,1)}g(x,y)\,dx\,dy.
+\]
+原点和切口为零测集，不影响等式。这正是重数函数几乎处处等于 $2$ 的情形。
+\end{solution}
+
+\begin{solution}{jacobian-zero-no-local-inverse}
+一维映射 $f(x)=x^3$ 在全实轴严格单射，但 $f'(0)=0$。其逆函数
+$y\mapsto y^{1/3}$ 在零点不具有限导数，因而不是 $C^1$ 局部微分同胚。
+所以 Jacobian 为零不排除集合意义上的单射，却使逆函数定理的线性可逆
+假设失败，也不能保证光滑逆映射。
+\end{solution}
+
+\begin{solution}{riemann-change-variables-boundary-audit}
+紧致性把局部线性近似和 Jacobian 连续性提升为有限覆盖上的一致估计；
+Jordan 边界条件保证边界小盒总体积可忽略；双射性防止同一像点被重复计数；
+非零 Jacobian 使局部线性像不退化并由逆函数定理给出局部单射。
+删除双射性时，两个角周期的极坐标使积分恰好多算一倍。删除绝对非退化条件
+并允许把区域压到低维集合时，例如 $(u,v)\mapsto(u,0)$，像没有二维体积，
+而普通的双向变量代换论证完全失效。紧致性若删去，则仍可有局部公式，但需
+另加可积性和可数拼接条件，不能由本章有限分割证明直接推出。
+\end{solution}
