@@ -28,6 +28,14 @@
 \end{solution}
 
 \begin{solution}{sequential-compact-lebesgue-number}
+先比较两种表述。若每个 \(B(x,\lambda)\) 都包含于某个覆盖成员，而
+\(A\subseteq X\) 非空且 \(\operatorname{diam}A<\lambda\)，任取
+\(a\in A\)，便有 \(A\subseteq B(a,\lambda)\)，所以 \(A\) 也包含于
+一个覆盖成员。反之，若每个直径小于 \(\lambda\) 的集合都被某个成员
+包含，则
+\(\operatorname{diam}B(x,\lambda/3)<2\lambda/3<\lambda\)，故
+\(B(x,\lambda/3)\) 被某个成员包含。因此两种定义至多改变常数因子。
+
 若开覆盖 \(\mathcal U\) 没有 Lebesgue 数，对每个 \(n\) 取 \(x_n\)，
 使 \(B(x_n,1/n)\) 不包含于任何 \(U\in\mathcal U\)。序列紧致性给出
 \(x_{n_k}\to x\)。选 \(U\) 含 \(x\)，并取

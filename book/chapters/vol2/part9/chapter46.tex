@@ -1,0 +1,334 @@
+\chapter{约束极值}
+\label{chap:constrained-extrema}
+
+求函数在曲线、曲面或若干方程限定的集合上的极值时，允许的微小位移不再是
+整个空间中的任意方向，而只能沿约束集的切方向。Lagrange 乘子条件是这个
+事实的线性代数表述：目标函数的微分在所有可行切向上为零，因而它属于约束
+微分所张成的空间。
+
+乘子方程只是必要条件。要保证它确实覆盖所有局部极值，约束的梯度必须满足
+正则性；要判定候选点，还需把二阶型限制到切空间。对不等式约束，只有在
+极值点取等号的约束参与一阶条件，并出现非负乘子和互补松弛关系。
+
+\section{等式约束的切空间}
+
+设 $U\subset\R^n$ 开，$h=(h_1,\ldots,h_m):U\to\R^m$ 属于 $C^1$，
+并考虑
+\[
+ M=\{x\in U:h(x)=0\}.
+\]
+若 $Dh(a)$ 满射，即梯度
+$\nabla h_1(a),\ldots,\nabla h_m(a)$ 线性无关，则 $a$ 是约束的正则点。
+由正则水平集定理，$M$ 在 $a$ 附近是维数 $n-m$ 的局部图像，并且
+\[
+ T_aM=\ker Dh(a)
+ =\{v:\langle\nabla h_j(a),v\rangle=0, j=1,\ldots,m\}.
+\]
+
+下面的线性代数事实把“在切空间上为零”变成乘子表示。
+
+\begin{lemma}[消去核的线性泛函]
+\label{lem:functional-factor-through-surjection}
+设 $A:\R^n\to\R^m$ 满射，$\ell\in(\R^n)^*$。若
+$\ell|_{\ker A}=0$，则存在唯一的 $\lambda\in(\R^m)^*$，使
+\[
+ \ell=\lambda\circ A.
+\]
+\end{lemma}
+
+\begin{proof}
+对 $y\in\R^m$ 选取任意 $x$ 使 $Ax=y$，定义 $\lambda(y)=\ell(x)$。
+若 $Ax=Ax'$，则 $x-x'\in\ker A$，故 $\ell(x)=\ell(x')$；所以定义与
+原像选择无关。线性性显然，且 $\ell=\lambda\circ A$。满射性还保证
+$\lambda$ 唯一。
+\end{proof}
+
+\section{Lagrange 乘子定理}
+
+\begin{theorem}[等式约束的 Lagrange 乘子定理]
+\label{thm:lagrange-multipliers-regular-equality}
+设 $f,h_1,\ldots,h_m$ 在 $a$ 的邻域属于 $C^1$，$h(a)=0$，且
+$Dh(a)$ 满射。若 $a$ 是 $f$ 在 $M=h^{-1}(0)$ 上的局部极值点，则存在
+唯一的乘子 $\lambda_1,\ldots,\lambda_m$，使
+\begin{equation}
+ \nabla f(a)+\sum_{j=1}^m\lambda_j\nabla h_j(a)=0.
+ \label{eq:lagrange-stationarity-equality}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+任取 $v\in T_aM$。正则水平集的局部参数化保证存在 $M$ 中的 $C^1$ 曲线
+$\gamma$，满足 $\gamma(0)=a$、$\gamma'(0)=v$。一元函数
+$f(\gamma(t))$ 在 $0$ 取得局部极值，所以
+$Df(a)v=0$。因此 $Df(a)$ 在 $\ker Dh(a)$ 上为零。
+
+由引理 \ref{lem:functional-factor-through-surjection}，存在唯一
+$\mu\in(\R^m)^*$ 使 $Df(a)=\mu\circ Dh(a)$。把
+$\mu(y)=-\sum_j\lambda_jy_j$ 写入标准坐标，便得到
+\eqref{eq:lagrange-stationarity-equality}。
+\end{proof}
+
+将
+\[
+ L(x,\lambda)=f(x)+\sum_{j=1}^m\lambda_jh_j(x)
+\]
+称为 Lagrange 函数，则候选点满足
+\[
+ \nabla_xL(a,\lambda)=0,\qquad h(a)=0.
+\]
+这些方程需要连同原约束一起求解。解出的点只是候选点；极值类型仍要由
+比较、紧致性或二阶条件判定。
+
+\begin{example}[球面上的线性函数]
+在 $\norm x=1$ 上求 $f(x)=\langle c,x\rangle$ 的极值。取
+$h(x)=\norm x^2-1$，乘子方程为
+\[
+ c+2\lambda x=0.
+\]
+若 $c\ne0$，候选点只有 $x=\pm c/\norm c$。Cauchy--Schwarz 不等式
+进一步确认它们分别给出全局最大值 $\norm c$ 和最小值 $-\norm c$。
+乘子法找到候选点，最后的全局判定来自球面的紧致性和具体不等式。
+\end{example}
+
+正则性不能省略。例如约束 $h(x)=x^2=0$ 的可行集只有原点；原点当然是
+$f(x)=x$ 在该集合上的极大点和极小点，但 $h'(0)=0$，方程
+$f'(0)+\lambda h'(0)=0$ 无解。此处不是极值不存在，而是退化的约束函数
+没有正确表示可行集的一阶几何。同一集合若改由 $h(x)=x=0$ 表示，乘子
+条件便恢复正常。
+
+\section{二阶条件}
+
+设 $f,h$ 属于 $C^2$，$a$ 是正则约束点，$\lambda$ 满足一阶乘子方程。
+沿 $M$ 中曲线 $\gamma$ 二次求导，可得
+\[
+ (f\circ\gamma)''(0)
+ =D^2f(a)[v,v]+Df(a)\gamma''(0),
+\]
+而由 $h_j(\gamma(t))=0$，
+\[
+ D^2h_j(a)[v,v]+Dh_j(a)\gamma''(0)=0.
+\]
+用一阶乘子方程消去 $\gamma''(0)$，得到
+\begin{equation}
+ (f\circ\gamma)''(0)=D^2_{xx}L(a,\lambda)[v,v]
+ \qquad(v=\gamma'(0)\in T_aM).
+ \label{eq:constrained-second-variation}
+\end{equation}
+
+\begin{theorem}[等式约束的二阶条件]
+\label{thm:constrained-second-order-test}
+在上述假设下：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若 $a$ 是约束局部极小点，则
+ $D^2_{xx}L(a,\lambda)[v,v]\ge0$ 对每个 $v\in T_aM$ 成立；约束局部
+ 极大点满足反向不等式。
+ \item 若该二次型在 $T_aM\setminus\{0\}$ 上正定，则 $a$ 是严格约束
+ 局部极小点；若负定，则为严格约束局部极大点。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+必要性由 \eqref{eq:constrained-second-variation} 和一元二阶必要条件得到。
+证明充分性时，取正则水平集的 $C^2$ 局部参数化
+$\psi:V\subset\R^{n-m}\to M$，令 $\psi(0)=a$。函数
+$F=f\circ\psi$ 在零点的一阶微分为零，其 Hessian 满足
+\[
+ D^2F(0)[w,w]
+ =D^2_{xx}L(a,\lambda)[D\psi(0)w,D\psi(0)w].
+\]
+$D\psi(0)$ 是从 $\R^{n-m}$ 到 $T_aM$ 的线性同构。切空间上正定因而
+推出 $D^2F(0)$ 正定，通常的 Hessian 判别说明 $0$ 是 $F$ 的严格局部
+极小点，也就是 $a$ 是约束严格局部极小点。负定情形相同。
+\end{proof}
+
+应当限制的是 $D^2_{xx}L$，而不是只限制 $D^2f$。曲面自身的弯曲通过
+$\sum_j\lambda_jD^2h_j$ 进入二阶变化。也无须检查整个 $\R^n$ 上的正定性；
+法向方向不是一阶可行方向。
+
+\begin{example}
+在圆周 $x^2+y^2=1$ 上考察 $f(x,y)=x^2+2y^2$。候选点为
+$(\pm1,0)$、$(0,\pm1)$。切空间分别是一维的。把 Lagrange Hessian 限制
+到相应切线，可得前两点为严格最小，后两点为严格最大。直接代入圆周参数
+也得到同一结论，但切空间方法能直接推广到多重约束。
+\end{example}
+
+\section{不等式约束与 KKT 条件}
+
+考虑
+\[
+ h_j(x)=0\quad(j=1,\ldots,m),
+ \qquad
+ g_i(x)\le0\quad(i=1,\ldots,r).
+\]
+在可行点 $a$，满足 $g_i(a)=0$ 的指标组成活跃集 $I(a)$。非活跃约束在
+$a$ 附近仍严格小于零，不限制充分小的扰动。
+
+一种常用的约束资格条件是 LICQ：
+\[
+ \{\nabla h_j(a):1\le j\le m\}
+ \cup\{\nabla g_i(a):i\in I(a)\}
+\]
+线性无关。它既保证等式约束正则，也排除活跃不等式的一阶描述相互退化。
+
+\begin{theorem}[Karush--Kuhn--Tucker 必要条件]
+\label{thm:kkt-necessary-licq}
+设 $f,h_j,g_i$ 在 $a$ 的邻域属于 $C^1$，$a$ 是上述约束下的局部极小点，
+且 LICQ 在 $a$ 成立。则存在 $\lambda_j\in\R$ 和 $\mu_i\ge0$，使
+\begin{align}
+ &\nabla f(a)+\sum_{j=1}^m\lambda_j\nabla h_j(a)
+   +\sum_{i=1}^r\mu_i\nabla g_i(a)=0,
+ \label{eq:kkt-stationarity}\\
+ &h_j(a)=0,\qquad g_i(a)\le0,
+ \label{eq:kkt-primal}\\
+ &\mu_i g_i(a)=0\qquad(i=1,\ldots,r).
+ \label{eq:kkt-complementarity}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+对非活跃指标先置 $\mu_i=0$。LICQ 允许把
+$h_1,\ldots,h_m$ 和活跃的 $g_i$ 补成一个局部坐标系。具体地，选取
+若干线性坐标 $z$，使
+\[
+ \Phi(x)=(h(x),g_{I(a)}(x),z(x))
+\]
+在 $a$ 的导数可逆；逆函数定理说明 $\Phi$ 是局部坐标变换。把 $a$ 移到
+原点，并以 $(u,v,w)=\Phi(x)$ 表示。局部可行集由
+\[
+ u=0,\qquad v_i\le0
+\]
+描述，$w$ 可以在两个方向自由变化。
+
+令 $\widetilde f=f\circ\Phi^{-1}$。沿 $w$ 的正负方向都可行，局部极小性
+给出 $D_w\widetilde f(0)=0$。沿 $-e_i$ 的 $v$ 方向可行，故
+\[
+ -\partial_{v_i}\widetilde f(0)\ge0.
+\]
+取 $\mu_i=-\partial_{v_i}\widetilde f(0)\ge0$，再用自由的 $u$ 分量定义
+$\lambda_j=-\partial_{u_j}\widetilde f(0)$。把坐标形式拉回原变量，正好得到
+\eqref{eq:kkt-stationarity}。非活跃约束的乘子为零，因此
+\eqref{eq:kkt-complementarity} 也成立。
+\end{proof}
+
+乘子 $\mu_i$ 的非负性来自单侧可行方向；互补松弛说明只有活跃约束可能对
+驻点方程施加法向力。若把约束统一写成 $g_i\ge0$，乘子的符号也要随之
+改变，不能混用两套约定。
+
+KKT 条件通常仍不是充分条件。在凸情形中则有一个简洁的充分性结论。
+
+\begin{theorem}[凸问题中的充分性]
+\label{thm:kkt-sufficient-convex}
+设 $f,g_i$ 为可微凸函数，$h_j$ 为仿射函数。若可行点 $a$ 与乘子
+$\lambda_j\in\R$、$\mu_i\ge0$ 满足
+\eqref{eq:kkt-stationarity}--\eqref{eq:kkt-complementarity}，则 $a$ 是全局
+极小点。
+\end{theorem}
+
+\begin{proof}
+对任意可行点 $x$，凸性给出
+\[
+ f(x)\ge f(a)+\langle\nabla f(a),x-a\rangle.
+\]
+用驻点方程代换梯度。仿射等式约束使
+$\langle\nabla h_j(a),x-a\rangle=0$。又由凸性，
+\[
+ \langle\nabla g_i(a),x-a\rangle
+ \le g_i(x)-g_i(a).
+\]
+乘以 $-\mu_i$ 后方向反转，并结合 $g_i(x)\le0$、
+$\mu_i g_i(a)=0$，得到
+$\langle\nabla f(a),x-a\rangle\ge0$。所以 $f(x)\ge f(a)$。
+\end{proof}
+
+\begin{example}
+在半平面 $x+y\ge1$ 上极小化 $x^2+y^2$。写成
+$g(x,y)=1-x-y\le0$。无约束极小点不可行，因此约束活跃。驻点方程
+\[
+ (2x,2y)+\mu(-1,-1)=0,\qquad x+y=1,\qquad \mu\ge0
+\]
+给出 $x=y=1/2$、$\mu=1$。目标函数与可行域均凸，故该点是全局极小点。
+\end{example}
+
+\section{使用乘子法时的核对顺序}
+
+实际计算中，先确定可行集及活跃约束，再检查正则性；若正则，求解乘子方程
+并核实全部原约束。随后依据问题性质选择判定工具：紧集上的直接比较、凸性、
+切空间上的二阶型，或局部参数化。若正则性失败，不能简单丢弃该点，而应改换
+约束表示、直接参数化，或另作局部分析。
+
+当可行集有端点、尖点、自交或不同维数的分层时，一个统一的光滑等式模型往往
+不存在。把每一类边界分别处理，通常比强行套用同一组乘子方程可靠。KKT 理论
+把光滑不等式边界纳入了同一计算，但它仍依赖约束资格条件。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　等式约束与切空间}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{factor-functional-through-surjection}
+ 不使用商空间术语重新证明引理
+ \ref{lem:functional-factor-through-surjection}，并说明满射性为何保证乘子唯一。
+ \exerciseitem{lagrange-sphere-linear-functional}
+ 完成球面上线性函数例子的全部候选点与全局比较，包括 $c=0$ 的情形。
+ \exerciseitem{lagrange-product-fixed-sum}
+ 在 $x_1+\cdots+x_n=s$、$x_i>0$ 下求乘积
+ $x_1\cdots x_n$ 的最大值，并说明为何不存在最小值。
+ \exerciseitem{lagrange-ellipsoid-distance}
+ 求椭球 $x^2/a^2+y^2/b^2+z^2/c^2=1$ 上到原点距离的最大值和最小值。
+ \exerciseitem{two-equality-constraints}
+ 在 $x+y+z=0$、$x^2+y^2+z^2=1$ 下求 $xyz$ 的极值候选点，并利用
+ 对称性整理结果。
+ \exerciseitem{constraint-representation-degeneracy}
+ 比较同一集合 $\{0\}$ 的约束 $h(x)=x$ 与 $\widetilde h(x)=x^2$，说明
+ 乘子条件对约束表示的正则性有何依赖。
+ \exerciseitem{tangent-space-intersection-gradients}
+ 证明多个正则等式约束的切空间是各梯度正交补的交，并计算圆柱
+ $x^2+y^2=1$ 与平面 $x+z=0$ 交线在一点的切方向。
+\end{enumerate}
+
+\subsection*{B组　二阶判定}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{circle-quadratic-constrained-extrema}
+ 完整计算正文圆周上 $x^2+2y^2$ 的乘子、切空间和受限二阶型。
+ \exerciseitem{sphere-quadratic-eigenvalues}
+ 设 $A$ 为实对称矩阵。证明二次型 $x^{\mathsf T}Ax$ 在单位球面上的
+ 驻点正是 $A$ 的单位特征向量，并由此说明极值与最大、最小特征值的关系。
+ \exerciseitem{second-variation-curve-derivation}
+ 从约束曲线二次求导，逐步推导式
+ \eqref{eq:constrained-second-variation}。
+ \exerciseitem{restricted-hessian-basis-matrix}
+ 若 $Z$ 的列构成 $T_aM$ 的一组基，证明受限二次型的矩阵为
+ $Z^{\mathsf T}\nabla^2_{xx}L(a,\lambda)Z$，并说明如何用它判定正定性。
+ \exerciseitem{hessian-objective-alone-fails}
+ 构造一个约束极小点，使 $\nabla^2 f$ 在切空间外含负方向，但 Lagrange
+ Hessian 在切空间上正定；说明检查整个空间会得到错误结论。
+ \exerciseitem{constrained-degenerate-second-order}
+ 在曲线 $y=x^2$ 上研究 $f(x,y)=y$ 和 $f(x,y)=-y$ 在原点的约束极值，
+ 比较各自的 Lagrange Hessian。
+\end{enumerate}
+
+\subsection*{C组　不等式约束}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{kkt-halfspace-quadratic}
+ 完整核对正文半平面二次优化例子的 KKT 四类条件，并用配方法独立验证答案。
+ \exerciseitem{kkt-box-linear-functional}
+ 在盒子 $0\le x_i\le1$ 上极小化线性函数 $c\cdot x$，写出全部活跃约束
+ 与乘子，并处理 $c_i=0$ 的非唯一情形。
+ \exerciseitem{kkt-disk-linear-objective}
+ 在闭单位圆盘上极小化 $ax+by$，用 KKT 条件求解，并与
+ Cauchy--Schwarz 不等式比较。
+ \exerciseitem{kkt-complementarity-sign}
+ 把约束从 $g_i\le0$ 改写成 $\widehat g_i=-g_i\ge0$，推导相应乘子符号，
+ 说明互补松弛为何不变。
+ \exerciseitem{kkt-qualification-failure}
+ 对约束 $x^2\le0$ 下极小化 $f(x)=x$，说明极小点存在但 KKT 乘子不存在，
+ 并指出 LICQ 失败之处。
+ \exerciseitem{kkt-not-sufficient-nonconvex}
+ 给出满足 KKT 条件却不是局部极小点的光滑不等式约束例子。
+ \exerciseitem{convex-kkt-sufficiency-detail}
+ 补全定理 \ref{thm:kkt-sufficient-convex} 证明中的每个不等号，并说明
+ 若 $h_j$ 不是仿射函数，证明在哪一步失效。
+ \optionalexerciseitem{kkt-coordinate-proof-reconstruction}
+ 详细构造 KKT 定理证明中的补充坐标 $z$，并用逆函数定理写出局部可行集
+ 的坐标形式。
+\end{enumerate}

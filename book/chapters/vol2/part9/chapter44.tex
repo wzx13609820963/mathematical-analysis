@@ -1,0 +1,350 @@
+\chapter{高阶微分与多元极值}
+\label{chap:higher-differentials-extrema}
+
+一阶微分给出切线或切平面，二阶微分描述线性近似本身怎样变化。坐标计算
+把它写成 Hessian 矩阵，但矩阵的来源是一个双线性映射；混合偏导相等则是
+这个双线性映射对称性的坐标表现。本章先建立高阶微分和 Taylor 公式，再
+把二次型的符号用于无约束极值判别。
+
+\section{二阶微分与双线性映射}
+
+记 \(\mathcal L^2(\R^n,\R^m)\) 为所有双线性映射
+\(B:\R^n\times\R^n\to\R^m\) 的空间，并定义
+\[
+ \norm B_{\mathrm{op}}
+ =\sup_{\norm h\le1,\,\norm k\le1}\norm{B(h,k)}.
+\]
+有限维性保证上确界有限，且
+\[
+ \norm{B(h,k)}\le\norm B_{\mathrm{op}}\norm h\norm k.
+\]
+类似地定义连续 \(r\) 线性映射空间 \(\mathcal L^r(\R^n,\R^m)\)。
+
+设 \(f:U\to\R^m\) 在开集 \(U\) 上可微。若映射
+\[
+ Df:U\to\mathcal L(\R^n,\R^m)
+\]
+在 \(a\) 处 Fréchet 可微，则称 \(f\) 在 \(a\) 二次可微，并把
+\(D(Df)(a)\) 视为双线性映射，记为 \(D^2f(a)\)。具体地，
+\[
+ Df(a+h)k
+ =Df(a)k+D^2f(a)[h,k]+o(\norm h)\norm k,
+\]
+其中余项对 \(\norm k\le1\) 一致。
+
+递归地，若 \(D^{r-1}f\) 可微，则定义
+\(D^rf=D(D^{r-1}f)\)。若这些映射在 \(U\) 上连续，就写作
+\(f\in C^r(U,\R^m)\)。记号
+\[
+ D^rf(a)[h_1,\ldots,h_r]
+\]
+强调高阶导数接收 \(r\) 个向量；当所有参数都等于 \(h\) 时简写为
+\(D^rf(a)[h^r]\)。
+
+\begin{example}[二次映射]
+设 \(A\in\R^{n\times n}\)，\(q(x)=x^{\mathsf T}Ax\)。由上一章的计算，
+\[
+ Dq(x)h=x^{\mathsf T}(A+A^{\mathsf T})h,
+\]
+所以
+\[
+ D^2q(x)[h,k]=h^{\mathsf T}(A+A^{\mathsf T})k,
+\qquad D^rq=0\quad(r\ge3).
+\]
+二阶微分与基点无关，并且只含 \(A\) 的对称部分。
+\end{example}
+
+二阶复合公式可从链式法则再微分一次得到。若
+\(f:U\to\R^m\)、\(g:V\to\R^p\) 都二次可微，且 \(f(U)\subset V\)，则
+\[
+ \begin{split}
+ D^2(g\circ f)(a)[h,k]
+ ={}&D^2g(f(a))[Df(a)h,Df(a)k]\\
+ &+Dg(f(a))\bigl(D^2f(a)[h,k]\bigr).
+ \end{split}
+\]
+第一项来自外层函数的弯曲，第二项来自内层函数的弯曲。
+
+\section{Hessian、Schwarz 定理与对称性}
+
+对实值函数 \(f\)，二阶偏导数组成 Hessian 矩阵
+\[
+ H_f(a)=\left(\frac{\partial^2f}{\partial x_i\partial x_j}(a)
+ \right)_{1\le i,j\le n}.
+\]
+这里第 \((i,j)\) 项表示先对 \(x_j\) 求偏导，再对 \(x_i\) 求偏导。
+若 \(f\) 二次 Fréchet 可微，则
+\[
+ D^2f(a)[h,k]=h^{\mathsf T}H_f(a)k.
+\]
+
+混合偏导存在并不自动保证相等。连续性给出一个常用而稳定的充分条件。
+
+\begin{theorem}[Schwarz 定理]
+\label{thm:schwarz-mixed-partials}
+设实值函数 \(f\) 在 \(a\) 的某个邻域内具有二阶偏导数
+\(\partial_i\partial_jf\) 与 \(\partial_j\partial_if\)，并且二者在
+\(a\) 连续。则
+\[
+ \partial_i\partial_jf(a)=\partial_j\partial_if(a).
+\]
+特别地，若 \(f\in C^2(U)\)，则 Hessian 在每一点都是对称矩阵。
+\end{theorem}
+
+\begin{proof}
+只需考察 \(e_i,e_j\) 张成的坐标平面。对充分小的非零 \(s,t\)，令
+\[
+ \Delta(s,t)=f(a+se_i+te_j)-f(a+se_i)-f(a+te_j)+f(a).
+\]
+先把 \(s\) 固定，对 \(t\) 使用一元中值定理，再对所得
+\(x_i\)-方向增量使用一次中值定理，可得 \(\theta,\eta\in(0,1)\)，使
+\[
+ \frac{\Delta(s,t)}{st}
+ =\partial_i\partial_jf(a+\theta se_i+\eta te_j).
+\]
+交换两次取差的顺序，同理存在 \(\theta',\eta'\in(0,1)\) 使
+\[
+ \frac{\Delta(s,t)}{st}
+ =\partial_j\partial_if(a+\theta' se_i+\eta' te_j).
+\]
+令 \((s,t)\to(0,0)\)，两边分别趋于两个混合偏导在 \(a\) 的值，故它们
+相等。
+\end{proof}
+
+若 \(f\in C^r(U,\R^m)\)，反复应用 Schwarz 定理可知
+\(D^rf(a)\) 是对称的 \(r\) 线性映射：任意交换两个参数都不改变取值。
+证明只需验证相邻参数的交换，再用任意置换可分解为相邻换位。若缺少适当的
+连续性，混合偏导可能存在而不相等，所以对称性不能只凭偏导符号的排列猜测。
+
+\section{多元 Taylor 公式}
+
+设 \(a,a+h\in U\)，且线段 \([a,a+h]\subset U\)。把多元函数限制到
+该线段，令 \(\varphi(t)=f(a+th)\)。链式法则给出
+\[
+ \varphi^{(k)}(t)=D^kf(a+th)[h^k].
+\]
+一元 Taylor 理论因此直接产生高阶微分形式。
+
+\begin{theorem}[多元 Taylor 公式的 Peano 形式]
+\label{thm:multivariable-taylor-peano}
+若 \(f\in C^r(U,\R^m)\)，则当 \(h\to0\) 且 \([a,a+h]\subset U\) 时，
+\[
+ f(a+h)=\sum_{k=0}^r\frac1{k!}D^kf(a)[h^k]+o(\norm h^r),
+\]
+其中 \(D^0f(a)=f(a)\)。
+\end{theorem}
+
+\begin{proof}
+对 \(r=1\)，这是 Fréchet 可微的定义。一般情形可沿线段反复使用微积分
+基本定理，得到积分余项
+\[
+ \begin{split}
+ f(a+h)={}&\sum_{k=0}^{r-1}\frac1{k!}D^kf(a)[h^k]\\
+ &+\frac1{(r-1)!}\int_0^1(1-t)^{r-1}
+ D^rf(a+th)[h^r],dt.
+ \end{split}
+\]
+把 \(D^rf(a)\) 从积分中分出，并使用
+\(\int_0^1(1-t)^{r-1}dt=1/r\)，便得到第 \(r\) 次项。剩余积分的范数
+不超过
+\[
+ \frac{\norm h^r}{(r-1)!}
+ \sup_{0\le t\le1}
+ \norm{D^rf(a+th)-D^rf(a)}_{\mathrm{op}}.
+\]
+因 \(D^rf\) 在 \(a\) 连续，上确界趋于零，故余项为
+\(o(\norm h^r)\)。
+\end{proof}
+
+当 \(f\) 为实值且 \(f\in C^{r+1}\) 时，一元 Lagrange 余项还给出某个
+\(\theta\in(0,1)\)，使
+\[
+ f(a+h)=\sum_{k=0}^r\frac1{k!}D^kf(a)[h^k]
+ +\frac1{(r+1)!}D^{r+1}f(a+\theta h)[h^{r+1}].
+\]
+向量值函数一般不能让所有分量共享同一个 \(\theta\)，因而更适合使用积分
+余项或范数估计。
+
+为了与常见坐标公式对应，取多重指标
+\(\alpha=(\alpha_1,\ldots,\alpha_n)\in\N^n\)，并记
+\[
+ |\alpha|=\sum_j\alpha_j,
+ \quad
+ \alpha!=\prod_j\alpha_j!,
+ \quad
+ h^\alpha=\prod_jh_j^{\alpha_j},
+ \quad
+ \partial^\alpha f
+ =\partial_1^{\alpha_1}\cdots\partial_n^{\alpha_n}f.
+\]
+对称多线性展开与多项式定理给出
+\[
+ \frac1{k!}D^kf(a)[h^k]
+ =\sum_{|\alpha|=k}\frac{\partial^\alpha f(a)}{\alpha!}h^\alpha.
+\]
+因此多元 Taylor 多项式并不是把各变量的一元公式独立相加；混合项来自
+高阶微分在不同坐标方向上的取值。
+
+\section{二次型和极值判别}
+
+设 \(f:U\to\R\)。点 \(a\in U\) 称为局部极小点，如果某邻域内
+\(f(x)\ge f(a)\)；若除 \(x=a\) 外严格大于，则称严格局部极小点。局部
+极大点相应定义。
+
+\begin{theorem}[一阶与二阶必要条件]
+\label{thm:unconstrained-extremum-necessary}
+若 \(a\) 是可微函数 \(f\) 的内点局部极值点，则 \(Df(a)=0\)，即
+\(\nabla f(a)=0\)。若 \(f\) 在 \(a\) 二次可微，则局部极小点还满足
+\[
+ D^2f(a)[h,h]\ge0\qquad(h\in\R^n),
+\]
+局部极大点则满足反向不等式。
+\end{theorem}
+
+\begin{proof}
+固定方向 \(h\)，一元函数 \(t\mapsto f(a+th)\) 在 \(t=0\) 取得局部
+极值。一元 Fermat 定理给出 \(Df(a)h=0\)。这对所有 \(h\) 成立，故
+\(Df(a)=0\)。若为局部极小，且一阶项已经为零，则一元二阶必要条件给出
+\(D^2f(a)[h,h]\ge0\)。极大情形同理。
+\end{proof}
+
+对称双线性型 \(B\) 称为正定，如果 \(B[h,h]>0\) 对每个 \(h\ne0\)
+成立；称为半正定，如果只要求非负。不定表示它在不同向量上取正值和负值。
+负定、半负定相应定义。
+
+\begin{theorem}[Hessian 判别]
+\label{thm:hessian-second-derivative-test}
+设 \(f\) 在 \(a\) 二次可微且 \(Df(a)=0\)。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若 \(D^2f(a)\) 正定，则 \(a\) 是严格局部极小点；
+ \item 若 \(D^2f(a)\) 负定，则 \(a\) 是严格局部极大点；
+ \item 若 \(D^2f(a)\) 不定，则 \(a\) 是鞍点，因而不是局部极值点。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+若二次型正定，则它在欧氏单位球面上的连续函数
+\(h\mapsto D^2f(a)[h,h]\) 取得正的最小值 \(c\)。Taylor 公式给出
+\[
+ f(a+h)-f(a)
+ =\frac12D^2f(a)[h,h]+o(\norm h^2)
+ \ge\frac c2\norm h^2+o(\norm h^2).
+\]
+取 \(h\) 充分小，使余项绝对值不超过
+\(c\norm h^2/4\)，便得严格正值。负定情形对 \(-f\) 使用同一论证。
+
+若二次型不定，取 \(u,v\) 使
+\(D^2f(a)[u,u]>0\)、\(D^2f(a)[v,v]<0\)。沿射线 \(tu,tv\) 的展开说明
+充分小的非零 \(t\) 下，\(f(a+tu)-f(a)\) 与
+\(f(a+tv)-f(a)\) 异号，所以任意邻域内都有高于和低于 \(f(a)\) 的点。
+\end{proof}
+
+正定性与单位球面的紧致性共同给出统一下界
+\[
+ D^2f(a)[h,h]\ge c\norm h^2.
+\]
+这个定量下界使二次项能够压过 $o(\norm h^2)$ 余项。
+
+\section{半正定、退化和高阶反例}
+
+Hessian 半正定时，二阶项可能在某些方向消失，余项便会决定符号。以下三个
+函数在原点的梯度和 Hessian 都为零：
+\[
+ x^4+y^4,
+ \qquad
+ -x^4-y^4,
+ \qquad
+ x^4-y^4.
+\]
+原点分别是严格极小、严格极大和鞍点。因此“半正定推出极小”是错误命题。
+
+较高阶 Taylor 首项有时能解决退化情形。设
+\[
+ f(a+h)-f(a)=P_k(h)+o(\norm h^k),
+\]
+其中 \(P_k\) 是非零齐次多项式，\(P_k(th)=t^kP_k(h)\)。若
+\(P_k(h)>0\) 对每个 \(h\ne0\) 成立，则 \(k\) 必为偶数；单位球面紧致
+给出 \(P_k(h)\ge c\norm h^k\)，从而 \(a\) 为严格局部极小点。若
+\(P_k\) 在单位球面上取正负两种值，则 \(a\) 为鞍点。奇数次非零齐次
+多项式满足 \(P_k(-h)=-P_k(h)\)，必属于后一种情形。
+
+如果首个非零齐次项只是半正定，仍可能需要更精细的方向分析。例如
+\(f(x,y)=x^2+y^4\) 的二次项为 \(x^2\)，虽退化但高阶项在核方向上为正，
+原点仍是严格极小点；而 \(x^2-y^4\) 在同一二次型下却有鞍点。逐层限制到
+低阶项的零集，是处理退化极值的一种方法，但不存在只看 Hessian 就能覆盖
+所有退化情形的判别法。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　高阶微分与 Hessian}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{bilinear-operator-norm-bound}
+ 证明有限维双线性映射 \(B\) 连续，并从标准基上的取值给出一个常数
+ \(C\)，使 \(\norm{B(h,k)}\le C\norm h\norm k\)。
+ \exerciseitem{second-derivative-quadratic-map}
+ 重新计算 \(q(x)=x^{\mathsf T}Ax\) 的一、二阶微分，并证明三阶及以上微分
+ 为零。
+ \exerciseitem{hessian-coordinate-representation}
+ 从 \(D^2f(a)[e_i,e_j]\) 推出 Hessian 的坐标公式，并说明矩阵对称性依赖
+ 什么条件。
+ \exerciseitem{schwarz-rectangle-increment}
+ 把 Schwarz 定理证明中的两次一元中值定理逐步写出，包括中间的一元函数
+ 和取值点。
+ \exerciseitem{second-chain-rule}
+ 从一阶链式法则和双线性乘法法则证明二阶复合公式。
+ \exerciseitem{radial-function-hessian}
+ 设 \(f(x)=\phi(\norm x_2^2)\)，其中 \(\phi\in C^2(\R)\)。求梯度和
+ Hessian。
+ \exerciseitem{multi-index-count}
+ 证明 \(n\) 个变量中满足 \(|\alpha|=k\) 的多重指标共有
+ \(\binom{n+k-1}{k}\) 个，并写出二元三阶 Taylor 齐次项。
+\end{enumerate}
+
+\subsection*{B组　Taylor 公式与极值}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{taylor-integral-remainder-derivation}
+ 沿线段反复使用微积分基本定理，推导正文中的多元 Taylor 积分余项。
+ \exerciseitem{taylor-multi-index-expansion}
+ 用多项式定理证明
+ \(D^kf(a)[h^k]/k!=\sum_{|\alpha|=k}\partial^\alpha f(a)h^\alpha/\alpha!\)。
+ \exerciseitem{taylor-exp-log-two-variables}
+ 求 \(f(x,y)=e^x\log(1+y)\) 在原点到三阶的 Taylor 多项式，并给出
+ \(o((x^2+y^2)^{3/2})\) 余项。
+ \exerciseitem{stationary-point-classification-polynomial}
+ 求 \(f(x,y)=x^2+xy+y^2-2x+3y\) 的驻点并判定其类型。
+ \exerciseitem{hessian-two-dimensional-criterion}
+ 对实对称矩阵
+ \(H=\begin{psmallmatrix}a&b\\b&c\end{psmallmatrix}\)，证明
+ \(H\) 正定当且仅当 \(a>0\)、\(ac-b^2>0\)，并写出负定与不定判据。
+ \exerciseitem{indefinite-hessian-saddle}
+ 不直接引用 Hessian 判别定理，沿两个方向证明不定二次项产生鞍点。
+ \exerciseitem{compact-sphere-uniform-quadratic}
+ 证明正定二次型存在 \(c>0\) 使 \(Q(h)\ge c\norm h^2\)，并说明有限维性
+ 在哪里使用。
+ \exerciseitem{local-minimum-hessian-semidefinite}
+ 从一元限制函数证明局部极小点的 Hessian 必半正定；构造 Hessian 半正定
+ 但不是极小点的例子。
+\end{enumerate}
+
+\subsection*{C组　退化与高阶项}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{quartic-extrema-trichotomy}
+ 分别严格判定 \(x^4+y^4\)、\(-x^4-y^4\)、\(x^4-y^4\) 在原点的极值
+ 类型。
+ \exerciseitem{same-hessian-different-behavior}
+ 比较 \(x^2+y^4\) 与 \(x^2-y^4\)，说明同一退化 Hessian 可以对应不同
+ 局部行为。
+ \exerciseitem{first-nonzero-homogeneous-term}
+ 完整证明正文关于首个非零齐次项的判别，包括单位球面上的统一常数。
+ \exerciseitem{odd-leading-term-saddle}
+ 证明非零奇次齐次多项式必在单位球面上取正负值，并据此判定相应驻点。
+ \exerciseitem{flat-function-no-finite-taylor-test}
+ 研究
+ \(f(x,y)=e^{-1/(x^2+y^2)}\)（原点定义为零）。证明它在原点的每阶 Taylor
+ 多项式都为零，但原点仍是严格极小点。
+ \optionalexerciseitem{mixed-partials-fail-without-continuity}
+ 构造一个在原点两个混合偏导均存在但不相等的函数，并逐一定义其在坐标轴
+ 与原点的取值。提示：考察
+ \(xy(x^2-y^2)/(x^2+y^2)\) 在原点的延拓。
+\end{enumerate}

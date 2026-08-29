@@ -1,0 +1,263 @@
+\chapter{约束极值}
+\label{chap:constrained-extrema-solutions}
+
+\begin{solution}{factor-functional-through-surjection}
+对 $y\in\R^m$，由满射性可选 $x\in\R^n$ 使 $Ax=y$，令
+$\lambda(y)=\ell(x)$。若 $x'$ 是另一原像，则 $x-x'\in\ker A$，所以
+$\ell(x)=\ell(x')$；定义良好。由原像可随线性组合选取，$\lambda$ 是线性
+泛函，且 $\ell=\lambda\circ A$。若另有 $\lambda'$ 也满足该式，则对任意
+$y=Ax$ 有 $\lambda(y)=\ell(x)=\lambda'(y)$，故 $\lambda=\lambda'$。
+最后一步正是满射性的使用处。
+\end{solution}
+
+\begin{solution}{lagrange-sphere-linear-functional}
+若 $c\ne0$，乘子方程 $c+2\lambda x=0$ 说明 $x$ 与 $c$ 共线；再由
+$\norm x=1$ 得 $x=\pm c/\norm c$。在两点的函数值分别为
+$\pm\norm c$。Cauchy--Schwarz 不等式
+$|\langle c,x\rangle|\le\norm c$ 说明它们是全局最大、最小点。
+若 $c=0$，目标函数恒为零，球面上每一点同时是最大点和最小点；乘子方程
+允许 $\lambda=0$ 与任意可行 $x$。
+\end{solution}
+
+\begin{solution}{lagrange-product-fixed-sum}
+对正变量最大化乘积等价于最大化
+$\sum_i\log x_i$。乘子方程为
+$1/x_i+\lambda=0$，故所有 $x_i$ 相等，约束给出 $x_i=s/n$（题目可行
+要求 $s>0$）。函数 $\log$ 严格凹，因而这是唯一全局最大点，最大值为
+$(s/n)^n$；也可由 AM--GM 不等式确认。令一个变量趋于 $0^+$，并调整其余
+变量保持和为 $s$，乘积趋于零。由于定义域要求每个变量严格为正，零不能
+取得，所以没有最小值，只有下确界零。
+\end{solution}
+
+\begin{solution}{lagrange-ellipsoid-distance}
+令 $f=x^2+y^2+z^2$，
+$h=x^2/a^2+y^2/b^2+z^2/c^2-1$。乘子方程为
+\[
+ 2x\left(1+\frac\lambda{a^2}\right)=0,
+ \quad
+ 2y\left(1+\frac\lambda{b^2}\right)=0,
+ \quad
+ 2z\left(1+\frac\lambda{c^2}\right)=0.
+\]
+若 $a^2,b^2,c^2$ 两两不同，候选点是三个坐标轴与椭球的交点，距离平方
+分别为 $a^2,b^2,c^2$。故最小距离为
+$\min\{a,b,c\}$，最大距离为 $\max\{a,b,c\}$（半轴取正）。若某些半轴
+相等，相应坐标子空间与椭球的交上会出现一族候选点，但极值数值仍由最短、
+最长半轴给出。
+\end{solution}
+
+\begin{solution}{two-equality-constraints}
+约束梯度 $(1,1,1)$ 与 $2(x,y,z)$ 在线性无关，因为和约束排除了
+$(x,y,z)$ 与 $(1,1,1)$ 平行。乘子方程的对称性表明在极值点至少两个坐标
+相等；也可把任意两式相减后因式分解得到这一结论。设 $x=y=t$，则
+$z=-2t$，球面约束给出 $6t^2=1$。因此候选点是
+\[
+ (t,t,-2t)
+\]
+及其坐标排列，其中 $t=\pm1/\sqrt6$。乘积为
+$-2t^3$，故最大值 $1/(3\sqrt6)$ 在 $t=-1/\sqrt6$ 的三个排列处取得，
+最小值 $-1/(3\sqrt6)$ 在相反三点取得。约束集是紧圆周，所以全局极值
+必存在，候选值的比较完成了判定。
+\end{solution}
+
+\begin{solution}{constraint-representation-degeneracy}
+对 $h(x)=x$，有 $h'(0)=1$，约束正则；任意 $f$ 在可行集 $\{0\}$ 上取得
+极值，乘子方程 $f'(0)+\lambda=0$ 总可解。对
+$\widetilde h(x)=x^2$，有 $\widetilde h'(0)=0$。若取 $f(x)=x$，乘子方程
+$1+\lambda\,0=0$ 无解，虽然可行集没有改变。因而乘子定理依赖的是约束
+函数对集合一阶几何的正则表示，而不只是集合的点集相等。
+\end{solution}
+
+\begin{solution}{tangent-space-intersection-gradients}
+由 $Dh(a)v=0$ 的分量形式，
+\[
+ T_aM=\bigcap_{j=1}^m\nabla h_j(a)^\perp.
+\]
+对 $h_1=x^2+y^2-1$、$h_2=x+z$，在交线点
+$a=(x,y,-x)$ 的两个法向为 $(2x,2y,0)$ 与 $(1,0,1)$。切方向可取它们
+的叉积
+\[
+ (2y,-2x,-2y),
+\]
+非零性由 $x^2+y^2=1$ 保证；其所有倍数组成一维切空间。
+\end{solution}
+
+\begin{solution}{circle-quadratic-constrained-extrema}
+取 $h=x^2+y^2-1$。Lagrange 函数
+$L=x^2+2y^2+\lambda h$ 的驻点方程为
+\[
+ 2x(1+\lambda)=0,\qquad 2y(2+\lambda)=0.
+\]
+与约束联立得到 $(\pm1,0)$，此时 $\lambda=-1$；以及 $(0,\pm1)$，此时
+$\lambda=-2$。前两点的切空间是 $y$ 方向，
+$\nabla^2_{xx}L=\operatorname{diag}(0,2)$ 在切线上正定，故为严格最小点。
+后两点的切空间是 $x$ 方向，Hessian 为
+$\operatorname{diag}(-2,0)$，在切线上负定，故为严格最大点。函数值分别为
+$1$ 和 $2$。
+\end{solution}
+
+\begin{solution}{sphere-quadratic-eigenvalues}
+令 $f(x)=x^{\mathsf T}Ax$、$h(x)=x^{\mathsf T}x-1$。因 $A$ 对称，
+$\nabla f=2Ax$。乘子方程给出
+$Ax=-\lambda x$，所以驻点正是单位特征向量。实对称矩阵有一组标准正交
+特征向量，若 $x=\sum_i c_iv_i$ 且 $\sum_i c_i^2=1$，则
+\[
+ x^{\mathsf T}Ax=\sum_i\lambda_i c_i^2.
+\]
+它是特征值的凸组合，故最小值和最大值分别为最小、最大特征值，并在相应
+特征子空间的单位向量上取得。
+\end{solution}
+
+\begin{solution}{second-variation-curve-derivation}
+设 $\gamma(0)=a$、$\gamma'(0)=v$ 且 $h_j(\gamma(t))=0$。两次求导得到
+\[
+ (f\circ\gamma)''(0)=D^2f(a)[v,v]+Df(a)\gamma''(0),
+\]
+\[
+ 0=D^2h_j(a)[v,v]+Dh_j(a)\gamma''(0).
+\]
+一阶乘子条件为
+$Df(a)+\sum_j\lambda_jDh_j(a)=0$。因此
+\[
+ Df(a)\gamma''(0)
+ =-\sum_j\lambda_jDh_j(a)\gamma''(0)
+ =\sum_j\lambda_jD^2h_j(a)[v,v].
+\]
+代回第一式即得
+\[
+ (f\circ\gamma)''(0)
+ =D^2_{xx}L(a,\lambda)[v,v].
+\]
+\end{solution}
+
+\begin{solution}{restricted-hessian-basis-matrix}
+任意切向量可唯一写成 $v=Zc$。若 $H=\nabla^2_{xx}L(a,\lambda)$，则
+\[
+ v^{\mathsf T}Hv=c^{\mathsf T}(Z^{\mathsf T}HZ)c.
+\]
+所以 $Z^{\mathsf T}HZ$ 是受限二次型在所选切空间基下的矩阵。它正定、
+负定或不定，分别等价于受限型具有相应性质，可用特征值或 Sylvester 判据
+检查。换另一组切空间基只会作合同变换，不改变惯性指数。
+\end{solution}
+
+\begin{solution}{hessian-objective-alone-fails}
+在圆周 $x^2+y^2=1$ 上考察 $f(x,y)=-x^2$。点 $a=(1,0)$ 是约束全局
+极小点。目标 Hessian 为 $\operatorname{diag}(-2,0)$，在法向 $x$ 方向为
+负，若错误地检查整个空间会排除该点。取 $h=x^2+y^2-1$，驻点方程给出
+$\lambda=1$，于是
+\[
+ \nabla^2_{xx}L(a,\lambda)=\operatorname{diag}(0,2).
+\]
+$T_aM$ 是 $y$ 轴，受限型在其上正定，正确给出严格约束极小。
+\end{solution}
+
+\begin{solution}{constrained-degenerate-second-order}
+取 $h(x,y)=y-x^2$。对 $f=y$，原点乘子条件
+$(0,1)+\lambda(0,1)=0$ 给出 $\lambda=-1$，而
+\[
+ \nabla^2_{xx}L=-\nabla^2h=\operatorname{diag}(2,0).
+\]
+切空间是 $x$ 轴，受限型正定，故原点为严格约束极小；直接代入曲线得到
+$f(x,x^2)=x^2$。对 $f=-y$，乘子为 $\lambda=1$，受限型在 $x$ 轴上
+负定，故原点为严格约束极大；限制函数为 $-x^2$。
+\end{solution}
+
+\begin{solution}{kkt-halfspace-quadratic}
+令 $g=1-x-y\le0$。在 $a=(1/2,1/2)$，原可行性与活跃性成立；取
+$\mu=1$，则
+\[
+ \nabla f(a)+\mu\nabla g(a)=(1,1)+(-1,-1)=0,
+\]
+$\mu\ge0$ 且 $\mu g(a)=0$，四类 KKT 条件全部满足。独立地，令
+$s=x+y\ge1$，则
+\[
+ x^2+y^2=\frac{s^2}{2}+\frac{(x-y)^2}{2}\ge\frac12,
+\]
+等号恰在 $s=1$、$x=y$ 时成立，故答案确为唯一全局极小点。
+\end{solution}
+
+\begin{solution}{kkt-box-linear-functional}
+把约束写成 $-x_i\le0$ 和 $x_i-1\le0$，乘子分别为
+$\alpha_i,\beta_i\ge0$。逐坐标驻点条件为
+\[
+ c_i-\alpha_i+\beta_i=0.
+\]
+若 $c_i>0$，极小值要求 $x_i=0$，可取
+$\alpha_i=c_i,\beta_i=0$；若 $c_i<0$，要求 $x_i=1$，可取
+$\alpha_i=0,\beta_i=-c_i$。若 $c_i=0$，任意 $x_i\in[0,1]$ 都可，取两个
+乘子为零即可。因此全部极小点由这些逐坐标选择组成。
+\end{solution}
+
+\begin{solution}{kkt-disk-linear-objective}
+设 $c=(a,b)\ne0$，约束 $g(x)=\norm x^2-1\le0$。极小点不能在内部，
+否则驻点条件要求 $c=0$。边界上 KKT 方程为
+\[
+ c+2\mu x=0,\qquad \mu\ge0,\qquad \norm x=1.
+\]
+因此 $x=-c/\norm c$、$\mu=\norm c/2$，最小值为 $-\norm c$。这正是
+Cauchy--Schwarz 不等式 $c\cdot x\ge-\norm c\norm x\ge-\norm c$ 的
+等号情形。若 $c=0$，圆盘内每一点都是极小点，可取全部乘子为零。
+\end{solution}
+
+\begin{solution}{kkt-complementarity-sign}
+若采用 $\widehat g_i=-g_i\ge0$，并仍希望非负乘子，则 Lagrange 函数应写成
+\[
+ L=f+\sum_j\lambda_jh_j-\sum_i\widehat\mu_i\widehat g_i.
+\]
+驻点式中的贡献为
+$-\widehat\mu_i\nabla\widehat g_i
+=\widehat\mu_i\nabla g_i$，与原约定一致。互补松弛
+$\widehat\mu_i\widehat g_i(a)=0$ 等价于
+$\widehat\mu_i g_i(a)=0$，所以形式不变；改变的是在驻点方程中与梯度配对
+的符号。
+\end{solution}
+
+\begin{solution}{kkt-qualification-failure}
+约束 $x^2\le0$ 的可行集只有 $x=0$，所以它是 $f(x)=x$ 在可行集上的
+极小点。唯一约束活跃，但其梯度 $2x$ 在零点为零，LICQ 失败。KKT 驻点
+方程要求
+$1+\mu\,0=0$，对任何 $\mu\ge0$ 都不可能成立。这说明约束资格条件
+保证的是乘子表示，不是极值本身的存在。
+\end{solution}
+
+\begin{solution}{kkt-not-sufficient-nonconvex}
+在约束 $g(x)=x^2-1\le0$ 下极小化 $f(x)=-x^2$。点 $x=0$ 是可行内点，
+约束不活跃，取 $\mu=0$ 时有 $f'(0)+\mu g'(0)=0$，并满足全部 KKT 条件。
+但 $f(x)<f(0)$ 对任意充分小的非零 $x$ 成立，所以零点是局部极大点而非
+极小点。非凸问题中 KKT 只提供一阶必要候选条件。
+\end{solution}
+
+\begin{solution}{convex-kkt-sufficiency-detail}
+对可行 $x$，
+\[
+ f(x)-f(a)\ge\langle\nabla f(a),x-a\rangle
+ =-\sum_j\lambda_j\langle\nabla h_j(a),x-a\rangle
+  -\sum_i\mu_i\langle\nabla g_i(a),x-a\rangle.
+\]
+$h_j$ 仿射且 $h_j(x)=h_j(a)=0$，故第一和为零。凸性给出
+$g_i(x)\ge g_i(a)+\langle\nabla g_i(a),x-a\rangle$，所以
+\[
+ -\mu_i\langle\nabla g_i(a),x-a\rangle
+ \ge-\mu_i(g_i(x)-g_i(a))
+ =-\mu_i g_i(x)\ge0.
+\]
+最后一个等号用了互补松弛，最后一个不等号用了
+$\mu_i\ge0$ 与 $g_i(x)\le0$。故 $f(x)\ge f(a)$。若 $h_j$ 不是仿射，
+由两个端点都满足 $h_j=0$ 不能推出
+$\langle\nabla h_j(a),x-a\rangle=0$，等式约束项便无法消去。
+\end{solution}
+
+\begin{solution}{kkt-coordinate-proof-reconstruction}
+LICQ 说明线性泛函
+$Dh_1(a),\ldots,Dh_m(a),Dg_i(a)$（$i\in I(a)$）线性无关。把它们
+扩充为 $(\R^n)^*$ 的一组基；新增基元素可写成线性泛函
+$z_1,\ldots,z_{n-m-|I|}$。于是映射
+\[
+ \Phi(x)=(h(x),g_I(x),z(x)-z(a))
+\]
+的导数在 $a$ 可逆。逆函数定理给出局部坐标 $(u,v,w)$。非活跃约束因
+连续性仍严格为负；活跃约束恰为坐标 $v_i$，等式约束恰为 $u_j$。故局部
+可行集严格写成 $u=0$、$v\le0$，$w$ 自由。对变换后的目标函数分别考察
+$w$ 的双侧方向和 $v$ 的负向单侧方向，就得到正文证明中的零系数与非负
+乘子。
+\end{solution}

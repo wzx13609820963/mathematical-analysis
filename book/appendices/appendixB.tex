@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—42章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—46章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -388,6 +388,31 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 \]
 特别地，\(\sigma(E,E')\) 是 \(E\) 上的弱拓扑，\(\sigma(E',E)\) 是 \(E'\) 上相对于 \(E\) 的弱星拓扑。省略配对会掩盖拓扑所由生成的线性泛函族，因此正文引用弱收敛时必须注明所在空间及对偶。
 
+\section{多元微分与约束记号}
+
+映射 $f:U\subset\R^n\to\R^m$ 在 $a$ 处的 Fréchet 微分记为
+$Df(a)\in\mathcal L(\R^n,\R^m)$；其标准基矩阵记为 $J_f(a)$。若更高阶
+微分存在，则
+\[
+ D^kf(a)\in\mathcal L^k(\R^n,\R^m),
+ \qquad D^kf(a)[h^k]=D^kf(a)[h,\ldots,h].
+\]
+实值函数的二阶微分在标准基下写成 Hessian $H_f(a)$。矩阵对称性依赖混合
+偏导交换所需的正则条件，不能从二阶偏导在一点存在直接推出。
+
+若正则水平集 $M=h^{-1}(0)$，则其切空间记为
+\[
+ T_aM=\ker Dh(a).
+\]
+等式约束的 Lagrange 函数采用
+\[
+ L(x,\lambda)=f(x)+\sum_j\lambda_jh_j(x)
+\]
+这一符号约定。不等式统一写成 $g_i\le0$；活跃指标集为
+$I(a)=\{i:g_i(a)=0\}$，相应 KKT 乘子满足 $\mu_i\ge0$ 与
+$\mu_i g_i(a)=0$。若把约束改写为 $g_i\ge0$，驻点方程中的乘子符号须
+同时改变。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -417,6 +442,16 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 
  \item[Darboux 定理]
  当前版本断言导函数即使不连续也具有介值性。它不同于连续函数的介值定理：这里不假设导函数连续，证明依赖原函数与割线斜率构造出的极值问题。
+
+ \item[反函数定理]
+ 一元版本以 $f'(a)\ne0$ 为条件；\chapterref{chap:local-inversion}的有限维
+ 多元版本要求 $Df(a)$ 是线性同构。两者都只保证邻域内的可逆性和逆映射
+ 光滑性，不保证原映射在整个定义域上单射或满射。
+
+ \item[中值等式与向量中值估计]
+ 标量函数沿线段可应用一元中值定理，得到一个共同中值点。一般向量值映射
+ 不存在满足 $f(y)-f(x)=Df(\xi)(y-x)$ 的共同点 $\xi$；可用的是
+ $\norm{f(y)-f(x)}\le\sup_{[x,y]}\norm{Df}\,\norm{y-x}$。
 
  \item[Cauchy 准则]
  数列、函数极限、Riemann 积分、反常积分和级数都有 Cauchy 形式，但所比较
@@ -464,7 +499,7 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 
 \section{当前章节依赖}
 
-第0—42章的主要依赖可概括如下：
+第0—46章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -512,5 +547,12 @@ M、Dirichlet 与 Abel 判别以及范数绝对收敛下的 Cauchy 乘积。
 \chapterref{chap:uniform-spaces-topological-groups}在拓扑之上加入点对的一致控制，
 讨论 Cauchy 滤子、完备化与拓扑群；\chapterref{chap:locally-convex-spaces}
 再把线性结构与半范数、一致结构和弱拓扑结合起来。
+
+多元微分学由\chapterref{chap:frechet-differential}把导数定义为统一的线性
+近似，并建立链式法则和向量增量估计；\chapterref{chap:higher-differentials-extrema}
+把二阶微分写成双线性型，由 Schwarz 定理、Taylor 公式进入无约束极值。
+\chapterref{chap:local-inversion}利用压缩映射原理证明逆函数定理，再推出隐函数、
+正则水平集和常秩定理。\chapterref{chap:constrained-extrema}据此识别约束集的
+切空间，建立 Lagrange 乘子、受限二阶判别与 KKT 条件。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

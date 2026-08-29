@@ -1,0 +1,339 @@
+\chapter{局部反演}
+\label{chap:local-inversion}
+
+一元函数在一点的导数非零时，函数在该点附近严格单调，因而可以局部求逆。
+多元情形中，“导数非零”必须改成导数作为线性映射可逆。这个条件首先控制
+函数在小尺度上是否会把不同的点压到一起；在此基础上，压缩映射原理还能为
+每个邻近的目标点求出唯一原像。隐函数定理与常秩定理都是这一论证的变形。
+
+本章只讨论有限维欧氏空间中的 $C^1$ 映射。线性映射的可逆性、连续可逆性
+和行列式非零在这里等价；以后进入 Banach 空间时，行列式将不再可用，而
+“有界线性同构”仍然保留。
+
+\section{线性近似的定量控制}
+
+设 $A:\R^n\to\R^n$ 可逆。若 $f$ 的导数在某个凸集 $V$ 上始终接近
+$A$，则 $f$ 的增量也接近 $A$ 的增量。准确地说，若
+\[
+ \sup_{x\in V}\norm{I-A^{-1}Df(x)}\le q<1,
+\]
+则对 $x,y\in V$，向量值中值不等式应用于
+$G(z)=A^{-1}f(z)-z$ 给出
+\[
+ \norm{A^{-1}(f(y)-f(x))-(y-x)}\le q\norm{y-x}.
+\]
+因此
+\begin{equation}
+ (1-q)\norm{y-x}
+ \le \norm{A^{-1}(f(y)-f(x))}
+ \le (1+q)\norm{y-x}.
+ \label{eq:quantitative-local-injectivity}
+\end{equation}
+左端说明 $f$ 在 $V$ 上单射，而且逆映射在 $f(V)$ 上满足 Lipschitz 估计。
+右端说明 $f$ 本身也有局部 Lipschitz 控制。
+
+这里不能只检查 $Df(a)$ 可逆便立刻断言 $f$ 在一个预先指定的大邻域上单射。
+需要先利用 $Df$ 在 $a$ 的连续性把邻域缩小，使上面的统一估计成立。局部
+结论中的“局部”正是由这次缩小产生的。
+
+\begin{proposition}[线性算子的稳定可逆性]
+\label{prop:linear-invertibility-stability}
+若 $A$ 可逆且 $\norm{A^{-1}(B-A)}<1$，则 $B$ 可逆，并且
+\[
+ B^{-1}=\sum_{k=0}^{\infty}
+ \bigl[-A^{-1}(B-A)\bigr]^kA^{-1}.
+\]
+特别地，可逆线性算子构成 $\mathcal L(\R^n)$ 中的开集。
+\end{proposition}
+
+\begin{proof}
+写成 $B=A(I+E)$，其中 $E=A^{-1}(B-A)$。当 $\norm E<1$ 时，几何级数
+$\sum_{k\ge0}(-E)^k$ 在算子范数下收敛，并且与 $I+E$ 相乘得到 $I$。
+这给出所列公式。若 $B$ 与 $A$ 足够接近，条件自动满足。
+\end{proof}
+
+这个命题还说明：若 $Df(a)$ 可逆且 $Df$ 连续，则 $Df(x)$ 在 $a$ 的某个
+邻域中全部可逆。不过“每一点的导数可逆”仍只是局部信息，并不自动给出
+整个定义域上的单射性。
+
+\section{逆函数定理}
+
+\begin{theorem}[逆函数定理]
+\label{thm:finite-dimensional-inverse-function}
+设 $U\subset\R^n$ 开，$f:U\to\R^n$ 属于 $C^1$，且 $a\in U$。
+若 $Df(a)$ 可逆，则存在 $a$ 的开邻域 $V$ 和 $f(a)$ 的开邻域 $W$，使
+\[
+ f|_V:V\longrightarrow W
+\]
+为双射。其逆映射 $g:W\to V$ 属于 $C^1$，并满足
+\[
+ Dg(y)=\bigl[Df(g(y))\bigr]^{-1}.
+\]
+若 $f\in C^k$，其中 $k\ge1$，则 $g\in C^k$。
+\end{theorem}
+
+\begin{proof}
+平移坐标并在值域中左乘 $Df(a)^{-1}$，只需证明
+$a=0$、$f(0)=0$、$Df(0)=I$ 的情形。由导数连续性，取 $r>0$，使闭球
+$\overline B(0,r)\subset U$，并且
+\[
+ \sup_{x\in\overline B(0,r)}\norm{Df(x)-I}\le q<1.
+\]
+对满足 $\norm y<(1-q)r$ 的目标点 $y$，定义
+\[
+ T_y(x)=x+y-f(x).
+\]
+向量值中值不等式给出
+\[
+ \norm{T_y(x)-T_y(z)}\le q\norm{x-z}.
+\]
+又因 $f(0)=0$，同一估计给出 $\norm{x-f(x)}\le q\norm x$，所以
+\[
+ \norm{T_y(x)}\le\norm y+q\norm x<r
+ \qquad(x\in\overline B(0,r)).
+\]
+因此 $T_y$ 把完备空间 $\overline B(0,r)$ 映入自身并且是压缩映射。它有
+唯一不动点 $x$，而不动点方程正是 $f(x)=y$。这证明 $f(B(0,r))$ 至少
+包含 $B(0,(1-q)r)$。式 \eqref{eq:quantitative-local-injectivity} 又证明
+$f$ 在 $B(0,r)$ 上单射。缩小值域邻域并取相应原像，便得到开集 $V,W$
+上的双射。
+
+同一增量估计说明逆映射 $g$ 连续。固定 $y\in W$，令 $x=g(y)$。当
+$k\to0$ 时，记 $h=g(y+k)-g(y)$；由逆映射的 Lipschitz 估计，
+$h=O(\norm k)$。可微性给出
+\[
+ k=f(x+h)-f(x)=Df(x)h+o(\norm h).
+\]
+$Df(x)$ 在缩小后的邻域中可逆，故
+\[
+ h=Df(x)^{-1}k+o(\norm k).
+\]
+所以 $Dg(y)=Df(g(y))^{-1}$。算子求逆在可逆算子集上连续，故 $Dg$ 连续。
+更高阶光滑性由导数公式和链式法则归纳得到。
+\end{proof}
+
+证明不仅给出存在性，也给出求逆的迭代法
+\[
+ x_{m+1}=x_m+y-f(x_m)
+\]
+（在一般坐标下要乘 $Df(a)^{-1}$）。收敛的保证来自一个邻域上的导数
+控制，不能只由数值计算中若干步看似稳定来替代。
+
+\begin{example}
+映射
+\[
+ f(x,y)=(e^x\cos y,e^x\sin y)
+\]
+的 Jacobian 行列式恒为 $e^{2x}>0$，所以它在每一点附近都有 $C^1$ 逆。
+但 $f(x,y+2\pi)=f(x,y)$，故它在整个 $\R^2$ 上并非单射。这说明处处局部
+可逆与整体可逆之间还隔着全局拓扑和增长条件。
+\end{example}
+
+\section{隐函数定理}
+
+方程 $F(x,y)=0$ 未必能显式解出 $y$。若在一个已知解 $(a,b)$ 处，
+$y$ 方向的线性化可逆，那么邻近解由 $x$ 唯一决定。
+
+\begin{theorem}[隐函数定理]
+\label{thm:finite-dimensional-implicit-function}
+设 $U\subset\R^p\times\R^q$ 开，$F:U\to\R^q$ 属于 $C^1$，且
+$F(a,b)=0$。若偏微分
+\[
+ D_yF(a,b):\R^q\to\R^q
+\]
+可逆，则存在 $a,b$ 的邻域 $V,W$ 和唯一的 $C^1$ 映射
+$\varphi:V\to W$，使得
+\[
+ F(x,y)=0\quad\Longleftrightarrow\quad y=\varphi(x)
+ \qquad((x,y)\in V\times W).
+\]
+而且
+\[
+ D\varphi(x)
+ =-[D_yF(x,\varphi(x))]^{-1}D_xF(x,\varphi(x)).
+\]
+若 $F\in C^k$，则 $\varphi\in C^k$。
+\end{theorem}
+
+\begin{proof}
+定义
+\[
+ \Phi(x,y)=(x,F(x,y)).
+\]
+在 $(a,b)$ 处，
+\[
+ D\Phi(a,b)=
+ \begin{pmatrix}I&0\\D_xF(a,b)&D_yF(a,b)\end{pmatrix},
+\]
+这是可逆的分块下三角线性映射。逆函数定理说明 $\Phi$ 在 $(a,b)$ 附近
+可逆。对邻近的 $x$，令
+$(x,\varphi(x))=\Phi^{-1}(x,0)$，便得到存在性、唯一性和光滑性。
+对恒等式 $F(x,\varphi(x))=0$ 求导，得到
+\[
+ D_xF+D_yF\,D\varphi=0,
+\]
+再左乘 $D_yF$ 的逆即得公式。
+\end{proof}
+
+一元隐式求导公式只是最后一行的坐标表示。定理的主要内容并非导数怎样算，
+而是由 $D_yF(a,b)$ 可逆推出邻近解确实存在、唯一并且依赖于 $x$ 连续可微。
+
+\begin{example}
+对 $F(x,y)=x^2+y^2-1$，在 $(0,1)$ 有 $F_y=2\ne0$，因而圆周上半部
+在该点附近可写成 $y=\varphi(x)$。在 $(1,0)$ 不能解成 $y$ 关于 $x$ 的
+函数，因为 $F_y=0$；但 $F_x=2\ne0$，可以改为解出 $x$ 关于 $y$ 的
+函数。失败的是所选坐标方向，不是圆周本身的光滑性。
+\end{example}
+
+\section{正则水平集与常秩定理}
+
+设 $F:U\subset\R^n\to\R^m$ 属于 $C^1$，且 $m\le n$。若
+$DF(a)$ 满射，则称 $a$ 是 $F$ 的正则点；若水平集 $F^{-1}(c)$ 中每一点
+都是正则点，则称 $c$ 是正则值。
+
+\begin{theorem}[正则水平集定理]
+\label{thm:regular-level-set}
+若 $F(a)=c$ 且 $DF(a)$ 满射，则在 $a$ 的某个邻域中，水平集
+$F^{-1}(c)$ 可以经重新排列坐标写成一个 $C^1$ 映射的图像。它的局部
+参数有 $n-m$ 个，并且
+\[
+ T_aF^{-1}(c):=\{\gamma'(0):\gamma(0)=a,
+ \ F(\gamma(t))=c\}=\ker DF(a).
+\]
+\end{theorem}
+
+\begin{proof}
+$DF(a)$ 满射意味着 Jacobian 中有一个 $m\times m$ 子式非零。重排坐标后
+可设对应于最后 $m$ 个变量。隐函数定理便把这些变量解成前 $n-m$ 个变量
+的 $C^1$ 函数，得到图像表示。
+
+若 $\gamma$ 是水平集中的 $C^1$ 曲线，对 $F(\gamma(t))=c$ 求导，得
+$DF(a)\gamma'(0)=0$，所以切向量落在核中。反过来，在图像坐标中，任意
+属于该核的向量都是图像参数化在某个参数方向上的导数，取参数空间中的直线
+即可产生所需曲线。因此两者相等。
+\end{proof}
+
+当 $DF$ 既非可逆也非满射时，仍可由秩来描述映射保留了多少个独立方向。
+
+\begin{theorem}[常秩定理]
+\label{thm:constant-rank}
+设 $F:U\subset\R^n\to\R^m$ 属于 $C^1$，并且 $DF$ 在 $a$ 的某邻域中
+恒有秩 $r$。则存在 $a$ 和 $F(a)$ 附近的 $C^1$ 坐标变换，使 $F$ 在新
+坐标中写成
+\[
+ (u_1,\ldots,u_r,v_1,\ldots,v_{n-r})
+ \longmapsto (u_1,\ldots,u_r,0,\ldots,0).
+\]
+\end{theorem}
+
+\begin{proof}
+平移后设 $a=0$、$F(a)=0$。选取一个在 $0$ 处非零的 $r\times r$ 子式，
+重排源与目标坐标，使它由 $F$ 的前 $r$ 个分量和源的前 $r$ 个变量组成。
+定义
+\[
+ G(x)=\bigl(F_1(x),\ldots,F_r(x),x_{r+1},\ldots,x_n\bigr).
+\]
+$DG(0)$ 可逆，故 $G$ 是局部坐标变换。用 $(u,v)=G(x)$ 表示后，映射成为
+\[
+ \widetilde F(u,v)=(u,H(u,v)).
+\]
+前 $r$ 个输出对 $u$ 的导数已经是 $I_r$。若 $H$ 对某个 $v$ 方向的偏导
+非零，$D\widetilde F$ 的秩便至少为 $r+1$，与常秩假设矛盾。因此
+$D_vH=0$，在连通的小邻域中 $H(u,v)=H(u)$。最后在目标中作坐标变换
+$(z,w)\mapsto(z,w-H(z))$，便把映射化为 $(u,v)\mapsto(u,0)$。
+\end{proof}
+
+逆函数定理对应 $r=n=m$；正则水平集定理对应 $r=m$。常秩定理还说明，
+只有在秩在邻域中保持不变时，线性化所显示的维数才能稳定地延伸为局部几何。
+例如 $F(x,y)=x^2-y^2$ 在原点的导数秩为零，但邻近一般点的秩为一，零水平集
+在原点交叉，不能成为一条光滑曲线。
+
+\section{从局部到整体}
+
+局部可逆只断言每一点附近存在一张反函数图。要把这些局部逆拼成整体逆，至少
+需要排除两个问题：不同区域可能映到同一点，像集也可能不是整个目标空间。
+一维开区间上，导数处处为正推出严格递增，因而给出单射；是否满射仍要另查
+端点行为。高维中不存在这样简单的导数符号顺序。
+
+一些整体反演定理以“局部微分同胚加适当性”为条件。这里适当性可表现为
+$\norm{x}\to\infty$ 时 $\norm{f(x)}\to\infty$，它阻止原像逃向无穷远。
+完整的整体理论还需要覆盖映射或拓扑次数，留到拓扑与微分流形部分处理。本章
+只把局部定理用于邻域中的存在、唯一性和几何表示。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定量估计与逆函数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{neumann-series-inverse-bound}
+ 在命题 \ref{prop:linear-invertibility-stability} 的条件下证明
+ $\norm{B^{-1}}\le\norm{A^{-1}}/(1-\norm{A^{-1}(B-A)})$。
+ \exerciseitem{derivative-close-injective}
+ 完整证明式 \eqref{eq:quantitative-local-injectivity}，并指出凸性在哪里使用。
+ \exerciseitem{inverse-contraction-ball}
+ 核对逆函数定理证明中 $T_y$ 把闭球映入自身的每一步，并给出所保证的像球
+ 半径。
+ \exerciseitem{inverse-derivative-formula}
+ 直接对 $f(g(y))=y$ 求导得到反函数的导数公式，并说明为什么这一步本身
+ 不能代替反函数的存在性证明。
+ \exerciseitem{polar-exponential-local-not-global}
+ 对 $f(x,y)=(e^x\cos y,e^x\sin y)$ 计算 Jacobian，写出一个局部逆，
+ 并证明不存在定义在 $\R^2\setminus\{0\}$ 上的单值连续全局逆。
+ \exerciseitem{complex-square-local-inverse}
+ 把复平方写成 $F(x,y)=(x^2-y^2,2xy)$。确定局部可逆点，并解释为什么
+ $\R^2\setminus\{0\}$ 上仍不存在整体逆。
+ \exerciseitem{one-dimensional-local-global-inverse}
+ 设 $f:(a,b)\to\R$ 属于 $C^1$ 且 $f'>0$。证明 $f$ 是到开区间
+ $f((a,b))$ 的 $C^1$ 微分同胚，并用端点极限描述像区间。
+\end{enumerate}
+
+\subsection*{B组　隐函数与水平集}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{implicit-circle-charts}
+ 分别在圆周的四类点选择可解出的坐标，写出局部图像和导数。
+ \exerciseitem{implicit-equation-expansion}
+ 由 $y+x\sin y-x^2=0$ 在原点附近确定 $y=\varphi(x)$，求
+ $\varphi'(0)$ 和 $\varphi''(0)$。
+ \exerciseitem{implicit-system-two-equations}
+ 研究方程组
+ \[
+  u+v+xy=0,\qquad e^u+v-x=1
+ \]
+ 在原点附近能否唯一解出 $(u,v)$ 关于 $(x,y)$ 的函数；若能，求其一阶
+ 微分。
+ \exerciseitem{sphere-regular-level-tangent}
+ 证明球面 $S^{n-1}$ 是 $F(x)=\norm x^2$ 的正则水平集，并由核公式求
+ $T_xS^{n-1}$。
+ \exerciseitem{matrix-determinant-level-set}
+ 把 $n\times n$ 实矩阵看成 $\R^{n^2}$ 中的点。证明
+ $\det^{-1}(1)$ 是光滑超曲面，并求单位矩阵处的切空间。
+ \exerciseitem{graph-tangent-kernel}
+ 对图像 $M=\{(x,\varphi(x))\}$ 构造定义函数
+ $F(x,y)=y-\varphi(x)$，直接验证切空间的参数化描述与核描述一致。
+ \exerciseitem{singular-level-crossing}
+ 研究 $F(x,y)=x^2-y^2$ 的零水平集，说明原点为何不满足正则水平集定理，
+ 并证明它在原点不能写成一条 $C^1$ 正则曲线的像。
+\end{enumerate}
+
+\subsection*{C组　常秩与进一步问题}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{constant-rank-projection-model}
+ 验证线性映射秩为 $r$ 时，可以通过源、目标中的可逆线性坐标变换化为
+ $(u,v)\mapsto(u,0)$。
+ \exerciseitem{constant-rank-fibers}
+ 由常秩定理证明：秩恒为 $r$ 的映射，其每个非空局部纤维
+ $F^{-1}(c)$ 都是维数 $n-r$ 的局部图像。
+ \exerciseitem{rank-one-map-normal-form}
+ 对 $F(x,y)=(e^x\cos y,e^x\sin y)$ 限制在一条水平或竖直直线上，比较
+ 所得秩一映射的局部正规形。
+ \exerciseitem{inverse-newton-fixed-linearization}
+ 在逆函数定理的正规化条件下，证明迭代
+ $x_{m+1}=x_m+y-f(x_m)$ 以至少几何速度收敛，并给出误差估计。
+ \exerciseitem{inverse-necessity-counterexamples}
+ 分别举例说明：导数奇异的函数仍可能是连续双射；局部可逆映射仍可能不是
+ 全局单射；全局单射的 $C^1$ 映射其逆仍可能在某点不可微。
+ \optionalexerciseitem{hadamard-one-dimensional-analogue}
+ 证明一维版本的整体反演结论：若 $f\in C^1(\R)$、$f'$ 从不为零且
+ $|f(x)|\to\infty$ 当 $|x|\to\infty$，则 $f$ 是 $\R$ 上的
+ $C^1$ 微分同胚。
+\end{enumerate}

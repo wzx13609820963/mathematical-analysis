@@ -1,0 +1,320 @@
+\chapter{Fréchet 微分}
+\label{chap:frechet-differential-solutions}
+
+\begin{solution}{operator-norm-basic-properties}
+若 \(A\ne0\)，存在 \(x\) 使 \(Ax\ne0\)，归一化后可知
+\(\norm A_{\mathrm{op}}>0\)；反向显然。齐次性来自
+\(\norm{\lambda Ax}=|\lambda|\norm{Ax}\)。对 \(\norm x\le1\)，
+\[
+ \norm{(A+B)x}\le\norm{Ax}+\norm{Bx}
+ \le\norm A_{\mathrm{op}}+\norm B_{\mathrm{op}},
+\]
+取上确界得到三角不等式。若 \(A,B\) 可复合，则
+\[
+ \norm{ABx}\le\norm A_{\mathrm{op}}\norm{Bx}
+ \le\norm A_{\mathrm{op}}\norm B_{\mathrm{op}}\norm x.
+\]
+对 \(\norm x\le1\) 取上确界即得乘法估计。
+\end{solution}
+
+\begin{solution}{matrix-operator-entry-bound}
+对第 \(i\) 个坐标使用 Cauchy--Schwarz 不等式：
+\[
+ |(Ax)_i|^2
+ =\left|\sum_{j=1}^na_{ij}x_j\right|^2
+ \le\left(\sum_{j=1}^na_{ij}^2\right)\norm x_2^2.
+\]
+再对 \(i\) 求和，得到
+\[
+ \norm{Ax}_2^2\le
+ \left(\sum_{i=1}^m\sum_{j=1}^na_{ij}^2\right)\norm x_2^2.
+\]
+开平方即为所求；因而算子范数不超过矩阵的 Frobenius 范数。
+\end{solution}
+
+\begin{solution}{affine-map-frechet-derivative}
+若 \(F(x)=Ax+b\)，则
+\[
+ F(a+h)-F(a)-Ah=0.
+\]
+余项恒为零，当然是 \(o(\norm h)\)，故 \(DF(a)=A\)。这里不依赖
+基点 \(a\)。
+\end{solution}
+
+\begin{solution}{frechet-partial-directional}
+写 \(f(a+h)=f(a)+Ah+r(h)\)，其中
+\(\norm{r(h)}/\norm h\to0\)。固定 \(v\ne0\)，有
+\[
+ \frac{f(a+tv)-f(a)}t
+ =Av+\frac{r(tv)}t,
+ \qquad
+ \left\|\frac{r(tv)}t\right\|
+ =\norm v\frac{\norm{r(tv)}}{\norm{tv}}\to0.
+\]
+故 \(D_vf(a)=Av\)。零方向直接成立。取 \(v=e_j\) 即得
+\(\partial_jf(a)=Ae_j\)。
+\end{solution}
+
+\begin{solution}{euclidean-norm-derivative}
+固定 \(x\ne0\)。由
+\[
+ \norm{x+h}-\norm x
+ =\frac{2\langle x,h\rangle+\norm h^2}{\norm{x+h}+\norm x}
+\]
+以及当 \(h\to0\) 时分母趋于 \(2\norm x\)，可得
+\[
+ \norm{x+h}-\norm x
+ =\frac{\langle x,h\rangle}{\norm x}+O(\norm h^2).
+\]
+例如把上式与 \(\langle x,h\rangle/\norm x\) 相减，利用
+\(|\norm{x+h}-\norm x|\le\norm h\) 即可把余项估为
+\(C_x\norm h^2\)。因此
+\[
+ D\norm{\cdot}(x)h=\frac{\langle x,h\rangle}{\norm x}.
+\]
+在原点，沿方向 \(v\) 的方向导数为 \(\norm v\)。若 Fréchet 导数存在，
+方向导数必须关于 \(v\) 线性，而范数不是线性函数，故原点不可微。
+\end{solution}
+
+\begin{solution}{partial-derivatives-discontinuous-example}
+令 \(g(0,0)=0\)。当 \(t\ne0\) 时
+\[
+ \frac{g(t,0)-g(0,0)}t=0,
+ \qquad
+ \frac{g(0,t)-g(0,0)}t=0,
+\]
+所以两个偏导数均为零。另一方面，沿 \((t,t)\to(0,0)\)，
+\(g(t,t)=1/2\)，不趋于 \(g(0,0)\)。故函数不连续，因而更不可能
+Fréchet 可微。
+\end{solution}
+
+\begin{solution}{directional-map-not-linear}
+对 \(v=(a,b)\ne0\)，
+\[
+ \frac{q(ta,tb)}t
+ =\frac{a^3}{a^2+b^2}.
+\]
+所以方向导数等于右端。取 \(u=(1,0)\)、\(v=(0,1)\)，有
+\[
+ D_uq(0)=1,
+ \qquad D_vq(0)=0,
+ \qquad D_{u+v}q(0)=\frac12.
+\]
+最后一个数不等于前两个之和，故方向映射不可加。
+\end{solution}
+
+\begin{solution}{zero-directional-not-continuous}
+设方向 \(v=(a,b)\)。若 \(b=0\)，则 \(h(ta,0)=0\)。若 \(b\ne0\)，
+\[
+ \frac{h(ta,tb)}t
+ =\frac{t a^3b}{t^4a^6+b^2}\to0.
+\]
+故所有方向导数都是零。取曲线 \((x,y)=(t,t^3)\)，则 \(t\ne0\) 时
+\[
+ h(t,t^3)=\frac{t^6}{2t^6}=\frac12.
+\]
+它不趋于原点函数值零，所以函数不连续。若它 Fréchet 可微，则由全部方向
+导数可知候选导数只能是零映射，但沿这条曲线的余项甚至不趋于零，矛盾。
+\end{solution}
+
+\begin{solution}{frechet-uniqueness-sequence-proof}
+若 \(A\ne B\)，取 \(v\) 使 \((A-B)v\ne0\)，并令 \(h_k=v/k\)。两种
+展开相减后有
+\[
+ \frac{\norm{(A-B)h_k}}{\norm{h_k}}
+ \le
+ \frac{\norm{r_A(h_k)}}{\norm{h_k}}
+ +\frac{\norm{r_B(h_k)}}{\norm{h_k}}\to0.
+\]
+左端恒等于 \(\norm{(A-B)v}/\norm v>0\)，矛盾。因此 \(A=B\)。
+\end{solution}
+
+\begin{solution}{continuous-partials-proof-details}
+令
+\(a^{(j)}=a+(h_1,\ldots,h_j,0,\ldots,0)\)。对固定 \(j\)，函数
+\[
+ t\longmapsto f(a^{(j-1)}+te_j)
+\]
+在连接 $0$ 与 $h_j$ 的区间上逐分量可微。对每个分量 $f_\ell$ 使用一元
+中值定理，存在该段上的点 $\xi_{j\ell}$，使
+\[
+ f_\ell(a^{(j)})-f_\ell(a^{(j-1)})
+ =h_j\partial_jf_\ell(\xi_{j\ell}).
+\]
+将各段相加后，减去线性项
+$\sum_jh_j\partial_jf(a)$。所有中值点与 $a$ 的距离不超过 $\norm h$；
+有限多个标量偏导在 $a$ 连续，故它们与在 $a$ 处取值的差可以由同一个
+趋零量控制。再用 $\sum_j|h_j|\le\sqrt n\norm h$，便得到
+$o(\norm h)$ 余项。证明只需偏导在邻域存在并在 $a$ 连续，不需要它们在
+整个邻域连续。
+\end{solution}
+
+\begin{solution}{scalar-product-rule-frechet}
+写
+\(f(a+h)=f(a)+Ah+r(h)\)、
+\(g(a+h)=g(a)+Bh+s(h)\)。相乘并减去
+\(f(a)g(a)\)，一次项为
+\[
+ f(a)Bh+g(a)Ah.
+\]
+其余各项包含 \(r(h)\)、\(s(h)\) 或两个 \(O(\norm h)\) 增量的乘积，
+所以都是 \(o(\norm h)\)。故
+\(D(fg)(a)=f(a)Dg(a)+g(a)Df(a)\)。
+\end{solution}
+
+\begin{solution}{reciprocal-rule-frechet}
+一元函数 \(R(t)=1/t\) 在 \(t=g(a)\ne0\) 处导数为
+\(-1/g(a)^2\)。链式法则给出
+\[
+ D(1/g)(a)=-\frac{Dg(a)}{g(a)^2}.
+\]
+若 \(f\) 也可微，再与乘积法则组合，得到
+\[
+ D(f/g)(a)=\frac{g(a)Df(a)-f(a)Dg(a)}{g(a)^2}.
+\]
+分母非零还由连续性保证在 \(a\) 的某邻域内商有定义。
+\end{solution}
+
+\begin{solution}{inner-product-derivative}
+内积是连续双线性映射。令增量分别为
+\(Du(a)h+o(\norm h)\) 与 \(Dv(a)h+o(\norm h)\)，双线性乘积法则给出
+\[
+ D\langle u,v\rangle(a)h
+ =\langle Du(a)h,v(a)\rangle
+  +\langle u(a),Dv(a)h\rangle.
+\]
+两增量的内积为 \(O(\norm h^2)\)，进入余项。
+\end{solution}
+
+\begin{solution}{quadratic-form-derivative}
+展开
+\[
+ q(x+h)-q(x)
+ =h^{\mathsf T}Ax+x^{\mathsf T}Ah+h^{\mathsf T}Ah.
+\]
+最后一项为 \(O(\norm h^2)\)，故
+\[
+ Dq(x)h=x^{\mathsf T}(A+A^{\mathsf T})h
+ =\langle(A+A^{\mathsf T})x,h\rangle.
+\]
+把 \(A\) 分解为对称部分与斜对称部分；斜对称矩阵 \(S\) 满足
+\(x^{\mathsf T}Sx=0\)，所以只有对称部分影响 \(q\) 和其导数。
+\end{solution}
+
+\begin{solution}{normalization-map-derivative}
+把 \(N(x)=x\,\norm x^{-1}\) 看作向量与标量的乘积。由范数求导及商法则，
+\[
+ DN(x)h
+ =\frac h{\norm x}
+  -\frac{x\langle x,h\rangle}{\norm x^3}.
+\]
+与 \(x\) 作内积得到
+\[
+ \langle x,DN(x)h\rangle
+ =\frac{\langle x,h\rangle}{\norm x}
+  -\frac{\norm x^2\langle x,h\rangle}{\norm x^3}=0.
+\]
+这是因为归一化映射的像位于单位球面，其一阶增量沿球面的切方向。
+\end{solution}
+
+\begin{solution}{chain-rule-polar-map}
+直接计算
+\[
+ J_F(r,\theta)=
+ \begin{pmatrix}
+  \cos\theta&-r\sin\theta\\
+  \sin\theta&r\cos\theta
+ \end{pmatrix}.
+\]
+若 \(f\) 在 \(F(r,\theta)\) 可微，链式法则给出
+\[
+ \partial_r(f\circ F)
+ =f_x\cos\theta+f_y\sin\theta,
+\]
+\[
+ \partial_\theta(f\circ F)
+ =-r f_x\sin\theta+r f_y\cos\theta,
+\]
+其中 \(f_x,f_y\) 均在 \((r\cos\theta,r\sin\theta)\) 处取值。
+\end{solution}
+
+\begin{solution}{differentiable-derivative-discontinuous}
+对 \(t\ne0\)，
+\[
+ \phi'(t)=2t\sin(1/t^2)-\frac2t\cos(1/t^2).
+\]
+在零点，
+\[
+ \frac{\phi(t)-\phi(0)}t=t\sin(1/t^2)\to0,
+\]
+所以 $\phi'(0)=0$。取 $t_k=(2\pi k)^{-1/2}$，则
+\[
+ \phi'(t_k)=-\frac2{t_k},
+\]
+其绝对值趋于无穷。令 $F(x_1,\ldots,x_n)=\phi(x_1)$。由
+$|F(x)|\le x_1^2\le\norm x^2$，它在原点的 Fréchet 导数为零；但第一
+偏导在原点附近无界。
+\end{solution}
+
+\begin{solution}{vector-mean-value-failure}
+有 \(F(2\pi)=F(0)=(1,0)\)，而
+\(F'(t)=(-\sin t,\cos t)\) 的范数恒为一。若存在精确向量中值点 \(c\)，
+则 \(0=2\pi F'(c)\)，不可能。范数估计的证明先选取终点差方向上的单位
+向量 \(u\)，再对标量函数 \(\langle u,F(t)\rangle\) 使用一元中值定理；
+它只要求一个标量投影在某点达到所需变化率，不要求所有分量共用同一中值点。
+\end{solution}
+
+\begin{solution}{bounded-jacobian-lipschitz}
+若 \(x,y\in K\)，凸性保证线段 \([x,y]\subseteq K\)。向量值平均估计
+直接给出
+\[
+ \norm{f(y)-f(x)}\le M\norm{y-x}.
+\]
+非凸时，导数界只在 \(K\) 上成立，连接两点的线段可能离开 \(K\)。例如
+取 \(U=\R\)、\(K=\{-1,1\}\) 及
+\[
+ f(x)=50+75x-25x^3.
+\]
+有 \(f'(-1)=f'(1)=0\)，所以 \(K\) 上导数上界 \(M=0\)，但
+\(f(-1)=0\)、\(f(1)=100\)。这不否定平均估计，因为线段内部的导数没有
+被 \(M\) 控制。
+\end{solution}
+
+\begin{solution}{zero-derivative-constant-convex}
+凸情形下，对任意 \(x,y\in U\)，向量值平均估计以 \(M=0\) 给出
+\(f(x)=f(y)\)。若只假设道路连通，取连接 \(x,y\) 的道路 \(\gamma\)。
+每个 \(z\in U\) 都有一个闭球包含于 \(U\)，在该球内同一估计说明 \(f\)
+常值。因此集合
+\[
+ A=\{t\in[0,1]:f(\gamma(t))=f(\gamma(0))\}
+\]
+在 \([0,1]\) 中既开又闭，并且非空；区间连通性给出 \(A=[0,1]\)。故
+\(f(x)=f(y)\)。
+\end{solution}
+
+\begin{solution}{local-lipschitz-c1}
+若 \(f\in C^1\)，在 \(a\) 周围取闭球
+\(\overline B(a,r)\subset U\)。连续函数
+\(x\mapsto\norm{Df(x)}_{\mathrm{op}}\) 在该紧球上有界。对更小开球中的
+两点，连接线段仍在闭球内，平均估计给出同一个 Lipschitz 常数。
+
+这只是局部结论。函数 \(f(x)=x^2\) 在 \(\R\) 上属于 \(C^1\)，但若有
+全局 Lipschitz 常数 \(L\)，则
+\(|(x+1)^2-x^2|=2x+1\le L\) 对所有正 \(x\) 成立，矛盾。
+\end{solution}
+
+\begin{solution}{directional-linear-not-frechet}
+正文函数
+\[
+ h(x,y)=
+ \begin{cases}x^3y/(x^6+y^2),&(x,y)\ne(0,0),\\0,&(x,y)=(0,0)
+ \end{cases}
+\]
+已经满足要求。沿任意固定方向的差商趋于零，所以方向导数族是零线性映射。
+若 Fréchet 导数存在，只能为零。沿 \((t,t^3)\to0\)，
+\[
+ \frac{|h(t,t^3)-0|}{\sqrt{t^2+t^6}}
+ =\frac{1/2}{|t|\sqrt{1+t^4}}\longrightarrow+\infty,
+\]
+不满足余项为 \(o(\norm{(x,y)})\) 的条件。因此它不 Fréchet 可微。
+\end{solution}

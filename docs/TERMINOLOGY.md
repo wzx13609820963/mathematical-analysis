@@ -21,7 +21,7 @@
 | 一致连续 | uniformly continuous | 与“连续函数族一致”无关 |
 | 连续模 | modulus of continuity | 定义域非空；允许取 `+\infty` |
 | 局部线性化 | local linearization | 一元情形写成 `f(a+h)=f(a)+Ah+o(h)`；线性主部唯一 |
-| Fréchet 微分 | Fréchet differential | 第14章先给一元有限维版本；后续多元与赋范空间中推广 |
+| Fréchet 微分 | Fréchet derivative / differential | 第14章先给一元版本，第43章推广到有限维多元映射；由同一个线性映射在所有方向上给出一阶一致近似，坐标矩阵为 Jacobian |
 | 小 \(o\)、大 \(O\) | little-o, big-O | 必须写明趋近方式；不把等式当作普通代数恒等式 |
 | Darboux 定理 | Darboux's theorem | 本书指导函数具有介值性，不简称为一般介值定理 |
 | Taylor 多项式 | Taylor polynomial | 与 Taylor 级数、实解析性分开讨论 |
@@ -89,6 +89,18 @@
 | Fréchet 空间 | Fréchet space | 完备、可度量的局部凸空间；不等同于一般 Banach 空间，也不要求由单个范数给拓扑 |
 | 弱拓扑、弱星拓扑 | weak topology, weak-star topology | 分别写 \(\sigma(E,E')\)、\(\sigma(E',E)\)；必须注明所用对偶配对 |
 | Minkowski 泛函 | Minkowski functional / gauge | 由吸收集定义；对绝对凸集给出半范数，未必是范数 |
+| 方向导数 | directional derivative | 只沿固定方向取差商极限；所有方向导数存在仍不必推出 Fréchet 可微 |
+| Hessian | Hessian matrix | 实值函数二阶微分在标准基下的矩阵；不译作一般“二阶导数矩阵”后省略条件 |
+| Schwarz 定理 | Schwarz theorem / Clairaut theorem | 当前指适当连续性条件下混合偏导可交换；与复分析中的 Schwarz 引理区分 |
+| 逆函数定理 | inverse function theorem | 导数为线性同构推出局部 (C^1) 可逆；不单独保证整体单射或满射 |
+| 隐函数定理 | implicit function theorem | 指定变量方向的偏微分可逆时，水平集局部成为另一组变量的函数图像 |
+| 正则值、正则水平集 | regular value, regular level set | 水平集上导数满射；其切空间为导数的核 |
+| 常秩定理 | constant rank theorem | 导数秩在邻域中恒定时给出局部投影正规形；只在基点秩为 (r) 不足够 |
+| Lagrange 乘子 | Lagrange multiplier | 正则等式约束极值的一阶必要条件；乘子方程的解仍须判定 |
+| 约束资格条件 | constraint qualification | 保证可行集一阶几何能由约束梯度表达的条件；当前主要采用 LICQ |
+| LICQ | linear independence constraint qualification | 等式约束梯度与全部活跃不等式约束梯度线性无关 |
+| KKT 条件 | Karush--Kuhn--Tucker conditions | 包括原可行性、对偶可行性、驻点条件与互补松弛；本书不等式统一写成 (g_i\le0) |
+| 互补松弛 | complementary slackness | `\mu_i g_i(a)=0`；非活跃约束的乘子必须为零 |
 
 ## 风格约定
 

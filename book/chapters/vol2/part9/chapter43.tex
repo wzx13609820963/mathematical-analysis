@@ -1,0 +1,466 @@
+\chapter{Fréchet 微分}
+\label{chap:frechet-differential}
+
+一元函数在一点可导，意味着它的增量可以由一个线性函数控制到一阶精度。
+在多元情形中，沿坐标轴或某一条直线求极限只能观察一个方向；若要在所有
+方向同时近似函数，线性主部必须由同一个线性映射给出，并且余项相对于
+\(\norm h\) 一致地趋于零。本章从偏导数和方向导数的局限出发，建立有限维
+Fréchet 微分，并证明链式法则与平均估计。
+
+本章设 \(U\subseteq\R^n\) 为开集，\(f:U\to\R^m\)。除非另有说明，
+定义域和值域均使用欧氏范数。
+
+\section{偏导数和方向导数}
+
+设 \(a\in U\)，\(e_j\) 为第 \(j\) 个标准基向量。若极限存在，定义
+\[
+ \frac{\partial f}{\partial x_j}(a)
+ :=\lim_{t\to0}\frac{f(a+te_j)-f(a)}{t}\in\R^m.
+\]
+它只比较通过 \(a\) 且平行于第 \(j\) 个坐标轴的点。更一般地，对
+\(v\in\R^n\)，若
+\[
+ D_vf(a):=\lim_{t\to0}\frac{f(a+tv)-f(a)}{t}
+\]
+存在，则称它为 \(f\) 在 \(a\) 沿 \(v\) 的\term{方向导数}。显然
+\(D_0f(a)=0\)，而在极限存在时
+\(D_{\lambda v}f(a)=\lambda D_vf(a)\)。但仅由定义不能推出
+\(D_{u+v}f(a)=D_uf(a)+D_vf(a)\)。
+
+偏导数的存在甚至不保证函数连续。令
+\[
+ g(x,y)=
+ \begin{cases}
+ \dfrac{xy}{x^2+y^2},&(x,y)\ne(0,0),\\[0.4em]
+ 0,&(x,y)=(0,0).
+ \end{cases}
+\]
+沿两条坐标轴，函数恒为零，所以 \(g_x(0,0)=g_y(0,0)=0\)；沿直线
+\(y=x\) 却恒取 \(1/2\)，故 \(g\) 在原点不连续。
+
+方向导数全部存在仍然不够。函数
+\[
+ h(x,y)=
+ \begin{cases}
+ \dfrac{x^3y}{x^6+y^2},&(x,y)\ne(0,0),\\[0.4em]
+ 0,&(x,y)=(0,0)
+ \end{cases}
+\]
+满足 \(D_vh(0,0)=0\) 对每个 \(v\in\R^2\) 成立。事实上，若
+\(v=(a,b)\) 且 \(b\ne0\)，则
+\[
+ \frac{h(ta,tb)}{t}
+ =\frac{t a^3b}{t^4a^6+b^2}\longrightarrow0;
+\]
+而 \(b=0\) 时商恒为零。但是 \(h(x,x^3)=1/2\)，所以 \(h\) 在原点
+不连续。直线族逐条给出的控制没有统一地覆盖弯曲趋近路径。
+
+另一个较温和的现象是方向导数存在而关于方向不线性。例如
+\[
+ q(x,y)=
+ \begin{cases}
+ \dfrac{x^3}{x^2+y^2},&(x,y)\ne(0,0),\\
+ 0,&(x,y)=(0,0)
+ \end{cases}
+\]
+在原点连续，并且
+\[
+ D_{(a,b)}q(0,0)=\frac{a^3}{a^2+b^2}
+\]
+（零方向另取零）。这个函数关于 \((a,b)\) 不是线性的，因而不能成为某个
+线性微分的方向取值。
+
+\section{Fréchet 微分和线性近似}
+
+记 \(\mathcal L(\R^n,\R^m)\) 为从 \(\R^n\) 到 \(\R^m\) 的线性映射
+空间。对 \(A\in\mathcal L(\R^n,\R^m)\)，定义算子范数
+\[
+ \norm A_{\mathrm{op}}
+ :=\sup_{\norm h_2\le1}\norm{Ah}_2.
+\]
+有限维范数等价保证这个上确界有限；也可直接从矩阵元素估计。由齐次性，
+\[
+ \norm{Ah}_2\le\norm A_{\mathrm{op}}\norm h_2.
+\]
+
+\begin{definition}[Fréchet 可微]
+函数 \(f:U\to\R^m\) 称为在 \(a\in U\) 处\term{Fréchet 可微}，若存在
+\(A\in\mathcal L(\R^n,\R^m)\)，使
+\[
+ f(a+h)=f(a)+Ah+r(h),
+ \qquad
+ \frac{\norm{r(h)}_2}{\norm h_2}\longrightarrow0
+ \quad(h\to0,\ h\ne0).
+\]
+这个线性映射称为 \(f\) 在 \(a\) 处的 Fréchet 微分或导数，记作
+\(Df(a)\)。若 \(f\) 在 \(U\) 每一点可微，则称 \(f\) 在 \(U\) 上
+可微。
+\end{definition}
+
+余项条件控制所有足够小的非零增量，而不是允许不同方向各自选择不同的
+误差阈值。这正是它比方向导数更强的地方。
+
+\begin{proposition}[线性主部的唯一性]
+\label{prop:frechet-derivative-unique}
+Fréchet 微分若存在，则唯一。
+\end{proposition}
+
+\begin{proof}
+若 \(A,B\) 都满足定义，固定 \(v\in\R^n\)，令 \(h=tv\)。两种展开相减
+并除以 \(|t|\)，得到
+\[
+ \norm{(A-B)v}_2
+ \le \frac{\norm{r_A(tv)}_2+\norm{r_B(tv)}_2}{|t|}
+ \longrightarrow0.
+\]
+所以 \((A-B)v=0\)。这对每个 \(v\) 成立，故 \(A=B\)。
+\end{proof}
+
+线性映射 \(f(x)=Ax\) 在每点的导数都是 \(A\)，仿射映射
+\(f(x)=Ax+b\) 也一样。常值映射的导数为零映射。
+
+\section{可微、连续与偏导连续}
+
+\begin{theorem}[可微性的直接后果]
+\label{thm:frechet-implies-continuous-directional}
+若 \(f\) 在 \(a\) 处 Fréchet 可微，则：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(f\) 在 \(a\) 连续；
+ \item 每个方向导数都存在，且
+ \(D_vf(a)=Df(a)v\)；
+ \item 所有偏导数存在，且
+ \(\partial_jf(a)=Df(a)e_j\)。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+由定义，
+\[
+ \norm{f(a+h)-f(a)}_2
+ \le \norm{Df(a)}_{\mathrm{op}}\norm h_2+\norm{r(h)}_2
+ \longrightarrow0,
+\]
+故连续。令 \(h=tv\)，则
+\[
+ \frac{f(a+tv)-f(a)}t
+ =Df(a)v+\frac{r(tv)}t\longrightarrow Df(a)v.
+\]
+取 \(v=e_j\) 即得偏导数公式。
+\end{proof}
+
+逆命题需要把各坐标方向的信息变成对所有增量的一致估计。常用的充分条件
+是偏导数在该点连续。
+
+\begin{theorem}[连续偏导判据]
+\label{thm:continuous-partials-imply-frechet}
+设 \(f:U\to\R^m\) 的各一阶偏导数在 \(a\) 的某个邻域内存在，并且在
+\(a\) 连续。则 \(f\) 在 \(a\) Fréchet 可微，且
+\[
+ Df(a)h=\sum_{j=1}^n h_j\,\partial_jf(a).
+\]
+\end{theorem}
+
+\begin{proof}
+取充分小的 \(h\)，使从 \(a\) 到 \(a+h\) 的坐标折线留在 \(U\) 内。
+记
+\[
+ a^{(j)}=a+(h_1,\ldots,h_j,0,\ldots,0),
+ \qquad a^{(0)}=a.
+\]
+对每一段和每个标量分量使用一元中值定理。若
+$f=(f_1,\ldots,f_m)$，则对每个 $j,\ell$ 都有位于该坐标线段上的点
+$\xi_{j\ell}$，使
+\[
+ f_\ell(a^{(j)})-f_\ell(a^{(j-1)})
+ =h_j\partial_jf_\ell(\xi_{j\ell}).
+\]
+给定 $\varepsilon>0$，由有限多个偏导数在 $a$ 连续，可取 $\delta>0$，
+使 $\norm{x-a}_2<\delta$ 时
+\[
+ |\partial_jf_\ell(x)-\partial_jf_\ell(a)|
+ <\frac{\varepsilon}{\sqrt{mn}}
+ \quad(1\le j\le n, 1\le\ell\le m).
+\]
+当 $\norm h_2<\delta$ 时，全部中值点与 $a$ 的距离都不超过
+$\norm h_2$。把各段增量相加并减去
+$\sum_jh_j\partial_jf(a)$，便有
+\[
+ \norm{r(h)}_2
+ \le\frac{\varepsilon}{\sqrt n}\sum_{j=1}^n|h_j|
+ \le\varepsilon\norm h_2.
+\]
+这正是 Fréchet 余项条件。
+\end{proof}
+
+“偏导连续”是便于检验的充分条件，不是可微的必要条件。一元函数
+\[
+ \phi(t)=
+ \begin{cases}t^2\sin(1/t^2),&t\ne0,\\0,&t=0\end{cases}
+\]
+在零点可微且 \(\phi'(0)=0\)，但 \(\phi'\) 在零点附近无界。令
+\(f(x_1,\ldots,x_n)=\phi(x_1)\)，便得到多元可微而偏导函数不连续的例子。
+
+若各偏导数在开集 \(U\) 上连续，就写作 \(f\in C^1(U,\R^m)\)。定理说明
+\(C^1\) 映射必可微；仅有“每点可微”不等于 \(C^1\)。
+
+\section{Jacobian 矩阵和坐标表示}
+
+设 \(f=(f_1,\ldots,f_m)\)。若 \(f\) 在 \(a\) 可微，则线性映射
+\(Df(a)\) 在标准基下的矩阵为
+\[
+ J_f(a)=
+ \begin{pmatrix}
+  \partial_1f_1(a)&\cdots&\partial_nf_1(a)\\
+  \vdots&&\vdots\\
+  \partial_1f_m(a)&\cdots&\partial_nf_m(a)
+ \end{pmatrix}.
+\]
+第 \(j\) 列是 \(Df(a)e_j=\partial_jf(a)\)，第 \(i\) 行记录标量分量
+\(f_i\) 的全部偏导数。因此
+\[
+ Df(a)h=J_f(a)h.
+\]
+
+矩阵只是选定基后的表示。改变定义域和值域的基会改变矩阵，但线性映射
+\(Df(a)\) 本身不变。复合映射的矩阵乘法来自线性映射的复合，而不是一条
+独立的坐标规则。
+
+\begin{proposition}[分量判据]
+\label{prop:frechet-componentwise}
+映射 \(f=(f_1,\ldots,f_m)\) 在 \(a\) 可微，当且仅当每个标量分量
+\(f_i\) 在 \(a\) 可微。此时 \(Df(a)h\) 的第 \(i\) 个分量为
+\(Df_i(a)h\)。
+\end{proposition}
+
+\begin{proof}
+正向把向量余项投影到每个坐标。反向把有限多个标量余项组成向量。若每个
+余项都满足 $r_i(h)=o(\norm h_2)$，则
+\[
+ \norm{(r_1(h),\ldots,r_m(h))}_2
+ \le\sqrt m\max_i|r_i(h)|=o(\norm h_2).
+\]
+\end{proof}
+
+\section{链式法则及矩阵乘法}
+
+\begin{theorem}[多元链式法则]
+\label{thm:multivariable-chain-rule}
+设 \(f:U\subseteq\R^n\to\R^m\) 在 \(a\in U\) 可微，
+\(g:V\subseteq\R^m\to\R^p\) 在 \(f(a)\in V\) 可微，且
+\(f(U)\subseteq V\)。则 \(g\circ f\) 在 \(a\) 可微，并且
+\[
+ D(g\circ f)(a)=Dg(f(a))\circ Df(a).
+\]
+在标准基下，
+\[
+ J_{g\circ f}(a)=J_g(f(a))J_f(a).
+\]
+\end{theorem}
+
+\begin{proof}
+写
+\[
+ f(a+h)=f(a)+Ah+r(h),\qquad r(h)=o(\norm h_2),
+\]
+以及
+\[
+ g(f(a)+k)=g(f(a))+Bk+s(k),\qquad s(k)=o(\norm k_2),
+\]
+其中 \(A=Df(a)\)、\(B=Dg(f(a))\)。令 \(k=Ah+r(h)\)。因
+\(\norm k_2\le(\norm A_{\mathrm{op}}+1)\norm h_2\) 对充分小的 \(h\)
+成立，所以 \(k=O(\norm h_2)\)，并且
+\[
+ g(f(a+h))-g(f(a))
+ =BAh+Br(h)+s(k).
+\]
+有 \(\norm{Br(h)}_2=o(\norm h_2)\)。若 \(k\ne0\)，则
+\[
+ \frac{\norm{s(k)}_2}{\norm h_2}
+ =\frac{\norm{s(k)}_2}{\norm k_2}
+  \frac{\norm k_2}{\norm h_2}\longrightarrow0;
+\]
+若某些 \(h\) 使 \(k=0\)，对应的 \(s(k)=s(0)=0\)。故总余项仍为
+\(o(\norm h_2)\)，线性主部是 \(BA\)。
+\end{proof}
+
+连续双线性映射也可直接求导。若
+\(B:\R^r\times\R^s\to\R^p\) 为双线性映射，则
+\[
+ DB(u,v)(h,k)=B(h,v)+B(u,k),
+\]
+因为剩余项 \(B(h,k)\) 满足
+\(\norm{B(h,k)}\le C\norm h\norm k=o(\norm{(h,k)})\)。取
+\(B(u,v)=uv\) 就得到标量函数乘积法则；矩阵乘法、内积和二次型的求导也
+来自同一公式。
+
+\section{梯度、中值不等式和反例}
+
+当 \(m=1\) 时，\(Df(a)\) 是 \(\R^n\) 上的线性泛函。由欧氏内积表示，
+存在唯一向量
+\[
+ \nabla f(a)=\bigl(\partial_1f(a),\ldots,\partial_nf(a)\bigr)
+\]
+使
+\[
+ Df(a)h=\langle\nabla f(a),h\rangle.
+\]
+这给出
+\[
+ D_vf(a)=\langle\nabla f(a),v\rangle,
+ \qquad
+ \norm{Df(a)}_{\mathrm{op}}=\norm{\nabla f(a)}_2.
+\]
+在单位方向中，方向导数的最大值为 $\norm{\nabla f(a)}_2$。当梯度非零时，
+它在单位方向
+\[
+ v=\frac{\nabla f(a)}{\norm{\nabla f(a)}_2}
+\]
+上取得。
+
+\begin{theorem}[标量中值定理]
+\label{thm:scalar-segment-mean-value}
+设线段 \([x,y]\subset U\)，实值函数 \(f:U\to\R\) 在该线段的一个
+开邻域可微。则存在 \(\theta\in(0,1)\) 使
+\[
+ f(y)-f(x)=Df(x+\theta(y-x))(y-x).
+\]
+\end{theorem}
+
+\begin{proof}
+对 \(\varphi(t)=f(x+t(y-x))\) 在 \([0,1]\) 应用一元 Lagrange 中值
+定理，再用链式法则计算 \(\varphi'(t)\)。
+\end{proof}
+
+因此若凸集 \(K\subset U\) 上
+\(\norm{Df(z)}_{\mathrm{op}}\le M\)，则
+\[
+ |f(y)-f(x)|\le M\norm{y-x}_2\qquad(x,y\in K).
+\]
+这个估计表明连续导数在紧凸集上自动给出 Lipschitz 控制，因为
+\(z\mapsto\norm{Df(z)}_{\mathrm{op}}\) 连续并取得最大值。
+
+\section{向量值映射的平均估计}
+
+向量值函数通常没有精确的 Lagrange 中值等式。取
+\(F(t)=(\cos t,\sin t)\) 于 \([0,2\pi]\)，有
+\(F(2\pi)-F(0)=0\)，但 \(F'(t)\ne0\) 对所有 \(t\) 成立，所以不存在
+\(c\) 使
+\[
+ F(2\pi)-F(0)=F'(c)(2\pi).
+\]
+可保留的是范数估计。
+
+\begin{theorem}[向量值平均估计]
+\label{thm:vector-mean-value-inequality}
+设 \([x,y]\subset U\)，映射 \(f:U\to\R^m\) 在该线段的开邻域可微，
+并且
+\[
+ \norm{Df(z)}_{\mathrm{op}}\le M\qquad(z\in[x,y]).
+\]
+则
+\[
+ \norm{f(y)-f(x)}_2\le M\norm{y-x}_2.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(f(y)=f(x)\)，结论成立。否则令
+\[
+ u=\frac{f(y)-f(x)}{\norm{f(y)-f(x)}_2}.
+\]
+对实值函数
+\(\psi(t)=\langle u,f(x+t(y-x))\rangle\) 应用一元中值定理，得到某个
+\(\theta\in(0,1)\) 使
+\[
+ \norm{f(y)-f(x)}_2
+ =\psi(1)-\psi(0)
+ =\langle u,Df(x+\theta(y-x))(y-x)\rangle.
+\]
+Cauchy--Schwarz 不等式和算子范数估计给出所需结论。
+\end{proof}
+
+如果 \(Df\) 在点 \(a\) 的邻域连续，则它在某个闭球上有界，因而 \(f\)
+在更小的球上 Lipschitz。这个局部结论将在逆函数定理中用于控制
+“线性主部以外”的扰动。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定义、方向与线性主部}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{operator-norm-basic-properties}
+ 证明算子范数满足范数公理，并证明
+ \(\norm{AB}_{\mathrm{op}}\le\norm A_{\mathrm{op}}\norm B_{\mathrm{op}}\)。
+ \exerciseitem{matrix-operator-entry-bound}
+ 对矩阵 \(A=(a_{ij})\in\R^{m\times n}\)，证明
+ \[
+  \norm{Ax}_2\le
+  \Bigl(\sum_{i,j}a_{ij}^2\Bigr)^{1/2}\norm x_2.
+ \]
+ \exerciseitem{affine-map-frechet-derivative}
+ 从定义证明仿射映射 \(x\mapsto Ax+b\) 的导数恒为 \(A\)。
+ \exerciseitem{frechet-partial-directional}
+ 不引用定理名称，直接从余项定义推出所有方向导数和偏导数公式。
+ \exerciseitem{euclidean-norm-derivative}
+ 证明 \(x\mapsto\norm x_2\) 在 \(x\ne0\) 处可微，求其导数；证明它在
+ 原点不可微。
+ \exerciseitem{partial-derivatives-discontinuous-example}
+ 完整核对正文函数 \(xy/(x^2+y^2)\) 在原点的偏导数和不连续性。
+ \exerciseitem{directional-map-not-linear}
+ 求正文函数 \(x^3/(x^2+y^2)\) 在原点的全部方向导数，并用两个具体方向
+ 验证所得方向映射不具有可加性。
+ \exerciseitem{zero-directional-not-continuous}
+ 完整证明正文函数 \(x^3y/(x^6+y^2)\) 在原点的所有方向导数为零，但函数
+ 不连续。
+\end{enumerate}
+
+\subsection*{B组　可微性与运算法则}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{frechet-uniqueness-sequence-proof}
+ 用任意趋零序列而不是固定射线，重新证明 Fréchet 微分的唯一性。
+ \exerciseitem{continuous-partials-proof-details}
+ 补全连续偏导判据中的坐标折线与逐分量中值估计，并说明为什么只要求
+ 偏导数在点 $a$ 连续。
+ \exerciseitem{scalar-product-rule-frechet}
+ 若 $f,g:U\to\R$ 在 $a$ 可微，从双线性乘法或直接展开证明乘积法则
+ \[
+ D(fg)(a)=f(a)Dg(a)+g(a)Df(a).
+ \]
+ \exerciseitem{reciprocal-rule-frechet}
+ 若 \(g(a)\ne0\)，证明 \(1/g\) 在 \(a\) 可微并求导，再推出商法则。
+ \exerciseitem{inner-product-derivative}
+ 对可微映射 \(u,v:U\to\R^m\)，求
+ \(x\mapsto\langle u(x),v(x)\rangle\) 的导数。
+ \exerciseitem{quadratic-form-derivative}
+ 设 \(A\in\R^{n\times n}\)，求 \(q(x)=x^{\mathsf T}Ax\) 的导数，并说明
+ 只有 \((A+A^{\mathsf T})/2\) 影响答案。
+ \exerciseitem{normalization-map-derivative}
+ 求映射 \(N(x)=x/\norm x_2\) 在 \(\R^n\setminus\{0\}\) 上的导数，并
+ 解释 \(DN(x)h\) 与 \(x\) 的正交关系。
+ \exerciseitem{chain-rule-polar-map}
+ 设 \(F(r,\theta)=(r\cos\theta,r\sin\theta)\)，计算其 Jacobian，并用
+ 链式法则求 \(f\circ F\) 的两个偏导数，其中 \(f:\R^2\to\R\) 可微。
+\end{enumerate}
+
+\subsection*{C组　估计与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{differentiable-derivative-discontinuous}
+ 证明 \(\phi(t)=t^2\sin(1/t^2)\)（\(t\ne0\)）及 \(\phi(0)=0\) 在零点
+ 可微，但导函数在零点附近无界；把它扩展成 \(\R^n\) 上的例子。
+ \exerciseitem{vector-mean-value-failure}
+ 核对 \(F(t)=(\cos t,\sin t)\) 否定了向量值精确中值公式，并说明标量化
+ 证明为何仍能给出范数估计。
+ \exerciseitem{bounded-jacobian-lipschitz}
+ 设 \(K\subset U\) 凸，\(f:U\to\R^m\) 可微且
+ \(\sup_{x\in K}\norm{Df(x)}_{\mathrm{op}}<\infty\)。证明 \(f|_K\)
+ Lipschitz；给出定义域不凸时不能直接沿线段使用证明的例子。
+ \exerciseitem{zero-derivative-constant-convex}
+ 设 \(U\subset\R^n\) 为开凸集，\(Df(x)=0\) 对每个 \(x\in U\) 成立。
+ 证明 \(f\) 为常值。再把“凸”削弱为“道路连通”。
+ \exerciseitem{local-lipschitz-c1}
+ 证明每个 \(C^1\) 映射在每一点附近 Lipschitz；说明这不推出它在整个无界
+ 定义域上一致 Lipschitz。
+ \optionalexerciseitem{directional-linear-not-frechet}
+ 构造一个在原点所有方向导数都存在、关于方向构成零线性映射，但不在原点
+ Fréchet 可微的函数；除给出公式外，须分别验证方向导数和失败的余项估计。
+\end{enumerate}
