@@ -1,0 +1,140 @@
+\chapter{测度空间}
+
+\begin{solution}{sigma-algebra-intersections}
+设 $(\mathcal A_i)_{i\in I}$ 均为 $X$ 上的 $\sigma$-代数。$X$ 属于每个
+$\mathcal A_i$，故属于其交；若 $E$ 属于其交，则 $E^c$ 属于每个
+$\mathcal A_i$；若每个 $E_n$ 属于其交，则 $\bigcup_nE_n$ 属于每个
+$\mathcal A_i$。所以交仍为 $\sigma$-代数。
+
+并集一般失败。取 $X=\{1,2,3,4\}$，令 $\mathcal A$ 由分割
+$\{\{1,2\},\{3,4\}\}$ 生成，$\mathcal B$ 由
+$\{\{1,3\},\{2,4\}\}$ 生成。则 $\{1,2\}\in\mathcal A$、
+$\{1,3\}\in\mathcal B$，但它们的交 $\{1\}$ 不属于
+$\mathcal A\cup\mathcal B$。
+\end{solution}
+
+\begin{solution}{finite-generator-atoms}
+对每个符号串 $\varepsilon\in\{0,1\}^m$，令
+$A_\varepsilon=\bigcap_jF_j$，其中 $F_j=E_j$ 当 $\varepsilon_j=1$，
+否则 $F_j=E_j^c$。非空的 $A_\varepsilon$ 两两不交并覆盖 $X$。所有这些
+原子的并构成一个 $\sigma$-代数，并包含每个 $E_j$，故包含
+$\sigma(\mathcal E)$；反过来每个原子由有限交和补集得到，所以属于
+$\sigma(\mathcal E)$。因此生成代数正是原子的任意并，原子数至多 $2^m$。
+\end{solution}
+
+\begin{solution}{measure-finite-additivity}
+对两两不交的 $E_1,\ldots,E_m$，在其后补空集。可数可加性给出
+\[
+ \mu\Bigl(\bigcup_{k=1}^mE_k\Bigr)=\sum_{k=1}^m\mu(E_k).
+\]
+若 $E\subseteq F$，应用于
+$F=E\mathbin{\dot\cup}(F\setminus E)$ 得单调性。一般有限并依次删去
+前面各项化为不交并；再用单调性得到
+\[
+ \mu\Bigl(\bigcup_{k=1}^mE_k\Bigr)\le\sum_{k=1}^m\mu(E_k).
+\]
+\end{solution}
+
+\begin{solution}{continuity-from-below-proof}
+令 $F_1=E_1$，$F_n=E_n\setminus E_{n-1}$。则 $F_n$ 两两不交，
+$E_N=\bigcup_{n\le N}F_n$，而 $E=\bigcup_nF_n$。于是
+$\mu(E_N)=\sum_{n\le N}\mu(F_n)$，其极限按非负级数的定义等于
+$\sum_n\mu(F_n)=\mu(E)$。
+\end{solution}
+
+\begin{solution}{continuity-from-above-counterexample}
+在 $(\N,\mathcal P(\N),\#)$ 上取 $E_n=\{n,n+1,\ldots\}$。它们下降到
+空集，但 $\#E_n=+\infty$ 对所有 $n$ 成立，不能趋于
+$\#\varnothing=0$。失败恰好来自起始集合测度无限。
+\end{solution}
+
+\begin{solution}{weighted-counting-measure}
+对两两不交的 $(E_n)$，每个点至多出现在一个集合中，非负级数重排给出
+\[
+ \mu\Bigl(\bigcup_nE_n\Bigr)
+ =\sum_k w_k\mathbf1_{\cup_nE_n}(x_k)
+ =\sum_n\sum_k w_k\mathbf1_{E_n}(x_k).
+\]
+故它是测度。它有限当且仅当 $\sum_kw_k<\infty$。在正文假定每个
+$w_k$ 都是有限实数时，有限集
+$X_m=\{x_1,\ldots,x_m\}$ 具有有限测度，故该测度总是 $\sigma$-有限。
+若允许某个权重取 $+\infty$，包含相应点的集合都具有无穷测度，因而不再
+$\sigma$-有限。
+\end{solution}
+
+\begin{solution}{dirac-integral-preview}
+$\delta_a(\varnothing)=0$。对不交集列，$a$ 至多属于其中一项，所以两边
+都等于 $0$ 或 $1$，可数可加性成立。零测集都不含 $a$，其任意子集仍不含
+$a$ 且在幂集 $\sigma$-代数中可测，故完备。最后
+$\delta_a(E_n)=\mathbf1_{E_n}(a)$，结论只是这一恒等式的改写。
+\end{solution}
+
+\begin{solution}{completion-equivalent-form}
+若 $A=E\cup Z$，其中 $Z\subseteq N$、$\mu(N)=0$，则
+$E\setminus N\subseteq A\subseteq E\cup N$，两端可测且差集含于 $N$。
+反之，若 $E\subseteq A\subseteq F$ 且 $\mu(F\setminus E)=0$，则
+$A=E\cup(A\setminus E)$，而 $A\setminus E\subseteq F\setminus E$，
+所以 $A$ 属于完备化。
+\end{solution}
+
+\begin{solution}{completion-minimality}
+设 $(X,\mathcal C,\nu)$ 是包含 $\mathcal A$ 的完备延拓。若
+$A=E\cup Z\in\overline{\mathcal A}$，取可测零测集 $N$ 使 $Z\subseteq N$。
+因为 $\nu(N)=\mu(N)=0$ 且 $\nu$ 完备，$Z\in\mathcal C$，从而
+$A\in\mathcal C$。故 $\overline{\mathcal A}\subseteq\mathcal C$；并且
+$\nu(A)=\nu(E)=\mu(E)=\overline\mu(A)$。
+\end{solution}
+
+\begin{solution}{measure-algebra-metric}
+若 $E\sim E'$、$F\sim F'$，则
+$(E\triangle F)\triangle(E'\triangle F')$ 含于
+$(E\triangle E')\cup(F\triangle F')$，故测度为零，$d$ 良定义。对称性和
+非负性直接成立，$d([E],[F])=0$ 正是 $[E]=[F]$。由集合包含
+\[
+ E\triangle G\subseteq(E\triangle F)\cup(F\triangle G)
+\]
+及次可加性得到三角不等式。
+\end{solution}
+
+\begin{solution}{indicator-set-limits}
+固定 $x$。数列 $\mathbf1_{E_n}(x)$ 只取 $0,1$，它收敛当且仅当最终恒定。
+最终恒为一等价于 $x\in\liminf E_n$；无穷多次为一等价于
+$x\in\limsup E_n$。因此对每个 $x$ 收敛恰好等价于两集合相等，极限就是
+共同集合的指标函数。
+\end{solution}
+
+\begin{solution}{set-fatou-inequality}
+置 $F_N=\bigcap_{n\ge N}E_n$。则
+\[
+ F_N\uparrow\liminf E_n,
+ \qquad
+ \mu(F_N)\le\inf_{n\ge N}\mu(E_n).
+\]
+由上升连续性，
+\[
+ \mu(\liminf E_n)=\lim_N\mu(F_N)
+ \le\lim_N\inf_{n\ge N}\mu(E_n)
+ =\liminf_n\mu(E_n).
+\]
+\end{solution}
+
+\begin{solution}{first-borel-cantelli}
+属于无穷多个 $E_n$ 的点集正是 $\limsup E_n$。对每个 $N$，
+\[
+ \mu(\limsup E_n)
+ \le\mu\Bigl(\bigcup_{n\ge N}E_n\Bigr)
+ \le\sum_{n\ge N}\mu(E_n).
+\]
+级数尾和趋于零，故该集合零测。
+\end{solution}
+
+\begin{solution}{pushforward-measure}
+$T_\#\mu(\varnothing)=0$。若 $B_n$ 两两不交，则其原像也两两不交，且
+$T^{-1}(\bigcup_nB_n)=\bigcup_nT^{-1}(B_n)$。于是
+\[
+ T_\#\mu\Bigl(\bigcup_nB_n\Bigr)
+ =\mu\Bigl(\bigcup_nT^{-1}(B_n)\Bigr)
+ =\sum_nT_\#\mu(B_n).
+\]
+故 $T_\#\mu$ 是测度。
+\end{solution}

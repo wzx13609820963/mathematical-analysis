@@ -1,0 +1,254 @@
+\chapter{两种积分的比较}
+\label{chap:riemann-lebesgue-comparison}
+
+两种积分对连续函数给出同一个数，但构造方法不同。Riemann 积分要求对定义域
+作有限分割，并控制每个小区间内的振荡；Lebesgue 积分允许先忽略零测集，
+再用可测简单函数逼近。比较二者不只是核对一个公式：它说明 Riemann
+可积性的限制恰好落在不连续点集的测度上。
+
+\section{上下阶梯函数}
+
+设 \(f:[a,b]\to\mathbb R\) 有界，分割
+\(P:a=x_0<\cdots<x_n=b\)。记
+\[
+ m_k=\inf_{[x_{k-1},x_k]}f,\qquad
+ M_k=\sup_{[x_{k-1},x_k]}f.
+\]
+忽略有限个分点处的取值，定义下、上阶梯函数
+\[
+ s_P=\sum_{k=1}^{n}m_k\mathbf1_{(x_{k-1},x_k)},\qquad
+ t_P=\sum_{k=1}^{n}M_k\mathbf1_{(x_{k-1},x_k)}.
+\]
+它们是 Lebesgue 可测简单函数，并且几乎处处满足
+\(s_P\le f\le t_P\)。此外
+\[
+ \int s_P\,dm=L(f,P),\qquad
+ \int t_P\,dm=U(f,P),
+\]
+其中右侧是 Darboux 下和、上和。有限个分点的选择不影响 Lebesgue 积分。
+
+\begin{theorem}[两种积分的一致性]
+\label{thm:riemann-lebesgue-agreement}
+若有界函数 \(f:[a,b]\to\mathbb R\) Riemann 可积，则 \(f\) Lebesgue
+可测且可积，并且
+\[
+ \int_a^b f(x)\,dx_{\mathrm R}
+ =\int_{[a,b]}f\,dm .
+\]
+\end{theorem}
+
+\begin{proof}
+由 Riemann 可积性，可取分割 \(P_n\) 使
+\[
+ U(f,P_n)-L(f,P_n)<2^{-n}.
+\]
+用前 \(n\) 个分割的公共加细代替 \(P_n\)，可设分割递细。令 \(D\) 为
+这些分割点的并；它至多可数。在 \([a,b]\setminus D\) 上，相应阶梯函数
+满足 \(s_n\uparrow\)、\(t_n\downarrow\)，且
+\[
+ \int(t_n-s_n)\,dm\longrightarrow0.
+\]
+在 \([a,b]\setminus D\) 上令 \(s=\sup_ns_n\)、\(t=\inf_nt_n\)，并在
+\(D\) 上把二者都定义为零。它们是可测函数，并且
+\(s\le f\le t\) 在 \([a,b]\setminus D\) 上成立。由 Fatou 引理，
+\[
+ 0\le\int(t-s)\,dm
+ \le\liminf_n\int(t_n-s_n)\,dm=0.
+\]
+所以 \(f=s=t\) 几乎处处，因而 \(f\) 可测。又 \(|f|\) 有界且区间
+测度有限，故 \(f\in L^1\)。若 \(|f|\le M\)，则
+\(|s_n|,|t_n|\le M\) 几乎处处；控制收敛定理给出
+\[
+ L(f,P_n)=\int s_n\longrightarrow\int f,\qquad
+ U(f,P_n)=\int t_n\longrightarrow\int f,
+\]
+两端同时趋于 Riemann 积分值。
+\end{proof}
+
+\section{局部振幅与不连续点}
+
+对有界函数 \(f:[a,b]\to\mathbb R\)，定义点 \(x\) 处的振幅
+\[
+ \omega_f(x)
+ =\inf_{\delta>0}
+ \left(
+ \sup_{y\in[a,b]\cap(x-\delta,x+\delta)}f(y)
+ -\inf_{y\in[a,b]\cap(x-\delta,x+\delta)}f(y)
+ \right).
+\]
+
+\begin{proposition}
+\label{prop:oscillation-continuity}
+\(f\) 在 \(x\) 连续当且仅当 \(\omega_f(x)=0\)。对每个
+\(\varepsilon>0\)，集合
+\[
+ D_\varepsilon=\{x\in[a,b]:\omega_f(x)\ge\varepsilon\}
+\]
+是相对闭集。因此不连续点集
+\[
+ D(f)=\bigcup_{r=1}^{\infty}D_{1/r}
+\]
+是 \(F_\sigma\) 集。
+\end{proposition}
+
+\begin{proof}
+连续性直接给出任意小的邻域振幅。反之，若邻域内函数值的振幅小于
+\(\varepsilon\)，则其中任意 \(y\) 满足
+\(|f(y)-f(x)|<\varepsilon\)。
+
+若 \(x\notin D_\varepsilon\)，存在邻域 \(U\) 使 \(f\) 在 \(U\) 上的
+振幅小于 \(\varepsilon\)。对充分靠近 \(x\) 的 \(z\)，可选取包含于
+\(U\) 的 \(z\) 的邻域，故 \(\omega_f(z)<\varepsilon\)。所以
+\([a,b]\setminus D_\varepsilon\) 相对开。
+\end{proof}
+
+\section{Lebesgue 判别准则}
+
+\begin{theorem}[Lebesgue 的 Riemann 可积性判别]
+\label{thm:lebesgue-riemann-criterion}
+有界函数 \(f:[a,b]\to\mathbb R\) Riemann 可积，当且仅当其不连续点集
+\(D(f)\) 的 Lebesgue 测度为零。
+\end{theorem}
+
+\begin{proof}
+先设 \(f\) Riemann 可积。固定 \(\varepsilon>0\)，取分割 \(P\) 使
+\[
+ \sum_{I\in P}\omega(f;I)|I|<\eta,
+\]
+其中 \(\omega(f;I)=\sup_I f-\inf_I f\)。除有限个分点外，若
+\(x\in D_\varepsilon\)，则 \(x\) 所在分割小区间的振幅至少为
+\(\varepsilon\)。这些坏区间的总长度至多 \(\eta/\varepsilon\)，故
+\(m^*(D_\varepsilon)\le\eta/\varepsilon\)。令 \(\eta\downarrow0\)，
+得到 \(m(D_\varepsilon)=0\)。由
+\(D(f)=\cup_rD_{1/r}\) 得 \(m(D(f))=0\)。
+
+反过来，设 \(m(D(f))=0\)，并令 \(|f|\le M\)。给定
+\(\varepsilon>0\)，选 \(r\) 充分大，使
+\((b-a)/r<\varepsilon/2\)。闭集 \(D_{1/r}\) 零测，可由有限个开区间
+覆盖，且总长度小于 \(\varepsilon/(4M)\)；若 \(M=0\) 结论显然。
+把这些区间端点加入分割。其余紧集
+\[
+ K=[a,b]\setminus\bigcup_jI_j
+\]
+上的每一点都有一个邻域使函数振幅小于 \(1/r\)。由紧致性取有限子覆盖，
+再把相应端点加入分割并使每个未落入坏开集的小区间包含在其中一个这样的
+邻域内。于是
+\[
+ U(f,P)-L(f,P)
+ \le 2M\sum_j|I_j|+\frac1r(b-a)<\varepsilon.
+\]
+由 Darboux 判据，\(f\) Riemann 可积。
+\end{proof}
+
+证明中“有界”不能省略。函数 \(x\mapsto x^{-1/2}\) 在 \((0,1]\) 连续，
+不连续点（若补定义 \(f(0)\)）只有一个，却不在通常有界 Riemann 积分的
+定义域内；它可作为反常 Riemann 积分和 Lebesgue 积分处理。
+
+\section{典型函数}
+
+\begin{example}[Dirichlet 函数]
+\[
+ f=\mathbf1_{\mathbb Q\cap[0,1]}
+\]
+处处不连续，故不 Riemann 可积；它是可测函数并且 Lebesgue 积分为零。
+\end{example}
+
+\begin{example}[Thomae 函数]
+令
+\[
+ t(x)=
+ \begin{cases}
+ 1/q,&x=p/q\in[0,1],\ (p,q)=1,\ q\ge1,\\
+ 0,&x\notin\mathbb Q.
+ \end{cases}
+\]
+它在每个无理点连续，在每个有理点不连续。不连续点集可数，故它 Riemann
+可积，积分为零。这里不能只说“有理数零测”：还必须先验证无理点连续。
+\end{example}
+
+\begin{proof}
+固定无理点 \(x\) 和 \(\varepsilon>0\)。使 \(1/q\ge\varepsilon\) 的
+约分有理数在 \([0,1]\) 中只有有限个。取 \(x\) 的小邻域避开这些点，
+邻域内便有 \(t(y)<\varepsilon\)。在有理点 \(p/q\)，任意邻域含无理点，
+函数值可趋于零，与 \(t(p/q)=1/q\) 不相容。
+\end{proof}
+
+\begin{example}[稠密开集的指示函数]
+若 \(G\subset[0,1]\) 是稠密开集，且其补集也无孤立点，则
+\(\mathbf1_G\) 在 \(\partial G=[0,1]\setminus G\) 上不连续，在 \(G\)
+内连续。因此它 Riemann 可积当且仅当 \(m(\partial G)=0\)，积分等于
+\(m(G)\)。取 \(G\) 为 Cantor 集的补集，可得到不连续点集不可数的例子；
+前面的 Thomae 函数则给出不连续点集稠密而零测的例子。
+\end{example}
+
+\section{有界与无界积分的分界}
+
+在有限区间上，任何有界可测函数都 Lebesgue 可积，而 Riemann 可积还要求
+不连续点集零测。无界函数则需另外检查 \(\int|f|<\infty\)。例如
+\[
+ f(x)=x^{-\alpha}\quad(0<x\le1)
+\]
+在 Lebesgue 意义下可积当且仅当 \(\alpha<1\)，这与反常 Riemann 积分的
+绝对收敛条件一致。Lebesgue 积分不会自动给条件收敛的反常积分赋值：
+\(\int f\) 作为有限实数存在等价于 \(\int|f|<\infty\)。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　两种积分与振幅}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{riemann-step-integrals}
+验证上下阶梯函数的 Lebesgue 积分分别等于 Darboux 下和、上和，并说明
+分点处怎样取值均不影响结论。
+
+\exerciseitem{riemann-measurability-direct}
+设 \(f\) Riemann 可积。利用上下阶梯函数列直接证明 \(f\) 是 Borel
+可测函数经过零测集修改所得的 Lebesgue 可测函数。
+
+\exerciseitem{oscillation-upper-semicontinuity}
+证明 \(x\mapsto\omega_f(x)\) 是上半连续的，即
+\(\{\omega_f<\varepsilon\}\) 为开集。
+
+\exerciseitem{riemann-criterion-forward-detail}
+补全定理 \ref{thm:lebesgue-riemann-criterion} 正向证明中分点和区间端点
+的处理。
+
+\end{enumerate}
+\subsection*{B组　判别准则与典型函数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{riemann-criterion-backward-detail}
+补全反向证明中的有限分割构造，并给出只依赖 \(M,b-a,\varepsilon\) 的
+上和减下和估计。
+
+\exerciseitem{thomae-continuity-set}
+完整求出 Thomae 函数的连续点集和不连续点集，并分别用 Riemann 理论与
+Lebesgue 理论计算其积分。
+
+\exerciseitem{indicator-riemann-boundary}
+对 \(E\subset[a,b]\)，证明 \(\mathbf1_E\) 的不连续点集恰为
+\(\partial E\)。由此证明 \(\mathbf1_E\) Riemann 可积当且仅当
+\(m(\partial E)=0\)。
+
+\exerciseitem{fat-cantor-indicator}
+设 \(F\subset[0,1]\) 是正测度、无内点闭集。判断 \(\mathbf1_F\) 的
+Riemann 可积性与 Lebesgue 积分，并解释二者差异。
+
+\end{enumerate}
+\subsection*{C组　反例与构造}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{dense-zero-discontinuities}
+构造一个 Riemann 可积函数，其不连续点集在 \([0,1]\) 中稠密。
+
+\exerciseitem{improper-lebesgue-comparison}
+对 \(f(x)=x^{-\alpha}\sin(1/x)\)，讨论它在 \((0,1]\) 上的反常 Riemann
+积分和 Lebesgue 可积性，区分 \(\alpha<1\)、\(1\le\alpha<2\) 与
+\(\alpha\ge2\)。
+
+\optionalexerciseitem{bounded-ae-continuous-version}
+设 \(f\) 是 \([a,b]\) 上的有界 Lebesgue 可测函数，且几乎处处连续。
+证明 \(f\) Riemann 可积。说明“几乎处处等于某个 Riemann 可积函数”并不
+蕴含 \(f\) 自身 Riemann 可积。
+
+\projectexerciseitem{prescribed-discontinuity-set}
+证明：对每个零测 \(F_\sigma\) 集 \(E\subset[a,b]\)，存在有界 Riemann
+可积函数，其不连续点集恰为 \(E\)。
+\end{enumerate}

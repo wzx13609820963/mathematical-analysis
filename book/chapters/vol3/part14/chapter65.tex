@@ -1,0 +1,216 @@
+\chapter{Egorov 定理与子列原理}
+\label{chap:egorov-subsequence}
+
+几乎处处收敛允许不同点具有不同的收敛速度。一致收敛则要求一个指标同时
+控制全部点。Egorov 定理说明：在有限测度空间上，删去任意小测度的集合后，
+几乎处处收敛可以提升为一致收敛。依测度收敛虽不保证整列几乎处处收敛，
+却总能抽出具有这一性质的子列。
+
+\section{几乎一致收敛}
+
+\begin{definition}
+若对每个 \(\eta>0\)，存在 \(E\in\mathcal A\) 满足
+\(\mu(E)<\eta\)，使 \(f_n\to f\) 在 \(X\setminus E\) 上一致，则称
+\(f_n\) \term{几乎一致收敛}于 \(f\)。
+\end{definition}
+
+“几乎一致”与“本质一致”不同。前者允许例外集随 \(\eta\) 变化，只要求
+其测度任意小；后者要求删去一个零测集后便一致收敛。显然，本质一致收敛
+蕴含几乎一致收敛，反向一般不成立。
+
+\begin{proposition}
+\label{prop:almost-uniform-implies-ae}
+几乎一致收敛蕴含几乎处处收敛。
+\end{proposition}
+
+\begin{proof}
+对每个 \(k\ge1\)，取 \(E_k\) 使
+\(\mu(E_k)<2^{-k}\)，且在 \(X\setminus E_k\) 上一致收敛。令
+\[
+ N=\limsup_kE_k=\bigcap_{m=1}^{\infty}\bigcup_{k\ge m}E_k.
+\]
+由
+\(\mu(\cup_{k\ge m}E_k)\le\sum_{k\ge m}2^{-k}\to0\)，得
+\(\mu(N)=0\)。若 \(x\notin N\)，则它最终不属于 \(E_k\)，选取其中任意
+一个足够大的 \(k\)，该集合补集上的一致收敛便给出 \(f_n(x)\to f(x)\)。
+\end{proof}
+
+\section{Egorov 定理}
+
+\begin{theorem}[Egorov]
+\label{thm:egorov}
+若 \(\mu(X)<\infty\)，且 \(f_n\to f\) 几乎处处，则 \(f_n\to f\)
+几乎一致。
+\end{theorem}
+
+\begin{proof}
+先删去一个零测集，设处处收敛。对 \(k,N\ge1\)，令
+\[
+ E_{k,N}=\bigcup_{n\ge N}\{|f_n-f|\ge2^{-k}\}.
+\]
+固定 \(k\) 时，\(E_{k,N}\downarrow\varnothing\)。因为
+\(\mu(E_{k,1})\le\mu(X)<\infty\)，测度关于递减集合列连续，所以
+\(\mu(E_{k,N})\downarrow0\)。给定 \(\eta>0\)，对每个 \(k\) 选
+\(N_k\) 使
+\[
+ \mu(E_{k,N_k})<\eta\,2^{-k}.
+\]
+令 \(E=\cup_kE_{k,N_k}\)，则 \(\mu(E)<\eta\)。若 \(x\notin E\)，
+则对每个 \(k\)，当 \(n\ge N_k\) 时
+\(|f_n(x)-f(x)|<2^{-k}\)。这正是 \(X\setminus E\) 上的一致收敛。
+\end{proof}
+
+Egorov 定理没有声称可选一个零测集得到一致收敛。例如
+\(f_n(x)=x^n\) 在 \([0,1]\) 上几乎处处趋于零，却在删去任何零测集后
+都不一致收敛：零测集不能移除点 \(1\) 左侧每个小区间中的全部点。
+
+\section{有限测度条件}
+
+在 \(\mathbb R\) 上，\(f_n=\mathbf1_{[n,\infty)}\) 处处趋于零。若在
+\(\mathbb R\setminus E\) 上一致收敛，则对某个 \(N\)，当 \(n\ge N\)
+时该集合上 \(f_n<1/2\)，从而
+\([N,\infty)\subset E\)，迫使 \(\mu(E)=\infty\)。因此不能删去任意小
+测度集合获得一致收敛。
+
+有限测度在证明中恰用于
+\[
+ E_{k,N}\downarrow\varnothing
+\quad\Longrightarrow\quad
+\mu(E_{k,N})\downarrow0.
+\]
+如果某个 \(E_{k,1}\) 已知有限测度，同一层级的论证仍成立。因此在
+\(\sigma\)-有限空间上，Egorov 定理可局部应用于每个有限测度块，但一般
+不能合成全空间的结论。
+
+\section{依测度收敛的子列}
+
+\begin{theorem}[子列原理]
+\label{thm:measure-convergence-subsequence}
+若 \(f_n\xrightarrow{\mu}f\)，则存在子列
+\((f_{n_k})\) 使
+\[
+ f_{n_k}(x)\longrightarrow f(x)
+\quad\text{几乎处处}.
+\]
+\end{theorem}
+
+\begin{proof}
+递归选择 \(n_k>n_{k-1}\)，使
+\[
+ \mu(\{|f_{n_k}-f|>2^{-k}\})<2^{-k}.
+\]
+记这些坏集为 \(E_k\)。因 \(\sum_k\mu(E_k)<\infty\)，有
+\[
+ \mu(\limsup_kE_k)
+ \le\lim_{m\to\infty}\sum_{k\ge m}\mu(E_k)=0.
+\]
+在其补集上，每个点只属于有限多个 \(E_k\)，故最终
+\(|f_{n_k}(x)-f(x)|\le2^{-k}\)，从而收敛。
+\end{proof}
+
+\begin{corollary}[\(L^p\) 子列原理]
+\label{cor:lp-ae-subsequence}
+若 \(0<p<\infty\) 且 \(f_n\to f\) 于 \(L^p\)，则可抽出子列几乎处处
+收敛于 \(f\)。
+\end{corollary}
+
+\begin{proof}
+\(L^p\) 收敛蕴含依测度收敛，再用定理
+\ref{thm:measure-convergence-subsequence}。
+\end{proof}
+
+还可直接选子列使
+\(\|f_{n_k}-f\|_p^p<2^{-k}\)，于是
+\[
+ \int\sum_k|f_{n_k}-f|^p<\infty.
+\]
+故该非负级数几乎处处有限，其项几乎处处趋于零。
+
+\section{子列刻画}
+
+\begin{theorem}
+\label{thm:measure-convergence-subsequence-characterization}
+设 \(\mu(X)<\infty\)。则
+下列条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(f_n\xrightarrow{\mu}f\)；
+ \item \((f_n)\) 的每个子列都能再抽出一个几乎处处收敛于 \(f\) 的子列。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) 蕴含 (ii)，因为子列仍依测度收敛，再用子列原理。反过来，若不依测度
+收敛，则存在 \(\varepsilon,\eta>0\) 和子列 \((f_{n_k})\)，使
+\[
+ \mu(\{|f_{n_k}-f|>\varepsilon\})\ge\eta
+\]
+对所有 \(k\) 成立。若该子列有一个几乎处处收敛于 \(f\) 的再子列，则由
+第 \ref{chap:modes-of-convergence} 章的有限测度结论，它也依测度收敛于
+\(f\)，与上述统一下界矛盾。
+\end{proof}
+
+\begin{remark}
+无限测度空间中必须区分“全局依测度”和“局部依测度”，上述刻画按本节形式
+只在有限测度集上使用。定理
+\ref{thm:measure-convergence-subsequence} 的正向结论本身不需要
+\(\mu(X)<\infty\)。
+\end{remark}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　Egorov 定理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{almost-uniform-ae-proof}
+重新证明命题 \ref{prop:almost-uniform-implies-ae}，并指出为什么不能只
+取任意一个例外集 \(E_k\)。
+
+\exerciseitem{egorov-quantifiers}
+把 Egorov 定理完整写成量词形式，并与几乎处处收敛、一致收敛的量词顺序
+逐项比较。
+
+\exerciseitem{egorov-xn}
+对 \(f_n(x)=x^n\) 在 \([0,1]\) 上的收敛，给定 \(\eta>0\)，显式找出
+一个测度小于 \(\eta\) 的集合，使其补集上一致收敛。
+
+\exerciseitem{egorov-infinite-counterexample}
+完整验证 \(\mathbf1_{[n,\infty)}\) 说明 Egorov 定理不能直接推广到
+无限测度空间。
+
+\end{enumerate}
+\subsection*{B组　子列原理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{borel-cantelli-first}
+证明若 \(\sum_n\mu(E_n)<\infty\)，则
+\(\mu(\limsup_nE_n)=0\)，不使用概率论术语。
+
+\exerciseitem{measure-subsequence-rate}
+若 \(f_n\xrightarrow{\mu}f\)，证明可以抽出子列满足
+\[
+ |f_{n_k}(x)-f(x)|\le 2^{-k}
+\]
+对几乎所有 \(x\) 和所有充分大的 \(k\) 成立。
+
+\exerciseitem{lp-direct-subsequence}
+不用依测度收敛，按正文第二种方法直接证明 \(L^p\) 子列原理。
+
+\exerciseitem{subsequence-characterization-finite}
+在 \(\mu(X)<\infty\) 的假设下，完整证明定理
+\ref{thm:measure-convergence-subsequence-characterization}。
+
+\end{enumerate}
+\subsection*{C组　完备性与比较}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ae-cauchy-almost-uniform}
+设 \(\mu(X)<\infty\)。证明 \(f_n\) 几乎处处 Cauchy 当且仅当对每个
+\(\eta>0\)，存在 \(E\) 满足 \(\mu(E)<\eta\)，使 \(f_n\) 在
+\(X\setminus E\) 上一致 Cauchy。
+
+\optionalexerciseitem{riesz-metric-completeness}
+利用依测度 Cauchy 列和对角子列，证明有限测度空间上的可测函数商空间在
+\(d_\mu\) 下完备。
+
+\projectexerciseitem{egorov-lusin-comparison}
+比较 Egorov 定理与第 \ref{chap:measurable-functions} 章 Lusin 定理：
+分别写清被改善的是函数列的哪种
+性质、删去的集合如何选择，以及有限测度条件出现在哪里。
+\end{enumerate}

@@ -1,0 +1,142 @@
+\chapter{Lebesgue 积分的收敛定理}
+
+\begin{solution}{integrable-finite-ae}
+若 \(N=\{|f|=\infty\}\) 有正测度，则对每个 \(M>0\)，
+\(M\mathbf1_N\le|f|\)，从而
+\(\int|f|\ge M\mu(N)\)。令 \(M\to\infty\) 得矛盾。例：
+\[
+ f(x)=\begin{cases}+\infty,&x=0,\\0,&x\ne0,\end{cases}
+\]
+在 \([0,1]\) 上可积且积分为零，因为单点零测。
+\end{solution}
+
+\begin{solution}{integral-triangle-equality}
+写 \(a=\int f^+\)、\(b=\int f^-\)，则
+\[
+ \left|\int f\right|=|a-b|,\qquad \int|f|=a+b.
+\]
+二者相等当且仅当 \(a=0\) 或 \(b=0\)。零积分判据说明这分别等价于
+\(f^+=0\) 或 \(f^-=0\) 几乎处处，即 \(f\le0\) 或 \(f\ge0\) 几乎
+处处。若 \(f=0\) 几乎处处，两种表述同时成立。
+\end{solution}
+
+\begin{solution}{integral-set-series}
+由三角不等式，
+\[
+ \sum_{n=0}^{N}\left|\int_{E_n}f\right|
+ \le\sum_{n=0}^{N}\int_{E_n}|f|
+ =\int_{\cup_{n=0}^{N}E_n}|f|
+ \le\int_{\cup_nE_n}|f|.
+\]
+令 \(N\to\infty\) 即得结论。
+\end{solution}
+
+\begin{solution}{absolute-continuity-truncation}
+由 \(|f|\mathbf1_{\{|f|\le M\}}\uparrow|f|\)，单调收敛定理给出
+\(\int_{\{|f|>M\}}|f|\to0\)。给定 \(\varepsilon>0\)，取 \(M\)
+使尾积分小于 \(\varepsilon/2\)，再令
+\(\delta=\varepsilon/(2M)\)。若 \(\mu(E)<\delta\)，则
+\[
+ \int_E|f|\le M\mu(E)+\int_{\{|f|>M\}}|f|<\varepsilon.
+\]
+论证只用 \(f\) 的尾积分，没有使用 \(\mu(X)<\infty\)。
+\end{solution}
+
+\begin{solution}{fatou-strict-example}
+在 \(\mathbb R\) 上取 \(f_n=\mathbf1_{[n,n+1]}\)。则
+\(\liminf f_n=0\)，左端为零，而右端为 \(1\)。若取
+\(f_n=\mathbf1_{\mathbb R}\)，则两端都为 \(+\infty\)。
+\end{solution}
+
+\begin{solution}{fatou-moving-mass}
+若在无限测度空间把依测度收敛定义为
+\(\mu(\{|f_n|>\varepsilon\})\to0\)，则对 \(0<\varepsilon<1\)，
+该测度恒为 \(1\)，所以不收敛。对任意有限测度集 \(E\)，有
+\[
+ \mu(E\cap[n,n+1])\longrightarrow0.
+\]
+否则可抽出两两远离的区间，使它们与 \(E\) 的交具有统一正测度，违背
+\(\mu(E)<\infty\)。故在每个有限测度集上依测度收敛，即局部依测度收敛。
+\end{solution}
+
+\begin{solution}{dct-bounded-finite-measure}
+极限也满足 \(|f|\le M\) 几乎处处，故
+\[
+ |f_n-f|\le2M\mathbf1_X.
+\]
+由于 \(\mu(X)<\infty\)，右端可积。控制收敛定理给出
+\(\int|f_n-f|\to0\)。
+\end{solution}
+
+\begin{solution}{dct-convergence-in-measure-subsequence}
+若结论不成立，则存在 \(\varepsilon>0\) 和子列
+\((f_{n_k})\) 使 \(\int|f_{n_k}-f|\ge\varepsilon\)。依测度收敛的子列
+原理可从中再抽出几乎处处收敛于 \(f\) 的子列。该子列仍由 \(g\) 控制，
+故控制收敛定理使其 \(L^1\) 距离趋于零，与下界矛盾。
+\end{solution}
+
+\begin{solution}{reverse-fatou-application}
+第一项不等式是 Fatou 引理，最后一项是对上界 \(g\) 使用反向 Fatou。
+中间不等式是任意扩充实数列均满足
+\(\liminf a_n\le\limsup a_n\)。所有积分有限，因为
+\(0\le f_n\le g\in L^1\)。
+\end{solution}
+
+\begin{solution}{dct-no-common-dominator}
+若有 \(g\in L^1\) 控制所有 \(f_n\)，则 \(f_n\to0\) 几乎处处和控制收敛
+定理推出 \(\int f_n\to0\)。但
+\(\int_0^1n\mathbf1_{(0,1/n)}\,dx=1\)，矛盾。
+\end{solution}
+
+\begin{solution}{series-integral-absolute}
+令 \(G=\sum_n|f_n|\)。非负逐项积分公式给出
+\(\int G=\sum_n\int|f_n|<\infty\)，故 \(G<\infty\) 几乎处处，
+\(\sum_nf_n\) 绝对收敛。部分和 \(S_N\) 满足 \(|S_N|\le G\)，控制收敛
+给出
+\[
+ \int\sum_nf_n=\lim_N\int S_N=\sum_n\int f_n.
+\]
+反例可取任意固定 \(h\in L^1\) 和
+\(h\ne0\)，令
+\[
+ f_n=\frac{(-1)^n}{n+1}h\qquad(n\ge0).
+\]
+交错调和级数的部分和有界并收敛到 \(\log2\)，故部分和函数由
+\(C|h|\in L^1\) 控制，并逐点收敛到 \((\log2)h\)。控制收敛定理给出
+\[
+ \int\sum_{n=0}^{\infty}f_n
+ =\sum_{n=0}^{\infty}\int f_n,
+\]
+而
+\(\sum_n\int|f_n|=\|h\|_1\sum_{n=0}^{\infty}(n+1)^{-1}=\infty\)。
+\end{solution}
+
+\begin{solution}{scheffe-lemma}
+因 \(f_n,f\ge0\)，有
+\[
+ |f_n-f|=f_n+f-2\min\{f_n,f\}.
+\]
+而 \(\min\{f_n,f\}\to f\) 几乎处处，并由 \(f\in L^1\) 控制。故控制
+收敛定理给出
+\(\int\min\{f_n,f\}\to\int f\)。结合
+\(\int f_n\to\int f\)，代入上式便得
+\(\int|f_n-f|\to0\)。
+\end{solution}
+
+\begin{solution}{three-convergence-theorems-map}
+单调收敛定理推出 Fatou 引理：对
+\(g_N=\inf_{n\ge N}f_n\uparrow\liminf_nf_n\) 使用单调收敛，再利用
+\(\int g_N\le\inf_{n\ge N}\int f_n\)。这里非负性保证所有积分都有定义。
+
+反过来，Fatou 引理也推出单调收敛定理。若
+\(0\le f_n\uparrow f\)，Fatou 给出
+\(\int f\le\liminf_n\int f_n\)，而积分的单调性给出
+\(\int f_n\le\int f\)，两式合并即得等号。Fatou 还推出控制收敛：对
+\(2g-|f_n-f|\ge0\) 使用 Fatou，便得到
+\(\int|f_n-f|\to0\)。可积函数 \(g\) 同时提供非负性和有限积分预算。
+
+一般的递增列可能满足 \(\int f_n=\infty\)，也可能不存在一个可积函数同时
+控制全部 \(f_n\)。因此控制收敛定理不能直接套用于一般单调收敛问题。在
+有限测度区域或已有可积截断控制时，可以先对截断列使用控制收敛，再解除
+截断；这些附加步骤正是在补足原问题中缺少的可积控制。
+\end{solution}

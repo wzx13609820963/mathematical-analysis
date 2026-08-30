@@ -1,210 +1,153 @@
-\chapter{网与滤子}
-\label{chap:nets-filters-solutions}
+\chapter{拓扑连通性}
+\label{chap:topological-connectedness-solutions}
 
-\begin{solution}{directed-finite-subsets}
-记 \(\mathcal D=\{F\subseteq S:F\text{ 有限}\}\)。包含关系自反、传递，
-而 \(F,G\) 的共同上界可取 \(F\cup G\)，故 \(\mathcal D\) 有向。
-
-若 \((F_n)_{n\in\N}\) 是可数子族，则
-\(T=\bigcup_{n\in\N}F_n\) 至多可数。若 \(S\) 不可数，可取
-\(s\in S\setminus T\)。有限集 \(\{s\}\) 不包含在任何 \(F_n\) 中，
-所以 \((F_n)\) 不共尾。因而 \(\mathcal D\) 没有可数共尾子集。
-\end{solution}
-
-\begin{solution}{net-eventual-frequent-negation}
-“\(P\) 不频繁成立”表示存在 \(i_0\)，使每个 \(i\succcurlyeq i_0\)
-都不满足 \(P\)，这正是“\(P\) 最终不成立”。取否命题便得所需等价。
-
-另一方面，“\(P\) 不最终成立”只说明对每个 \(i_0\) 都能在其后找到
-一个不满足 \(P\) 的指标，即“非 \(P\) 频繁成立”。它允许 \(P\) 本身也
-频繁成立。例如数列指标上令 \(P(n)\) 表示 \(n\) 为偶数，则 \(P\) 与
-非 \(P\) 都频繁成立，二者都不最终成立。
-\end{solution}
-
-\begin{solution}{subnet-preserves-limit}
-设 \(x_i\to x\)，\(y_j=x_{\phi(j)}\) 是子网。给定 \(x\) 的邻域
-\(U\)，存在 \(i_0\) 使 \(i\succcurlyeq i_0\) 时 \(x_i\in U\)。
-最终共尾性给出 \(j_0\)，使 \(j\succcurlyeq j_0\) 时
-\(\phi(j)\succcurlyeq i_0\)。因此这些 \(j\) 都满足
-\(y_j=x_{\phi(j)}\in U\)，故 \(y_j\to x\)。
-\end{solution}
-
-\begin{solution}{closure-neighborhood-net}
-设 \(x\in\overline A\)。令
+\begin{solution}{connected-clopen-functions}
+若 \(f:X\to\{0,1\}\) 连续且同时取两个值，则
 \[
- I=\{(U,a):U\text{ 是 }x\text{ 的邻域},\ a\in A\cap U\}.
+ f^{-1}(\{0\}),\qquad f^{-1}(\{1\})
 \]
-由于每个邻域与 \(A\) 相交，\(I\ne\varnothing\)。规定
-\((U,a)\preccurlyeq(V,b)\) 当且仅当 \(V\subseteq U\)。给定两个
-指标，\(U\cap V\) 仍是邻域；任取
-\(c\in A\cap U\cap V\)，则 \((U\cap V,c)\) 为共同上界。因此
-\(I\) 有向。网 \(a_{(U,a)}=a\) 始终在 \(A\) 中。给定邻域 \(W\)，
-从任意 \((W,c)\) 开始，所有后继指标的邻域坐标都包含在 \(W\) 中，
-相应网值也在 \(W\) 中，所以该网趋于 \(x\)。
-
-若反过来有 \(A\) 中的网趋于 \(x\)，则每个 \(x\) 的邻域都含有该网
-的某项，因而与 \(A\) 相交，故 \(x\in\overline A\)。
+是不相交非空开集并覆盖 \(X\)，构成分离。反之，若 \(X=U\cup V\) 是分离，令 \(f=0\) 于 \(U\)、\(f=1\) 于 \(V\)。两个单点的原像开，所以 \(f\) 连续且非常值。
 \end{solution}
 
-\begin{solution}{tail-filter-verification}
-记尾部 \(T_{i_0}=\{x_i:i\succcurlyeq i_0\}\)。每个尾部非空。给定
-\(i_0,j_0\)，取 \(k\succcurlyeq i_0,j_0\)，则
-\(T_k\subseteq T_{i_0}\cap T_{j_0}\)，所以尾部族是滤子基，生成尾滤子。
+\begin{solution}{connected-intersecting-family}
+固定 \(C_{i_0}\) 作为正文粘合定理中的 \(C\)。每个 \(C_i\) 与它相交，故并集连通。
 
-若 \(x_i\to x\)，则每个邻域 \(U\ni x\) 包含一个尾部，故
-\(U\in\mathcal F_x\)，即 \(\mathcal F_x\to x\)。反之，若尾滤子趋于
-\(x\)，则每个邻域 \(U\) 属于尾滤子，因而含某个 \(T_{i_0}\)；这正是
-\(x_i\to x\)。
+若“相邻”没有给指标集规定一条连接所有指标的链，命题没有确定含义。例如把指标分成两组，只在各组内部规定相邻，分别取两个不相交区间；每对相邻集合可以相交，而总并不连通。正确条件可以是：以指标为顶点、以 \(C_i\cap C_j\ne\varnothing\) 为边所得图连通。沿图中的有限路径反复粘合，即得总并连通。
 \end{solution}
 
-\begin{solution}{filter-base-canonical-net}
-令 \(I_{\mathcal B}=\{(B,x):B\in\mathcal B,x\in B\}\)，并规定
-\((B,x)\preccurlyeq(C,y)\) 当且仅当 \(C\subseteq B\)。给定
-\((B,x),(C,y)\)，由滤子基性质取 \(D\in\mathcal B\) 使
-\(D\subseteq B\cap C\)，再取 \(z\in D\)。则 \((D,z)\) 是共同
-上界，所以指标集有向。
-
-若 \(\langle\mathcal B\rangle\to a\)，给定邻域 \(U\ni a\)，存在
-\(B\in\mathcal B\) 使 \(B\subseteq U\)。从任意 \((B,x)\) 开始，
-后继 \((C,y)\) 满足 \(C\subseteq B\)，故网值 \(y\in U\)。规范网
-趋于 \(a\)。反之，若规范网趋于 \(a\)，给定邻域 \(U\)，存在
-\((B_0,x_0)\) 使其后网值全在 \(U\)。取滤子基中
-\(B_1\subseteq B_0\)。对每个 \(y\in B_1\)，指标 \((B_1,y)\) 都在
-\((B_0,x_0)\) 之后，故 \(y\in U\)。于是 \(B_1\subseteq U\)，从而
-\(U\in\langle\mathcal B\rangle\)。
-\end{solution}
-
-\begin{solution}{net-cluster-tail-closure}
-若 \(x\) 是聚点，给定 \(i_0\) 和邻域 \(U\ni x\)，可取
-\(i\succcurlyeq i_0\) 使 \(x_i\in U\)。因此 \(U\) 与尾部
-\(T_{i_0}\) 相交，故 \(x\in\overline{T_{i_0}}\)。这对每个
-\(i_0\) 成立。
-
-反之，若 \(x\) 属于所有尾部的闭包，则给定邻域 \(U\) 和 \(i_0\)，
-由 \(x\in\overline{T_{i_0}}\) 得 \(U\cap T_{i_0}\ne\varnothing\)。
-所以存在 \(i\succcurlyeq i_0\) 使 \(x_i\in U\)，即 \(x\) 是聚点。
-\end{solution}
-
-\begin{solution}{ultrafilter-cluster-converges}
-收敛总蕴含聚集。反过来，设 \(x\) 是超滤子 \(\mathcal U\) 的聚点。
-对任一邻域 \(V\ni x\)，若 \(V\notin\mathcal U\)，超滤子的二分性质
-给出 \(X\setminus V\in\mathcal U\)。但
-\((X\setminus V)\cap V=\varnothing\)，与聚点定义矛盾。故每个
-\(V\in\mathcal N(x)\) 都属于 \(\mathcal U\)，即
-\(\mathcal U\to x\)。
-\end{solution}
-
-\begin{solution}{continuous-filter-image}
-由 \(\{f(A):A\in\mathcal F\}\) 生成的滤子包含 \(B\subseteq Y\)，
-当且仅当存在 \(A\in\mathcal F\) 使 \(f(A)\subseteq B\)。这等价于
-存在 \(A\in\mathcal F\) 使 \(A\subseteq f^{-1}(B)\)。由滤子的向上
-封闭性，后者又等价于 \(f^{-1}(B)\in\mathcal F\)。因此两种定义给出
-同一滤子。
-\end{solution}
-
-\begin{solution}{compact-closed-subspace-filters}
-设 \(A\) 是紧致空间 \(X\) 的闭子空间，\(\mathcal F\) 是 \(A\) 上
-的滤子。把它提升为 \(X\) 上的滤子
+\begin{solution}{connected-subsets-real-line}
+设 \(E\subseteq\R\) 连通，且 \(a<b\) 属于 \(E\)。若存在 \(a<c<b\) 而 \(c\notin E\)，则
 \[
- \widetilde{\mathcal F}
- =\{B\subseteq X:B\cap A\in\mathcal F\}.
+ E\cap(-\infty,c),\qquad E\cap(c,\infty)
 \]
-紧致性给出聚点 \(x\in X\)。因为 \(A\in\widetilde{\mathcal F}\)，
-聚点必在 \(\overline A=A\) 中；把邻域取相对拓扑的形式即可看出 \(x\)
-也是原滤子在 \(A\) 中的聚点。因此 \(A\) 紧致。
+构成 \(E\) 的分离，矛盾。所以 \(E\) 含任意两点之间的全部点，即为区间。
 
-再设 \(K\) 是 Hausdorff 空间 \(X\) 的紧致子集，并取
-\(x\in\overline K\)。集合族
+反之，若区间 \(I\) 有分离 \(U,V\)，取 \(u\in U,v\in V\) 且不妨 \(u<v\)。令
 \[
- \mathcal B=\{U\cap K:U\in\mathcal N(x)\}
+ c=\sup(U\cap[u,v]).
 \]
-是 \(K\) 上的滤子基。紧致性使它生成的滤子有聚点 \(k\in K\)。若
-\(k\ne x\)，取不交邻域 \(V\ni x\)、\(W\ni k\)。基集
-\(V\cap K\) 与 \(W\) 不交，违背 \(k\) 的聚点性质。因此
-\(x=k\in K\)，故 \(K\) 闭。
+利用确界和 \(U,V\) 在 \(I\) 中均开，可分别排除 \(c\in U\) 与 \(c\in V\)，矛盾。端点是否属于集合以及无界情形不影响在任意两点间的论证。
 \end{solution}
 
-\begin{solution}{product-coordinate-net-convergence}
-若 \(x_i\to x\)，坐标投影 \(\pi_s:X\to X_s\) 连续，故
-\(x_i(s)=\pi_s(x_i)\to\pi_s(x)=x(s)\)。
-
-反之，设每个坐标网都收敛。\(x\) 的基本邻域可写成
+\begin{solution}{components-rational-line}
+若 \(\Q\) 的连通子集 \(C\) 含 \(p<q\)，取无理数 \(\alpha\in(p,q)\)。则
 \[
- U=\bigcap_{k=1}^n\pi_{s_k}^{-1}(U_k),
+ C\cap(-\infty,\alpha),\qquad C\cap(\alpha,\infty)
 \]
-其中 \(U_k\) 是 \(x(s_k)\) 的邻域。对每个 \(k\)，坐标收敛给出一个
-最终条件 \(x_i(s_k)\in U_k\)。有向性把有限多个最终条件合并，得到
-\(x_i\in U\) 最终成立。每个邻域都含一个基本邻域，故 \(x_i\to x\)。
+是 \(C\) 的分离，矛盾。因此每个连通子集至多一个点，连通分支为单点。另一方面，每个有理点的任意相对开邻域都含其他有理数，故单点不开。
 \end{solution}
 
-\begin{solution}{first-countable-sequential-closure}
-设 \(x\in\overline A\)，并取 \(x\) 的可数邻域基 \((V_n)\)。令
-\(U_n=V_0\cap\cdots\cap V_n\)，则 \((U_n)\) 递减且仍为邻域基。
-逐项取 \(a_n\in A\cap U_n\)。给定邻域 \(U\ni x\)，存在 \(m\) 使
-\(U_m\subseteq U\)，于是 \(n\ge m\) 时 \(a_n\in U_n\subseteq U\)，
-故 \(a_n\to x\)。若 \(A\) 对数列极限封闭，则 \(x\in A\)，所以
-\(A\) 闭。反向结论对任意空间都成立。
-
-若 \(f:X\to Y\) 保持数列极限而在 \(x\) 不连续，可取
-\(f(x)\) 的邻域 \(V\)，使每个 \(x\) 的邻域都含有一点不在
-\(f^{-1}(V)\) 中。对上述递减基逐项取
-\(x_n\in U_n\setminus f^{-1}(V)\)。则 \(x_n\to x\)，但
-\(f(x_n)\) 从不进入 \(V\)，矛盾。因此序列连续蕴含连续；另一方向
-由连续性直接得到。
+\begin{solution}{component-map}
+连通分支 \(C\) 连通，连续像 \(f(C)\) 连通，所以它包含在任取一点 \(f(x)\) 所属的最大连通集内。严格包含可以取常值映射：令 \(X\) 为两个离散点、\(Y=[0,1]\)，把两点都映到 \(0\)。每个 \(X\)-分支是单点，其像 \(\{0\}\) 严格包含在 \(Y\) 的连通分支 \([0,1]\) 中。
 \end{solution}
 
-\begin{solution}{finite-support-product-closure}
-乘积拓扑中 \(\boldsymbol1\) 的基本邻域只规定有限坐标
-\(F\subseteq S\) 上的值落在各自给定邻域。由于每个因子是离散的
-\(\{0,1\}\)，可缩小为要求这些坐标都等于 \(1\)。有限支集点
-\(\boldsymbol1_F\) 满足要求，故每个基本邻域与 \(A\) 相交，
-\(\boldsymbol1\in\overline A\)。
-
-以有限子集 \(F\) 按包含关系为指标，网 \(a_F=\boldsymbol1_F\) 在每个
-固定坐标 \(s\) 上最终等于 \(1\)：从指标 \(\{s\}\) 以后即可。由乘积
-空间的坐标判据，\(a_F\to\boldsymbol1\)。
-
-若 \((a_n)\subseteq A\)，令
-\(T=\bigcup_n\{s:a_n(s)=1\}\)。每个支集有限，故 \(T\) 至多可数。
-不可数性给出 \(s_0\in S\setminus T\)。于是所有 \(a_n(s_0)=0\)，
-而 \(\boldsymbol1(s_0)=1\)；坐标投影连续，所以该数列不可能收敛到
-\(\boldsymbol1\)。
-\end{solution}
-
-\begin{solution}{universal-subnet-ultrafilter}
-设原网的尾滤子为 \(\mathcal F_x\)，并取超滤子
-\(\mathcal U\supseteq\mathcal F_x\)。令 \(J\) 由三元组
+\begin{solution}{path-concatenation-continuity}
+若 \(\alpha(1)=\beta(0)\)，定义
 \[
- (i,A,k),\qquad i,k\in I,\quad A\in\mathcal U,\quad
- k\succcurlyeq i,\quad x_k\in A
+ \gamma(t)=
+ \begin{cases}
+  \alpha(2t),&0\le t\le1/2,\\
+  \beta(2t-1),&1/2\le t\le1.
+ \end{cases}
 \]
-组成。这样的三元组总存在，因为 \(A\) 与每个尾部的交属于
-\(\mathcal U\)，因而非空。规定
-\((i,A,k)\preccurlyeq(i',A',k')\) 当且仅当
-\(i\preccurlyeq i'\) 且 \(A'\subseteq A\)。给定两个指标，取
-\(i'\) 越过两个第一坐标，并在
-\(A_1\cap A_2\cap\{x_k:k\succcurlyeq i'\}\) 中取一项 \(x_{k'}\)，
-即可得到共同上界。因此 \(J\) 有向。
-
-令 \(\phi(i,A,k)=k\)。第一坐标保证 \(\phi\) 最终共尾，所以
-\((x_{\phi(j)})\) 是子网。对任意 \(B\subseteq X\)，超滤子二分性质
-给出 \(B\in\mathcal U\) 或 \(X\setminus B\in\mathcal U\)。若
-\(B\in\mathcal U\)，从任意第二坐标等于 \(B\) 的指标开始，后继指标
-的第二坐标包含于 \(B\)，其网值因而属于 \(B\)。补集情形相同。故该
-子网对每个集合都最终落在它或其补集中。
+两段分别在闭集 \([0,1/2]\)、\([1/2,1]\) 上连续，并在交点 \(1/2\) 取同值。有限闭集粘合引理给出 \(\gamma\) 连续。
 \end{solution}
 
-\begin{solution}{compact-map-closed}
-设 \(A\subseteq X\) 闭。由于 \(X\) 紧致，\(A\) 紧致；连续像
-\(f(A)\) 也紧致。Hausdorff 空间中的紧致子集闭，所以 \(f(A)\) 闭，
-即 \(f\) 为闭映射。
+\begin{solution}{path-components-open-criterion}
+若空间局部道路连通，任意开子集仍局部道路连通。给其中道路分支 \(P\) 和 \(x\in P\)，取包含 \(x\) 的道路连通开邻域 \(U\)；拼接道路得 \(U\subseteq P\)，故 \(P\) 开。
 
-也可直接用网验证最后一步：若 \(y_i\in f(A)\) 且 \(y_i\to y\)，取
-\(x_i\in A\) 使 \(f(x_i)=y_i\)。避免逐项选择时可把所有这样的
-\((i,x_i)\) 作为加细指标。紧致性给出收敛子网趋于某个 \(x\in A\)，
-连续性和 Hausdorff 极限唯一性给出 \(f(x)=y\)，故 \(y\in f(A)\)。
+反之，对任意开邻域 \(V\ni x\)，\(x\) 在 \(V\) 中的道路分支按假设是 \(X\) 中开集，且道路连通、包含 \(x\)、包含于 \(V\)。这些集合构成道路连通开邻域基。
+\end{solution}
 
-若 \(f\) 还是双射，则逆映射 \(f^{-1}:Y\to X\) 的开集原像为
-\(f(U)\)。由于 \(f\) 闭且双射，\(f(U)=Y\setminus f(X\setminus U)\)
-为开集，所以 \(f^{-1}\) 连续，\(f\) 是同胚。
+\begin{solution}{locally-connected-components-open}
+证明与道路版本相同。正向中，连通分支内每点有包含于该分支的连通开邻域，所以分支开；反向中，取点在给定开邻域内的连通分支，它按假设开，因而给出连通开邻域基。
+\end{solution}
+
+\begin{solution}{convex-star-path-connected}
+若 \(C\) 凸且 \(x,y\in C\)，则
+\[
+ \gamma(t)=(1-t)x+ty\qquad(0\le t\le1)
+\]
+连续且完全落在 \(C\) 中。若 \(C\) 关于 \(a\) 星形，则每点 \(x\) 都可沿线段连到 \(a\)；从 \(x\) 到 \(y\) 可先走到 \(a\)，再走到 \(y\)，故道路连通。
+\end{solution}
+
+\begin{solution}{deleted-plane-paths}
+在 \(n\ge2\) 时，给 \(x,y\ne0\)。若线段 \([x,y]\) 不过原点，直接使用线段。若过原点，选一个不与 \(x\) 共线的点 \(z\ne0\)；两条线段 \([x,z]\)、\([z,y]\) 都不过原点，拼接即可。\(\R\setminus\{0\}=(-\infty,0)\cup(0,\infty)\) 是两个不相交非空开闭部分；每部分是区间，故恰为两个连通分支。
+\end{solution}
+
+\begin{solution}{sine-curve-closure-detail}
+若 \((x_n,\sin(1/x_n))\) 在 \(\R^2\) 中收敛且 \(x_n\to x>0\)，极限由连续性仍在 \(G\) 中；若 \(x_n\to0\)，第二坐标极限必在 \([-1,1]\)，故极限落在竖直线段。反之，给 \(y\in[-1,1]\)，选 \(\theta\) 使 \(\sin\theta=y\)，令
+\[
+ x_n=(\theta+2\pi n)^{-1}
+\]
+（必要时从使分母为正的指标开始），便有 \((x_n,\sin(1/x_n))\to(0,y)\)。所以闭包恰为 \(S\)。
+
+在道路反证中，令
+\[
+ t_0=\max\{t:u(t)=0\},\qquad h(t)=\frac1{u(t)}
+ \quad(t_0<t\le1).
+\]
+于是 \(u(t)>0\) 于 \((t_0,1]\)，且连续性给出
+\(u(t)\to0\)、从而 \(h(t)\to+\infty\) 当 \(t\downarrow t_0\)。固定
+一个 \(t_1\in(t_0,1]\)。对充分大的 \(n\)，两个数
+\[
+ 2\pi n+\frac\pi2,\qquad 2\pi n+\frac{3\pi}2
+\]
+都大于 \(h(t_1)\)。由 \(h(t)\to+\infty\)，可在
+\((t_0,t_1)\) 中另取一点，使 \(h\) 的值大于上述两个数；介值定理便分别
+给出 \(s_n,r_n\in(t_0,t_1)\) 使 \(h\) 取到这两个值。
+
+最后证明这些时刻趋于 \(t_0\)。若例如 \((s_n)\) 有一个子列不趋于
+\(t_0\)，则存在 \(\delta>0\)，使该子列无限多项落在紧区间
+\([t_0+\delta,1]\) 中。连续函数 \(h\) 在此区间有界，这与
+\(h(s_n)=2\pi n+\pi/2\to\infty\) 矛盾。故 \(s_n\to t_0\)；对
+\((r_n)\) 同理。
+\end{solution}
+
+\begin{solution}{connected-product-finite}
+固定 \(y_0\in Y\)。每个水平纤维 \(X\times\{y\}\) 连通，每个竖直纤维 \(\{x\}\times Y\) 连通。集合
+\[
+ (X\times\{y_0\})\cup(\{x\}\times Y)
+\]
+对每个 \(x\) 都连通，并共同含水平纤维；它们的并为 \(X\times Y\)，故积连通。有限积由归纳得到。
+\end{solution}
+
+\begin{solution}{connected-product-dense-finite-support}
+给非空基本开集
+\[
+ U=\prod_iU_i,
+\]
+只有有限坐标集 \(F\) 上 \(U_i\ne X_i\)。在每个 \(i\in F\) 选
+\(x_i\in U_i\)，其余坐标取基点 \(a_i\)。所得点属于 \(U\cap X_F\)，所以 \(X_{\mathrm{fin}}\) 与每个非空基本开集相交，因而稠密。
+
+箱拓扑的基本开集可同时限制所有坐标；例如在 \(\R^\N\) 中
+\(\prod_n(1,2)\) 不含任何只在有限坐标偏离零基点的点。因此有限支集子空间不再稠密，闭包论证失效。
+\end{solution}
+
+\begin{solution}{quotient-interval-circle-connected}
+连续满射
+\[
+ [0,1]\to S^1,\qquad t\mapsto(\cos2\pi t,\sin2\pi t)
+\]
+把连通区间映成整个圆周，故 \(S^1\) 连通。有限多个圆周在公共点粘合后，各圆周的像仍连通并有公共点；由连通集粘合定理，总空间连通。
+\end{solution}
+
+\begin{solution}{open-quotient-local-path}
+给 \(y\in Y\) 的开邻域 \(V\)，取 \(x\in q^{-1}(y)\)。在开集
+\(q^{-1}(V)\) 中取含 \(x\) 的道路连通开邻域 \(U\)。连续像 \(q(U)\) 道路连通；\(q\) 开保证它在 \(Y\) 中开，且
+\(y\in q(U)\subseteq V\)。故这些像组成道路连通邻域基。
+
+非开商映射例：把 \(\R\) 的所有整数压成一点。商映射 \(q\) 按定义是商映射，但开集 \((-1/4,1/4)\) 的像不是开集，因为其原像是
+\((-1/4,1/4)\cup\Z\)，在非零整数处不开。
+\end{solution}
+
+\begin{solution}{continuous-image-components-not-surjective}
+取拓扑不交并
+\[
+ X=[0,1]\sqcup[2,3]
+\]
+并令 \(Y=[0,1]\)。在第一分支上定义 \(f(x)=x\)，在第二分支上定义
+\(f(x)=0\)。不交并拓扑使分段定义的 \(f\) 连续，第一分支的像已经是
+\(Y\)，故 \(f\) 满射。集合 \(C=[2,3]\) 是 \(X\) 的连通分支，而
+\(f(C)=\{0\}\) 严格包含在 \(Y\) 的唯一连通分支 \([0,1]\) 中。
 \end{solution}

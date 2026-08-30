@@ -1,7 +1,7 @@
 \chapter{紧致空间}
 \label{chap:compact-topological-spaces}
 
-在度量空间中，紧致性可以用开覆盖、收敛子列、完备性与全有界性等多种方式表达。一般拓扑空间没有距离，也未必能由数列检测闭包；开覆盖定义却仍然有效。它将导出紧集闭性、连续像紧致以及乘积紧致性，并支持一点紧化和 Stone--Čech 紧致化。
+在度量空间中，紧致性可以用开覆盖、收敛子列、完备性与全有界性等多种方式表达。一般拓扑空间没有距离，也未必能由数列检测闭包；开覆盖定义却仍然有效。它将导出紧集闭性、连续像紧致以及乘积紧致性。紧致化问题留到下一章，在那里把本章的乘积定理用到具体构造中。
 
 本章有一处必须明确的集合论依赖。任意多个紧空间的乘积仍紧这一结论需要选择原则；这里在全书约定的 ZFC 背景下使用 Zorn 引理。有限乘积和许多可数情形所需的选择强度较弱，不能由本章采用的证明自动看出最弱公理。
 
@@ -128,49 +128,6 @@
 \(X\times Y\)。有限积结论由归纳得到。
 \end{proof}
 
-\section{局部紧致与一点紧化}
-
-\begin{definition}[局部紧 Hausdorff 空间]
-Hausdorff 空间 \(X\) 称为局部紧致，如果每个点都有一个紧邻域。等价地，每个点 \(x\) 都有开邻域 \(U\)，使 \(\overline U\) 紧。
-\end{definition}
-
-若已有开邻域 \(U\) 且 \(\overline U\) 紧，则 \(\overline U\) 本身是紧邻域。反过来，若 \(N\) 是点 \(x\) 的紧邻域，取开集 \(x\in U\subseteq N\)；Hausdorff 性保证 \(N\) 闭，因而 \(\overline U\subseteq N\)，而 \(\overline U\) 是紧集 \(N\) 的闭子集。
-
-\begin{theorem}[一点紧化]
-\label{thm:one-point-compactification}
-设 \(X\) 为非紧的局部紧 Hausdorff 空间，取新点 \(\infty\notin X\)。在
-\[
- X^*=X\cup\{\infty\}
-\]
-上规定：\(X\) 中原有开集仍开；含 \(\infty\) 的开集恰为
-\[
- \{\infty\}\cup(X\setminus K),
-\]
-其中 \(K\subseteq X\) 紧。则 \(X^*\) 是紧 Hausdorff 空间，\(X\) 是其中的开稠密子空间。它在保持 \(X\) 不变的同胚意义下唯一。
-\end{theorem}
-
-\begin{proof}
-先验证拓扑。两个含 \(\infty\) 的基本邻域之交对应紧集之并。任意一族开集的并若不含 \(\infty\)，就是 \(X\) 中的开集；若含 \(\infty\)，先固定族中一个
-\(\{\infty\}\cup(X\setminus K_0)\)，则整个并在 \(X\) 中的补集是 \(K_0\) 的闭子集，因而紧。含 \(\infty\) 的邻域与 \(X\) 中开集作交仍是 \(X\) 中开集。故开集公理成立。
-
-若 \(x\in X\)，由局部紧性取开集 \(U\ni x\) 且 \(\overline U\) 紧。于是
-\[
- U,\qquad \{\infty\}\cup(X\setminus\overline U)
-\]
-是 \(x,\infty\) 的不相交邻域；\(X\) 内两点由原 Hausdorff 性分离。因此 \(X^*\) Hausdorff。
-
-给 \(X^*\) 的开覆盖，其中某个成员 \(W\) 含 \(\infty\)，并包含
-\(\{\infty\}\cup(X\setminus K)\) 形式的邻域。剩余未覆盖部分包含于紧集 \(K\)，可由有限多个覆盖成员覆盖；连同 \(W\) 得有限子覆盖。若 \(X\) 在 \(X^*\) 中不稠密，则 \(\{\infty\}\) 开，等价于 \(X\) 紧，与假设矛盾。
-
-若 \(Y=X\cup\{\omega\}\) 是另一个满足条件的紧 Hausdorff 空间，恒等映射在 \(X\) 上并把 \(\infty\) 送到 \(\omega\)，得到 \(X^*\to Y\) 的双射。对含 \(\omega\) 的邻域 \(W\)，其补集是 \(Y\) 的闭集，故紧；作为 \(X\) 的子集仍紧，所以原像在 \(X^*\) 中开。映射连续，再用紧空间到 Hausdorff 空间的连续双射定理得同胚。
-\end{proof}
-
-\begin{example}
-\(\R\) 的一点紧化同胚于圆周 \(S^1\)。立体投影给出
-\(S^1\setminus\{(0,1)\}\cong\R\)，补回的点对应 \(\infty\)。同理，
-\(\R^n\) 的一点紧化同胚于 \(n\) 维球面 \(S^n\)。
-\end{example}
-
 \section{Alexander 子基定理}
 
 \subsection{选择原则与极大有限交族}
@@ -272,76 +229,6 @@ Hausdorff 空间 \(X\) 称为局部紧致，如果每个点都有一个紧邻域
 \chapterref{chap:separation-metrization}的乘积分离性质。
 \end{proof}
 
-\section{Stone--Čech 紧致化}
-
-\begin{definition}[紧致化]
-Hausdorff 空间 \(X\) 的一个紧致化是二元组 \((K,j)\)，其中 \(K\) 为紧 Hausdorff 空间，\(j:X\to K\) 是到稠密子空间 \(j(X)\) 的同胚。
-\end{definition}
-
-一点紧化只适用于局部紧 Hausdorff 空间，并且只为所有“趋向无穷”的方向增加一个点。Stone--Čech 紧致化适用于每个完全正则 Hausdorff 空间；它由全体有界连续函数同时决定。
-
-\subsection{评价嵌入与紧目标延拓}
-
-\begin{theorem}[Stone--Čech 紧致化]
-\label{thm:stone-cech-compactification}
-设 \(X\) 为完全正则 Hausdorff 空间。存在紧致化
-\[
- j:X\longrightarrow\beta X
-\]
-满足如下泛性质：对任意紧 Hausdorff 空间 \(K\) 和连续映射 \(f:X\to K\)，存在唯一连续映射 \(\widetilde f:\beta X\to K\) 使
-\[
- \widetilde f\circ j=f.
-\]
-具有此性质的紧致化在保持 \(X\) 不变的同胚意义下唯一。
-\end{theorem}
-
-\begin{proof}
-令
-\[
- E=C(X,[0,1]),\qquad Q=[0,1]^E,
-\]
-并定义评价映射
-\[
- e:X\to Q,\qquad e(x)=(\varphi(x))_{\varphi\in E}.
-\]
-它按积拓扑的泛性质连续。若 \(x\ne y\)，完全正则性可用连续函数分离 \(x\) 与闭点集 \(\{y\}\)，故 \(e(x)\ne e(y)\)。若 \(U\ni x\) 开，再用完全正则性取
-\(\varphi(x)=0\)、\(\varphi|_{X\setminus U}=1\)，则
-\[
- x\in e^{-1}\!\left(\pi_\varphi^{-1}([0,1/2))\right)\subseteq U.
-\]
-所以 \(e\) 是拓扑嵌入。令
-\[
- \beta X=\overline{e(X)}^{\,Q}.
-\]
-由 Tychonoff 定理，\(Q\) 紧 Hausdorff；\(\beta X\) 是其闭子集，因而紧 Hausdorff，且 \(e(X)\) 在其中稠密。
-
-给定 \(f:X\to K\)，其中 \(K\) 紧 Hausdorff。定理
-\ref{thm:compact-hausdorff-normal} 和 Urysohn 引理说明 \(K\) 完全正则，所以其评价映射
-\[
- e_K:K\to[0,1]^{C(K,[0,1])}
-\]
-也是拓扑嵌入。对每个 \(h\in C(K,[0,1])\)，复合 \(h\circ f\) 属于 \(E\)，故坐标投影
-\[
- z\longmapsto z_{h\circ f}\qquad(z\in\beta X)
-\]
-是 \(h\circ f\) 从 \(e(X)\) 到 \(\beta X\) 的连续延拓。把这些坐标合在一起，得到连续映射
-\[
- G:\beta X\to[0,1]^{C(K,[0,1])},
-\]
-且 \(G\circ e=e_K\circ f\)。
-
-\(e_K(K)\) 是 Hausdorff 立方体中的紧集，故闭。闭集
-\(G^{-1}(e_K(K))\) 含稠密集 \(e(X)\)，所以等于 \(\beta X\)。因此
-\[
- \widetilde f=e_K^{-1}\circ G
-\]
-定义良好且连续，并满足所需等式。
-
-若两个连续映射 \(\beta X\to K\) 在稠密集 \(e(X)\) 上相等，因为 \(K\) Hausdorff，它们的等值集是闭集，故二者处处相等。唯一性得到。若 \((K_1,j_1)\)、\((K_2,j_2)\) 都有泛性质，先把同一底空间上的映射 \(j_2:X\to K_2\) 沿 \(j_1:X\to K_1\) 唯一延拓为 \(K_1\to K_2\)，再对 \(j_1\) 作对称构造。两个复合在各自的稠密像上是恒等，因唯一性处处为恒等，所以两紧致化同胚。
-\end{proof}
-
-取 \(K=[-M,M]\) 可知，每个有界实值连续函数都唯一延拓到 \(\beta X\)。反过来，正是这些函数决定了构造中的坐标。若 \(X\) 已紧 Hausdorff，则 \(e(X)\) 在立方体中紧而闭，所以 \(\beta X=e(X)\)，没有增加新点。
-
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
@@ -360,15 +247,8 @@ Hausdorff 空间 \(X\) 的一个紧致化是二元组 \((K,j)\)，其中 \(K\) �
  \(\{(x,f(x)):x\in X\}\) 是 \(X\times Y\) 的闭集。
 \end{enumerate}
 
-\subsection*{B组　局部紧致与乘积}
+\subsection*{B组　子基与乘积}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{local-compact-shrinking}
- 证明局部紧 Hausdorff 空间中，对每个 \(x\in U\)（\(U\) 开），存在开集 \(V\) 使
- \(x\in V\subseteq\overline V\subseteq U\)，且 \(\overline V\) 紧。
- \exerciseitem{one-point-neighborhoods}
- 本题在学完\chapterref{chap:nets-filters}后回做。证明一点紧化中，一个网趋于 \(\infty\) 当且仅当它最终离开 \(X\) 的每个紧子集。
- \exerciseitem{one-point-real-line-circle}
- 用显式公式构造 \(\R^*=\R\cup\{\infty\}\) 到 \(S^1\) 的同胚。
  \exerciseitem{alexander-closed-subbasis}
  把 Alexander 子基定理改写成闭子基形式：若闭子基中每个具有有限交性质的子族总交非空，则 \(X\) 紧。
  \exerciseitem{maximal-fip-prime}
@@ -378,21 +258,4 @@ Hausdorff 空间 \(X\) 的一个紧致化是二元组 \((K,j)\)，其中 \(K\) �
  \exerciseitem{product-closed-sets}
  若每个 \(F_i\subseteq X_i\) 非空闭且每个 \(X_i\) 紧，证明
  \(\prod_iF_i\) 是 \(\prod_iX_i\) 的非空紧闭子集，并指出非空性使用的选择。
-\end{enumerate}
-
-\subsection*{C组　紧致化}
-\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{compactification-locally-compact-open}
- 设 \(X\) 是紧 Hausdorff 空间 \(K\) 的稠密子空间。证明 \(X\) 在 \(K\) 中开，当且仅当 \(X\) 局部紧。
- \exerciseitem{stone-cech-bounded-extension}
- 由泛性质证明每个有界连续 \(u:X\to\R\) 唯一延拓为 \(\beta X\) 上的连续函数。
- \exerciseitem{stone-cech-discrete-sequences}
- 令 \(\N\) 带离散拓扑。证明每个有界数列 \((a_n)\) 都唯一决定 \(\beta\N\) 上的连续函数；说明这比在一点紧化上延拓严格更强。
- \exerciseitem{stone-cech-functoriality}
- 若 \(f:X\to Y\) 是完全正则 Hausdorff 空间之间的连续映射，证明存在唯一
- \(\beta f:\beta X\to\beta Y\) 延拓 \(f\)，并验证
- \(\beta(\operatorname{id})=\operatorname{id}\) 与
- \(\beta(g\circ f)=\beta g\circ\beta f\)。
- \optionalexerciseitem{compactification-universal-uniqueness}
- 不引用正文最后一段，完整证明满足 Stone--Čech 泛性质的两个紧致化之间存在唯一保持 \(X\) 不变的同胚。
 \end{enumerate}

@@ -1,277 +1,256 @@
-\chapter{拓扑连通性}
-\label{chap:topological-connectedness}
+\chapter{紧致化}
+\label{chap:compactifications}
 
-区间介值定理所使用的整体性质是：区间不能分成两个互不接触的非空开部分。把这一性质从实直线中抽出，便得到连通性。它由开闭集刻画，因而适用于一般拓扑空间；连续映射保持连通性，所以介值现象也随之推广。
+非紧空间常常可以嵌入一个紧空间，并在其中成为稠密子空间。这样做不是把
+原空间的拓扑改掉，而是在它的外部补入极限点，使原来可能“逃向无穷远”
+的网或滤子能够在较大的空间中聚集。补点的方法并不唯一；所需延拓性质
+不同，得到的紧致化也会不同。
 
-道路连通要求任意两点之间有一条连续曲线。欧氏空间中的许多常见集合使“连通”与“道路连通”看起来几乎相同，但一般子空间中二者会分开。本章给出这个差别的经典例子，并说明局部道路连通性怎样重新使两种分支一致。
+本章讨论两种互补的构造。一点紧化把所有离开紧集的方向归并为同一个点，
+其适用范围由局部紧致性决定。Stone--Čech 紧致化通常大得多，它同时延拓
+所有到紧 Hausdorff 空间的连续映射。后者的构造依赖
+\chapterref{chap:compact-topological-spaces}的 Tychonoff 定理。
 
-\section{闭开分离与连通分支}
+\section{局部紧致性}
 
-\begin{definition}[分离与连通]
-拓扑空间 \(X\) 的一个分离，是一对不相交非空开集 \(U,V\)，满足
-\[
- X=U\cup V.
-\]
-不存在分离的空间称为连通空间。子集 \(A\subseteq X\) 称为连通集，如果它带子空间拓扑时连通。
+\begin{definition}[局部紧 Hausdorff 空间]
+Hausdorff 空间 \(X\) 称为局部紧致，如果每个点都有一个紧邻域。
 \end{definition}
 
-在分离中，\(U=X\setminus V\)、\(V=X\setminus U\)，所以两部分同时开闭。于是 \(X\) 连通，当且仅当它的开闭子集只有 \(\varnothing\) 和 \(X\)。
+这里的“邻域”不要求自身开，只要求包含某个开邻域。对 Hausdorff 空间，
+定义可以写成更便于使用的形式。
 
-\begin{theorem}[连通集的粘合与闭包]
-\label{thm:connected-union-closure}
-\begin{enumerate}[label=\textup{(\roman*)}]
- \item 若连通子集族 \((C_i)_{i\in I}\) 有一个公共点，则其并集
- \(\bigcup_{i\in I}C_i\) 连通；
- \item 连通集 \(C\) 的闭包 \(\overline C\) 连通；
- \item 更一般地，若每个 \(C_i\) 都与一个固定连通集 \(C\) 相交，则
- \(C\cup\bigcup_iC_i\) 连通。
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-证明(iii)即可。反设并集 \(E\) 有分离 \(U,V\)。固定连通集 \(C\) 必完全落在其中一侧，不妨 \(C\subseteq U\)。每个 \(C_i\) 与 \(C\) 相交，故与 \(U\) 相交；由 \(C_i\) 连通，它不能同时与 \(V\) 相交，所以 \(C_i\subseteq U\)。于是 \(V\) 为空，矛盾。(i)是取 \(C\) 为公共单点的特例。
-
-对(ii)，若 \(\overline C=U\cup V\) 是分离，则 \(C\) 完全落在一侧，不妨 \(C\subseteq U\)。此时相对闭集 \(\overline C\setminus U=V\) 与 \(C\) 不交，但 \(C\) 在 \(\overline C\) 中稠密，故 \(V=\varnothing\)，矛盾。
-\end{proof}
-
-\begin{theorem}[递减紧连通集的交]
-\label{thm:nested-compact-connected-intersection}
-设 \(X\) 为 Hausdorff 空间，
+\begin{proposition}[相对紧邻域]
+\label{prop:locally-compact-shrinking}
+Hausdorff 空间 \(X\) 局部紧致，当且仅当每个 \(x\in X\) 都有开邻域
+\(U\)，使 \(\overline U\) 紧。进一步，若 \(X\) 局部紧致，\(x\in O\)
+且 \(O\) 开，则存在开集 \(V\) 使
 \[
- K_1\supseteq K_2\supseteq\cdots
+ x\in V\subseteq\overline V\subseteq O,
+ \qquad \overline V\text{ 紧}.
 \]
-是一列非空紧连通子集。则
-\[
- K=\bigcap_{n\in\Npos}K_n
-\]
-非空且连通。
-\end{theorem}
-
-\begin{proof}
-各 \(K_n\) 是紧集 \(K_1\) 中的闭集，并具有有限交性质，所以
-\(K\ne\varnothing\)。
-
-若 \(K\) 不连通，存在 \(K\) 中不相交非空开闭集 \(A,B\) 覆盖 \(K\)。
-它们作为紧 Hausdorff 空间 \(K\) 的闭子集是紧集，因而也是 \(X\) 中的闭集。紧 Hausdorff 空间 \(K_1\) 正规，所以可在 \(K_1\) 中取不相交开集 \(U,V\)，分别包含 \(A,B\)。
-
-若每个 \(K_n\) 都有点落在 \(K_1\setminus(U\cup V)\)，则闭集
-\[
- K_n\setminus(U\cup V)
-\]
-在 \(K_1\) 中非空、紧且递减；有限交性质会给出一点属于
-\(K\setminus(U\cup V)\)，与 \(K=A\cup B\subseteq U\cup V\) 矛盾。因此某个 \(K_N\subseteq U\cup V\)。另一方面，\(K_N\) 同时与
-\(A\subseteq U\) 和 \(B\subseteq V\) 相交，于是
-\[
- K_N=(K_N\cap U)\cup(K_N\cap V)
-\]
-是一个分离，违背 \(K_N\) 连通。
-\end{proof}
-
-\begin{definition}[连通分支]
-给定 \(x\in X\)，所有含 \(x\) 的连通子集之并称为 \(x\) 的连通分支，记为 \(C(x)\)。
-\end{definition}
-
-由粘合定理，\(C(x)\) 连通；它包含所有含 \(x\) 的连通集，所以是含 \(x\) 的最大连通子集。
-
-\begin{proposition}[连通分支的结构]
-\label{prop:connected-components}
-关系
-\[
- x\sim y\quad\Longleftrightarrow\quad
- \text{存在连通子集同时含 }x,y
-\]
-是等价关系，其等价类正是连通分支。每个连通分支闭，但不一定开。
 \end{proposition}
 
 \begin{proof}
-每个单点集连通，所以关系自反；把同一连通集中的两点交换次序，得到对称性。若 \(x,y\) 同属连通集 \(A\)，而 \(y,z\) 同属连通集 \(B\)，则 \(A\cap B\ne\varnothing\)，故 \(A\cup B\) 连通，得到 \(x\sim z\)。所以它是等价关系，等价类按定义是最大连通集。
-
-连通分支 \(C\) 的闭包仍连通，并含 \(C\)。由极大性 \(\overline C=C\)，故 \(C\) 闭。它未必开：\(\Q\) 的每个连通分支都是单点，而 \(\Q\) 没有孤立点。
-\end{proof}
-
-最后一句将在习题中证明。它提醒我们：一个空间可以由闭的连通分支分解，却不能把这些分支当作开块逐个研究。
-
-\section{道路分支与局部道路连通}
-
-\begin{definition}[道路与道路连通]
-从 \(x\) 到 \(y\) 的道路是连续映射
+若 \(\overline U\) 紧，则它显然是 \(x\) 的紧邻域。反过来，设紧集
+\(K\) 是 \(x\) 的邻域，取开集 \(x\in W\subseteq K\)。紧 Hausdorff
+空间 \(K\) 正规，故存在 \(K\) 中的相对开集 \(G\) 满足
 \[
- \gamma:[0,1]\to X,\qquad \gamma(0)=x,\quad\gamma(1)=y.
+ x\in G\subseteq\overline G^{\,K}\subseteq W.
 \]
-若任意两点之间都有道路，则称 \(X\) 道路连通。含一点 \(x\) 的最大道路连通子集称为 \(x\) 的道路分支。
-\end{definition}
+写 \(G=K\cap H\)，其中 \(H\) 在 \(X\) 中开。因为 \(W\subseteq K\)
+且 \(G\subseteq W\)，集合 \(U=H\cap W=G\) 在 \(X\) 中开，并且
+\[
+ \overline U^{\,X}=\overline G^{\,K}.
+\]
+右端是紧集 \(K\) 的闭子集，故 \(\overline U\) 紧。
 
-常值道路、反向参数化和分段重参数化分别给出道路关系的自反、对称与传递性，因此道路分支也是等价类。
-
-\begin{proposition}
-\label{prop:path-connected-implies-connected}
-道路连通空间连通。因而每个道路分支包含在某个连通分支中。
-\end{proposition}
-
-\begin{proof}
-若 \(X=U\cup V\) 是分离并取 \(x\in U,y\in V\)，从 \(x\) 到 \(y\) 的道路 \(\gamma\) 会把连通区间 \([0,1]\) 连续映到一个同时交 \(U,V\) 的连通集，矛盾。第二句由道路分支本身连通得到。
+再设 \(x\in O\) 且 \(O\) 开。由刚证结论取开集 \(U_0\ni x\)，使
+\(K_0=\overline{U_0}\) 紧。集合 \(O\cap U_0\) 是紧 Hausdorff 空间
+\(K_0\) 中含 \(x\) 的相对开集。仍由正规性，存在 \(K_0\) 中相对开集
+\(G\) 使
+\[
+ x\in G\subseteq\overline G^{\,K_0}\subseteq O\cap U_0.
+\]
+写 \(G=K_0\cap H\)，其中 \(H\) 在 \(X\) 中开，并令
+\(V=H\cap O\cap U_0\)。于是 \(V=G\)，且
+\[
+ \overline V^{\,X}=\overline G^{\,K_0}\subseteq O.
+\]
+该闭包是紧集 \(K_0\) 的闭子集，所需收缩性质得证。
 \end{proof}
 
-\begin{definition}[局部连通与局部道路连通]
-若每个点都有由连通开邻域组成的邻域基，则称空间局部连通。若每个点都有由道路连通开邻域组成的邻域基，则称空间局部道路连通。
-\end{definition}
+欧氏空间、离散空间以及有限维流形都是局部紧 Hausdorff 空间。无限维
+赋范空间一般不局部紧；这一点将在\chapterref{chap:continuous-function-space}
+中由闭单位球不紧得到。
 
-“每点有一个连通邻域”不足以构成局部连通；要求的是在任意给定邻域内还能缩小到连通开邻域。
+\section{一点紧化}
 
-\begin{theorem}[局部道路连通空间的分支]
-\label{thm:locally-path-connected-components}
-若 \(X\) 局部道路连通，则每个道路分支开，并且道路分支与连通分支相同。更一般地，\(X\) 局部道路连通，当且仅当 \(X\) 的每个开子集的道路分支都是开集。
+设 \(X\) 非紧，并取一个不属于 \(X\) 的点 \(\infty\)。若希望
+\(X^*=X\cup\{\infty\}\) 紧，那么 \(\infty\) 的邻域必须覆盖除某个
+紧部分以外的全部 \(X\)。这给出下面的构造。
+
+\begin{theorem}[一点紧化]
+\label{thm:one-point-compactification}
+设 \(X\) 为非紧的局部紧 Hausdorff 空间。在
+\(X^*=X\cup\{\infty\}\) 上规定：\(X\) 中原有开集仍开；含
+\(\infty\) 的开集恰为包含某个集合
+\[
+ \{\infty\}\cup(X\setminus K),
+ \qquad K\subseteq X\text{ 紧},
+\]
+的集合，其中它在 \(X\) 中的部分开。则 \(X^*\) 是紧 Hausdorff 空间，
+\(X\) 是其中的开稠密子空间。满足这些性质的一点紧化在保持 \(X\)
+不变的同胚意义下唯一。
 \end{theorem}
 
 \begin{proof}
-设 \(P\) 是 \(X\) 的道路分支，\(x\in P\)。取道路连通开邻域 \(U\ni x\)。\(U\) 中每一点可先沿 \(U\) 内道路到 \(x\)，再沿 \(P\) 中道路到固定基点，故 \(U\subseteq P\)。所以 \(P\) 开。道路分支把 \(X\) 分成互不相交开集。固定一个道路分支 \(P\)，它的补集是其余开道路分支的并，也开；所以 \(P\) 是开闭集。任一连通集若与 \(P\) 相交，就不能再与 \(X\setminus P\) 相交。因此每个连通分支只含一个道路分支，两者相同。
+先看基本邻域。两个含 \(\infty\) 的基本邻域之交对应两个紧集之并；含
+\(\infty\) 的基本邻域与 \(X\) 中开集相交，仍是 \(X\) 中开集。若一族
+开集的并含 \(\infty\)，固定其中一个基本邻域
+\(\{\infty\}\cup(X\setminus K_0)\)，则该并在 \(X\) 中的补集是
+\(K_0\) 的闭子集，因而紧。故这些集合确实定义一个拓扑。
 
-开子空间继承局部道路连通性，故正向对每个开子集成立。反之，给 \(x\in U\) 且 \(U\) 开；\(x\) 在 \(U\) 中的道路分支按假设开，是含 \(x\) 且包含于 \(U\) 的道路连通开邻域。这些分支构成所需邻域基。
+给 \(x\in X\)，由命题 \ref{prop:locally-compact-shrinking} 取开集
+\(U\ni x\)，使 \(\overline U\) 紧。于是
+\[
+ U,\qquad \{\infty\}\cup(X\setminus\overline U)
+\]
+是不相交的 \(x\) 与 \(\infty\) 的邻域；\(X\) 中两点仍由原来的
+Hausdorff 性分离。
+
+给 \(X^*\) 的开覆盖，取其中一个含 \(\infty\) 的成员。它包含
+\(\{\infty\}\cup(X\setminus K)\) 形式的基本邻域，尚未覆盖的部分
+包含于紧集 \(K\)，因而再取有限多个覆盖成员便覆盖全空间。若 \(X\)
+在 \(X^*\) 中不稠密，则单点集 \(\{\infty\}\) 开，于是 \(X\) 紧，
+与假设矛盾。
+
+最后设 \(Y=X\cup\{\omega\}\) 是另一个具有这些性质的紧 Hausdorff
+空间。恒等映射在 \(X\) 上并把 \(\infty\) 送到 \(\omega\)，得到
+\(X^*\to Y\) 的双射。若 \(W\) 是 \(\omega\) 的邻域，则可缩小它使
+\(W\) 开；此时 \(Y\setminus W\) 是紧集，相应原像是 \(X^*\) 中
+\(\infty\) 的邻域。
+故该双射连续。紧空间到 Hausdorff 空间的连续双射是同胚。
 \end{proof}
 
-把“道路”删去，同一证明给出：空间局部连通，当且仅当每个开子集的连通分支开。局部道路连通蕴含局部连通，逆命题一般不成立。
+\begin{example}
+立体投影给出
+\[
+ S^n\setminus\{N\}\cong\R^n,
+\]
+其中 \(N\) 是北极。因此 \(\R^n\) 的一点紧化同胚于 \(S^n\)。在
+\(n=1\) 时，实直线两端的“无穷远”在紧化中补成圆周上的同一个点；
+这和扩充实直线中彼此不同的 \(+\infty\)、\(-\infty\) 不是同一构造。
+\end{example}
 
-\section{连通但非道路连通的空间}
+一点紧化也刻画了适当映射。连续映射 \(f:X\to Y\) 称为适当的，如果
+每个紧集的原像紧。对非紧局部紧 Hausdorff 空间，\(f\) 适当恰好保证
+规定 \(f^*(\infty_X)=\infty_Y\) 后得到连续映射 \(X^*\to Y^*\)。
+这一事实把“离开每个紧集的点列或网仍被送到无穷远”写成拓扑命题。
 
-\subsection{正弦曲线的闭包与道路分支}
+\section{紧致化及其比较}
 
+\begin{definition}[紧致化]
+Hausdorff 空间 \(X\) 的一个紧致化是二元组 \((K,j)\)，其中 \(K\) 为紧
+Hausdorff 空间，\(j:X\to K\) 是到稠密子空间 \(j(X)\) 的同胚。
+通常把 \(X\) 与 \(j(X)\) 识别，并把 \(K\setminus X\) 称为余集。
+\end{definition}
+
+一点紧化的余集只有一个点。另一端是希望尽可能多地延拓连续映射：若每个
+从 \(X\) 到任意紧 Hausdorff 空间的连续映射都能延拓，则这个要求会唯一
+决定一个最大的紧致化。
+
+\section{Stone--Čech 紧致化}
+
+\begin{theorem}[Stone--Čech 紧致化]
+\label{thm:stone-cech-compactification}
+设 \(X\) 为完全正则 Hausdorff 空间。存在紧致化
+\[
+ j:X\longrightarrow\beta X
+\]
+满足如下泛性质：对任意紧 Hausdorff 空间 \(K\) 和连续映射
+\(f:X\to K\)，存在唯一连续映射
+\(\widetilde f:\beta X\to K\) 使
+\[
+ \widetilde f\circ j=f.
+\]
+具有此性质的紧致化在保持 \(X\) 不变的同胚意义下唯一。
+\end{theorem}
+
+\begin{proof}
 令
 \[
- G=\{(x,\sin(1/x)):0<x\le1\}\subseteq\R^2,
-\qquad
- S=G\cup(\{0\}\times[-1,1]).
+ E=C(X,[0,1]),\qquad Q=[0,1]^E,
 \]
-集合 \(S\) 称为拓扑学家的正弦曲线。
-
-\begin{theorem}[拓扑学家的正弦曲线]
-\label{thm:topologists-sine-curve}
-集合 \(S\) 连通但不道路连通。它恰有两个道路分支：曲线 \(G\) 与竖直线段 \(\{0\}\times[-1,1]\)。
-\end{theorem}
-
-\begin{proof}
-\theoremref{thm:topologists-sine-curve-not-path-connected}已经在度量空间中
-证明 \(S=\overline G\) 连通，并利用振荡序列排除了从竖直线段到 \(G\) 的
-道路。那里还证明了 \(G\) 与竖直线段各自道路连通，故它们恰为两个道路分支。
-\end{proof}
-
-由于 \(S=\overline G\) 且 \(S\) 在 \(\R^2\) 中闭、有界，它还是一个紧致
-连通空间。曲线 \(G\) 是道路分支，却不是 \(S\) 中的闭集，因为它的闭包为
-整个 \(S\)。这与连通分支形成对照：连通分支总是闭的，道路分支则未必闭。
-因此，把空间按道路分支取商时，所得商空间甚至可能不是 \(T_1\) 空间；本例中
-对应于 \(G\) 的单点原像不是闭集。这个现象来自竖直线段附近无穷多次积聚，
-而不是由任一局部距离估计造成。
-
-\section{连续像、商空间与局部连通性}
-
-\subsection{连续像与商空间}
-
-\begin{theorem}[连续像保持连通]
-\label{thm:continuous-image-connected}
-若 \(X\) 连通、\(f:X\to Y\) 连续，则 \(f(X)\) 连通。
-\end{theorem}
-
-\begin{proof}
-若 \(f(X)\) 有分离 \(U,V\)，则 \(f^{-1}(U),f^{-1}(V)\) 是 \(X\) 的不相交非空相对开集，并覆盖 \(X\)，矛盾。
-\end{proof}
-
-当 \(Y=\R\) 时，连通子集恰为区间，因而上一定理包含介值定理：连通空间上的连续实值函数，其值域是区间。它没有使用定义域中的距离或次序。
-
-\begin{corollary}[商映射与连通性]
-\label{cor:quotient-connected}
-连通空间的任意商空间连通。更一般地，若 \(q:X\to Y\) 连续且满射，则 \(X\) 连通蕴含 \(Y\) 连通。
-\end{corollary}
-
-\begin{proof}
-\(Y=q(X)\)，直接应用连续像定理。
-\end{proof}
-
-\subsection{任意乘积}
-
-\begin{theorem}[乘积连通性]
-\label{thm:product-connected}
-任意一族非空连通空间的积在积拓扑下连通。
-\end{theorem}
-
-\begin{proof}
-选定基点 \(a=(a_i)\in\prod_iX_i\)。对有限集 \(F\subseteq I\)，令
+并定义评价映射
 \[
- X_F=\{x:x_i=a_i\text{ 对所有 }i\notin F\}.
+ e:X\to Q,\qquad e(x)=(\varphi(x))_{\varphi\in E}.
 \]
-\(X_F\) 同胚于有限多个连通空间之积。先看两个因子：固定
-\(y_0\in Y\)，水平集 \(X\times\{y_0\}\) 连通；对每个 \(x\in X\)，
-竖直集 \(\{x\}\times Y\) 连通并与该水平集相交。把这些集合粘合便得到
-\(X\times Y\) 连通，有限积再由归纳得到。因此每个 \(X_F\) 连通。
-所有 \(X_F\) 都含 \(a\)，所以
+它按积拓扑的定义连续。若 \(x\ne y\)，完全正则性给出连续函数分离
+\(x\) 与闭点集 \(\{y\}\)，故 \(e(x)\ne e(y)\)。若 \(U\ni x\) 开，
+再取 \(\varphi(x)=0\)、\(\varphi|_{X\setminus U}=1\)，则
 \[
- X_{\mathrm{fin}}=\bigcup_{F\subseteq I,\ F\text{ 有限}}X_F
+ x\in e^{-1}\!\left(\pi_\varphi^{-1}([0,1/2))\right)\subseteq U.
 \]
-连通。
+所以 \(e\) 是拓扑嵌入。令
+\[
+ \beta X=\overline{e(X)}^{\,Q}.
+\]
+由 Tychonoff 定理，\(Q\) 紧 Hausdorff；因而 \(\beta X\) 紧
+Hausdorff，且 \(e(X)\) 在其中稠密。
 
-\(X_{\mathrm{fin}}\) 在积空间中稠密，因为任一基本开集只限制有限多个坐标，可在这些坐标内选点，其余坐标取 \(a_i\)。故整个积是连通集 \(X_{\mathrm{fin}}\) 的闭包，因而连通。选取基点使用了从各非空因子同时选点的选择原则。
+给定连续映射 \(f:X\to K\)，其中 \(K\) 紧 Hausdorff。紧 Hausdorff
+空间完全正则，所以评价映射
+\[
+ e_K:K\to[0,1]^{C(K,[0,1])}
+\]
+是拓扑嵌入。对每个 \(h\in C(K,[0,1])\)，复合 \(h\circ f\) 属于
+\(E\)，故坐标函数 \(z\mapsto z_{h\circ f}\) 是 \(h\circ f\) 从
+\(e(X)\) 到 \(\beta X\) 的连续延拓。把这些坐标合在一起，得到连续映射
+\[
+ G:\beta X\to[0,1]^{C(K,[0,1])},
+ \qquad G\circ e=e_K\circ f.
+\]
+集合 \(e_K(K)\) 是 Hausdorff 立方体中的紧集，故闭；闭集
+\(G^{-1}(e_K(K))\) 含稠密集 \(e(X)\)，所以等于 \(\beta X\)。于是
+\[
+ \widetilde f=e_K^{-1}\circ G
+\]
+定义良好且连续。
+
+若两个延拓在 \(e(X)\) 上相等，它们的等值集因 \(K\) Hausdorff 而闭，
+又含稠密集，故二者处处相等。若 \((K_1,j_1)\)、\((K_2,j_2)\) 都有
+上述泛性质，分别延拓 \(j_2\) 与 \(j_1\) 得到 \(K_1\to K_2\) 和
+\(K_2\to K_1\)。两个复合在相应稠密像上为恒等，由唯一性知处处为恒等，
+所以两紧致化同胚。
 \end{proof}
 
-\subsection{局部连通性的保持}
-
-局部连通性在连续像下不能无条件保持；开映射提供了一个常用充分条件。
-
-\begin{proposition}[开映射保持局部连通]
-\label{prop:open-map-local-connectedness}
-设 \(q:X\to Y\) 连续、满射且为开映射。若 \(X\) 局部连通（或局部道路连通），则 \(Y\) 也具有相应性质。
-\end{proposition}
-
-\begin{proof}
-给 \(y\in Y\) 的开邻域 \(V\)，取 \(x\in q^{-1}(y)\)。原像
-\(q^{-1}(V)\) 开；在其中取含 \(x\) 的连通开邻域 \(U\)（或道路连通开邻域）。则 \(q(U)\) 连通（或道路连通），又因 \(q\) 开而是 \(y\) 的开邻域，并包含于 \(V\)。
-\end{proof}
-
-商映射不一定开，所以商空间虽自动保持整体连通性，却未必保持局部连通性。使用识别构造空间时，应分别检查商映射的连续性、满射性和开映射性质。
+每个有界实值连续函数都唯一延拓到 \(\beta X\)：只需把值域限制在某个
+紧区间。若 \(X\) 已经紧 Hausdorff，则评价像本身在立方体中闭，因而
+\(\beta X=e(X)\)，构造不增加新点。对无限离散空间，\(\beta X\) 通常
+远大于一点紧化；这反映了“合并所有无穷方向”和“保存全部有界连续函数”
+是两个不同要求。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\subsection*{A组　连通集与分支}
+\subsection*{A组　局部紧致与一点紧化}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
- \exerciseitem{connected-clopen-functions}
- 证明 \(X\) 连通，当且仅当每个连续映射 \(f:X\to\{0,1\}\)（目标带离散拓扑）都是常值。
- \exerciseitem{connected-intersecting-family}
- 设 \((C_i)\) 均连通，并且存在 \(i_0\) 使每个 \(C_i\cap C_{i_0}\ne\varnothing\)。证明 \(\bigcup_iC_i\) 连通；再给出“只要求任意相邻两个相交”但并集不连通的错误表述，并说明需要怎样组织指标才正确。
- \exerciseitem{connected-subsets-real-line}
- 证明 \(\R\) 的非空连通子集恰好是各种区间，包括单点、开闭半开区间和无界区间。
- \exerciseitem{components-rational-line}
- 证明 \(\Q\) 的每个连通分支都是单点，但单点在 \(\Q\) 中不开。
- \exerciseitem{component-map}
- 若 \(f:X\to Y\) 连续，证明每个连通分支的像包含在 \(Y\) 的某个连通分支中。说明一般不能把“包含”改成“等于”。
+ \exerciseitem{local-compact-shrinking}
+ 不引用命题 \ref{prop:locally-compact-shrinking} 的最后一句，重新证明局部紧
+ Hausdorff 空间中的邻域收缩性质。
+ \exerciseitem{locally-compact-open-subspace}
+ 证明局部紧 Hausdorff 空间的每个开子空间仍局部紧；说明闭子空间的情形。
+ \exerciseitem{one-point-neighborhoods}
+ 本题在学完\chapterref{chap:nets-filters}后回做。证明一点紧化中，一个取值
+ 于 \(X\) 的网趋于 \(\infty\)，当且仅当它最终离开 \(X\) 的每个紧子集。
+ \exerciseitem{one-point-real-line-circle}
+ 用显式公式构造 \(\R^*=\R\cup\{\infty\}\) 到 \(S^1\) 的同胚。
+ \exerciseitem{one-point-proper-extension}
+ 设 \(X,Y\) 是非紧局部紧 Hausdorff 空间，\(f:X\to Y\) 连续。证明规定
+ \(f^*(\infty_X)=\infty_Y\) 后，\(f^*:X^*\to Y^*\) 连续，当且仅当
+ \(f\) 适当。
 \end{enumerate}
 
-\subsection*{B组　道路与局部性质}
+\subsection*{B组　紧致化}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{path-concatenation-continuity}
- 写出两条首尾相接道路的拼接公式，并用粘合引理证明其连续性。
- \exerciseitem{path-components-open-criterion}
- 证明空间局部道路连通，当且仅当每个开子集的道路分支都开。
- \exerciseitem{locally-connected-components-open}
- 证明空间局部连通，当且仅当每个开子集的连通分支都开。
- \exerciseitem{convex-star-path-connected}
- 证明赋范线性空间中的凸集道路连通；更一般地，证明星形集道路连通。
- \exerciseitem{deleted-plane-paths}
- 证明 \(\R^n\setminus\{0\}\) 在 \(n\ge2\) 时道路连通，而 \(\R\setminus\{0\}\) 有两个连通分支。
- \exerciseitem{sine-curve-closure-detail}
- 逐项证明拓扑学家的正弦曲线 \(S\) 恰为 \(G\) 的闭包。再沿用
- \theoremref{thm:topologists-sine-curve-not-path-connected} 中的
- \(u,h,t_0\) 记号，说明时刻 \(s_n,r_n\) 为什么可以选取，以及为什么
- \(s_n,r_n\to t_0\)。
-\end{enumerate}
-
-\subsection*{C组　构造与保持性}
-\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{connected-product-finite}
- 不使用正文的任意乘积定理，先证明两个连通空间的积连通，再归纳到有限积。
- \exerciseitem{connected-product-dense-finite-support}
- 补足任意乘积证明中 \(X_{\mathrm{fin}}\) 稠密的基论证，并说明箱拓扑下为什么同一证明失效。
- \exerciseitem{quotient-interval-circle-connected}
- 由商映射证明圆周 \(S^1\) 连通，并证明有限多个圆周在一点粘合所得空间连通。
- \exerciseitem{open-quotient-local-path}
- 若 \(q:X\to Y\) 是开商映射且 \(X\) 局部道路连通，证明 \(Y\) 局部道路连通。构造一个商映射不是开映射的简单例子。
- \optionalexerciseitem{continuous-image-components-not-surjective}
- 构造连续满射 \(f:X\to Y\) 和 \(X\) 的一个连通分支 \(C\)，使 \(f(C)\) 严格包含于 \(Y\) 中的某个连通分支。
+ \exerciseitem{compactification-locally-compact-open}
+ 设 \(X\) 是紧 Hausdorff 空间 \(K\) 的稠密子空间。证明 \(X\) 在 \(K\)
+ 中开，当且仅当 \(X\) 局部紧。
+ \exerciseitem{stone-cech-bounded-extension}
+ 由泛性质证明每个有界连续 \(u:X\to\R\) 唯一延拓为 \(\beta X\) 上的
+ 连续函数。
+ \exerciseitem{stone-cech-compact-fixed}
+ 不使用评价像的具体构造，只由泛性质证明：若 \(X\) 紧 Hausdorff，则
+ \(X\to\beta X\) 是满射。
+ \exerciseitem{stone-cech-discrete-sequences}
+ 令 \(\N\) 带离散拓扑。证明每个有界数列 \( (a_n) \) 都唯一决定
+ \(\beta\N\) 上的连续函数；说明这比在一点紧化上延拓严格更强。
+ \exerciseitem{stone-cech-functoriality}
+ 若 \(f:X\to Y\) 是完全正则 Hausdorff 空间之间的连续映射，证明存在唯一
+ \(\beta f:\beta X\to\beta Y\) 延拓 \(f\)，并验证恒等映射与复合映射
+ 的相容性。
+ \optionalexerciseitem{compactification-universal-uniqueness}
+ 不引用正文唯一性证明，完整证明满足 Stone--Čech 泛性质的两个紧致化之间
+ 存在唯一保持 \(X\) 不变的同胚。
 \end{enumerate}

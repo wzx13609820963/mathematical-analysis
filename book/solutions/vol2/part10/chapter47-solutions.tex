@@ -70,114 +70,58 @@ $m(E\cup F)=m(E)+m(F)-m(E\cap F)$。若各集合内部两两不交，交集包�
 Jordan 零测集的并仍为 Jordan 零测集。
 \end{solution}
 
-\begin{solution}{fubini-uniform-section-proof}
-设 $f$ 在 $Q=[a,b]\times[c,d]$ 上连续。给定 $\varepsilon>0$，由一致连续性
-取 $y$ 方向分割 $P_y$，使每个小区间内
+\begin{solution}{multiple-darboux-cauchy}
+设 \(f\) 有界。若存在分割 \(P\) 使
+\(U(f,P)-L(f,P)<\varepsilon\)，则任意加细分割上的两个标记和都夹在
+\(L(f,P)\) 与 \(U(f,P)\) 之间，因而相差小于 \(\varepsilon\)。任意两个
+网径充分小的分割取公共加细，并把因端点不一致产生的小矩形先用有界性控制，
+即可得到标记和的 Cauchy 判据。
+
+反之，若所有充分细标记和两两相差小于 \(\varepsilon\)，固定一个充分细
+分割。在每个小矩形中分别选取使函数值距上确界、下确界任意近的点；相应
+两个标记和之差任意接近 \(U(f,P)-L(f,P)\)。故该差不超过
+\(\varepsilon\)。令 \(\varepsilon\downarrow0\)，得到 Darboux 判据。
+\end{solution}
+
+\begin{solution}{jordan-set-algebra}
+对任意集合 \(E,F\)，有
 \[
- |f(x,y)-f(x,y')|<\frac{\varepsilon}{2(d-c)}
- \quad\text{对所有 }x\in[a,b]
+ \partial(E\cup F),\ \partial(E\cap F),\ \partial(E\setminus F)
+ \subseteq\partial E\cup\partial F.
 \]
-成立。于是任取样点 $\eta_j$，内层和满足一致估计
+例如，若一点既不在 \(\partial E\) 也不在 \(\partial F\)，则它有一个
+邻域，在其中对 \(E\)、\(F\) 的成员关系分别恒定；并、交、差的成员关系也
+恒定，所以该点不在相应边界。若 \(E,F\) Jordan 可测，则右端是有限个
+Jordan 零测集之并，仍为 Jordan 零测集。集合判据于是说明三种集合运算的
+结果都 Jordan 可测。
+\end{solution}
+
+\begin{solution}{jordan-product-volume}
+集合恒等式
 \[
- \left|\sum_j f(x,\eta_j)\Delta y_j-
-       \int_c^d f(x,y)\,dy\right|<\varepsilon/2
- \quad(x\in[a,b]).
+ \partial(E\times F)
+ \subseteq(\partial E\times\overline F)
+       \cup(\overline E\times\partial F)
 \]
-再对 $x$ 作 Riemann 求和，误差至多 $(b-a)\varepsilon/2$（开始时可相应
-缩放 $\varepsilon$）。二维乘积和与外层积分的和因而有同一极限，这便给出
-Fubini 等式；关键是误差对 $x$ 一致。
-\end{solution}
+成立。把 \(\partial E\)、\(\partial F\) 分别用总体积任意小的有限矩形
+覆盖，再用包住 \(E,F\) 的固定矩形控制另一因子，便知右端是
+\(\R^{p+q}\) 中的 Jordan 零测集。因此 \(E\times F\) Jordan 可测。
 
-\begin{solution}{triangle-iterated-integral}
-令
-$D=\{(x,y):a\le x\le b,\ \alpha(x)\le y\le\beta(x)\}$，其中边界函数连续。
-其边界由有限条连续图线组成，因而为 Jordan 零测集，$D$ Jordan 可测。
-把 $f\mathbf1_D$ 延为包围矩形上的函数。它只可能在 $\partial D$ 或 $f$ 的
-不连续点处不连续；连续 $f$ 情形下故可积。对每个 $x$，截面函数的积分是
+指标函数分解为
+\(\mathbf1_{E\times F}(x,y)=\mathbf1_E(x)\mathbf1_F(y)\)。对乘积分割，
+相应 Riemann 和分解成两个因子。令网径趋于零得到
 \[
- \int_c^d f(x,y)\mathbf1_D(x,y)\,dy
- =\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy.
+ |E\times F|=|E|\,|F|.
 \]
-该截面积分连续（可由 $f$ 的一致连续性和端点连续性证明），应用矩形上的
-Fubini 定理即得所求公式。
 \end{solution}
 
-\begin{solution}{polar-coordinate-disk}
-在 $0<r<1$、$0<\theta<2\pi$ 上，极坐标 Jacobian 为 $r$，故
-\[
- \int_{x^2+y^2\le1}(x^2+y^2)\,dx\,dy
- =\int_0^{2\pi}\int_0^1 r^2 r\,dr\,d\theta
- =\frac\pi2.
-\]
-原点对应整条 $r=0$，正半轴切口对应 $\theta=0,2\pi$；它们都是 Jordan
-零测集，删去或补回均不改变积分。变量代换先在
-$\rho\le r\le1$、$\eta\le\theta\le2\pi-\eta$ 上应用，再令
-$\rho,\eta\downarrow0$，即可避免退化和非单射点。
-\end{solution}
+\begin{solution}{jordan-continuous-domain}
+设 \(Q\) 包含 \(E\)，并把 \(f\in C(\overline E)\) 连续延拓为
+\(F\in C(Q)\)。函数 \(F\mathbf1_E\) 只可能在 \(\partial E\) 上不连续，
+所以由振幅判据可积。
 
-\begin{solution}{linear-change-volume}
-先对长方体和对角矩阵成立，比例为各轴伸缩率绝对值之积。初等剪切保持
-平行截面的底和高，故保持体积；置换和反射只改变定向，不改变体积。任意
-可逆矩阵可分解为初等矩阵，所得比例正是 $|\det A|$。对 Jordan 可测集
-$E$，用有限个矩形从内外逼近。线性像是平行多面体，可再由矩形网格内外
-逼近，其边界像仍为零测集。令逼近误差趋零，得到
-$m(AE)=|\det A|m(E)$。
-\end{solution}
-
-\begin{solution}{change-variable-orientation-absolute}
-取 $T(u,v)=(-u,v)$。它把单位正方形映为面积仍为 $1$ 的正方形，而
-$\det DT=-1$。若公式使用 $\det DT$ 而不用绝对值，常函数 $1$ 的积分会变成
-$-1$，与面积非负矛盾。行列式符号记录定向，Riemann 体积只记录无向体积，
-故必须使用 $|\det DT|$。
-\end{solution}
-
-\begin{solution}{spherical-coordinate-jacobian}
-取
-$\Phi(r,\varphi,\theta)=(r\sin\varphi\cos\theta,
-r\sin\varphi\sin\theta,r\cos\varphi)$。直接计算三个偏导列向量的混合积得
-\[
- \det D\Phi=r^2\sin\varphi.
-\]
-在 $r=0$ 和 $\varphi=0,\pi$ 处退化；$\theta=0$ 与 $2\pi$ 表示同一半平面，
-故闭参数盒上也非单射。应先在
-$r>0,0<\varphi<\pi,0<\theta<2\pi$ 的适当开子区域应用公式，再利用这些
-退化集及切口的零体积补回边界。
-\end{solution}
-
-\begin{solution}{riemann-section-nonintegrable}
-在 $[-1,1]^2$ 上令
-\[
- f(x,y)=\begin{cases}\mathbf1_{\Q}(y),&x=0,\\0,&x\ne0.\end{cases}
-\]
-它的不连续点至多落在竖线 $x=0$ 上；该线是 Jordan 零测集，因此振幅判据
-给出 $f$ Riemann 可积且积分为零。但 $x=0$ 的截面是 Dirichlet 函数
-$\mathbf1_{\Q}$，在任何区间上都不可 Riemann 积。这说明多重可积不能保证
-每一条截面可积。
-\end{solution}
-
-\begin{solution}{piecewise-diffeomorphism-multiplicity}
-在参数域 $(0,1)\times(0,4\pi)$ 中，除切口外圆盘内每个非零点恰有两个原像，
-分别相差 $2\pi$。故对非负连续 $g$，把角区间分成两个周期并分别变量代换，
-\[
- \int_0^{4\pi}\int_0^1g(r\cos\theta,r\sin\theta)r\,dr\,d\theta
- =2\int_{B(0,1)}g(x,y)\,dx\,dy.
-\]
-原点和切口为零测集，不影响等式。这正是重数函数几乎处处等于 $2$ 的情形。
-\end{solution}
-
-\begin{solution}{jacobian-zero-no-local-inverse}
-一维映射 $f(x)=x^3$ 在全实轴严格单射，但 $f'(0)=0$。其逆函数
-$y\mapsto y^{1/3}$ 在零点不具有限导数，因而不是 $C^1$ 局部微分同胚。
-所以 Jacobian 为零不排除集合意义上的单射，却使逆函数定理的线性可逆
-假设失败，也不能保证光滑逆映射。
-\end{solution}
-
-\begin{solution}{riemann-change-variables-boundary-audit}
-紧致性把局部线性近似和 Jacobian 连续性提升为有限覆盖上的一致估计；
-Jordan 边界条件保证边界小盒总体积可忽略；双射性防止同一像点被重复计数；
-非零 Jacobian 使局部线性像不退化并由逆函数定理给出局部单射。
-删除双射性时，两个角周期的极坐标使积分恰好多算一倍。删除绝对非退化条件
-并允许把区域压到低维集合时，例如 $(u,v)\mapsto(u,0)$，像没有二维体积，
-而普通的双向变量代换论证完全失效。紧致性若删去，则仍可有局部公式，但需
-另加可积性和可数拼接条件，不能由本章有限分割证明直接推出。
+若 \(G\) 是另一延拓，则 \((F-G)\mathbf1_E=0\)：在 \(E\) 上两者都等于
+\(f\)，在 \(Q\setminus E\) 上指标为零。因此积分相同。若更换外包矩形，
+在共同的大矩形中比较，两种被积函数只在指标为零的区域增加零值，积分仍
+不变。
 \end{solution}

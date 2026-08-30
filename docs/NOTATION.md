@@ -65,9 +65,7 @@
 | `\mathcal F\to x` | 滤子 \(\mathcal F\) 收敛到 \(x\) | 表示 \(x\) 的每个邻域都属于 \(\mathcal F\) |
 | `U^{-1}`、`U\circ V`、`U[x]` | 一致结构中周围的逆、复合与截面 | 周围 \(U,V\subseteq X\times X\)，`U[x]=\{y:(x,y)\in U\}` |
 | `\Delta_X` | 对角线 | `\{(x,x):x\in X\}`；一致结构的每个周围均包含它 |
-| `\sigma(E,F)` | 由对偶配对 \((E,F)\) 生成的弱拓扑 | `\sigma(E,E')` 为弱拓扑；`\sigma(E',E)` 为弱星拓扑 |
-| `p_A` | 绝对凸吸收集 \(A\) 的 Minkowski 泛函 | `\inf\{t>0:x\in tA\}`；成为范数还需正定性 |
-| `E'` | 聚点集或连续对偶 | 在点集拓扑语境表示 (E) 的聚点集；在线性拓扑语境表示 (E) 的连续对偶，须由对象类型和所在章节区分 |
+| `E'` | 集合 \(E\) 的聚点集 | 连续对偶的记号到泛函分析卷建立时再登记 |
 
 ## 多元微分与约束
 
@@ -98,6 +96,24 @@
 | `\mathcal F\subset C(K)` | 连续函数族 | 字母也可在滤子语境使用；等度连续性由所在章节和量词确定 |
 | `B_nf` | (f) 的第 (n) 个 Bernstein 多项式 | 在 `[0,1]` 上由节点 `k/n` 的函数值和二项权重构造 |
 | `\omega_f(\delta)` | 连续函数的连续模 | 第53章在紧区间上使用；与第13章一般连续模约定一致 |
+
+## 测度、Lebesgue 积分与函数收敛
+
+| 源码 | 含义 | 约定 |
+|---|---|---|
+| `(X,\mathcal A,\mu)` | 测度空间 | `\mathcal A` 为 $\sigma$-代数，`\mu:\mathcal A\to[0,+\infty]` 可数可加 |
+| `\mu^*` | 外测度 | 定义在 `\mathcal P(X)` 上；不预设所有集合都 Carathéodory 可测 |
+| `m^*,m` | Euclidean 空间中的 Lebesgue 外测度与 Lebesgue 测度 | 一维或多维由所在空间确定；与 Jordan 体积 `|E|` 区分 |
+| `f=g\ \mathrm{a.e.}` | $f$ 与 $g$ 几乎处处相等 | 表示差异点集是零测集；$L^p$ 中视为同一元素 |
+| `f^+,f^-` | 函数的正部、负部 | `f=f^+-f^-`、`|f|=f^++f^-`；扩充实值运算须避免 $\infty-\infty$ |
+| `\int_X f\,d\mu` | Lebesgue 积分 | 非负函数可取 $+\infty$；带符号函数按正负部分定义 |
+| `\mu\times\nu`、`E_x`、`E^y` | 乘积测度与集合截面 | `E_x=\{y:(x,y)\in E\}`，`E^y=\{x:(x,y)\in E\}` |
+| `f_n\xrightarrow{\mu}f` | 依测度收敛 | 对每个 $\varepsilon>0$，`\mu(|f_n-f|>\varepsilon)\to0`；须区分全局与局部依测度收敛 |
+| `d_\mu(f,g)` | 依测度收敛的 Ky Fan 型度量 | 定义在几乎处处等价类上，取值不超过 $1$ |
+| `L^p(\mu)`、`\|f\|_p` | $p$ 次可积函数的几乎处处等价类及其范数 | $1\le p<\infty$ 时为范数；$0<p<1$ 时不称范数 |
+| `\|f\|_\infty` | 本质上确界 | `\inf\{M:\mu(|f|>M)=0\}`；与连续函数空间中的逐点上确界范数数值可同而定义来源不同 |
+| `C_c(\mathbb R^n)`、`\rho_\varepsilon*f` | 连续紧支撑函数及磨光 | 卷积和近似恒等在 Lebesgue 测度下使用 |
+| `\mathcal F\subset L^1` 一致可积 | uniformly integrable family | 默认采用高函数值尾积分统一趋零的定义；无限测度空间还须另行控制质量逃逸 |
 
 ## 可数性
 

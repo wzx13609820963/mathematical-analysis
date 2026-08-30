@@ -1,0 +1,279 @@
+\chapter{测度空间}
+\label{chap:measure-spaces}
+
+Riemann 积分把区间分成有限多个小块，再让分割变细。这个构造适合边界较
+规则的集合，却不能稳定处理可数次并、可数次交和逐点极限。测度论从集合
+出发：先规定哪些集合可以测量，再要求长度、面积或质量对可数个互不相交
+部分相加。可数性并非形式上的强化；极限过程天然产生可数个集合。
+
+本章先在抽象集合上建立这套语言。Lebesgue 测度将在后面由外测度构造，
+这里不预设集合来自欧氏空间。
+
+\section{可测集合族}
+
+设 $X$ 是非空集合。若只要求集合族对有限并和补集封闭，便不足以处理
+例如
+\[
+ \{x:f_n(x)\to f(x)\}
+ =\bigcap_{k=1}^{\infty}\bigcup_{N=1}^{\infty}
+   \bigcap_{n\ge N}\{x:|f_n(x)-f(x)|<1/k\}
+\]
+这样的集合。因而定义必须允许可数集合运算。
+
+\begin{definition}
+集合族 $\mathcal A\subseteq\mathcal P(X)$ 称为 $X$ 上的
+\term{$\sigma$-代数}，如果
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $X\in\mathcal A$；
+ \item $E\in\mathcal A$ 时 $E^c=X\setminus E\in\mathcal A$；
+ \item $E_n\in\mathcal A$（$n\in\Npos$）时
+       $\bigcup_{n=1}^{\infty}E_n\in\mathcal A$。
+\end{enumerate}
+二元组 $(X,\mathcal A)$ 称为\term{可测空间}，$\mathcal A$ 的成员称为
+\term{可测集}。
+\end{definition}
+
+由 De Morgan 公式，$\sigma$-代数也对可数交封闭；取常值集合列还可得到
+$\varnothing\in\mathcal A$ 以及有限并、有限交和差的封闭性。最小的
+$\sigma$-代数是 $\{\varnothing,X\}$，最大的则是 $\mathcal P(X)$。
+
+任意多个 $\sigma$-代数的交仍为 $\sigma$-代数。因此，对任意
+$\mathcal E\subseteq\mathcal P(X)$，包含 $\mathcal E$ 的最小
+$\sigma$-代数
+\[
+ \sigma(\mathcal E)
+ :=\bigcap\{\mathcal A:\mathcal A\text{ 是包含 }\mathcal E
+ \text{ 的 }\sigma\text{-代数}\}
+\]
+定义良好，称为由 $\mathcal E$ \term{生成}的 $\sigma$-代数。这里的交集
+描述通常比逐项列出成员更有用；即使 $\mathcal E$ 很简单，生成结果也可能
+包含复杂的可数运算。
+
+拓扑空间 $X$ 的开集生成的 $\sigma$-代数记为 $\mathcal B(X)$，称为
+\term{Borel $\sigma$-代数}。在 $\R$ 中，它也可由开区间、闭区间或半直线
+$(-\infty,a)$ 生成；这些等价性来自开集是至多可数个开区间的并以及端点
+逼近。
+
+\section{测度与可数可加性}
+
+以下统一使用扩充非负实数 $[0,+\infty]$。约定 $0\cdot(+\infty)=0$ 只在
+以后简单函数积分的无歧义语境中使用；测度的可加性不需要这一约定。
+
+\begin{definition}
+设 $(X,\mathcal A)$ 为可测空间。映射
+$\mu:\mathcal A\to[0,+\infty]$ 称为\term{测度}，如果
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\mu(\varnothing)=0$；
+ \item 对两两不交的可测集列 $(E_n)$，有
+ \[
+  \mu\!\left(\bigcup_{n=1}^{\infty}E_n\right)
+  =\sum_{n=1}^{\infty}\mu(E_n).
+ \]
+\end{enumerate}
+三元组 $(X,\mathcal A,\mu)$ 称为\term{测度空间}。
+\end{definition}
+
+若 $\mu(X)<\infty$，称 $\mu$ 为有限测度。若存在 $X_n\in\mathcal A$ 使
+$X=\bigcup_nX_n$ 且 $\mu(X_n)<\infty$，称 $\mu$ 为
+\term{$\sigma$-有限测度}。第二个条件允许把许多有限测度论证分块使用，
+但它不能在未说明时自动加入定理假设。
+
+\begin{example}
+在任意集合 $X$ 上，计数测度定义为
+\[
+ \#E=\begin{cases}|E|,&E\text{ 有限},\\+\infty,&E\text{ 无限}.
+ \end{cases}
+\]
+它定义在 $\mathcal P(X)$ 上。固定 $a\in X$，Dirac 测度
+$\delta_a(E)=\mathbf1_E(a)$ 把全部质量集中在一点。更一般地，对至多可数
+集合 $X=\{x_k\}$ 和权重 $w_k\ge0$，公式
+$\mu(E)=\sum_{x_k\in E}w_k$ 给出加权计数测度。
+\end{example}
+
+\section{测度的基本运算律}
+
+\begin{theorem}[单调性、次可加性与连续性]
+\label{thm:measure-basic-continuity}
+设 $(X,\mathcal A,\mu)$ 为测度空间。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若 $E\subseteq F$，则 $\mu(E)\le\mu(F)$；若另有
+ $\mu(E)<\infty$，则 $\mu(F\setminus E)=\mu(F)-\mu(E)$。
+ \item 对任意可测集列 $(E_n)$，
+ \[
+  \mu\!\left(\bigcup_nE_n\right)\le\sum_n\mu(E_n).
+ \]
+ \item 若 $E_n\uparrow E$，即 $E_n\subseteq E_{n+1}$ 且
+ $E=\bigcup_nE_n$，则 $\mu(E_n)\uparrow\mu(E)$。
+ \item 若 $E_n\downarrow E$ 且某个 $E_{n_0}$ 的测度有限，则
+ $\mu(E_n)\downarrow\mu(E)$。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+由 $F=E\mathbin{\dot\cup}(F\setminus E)$ 得
+$\mu(F)=\mu(E)+\mu(F\setminus E)$，于是得到 (i)；有限性正是允许从等式
+两端减去 $\mu(E)$ 的条件。
+
+对 (ii)，令
+\[
+ F_1=E_1,\qquad
+ F_n=E_n\setminus\bigcup_{k<n}E_k\quad(n\ge2).
+\]
+则 $F_n$ 两两不交、$F_n\subseteq E_n$，且 $\bigcup_nF_n=\bigcup_nE_n$。
+可数可加性和单调性给出结论。
+
+若 $E_n\uparrow E$，令 $F_1=E_1$、$F_n=E_n\setminus E_{n-1}$。这些
+集合两两不交，且 $E_n=\bigcup_{k\le n}F_k$、
+$E=\bigcup_kF_k$，故
+\[
+ \mu(E_n)=\sum_{k\le n}\mu(F_k)
+ \longrightarrow\sum_{k=1}^{\infty}\mu(F_k)=\mu(E).
+\]
+这证明 (iii)。
+
+对 (iv)，删去有限项后可设 $\mu(E_1)<\infty$。集合
+$E_1\setminus E_n$ 递增到 $E_1\setminus E$，由 (iii)
+\[
+ \mu(E_1)-\mu(E_n)
+ \longrightarrow\mu(E_1)-\mu(E).
+\]
+这里各项有限，移项即得所需结论。
+\end{proof}
+
+下降连续性中的有限性不可删除。对计数测度取
+$E_n=\{n,n+1,\ldots\}\subset\N$，则 $E_n\downarrow\varnothing$，
+但每个 $\mu(E_n)=+\infty$。
+
+\section{完备化}
+
+测度为零的集合在积分中不产生贡献。若一个零测集的子集不在原
+$\sigma$-代数中，后续每次修改函数的零测值都要重新检查可测性。完备化
+把这些子集一次性补入。
+
+\begin{definition}
+若 $N\in\mathcal A$、$\mu(N)=0$ 且每个 $Z\subseteq N$ 都属于
+$\mathcal A$，称测度空间 $(X,\mathcal A,\mu)$ \term{完备}。
+\end{definition}
+
+\begin{theorem}[测度空间的完备化]
+\label{thm:measure-completion}
+令 $\mathcal N$ 为全部可测零测集的子集所成的集合族，并令
+\[
+ \overline{\mathcal A}
+ =\{E\cup Z:E\in\mathcal A, Z\in\mathcal N\}.
+\]
+则 $\overline{\mathcal A}$ 是 $\sigma$-代数，公式
+\[
+ \overline\mu(E\cup Z)=\mu(E)
+ \qquad(E\in\mathcal A, Z\in\mathcal N)
+\]
+定义了一个完备测度。它延拓 $\mu$，并且是包含 $\mathcal A$ 的最小完备
+延拓。
+\end{theorem}
+
+\begin{proof}
+把 $E\cup Z$ 改写为 $(E\setminus N)\cup Z'$，其中 $Z'\subseteq N$、
+$N$ 可测且零测，可见 $\overline{\mathcal A}$ 的成员也正是与某个可测集
+相差一个零测子集的集合。这个表述立即给出补集与可数并的封闭性：可数个
+零测集的并仍包含于一个可测零测集。
+
+若同一集合既写成 $E\cup Z$ 又写成 $F\cup W$，则
+$E\mathbin\triangle F$ 包含于两个可测零测集的并，故
+$\mu(E\setminus F)=\mu(F\setminus E)=0$，从而 $\mu(E)=\mu(F)$；因此
+$\overline\mu$ 良定义。对两两不交的 $A_n\in\overline{\mathcal A}$，
+各取可测 $E_n$ 使 $A_n\mathbin\triangle E_n$ 零测。把 $E_n$ 依次删去
+前面各项可得到两两不交的可测集，且不改变相应测度。应用 $\mu$ 的可数
+可加性便得 $\overline\mu$ 的可数可加性。完备性和最小性由构造直接得到。
+\end{proof}
+
+\section{集合列的上下极限}
+
+定义
+\[
+ \liminf_{n\to\infty}E_n
+ =\bigcup_{N=1}^{\infty}\bigcap_{n\ge N}E_n,
+ \qquad
+ \limsup_{n\to\infty}E_n
+ =\bigcap_{N=1}^{\infty}\bigcup_{n\ge N}E_n.
+\]
+集合 $\liminf E_n$ 由最终属于全部 $E_n$ 的点组成；集合
+$\limsup E_n$ 由属于无穷多个 $E_n$ 的点组成。总有
+$\liminf E_n\subseteq\limsup E_n$。二者相等时，指标函数列
+$\mathbf1_{E_n}$ 逐点收敛。
+
+\begin{proposition}[集合列的测度估计]
+\label{prop:set-liminf-limsup-measure}
+对任意可测集列，
+\[
+ \mu(\liminf E_n)\le\liminf_n\mu(E_n).
+\]
+若存在 $N$ 使 $\mu(\bigcup_{n\ge N}E_n)<\infty$，则
+\[
+ \limsup_n\mu(E_n)\le\mu(\limsup E_n).
+\]
+特别地，若 $\sum_n\mu(E_n)<\infty$，则
+$\mu(\limsup E_n)=0$。
+\end{proposition}
+
+\begin{proof}
+令 $F_N=\bigcap_{n\ge N}E_n$。则 $F_N\uparrow\liminf E_n$，而
+$\mu(F_N)\le\inf_{n\ge N}\mu(E_n)$；用上升连续性并令 $N\to\infty$
+得到第一式。令 $G_N=\bigcup_{n\ge N}E_n$，则
+$G_N\downarrow\limsup E_n$。在给定有限性条件下使用下降连续性，且
+$\mu(G_N)\ge\sup_{n\ge N}\mu(E_n)$，得到第二式。最后，次可加性给出
+$\mu(G_N)\le\sum_{n\ge N}\mu(E_n)\to0$。
+\end{proof}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　可测集合与测度运算}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{sigma-algebra-intersections}
+ 证明任意多个 $\sigma$-代数的交仍为 $\sigma$-代数，并说明它们的并通常
+ 不是 $\sigma$-代数。
+ \exerciseitem{finite-generator-atoms}
+ 设 $\mathcal E=\{E_1,\ldots,E_m\}$。证明 $\sigma(\mathcal E)$ 由至多
+ $2^m$ 个形如 $\bigcap_{j=1}^mF_j$ 的原子生成，其中
+ $F_j=E_j$ 或 $E_j^c$。
+ \exerciseitem{measure-finite-additivity}
+ 从可数可加性推出有限可加性、单调性和有限次可加公式。
+ \exerciseitem{continuity-from-below-proof}
+ 不引用定理 \ref{thm:measure-basic-continuity}，用两两不交分解证明测度的
+ 上升连续性。
+ \exerciseitem{continuity-from-above-counterexample}
+ 构造下降集合列说明下降连续性的有限测度条件不能删除。
+\end{enumerate}
+
+\subsection*{B组　典型测度与完备化}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{weighted-counting-measure}
+ 验证加权计数公式定义测度，并判定它何时有限、何时 $\sigma$-有限。
+ \exerciseitem{dirac-integral-preview}
+ 设 $a\in X$。证明 $\delta_a$ 是完备测度，并说明
+ $\delta_a(E_n)\to\delta_a(E)$ 等价于指标函数在 $a$ 点收敛。
+ \exerciseitem{completion-equivalent-form}
+ 证明 $A\in\overline{\mathcal A}$ 当且仅当存在 $E,F\in\mathcal A$ 使
+ $E\subseteq A\subseteq F$ 且 $\mu(F\setminus E)=0$。
+ \exerciseitem{completion-minimality}
+ 完成定理 \ref{thm:measure-completion} 的最小性证明。
+ \exerciseitem{measure-algebra-metric}
+ 若 $\mu(X)<\infty$，在可测集按零测对称差所得的等价类上定义
+ $d([E],[F])=\mu(E\mathbin\triangle F)$。证明这是度量。
+\end{enumerate}
+
+\subsection*{C组　集合列}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{indicator-set-limits}
+ 证明 $\mathbf1_{E_n}$ 收敛当且仅当
+ $\liminf E_n=\limsup E_n$，并写出极限的指标函数。
+ \exerciseitem{set-fatou-inequality}
+ 直接从上升连续性证明
+ $\mu(\liminf E_n)\le\liminf\mu(E_n)$。
+ \exerciseitem{first-borel-cantelli}
+ 证明若 $\sum_n\mu(E_n)<\infty$，则几乎每个点只属于有限多个 $E_n$。
+ \optionalexerciseitem{pushforward-measure}
+ 若 $T:X\to Y$ 且 $\mathcal B$ 是 $Y$ 上的 $\sigma$-代数，假设
+ $T^{-1}(B)\in\mathcal A$。证明
+ $T_\#\mu(B)=\mu(T^{-1}(B))$ 定义 $Y$ 上的测度。
+\end{enumerate}

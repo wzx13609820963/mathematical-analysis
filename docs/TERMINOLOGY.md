@@ -82,13 +82,6 @@
 | 滤子、滤子基、超滤子 | filter, filter base, ultrafilter | 滤子不含空集并向上封闭、对有限交封闭；超滤子是极大真滤子 |
 | 一致空间 | uniform space | 由对角线邻域族同时控制所有点对；其诱导拓扑只保留局部信息 |
 | Cauchy 滤子、Cauchy 网 | Cauchy filter, Cauchy net | 用一致结构中的周围控制尾部点对；一般一致空间中不得只用序列替代 |
-| 拓扑群 | topological group | 带有 Hausdorff 拓扑且乘法与求逆连续的群；本书把 Hausdorff 性写入约定，左、右一致结构一般不必相同 |
-| 拓扑向量空间 | topological vector space | 带有 Hausdorff 拓扑且向量加法、标量乘法连续的向量空间；默认底域为 \(\R\) 或 \(\C\) |
-| 半范数 | seminorm | 满足齐次性和三角不等式，允许非零向量取值为零 |
-| 局部凸空间 | locally convex space | 具有凸零邻域基的 Hausdorff 拓扑向量空间；等价地由分离点的半范数族生成 |
-| Fréchet 空间 | Fréchet space | 完备、可度量的局部凸空间；不等同于一般 Banach 空间，也不要求由单个范数给拓扑 |
-| 弱拓扑、弱星拓扑 | weak topology, weak-star topology | 分别写 \(\sigma(E,E')\)、\(\sigma(E',E)\)；必须注明所用对偶配对 |
-| Minkowski 泛函 | Minkowski functional / gauge | 由吸收集定义；对绝对凸集给出半范数，未必是范数 |
 | 方向导数 | directional derivative | 只沿固定方向取差商极限；所有方向导数存在仍不必推出 Fréchet 可微 |
 | Hessian | Hessian matrix | 实值函数二阶微分在标准基下的矩阵；不译作一般“二阶导数矩阵”后省略条件 |
 | Schwarz 定理 | Schwarz theorem / Clairaut theorem | 当前指适当连续性条件下混合偏导可交换；与复分析中的 Schwarz 引理区分 |
@@ -103,7 +96,7 @@
 | 互补松弛 | complementary slackness | `\mu_i g_i(a)=0`；非活跃约束的乘子必须为零 |
 | Jordan 零测集 | Jordan null set | 可由总体积任意小的有限矩形族覆盖；与允许可数覆盖的 Lebesgue 零测集区分 |
 | Jordan 可测集 | Jordan measurable set | 本书定义为边界是 Jordan 零测集的有界集合；其指标函数恰好 Riemann 可积 |
-| 多重积分变量代换 | change of variables for multiple integrals | 当前证明有限分片的 (C^1) 微分同胚版本；普通体积使用 Jacobian 绝对值 |
+| 多重积分变量代换 | change of variables for multiple integrals | 先证明紧含开集的 Jordan 可测域在 \(C^1\) 微分同胚下的公式；有限分支参数化另按重数求和，普通体积使用 Jacobian 绝对值 |
 | 第一型、第二型曲线积分 | scalar and vector line integrals | 正文也写“标量曲线积分”“向量曲线积分”；第二型依赖曲线方向 |
 | 第一型、第二型曲面积分 | scalar surface integral and flux integral | 正文优先写“标量曲面积分”“通量”；通量依赖曲面定向 |
 | 微分形式 | differential form | 当前只在 Euclidean 开集及参数化子流形上建立；抽象流形版本后置 |
@@ -117,6 +110,29 @@
 | Arzelà--Ascoli 定理 | Arzelà--Ascoli theorem | 当前版本针对紧致度量定义域和有限维值域，以等度连续及逐点相对紧刻画函数族相对紧致性 |
 | Bernstein 多项式 | Bernstein polynomial | 以非负二项权重对采样值作凸组合，给出 Weierstrass 逼近的构造性证明 |
 | Stone--Weierstrass 定理 | Stone--Weierstrass theorem | 实版本要求含常数并分离点；复版本还要求对共轭封闭 |
+| 可测空间、测度空间 | measurable space, measure space | 分别指 $(X,\mathcal A)$ 与 $(X,\mathcal A,\mu)$；$\mathcal A$ 必须是 $\sigma$-代数 |
+| $\sigma$-代数 | sigma-algebra | 含全集，对补集和可数并封闭；由集合族生成的最小 $\sigma$-代数记作 $\sigma(\mathcal E)$ |
+| 测度、完备测度 | measure, complete measure | 测度可取 $+\infty$；完备性指每个零测可测集的任意子集仍可测 |
+| 外测度 | outer measure | 定义在所有子集上，满足空集取零、单调性和可数次可加性；不等同于测度 |
+| Carathéodory 可测性 | Carathéodory measurability | 集合 $E$ 对每个测试集 $A$ 都满足 $\mu^*(A)=\mu^*(A\cap E)+\mu^*(A\setminus E)$ |
+| Lebesgue 可测集、Lebesgue 测度 | Lebesgue measurable set, Lebesgue measure | 由 Euclidean 外长度的 Carathéodory 可测集及其限制测度得到；比 Borel 集族完备 |
+| 零测集、几乎处处 | null set, almost everywhere | 零测集是可测且测度为零的集合；“几乎处处”允许在一个零测集上例外 |
+| 可测函数 | measurable function | 实值或扩充实值函数的 Borel 集原像可测；可用半直线原像判据检验 |
+| 简单函数 | simple function | 只取有限多个值的可测函数；非负简单函数从下逼近是 Lebesgue 积分构造的基础 |
+| Lebesgue 积分 | Lebesgue integral | 先对非负简单函数定义，再由下方逼近定义非负积分，最后按正负部分处理带符号函数 |
+| 单调收敛定理 | monotone convergence theorem / Beppo Levi theorem | 非负可测函数递增时，极限积分等于积分极限；与第一卷的单调数列收敛定理区分 |
+| Fatou 引理 | Fatou's lemma | 非负可测函数列满足极限下积分不超过积分的极限下；带可积下界版本须先平移 |
+| 控制收敛定理 | dominated convergence theorem | 几乎处处收敛并有同一个 $L^1$ 控制函数时，可交换极限与积分并得到 $L^1$ 收敛 |
+| Tonelli 定理、Fubini 定理 | Tonelli's theorem, Fubini's theorem | Tonelli 处理非负可测函数并允许无穷值；Fubini 处理绝对可积函数并给出几乎处处可积截面 |
+| 依测度收敛 | convergence in measure | 每个固定误差阈值对应的坏集测度趋零；无限测度空间上须区分全局与局部版本 |
+| 几乎一致收敛 | almost uniform convergence | 对任意小正数，可删去测度小于它的集合，使余集上一致收敛；不同于本质一致收敛 |
+| Egorov 定理 | Egorov's theorem | 有限测度空间上，几乎处处收敛蕴含几乎一致收敛 |
+| 一致可积 | uniform integrability | 函数族在大函数值区域的 $L^1$ 质量统一趋零；有限测度上等价于 $L^1$ 有界加小集合积分统一小 |
+| de la Vallée--Poussin 判据 | de la Vallée--Poussin criterion | 用超线性增长的凸函数积分有界刻画有限测度空间中的一致可积性 |
+| $L^p$ 空间 | $L^p$ space | $p$ 次可积函数按几乎处处相等取商；$1\le p\le\infty$ 时是 Banach 空间 |
+| 本质上确界 | essential supremum | 忽略零测集后的最小一致上界；用来定义 $L^\infty$ 范数 |
+| Riesz--Fischer 定理 | Riesz--Fischer theorem | 当前指 $L^p$ 在 $1\le p<\infty$ 时完备；后文 Fourier 理论中的历史表述须注明版本 |
+| 磨光核、磨光 | mollifier, mollification | 非负光滑紧支撑核经尺度缩放形成近似恒等，卷积给出 $L^p$ 中的光滑逼近 |
 
 ## 风格约定
 

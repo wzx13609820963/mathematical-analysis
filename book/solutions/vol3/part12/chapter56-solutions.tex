@@ -1,0 +1,130 @@
+\chapter{Lebesgue 测度}
+
+\begin{solution}{interval-cover-length-lemma}
+从含 $a$ 的区间中选右端点最远者 $I_1$。若其右端点已超过 $b$，结论显然；
+否则因覆盖无缺口，可在左端点小于该右端点的区间中选右端点最远者 $I_2$。
+有限次后到达 $b$，否则有限覆盖会在当前最远右端点之后留下空隙。记所选
+区间为 $(\alpha_j,\beta_j)$，则
+$\alpha_1<a$、$\alpha_{j+1}<\beta_j$、$\beta_r>b$。于是
+\[
+ \sum_j(\beta_j-\alpha_j)
+ > (\beta_1-a)+\sum_{j=2}^r(\beta_j-\beta_{j-1})
+ =\beta_r-a>b-a.
+\]
+原覆盖长度和不小于所选子族长度和。
+\end{solution}
+
+\begin{solution}{lebesgue-singletons-countable}
+单点 $\{x\}$ 可由长度任意小的区间覆盖，故测度为零。若 $E$ 为可数集，写成
+\[
+ E=\{x_1,x_2,\ldots\}.
+\]
+由可数次可加性或次可加性，
+\[
+ m(E)\le\sum_{n=1}^{\infty}m(\{x_n\})=0.
+\]
+有限集是同一论证的有限情形。
+\end{solution}
+
+\begin{solution}{translation-invariance-outer}
+若 $E\subseteq\bigcup_nI_n$，则
+$E+t\subseteq\bigcup_n(I_n+t)$，且 $|I_n+t|=|I_n|$。对覆盖取下确界得
+$m^*(E+t)\le m^*(E)$。用平移 $-t$ 作用于 $E+t$ 得反向不等式。
+\end{solution}
+
+\begin{solution}{scaling-lebesgue-measure}
+$r\ne0$ 时，长方体覆盖在映射 $x\mapsto rx$ 下体积乘以 $|r|^d$，故
+$m^*(rE)\le|r|^dm^*(E)$；对 $rE$ 使用 $1/r$ 得反向不等式。线性同胚把
+Carathéodory 可测集送到可测集，所以限制测度也满足等式。$r=0$ 时，
+$rE$ 为空集或单点，故总是零测；当 $m(E)=+\infty$ 时，不把这一结论写成
+$0^dm(E)$，因为扩充实数中的 $0\cdot\infty$ 没有定义。
+\end{solution}
+
+\begin{solution}{open-set-countable-intervals}
+对 $x\in O$，令 $I_x$ 为包含 $x$ 且包含于 $O$ 的全部开区间之并。它是
+开区间，并且任意两个 $I_x$ 要么相同要么不交。每个非空开区间含有有理数，
+从每个互不相交分支中选一个有理数便得到到 $\Q$ 的单射，所以分支至多可数。
+它们的并显然是 $O$。
+\end{solution}
+
+\begin{solution}{lebesgue-gdelta-envelope}
+对每个 $n\ge1$，由外正则性取开集 $O_n\supseteq E$，满足
+\[
+ m(O_n\setminus E)<2^{-n}.
+\]
+这一选择对 $m(E)=+\infty$ 仍然成立，因为外正则性已经以差集测度的形式
+建立。令 $G=\bigcap_{n=1}^{\infty}O_n$。则 $G$ 是 $G_\delta$ 集，
+$E\subseteq G$，并且对每个 $n$ 都有
+\[
+ G\setminus E\subseteq O_n\setminus E.
+\]
+因此 $m(G\setminus E)\le2^{-n}$ 对所有 $n$ 成立，只能有
+$m(G\setminus E)=0$。
+\end{solution}
+
+\begin{solution}{lebesgue-fsigma-kernel}
+对每个 $n$，由内正则性取紧集 $K_n\subseteq E$，使
+$m(E\setminus K_n)<2^{-n}$。令 $F=\bigcup_nK_n$。它是 $F_\sigma$ 且
+$F\subseteq E$；又 $E\setminus F\subseteq E\setminus K_n$ 对每个 $n$
+成立，故其测度为零。
+\end{solution}
+
+\begin{solution}{borel-versus-lebesgue-cardinality}
+$\R$ 的 Borel 集由可数基经可数运算生成，所以 Borel 集族基数至多为
+$\mathfrak c$。若 $C$ 是基数为 $\mathfrak c$ 的 Borel 零测集，则
+$\mathcal P(C)$ 的基数为 $2^{\mathfrak c}>\mathfrak c$。完备性使
+$C$ 的每个子集 Lebesgue 可测，因此其中至少有一个不是 Borel 集。
+\end{solution}
+
+\begin{solution}{regular-approximation-symmetric-difference}
+内正则性给出紧 $K\subseteq E$ 且
+$m(E\setminus K)<\varepsilon/2$；外正则性给出开 $O\supseteq E$ 且
+$m(O\setminus E)<\varepsilon/2$。两个差集不交，故
+$m(O\setminus K)<\varepsilon$。
+\end{solution}
+
+\begin{solution}{boundary-null-graph}
+设 $f:Q\subset\R^d\to\R$ 的 Lipschitz 常数为 $L$。把 $Q$ 分成边长
+$h$ 的 $O(h^{-d})$ 个小立方体。每个小立方体上函数振幅至多
+$L\sqrt d\,h$，故对应图像落在底面积 $h^d$、高度 $O(h)$ 的长方体内。
+全部覆盖总体积为 $O(h)$，令 $h\downarrow0$ 即得零测性。
+\end{solution}
+
+\begin{solution}{jordan-lebesgue-volume-equality}
+取包含 $E$ 的大矩形并作细网格。完全落在 $E^\circ$ 中的小矩形之并记为
+$I_h$，与 $E$ 相交的小矩形之并记为 $O_h$。则
+$I_h\subseteq E\subseteq O_h$，而 $O_h\setminus I_h$ 包含于与
+$\partial E$ 相交的网格小块之并。Jordan 零测性说明后一总体积趋于零。
+Lebesgue 测度的单调性给出
+$|I_h|\le m(E)\le|O_h|$；Jordan 下、上体积正是这些有限体积的相应极限，
+故二者都等于 $m(E)$。
+\end{solution}
+
+\begin{solution}{rationals-not-jordan-measurable}
+$\Q\cap[0,1]$ 至多可数，故 Lebesgue 零测。它与其补集都在 $[0,1]$
+稠密，所以闭包是 $[0,1]$、内部为空，边界为 $[0,1]$。边界不是 Jordan
+零测集，故该集合不 Jordan 可测。
+\end{solution}
+
+\begin{solution}{boundary-positive-fat-set-preview}
+取 Smith--Volterra 集：从 $[0,1]$ 依次在每个剩余区间中删去总长度分别为
+$1/4,1/8,1/16,\ldots$ 的居中开区间。剩余集 $F$ 闭、无内点，测度
+$1-\sum_{n\ge1}2^{-n-1}=1/2$。因 $F$ 无内点且闭，$\partial F=F$，边界
+正测，所以不 Jordan 可测。
+\end{solution}
+
+\begin{solution}{measure-zero-image-linear}
+$k=d$ 时线性映射有 Lipschitz 常数 $\norm A$。用小立方体覆盖 $N$，其像
+落在边长放大至多常数倍的立方体中，故总覆盖体积仍可任意小。若 $k<d$，
+$A(N)$ 位于较低维空间 $\R^k$，不能把 $d$ 维零测直接同 $k$ 维零测比较；
+例如一条直线在 $\R^2$ 中零测，投影到 $\R$ 可为一个区间。若仍把像看作
+$\R^d$ 中的集合，则它落在真线性子空间中，因而 $d$ 维零测。
+\end{solution}
+
+\begin{solution}{uniqueness-translation-invariant-measure}
+平移不变性与有限可加性给出
+$\nu([k/n,(k+1)/n))=1/n$，继而对有理端点半开区间得到
+$\nu([a,b))=b-a$。这些区间构成生成 $\mathcal B(\R)$ 的半环，且
+$\R=\bigcup_n[-n,n)$、各块测度有限。延拓唯一性定理于是说明 $\nu$ 与
+Lebesgue 测度在全部 Borel 集上相等。
+\end{solution}

@@ -1,0 +1,300 @@
+\chapter{一致可积性}
+\label{chap:uniform-integrability}
+
+控制收敛定理用一个可积函数同时支配整列。许多函数族没有共同点态上界，
+但它们在大函数值区域所携带的积分质量仍可统一变小。一致可积性把这种性质
+直接写成积分条件。它与依测度收敛结合，给出 \(L^1\) 收敛；在概率论和弱
+紧致理论中，它常比寻找控制函数更合适。
+
+\section{小集合与高函数值}
+
+设 \(\mathcal F\subset L^1(\mu)\)。考虑两种控制：
+\[
+\tag{UI-tail}
+\lim_{M\to\infty}\sup_{f\in\mathcal F}
+\int_{\{|f|>M\}}|f|\,d\mu=0,
+\]
+以及
+\[
+\tag{UI-set}
+\forall\varepsilon>0\ \exists\delta>0:\quad
+\mu(E)<\delta\Longrightarrow
+\sup_{f\in\mathcal F}\int_E|f|\,d\mu<\varepsilon.
+\]
+第一式排除越来越高的尖峰；第二式说没有函数能在很小的集合上集中固定质量。
+对单个 \(L^1\) 函数，二者都由积分绝对连续性得到；对函数族，量词中的
+\(\sup_{f\in\mathcal F}\) 是新增要求。
+
+\begin{definition}
+若 \(\mathcal F\subset L^1(\mu)\) 满足 \textup{(UI-tail)}，则称
+\(\mathcal F\) \term{一致可积}。
+\end{definition}
+
+\begin{proposition}[有限测度空间上的判据]
+\label{prop:ui-finite-measure-criterion}
+若 \(\mu(X)<\infty\)，则 \(\mathcal F\) 一致可积当且仅当：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(\sup_{f\in\mathcal F}\|f\|_1<\infty\)；
+ \item \(\mathcal F\) 满足 \textup{(UI-set)}。
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+先设一致可积。取 \(M\) 使尾积分统一小于 \(1\)，则
+\[
+ \int|f|\le M\mu(X)+1,
+\]
+得到 (i)。给定 \(\varepsilon>0\)，取 \(M\) 使尾积分小于
+\(\varepsilon/2\)，再取 \(\delta=\varepsilon/(2M)\)。于是
+\[
+ \int_E|f|
+ \le M\mu(E)+\int_{\{|f|>M\}}|f|<\varepsilon.
+\]
+
+反过来，设 \(C=\sup_f\|f\|_1<\infty\)。由 Markov 不等式，
+\[
+ \mu(\{|f|>M\})\le C/M.
+\]
+给定 \(\varepsilon>0\)，先由 (ii) 取 \(\delta\)，再令
+\(M>C/\delta\)。将 \(E=\{|f|>M\}\) 代入 (ii)，便得尾积分统一小于
+\(\varepsilon\)。
+\end{proof}
+
+\section{例子与反例}
+
+\begin{proposition}
+\label{prop:dominated-family-ui}
+若存在 \(g\in L^1(\mu)\) 使 \(|f|\le g\) 对所有
+\(f\in\mathcal F\) 几乎处处成立，则 \(\mathcal F\) 一致可积。
+\end{proposition}
+
+\begin{proof}
+在 \(\{|f|>M\}\) 上必有 \(g>M\)，故
+\[
+ \int_{\{|f|>M\}}|f|
+ \le\int_{\{g>M\}}g\longrightarrow0.
+\]
+\end{proof}
+
+\begin{counterexample}[尖峰]
+在 \((0,1)\) 上，
+\[
+ f_n=n\mathbf1_{(0,1/n)}
+\]
+满足 \(\|f_n\|_1=1\)，但不一致可积，因为对任意 \(M\)，只要
+\(n>M\)，便有
+\[
+ \int_{\{|f_n|>M\}}|f_n|=1.
+\]
+\end{counterexample}
+
+\begin{counterexample}[质量逃逸]
+在 \(\mathbb R\) 上，
+\[
+ f_n=\mathbf1_{[n,n+1]}
+\]
+是一致可积的：当 \(M>1\) 时所有尾积分为零。它还满足小集合控制和
+\(L^1\) 有界，却在局部依测度趋于零而不在 \(L^1\) 中趋于零。问题不是
+高函数值，而是质量移向任何固定有限区域之外。
+\end{counterexample}
+
+\section{凸函数控制}
+
+\begin{theorem}[de la Vallée--Poussin 判据]
+\label{thm:de-la-vallee-poussin}
+若存在递增凸函数 \(\Phi:[0,\infty)\to[0,\infty)\)，满足
+\[
+ \frac{\Phi(t)}t\longrightarrow\infty,
+ \qquad
+ \sup_{f\in\mathcal F}\int_X\Phi(|f|)\,d\mu<\infty,
+\]
+则 \(\mathcal F\) 一致可积。反过来，在有限测度空间上，一致可积族可以
+找到这样的分段线性凸函数 \(\Phi\)。
+\end{theorem}
+
+\begin{proof}
+记 \(C=\sup_f\int\Phi(|f|)\)。给定 \(\varepsilon>0\)，由
+\(\Phi(t)/t\to\infty\)，可取 \(M\) 使
+\[
+ t\le\frac{\varepsilon}{C}\Phi(t)\qquad(t>M)
+\]
+（若 \(C=0\) 结论显然）。于是
+\[
+ \sup_f\int_{\{|f|>M\}}|f|
+ \le\frac{\varepsilon}{C}\sup_f\int\Phi(|f|)
+ \le\varepsilon.
+\]
+
+反过来，设 \(\mu(X)<\infty\) 且 \(\mathcal F\) 一致可积。由命题
+\ref{prop:ui-finite-measure-criterion}，存在
+\[
+ C_0=\sup_{f\in\mathcal F}\|f\|_1<\infty.
+\]
+逐次选取严格递增的 \(M_k\to\infty\)，使
+\[
+ \sup_f\int_{\{|f|>M_k\}}|f|<2^{-k}.
+\]
+定义
+\[
+ \Phi(t)=t+\sum_{k=1}^{\infty}(t-M_k)_+,
+ \qquad t\ge0.
+\]
+对每个固定 \(t\)，和式中只有有限项非零。函数 \(\Phi\) 连续、递增、分段
+线性，斜率在经过每个 \(M_k\) 时增加 \(1\)，因而凸。对任意固定的
+\(N\)，当 \(t\ge2\max_{k\le N}M_k\) 时，
+\[
+ \frac{\Phi(t)}t
+ \ge\sum_{k=1}^{N}\frac{t-M_k}{t}\ge\frac N2.
+\]
+所以 \(\Phi(t)/t\to\infty\)。最后，Tonelli 定理给出
+\[
+ \begin{split}
+ \int\Phi(|f|)
+ &=\int|f|+\sum_{k=1}^{\infty}\int(|f|-M_k)_+\\
+ &\le C_0+\sum_{k=1}^{\infty}
+       \int_{\{|f|>M_k\}}|f|
+ \le C_0+1.
+ \end{split}
+\]
+右端与 \(f\in\mathcal F\) 无关，反向构造完成。
+\end{proof}
+
+\begin{example}
+若对某个 \(p>1\)，
+\[
+ \sup_{f\in\mathcal F}\|f\|_p<\infty,
+\]
+则取 \(\Phi(t)=t^p\) 得 \(\mathcal F\) 一致可积。因而有限测度空间上的
+\(L^p\) 有界族（\(p>1\)）在 \(L^1\) 意义下不会形成高尖峰。\(p=1\)
+时结论正是尖峰反例所否定的内容。
+\end{example}
+
+\section{Vitali 收敛定理}
+
+\begin{theorem}[Vitali]
+\label{thm:vitali-convergence}
+设 \(\mu(X)<\infty\)，\(f_n\in L^1(\mu)\)，且
+\(f_n\xrightarrow{\mu}f\)。若 \(\{f_n:n\ge1\}\) 一致可积，则
+\(f\in L^1\)，并且
+\[
+ \|f_n-f\|_1\longrightarrow0.
+\]
+反过来，\(L^1\) 收敛蕴含依测度收敛，并且
+\(\{f_n:n\ge1\}\cup\{f\}\) 一致可积。
+\end{theorem}
+
+\begin{proof}
+先由子列原理抽出 \(f_{n_k}\to f\) a.e.。Fatou 引理和一致的
+\(L^1\) 有界性给出
+\(\int|f|\le\liminf_k\int|f_{n_k}|<\infty\)。
+
+给定 \(\varepsilon>0\)。一致可积性及 \(f\in L^1\) 的积分绝对连续性
+给出 \(\delta>0\)，使 \(\mu(E)<\delta\) 时
+\[
+ \sup_n\int_E|f_n|<\varepsilon,\qquad
+ \int_E|f|<\varepsilon.
+\]
+选 \(\eta>0\) 使 \(\eta\mu(X)<\varepsilon\)。依测度收敛给出
+\[
+ E_n=\{|f_n-f|>\eta\},\qquad \mu(E_n)<\delta
+\]
+最终成立。于是
+\[
+ \int|f_n-f|
+ \le\eta\mu(X)+\int_{E_n}|f_n|+\int_{E_n}|f|
+ <3\varepsilon.
+\]
+
+反向结论中，依测度收敛由 Markov 不等式。为证一致可积，固定
+\(\varepsilon>0\)，先取 \(N\) 使 \(n\ge N\) 时
+\(\|f_n-f\|_1<\varepsilon\)。有限多个
+\(f_1,\ldots,f_{N-1},f\) 的积分具有共同的绝对连续性；再用
+\(\int_E|f_n|\le\int_E|f|+\|f_n-f\|_1\) 得小集合控制和统一
+\(L^1\) 有界性，应用命题 \ref{prop:ui-finite-measure-criterion}。
+\end{proof}
+
+\begin{corollary}
+在有限测度空间上，控制收敛定理是 Vitali 定理的特例：若
+\(|f_n|\le g\in L^1\)，则 \(\{f_n\}\) 一致可积，而几乎处处收敛蕴含
+依测度收敛。一般测度空间上的控制收敛定理仍由第
+\ref{chap:lebesgue-convergence} 章的直接证明给出，不需要有限测度假设。
+\end{corollary}
+
+\section{无限测度空间上的紧性}
+
+设 \((X,\mathcal A,\mu)\) 为 \(\sigma\)-有限空间。称
+\(\mathcal F\subset L^1\) 在空间方向\term{紧}，若对每个
+\(\varepsilon>0\)，存在有限测度集 \(K\) 使
+\[
+ \sup_{f\in\mathcal F}\int_{X\setminus K}|f|\,d\mu<\varepsilon.
+\]
+若 \(f_n\to f\) 在每个有限测度集上依测度收敛，\(\{f_n\}\) 一致可积，
+并具有上述紧性，则先在 \(K\) 上用 Vitali 定理，再控制 \(X\setminus K\)
+的尾部，可得 \(f_n\to f\) 于 \(L^1(X)\)。其中对 \(f\) 的尾部估计可
+先在一列有限测度集上作对角抽取，得到全空间几乎处处收敛子列，再对
+\(|f_n|\mathbf1_{X\setminus K}\) 使用 Fatou 引理。移动指示函数反例恰好
+缺少这一空间紧性。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　判据与例子}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{ui-equivalent-truncation}
+证明一致可积等价于
+\[
+ \lim_{M\to\infty}\sup_{f\in\mathcal F}
+ \int\bigl(|f|-M\bigr)_+\,d\mu=0.
+\]
+
+\exerciseitem{ui-finite-family}
+证明 \(L^1\) 中任意有限函数族一致可积。
+
+\exerciseitem{ui-dominated-family}
+用积分绝对连续性而不是尾积分，重新证明由同一 \(g\in L^1\) 控制的函数族
+一致可积。
+
+\exerciseitem{ui-spike-details}
+验证 \(n\mathbf1_{(0,1/n)}\) 满足 \(L^1\) 有界和依测度收敛，却不一致
+可积。
+
+\end{enumerate}
+\subsection*{B组　Vitali 定理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ui-lp-bounded}
+若 \(p>1\) 且 \(\sup_f\|f\|_p\le C\)，证明
+\[
+ \int_{\{|f|>M\}}|f|\le C^pM^{1-p}.
+\]
+
+\exerciseitem{ui-convex-sufficient}
+补全 de la Vallée--Poussin 判据充分性证明，并说明凸性在这一方向是否
+实际用到。
+
+\exerciseitem{vitali-ae-version}
+在有限测度空间上，证明若 \(f_n\to f\) a.e. 且 \(\{f_n\}\) 一致可积，
+则 \(f_n\to f\) 于 \(L^1\)。
+
+\exerciseitem{l1-convergence-ui}
+不用引用 Vitali 定理的反向部分，直接证明 \(L^1\) 收敛列连同其极限构成
+一致可积族。
+
+\end{enumerate}
+\subsection*{C组　紧性与推广}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ui-sums}
+若 \(\mathcal F,\mathcal G\) 一致可积，证明
+\(\mathcal F+\mathcal G=\{f+g:f\in\mathcal F,g\in\mathcal G\}\)
+一致可积。
+
+\exerciseitem{mass-tightness-translation}
+证明 \(\{\mathbf1_{[n,n+1]}\}\) 一致可积但不满足空间紧性。
+
+\optionalexerciseitem{vitali-infinite-space}
+在 \(\sigma\)-有限空间上，完整证明“局部依测度收敛 + 一致可积 +
+空间紧性”蕴含 \(L^1\) 收敛。
+
+\projectexerciseitem{ui-random-variables}
+把一致可积性写成概率空间上的期望条件，证明若随机变量
+\(X_n\to X\) 依概率且 \(\{|X_n|^p\}\) 一致可积，则
+\(X_n\to X\) 于 \(L^p\)。
+\end{enumerate}

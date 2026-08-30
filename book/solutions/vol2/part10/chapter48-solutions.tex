@@ -1,143 +1,215 @@
-\chapter{参数化积分}
-\label{chap:parametric-integrals-solutions}
+\chapter{累次积分与变量代换}
+\label{chap:fubini-change-variables-solutions}
 
-\begin{solution}{arc-length-proof-details}
-对 $C^1$ 曲线 $\gamma:[a,b]\to\R^n$，一致连续性给出：分割足够细时，
-$\gamma'(t)$ 在每段 $I_i$ 上与 $\gamma'(\xi_i)$ 相差不超过 $\eta$。由
+\begin{solution}{fubini-uniform-section-proof}
+设 \(f\) 在 \(Q=[a,b]\times[c,d]\) 上连续。给定 \(\varepsilon>0\)，由
+一致连续性取 \(y\) 方向分割 \(P_y\)，使每个小区间内
 \[
- \gamma(t_i)-\gamma(t_{i-1})
- =\gamma'(\xi_i)\Delta t_i+
-   \int_{t_{i-1}}^{t_i}(\gamma'(s)-\gamma'(\xi_i))\,ds
+ |f(x,y)-f(x,y')|
+ <\frac{\varepsilon}{2(b-a)(d-c)}
+ \qquad(x\in[a,b])
 \]
-得余项范数不超过 $\eta\Delta t_i$。利用反三角不等式，各弦长和与
-$\sum_i\norm{\gamma'(\xi_i)}\Delta t_i$ 的差不超过
-$\eta(b-a)$。先令网径趋零，再令 $\eta\downarrow0$，便得到弧长公式。
-\end{solution}
-
-\begin{solution}{arc-length-reparametrization}
-设 $t=\phi(s)$。若 $\phi$ 严格递增且为 $C^1$ 微分同胚，
+成立。于是任取样点 \(\eta_j\)，内层和满足一致估计
 \[
- \int\norm{(\gamma\circ\phi)'(s)}\,ds
- =\int\norm{\gamma'(\phi(s))}\phi'(s)\,ds
- =\int\norm{\gamma'(t)}\,dt.
+ \left|\sum_j f(x,\eta_j)\Delta y_j-
+       \int_c^d f(x,y)\,dy\right|
+ <\frac{\varepsilon}{2(b-a)}
+ \qquad(x\in[a,b]).
 \]
-若严格递减，则 $\phi'<0$，范数产生 $|\phi'|=-\phi'$，换元时上下限也
-交换，最后仍得同一积分。因此弧长与方向无关，只依赖几何轨迹及其重数。
+把这个误差乘以外层小区间长度并求和，总误差小于
+\(\varepsilon/2\)。再把 \(x\) 方向分割取得充分细，使 \(F(x)\) 的
+Riemann 和与 \(\int_a^bF\) 相差小于 \(\varepsilon/2\)。同一个乘积
+Riemann 和于是同时逼近多重积分与累次积分。紧致性用来把 \(f\) 的连续性
+提升为对全部 \(x,y\) 同时有效的一致连续估计。
 \end{solution}
 
-\begin{solution}{helix-length-line-integral}
-$\gamma'(t)=(-\sin t,\cos t,1)$，故速度为 $\sqrt2$。长度为
-$2\sqrt2\pi$。又 $z=t$，所以
+\begin{solution}{triangle-iterated-integral}
+令
 \[
- \int_\gamma z\,ds=\int_0^{2\pi}t\sqrt2\,dt=2\sqrt2\pi^2.
+ D=\{(x,y):a\le x\le b,\ \alpha(x)\le y\le\beta(x)\},
 \]
-\end{solution}
+其中 \(\alpha,\beta\) 连续。两条连续图像在紧区间上一致连续。把
+\([a,b]\) 分得足够细，每段图像都落在高度任意小的矩形条中，故两条图像
+Jordan 零测；连同两端竖线可知 \(\partial D\) Jordan 零测。因此 \(D\)
+Jordan 可测。
 
-\begin{solution}{orientation-vector-line-integral}
-反向参数可写为 $\widetilde\gamma(t)=\gamma(a+b-t)$。于是
-$\widetilde\gamma'(t)=-\gamma'(a+b-t)$。第二型积分中的切向量因此带来负号，
-换元后得 $\int_{-\gamma}F\cdot dr=-\int_\gamma F\cdot dr$；第一型积分含
-$\norm{\gamma'}$，负号被范数消去，故保持不变。
-\end{solution}
-
-\begin{solution}{gradient-fundamental-line-integral}
-链式法则给出
-$\frac d{dt}\varphi(\gamma(t))=\nabla\varphi(\gamma(t))\cdot\gamma'(t)$，积分后
+把 \(f\) 连续延拓到外包矩形 \(Q=[a,b]\times[c,d]\)。函数
+\(f\mathbf1_D\) 只可能在 \(\partial D\) 上不连续，故可积。对每个 \(x\)，
 \[
- \int_\gamma\nabla\varphi\cdot dr=\varphi(\gamma(b))-\varphi(\gamma(a)).
+ \int_c^d f(x,y)\mathbf1_D(x,y)\,dy
+ =\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy.
 \]
-对 $\varphi=x^2y+z$，若端点为 $p=(x_0,y_0,z_0)$、
-$q=(x_1,y_1,z_1)$，积分等于
-$x_1^2y_1+z_1-x_0^2y_0-z_0$，与所选曲线无关。
-\end{solution}
-
-\begin{solution}{curve-multiple-traversal}
-单位圆一周取 $\gamma(t)=(\cos t,\sin t)$，$0\le t\le2\pi$；两周把上限换成
-$4\pi$。对标量积分，两周是一次的两倍，先正后反也仍是两倍，因为弧长无向。
-对向量积分，两周同样是一次的两倍；先正后反的两段互相抵消。若被积函数或
-场沿圆连续，这些结论由参数积分直接换元得到。
-\end{solution}
-
-\begin{solution}{surface-reparametrization-cross-product}
-若 $Y=X\circ\Phi$ 且 $\Phi(s,t)=(u(s,t),v(s,t))$，链式法则给出
-$Y_s=X_u u_s+X_vv_s$、$Y_t=X_u u_t+X_vv_t$。双线性和交错性产生
+Riemann 可积函数的累次积分定理给出
 \[
- Y_s\times Y_t=(u_sv_t-v_su_t)X_u\times X_v
- =\det D\Phi\,(X_u\times X_v)\circ\Phi.
-\]
-取范数便得到面积元的换元律，保留符号则得到定向变换律。
-\end{solution}
-
-\begin{solution}{graph-surface-area}
-图形参数 $X(x,y)=(x,y,f(x,y))$ 满足
-$\norm{X_x\times X_y}=\sqrt{1+f_x^2+f_y^2}$。对
-$f=x^2+y^2$ 和单位圆盘，面积为
-\[
- \int_0^{2\pi}\int_0^1\sqrt{1+4r^2}\,r\,dr\,d\theta
- =\frac\pi6(5\sqrt5-1).
+ \int_Df
+ =\int_a^b\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy\,dx.
 \]
 \end{solution}
 
-\begin{solution}{sphere-area-parametric}
-取 $X(\varphi,\theta)=R(\sin\varphi\cos\theta,
-\sin\varphi\sin\theta,\cos\varphi)$。叉积范数为 $R^2\sin\varphi$，故
+\begin{solution}{riemann-section-nonintegrable}
+在 \([-1,1]^2\) 上令
 \[
- |S_R|=\int_0^{2\pi}\int_0^\pi R^2\sin\varphi\,d\varphi\,d\theta=4\pi R^2.
+ f(x,y)=
+ \begin{cases}
+  \mathbf1_{\Q}(y),&x=0,\\
+  0,&x\ne0.
+ \end{cases}
 \]
-两极的参数秩下降，但它们是两个点，面积为零。可先在
-$\eta\le\varphi\le\pi-\eta$ 积分，再令 $\eta\downarrow0$。
+若 \(x\ne0\)，函数在该点附近恒为零；若 \(x=0\)，每个邻域都同时含有
+函数值 \(0\) 与 \(1\) 的点。因此不连续点集恰为竖线
+\(\{0\}\times[-1,1]\)，这是 Jordan 零测集。振幅判据说明 \(f\)
+Riemann 可积且积分为零。可是 \(x=0\) 的截面是 Dirichlet 函数
+\(\mathbf1_{\Q}\)，在每个非退化区间上都不可 Riemann 积。
 \end{solution}
 
-\begin{solution}{sphere-radial-flux}
-球面外法向为 $n=x/R$，故 $F(x)=x$ 满足 $F\cdot n=R$。通量为
-$R\cdot4\pi R^2=4\pi R^3$。这也与散度为 $3$、球体积为
-$4\pi R^3/3$ 相符，但本题可直接由参数化计算。
-\end{solution}
-
-\begin{solution}{surface-orientation-change}
-交换参数相当于用 $(s,t)\mapsto(t,s)$，其 Jacobian 为 $-1$。于是有向面积
-向量 $X_s\times X_t$ 变号，通量积分变号；标量面积元取叉积范数，故不变。
-更一般地，反向定向的重新参数化均有负 Jacobian，结论相同。
-\end{solution}
-
-\begin{solution}{cylinder-side-flux}
-半径 $R$、高 $h$ 的侧面可取
-$X(\theta,z)=(R\cos\theta,R\sin\theta,z)$，外向面积向量为
-$(R\cos\theta,R\sin\theta,0)\,d\theta dz$。常向量 $c$ 的通量为
+\begin{solution}{fubini-riemann-oscillation}
+设 \(P_A=(R_i)\)、\(P_B=(S_j)\)，并记
 \[
- \int_0^h\int_0^{2\pi}R(c_1\cos\theta+c_2\sin\theta)\,d\theta dz=0.
+ \omega_{ij}
+ =\sup_{R_i\times S_j}f-\inf_{R_i\times S_j}f.
 \]
-径向场 $F=(x,y,0)$ 的通量为
-$\int_0^h\int_0^{2\pi}R^2\,d\theta dz=2\pi R^2h$。
-\end{solution}
-
-\begin{solution}{nonregular-curve-warning}
-取 $\gamma(t)=(t^3,0)$，$-1\le t\le1$。其像是线段
-$[-1,1]\times\{0\}$，但 $\gamma'(0)=(0,0)$，故该参数不是正则的。它仍可
-求长，且
-$\int_{-1}^1\norm{\gamma'(t)}dt=\int_{-1}^13t^2dt=2$，恰为线段长度。
-正则性是参数化局部坐标的条件，并非可求长的必要条件。
-\end{solution}
-
-\begin{solution}{surface-double-cover}
-球面参数若令 $0\le\theta\le4\pi$，除经线切口和两极外，每个球面点出现
-两次。面积积分于是为
+若 \(x,x'\in R_i\)，则在每个 \(S_j\) 上
 \[
- \int_0^{4\pi}\int_0^\pi R^2\sin\varphi\,d\varphi d\theta=8\pi R^2,
+ -\omega_{ij}\le f(x,y)-f(x',y)\le\omega_{ij}.
 \]
-是真实面积的两倍。非单射参数积分按原像重数计数，不能不加说明地当作几何
-曲面的面积。
+两侧积分并对 \(j\) 求和，得到
+\[
+ |F(x)-F(x')|\le\sum_j\omega_{ij}|S_j|.
+\]
+取 \(x,x'\) 的上确界，乘以 \(|R_i|\) 后对 \(i\) 求和，即得
+\[
+ U(F,P_A)-L(F,P_A)
+ \le U(f,P_A\times P_B)-L(f,P_A\times P_B).
+\]
+右端可任意小，所以只由 Darboux 判据就能推出 \(F\) 可积；证明不需要
+\(F\) 连续。随后任取外层标记点，截面积分的上下和仍夹在同一乘积
+Darboux 上下和之间，令其差趋零便得到积分等式。
 \end{solution}
 
-\begin{solution}{mobius-nonorientable-normal}
-用标准参数
+\begin{solution}{linear-change-volume}
+平移不改变体积。对线性部分，坐标置换只重新排列累次积分的次序，反射只
+反转某一截面的方向，二者均保持无向体积。对角伸缩
 \[
- X(u,v)=((1+v\cos(u/2))\cos u,
- (1+v\cos(u/2))\sin u,v\sin(u/2))
+ (x_1,\ldots,x_n)\longmapsto
+ (\lambda_1x_1,\ldots,\lambda_nx_n)
 \]
-表示 Möbius 带，$0\le u\le2\pi$。沿中心线 $v=0$ 选连续法向
-$N(u)$（例如由 $X_u\times X_v$ 归一化）。直接代入可见
-$N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局连续
-法向，其沿中心线限制必须在同一点取同一值，与此反向关系矛盾。因此 Möbius
-带不可定向。
+由一元变量代换把体积乘以 \(\prod_i|\lambda_i|\)。初等剪切
+\[
+ (x_1,\ldots,x_i,\ldots,x_n)
+ \longmapsto
+ (x_1,\ldots,x_i+c x_j,\ldots,x_n)
+\]
+在固定其余坐标后只平移第 \(i\) 个方向的截面，故由累次积分保持体积。
+任意可逆矩阵是这些初等矩阵的乘积；各步体积倍率相乘，而各步行列式也
+相乘，得到
+\[
+ |A(Q)|=|\det A|\,|Q|.
+\]
+同一论证适用于经过前面步骤得到的平行多面体，因为其相关截面仍是有限个
+区间所成的 Jordan 可积集合。
+\end{solution}
+
+\begin{solution}{local-volume-distortion-details}
+记 \(Q_0=[-r,r]^n\)，
+\[
+ g(h)=A^{-1}\bigl(\Phi(a+h)-\Phi(a)\bigr)-h.
+\]
+由正文估计，\(\norm{g(h)}_\infty\le\eta_rr\)。若
+\(\norm y_\infty\le(1-\eta_r)r\)，则
+\[
+ \norm{T_y(h)}_\infty
+ =\norm{y-g(h)}_\infty
+ \le(1-\eta_r)r+\eta_rr=r,
+\]
+所以 \(T_y\) 把 \(Q_0\) 映入自身。其 Lipschitz 常数不超过
+\(\eta_r<1\)，故有唯一不动点。
+
+内外包给出
+\[
+ (1-\eta_r)^n|\det A|\,|Q_r|
+ \le|\Phi(Q_r)|
+ \le(1+\eta_r)^n|\det A|\,|Q_r|.
+\]
+因而相对误差满足
+\[
+ \frac{\bigl||\Phi(Q_r)|-|\det A|\,|Q_r|\bigr|}
+      {|\det A|\,|Q_r|}
+ \le
+ \max\{(1+\eta_r)^n-1,\ 1-(1-\eta_r)^n\}.
+\]
+当 \(0\le\eta_r\le1/2\) 时，右端不超过
+\(n2^{n-1}\eta_r\)，这可由中值定理作用于 \(t\mapsto(1+t)^n\) 得到。
+\end{solution}
+
+\begin{solution}{change-variable-orientation-absolute}
+取 \(T(u,v)=(-u,v)\)。它把单位正方形映为面积仍为 \(1\) 的正方形，而
+\(\det DT=-1\)。若变量代换公式使用 \(\det DT\) 而不用绝对值，常函数
+\(1\) 的积分会变成 \(-1\)，与 Jordan 体积非负矛盾。行列式符号记录
+定向，Riemann 体积只记录无向体积。
+\end{solution}
+
+\begin{solution}{jacobian-zero-no-local-inverse}
+一维映射 \(f(x)=x^3\) 在全实轴严格单射，但 \(f'(0)=0\)。其逆映射
+\(y\mapsto y^{1/3}\) 在零点没有有限导数，因而不是 \(C^1\) 局部微分
+同胚。Jacobian 为零不排除集合意义上的单射，却使线性主部不可逆，不能
+满足逆函数定理的假设。
+\end{solution}
+
+\begin{solution}{polar-coordinate-disk}
+在 \(0<r<1\)、\(0<\theta<2\pi\) 上，极坐标 Jacobian 为 \(r\)，故
+\[
+ \int_{x^2+y^2\le1}(x^2+y^2)\,dx\,dy
+ =\int_0^{2\pi}\int_0^1r^3\,dr\,d\theta
+ =\frac{\pi}{2}.
+\]
+原点对应整条 \(r=0\)，切口两侧对应 \(\theta=0,2\pi\)。先在
+\(\rho\le r\le1\)、\(\eta\le\theta\le2\pi-\eta\) 上应用变量代换，再令
+\(\rho,\eta\downarrow0\)。删去部分及其像的体积趋于零，所以极限给出
+圆盘上的公式。
+\end{solution}
+
+\begin{solution}{spherical-coordinate-jacobian}
+取
+\[
+ \Phi(r,\varphi,\theta)
+ =(r\sin\varphi\cos\theta,\,
+   r\sin\varphi\sin\theta,\,
+   r\cos\varphi).
+\]
+三个偏导列向量的混合积为
+\[
+ \det D\Phi=r^2\sin\varphi.
+\]
+在 \(r=0\) 和 \(\varphi=0,\pi\) 处退化；\(\theta=0\) 与 \(2\pi\)
+表示同一半平面，故闭参数盒上非单射。应先在
+\[
+ r>0,\qquad0<\varphi<\pi,\qquad0<\theta<2\pi
+\]
+的相对紧子盒上使用定理，再由 Jordan 零测边界和积分估计补回极轴、
+原点与切口。
+\end{solution}
+
+\begin{solution}{piecewise-diffeomorphism-multiplicity}
+在参数域 \((0,1)\times(0,4\pi)\) 中，除切口外圆盘内每个非零点恰有
+两个原像，分别相差 \(2\pi\)。把角区间分成两个周期并分别变量代换，对
+连续 \(g\) 得
+\[
+ \int_0^{4\pi}\int_0^1
+ g(r\cos\theta,r\sin\theta)r\,dr\,d\theta
+ =2\int_{B(0,1)}g(x,y)\,dx\,dy.
+\]
+原点和切口 Jordan 零测，不影响等式。这正是重数函数在非例外点等于
+\(2\) 的情形。
+\end{solution}
+
+\begin{solution}{riemann-change-variables-boundary-audit}
+紧致性把 \(D\Phi\) 的连续性提升为全体小立方体上的一致误差，并给
+\(D\Phi\)、\(D\Phi^{-1}\) 统一界；Jordan 边界使边界小块总体积趋于零；
+微分同胚保证局部内包、全局不重复计数以及边界映成边界；非零 Jacobian
+使局部线性映射可逆。绝对值则把有向体积改为普通体积。
+
+删除全局单射时，两个角周期的极坐标使同一像点被计数两次。删除非退化性
+时，映射 \((u,v)\mapsto(u,0)\) 把二维区域压到直线，不能再用同维体积
+公式。若 \(U\) 的边界不是 Jordan 零测集，边界网格的总贡献未必趋于零，
+本章的有限分割证明也会失去依据。
 \end{solution}

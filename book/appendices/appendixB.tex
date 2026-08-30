@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—53章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—69章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -363,31 +363,6 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 \]
 一致结构诱导的拓扑以 \(U[x]\) 为邻域基。不同一致结构可以诱导同一拓扑，因此完备性和全有界性不是单由拓扑决定的性质。
 
-\section{局部凸空间记号}
-
-拓扑向量空间的连续对偶记为 \(E'\)。同一符号在点集拓扑中也可表示集合 \(E\) 的聚点集；两种对象分别是线性泛函集合与原空间的子集，正文由语境区分。半范数 \(p:E\to[0,+\infty)\) 满足
-\[
- p(x+y)\le p(x)+p(y),\qquad p(\lambda x)=|\lambda|p(x),
-\]
-但允许 \(p(x)=0\) 而 \(x\ne0\)。半范数族 \(\mathcal P\) 生成的基本零邻域形如
-\[
- \{x\in E:p_1(x)<\varepsilon,\ldots,p_n(x)<\varepsilon\},
- \qquad p_1,\ldots,p_n\in\mathcal P.
-\]
-该拓扑 Hausdorff 当且仅当 \(\mathcal P\) 分离点。
-
-绝对凸吸收集 \(A\subseteq E\) 的 Minkowski 泛函记为
-\[
- p_A(x)=\inf\{t>0:x\in tA\}.
-\]
-它是半范数；只有在 \(p_A(x)=0\Rightarrow x=0\) 时才是范数。局部凸空间的可度量化要求有可数零邻域基，等价地可由可数半范数族生成；可赋范化还要求存在一个有界凸零邻域，条件更强。
-
-由对偶配对 \((E,F)\) 生成的弱拓扑记为
-\[
- \sigma(E,F).
-\]
-特别地，\(\sigma(E,E')\) 是 \(E\) 上的弱拓扑，\(\sigma(E',E)\) 是 \(E'\) 上相对于 \(E\) 的弱星拓扑。省略配对会掩盖拓扑所由生成的线性泛函族，因此正文引用弱收敛时必须注明所在空间及对偶。
-
 \section{多元微分与约束记号}
 
 映射 $f:U\subset\R^n\to\R^m$ 在 $a$ 处的 Fréchet 微分记为
@@ -442,6 +417,51 @@ $\mathbb F=\R$ 或 $\C$，默认范数为
 点值泛函写作 $\delta_x(f)=f(x)$。函数族通常记为 $\mathcal F$；等度连续
 要求连续性估计对族中全部函数共同成立。Bernstein 多项式记为 $B_nf$，其
 误差由连续模 $\omega_f(\delta)$ 控制。
+
+\section{\texorpdfstring{测度、Lebesgue 积分与 \(L^p\) 记号}{测度、Lebesgue 积分与 Lp 记号}}
+
+测度空间写成 \((X,\mathcal A,\mu)\)，其中 \(\mathcal A\) 是
+\(X\) 上的 \(\sigma\)-代数，\(\mu\) 在 \(\mathcal A\) 上可数可加。
+外测度记为 \(\mu^*\)，其定义域是整个幂集 \(\mathcal P(X)\)。Euclidean
+空间中的 Lebesgue 外测度和 Lebesgue 测度分别记为 \(m^*\) 与 \(m\)；
+Jordan 体积仍写作 \(|E|\)。三个记号所允许的集合族并不相同。
+
+函数等式附加 ``a.e.'' 表示在一个零测集之外成立。正部和负部写作
+\[
+ f^+=\max\{f,0\},\qquad f^-=\max\{-f,0\},
+\]
+于是 \(f=f^+-f^-\)、\(|f|=f^++f^-\)。Lebesgue 积分写作
+\[
+ \int_X f\,d\mu\qquad\text{或}\qquad \int_E f\,d\mu.
+\]
+非负函数的积分允许取 \(+\infty\)；对带符号函数，只有在正、负部积分
+不同时为 \(+\infty\) 时才定义其积分。若 \(\int|f|\,d\mu<\infty\)，
+则称 \(f\) 可积。
+
+两个测度空间的乘积测度记为 \(\mu\times\nu\)。对
+\(E\subseteq X\times Y\)，截面记为
+\[
+ E_x=\{y\in Y:(x,y)\in E\},\qquad
+ E^y=\{x\in X:(x,y)\in E\}.
+\]
+对函数也用 \(f_x(y)=f(x,y)\) 表示固定第一变量后的截面。
+
+依测度收敛记作 \(f_n\xrightarrow{\mu}f\)；几乎处处收敛通常写作
+\(f_n\to f\) a.e.。二者都不同于第一卷的逐点收敛和第二卷的一致收敛。
+对 \(0<p<\infty\)，
+\[
+ L^p(\mu)=\left\{f:\int_X|f|^p\,d\mu<\infty\right\}\big/\text{a.e.},
+ \qquad
+ \norm f_p=\left(\int_X|f|^p\,d\mu\right)^{1/p}.
+\]
+当 \(p=\infty\) 时，
+\[
+ \norm f_\infty
+ =\operatorname*{ess\,sup}_{x\in X}|f(x)|
+ =\inf\{M\ge0:\mu(\{|f|>M\})=0\}.
+\]
+这里的元素是几乎处处等价类。\(1\le p\le\infty\) 时这些量给出范数；
+\(0<p<1\) 时只保留拟范数型结构。
 
 \section{同名结论的版本差别}
 
@@ -516,24 +536,34 @@ $\mathbb F=\R$ 或 $\C$，默认范数为
  \item[紧致性]
  \chapterref{chap:euclidean-compactness}在欧氏空间中证明开覆盖紧致等价于闭且有界；\chapterref{chap:compact-metric-spaces}在度量空间中证明开覆盖紧致、序列紧致以及完备加全有界等价；\chapterref{chap:compact-topological-spaces}以开覆盖作为一般拓扑定义，\chapterref{chap:nets-filters}再给出网与滤子刻画。离开度量空间以后，序列紧致与开覆盖紧致一般不等价。
 
- \item[完备化]
- \chapterref{chap:complete-metric-spaces}用 Cauchy 列的等价类构造度量空间完备化；\chapterref{chap:uniform-spaces-topological-groups}用 Cauchy 滤子构造分离一致空间的完备化。前者是后者的可度量特殊情形，但两处唯一性分别按等距同构和一致同构表述。
+\item[完备化]
+\chapterref{chap:complete-metric-spaces}用 Cauchy 列的等价类构造度量空间完备化；\chapterref{chap:uniform-spaces}用 Cauchy 滤子构造分离一致空间的完备化。前者是后者的可度量特殊情形，但两处唯一性分别按等距同构和一致同构表述。
 
  \item[Tychonoff 定理]
  \chapterref{chap:compact-topological-spaces}证明任意一族紧致空间的积在积拓扑下紧致，并明确使用选择公理。有限乘积紧致性只需反复应用管状引理；任意乘积版本不能由有限归纳得到。紧 Hausdorff 乘积仍紧 Hausdorff 是完整定理的推论，引用时不得把空间类别和选择强度省略。
 
- \item[弱拓扑]
- \(\sigma(E,E')\) 是向量空间 \(E\) 上由连续对偶生成的弱拓扑；
- \(\sigma(E',E)\) 是对偶空间上的弱星拓扑。二者一般定义在不同集合上，即使记号中出现同一对偶配对，也不能互换。后文 Banach--Alaoglu 定理讨论的是对偶球的弱星紧致性。
-
  \item[Fubini 定理]
- \chapterref{chap:multiple-integrals}只证明连续函数以及具有全部可积截面的
- Riemann 安全版本；个别截面甚至可以不可 Riemann 积。第三卷的
- Lebesgue--Fubini 定理使用可测性和绝对可积等条件，覆盖范围更大。引用时
- 不能只写“由 Fubini 定理”而省略所处积分理论。
+ \chapterref{chap:fubini-change-variables}证明连续函数以及具有全部可积截面的
+ Riemann 安全版本；个别截面甚至可以不可 Riemann 积。
+ \chapterref{chap:product-measure}先以 Tonelli 定理处理非负可测函数，再对
+ 绝对可积函数证明 Lebesgue--Fubini 定理。引用时不能只写“由 Fubini
+ 定理”而省略所处积分理论和可积性条件。
+
+ \item[单调收敛定理]
+ \chapterref{chap:monotone-iteration}讨论实数列：单调且有界的数列收敛，
+ 证明依赖实数完备性。\chapterref{chap:nonnegative-integral}的 Beppo
+ Levi 定理讨论非负可测函数列：若 \(f_n\uparrow f\)，则
+ \(\int f_n\uparrow\int f\)，积分可以取 \(+\infty\)。前者的“有界”与
+ 后者的“非负”承担不同作用，不能只凭定理名称互相引用。
+
+ \item[Vitali 定理]
+ \chapterref{chap:null-nonmeasurable-sets}中的 Vitali 构造给出不可测集；
+ \chapterref{chap:uniform-integrability}的 Vitali 收敛定理在有限测度
+ 空间上把依测度收敛和一致可积性提升为 \(L^1\) 收敛。后文复分析中的
+ Vitali--Porter 定理还属于另一类正规族结论。
 
  \item[Stokes 定理]
- \chapterref{chap:classical-integral-theorems}的经典版本以旋度和向量面积元
+ \chapterref{chap:parametric-classical-integrals}的经典版本以旋度和向量面积元
  表述；\chapterref{chap:differential-forms-euclidean}在欧氏参数化子流形上
  写成 $\int_Md\omega=\int_{\partial M}\omega$。后文流形版本还需抽象
  流形、单位分解和边界定向，当前证明不能无条件移植到任意流形。
@@ -551,7 +581,7 @@ $\mathbb F=\R$ 或 $\C$，默认范数为
 
 \section{当前章节依赖}
 
-第0—53章的主要依赖可概括如下：
+第0—69章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -593,12 +623,13 @@ M、Dirichlet 与 Abel 判别以及范数绝对收敛下的 Cauchy 乘积。
 一般拓扑从\chapterref{chap:topological-spaces}的开集公理开始。
 \chapterref{chap:separation-metrization}建立分离公理、延拓与度量化，
 \chapterref{chap:compact-topological-spaces}由有限交性质、Alexander 子基定理
-和选择原则处理任意乘积紧致性，\chapterref{chap:topological-connectedness}
+和选择原则处理任意乘积紧致性，\chapterref{chap:compactifications}
+建立一点紧化和 Stone--Čech 紧致化，\chapterref{chap:topological-connectedness}
 把连通性移到一般拓扑语境。由于序列不再充分，
 \chapterref{chap:nets-filters}用网和滤子恢复闭包、连续性和紧致性的完整刻画。
-\chapterref{chap:uniform-spaces-topological-groups}在拓扑之上加入点对的一致控制，
-讨论 Cauchy 滤子、完备化与拓扑群；\chapterref{chap:locally-convex-spaces}
-再把线性结构与半范数、一致结构和弱拓扑结合起来。
+\chapterref{chap:uniform-spaces}在拓扑之上加入点对的一致控制，讨论 Cauchy
+滤子、全有界性和完备化。拓扑群、局部凸空间和弱拓扑将在出现直接分析用途
+时再分别建立。
 
 多元微分学由\chapterref{chap:frechet-differential}把导数定义为统一的线性
 近似，并建立链式法则和向量增量估计；\chapterref{chap:higher-differentials-extrema}
@@ -608,10 +639,11 @@ M、Dirichlet 与 Abel 判别以及范数绝对收敛下的 Cauchy 乘积。
 切空间，建立 Lagrange 乘子、受限二阶判别与 KKT 条件。
 
 \chapterref{chap:multiple-integrals}在一元 Riemann 理论和欧氏紧致性上建立
-多重积分、Jordan 体积、连续函数的 Fubini 公式与 Jacobian 变量代换；
-\chapterref{chap:parametric-integrals}用可微参数化定义曲线和曲面上的积分。
-\chapterref{chap:classical-integral-theorems}先在经典坐标区域上证明 Green、
-Gauss 和 Stokes 定理，再由势函数判据说明定义域拓扑的作用；
+多重积分和 Jordan 体积；\chapterref{chap:fubini-change-variables}随后证明
+Riemann 版本的 Fubini 公式和 Jacobian 变量代换；
+\chapterref{chap:parametric-classical-integrals}用可微参数化定义曲线和曲面
+上的积分，在经典坐标区域上证明 Green、Gauss 和 Stokes 定理，并由势函数
+判据说明定义域拓扑的作用；
 \chapterref{chap:differential-forms-euclidean}以交错形式、拉回和外微分把这些
 公式写成欧氏参数化 Stokes 公式，并证明星形域 Poincaré 引理。
 
@@ -620,5 +652,30 @@ Gauss 和 Stokes 定理，再由势函数判据说明定义域拓扑的作用；
 \chapterref{chap:arzela-ascoli}以等度连续补足普通有界性，给出函数族相对
 紧致性的判据。最后，\chapterref{chap:polynomial-approximation}先用 Bernstein
 多项式构造一致逼近，再以格闭包证明实、复 Stone--Weierstrass 定理。
+
+第三卷从\chapterref{chap:measure-spaces}的 \(\sigma\)-代数和测度出发，
+\chapterref{chap:outer-measures}用 Carathéodory 条件从外测度筛出可测
+集合，并建立预测度延拓。\chapterref{chap:lebesgue-measure}把这一构造
+用于 Euclidean 空间；\chapterref{chap:null-nonmeasurable-sets}比较零测、
+内点、范畴和基数，并以 Vitali 集说明可测性不能覆盖全部子集。
+\chapterref{chap:measurable-functions}随后建立可测函数的运算和简单函数
+逼近。
+
+\chapterref{chap:nonnegative-integral}先定义简单函数和非负函数的积分，
+由单调收敛定理获得可数运算工具；\chapterref{chap:lebesgue-convergence}
+再进入带符号可积函数，依次证明 Fatou 引理和控制收敛定理。
+\chapterref{chap:riemann-lebesgue-comparison}据此说明 Riemann 积分在
+Lebesgue 理论中的位置。\chapterref{chap:product-measure}建立乘积测度、
+Tonelli 和 Fubini 定理，\chapterref{chap:parameter-integrals}把控制收敛
+用于含参数积分的连续性和求导。
+
+\chapterref{chap:modes-of-convergence}比较几乎处处、依测度和 \(L^p\)
+收敛；\chapterref{chap:egorov-subsequence}说明有限测度下几乎处处收敛
+可在小例外集外一致化，并从依测度收敛抽取几乎处处收敛子列。
+\chapterref{chap:uniform-integrability}以一致可积性补足依测度收敛，
+得到 Vitali 收敛定理。最后，\chapterref{chap:lp-spaces}建立 Hölder、
+Minkowski 和 Riesz--Fischer 定理，\chapterref{chap:lp-inclusions}比较
+不同指数，\chapterref{chap:lp-approximation}证明简单函数、连续紧支撑
+函数和光滑函数的稠密性。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

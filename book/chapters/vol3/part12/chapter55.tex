@@ -1,0 +1,304 @@
+\chapter{外测度}
+\label{chap:outer-measures}
+
+测度只能在已经选定的 $\sigma$-代数上运算。实际构造通常反过来进行：先用
+简单集合覆盖任意集合，取覆盖代价的下确界；再从全部子集中筛出与这个代价
+相容的集合。外测度负责第一步，Carathéodory 条件负责第二步。
+
+\section{覆盖与外测度}
+
+\begin{definition}
+映射 $\mu^*:\mathcal P(X)\to[0,+\infty]$ 称为 $X$ 上的
+\term{外测度}，如果
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\mu^*(\varnothing)=0$；
+ \item $A\subseteq B$ 时 $\mu^*(A)\le\mu^*(B)$；
+ \item 对任意集合列，
+ \[
+  \mu^*\!\left(\bigcup_nA_n\right)\le\sum_n\mu^*(A_n).
+ \]
+\end{enumerate}
+\end{definition}
+
+外测度定义在全部子集上，却一般不具有可加性。它给出的是从外部覆盖所得
+的代价；两个集合即使不交，也可能被同一简单集合同时覆盖，从而使并集的
+外测度严格小于两者外测度之和。
+
+最常用的构造如下。设 $\mathcal C\subseteq\mathcal P(X)$ 含空集，给每个
+$C\in\mathcal C$ 指定代价 $\ell(C)\in[0,+\infty]$，且
+$\ell(\varnothing)=0$。定义
+\begin{equation}
+ \mu^*(A)=\inf\left\{\sum_{n=1}^{\infty}\ell(C_n):
+ A\subseteq\bigcup_{n=1}^{\infty}C_n, C_n\in\mathcal C\right\}.
+ \label{eq:covering-outer-measure}
+\end{equation}
+若不存在覆盖，约定下确界为 $+\infty$。
+
+\begin{proposition}
+公式 \eqref{eq:covering-outer-measure} 定义外测度。
+\end{proposition}
+
+\begin{proof}
+空集可由全为空集的集合列覆盖，故外测度为零。包含关系只扩大允许覆盖的
+要求，给出单调性。对 $A\subseteq\bigcup_kA_k$，若右侧有限，给定
+$\varepsilon>0$，为每个 $A_k$ 选覆盖，使其总代价小于
+$\mu^*(A_k)+\varepsilon2^{-k}$。把所有覆盖集合排成一个序列便覆盖 $A$，
+故
+\[
+ \mu^*(A)\le\sum_k\mu^*(A_k)+\varepsilon.
+\]
+令 $\varepsilon\downarrow0$。右侧无穷时不等式自动成立。
+\end{proof}
+
+\section{Carathéodory 可测性}
+
+一个集合 $E$ 应当把任意测试集合 $A$ 的外测度准确分成落在 $E$ 内外的
+两部分。次可加性已经给出“$\le$”方向，定义只要求反向不等式也成立。
+
+\begin{definition}
+设 $\mu^*$ 为外测度。集合 $E\subseteq X$ 称为
+\term{Carathéodory 可测}，如果对每个 $A\subseteq X$ 都有
+\begin{equation}
+ \mu^*(A)=\mu^*(A\cap E)+\mu^*(A\setminus E).
+ \label{eq:caratheodory-criterion}
+\end{equation}
+全部这类集合记为 $\mathcal M_{\mu^*}$。
+\end{definition}
+
+定义要对所有 $A$ 检验，是为了保证 $E$ 在任何后续集合运算中都能作为
+不损失外测度的切割面。只检验 $A=X$ 不足以推出可数可加性。
+
+\begin{theorem}[Carathéodory]
+\label{thm:caratheodory-measurable-sets}
+$\mathcal M_{\mu^*}$ 是 $\sigma$-代数，且
+$\mu=\mu^*|_{\mathcal M_{\mu^*}}$ 是完备测度。
+\end{theorem}
+
+\begin{proof}
+空集可测；条件 \eqref{eq:caratheodory-criterion} 对 $E$ 与 $E^c$ 完全
+对称。若 $E,F$ 可测，对任意 $A$ 先按 $E$ 分割，再把 $A\cap E$ 按 $F$
+分割，得到
+\[
+ \mu^*(A)\ge
+ \mu^*(A\cap E\cap F)+\mu^*(A\cap E\setminus F)
+ +\mu^*(A\setminus E).
+\]
+后两项的并是 $A\setminus(E\cap F)$；次可加性的反向整理给出
+$E\cap F$ 可测。因此可测集构成代数。
+
+设 $E_n$ 两两不交且均可测，记 $F_N=\bigcup_{n\le N}E_n$。反复分割给出
+\[
+ \mu^*(A)\ge
+ \sum_{n=1}^N\mu^*(A\cap E_n)+\mu^*(A\setminus F_N).
+\]
+令 $E=\bigcup_nE_n$。由于 $A\setminus F_N\supseteq A\setminus E$，
+再令 $N\to\infty$，有
+\[
+ \mu^*(A)\ge
+ \sum_n\mu^*(A\cap E_n)+\mu^*(A\setminus E)
+ \ge\mu^*(A\cap E)+\mu^*(A\setminus E).
+\]
+另一方向来自次可加性，所以 $E$ 可测。一般可数并先化为不交并，故
+$\mathcal M_{\mu^*}$ 是 $\sigma$-代数。
+
+在不交可测集列上，取 $A=\bigcup_nE_n$，上面的有限分割给出
+$\mu^*(A)\ge\sum_{n\le N}\mu^*(E_n)$；令 $N\to\infty$，再与次可加性
+合并，得到可数可加性。
+
+若 $Z\subseteq N$ 且 $\mu^*(N)=0$，则对任意 $A$，
+$\mu^*(A\cap Z)=0$，而 $A\setminus Z\subseteq A$。结合次可加性即得
+$Z$ 满足 Carathéodory 条件，且测度为零。因此所得测度完备。
+\end{proof}
+
+\section{从预测度到外测度}
+
+\begin{definition}
+设 $\mathcal A_0$ 是 $X$ 上的代数。函数
+$\mu_0:\mathcal A_0\to[0,+\infty]$ 称为\term{预测度}，如果
+$\mu_0(\varnothing)=0$，并且每当两两不交的 $A_n\in\mathcal A_0$ 的并
+$A=\bigcup_nA_n$ 仍属于 $\mathcal A_0$ 时，
+\[
+ \mu_0(A)=\sum_n\mu_0(A_n).
+\]
+\end{definition}
+
+用 $\mathcal A_0$ 中集合覆盖任意 $E\subseteq X$，定义
+\begin{equation}
+ \mu^*(E)=\inf\left\{\sum_n\mu_0(A_n):
+ E\subseteq\bigcup_nA_n, A_n\in\mathcal A_0\right\}.
+ \label{eq:premeasure-induced-outer}
+\end{equation}
+
+\begin{lemma}
+\label{lem:premeasure-agrees-on-algebra}
+对 $A\in\mathcal A_0$，有 $\mu^*(A)=\mu_0(A)$，并且 $A$ 满足
+Carathéodory 条件。
+\end{lemma}
+
+\begin{proof}
+用 $A$ 自身覆盖给出 $\mu^*(A)\le\mu_0(A)$。反过来，若
+$A\subseteq\bigcup_nA_n$，把 $A$ 依次分成
+\[
+ B_n=A\cap A_n\setminus\bigcup_{k<n}A_k.
+\]
+$B_n$ 两两不交、属于代数且并为 $A$。预测度的可数可加性和单调性给出
+$\mu_0(A)=\sum_n\mu_0(B_n)\le\sum_n\mu_0(A_n)$。对所有覆盖取下确界。
+
+固定 $E\subseteq X$ 和 $A\in\mathcal A_0$。任一代数覆盖 $(A_n)$ 可按
+$A$ 分为 $A_n\cap A$ 与 $A_n\setminus A$，且
+\[
+ \mu_0(A_n)=\mu_0(A_n\cap A)+\mu_0(A_n\setminus A).
+\]
+对覆盖代价取下确界，得到
+$\mu^*(E)\ge\mu^*(E\cap A)+\mu^*(E\setminus A)$，所以 $A$ 可测。
+\end{proof}
+
+\begin{theorem}[Carathéodory 延拓定理]
+\label{thm:caratheodory-extension}
+预测度 $\mu_0$ 在 $\sigma(\mathcal A_0)$ 上至少有一个测度延拓。由
+\eqref{eq:premeasure-induced-outer} 构造的 Carathéodory 测度给出这样的
+延拓，并且在整个 $\mathcal M_{\mu^*}$ 上已经完备。
+\end{theorem}
+
+\begin{proof}
+公式 \eqref{eq:premeasure-induced-outer} 定义外测度。由引理
+\ref{lem:premeasure-agrees-on-algebra}，
+$\mathcal A_0\subseteq\mathcal M_{\mu^*}$，故
+$\sigma(\mathcal A_0)\subseteq\mathcal M_{\mu^*}$。定理
+\ref{thm:caratheodory-measurable-sets} 说明限制后的函数是测度；同一引理
+说明它在 $\mathcal A_0$ 上等于 $\mu_0$。
+\end{proof}
+
+\section{延拓的唯一性}
+
+存在性不自动给出唯一性。最简单的反例是只在代数
+$\{\varnothing,X\}$ 上规定 $\mu_0(X)=+\infty$；任何总质量无穷的测度
+都延拓它。$\sigma$-有限性排除了这种完全没有局部有限控制的情形。
+
+唯一性证明要用到一个集合族闭包结论。称包含 $X$、对补集以及两两不交的
+可数并封闭的集合族为 \term{Dynkin 系统}；称对有限交封闭的集合族为
+\term{$\pi$-系统}。
+
+\begin{lemma}[$\pi$--$\lambda$ 定理]
+\label{lem:pi-lambda}
+若 $\mathcal P$ 是 $X$ 上的 $\pi$-系统，$\mathcal D$ 是包含
+$\mathcal P$ 的 Dynkin 系统，则
+\[
+ \sigma(\mathcal P)\subseteq\mathcal D.
+\]
+\end{lemma}
+
+\begin{proof}
+记 $\lambda(\mathcal P)$ 为包含 $\mathcal P$ 的最小 Dynkin 系统。先
+固定 $A\in\mathcal P$，令
+\[
+ \mathcal D_A=\{B\subseteq X:A\cap B\in\lambda(\mathcal P)\}.
+\]
+因为 $A\in\lambda(\mathcal P)$，集合族 $\mathcal D_A$ 包含 $X$；
+Dynkin 系统的差集封闭性和不交可数并封闭性说明 $\mathcal D_A$ 仍是
+Dynkin 系统。$\mathcal P$ 对有限交封闭，所以
+$\mathcal P\subseteq\mathcal D_A$，从而
+$\lambda(\mathcal P)\subseteq\mathcal D_A$。
+
+再固定 $B\in\lambda(\mathcal P)$，令
+\[
+ \mathcal E_B=\{A\subseteq X:A\cap B\in\lambda(\mathcal P)\}.
+\]
+前一段说明 $\mathcal P\subseteq\mathcal E_B$；同样的检验表明
+$\mathcal E_B$ 是 Dynkin 系统。因此
+$\lambda(\mathcal P)\subseteq\mathcal E_B$，即
+$\lambda(\mathcal P)$ 对有限交封闭。一个对有限交封闭的 Dynkin 系统
+同时对补集和任意可数并封闭，因而是 $\sigma$-代数。于是
+\[
+ \lambda(\mathcal P)=\sigma(\mathcal P).
+\]
+又 $\lambda(\mathcal P)\subseteq\mathcal D$，结论得证。
+\end{proof}
+
+\begin{theorem}[延拓唯一性]
+\label{thm:premeasure-extension-uniqueness}
+若 $X=\bigcup_nX_n$，其中 $X_n\in\mathcal A_0$ 且
+$\mu_0(X_n)<\infty$，则 $\mu_0$ 在 $\sigma(\mathcal A_0)$ 上的测度延拓
+唯一。
+\end{theorem}
+
+\begin{proof}
+先设 $\mu_0(X)<\infty$，且 $\mu,\nu$ 是两个延拓。令
+\[
+ \mathcal D=\{E\in\sigma(\mathcal A_0):\mu(E)=\nu(E)\}.
+\]
+由于两测度在 $X$ 上有限且相等，$E\in\mathcal D$ 推出
+$E^c\in\mathcal D$；对两两不交的 $E_n\in\mathcal D$，可数可加性给出
+$\bigcup_nE_n\in\mathcal D$。所以 $\mathcal D$ 是 Dynkin 系统。代数
+$\mathcal A_0$ 对有限交封闭，并包含于 $\mathcal D$。引理
+\ref{lem:pi-lambda} 说明
+$\sigma(\mathcal A_0)\subseteq\mathcal D$。
+
+一般情形把 $X_n$ 替换为两两不交的有限测度代数成员。对每个 $n$，受限
+测度 $E\mapsto\mu(E\cap X_n)$ 与 $E\mapsto\nu(E\cap X_n)$ 在
+$\mathcal A_0$ 上相等且有限，由前一段在生成 $\sigma$-代数上相等。最后
+\[
+ \mu(E)=\sum_n\mu(E\cap X_n)
+ =\sum_n\nu(E\cap X_n)=\nu(E).
+\]
+\end{proof}
+
+$\pi$--$\lambda$ 定理以后还会用于乘积测度和概率分布的唯一性。习题要求
+读者不参照正文重新写出闭包论证。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　外测度与可测性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{outer-measure-covering-proof}
+ 完整证明覆盖公式 \eqref{eq:covering-outer-measure} 的可数次可加性。
+ \exerciseitem{outer-null-measurable}
+ 证明每个外测度零集及其任意子集都满足 Carathéodory 条件。
+ \exerciseitem{caratheodory-finite-unions}
+ 直接验证 Carathéodory 可测集对有限并和差封闭。
+ \exerciseitem{caratheodory-countable-additivity}
+ 补全定理 \ref{thm:caratheodory-measurable-sets} 中可数可加性的有限分割
+ 极限步骤。
+ \exerciseitem{metric-outer-measure-borel}
+ 设 $X$ 为度量空间，外测度 $\mu^*$ 对距离为正的集合满足
+ $\mu^*(A\cup B)=\mu^*(A)+\mu^*(B)$。证明所有闭集均 Carathéodory 可测，
+ 因而 $\mathcal B(X)\subseteq\mathcal M_{\mu^*}$。
+\end{enumerate}
+
+\subsection*{B组　预测度与延拓}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{premeasure-outer-agreement}
+ 逐项补全引理 \ref{lem:premeasure-agrees-on-algebra}。
+ \exerciseitem{finite-partition-premeasure}
+ 给定有限分割 $X=A_1\dot\cup\cdots\dot\cup A_m$ 和权重 $w_j\ge0$，在
+ 由这些原子生成的代数上构造预测度，并求其 Carathéodory 延拓。
+ \exerciseitem{extension-nonunique-infinite-total}
+ 在 $X=\N$ 上，从代数 $\{\varnothing,X\}$ 和规定
+ $\mu_0(X)=+\infty$ 出发，写出两个不同的测度延拓。
+ \exerciseitem{sigma-finite-disjoint-cover}
+ 证明延拓唯一性定理中的 $X_n$ 可替换为两两不交的代数成员，并保持有限
+ 测度。
+ \exerciseitem{pi-lambda-theorem}
+ 证明：若 $\mathcal P$ 是对有限交封闭的集合族，$\mathcal D$ 是包含
+ $\mathcal P$ 的 Dynkin 系统，则 $\sigma(\mathcal P)\subseteq\mathcal D$。
+\end{enumerate}
+
+\subsection*{C组　构造方法}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{outer-measure-from-existing-measure}
+ 对测度空间定义
+ $\mu^*(A)=\inf\{\mu(E):A\subseteq E, E\in\mathcal A\}$。证明它是外测度，
+ 并刻画其 Carathéodory $\sigma$-代数与原测度完备化的关系。
+ \exerciseitem{outer-measure-restriction}
+ 若 $Y\subseteq X$，证明 $\nu^*(A)=\mu^*(A)$（$A\subseteq Y$）是 $Y$
+ 上的外测度，并比较两者的可测集。
+ \exerciseitem{premeasure-finite-cover-subadditivity}
+ 设 $A,A_1,\ldots,A_m\in\mathcal A_0$ 且
+ $A\subseteq\bigcup_{j=1}^mA_j$。证明
+ $\mu_0(A)\le\sum_j\mu_0(A_j)$。
+ \optionalexerciseitem{caratheodory-maximal-domain}
+ 证明：若一个测度 $\nu$ 定义在某个 $\sigma$-代数 $\mathcal C$ 上，且
+ $\nu^*$ 是由 $\nu$ 的可测覆盖得到的外测度，则
+ $\mathcal C\subseteq\mathcal M_{\nu^*}$；说明完备化为何自然包含其中。
+\end{enumerate}

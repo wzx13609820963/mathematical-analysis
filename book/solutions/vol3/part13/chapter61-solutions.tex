@@ -1,0 +1,137 @@
+\chapter{两种积分的比较}
+
+\begin{solution}{riemann-step-integrals}
+每个开小区间与对应闭小区间只差有限个端点，端点零测。因此
+\[
+ \int s_P\,dm=\sum_km_k(x_k-x_{k-1})=L(f,P),
+\]
+上阶梯函数同理。改变有限个分点处的值只在零测集上修改函数，Lebesgue
+积分不变。
+\end{solution}
+
+\begin{solution}{riemann-measurability-direct}
+取递细分割使 \(\int(t_n-s_n)\to0\)，并令
+\(s=\sup_ns_n,t=\inf_nt_n\)。二者为 Borel 可测函数。由
+\(\int(t-s)=0\)，集合 \(N=\{s<t\}\) 零测。在所有分点之外，
+\(s\le f\le t\)，故 \(f=s\) 于
+\([a,b]\setminus(N\cup\{\text{分点}\})\)。因此 \(f\) 是 Borel 可测
+函数 \(s\) 在一个零测集上的修改，故对完备的 Lebesgue
+\(\sigma\)-代数可测。
+\end{solution}
+
+\begin{solution}{oscillation-upper-semicontinuity}
+若 \(\omega_f(x)<\varepsilon\)，存在 \(r>0\) 使 \(f\) 在
+\((x-r,x+r)\cap[a,b]\) 上的振幅小于 \(\varepsilon\)。当
+\(|y-x|<r/2\) 时，\(y\) 的 \(r/2\) 邻域包含在上述区间内，故
+\(\omega_f(y)<\varepsilon\)。所以该下水平集相对开。
+\end{solution}
+
+\begin{solution}{riemann-criterion-forward-detail}
+取分割 \(P\) 使振幅和小于 \(\eta\)。分点集合 \(F_P\) 有限，零测。
+若 \(x\in D_\varepsilon\setminus F_P\)，则 \(x\) 落在唯一开小区间
+\((x_{k-1},x_k)\) 内；足够小的 \(x\) 邻域仍在该区间内，所以该小区间
+的振幅至少为 \(\varepsilon\)。因此
+\[
+ D_\varepsilon\subset F_P\cup
+ \bigcup_{\omega(f;I_k)\ge\varepsilon}I_k.
+\]
+右端区间总长度至多
+\(\varepsilon^{-1}\sum_k\omega(f;I_k)|I_k|<\eta/\varepsilon\)。
+由外测度定义并令 \(\eta\downarrow0\)，得
+\(m(D_\varepsilon)=0\)。
+\end{solution}
+
+\begin{solution}{riemann-criterion-backward-detail}
+令 \(|f|\le M\)。选 \(r\) 使 \((b-a)/r<\varepsilon/2\)。用有限开
+区间覆盖紧零测集 \(D_{1/r}\)，总长度小于
+\(\varepsilon/(8M)\)，并可稍扩张使其闭包总长度仍小于
+\(\varepsilon/(4M)\)。在补集紧集上，每点有函数振幅小于 \(1/r\) 的
+邻域。Lebesgue 数引理给出 \(\lambda>0\)，使补集上长度小于
+\(\lambda\) 的小区间包含于某个这样的邻域。取网格小于 \(\lambda\)，
+并加入坏区间端点。坏区间贡献至多
+\[
+ 2M\cdot\frac{\varepsilon}{4M}=\frac\varepsilon2,
+\]
+其余区间贡献至多 \((b-a)/r<\varepsilon/2\)。
+\end{solution}
+
+\begin{solution}{thomae-continuity-set}
+给定 \(\varepsilon>0\)，满足 \(t(p/q)\ge\varepsilon\) 的约分有理数只
+可能有 \(q\le1/\varepsilon\)，在 \([0,1]\) 中有限。无理点可取邻域
+避开它们，所以连续。有理点的任意邻域含无理数，函数值沿无理数为零，不能
+趋于该点的正值，故不连续。不连续点集 \(\mathbb Q\cap[0,1]\) 零测，
+所以 Riemann 可积；其积分由稠密无理点给出的下和为零，故为零。
+Lebesgue 意义下函数只在可数集上非零，积分也为零。
+\end{solution}
+
+\begin{solution}{indicator-riemann-boundary}
+若 \(x\in\operatorname{int}E\) 或
+\(x\in\operatorname{int}(E^c)\)，指示函数在 \(x\) 的某邻域为常值。
+若 \(x\in\partial E\)，每个邻域同时遇到 \(E\) 与 \(E^c\)，函数振幅为
+\(1\)，故不连续。于是连续点集是
+\(\operatorname{int}E\cup\operatorname{int}(E^c)\)，不连续点集为
+\(\partial E\)。Lebesgue 判别准则给出结论。
+\end{solution}
+
+\begin{solution}{fat-cantor-indicator}
+因 \(F\) 闭且无内点，\(\partial F=F\)。它有正测度，故
+\(\mathbf1_F\) 的不连续点集正测，因而不 Riemann 可积。它是可测指示
+函数，Lebesgue 积分为 \(m(F)>0\)。
+\end{solution}
+
+\begin{solution}{dense-zero-discontinuities}
+Thomae 函数就是所求例子：其不连续点集
+\(\mathbb Q\cap[0,1]\) 稠密而零测，故仍 Riemann 可积。
+\end{solution}
+
+\begin{solution}{improper-lebesgue-comparison}
+绝对值积分为
+\[
+ \int_0^1x^{-\alpha}|\sin(1/x)|\,dx.
+\]
+令 \(u=1/x\)，它化为
+\[
+ \int_1^\infty u^{\alpha-2}|\sin u|\,du,
+\]
+它当且仅当 \(\alpha<1\) 收敛。故 Lebesgue 可积恰在 \(\alpha<1\)。
+不取绝对值时得到
+\[
+ \int_1^\infty u^{\alpha-2}\sin u\,du.
+\]
+Dirichlet 判别表明
+\(\alpha<2\) 时收敛；当 \(\alpha\ge2\)，项幅不趋于零或分部积分可见
+发散。因此 \(1\le\alpha<2\) 时反常积分条件收敛但函数不 Lebesgue
+可积。
+\end{solution}
+
+\begin{solution}{bounded-ae-continuous-version}
+若 \(f\) 本身几乎处处连续，则其不连续点集零测，Lebesgue 判别准则直接
+给出 Riemann 可积性。第二个命题不成立：Dirichlet 函数几乎处处等于零
+函数，后者 Riemann 可积，但 Dirichlet 函数处处不连续，故不 Riemann
+可积。关键差别是 Riemann 可积性不在任意零测修改下保持。
+\end{solution}
+
+\begin{solution}{prescribed-discontinuity-set}
+写 \(E=\bigcup_{n\ge1}F_n\)，其中可设 \(F_n\) 递增、闭且零测。定义
+\[
+ f(x)=\sum_{n=1}^{\infty}2^{-n}\mathbf1_{F_n}(x).
+\]
+级数一致收敛，故 \(f\) 有界。若 \(x\notin E\)，给定
+\(\varepsilon>0\)，先取 \(N\) 使尾和小于 \(\varepsilon\)；因
+\(x\notin\cup_{n\le N}F_n\) 且有限并闭，可取邻域避开它，故邻域内
+\(|f(y)-f(x)|<\varepsilon\)。所以 \(f\) 在 \(x\) 连续。
+
+若 \(x\in E\)，取最小 \(n_0\) 使 \(x\in F_{n_0}\)。零测闭集无内点，
+其有限并也无内点，故任意邻域存在
+\(y\notin\cup_{n\le n_0}F_n\)。于是
+\[
+ f(x)-f(y)\ge 2^{-n_0}-\sum_{n>n_0}2^{-n}=0
+\]
+这一估计可能退化。把系数改为 \(3^{-n}\)，则差至少
+\[
+ 3^{-n_0}-\sum_{n>n_0}3^{-n}
+ =\frac12\,3^{-n_0}>0.
+\]
+故在 \(x\) 不连续。于是 \(D(f)=E\)，且 \(E\) 零测，所以 \(f\)
+Riemann 可积。
+\end{solution}

@@ -1,61 +1,244 @@
-\chapter{经典积分定理}
+\chapter{参数化积分与经典积分定理}
+\label{chap:parametric-classical-integrals}
+\label{chap:parametric-integrals}
 \label{chap:classical-integral-theorems}
 
-Newton--Leibniz 公式把区间内部的导数积分化为两个端点的差。Green、Gauss
-和 Stokes 定理把同一原则分别写在平面区域、空间区域和曲面上：内部微分
-经过积分后，只留下带有诱导定向的边界项。边界的光滑性和定向不是附属约定，
-而是公式符号的一部分。
+曲线和曲面通常不是某个固定坐标轴方向上的函数图像。参数化把它们放回
+欧氏参数域，但积分值不应依赖参数速度或坐标选择。本章先从弧长和面积的
+局部线性近似出发，建立两类曲线积分和两类曲面积分；随后证明 Green、
+Gauss 与经典 Stokes 定理。三条定理的边界定向都由参数化中的方向约定
+决定，因而放在同一章内可以避免公式符号与几何定义分离。
 
-本章先在可由有限个 $C^1$ 图形分片描述的紧区域上证明公式。更一般的分片
-光滑区域可通过有限分割归入这一类；相邻分片的公共边界以相反方向出现并
-相消。
+\section{正则曲线与弧长}
+
+\begin{definition}
+映射 $\gamma:[a,b]\to\R^n$ 称为 $C^1$ 正则曲线，如果
+$\gamma\in C^1$ 且 $\gamma'(t)\ne0$。允许有限分点处导数不存在而每一段
+正则时，称为分段 $C^1$ 正则曲线。
+\end{definition}
+
+对分割 $P:a=t_0<\cdots<t_m=b$，折线长度为
+$\sum_i\norm{\gamma(t_i)-\gamma(t_{i-1})}$；弧长定义为这些长度的上确界。
+
+\begin{theorem}[弧长公式]
+\label{thm:arc-length-parametric}
+若 $\gamma\in C^1([a,b],\R^n)$，则曲线可求长且
+\[
+ L(\gamma)=\int_a^b\norm{\gamma'(t)}\,dt.
+\]
+\end{theorem}
+
+\begin{proof}
+由微积分基本定理和三角不等式，任意分割都有
+\[
+ \sum_i\norm{\gamma(t_i)-\gamma(t_{i-1})}
+ \le\sum_i\int_{t_{i-1}}^{t_i}\norm{\gamma'(t)}dt.
+\]
+反向估计利用 $\gamma'$ 的一致连续性。在每段取 $\xi_i$，则
+\[
+ \gamma(t_i)-\gamma(t_{i-1})
+ =\gamma'(\xi_i)\Delta t_i+r_i,
+ \qquad \sum_i\norm{r_i}\le\omega_{\gamma'}(\norm P)(b-a).
+\]
+所以折线长度至少为相应 Riemann 和减去趋零误差。取细分割并取上确界，
+得到反向不等式。
+\end{proof}
+
+\begin{theorem}[曲线的重新参数化]
+\label{thm:curve-reparametrization}
+设 $\phi:[c,d]\to[a,b]$ 是 $C^1$ 微分同胚，并令
+$\widetilde\gamma=\gamma\circ\phi$。则
+\[
+ L(\widetilde\gamma)=L(\gamma).
+\]
+对连续标量函数 $f$，第一型曲线积分在此变换下不变；对连续向量场 $F$，
+第二型曲线积分在 $\phi$ 递增时不变，在 $\phi$ 递减时变号。
+\end{theorem}
+
+\begin{proof}
+链式法则给出
+$\widetilde\gamma'(s)=\gamma'(\phi(s))\phi'(s)$。因此
+\[
+ \int_c^d\norm{\widetilde\gamma'(s)}\,ds
+ =\int_c^d\norm{\gamma'(\phi(s))}|\,\phi'(s)|\,ds
+ =\int_a^b\norm{\gamma'(t)}\,dt.
+\]
+第一型积分只是在被积式中再乘 $f(\gamma(\phi(s)))$，同一变量代换仍适用。
+第二型积分中的 $\phi'(s)$ 不取绝对值，故其符号记录参数方向。严格单调
+保证曲线的每一段只经过一次；若允许来回折返，积分会按经过次数重复计算。
+\end{proof}
+
+\section{两类曲线积分}
+
+对连续标量函数 $f$，定义第一型曲线积分
+\[
+ \int_\gamma f\,ds
+ :=\int_a^bf(\gamma(t))\norm{\gamma'(t)}\,dt.
+\]
+它不随定向改变。对连续向量场 $F$，定义第二型曲线积分
+\[
+ \int_\gamma F\cdot d x
+ :=\int_a^b\langle F(\gamma(t)),\gamma'(t)\rangle dt.
+\]
+它在反向参数化下变号。若写 $F=(P_1,\ldots,P_n)$，也记为
+$\int_\gamma\sum_jP_j\,dx_j$。
+
+若 $F=\nabla\varphi$，链式法则给出
+\[
+ \int_\gamma F\cdot dx
+ =\varphi(\gamma(b))-\varphi(\gamma(a)).
+\]
+这说明梯度场的积分只依赖端点。反向命题需要定义域的连通和闭路积分条件，
+将在本章最后一节说明。
+
+\begin{example}
+取单位圆的正向参数 $\gamma(t)=(\cos t,\sin t)$，$0\le t\le2\pi$。
+对 $F(x,y)=(-y,x)$，
+\[
+ F(\gamma(t))\cdot\gamma'(t)=1,
+ \qquad \int_\gamma F\cdot dx=2\pi.
+\]
+反向绕行使积分变为 $-2\pi$；而 $\int_\gamma1\,ds=2\pi$ 在两种方向下
+相同。这个计算同时显示了第一型积分测量几何长度、第二型积分记录定向的
+差别。
+\end{example}
+
+\section{正则曲面与面积元}
+
+设 $D\subset\R^2$ 为有界 Jordan 区域，$X$ 在 $\overline D$ 的一个开邻域
+上属于 $C^1$。若
+$X_u\times X_v\ne0$ 在 $\overline D$ 上处处成立，则称 $X|_D$ 为正则
+参数化。为避免同一片曲面被重复覆盖，通常还要求 $X$ 在 $D$ 内单射，并在
+闭包上除边界识别外保持一一对应。
+
+导数把参数小矩形的两条边映为 $X_u\Delta u$ 和 $X_v\Delta v$，相应
+平行四边形面积为
+\[
+ \norm{X_u\times X_v}\,\Delta u\,\Delta v.
+\]
+因此定义面积元
+\[
+ dS=\norm{X_u\times X_v}\,du\,dv.
+\]
+
+若 $Y=X\circ\Phi$ 是由平面 $C^1$ 微分同胚重新参数化，则
+\[
+ Y_s\times Y_t
+ =\det D\Phi\,(X_u\times X_v)\circ\Phi.
+\]
+结合二维变量代换，曲面面积
+\[
+ \operatorname{area}(S)=\int_D\norm{X_u\times X_v}\,du\,dv
+\]
+与正则参数无关。
+
+公式中的行列式来自一个直接的双线性计算。若
+$\Phi(s,t)=(u(s,t),v(s,t))$，则
+\[
+ Y_s=X_u u_s+X_v v_s,\qquad
+ Y_t=X_u u_t+X_v v_t,
+\]
+从而叉积中 $X_u\times X_u$ 与 $X_v\times X_v$ 两项消失，剩下
+$(u_sv_t-u_tv_s)X_u\times X_v$。绝对值控制面积，行列式的符号则控制
+定向。
+
+连续单位法向场 $n$ 的选择称为曲面的定向。一个正则参数给出
+$n=(X_u\times X_v)/\norm{X_u\times X_v}$；交换参数次序或使用负
+Jacobian 的重新参数化会反向定向。Möbius 带不存在全局连续法向场，说明
+并非每个曲面都可定向。
+
+\section{两类曲面积分}
+
+对连续标量函数 $f$，定义
+\[
+ \int_Sf\,dS
+ =\int_Df(X(u,v))\norm{X_u\times X_v}\,du\,dv.
+\]
+对连续向量场 $F$ 和已定向曲面，通量积分为
+\[
+ \int_SF\cdot n\,dS
+ =\int_D\langle F(X(u,v)),X_u\times X_v\rangle\,du\,dv.
+\]
+前者与定向无关，后者反向定向时变号。参数化不变性分别由上节的绝对值
+公式和有向叉积公式得到。
+
+若曲面是图像 $X(x,y)=(x,y,g(x,y))$，向上定向时
+\[
+ X_x\times X_y=(-g_x,-g_y,1),\qquad
+ dS=\sqrt{1+g_x^2+g_y^2}\,dx\,dy.
+\]
+因此两类积分可分别写为
+\[
+ \int_S f\,dS
+ =\iint_D f(x,y,g(x,y))\sqrt{1+g_x^2+g_y^2}\,dx\,dy,
+\]
+\[
+ \int_SF\cdot n\,dS
+ =\iint_DF(x,y,g(x,y))\cdot(-g_x,-g_y,1)\,dx\,dy.
+\]
+第二式使用的是有向面积向量而非单位法向；这正好消去了单位化时出现的
+根式。
+球面参数在两极退化，但两极为面积零的例外；可以删去小极冠后计算，再由
+有界性令其面积趋零。与极坐标相同，这种处理必须明确退化集的贡献，而不能
+把非正则参数直接称为处处正则。
 
 \section{Green 定理}
 
-平面有界区域 $D$ 的边界取正向：沿边界行进时，区域位于左侧。若
-$D=\{(x,y):a\le x\le b,\alpha(x)\le y\le\beta(x)\}$，其中
-$\alpha,\beta$ 分段 $C^1$，则由一元基本定理
+平面有界区域 \(D\) 的边界取正向：沿边界行进时，区域位于左侧。若
 \[
- \iint_D\partial_yP\,dxdy
- =\int_a^b[P(x,\beta(x))-P(x,\alpha(x))]dx
+ D=\{(x,y):a\le x\le b,\ \alpha(x)\le y\le\beta(x)\},
+\]
+其中 \(\alpha,\beta\) 分段 \(C^1\)，则一元基本定理和上一章的累次积分
+给出
+\[
+ \iint_D\partial_yP\,dx\,dy
+ =\int_a^b[P(x,\beta(x))-P(x,\alpha(x))]\,dx
  =-\int_{\partial D}P\,dx.
 \]
-对 $x$-方向的简单区域同理得到 $\iint_D\partial_xQ=\int_{\partial D}Qdy$。
+对 \(x\) 方向的简单区域，同理得到
+\(\iint_D\partial_xQ=\int_{\partial D}Q\,dy\)。
 
 \begin{theorem}[Green 定理]
 \label{thm:green-classical}
-设 $D\subset\R^2$ 是有限个上述简单区域的并，内部互不相交，边界分段
-$C^1$；$P,Q$ 在 $\overline D$ 的邻域属于 $C^1$。则
+设 \(D\subset\R^2\) 有界，边界分段 \(C^1\)，并且分别沿两个坐标方向
+都能分成有限个内部互不相交的简单区域；\(P,Q\) 在
+\(\overline D\) 的邻域属于 \(C^1\)。则
 \[
  \int_{\partial D}P\,dx+Q\,dy
- =\iint_D(\partial_xQ-\partial_yP)\,dxdy.
+ =\iint_D(\partial_xQ-\partial_yP)\,dx\,dy.
 \]
 有洞区域的外边界取逆时针，内边界取顺时针。
 \end{theorem}
 
 \begin{proof}
-对同时为两种简单区域的情形，将上面的两个一元基本定理相加。一般分片区域
-逐片应用；每条内部公共弧在两个分片中方向相反，线积分相消，只余外边界。
-若有洞，内边界也是剩余边界，但其诱导方向与外边界相反。
+对 \(P\,dx\) 项使用沿 \(x\) 方向的有限简单分解，对 \(Q\,dy\) 项使用
+沿 \(y\) 方向的有限简单分解，并分别应用前面的两个一元基本定理。每条
+内部公共弧在相邻两块中具有相反诱导方向，两个线积分相消；有限多个分片
+交于端点不会产生额外一维积分。两次计算留下的都是
+\(\partial D\) 上相应的一项。若区域有洞，内边界作为区域边界的诱导方向
+为顺时针。
 \end{proof}
 
-取 $P=-y/2,Q=x/2$ 得面积公式
+取 \(P=-y/2\)、\(Q=x/2\)，得到面积公式
 \[
  |D|=\frac12\int_{\partial D}(x\,dy-y\,dx).
 \]
-删去分片或边界正则性后，公式未必仍能在 Riemann 意义下表述；后续测度论
-和弱导数理论会给出更广的版本。
+定理陈述中的有限分片和分段光滑边界保证所有积分都已在 Riemann 意义下
+定义。分形边界或仅有弱导数的情形需要第三卷和第七卷的工具。
 
 \section{Gauss 散度定理}
 
-对 $F=(F_1,F_2,F_3)$，散度为
-$\operatorname{div}F=\partial_xF_1+\partial_yF_2+\partial_zF_3$。
+对 \(F=(F_1,F_2,F_3)\)，记
+\[
+ \operatorname{div}F
+ =\partial_xF_1+\partial_yF_2+\partial_zF_3.
+\]
 
 \begin{theorem}[Gauss 散度定理]
 \label{thm:gauss-divergence-classical}
-设 $\Omega\subset\R^3$ 是可分成有限个坐标方向简单区域的有界区域，边界
-分片 $C^1$，$n$ 为外单位法向。若 $F$ 在 $\overline\Omega$ 的邻域属于
-$C^1$，则
+设 \(\Omega\subset\R^3\) 是可分成有限个坐标方向简单区域的有界区域，
+边界分片 \(C^1\)，\(n\) 为外单位法向。若 \(F\) 在
+\(\overline\Omega\) 的邻域属于 \(C^1\)，则
 \[
  \iiint_\Omega\operatorname{div}F\,dV
  =\iint_{\partial\Omega}F\cdot n\,dS.
@@ -63,43 +246,47 @@ $C^1$，则
 \end{theorem}
 
 \begin{proof}
-只证 $F=(0,0,R)$ 的分量公式。若
-$\Omega=\{(x,y,z):(x,y)\in D,\alpha(x,y)\le z\le\beta(x,y)\}$，
-Fubini 定理和一元基本定理给出
+先证第三个分量。若
 \[
- \iiint_\Omega\partial_zR\,dV
- =\iint_D[R(x,y,\beta)-R(x,y,\alpha)]dxdy.
+ \Omega=\{(x,y,z):(x,y)\in D,
+          \alpha(x,y)\le z\le\beta(x,y)\},
 \]
-上、下图面的有向面积向量的第三分量分别为 $1$ 和 $-1$，侧面的第三分量
-为零，故右端正是 $\iint_{\partial\Omega}F\cdot n\,dS$。另外两个分量
-循环置换坐标。有限分片后，内部曲面的法向相反，通量相消。
+则 Fubini 定理和一元基本定理给出
+\[
+ \iiint_\Omega\partial_zF_3\,dV
+ =\iint_D
+  [F_3(x,y,\beta(x,y))-F_3(x,y,\alpha(x,y))]\,dx\,dy.
+\]
+上图面外向面积向量的第三分量为 \(1\)，下图面的相应分量为 \(-1\)，
+侧面的第三分量为零。因此右端就是向量场 \((0,0,F_3)\) 的外向通量。
+另外两个分量由循环置换坐标得到。有限分片后，内部曲面在相邻两块上的
+法向相反，通量相消。
 \end{proof}
 
-散度描述单位体积的净流出率。取 $F(x)=x/3$ 便得到
-$|\Omega|=\frac13\int_{\partial\Omega}x\cdot n\,dS$。
-
-定理要求向量场在区域的一个邻域中光滑，不能只检查边界附近。令
+取 \(F(x)=x/3\) 得
 \[
- F(x)=\frac{x}{\norm{x}^3}\qquad(x\ne0).
+ |\Omega|=\frac13\int_{\partial\Omega}x\cdot n\,dS.
 \]
-直接计算得 $\operatorname{div}F=0$ 于 $\R^3\setminus\{0\}$，但在半径
-$R$ 的球面上，$F\cdot n=1/R^2$，故外向通量恒为 $4\pi$。若球包含原点，
-散度定理的光滑性假设不成立；这个非零通量不能与区域内的零散度相矛盾。
-删去半径 $\rho$ 的小球后应用定理，内球面的诱导法向指向原点，其通量为
-$-4\pi$，两条边界的贡献恰好相消。
+光滑性必须覆盖区域内部。向量场
+\[
+ F(x)=\frac{x}{\norm{x}^3}\qquad(x\ne0)
+\]
+在 \(\R^3\setminus\{0\}\) 上散度为零，但穿过任意包围原点的球面的
+外向通量为 \(4\pi\)。若区域包含原点，定理的假设失败；删去一个小球后，
+内球面的诱导法向指向原点，其通量为 \(-4\pi\)，与外边界通量相消。
 
 \section{经典 Stokes 定理}
 
-对 $F=(P,Q,R)$，旋度定义为
+对 \(F=(P,Q,R)\)，定义
 \[
- \operatorname{curl}F=
- (R_y-Q_z,\ P_z-R_x,\ Q_x-P_y).
+ \operatorname{curl}F=(R_y-Q_z,\ P_z-R_x,\ Q_x-P_y).
 \]
 
 \begin{theorem}[经典 Stokes 定理]
 \label{thm:stokes-classical-surface}
-设 $S=X(D)$ 是定向分片 $C^2$ 曲面，$D$ 为 Green 定理适用的平面区域，
-边界定向与法向满足右手规则。若 $F$ 在 $S$ 的邻域属于 $C^1$，则
+设 \(S=X(D)\) 是定向分片 \(C^2\) 曲面，\(D\) 为 Green 定理适用的平面
+区域，边界定向与法向满足右手规则。若 \(F\) 在 \(S\) 的邻域属于
+\(C^1\)，则
 \[
  \int_{\partial S}F\cdot dx
  =\iint_S(\operatorname{curl}F)\cdot n\,dS.
@@ -108,60 +295,65 @@ $-4\pi$，两条边界的贡献恰好相消。
 
 \begin{proof}
 把边界线积分拉回参数域。令
-$A(u,v)=F(X(u,v))\cdot X_u$、
-$B(u,v)=F(X(u,v))\cdot X_v$。Green 定理给出
+\[
+ A(u,v)=F(X(u,v))\cdot X_u,\qquad
+ B(u,v)=F(X(u,v))\cdot X_v.
+\]
+Green 定理给出
 \[
  \int_{\partial D}A\,du+B\,dv
  =\iint_D(\partial_uB-\partial_vA)\,du\,dv.
 \]
-链式法则展开后，$F\cdot X_{uv}$ 项相消，余项恰为
+按链式法则展开，含 \(F\cdot X_{uv}\) 的两项相消，余下各项整理为
 \[
  \partial_uB-\partial_vA
  =\operatorname{curl}F(X)\cdot(X_u\times X_v).
 \]
-这就是所需曲面积分。分片曲面仍由内部边界相消得到。
+这就是曲面积分的参数形式。若曲面由有限参数片组成，内部边界仍因诱导
+方向相反而相消。
 \end{proof}
 
 \section{势函数与路径无关}
 
 \begin{theorem}[保守场判据]
 \label{thm:conservative-field-path-independence}
-设 $U\subset\R^n$ 开且道路连通，$F:U\to\R^n$ 连续。以下条件等价：
+设 \(U\subset\R^n\) 开且道路连通，\(F:U\to\R^n\) 连续。以下条件等价：
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item 存在 $C^1$ 函数 $\varphi$ 使 $F=\nabla\varphi$；
- \item 任意分段 $C^1$ 曲线的积分只依赖端点；
- \item 每条分段 $C^1$ 闭曲线上的积分为零。
+ \item 存在 \(C^1\) 函数 \(\varphi\) 使 \(F=\nabla\varphi\)；
+ \item 任意分段 \(C^1\) 曲线的积分只依赖端点；
+ \item 每条分段 \(C^1\) 闭曲线上的积分为零。
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-(i) 推出 (ii) 是链式法则，(ii) 推出 (iii) 显然。设 (iii) 成立，固定
-$x_0\in U$，对 $x\in U$ 选道路 $\gamma_x$ 从 $x_0$ 到 $x$，定义
-$\varphi(x)=\int_{\gamma_x}F\cdot dx$。任意两条道路首尾拼接成闭路，故
-定义与道路无关。在 $x$ 附近取完全落在 $U$ 中的短线段，则
+若 \(F=\nabla\varphi\)，链式法则和一元基本定理给出
 \[
- \varphi(x+he_j)-\varphi(x)=\int_0^hF_j(x+te_j)dt.
+ \int_\gamma F\cdot dx
+ =\varphi(\gamma(b))-\varphi(\gamma(a)),
 \]
-一元基本定理给出 $\partial_j\varphi=F_j$，所以 $\varphi\in C^1$。
+故 (i) 推出 (ii)；闭路与同一端点处的常值道路具有相同端点，所以
+(ii) 推出 (iii)。
+
+设 (iii) 成立。固定 \(x_0\in U\)，对 \(x\in U\) 选一条从 \(x_0\)
+到 \(x\) 的分段 \(C^1\) 道路 \(\gamma_x\)，定义
+\[
+ \varphi(x)=\int_{\gamma_x}F\cdot dx.
+\]
+两条道路一正一反首尾拼接成闭路，故定义与道路选择无关。给定 \(x\)，
+取一个完全包含于 \(U\) 的小球。对充分小的 \(h\)，可在原道路后接线段
+\(t\mapsto x+te_j\)，于是
+\[
+ \varphi(x+he_j)-\varphi(x)
+ =\int_0^hF_j(x+te_j)\,dt.
+\]
+一元基本定理给出 \(\partial_j\varphi(x)=F_j(x)\)。各 \(F_j\) 连续，
+所以 \(\varphi\in C^1(U)\)，即 (i) 成立。
 \end{proof}
-
-若 $U\subset\R^2$ 单连通且 $P_y=Q_x$，先对分段 $C^1$ 简单闭曲线应用
-Green 定理；单连通性保证曲线围成的有界区域仍包含于 $U$。一般闭路可先
-在有限个自交点处分割成简单闭路，再由分段逼近处理。于是所有闭路积分为零。
-对有洞区域结论会失败：在
-$\R^2\setminus\{0\}$ 上
-\[
- F(x,y)=\frac{1}{x^2+y^2}(-y,x)
-\]
-满足 $Q_x-P_y=0$，但沿单位圆积分为 $2\pi$，所以不存在全局势函数。
-局部无旋与全局保守之间缺少的是定义域的拓扑条件。
-
-在星形域上，可以不经过闭路分解而直接写出势函数。以下结论也是下一章
-Poincaré 引理在一次形式情形的坐标版本。
 
 \begin{proposition}[星形域上的势函数]
 \label{prop:star-shaped-potential}
-设 $U\subset\R^n$ 关于 $a\in U$ 星形，$F\in C^1(U;\R^n)$，并且
+设 \(U\subset\R^n\) 关于 \(a\in U\) 星形，
+\(F\in C^1(U;\R^n)\)，并且
 \[
  \partial_iF_j=\partial_jF_i\qquad(1\le i,j\le n).
 \]
@@ -169,11 +361,11 @@ Poincaré 引理在一次形式情形的坐标版本。
 \[
  \varphi(x)=\int_0^1F(a+t(x-a))\cdot(x-a)\,dt
 \]
-满足 $\nabla\varphi=F$。
+满足 \(\nabla\varphi=F\)。
 \end{proposition}
 
 \begin{proof}
-记 $z=x-a$。对第 $i$ 个变量求导，并把对称偏导条件用在第一项，得到
+记 \(z=x-a\)。对第 \(i\) 个变量求导，并使用偏导对称性，得到
 \begin{align*}
  \partial_i\varphi(x)
  &=\int_0^1\left[
@@ -183,51 +375,177 @@ Poincaré 引理在一次形式情形的坐标版本。
  &=\int_0^1\frac{d}{dt}\bigl[tF_i(a+tz)\bigr]dt
  =F_i(x).
 \end{align*}
-被积函数及其偏导在每条紧线段上连续，因而这里可以按第
-\chapterref{chap:uniform-convergence-preservation}中含参数积分的初等结论
-逐项求导；也可直接对差商使用一致连续性。
+被积函数及其偏导在有关紧线段上连续，含参数积分的求导条件已经满足。
 \end{proof}
+
+无旋条件是局部微分条件。要从它得到每条闭路积分为零，还要控制闭路能否
+在定义域中缩为一点。下面的计算避免把一般闭路错误地假设成只有有限个
+自交点。
+
+\begin{lemma}[闭一形式的同伦不变性]
+\label{lem:closed-field-homotopy-invariance}
+设 \(F\in C^1(U;\R^n)\) 满足
+\[
+ \partial_iF_j=\partial_jF_i
+ \qquad(1\le i,j\le n).
+\]
+若两条分段 \(C^1\) 曲线 \(\gamma_0,\gamma_1:[0,1]\to U\) 具有相同端点，
+并由一个端点固定的分片 \(C^2\) 同伦
+\(H:[0,1]^2\to U\) 相连，则
+\[
+ \int_{\gamma_0}F\cdot dx=\int_{\gamma_1}F\cdot dx.
+\]
+\end{lemma}
+
+\begin{proof}
+先在一个 \(C^2\) 参数片上令
+\[
+ A(s,t)=F(H(s,t))\cdot H_s(s,t),\qquad
+ B(s,t)=F(H(s,t))\cdot H_t(s,t).
+\]
+链式法则和混合偏导交换给出
+\[
+ \partial_sB-\partial_tA
+ =\sum_{i,j}
+  (\partial_jF_i-\partial_iF_j)(H)\,
+  H_{s,j}H_{t,i}=0.
+\]
+对参数方形应用 Green 定理。两条竖边因端点固定而有 \(H_t=0\)，不贡献
+线积分；上下两边的诱导方向相反，剩余等式正是两条曲线积分相等。分片
+同伦逐片应用同一计算，内部参数边界相消。
+\end{proof}
+
+\begin{theorem}[单连通域上的势函数]
+\label{thm:simply-connected-curl-free-potential}
+设 \(U\subset\R^n\) 开且单连通，\(F\in C^1(U;\R^n)\)，并满足
+\(\partial_iF_j=\partial_jF_i\)。则 \(F\) 有全局 \(C^1\) 势函数。
+\end{theorem}
+
+\begin{proof}
+这里“单连通”指 \(U\) 道路连通，并且每条闭路都能在基点保持不动的
+连续同伦下缩为常值闭路。取任意分段 \(C^1\) 闭路 \(\gamma\)，并记一个
+这样的同伦为 \(H:[0,1]^2\to U\)。由于 \(H([0,1]^2)\) 紧而 \(U\)
+开，可以取 \(d>0\)，使这个紧集的闭 \(d\)-邻域仍包含于 \(U\)。
+
+把参数方形作足够细、并与 \(\gamma\) 的分段点相容的三角剖分，使 \(H\)
+在每个小三角形上的振幅小于 \(d/4\)，并使底边每个小区间上的
+\(\gamma\)-像直径也小于 \(d/4\)。在顶点保留 \(H\) 的值，在每个
+三角形上作仿射插值，得到分片仿射映射 \(P\)。每个三角形的像落在以某个
+\(H\)-像点为中心、半径 \(d/2\) 的球内，所以 \(P\) 仍取值于 \(U\)；
+方形上边和两条竖边的顶点值都等于基点，故这些边在插值后仍为常值。
+于是 \(P\) 是底边折线 \(\gamma_P\) 到常值闭路的端点固定、分片光滑
+同伦。引理 \ref{lem:closed-field-homotopy-invariance} 给出
+\[
+ \int_{\gamma_P}F\cdot dx=0.
+\]
+
+由底边分割的选择，\(\gamma\) 的每一小段及连接其端点的
+\(\gamma_P\) 线段都落在 \(U\) 内的同一个球中。球是星形域，命题
+\ref{prop:star-shaped-potential} 在其中给出局部势函数；梯度场的端点
+公式说明曲线小段与相应线段的积分相同。逐段相加得到
+\[
+ \int_\gamma F\cdot dx=\int_{\gamma_P}F\cdot dx=0.
+\]
+每条闭路积分均为零，保守场判据遂给出全局势函数。
+\end{proof}
+
+单连通性不能省略。在穿孔平面 \(\R^2\setminus\{0\}\) 上，
+\[
+ F(x,y)=\frac{1}{x^2+y^2}(-y,x)
+\]
+满足 \(Q_x-P_y=0\)，但沿单位圆的积分为 \(2\pi\)，所以不存在全局势函数。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
-\subsection*{A组　Green 定理}
+\subsection*{A组　曲线}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{arc-length-proof-details}
+ 补全弧长公式中余项总和的估计。
+ \exerciseitem{arc-length-reparametrization}
+ 证明弧长在严格单调 $C^1$ 重新参数化下不变，并分别处理递增、递减情形。
+ \exerciseitem{helix-length-line-integral}
+ 计算螺旋线 $(\cos t,\sin t,t)$ 在 $0\le t\le2\pi$ 上的长度及
+ $f(x,y,z)=z$ 的第一型曲线积分。
+ \exerciseitem{orientation-vector-line-integral}
+ 证明第二型曲线积分在反向曲线下变号，第一型不变。
+ \exerciseitem{gradient-fundamental-line-integral}
+ 用链式法则证明梯度场的端点公式，并计算 $\nabla(x^2y+z)$ 沿任意指定
+ 端点曲线的积分。
+ \exerciseitem{curve-multiple-traversal}
+ 比较单位圆走一周、两周和先正向后反向的两类曲线积分。
+\end{enumerate}
+\subsection*{B组　曲面}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{surface-reparametrization-cross-product}
+ 推导 $Y_s\times Y_t=\det D\Phi\,(X_u\times X_v)\circ\Phi$。
+ \exerciseitem{graph-surface-area}
+ 推导图形曲面的面积元，并计算抛物面 $z=x^2+y^2$ 在单位圆盘上方部分的面积。
+ \exerciseitem{sphere-area-parametric}
+ 用球坐标参数计算半径 $R$ 的球面面积，严格处理两极退化。
+ \exerciseitem{sphere-radial-flux}
+ 计算向量场 $F(x)=x$ 穿过半径 $R$ 球面的外向通量。
+ \exerciseitem{surface-orientation-change}
+ 证明交换参数顺序使通量积分变号而标量曲面积分不变。
+ \exerciseitem{cylinder-side-flux}
+ 参数化圆柱侧面并计算常向量场和径向场的通量。
+\end{enumerate}
+\subsection*{C组　参数化条件}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{nonregular-curve-warning}
+ 给出同一线段的一个导数在中点为零的 $C^1$ 参数，说明几何曲线可求长并不
+ 意味着该参数正则。
+ \exerciseitem{surface-double-cover}
+ 用球面参数的两个角周期说明非单射参数会按重数重复计算面积。
+ \optionalexerciseitem{mobius-nonorientable-normal}
+ 沿 Möbius 带中心线追踪局部法向，证明连续走一周后法向反向，因而不存在
+ 全局定向。
+\end{enumerate}
+
+\subsection*{D组　Green 定理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{green-simple-domain-proof}
- 对同时为两种简单区域的 $D$ 完整写出 Green 定理证明。
+ 对同时为两种简单区域的 \(D\) 完整写出 Green 定理证明。
  \exerciseitem{green-annulus-orientation}
  在圆环上验证内外边界的定向，并用 Green 定理计算一个具体线积分。
  \exerciseitem{green-area-formula}
- 推导三种面积公式 $\int x\,dy$、$-\int y\,dx$ 和正文的对称形式。
+ 推导三种面积公式 \(\int x\,dy\)、\(-\int y\,dx\) 和正文的对称形式。
  \exerciseitem{green-internal-boundary-cancellation}
  证明有限分片时公共边界积分相消，并说明三片交于一点不产生额外项。
 \end{enumerate}
-\subsection*{B组　Gauss 与 Stokes}
+
+\subsection*{E组　Gauss 与 Stokes}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{gauss-box-direct}
  对长方体直接证明散度定理，并与六个面的通量逐项比较。
  \exerciseitem{gauss-volume-formula}
- 用 $F=x/3$ 推导体积公式，并计算球和圆锥的体积。
+ 用 \(F=x/3\) 推导体积公式，并计算球和圆锥的体积。
  \exerciseitem{gauss-inverse-square-flux}
- 计算 $F(x)=x/\norm{x}^3$ 穿过包围原点的球面的通量，并解释为何不能直接在
- 含原点区域上应用散度定理。
+ 计算 \(F(x)=x/\norm{x}^3\) 穿过包围原点球面的通量，并解释为何不能直接
+ 在含原点区域上应用散度定理。
  \exerciseitem{stokes-parameter-expansion}
- 展开 $\partial_u(F(X)\cdot X_v)-\partial_v(F(X)\cdot X_u)$，验证旋度恒等式。
+ 展开
+ \(\partial_u(F(X)\cdot X_v)-\partial_v(F(X)\cdot X_u)\)，验证旋度恒等式。
  \exerciseitem{stokes-hemisphere-disk}
  分别用上半球和其边界圆盘计算同一闭曲线积分，说明 Stokes 定理只依赖边界。
  \exerciseitem{curl-gradient-divcurl}
- 对 $C^2$ 函数和向量场证明 $\operatorname{curl}\nabla\varphi=0$ 及
- $\operatorname{div}\operatorname{curl}F=0$。
+ 对 \(C^2\) 函数和向量场证明
+ \(\operatorname{curl}\nabla\varphi=0\) 及
+ \(\operatorname{div}\operatorname{curl}F=0\)。
 \end{enumerate}
-\subsection*{C组　势函数与条件}
+
+\subsection*{F组　势函数与条件}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{path-independent-potential-construction}
  补全保守场判据中势函数连续可微性的证明。
+ \exerciseitem{homotopy-invariance-pullback}
+ 逐项核对引理 \ref{lem:closed-field-homotopy-invariance} 的链式法则展开和
+ 参数方形的四条边定向。
  \exerciseitem{punctured-plane-circulation}
  核对穿孔平面向量场处处无旋，并计算其单位圆环流。
  \exerciseitem{star-shaped-curl-free-potential}
- 在星形域中直接定义
- $\varphi(x)=\int_0^1F(tx)\cdot x\,dt$，证明 $C^1$ 无旋场满足
- $\nabla\varphi=F$。
+ 在关于原点星形的区域中直接定义
+ \(\varphi(x)=\int_0^1F(tx)\cdot x\,dt\)，证明无旋场满足
+ \(\nabla\varphi=F\)。
  \optionalexerciseitem{classical-theorem-hypothesis-audit}
  比较三条经典积分定理对区域、边界和被积场正则性的要求，列出不能由本章
  证明覆盖的边界例。

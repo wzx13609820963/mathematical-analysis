@@ -1,0 +1,155 @@
+\chapter{\texorpdfstring{\(L^p\)}{Lp} 空间}
+
+\begin{solution}{lp-quotient-well-defined}
+若 \(f=f'\)、\(g=g'\) 几乎处处，则
+\(f+g=f'+g'\)、\(\alpha f=\alpha f'\) 几乎处处，所以运算与代表元
+无关。又 \(|f|^p=|f'|^p\) 几乎处处，积分相同，故范数良定义。
+\end{solution}
+
+\begin{solution}{young-calculus-proof}
+固定 \(b\ge0\)，令
+\[
+ \phi(a)=\frac{a^p}{p}-ab+\frac{b^q}{q}.
+\]
+则 \(\phi'(a)=a^{p-1}-b\)，唯一极小点为
+\(a=b^{1/(p-1)}=b^{q-1}\)。代入得
+\[
+ \phi(a_{\min})
+ =\frac{b^q}{p}-b^q+\frac{b^q}{q}=0.
+\]
+故 \(\phi(a)\ge0\)，等号恰在
+\(a^{p-1}=b\)，等价于 \(a^p=b^q\)。
+\end{solution}
+
+\begin{solution}{holder-equality}
+归一化后，Young 不等式逐点取等号当且仅当
+\[
+ \frac{|f|^p}{\|f\|_p^p}
+ =\frac{|g|^q}{\|g\|_q^q}
+\quad\text{几乎处处}.
+\]
+因此非零函数的等号条件是存在 \(c>0\)，使
+\(|f|^p=c|g|^q\) 几乎处处。乘积积分使用绝对值，所以 \(f,g\) 的符号
+不影响 \(\|fg\|_1\) 版本；若讨论
+\(|\int fg|\) 的等号，还需 \(fg\) 几乎处处同号。
+\end{solution}
+
+\begin{solution}{holder-indicator}
+令 \(q=p/(p-1)\)。Hölder 给
+\[
+ \int_E|f|=\int|f|\mathbf1_E
+ \le\|f\|_p\|\mathbf1_E\|_q
+ =\|f\|_p\mu(E)^{1/q}.
+\]
+而 \(1/q=1-1/p\)。
+\end{solution}
+
+\begin{solution}{multilinear-holder-proof}
+把所有 \(p_j=\infty\) 的因子用本质上确界提出积分号。若余下某个函数的
+范数为零，结论显然；否则令
+\(F_j=|f_j|/\|f_j\|_{p_j}\)。有限指数满足
+\(\sum_j1/p_j=1\)，故加权算术--几何平均不等式给出
+\[
+ \prod_jF_j
+ =\prod_j(F_j^{p_j})^{1/p_j}
+ \le\sum_j\frac{F_j^{p_j}}{p_j}.
+\]
+积分后右侧为 \(1\)，乘回各范数即得结论。若某个 \(p_j=1\)，其余指数
+只能全为 \(\infty\)；上述论证退化为
+\[
+ \left\|f_j\prod_{k\ne j}f_k\right\|_1
+ \le\|f_j\|_1\prod_{k\ne j}\|f_k\|_\infty,
+\]
+没有遗漏端点情形。
+\end{solution}
+
+\begin{solution}{minkowski-integrability-gap}
+凸性给
+\[
+ |f+g|^p\le(|f|+|g|)^p
+ \le2^{p-1}(|f|^p+|g|^p).
+\]
+右侧可积，所以 \(f+g\in L^p\)，其范数有限。此后 Hölder 右侧和
+\(\|f+g\|_p^{p-1}\) 才有有限意义；若范数为无穷，约去它不是合法代数
+操作。
+\end{solution}
+
+\begin{solution}{lp-parallelogram}
+逐点恒等式
+\[
+ |f+g|^2+|f-g|^2=2|f|^2+2|g|^2
+\]
+积分即得。在两点空间取 \(f=(1,0),g=(0,1)\)。若 \(p\ne2\)，则
+\[
+ \|f+g\|_p^2+\|f-g\|_p^2=2\cdot2^{2/p},
+\qquad
+ 2\|f\|_p^2+2\|g\|_p^2=4,
+\]
+两者仅在 \(p=2\) 相等。
+\end{solution}
+
+\begin{solution}{quasi-lp-metric}
+由 \(0<p<1\) 时
+\(|a+b|^p\le|a|^p+|b|^p\)，积分后得到 \(d_p\) 的三角不等式；其余
+度量公理直接成立。若 \((f_n)\) 为 \(d_p\)-Cauchy，选子列使
+\[
+ d_p(f_{n_{k+1}},f_{n_k})<2^{-k}.
+\]
+非负逐项积分说明
+\(\sum_k|f_{n_{k+1}}-f_{n_k}|^p<\infty\) a.e.，所以差趋零且利用
+\(|\sum a_k|^p\le\sum|a_k|^p\) 可构造逐点极限 \(f\)。尾和积分给
+\(d_p(f_{n_k},f)\to0\)，原列 Cauchy 再给整列收敛。
+\end{solution}
+
+\begin{solution}{riesz-fischer-fatou-step}
+对 \(m>k\)，Minkowski 给
+\[
+ \|f_{n_m}-f_{n_k}\|_p
+ \le\sum_{j=k}^{m-1}\|f_{n_{j+1}}-f_{n_j}\|_p
+ <\sum_{j=k}^{m-1}2^{-j}.
+\]
+子列几乎处处趋于 \(f\)。对
+\(|f_{n_m}-f_{n_k}|^p\) 使用 Fatou 引理：
+\[
+ \|f-f_{n_k}\|_p^p
+ \le\liminf_m\|f_{n_m}-f_{n_k}\|_p^p
+ \le\left(\sum_{j=k}^{\infty}2^{-j}\right)^p.
+\]
+取 \(p\) 次根即得结论。
+\end{solution}
+
+\begin{solution}{lp-convergence-series}
+令 \(g_N=\sum_{n=0}^{N}|f_n|\)。Minkowski 给
+\[
+ \|g_N\|_p\le\sum_{n=0}^{N}\|f_n\|_p\le C.
+\]
+单调收敛得 \(g=\sum_n|f_n|\in L^p\)，所以级数几乎处处绝对收敛。其
+部分和之差满足
+\[
+ \left\|\sum_{n=M}^{N}f_n\right\|_p
+ \le\sum_{n=M}^{N}\|f_n\|_p\to0.
+\]
+由 \(L^p\) 完备性，部分和在 \(L^p\) 中收敛；其极限与几乎处处绝对和
+相同。
+\end{solution}
+
+\begin{solution}{clarkson-special-case}
+对实数 \(a,b\) 可由凸性证明
+\[
+ |a+b|^p+|a-b|^p\le2^{p-1}(|a|^p+|b|^p)
+\]
+并逐点积分，得到所给式。严格的 Clarkson 不等式还给出单位球中两点若相距
+固定正量，则其中点的范数统一小于 \(1\)；这正是一致凸性。这里的估计展示
+了该结论的标量来源，但完整模函数估计留待泛函分析卷。
+\end{solution}
+
+\begin{solution}{lp-completeness-template}
+模板是：从 Cauchy 列抽子列 \(x_{n_k}\)，使
+\(\sum_k\|x_{n_{k+1}}-x_{n_k}\|<\infty\)；若空间能把绝对可求和差分
+转化为一个候选极限，再用尾和估计和 Cauchy 性恢复整列收敛，即得完备。
+
+在 \(C_b(X)\) 中，令
+\(\|f_{n_{k+1}}-f_{n_k}\|_\infty<2^{-k}\)。Weierstrass 判别法说明差分
+级数一致收敛，其和与 \(f_{n_1}\) 之和是有界连续函数 \(f\)。尾和估计给
+\(\|f_{n_k}-f\|_\infty\to0\)，原列 Cauchy 因而也收敛于 \(f\)。
+\end{solution}

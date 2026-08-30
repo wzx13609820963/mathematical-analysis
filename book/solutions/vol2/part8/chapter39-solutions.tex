@@ -1,153 +1,159 @@
-\chapter{拓扑连通性}
-\label{chap:topological-connectedness-solutions}
+\chapter{紧致化}
+\label{chap:compactifications-solutions}
 
-\begin{solution}{connected-clopen-functions}
-若 \(f:X\to\{0,1\}\) 连续且同时取两个值，则
+\begin{solution}{local-compact-shrinking}
+给定 \(x\in U\)，其中 \(U\) 是 \(X\) 中开集。
+取 \(x\) 的紧邻域 \(K\) 和开集 \(W\)，使 \(x\in W\subseteq K\)。
+\(W\cap U\) 是紧 Hausdorff 空间 \(K\) 中含 \(x\) 的相对开集。由紧
+Hausdorff 空间的正则性，存在 \(K\) 中相对开集 \(O\) 使
 \[
- f^{-1}(\{0\}),\qquad f^{-1}(\{1\})
+ x\in O\subseteq\overline O^{\,K}\subseteq W\cap U.
 \]
-是不相交非空开集并覆盖 \(X\)，构成分离。反之，若 \(X=U\cup V\) 是分离，令 \(f=0\) 于 \(U\)、\(f=1\) 于 \(V\)。两个单点的原像开，所以 \(f\) 连续且非常值。
-\end{solution}
-
-\begin{solution}{connected-intersecting-family}
-固定 \(C_{i_0}\) 作为正文粘合定理中的 \(C\)。每个 \(C_i\) 与它相交，故并集连通。
-
-若“相邻”没有给指标集规定一条连接所有指标的链，命题没有确定含义。例如把指标分成两组，只在各组内部规定相邻，分别取两个不相交区间；每对相邻集合可以相交，而总并不连通。正确条件可以是：以指标为顶点、以 \(C_i\cap C_j\ne\varnothing\) 为边所得图连通。沿图中的有限路径反复粘合，即得总并连通。
-\end{solution}
-
-\begin{solution}{connected-subsets-real-line}
-设 \(E\subseteq\R\) 连通，且 \(a<b\) 属于 \(E\)。若存在 \(a<c<b\) 而 \(c\notin E\)，则
+写 \(O=K\cap G\)，其中 \(G\) 在 \(X\) 中开，并令 \(V=G\cap W\)。
+由于 \(W\subseteq K\)，有 \(V\subseteq O\)，从而
 \[
- E\cap(-\infty,c),\qquad E\cap(c,\infty)
+ \overline V^{\,X}\subseteq\overline O^{\,K}\subseteq U.
 \]
-构成 \(E\) 的分离，矛盾。所以 \(E\) 含任意两点之间的全部点，即为区间。
+而 \(\overline V^{\,X}\) 是紧集 \(K\) 的闭子集，故紧。
+\end{solution}
 
-反之，若区间 \(I\) 有分离 \(U,V\)，取 \(u\in U,v\in V\) 且不妨 \(u<v\)。令
+\begin{solution}{locally-compact-open-subspace}
+设 \(O\subseteq X\) 开，\(x\in O\)。由邻域收缩性质，存在 \(X\) 中开集
+\(V\) 使
 \[
- c=\sup(U\cap[u,v]).
+ x\in V\subseteq\overline V^{\,X}\subseteq O,
+ \qquad \overline V^{\,X}\text{ 紧}.
 \]
-利用确界和 \(U,V\) 在 \(I\) 中均开，可分别排除 \(c\in U\) 与 \(c\in V\)，矛盾。端点是否属于集合以及无界情形不影响在任意两点间的论证。
+此时 \(V\) 也是 \(O\) 中开集，并且
+\(\overline V^{\,O}=\overline V^{\,X}\)，所以 \(x\) 在 \(O\) 中有紧邻域。
+
+若 \(F\subseteq X\) 闭而 \(x\in F\)，取 \(X\) 中紧邻域 \(K\) 的内部
+所含开集 \(W\ni x\)。则 \(K\cap F\) 是 \(F\) 中的紧邻域，因为它包含
+相对开集 \(W\cap F\)。故闭子空间也局部紧。Hausdorff 性由子空间继承。
 \end{solution}
 
-\begin{solution}{components-rational-line}
-若 \(\Q\) 的连通子集 \(C\) 含 \(p<q\)，取无理数 \(\alpha\in(p,q)\)。则
+\begin{solution}{one-point-neighborhoods}
+若网 \(x_\alpha\to\infty\)，对每个紧集 \(K\subseteq X\)，集合
+\(\{\infty\}\cup(X\setminus K)\) 是 \(\infty\) 的邻域，故网最终落入
+其中；因为网取值于 \(X\)，这正是最终离开 \(K\)。反之，每个
+\(\infty\) 的邻域都包含某个上述基本邻域，最终离开相应紧集便保证最终
+进入该邻域。
+\end{solution}
+
+\begin{solution}{one-point-real-line-circle}
+定义
 \[
- C\cap(-\infty,\alpha),\qquad C\cap(\alpha,\infty)
+ \Phi(t)=\left(\frac{2t}{1+t^2},\frac{t^2-1}{1+t^2}\right)
+ \quad(t\in\R),
+ \qquad \Phi(\infty)=(0,1).
 \]
-是 \(C\) 的分离，矛盾。因此每个连通子集至多一个点，连通分支为单点。另一方面，每个有理点的任意相对开邻域都含其他有理数，故单点不开。
-\end{solution}
-
-\begin{solution}{component-map}
-连通分支 \(C\) 连通，连续像 \(f(C)\) 连通，所以它包含在任取一点 \(f(x)\) 所属的最大连通集内。严格包含可以取常值映射：令 \(X\) 为两个离散点、\(Y=[0,1]\)，把两点都映到 \(0\)。每个 \(X\)-分支是单点，其像 \(\{0\}\) 严格包含在 \(Y\) 的连通分支 \([0,1]\) 中。
-\end{solution}
-
-\begin{solution}{path-concatenation-continuity}
-若 \(\alpha(1)=\beta(0)\)，定义
+直接计算知 \(\Phi(t)\in S^1\)。除北极外，逆映射为
 \[
- \gamma(t)=
- \begin{cases}
-  \alpha(2t),&0\le t\le1/2,\\
-  \beta(2t-1),&1/2\le t\le1.
- \end{cases}
+ t=\frac{x}{1-y},
 \]
-两段分别在闭集 \([0,1/2]\)、\([1/2,1]\) 上连续，并在交点 \(1/2\) 取同值。有限闭集粘合引理给出 \(\gamma\) 连续。
+所以 \(\Phi:\R\to S^1\setminus\{(0,1)\}\) 是同胚。若 \(t\) 最终
+离开每个紧区间，则 \(|t|\to\infty\)，公式给出
+\(\Phi(t)\to(0,1)\)。因此它在新增点连续。也可在证得连续双射后，直接
+使用紧空间到 Hausdorff 空间的连续双射定理。
 \end{solution}
 
-\begin{solution}{path-components-open-criterion}
-若空间局部道路连通，任意开子集仍局部道路连通。给其中道路分支 \(P\) 和 \(x\in P\)，取包含 \(x\) 的道路连通开邻域 \(U\)；拼接道路得 \(U\subseteq P\)，故 \(P\) 开。
-
-反之，对任意开邻域 \(V\ni x\)，\(x\) 在 \(V\) 中的道路分支按假设是 \(X\) 中开集，且道路连通、包含 \(x\)、包含于 \(V\)。这些集合构成道路连通开邻域基。
-\end{solution}
-
-\begin{solution}{locally-connected-components-open}
-证明与道路版本相同。正向中，连通分支内每点有包含于该分支的连通开邻域，所以分支开；反向中，取点在给定开邻域内的连通分支，它按假设开，因而给出连通开邻域基。
-\end{solution}
-
-\begin{solution}{convex-star-path-connected}
-若 \(C\) 凸且 \(x,y\in C\)，则
+\begin{solution}{one-point-proper-extension}
+先设 \(f\) 适当。给 \(\infty_Y\) 的基本邻域
 \[
- \gamma(t)=(1-t)x+ty\qquad(0\le t\le1)
+ W=\{\infty_Y\}\cup(Y\setminus K),
+ \qquad K\subseteq Y\text{ 紧},
 \]
-连续且完全落在 \(C\) 中。若 \(C\) 关于 \(a\) 星形，则每点 \(x\) 都可沿线段连到 \(a\)；从 \(x\) 到 \(y\) 可先走到 \(a\)，再走到 \(y\)，故道路连通。
+其原像为
+\[
+ (f^*)^{-1}(W)
+ =\{\infty_X\}\cup\bigl(X\setminus f^{-1}(K)\bigr).
+\]
+适当性保证 \(f^{-1}(K)\) 紧，所以这是 \(\infty_X\) 的邻域；在 \(X\)
+内的连续性就是 \(f\) 的连续性。因此 \(f^*\) 连续。
+
+反之，设 \(f^*\) 连续，\(K\subseteq Y\) 紧。集合
+\(Y^*\setminus K\) 是 \(\infty_Y\) 的开邻域，故其原像是
+\(\infty_X\) 的邻域。于是存在紧集 \(C\subseteq X\) 使
+\[
+ \{\infty_X\}\cup(X\setminus C)
+ \subseteq (f^*)^{-1}(Y^*\setminus K).
+\]
+因而 \(f^{-1}(K)\subseteq C\)。它又是 \(X\) 中闭集，所以是紧集 \(C\)
+的闭子集。故 \(f\) 适当。
 \end{solution}
 
-\begin{solution}{deleted-plane-paths}
-在 \(n\ge2\) 时，给 \(x,y\ne0\)。若线段 \([x,y]\) 不过原点，直接使用线段。若过原点，选一个不与 \(x\) 共线的点 \(z\ne0\)；两条线段 \([x,z]\)、\([z,y]\) 都不过原点，拼接即可。\(\R\setminus\{0\}=(-\infty,0)\cup(0,\infty)\) 是两个不相交非空开闭部分；每部分是区间，故恰为两个连通分支。
+\begin{solution}{compactification-locally-compact-open}
+若 \(X\) 在 \(K\) 中开，给 \(x\in X\)，利用紧 Hausdorff 空间的正则性取
+\[
+ x\in U\subseteq\overline U^{\,K}\subseteq X.
+\]
+则 \(\overline U^{\,K}\) 是 \(X\) 中的紧邻域，所以 \(X\) 局部紧。
+
+反之，若 \(X\) 局部紧，给 \(x\in X\) 取 \(X\) 中开集 \(U\ni x\)，使
+\(C=\overline U^{\,X}\) 紧。嵌入 \(X\hookrightarrow K\) 把 \(C\) 变成
+\(K\) 中紧集，故 \(C\) 在 \(K\) 中闭。写 \(U=X\cap V\)，其中 \(V\)
+在 \(K\) 中开。由于 \(X\cap V\subseteq C\)，开集 \(V\setminus C\)
+与稠密集 \(X\) 不交，只能为空。因此
+\[
+ x\in V\subseteq C\subseteq X.
+\]
+每个 \(x\in X\) 都有一个 \(K\)-开邻域包含于 \(X\)，故 \(X\) 在 \(K\)
+中开。
 \end{solution}
 
-\begin{solution}{sine-curve-closure-detail}
-若 \((x_n,\sin(1/x_n))\) 在 \(\R^2\) 中收敛且 \(x_n\to x>0\)，极限由连续性仍在 \(G\) 中；若 \(x_n\to0\)，第二坐标极限必在 \([-1,1]\)，故极限落在竖直线段。反之，给 \(y\in[-1,1]\)，选 \(\theta\) 使 \(\sin\theta=y\)，令
-\[
- x_n=(\theta+2\pi n)^{-1}
-\]
-（必要时从使分母为正的指标开始），便有 \((x_n,\sin(1/x_n))\to(0,y)\)。所以闭包恰为 \(S\)。
-
-在道路反证中，令
-\[
- t_0=\max\{t:u(t)=0\},\qquad h(t)=\frac1{u(t)}
- \quad(t_0<t\le1).
-\]
-于是 \(u(t)>0\) 于 \((t_0,1]\)，且连续性给出
-\(u(t)\to0\)、从而 \(h(t)\to+\infty\) 当 \(t\downarrow t_0\)。固定
-一个 \(t_1\in(t_0,1]\)。对充分大的 \(n\)，两个数
-\[
- 2\pi n+\frac\pi2,\qquad 2\pi n+\frac{3\pi}2
-\]
-都大于 \(h(t_1)\)。由 \(h(t)\to+\infty\)，可在
-\((t_0,t_1)\) 中另取一点，使 \(h\) 的值大于上述两个数；介值定理便分别
-给出 \(s_n,r_n\in(t_0,t_1)\) 使 \(h\) 取到这两个值。
-
-最后证明这些时刻趋于 \(t_0\)。若例如 \((s_n)\) 有一个子列不趋于
-\(t_0\)，则存在 \(\delta>0\)，使该子列无限多项落在紧区间
-\([t_0+\delta,1]\) 中。连续函数 \(h\) 在此区间有界，这与
-\(h(s_n)=2\pi n+\pi/2\to\infty\) 矛盾。故 \(s_n\to t_0\)；对
-\((r_n)\) 同理。
+\begin{solution}{stone-cech-bounded-extension}
+若 \(|u|\le M\)，把 \(u\) 视为到紧区间 \([-M,M]\) 的连续映射。
+Stone--Čech 泛性质给出连续延拓。若 \(U_1,U_2\) 都是延拓，则其等值集
+在 Hausdorff 区间中闭，并含稠密集 \(X\)，故等于 \(\beta X\)。
 \end{solution}
 
-\begin{solution}{connected-product-finite}
-固定 \(y_0\in Y\)。每个水平纤维 \(X\times\{y\}\) 连通，每个竖直纤维 \(\{x\}\times Y\) 连通。集合
+\begin{solution}{stone-cech-compact-fixed}
+记嵌入为 \(j:X\to\beta X\)。由于 \(X\) 紧而 \(\beta X\) Hausdorff，
+\(j(X)\) 是 \(\beta X\) 中的紧闭集。紧致化的定义又要求 \(j(X)\) 稠密，
+故
 \[
- (X\times\{y_0\})\cup(\{x\}\times Y)
+ j(X)=\overline{j(X)}=\beta X.
 \]
-对每个 \(x\) 都连通，并共同含水平纤维；它们的并为 \(X\times Y\)，故积连通。有限积由归纳得到。
+因此 \(j\) 是满射，并由紧到 Hausdorff 的连续双射定理成为同胚。这里实际
+只使用了紧致化的定义；泛性质保证这样的紧致化就是 \(\beta X\)。
 \end{solution}
 
-\begin{solution}{connected-product-dense-finite-support}
-给非空基本开集
+\begin{solution}{stone-cech-discrete-sequences}
+离散空间上的任意函数连续。有界数列定义连续映射
 \[
- U=\prod_iU_i,
+ a:\N\to[-M,M],\qquad a(n)=a_n,
 \]
-只有有限坐标集 \(F\) 上 \(U_i\ne X_i\)。在每个 \(i\in F\) 选
-\(x_i\in U_i\)，其余坐标取基点 \(a_i\)。所得点属于 \(U\cap X_F\)，所以 \(X_{\mathrm{fin}}\) 与每个非空基本开集相交，因而稠密。
+故唯一延拓到 \(\beta\N\)。
 
-箱拓扑的基本开集可同时限制所有坐标；例如在 \(\R^\N\) 中
-\(\prod_n(1,2)\) 不含任何只在有限坐标偏离零基点的点。因此有限支集子空间不再稠密，闭包论证失效。
+\(\N\) 的一点紧化要求函数在新增点连续，这等价于数列 \(a_n\) 在
+\(n\to\infty\) 时有极限。一般有界数列如 \((-1)^n\) 没有极限，却仍能
+延拓到 \(\beta\N\)，所以 Stone--Čech 的延拓性质严格更强。
 \end{solution}
 
-\begin{solution}{quotient-interval-circle-connected}
-连续满射
+\begin{solution}{stone-cech-functoriality}
+设 \(j_X:X\to\beta X\)、\(j_Y:Y\to\beta Y\) 是嵌入。复合
 \[
- [0,1]\to S^1,\qquad t\mapsto(\cos2\pi t,\sin2\pi t)
+ X\xrightarrow{f}Y\xrightarrow{j_Y}\beta Y
 \]
-把连通区间映成整个圆周，故 \(S^1\) 连通。有限多个圆周在公共点粘合后，各圆周的像仍连通并有公共点；由连通集粘合定理，总空间连通。
+以紧 Hausdorff 空间 \(\beta Y\) 为目标。由 \(\beta X\) 的泛性质，它
+唯一延拓为 \(\beta f:\beta X\to\beta Y\)。
+
+\(\beta(\operatorname{id}_X)\) 与 \(\operatorname{id}_{\beta X}\) 都延拓
+\(j_X\)，故由唯一性相等。若 \(X\xrightarrow fY\xrightarrow gZ\)，则
+\(\beta(g\circ f)\) 与 \(\beta g\circ\beta f\) 都把
+\(j_X(x)\) 送到 \(j_Z(g(f(x)))\)，故二者也由唯一性相等。
 \end{solution}
 
-\begin{solution}{open-quotient-local-path}
-给 \(y\in Y\) 的开邻域 \(V\)，取 \(x\in q^{-1}(y)\)。在开集
-\(q^{-1}(V)\) 中取含 \(x\) 的道路连通开邻域 \(U\)。连续像 \(q(U)\) 道路连通；\(q\) 开保证它在 \(Y\) 中开，且
-\(y\in q(U)\subseteq V\)。故这些像组成道路连通邻域基。
+\begin{solution}{compactification-universal-uniqueness}
+设 \((K_1,j_1)\)、\((K_2,j_2)\) 都满足泛性质。映射
+\(j_2\circ j_1^{-1}:j_1(X)\to K_2\) 可视为从原空间 \(X\) 到 \(K_2\)
+的连续映射，由 \(K_1\) 的泛性质延拓为 \(F:K_1\to K_2\)。同理得到
+\(G:K_2\to K_1\)。复合 \(G\circ F\) 与
+\(\operatorname{id}_{K_1}\) 在稠密集 \(j_1(X)\) 上相等，由延拓唯一性
+处处相等；同理 \(F\circ G=\operatorname{id}_{K_2}\)。故 \(F\) 是保持
+\(X\) 不变的同胚。
 
-非开商映射例：把 \(\R\) 的所有整数压成一点。商映射 \(q\) 按定义是商映射，但开集 \((-1/4,1/4)\) 的像不是开集，因为其原像是
-\((-1/4,1/4)\cup\Z\)，在非零整数处不开。
-\end{solution}
-
-\begin{solution}{continuous-image-components-not-surjective}
-取拓扑不交并
-\[
- X=[0,1]\sqcup[2,3]
-\]
-并令 \(Y=[0,1]\)。在第一分支上定义 \(f(x)=x\)，在第二分支上定义
-\(f(x)=0\)。不交并拓扑使分段定义的 \(f\) 连续，第一分支的像已经是
-\(Y\)，故 \(f\) 满射。集合 \(C=[2,3]\) 是 \(X\) 的连通分支，而
-\(f(C)=\{0\}\) 严格包含在 \(Y\) 的唯一连通分支 \([0,1]\) 中。
+若 \(F_1,F_2:K_1\to K_2\) 都保持 \(X\) 不变，则它们在稠密集
+\(j_1(X)\) 上相等。因为 \(K_2\) Hausdorff，等值集闭，所以
+\(F_1=F_2\)。
 \end{solution}

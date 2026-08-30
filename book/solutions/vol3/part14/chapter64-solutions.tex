@@ -1,0 +1,178 @@
+\chapter{函数的收敛}
+
+\begin{solution}{essential-uniform-equivalence}
+若存在零测集 \(N\) 使
+\(\sup_{X\setminus N}|f_n-f|\to0\)，则本质上确界不超过该上确界。
+反过来，对每个 \(n,k\)，由本质上确界定义可删去零测集 \(N_{n,k}\)，使
+\[
+ |f_n-f|\le\operatorname*{ess\,sup}|f_n-f|+1/k
+\]
+在其补集成立。令 \(N=\cup_{n,k}N_{n,k}\)，仍为零测集。对每个 \(n\)
+令 \(k\to\infty\)，得到
+\[
+ \sup_{X\setminus N}|f_n-f|
+ \le\operatorname*{ess\,sup}|f_n-f|,
+\]
+故一致收敛。
+\end{solution}
+
+\begin{solution}{measure-metric-triangle}
+若 \(d_\mu(f,g)<r\)、\(d_\mu(g,h)<s\)，可取
+\(r'<r,s'<s\) 略大于相应下确界，使
+\[
+ \mu(|f-g|>r')\le r',\qquad
+ \mu(|g-h|>s')\le s'.
+\]
+若 \(r'+s'>1\)，则 \(d_\mu(f,h)\le1<r'+s'\)，无需再证。以下设
+\(r'+s'\le1\)。由
+\(\{|f-h|>r'+s'\}\subset\{|f-g|>r'\}\cup\{|g-h|>s'\}\)，
+得到
+\[
+ d_\mu(f,h)\le r'+s'.
+\]
+令 \(r'\downarrow d_\mu(f,g)\)、\(s'\downarrow d_\mu(g,h)\)。
+若 \(d_\mu(f,g)=0\)，则对每个 \(k\) 可得
+\(\mu(|f-g|>1/k)=0\)，所以 \(f=g\) 几乎处处；反向显然。
+\end{solution}
+
+\begin{solution}{measure-convergence-cauchy}
+依测度 Cauchy 条件是：对任意 \(\varepsilon,\eta>0\)，存在 \(N\)，使
+\[
+ m,n\ge N\Longrightarrow
+ \mu(\{|f_m-f_n|>\varepsilon\})<\eta.
+\]
+若 \(d_\mu(f_m,f_n)\to0\)，取距离小于
+\(\min\{\varepsilon,\eta\}/2\) 即得该条件。反之，取
+\(\varepsilon=\eta=\delta\)，最终
+\(\mu(|f_m-f_n|>\delta)\le\delta\)，所以
+\(d_\mu(f_m,f_n)\le\delta\)。
+\end{solution}
+
+\begin{solution}{measure-limit-operations}
+若 \(\Phi\) 一致连续，给定 \(\varepsilon>0\)，取 \(\delta>0\) 使
+\(|u-v|\le\delta\) 蕴含
+\(|\Phi(u)-\Phi(v)|\le\varepsilon\)。于是
+\[
+ \{|\Phi(f_n)-\Phi(f)|>\varepsilon\}
+ \subseteq\{|f_n-f|>\delta\},
+\]
+右侧测度趋于零。
+
+以下设 \(\mu(X)<\infty\)。因为 \(f,g\) 几乎处处有限，可先选 \(M\) 使
+\[
+ \mu(\{|f|>M\}\cup\{|g|>M\})
+\]
+任意小。连续函数在 \([-M-1,M+1]\) 上一致连续，而依测度收敛使
+\(\{|f_n-f|>1\}\) 的测度趋零，故在其余部分可以使用紧区间上的一致连续
+估计。这证明一般连续复合。
+
+对乘法，写
+\[
+ f_ng_n-fg=f_n(g_n-g)+g(f_n-f).
+\]
+在上述小例外集之外，最终有 \(|f_n|\le M+1\)、\(|g|\le M\)。再除去
+\[
+ \left\{|g_n-g|>\frac{\varepsilon}{2(M+1)}\right\}
+ \quad\text{和}\quad
+ \left\{|f_n-f|>\frac{\varepsilon}{2\max\{M,1\}}\right\},
+\]
+乘积差便不超过 \(\varepsilon\)。各坏集的测度都可任意小，故
+\(f_ng_n\to fg\) 依测度。
+\end{solution}
+
+\begin{solution}{ae-to-measure-finite}
+固定 \(\varepsilon>0\)，令
+\[
+ E_N=\bigcup_{n\ge N}\{|f_n-f|>\varepsilon\}.
+\]
+则 \(E_N\downarrow E\)，而 a.e. 收敛说明 \(E\) 零测。因
+\(\mu(E_1)\le\mu(X)<\infty\)，测度关于递减集合列连续，故
+\(\mu(E_N)\downarrow0\)。又
+\(\{|f_N-f|>\varepsilon\}\subset E_N\)，得到依测度收敛。
+\end{solution}
+
+\begin{solution}{typewriter-details}
+令 \(n=2^m+k\)，其中 \(m\ge0,0\le k<2^m\)，并取
+\[
+ f_n=\mathbf1_{[k2^{-m},(k+1)2^{-m})}.
+\]
+则 \(\|f_n\|_p^p=2^{-m}\to0\)。对非二进端点 \(x\)，每个层级 \(m\)
+恰有一个 \(k\) 使 \(f_{2^m+k}(x)=1\)，同一层另有许多项在 \(x\) 取
+零，所以函数值既无限次为 \(1\)，也无限次为 \(0\)，不收敛。二进端点
+至多可数，不影响“几乎处处不收敛”的结论。
+\end{solution}
+
+\begin{solution}{measure-not-lp-spike}
+在 \((0,1)\) 上取
+\[
+ f_n=n^{2/p}\mathbf1_{(0,1/n)}.
+\]
+对固定 \(\varepsilon>0\)，超水平集最终为 \((0,1/n)\)，测度趋零，
+故依测度收敛于零；但
+\[
+ \|f_n\|_p^p=n^2\cdot\frac1n=n\to\infty.
+\]
+\end{solution}
+
+\begin{solution}{ae-not-measure-infinite}
+对每个固定 \(x\)，当 \(n>x\) 时 \(x\notin[n,\infty)\)，故逐点趋零。
+但对 \(0<\varepsilon<1\)，
+\[
+ m(\{|\mathbf1_{[n,\infty)}|>\varepsilon\})=\infty.
+\]
+若 \(E\) 有限测度，则 \(E\cap[n,\infty)\downarrow\varnothing\)，由递减
+连续性 \(m(E\cap[n,\infty))\to0\)，所以局部依测度收敛。
+\end{solution}
+
+\begin{solution}{lp-not-ae-subsequence-warning}
+typewriter 整列没有几乎处处极限，但可按层级抽取每层第一个区间：
+\(f_{2^m}=\mathbf1_{[0,2^{-m})}\)，该子列几乎处处趋零。第
+\ref{chap:egorov-subsequence} 章的子列原理只断言“存在某个子列”，并未
+断言原序列或每个子列都几乎处处收敛。
+\end{solution}
+
+\begin{solution}{finite-lq-lp-estimate}
+对指数 \(q/p\) 与 \(q/(q-p)\) 使用 Hölder：
+\[
+ \int|h|^p
+ \le\left(\int|h|^q\right)^{p/q}
+ \mu(X)^{1-p/q}.
+\]
+取 \(p\) 次方根即得结论。非零常值函数几乎处处时等号成立；Hölder 的
+等号条件也说明在 \(\mu(X)>0\) 时这基本上是等号情形。
+\end{solution}
+
+\begin{solution}{distribution-functions-convergence}
+给定 \(\delta>0\)，有包含关系
+\[
+ \{|f|>a+\delta\}\setminus\{|f_n-f|>\delta\}
+ \subset\{|f_n|>a\}
+\subset
+ \{|f|>a-\delta\}\cup\{|f_n-f|>\delta\}.
+\]
+取测度和 \(n\to\infty\)，得到相应的下极限与上极限估计。再令
+\(\delta\downarrow0\)。集合 \(\{|f|>a+\delta\}\) 从下逼近
+\(\{|f|>a\}\)，而 \(\{|f|>a-\delta\}\) 从上逼近
+\(\{|f|\ge a\}\)。有限测度保证后一列可用从上连续性；再由
+\(\mu(|f|=a)=0\)，两个极限都等于 \(\mu(|f|>a)\)，故中间量收敛。
+\end{solution}
+
+\begin{solution}{counterexample-table-convergence}
+可取以下代表：
+\[
+\begin{array}{c|c}
+\text{不存在的推论}&\text{反例}\\\hline
+\text{依测度}\Rightarrow\text{a.e.}&\text{typewriter 列}\\
+L^p\Rightarrow\text{a.e.}&\text{同上}\\
+\text{a.e.}\Rightarrow L^p&
+ n^{1/p}\mathbf1_{(0,1/n)}\\
+\text{依测度}\Rightarrow L^p&
+ n^{2/p}\mathbf1_{(0,1/n)}\\
+\text{a.e.}\Rightarrow\text{依测度（无限测度）}&
+\mathbf1_{[n,\infty)}\\
+\text{一致}\Rightarrow L^p\text{（无限测度）}&1/n\text{ on }\mathbb R
+\end{array}
+\]
+各行分别按超水平集测度、逐点值和 \(p\) 次积分直接计算。有限测度条件恰好
+排除最后两行所利用的无限总体积。
+\end{solution}

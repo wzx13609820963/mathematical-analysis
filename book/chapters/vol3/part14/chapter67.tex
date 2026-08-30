@@ -1,0 +1,300 @@
+\chapter{\texorpdfstring{\(L^p\)}{Lp} 空间}
+\label{chap:lp-spaces}
+
+可积函数在零测集上的取值不影响任何积分。因而 \(L^p\) 空间的元素不是某个
+逐点函数，而是几乎处处相等函数的等价类。Hölder 不等式保证乘积可积，
+Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fischer
+定理则说明由这一误差定义的 Cauchy 列不会离开空间。
+
+\section{几乎处处等价类}
+
+对 \(0<p<\infty\)，记
+\[
+ \mathcal L^p(\mu)
+ =\left\{f:X\to\mathbb R\text{ 可测}:
+   \int_X|f|^p\,d\mu<\infty\right\}.
+\]
+关系
+\[
+ f\sim g\quad\Longleftrightarrow\quad f=g\ \text{几乎处处}
+\]
+是等价关系，并与加法、数乘相容。
+
+\begin{definition}
+\[
+ L^p(\mu)=\mathcal L^p(\mu)/{\sim}.
+\]
+对等价类 \([f]\)，定义
+\[
+ \|[f]\|_p=\left(\int_X|f|^p\,d\mu\right)^{1/p}.
+\]
+通常仍把等价类写作 \(f\)。
+\end{definition}
+
+若保留逐点函数而不取商，\(\|f\|_p=0\) 只推出 \(f=0\) 几乎处处，
+不能推出处处为零，因此它只是半范数。取商后正定性成立。逐点取值、某点处
+连续等性质一般不能直接赋给一个 \(L^p\) 元素，除非另行选定代表。
+
+\section{Young 不等式}
+
+设 \(1<p<\infty\)，共轭指数 \(q\) 由
+\[
+ \frac1p+\frac1q=1
+\]
+确定。
+
+\begin{lemma}[Young]
+\label{lem:young}
+对 \(a,b\ge0\)，
+\[
+ ab\le\frac{a^p}{p}+\frac{b^q}{q},
+\]
+等号当且仅当 \(a^p=b^q\)。
+\end{lemma}
+
+\begin{proof}
+凸函数 \(\phi(t)=e^t\) 的加权 Jensen 不等式给
+\[
+ e^{\frac1p\log a^p+\frac1q\log b^q}
+ \le\frac{a^p}{p}+\frac{b^q}{q}.
+\]
+左侧为 \(ab\)。零值情形由连续性得到。严格凸性说明等号恰在
+\(\log a^p=\log b^q\)，即 \(a^p=b^q\) 时成立。
+\end{proof}
+
+也可从 \(t\mapsto t^p/p\) 的凸共轭为 \(s^q/q\) 得到 Young 不等式。
+这一形式将在卷积和对偶理论中反复出现。
+
+\section{Hölder 不等式}
+
+\begin{theorem}[Hölder]
+\label{thm:holder}
+若 \(1<p<\infty\)，\(1/p+1/q=1\)，\(f\in L^p\)、\(g\in L^q\)，则
+\(fg\in L^1\)，且
+\[
+ \|fg\|_1\le\|f\|_p\|g\|_q.
+\]
+端点形式是
+\[
+ \|fg\|_1\le\|f\|_1\|g\|_\infty.
+\]
+\end{theorem}
+
+\begin{proof}
+若某个范数为零，结论显然。否则令
+\[
+ F=\frac{|f|}{\|f\|_p},\qquad
+ G=\frac{|g|}{\|g\|_q}.
+\]
+逐点应用 Young 不等式并积分：
+\[
+ \int FG\le\frac1p\int F^p+\frac1q\int G^q=1.
+\]
+乘回两个范数即得结论。端点形式由
+\(|g|\le\|g\|_\infty\) 几乎处处直接积分。
+\end{proof}
+
+\begin{corollary}[多重 Hölder]
+\label{cor:multilinear-holder}
+若 \(p_j\in[1,\infty]\) 且
+\(\sum_{j=1}^m1/p_j=1\)，则
+\[
+ \left\|\prod_{j=1}^mf_j\right\|_1
+ \le\prod_{j=1}^m\|f_j\|_{p_j}.
+\]
+\end{corollary}
+
+\begin{proof}
+先把所有 \(p_j=\infty\) 的因子用
+\(|f_j|\le\|f_j\|_\infty\) 提出积分号。对余下的有限指数，若某个范数为
+零，结论显然；否则令 \(F_j=|f_j|/\|f_j\|_{p_j}\)。加权算术--几何
+平均不等式给出
+\[
+ \prod_jF_j
+ =\prod_j(F_j^{p_j})^{1/p_j}
+ \le\sum_j\frac{F_j^{p_j}}{p_j},
+\]
+因为 \(\sum_j1/p_j=1\)。积分后右侧等于 \(1\)，再乘回各范数即得结论。
+若余下的唯一有限指数是 \(1\)，同一公式只有一项，仍然成立。
+\end{proof}
+
+\section{Minkowski 不等式}
+
+\begin{theorem}[Minkowski]
+\label{thm:minkowski}
+若 \(1\le p<\infty\)，\(f,g\in L^p\)，则
+\[
+ \|f+g\|_p\le\|f\|_p+\|g\|_p.
+\]
+\end{theorem}
+
+\begin{proof}
+\(p=1\) 是积分三角不等式。设 \(p>1\)。先由
+\[
+ |f+g|^p\le2^{p-1}(|f|^p+|g|^p)
+\]
+确认 \(f+g\in L^p\)。令 \(q=p/(p-1)\)。若
+\(\|f+g\|_p=0\) 无需证明；否则
+\[
+\begin{aligned}
+ \|f+g\|_p^p
+ &\le\int |f|\,|f+g|^{p-1}
+      +\int |g|\,|f+g|^{p-1}\\
+ &\le(\|f\|_p+\|g\|_p)
+ \left(\int|f+g|^{(p-1)q}\right)^{1/q}\\
+ &=(\|f\|_p+\|g\|_p)\|f+g\|_p^{p-1},
+\end{aligned}
+\]
+其中第二行使用 Hölder，且 \((p-1)q=p\)。约去
+\(\|f+g\|_p^{p-1}\) 即得结论。
+\end{proof}
+
+由齐次性、正定性和 Minkowski 不等式，\(\|\cdot\|_p\) 对
+\(1\le p<\infty\) 是范数。
+
+\section{\texorpdfstring{\(0<p<1\)}{0<p<1}}
+
+当 \(0<p<1\) 时，凹性给出
+\[
+ |a+b|^p\le|a|^p+|b|^p,
+\]
+所以
+\[
+ d_p(f,g)=\int|f-g|^p\,d\mu
+\]
+在几乎处处等价类上是度量。然而
+\(\|f\|_p=d_p(f,0)^{1/p}\) 一般不满足三角不等式。若 \(E,F\) 两两
+不交且测度均为 \(1\)，则
+\[
+ \|\mathbf1_E+\mathbf1_F\|_p=2^{1/p}>2
+ =\|\mathbf1_E\|_p+\|\mathbf1_F\|_p.
+\]
+因此 \(L^p\) 在此范围是拟 Banach 空间而非赋范空间。许多收敛论证仍可在
+度量 \(d_p\) 下进行，但不能直接调用局部凸空间的工具。
+
+\section{Riesz--Fischer 完备性定理}
+
+\begin{theorem}[Riesz--Fischer]
+\label{thm:riesz-fischer}
+对 \(1\le p<\infty\)，\(L^p(\mu)\) 是 Banach 空间。
+\end{theorem}
+
+\begin{proof}
+设 \((f_n)\) 是 \(L^p\)-Cauchy 列。选子列 \((f_{n_k})\)，使
+\[
+ \|f_{n_{k+1}}-f_{n_k}\|_p<2^{-k}.
+\]
+令
+\[
+ g_N=\sum_{k=1}^{N}|f_{n_{k+1}}-f_{n_k}|.
+\]
+由 Minkowski 不等式，
+\[
+ \|g_N\|_p\le\sum_{k=1}^{N}2^{-k}<1.
+\]
+\(g_N\uparrow g\)，单调收敛定理给
+\[
+ \int g^p=\lim_N\int g_N^p\le1.
+\]
+故 \(g<\infty\) 几乎处处，级数
+\[
+ \sum_{k=1}^{\infty}
+ |f_{n_{k+1}}(x)-f_{n_k}(x)|
+\]
+几乎处处收敛。于是 \(f_{n_k}(x)\) 几乎处处收敛到某个可测函数 \(f(x)\)。
+
+对 \(m>k\)，
+\[
+ |f_{n_m}-f_{n_k}|
+ \le\sum_{j=k}^{m-1}|f_{n_{j+1}}-f_{n_j}|.
+\]
+由 Minkowski 不等式，
+\[
+ \|f_{n_m}-f_{n_k}\|_p
+ \le\sum_{j=k}^{m-1}2^{-j}.
+\]
+固定 \(k\)，令 \(m\to\infty\)，并对
+\(|f_{n_m}-f_{n_k}|^p\) 使用 Fatou 引理，得到
+\[
+ \|f-f_{n_k}\|_p^p
+ \le\liminf_{m\to\infty}\|f_{n_m}-f_{n_k}\|_p^p
+ \le\left(\sum_{j=k}^{\infty}2^{-j}\right)^p.
+\]
+取 \(p\) 次根即知 \(\|f-f_{n_k}\|_p\to0\)。
+因此 \(f\in L^p\)（例如由
+\(\|f\|_p\le\|f-f_{n_k}\|_p+\|f_{n_k}\|_p\)），且子列在
+\(L^p\) 中收敛到 \(f\)。原列 Cauchy，故
+\[
+ \|f_n-f\|_p
+ \le\|f_n-f_{n_k}\|_p+\|f_{n_k}-f\|_p\to0.
+\]
+\end{proof}
+
+\begin{remark}
+证明没有先猜出极限函数，而是从 Cauchy 列抽出“差的范数可求和”的子列，
+再用几乎处处绝对收敛构造极限。这种快速子列方法也用于证明其他函数空间的
+完备性。
+\end{remark}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　Young 与 Hölder}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{lp-quotient-well-defined}
+证明 \(\|[f]\|_p\) 与代表元无关，并证明函数等价类上的加法、数乘良定义。
+
+\exerciseitem{young-calculus-proof}
+不用 Jensen 不等式，考察
+\(a^p/p+b^q/q-ab\) 的最小值，证明 Young 不等式及等号条件。
+
+\exerciseitem{holder-equality}
+求 Hölder 不等式在 \(1<p<\infty\) 时的等号条件。
+
+\exerciseitem{holder-indicator}
+把 Hölder 不等式应用于 \(f\mathbf1_E\)，证明
+\[
+ \int_E|f|\le\mu(E)^{1-1/p}\|f\|_p.
+\]
+
+\end{enumerate}
+\subsection*{B组　范数与完备性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{multilinear-holder-proof}
+完整证明多重 Hölder 不等式，包括某些 \(p_j=\infty\) 的情形。
+
+\exerciseitem{minkowski-integrability-gap}
+补全 Minkowski 证明中先确认 \(f+g\in L^p\) 的步骤，并说明不能在此之前
+直接把 \(\|f+g\|_p^{p-1}\) 当作有限数约去。
+
+\exerciseitem{lp-parallelogram}
+证明 \(L^2\) 满足平行四边形恒等式。对 \(p\ne2\)，在两点计数测度空间上
+构造反例。
+
+\exerciseitem{quasi-lp-metric}
+证明 \(0<p<1\) 时 \(d_p(f,g)=\int|f-g|^p\) 是度量，并证明该度量完备。
+
+\end{enumerate}
+\subsection*{C组　级数与空间几何}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{riesz-fischer-fatou-step}
+详细证明 Riesz--Fischer 定理中
+\[
+ \|f-f_{n_k}\|_p\le\sum_{j=k}^\infty2^{-j}.
+\]
+
+\exerciseitem{lp-convergence-series}
+若 \(\sum_n\|f_n\|_p<\infty\)，证明 \(\sum_nf_n\) 几乎处处绝对收敛，
+并在 \(L^p\) 中收敛。
+
+\optionalexerciseitem{clarkson-special-case}
+对 \(p\ge2\)，证明或查明条件后证明
+\[
+ \|f+g\|_p^p+\|f-g\|_p^p
+ \le 2^{p-1}(\|f\|_p^p+\|g\|_p^p),
+\]
+并说明它与 \(L^p\) 的一致凸性有何关系。
+
+\projectexerciseitem{lp-completeness-template}
+把 Riesz--Fischer 证明抽象成“范数可求和子列”的完备性模板，并用它重证
+\(C_b(X)\) 在上确界范数下的完备性。
+\end{enumerate}

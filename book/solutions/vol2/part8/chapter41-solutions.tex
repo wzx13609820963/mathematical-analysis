@@ -1,360 +1,210 @@
-\chapter{一致空间与拓扑群}
-\label{chap:uniform-spaces-topological-groups-solutions}
+\chapter{网与滤子}
+\label{chap:nets-filters-solutions}
 
-\begin{solution}{uniform-symmetric-cube-root}
-给定 \(U\in\mathcal U\)，先由平方根公理取 \(U_1\) 使
-\(U_1\circ U_1\subseteq U\)。再取 \(U_2\) 使
-\(U_2\circ U_2\subseteq U_1\)，并令
-\[
- V=U_2\cap U_2^{-1}\cap U_1\cap U_1^{-1}.
-\]
-则 \(V\) 是对称周围，且 \(V\circ V\subseteq U_1\)。由于每个周围
-含对角线，\(V\subseteq U_1\)，所以
-\[
- V\circ V\circ V\subseteq U_1\circ U_1\subseteq U.
-\]
+\begin{solution}{directed-finite-subsets}
+记 \(\mathcal D=\{F\subseteq S:F\text{ 有限}\}\)。包含关系自反、传递，
+而 \(F,G\) 的共同上界可取 \(F\cup G\)，故 \(\mathcal D\) 有向。
+
+若 \((F_n)_{n\in\N}\) 是可数子族，则
+\(T=\bigcup_{n\in\N}F_n\) 至多可数。若 \(S\) 不可数，可取
+\(s\in S\setminus T\)。有限集 \(\{s\}\) 不包含在任何 \(F_n\) 中，
+所以 \((F_n)\) 不共尾。因而 \(\mathcal D\) 没有可数共尾子集。
 \end{solution}
 
-\begin{solution}{metric-uniformity-topology}
-集合 \(U_\varepsilon\) 都含对角线且对称，并满足
-\[
- U_{\varepsilon/2}\circ U_{\varepsilon/2}\subseteq U_\varepsilon
-\]
-（由三角不等式）。又
-\(U_{\min\{\varepsilon,\delta\}}\subseteq
-U_\varepsilon\cap U_\delta\)，所以它们构成 \(X\times X\) 上滤子的基，
-从而生成一致结构。
+\begin{solution}{net-eventual-frequent-negation}
+“\(P\) 不频繁成立”表示存在 \(i_0\)，使每个 \(i\succcurlyeq i_0\)
+都不满足 \(P\)，这正是“\(P\) 最终不成立”。取否命题便得所需等价。
 
-在点 \(x\) 处，\(U_\varepsilon[x]=B_d(x,\varepsilon)\)。因此由一致结构
-给出的邻域基就是度量球邻域基，两种拓扑相同。
+另一方面，“\(P\) 不最终成立”只说明对每个 \(i_0\) 都能在其后找到
+一个不满足 \(P\) 的指标，即“非 \(P\) 频繁成立”。它允许 \(P\) 本身也
+频繁成立。例如数列指标上令 \(P(n)\) 表示 \(n\) 为偶数，则 \(P\) 与
+非 \(P\) 都频繁成立，二者都不最终成立。
 \end{solution}
 
-\begin{solution}{uniform-continuity-composition}
-设 \(f:X\to Y\)、\(g:Y\to Z\) 一致连续。给定 \(Z\) 中周围 \(W\)，
-先取 \(Y\) 中周围 \(V\) 使 \((y_1,y_2)\in V\) 蕴含
-\((g(y_1),g(y_2))\in W\)，再取 \(X\) 中周围 \(U\) 使
-\((x_1,x_2)\in U\) 蕴含 \((f(x_1),f(x_2))\in V\)。于是
-\(g\circ f\) 一致连续。
-
-设 \(f\) 为一致同构。若 \(X\) 完备，\(\mathcal G\) 是 \(Y\) 中
-Cauchy 滤子，则 \((f^{-1})_*\mathcal G\) 在 \(X\) 中 Cauchy，因而
-收敛；再由 \(f\) 连续，\(\mathcal G\) 收敛。所以 \(Y\) 完备。
-若 \(X\) 全有界，给定 \(Y\) 的周围 \(V\)，取 \(X\) 的周围 \(U\)
-控制 \(V\)，再以有限多个 \(U[x_k]\) 覆盖 \(X\)。则
-\(V[f(x_k)]\) 覆盖 \(Y\)，故 \(Y\) 全有界。对逆同构重复即得双向保持。
+\begin{solution}{subnet-preserves-limit}
+设 \(x_i\to x\)，\(y_j=x_{\phi(j)}\) 是子网。给定 \(x\) 的邻域
+\(U\)，存在 \(i_0\) 使 \(i\succcurlyeq i_0\) 时 \(x_i\in U\)。
+最终共尾性给出 \(j_0\)，使 \(j\succcurlyeq j_0\) 时
+\(\phi(j)\succcurlyeq i_0\)。因此这些 \(j\) 都满足
+\(y_j=x_{\phi(j)}\in U\)，故 \(y_j\to x\)。
 \end{solution}
 
-\begin{solution}{cauchy-net-tail-filter}
-若网为 Cauchy 网，给定周围 \(U\)，存在 \(i_0\) 使尾部
-\(T_{i_0}\) 满足 \(T_{i_0}\times T_{i_0}\subseteq U\)。尾部属于尾
-滤子，故尾滤子为 Cauchy 滤子。
+\begin{solution}{closure-neighborhood-net}
+设 \(x\in\overline A\)。令
+\[
+ I=\{(U,a):U\text{ 是 }x\text{ 的邻域},\ a\in A\cap U\}.
+\]
+由于每个邻域与 \(A\) 相交，\(I\ne\varnothing\)。规定
+\((U,a)\preccurlyeq(V,b)\) 当且仅当 \(V\subseteq U\)。给定两个
+指标，\(U\cap V\) 仍是邻域；任取
+\(c\in A\cap U\cap V\)，则 \((U\cap V,c)\) 为共同上界。因此
+\(I\) 有向。网 \(a_{(U,a)}=a\) 始终在 \(A\) 中。给定邻域 \(W\)，
+从任意 \((W,c)\) 开始，所有后继指标的邻域坐标都包含在 \(W\) 中，
+相应网值也在 \(W\) 中，所以该网趋于 \(x\)。
 
-反之，若尾滤子为 Cauchy，取 \(A\) 属于尾滤子且
-\(A\times A\subseteq U\)。存在尾部 \(T_{i_0}\subseteq A\)，所以
-任意 \(i,j\succcurlyeq i_0\) 都有 \((x_i,x_j)\in U\)。
+若反过来有 \(A\) 中的网趋于 \(x\)，则每个 \(x\) 的邻域都含有该网
+的某项，因而与 \(A\) 相交，故 \(x\in\overline A\)。
 \end{solution}
 
-\begin{solution}{cauchy-filter-cluster}
-给定 \(U\)，先取周围 \(U_1\) 使
-\(U_1\circ U_1\subseteq U\)，再令 \(V=U_1\cap U_1^{-1}\)，则
-\(V\) 对称且 \(V\circ V\subseteq U\)。由 Cauchy 性取
-\(A\in\mathcal F\) 使 \(A\times A\subseteq V\)。聚点条件用于保证
-\(A\cap V[x]\ne\varnothing\)；取 \(y\) 属于该交。对 \(a\in A\)，
-\((x,y)\in V\)，又因 \(y,a\in A\) 有 \((y,a)\in V\)。故
-\((x,a)\in V\circ V\subseteq U\)，即 \(A\subseteq U[x]\)。滤子
-向上封闭给出 \(U[x]\in\mathcal F\)。
+\begin{solution}{tail-filter-verification}
+记尾部 \(T_{i_0}=\{x_i:i\succcurlyeq i_0\}\)。每个尾部非空。给定
+\(i_0,j_0\)，取 \(k\succcurlyeq i_0,j_0\)，则
+\(T_k\subseteq T_{i_0}\cap T_{j_0}\)，所以尾部族是滤子基，生成尾滤子。
 
-聚点不能删除。例如 \((\Q,|\cdot|)\) 中取趋于 \(\sqrt2\) 的有理
-Cauchy 列，其尾滤子是 Cauchy 滤子，却在 \(\Q\) 中没有聚点，也不收敛。
+若 \(x_i\to x\)，则每个邻域 \(U\ni x\) 包含一个尾部，故
+\(U\in\mathcal F_x\)，即 \(\mathcal F_x\to x\)。反之，若尾滤子趋于
+\(x\)，则每个邻域 \(U\) 属于尾滤子，因而含某个 \(T_{i_0}\)；这正是
+\(x_i\to x\)。
 \end{solution}
 
-\begin{solution}{arctangent-uniformities}
-映射 \(\arctan:\R\to(-\pi/2,\pi/2)\) 是严格递增连续双射，逆映射
-\(\tan\) 连续。因此 \(\rho\)-球是 \(\arctan\) 把通常区间坐标拉回
-所得的邻域，\(d\) 与 \(\rho\) 诱导相同拓扑。
+\begin{solution}{filter-base-canonical-net}
+令 \(I_{\mathcal B}=\{(B,x):B\in\mathcal B,x\in B\}\)，并规定
+\((B,x)\preccurlyeq(C,y)\) 当且仅当 \(C\subseteq B\)。给定
+\((B,x),(C,y)\)，由滤子基性质取 \(D\in\mathcal B\) 使
+\(D\subseteq B\cap C\)，再取 \(z\in D\)。则 \((D,z)\) 是共同
+上界，所以指标集有向。
 
-由中值定理，\(|(\arctan)'(t)|\le1\)，故
-\(\rho(x,y)\le d(x,y)\)。于是恒等映射
-\((\R,d)\to(\R,\rho)\) 是 \(1\)-Lipschitz，特别地一致连续。反向
-恒等映射不一致连续：\(\rho(n,n+1)\to0\)，而 \(d(n,n+1)=1\)。
-
-数列 \((n)\) 在 \(\rho\) 下 Cauchy，因为 \(\arctan n\to\pi/2\)。
-若它在 \((\R,\rho)\) 中趋于 \(x\)，则
-\(\arctan n\to\arctan x<\pi/2\)，矛盾。所以该空间不完备。
+若 \(\langle\mathcal B\rangle\to a\)，给定邻域 \(U\ni a\)，存在
+\(B\in\mathcal B\) 使 \(B\subseteq U\)。从任意 \((B,x)\) 开始，
+后继 \((C,y)\) 满足 \(C\subseteq B\)，故网值 \(y\in U\)。规范网
+趋于 \(a\)。反之，若规范网趋于 \(a\)，给定邻域 \(U\)，存在
+\((B_0,x_0)\) 使其后网值全在 \(U\)。取滤子基中
+\(B_1\subseteq B_0\)。对每个 \(y\in B_1\)，指标 \((B_1,y)\) 都在
+\((B_0,x_0)\) 之后，故 \(y\in U\)。于是 \(B_1\subseteq U\)，从而
+\(U\in\langle\mathcal B\rangle\)。
 \end{solution}
 
-\begin{solution}{totally-bounded-subspace-image}
-设 \(A\subseteq X\)。给定 \(A\) 的诱导周围
-\(U\cap(A\times A)\)，取对称 \(V\) 使 \(V\circ V\subseteq U\)，
-并以有限多个 \(V[x_k]\) 覆盖 \(X\)。只保留与 \(A\) 相交的球，并在
-每个交中取 \(a_k\in A\)。若 \(a\in A\cap V[x_k]\)，则
-\((a_k,a)\in V\circ V\subseteq U\)，故有限多个 \(U[a_k]\cap A\)
-覆盖 \(A\)。
+\begin{solution}{net-cluster-tail-closure}
+若 \(x\) 是聚点，给定 \(i_0\) 和邻域 \(U\ni x\)，可取
+\(i\succcurlyeq i_0\) 使 \(x_i\in U\)。因此 \(U\) 与尾部
+\(T_{i_0}\) 相交，故 \(x\in\overline{T_{i_0}}\)。这对每个
+\(i_0\) 成立。
 
-若 \(f:X\to Y\) 一致连续且 \(X\) 全有界，给定 \(Y\) 中周围 \(V\)，
-取 \(X\) 中周围 \(U\) 控制 \(V\)，再取有限 \(U\)-覆盖
-\(X=\bigcup U[x_k]\)。于是
-\(f(X)\subseteq\bigcup V[f(x_k)]\)，所以像空间全有界。
+反之，若 \(x\) 属于所有尾部的闭包，则给定邻域 \(U\) 和 \(i_0\)，
+由 \(x\in\overline{T_{i_0}}\) 得 \(U\cap T_{i_0}\ne\varnothing\)。
+所以存在 \(i\succcurlyeq i_0\) 使 \(x_i\in U\)，即 \(x\) 是聚点。
 \end{solution}
 
-\begin{solution}{complete-totally-bounded-cauchy-subnet}
-令 \((x_i)_{i\in I}\) 是全有界空间中的网。考虑由所有尾部生成的滤子
-\(\mathcal F\)，并用超滤子扩张原理取
-\(\mathcal U\supseteq\mathcal F\)。给定周围 \(W\)，取对称 \(V\) 使
-\(V\circ V\subseteq W\)。全有界性给出有限覆盖
-\(X=\bigcup_{k=1}^nV[a_k]\)。超滤子必含某个 \(V[a_k]\)，而该集合为
-\(W\)-小集。因此 \(\mathcal U\) 是 Cauchy 滤子。
-
-下面直接构造所需子网。令 \(J\) 由所有三元组
-\[
- (i,A,k),\qquad A\in\mathcal U,\quad k\succcurlyeq i,\quad x_k\in A
-\]
-组成，并规定
-\[
- (i,A,k)\preccurlyeq(i',A',k')
- \quad\Longleftrightarrow\quad
- i\preccurlyeq i'\text{ 且 }A'\subseteq A.
-\]
-对任意 \(i\in I\) 与 \(A\in\mathcal U\)，集合 \(A\) 和从 \(i\) 开始的
-尾部都属于 \(\mathcal U\)，其交非空，所以这样的三元组存在。给定
-\((i_1,A_1,k_1)\)、\((i_2,A_2,k_2)\)，先取
-\(i'\succcurlyeq i_1,i_2\)，再在
-\[
- A_1\cap A_2\cap\{x_k:k\succcurlyeq i'\}
-\]
-中取一点 \(x_{k'}\)，便得到共同上界
-\((i',A_1\cap A_2,k')\)。故 \(J\) 有向。
-
-令 \(\phi(i,A,k)=k\)。给定 \(i_0\in I\)，从第一坐标越过 \(i_0\) 的
-任一指标开始，所有后继指标都被 \(\phi\) 送到 \(i_0\) 之后，所以
-\(\phi\) 最终共尾。因而 \((x_{\phi(j)})_{j\in J}\) 是原网的子网。
-若 \(A\in\mathcal U\)，从第二坐标为 \(A\) 的任一指标开始，后继指标的
-第二坐标包含于 \(A\)，相应网值全部属于 \(A\)。所以该子网最终位于
-\(\mathcal U\) 的每个成员中。给定周围 \(W\)，取
-\(W\)-小集 \(A\in\mathcal U\)；子网最终位于 \(A\)，故为 Cauchy 网。
-若空间完备，其尾滤子收敛，因而这个子网收敛。
-
-证明使用的选择原则是把尾滤子扩张为超滤子的步骤。构造 \(J\) 时只把所有
-可用三元组同时放入指标集，没有再为每个 \(A\) 指定一个预选点。
+\begin{solution}{ultrafilter-cluster-converges}
+收敛总蕴含聚集。反过来，设 \(x\) 是超滤子 \(\mathcal U\) 的聚点。
+对任一邻域 \(V\ni x\)，若 \(V\notin\mathcal U\)，超滤子的二分性质
+给出 \(X\setminus V\in\mathcal U\)。但
+\((X\setminus V)\cap V=\varnothing\)，与聚点定义矛盾。故每个
+\(V\in\mathcal N(x)\) 都属于 \(\mathcal U\)，即
+\(\mathcal U\to x\)。
 \end{solution}
 
-\begin{solution}{metric-completion-uniform-completion}
-令 \(\widehat X\) 为 \(X\) 中 Cauchy 列按
-\((x_n)\sim(y_n)\Longleftrightarrow d(x_n,y_n)\to0\) 得到的等价类，
-并定义
-\[
- \widehat d([(x_n)],[(y_n)])=\lim_{n\to\infty}d(x_n,y_n).
-\]
-由于
-\[
- |d(x_n,y_n)-d(x_m,y_m)|
- \le d(x_n,x_m)+d(y_n,y_m),
-\]
-右端数列是 Cauchy 列，极限存在。若换用等价代表 \((x_n')\)、
-\((y_n')\)，则
-\[
- |d(x_n,y_n)-d(x_n',y_n')|
- \le d(x_n,x_n')+d(y_n,y_n')\longrightarrow0,
-\]
-所以定义与代表元无关。三角不等式可逐项取极限得到，而
-\(\widehat d([(x_n)],[(y_n)])=0\) 恰好表示两个代表列等价；因此
-\(\widehat d\) 是度量。
-
-常值列嵌入 \(\iota(x)=[(x,x,\ldots)]\) 满足
-\(\widehat d(\iota(x),\iota(y))=d(x,y)\)，所以是等距、从而是一致
-嵌入。
-
-对任意 \([(x_n)]\) 和 \(\varepsilon>0\)，Cauchy 性给出 \(N\)，使
-\(m,n\ge N\) 时 \(d(x_m,x_n)<\varepsilon/2\)。令 \(m\to\infty\)，得
-\(\widehat d(\iota(x_N),[(x_n)])\le\varepsilon/2<\varepsilon\)，故
-\(\iota(X)\) 稠密。
-
-下面证明完备性。设 \((\xi_j)\) 是 \(\widehat d\)-Cauchy 列。递增选取
-整数 \(j_k\)，使
-\[
- j,\ell\ge j_k\quad\Longrightarrow\quad
- \widehat d(\xi_j,\xi_\ell)<2^{-k}.
-\]
-由 \(\iota(X)\) 稠密，对每个 \(k\) 取 \(a_k\in X\) 使
-\[
- \widehat d(\iota(a_k),\xi_{j_k})<2^{-k}.
-\]
-若 \(\ell\ge k\)，则 \(j_\ell\ge j_k\)，从而
-\[
- d(a_k,a_\ell)
- \le \widehat d(\iota(a_k),\xi_{j_k})
-   +\widehat d(\xi_{j_k},\xi_{j_\ell})
-   +\widehat d(\xi_{j_\ell},\iota(a_\ell))
- <2^{1-k}+2^{-\ell}.
-\]
-所以 \((a_k)\) 是 \(X\) 中的 Cauchy 列，确定一点
-\(\xi=[(a_k)]\in\widehat X\)。上式令 \(\ell\to\infty\) 还给出
-\[
- \widehat d(\iota(a_k),\xi)\le2^{1-k}.
-\]
-若 \(j\ge j_k\)，则
-\[
- \widehat d(\xi_j,\xi)
- \le\widehat d(\xi_j,\xi_{j_k})
-   +\widehat d(\xi_{j_k},\iota(a_k))
-   +\widehat d(\iota(a_k),\xi)
- <2^{2-k}.
-\]
-故 \(\xi_j\to\xi\)，\((\widehat X,\widehat d)\) 是完备度量空间。
-
-还需把度量完备性换成本章的滤子完备性。设 \(\mathcal H\) 是
-\(\widehat X\) 上的 Cauchy 滤子。对每个 \(n\ge1\)，取
-\(A_n\in\mathcal H\) 使 \(A_n\) 的直径小于 \(2^{-n}\)，并令
-\(B_n=A_1\cap\cdots\cap A_n\)。取 \(z_n\in B_n\)。若 \(m\ge n\)，
-则 \(z_m,z_n\in A_n\)，故 \(\widehat d(z_m,z_n)<2^{-n}\)。完备性给出
-\(z_n\to z\)。给定 \(\varepsilon>0\)，取 \(n\) 使
-\(2^{1-n}<\varepsilon\) 且 \(\widehat d(z_n,z)<2^{-n}\)。对任意
-\(y\in B_n\)，
-\[
- \widehat d(y,z)
- \le\widehat d(y,z_n)+\widehat d(z_n,z)
- <2^{1-n}<\varepsilon.
-\]
-因此 \(B_n\subseteq B_{\widehat d}(z,\varepsilon)\)，而
-\(B_n\in\mathcal H\)。所以 \(\mathcal H\to z\)，滤子意义下也完备。
-这就验证了本章一致完备化定义的全部条件。
+\begin{solution}{continuous-filter-image}
+由 \(\{f(A):A\in\mathcal F\}\) 生成的滤子包含 \(B\subseteq Y\)，
+当且仅当存在 \(A\in\mathcal F\) 使 \(f(A)\subseteq B\)。这等价于
+存在 \(A\in\mathcal F\) 使 \(A\subseteq f^{-1}(B)\)。由滤子的向上
+封闭性，后者又等价于 \(f^{-1}(B)\in\mathcal F\)。因此两种定义给出
+同一滤子。
 \end{solution}
 
-\begin{solution}{completion-extension-map}
-对 \(\widehat x\in\widehat X\)，令 \(\mathcal F_{\widehat x}\) 为
-\(X\) 中集合 \(U[\widehat x]\cap X\) 生成的滤子，其中 \(U\) 遍历
-\(\widehat X\) 的周围。稠密性保证这些集合非空。给定周围 \(W\)，取
-对称周围 \(U\) 使 \(U^2\subseteq W\)。若
-\(x,y\in U[\widehat x]\cap X\)，则
-\((x,\widehat x),(\widehat x,y)\in U\)，故 \((x,y)\in W\)。因此
-\(\mathcal F_{\widehat x}\) 是 Cauchy 滤子。题设保证
-\(f_*\mathcal F_{\widehat x}\) 在 \(Y\) 中 Cauchy，完备性使它收敛。
-定义
+\begin{solution}{compact-closed-subspace-filters}
+设 \(A\) 是紧致空间 \(X\) 的闭子空间，\(\mathcal F\) 是 \(A\) 上
+的滤子。把它提升为 \(X\) 上的滤子
 \[
- \widehat f(\widehat x)=\lim f_*\mathcal F_{\widehat x}.
+ \widetilde{\mathcal F}
+ =\{B\subseteq X:B\cap A\in\mathcal F\}.
 \]
-分离性保证此值唯一。若 \(\widehat x=x\in X\)，原滤子收敛到 \(x\)，
-连续性给出极限 \(f(x)\)，故确为延拓。
+紧致性给出聚点 \(x\in X\)。因为 \(A\in\widetilde{\mathcal F}\)，
+聚点必在 \(\overline A=A\) 中；把邻域取相对拓扑的形式即可看出 \(x\)
+也是原滤子在 \(A\) 中的聚点。因此 \(A\) 紧致。
 
-给定 \(Y\) 中周围 \(W\)，取对称 \(W_0\) 使
-\(W_0^3\subseteq W\)。由 \(f\) 的一致连续性和子空间一致结构，可取
-\(\widehat X\) 中周围 \(U\)，使对 \(x,y\in X\)，
+再设 \(K\) 是 Hausdorff 空间 \(X\) 的紧致子集，并取
+\(x\in\overline K\)。集合族
 \[
- (x,y)\in U\quad\Longrightarrow\quad(f(x),f(y))\in W_0.
+ \mathcal B=\{U\cap K:U\in\mathcal N(x)\}
 \]
-再取对称周围 \(R\) 使 \(R^3\subseteq U\)。设
-\((\widehat x,\widehat y)\in R\)。由
-\(f_*\mathcal F_{\widehat x}\to\widehat f(\widehat x)\)，集合
-\[
- R[\widehat x]\cap X
- \cap f^{-1}\bigl(W_0[\widehat f(\widehat x)]\bigr)
-\]
-非空；取其中一点 \(x\)。同理可取 \(y\in X\) 使
-\[
- (\widehat y,y)\in R,
- \qquad(\widehat f(\widehat y),f(y))\in W_0.
-\]
-由 \(R\) 的对称性，
-\[
- (x,y)\in R^3\subseteq U,
-\]
-所以 \((f(x),f(y))\in W_0\)。现在连接
-\[
- \widehat f(\widehat x),\quad f(x),\quad f(y),\quad
- \widehat f(\widehat y)
-\]
-之间的三段 \(W_0\)-关系，得到
-\((\widehat f(\widehat x),\widehat f(\widehat y))\in W\)。故
-\(\widehat f\) 一致连续。
-
-若 \(g\) 是另一连续延拓，把 \(\mathcal F_{\widehat x}\) 通过包含映射
-看作 \(\widehat X\) 上的滤子，则它趋于 \(\widehat x\)。连续性给出
-\(g_*\mathcal F_{\widehat x}\to g(\widehat x)\)。但 \(g=f\) 于 \(X\)，
-故这个像滤子就是 \(f_*\mathcal F_{\widehat x}\)，后者趋于
-\(\widehat f(\widehat x)\)。由 \(Y\) 的分离性，
-\(g(\widehat x)=\widehat f(\widehat x)\)。所以延拓唯一。
+是 \(K\) 上的滤子基。紧致性使它生成的滤子有聚点 \(k\in K\)。若
+\(k\ne x\)，取不交邻域 \(V\ni x\)、\(W\ni k\)。基集
+\(V\cap K\) 与 \(W\) 不交，违背 \(k\) 的聚点性质。因此
+\(x=k\in K\)，故 \(K\) 闭。
 \end{solution}
 
-\begin{solution}{minimal-cauchy-filter-details}
-令 \(\mathcal F^0\) 由 \(U[A]\) 生成。由于 \(A\subseteq U[A]\)，
-每个基集都属于 \(\mathcal F\)，故 \(\mathcal F^0\subseteq\mathcal F\)。
-给定周围 \(W\)，取对称 \(V\) 使 \(V^3\subseteq W\)，再取
-\(A\in\mathcal F\) 使 \(A\times A\subseteq V\)。若
-\(x,y\in V[A]\)，可取 \(a,b\in A\) 使
-\((a,x),(b,y)\in V\)。由对称性和 \(A\) 的 \(V\)-小性，
-\[
- (x,y)\in V\circ V\circ V\subseteq W.
-\]
-所以 \(V[A]\) 是 \(W\)-小基集，\(\mathcal F^0\) 为 Cauchy 滤子。
+\begin{solution}{product-coordinate-net-convergence}
+若 \(x_i\to x\)，坐标投影 \(\pi_s:X\to X_s\) 连续，故
+\(x_i(s)=\pi_s(x_i)\to\pi_s(x)=x(s)\)。
 
-若 \(\mathcal G\subseteq\mathcal F\) 也是 Cauchy 滤子，给定
-\(U[A]\)，取对称 \(V\subseteq U\)，再取
-\(B\in\mathcal G\) 为 \(V\)-小集。因 \(A,B\in\mathcal F\)，交集
-非空；取 \(z\in A\cap B\)。对 \(b\in B\)，由 \(z,b\in B\) 有
-\(b\in V[z]\subseteq U[A]\)。于是 \(B\subseteq U[A]\)，故
-\(U[A]\in\mathcal G\)。所有 \(\mathcal F^0\) 的基集都属于
-\(\mathcal G\)，即 \(\mathcal F^0\subseteq\mathcal G\)。
+反之，设每个坐标网都收敛。\(x\) 的基本邻域可写成
+\[
+ U=\bigcap_{k=1}^n\pi_{s_k}^{-1}(U_k),
+\]
+其中 \(U_k\) 是 \(x(s_k)\) 的邻域。对每个 \(k\)，坐标收敛给出一个
+最终条件 \(x_i(s_k)\in U_k\)。有向性把有限多个最终条件合并，得到
+\(x_i\in U\) 最终成立。每个邻域都含一个基本邻域，故 \(x_i\to x\)。
 \end{solution}
 
-\begin{solution}{topological-group-neighborhood-base}
-给定单位元邻域 \(U\)，由取逆连续性，\(U\cap U^{-1}\) 仍为单位元
-邻域且对称，可先把 \(U\) 换成这个集合。乘法映射在 \((e,e)\) 连续，
-故存在单位元邻域 \(W_1,W_2\) 使 \(W_1W_2\subseteq U\)。令
-\[
- V=W_1\cap W_2\cap W_1^{-1}\cap W_2^{-1},
-\]
-则 \(V\) 对称且 \(VV\subseteq W_1W_2\subseteq U\)。
+\begin{solution}{first-countable-sequential-closure}
+设 \(x\in\overline A\)，并取 \(x\) 的可数邻域基 \((V_n)\)。令
+\(U_n=V_0\cap\cdots\cap V_n\)，则 \((U_n)\) 递减且仍为邻域基。
+逐项取 \(a_n\in A\cap U_n\)。给定邻域 \(U\ni x\)，存在 \(m\) 使
+\(U_m\subseteq U\)，于是 \(n\ge m\) 时 \(a_n\in U_n\subseteq U\)，
+故 \(a_n\to x\)。若 \(A\) 对数列极限封闭，则 \(x\in A\)，所以
+\(A\) 闭。反向结论对任意空间都成立。
+
+若 \(f:X\to Y\) 保持数列极限而在 \(x\) 不连续，可取
+\(f(x)\) 的邻域 \(V\)，使每个 \(x\) 的邻域都含有一点不在
+\(f^{-1}(V)\) 中。对上述递减基逐项取
+\(x_n\in U_n\setminus f^{-1}(V)\)。则 \(x_n\to x\)，但
+\(f(x_n)\) 从不进入 \(V\)，矛盾。因此序列连续蕴含连续；另一方向
+由连续性直接得到。
 \end{solution}
 
-\begin{solution}{group-left-right-abelian}
-若 \(G\) 交换，则
-\(x^{-1}y=yx^{-1}\)，且把单位邻域换成其逆不改变邻域基，所以
-\(L_V\) 与 \(R_V\) 生成同一一致结构。
+\begin{solution}{finite-support-product-closure}
+乘积拓扑中 \(\boldsymbol1\) 的基本邻域只规定有限坐标
+\(F\subseteq S\) 上的值落在各自给定邻域。由于每个因子是离散的
+\(\{0,1\}\)，可缩小为要求这些坐标都等于 \(1\)。有限支集点
+\(\boldsymbol1_F\) 满足要求，故每个基本邻域与 \(A\) 相交，
+\(\boldsymbol1\in\overline A\)。
 
-在矩阵群中，比较左、右差可写为
-\[
- xy^{-1}=x(x^{-1}y)^{-1}x^{-1}.
-\]
-因此把左差控制在邻域 \(V\) 内，要推出右差落在给定邻域 \(U\)，需要
-对随 \(x\) 变化的共轭 \(xVx^{-1}\) 作一致控制。若单位元有共轭不变的
-邻域基，这个控制成立，左右一致结构相同；一般非交换群未必如此。
+以有限子集 \(F\) 按包含关系为指标，网 \(a_F=\boldsymbol1_F\) 在每个
+固定坐标 \(s\) 上最终等于 \(1\)：从指标 \(\{s\}\) 以后即可。由乘积
+空间的坐标判据，\(a_F\to\boldsymbol1\)。
+
+若 \((a_n)\subseteq A\)，令
+\(T=\bigcup_n\{s:a_n(s)=1\}\)。每个支集有限，故 \(T\) 至多可数。
+不可数性给出 \(s_0\in S\setminus T\)。于是所有 \(a_n(s_0)=0\)，
+而 \(\boldsymbol1(s_0)=1\)；坐标投影连续，所以该数列不可能收敛到
+\(\boldsymbol1\)。
 \end{solution}
 
-\begin{solution}{closed-subgroup-quotient-hausdorff}
-商映射 \(q:G\to G/H\) 是开映射，因为
-\(q^{-1}(q(U))=UH=\bigcup_{h\in H}Uh\) 对开集 \(U\) 为开。若
-\(G/H\) Hausdorff，则单点 \(\{H\}\) 闭，故
-\(H=q^{-1}(\{H\})\) 闭。
-
-反之，若 \(H\) 闭，则等价关系
+\begin{solution}{universal-subnet-ultrafilter}
+设原网的尾滤子为 \(\mathcal F_x\)，并取超滤子
+\(\mathcal U\supseteq\mathcal F_x\)。令 \(J\) 由三元组
 \[
- R=\{(x,y):xH=yH\}
-   =\{(x,y):x^{-1}y\in H\}
+ (i,A,k),\qquad i,k\in I,\quad A\in\mathcal U,\quad
+ k\succcurlyeq i,\quad x_k\in A
 \]
-是 \(G\times G\) 中的闭集，因为映射 \((x,y)\mapsto x^{-1}y\) 连续。
-若 \(xH\ne yH\)，则 \((x,y)\notin R\)，可取开邻域 \(U\ni x\)、
-\(V\ni y\) 使 \((U\times V)\cap R=\varnothing\)。由于 \(q\) 开，
-\(q(U),q(V)\) 是两个商空间开邻域；若它们相交，就有 \(u\in U,v\in V\)
-满足 \(uH=vH\)，即 \((u,v)\in R\)，矛盾。因此商空间 Hausdorff。
+组成。这样的三元组总存在，因为 \(A\) 与每个尾部的交属于
+\(\mathcal U\)，因而非空。规定
+\((i,A,k)\preccurlyeq(i',A',k')\) 当且仅当
+\(i\preccurlyeq i'\) 且 \(A'\subseteq A\)。给定两个指标，取
+\(i'\) 越过两个第一坐标，并在
+\(A_1\cap A_2\cap\{x_k:k\succcurlyeq i'\}\) 中取一项 \(x_{k'}\)，
+即可得到共同上界。因此 \(J\) 有向。
+
+令 \(\phi(i,A,k)=k\)。第一坐标保证 \(\phi\) 最终共尾，所以
+\((x_{\phi(j)})\) 是子网。对任意 \(B\subseteq X\)，超滤子二分性质
+给出 \(B\in\mathcal U\) 或 \(X\setminus B\in\mathcal U\)。若
+\(B\in\mathcal U\)，从任意第二坐标等于 \(B\) 的指标开始，后继指标
+的第二坐标包含于 \(B\)，其网值因而属于 \(B\)。补集情形相同。故该
+子网对每个集合都最终落在它或其补集中。
 \end{solution}
 
-\begin{solution}{topological-group-cauchy-products}
-对左 Cauchy 条件，乘积网的差为
-\[
- (x_iy_i)^{-1}(x_jy_j)
- =y_i^{-1}(x_i^{-1}x_j)y_i\,(y_i^{-1}y_j).
-\]
-因此一个充分条件是：\((x_i)\)、\((y_i)\) 都是左 Cauchy 网，并且
-尾部共轭族对单位元邻域一致，即对每个单位邻域 \(U\)，存在单位邻域
-\(V\) 和 \(i_0\)，使
-\[
- y_i^{-1}Vy_i\subseteq U\qquad(i\succcurlyeq i_0).
-\]
-给定单位邻域 \(W\)，取 \(U\) 使 \(UU\subseteq W\)，再按上述条件取
-\(V\)，并把指标推进到使
-\(x_i^{-1}x_j\in V\)、\(y_i^{-1}y_j\in U\)。公式右端两因子均在
-\(U\) 中，故乘积网左 Cauchy。
+\begin{solution}{compact-map-closed}
+设 \(A\subseteq X\) 闭。由于 \(X\) 紧致，\(A\) 紧致；连续像
+\(f(A)\) 也紧致。Hausdorff 空间中的紧致子集闭，所以 \(f(A)\) 闭，
+即 \(f\) 为闭映射。
 
-交换群中共轭项消失；更一般地，若有共轭不变单位邻域基，也可自动满足
-这一条件。非交换性正是通过 \(y_i^{-1}(x_i^{-1}x_j)y_i\) 引入额外控制。
+也可直接用网验证最后一步：若 \(y_i\in f(A)\) 且 \(y_i\to y\)，取
+\(x_i\in A\) 使 \(f(x_i)=y_i\)。避免逐项选择时可把所有这样的
+\((i,x_i)\) 作为加细指标。紧致性给出收敛子网趋于某个 \(x\in A\)，
+连续性和 Hausdorff 极限唯一性给出 \(f(x)=y\)，故 \(y\in f(A)\)。
+
+若 \(f\) 还是双射，则逆映射 \(f^{-1}:Y\to X\) 的开集原像为
+\(f(U)\)。由于 \(f\) 闭且双射，\(f(U)=Y\setminus f(X\setminus U)\)
+为开集，所以 \(f^{-1}\) 连续，\(f\) 是同胚。
 \end{solution}

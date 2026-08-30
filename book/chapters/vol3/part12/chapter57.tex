@@ -1,0 +1,158 @@
+\chapter{零测集与不可测集}
+\label{chap:null-nonmeasurable-sets}
+
+“测度为零”表示集合可由总体积任意小的可数长方体族覆盖，并不表示集合
+有限、可数或不存在复杂结构。另一方面，外测度定义在所有子集上，却不能
+在所有子集上保持平移不变和可数可加。本章分别考察这两种现象。
+
+\section{零测集与几乎处处}
+
+\begin{definition}
+若 $N$ 可测且 $m(N)=0$，称 $N$ 为\term{零测集}。一个命题在除去某个
+零测集之外的所有点成立时，称它\term{几乎处处成立}，简写为 a.e.
+\end{definition}
+
+由于 Lebesgue 测度完备，“外测度为零”已经保证可测。可数个零测集的并
+仍零测；有限测度集减去零测集不改变测度。若两个函数只在零测集上不同，
+测度论中的积分和多数收敛概念会把它们视为同一个对象，但点值连续性未必
+保留。
+
+零测集可以稠密，例如 $\Q$；也可以不可数、闭且没有孤立点。Cantor 集是
+后一情形的标准模型。
+
+\section{Cantor 集}
+
+从 $C_0=[0,1]$ 开始，每一步从每个闭区间中删去开中间三分之一，令剩余
+集合为 $C_n$，并定义
+\[
+ C=\bigcap_{n=0}^{\infty}C_n.
+\]
+$C_n$ 是 $2^n$ 个长度 $3^{-n}$ 的闭区间之并，故
+$m(C_n)=(2/3)^n$。由下降连续性，
+\[
+ m(C)=\lim_nm(C_n)=0.
+\]
+
+每个 $x\in C$ 都有一个只含数字 $0,2$ 的三进制表示。虽然三进制数在端点
+处可能有两种通常表示，但其中只有一种只使用 $0,2$；因此映射
+\[
+ (\varepsilon_1,\varepsilon_2,\ldots)\in\{0,1\}^{\Npos}
+ \longmapsto \sum_{n=1}^{\infty}\frac{2\varepsilon_n}{3^n}
+\]
+是二元序列集到 $C$ 的双射。特别地，$C$ 不可数。它闭、无内点，并且每一
+点都是聚点。因此“零测”与“点少”不是同一概念。
+
+\section{正测度而无内点的集合}
+
+把删去长度安排得更快收敛，可以保留正测度。Smith--Volterra 集的一个
+构造是：第 $n$ 步从 $2^{n-1}$ 个剩余区间中各删去长度 $4^{-n}$ 的居中
+开区间。总删去长度为
+\[
+ \sum_{n=1}^{\infty}2^{n-1}4^{-n}=\frac12,
+\]
+故剩余闭集 $S$ 的测度为 $1/2$。每个非空开区间最终遇到一个被删去的中间
+区间，所以 $S$ 无内点。于是 $S$ 是闭、无内点、正测度的集合；它的边界
+就是自身。
+
+这个例子同时说明：
+\begin{enumerate}
+ \item 拓扑意义的“小”与测度意义的“小”互不决定；
+ \item 有界 Lebesgue 可测集不必 Jordan 可测；
+ \item 一个集合可以处处没有内部，却仍占据一半区间长度。
+\end{enumerate}
+
+\section{Vitali 不可测集}
+
+不可测集的构造使用选择原则。在 $[0,1]$ 上定义等价关系
+\[
+ x\sim y\quad\Longleftrightarrow\quad x-y\in\Q.
+\]
+用选择公理从每个等价类选取一个代表，所得集合记为 $V$。对
+$q\in\Q\cap[-1,1]$，令 $V_q=V+q$。
+
+这些平移集两两不交：若 $v+q=w+r$，则 $v\sim w$，代表的唯一性给出
+$v=w$，继而 $q=r$。另一方面，每个 $x\in[0,1]$ 与 $V$ 中某个代表等价，
+所以
+\[
+ [0,1]\subseteq\bigcup_{q\in\Q\cap[-1,1]}V_q
+ \subseteq[-1,2].
+\]
+
+\begin{theorem}[Vitali]
+\label{thm:vitali-nonmeasurable-set}
+上述代表集 $V$ 不是 Lebesgue 可测集。
+\end{theorem}
+
+\begin{proof}
+若 $V$ 可测，平移不变性使所有 $V_q$ 具有同一测度 $c$。若 $c=0$，可数
+次可加性给出 $[0,1]$ 的测度不超过零，矛盾。若 $c>0$，两两不交集族的并
+测度为 $\sum_qc=+\infty$，却包含于有限测度区间 $[-1,2]$，仍矛盾。
+\end{proof}
+
+因此不可能在 $\mathcal P(\R)$ 上定义一个同时满足下列三项的函数：延拓
+区间长度、平移不变、对可数个不交集合可加。Carathéodory 条件不是遗漏了
+某些“尚未算出”的集合，而是选出能够与这些要求相容的最大自然定义域。
+
+Vitali 集的存在依赖从不可数多个等价类同时取代表。正文采用 ZFC 背景，
+所以允许这一步；若研究较弱选择公理下的集合可测性，结论需要重新表述。
+
+\section{不同的大小概念}
+
+以下性质没有简单的单向链条：有限、至多可数、零测、无内点、第一纲、
+不可数、正测度。几个对照足以说明差别：
+\[
+\begin{array}{c|c|c|c}
+\text{集合}&\text{基数}&\text{测度}&\text{拓扑性质}\\ \hline
+\Q\cap[0,1]&\text{可数无限}&0&\text{稠密、无内点}\\
+C&\text{不可数}&0&\text{闭、无内点}\\
+S&\text{不可数}&1/2&\text{闭、无内点}\\
+\{x\in[0,1]:x\notin\Q\}&\text{不可数}&1&\text{稠密、无内点}
+\end{array}
+\]
+测度关注可数覆盖的总体积；拓扑关注邻域；基数只关心是否存在双射。以后
+出现“几乎处处”时，只能删除零测集，不能把它替换为“可数多个例外”或
+“没有内部的例外”。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　零测与几乎处处}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{null-countable-union}
+ 证明可数个 Lebesgue 零测集的并仍为零测集。
+ \exerciseitem{ae-equivalence-relation}
+ 证明函数之间“几乎处处相等”是等价关系。
+ \exerciseitem{ae-equality-level-sets}
+ 证明 $f=g$ a.e. 当且仅当对每个 $n\ge1$，集合
+ $\{|f-g|>1/n\}$ 零测。
+ \exerciseitem{dense-null-set-construction}
+ 在任意非空开集 $O\subset\R^d$ 中构造一个稠密的可数零测集。
+\end{enumerate}
+
+\subsection*{B组　Cantor 型集合}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{cantor-ternary-characterization}
+ 证明 $x\in C$ 当且仅当它有一个只含 $0,2$ 的三进制表示。
+ \exerciseitem{cantor-perfect-nowhere-dense}
+ 证明 Cantor 集闭、无孤立点且无内点。
+ \exerciseitem{cantor-cardinality}
+ 构造 $\{0,1\}^{\Npos}$ 到 Cantor 集的单射，并推出 $C$ 与 $[0,1]$
+ 等势。
+ \exerciseitem{fat-cantor-measure}
+ 核对 Smith--Volterra 构造中各步区间互不重叠、总删去长度为 $1/2$，并
+ 证明剩余集无内点。
+ \exerciseitem{closed-set-boundary-jordan}
+ 设 $F\subset[a,b]$ 闭且无内点。证明 $F$ Jordan 可测当且仅当
+ $m(F)=0$。
+\end{enumerate}
+
+\subsection*{C组　不可测性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{vitali-translates-disjoint}
+ 详细证明 Vitali 构造中的平移集 $V+q$ 两两不交及其覆盖包含关系。
+ \exerciseitem{vitali-inner-outer-measure}
+ 证明 Vitali 集的内测度为零，并说明其外测度不能为零。
+ \exerciseitem{nonmeasurable-subset-null-impossible}
+ 说明完备性为何排除“零测集含不可测子集”，并由此解释 Vitali 集不可能
+ 包含在 Borel 零测集中。
+\end{enumerate}

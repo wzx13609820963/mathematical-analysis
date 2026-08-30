@@ -1,0 +1,229 @@
+\chapter{可测函数}
+\label{chap:measurable-functions}
+
+连续函数用开集原像保持开集来表达。测度空间没有距离和邻域，能够保留的
+条件是：目标空间中可测集合的原像仍可测。这个定义足以控制函数的水平集、
+逐点极限和简单函数逼近，也是 Lebesgue 积分的入口。
+
+\section{可测映射与半直线判据}
+
+\begin{definition}
+设 $(X,\mathcal A)$、$(Y,\mathcal B)$ 为可测空间。映射 $f:X\to Y$ 称为
+\term{可测}，如果对每个 $B\in\mathcal B$，都有
+$f^{-1}(B)\in\mathcal A$。
+\end{definition}
+
+连续映射在拓扑空间的 Borel $\sigma$-代数之间可测，因为开集原像为开集，
+而“原像可测”的集合族本身是 $\sigma$-代数。复合可测映射仍可测。
+
+实值函数常允许取 $\pm\infty$，目标空间写作
+$\overline\R=[-\infty,+\infty]$，采用由区间生成的 Borel
+$\sigma$-代数。
+
+\begin{theorem}[半直线判据]
+\label{thm:measurable-halfline-criteria}
+对 $f:X\to\overline\R$，以下条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $f$ 可测；
+ \item 对每个 $a\in\R$，$\{f>a\}\in\mathcal A$；
+ \item 对每个 $a\in\R$，$\{f\ge a\}\in\mathcal A$；
+ \item 对每个 $a\in\R$，$\{f<a\}\in\mathcal A$；
+ \item 对每个 $a\in\R$，$\{f\le a\}\in\mathcal A$。
+\end{enumerate}
+只检验有理数 $a$ 也足够。
+\end{theorem}
+
+\begin{proof}
+可测性立即给出各水平集可测。反过来，半直线生成
+$\mathcal B(\overline\R)$，故相应原像条件推出可测性。各严格与非严格
+版本由
+\[
+ \{f>a\}=\bigcup_{n\ge1}\{f\ge a+1/n\},
+ \qquad
+ \{f\ge a\}=\bigcap_{n\ge1}\{f>a-1/n\}
+\]
+及取补集互相推出。任意实端点可用有理数单调逼近。
+\end{proof}
+
+\section{代数运算与序运算}
+
+若 $f,g$ 是有限实值可测函数，则 $f+g$、$fg$、$|f|$、
+$f\vee g$、$f\wedge g$ 均可测。一个简洁证明是映射
+$x\mapsto(f(x),g(x))$ 从 $X$ 到 $\R^2$ 可测：开矩形原像是两个可测
+原像的交，而开集可由至多可数个有理矩形组成。再与 $\R^2$ 上连续的加法、
+乘法、绝对值等复合。
+
+对扩充实值函数，$+\infty+(-\infty)$ 没有定义，必须先排除这种点；不能
+以“可测函数可相加”掩盖运算本身未定义。正部和负部
+\[
+ f^+=f\vee0,\qquad f^-=(-f)\vee0
+\]
+总是非负可测，并满足 $f=f^+-f^-$、$|f|=f^++f^-$，其中第一式只在
+$f$ 不同时取两种无穷值时按通常意义使用。
+
+\begin{theorem}[可数序运算]
+\label{thm:measurable-countable-order-operations}
+若 $f_n:X\to\overline\R$ 可测，则
+\[
+ \sup_nf_n,\quad \inf_nf_n,\quad
+ \limsup_nf_n,\quad\liminf_nf_n
+\]
+均可测。若 $f_n(x)$ 逐点收敛，则极限函数可测。
+\end{theorem}
+
+\begin{proof}
+例如
+\[
+ \left\{\sup_nf_n>a\right\}=\bigcup_n\{f_n>a\},
+ \qquad
+ \inf_nf_n=-\sup_n(-f_n).
+\]
+再用
+\[
+ \limsup_nf_n=\inf_N\sup_{n\ge N}f_n,
+ \qquad
+ \liminf_nf_n=\sup_N\inf_{n\ge N}f_n.
+\]
+逐点极限存在时两者相等。
+\end{proof}
+
+\section{简单函数逼近}
+
+\begin{definition}
+只取有限多个实值且可测的函数称为\term{简单函数}。它可写成
+\[
+ \varphi=\sum_{k=1}^ma_k\mathbf1_{E_k},
+\]
+其中 $E_k$ 可测。把相同取值合并后可要求 $E_k$ 两两不交；表示方式可以
+不同，但按取值水平集得到的规范表示唯一。
+\end{definition}
+
+\begin{theorem}[非负简单函数逼近]
+\label{thm:measurable-simple-approximation}
+对每个非负可测函数 $f:X\to[0,+\infty]$，存在非负简单函数列
+$\varphi_n$，使
+\[
+ 0\le\varphi_n\le\varphi_{n+1}\le f,
+ \qquad \varphi_n(x)\uparrow f(x).
+\]
+若 $f$ 有界，可使收敛一致。
+\end{theorem}
+
+\begin{proof}
+把 $[0,n)$ 按长度 $2^{-n}$ 分成小区间，定义
+\[
+ \varphi_n(x)=
+ \begin{cases}
+  k2^{-n},&k2^{-n}\le f(x)<(k+1)2^{-n},\quad
+             0\le k<n2^n,\\
+  n,&f(x)\ge n.
+ \end{cases}
+\]
+水平集由半直线的差得到，故 $\varphi_n$ 简单可测。这个具体序列未必逐项
+单调；改用 $\psi_n=\max_{1\le j\le n}\varphi_j$ 即得单调列，仍满足
+$\psi_n\le f$ 且逐点趋于 $f$。也可直接使用嵌套二进网格得到单调性。
+若 $f\le M$，当 $n>M$ 时截断不再出现，误差至多 $2^{-n}$，故一致收敛。
+\end{proof}
+
+简单函数保留了有限求和的可控性，又能从下逼近任意非负可测函数。下一章
+将先定义简单函数积分，再对所有下方简单函数取上确界。
+
+\section{零测修改与可测代表}
+
+若测度空间完备、$f$ 可测且 $g=f$ a.e.，则 $g$ 可测。事实上，对任意
+$a$，两个水平集 $\{g>a\}$ 与 $\{f>a\}$ 只相差一个零测集。若空间不
+完备，这个结论可能失败：取不可测的零测子集 $Z$，把零函数在 $Z$ 上改为
+$1$，所得函数的水平集恰为 $Z$。
+
+因此，后文把几乎处处相等函数视为同一元素时，将默认在完备化中选取可测
+代表，或明确保留原测度空间的可测代表。
+
+\section{Lusin 定理}
+
+可测函数不必连续，但在有限测度的 Euclidean 集合上，可以删去任意小的
+测度后得到连续限制。
+
+\begin{theorem}[Lusin]
+\label{thm:lusin}
+设 $E\subset\R^d$ Lebesgue 可测且 $m(E)<\infty$，
+$f:E\to\R$ 可测。对每个 $\varepsilon>0$，存在紧集 $K\subseteq E$，
+使 $m(E\setminus K)<\varepsilon$，且 $f|_K$ 连续。
+\end{theorem}
+
+\begin{proof}
+先删去函数值过大的部分。由于 $f$ 处处有限，集合
+$E_M=E\cap\{|f|\le M\}$ 递增到 $E$；上升连续性给出某个 $M$ 使
+$m(E\setminus E_M)<\varepsilon/4$。
+
+在 $E_M$ 上用嵌套二进网格构造简单函数 $\varphi_n$，使
+$\norm{f-\varphi_n}_{\infty,E_M}\le2^{-n}$。每个 $\varphi_n$ 只有有限
+多个水平集。利用 Lebesgue 正则性，在每个非空水平集中取紧子集，使该
+$\varphi_n$ 全部水平集中删去的总测度小于
+$\varepsilon2^{-n-2}$。这些紧集的有限并记为 $K_n$；不同水平的紧集
+彼此不交，故它们之间距离为正，$\varphi_n|_{K_n}$ 连续。
+
+令
+\[
+ K=K_0\cap\bigcap_{n=1}^{\infty}K_n,
+\]
+其中先由内正则性取紧 $K_0\subseteq E_M$，使
+$m(E_M\setminus K_0)<\varepsilon/4$。则 $K$ 紧，且误差级数给出
+$m(E\setminus K)<\varepsilon$。每个 $\varphi_n|_K$ 连续，并且
+$\varphi_n\to f$ 在 $K$ 上一致。因此 $f|_K$ 是连续函数的一致极限，故
+连续。
+\end{proof}
+
+有限测度使“大函数值”部分可以被删去；正则性把可测水平集换成紧集；一致
+逼近把简单函数的连续性传给 $f$。定理没有声称 $f$ 在某个开集上连续，也
+没有把不连续点集本身变成零测集。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　判据与运算}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{measurable-rational-thresholds}
+ 证明半直线判据只需检验有理端点。
+ \exerciseitem{measurable-vector-map}
+ 若 $f_1,\ldots,f_n$ 为实值可测函数，证明
+ $x\mapsto(f_1(x),\ldots,f_n(x))$ 是到 $\R^n$ 的 Borel 可测映射。
+ \exerciseitem{measurable-algebra-operations}
+ 由上一题证明有限实值可测函数对加、乘、绝对值和有限最大值封闭。
+ \exerciseitem{measurable-limsup-formula}
+ 写出 $\{\limsup f_n>a\}$ 的可数集合运算表达式，并据此直接证明可测性。
+ \exerciseitem{measurable-convergence-set}
+ 证明函数列 $(f_n)$ 的逐点收敛点集是可测集。
+\end{enumerate}
+
+\subsection*{B组　简单函数与零测修改}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{simple-function-canonical-form}
+ 证明简单函数可以写成按不同取值水平集分解的规范形式，并说明该形式唯一。
+ \exerciseitem{nested-dyadic-simple-approximation}
+ 构造无需再取有限最大值、直接逐项递增的二进简单函数逼近。
+ \exerciseitem{bounded-simple-uniform-approximation}
+ 证明有界可测函数可由简单函数一致逼近。
+ \exerciseitem{ae-modification-complete-space}
+ 证明完备测度空间中，可测函数的几乎处处修改仍可测；并给出非完备空间的
+ 反例。
+ \exerciseitem{indicator-measurability}
+ 证明 $\mathbf1_E$ 可测当且仅当 $E$ 可测。
+\end{enumerate}
+
+\subsection*{C组　Lusin 定理及应用}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{lusin-simple-functions}
+ 先对有限值简单函数证明 Lusin 定理。
+ \exerciseitem{lusin-proof-measure-budget}
+ 核对定理 \ref{thm:lusin} 证明中全部删去集合的测度预算，并说明所得 $K$
+ 为什么紧。
+ \exerciseitem{lusin-continuous-extension}
+ 由 Tietze 延拓定理证明：Lusin 定理中的 $f|_K$ 可延拓为 $\R^d$ 上的连续
+ 函数。
+ \exerciseitem{measurable-almost-continuous-not-continuous-ae}
+ 用 Dirichlet 函数说明“对每个 $\varepsilon$ 可删去小测度后连续”不等价于
+ “函数的不连续点集零测”。
+ \optionalexerciseitem{measurable-functions-generated-sigma}
+ 对函数族 $(f_i)_{i\in I}$，证明使全部 $f_i$ 可测的最小 $\sigma$-代数是
+ $\sigma\{f_i^{-1}(B):i\in I,\ B\in\mathcal B(\R)\}$。
+\end{enumerate}

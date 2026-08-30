@@ -1,0 +1,331 @@
+\chapter{Lebesgue 积分的收敛定理}
+\label{chap:lebesgue-convergence}
+
+非负函数的积分允许取无穷值，因而递增极限不会遇到正负抵消。一般实值函数
+必须先把正部和负部分开；只有至少一部分积分有限时，差
+\(\int f^+-\int f^-\) 才有意义。若两部分都有限，就得到通常所说的
+Lebesgue 可积函数。Fatou 引理、单调收敛定理和控制收敛定理给出三种常用
+的极限交换方式，它们的条件分别控制“从下逼近”“质量突然消失”和“正负
+抵消”。
+
+\section{正部、负部与可积性}
+
+对可测函数 \(f:X\to[-\infty,+\infty]\)，令
+\[
+ f^+=\max\{f,0\},\qquad f^-=\max\{-f,0\}.
+\]
+则 \(f=f^+-f^-\)、\(|f|=f^++f^-\)，并且 \(f^+f^-=0\)。
+
+\begin{definition}
+若 \(\int f^+<\infty\) 或 \(\int f^-<\infty\)，定义
+\[
+ \int_Xf\,d\mu=\int_Xf^+\,d\mu-\int_Xf^-\,d\mu,
+\]
+其值可以为扩充实数。若
+\[
+ \int_X|f|\,d\mu<\infty,
+\]
+则称 \(f\) \term{Lebesgue 可积}，记作 \(f\in L^1(\mu)\)。
+\end{definition}
+
+若 \(\int f^+=\int f^-=\infty\)，积分不定义；给它指定某个值会把不同
+截断方式产生的条件抵消误认为固有的积分值。若 \(f\in L^1\)，则 \(f\)
+几乎处处有限，因为 \(\{|f|=\infty\}\) 必为零测集。
+
+\begin{proposition}
+\label{prop:integrable-basic-estimate}
+若 \(f\in L^1(\mu)\)，则
+\[
+ \left|\int_Xf\,d\mu\right|\le\int_X|f|\,d\mu .
+\]
+若 \(f=0\) 几乎处处，则 \(\int f=0\)；若 \(f=g\) 几乎处处且其中一个
+可积，则另一个也可积且积分相同。
+\end{proposition}
+
+\begin{proof}
+由 \(-|f|\le f\le|f|\) 和积分的序性质得到估计。其余结论分别应用于
+\(|f|\) 和 \(|f-g|\)。
+\end{proof}
+
+\section{线性与序性质}
+
+\begin{theorem}[积分的线性]
+\label{thm:lebesgue-integral-linearity}
+若 \(f,g\in L^1(\mu)\)，\(\alpha,\beta\in\mathbb R\)，则
+\(\alpha f+\beta g\in L^1(\mu)\)，且
+\[
+ \int(\alpha f+\beta g)\,d\mu
+ =\alpha\int f\,d\mu+\beta\int g\,d\mu .
+\]
+\end{theorem}
+
+\begin{proof}
+由
+\[
+ |\alpha f+\beta g|\le|\alpha||f|+|\beta||g|
+\]
+知其可积。先证加法。恒等式
+\[
+ (f+g)^++f^-+g^-=(f+g)^-+f^++g^+
+\]
+这里出现的正部、负部都可积。对恒等式两边使用非负函数积分的加法性，所得
+各项均为有限实数，因而可以移项，得到
+\(\int(f+g)=\int f+\int g\)。齐次性由正、负标量分别验证。
+\end{proof}
+
+\begin{corollary}
+若 \(f,g\in L^1\) 且 \(f\le g\) 几乎处处，则
+\[
+ \int f\,d\mu\le\int g\,d\mu.
+\]
+若 \(E_n\) 两两不交且 \(f\in L^1\)，则
+\[
+ \int_{\cup_nE_n}f\,d\mu=\sum_n\int_{E_n}f\,d\mu,
+\]
+右侧级数绝对收敛。
+\end{corollary}
+
+\section{积分对集合的绝对连续性}
+
+\begin{theorem}[积分的绝对连续性]
+\label{thm:absolute-continuity-of-integral}
+若 \(f\in L^1(\mu)\)，则对每个 \(\varepsilon>0\)，存在
+\(\delta>0\)，使得
+\[
+ \mu(E)<\delta\quad\Longrightarrow\quad
+ \int_E|f|\,d\mu<\varepsilon .
+\]
+\end{theorem}
+
+\begin{proof}
+因 \(|f|\mathbf1_{\{|f|\le M\}}\uparrow|f|\)，单调收敛定理给出
+\[
+ \int_{\{|f|>M\}}|f|\,d\mu\longrightarrow0.
+\]
+取 \(M\) 使该尾积分小于 \(\varepsilon/2\)，再取
+\(\delta=\varepsilon/(2M)\)（若 \(M=0\) 结论显然）。则
+\[
+ \int_E|f|
+ \le M\mu(E)+\int_{\{|f|>M\}}|f|
+ <\varepsilon .
+\]
+\end{proof}
+
+这一定理不能只由 \(\int|f|<\infty\) 的数值大小给出统一的
+\(\delta\)：\(\delta\) 还依赖 \(f\) 的质量分布。第
+\ref{chap:uniform-integrability} 章将把这种小集合控制推广到函数族。
+
+\section{Fatou 引理}
+
+\begin{theorem}[Fatou 引理]
+\label{thm:fatou}
+若 \(f_n\ge0\) 可测，则
+\[
+ \int_X\liminf_{n\to\infty}f_n\,d\mu
+ \le\liminf_{n\to\infty}\int_Xf_n\,d\mu .
+\]
+\end{theorem}
+
+\begin{proof}
+令 \(g_N=\inf_{n\ge N}f_n\)。则 \(0\le g_N\uparrow\liminf_nf_n\)，
+而 \(g_N\le f_n\) 对每个 \(n\ge N\) 成立。因此
+\[
+ \int g_N\le\inf_{n\ge N}\int f_n.
+\]
+对 \(N\) 使用单调收敛定理并取极限，即得结论。
+\end{proof}
+
+Fatou 引理通常只有不等式。以
+\(f_n=\mathbf1_{[n,n+1]}\) 为例，\(f_n\to0\) 处处，但每个积分均为
+\(1\)。积分质量可以向无穷远移动，逐点极限看不到它。
+
+\begin{corollary}[带可积下界的 Fatou 引理]
+\label{cor:fatou-integrable-lower-bound}
+若 \(f_n\ge h\) 几乎处处，其中 \(h\in L^1\)，则
+\[
+ \int\liminf_nf_n\le\liminf_n\int f_n,
+\]
+只要各式有定义。
+\end{corollary}
+
+\begin{proof}
+对非负函数 \(f_n-h\) 应用 Fatou 引理，再用线性性。
+\end{proof}
+
+\section{控制收敛定理}
+
+\begin{theorem}[Lebesgue 控制收敛定理]
+\label{thm:dominated-convergence}
+设 \(f_n\to f\) 几乎处处，且存在 \(g\in L^1(\mu)\) 使
+\[
+ |f_n|\le g\qquad\text{几乎处处，对所有 }n.
+\]
+则 \(f,f_n\in L^1\)，并且
+\[
+ \int_X|f_n-f|\,d\mu\longrightarrow0,
+ \qquad
+ \int_Xf_n\,d\mu\longrightarrow\int_Xf\,d\mu .
+\]
+\end{theorem}
+
+\begin{proof}
+取极限得 \(|f|\le g\) 几乎处处，故 \(f\in L^1\)。又
+\[
+ 0\le |f_n-f|\le2g,\qquad
+ 2g-|f_n-f|\longrightarrow2g
+\]
+几乎处处。对非负函数 \(2g-|f_n-f|\) 使用 Fatou 引理：
+\[
+ 2\int g
+ \le\liminf_n\left(2\int g-\int|f_n-f|\right)
+ =2\int g-\limsup_n\int|f_n-f|.
+\]
+因此 \(\int|f_n-f|\to0\)。最后由
+\[
+ \left|\int f_n-\int f\right|
+ \le\int|f_n-f|
+\]
+得到积分收敛。
+\end{proof}
+
+\begin{remark}
+控制函数的作用不仅是逐点给上界。其可积性同时排除了高而窄的尖峰和向无穷
+远移动的单位质量。只知道 \(\sup_n\int|f_n|<\infty\) 不足以得到结论。
+\end{remark}
+
+\section{反向 Fatou 不等式}
+
+\begin{proposition}[反向 Fatou]
+\label{prop:reverse-fatou}
+设 \(f_n:X\to[-\infty,+\infty]\) 可测，且 \(f_n\le g\) 几乎处处，其中
+\(g\in L^1\)。于是每个 \(\int f_n\) 以及
+\(\int\limsup_nf_n\) 都在 \([ -\infty,+\infty)\) 中有定义，并且
+\[
+ \limsup_n\int f_n\,d\mu
+ \le\int\limsup_nf_n\,d\mu .
+\]
+\end{proposition}
+
+\begin{proof}
+对非负函数 \(g-f_n\) 应用 Fatou 引理：
+\[
+ \int(g-\limsup_nf_n)
+ =\int\liminf_n(g-f_n)
+ \le\liminf_n\int(g-f_n).
+\]
+消去 \(\int g\) 即得所求不等式。
+\end{proof}
+
+若同时有可积下界和上界，Fatou 与反向 Fatou 夹住两侧，便可得到控制收敛
+定理的积分结论。
+
+\section{条件缺失时的反例}
+
+以下三个函数列分别说明不同条件的作用，定义域均取 Lebesgue 测度空间。
+\[
+\begin{array}{c|c|c}
+ f_n & \text{逐点行为} & \text{积分行为}\\ \hline
+ n\mathbf1_{(0,1/n)}\text{ on }(0,1)
+   & f_n\to0\ \text{a.e.}& \int f_n=1\\
+ \mathbf1_{(n,n+1)}\text{ on }\mathbb R
+   & f_n\to0\ \text{everywhere}& \int f_n=1\\
+ n^2\mathbf1_{(0,1/n)}-n^2\mathbf1_{(1/n,2/n)}
+   & f_n\to0\ \text{a.e.}& \int f_n=0,\ \int|f_n|=2n
+\end{array}
+\]
+第一列集中到一点，第二列逃向无穷远，第三列依靠越来越强的正负抵消。
+逐点收敛本身对这三种现象都没有定量控制。
+
+\section{级数与积分}
+
+\begin{corollary}
+\label{cor:integrable-series-interchange}
+若 \(f_n\in L^1(\mu)\) 且
+\[
+ \sum_{n=0}^{\infty}\int_X|f_n|\,d\mu<\infty,
+\]
+则 \(\sum_nf_n(x)\) 几乎处处绝对收敛，其和 \(f\in L^1\)，并且
+\[
+ \int_Xf\,d\mu=\sum_{n=0}^{\infty}\int_Xf_n\,d\mu.
+\]
+\end{corollary}
+
+\begin{proof}
+由非负函数逐项积分，
+\[
+ \int\sum_n|f_n|=\sum_n\int|f_n|<\infty.
+\]
+所以 \(\sum_n|f_n|<\infty\) 几乎处处。部分和 \(S_N\) 满足
+\(|S_N|\le\sum_n|f_n|\)，由控制收敛定理可交换极限与积分。
+\end{proof}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　可积性与积分估计}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{integrable-finite-ae}
+证明 \(f\in L^1\) 蕴含 \(f\) 几乎处处有限，并给出积分有限但函数在非空
+集合上取无穷值的例子。
+
+\exerciseitem{integral-triangle-equality}
+证明 \(\left|\int f\right|=\int|f|\) 当且仅当 \(f\ge0\) 几乎处处或
+\(f\le0\) 几乎处处（允许 \(\int f=0\) 的情形时应仔细表述）。
+
+\exerciseitem{integral-set-series}
+设 \(E_n\) 两两不交，\(f\in L^1\)。证明
+\(\sum_n|\int_{E_n}f|\le\int_{\cup E_n}|f|\)。
+
+\exerciseitem{absolute-continuity-truncation}
+不用引用定理 \ref{thm:absolute-continuity-of-integral}，从
+\(\int|f|<\infty\) 的定义重新证明它，并说明有限测度空间假设并不需要。
+
+\end{enumerate}
+\subsection*{B组　极限定理}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{fatou-strict-example}
+构造 \(f_n\ge0\) 使 Fatou 不等式严格，并构造另一个例子使两端都为
+\(+\infty\)。
+
+\exerciseitem{fatou-moving-mass}
+设 \(f_n=\mathbf1_{[n,n+1]}\)。验证它依测度收敛到零在无限测度空间的一种
+常用定义下也可能失败，并说明局部依测度收敛为何仍成立。
+
+\exerciseitem{dct-bounded-finite-measure}
+设 \(\mu(X)<\infty\)，\(f_n\to f\) 几乎处处且
+\(\sup_n\|f_n\|_\infty\le M\)。用控制收敛定理证明
+\(\int|f_n-f|\to0\)。
+
+\exerciseitem{dct-convergence-in-measure-subsequence}
+设 \(f_n\to f\) 依测度，\(|f_n|\le g\in L^1\)。利用第
+\ref{chap:egorov-subsequence} 章将证明的子列原理，说明为什么仍有
+\(\int|f_n-f|\to0\)。
+
+\exerciseitem{reverse-fatou-application}
+若 \(0\le f_n\le g\in L^1\)，证明
+\[
+ \int\liminf f_n\le\liminf\int f_n
+ \le\limsup\int f_n\le\int\limsup f_n.
+\]
+
+\end{enumerate}
+\subsection*{C组　反例与推广}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{dct-no-common-dominator}
+对 \(f_n=n\mathbf1_{(0,1/n)}\)，证明不存在同一个
+\(g\in L^1(0,1)\) 使 \(|f_n|\le g\) 几乎处处对所有 \(n\) 成立。
+
+\exerciseitem{series-integral-absolute}
+完整证明推论 \ref{cor:integrable-series-interchange}，并构造一个
+\(\sum_n\int|f_n|=\infty\) 而仍可合法交换求和与积分的例子。
+
+\optionalexerciseitem{scheffe-lemma}
+设 \(f_n,f\ge0\)，\(f_n\to f\) 几乎处处且
+\(\int f_n\to\int f<\infty\)。证明
+\(\int|f_n-f|\to0\)（Scheffé 引理）。
+
+\projectexerciseitem{three-convergence-theorems-map}
+梳理单调收敛定理、Fatou 引理和控制收敛定理之间的推导关系。说明哪些结果
+可由其中一项直接推出，推导中在哪里使用非负性或可积控制；再解释为什么
+不能把控制收敛定理直接应用于一般的单调递增列。
+\end{enumerate}

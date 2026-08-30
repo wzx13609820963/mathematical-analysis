@@ -1,0 +1,303 @@
+\chapter{含参数积分}
+\label{chap:parameter-integrals}
+
+积分
+\[
+ F(t)=\int_X f(t,x)\,d\mu(x)
+\]
+把函数族压缩成一个参数函数。若要判断 \(F\) 是否可测、连续或可导，就要
+把相应的极限移入积分号内。每一种结论都包含两个不同的问题：对固定参数，
+内层积分是否有意义；当参数变化时，是否有一个可积函数控制这族被积函数。
+
+\section{参数积分的可测性}
+
+\begin{theorem}
+\label{thm:parameter-integral-measurable}
+设 \((T,\mathcal T,\nu)\)、\((X,\mathcal A,\mu)\) 为
+\(\sigma\)-有限测度空间。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若 \(f:T\times X\to[0,+\infty]\) 可测，则
+ \[
+  t\longmapsto\int_Xf(t,x)\,d\mu(x)
+ \]
+ 是可测函数。
+ \item 若 \(f\in L^1(\nu\times\mu)\)，则上述积分对几乎所有 \(t\)
+ 绝对收敛；把例外点上的值定义为零后得到 \(L^1(\nu)\) 函数，且
+ \[
+  \int_TF\,d\nu=\int_{T\times X}f\,d(\nu\times\mu).
+ \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+两项分别是 Tonelli 定理和 Fubini 定理。应注意：仅知道每个截面
+\(x\mapsto f(t,x)\) 可测，并不自动推出 \(f\) 在乘积空间可测；联合可测
+或其他足以保证它的条件必须另行验证。
+\end{proof}
+
+\begin{example}
+若 \(E\subset T\times X\) 可测，则
+\[
+ F(t)=\mu(E_t)
+\]
+可测。这可用于描述几何区域的截面体积，也说明“截面长度随参数可测”不是
+额外的光滑性结论，而是乘积可测性与 Tonelli 定理的结果。
+\end{example}
+
+\section{连续性}
+
+\begin{theorem}[参数积分的连续性]
+\label{thm:parameter-integral-continuity}
+设 \(T\) 为度量空间，\(t_0\in T\)。假定：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 对几乎所有 \(x\)，\(f(t,x)\to f(t_0,x)\) 当 \(t\to t_0\)；
+ \item 存在 \(t_0\) 的邻域 \(U\) 和 \(g\in L^1(\mu)\)，使
+ \(|f(t,x)|\le g(x)\) 对 \(t\in U\) 几乎处处成立。
+\end{enumerate}
+则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\) 在 \(t_0\) 连续。
+\end{theorem}
+
+\begin{proof}
+任取 \(t_n\to t_0\)。对 \(f(t_n,\cdot)\) 使用控制收敛定理，得到
+\[
+ F(t_n)\longrightarrow F(t_0).
+\]
+度量空间中序列连续等价于连续，故结论成立。
+\end{proof}
+
+控制条件只需在 \(t_0\) 的一个邻域成立。若 \(T\) 紧，并且每个点附近都
+有一个控制函数，可取有限子覆盖处理整个参数集；一般不能把不同邻域上的
+控制函数未经验证地拼成一个全局可积控制。
+
+\begin{example}[Laplace 型积分]
+对 \(t>0\)，令
+\[
+ F(t)=\int_0^\infty e^{-tx}\,dx.
+\]
+在固定 \(t_0>0\) 的邻域 \(t\ge t_0/2\) 内，
+\(e^{-tx}\le e^{-t_0x/2}\in L^1(0,\infty)\)，故 \(F\) 在
+\((0,\infty)\) 连续。这里没有一个对所有 \(t>0\) 都适用的可积控制
+函数；局部控制已经足够。
+\end{example}
+
+\section{极限与积分}
+
+若 \(t_n\to t_0\)，定理 \ref{thm:parameter-integral-continuity} 就是
+控制收敛定理在参数族上的直接形式。还有两种常用替代条件：
+
+\begin{proposition}
+\label{prop:parameter-monotone-fatou}
+设 \(f_t\ge0\) 可测。
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 若 \(t_n\to t_0\) 且 \(f_{t_n}\uparrow f_{t_0}\) 几乎处处，则
+ \(\int f_{t_n}\uparrow\int f_{t_0}\)。
+ \item 对任意 \(t_n\to t_0\)，
+ \[
+  \int\liminf_n f_{t_n}\le\liminf_n\int f_{t_n}.
+ \]
+\end{enumerate}
+\end{proposition}
+
+第一项来自单调收敛，第二项来自 Fatou 引理。它们给出的分别是等式和单侧
+估计。实际使用时，先把连续性问题转化为任意参数序列，再选择适合该函数族
+的收敛定理。
+
+\begin{counterexample}
+令 \(f(t,x)=t^{-1}\mathbf1_{(0,t)}(x)\)（\(t>0\)），并令
+\(f(0,x)=0\)。对每个 \(x>0\)，当 \(t\downarrow0\) 时
+\(f(t,x)\to0\)，但
+\[
+ \int_0^1f(t,x)\,dx=1.
+\]
+尖峰高度与支撑缩小恰好抵消；不存在邻域内的共同可积控制函数。
+\end{counterexample}
+
+\section{积分号下求导}
+
+\begin{theorem}[积分号下求导]
+\label{thm:differentiation-under-integral}
+设 \(I\subset\mathbb R\) 为开区间，\(t_0\in I\)。假定：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 对 \(t\) 在 \(t_0\) 的某邻域内，\(f(t,\cdot)\) 可测；
+ \item 对几乎所有 \(x\)，偏导数 \(\partial_tf(t,x)\) 在该邻域存在；
+ \item 存在 \(g\in L^1(\mu)\)，使
+ \[
+  |\partial_tf(t,x)|\le g(x)
+ \]
+ 对该邻域内所有 \(t\) 和几乎所有 \(x\) 成立；
+ \item \(f(t_0,\cdot)\in L^1(\mu)\)。
+\end{enumerate}
+则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\) 在 \(t_0\) 可导，且
+\[
+ F'(t_0)=\int_X\partial_tf(t_0,x)\,d\mu(x).
+\]
+\end{theorem}
+
+\begin{proof}
+对足够小的非零 \(h\)，由一元中值定理，对几乎所有 \(x\) 有
+\[
+ \left|\frac{f(t_0+h,x)-f(t_0,x)}{h}\right|\le g(x).
+\]
+差商逐点趋于 \(\partial_tf(t_0,x)\)。控制收敛定理给出
+\[
+ \lim_{h\to0}\frac{F(t_0+h)-F(t_0)}h
+ =\int_X\lim_{h\to0}
+ \frac{f(t_0+h,x)-f(t_0,x)}h\,d\mu(x),
+\]
+即所求公式。条件 (iv) 与导数控制同时保证邻域内各截面可积，因为
+\[
+ |f(t,x)|\le|f(t_0,x)|+|t-t_0|g(x).
+\]
+\end{proof}
+
+\begin{remark}
+条件 (iii) 可以改成直接控制差商，而不要求偏导数在整个邻域都存在：
+若
+\[
+ \left|\frac{f(t_0+h,x)-f(t_0,x)}h\right|\le g(x)
+\]
+对所有足够小的 \(h\) 成立，且差商几乎处处收敛，同一证明仍适用。这是
+定理中实际承担极限交换工作的条件。
+\end{remark}
+
+\begin{corollary}[Leibniz 公式]
+\label{cor:leibniz-variable-limits}
+设 \(\alpha,\beta\) 在 \(t_0\) 可导。假定存在 \(t_0\) 的邻域 \(U\) 和
+有界区间 \(J\)，使 \(\alpha(t),\beta(t)\in J\) 对 \(t\in U\) 成立，
+并且 \(f:U\times J\to\mathbb R\) 满足：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(f(t,\cdot)\) 可测，且 \(f(t_0,\cdot)\in L^1(J)\)；
+ \item 对几乎所有 \(x\in J\)，\(\partial_tf(t,x)\) 在 \(U\) 中存在，且
+ 有 \(g\in L^1(J)\) 使 \(|\partial_tf(t,x)|\le g(x)\)；
+ \item \(f\) 在
+ \((t_0,\alpha(t_0))\) 与 \((t_0,\beta(t_0))\) 处联合连续。
+\end{enumerate}
+则
+\[
+ \frac d{dt}\int_{\alpha(t)}^{\beta(t)}f(t,x)\,dx\bigg|_{t=t_0}
+ =
+ f(t_0,\beta(t_0))\beta'(t_0)
+ -f(t_0,\alpha(t_0))\alpha'(t_0)
+ +\int_{\alpha(t_0)}^{\beta(t_0)}
+   \partial_tf(t_0,x)\,dx.
+\]
+\end{corollary}
+
+\begin{proof}
+固定 \(c\in J\)，先考察
+\[
+ H_\beta(t)=\int_c^{\beta(t)}f(t,x)\,dx.
+\]
+记 \(\beta_0=\beta(t_0)\)、\(\beta_h=\beta(t_0+h)\)。差可分成
+\[
+ \begin{split}
+ H_\beta(t_0+h)-H_\beta(t_0)
+ ={}&\int_c^{\beta_0}
+       \bigl(f(t_0+h,x)-f(t_0,x)\bigr)\,dx\\
+ &+\int_{\beta_0}^{\beta_h}f(t_0+h,x)\,dx.
+ \end{split}
+\]
+第一项除以 \(h\) 后，由积分号下求导定理趋于
+\(\int_c^{\beta_0}\partial_tf(t_0,x)\,dx\)。若 \(\beta_h\ne\beta_0\)，
+第二项的差商写成
+\[
+ \frac{\beta_h-\beta_0}{h}\,
+ \frac1{\beta_h-\beta_0}
+ \int_{\beta_0}^{\beta_h}f(t_0+h,x)\,dx.
+\]
+联合连续性使第二个因子趋于 \(f(t_0,\beta_0)\)，第一个因子趋于
+\(\beta'(t_0)\)；若端点在某子列上不动，结论仍成立。因此
+\[
+ H_\beta'(t_0)
+ =\int_c^{\beta_0}\partial_tf(t_0,x)\,dx
+  +f(t_0,\beta_0)\beta'(t_0).
+\]
+对 \(H_\alpha(t)=\int_c^{\alpha(t)}f(t,x)\,dx\) 作同一计算，再用原积分
+等于 \(H_\beta-H_\alpha\)，便得到公式。
+\end{proof}
+
+\begin{example}
+对 \(t>0\)，
+\[
+ \Gamma(t)=\int_0^\infty x^{t-1}e^{-x}\,dx.
+\]
+若 \(t\) 限制在紧子区间 \([\alpha,\beta]\subset(0,\infty)\)，则
+\[
+ |x^{t-1}(\log x)e^{-x}|
+\le
+\begin{cases}
+ x^{\alpha-1}|\log x|,&0<x\le1,\\
+ x^{\beta-1}(\log x)e^{-x},&x>1,
+\end{cases}
+\]
+右侧可积。因此
+\[
+ \Gamma'(t)=\int_0^\infty x^{t-1}(\log x)e^{-x}\,dx.
+\]
+同样的局部控制可以反复使用，得到 \(\Gamma\in C^\infty(0,\infty)\)。
+\end{example}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　可测性与连续性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{parameter-section-measurability}
+设 \(f:T\times X\to\mathbb R\) 联合可测。证明
+\[
+ t\mapsto\mu(\{x:f(t,x)>a\})
+\]
+对每个 \(a\in\mathbb R\) 可测。
+
+\exerciseitem{parameter-continuity-sequential}
+补全定理 \ref{thm:parameter-integral-continuity} 中从序列连续到连续的
+论证，并说明若参数空间不是第一可数空间，为什么该证明需要调整。
+
+\exerciseitem{laplace-continuity-differentiability}
+证明
+\[
+ F(t)=\int_0^\infty e^{-tx}h(x)\,dx
+\]
+在 \(t>a\) 连续；若 \(e^{-ax}|h(x)|\) 和
+\(xe^{-ax}|h(x)|\) 可积，则证明它在 \(t>a\) 可导并求导。
+
+\end{enumerate}
+\subsection*{B组　积分号下求导}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{parameter-no-domination}
+完整验证正文尖峰反例，并证明任何控制所有
+\(0<t<t_0\) 的函数 \(g\) 都不可能属于 \(L^1(0,1)\)。
+
+\exerciseitem{differentiate-exponential}
+对 \(t>0\)，在积分号下求导计算
+\[
+ \int_0^\infty e^{-tx}\,dx,\qquad
+ \int_0^\infty xe^{-tx}\,dx.
+\]
+
+\exerciseitem{differentiate-gaussian}
+设 \(F(t)=\int_{\mathbb R}e^{-x^2}\cos(tx)\,dx\)。证明
+\(F'(t)=-\int xe^{-x^2}\sin(tx)\,dx\)，并继续求 \(F''\)。
+
+\exerciseitem{leibniz-rule-proof}
+从固定积分区间的求导定理和微积分基本定理完整推出推论
+\ref{cor:leibniz-variable-limits}。
+
+\end{enumerate}
+\subsection*{C组　推广与应用}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{log-integral-parameter}
+对 \(t>-1\)，令
+\[
+ F(t)=\int_0^1\frac{x^t-1}{\log x}\,dx,
+\]
+在适当解释 \(x=1\) 处取值后证明 \(F'(t)=1/(t+1)\)，并求 \(F(t)\)。
+
+\optionalexerciseitem{holomorphic-parameter-integral}
+设 \(D\subset\mathbb C\) 开，\(f(z,x)\) 对 \(z\) 全纯，且在每个紧集
+\(K\Subset D\) 上有 \(g_K\in L^1\) 控制 \(|f(z,x)|\)。利用 Cauchy
+积分公式说明 \(F(z)=\int f(z,x)\,d\mu(x)\) 全纯。
+
+\projectexerciseitem{parameter-integral-checklist}
+选择一个概率论中的矩母函数或物理中的配分函数，逐项核验可测性、积分有限、
+连续性和积分号下求导条件；不能只形式地写出求导结果。
+\end{enumerate}

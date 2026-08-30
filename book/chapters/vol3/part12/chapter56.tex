@@ -1,0 +1,238 @@
+\chapter{Lebesgue 测度}
+\label{chap:lebesgue-measure}
+
+长度应满足三项要求：区间的长度是端点之差，平移不改变长度，可数个互不
+相交部分的长度可以相加。Jordan 理论只允许有限覆盖，因而稠密可数集与
+整个区间无法区分。把覆盖放宽为可数覆盖，再应用上一章的延拓过程，得到
+Lebesgue 测度。
+
+\section{实直线上的外长度}
+
+对任意 $E\subseteq\R$，定义
+\begin{equation}
+ m^*(E)=\inf\left\{\sum_{n=1}^{\infty}|I_n|:
+ E\subseteq\bigcup_{n=1}^{\infty}I_n, I_n\text{ 为开区间}\right\}.
+ \label{eq:lebesgue-outer-measure-line}
+\end{equation}
+由覆盖外测度的一般构造，$m^*$ 是外测度。允许无界区间不会改变定义；
+需要有限总代价时，所用区间必可取为有界区间。
+
+\begin{lemma}[区间的外长度]
+\label{lem:interval-outer-length}
+若 $a<b$，则
+\[
+ m^*([a,b])=m^*((a,b))=b-a.
+\]
+同样结论适用于半开区间。
+\end{lemma}
+
+\begin{proof}
+区间 $(a-\varepsilon,b+\varepsilon)$ 给出上界，令
+$\varepsilon\downarrow0$。为证下界，设开区间列覆盖 $[a,b]$。紧致性
+给出有限子覆盖。有限开区间覆盖闭区间时，其长度和至少为 $b-a$：删去
+无用区间并按左端点排列，从含 $a$ 的区间开始，每次选取在已覆盖右端点
+之前起始且右端点最远的区间，所得有限链的长度和至少为首末端点之差。
+因此任意可数覆盖的总代价均不小于 $b-a$。
+
+开区间包含任意闭子区间 $[a+\varepsilon,b-\varepsilon]$，故其外长度至少
+$b-a-2\varepsilon$；令 $\varepsilon\downarrow0$。端点是外测度零集，
+所以半开区间相同。
+\end{proof}
+
+平移覆盖中的每个区间可知
+\begin{equation}
+ m^*(E+t)=m^*(E),
+ \label{eq:outer-measure-translation}
+\end{equation}
+反向平移给出等号。若集合 $A,B$ 的距离为正，则可把充分短的覆盖区间分别
+归入 $A$、$B$ 两侧，得到
+\begin{equation}
+ m^*(A\cup B)=m^*(A)+m^*(B).
+ \label{eq:metric-outer-additivity}
+\end{equation}
+这种外测度称为度量外测度。
+
+\section{Lebesgue 可测集}
+
+\begin{definition}
+$m^*$ 的 Carathéodory 可测集称为\term{Lebesgue 可测集}，其全体记为
+$\mathcal L(\R)$；限制测度记为 $m$，称为\term{Lebesgue 测度}。
+\end{definition}
+
+度量外测度的正距离可加性说明所有闭集可测，因而所有 Borel 集可测。由
+Carathéodory 定理，$m$ 完备；所以
+\[
+ \mathcal B(\R)\subseteq\mathcal L(\R),
+\]
+并且每个 Borel 零测集的任意子集都 Lebesgue 可测。后一类子集未必是
+Borel 集，这正是两个 $\sigma$-代数的差别来源。
+
+区间长度、平移不变性和可数可加性现在同时成立。特别地，每个单点零测，
+故每个至多可数集零测。与 Jordan 零测不同，覆盖中允许可数多个区间，
+所以 $\Q\cap[0,1]$ 的 Lebesgue 测度为零。
+
+\begin{theorem}[一维 Lebesgue 测度的正则性]
+\label{thm:lebesgue-regularity-line}
+对每个 $E\in\mathcal L(\R)$ 和 $\varepsilon>0$，存在开集 $O\supseteq E$
+使
+\[
+ m(O\setminus E)<\varepsilon.
+\]
+因此
+\[
+ m(E)=\inf\{m(O):E\subseteq O, O\text{ 开}\}.
+\]
+若 $m(E)<\infty$，则
+\[
+ m(E)=\sup\{m(K):K\subseteq E, K\text{ 紧}\}.
+\]
+\end{theorem}
+
+\begin{proof}
+先设 $m(E)<\infty$。由外测度定义取开区间覆盖，使长度和小于
+$m(E)+\varepsilon$；其并 $O$ 开，且有限性允许相减，从而
+$m(O\setminus E)<\varepsilon$。
+
+一般地，把 $E$ 分成可数个有限测度的可测块 $E_j$。选正数 $c_j$ 使
+$\sum_jc_j=1$，并为每个 $E_j$ 取开集 $O_j\supseteq E_j$，使
+$m(O_j\setminus E_j)<\varepsilon c_j$。于是 $O=\bigcup_jO_j$ 开，
+$E\subseteq O$，而
+\[
+ O\setminus E\subseteq\bigcup_j(O_j\setminus E_j),
+ \qquad m(O\setminus E)<\varepsilon.
+\]
+这也证明了外正则性公式，包括 $m(E)=\infty$ 的情形。
+
+对内正则性，先选 $N$ 使
+$m(E\setminus[-N,N])<\varepsilon/2$。对有限测度集
+$[-N,N]\setminus E$ 取开外包 $O$，使
+$m(O\setminus([-N,N]\setminus E))<\varepsilon/2$。令
+\[
+ K=[-N,N]\setminus O.
+\]
+则 $K$ 紧且 $K\subseteq E$，并有 $m(E\setminus K)<\varepsilon$。
+\end{proof}
+
+因此每个 Lebesgue 可测集都与某个 $G_\delta$ 集相差零测集，也与某个
+$F_\sigma$ 集相差零测集。测度的完备性补入的正是这些 Borel 零测集的
+子集。
+
+\section{欧氏空间中的 Lebesgue 测度}
+
+在 $\R^d$ 中，对半开长方体
+\[
+ R=\prod_{j=1}^d[a_j,b_j)
+\]
+规定体积 $v(R)=\prod_j(b_j-a_j)$。有限个这类长方体的有限不交并构成一个
+环；把体积按不交分解相加，所得数值与分解无关，因为两个有限分解可用全部
+坐标端点作共同网格细分。
+
+\begin{proposition}
+上述体积是长方体环上的 $\sigma$-有限预测度。
+\end{proposition}
+
+\begin{proof}
+只需核对可数可加性。若长方体 $R$ 被两两不交的长方体 $R_n$ 分解，有限
+次可加性先给出
+$\sum_{n\le N}v(R_n)\le v(R)$。反向固定 $\varepsilon>0$，把 $R$ 稍向
+内收缩为紧长方体 $K$，损失体积小于 $\varepsilon$；再把每个 $R_n$ 稍向
+外扩张为开长方体 $O_n$，使总增加量小于 $\varepsilon$。$O_n$ 覆盖 $K$，
+紧致性给出有限子覆盖。有限网格体积估计于是给出
+$v(R)-\varepsilon\le\sum_nv(R_n)+\varepsilon$。令
+$\varepsilon\downarrow0$。一般环元素化为有限不交并即可。
+\end{proof}
+
+Carathéodory 延拓给出 $\mathcal B(\R^d)$ 上唯一的 $\sigma$-有限测度；
+再取完备化，得到 $\R^d$ 上的 Lebesgue $\sigma$-代数
+$\mathcal L(\R^d)$ 和 Lebesgue 测度 $m_d$。不致混淆时仍写 $m$ 或
+$|E|$。它满足
+\[
+ m_d(x+E)=m_d(E),
+ \qquad
+ m_d(rE)=|r|^d m_d(E)\quad(r\ne0).
+\]
+第一式先在长方体上成立，再由延拓唯一性推广；第二式同理，或直接缩放
+覆盖长方体得到。若 $r=0$，则 $rE$ 为空集或单点，因而测度为零；当
+$m_d(E)=+\infty$ 时，不把这一结论写成未定义的乘积 $0\cdot(+\infty)$。
+
+同一正则性证明在 $\R^d$ 中成立：可测集可由开集从外逼近，有限测度可测
+集可由紧集从内逼近。开集还可写成至多可数个内部不交的半开有理长方体之
+并，这使长方体预测度确实控制全部 Borel 集。
+
+\section{与 Jordan 测度的关系}
+
+\begin{theorem}[Jordan 与 Lebesgue 测度]
+\label{thm:jordan-lebesgue-comparison}
+若 $E\subset\R^d$ 有界且 Jordan 可测，则 $E$ Lebesgue 可测，并且其
+Jordan 体积等于 $m_d(E)$。反过来，有界集 $E$ Jordan 可测当且仅当
+$m_d(\partial E)=0$。
+\end{theorem}
+
+\begin{proof}
+Jordan 可测性按定义正是边界可由总体积任意小的有限长方体覆盖，所以
+$m_d(\partial E)=0$。集合的内部是开集，故可测；又
+$E^\circ\subseteq E\subseteq\overline E=E^\circ\cup\partial E$，完备性
+给出 $E$ 可测。取充分细网格，完全落在内部的小长方体给出内逼近，与边界
+相交的小长方体总体积趋零；因此 Jordan 上下体积同时趋于 $m_d(E)$。
+
+反向若 $m_d(\partial E)=0$，紧集 $\partial E$ 可由总体积任意小的有限
+开长方体覆盖，所以它也是 Jordan 零测集，按定义 $E$ Jordan 可测。
+\end{proof}
+
+Lebesgue 可测有界集未必 Jordan 可测。例如 $\Q\cap[0,1]$ 可测且零测，
+但边界是整个 $[0,1]$。Lebesgue 理论允许可数覆盖及零测修改，因而比
+Jordan 理论稳定得多。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　外长度与可测性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{interval-cover-length-lemma}
+ 详细证明有限开区间覆盖 $[a,b]$ 时长度和至少为 $b-a$。
+ \exerciseitem{lebesgue-singletons-countable}
+ 证明单点和至多可数集的 Lebesgue 测度为零。
+ \exerciseitem{translation-invariance-outer}
+ 由覆盖定义证明 $m^*(E+t)=m^*(E)$。
+ \exerciseitem{scaling-lebesgue-measure}
+ 证明 $m_d(rE)=|r|^dm_d(E)$，并处理 $r=0$。
+ \exerciseitem{open-set-countable-intervals}
+ 证明 $\R$ 中每个开集是至多可数个两两不交开区间的并。
+\end{enumerate}
+
+\subsection*{B组　正则性与 Borel 集}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{lebesgue-gdelta-envelope}
+ 证明每个 Lebesgue 可测集 $E$ 包含于某个 $G_\delta$ 集 $G$，且
+ $m(G\setminus E)=0$。
+ \exerciseitem{lebesgue-fsigma-kernel}
+ 证明每个有限测度 Lebesgue 可测集含有 $F_\sigma$ 集 $F$，且
+ $m(E\setminus F)=0$。
+ \exerciseitem{borel-versus-lebesgue-cardinality}
+ 说明只要存在一个不可数 Borel 零测集，Lebesgue $\sigma$-代数就严格大于
+ Borel $\sigma$-代数。可使用 Cantor 集与幂集的基数结论。
+ \exerciseitem{regular-approximation-symmetric-difference}
+ 若 $E$ 可测且有限测度，证明对每个 $\varepsilon>0$ 存在紧集 $K$ 与开集
+ $O$，使 $K\subseteq E\subseteq O$ 且 $m(O\setminus K)<\varepsilon$。
+ \exerciseitem{boundary-null-graph}
+ 证明紧矩形上 Lipschitz 函数的图像在高一维 Euclidean 空间中 Lebesgue
+ 零测。
+\end{enumerate}
+
+\subsection*{C组　Jordan 与 Lebesgue 理论}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{jordan-lebesgue-volume-equality}
+ 用网格内外逼近完整证明定理 \ref{thm:jordan-lebesgue-comparison} 中体积
+ 相等的部分。
+ \exerciseitem{rationals-not-jordan-measurable}
+ 证明 $\Q\cap[0,1]$ Lebesgue 可测但不 Jordan 可测。
+ \exerciseitem{boundary-positive-fat-set-preview}
+ 构造或引用一个正测度、无内点的闭集 $F\subset[0,1]$，说明 $F$ 不
+ Jordan 可测。
+ \exerciseitem{measure-zero-image-linear}
+ 若 $A:\R^d\to\R^k$ 为线性映射且 $N\subset\R^d$ 零测，证明在
+ $k=d$ 时 $A(N)$ 零测；分析 $k<d$ 时应如何理解结论。
+ \optionalexerciseitem{uniqueness-translation-invariant-measure}
+ 设 $\nu$ 是 $\R$ 上的平移不变 Borel 测度，有限于有界区间且
+ $\nu([0,1))=1$。证明 $\nu$ 等于 Lebesgue 测度。
+\end{enumerate}

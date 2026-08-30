@@ -1,0 +1,149 @@
+\chapter{外测度}
+
+\begin{solution}{outer-measure-covering-proof}
+给定 $A\subseteq\bigcup_kA_k$。若某个 $\mu^*(A_k)=+\infty$，所需不等式
+无内容。否则固定 $\varepsilon>0$，为每个 $k$ 取覆盖
+$A_k\subseteq\bigcup_jC_{k,j}$，使
+$\sum_j\ell(C_{k,j})<\mu^*(A_k)+\varepsilon2^{-k}$。双重指标族至多可数，
+可排成单列并覆盖 $A$，故
+$\mu^*(A)\le\sum_k\mu^*(A_k)+\varepsilon$。令 $\varepsilon\downarrow0$。
+\end{solution}
+
+\begin{solution}{outer-null-measurable}
+若 $Z\subseteq N$ 且 $\mu^*(N)=0$，则对任意 $A$，
+$\mu^*(A\cap Z)=0$。次可加性给出
+$\mu^*(A)\le\mu^*(A\cap Z)+\mu^*(A\setminus Z)=\mu^*(A\setminus Z)$，
+而单调性给出反向不等式。因此 $Z$ 可测且外测度为零。
+\end{solution}
+
+\begin{solution}{caratheodory-finite-unions}
+补集封闭由条件的对称性得到。若 $E,F$ 可测，先按 $E$ 分割测试集 $A$，
+再分别按 $F$ 分割 $A\cap E$ 与 $A\setminus E$，把落在 $E\cup F$ 中的
+两项用次可加性合并，得到
+$\mu^*(A)\ge\mu^*(A\cap(E\cup F))+\mu^*(A\setminus(E\cup F))$。
+另一方向自动成立，故有限并封闭。差写成 $E\cap F^c$。
+\end{solution}
+
+\begin{solution}{caratheodory-countable-additivity}
+对不交可测集 $E_n$ 与 $E=\bigcup_nE_n$，有限并 $F_N$ 可测，故
+\[
+ \mu^*(E)=\sum_{n\le N}\mu^*(E_n)+\mu^*(E\setminus F_N)
+ \ge\sum_{n\le N}\mu^*(E_n).
+\]
+令 $N\to\infty$ 得“$\ge$”。外测度的次可加性给出“$\le$”。这也说明
+限制函数在可测 $\sigma$-代数上可数可加。
+\end{solution}
+
+\begin{solution}{metric-outer-measure-borel}
+设 $F$ 闭，并固定 $A\subseteq X$。若 $\mu^*(A)=+\infty$，
+Carathéodory 不等式自动成立。以下设 $\mu^*(A)<\infty$，并令
+\[
+ A_n=\{x\in A:d(x,F)\ge 1/n\}.
+\]
+$A_n$ 与 $A\cap F$ 的距离为正，故
+\[
+ \mu^*(A)\ge\mu^*(A_n\cup(A\cap F))
+ =\mu^*(A_n)+\mu^*(A\cap F).
+\]
+还须证明 $\mu^*(A_n)\to\mu^*(A\setminus F)$；这一步不能诉诸一般外测度
+并不具有的从下连续性。令
+\[
+ C_k=\{x\in A:1/(k+1)\le d(x,F)<1/k\}\qquad(k\ge1).
+\]
+任意有限个同奇偶性的 $C_k$ 两两保持正距离，因此度量可加性与
+$\bigcup C_k\subseteq A$ 给出
+\[
+ \sum_{k\ge1}\mu^*(C_k)\le 2\mu^*(A)<\infty.
+\]
+另一方面，
+\[
+ (A\setminus F)\setminus A_n\subseteq\bigcup_{k\ge n}C_k.
+\]
+由次可加性，右侧的外测度随 $n\to\infty$ 趋于零；所以
+$\mu^*(A\setminus F)\le\mu^*(A_n)+o(1)$。结合单调性可得所需极限。
+令 $n\to\infty$，便有
+\[
+ \mu^*(A)\ge\mu^*(A\setminus F)+\mu^*(A\cap F).
+\]
+故 $F$ 可测。闭集生成 Borel $\sigma$-代数，结论成立。
+\end{solution}
+
+\begin{solution}{premeasure-outer-agreement}
+自身覆盖给出 $\mu^*(A)\le\mu_0(A)$。对任意代数覆盖 $(A_n)$，令
+$B_n=A\cap(A_n\setminus\bigcup_{k<n}A_k)$。预测度在并仍为 $A$ 时可数
+可加，且 $B_n\subseteq A_n$，所以
+$\mu_0(A)=\sum_n\mu_0(B_n)\le\sum_n\mu_0(A_n)$。取下确界得等号。
+再把任意覆盖集按 $A$ 与 $A^c$ 分割，逐项使用有限可加性并取下确界，便得
+Carathéodory 条件。
+\end{solution}
+
+\begin{solution}{finite-partition-premeasure}
+代数中的集合都是若干原子之并。定义
+$\mu_0(E)=\sum_{A_j\subseteq E}w_j$。有限集合上可数不交并实际上只有有限
+多个非空原子贡献，所以预测度条件成立。生成的 $\sigma$-代数就是该有限
+代数，延拓仍由同一公式给出；零权重原子的全部子集若不在原代数中，则
+Carathéodory 完备域还会把它们补入。
+\end{solution}
+
+\begin{solution}{extension-nonunique-infinite-total}
+计数测度 $\#$ 满足 $\#X=+\infty$。另定义
+$\nu(E)=0$ 若 $E$ 有限，$\nu(E)=+\infty$ 若 $E$ 无限。对不交集列，若其并
+无限，则或者某项无限，或者有无穷多个非空有限项，两种情形右侧均为
+$+\infty$；故 $\nu$ 是测度。二者都在 $\{\varnothing,X\}$ 上延拓
+$\mu_0$，但在单点上取值不同。
+\end{solution}
+
+\begin{solution}{sigma-finite-disjoint-cover}
+令 $Y_1=X_1$，$Y_n=X_n\setminus\bigcup_{k<n}X_k$。代数对有限并和差
+封闭，所以 $Y_n\in\mathcal A_0$；它们两两不交、并为 $X$，且
+$\mu_0(Y_n)\le\mu_0(X_n)<\infty$。
+\end{solution}
+
+\begin{solution}{pi-lambda-theorem}
+记 $\lambda(\mathcal P)$ 为包含 $\mathcal P$ 的最小 Dynkin 系统。先对
+$A\in\mathcal P$ 定义
+$\mathcal D_A=\{B:A\cap B\in\lambda(\mathcal P)\}$。利用
+$A\in\lambda(\mathcal P)$ 可验证 $\mathcal D_A$ 是 Dynkin 系统；
+$\mathcal P$ 对交封闭，故 $\mathcal P\subseteq\mathcal D_A$，于是
+$\lambda(\mathcal P)\subseteq\mathcal D_A$。再固定
+$B\in\lambda(\mathcal P)$，令
+$\mathcal E_B=\{A:A\cap B\in\lambda(\mathcal P)\}$。同理它是包含
+$\mathcal P$ 的 Dynkin 系统，故包含 $\lambda(\mathcal P)$。所以
+$\lambda(\mathcal P)$ 对有限交封闭。一个既是 Dynkin 系统又对有限交封闭
+的集合族是 $\sigma$-代数，故
+$\sigma(\mathcal P)=\lambda(\mathcal P)\subseteq\mathcal D$。
+\end{solution}
+
+\begin{solution}{outer-measure-from-existing-measure}
+空集和单调性直接成立。对 $A_n$，为每个 $n$ 取可测外包 $E_n$ 使
+$\mu(E_n)<\mu^*(A_n)+\varepsilon2^{-n}$，则 $\bigcup_nE_n$ 可测并外包
+$\bigcup_nA_n$，给出次可加性。每个原可测集满足 Carathéodory 条件。
+此外，$A$ 在所得 Carathéodory 域中且外测度有限时，可取可测 $E_n\supset A$
+使 $\mu(E_n)\downarrow\mu^*(A)$，令 $E=\bigcap_nE_n$，再由可测性条件
+得到 $E\setminus A$ 外测度为零。因此该域恰好给出原测度的完备化；无限
+测度情形在 $\sigma$-有限分块上作同一论证。
+\end{solution}
+
+\begin{solution}{outer-measure-restriction}
+三个外测度公理在子集 $Y$ 上直接继承。若 $E$ 在 $X$ 中
+Carathéodory 可测，则对任意 $A\subseteq Y$ 使用同一分割公式，说明
+$E\cap Y$ 在 $Y$ 中可测。反向一般不成立，因为 $Y$ 外的测试集合被删去；
+若 $Y$ 本身在 $X$ 中可测，则 $Y$ 上的可测集正可与 $X$ 中可测集的截面
+比较。
+\end{solution}
+
+\begin{solution}{premeasure-finite-cover-subadditivity}
+令 $B_1=A\cap A_1$，
+$B_j=A\cap(A_j\setminus\bigcup_{k<j}A_k)$。则 $B_j$ 两两不交、并为 $A$，
+且 $B_j\subseteq A_j$。有限可加性与单调性给出
+$\mu_0(A)=\sum_j\mu_0(B_j)\le\sum_j\mu_0(A_j)$。
+\end{solution}
+
+\begin{solution}{caratheodory-maximal-domain}
+若 $E\in\mathcal C$，任意可测外包 $F\supseteq A$ 都按 $E$ 分解为两个
+可测部分，故
+$\nu(F)=\nu(F\cap E)+\nu(F\setminus E)$。对外包取下确界，并分别再取
+下确界，得到 $E$ 的 Carathéodory 条件。因此
+$\mathcal C\subseteq\mathcal M_{\nu^*}$。任意可测零集的子集外测度为零，
+自动在 Carathéodory 域中，所以原空间的完备化也包含其中。
+\end{solution}

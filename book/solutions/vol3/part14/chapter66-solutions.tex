@@ -1,0 +1,142 @@
+\chapter{一致可积性}
+
+\begin{solution}{ui-equivalent-truncation}
+在 \(\{|f|>2M\}\) 上，
+\((|f|-M)_+\ge|f|/2\)，故
+\[
+ \int_{\{|f|>2M\}}|f|
+ \le2\int(|f|-M)_+.
+\]
+反过来，
+\((|f|-M)_+\le|f|\mathbf1_{\{|f|>M\}}\)。两边分别取函数族上确界并令
+\(M\to\infty\)，得到等价性。
+\end{solution}
+
+\begin{solution}{ui-finite-family}
+对每个 \(f_j\in L^1\)，
+\(\int_{\{|f_j|>M\}}|f_j|\to0\)。有限多个趋零量的最大值仍趋零，所以
+\[
+ \sup_{1\le j\le r}\int_{\{|f_j|>M\}}|f_j|\to0.
+\]
+\end{solution}
+
+\begin{solution}{ui-dominated-family}
+若 \(|f|\le g\)，则
+\[
+ \int_E|f|\le\int_Eg.
+\]
+由 \(g\) 的积分绝对连续性，右侧在 \(\mu(E)\) 足够小时统一小。函数族还
+满足 \(\sup_f\|f\|_1\le\|g\|_1\)。在有限测度空间应用命题
+\ref{prop:ui-finite-measure-criterion}；一般空间则直接用
+\(\{|f|>M\}\subset\{g>M\}\) 的尾积分证明。
+\end{solution}
+
+\begin{solution}{ui-spike-details}
+\[
+ \|n\mathbf1_{(0,1/n)}\|_1=1.
+\]
+对任意 \(\varepsilon>0\)，当 \(n>\varepsilon\) 时超水平集长度为
+\(1/n\to0\)，故依测度趋零。若 \(M>0\)，取 \(n>M\)，则
+\[
+ \int_{\{|f_n|>M\}}|f_n|=1,
+\]
+所以尾积分上确界不趋零。
+\end{solution}
+
+\begin{solution}{ui-lp-bounded}
+在 \(\{|f|>M\}\) 上，
+\(|f|\le M^{1-p}|f|^p\)。因此
+\[
+ \int_{\{|f|>M\}}|f|
+ \le M^{1-p}\int|f|^p
+ \le C^pM^{1-p}\to0.
+\]
+\end{solution}
+
+\begin{solution}{ui-convex-sufficient}
+记 \(C=\sup_f\int\Phi(|f|)\)。由
+\(\Phi(t)/t\to\infty\)，对给定 \(\varepsilon>0\) 可取 \(M\) 使
+\[
+ t\mathbf1_{\{t>M\}}\le\frac{\varepsilon}{C}\Phi(t).
+\]
+积分并取上确界即得尾积分小于 \(\varepsilon\)。这个方向只用
+\(\Phi(t)/t\to\infty\) 和非负性，没有用凸性；凸性用于反向构造和后续
+函数空间理论中的良好性质。
+\end{solution}
+
+\begin{solution}{vitali-ae-version}
+有限测度空间上 a.e. 收敛蕴含依测度收敛。其余条件正是 Vitali 定理的
+假设，所以 \(\|f_n-f\|_1\to0\)。也可直接用 Egorov：删去小集合后
+一致收敛，在补集上用有限测度控制积分，在小集合上用一致可积性控制。
+\end{solution}
+
+\begin{solution}{l1-convergence-ui}
+给定 \(\varepsilon>0\)，取 \(N\) 使 \(n\ge N\) 时
+\(\|f_n-f\|_1<\varepsilon/3\)。有限族
+\(f,f_1,\ldots,f_{N-1}\) 的积分绝对连续性给出 \(\delta\)，使
+\(\mu(E)<\delta\) 时每个相应积分小于 \(\varepsilon/3\)。于是对
+\(n\ge N\)，
+\[
+ \int_E|f_n|
+ \le\|f_n-f\|_1+\int_E|f|<2\varepsilon/3.
+\]
+同时 \(\|f_n\|_1\le\|f\|_1+\varepsilon/3\)，故在有限测度空间由判据
+得到一致可积；一般空间可对尾积分作同样的三角分解。
+\end{solution}
+
+\begin{solution}{ui-sums}
+若 \(|f+g|>2M\)，则 \(|f|>M\) 或 \(|g|>M\)。并且
+\[
+ |f+g|\mathbf1_{\{|f+g|>2M\}}
+ \le2|f|\mathbf1_{\{|f|>M\}}
+   +2|g|\mathbf1_{\{|g|>M\}}.
+\]
+积分并分别取 \(\mathcal F,\mathcal G\) 上确界，右侧随
+\(M\to\infty\) 越来越小。
+\end{solution}
+
+\begin{solution}{mass-tightness-translation}
+因所有函数值不超过 \(1\)，当 \(M>1\) 时尾积分为零，故一致可积。设
+\(K\subset\mathbb R\) 有限测度。若存在 \(\varepsilon<1\) 使对所有
+\(n\) 都有
+\(\int_{\mathbb R\setminus K}\mathbf1_{[n,n+1]}<\varepsilon\)，则
+\(m(K\cap[n,n+1])>1-\varepsilon\) 对所有 \(n\) 成立。对互不相交的
+整数区间求和会推出 \(m(K)=\infty\)，矛盾。因此不具空间紧性。
+\end{solution}
+
+\begin{solution}{vitali-infinite-space}
+给定 \(\varepsilon>0\)，由紧性选有限测度 \(K\)，使
+\[
+ \sup_n\int_{X\setminus K}|f_n|<\varepsilon.
+\]
+取有限测度集递增覆盖 \(X\)。在第一块上抽出几乎处处收敛子列，再在第二块
+上从中抽取子列，如此继续并取对角线，得到在全空间几乎处处收敛于 \(f\)
+的子列。对该子列使用 Fatou，可得
+\(\int_{X\setminus K}|f|\le\varepsilon\)。在 \(K\) 上，限制后的函数族
+一致可积且依测度收敛，有限测度 Vitali 定理给
+\(\int_K|f_n-f|\to0\)。因此最终
+\[
+ \|f_n-f\|_1
+ \le\int_K|f_n-f|+
+ \int_{X\setminus K}|f_n|+\int_{X\setminus K}|f|
+ <3\varepsilon.
+\]
+\end{solution}
+
+\begin{solution}{ui-random-variables}
+令
+\[
+ Y_n=|X_n-X|^p.
+\]
+由连续映射性质，\(Y_n\to0\) 依概率。需先注意 \(X\in L^p\)：从任意
+子列抽取 a.s. 收敛子列，再由 Fatou 和
+\(\sup_n\mathbb E|X_n|^p<\infty\) 得到。利用
+\[
+ |X_n-X|^p\le 2^{p-1}(|X_n|^p+|X|^p)
+\quad(p\ge1)
+\]
+以及一致可积族加上一个固定可积函数仍一致可积，可知 \(\{Y_n\}\) 一致
+可积。Vitali 定理给
+\(\mathbb E|X_n-X|^p\to0\)。当 \(0<p<1\) 时用
+\(|a-b|^p\le|a|^p+|b|^p\)。
+\end{solution}

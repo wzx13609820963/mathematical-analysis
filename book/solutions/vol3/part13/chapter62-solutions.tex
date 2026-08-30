@@ -1,0 +1,127 @@
+\chapter{乘积测度}
+
+\begin{solution}{product-sigma-coordinate}
+对 \(A\in\mathcal A\)，
+\(\pi_X^{-1}(A)=A\times Y\in\mathcal A\otimes\mathcal B\)，故
+\(\pi_X\) 可测；另一坐标同理。若 \(f,g\) 可测，则有理开矩形
+\(I\times J\) 的原像为
+\(f^{-1}(I)\times g^{-1}(J)\)，可测。因有理开矩形生成
+\(\mathcal B(\mathbb R^2)\)，向量映射可测。
+\end{solution}
+
+\begin{solution}{borel-product-euclidean}
+开矩形 \(U\times V\) 是 \(\mathbb R^{m+n}\) 的开集，所以
+\(\mathcal B(\mathbb R^m)\otimes\mathcal B(\mathbb R^n)
+\subset\mathcal B(\mathbb R^{m+n})\)。反过来，有理中心、有理半径的开球
+构成可数基，每个开集是可数个基元素之并，而每个开球是可数个有理端点开
+矩形之并。因此每个开集属于乘积 \(\sigma\)-代数。
+\end{solution}
+
+\begin{solution}{product-rectangle-refinement}
+收集所有第一坐标集合 \(A_k\)，由它们及补集形成有限个两两不交原子
+\(C_i\)；对所有 \(B_k\) 同样形成 \(D_j\)。每个原矩形都是若干
+\(C_i\times D_j\) 的并，所以矩形有限并可细分为两两不交矩形。若同一
+集合有两种表示，取两种表示的共同原子网格；在每个原子上，两种表示的指示
+值相同，有限可加性使两边的
+\(\sum\mu(C_i)\nu(D_j)\) 相同。
+\end{solution}
+
+\begin{solution}{section-algebra}
+逐元素验证：
+\[
+ y\in(E^c)_x\iff(x,y)\notin E\iff y\notin E_x,
+\]
+以及
+\[
+ y\in(\cup_nE_n)_x\iff\exists n,\ (x,y)\in E_n
+\iff y\in\cup_n(E_n)_x.
+\]
+所以“所有截面可测”的集合族对补和可数并封闭，是一个包含矩形的
+\(\sigma\)-代数。
+\end{solution}
+
+\begin{solution}{cavalieri-graph}
+映射 \(F(x,y)=y-f(x)\) 可测，故
+\(\Gamma_f=F^{-1}(\{0\})\) 是 Borel 集。每个竖截面
+\((\Gamma_f)_x=\{f(x)\}\) 的一维测度为零。Cavalieri 公式给出
+\[
+ m_2(\Gamma_f)=\int_\mathbb R m_1(\{f(x)\})\,dx=0.
+\]
+\end{solution}
+
+\begin{solution}{tonelli-layer-cake}
+令 \(E=\{(x,t):0<t<f(x)\}\)。函数
+\((x,t)\mapsto f(x)-t\) 可测，故 \(E\) 可测。对固定 \(x\)，
+\(E_x=(0,f(x))\)，长度为 \(f(x)\)；对固定 \(t\)，
+\(E^t=\{f>t\}\)。Tonelli 定理应用于 \(\mathbf1_E\) 得
+\[
+ \int_Xf\,d\mu
+ =\int_{X\times(0,\infty)}\mathbf1_E
+ =\int_0^\infty\mu(\{f>t\})\,dt.
+\]
+\end{solution}
+
+\begin{solution}{tonelli-region-integral}
+固定 \(x\in(0,1)\)，竖截面为 \((0,1-x)\)，故
+\[
+ m_2(E)=\int_0^1(1-x)\,dx=\frac12.
+\]
+固定 \(y\in(0,1)\) 时横截面为 \((0,1-y)\)，交换次序得到同样结果。
+\end{solution}
+
+\begin{solution}{fubini-section-null}
+由集合形式 Tonelli，
+\[
+ 0=(\mu\times\nu)(E)=\int_X\nu(E_x)\,d\mu.
+\]
+非负函数零积分判据给出 \(\nu(E_x)=0\) 对几乎所有 \(x\) 成立。若每个
+截面都零测且 \(E\) 可测，则同一公式确实推出 \(E\) 零测；若删去
+\(E\) 的乘积可测性，截面信息不足以调用该公式。
+\end{solution}
+
+\begin{solution}{fubini-integrability-test}
+用极坐标估计，
+\[
+ |f(x,y)|=\frac{|x^2-y^2|}{(x^2+y^2)^2}
+ =\frac{|\cos2\theta|}{r^2}.
+\]
+面积元为 \(r\,dr\,d\theta\)，故原点附近的绝对值积分含
+\(\int_0^\varepsilon dr/r=\infty\)，不绝对可积。固定 \(x\ne0\)，
+\[
+ \int_{-1}^{1}\frac{x^2-y^2}{(x^2+y^2)^2}\,dy
+ =\left[\frac{y}{x^2+y^2}\right]_{-1}^{1}
+ =\frac{2}{x^2+1},
+\]
+再对 \(x\) 积分得 \(\pi\)。交换 \(x,y\) 时被积函数变号，得到
+\(-\pi\)。原点处的单个异常截面不影响外层积分。这正说明缺少绝对可积性
+时换序失败。
+\end{solution}
+
+\begin{solution}{double-series-counterexample}
+固定 \(m\)，只有 \(a_{m,m}=1,a_{m,m+1}=-1\)，行和为零，故先按
+\(n\) 求和再按 \(m\) 求和得零。固定 \(n=0\)，列中只有
+\(a_{0,0}=1\)；固定 \(n\ge1\)，有
+\(a_{n,n}=1,a_{n-1,n}=-1\)，列和为零。因此反向迭代和为 \(1\)。
+每行绝对值和为 \(2\)，故绝对值二重和为无穷。
+\end{solution}
+
+\begin{solution}{convolution-measurability}
+映射 \((x,y)\mapsto x-y\) 连续，故
+\((x,y)\mapsto f(x-y)g(y)\) 非负可测。Tonelli 定理说明对 \(y\) 的
+积分是 \(x\) 的可测函数。再次使用 Tonelli，并作平移变量代换：
+\[
+ \int_x(f*g)(x)\,dx
+ =\int_y g(y)\int_x f(x-y)\,dx\,dy
+ =\left(\int f\right)\left(\int g\right).
+\]
+\end{solution}
+
+\begin{solution}{associativity-product-measure}
+两种测度都定义在
+\(\mathcal A\otimes\mathcal B\otimes\mathcal C\) 上，并在矩形
+\(A\times B\times C\) 上取值
+\(\mu(A)\nu(B)\lambda(C)\)。三测度的 \(\sigma\)-有限性使矩形预测度
+\(\sigma\)-有限，延拓唯一性给出两种括号方式相同。对非负可测函数先由
+指示函数、简单函数和单调收敛依次得到三重 Tonelli；对绝对可积函数应用于
+绝对值，再拆正负部，得到所有积分次序相同的 Fubini 公式。
+\end{solution}

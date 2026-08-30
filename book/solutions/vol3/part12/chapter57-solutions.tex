@@ -1,0 +1,83 @@
+\chapter{零测集与不可测集}
+
+\begin{solution}{null-countable-union}
+若 $m(N_n)=0$，则由次可加性
+$m(\bigcup_nN_n)\le\sum_nm(N_n)=0$。可数并可测，故它是零测集。
+\end{solution}
+
+\begin{solution}{ae-equivalence-relation}
+自反性和对称性直接成立。若 $f=g$ 于 $X\setminus N_1$，$g=h$ 于
+$X\setminus N_2$，其中 $N_1,N_2$ 零测，则在
+$X\setminus(N_1\cup N_2)$ 上 $f=h$。有限并仍零测，所以关系传递。
+\end{solution}
+
+\begin{solution}{ae-equality-level-sets}
+若 $f=g$ 于零测例外集外，则每个 $\{|f-g|>1/n\}$ 都含于该例外集，因
+完备性而零测。反之，$\{f\ne g\}=\bigcup_{n\ge1}\{|f-g|>1/n\}$，右侧
+是零测集的可数并。
+\end{solution}
+
+\begin{solution}{dense-null-set-construction}
+$\Q^d\cap O$ 至多可数，故零测。对任意 $x\in O$ 和充分小球
+$B(x,r)\subset O$，有理点在 $\R^d$ 中稠密，故该球含有
+$\Q^d\cap O$ 的点。因此它在 $O$ 中稠密。
+\end{solution}
+
+\begin{solution}{cantor-ternary-characterization}
+第 $n$ 步保留的左右两个子区间分别对应第 $n$ 位三进制数字 $0$ 与 $2$。
+若 $x$ 从未被删去，逐步记录它所在的闭子区间便得到只含 $0,2$ 的展开；
+端点若有两个展开，取以无限个 $2$ 结尾的那个。反之，只含 $0,2$ 的前
+$n$ 位把点限制在 $C_n$ 的相应闭区间内，故点属于所有 $C_n$，即属于 $C$。
+\end{solution}
+
+\begin{solution}{cantor-perfect-nowhere-dense}
+$C$ 是闭集列的交，所以闭。给定 $x\in C$ 和 $\varepsilon>0$，取
+$3^{-n}<\varepsilon$，改变三进制展开中第 $n$ 位之后的某一位，得到另一
+个 $C$ 中的点且距离小于 $\varepsilon$，故无孤立点。任意开区间若包含于
+$C$，其长度为正；取 $n$ 使 $3^{-n}$ 小于该长度，则开区间不可能包含在
+$C_n$ 的某个长度 $3^{-n}$ 分支内，矛盾。故内部为空。
+\end{solution}
+
+\begin{solution}{cantor-cardinality}
+映射
+$\varepsilon\mapsto\sum_n2\varepsilon_n3^{-n}$ 把二元序列送入 $C$。若两
+序列首次在第 $k$ 位不同，则第 $k$ 位造成的差为 $2/3^k$，其后全部尾项
+最大和为 $1/3^k$，故像不同，映射单射。二元序列集与
+$\mathcal P(\N)$ 等势，基数为 $\mathfrak c$。又 $C\subset[0,1]$，
+Cantor--Schröder--Bernstein 定理给出 $C$ 与 $[0,1]$ 等势。
+\end{solution}
+
+\begin{solution}{fat-cantor-measure}
+第 $n$ 步在上一阶段的 $2^{n-1}$ 个互不相交闭区间内部各删一个中间开
+区间，所以新删区间彼此及与旧删区间均不交。第 $n$ 步删去总长度
+$2^{n-1}4^{-n}=2^{-n-1}$，总和为 $1/2$。下降连续性给剩余集测度 $1/2$。
+任意非空开区间若始终未遇到删去部分，就会包含于每一级某个分支；分支
+长度趋零，不可能容纳固定正长度区间。因此剩余集无内点。
+\end{solution}
+
+\begin{solution}{closed-set-boundary-jordan}
+闭且无内点给出 $\partial F=F$。有界集 Jordan 可测当且仅当边界为
+Jordan 零测；对紧集，Lebesgue 零测等价于可由总体积任意小的有限开区间
+覆盖，因为可数覆盖有有限子覆盖。因此 $F$ Jordan 可测当且仅当
+$m(F)=0$。
+\end{solution}
+
+\begin{solution}{vitali-translates-disjoint}
+若 $v+q=w+r$，则 $v-w=r-q\in\Q$，故 $v,w$ 属于同一等价类；代表唯一
+给出 $v=w$，再得 $q=r$。对任意 $x\in[0,1]$，其等价类代表 $v\in V$，
+于是 $x-v=q\in\Q\cap[-1,1]$，故 $x\in V+q$。又
+$0\le v\le1$、$-1\le q\le1$，所以所有平移集都包含于 $[-1,2]$。
+\end{solution}
+
+\begin{solution}{vitali-inner-outer-measure}
+若 $K\subseteq V$ 可测且 $m(K)>0$，则互不相交的有理平移 $K+q$ 全部
+包含在某个有界区间内，却各有同一正测度；可数可加性导致总测度无穷，
+矛盾。因此 $V$ 的每个可测子集测度为零，内测度为零。若
+$m^*(V)=0$，完备性会使 $V$ 可测，与 Vitali 定理矛盾；所以外测度为正。
+\end{solution}
+
+\begin{solution}{nonmeasurable-subset-null-impossible}
+Lebesgue 测度由 Carathéodory 构造而完备；若 $N$ 可测且 $m(N)=0$，任意
+$A\subseteq N$ 都有外测度零，从而可测。因此不可测的 Vitali 集不能包含
+于任何 Lebesgue 零测集，特别不能包含于 Borel 零测集。
+\end{solution}

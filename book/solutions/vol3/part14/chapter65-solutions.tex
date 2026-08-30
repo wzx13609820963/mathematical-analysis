@@ -1,0 +1,112 @@
+\chapter{Egorov 定理与子列原理}
+
+\begin{solution}{almost-uniform-ae-proof}
+取 \(E_k\) 使 \(\mu(E_k)<2^{-k}\) 且补集上一致收敛。由
+\(\sum_k\mu(E_k)<\infty\)，集合
+\(\limsup_kE_k\) 零测。在其补集上，每个点最终避开全部 \(E_k\)，因此
+至少落在某个可任意取大的 \(k\) 的补集内，而该补集上整列收敛。单独一个
+\(E_k\) 只有小测度，不一定为零，不能证明几乎处处结论。
+\end{solution}
+
+\begin{solution}{egorov-quantifiers}
+几乎处处收敛是
+\[
+ \exists N,\ \mu(N)=0,\ \forall x\notin N,\ \forall\varepsilon>0,\
+ \exists K(x,\varepsilon),\ \forall n\ge K:\ |f_n(x)-f(x)|<\varepsilon.
+\]
+一致收敛把 \(K\) 改为与 \(x\) 无关。几乎一致收敛是
+\[
+ \forall\eta>0,\ \exists E,\ \mu(E)<\eta,\ \forall\varepsilon>0,\
+ \exists K(\eta,\varepsilon),\ \forall x\notin E,\ \forall n\ge K:
+ |f_n-f|<\varepsilon.
+\]
+Egorov 定理在有限测度下由第一组量词推出第三组量词。
+\end{solution}
+
+\begin{solution}{egorov-xn}
+取 \(E=(1-\eta,1]\)，其测度为 \(\eta\)（若需严格小于可取更短区间）。
+在 \([0,1-\eta]\) 上，
+\[
+ \sup x^n=(1-\eta)^n\to0,
+\]
+故一致收敛。点 \(1\) 本身及其附近是收敛速度不能统一的区域。
+\end{solution}
+
+\begin{solution}{egorov-infinite-counterexample}
+对每个固定 \(x\)，最终 \(n>x\)，故
+\(\mathbf1_{[n,\infty)}(x)=0\)。若在 \(\mathbb R\setminus E\) 上一致
+收敛，则存在 \(N\) 使所有 \(n\ge N\) 时函数绝对值小于 \(1/2\)。
+特别地 \(n=N\) 给出
+\([N,\infty)\cap(\mathbb R\setminus E)=\varnothing\)，所以
+\([N,\infty)\subset E\)，其测度无穷，不可能小于给定的有限 \(\eta\)。
+\end{solution}
+
+\begin{solution}{borel-cantelli-first}
+令 \(F_m=\cup_{n\ge m}E_n\)。则
+\[
+ \mu(F_m)\le\sum_{n\ge m}\mu(E_n)\longrightarrow0.
+\]
+而 \(\limsup E_n=\cap_mF_m\subset F_m\) 对所有 \(m\) 成立，所以
+\[
+ \mu(\limsup E_n)\le\inf_m\mu(F_m)=0.
+\]
+\end{solution}
+
+\begin{solution}{measure-subsequence-rate}
+按依测度收敛递归选 \(n_k\)，使
+\[
+ \mu(|f_{n_k}-f|>2^{-k})<2^{-k}.
+\]
+坏集测度之和有限，故几乎每个点只属于有限多个坏集。在其余点上，所给
+不等式对所有充分大的 \(k\) 成立。
+\end{solution}
+
+\begin{solution}{lp-direct-subsequence}
+选 \(n_k\) 使
+\(\|f_{n_k}-f\|_p^p<2^{-k}\)。由非负函数逐项积分，
+\[
+ \int\sum_k|f_{n_k}-f|^p
+ =\sum_k\|f_{n_k}-f\|_p^p<\infty.
+\]
+所以该级数几乎处处有限。收敛级数的项趋零，故
+\(|f_{n_k}-f|^p\to0\) 几乎处处。
+\end{solution}
+
+\begin{solution}{subsequence-characterization-finite}
+正向：每个子列仍依测度收敛，应用子列原理。反向：若不依测度收敛，存在
+\(\varepsilon,\eta>0\) 和子列满足
+\[
+ \mu(|f_{n_k}-f|>\varepsilon)\ge\eta.
+\]
+假设它有再子列几乎处处收敛于 \(f\)。因 \(\mu(X)<\infty\)，第
+\ref{chap:modes-of-convergence} 章的有限测度结论说明该再子列依测度
+收敛，故上述超水平集测度应趋零，与下界矛盾。
+\end{solution}
+
+\begin{solution}{ae-cauchy-almost-uniform}
+若几乎处处 Cauchy，则它在实数完备性下几乎处处收敛于某个可测函数 \(f\)。
+Egorov 定理使它在删去任意小测度集合后一致收敛，因而一致 Cauchy。
+反向，取测度小于 \(2^{-k}\) 的例外集 \(E_k\)，使补集上一致 Cauchy。
+\(\limsup E_k\) 零测；其补集上的每一点最终落在某个补集 \(E_k^c\) 中，
+故数列在该点 Cauchy。
+\end{solution}
+
+\begin{solution}{riesz-metric-completeness}
+设 \((f_n)\) 在 \(d_\mu\) 下 Cauchy。选子列 \(f_{n_k}\)，使
+\[
+ \mu(|f_{n_{k+1}}-f_{n_k}|>2^{-k})<2^{-k}.
+\]
+由第一 Borel--Cantelli 结论，几乎处处有
+\(|f_{n_{k+1}}-f_{n_k}|\le2^{-k}\) 最终成立，所以该子列几乎处处
+Cauchy，令其极限为 \(f\)。有限测度下 a.e. 收敛蕴含依测度收敛，故
+\(d_\mu(f_{n_k},f)\to0\)。原列 Cauchy，再由三角不等式得
+\(d_\mu(f_n,f)\to0\)。
+\end{solution}
+
+\begin{solution}{egorov-lusin-comparison}
+Egorov 从“一个函数列几乎处处收敛”出发，删去小集合后改善为一致收敛；
+例外集依赖整个函数列和容许测度 \(\eta\)。Lusin 从“一个可测函数”出发，
+在有限测度且具有适当正则性的空间中删去小集合后，使限制成为连续函数；
+例外集依赖该函数和 \(\eta\)。前者改善收敛速度的统一性，后者改善单个
+函数的拓扑正则性。两者都用有限测度把递减坏集的点态消失转化为测度变小。
+\end{solution}

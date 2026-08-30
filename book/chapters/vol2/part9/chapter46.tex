@@ -39,7 +39,13 @@ $\ell|_{\ker A}=0$，则存在唯一的 $\lambda\in(\R^m)^*$，使
 \begin{proof}
 对 $y\in\R^m$ 选取任意 $x$ 使 $Ax=y$，定义 $\lambda(y)=\ell(x)$。
 若 $Ax=Ax'$，则 $x-x'\in\ker A$，故 $\ell(x)=\ell(x')$；所以定义与
-原像选择无关。线性性显然，且 $\ell=\lambda\circ A$。满射性还保证
+原像选择无关。若 $Ay_1=u_1$、$Ay_2=u_2$，则
+\[
+ \lambda(\alpha u_1+\beta u_2)
+ =\ell(\alpha y_1+\beta y_2)
+ =\alpha\lambda(u_1)+\beta\lambda(u_2),
+\]
+所以 $\lambda$ 线性，且 $\ell=\lambda\circ A$。满射性还保证
 $\lambda$ 唯一。
 \end{proof}
 

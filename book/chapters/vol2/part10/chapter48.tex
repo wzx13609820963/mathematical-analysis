@@ -1,225 +1,393 @@
-\chapter{参数化积分}
-\label{chap:parametric-integrals}
+\chapter{累次积分与变量代换}
+\label{chap:fubini-change-variables}
 
-曲线和曲面通常不是某个固定坐标轴方向上的函数图像。参数化把它们放回
-欧氏参数域，但积分值不应依赖参数速度或坐标选择。本章从弧长和面积的局部
-线性近似出发，建立两类曲线积分、两类曲面积分及其重新参数化规律。
+多重积分的计算依赖两种分解。一种把积空间按坐标截成低维切片，得到累次
+积分；另一种用可微坐标映射重新划分区域，得到变量代换。前者的关键是截面
+积分能否重新组成一个 Riemann 可积函数，后者的关键则是小立方体经过可微
+映射后体积怎样变化。
 
-\section{正则曲线与弧长}
+本章仍在 Riemann--Jordan 理论内工作。全部区域有界，边界例外必须能由
+有限矩形控制。第三卷建立测度与 Lebesgue 积分后，Fubini 定理和变量代换
+会获得允许几乎处处截面、可数分解及更一般可积函数的版本。
 
-\begin{definition}
-映射 $\gamma:[a,b]\to\R^n$ 称为 $C^1$ 正则曲线，如果
-$\gamma\in C^1$ 且 $\gamma'(t)\ne0$。允许有限分点处导数不存在而每一段
-正则时，称为分段 $C^1$ 正则曲线。
-\end{definition}
+\section{矩形上的累次积分}
 
-对分割 $P:a=t_0<\cdots<t_m=b$，折线长度为
-$\sum_i\norm{\gamma(t_i)-\gamma(t_{i-1})}$；弧长定义为这些长度的上确界。
+设 \(A\subset\R^p\)、\(B\subset\R^q\) 为闭矩形，\(f:A\times B\to\R\)。
+固定 \(x\in A\) 得到 \(B\) 上的截面 \(f_x(y)=f(x,y)\)。即使 \(f\) 在
+积矩形上可积，个别 \(f_x\) 仍可能不可积；因此累次积分首先要检查截面。
 
-\begin{theorem}[弧长公式]
-\label{thm:arc-length-parametric}
-若 $\gamma\in C^1([a,b],\R^n)$，则曲线可求长且
+\begin{theorem}[连续函数的 Fubini 定理]
+\label{thm:fubini-continuous-rectangles}
+若 \(f\in C(A\times B)\)，则每个截面可积，函数
 \[
- L(\gamma)=\int_a^b\norm{\gamma'(t)}\,dt.
+ F(x)=\int_B f(x,y)\,dy
+\]
+在 \(A\) 上连续，并且
+\[
+ \int_{A\times B}f(x,y)\,d(x,y)
+ =\int_A\left(\int_Bf(x,y)\,dy\right)dx.
+\]
+交换 \(A,B\) 后得到另一种积分次序。
+\end{theorem}
+
+\begin{proof}
+截面连续，故可积。又因为 \(f\) 在紧矩形上一致连续，\(x'\to x\) 时
+\[
+ |F(x')-F(x)|
+ \le |B|\sup_{y\in B}|f(x',y)-f(x,y)|\longrightarrow0.
+\]
+所以 \(F\) 连续。
+
+分别给 \(A,B\) 取标记分割。乘积分割的 Riemann 和可以写成
+\[
+ \sum_{R\subset A}
+ \left(\sum_{S\subset B}f(\xi_R,\eta_S)|S|\right)|R|.
+\]
+给定 \(\varepsilon>0\)，一致连续性允许把 \(B\) 的网格取得充分小，使
+括号内的和对所有 \(x\in A\) 一致逼近 \(F(x)\)；误差乘以
+\(\sum_R|R|=|A|\) 后仍可预先控制。随后令 \(A\) 的网格趋于零，外层和
+趋于 \(\int_AF\)。另一方面，同一乘积和趋于 \(\int_{A\times B}f\)，
+故两者相等。
+\end{proof}
+
+连续性是方便而非必要的条件。Riemann 理论中常用的安全版本如下。
+
+\begin{theorem}[Riemann 可积函数的累次积分]
+\label{thm:fubini-riemann-all-sections}
+设 \(f\) 在 \(A\times B\) 上 Riemann 可积，并且每个截面 \(f_x\) 都在
+\(B\) 上 Riemann 可积。则
+\[
+ F(x)=\int_Bf(x,y)\,dy
+\]
+在 \(A\) 上 Riemann 可积，且
+\[
+ \int_{A\times B}f=\int_AF.
 \]
 \end{theorem}
 
 \begin{proof}
-由微积分基本定理和三角不等式，任意分割都有
+给 \(A,B\) 取分割 \(P_A=(R_i)\)、\(P_B=(S_j)\)，记 \(f\) 在
+\(R_i\times S_j\) 上的振幅为 \(\omega_{ij}\)。若 \(x,x'\in R_i\)，
+则对每个 \(y\in S_j\)，
 \[
- \sum_i\norm{\gamma(t_i)-\gamma(t_{i-1})}
- \le\sum_i\int_{t_{i-1}}^{t_i}\norm{\gamma'(t)}dt.
+ |f(x,y)-f(x',y)|\le\omega_{ij}.
 \]
-反向估计利用 $\gamma'$ 的一致连续性。在每段取 $\xi_i$，则
+对 \(B\) 上有限个小矩形分别积分，得到
 \[
- \gamma(t_i)-\gamma(t_{i-1})
- =\gamma'(\xi_i)\Delta t_i+r_i,
- \qquad \sum_i\norm{r_i}\le\omega_{\gamma'}(\norm P)(b-a).
+ |F(x)-F(x')|\le\sum_j\omega_{ij}|S_j|.
 \]
-所以折线长度至少为相应 Riemann 和减去趋零误差。取细分割并取上确界，
-得到反向不等式。
+因此
+\[
+ U(F,P_A)-L(F,P_A)
+ \le\sum_i|R_i|\sum_j\omega_{ij}|S_j|
+ =U(f,P_A\times P_B)-L(f,P_A\times P_B).
+\]
+由 \(f\) 的 Darboux 判据，可把右端取得任意小，所以 \(F\) 可积。
+
+再在每个 \(R_i\) 中任取 \(\xi_i\)。截面积分
+\(F(\xi_i)\) 夹在 \(f_{\xi_i}\) 关于 \(P_B\) 的上下和之间，而这两个和
+又分别夹在相应乘积小块的下、上和之间。于是
+\[
+ L(f,P_A\times P_B)
+ \le\sum_iF(\xi_i)|R_i|
+ \le U(f,P_A\times P_B).
+\]
+取使上下和之差趋于零的乘积分割，中央的和同时趋于
+\(\int_AF\) 与 \(\int_{A\times B}f\)，等式成立。
 \end{proof}
 
-\begin{theorem}[曲线的重新参数化]
-\label{thm:curve-reparametrization}
-设 $\phi:[c,d]\to[a,b]$ 是 $C^1$ 微分同胚，并令
-$\widetilde\gamma=\gamma\circ\phi$。则
+不能删除“每个截面可积”。例如在 \([-1,1]^2\) 上令
 \[
- L(\widetilde\gamma)=L(\gamma).
+ f(x,y)=
+ \begin{cases}
+  \mathbf1_{\Q}(y),&x=0,\\
+  0,&x\ne0.
+ \end{cases}
 \]
-对连续标量函数 $f$，第一型曲线积分在此变换下不变；对连续向量场 $F$，
-第二型曲线积分在 $\phi$ 递增时不变，在 $\phi$ 递减时变号。
+它的不连续点集是竖线 \(x=0\)，故由 Jordan 振幅判据可积且积分为零；
+但 \(x=0\) 的截面是不可 Riemann 积的 Dirichlet 函数。Lebesgue 理论
+允许忽略这一条零测截面，Riemann 版本则不能在尚未定义“几乎每个截面”时
+这样表述。
+
+\section{Jordan 区域上的累次积分}
+
+设
+\[
+ D=\{(x,y):a\le x\le b,
+               \ \alpha(x)\le y\le\beta(x)\},
+\]
+其中 \(\alpha,\beta\) 连续且 \(\alpha\le\beta\)。其边界由两条连续图像
+和两条竖线组成，是 Jordan 零测集。事实上，把 \([a,b]\) 分成长度不超过
+\(\delta\) 的小区间；一条连续图像在每个小区间上可由高度
+\(2\omega(\delta)\) 的矩形覆盖，全部矩形的面积和不超过
+\(2(b-a)\omega(\delta)\)，其中 \(\omega\) 是相应函数的连续模。令
+\(\delta\downarrow0\) 即可。若 \(f\in C(\overline D)\)，把它连续
+延拓到外包矩形 \(Q\)，则 \(f\mathbf1_D\) 可积。应用上一节定理得到
+\[
+ \int_D f(x,y)\,d(x,y)
+ =\int_a^b\left(\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy\right)dx.
+\]
+有限个此类区域的内部互不相交时，可以逐块相加。所谓“先 \(y\) 后 \(x\)”
+并不是另一种积分定义，而是把指标函数的矩形积分按截面计算。
+
+\section{线性映射与体积}
+
+若 \(A:\R^n\to\R^n\) 可逆，平行多面体 \(A(Q)\) 是 Jordan 可测集，并且
+\begin{equation}
+\label{eq:linear-volume-determinant}
+ |A(Q)|=|\det A|\,|Q|
+\end{equation}
+对每个矩形 \(Q\) 成立。可用初等矩阵分解验证：坐标置换和反射不改变
+无向体积；单个坐标伸缩把体积乘以伸缩率绝对值；剪切在固定其余坐标后只
+平移一维截面，由上一节的累次积分保持体积。各初等变换的比例相乘，正好是
+\(|\det A|\)。奇异线性映射把单位立方体压入低维仿射子空间，其
+\(n\) 维 Jordan 体积为零。
+
+公式 \eqref{eq:linear-volume-determinant} 只处理固定的线性映射。可微映射在每个点附近有不同的线性
+部分，必须证明这些局部近似能在全部小块上以同一个误差控制。
+
+\begin{lemma}[Lipschitz 映射保持 Jordan 零测]
+\label{lem:lipschitz-jordan-null}
+设 \(E\subset\R^n\) 有界且 Jordan 零测，映射
+\(\Phi:E\to\R^n\) 满足
+\[
+ \norm{\Phi(x)-\Phi(y)}_\infty
+ \le L\norm{x-y}_\infty.
+\]
+则 \(\Phi(E)\) 也是 Jordan 零测集。
+\end{lemma}
+
+\begin{proof}
+Jordan 零测集的矩形覆盖可以换成等边立方体覆盖而不改变“总体积可任意
+小”这一性质：先把退化矩形稍加厚，再用足够细的立方网格覆盖每个矩形；
+由于原覆盖有限，网格边长趋于零时越过各矩形边界的总体积趋于零。
+
+给定 \(\varepsilon>0\)，据此用有限个边长为 \(r_k\) 的立方体 \(Q_k\) 覆盖
+\(E\)，使 \(\sum_kr_k^n<\varepsilon\)。每个非空 \(E\cap Q_k\) 任选
+一点 \(x_k\)。Lipschitz 估计说明
+\(\Phi(E\cap Q_k)\) 包含在以 \(\Phi(x_k)\) 为中心、边长不超过
+\(2Lr_k\) 的立方体内。因此像集有一个有限覆盖，其总体积不超过
+\[
+ (2L)^n\sum_kr_k^n<(2L)^n\varepsilon.
+\]
+令 \(\varepsilon\downarrow0\) 即得结论。
+\end{proof}
+
+\section{小立方体的体积畸变}
+
+以下引理补上“可微映射局部近似线性”与“体积乘以 Jacobian”之间的步骤。
+证明的内包估计使用压缩映射，而不是从图形相近直接推断体积相近。
+
+\begin{lemma}[局部体积畸变]
+\label{lem:local-volume-distortion}
+设 \(\Phi:\Omega\to\Phi(\Omega)\) 是开集之间的 \(C^1\) 微分同胚，
+\(a\in\Omega\)，\(A=D\Phi(a)\)。令
+\[
+ Q_r=a+[-r,r]^n\subset\Omega,
+ \qquad
+ \eta_r=\sup_{x\in Q_r}
+ \norm{A^{-1}D\Phi(x)-I}_{\infty\to\infty}.
+\]
+若 \(\eta_r<1\)，则 \(\Phi(Q_r)\) Jordan 可测，并且
+\[
+ (1-\eta_r)^n|\det A|\,|Q_r|
+ \le |\Phi(Q_r)|
+ \le(1+\eta_r)^n|\det A|\,|Q_r|.
+\]
+特别地，\(r\downarrow0\) 时
+\[
+ |\Phi(Q_r)|
+ =|\det D\Phi(a)|\,|Q_r|+o(|Q_r|).
+\]
+\end{lemma}
+
+\begin{proof}
+在 \(Q_0=[-r,r]^n\) 上定义
+\[
+ \Psi(h)=A^{-1}\bigl(\Phi(a+h)-\Phi(a)\bigr),
+ \qquad g(h)=\Psi(h)-h.
+\]
+由向量值增量估计和 \(Q_0\) 的凸性，
+\[
+ \norm{g(h)-g(k)}_\infty
+ \le\eta_r\norm{h-k}_\infty.
+\]
+又 \(g(0)=0\)。因而 \(h\in Q_0\) 时
+\(\norm{\Psi(h)}_\infty\le(1+\eta_r)r\)，这给出外包
+\[
+ \Psi(Q_0)\subseteq[-(1+\eta_r)r,(1+\eta_r)r]^n.
+\]
+
+反过来，取
+\(y\in[-(1-\eta_r)r,(1-\eta_r)r]^n\)，并在完备立方体 \(Q_0\) 上考虑
+\[
+ T_y(h)=y-g(h).
+\]
+因为 \(\norm{g(h)}_\infty\le\eta_rr\)，映射 \(T_y\) 把 \(Q_0\) 映入
+自身；上式的 Lipschitz 估计又说明它的压缩常数不超过 \(\eta_r<1\)。
+Banach 压缩映射定理给出唯一不动点 \(h\in Q_0\)，而
+\(T_y(h)=h\) 等价于 \(\Psi(h)=y\)。所以得到内包
+\[
+ [-(1-\eta_r)r,(1-\eta_r)r]^n\subseteq\Psi(Q_0).
+\]
+
+在 \(Q_r\) 上 \(\Phi\) 局部 Lipschitz。又由
+\[
+ \norm{\Psi(h)-\Psi(k)}_\infty
+ \ge(1-\eta_r)\norm{h-k}_\infty
+\]
+可知 \(\Psi\) 单射。因为 \(\Phi\) 是环境开集之间的同胚，它把
+\(\partial Q_r\) 映为 \(\partial\Phi(Q_r)\)。立方体边界 Jordan 零测，引理
+\ref{lem:lipschitz-jordan-null} 说明像边界也零测，故 \(\Phi(Q_r)\)
+Jordan 可测。
+
+最后对内外两个立方体施加线性映射 \(A\) 和平移 \(\Phi(a)\)，用
+公式 \eqref{eq:linear-volume-determinant} 计算体积，即得两侧估计。
+\(D\Phi\) 在 \(a\) 连续，故
+\(\eta_r\to0\)，最后一个渐近式随即成立。
+\end{proof}
+
+\section{Riemann 变量代换}
+
+\begin{theorem}[Riemann 变量代换]
+\label{thm:change-variables-riemann-diffeomorphism}
+设 \(\Omega,\Omega'\subset\R^n\) 开，
+\(\Phi:\Omega\to\Omega'\) 是 \(C^1\) 微分同胚。设 \(U\subset\Omega\)
+有界且 Jordan 可测，并且 \(\overline U\subset\Omega\)。令
+\(V=\Phi(U)\)。若 \(f\in C(\overline V)\)，则 \(V\) Jordan 可测，并且
+\[
+ \int_V f(y)\,dy
+ =\int_U f(\Phi(x))\,|\det D\Phi(x)|\,dx.
+\]
 \end{theorem}
 
 \begin{proof}
-链式法则给出
-$\widetilde\gamma'(s)=\gamma'(\phi(s))\phi'(s)$。因此
+记 \(J(x)=|\det D\Phi(x)|\)。在 \(\overline U\) 的一个紧邻域上，
+\(D\Phi\) 与 \(D\Phi^{-1}\) 有界，所以 \(\Phi\) 和 \(\Phi^{-1}\) 在所需的
+有限个小凸邻域上具有统一 Lipschitz 常数。又因为
+\(\partial V=\Phi(\partial U)\)，引理
+\ref{lem:lipschitz-jordan-null} 说明 \(\partial V\) Jordan 零测，故
+\(V\) Jordan 可测。
+
+用边长 \(2r\) 的立方网格分割一个包含 \(\overline U\) 的大矩形。与
+\(\partial U\) 相交的立方体之并记为 \(B_r\)。Jordan 零测性给出
 \[
- \int_c^d\norm{\widetilde\gamma'(s)}\,ds
- =\int_c^d\norm{\gamma'(\phi(s))}|\,\phi'(s)|\,ds
- =\int_a^b\norm{\gamma'(t)}\,dt.
+ |B_r|\longrightarrow0.
 \]
-第一型积分只是在被积式中再乘 $f(\gamma(\phi(s)))$，同一变量代换仍适用。
-第二型积分中的 $\phi'(s)$ 不取绝对值，故其符号记录参数方向。严格单调
-保证曲线的每一段只经过一次；若允许来回折返，积分会按经过次数重复计算。
+这里用到如下直接推论：紧 Jordan 零测集所遇到的充分细网格立方体总体积
+趋于零。它可由有限小体积矩形覆盖，再令网格细到只增加任意小的边界薄层
+得到。由于 \(\overline U\) 到 \(\R^n\setminus\Omega\) 的距离为正，充分
+小时每个相关网格立方体都落在 \(\Omega\) 中；\(D\Phi\) 的统一有界性在
+每个立方体上给出同一个 Lipschitz 常数。于是
+\[
+ |\Phi(B_r)|\longrightarrow0.
+\]
+因此 \(U\) 和 \(V\)
+中由这些边界小块贡献的两侧积分，分别由
+\(\sup_{\overline U}|f\circ\Phi|J\) 与
+\(\sup_{\overline V}|f|\) 乘以上述体积控制，均趋于零。
+
+其余完全落在 \(U\) 内的小立方体记为 \(C\)，中心为 \(a_C\)。紧致性和
+\(D\Phi\) 的一致连续性使局部体积畸变引理中的参数满足
+\[
+ \sup_C\eta_C\longrightarrow0
+ \qquad(r\downarrow0).
+\]
+并且 \(J\) 在 \(\overline U\) 上有统一上界。故存在只依赖于该紧集的常数
+\(M\)，使
+\[
+ \sum_C\bigl||\Phi(C)|-J(a_C)|C|\bigr|
+ \le M\sup_C\eta_C\sum_C|C|\longrightarrow0.
+\]
+这里使用了 \(\eta\le1/2\) 时
+\(\max\{(1+\eta)^n-1,\,1-(1-\eta)^n\}\le C_n\eta\)。
+不同小立方体的内部不交；微分同胚保持这一性质，它们的像至多在零测边界
+相交，所以 Jordan 体积和积分均可有限相加。
+
+最后，\(f\) 与 \((f\circ\Phi)J\) 在相应紧集上一致连续，且
+\(\operatorname{diam}\Phi(C)\le L\operatorname{diam}C\)。因此
+\[
+ \int_{\Phi(C)}f
+ =f(\Phi(a_C))|\Phi(C)|+\rho_C|\Phi(C)|,
+ \qquad \sup_C|\rho_C|\longrightarrow0,
+\]
+而
+\[
+ \int_C(f\circ\Phi)J
+ =f(\Phi(a_C))J(a_C)|C|+\sigma_C|C|,
+ \qquad \sup_C|\sigma_C|\longrightarrow0.
+\]
+把所有内部小块相加，利用前一段的体积误差，再补回已经证明可忽略的边界
+块，得到所需等式。
 \end{proof}
 
-\section{两类曲线积分}
+绝对值不能删除。反射 \(T(u_1,u_2)=(-u_1,u_2)\) 保持面积，却有
+\(\det DT=-1\)；行列式符号记录定向，普通体积不记录定向。
 
-对连续标量函数 $f$，定义第一型曲线积分
-\[
- \int_\gamma f\,ds
- :=\int_a^bf(\gamma(t))\norm{\gamma'(t)}\,dt.
-\]
-它不随定向改变。对连续向量场 $F$，定义第二型曲线积分
-\[
- \int_\gamma F\cdot d x
- :=\int_a^b\langle F(\gamma(t)),\gamma'(t)\rangle dt.
-\]
-它在反向参数化下变号。若写 $F=(P_1,\ldots,P_n)$，也记为
-$\int_\gamma\sum_jP_j\,dx_j$。
+\section{坐标变换、切口与重数}
 
-若 $F=\nabla\varphi$，链式法则给出
+极坐标映射
 \[
- \int_\gamma F\cdot dx
- =\varphi(\gamma(b))-\varphi(\gamma(a)).
+ \Phi(r,\theta)=(r\cos\theta,r\sin\theta),
+ \qquad |\det D\Phi|=r,
 \]
-这说明梯度场的积分只依赖端点。反向命题需要定义域的连通和闭路积分条件，
-将在下一章说明。
+在 \(r=0\) 退化，在 \(\theta=0,2\pi\) 的两侧重复表示切口。应用定理时
+先在 \(\varepsilon\le r\le R\) 和长度小于 \(2\pi\) 的开角区间上使用
+微分同胚版本，再令 \(\varepsilon\downarrow0\) 并使角区间补满一个周期。
+原点、圆周和切口都是 Jordan 零测集，删去部分的体积因而趋于零。球坐标
+同理，其
+Jacobian 为 \(r^2\sin\varphi\)。
 
-\begin{example}
-取单位圆的正向参数 $\gamma(t)=(\cos t,\sin t)$，$0\le t\le2\pi$。
-对 $F(x,y)=(-y,x)$，
+若参数域能分成有限多个内部互不相交的微分同胚分支，分支边界与临界例外
+均为 Jordan 零测集，则逐支相加得到
 \[
- F(\gamma(t))\cdot\gamma'(t)=1,
- \qquad \int_\gamma F\cdot dx=2\pi.
+ \int_U g(\Phi(x))|\det D\Phi(x)|\,dx
+ =\int_{\Phi(U)}g(y)N(y)\,dy,
 \]
-反向绕行使积分变为 $-2\pi$；而 $\int_\gamma1\,ds=2\pi$ 在两种方向下
-相同。这个计算同时显示了第一型积分测量几何长度、第二型积分记录定向的
-差别。
-\end{example}
-
-\section{正则曲面与面积元}
-
-设 $D\subset\R^2$ 为有界 Jordan 区域，$X$ 在 $\overline D$ 的一个开邻域
-上属于 $C^1$。若
-$X_u\times X_v\ne0$ 在 $\overline D$ 上处处成立，则称 $X|_D$ 为正则
-参数化。为避免同一片曲面被重复覆盖，通常还要求 $X$ 在 $D$ 内单射，并在
-闭包上除边界识别外保持一一对应。
-
-导数把参数小矩形的两条边映为 $X_u\Delta u$ 和 $X_v\Delta v$，相应
-平行四边形面积为
-\[
- \norm{X_u\times X_v}\,\Delta u\,\Delta v.
-\]
-因此定义面积元
-\[
- dS=\norm{X_u\times X_v}\,du\,dv.
-\]
-
-若 $Y=X\circ\Phi$ 是由平面 $C^1$ 微分同胚重新参数化，则
-\[
- Y_s\times Y_t
- =\det D\Phi\,(X_u\times X_v)\circ\Phi.
-\]
-结合二维变量代换，曲面面积
-\[
- \operatorname{area}(S)=\int_D\norm{X_u\times X_v}\,du\,dv
-\]
-与正则参数无关。
-
-公式中的行列式来自一个直接的双线性计算。若
-$\Phi(s,t)=(u(s,t),v(s,t))$，则
-\[
- Y_s=X_u u_s+X_v v_s,\qquad
- Y_t=X_u u_t+X_v v_t,
-\]
-从而叉积中 $X_u\times X_u$ 与 $X_v\times X_v$ 两项消失，剩下
-$(u_sv_t-u_tv_s)X_u\times X_v$。绝对值控制面积，行列式的符号则控制
-定向。
-
-连续单位法向场 $n$ 的选择称为曲面的定向。一个正则参数给出
-$n=(X_u\times X_v)/\norm{X_u\times X_v}$；交换参数次序或使用负
-Jacobian 的重新参数化会反向定向。Möbius 带不存在全局连续法向场，说明
-并非每个曲面都可定向。
-
-\section{两类曲面积分}
-
-对连续标量函数 $f$，定义
-\[
- \int_Sf\,dS
- =\int_Df(X(u,v))\norm{X_u\times X_v}\,du\,dv.
-\]
-对连续向量场 $F$ 和已定向曲面，通量积分为
-\[
- \int_SF\cdot n\,dS
- =\int_D\langle F(X(u,v)),X_u\times X_v\rangle\,du\,dv.
-\]
-前者与定向无关，后者反向定向时变号。参数化不变性分别由上节的绝对值
-公式和有向叉积公式得到。
-
-若曲面是图像 $X(x,y)=(x,y,g(x,y))$，向上定向时
-\[
- X_x\times X_y=(-g_x,-g_y,1),\qquad
- dS=\sqrt{1+g_x^2+g_y^2}\,dx\,dy.
-\]
-因此两类积分可分别写为
-\[
- \int_S f\,dS
- =\iint_D f(x,y,g(x,y))\sqrt{1+g_x^2+g_y^2}\,dx\,dy,
-\]
-\[
- \int_SF\cdot n\,dS
- =\iint_DF(x,y,g(x,y))\cdot(-g_x,-g_y,1)\,dx\,dy.
-\]
-第二式使用的是有向面积向量而非单位法向；这正好消去了单位化时出现的
-根式。
-球面参数在两极退化，但两极为面积零的例外；可以删去小极冠后计算，再由
-有界性令其面积趋零。与极坐标相同，这种处理必须明确退化集的贡献，而不能
-把非正则参数直接称为处处正则。
+其中 \(N(y)\) 是非例外点的原像个数。没有有限分支或零测控制时，这已经是
+后续测度论中面积公式的范围，不能从本章定理直接推出。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
-\subsection*{A组　曲线}
+
+\subsection*{A组　累次积分}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
- \exerciseitem{arc-length-proof-details}
- 补全弧长公式中余项总和的估计。
- \exerciseitem{arc-length-reparametrization}
- 证明弧长在严格单调 $C^1$ 重新参数化下不变，并分别处理递增、递减情形。
- \exerciseitem{helix-length-line-integral}
- 计算螺旋线 $(\cos t,\sin t,t)$ 在 $0\le t\le2\pi$ 上的长度及
- $f(x,y,z)=z$ 的第一型曲线积分。
- \exerciseitem{orientation-vector-line-integral}
- 证明第二型曲线积分在反向曲线下变号，第一型不变。
- \exerciseitem{gradient-fundamental-line-integral}
- 用链式法则证明梯度场的端点公式，并计算 $\nabla(x^2y+z)$ 沿任意指定
- 端点曲线的积分。
- \exerciseitem{curve-multiple-traversal}
- 比较单位圆走一周、两周和先正向后反向的两类曲线积分。
+ \exerciseitem{fubini-uniform-section-proof}
+ 写出连续函数 Fubini 定理中内层 Riemann 和的一致误差，并说明紧致性用在
+ 何处。
+ \exerciseitem{triangle-iterated-integral}
+ 从 Jordan 定义证明连续边界所围三角型区域上的累次积分公式。
+ \exerciseitem{riemann-section-nonintegrable}
+ 构造矩形上 Riemann 可积函数，使某一条截面不可积，并核对其不连续点集。
+ \exerciseitem{fubini-riemann-oscillation}
+ 补全定理 \ref{thm:fubini-riemann-all-sections} 中振幅估计的每一步，并说明
+ 为什么不要求截面积分函数预先连续。
 \end{enumerate}
-\subsection*{B组　曲面}
+
+\subsection*{B组　线性体积与局部畸变}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{surface-reparametrization-cross-product}
- 推导 $Y_s\times Y_t=\det D\Phi\,(X_u\times X_v)\circ\Phi$。
- \exerciseitem{graph-surface-area}
- 推导图形曲面的面积元，并计算抛物面 $z=x^2+y^2$ 在单位圆盘上方部分的面积。
- \exerciseitem{sphere-area-parametric}
- 用球坐标参数计算半径 $R$ 的球面面积，严格处理两极退化。
- \exerciseitem{sphere-radial-flux}
- 计算向量场 $F(x)=x$ 穿过半径 $R$ 球面的外向通量。
- \exerciseitem{surface-orientation-change}
- 证明交换参数顺序使通量积分变号而标量曲面积分不变。
- \exerciseitem{cylinder-side-flux}
- 参数化圆柱侧面并计算常向量场和径向场的通量。
+ \exerciseitem{linear-change-volume}
+ 由初等矩阵和累次积分证明可逆线性映射把平行多面体体积乘以
+ \( |\det A| \)。
+ \exerciseitem{local-volume-distortion-details}
+ 在引理 \ref{lem:local-volume-distortion} 中证明 \(T_y\) 把立方体映入自身，
+ 并从内外包估计写出显式相对误差上界。
+ \exerciseitem{change-variable-orientation-absolute}
+ 给出二维反向定向线性变换，说明变量代换公式为何必须取行列式绝对值。
+ \exerciseitem{jacobian-zero-no-local-inverse}
+ 举例说明 Jacobian 在一点为零并不必然使映射不单射，却阻止在该点使用
+ \(C^1\) 逆函数定理。
 \end{enumerate}
-\subsection*{C组　参数化条件}
+
+\subsection*{C组　坐标与条件}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{nonregular-curve-warning}
- 给出同一线段的一个导数在中点为零的 $C^1$ 参数，说明几何曲线可求长并不
- 意味着该参数正则。
- \exerciseitem{surface-double-cover}
- 用球面参数的两个角周期说明非单射参数会按重数重复计算面积。
- \optionalexerciseitem{mobius-nonorientable-normal}
- 沿 Möbius 带中心线追踪局部法向，证明连续走一周后法向反向，因而不存在
- 全局定向。
+ \exerciseitem{polar-coordinate-disk}
+ 用变量代换计算单位圆盘上 \(x^2+y^2\) 的积分，并说明原点与切口的处理。
+ \exerciseitem{spherical-coordinate-jacobian}
+ 计算三维球坐标的 Jacobian，并指出参数化非单射和退化的位置。
+ \exerciseitem{piecewise-diffeomorphism-multiplicity}
+ 对极坐标映射在两个完整角周期上验证重数公式。
+ \optionalexerciseitem{riemann-change-variables-boundary-audit}
+ 逐项说明变量代换证明中紧致性、Jordan 边界、微分同胚和非零 Jacobian 的
+ 用途，并为至少两项被删除的情形给出反例。
 \end{enumerate}

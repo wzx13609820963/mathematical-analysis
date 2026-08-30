@@ -1,600 +1,434 @@
-\chapter{一致空间与拓扑群}
-\label{chap:uniform-spaces-topological-groups}
+\chapter{网与滤子}
+\label{chap:nets-filters}
 
-拓扑只说明一个点附近有哪些集合，却不直接比较两个可变点之间的距离。
-因此，“\(x_i\) 与 \(y_i\) 同时变动时彼此接近”“映射在所有点附近采用
-同一个控制尺度”“一个没有预先指定极限的网是 Cauchy 网”都不能仅靠
-开集公理表述。度量通过集合
-\[
- \{(x,y):d(x,y)<\varepsilon\}
-\]
-提供这种成对控制。一致空间保留这些集合应满足的运算规律，而不要求存在
-单一的数值距离。
+在度量空间中，许多拓扑问题都可以交给数列处理：闭包中的点是某个数列的
+极限，紧致性可以表述为每个数列都有收敛子列，连续性也可由保持数列极限
+刻画。一般拓扑空间未必有可数邻域基。此时，一个数列只能依次满足可数多
+个邻域条件，不能保证它最终进入点的全部邻域。
 
-本章先建立一致结构、Cauchy 滤子、全有界性和完备化。最后把拓扑群作为
-一类重要例子：群运算自然产生左、右两种一致结构，并说明同一拓扑之上
-可能存在不同的“一致接近”概念。
+网把指标集从 \(\N\) 换成任意有向集；滤子则直接记录“最终必然发生”的
+集合。两种语言携带同一类渐近信息，但各有适合的论证：网保留逐项逼近的
+形式，滤子在紧致性、乘积和一致结构中往往更简洁。本章建立两者的换译，
+并用它们给出不附加可数性假设的闭包、连续性与紧致性判据。
 
-\section{一致结构和一致连续}
+\section{有向集和网}
 
-\subsection{周围的运算}
-
-对 \(U,V\subseteq X\times X\)，记
-\[
- U^{-1}=\{(y,x):(x,y)\in U\},\qquad
- U\circ V=\{(x,z):\exists y, (x,y)\in V, (y,z)\in U\}.
-\]
-并记对角线 \(\Delta_X=\{(x,x):x\in X\}\)，以及
-\(U[x]=\{y:(x,y)\in U\}\)。
-
-\begin{definition}[一致结构]
-集合 \(X\) 上的一个\term{一致结构}是 \(X\times X\) 上的滤子
-\(\mathcal U\)，其成员称为\term{周围}，并满足：
+\begin{definition}[有向集]
+非空集合 \(I\) 上的关系 \(\preccurlyeq\) 若满足
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item 每个 \(U\in\mathcal U\) 都包含 \(\Delta_X\)；
- \item \(U\in\mathcal U\) 蕴含 \(U^{-1}\in\mathcal U\)；
- \item 对每个 \(U\in\mathcal U\)，存在 \(V\in\mathcal U\) 使
- \(V\circ V\subseteq U\)。
+ \item \(i\preccurlyeq i\)；
+ \item \(i\preccurlyeq j\preccurlyeq k\) 蕴含 \(i\preccurlyeq k\)；
+ \item 对任意 \(i,j\in I\)，存在 \(k\in I\) 使
+ \(i\preccurlyeq k\) 且 \(j\preccurlyeq k\)，
 \end{enumerate}
-集合 \(X\) 连同 \(\mathcal U\) 称为\term{一致空间}。
+则称 \((I,\preccurlyeq)\) 为\term{有向集}。这里不要求反对称性。
 \end{definition}
 
-把 \(U\) 换成 \(U\cap U^{-1}\)，可知对每个周围总能取对称周围
-\(V=V^{-1}\subseteq U\)。反复使用第三条，还可以在给定 \(U\) 内取
-对称 \(V\) 使 \(V\circ V\circ V\subseteq U\)。这些“平方根”或
-“三次根”周围代替了度量证明中把 \(\varepsilon\) 分成两份、三份的步骤。
-
-\begin{proposition}[一致结构诱导的拓扑]
-\label{prop:uniformity-induced-topology}
-对每个 \(x\in X\)，集合族
-\(\{U[x]:U\in\mathcal U\}\) 是一个邻域基，因而确定 \(X\) 上的拓扑。
-这个拓扑为 Hausdorff 拓扑，当且仅当
+第三条只要求任意有限组条件能够同时向后推进。通常的
+\((\N,\le)\) 是有向集；一个集合的有限子集全体按包含关系排序也是有向
+集；若 \(x\) 是拓扑空间中的点，则 \(x\) 的邻域全体按反向包含
 \[
- \bigcap_{U\in\mathcal U}U=\Delta_X.
+ U\preccurlyeq V\quad\Longleftrightarrow\quad V\subseteq U
 \]
-满足此条件的一致空间称为\term{分离的一致空间}。
+排序同样是有向集。最后一个例子已经表明，有向关系表示“信息变得更精细”，
+不一定表示数值增大。
+
+\begin{definition}[网]
+设 \(I\) 为有向集，映射 \(x:I\to X\) 称为 \(X\) 中的一个\term{网}，
+记作 \((x_i)_{i\in I}\)。若性质 \(P(i)\) 对某个 \(i_0\in I\) 之后
+的全部指标成立，即
+\[
+ i\succcurlyeq i_0\quad\Longrightarrow\quad P(i),
+\]
+则称 \(P(i)\) \term{最终成立}；若对每个 \(i_0\) 都存在
+\(i\succcurlyeq i_0\) 使 \(P(i)\) 成立，则称它\term{频繁成立}。
+\end{definition}
+
+数列是指标集为 \(\N\) 的网。更能体现一般性的例子来自有限逼近。设
+\(S\) 是任意集合，\(\mathcal D\) 为 \(S\) 的有限子集全体，按包含排序。
+若对每个 \(F\in\mathcal D\) 构造一个同时满足 \(F\) 中全部条件的对象
+\(x_F\)，那么“对每个固定条件 \(s\in S\)，当 \(F\) 充分大时该条件
+成立”就成为普通的最终性陈述。
+
+\begin{definition}[网的收敛]
+设 \(X\) 为拓扑空间。网 \((x_i)_{i\in I}\) \term{收敛}到
+\(x\in X\)，若对 \(x\) 的每个邻域 \(U\)，都有 \(x_i\in U\)
+最终成立，记作 \(x_i\to x\)。
+\end{definition}
+
+若把 \(x\) 的邻域全体作为指标集，并在每个邻域 \(U\) 中选取一点
+\(x_U\)，则所得网自动趋于 \(x\)。为了避免在任意多邻域上预先作选择，
+也可把指标写成
+\[
+ I=\{(U,y):U\text{ 是 }x\text{ 的邻域},\ y\in U\},
+\]
+并令 \(x_{(U,y)}=y\)。按邻域反向包含排序后，它同样趋于 \(x\)。
+
+\begin{proposition}[极限的唯一性]
+\label{prop:net-limits-hausdorff}
+拓扑空间 \(X\) 为 Hausdorff 空间，当且仅当 \(X\) 中每个收敛网的
+极限唯一。
 \end{proposition}
 
 \begin{proof}
-对两个基本邻域，\((U\cap V)[x]\subseteq U[x]\cap V[x]\)。给定
-\(U[x]\)，取对称 \(V\) 使 \(V\circ V\subseteq U\)。若
-\(y\in V[x]\)，则 \(V[y]\subseteq U[x]\)：确实，
-\((x,y),(y,z)\in V\) 蕴含 \((x,z)\in V\circ V\)。这正是邻域基
-产生拓扑所需的局部细化性质。
+若 \(X\) 为 Hausdorff 空间，而同一网同时趋于 \(x\ne y\)，取不交邻域
+\(U\ni x\)、\(V\ni y\)。网最终在 \(U\) 中，也最终在 \(V\) 中；有向
+性使这两个最终条件可以同时满足，得到某项属于 \(U\cap V\)，矛盾。
 
-若 \(x\ne y\) 且某个对称 \(V\) 满足
-\(V\circ V\) 不含 \((x,y)\)，则 \(V[x]\cap V[y]=\varnothing\)；否则
-取交点即可得到 \((x,y)\in V\circ V\)。因此周围交为对角线时，任意
-两点可分离。反之，若 \((x,y)\) 属于每个周围，则 \(y\in U[x]\) 对
-所有 \(U\) 成立，任何 \(x\) 的邻域都含 \(y\)，不可能是 Hausdorff。
+反之，若 \(x\ne y\) 不能由不交邻域分开，令指标集由三元组
+\((U,V,z)\) 组成，其中 \(U\ni x\)、\(V\ni y\) 为邻域且
+\(z\in U\cap V\)，按 \(U,V\) 同时反向包含排序，并取网值为 \(z\)。
+这个网既趋于 \(x\) 又趋于 \(y\)，故极限不唯一。
 \end{proof}
 
-\subsection{度量、乘积与一致映射}
+\section{网的收敛及子网}
 
-\begin{example}[度量一致结构]
-度量空间 \((X,d)\) 的集合
+数列的子列由严格递增指标给出。一般有向集没有一个适用的“严格递增整数
+指标”，需要直接规定新指标最终越过旧指标的每个阶段。
+
+\subsection{最终共尾映射与聚点}
+
+\begin{definition}[子网]
+设 \((x_i)_{i\in I}\) 是网。若 \(J\) 是有向集，映射
+\(\phi:J\to I\) 满足
 \[
- U_\varepsilon=\{(x,y):d(x,y)<\varepsilon\},\qquad\varepsilon>0,
+ \forall i_0\in I\ \exists j_0\in J\ \forall j\succcurlyeq j_0,
+ \qquad \phi(j)\succcurlyeq i_0,
 \]
-构成一致结构的一个基。三角不等式给出
-\(U_{\varepsilon/2}\circ U_{\varepsilon/2}\subseteq U_\varepsilon\)。
-它诱导的拓扑正是度量拓扑。
+则称 \(\phi\) 为\term{最终共尾映射}，并称
+\((x_{\phi(j)})_{j\in J}\) 为 \((x_i)\) 的一个\term{子网}。
+\end{definition}
+
+有些文献还要求 \(\phi\) 保序。本书采用上面的最终共尾定义；它恰好保证
+原网最终成立的每个性质在子网上仍最终成立。因此，收敛网的每个子网收敛
+到同一极限。
+
+\begin{definition}[网的聚点]
+点 \(x\in X\) 称为网 \((x_i)\) 的\term{聚点}，若对 \(x\) 的每个
+邻域 \(U\) 和每个 \(i_0\in I\)，都存在 \(i\succcurlyeq i_0\) 使
+\(x_i\in U\)。也就是说，\(x_i\in U\) 对每个邻域 \(U\) 都频繁成立。
+\end{definition}
+
+\begin{theorem}[聚点与收敛子网]
+\label{thm:net-cluster-subnet}
+点 \(x\) 是网 \((x_i)_{i\in I}\) 的聚点，当且仅当该网有一个收敛
+到 \(x\) 的子网。
+\end{theorem}
+
+\begin{proof}
+若子网 \(x_{\phi(j)}\to x\)，给定邻域 \(U\) 和 \(i_0\)，子网最终进入
+\(U\)，而 \(\phi\) 最终越过 \(i_0\)。把两个最终条件合并，便得到某个
+\(i=\phi(j)\succcurlyeq i_0\) 且 \(x_i\in U\)。
+
+反过来，设 \(x\) 是聚点。令
+\[
+ J=\{(i,U):i\in I, U\text{ 是 }x\text{ 的邻域},\ x_i\in U\}.
+\]
+规定
+\[
+ (i,U)\preccurlyeq(j,V)
+ \quad\Longleftrightarrow\quad i\preccurlyeq j\text{ 且 }V\subseteq U.
+\]
+给定 \((i,U),(j,V)\)，先取 \(k_0\succcurlyeq i,j\)，再由聚点性质取
+\(k\succcurlyeq k_0\) 使 \(x_k\in U\cap V\)。于是
+\((k,U\cap V)\) 是共同上界，故 \(J\) 有向。令
+\(\phi(i,U)=i\)。聚点性质保证 \(J\) 非空；给定 \(i_0\)，取某个
+\(i\succcurlyeq i_0\) 和邻域 \(X\) 得到 \((i,X)\in J\)，其后的
+指标都被 \(\phi\) 送到 \(i_0\) 之后，所以 \(\phi\) 最终共尾。
+最后，给定邻域 \(U_0\)，从某个 \((i,U_0)\in J\) 开始，后继
+\((j,V)\) 满足 \(x_j\in V\subseteq U_0\)。所得子网收敛到 \(x\)。
+\end{proof}
+
+网之所以能够恢复一般拓扑，关键是指标集可以同时编码全部邻域。
+
+\subsection{闭包与连续性}
+
+\begin{theorem}[闭包的网刻画]
+\label{thm:closure-by-nets}
+设 \(A\subseteq X\)。则
+\[
+ x\in\overline A
+ \quad\Longleftrightarrow\quad
+ \text{存在 }A\text{ 中的网收敛到 }x.
+\]
+因而，\(A\) 闭当且仅当 \(A\) 中每个收敛网的极限仍在 \(A\) 中。
+\end{theorem}
+
+\begin{proof}
+若 \(x\in\overline A\)，每个邻域 \(U\) 都与 \(A\) 相交。取指标集
+\[
+ I=\{(U,a):U\ni x\text{ 为邻域},\ a\in A\cap U\},
+\]
+按邻域反向包含排序，并令 \(x_{(U,a)}=a\)。这给出 \(A\) 中趋于
+\(x\) 的网。反向结论直接来自闭包 \(\overline A\) 是含 \(A\) 的闭集：
+若网始终在 \(A\) 中并趋于 \(x\)，则每个 \(x\) 的邻域都与 \(A\)
+相交，故 \(x\in\overline A\)。闭集刻画由
+\(A=\overline A\) 得到。
+\end{proof}
+
+\begin{theorem}[连续性的网判据]
+\label{thm:continuity-by-nets}
+映射 \(f:X\to Y\) 在 \(x\in X\) 连续，当且仅当对每个
+\(x_i\to x\)，都有 \(f(x_i)\to f(x)\)。
+\end{theorem}
+
+\begin{proof}
+连续性立即推出保持网的极限。反之，若 \(f\) 在 \(x\) 不连续，则存在
+\(f(x)\) 的邻域 \(V\)，使 \(f^{-1}(V)\) 不是 \(x\) 的邻域。
+因此每个 \(x\) 的邻域 \(U\) 都含有一点
+\(x_U\notin f^{-1}(V)\)。用成对指标 \((U,y)\) 可避免选择：令
+\[
+ I=\{(U,y):U\ni x, y\in U\setminus f^{-1}(V)\},
+\]
+按 \(U\) 反向包含排序。网 \(y_{(U,y)}=y\) 趋于 \(x\)，但其像网
+没有任何一项落在 \(V\) 中，故不趋于 \(f(x)\)，与假设矛盾。
+\end{proof}
+
+\begin{example}[序列不能刻画的闭包]
+取不可数集合 \(S\)，令 \(X=\{0,1\}^{S}\) 取乘积拓扑，\(A\) 为所有
+只有有限多个坐标等于 \(1\) 的点。恒等于 \(1\) 的点记为 \(\boldsymbol1\)。
+每个基本邻域只限制有限多个坐标，故与 \(A\) 相交，于是
+\(\boldsymbol1\in\overline A\)。
+
+然而，\(A\) 中任一数列 \((a_n)\) 的支集并集仍至多可数。可取
+\(s\in S\) 不在这个并集中，于是 \(a_n(s)=0\) 对所有 \(n\) 成立，
+该数列不可能趋于 \(\boldsymbol1\)。另一方面，以 \(S\) 的有限子集
+\(F\) 为指标，令 \(a_F=\boldsymbol1_F\)，则 \(a_F\to\boldsymbol1\)。
 \end{example}
 
-\begin{example}[乘积一致结构]
-设 \((X_s,\mathcal U_s)\) 是一族一致空间。乘积
-\(X=\prod_{s\in S}X_s\) 上的一致结构由集合
-\[
- \bigcap_{k=1}^n(\pi_{s_k}\times\pi_{s_k})^{-1}(U_k),
- \qquad U_k\in\mathcal U_{s_k},
-\]
-生成。它只同时控制有限多个坐标，诱导乘积拓扑。若每个因子分离，则乘积
-也分离。
-\end{example}
+\section{滤子和滤子基}
 
-\begin{definition}[一致连续]
-设 \((X,\mathcal U_X)\)、\((Y,\mathcal U_Y)\) 为一致空间。映射
-\(f:X\to Y\) 称为\term{一致连续}，若对每个
-\(V\in\mathcal U_Y\)，存在 \(U\in\mathcal U_X\) 使
+\begin{definition}[滤子]
+集合 \(X\) 上的一个\term{滤子}是子集族 \(\mathcal F\subseteq
+\mathcal P(X)\)，满足
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(\varnothing\notin\mathcal F\)，且 \(X\in\mathcal F\)；
+ \item \(A,B\in\mathcal F\) 蕴含 \(A\cap B\in\mathcal F\)；
+ \item \(A\in\mathcal F\) 且 \(A\subseteq B\subseteq X\) 蕴含
+ \(B\in\mathcal F\)。
+\end{enumerate}
+若 \(\mathcal F\subseteq\mathcal G\)，称 \(\mathcal G\) 比
+\(\mathcal F\) \term{更细}。
+\end{definition}
+
+滤子中的集合可理解为最终必须进入的集合。点 \(x\) 的邻域滤子
+\(\mathcal N(x)\) 由所有含 \(x\) 的邻域组成；网 \((x_i)\) 的
+\term{尾滤子}为
 \[
- (x,y)\in U\quad\Longrightarrow\quad(f(x),f(y))\in V.
+ \mathcal F_x=\{A\subseteq X:\text{存在 }i_0,
+ \{x_i:i\succcurlyeq i_0\}\subseteq A\}.
+\]
+
+\subsection{滤子基与网的换译}
+
+\begin{definition}[滤子基]
+非空集合族 \(\mathcal B\subseteq\mathcal P(X)\setminus\{\varnothing\}\)
+称为\term{滤子基}，若对任意 \(B_1,B_2\in\mathcal B\)，存在
+\(B_3\in\mathcal B\) 使 \(B_3\subseteq B_1\cap B_2\)。它生成的滤子为
+\[
+ \langle\mathcal B\rangle
+ =\{A\subseteq X:\text{存在 }B\in\mathcal B, B\subseteq A\}.
 \]
 \end{definition}
 
-这个定义在度量空间中就是熟悉的 \(\varepsilon\)-\(\delta\) 一致连续。
-由于 \(U[x]\) 同时服务于所有 \(x\)，它比逐点连续多出的正是一个全局
-可用的周围。任意一致连续映射都连续，复合仍一致连续。
-
-同一个拓扑可以承载不同的一致结构。在 \(\R\) 上，
+网的尾部集合构成滤子基。反过来，给定滤子基 \(\mathcal B\)，令
 \[
- d(x,y)=|x-y|,\qquad
- \rho(x,y)=|\arctan x-\arctan y|
+ I_{\mathcal B}=\{(B,x):B\in\mathcal B, x\in B\},
 \]
-诱导相同的通常拓扑。恒等映射 \((\R,d)\to(\R,\rho)\) 一致连续，因为
-\(\arctan\) 是 Lipschitz 函数；反向恒等映射不一致连续，因为
-\(\rho(n,n+1)\to0\)，而 \(d(n,n+1)=1\)。这两个一致结构的完备性也
-不同：\((n)\) 在 \(\rho\) 下是 Cauchy 列，却没有 \(\rho\)-极限。
+并按 \(B\) 的反向包含排序，取 \(x_{(B,x)}=x\)，便得到与
+\(\langle\mathcal B\rangle\) 携带同样最终信息的网。使用成对指标使这个
+构造不需要为每个 \(B\) 预先选点。
 
-\section{Cauchy 滤子和完备性}
+\subsection{收敛与聚集}
 
-\subsection{Cauchy 对象}
-
-称 \(A\subseteq X\) 为 \(U\)-\term{小集}，若
-\(A\times A\subseteq U\)。在度量空间中，这表示 \(A\) 的直径小于
-相应尺度。
-
-\begin{definition}[Cauchy 滤子与 Cauchy 网]
-一致空间 \((X,\mathcal U)\) 上的滤子 \(\mathcal F\) 称为
-\term{Cauchy 滤子}，若对每个 \(U\in\mathcal U\)，存在
-\(A\in\mathcal F\) 使 \(A\times A\subseteq U\)。
-
-网 \((x_i)\) 称为\term{Cauchy 网}，若对每个 \(U\in\mathcal U\)，
-存在 \(i_0\) 使
+\begin{definition}[滤子的收敛与聚点]
+滤子 \(\mathcal F\) \term{收敛}到 \(x\)，若
+\(\mathcal N(x)\subseteq\mathcal F\)，记作 \(\mathcal F\to x\)。
+点 \(x\) 是 \(\mathcal F\) 的\term{聚点}，若
 \[
- i,j\succcurlyeq i_0\quad\Longrightarrow\quad(x_i,x_j)\in U.
+ A\cap U\ne\varnothing
+ \quad(A\in\mathcal F, U\in\mathcal N(x)).
 \]
+等价地，\(x\in\bigcap_{A\in\mathcal F}\overline A\)。
 \end{definition}
 
-网是 Cauchy 网当且仅当它的尾滤子是 Cauchy 滤子。若滤子收敛，则它是
-Cauchy 滤子：给定 \(U\)，取对称 \(V\) 使
-\(V\circ V\subseteq U\)，滤子包含 \(V[x]\)，而
-\(V[x]\times V[x]\subseteq U\)。
+对网的尾滤子，滤子收敛等价于网收敛，滤子聚点等价于网聚点。更细的滤子
+保留收敛，但未必保留聚点。
 
-\begin{definition}[完备一致空间]
-若每个 Cauchy 滤子都收敛，则称一致空间 \(X\) \term{完备}。
+\subsection{超滤子}
+
+\begin{definition}[超滤子]
+在包含关系下极大的滤子称为\term{超滤子}。
 \end{definition}
 
-在分离一致空间中，滤子极限唯一。度量空间里，用尾滤子在 Cauchy 列与
-Cauchy 滤子之间换译，可恢复通常的完备性定义。一般一致空间可能没有
-可数周围基，仅检验 Cauchy 列会漏掉一部分滤子。
-
-\subsection{聚点与完备子空间}
-
-\begin{lemma}[Cauchy 滤子及其聚点]
-\label{lem:cauchy-filter-cluster-limit}
-Cauchy 滤子若有聚点 \(x\)，则收敛到 \(x\)。
-\end{lemma}
-
-\begin{proof}
-给定周围 \(U\)，取对称 \(V\) 使 \(V\circ V\subseteq U\)，再取
-\(V\)-小集 \(A\in\mathcal F\)。聚点性质给出
-\(y\in A\cap V[x]\)。对任意 \(a\in A\)，有
-\((x,y)\in V\) 和 \((y,a)\in V\)，故 \(a\in U[x]\)。于是
-\(A\subseteq U[x]\)，从而 \(U[x]\in\mathcal F\)。这对每个周围
-成立，所以 \(\mathcal F\to x\)。
-\end{proof}
-
-\begin{proposition}[一致连续映射保持 Cauchy 性]
-\label{prop:uniform-map-preserves-cauchy}
-若 \(f:X\to Y\) 一致连续，则每个 Cauchy 滤子的像滤子仍为 Cauchy
-滤子，每个 Cauchy 网的像网仍为 Cauchy 网。
+\begin{proposition}[超滤子的二分性质]
+\label{prop:ultrafilter-dichotomy}
+滤子 \(\mathcal U\) 是超滤子，当且仅当对每个 \(A\subseteq X\)，
+恰有 \(A\in\mathcal U\) 与 \(X\setminus A\in\mathcal U\) 之一成立。
 \end{proposition}
 
 \begin{proof}
-给定 \(Y\) 中周围 \(V\)，取 \(X\) 中周围 \(U\) 使
-\((x,y)\in U\) 蕴含 \((f(x),f(y))\in V\)。若
-\(A\times A\subseteq U\)，则
-\(f(A)\times f(A)\subseteq V\)。滤子和网的结论分别由定义得到。
+两者不能同时成立，否则空集属于 \(\mathcal U\)。若两者都不属于
+\(\mathcal U\)，则每个 \(F\in\mathcal U\) 都与 \(A\) 相交；否则
+\(F\subseteq X\setminus A\) 会推出补集属于 \(\mathcal U\)。于是
+\(\{F\cap A:F\in\mathcal U\}\) 是滤子基，生成严格包含
+\(\mathcal U\) 的滤子，违背极大性。反向结论也直接：若
+\(\mathcal G\supsetneq\mathcal U\) 是滤子，取
+\(A\in\mathcal G\setminus\mathcal U\)，则 \(X\setminus A\in\mathcal U
+\subseteq\mathcal G\)，从而空集属于 \(\mathcal G\)，矛盾。
 \end{proof}
 
-\begin{proposition}[完备子空间]
-\label{prop:complete-subspace-closed-uniform}
-分离一致空间的完备子空间必为闭集；完备一致空间的闭子空间仍完备。
-\end{proposition}
+任意滤子都能扩张为超滤子。这一超滤子扩张原理使用选择原则；
+\chapterref{chap:compact-topological-spaces}在证明任意乘积紧致性时已经
+说明了本书采用的相应形式。这里不把它误写成有限选择的推论。
 
-\begin{proof}
-设 \(A\subseteq X\) 完备且 \(x\in\overline A\)。取 \(A\) 中趋于
-\(x\) 的网。它在 \(X\) 中是 Cauchy 网，因诱导一致结构相同，在
-\(A\) 中也是 Cauchy 网；其尾滤子在 \(A\) 中收敛到某个 \(a\in A\)。
-于是该网在 \(X\) 中同时趋于 \(x,a\)。分离性给出 \(x=a\in A\)，
-所以 \(A\) 闭。
+\section{紧致性、连续性与三种收敛语言}
 
-反之，设 \(X\) 完备、\(A\) 闭，且 \(\mathcal F\) 是 \(A\) 上的
-Cauchy 滤子。把它视为 \(X\) 上含 \(A\) 的滤子，完备性给出极限
-\(x\in X\)。因为 \(A\) 闭且 \(A\) 属于滤子，必有 \(x\in A\)，
-故它在子空间中也收敛。
-\end{proof}
+\subsection{紧致性的等价判据}
 
-\section{全有界性与完备化}
-
-\begin{definition}[全有界]
-一致空间 \(X\) 称为\term{全有界}，若对每个周围 \(U\)，存在有限集
-\(F\subseteq X\) 使
-\[
- X=\bigcup_{a\in F}U[a].
-\]
-\end{definition}
-
-度量空间中这正是对每个 \(\varepsilon>0\) 都可由有限多个
-\(\varepsilon\)-球覆盖。它比有界强：无限维赋范空间的单位球有界，
-但通常不全有界。
-
-\subsection{紧致、完备与全有界}
-
-\begin{theorem}[紧致性的一致刻画]
-\label{thm:compact-complete-totally-bounded-uniform}
-一致空间 \(X\) 紧致，当且仅当它完备且全有界。
+\begin{theorem}[紧致性的网与滤子刻画]
+\label{thm:compactness-nets-filters}
+对拓扑空间 \(X\)，下列命题等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \(X\) 紧致；
+ \item \(X\) 中每个滤子都有聚点；
+ \item \(X\) 中每个超滤子都收敛；
+ \item \(X\) 中每个网都有收敛子网。
+\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-先设 \(X\) 紧致。任一 Cauchy 滤子由紧致性具有聚点，再由引理
-\ref{lem:cauchy-filter-cluster-limit} 收敛，所以 \(X\) 完备。给定周围
-\(U\)，取对称 \(V\) 使 \(V\circ V\subseteq U\)。集合
-\(\{\operatorname{int}V[x]:x\in X\}\) 覆盖 \(X\)；取有限子覆盖后，
-相应有限多个 \(U[x]\) 也覆盖 \(X\)，故全有界。
+\((\mathrm i)\Rightarrow(\mathrm{ii})\)。对滤子 \(\mathcal F\)，闭集族
+\(\{\overline A:A\in\mathcal F\}\) 具有有限交性质。事实上，滤子中的
+有限交非空，并且
+\[
+ \overline{A_1\cap\cdots\cap A_n}
+ \subseteq\overline A_1\cap\cdots\cap\overline A_n.
+\]
+紧致性给出
+\[
+ \bigcap_{A\in\mathcal F}\overline A\ne\varnothing,
+\]
+其中任一点都是聚点。
 
-反之，设 \(X\) 完备且全有界。由\chapterref{chap:nets-filters}的紧致性刻画，
-只需证明每个超滤子
-\(\mathcal F\) 收敛。给定周围 \(U\)，取对称 \(V\) 使
-\(V\circ V\subseteq U\)，并取有限覆盖
-\(X=\bigcup_{k=1}^nV[x_k]\)。超滤子必含其中某个 \(V[x_k]\)：若全部
-不含，则全部补集都属于超滤子，它们的有限交为空。又
-\(V[x_k]\times V[x_k]\subseteq U\)，故 \(\mathcal F\) 为 Cauchy
-滤子。完备性使它收敛，因而 \(X\) 紧致。
+\((\mathrm{ii})\Rightarrow(\mathrm{iii})\)。设超滤子 \(\mathcal U\)
+有聚点 \(x\)。若某邻域 \(V\ni x\) 不属于 \(\mathcal U\)，二分性质
+给出 \(X\setminus V\in\mathcal U\)，这与聚点条件矛盾。因此
+\(\mathcal N(x)\subseteq\mathcal U\)，即 \(\mathcal U\to x\)。
+
+\((\mathrm{iii})\Rightarrow(\mathrm{ii})\)。把 \(\mathcal F\) 扩张为
+超滤子 \(\mathcal U\)。若 \(\mathcal U\to x\)，则 \(x\) 是
+\(\mathcal U\) 的聚点，更是较粗滤子 \(\mathcal F\) 的聚点。
+
+\((\mathrm{ii})\Rightarrow(\mathrm{iv})\)。任一网的尾滤子有聚点；该点
+也是网的聚点，由定理 \ref{thm:net-cluster-subnet} 得到收敛子网。
+
+\((\mathrm{iv})\Rightarrow(\mathrm i)\)。若开覆盖 \(\mathcal O\) 没有
+有限子覆盖，令
+\[
+ I=\{(\mathcal E,x):\mathcal E\subseteq\mathcal O\text{ 有限},
+ x\notin\bigcup\mathcal E\},
+\]
+按有限族 \(\mathcal E\) 的包含关系定向，并取网值为第二坐标 \(x\)。
+这是非空有向集：两个有限族的并仍不能覆盖 \(X\)。若某子网趋于
+\(x_0\)，取 \(O_0\in\mathcal O\) 使 \(x_0\in O_0\)。共尾性保证子网
+最终对应于含 \(O_0\) 的有限族，因此其值最终不在 \(O_0\) 中；收敛性
+却要求它最终在 \(O_0\) 中，矛盾。故 \(\mathcal O\) 必有有限子覆盖。
 \end{proof}
 
-完备化不应只增加“形式极限”。新点必须恰好填补原空间的 Cauchy 行为，
-同时保留原有的一致结构。
+对映射 \(f:X\to Y\) 和滤子 \(\mathcal F\)，定义像滤子
+\[
+ f_*\mathcal F
+ =\{B\subseteq Y:f^{-1}(B)\in\mathcal F\}.
+\]
+它是由集合族 \(\{f(A):A\in\mathcal F\}\) 生成的滤子。
 
-\subsection{最小 Cauchy 滤子构造}
+\subsection{连续映射与可数性}
 
-\begin{definition}[一致完备化]
-分离一致空间 \(X\) 的一个\term{完备化}是三元组
-\((\widehat X,\widehat{\mathcal U},\iota)\)，其中 \(\widehat X\)
-分离且完备，\(\iota:X\to\widehat X\) 为一致嵌入，并且
-\(\iota(X)\) 在 \(\widehat X\) 中稠密。
-\end{definition}
-
-\begin{theorem}[一致空间的完备化]
-\label{thm:uniform-completion}
-每个分离一致空间都有完备化。任意两个完备化之间存在唯一的、在 \(X\)
-上为恒等的双向一致同构。
-\end{theorem}
+\begin{corollary}[连续性的三种表述]
+映射 \(f:X\to Y\) 在 \(x\) 连续，当且仅当下列任一条件成立：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 对每个网 \(x_i\to x\)，有 \(f(x_i)\to f(x)\)；
+ \item 对每个滤子 \(\mathcal F\to x\)，有
+ \(f_*\mathcal F\to f(x)\)；
+ \item \(f_*\mathcal N(x)\to f(x)\)。
+\end{enumerate}
+\end{corollary}
 
 \begin{proof}
-下面给出 Cauchy 滤子构造。称 Cauchy 滤子 \(\mathcal F\) 为最小的，
-若它不含严格更粗的 Cauchy 滤子。
-
-先说明每个 Cauchy 滤子都有唯一的最小化。对 \(A\subseteq X\) 记
-\[
- U[A]=\bigcup_{a\in A}U[a].
-\]
-给定 Cauchy 滤子 \(\mathcal F\)，考虑所有
-\[
- U[A],\qquad U\in\mathcal U,\quad A\in\mathcal F.
-\]
-它们构成滤子基：对 \(U[A]\) 与 \(W[B]\)，集合
-\(A\cap B\) 属于 \(\mathcal F\) 且非空，而
-\[
- (U\cap W)[A\cap B]\subseteq U[A]\cap W[B].
-\]
-令生成的滤子为 \(\mathcal F^0\)。由于 \(A\subseteq U[A]\)，每个基集
-都属于 \(\mathcal F\)，所以 \(\mathcal F^0\subseteq\mathcal F\)。给定
-周围 \(U\)，取对称周围 \(V\) 使 \(V^3\subseteq U\)，并在
-\(\mathcal F\) 中取一个 \(V\)-小集 \(A\)。若 \(x,y\in V[A]\)，可取
-\(a,b\in A\) 使
-\[
- (a,x),(b,y)\in V.
-\]
-由对称性和 \(A\) 的 \(V\)-小性，\((x,y)\in V^3\subseteq U\)。因此
-\(V[A]\) 是 \(\mathcal F^0\) 中的 \(U\)-小集，\(\mathcal F^0\) 仍为
-Cauchy 滤子。
-
-若 \(\mathcal G\subseteq\mathcal F\) 也是 Cauchy 滤子，给定基集
-\(U[A]\)，取对称 \(V\subseteq U\)，再取 \(\mathcal G\) 中的
-\(V\)-小集 \(B\)。因为 \(A,B\in\mathcal F\)，可取
-\(z\in A\cap B\)。对每个 \(b\in B\)，有
-\((z,b)\in V\)，故 \(b\in V[A]\subseteq U[A]\)。于是
-\(U[A]\in\mathcal G\)，从而 \(\mathcal F^0\subseteq\mathcal G\)。
-这说明 \(\mathcal F^0\) 是 \(\mathcal F\) 所含的最粗 Cauchy 滤子，
-也同时证明了最小化的唯一性。
-
-令 \(\widehat X\) 为所有最小 Cauchy 滤子的集合。对称周围 \(U\) 给出
-关系
-\[
- U^*=\{(\mathcal F,\mathcal G):
- \mathcal F\cap\mathcal G\text{ 中含有一个 }U\text{-小集}\}.
-\]
-这些关系构成一致结构的基。每个 \(\mathcal F\in\widehat X\) 都含有
-\(U\)-小集，所以 \(U^*\) 含对角线；\(U^*\) 也是对称的。给定两个
-对称周围 \(U,W\)，可取对称周围 \(R\subseteq U\cap W\)，于是
-\(R^*\subseteq U^*\cap W^*\)。还需验证合成公理。取对称 \(V\) 使
-\(V^2\subseteq U\)。若
-\[
- (\mathcal F,\mathcal G)\in V^*,\qquad
- (\mathcal G,\mathcal H)\in V^*,
-\]
-则分别存在 \(V\)-小集
-\(A\in\mathcal F\cap\mathcal G\) 与
-\(B\in\mathcal G\cap\mathcal H\)。由于 \(A\cap B\ne\varnothing\)，取
-\(z\in A\cap B\)。集合 \(A\cup B\) 属于
-\(\mathcal F\cap\mathcal H\)；同一集合内的两点或者同在 \(A\)、同在
-\(B\)，或者可经由 \(z\) 相连，所以 \(A\cup B\) 是 \(U\)-小集。
-因此 \(V^*\circ V^*\subseteq U^*\)。
-
-所得一致结构还是分离的。若
-\((\mathcal F,\mathcal G)\) 属于每个 \(U^*\)，则滤子
-\(\mathcal F\cap\mathcal G\) 对每个周围都含有一个相应小集，因而是
-Cauchy 滤子。它同时比两个最小 Cauchy 滤子更粗，最小性给出
-\[
- \mathcal F=\mathcal F\cap\mathcal G=\mathcal G.
-\]
-故所有 \(U^*\) 的交恰为 \(\widehat X\) 的对角线。
-
-点 \(x\in X\) 的主滤子
-\(\dot x=\{A\subseteq X:x\in A\}\) 的最小化正是邻域滤子
-\(\mathcal N(x)\)：取 \(A=\{x\}\) 可得到所有 \(U[x]\)，而任意
-\(U[A]\) 在 \(x\in A\) 时都包含 \(U[x]\)。定义
-\[
- \iota(x)=\mathcal N(x).
-\]
-若 \((\iota(x),\iota(y))\in U^*\)，则某个共享的 \(U\)-小集是
-\(x,y\) 的共同邻域，特别地含有 \(x,y\)，所以 \((x,y)\in U\)。反之，
-给定对称周围 \(U\)，取对称 \(V\) 使 \(V^3\subseteq U\)。若
-\((x,y)\in V\)，则 \(V[x]\cup V[y]\) 同时属于
-\(\mathcal N(x)\) 和 \(\mathcal N(y)\)，并且是 \(U\)-小集。因此
-\[
- V\subseteq(\iota\times\iota)^{-1}(U^*)\subseteq U.
-\]
-这两个包含关系说明 \(\iota\) 是一致嵌入；\(X\) 的分离性使它单射。
-
-再证像的稠密性。给定 \(\mathcal F\in\widehat X\) 和基本邻域
-\(U^*[\mathcal F]\)，取对称 \(V\) 使 \(V^3\subseteq U\)，并取
-\(\mathcal F\) 中的 \(V\)-小集 \(A\) 与一点 \(x\in A\)。集合
-\(V[A]\) 属于 \(\mathcal F\)，又因包含 \(V[x]\) 而属于
-\(\mathcal N(x)\)。与上面相同的三段估计说明 \(V[A]\) 是 \(U\)-小集，
-故 \((\mathcal F,\iota(x))\in U^*\)。所以 \(\iota(X)\) 稠密。
-
-下面证明 \(\widehat X\) 完备。暂记 \(Y=\widehat X\)、
-\(D=\iota(X)\)，并设 \(\Phi\) 是 \(Y\) 上的 Cauchy 滤子。对
-\(\mathcal A\in\Phi\) 和 \(Y\) 的周围 \(W\)，令
-\[
- B(W,\mathcal A)=W[\mathcal A]\cap D.
-\]
-这些集合都非空：在 \(\mathcal A\) 中取一点 \(a\)，则 \(W[a]\) 是
-\(a\) 的邻域，必与稠密集 \(D\) 相交。它们还构成 \(D\) 上的滤子基。
-事实上，对 \(B(W_1,\mathcal A_1)\) 与
-\(B(W_2,\mathcal A_2)\)，取
-\(W_3\subseteq W_1\cap W_2\)，便有
-\[
- B(W_3,\mathcal A_1\cap\mathcal A_2)
- \subseteq B(W_1,\mathcal A_1)\cap B(W_2,\mathcal A_2).
-\]
-记它生成的滤子为 \(\Psi\)。给定周围 \(U\)，取对称 \(V\) 使
-\(V^3\subseteq U\)，再由 \(\Phi\) 的 Cauchy 性取 \(V\)-小集
-\(\mathcal A\in\Phi\)。集合 \(B(V,\mathcal A)\) 是 \(U\)-小集，
-故 \(\Psi\) 为 Cauchy 滤子。
-
-滤子 \(\Phi\) 与 \(\Psi\) 还满足以下相合关系：对每个周围 \(U\)，
-存在 \(\mathcal A\in\Phi\)、\(B\in\Psi\) 使
-\[
- \mathcal A\times B\subseteq U.                                      \tag{*}
-\]
-为此取对称 \(V\) 使 \(V^2\subseteq U\)，并在 \(\Phi\) 中取
-\(V\)-小集 \(\mathcal A\)，再令
-\(B=B(V,\mathcal A)\)。若 \(a\in\mathcal A\)、\(b\in B\)，可取
-\(c\in\mathcal A\) 使 \((c,b)\in V\)，而
-\((a,c)\in V\)，所以 \((a,b)\in U\)，即得 \((*)\)。
-
-通过一致同构 \(\iota:X\to D\) 把 \(\Psi\) 拉回为 \(X\) 上的 Cauchy
-滤子 \(\mathcal F\)，并令 \(\mathcal F^0\) 为其最小化。把
-\(\Psi\) 看作 \(Y\) 上由其成员生成的滤子时，它就是
-\(\iota_*\mathcal F\)。现证
-\[
- \iota_*\mathcal F\longrightarrow\mathcal F^0.
-\]
-给定基本邻域 \(U^*[\mathcal F^0]\)，取对称 \(V\) 使
-\(V^3\subseteq U\)，再取 \(\mathcal F^0\) 中的 \(V\)-小集 \(A\)。
-由于 \(\mathcal F^0\subseteq\mathcal F\)，有 \(A\in\mathcal F\)。
-对任意 \(x\in A\)，集合 \(V[A]\) 同时属于
-\(\mathcal F^0\) 与 \(\mathcal N(x)\)，并且是 \(U\)-小集。因此
-\[
- \iota(A)\subseteq U^*[\mathcal F^0].
-\]
-左端属于 \(\iota_*\mathcal F\)，所以该基本邻域也属于像滤子，收敛得证。
-
-最后由 \((*)\) 把极限传回 \(\Phi\)。这里使用如下直接估计：若两个滤子
-\(\mathcal H,\mathcal K\) 对每个周围 \(V\) 都含有集合
-\(H\in\mathcal H\)、\(K\in\mathcal K\) 使 \(H\times K\subseteq V\)，
-且 \(\mathcal K\to y\)，则 \(\mathcal H\to y\)。给定周围 \(U\)，取
-对称 \(V\) 使 \(V^2\subseteq U\)，再取这样的 \(H,K\)。集合
-\(K\cap V[y]\) 非空；若 \(k\) 属于该交，则对任意 \(h\in H\)，
-\((y,k),(k,h)\in V\)，故 \(h\in U[y]\)。于是
-\(H\subseteq U[y]\)，即 \(U[y]\in\mathcal H\)。把这个结论用于
-\(\mathcal H=\Phi\)、\(\mathcal K=\iota_*\mathcal F\)，得到
-\(\Phi\to\mathcal F^0\)。因此 \(Y=\widehat X\) 完备。
-
-还需证明完备化的唯一性。先记录稠密一致延拓事实：若 \(D\) 是一致空间
-\(Z\) 的稠密子空间，\(Y_0\) 完备且分离，而
-\(f:D\to Y_0\) 一致连续，则 \(f\) 唯一地一致连续延拓到 \(Z\)。对
-\(z\in Z\)，由集合
-\[
- V[z]\cap D,\qquad V\text{ 遍历 }Z\text{ 的周围},
-\]
-生成 \(D\) 上的滤子 \(\mathcal T_z\)。稠密性保证基集非空；若
-\(V\) 对称且 \(V^2\subseteq U\)，则
-\(V[z]\cap D\) 是 \(U\)-小集，所以 \(\mathcal T_z\) 是 Cauchy
-滤子。于是 \(f_*\mathcal T_z\) 在 \(Y_0\) 中收敛，并由分离性有唯一
-极限。定义
-\[
- \widehat f(z)=\lim f_*\mathcal T_z.
-\]
-当 \(z\in D\) 时，\(\mathcal T_z\to z\)，故
-\(\widehat f(z)=f(z)\)。
-
-为验证一致连续性，给定 \(Y_0\) 的周围 \(W\)，取对称 \(W_0\) 使
-\(W_0^3\subseteq W\)。由 \(f\) 的一致连续性，可取 \(Z\) 的周围
-\(U\)，使对 \(d,e\in D\)，
-\[
- (d,e)\in U\quad\Longrightarrow\quad(f(d),f(e))\in W_0.
-\]
-再取对称 \(V\) 使 \(V^3\subseteq U\)。若 \((z,z')\in V\)，由两个
-像滤子的收敛性，可以分别取 \(d,e\in D\) 使
-\[
- (z,d),(z',e)\in V,\qquad
- (\widehat f(z),f(d)),(\widehat f(z'),f(e))\in W_0.
-\]
-关系 \((d,e)\in V^3\subseteq U\) 给出
-\((f(d),f(e))\in W_0\)。利用 \(W_0\) 的对称性连接这三段关系，得到
-\((\widehat f(z),\widehat f(z'))\in W\)。所以 \(\widehat f\) 一致连续。
-若 \(g:Z\to Y_0\) 是另一连续延拓，则 \(g_*\mathcal T_z\) 与
-\(f_*\mathcal T_z\) 是同一滤子；前者趋于 \(g(z)\)，后者趋于
-\(\widehat f(z)\)，分离性给出 \(g(z)=\widehat f(z)\)。唯一性得证。
-
-现在设 \((\widehat X_1,\iota_1)\)、
-\((\widehat X_2,\iota_2)\) 是 \(X\) 的两个完备化。映射
-\[
- \iota_1(x)\longmapsto\iota_2(x)
-\]
-是两个稠密子空间之间的一致同构，按上段分别向两个方向延拓为一致连续
-映射。两个复合在相应稠密子空间上均为恒等；由延拓唯一性，它们在全空间
-上为恒等。因此两个延拓互逆，并且这是唯一一个在 \(X\) 上为恒等的双向
-一致同构。
+网的表述已由定理 \ref{thm:continuity-by-nets} 证明。若 \(f\) 连续，
+则每个 \(f(x)\) 的邻域 \(V\) 都满足
+\(f^{-1}(V)\in\mathcal N(x)\subseteq\mathcal F\)，故
+\(V\in f_*\mathcal F\)。取 \(\mathcal F=\mathcal N(x)\) 得到第三条。
+反之，第三条说明每个 \(f(x)\) 的邻域 \(V\) 都有
+\(f^{-1}(V)\in\mathcal N(x)\)，正是点连续性的邻域定义。
 \end{proof}
 
-当 \(X\) 可度量化时，这个构造与
-\chapterref{chap:complete-metric-spaces}的 Cauchy 列等价类构造一致。
-滤子版本的意义在于它不要求一致结构具有可数基。
-
-\section{拓扑群、商群与平移不变结构}
-
-\begin{definition}[拓扑群]
-群 \(G\) 若带有拓扑，并且乘法 \((x,y)\mapsto xy\) 与取逆
-\(x\mapsto x^{-1}\) 连续，则称 \(G\) 为\term{拓扑群}。本书约定
-拓扑群为 Hausdorff 空间。
-\end{definition}
-
-每个左平移 \(L_g(x)=gx\)、右平移 \(R_g(x)=xg\) 都是同胚。因此群的
-拓扑完全由单位元 \(e\) 的邻域决定。给定 \(e\) 的邻域 \(U\)，连续性
-允许依次缩小为对称邻域 \(V=V^{-1}\) 并使 \(VV\subseteq U\)。
-
-\subsection{左一致结构与右一致结构}
-
-\begin{theorem}[拓扑群的左、右一致结构]
-\label{thm:group-left-right-uniformities}
-设 \(G\) 为拓扑群，\(V\) 遍历单位元邻域。集合
-\[
- L_V=\{(x,y):x^{-1}y\in V\},\qquad
- R_V=\{(x,y):xy^{-1}\in V\}
-\]
-分别生成分离的一致结构，称为左一致结构和右一致结构。二者都诱导原拓扑；
-左平移关于左一致结构是一致同构，右平移关于右一致结构是一致同构，取逆
-映射把两种一致结构互换。
-\end{theorem}
-
-\begin{proof}
-对角线包含性来自 \(x^{-1}x=e\)。有
-\(L_V^{-1}=L_{V^{-1}}\)，而若 \(WW\subseteq V\)，则
-\(L_W\circ L_W\subseteq L_V\)，因为
-\(x^{-1}z=(x^{-1}y)(y^{-1}z)\)。所以 \(L_V\) 构成一致结构基；右侧
-同理。又
-\[
- L_V[x]=xV,\qquad R_V[x]=Vx,
-\]
-它们都是原拓扑中 \(x\) 的邻域基。Hausdorff 性给出分离性。
-
-左平移保持差 \((gx)^{-1}(gy)=x^{-1}y\)，右平移保持
-\((xg)(yg)^{-1}=xy^{-1}\)。最后，若 \(x^{-1}y\in V\)，则对逆元像
-有 \(x^{-1}(y^{-1})^{-1}=x^{-1}y\)，这正是相应右周围条件；故取逆交换
-左右一致结构。
-\end{proof}
-
-交换拓扑群的左右一致结构相同。非交换群中二者可能不同；它们相同当且仅当
-单位元具有一族在共轭下适当稳定的邻域。因而谈论一般拓扑群的“完备性”时，
-必须说明采用左一致结构还是右一致结构。
-
-\subsection{商群与闭子群}
-
-\begin{theorem}[商群的拓扑]
-\label{thm:quotient-topological-group}
-设 \(H\) 是拓扑群 \(G\) 的正规子群，\(q:G\to G/H\) 为商映射，并给
-\(G/H\) 商拓扑。则商群的乘法与取逆连续，且 \(q\) 连续、开。空间
-\(G/H\) 为 Hausdorff，当且仅当 \(H\) 在 \(G\) 中闭；因此按本书的
-Hausdorff 约定，\(G/H\) 是拓扑群，当且仅当 \(H\) 闭。
-\end{theorem}
-
-\begin{proof}
-对开集 \(U\subseteq G\)，有
-\[
- q^{-1}(q(U))=UH=\bigcup_{h\in H}Uh,
-\]
-右端开，故 \(q(U)\) 开，\(q\) 是开映射。群乘法与取逆在商集上良定义，
-并满足
-\[
- q(xy)=q(x)q(y),\qquad q(x^{-1})=q(x)^{-1}.
-\]
-由于 \(q\times q\) 也是开商映射，\(G\) 上连续的乘法通过它下降为
-\(G/H\) 上连续的乘法；取逆同理。
-
-若 \(G/H\) Hausdorff，则单位陪集 \(\{H\}\) 闭，故
-\(H=q^{-1}(\{H\})\) 闭。反之，若 \(H\) 闭，则 \(\{H\}\) 在商空间
-中闭；平移使每个单点闭。拓扑群中 \(T_1\) 蕴含 Hausdorff：对
-\(a^{-1}b\ne e\)，集合 \(G\setminus\{a^{-1}b\}\) 是单位元的开邻域。
-由映射 \((u,v)\mapsto uv^{-1}\) 在 \((e,e)\) 处连续，可取单位邻域
-\(V\) 使 \(VV^{-1}\) 不含 \(a^{-1}b\)。若 \(aV\cap bV\ne\varnothing\)，
-则存在 \(v_1,v_2\in V\) 使 \(av_1=bv_2\)，从而
-\(a^{-1}b=v_1v_2^{-1}\in VV^{-1}\)，矛盾。因此
-\(G/H\) Hausdorff。
-\end{proof}
-
-若 \(H\) 不正规，陪集空间 \(G/H\) 仍可取商拓扑，但一般没有由 \(G\)
-群运算诱导的群结构。闭性仍控制商空间的 Hausdorff 性。
+若 \(x\) 有递减的可数邻域基 \((U_n)\)，则从
+\(x\in\overline A\) 可逐项取 \(a_n\in A\cap U_n\)，得到
+\(a_n\to x\)。因此第一可数空间中的闭包与连续性仍可用数列刻画。
+紧致性的序列刻画还需要额外条件；在度量空间中，这些条件自动满足。一般
+拓扑中，网或滤子的判据不需要补充可数性假设。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\subsection*{A组　一致结构与 Cauchy 性}
+\subsection*{A组　网与滤子的基本运算}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
- \exerciseitem{uniform-symmetric-cube-root}
- 从一致结构公理证明：对每个周围 \(U\)，存在对称周围 \(V\) 使
- \(V\circ V\circ V\subseteq U\)。
- \exerciseitem{metric-uniformity-topology}
- 验证度量周围 \(U_\varepsilon\) 生成一致结构，并逐项证明其诱导拓扑
- 等于度量拓扑。
- \exerciseitem{uniform-continuity-composition}
- 证明一致连续映射的复合一致连续，并证明一致同构保持完备性和全有界性。
- \exerciseitem{cauchy-net-tail-filter}
- 证明网是 Cauchy 网当且仅当其尾滤子是 Cauchy 滤子。
- \exerciseitem{cauchy-filter-cluster}
- 在引理 \ref{lem:cauchy-filter-cluster-limit} 中写出所有周围的缩小步骤，
- 并说明为什么聚点条件不能删除。
- \exerciseitem{arctangent-uniformities}
- 证明正文中 \(d\) 与 \(\rho\) 诱导同一拓扑，判断两个方向的恒等映射
- 是否一致连续，并证明 \((\R,\rho)\) 不完备。
+ \exerciseitem{directed-finite-subsets}
+ 设 \(S\) 为集合。证明其有限子集全体按包含关系构成有向集，并说明当
+ \(S\) 不可数时，该有向集不存在可数共尾子集。
+ \exerciseitem{net-eventual-frequent-negation}
+ 证明：性质 \(P\) 频繁成立当且仅当“\(P\) 最终不成立”为假；并说明
+ “\(P\) 不最终成立”不等于“\(P\) 最终不成立”。
+ \exerciseitem{subnet-preserves-limit}
+ 从最终共尾映射的定义证明收敛网的每个子网收敛到同一极限。
+ \exerciseitem{closure-neighborhood-net}
+ 不预先选取邻域中的点，用成对指标重新证明闭包的网刻画。
+ \exerciseitem{tail-filter-verification}
+ 证明任一网的尾部集合生成一个滤子，并证明网收敛等价于其尾滤子收敛。
+ \exerciseitem{filter-base-canonical-net}
+ 验证正文中 \(I_{\mathcal B}\) 有向，并证明其规范网与
+ \(\langle\mathcal B\rangle\) 有相同的收敛点。
 \end{enumerate}
 
-\subsection*{B组　全有界与完备化}
+\subsection*{B组　聚点、连续与紧致}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{totally-bounded-subspace-image}
- 证明全有界空间的子空间全有界，一致连续像也全有界。
- \exerciseitem{complete-totally-bounded-cauchy-subnet}
- 证明全有界空间中的每个网都有 Cauchy 子网，指出证明使用的选择原则；
- 再用完备性得到收敛子网。
- \exerciseitem{metric-completion-uniform-completion}
- 对度量空间 \((X,d)\)，证明 Cauchy 列等价类完备化满足本章一致完备化
- 的定义，并说明稠密嵌入为何是一致嵌入。
- \exerciseitem{completion-extension-map}
- 设 \(X\) 在 \(\widehat X\) 中稠密，\(Y\) 为完备分离一致空间。
- 证明一致连续映射 \(f:X\to Y\) 若把 Cauchy 滤子送到 Cauchy 滤子，
- 则有唯一一致连续延拓 \(\widehat f:\widehat X\to Y\)。
- \optionalexerciseitem{minimal-cauchy-filter-details}
- 补全一致完备化证明中的最小化步骤：证明 \(\mathcal F^0\) 是 Cauchy
- 滤子，并且包含于 \(\mathcal F\) 的每个 Cauchy 滤子。
+ \exerciseitem{net-cluster-tail-closure}
+ 证明 \(x\) 是网 \((x_i)\) 的聚点，当且仅当
+ \[
+  x\in\bigcap_{i_0\in I}\overline{\{x_i:i\succcurlyeq i_0\}}.
+ \]
+ \exerciseitem{ultrafilter-cluster-converges}
+ 设 \(\mathcal U\) 为超滤子。证明 \(x\) 是 \(\mathcal U\) 的聚点
+ 当且仅当 \(\mathcal U\to x\)。
+ \exerciseitem{continuous-filter-image}
+ 证明像滤子的两种定义一致：
+ \[
+ f_*\mathcal F=\{B:f^{-1}(B)\in\mathcal F\}
+ \]
+ 等于由 \(\{f(A):A\in\mathcal F\}\) 生成的滤子。
+ \exerciseitem{compact-closed-subspace-filters}
+ 用滤子刻画证明：紧致空间的闭子空间紧致；Hausdorff 空间的紧致子集闭。
+ \exerciseitem{product-coordinate-net-convergence}
+ 设 \(X=\prod_{s\in S}X_s\) 取乘积拓扑。证明网 \(x_i\to x\) 当且仅当
+ 对每个 \(s\in S\)，坐标网 \(x_i(s)\to x(s)\)。
+ \exerciseitem{first-countable-sequential-closure}
+ 设 \(X\) 第一可数。证明 \(A\) 闭当且仅当 \(A\) 中每个收敛数列的
+ 极限仍在 \(A\) 中，并由此证明序列连续等价于连续。
 \end{enumerate}
 
-\subsection*{C组　拓扑群}
+\subsection*{C组　不可数坐标与选择原则}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{topological-group-neighborhood-base}
- 证明拓扑群中每个单位元邻域 \(U\) 都含有对称邻域 \(V\)，并可使
- \(VV\subseteq U\)。
- \exerciseitem{group-left-right-abelian}
- 证明交换拓扑群的左右一致结构相同；给出矩阵群中左右差的公式，并说明
- 共轭为何会进入比较。
- \exerciseitem{closed-subgroup-quotient-hausdorff}
- 设 \(H\le G\) 不必正规。证明陪集空间 \(G/H\) 在商拓扑下为
- Hausdorff 空间当且仅当 \(H\) 闭。
- \exerciseitem{topological-group-cauchy-products}
- 设 \((x_i)\)、\((y_i)\) 是同一有向集上的网。写出保证
- \((x_iy_i)\) 为左 Cauchy 网的一个充分条件，并解释非交换性造成的
- 额外共轭项。
+ \exerciseitem{finite-support-product-closure}
+ 把正文有限支集例子的每一步写完整：证明
+ \(\boldsymbol1\in\overline A\)，构造趋于它的网，并证明不存在
+ \(A\) 中趋于它的数列。
+ \optionalexerciseitem{universal-subnet-ultrafilter}
+ 设 \((x_i)\) 为网，把其尾滤子扩张为超滤子 \(\mathcal U\)。由
+ \(\mathcal U\) 的一个滤子基构造原网的子网，并证明该子网对每个
+ \(A\subseteq X\) 都最终位于 \(A\) 或最终位于 \(X\setminus A\)。
+ \optionalexerciseitem{compact-map-closed}
+ 设 \(X\) 紧致、\(Y\) Hausdorff，\(f:X\to Y\) 连续。用网证明
+ \(f\) 是闭映射；若 \(f\) 还是双射，证明它是同胚。
 \end{enumerate}

@@ -1,0 +1,275 @@
+\chapter{\texorpdfstring{\(L^p\)}{Lp} 空间的包含关系}
+\label{chap:lp-inclusions}
+
+不同指数强调函数的不同部分：大指数更敏感于高峰，小指数更容易受到大范围
+缓慢衰减的影响。有限测度空间中，总体积有限，可以用常数函数补足指数差，
+于是 \(L^q\subset L^p\)（\(q>p\)）。在无限测度空间上，这个论证失效，
+两个方向都可由简单幂函数否定。序列空间的原子每个都有固定质量，又呈现出
+相反的单向包含。
+
+\section{有限测度空间}
+
+\begin{theorem}
+\label{thm:finite-measure-lp-inclusion}
+若 \(\mu(X)<\infty\)，且 \(0<p<q\le\infty\)，则
+\[
+ L^q(\mu)\subset L^p(\mu).
+\]
+当 \(q<\infty\) 时，
+\[
+ \|f\|_p\le
+ \mu(X)^{1/p-1/q}\|f\|_q;
+\]
+当 \(q=\infty\) 时，
+\[
+ \|f\|_p\le\mu(X)^{1/p}\|f\|_\infty.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(q<\infty\)，对 \(|f|^p\cdot1\) 使用指数
+\(q/p\) 与 \(q/(q-p)\) 的 Hölder 不等式：
+\[
+ \int|f|^p
+ \le\left(\int|f|^q\right)^{p/q}
+ \mu(X)^{1-p/q}.
+\]
+取 \(p\) 次根。端点情形由 \(|f|\le\|f\|_\infty\) 几乎处处直接积分。
+\end{proof}
+
+若 \(\mu(X)=1\)，估计简化为 \(\|f\|_p\le\|f\|_q\)。概率空间因此天然
+适合比较各阶矩。包含通常严格：在 \((0,1)\) 上，选择
+\(f(x)=x^{-\alpha}\) 并令
+\[
+ \frac1q\le\alpha<\frac1p
+\]
+即可得到 \(f\in L^p\setminus L^q\)。
+
+\section{无限测度空间}
+
+在 \((1,\infty)\) 上，
+\[
+ x^{-\alpha}\in L^p(1,\infty)
+ \quad\Longleftrightarrow\quad \alpha p>1;
+\]
+在 \((0,1)\) 上，
+\[
+ x^{-\alpha}\in L^p(0,1)
+ \quad\Longleftrightarrow\quad \alpha p<1.
+\]
+把两种行为放在原点与无穷远，便可构造任意指数之间的反例。
+
+\begin{proposition}
+\label{prop:infinite-measure-no-lp-inclusion}
+在 \((\mathbb R,m)\) 上，对任意 \(0<p<q<\infty\)，既有
+\[
+ L^p(\mathbb R)\not\subset L^q(\mathbb R),
+ \qquad
+ L^q(\mathbb R)\not\subset L^p(\mathbb R).
+\]
+\end{proposition}
+
+\begin{proof}
+取 \(\alpha\) 满足 \(1/q<\alpha\le1/p\)。函数
+\[
+ f(x)=x^{-\alpha}\mathbf1_{(1,\infty)}(x)
+\]
+属于 \(L^q\) 而不属于 \(L^p\)。再取
+\(1/q\le\beta<1/p\)，函数
+\[
+ g(x)=x^{-\beta}\mathbf1_{(0,1)}(x)
+\]
+属于 \(L^p\) 而不属于 \(L^q\)。
+\end{proof}
+
+“无限测度”本身并不自动保证两个方向都失败；测度空间的原子结构同样重要。
+例如计数测度空间 \(\mathbb N\) 有固定的包含方向。
+
+\section{序列空间 \texorpdfstring{\(\ell^p\)}{ell-p}}
+
+对 \(0<p<\infty\)，
+\[
+ \ell^p
+ =\left\{x=(x_n)_{n\ge0}:\sum_{n=0}^{\infty}|x_n|^p<\infty\right\}.
+\]
+这是 \(L^p(\mathbb N,\#)\)。
+
+\begin{theorem}
+\label{thm:ellp-inclusion}
+若 \(0<p<q<\infty\)，则
+\[
+ \ell^p\subset\ell^q,\qquad
+ \|x\|_q\le\|x\|_p.
+\]
+\end{theorem}
+
+\begin{proof}
+若 \(\|x\|_p=0\) 显然。归一化到 \(\|x\|_p=1\)，则每个
+\(|x_n|\le1\)，从而 \(|x_n|^q\le|x_n|^p\)。求和得
+\(\|x\|_q^q\le1\)，再恢复齐次性。
+\end{proof}
+
+包含严格。例如取 \(x_n=(n+1)^{-\alpha}\)，并令
+\[
+ \frac1q<\alpha\le\frac1p,
+\]
+则 \(x\in\ell^q\setminus\ell^p\)。注意这与有限测度空间上的方向相反：
+计数测度的每个非空原子测度至少为 \(1\)，一个 \(\ell^p\) 序列不能在
+无限多个位置保持较大值。
+
+\section{\texorpdfstring{\(L^\infty\)}{L-infinity}}
+
+\begin{definition}
+可测函数 \(f\) 的\term{本质上确界}为
+\[
+ \|f\|_\infty
+ =\operatorname*{ess\,sup}|f|
+ =\inf\{M\ge0:|f|\le M\ \text{几乎处处}\}.
+\]
+若该数有限，则 \(f\in L^\infty(\mu)\)。
+\end{definition}
+
+普通上确界会被一个零测点上的取值改变，本质上确界不会。例如在
+\([0,1]\) 上令 \(f(0)=100\)、\(f(x)=x\)（\(x>0\)），则
+\(\sup f=100\)，而 \(\|f\|_\infty=1\)。
+
+\begin{proposition}
+\label{prop:essential-sup-levels}
+\[
+ \|f\|_\infty
+ =\inf\{M:\mu(|f|>M)=0\}.
+\]
+若 \(0<M<\|f\|_\infty\)，则 \(\mu(|f|>M)>0\)。此外
+\(L^\infty(\mu)\) 在本质上确界范数下完备。
+\end{proposition}
+
+\begin{proof}
+前两项只是定义的改写。若 \((f_n)\) 是 \(L^\infty\)-Cauchy 列，取子列
+使
+\(\|f_{n_{k+1}}-f_{n_k}\|_\infty<2^{-k}\)。删去所有相关零测例外集后，
+差分级数一致收敛，极限 \(f\) 本质有界，且
+\[
+ \|f-f_{n_k}\|_\infty\le\sum_{j\ge k}2^{-j}\to0.
+\]
+原列 Cauchy，故也收敛到 \(f\)。
+\end{proof}
+
+\section{当 \texorpdfstring{\(p\to\infty\)}{p tends to infinity}}
+
+\begin{theorem}
+\label{thm:lp-limit-linfty}
+若 \(0<\mu(X)<\infty\) 且 \(f\in L^\infty(\mu)\)，则
+\[
+ \lim_{p\to\infty}\|f\|_p=\|f\|_\infty.
+\]
+更一般地，若 \(f\in\bigcap_{p\ge p_0}L^p\) 且
+\(\sup_{p\ge p_0}\|f\|_p<\infty\)，则 \(f\in L^\infty\)，并且上述极限
+成立。
+\end{theorem}
+
+\begin{proof}
+记 \(M=\|f\|_\infty\)。上界
+\[
+ \|f\|_p\le M\mu(X)^{1/p}
+\]
+给出 \(\limsup\|f\|_p\le M\)。若 \(0<a<M\)，则
+\(E_a=\{|f|>a\}\) 有正测度，故
+\[
+ \|f\|_p\ge a\,\mu(E_a)^{1/p}.
+\]
+令 \(p\to\infty\)，再令 \(a\uparrow M\)，得到反向下界。
+
+若 \(\|f\|_p\le C\) 对所有大 \(p\) 成立，则对任意 \(a>C\)，
+\[
+ a\,\mu(|f|>a)^{1/p}\le C.
+\]
+若该集合有正测度，令 \(p\to\infty\) 将给出 \(a\le C\)，矛盾。因此
+\(|f|\le C\) 几乎处处。
+\end{proof}
+
+\section{局部 \texorpdfstring{\(L^p\)}{Lp}}
+
+对 \(\mathbb R^n\) 上的可测函数，若对每个紧集 \(K\) 都有
+\[
+ \int_K|f|^p<\infty,
+\]
+则称 \(f\in L^p_{\mathrm{loc}}(\mathbb R^n)\)。局部空间只控制有限区域，
+不要求无穷远处衰减。例如常数函数属于所有
+\(L^p_{\mathrm{loc}}(\mathbb R^n)\)，却不属于任何有限
+\(L^p(\mathbb R^n)\)。
+
+若 \(q>p\)，有限测度包含定理在每个紧集上给
+\[
+ L^q_{\mathrm{loc}}\subset L^p_{\mathrm{loc}}.
+\]
+弱导数、分布和偏微分方程常先在局部空间中定义，因为微分方程的局部意义
+不应预先要求解在无穷远处可积。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　包含与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{finite-lp-inclusion-sharp}
+设 \(0<\mu(X)<\infty\)。证明有限测度包含估计中的常数
+\(\mu(X)^{1/p-1/q}\) 最优。
+
+\exerciseitem{finite-lp-strict}
+在 \((0,1)\) 上对给定 \(0<p<q\) 构造
+\(L^p\setminus L^q\) 中的函数，并精确计算其可积条件。
+
+\exerciseitem{infinite-no-inclusion}
+对给定 \(p<q\)，各构造一个函数分别属于
+\(L^p(\mathbb R)\setminus L^q(\mathbb R)\) 和
+\(L^q(\mathbb R)\setminus L^p(\mathbb R)\)。
+
+\exerciseitem{ellp-inclusion-strict}
+证明 \(\ell^p\subsetneq\ell^q\)（\(p<q\)），并说明有限支撑序列在两边都
+属于哪些空间。
+
+\end{enumerate}
+\subsection*{B组　本质上确界与极限指数}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ellp-tends-zero}
+证明每个 \(\ell^p\) 序列都趋于零，并用此给出
+\(\ell^p\subset\ell^\infty\) 及范数估计。
+
+\exerciseitem{essential-sup-examples}
+计算 Dirichlet 函数、Thomae 函数以及
+\(x^{-1/2}\mathbf1_{(0,1)}\) 的本质上确界。
+
+\exerciseitem{linfty-completeness-direct}
+不用快速子列，直接从 \(L^\infty\)-Cauchy 条件构造极限并证明完备性。
+
+\exerciseitem{lp-limit-characteristic}
+对有限测度集 \(E\)，验证
+\(\|\mathbf1_E\|_p=\mu(E)^{1/p}\)，并讨论 \(p\to\infty\)。
+
+\end{enumerate}
+\subsection*{C组　局部空间与插值}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{lp-limit-unbounded}
+在有限测度空间上给出 \(f\in\cap_{p<\infty}L^p\) 但
+\(f\notin L^\infty\) 的例子，并证明 \(\|f\|_p\to\infty\)。
+
+\exerciseitem{local-lp-singularity}
+讨论 \(f(x)=|x|^{-\alpha}\) 在 \(\mathbb R^n\) 中属于
+\(L^p_{\mathrm{loc}}\) 的条件，以及在无穷远处属于 \(L^p\) 的条件。
+
+\optionalexerciseitem{log-convex-lp-norms}
+若 \(f\in L^{p_0}\cap L^{p_1}\)，证明
+\[
+ \|f\|_{p_\theta}
+ \le\|f\|_{p_0}^{1-\theta}\|f\|_{p_1}^{\theta},
+ \qquad
+ \frac1{p_\theta}=\frac{1-\theta}{p_0}+\frac{\theta}{p_1}.
+\]
+
+\projectexerciseitem{lp-membership-phase-diagram}
+对
+\[
+ f(x)=|x|^{-\alpha}(1+|x|)^{-\beta}
+\quad(x\in\mathbb R^n)
+\]
+画出参数 \((\alpha,\beta,p)\) 的 \(L^p\) 可积区域，分别分析原点与
+无穷远。
+\end{enumerate}

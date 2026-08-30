@@ -36,37 +36,6 @@
 可以直接证明：若 \((x_0,y_0)\) 不在图像上，则 \(y_0\ne f(x_0)\)。取 \(Y\) 中不相交开邻域 \(V\ni y_0\)、\(W\ni f(x_0)\)。由 \(f\) 连续，\(U=f^{-1}(W)\) 是 \(x_0\) 的开邻域，且 \(U\times V\) 不交图像。因此图像闭。这个证明只需要 \(Y\) Hausdorff，不需要 \(X\) Hausdorff或紧；题设中的紧致性是冗余条件。
 \end{solution}
 
-\begin{solution}{local-compact-shrinking}
-取紧邻域 \(K\) 和开集 \(W\) 使 \(x\in W\subseteq K\)。集合 \(W\cap U\) 是紧 Hausdorff 子空间 \(K\) 中含 \(x\) 的相对开集。紧 Hausdorff 空间正则，所以存在 \(K\) 中相对开集 \(O\) 使
-\[
- x\in O\subseteq\overline O^{\,K}\subseteq W\cap U.
-\]
-写 \(O=K\cap G\)，其中 \(G\) 在 \(X\) 中开。因 \(W\subseteq K\) 且 \(W\) 开，可令 \(V=G\cap W\)。则 \(V\) 在 \(X\) 中开，且
-\[
- \overline V^{\,X}\subseteq\overline O^{\,K}\subseteq U.
-\]
-其闭包是紧集 \(K\) 的闭子集，故紧。
-\end{solution}
-
-\begin{solution}{one-point-neighborhoods}
-若网 \(x_\alpha\to\infty\)，对每个紧集 \(K\subseteq X\)，集合
-\(\{\infty\}\cup(X\setminus K)\) 是 \(\infty\) 的邻域，故网最终落入其中；若网取值在 \(X\)，这正是最终离开 \(K\)。反之，每个 \(\infty\) 的邻域都含某个上述基本邻域，最终离开相应 \(K\) 即保证最终进入该邻域。
-\end{solution}
-
-\begin{solution}{one-point-real-line-circle}
-定义
-\[
- \Phi(t)=\left(\frac{2t}{1+t^2},\,\frac{t^2-1}{1+t^2}\right)
- \quad(t\in\R),\qquad
- \Phi(\infty)=(0,1).
-\]
-直接计算像在 \(S^1\) 上；除北极外，逆映射为
-\[
- t=\frac{x}{1-y}.
-\]
-故 \(\Phi:\R\to S^1\setminus\{(0,1)\}\) 是同胚。若 \(t\) 离开每个紧区间，则 \(|t|\to\infty\)，公式给出 \(\Phi(t)\to(0,1)\)；这验证在新增点处连续。也可由一点紧化的唯一性直接得到。
-\end{solution}
-
 \begin{solution}{alexander-closed-subbasis}
 开子基 \(\mathcal S\) 与闭子基
 \(\mathcal C=\{X\setminus S:S\in\mathcal S\}\) 一一对应。一个 \(\mathcal S\)-子族覆盖 \(X\)，当且仅当相应 \(\mathcal C\)-子族总交为空；它有有限子覆盖，当且仅当已有有限子族交为空。因此“每个子基本开覆盖有有限子覆盖”等价于“闭子基中每个有限交性质子族总交非空”，再用 Alexander 定理。
@@ -99,54 +68,4 @@
  \prod_iF_i=\bigcap_i\pi_i^{-1}(F_i)
 \]
 在积空间中闭。Tychonoff 定理说明 \(\prod_iX_i\) 紧，故该闭子集紧。也可先对每个 \(F_i\) 使用闭子集紧致，再直接应用 Tychonoff。
-\end{solution}
-
-\begin{solution}{compactification-locally-compact-open}
-若 \(X\) 在 \(K\) 中开，给 \(x\in X\)，利用紧 Hausdorff 空间的正则性取
-\[
- x\in U\subseteq\overline U^{\,K}\subseteq X.
-\]
-则 \(\overline U^{\,K}\) 紧，且也是 \(X\) 中的紧邻域，所以 \(X\) 局部紧。
-
-反之，若 \(X\) 局部紧，给 \(x\in X\) 取 \(X\) 中开集 \(U\ni x\)，使
-\(C=\overline U^{\,X}\) 紧。嵌入 \(X\hookrightarrow K\) 把 \(C\) 变成 \(K\) 中紧集，故 \(C\) 在 \(K\) 中闭。写 \(U=X\cap V\)，其中 \(V\) 在 \(K\) 中开。由于
-\[
- X\cap V=U\subseteq C,
-\]
-开集 \(V\setminus C\) 与稠密集 \(X\) 不交，只能为空。因此
-\[
- x\in V\subseteq C\subseteq X.
-\]
-每个 \(x\in X\) 都有一个 \(K\)-开邻域包含于 \(X\)，故 \(X\) 在 \(K\) 中开。
-\end{solution}
-
-\begin{solution}{stone-cech-bounded-extension}
-若 \(|u|\le M\)，把 \(u\) 视为到紧区间 \([-M,M]\) 的连续映射。Stone--Čech 泛性质给出连续延拓。若 \(U_1,U_2\) 都是延拓，则其等值集在 Hausdorff 区间中闭，并含稠密集 \(X\)，故等于 \(\beta X\)。
-\end{solution}
-
-\begin{solution}{stone-cech-discrete-sequences}
-离散空间上的任意函数连续。有界数列定义连续映射
-\[
- a:\N\to[-M,M],\qquad a(n)=a_n,
-\]
-故唯一延拓到 \(\beta\N\)。
-
-\(\N\) 的一点紧化要求一个函数能延拓到新增点，等价于数列 \(a_n\) 在 \(n\to\infty\) 时有极限。一般有界数列如 \((-1)^n\) 没有极限，却仍延拓到 \(\beta\N\)，所以 Stone--Čech 性质严格更强。
-\end{solution}
-
-\begin{solution}{stone-cech-functoriality}
-复合
-\[
- X\xrightarrow{f}Y\xrightarrow{j_Y}\beta Y
-\]
-以紧 Hausdorff 空间 \(\beta Y\) 为目标。由 \(\beta X\) 的泛性质，它唯一延拓为
-\(\beta f:\beta X\to\beta Y\)。\(\beta(\operatorname{id}_X)\) 与
-\(\operatorname{id}_{\beta X}\) 都延拓 \(j_X\)，故由唯一性相等。类似地，
-\(\beta(g\circ f)\) 与 \(\beta g\circ\beta f\) 都延拓
-\(j_Z\circ g\circ f\)，故相等。
-\end{solution}
-
-\begin{solution}{compactification-universal-uniqueness}
-设 \((K_1,j_1)\)、\((K_2,j_2)\) 都满足泛性质。映射
-\(j_2\circ j_1^{-1}:j_1(X)\to K_2\) 通过识别原空间 \(X\) 看作 \(X\to K_2\)，由 \(K_1\) 的泛性质延拓为 \(F:K_1\to K_2\)。同理得 \(G:K_2\to K_1\)。复合 \(G\circ F\) 与 \(\operatorname{id}_{K_1}\) 在稠密集 \(j_1(X)\) 上相等，按延拓唯一性处处相等；同理 \(F\circ G=\operatorname{id}_{K_2}\)。故 \(F\) 是唯一保持 \(X\) 不变的同胚。
 \end{solution}

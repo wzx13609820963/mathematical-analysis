@@ -1,0 +1,153 @@
+\chapter{非负函数的积分}
+
+\begin{solution}{simple-integral-refinement}
+把 \(E_1,\ldots,E_m\) 细分为
+\[
+ A_\varepsilon=\bigcap_{\varepsilon_k=1}E_k
+ \cap\bigcap_{\varepsilon_k=0}E_k^c,
+ \qquad \varepsilon\in\{0,1\}^m.
+\]
+删去空集后，这些集合两两不交并覆盖 \(\cup_kE_k\)。在
+\(A_\varepsilon\) 上，\(\varphi\) 的值是
+\(\sum_k a_k\varepsilon_k\)，故规范表示给出的积分为
+\[
+ \sum_\varepsilon\Bigl(\sum_ka_k\varepsilon_k\Bigr)
+ \mu(A_\varepsilon)
+ =\sum_ka_k\sum_{\varepsilon_k=1}\mu(A_\varepsilon)
+ =\sum_ka_k\mu(E_k).
+\]
+所有项非负，有限和的换序在含 \(+\infty\) 时仍合法；
+\(a_k=0,\mu(E_k)=\infty\) 时该项按约定为零。
+\end{solution}
+
+\begin{solution}{simple-integral-level-sets}
+设规范表示为
+\(\varphi=\sum_{j=1}^rb_j\mathbf1_{A_j}\)，不同正值按
+\(0<b_1<\cdots<b_r\) 排列。函数
+\(t\mapsto\mu(\{\varphi>t\})\) 是阶梯函数。逐点使用
+\[
+ b_j=\int_0^\infty\mathbf1_{\{b_j>t\}}\,dt
+\]
+并交换有限求和与积分，得到
+\[
+ \int_0^\infty\mu(\{\varphi>t\})\,dt
+ =\sum_j\mu(A_j)b_j=\int\varphi\,d\mu.
+\]
+\end{solution}
+
+\begin{solution}{nonnegative-integral-localization}
+对简单函数 \(\varphi\le f\)，
+\[
+ \int_{E\cup F}\varphi=\int_E\varphi+\int_F\varphi.
+\]
+取一列简单函数 \(\varphi_n\uparrow f\)，则
+\(\varphi_n\mathbf1_E\uparrow f\mathbf1_E\)，对 \(F,E\cup F\) 同理。
+单调收敛定理和扩充实数中的加法连续性给出所求等式。
+\end{solution}
+
+\begin{solution}{nonnegative-integral-ae-invariance}
+设 \(N=\{f\ne g\}\)，则 \(\mu(N)=0\)。任意非负简单函数
+\(\varphi\le f\) 满足
+\(\varphi\mathbf1_{N^c}\le g\)，并且
+\(\int\varphi=\int\varphi\mathbf1_{N^c}\)，因为支撑在 \(N\) 上的简单
+函数积分为零。因此 \(\int f\le\int g\)；交换 \(f,g\) 得等号。
+\end{solution}
+
+\begin{solution}{simple-approximation-alternative}
+令
+\[
+ E_{n,k}=\{k2^{-n}\le f<(k+1)2^{-n}\},
+ \quad 0\le k<2^{2n},
+\]
+并令 \(E_{n,*}=\{f\ge2^n\}\)。取
+\[
+ \varphi_n=\sum_{k=0}^{2^{2n}-1}k2^{-n}\mathbf1_{E_{n,k}}
+ +2^n\mathbf1_{E_{n,*}}.
+\]
+各集合可测，故 \(\varphi_n\) 是简单函数。二进分割在下一层细分，向下
+端点不减，所以 \(\varphi_n\le\varphi_{n+1}\le f\)。有限值点最终不被
+截断且误差小于 \(2^{-n}\)；无穷值点上 \(\varphi_n=2^n\)。
+\end{solution}
+
+\begin{solution}{mct-indicator-continuity}
+若 \(E_n\uparrow E\)，则
+\(\mathbf1_{E_n}\uparrow\mathbf1_E\)。单调收敛定理给出
+\[
+ \mu(E)=\int\mathbf1_E
+ =\lim_n\int\mathbf1_{E_n}=\lim_n\mu(E_n).
+\]
+单调收敛定理的证明只对简单函数使用了测度连续性；那一性质已在第
+\ref{chap:measure-spaces} 章由可数可加性证明。因此这里是由已知测度性质
+验证积分定理的特例，不是用积分
+定理反过来证明其自身前提。
+\end{solution}
+
+\begin{solution}{mct-decreasing-counterexample}
+在 \((\mathbb R,\mathcal L,m)\) 上取
+\(f_n=\mathbf1_{[n,\infty)}\)。则 \(f_n(x)\downarrow0\) 对每个 \(x\)
+成立，但 \(\int f_n\,dm=\infty\)。若要求某个 \(f_{n_0}\) 可积，则对
+\(g_n=f_{n_0}-f_n\uparrow f_{n_0}-f\) 使用单调收敛定理，才可推出
+\(\int f_n\downarrow\int f\)。
+\end{solution}
+
+\begin{solution}{nonnegative-series-tonelli}
+在 \(\mathbb N^2\) 上取计数测度，令 \(f_m(n)=a_{mn}\)。非负函数逐项积分
+公式给出
+\[
+ \sum_m\sum_na_{mn}
+ =\sum_{(m,n)\in\mathbb N^2}a_{mn}
+ =\sum_n\sum_ma_{mn}.
+\]
+也可把两边都写成所有有限矩形部分和的上确界；非负性保证不同求和次序取到
+同一个上确界。
+\end{solution}
+
+\begin{solution}{zero-integral-superlevel}
+由 \(c\mathbf1_{\{f\ge c\}}\le f\)，
+\[
+ \int f\ge c\,\mu(\{f\ge c\})>0.
+\]
+在 \([0,1]\) 的 Lebesgue 测度上，取
+\(f=\mathbf1_{\mathbb Q\cap[0,1]}\)。它在稠密集
+\(\mathbb Q\cap[0,1]\) 上为正，但支撑集零测，故积分为零。稠密性是拓扑
+性质，并不保证函数在正测度集合上具有正下界。
+\end{solution}
+
+\begin{solution}{density-measure}
+\(\nu(\varnothing)=0\)。若 \(E_n\) 两两不交，则
+\[
+ f\mathbf1_{\cup_nE_n}=\sum_nf\mathbf1_{E_n}.
+\]
+非负函数的可数逐项积分公式给出
+\[
+ \nu\Bigl(\bigcup_nE_n\Bigr)=\sum_n\nu(E_n),
+\]
+故 \(\nu\) 是测度。若 \(\mu(E)=0\)，则
+\(f\mathbf1_E=0\) 几乎处处，所以 \(\nu(E)=0\)，即 \(\nu\ll\mu\)。
+\end{solution}
+
+\begin{solution}{cavalieri-simple-to-general}
+简单函数情形由习题 \ref{ex:simple-integral-level-sets}。取
+\(\varphi_n\uparrow f\)。对每个 \(t\)，集合
+\(\{\varphi_n>t\}\uparrow\{f>t\}\)，故测度连续性给出
+\[
+ \mu(\{\varphi_n>t\})\uparrow\mu(\{f>t\}).
+\]
+分别在 \(X\) 和 \([0,\infty)\) 上使用单调收敛定理：
+\[
+ \int_Xf\,d\mu
+ =\lim_n\int_X\varphi_n\,d\mu
+ =\lim_n\int_0^\infty\mu(\{\varphi_n>t\})\,dt
+ =\int_0^\infty\mu(\{f>t\})\,dt.
+\]
+\end{solution}
+
+\begin{solution}{integral-from-functional-axioms}
+取定理 \ref{thm:nonnegative-simple-approximation} 中的
+\(\varphi_n\uparrow f\)。由假设，
+\[
+ I(f)=\lim_nI(\varphi_n)=\lim_n\int\varphi_n\,d\mu=\int f\,d\mu.
+\]
+最后一个等号是单调收敛定理。事实上只要 \(I\) 在递增简单函数列上具有
+从下连续性，以上论证已经成立。
+\end{solution}

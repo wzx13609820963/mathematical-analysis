@@ -1,0 +1,159 @@
+\chapter{\texorpdfstring{\(L^p\)}{Lp} 空间中的逼近}
+
+\begin{solution}{simple-dense-complex}
+写 \(f=u+iv\)，其中 \(u,v\) 为实值且
+\(|u|,|v|\le|f|\)，故都属于 \(L^p\)。分别取实简单函数
+\(u_n\to u,v_n\to v\) 于 \(L^p\)，令
+\(\varphi_n=u_n+iv_n\)。当 \(p\ge1\)，Minkowski 给
+\[
+ \|\varphi_n-f\|_p\le\|u_n-u\|_p+\|v_n-v\|_p.
+\]
+\(0<p<1\) 时对 \(p\) 次积分使用次可加性，结论相同。
+\end{solution}
+
+\begin{solution}{finite-support-simple-dense}
+取 \(X_k\uparrow X\)、\(\mu(X_k)<\infty\)。由控制收敛，
+\[
+ \|f-f\mathbf1_{X_k}\|_p^p
+ =\int|f|^p\mathbf1_{X\setminus X_k}\to0.
+\]
+固定 \(k\)，再把 \(f\mathbf1_{X_k}\) 的绝对值截断到 \(M\)，截断误差
+随 \(M\to\infty\) 趋零。最后把值域按长度 \(\delta\) 的区间量化，得到
+支撑于 \(X_k\) 的简单函数，点态误差至多 \(\delta\)，其 \(L^p\) 误差
+至多 \(\delta\mu(X_k)^{1/p}\)。
+\end{solution}
+
+\begin{solution}{compact-open-distance-function}
+到闭集的距离函数是 \(1\)-Lipschitz，故分子、分母连续。若分母为零，则
+某点同时属于 \(K\) 与 \(U^c\)，与 \(K\subset U\) 矛盾。因此商连续。
+在 \(K\) 上 \(d(x,K)=0\)，故 \(g=1\)；在 \(U^c\) 上
+\(d(x,U^c)=0\)，故 \(g=0\)。又 \(0\le g\le1\)，且其非零集包含于
+\(U\)，所以支撑包含于有界闭集 \(\overline U\)，为紧集。
+\end{solution}
+
+\begin{solution}{cc-density-error-budget}
+删去零系数项，并记剩余项数为 \(m\)。若 \(p\ge1\)，对每个 \(j\) 由
+引理取 \(g_j\in C_c\)，使
+\[
+ \|\mathbf1_{E_j}-g_j\|_p
+ <\frac{\varepsilon}{m(1+|a_j|)}
+\]
+并令 \(g=\sum_ja_jg_j\)。Minkowski 给
+\[
+ \|\varphi-g\|_p
+ \le\sum_j|a_j|\|\mathbf1_{E_j}-g_j\|_p
+ <\varepsilon.
+\]
+若 \(0<p<1\)，改取
+\[
+ \|\mathbf1_{E_j}-g_j\|_p
+ <\frac{\varepsilon}{m^{1/p}(1+|a_j|)}.
+\]
+利用 \(|\sum_jb_j|^p\le\sum_j|b_j|^p\)，可得
+\[
+ \|\varphi-g\|_p^p
+ \le\sum_j|a_j|^p\|\mathbf1_{E_j}-g_j\|_p^p
+ <\varepsilon^p.
+\]
+\(g\) 是有限个连续紧支撑函数之和，仍属于 \(C_c\)。
+\end{solution}
+
+\begin{solution}{lp-separable-rational-grid}
+令 \(\mathcal S\) 为所有有限和
+\[
+ \sum_{j=1}^{m}q_j\mathbf1_{R_j},
+\]
+其中 \(q_j\in\mathbb Q\)，\(R_j\) 是有理端点半开有界矩形。所有有理数
+和有理矩形构成可数集；可数集的有限笛卡儿积及其可数并仍可数，故
+\(\mathcal S\) 可数。连续紧支撑函数在大有理立方体上一致连续，用细有理
+网格取样并把函数值近似为有理数，可在 \(L^p\) 中任意逼近；再用
+\(C_c\) 稠密性即得。
+\end{solution}
+
+\begin{solution}{linfty-nonseparable-balls}
+若 \(D\) 是可数稠密集，则每个
+\(\mathbf1_{(0,t)}\) 可选 \(g_t\in D\)，使
+\(\|g_t-\mathbf1_{(0,t)}\|_\infty<1/3\)。若 \(s\ne t\) 却有
+\(g_s=g_t\)，三角不等式将给
+\[
+ 1=\|\mathbf1_{(0,s)}-\mathbf1_{(0,t)}\|_\infty<2/3,
+\]
+矛盾。因此 \(t\mapsto g_t\) 是从不可数集到可数集的单射，不可能。
+\end{solution}
+
+\begin{solution}{translation-isometry}
+由 Lebesgue 测度的平移不变性和变量代换，
+\[
+ \|\tau_hf\|_p^p
+ =\int|f(x-h)|^p\,dx
+ =\int|f(y)|^p\,dy.
+\]
+\(p=\infty\) 时零测集在平移下仍零测，同样成立。一般测度若不平移不变，
+变量代换后的推前测度可能不同，例如带密度 \(e^{-x^2}dx\) 的测度。
+\end{solution}
+
+\begin{solution}{translation-discontinuous-linfty}
+取 \(f=\mathbf1_{[0,\infty)}\)。对任意 \(h\ne0\)，\(f(\cdot-h)\) 与
+\(f\) 在长度 \(|h|\) 的区间上相差 \(1\)，该区间正测。因此
+\[
+ \|\tau_hf-f\|_\infty=1,
+\]
+不随 \(h\to0\) 趋零。
+\end{solution}
+
+\begin{solution}{mollifier-norm-bound}
+对 \(1\le p<\infty\)，Jensen 不等式给
+\[
+ |(\rho_\varepsilon*f)(x)|^p
+ \le\int\rho_\varepsilon(y)|f(x-y)|^p\,dy.
+\]
+对 \(x\) 积分并用 Tonelli 定理及平移不变性，得到
+\[
+ \|\rho_\varepsilon*f\|_p^p
+ \le\int\rho_\varepsilon(y)\|\tau_yf\|_p^p\,dy
+ =\|f\|_p^p.
+\]
+对 \(p=\infty\)，几乎处处有
+\[
+ |(\rho_\varepsilon*f)(x)|
+ \le\|f\|_\infty\int\rho_\varepsilon(y)\,dy
+ =\|f\|_\infty.
+\]
+\end{solution}
+
+\begin{solution}{mollifier-support}
+若 \(x\notin K+\overline{B(0,\varepsilon)}\)，则对每个
+\(y\in\operatorname{supp}\rho_\varepsilon\)，有 \(x-y\notin K\)，
+故 \(f(x-y)=0\) 几乎处处。因此卷积在该 \(x\) 为零。取闭包便得支撑
+包含关系。
+\end{solution}
+
+\begin{solution}{density-open-set}
+先取紧集递增穷尽
+\[
+ K_j=\{x\in\Omega:|x|\le j,\ d(x,\Omega^c)\ge1/j\}.
+\]
+则 \(f\mathbf1_{K_j}\to f\) 于 \(L^p(\Omega)\)。把
+\(f\mathbf1_{K_j}\) 零延拓到 \(\mathbb R^n\)，再与支撑半径小于
+\(\tfrac12d(K_j,\Omega^c)\) 的磨光核卷积。所得函数属于
+\(C_c^\infty(\Omega)\)，并在 \(L^p\) 中逼近
+\(f\mathbf1_{K_j}\)。对 \(j\) 作对角选择即得。
+\end{solution}
+
+\begin{solution}{operator-extension-application}
+固定 \(b\in\ell^1\)，对有限支撑 \(a\) 定义
+\[
+ (T_ba)_n=\sum_ka_{n-k}b_k.
+\]
+Minkowski 和平移不变性给
+\[
+ \|T_ba\|_p
+ \le\sum_k|b_k|\|(a_{n-k})_n\|_p
+ =\|b\|_1\|a\|_p
+\]
+对 \(1\le p\le\infty\) 成立。有限支撑序列在
+\(\ell^p\) 中对 \(p<\infty\) 稠密，且 \(\ell^p\) 完备，因此延拓定理
+给出唯一有界算子 \(T_b:\ell^p\to\ell^p\)，范数不超过
+\(\|b\|_1\)。对 \(p=\infty\)，有限支撑序列不稠密，但原卷积级数由
+\(\ell^1\) 绝对控制，可直接定义并满足同一估计。
+\end{solution}

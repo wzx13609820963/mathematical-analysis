@@ -1,0 +1,295 @@
+\chapter{函数的收敛}
+\label{chap:modes-of-convergence}
+
+函数列的“趋近”可以从点值、例外集合的测度或平均误差来衡量。逐点收敛
+记录每个点最终发生什么；依测度收敛只要求偏差显著的集合越来越小；
+\(L^p\) 收敛控制误差的 \(p\) 次平均。它们回答不同问题，不能只凭名称中的
+“收敛”互相替换。本章先比较这些概念，后两章再研究子列和一致可积性。
+
+\section{逐点、几乎处处与本质一致收敛}
+
+设 \(f_n,f\) 为同一测度空间上的可测函数。
+
+\begin{definition}
+若存在零测集 \(N\)，使
+\[
+ f_n(x)\longrightarrow f(x)\qquad(x\in X\setminus N),
+\]
+则称 \(f_n\) \term{几乎处处收敛}于 \(f\)，记作
+\(f_n\to f\) a.e.
+\end{definition}
+
+几乎处处收敛仍逐点地检查 \(x\)，只是允许一次删去一个固定零测集。例外集
+不能随精度或 \(n\) 改变后便不再统一。
+
+\begin{definition}
+若
+\[
+ \operatorname*{ess\,sup}_{x\in X}|f_n(x)-f(x)|
+ \longrightarrow0,
+\]
+则称 \(f_n\) \term{本质一致收敛}于 \(f\)。
+\end{definition}
+
+由于函数列可数，本质一致收敛等价于：存在一个零测集 \(N\)，使
+\(f_n\to f\) 在 \(X\setminus N\) 上一致。它比几乎处处收敛强。普通一致
+收敛还要求在零测点上也控制函数值，因此不是“几乎处处等价类”上的性质。
+
+\section{依测度收敛}
+
+\begin{definition}
+若对每个 \(\varepsilon>0\)，
+\[
+ \mu(\{|f_n-f|>\varepsilon\})\longrightarrow0,
+\]
+则称 \(f_n\) \term{依测度收敛}于 \(f\)，记作
+\(f_n\xrightarrow{\mu}f\)。
+\end{definition}
+
+这一定义在无限测度空间上仍有意义，但比“在每个有限测度集上依测度收敛”
+更强。例如 \(\mathbf1_{[n,n+1]}\) 在 \(\mathbb R\) 上处处收敛于零，
+也在每个有限测度集上依测度收敛，却不在全空间依测度收敛。
+
+\begin{proposition}[依测度收敛的度量化]
+\label{prop:convergence-in-measure-metric}
+定义
+\[
+ d_\mu(f,g)=\inf\{\varepsilon\in(0,1]:
+   \mu(\{|f-g|>\varepsilon\})\le\varepsilon\},
+\]
+若集合为空则令 \(d_\mu(f,g)=1\)。在几乎处处相等的函数商空间上，
+\(d_\mu\) 是度量，并且
+\[
+ d_\mu(f_n,f)\to0
+ \quad\Longleftrightarrow\quad
+ f_n\xrightarrow{\mu}f.
+\]
+\end{proposition}
+
+\begin{proof}
+对称性和正定性直接成立。若
+\(|f-h|>r+s\)，则
+\(|f-g|>r\) 或 \(|g-h|>s\)，所以
+\[
+ \mu(\{|f-h|>r+s\})
+ \le\mu(\{|f-g|>r\})+\mu(\{|g-h|>s\}).
+\]
+让 \(r,s\) 分别略大于两个距离。若 \(r+s>1\)，则由
+\(d_\mu\le1<r+s\) 结论直接成立；若 \(r+s\le1\)，上面的集合估计给出
+三角不等式。
+
+若 \(d_\mu(f_n,f)\to0\)，给定 \(\varepsilon>0\)，取
+\(\delta<\varepsilon\) 且最终 \(d_\mu(f_n,f)<\delta\)，便有某
+\(\eta<\delta\) 使
+\[
+ \mu(\{|f_n-f|>\varepsilon\})
+ \le\mu(\{|f_n-f|>\eta\})\le\eta<\delta.
+\]
+反之，若依测度收敛，给定 \(\delta>0\)，最终
+\(\mu(\{|f_n-f|>\delta\})\le\delta\)，故
+\(d_\mu(f_n,f)\le\delta\)。
+\end{proof}
+
+\begin{proposition}
+\label{prop:measure-limit-unique}
+依测度极限在几乎处处意义下唯一，并且依测度收敛对加法保持。若
+\(\Phi:\mathbb R\to\mathbb R\) 一致连续，则
+\[
+ f_n\xrightarrow{\mu}f
+ \quad\Longrightarrow\quad
+ \Phi(f_n)\xrightarrow{\mu}\Phi(f).
+\]
+若进一步有 \(\mu(X)<\infty\)，则“一致连续”可放宽为“连续”；对几乎
+处处有限的函数列，乘法也保持依测度收敛。特别地，此时
+\[
+ f_n+g_n\to f+g,\qquad f_ng_n\to fg
+\]
+依测度。
+\end{proposition}
+
+\begin{proof}
+若同时收敛到 \(f,g\)，则对任意 \(\varepsilon>0\)，
+\[
+ \{|f-g|>\varepsilon\}
+ \subset\{|f-f_n|>\varepsilon/2\}
+ \cup\{|f_n-g|>\varepsilon/2\}.
+\]
+令 \(n\to\infty\)，得左侧测度为零。加法由三角不等式和同样的坏集分解
+得到。若 \(\Phi\) 一致连续，给定 \(\varepsilon>0\)，可取 \(\delta>0\)
+使 \(|u-v|\le\delta\) 蕴含
+\(|\Phi(u)-\Phi(v)|\le\varepsilon\)，因而
+\[
+ \{|\Phi(f_n)-\Phi(f)|>\varepsilon\}
+ \subseteq\{|f_n-f|>\delta\}.
+\]
+
+以下设 \(\mu(X)<\infty\)。若 \(f\) 几乎处处有限，则
+\(\mu(\{|f|>M\})\to0\)。在 \([-M-1,M+1]\) 上，连续函数 \(\Phi\)
+一致连续；同时，除去
+\(\{|f|>M\}\cup\{|f_n-f|>1\}\) 后，\(f\) 与 \(f_n\) 都落在该
+紧区间中。这证明一般连续复合的结论。乘法可写成
+\[
+ f_ng_n-fg=f_n(g_n-g)+g(f_n-f).
+\]
+先在一个小测度集合外同时限制 \(|f|,|g|\le M\) 以及
+\(|f_n-f|,|g_n-g|\le1\)，再令两个差分别小于
+\(\varepsilon/(2(M+1))\)，即可使乘积差小于 \(\varepsilon\)。
+\end{proof}
+
+有限测度条件不能从后一部分删去。在 \((\mathbb R,m)\) 上取
+\(f_n(x)=x+1/n\)、\(f(x)=x\)，则 \(f_n\to f\) 一致，因而依测度收敛；
+但对 \(\Phi(u)=u^2\)，集合
+\(\{|\Phi(f_n)-\Phi(f)|>1\}\) 含有一条无限长的半直线，其测度为无穷。
+
+\section{\texorpdfstring{\(L^p\)}{Lp} 收敛}
+
+对 \(0<p<\infty\)，若
+\[
+ \int_X|f_n-f|^p\,d\mu\longrightarrow0,
+\]
+则称 \(f_n\to f\) 于 \(L^p\)。第 \ref{chap:lp-spaces} 章将证明
+\(p\ge1\) 时这来自一个完备范数；目前只需把它看作平均误差趋零。
+
+\begin{theorem}
+\label{thm:lp-implies-measure}
+对任意 \(0<p<\infty\)，\(L^p\) 收敛蕴含依测度收敛。更精确地，
+\[
+ \mu(\{|f_n-f|>\varepsilon\})
+ \le\varepsilon^{-p}\int|f_n-f|^p\,d\mu .
+\]
+\end{theorem}
+
+\begin{proof}
+在集合 \(\{|f_n-f|>\varepsilon\}\) 上，
+\(|f_n-f|^p\ge\varepsilon^p\)，应用 Markov 不等式即可。
+\end{proof}
+
+反向推论不成立。依测度收敛只控制超水平集的大小，不能排除在小集合上形成
+高尖峰。函数 \(f_n=n\mathbf1_{(0,1/n)}\) 依测度收敛于零，但不在
+\(L^1(0,1)\) 中收敛于零。
+
+\section{有限测度空间中的关系}
+
+\begin{theorem}
+\label{thm:finite-measure-convergence-relations}
+若 \(\mu(X)<\infty\)，则：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 几乎处处收敛蕴含依测度收敛；
+ \item 本质一致收敛蕴含 \(L^p\) 收敛，对每个 \(0<p<\infty\)；
+ \item 若 \(0<p<q<\infty\)，则 \(L^q\) 收敛蕴含 \(L^p\) 收敛。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+若 \(f_n\to f\) a.e.，则
+\(\mathbf1_{\{|f_n-f|>\varepsilon\}}\to0\) a.e.，并由
+\(\mathbf1_X\in L^1\) 控制；控制收敛给出 (i)。
+
+若本质上 \(|f_n-f|\le a_n\to0\)，则
+\[
+ \int|f_n-f|^p\le a_n^p\mu(X)\to0,
+\]
+得到 (ii)。对 (iii)，Hölder 不等式给出
+\[
+ \|h\|_p\le\mu(X)^{1/p-1/q}\|h\|_q;
+\]
+第 \ref{chap:lp-spaces} 章将系统证明这一不等式，也可在此先对
+\(|h|^p\cdot1\) 使用相应指数的 Hölder 不等式。
+\end{proof}
+
+\section{反向命题的反例}
+
+\begin{example}[typewriter 函数列]
+依次枚举所有二进区间
+\[
+ [k2^{-m},(k+1)2^{-m}),\qquad
+ m=0,1,\ldots,\quad k=0,\ldots,2^m-1,
+\]
+并令 \(f_n\) 为相应区间的指示函数。支撑长度趋于零，所以
+\(f_n\to0\) 依测度，且对每个 \(p>0\)，\(\|f_n\|_p\to0\)。但除二进
+端点外，每个 \(x\) 在每一层恰落入一个区间，也在同层其他项取零，所以
+\((f_n(x))\) 不收敛。故 \(L^p\) 收敛和依测度收敛都不推出整列几乎处处
+收敛。
+\end{example}
+
+\begin{example}[逐点收敛但没有 \(L^p\) 收敛]
+在 \((0,1)\) 上令
+\[
+ f_n=n^{1/p}\mathbf1_{(0,1/n)}.
+\]
+则 \(f_n\to0\) 几乎处处，而
+\(\|f_n\|_p=1\)。改变高度还可使 \(L^p\) 范数趋于无穷。
+\end{example}
+
+\begin{example}[无限测度的影响]
+在 \(\mathbb R\) 上，常数函数 \(f_n=1/n\) 一致收敛于零，却不属于任何
+有限 \(p\) 的 \(L^p(\mathbb R)\)。函数
+\(\mathbf1_{[n,\infty)}\) 处处收敛于零，但对
+\(0<\varepsilon<1\)，超水平集测度始终为无穷，故不依测度收敛。
+\end{example}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　定义与度量}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{essential-uniform-equivalence}
+证明本质上确界收敛等价于删去一个固定零测集后的一致收敛。
+
+\exerciseitem{measure-metric-triangle}
+完整证明命题 \ref{prop:convergence-in-measure-metric} 的三角不等式和
+正定性。
+
+\exerciseitem{measure-convergence-cauchy}
+写出依测度 Cauchy 条件，并证明在度量 \(d_\mu\) 下它正是通常的度量
+Cauchy 条件。
+
+\exerciseitem{measure-limit-operations}
+证明一致连续复合在任意测度空间上保持依测度收敛；再在
+\(\mu(X)<\infty\) 的假设下，补全一般连续复合与乘法的证明。
+
+\end{enumerate}
+\subsection*{B组　蕴含与反例}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ae-to-measure-finite}
+不用控制收敛定理，直接从测度连续性证明有限测度空间中 a.e. 收敛蕴含依
+测度收敛。
+
+\exerciseitem{typewriter-details}
+给 typewriter 函数列写出精确编号公式，证明它在每个 \(L^p(0,1)\) 中
+趋于零但几乎处处不收敛。
+
+\exerciseitem{measure-not-lp-spike}
+给定 \(0<p<\infty\)，构造 \(f_n\to0\) 依测度而
+\(\|f_n\|_p\to\infty\) 的函数列。
+
+\exerciseitem{ae-not-measure-infinite}
+验证 \(\mathbf1_{[n,\infty)}\to0\) 处处但不依测度收敛；再证明它在每个
+有限测度集上依测度收敛。
+
+\end{enumerate}
+\subsection*{C组　估计与综合}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{lp-not-ae-subsequence-warning}
+说明“\(L^p\) 收敛不推出几乎处处收敛”与“可以抽出几乎处处收敛子列”
+并不矛盾。
+
+\exerciseitem{finite-lq-lp-estimate}
+证明有限测度空间上的
+\[
+ \|h\|_p\le\mu(X)^{1/p-1/q}\|h\|_q
+\quad(0<p<q<\infty),
+\]
+并找出等号成立的非零函数。
+
+\optionalexerciseitem{distribution-functions-convergence}
+设 \(\mu(X)<\infty\)，且 \(f_n\to f\) 依测度。证明对每个满足
+\(\mu(\{|f|=a\})=0\) 的 \(a>0\)，有
+\[
+ \mu(\{|f_n|>a\})\to\mu(\{|f|>a\})
+\]
+成立。
+
+\projectexerciseitem{counterexample-table-convergence}
+为本章所有不存在的反向蕴含各给一个定义域尽可能简单的反例，并逐项核对
+其点态、测度和积分性质。
+\end{enumerate}

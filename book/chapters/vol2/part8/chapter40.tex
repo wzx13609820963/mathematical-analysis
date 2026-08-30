@@ -1,434 +1,277 @@
-\chapter{网与滤子}
-\label{chap:nets-filters}
+\chapter{拓扑连通性}
+\label{chap:topological-connectedness}
 
-在度量空间中，许多拓扑问题都可以交给数列处理：闭包中的点是某个数列的
-极限，紧致性可以表述为每个数列都有收敛子列，连续性也可由保持数列极限
-刻画。一般拓扑空间未必有可数邻域基。此时，一个数列只能依次满足可数多
-个邻域条件，不能保证它最终进入点的全部邻域。
+区间介值定理所使用的整体性质是：区间不能分成两个互不接触的非空开部分。把这一性质从实直线中抽出，便得到连通性。它由开闭集刻画，因而适用于一般拓扑空间；连续映射保持连通性，所以介值现象也随之推广。
 
-网把指标集从 \(\N\) 换成任意有向集；滤子则直接记录“最终必然发生”的
-集合。两种语言携带同一类渐近信息，但各有适合的论证：网保留逐项逼近的
-形式，滤子在紧致性、乘积和一致结构中往往更简洁。本章建立两者的换译，
-并用它们给出不附加可数性假设的闭包、连续性与紧致性判据。
+道路连通要求任意两点之间有一条连续曲线。欧氏空间中的许多常见集合使“连通”与“道路连通”看起来几乎相同，但一般子空间中二者会分开。本章给出这个差别的经典例子，并说明局部道路连通性怎样重新使两种分支一致。
 
-\section{有向集和网}
+\section{闭开分离与连通分支}
 
-\begin{definition}[有向集]
-非空集合 \(I\) 上的关系 \(\preccurlyeq\) 若满足
+\begin{definition}[分离与连通]
+拓扑空间 \(X\) 的一个分离，是一对不相交非空开集 \(U,V\)，满足
+\[
+ X=U\cup V.
+\]
+不存在分离的空间称为连通空间。子集 \(A\subseteq X\) 称为连通集，如果它带子空间拓扑时连通。
+\end{definition}
+
+在分离中，\(U=X\setminus V\)、\(V=X\setminus U\)，所以两部分同时开闭。于是 \(X\) 连通，当且仅当它的开闭子集只有 \(\varnothing\) 和 \(X\)。
+
+\begin{theorem}[连通集的粘合与闭包]
+\label{thm:connected-union-closure}
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item \(i\preccurlyeq i\)；
- \item \(i\preccurlyeq j\preccurlyeq k\) 蕴含 \(i\preccurlyeq k\)；
- \item 对任意 \(i,j\in I\)，存在 \(k\in I\) 使
- \(i\preccurlyeq k\) 且 \(j\preccurlyeq k\)，
+ \item 若连通子集族 \((C_i)_{i\in I}\) 有一个公共点，则其并集
+ \(\bigcup_{i\in I}C_i\) 连通；
+ \item 连通集 \(C\) 的闭包 \(\overline C\) 连通；
+ \item 更一般地，若每个 \(C_i\) 都与一个固定连通集 \(C\) 相交，则
+ \(C\cup\bigcup_iC_i\) 连通。
 \end{enumerate}
-则称 \((I,\preccurlyeq)\) 为\term{有向集}。这里不要求反对称性。
+\end{theorem}
+
+\begin{proof}
+证明(iii)即可。反设并集 \(E\) 有分离 \(U,V\)。固定连通集 \(C\) 必完全落在其中一侧，不妨 \(C\subseteq U\)。每个 \(C_i\) 与 \(C\) 相交，故与 \(U\) 相交；由 \(C_i\) 连通，它不能同时与 \(V\) 相交，所以 \(C_i\subseteq U\)。于是 \(V\) 为空，矛盾。(i)是取 \(C\) 为公共单点的特例。
+
+对(ii)，若 \(\overline C=U\cup V\) 是分离，则 \(C\) 完全落在一侧，不妨 \(C\subseteq U\)。此时相对闭集 \(\overline C\setminus U=V\) 与 \(C\) 不交，但 \(C\) 在 \(\overline C\) 中稠密，故 \(V=\varnothing\)，矛盾。
+\end{proof}
+
+\begin{theorem}[递减紧连通集的交]
+\label{thm:nested-compact-connected-intersection}
+设 \(X\) 为 Hausdorff 空间，
+\[
+ K_1\supseteq K_2\supseteq\cdots
+\]
+是一列非空紧连通子集。则
+\[
+ K=\bigcap_{n\in\Npos}K_n
+\]
+非空且连通。
+\end{theorem}
+
+\begin{proof}
+各 \(K_n\) 是紧集 \(K_1\) 中的闭集，并具有有限交性质，所以
+\(K\ne\varnothing\)。
+
+若 \(K\) 不连通，存在 \(K\) 中不相交非空开闭集 \(A,B\) 覆盖 \(K\)。
+它们作为紧 Hausdorff 空间 \(K\) 的闭子集是紧集，因而也是 \(X\) 中的闭集。紧 Hausdorff 空间 \(K_1\) 正规，所以可在 \(K_1\) 中取不相交开集 \(U,V\)，分别包含 \(A,B\)。
+
+若每个 \(K_n\) 都有点落在 \(K_1\setminus(U\cup V)\)，则闭集
+\[
+ K_n\setminus(U\cup V)
+\]
+在 \(K_1\) 中非空、紧且递减；有限交性质会给出一点属于
+\(K\setminus(U\cup V)\)，与 \(K=A\cup B\subseteq U\cup V\) 矛盾。因此某个 \(K_N\subseteq U\cup V\)。另一方面，\(K_N\) 同时与
+\(A\subseteq U\) 和 \(B\subseteq V\) 相交，于是
+\[
+ K_N=(K_N\cap U)\cup(K_N\cap V)
+\]
+是一个分离，违背 \(K_N\) 连通。
+\end{proof}
+
+\begin{definition}[连通分支]
+给定 \(x\in X\)，所有含 \(x\) 的连通子集之并称为 \(x\) 的连通分支，记为 \(C(x)\)。
 \end{definition}
 
-第三条只要求任意有限组条件能够同时向后推进。通常的
-\((\N,\le)\) 是有向集；一个集合的有限子集全体按包含关系排序也是有向
-集；若 \(x\) 是拓扑空间中的点，则 \(x\) 的邻域全体按反向包含
+由粘合定理，\(C(x)\) 连通；它包含所有含 \(x\) 的连通集，所以是含 \(x\) 的最大连通子集。
+
+\begin{proposition}[连通分支的结构]
+\label{prop:connected-components}
+关系
 \[
- U\preccurlyeq V\quad\Longleftrightarrow\quad V\subseteq U
+ x\sim y\quad\Longleftrightarrow\quad
+ \text{存在连通子集同时含 }x,y
 \]
-排序同样是有向集。最后一个例子已经表明，有向关系表示“信息变得更精细”，
-不一定表示数值增大。
-
-\begin{definition}[网]
-设 \(I\) 为有向集，映射 \(x:I\to X\) 称为 \(X\) 中的一个\term{网}，
-记作 \((x_i)_{i\in I}\)。若性质 \(P(i)\) 对某个 \(i_0\in I\) 之后
-的全部指标成立，即
-\[
- i\succcurlyeq i_0\quad\Longrightarrow\quad P(i),
-\]
-则称 \(P(i)\) \term{最终成立}；若对每个 \(i_0\) 都存在
-\(i\succcurlyeq i_0\) 使 \(P(i)\) 成立，则称它\term{频繁成立}。
-\end{definition}
-
-数列是指标集为 \(\N\) 的网。更能体现一般性的例子来自有限逼近。设
-\(S\) 是任意集合，\(\mathcal D\) 为 \(S\) 的有限子集全体，按包含排序。
-若对每个 \(F\in\mathcal D\) 构造一个同时满足 \(F\) 中全部条件的对象
-\(x_F\)，那么“对每个固定条件 \(s\in S\)，当 \(F\) 充分大时该条件
-成立”就成为普通的最终性陈述。
-
-\begin{definition}[网的收敛]
-设 \(X\) 为拓扑空间。网 \((x_i)_{i\in I}\) \term{收敛}到
-\(x\in X\)，若对 \(x\) 的每个邻域 \(U\)，都有 \(x_i\in U\)
-最终成立，记作 \(x_i\to x\)。
-\end{definition}
-
-若把 \(x\) 的邻域全体作为指标集，并在每个邻域 \(U\) 中选取一点
-\(x_U\)，则所得网自动趋于 \(x\)。为了避免在任意多邻域上预先作选择，
-也可把指标写成
-\[
- I=\{(U,y):U\text{ 是 }x\text{ 的邻域},\ y\in U\},
-\]
-并令 \(x_{(U,y)}=y\)。按邻域反向包含排序后，它同样趋于 \(x\)。
-
-\begin{proposition}[极限的唯一性]
-\label{prop:net-limits-hausdorff}
-拓扑空间 \(X\) 为 Hausdorff 空间，当且仅当 \(X\) 中每个收敛网的
-极限唯一。
+是等价关系，其等价类正是连通分支。每个连通分支闭，但不一定开。
 \end{proposition}
 
 \begin{proof}
-若 \(X\) 为 Hausdorff 空间，而同一网同时趋于 \(x\ne y\)，取不交邻域
-\(U\ni x\)、\(V\ni y\)。网最终在 \(U\) 中，也最终在 \(V\) 中；有向
-性使这两个最终条件可以同时满足，得到某项属于 \(U\cap V\)，矛盾。
+每个单点集连通，所以关系自反；把同一连通集中的两点交换次序，得到对称性。若 \(x,y\) 同属连通集 \(A\)，而 \(y,z\) 同属连通集 \(B\)，则 \(A\cap B\ne\varnothing\)，故 \(A\cup B\) 连通，得到 \(x\sim z\)。所以它是等价关系，等价类按定义是最大连通集。
 
-反之，若 \(x\ne y\) 不能由不交邻域分开，令指标集由三元组
-\((U,V,z)\) 组成，其中 \(U\ni x\)、\(V\ni y\) 为邻域且
-\(z\in U\cap V\)，按 \(U,V\) 同时反向包含排序，并取网值为 \(z\)。
-这个网既趋于 \(x\) 又趋于 \(y\)，故极限不唯一。
+连通分支 \(C\) 的闭包仍连通，并含 \(C\)。由极大性 \(\overline C=C\)，故 \(C\) 闭。它未必开：\(\Q\) 的每个连通分支都是单点，而 \(\Q\) 没有孤立点。
 \end{proof}
 
-\section{网的收敛及子网}
+最后一句将在习题中证明。它提醒我们：一个空间可以由闭的连通分支分解，却不能把这些分支当作开块逐个研究。
 
-数列的子列由严格递增指标给出。一般有向集没有一个适用的“严格递增整数
-指标”，需要直接规定新指标最终越过旧指标的每个阶段。
+\section{道路分支与局部道路连通}
 
-\subsection{最终共尾映射与聚点}
-
-\begin{definition}[子网]
-设 \((x_i)_{i\in I}\) 是网。若 \(J\) 是有向集，映射
-\(\phi:J\to I\) 满足
+\begin{definition}[道路与道路连通]
+从 \(x\) 到 \(y\) 的道路是连续映射
 \[
- \forall i_0\in I\ \exists j_0\in J\ \forall j\succcurlyeq j_0,
- \qquad \phi(j)\succcurlyeq i_0,
+ \gamma:[0,1]\to X,\qquad \gamma(0)=x,\quad\gamma(1)=y.
 \]
-则称 \(\phi\) 为\term{最终共尾映射}，并称
-\((x_{\phi(j)})_{j\in J}\) 为 \((x_i)\) 的一个\term{子网}。
+若任意两点之间都有道路，则称 \(X\) 道路连通。含一点 \(x\) 的最大道路连通子集称为 \(x\) 的道路分支。
 \end{definition}
 
-有些文献还要求 \(\phi\) 保序。本书采用上面的最终共尾定义；它恰好保证
-原网最终成立的每个性质在子网上仍最终成立。因此，收敛网的每个子网收敛
-到同一极限。
+常值道路、反向参数化和分段重参数化分别给出道路关系的自反、对称与传递性，因此道路分支也是等价类。
 
-\begin{definition}[网的聚点]
-点 \(x\in X\) 称为网 \((x_i)\) 的\term{聚点}，若对 \(x\) 的每个
-邻域 \(U\) 和每个 \(i_0\in I\)，都存在 \(i\succcurlyeq i_0\) 使
-\(x_i\in U\)。也就是说，\(x_i\in U\) 对每个邻域 \(U\) 都频繁成立。
-\end{definition}
-
-\begin{theorem}[聚点与收敛子网]
-\label{thm:net-cluster-subnet}
-点 \(x\) 是网 \((x_i)_{i\in I}\) 的聚点，当且仅当该网有一个收敛
-到 \(x\) 的子网。
-\end{theorem}
-
-\begin{proof}
-若子网 \(x_{\phi(j)}\to x\)，给定邻域 \(U\) 和 \(i_0\)，子网最终进入
-\(U\)，而 \(\phi\) 最终越过 \(i_0\)。把两个最终条件合并，便得到某个
-\(i=\phi(j)\succcurlyeq i_0\) 且 \(x_i\in U\)。
-
-反过来，设 \(x\) 是聚点。令
-\[
- J=\{(i,U):i\in I, U\text{ 是 }x\text{ 的邻域},\ x_i\in U\}.
-\]
-规定
-\[
- (i,U)\preccurlyeq(j,V)
- \quad\Longleftrightarrow\quad i\preccurlyeq j\text{ 且 }V\subseteq U.
-\]
-给定 \((i,U),(j,V)\)，先取 \(k_0\succcurlyeq i,j\)，再由聚点性质取
-\(k\succcurlyeq k_0\) 使 \(x_k\in U\cap V\)。于是
-\((k,U\cap V)\) 是共同上界，故 \(J\) 有向。令
-\(\phi(i,U)=i\)。聚点性质保证 \(J\) 非空；给定 \(i_0\)，取某个
-\(i\succcurlyeq i_0\) 和邻域 \(X\) 得到 \((i,X)\in J\)，其后的
-指标都被 \(\phi\) 送到 \(i_0\) 之后，所以 \(\phi\) 最终共尾。
-最后，给定邻域 \(U_0\)，从某个 \((i,U_0)\in J\) 开始，后继
-\((j,V)\) 满足 \(x_j\in V\subseteq U_0\)。所得子网收敛到 \(x\)。
-\end{proof}
-
-网之所以能够恢复一般拓扑，关键是指标集可以同时编码全部邻域。
-
-\subsection{闭包与连续性}
-
-\begin{theorem}[闭包的网刻画]
-\label{thm:closure-by-nets}
-设 \(A\subseteq X\)。则
-\[
- x\in\overline A
- \quad\Longleftrightarrow\quad
- \text{存在 }A\text{ 中的网收敛到 }x.
-\]
-因而，\(A\) 闭当且仅当 \(A\) 中每个收敛网的极限仍在 \(A\) 中。
-\end{theorem}
-
-\begin{proof}
-若 \(x\in\overline A\)，每个邻域 \(U\) 都与 \(A\) 相交。取指标集
-\[
- I=\{(U,a):U\ni x\text{ 为邻域},\ a\in A\cap U\},
-\]
-按邻域反向包含排序，并令 \(x_{(U,a)}=a\)。这给出 \(A\) 中趋于
-\(x\) 的网。反向结论直接来自闭包 \(\overline A\) 是含 \(A\) 的闭集：
-若网始终在 \(A\) 中并趋于 \(x\)，则每个 \(x\) 的邻域都与 \(A\)
-相交，故 \(x\in\overline A\)。闭集刻画由
-\(A=\overline A\) 得到。
-\end{proof}
-
-\begin{theorem}[连续性的网判据]
-\label{thm:continuity-by-nets}
-映射 \(f:X\to Y\) 在 \(x\in X\) 连续，当且仅当对每个
-\(x_i\to x\)，都有 \(f(x_i)\to f(x)\)。
-\end{theorem}
-
-\begin{proof}
-连续性立即推出保持网的极限。反之，若 \(f\) 在 \(x\) 不连续，则存在
-\(f(x)\) 的邻域 \(V\)，使 \(f^{-1}(V)\) 不是 \(x\) 的邻域。
-因此每个 \(x\) 的邻域 \(U\) 都含有一点
-\(x_U\notin f^{-1}(V)\)。用成对指标 \((U,y)\) 可避免选择：令
-\[
- I=\{(U,y):U\ni x, y\in U\setminus f^{-1}(V)\},
-\]
-按 \(U\) 反向包含排序。网 \(y_{(U,y)}=y\) 趋于 \(x\)，但其像网
-没有任何一项落在 \(V\) 中，故不趋于 \(f(x)\)，与假设矛盾。
-\end{proof}
-
-\begin{example}[序列不能刻画的闭包]
-取不可数集合 \(S\)，令 \(X=\{0,1\}^{S}\) 取乘积拓扑，\(A\) 为所有
-只有有限多个坐标等于 \(1\) 的点。恒等于 \(1\) 的点记为 \(\boldsymbol1\)。
-每个基本邻域只限制有限多个坐标，故与 \(A\) 相交，于是
-\(\boldsymbol1\in\overline A\)。
-
-然而，\(A\) 中任一数列 \((a_n)\) 的支集并集仍至多可数。可取
-\(s\in S\) 不在这个并集中，于是 \(a_n(s)=0\) 对所有 \(n\) 成立，
-该数列不可能趋于 \(\boldsymbol1\)。另一方面，以 \(S\) 的有限子集
-\(F\) 为指标，令 \(a_F=\boldsymbol1_F\)，则 \(a_F\to\boldsymbol1\)。
-\end{example}
-
-\section{滤子和滤子基}
-
-\begin{definition}[滤子]
-集合 \(X\) 上的一个\term{滤子}是子集族 \(\mathcal F\subseteq
-\mathcal P(X)\)，满足
-\begin{enumerate}[label=\textup{(\roman*)}]
- \item \(\varnothing\notin\mathcal F\)，且 \(X\in\mathcal F\)；
- \item \(A,B\in\mathcal F\) 蕴含 \(A\cap B\in\mathcal F\)；
- \item \(A\in\mathcal F\) 且 \(A\subseteq B\subseteq X\) 蕴含
- \(B\in\mathcal F\)。
-\end{enumerate}
-若 \(\mathcal F\subseteq\mathcal G\)，称 \(\mathcal G\) 比
-\(\mathcal F\) \term{更细}。
-\end{definition}
-
-滤子中的集合可理解为最终必须进入的集合。点 \(x\) 的邻域滤子
-\(\mathcal N(x)\) 由所有含 \(x\) 的邻域组成；网 \((x_i)\) 的
-\term{尾滤子}为
-\[
- \mathcal F_x=\{A\subseteq X:\text{存在 }i_0,
- \{x_i:i\succcurlyeq i_0\}\subseteq A\}.
-\]
-
-\subsection{滤子基与网的换译}
-
-\begin{definition}[滤子基]
-非空集合族 \(\mathcal B\subseteq\mathcal P(X)\setminus\{\varnothing\}\)
-称为\term{滤子基}，若对任意 \(B_1,B_2\in\mathcal B\)，存在
-\(B_3\in\mathcal B\) 使 \(B_3\subseteq B_1\cap B_2\)。它生成的滤子为
-\[
- \langle\mathcal B\rangle
- =\{A\subseteq X:\text{存在 }B\in\mathcal B, B\subseteq A\}.
-\]
-\end{definition}
-
-网的尾部集合构成滤子基。反过来，给定滤子基 \(\mathcal B\)，令
-\[
- I_{\mathcal B}=\{(B,x):B\in\mathcal B, x\in B\},
-\]
-并按 \(B\) 的反向包含排序，取 \(x_{(B,x)}=x\)，便得到与
-\(\langle\mathcal B\rangle\) 携带同样最终信息的网。使用成对指标使这个
-构造不需要为每个 \(B\) 预先选点。
-
-\subsection{收敛与聚集}
-
-\begin{definition}[滤子的收敛与聚点]
-滤子 \(\mathcal F\) \term{收敛}到 \(x\)，若
-\(\mathcal N(x)\subseteq\mathcal F\)，记作 \(\mathcal F\to x\)。
-点 \(x\) 是 \(\mathcal F\) 的\term{聚点}，若
-\[
- A\cap U\ne\varnothing
- \quad(A\in\mathcal F, U\in\mathcal N(x)).
-\]
-等价地，\(x\in\bigcap_{A\in\mathcal F}\overline A\)。
-\end{definition}
-
-对网的尾滤子，滤子收敛等价于网收敛，滤子聚点等价于网聚点。更细的滤子
-保留收敛，但未必保留聚点。
-
-\subsection{超滤子}
-
-\begin{definition}[超滤子]
-在包含关系下极大的滤子称为\term{超滤子}。
-\end{definition}
-
-\begin{proposition}[超滤子的二分性质]
-\label{prop:ultrafilter-dichotomy}
-滤子 \(\mathcal U\) 是超滤子，当且仅当对每个 \(A\subseteq X\)，
-恰有 \(A\in\mathcal U\) 与 \(X\setminus A\in\mathcal U\) 之一成立。
+\begin{proposition}
+\label{prop:path-connected-implies-connected}
+道路连通空间连通。因而每个道路分支包含在某个连通分支中。
 \end{proposition}
 
 \begin{proof}
-两者不能同时成立，否则空集属于 \(\mathcal U\)。若两者都不属于
-\(\mathcal U\)，则每个 \(F\in\mathcal U\) 都与 \(A\) 相交；否则
-\(F\subseteq X\setminus A\) 会推出补集属于 \(\mathcal U\)。于是
-\(\{F\cap A:F\in\mathcal U\}\) 是滤子基，生成严格包含
-\(\mathcal U\) 的滤子，违背极大性。反向结论也直接：若
-\(\mathcal G\supsetneq\mathcal U\) 是滤子，取
-\(A\in\mathcal G\setminus\mathcal U\)，则 \(X\setminus A\in\mathcal U
-\subseteq\mathcal G\)，从而空集属于 \(\mathcal G\)，矛盾。
+若 \(X=U\cup V\) 是分离并取 \(x\in U,y\in V\)，从 \(x\) 到 \(y\) 的道路 \(\gamma\) 会把连通区间 \([0,1]\) 连续映到一个同时交 \(U,V\) 的连通集，矛盾。第二句由道路分支本身连通得到。
 \end{proof}
 
-任意滤子都能扩张为超滤子。这一超滤子扩张原理使用选择原则；
-\chapterref{chap:compact-topological-spaces}在证明任意乘积紧致性时已经
-说明了本书采用的相应形式。这里不把它误写成有限选择的推论。
+\begin{definition}[局部连通与局部道路连通]
+若每个点都有由连通开邻域组成的邻域基，则称空间局部连通。若每个点都有由道路连通开邻域组成的邻域基，则称空间局部道路连通。
+\end{definition}
 
-\section{紧致性、连续性与三种收敛语言}
+“每点有一个连通邻域”不足以构成局部连通；要求的是在任意给定邻域内还能缩小到连通开邻域。
 
-\subsection{紧致性的等价判据}
-
-\begin{theorem}[紧致性的网与滤子刻画]
-\label{thm:compactness-nets-filters}
-对拓扑空间 \(X\)，下列命题等价：
-\begin{enumerate}[label=\textup{(\roman*)}]
- \item \(X\) 紧致；
- \item \(X\) 中每个滤子都有聚点；
- \item \(X\) 中每个超滤子都收敛；
- \item \(X\) 中每个网都有收敛子网。
-\end{enumerate}
+\begin{theorem}[局部道路连通空间的分支]
+\label{thm:locally-path-connected-components}
+若 \(X\) 局部道路连通，则每个道路分支开，并且道路分支与连通分支相同。更一般地，\(X\) 局部道路连通，当且仅当 \(X\) 的每个开子集的道路分支都是开集。
 \end{theorem}
 
 \begin{proof}
-\((\mathrm i)\Rightarrow(\mathrm{ii})\)。对滤子 \(\mathcal F\)，闭集族
-\(\{\overline A:A\in\mathcal F\}\) 具有有限交性质。事实上，滤子中的
-有限交非空，并且
-\[
- \overline{A_1\cap\cdots\cap A_n}
- \subseteq\overline A_1\cap\cdots\cap\overline A_n.
-\]
-紧致性给出
-\[
- \bigcap_{A\in\mathcal F}\overline A\ne\varnothing,
-\]
-其中任一点都是聚点。
+设 \(P\) 是 \(X\) 的道路分支，\(x\in P\)。取道路连通开邻域 \(U\ni x\)。\(U\) 中每一点可先沿 \(U\) 内道路到 \(x\)，再沿 \(P\) 中道路到固定基点，故 \(U\subseteq P\)。所以 \(P\) 开。道路分支把 \(X\) 分成互不相交开集。固定一个道路分支 \(P\)，它的补集是其余开道路分支的并，也开；所以 \(P\) 是开闭集。任一连通集若与 \(P\) 相交，就不能再与 \(X\setminus P\) 相交。因此每个连通分支只含一个道路分支，两者相同。
 
-\((\mathrm{ii})\Rightarrow(\mathrm{iii})\)。设超滤子 \(\mathcal U\)
-有聚点 \(x\)。若某邻域 \(V\ni x\) 不属于 \(\mathcal U\)，二分性质
-给出 \(X\setminus V\in\mathcal U\)，这与聚点条件矛盾。因此
-\(\mathcal N(x)\subseteq\mathcal U\)，即 \(\mathcal U\to x\)。
-
-\((\mathrm{iii})\Rightarrow(\mathrm{ii})\)。把 \(\mathcal F\) 扩张为
-超滤子 \(\mathcal U\)。若 \(\mathcal U\to x\)，则 \(x\) 是
-\(\mathcal U\) 的聚点，更是较粗滤子 \(\mathcal F\) 的聚点。
-
-\((\mathrm{ii})\Rightarrow(\mathrm{iv})\)。任一网的尾滤子有聚点；该点
-也是网的聚点，由定理 \ref{thm:net-cluster-subnet} 得到收敛子网。
-
-\((\mathrm{iv})\Rightarrow(\mathrm i)\)。若开覆盖 \(\mathcal O\) 没有
-有限子覆盖，令
-\[
- I=\{(\mathcal E,x):\mathcal E\subseteq\mathcal O\text{ 有限},
- x\notin\bigcup\mathcal E\},
-\]
-按有限族 \(\mathcal E\) 的包含关系定向，并取网值为第二坐标 \(x\)。
-这是非空有向集：两个有限族的并仍不能覆盖 \(X\)。若某子网趋于
-\(x_0\)，取 \(O_0\in\mathcal O\) 使 \(x_0\in O_0\)。共尾性保证子网
-最终对应于含 \(O_0\) 的有限族，因此其值最终不在 \(O_0\) 中；收敛性
-却要求它最终在 \(O_0\) 中，矛盾。故 \(\mathcal O\) 必有有限子覆盖。
+开子空间继承局部道路连通性，故正向对每个开子集成立。反之，给 \(x\in U\) 且 \(U\) 开；\(x\) 在 \(U\) 中的道路分支按假设开，是含 \(x\) 且包含于 \(U\) 的道路连通开邻域。这些分支构成所需邻域基。
 \end{proof}
 
-对映射 \(f:X\to Y\) 和滤子 \(\mathcal F\)，定义像滤子
+把“道路”删去，同一证明给出：空间局部连通，当且仅当每个开子集的连通分支开。局部道路连通蕴含局部连通，逆命题一般不成立。
+
+\section{连通但非道路连通的空间}
+
+\subsection{正弦曲线的闭包与道路分支}
+
+令
 \[
- f_*\mathcal F
- =\{B\subseteq Y:f^{-1}(B)\in\mathcal F\}.
+ G=\{(x,\sin(1/x)):0<x\le1\}\subseteq\R^2,
+\qquad
+ S=G\cup(\{0\}\times[-1,1]).
 \]
-它是由集合族 \(\{f(A):A\in\mathcal F\}\) 生成的滤子。
+集合 \(S\) 称为拓扑学家的正弦曲线。
 
-\subsection{连续映射与可数性}
+\begin{theorem}[拓扑学家的正弦曲线]
+\label{thm:topologists-sine-curve}
+集合 \(S\) 连通但不道路连通。它恰有两个道路分支：曲线 \(G\) 与竖直线段 \(\{0\}\times[-1,1]\)。
+\end{theorem}
 
-\begin{corollary}[连续性的三种表述]
-映射 \(f:X\to Y\) 在 \(x\) 连续，当且仅当下列任一条件成立：
-\begin{enumerate}[label=\textup{(\roman*)}]
- \item 对每个网 \(x_i\to x\)，有 \(f(x_i)\to f(x)\)；
- \item 对每个滤子 \(\mathcal F\to x\)，有
- \(f_*\mathcal F\to f(x)\)；
- \item \(f_*\mathcal N(x)\to f(x)\)。
-\end{enumerate}
+\begin{proof}
+\theoremref{thm:topologists-sine-curve-not-path-connected}已经在度量空间中
+证明 \(S=\overline G\) 连通，并利用振荡序列排除了从竖直线段到 \(G\) 的
+道路。那里还证明了 \(G\) 与竖直线段各自道路连通，故它们恰为两个道路分支。
+\end{proof}
+
+由于 \(S=\overline G\) 且 \(S\) 在 \(\R^2\) 中闭、有界，它还是一个紧致
+连通空间。曲线 \(G\) 是道路分支，却不是 \(S\) 中的闭集，因为它的闭包为
+整个 \(S\)。这与连通分支形成对照：连通分支总是闭的，道路分支则未必闭。
+因此，把空间按道路分支取商时，所得商空间甚至可能不是 \(T_1\) 空间；本例中
+对应于 \(G\) 的单点原像不是闭集。这个现象来自竖直线段附近无穷多次积聚，
+而不是由任一局部距离估计造成。
+
+\section{连续像、商空间与局部连通性}
+
+\subsection{连续像与商空间}
+
+\begin{theorem}[连续像保持连通]
+\label{thm:continuous-image-connected}
+若 \(X\) 连通、\(f:X\to Y\) 连续，则 \(f(X)\) 连通。
+\end{theorem}
+
+\begin{proof}
+若 \(f(X)\) 有分离 \(U,V\)，则 \(f^{-1}(U),f^{-1}(V)\) 是 \(X\) 的不相交非空相对开集，并覆盖 \(X\)，矛盾。
+\end{proof}
+
+当 \(Y=\R\) 时，连通子集恰为区间，因而上一定理包含介值定理：连通空间上的连续实值函数，其值域是区间。它没有使用定义域中的距离或次序。
+
+\begin{corollary}[商映射与连通性]
+\label{cor:quotient-connected}
+连通空间的任意商空间连通。更一般地，若 \(q:X\to Y\) 连续且满射，则 \(X\) 连通蕴含 \(Y\) 连通。
 \end{corollary}
 
 \begin{proof}
-网的表述已由定理 \ref{thm:continuity-by-nets} 证明。若 \(f\) 连续，
-则每个 \(f(x)\) 的邻域 \(V\) 都满足
-\(f^{-1}(V)\in\mathcal N(x)\subseteq\mathcal F\)，故
-\(V\in f_*\mathcal F\)。取 \(\mathcal F=\mathcal N(x)\) 得到第三条。
-反之，第三条说明每个 \(f(x)\) 的邻域 \(V\) 都有
-\(f^{-1}(V)\in\mathcal N(x)\)，正是点连续性的邻域定义。
+\(Y=q(X)\)，直接应用连续像定理。
 \end{proof}
 
-若 \(x\) 有递减的可数邻域基 \((U_n)\)，则从
-\(x\in\overline A\) 可逐项取 \(a_n\in A\cap U_n\)，得到
-\(a_n\to x\)。因此第一可数空间中的闭包与连续性仍可用数列刻画。
-紧致性的序列刻画还需要额外条件；在度量空间中，这些条件自动满足。一般
-拓扑中，网或滤子的判据不需要补充可数性假设。
+\subsection{任意乘积}
+
+\begin{theorem}[乘积连通性]
+\label{thm:product-connected}
+任意一族非空连通空间的积在积拓扑下连通。
+\end{theorem}
+
+\begin{proof}
+选定基点 \(a=(a_i)\in\prod_iX_i\)。对有限集 \(F\subseteq I\)，令
+\[
+ X_F=\{x:x_i=a_i\text{ 对所有 }i\notin F\}.
+\]
+\(X_F\) 同胚于有限多个连通空间之积。先看两个因子：固定
+\(y_0\in Y\)，水平集 \(X\times\{y_0\}\) 连通；对每个 \(x\in X\)，
+竖直集 \(\{x\}\times Y\) 连通并与该水平集相交。把这些集合粘合便得到
+\(X\times Y\) 连通，有限积再由归纳得到。因此每个 \(X_F\) 连通。
+所有 \(X_F\) 都含 \(a\)，所以
+\[
+ X_{\mathrm{fin}}=\bigcup_{F\subseteq I,\ F\text{ 有限}}X_F
+\]
+连通。
+
+\(X_{\mathrm{fin}}\) 在积空间中稠密，因为任一基本开集只限制有限多个坐标，可在这些坐标内选点，其余坐标取 \(a_i\)。故整个积是连通集 \(X_{\mathrm{fin}}\) 的闭包，因而连通。选取基点使用了从各非空因子同时选点的选择原则。
+\end{proof}
+
+\subsection{局部连通性的保持}
+
+局部连通性在连续像下不能无条件保持；开映射提供了一个常用充分条件。
+
+\begin{proposition}[开映射保持局部连通]
+\label{prop:open-map-local-connectedness}
+设 \(q:X\to Y\) 连续、满射且为开映射。若 \(X\) 局部连通（或局部道路连通），则 \(Y\) 也具有相应性质。
+\end{proposition}
+
+\begin{proof}
+给 \(y\in Y\) 的开邻域 \(V\)，取 \(x\in q^{-1}(y)\)。原像
+\(q^{-1}(V)\) 开；在其中取含 \(x\) 的连通开邻域 \(U\)（或道路连通开邻域）。则 \(q(U)\) 连通（或道路连通），又因 \(q\) 开而是 \(y\) 的开邻域，并包含于 \(V\)。
+\end{proof}
+
+商映射不一定开，所以商空间虽自动保持整体连通性，却未必保持局部连通性。使用识别构造空间时，应分别检查商映射的连续性、满射性和开映射性质。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
-\subsection*{A组　网与滤子的基本运算}
+\subsection*{A组　连通集与分支}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
- \exerciseitem{directed-finite-subsets}
- 设 \(S\) 为集合。证明其有限子集全体按包含关系构成有向集，并说明当
- \(S\) 不可数时，该有向集不存在可数共尾子集。
- \exerciseitem{net-eventual-frequent-negation}
- 证明：性质 \(P\) 频繁成立当且仅当“\(P\) 最终不成立”为假；并说明
- “\(P\) 不最终成立”不等于“\(P\) 最终不成立”。
- \exerciseitem{subnet-preserves-limit}
- 从最终共尾映射的定义证明收敛网的每个子网收敛到同一极限。
- \exerciseitem{closure-neighborhood-net}
- 不预先选取邻域中的点，用成对指标重新证明闭包的网刻画。
- \exerciseitem{tail-filter-verification}
- 证明任一网的尾部集合生成一个滤子，并证明网收敛等价于其尾滤子收敛。
- \exerciseitem{filter-base-canonical-net}
- 验证正文中 \(I_{\mathcal B}\) 有向，并证明其规范网与
- \(\langle\mathcal B\rangle\) 有相同的收敛点。
+ \exerciseitem{connected-clopen-functions}
+ 证明 \(X\) 连通，当且仅当每个连续映射 \(f:X\to\{0,1\}\)（目标带离散拓扑）都是常值。
+ \exerciseitem{connected-intersecting-family}
+ 设 \((C_i)\) 均连通，并且存在 \(i_0\) 使每个 \(C_i\cap C_{i_0}\ne\varnothing\)。证明 \(\bigcup_iC_i\) 连通；再给出“只要求任意相邻两个相交”但并集不连通的错误表述，并说明需要怎样组织指标才正确。
+ \exerciseitem{connected-subsets-real-line}
+ 证明 \(\R\) 的非空连通子集恰好是各种区间，包括单点、开闭半开区间和无界区间。
+ \exerciseitem{components-rational-line}
+ 证明 \(\Q\) 的每个连通分支都是单点，但单点在 \(\Q\) 中不开。
+ \exerciseitem{component-map}
+ 若 \(f:X\to Y\) 连续，证明每个连通分支的像包含在 \(Y\) 的某个连通分支中。说明一般不能把“包含”改成“等于”。
 \end{enumerate}
 
-\subsection*{B组　聚点、连续与紧致}
+\subsection*{B组　道路与局部性质}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{net-cluster-tail-closure}
- 证明 \(x\) 是网 \((x_i)\) 的聚点，当且仅当
- \[
-  x\in\bigcap_{i_0\in I}\overline{\{x_i:i\succcurlyeq i_0\}}.
- \]
- \exerciseitem{ultrafilter-cluster-converges}
- 设 \(\mathcal U\) 为超滤子。证明 \(x\) 是 \(\mathcal U\) 的聚点
- 当且仅当 \(\mathcal U\to x\)。
- \exerciseitem{continuous-filter-image}
- 证明像滤子的两种定义一致：
- \[
- f_*\mathcal F=\{B:f^{-1}(B)\in\mathcal F\}
- \]
- 等于由 \(\{f(A):A\in\mathcal F\}\) 生成的滤子。
- \exerciseitem{compact-closed-subspace-filters}
- 用滤子刻画证明：紧致空间的闭子空间紧致；Hausdorff 空间的紧致子集闭。
- \exerciseitem{product-coordinate-net-convergence}
- 设 \(X=\prod_{s\in S}X_s\) 取乘积拓扑。证明网 \(x_i\to x\) 当且仅当
- 对每个 \(s\in S\)，坐标网 \(x_i(s)\to x(s)\)。
- \exerciseitem{first-countable-sequential-closure}
- 设 \(X\) 第一可数。证明 \(A\) 闭当且仅当 \(A\) 中每个收敛数列的
- 极限仍在 \(A\) 中，并由此证明序列连续等价于连续。
+ \exerciseitem{path-concatenation-continuity}
+ 写出两条首尾相接道路的拼接公式，并用粘合引理证明其连续性。
+ \exerciseitem{path-components-open-criterion}
+ 证明空间局部道路连通，当且仅当每个开子集的道路分支都开。
+ \exerciseitem{locally-connected-components-open}
+ 证明空间局部连通，当且仅当每个开子集的连通分支都开。
+ \exerciseitem{convex-star-path-connected}
+ 证明赋范线性空间中的凸集道路连通；更一般地，证明星形集道路连通。
+ \exerciseitem{deleted-plane-paths}
+ 证明 \(\R^n\setminus\{0\}\) 在 \(n\ge2\) 时道路连通，而 \(\R\setminus\{0\}\) 有两个连通分支。
+ \exerciseitem{sine-curve-closure-detail}
+ 逐项证明拓扑学家的正弦曲线 \(S\) 恰为 \(G\) 的闭包。再沿用
+ \theoremref{thm:topologists-sine-curve-not-path-connected} 中的
+ \(u,h,t_0\) 记号，说明时刻 \(s_n,r_n\) 为什么可以选取，以及为什么
+ \(s_n,r_n\to t_0\)。
 \end{enumerate}
 
-\subsection*{C组　不可数坐标与选择原则}
+\subsection*{C组　构造与保持性}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{finite-support-product-closure}
- 把正文有限支集例子的每一步写完整：证明
- \(\boldsymbol1\in\overline A\)，构造趋于它的网，并证明不存在
- \(A\) 中趋于它的数列。
- \optionalexerciseitem{universal-subnet-ultrafilter}
- 设 \((x_i)\) 为网，把其尾滤子扩张为超滤子 \(\mathcal U\)。由
- \(\mathcal U\) 的一个滤子基构造原网的子网，并证明该子网对每个
- \(A\subseteq X\) 都最终位于 \(A\) 或最终位于 \(X\setminus A\)。
- \optionalexerciseitem{compact-map-closed}
- 设 \(X\) 紧致、\(Y\) Hausdorff，\(f:X\to Y\) 连续。用网证明
- \(f\) 是闭映射；若 \(f\) 还是双射，证明它是同胚。
+ \exerciseitem{connected-product-finite}
+ 不使用正文的任意乘积定理，先证明两个连通空间的积连通，再归纳到有限积。
+ \exerciseitem{connected-product-dense-finite-support}
+ 补足任意乘积证明中 \(X_{\mathrm{fin}}\) 稠密的基论证，并说明箱拓扑下为什么同一证明失效。
+ \exerciseitem{quotient-interval-circle-connected}
+ 由商映射证明圆周 \(S^1\) 连通，并证明有限多个圆周在一点粘合所得空间连通。
+ \exerciseitem{open-quotient-local-path}
+ 若 \(q:X\to Y\) 是开商映射且 \(X\) 局部道路连通，证明 \(Y\) 局部道路连通。构造一个商映射不是开映射的简单例子。
+ \optionalexerciseitem{continuous-image-components-not-surjective}
+ 构造连续满射 \(f:X\to Y\) 和 \(X\) 的一个连通分支 \(C\)，使 \(f(C)\) 严格包含于 \(Y\) 中的某个连通分支。
 \end{enumerate}

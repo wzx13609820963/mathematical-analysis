@@ -1,0 +1,308 @@
+\chapter{\texorpdfstring{\(L^p\)}{Lp} 空间中的逼近}
+\label{chap:lp-approximation}
+
+\(L^p\) 元素可以很不规则，但在 \(1\le p<\infty\) 时，它们能够由简单
+函数、连续紧支撑函数乃至光滑紧支撑函数逼近。逼近定理使很多先在“好函数”
+上证明的运算扩张到整个 \(L^p\) 空间。\(L^\infty\) 的情形不同：简单函数
+仍可逼近单个有界函数，但空间通常不可分，连续函数也不再对本质上确界范数
+稠密。
+
+\section{简单函数逼近}
+
+\begin{theorem}
+\label{thm:simple-dense-lp}
+设 \(0<p<\infty\)。对每个 \(f\in L^p(\mu)\)，存在可测简单函数
+\(\varphi_n\)，使
+\[
+ \|\varphi_n-f\|_p\longrightarrow0.
+\]
+若 \(f\ge0\)，可取 \(0\le\varphi_n\uparrow f\) 几乎处处。
+\end{theorem}
+
+\begin{proof}
+对 \(f\ge0\)，取第 \ref{chap:nonnegative-integral} 章的简单函数
+\(0\le\varphi_n\uparrow f\)。则
+\[
+ 0\le|f-\varphi_n|^p\le f^p,\qquad
+ |f-\varphi_n|^p\to0.
+\]
+控制收敛定理给 \(\|\varphi_n-f\|_p\to0\)。一般实值 \(f\) 分别逼近
+\(f^+,f^-\) 后相减。
+\end{proof}
+
+若测度空间 \(\sigma\)-有限，还可要求简单函数只支撑在有限测度集上。取
+\(X_k\uparrow X\)、\(\mu(X_k)<\infty\)，先用
+\(f\mathbf1_{X_k}\) 截断空间，再截断函数值并作简单逼近：
+\[
+ \|f-f\mathbf1_{X_k}\|_p^p
+ =\int_{X\setminus X_k}|f|^p\longrightarrow0.
+\]
+
+\begin{corollary}
+\label{cor:indicator-span-dense}
+有限测度可测集的指示函数的有限线性组合在 \(L^p\) 中稠密
+\((0<p<\infty)\)。
+\end{corollary}
+
+\section{连续紧支撑函数}
+
+本节取 \(\mathbb R^n\) 上的 Lebesgue 测度。
+
+\begin{lemma}
+\label{lem:indicator-compact-open-approx}
+若 \(E\subset\mathbb R^n\) 可测且 \(m(E)<\infty\)，则对每个
+\(\varepsilon>0\)，存在 \(g\in C_c(\mathbb R^n)\)，满足
+\[
+ 0\le g\le1,\qquad
+ \|\mathbf1_E-g\|_p<\varepsilon
+\]
+对任意预先固定的 \(0<p<\infty\) 成立。
+\end{lemma}
+
+\begin{proof}
+令 \(\eta=\varepsilon^p\)。由内正则性取紧集 \(K\subset E\)，使
+\(m(E\setminus K)<\eta/2\)。若 \(K=\varnothing\)，这个估计已经说明
+取 \(g=0\) 即可。以下设 \(K\ne\varnothing\)。由外正则性以及 \(K\) 的
+有界性，可取有界开集 \(U\supset K\)，使
+\[
+ m(U\setminus K)<\eta/2.
+\]
+令
+\[
+ g(x)=\frac{d(x,U^c)}{d(x,K)+d(x,U^c)}.
+\]
+因 \(K\subset U\)，分母处处为正；\(g\) 连续，等于 \(1\) 于 \(K\)，
+等于 \(0\) 于 \(U^c\)，且支撑包含于 \(\overline U\)，所以
+\(g\in C_c\)。差 \(|\mathbf1_E-g|\) 不超过 \(1\)，且只可能在
+\((E\setminus K)\cup(U\setminus K)\) 上非零，故
+\[
+ \|\mathbf1_E-g\|_p^p
+ \le m(E\setminus K)+m(U\setminus K)<\eta=\varepsilon^p.
+\]
+\end{proof}
+
+\begin{theorem}
+\label{thm:cc-dense-lp}
+对 \(1\le p<\infty\)，
+\[
+ \overline{C_c(\mathbb R^n)}^{\,\|\cdot\|_p}
+ =L^p(\mathbb R^n).
+\]
+该结论对 \(0<p<1\) 也在度量
+\(\int|f-g|^p\) 下成立。
+\end{theorem}
+
+\begin{proof}
+先以有限测度支撑的简单函数逼近 \(f\)。每个这样的简单函数是有限个
+有限测度集合指示函数的线性组合。由引理逐项用 \(C_c\) 函数逼近，并用
+Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时使用
+\(|\sum_ja_j|^p\le\sum_j|a_j|^p\)。
+\end{proof}
+
+\section{可分性}
+
+\begin{theorem}
+\label{thm:lp-separable}
+对 \(0<p<\infty\)，\(L^p(\mathbb R^n)\) 可分。
+\end{theorem}
+
+\begin{proof}
+考虑所有如下函数：支撑在有理端点有界矩形的有限并上，在有限个有理端点
+半开矩形上取有理值。这样的函数只有可数多个。任意
+\(C_c(\mathbb R^n)\) 函数在某个大有理立方体内一致连续，可用足够细的
+有理网格和有理函数值作一致逼近；支撑所在立方体测度有限，所以一致误差
+控制 \(L^p\) 误差。结合 \(C_c\) 的稠密性，该可数族在 \(L^p\) 中稠密。
+\end{proof}
+
+\begin{proposition}
+\label{prop:linfty-nonseparable}
+\(L^\infty(0,1)\) 不可分。
+\end{proposition}
+
+\begin{proof}
+族
+\[
+ \{\mathbf1_{(0,t)}:0<t<1\}
+\]
+不可数。若 \(s\ne t\)，则两函数之差在正测区间上绝对值为 \(1\)，故
+\[
+ \|\mathbf1_{(0,s)}-\mathbf1_{(0,t)}\|_\infty=1.
+\]
+若存在可数稠密集，则半径 \(1/3\) 的球必须覆盖该族；但每个这样的球最多
+包含族中一个元素，矛盾。
+\end{proof}
+
+不可分性不是说每个 \(L^\infty\) 函数都不能由简单函数逼近。事实上对
+本质有界函数按值域等分，仍能在本质上确界范数中得到简单函数逼近。失败的
+是存在一个对所有函数都稠密的可数简单函数族。
+
+\section{平移与磨光}
+
+取 \(\rho\in C_c^\infty(\mathbb R^n)\)，满足
+\(\rho\ge0\)、\(\int\rho=1\)，并令
+\[
+ \rho_\varepsilon(x)=\varepsilon^{-n}\rho(x/\varepsilon).
+\]
+这样的函数族称为磨光核。对 \(f\in L^p\)，定义
+\[
+ (\rho_\varepsilon*f)(x)
+ =\int_{\mathbb R^n}\rho_\varepsilon(y)f(x-y)\,dy.
+\]
+
+\begin{proposition}[平移连续性]
+\label{prop:translation-continuity-lp}
+若 \(1\le p<\infty\)，则对
+\(\tau_hf(x)=f(x-h)\)，有
+\[
+ \|\tau_hf-f\|_p\longrightarrow0\qquad(h\to0).
+\]
+\end{proposition}
+
+\begin{proof}
+先设 \(f\in C_c\)。一致连续性给出点态一致小量，而所有小平移的支撑都
+落在某个固定有限测度紧邻域中，因此
+\(\|\tau_hf-f\|_p\to0\)。对一般 \(f\in L^p\)，取
+\(g\in C_c\) 使 \(\|f-g\|_p<\varepsilon\)。平移保持 Lebesgue 测度，
+故保持 \(L^p\) 范数，于是
+\[
+ \|\tau_hf-f\|_p
+ \le2\|f-g\|_p+\|\tau_hg-g\|_p.
+\]
+先令 \(h\to0\)，再令 \(\varepsilon\downarrow0\)。
+\end{proof}
+
+\begin{theorem}[磨光逼近]
+\label{thm:mollifier-approximation}
+若 \(1\le p<\infty\)，\(f\in L^p(\mathbb R^n)\)，则
+\[
+ \rho_\varepsilon*f\in C^\infty(\mathbb R^n),\qquad
+ \|\rho_\varepsilon*f-f\|_p\longrightarrow0.
+\]
+若先把 \(f\) 截断为紧支撑，再磨光，则可取逼近函数属于
+\(C_c^\infty(\mathbb R^n)\)。因此
+\[
+ \overline{C_c^\infty(\mathbb R^n)}^{\,\|\cdot\|_p}
+ =L^p(\mathbb R^n).
+\]
+\end{theorem}
+
+\begin{proof}
+卷积的光滑性由把导数移到光滑紧支撑核上得到：
+\[
+ \partial^\alpha(\rho_\varepsilon*f)
+ =(\partial^\alpha\rho_\varepsilon)*f.
+\]
+局部积分可由 Hölder 不等式控制。由于 \(\rho_\varepsilon\) 是概率密度，
+Jensen 不等式给出
+\[
+ \left|\int\rho_\varepsilon(y)
+   \bigl(f(x-y)-f(x)\bigr)\,dy\right|^p
+ \le\int\rho_\varepsilon(y)|f(x-y)-f(x)|^p\,dy.
+\]
+对 \(x\) 积分并用 Tonelli 定理，得到
+\[
+ \begin{split}
+ \|\rho_\varepsilon*f-f\|_p^p
+ &\le\int\rho_\varepsilon(y)\|\tau_yf-f\|_p^p\,dy\\
+ &\le\sup_{|y|\le C\varepsilon}\|\tau_yf-f\|_p^p
+ \longrightarrow0,
+ \end{split}
+\]
+其中 \(C\) 使 \(\operatorname{supp}\rho\subset B(0,C)\)。若
+\(f\) 有紧支撑，则卷积支撑包含于两个紧支撑的 Minkowski 和中，仍为紧
+支撑。先作空间截断，再磨光，即得最后结论。
+\end{proof}
+
+\section{从稠密子空间延拓算子}
+
+\begin{proposition}[有界算子延拓]
+\label{prop:bounded-operator-extension-dense}
+设 \(D\) 是赋范空间 \(X\) 的稠密线性子空间，\(Y\) 是 Banach 空间。
+若线性算子 \(T:D\to Y\) 满足
+\[
+ \|Tf\|_Y\le C\|f\|_X\qquad(f\in D),
+\]
+则存在唯一有界线性算子
+\(\widetilde T:X\to Y\) 延拓 \(T\)，且
+\(\|\widetilde T\|\le C\)。
+\end{proposition}
+
+\begin{proof}
+对 \(f\in X\)，取 \(f_n\in D\) 使 \(f_n\to f\)。估计
+\[
+ \|Tf_n-Tf_m\|_Y\le C\|f_n-f_m\|_X
+\]
+说明 \((Tf_n)\) 在完备空间 \(Y\) 中收敛。定义
+\(\widetilde Tf=\lim_nTf_n\)。同一估计说明定义与逼近列无关，并给出
+线性、有界性。若两个连续延拓在稠密集 \(D\) 上相同，则在 \(X\) 上相同。
+\end{proof}
+
+这一命题解释了为什么可以先在 \(C_c^\infty\) 上定义积分算子、Fourier
+变换或弱导数估计：只要范数估计与所选光滑逼近无关，算子就有唯一连续延拓。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　稠密性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{simple-dense-complex}
+把简单函数稠密性推广到复值 \(L^p\) 函数。
+
+\exerciseitem{finite-support-simple-dense}
+在 \(\sigma\)-有限测度空间上，完整证明有限测度支撑简单函数在
+\(L^p\) 中稠密。
+
+\exerciseitem{compact-open-distance-function}
+验证引理 \ref{lem:indicator-compact-open-approx} 中距离函数公式的连续性、
+取值和紧支撑性质。
+
+\exerciseitem{cc-density-error-budget}
+设 \(\varphi=\sum_{j=1}^ma_j\mathbf1_{E_j}\)。给定
+\(\varepsilon>0\)，明确分配每项误差以构造
+\(g\in C_c\) 使 \(\|\varphi-g\|_p<\varepsilon\)。
+
+\end{enumerate}
+\subsection*{B组　可分性与平移}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{lp-separable-rational-grid}
+把定理 \ref{thm:lp-separable} 中的可数稠密族写成精确定义，并证明它
+确实可数。
+
+\exerciseitem{linfty-nonseparable-balls}
+补全 \(L^\infty(0,1)\) 不可分证明中的球覆盖论证。
+
+\exerciseitem{translation-isometry}
+证明 Lebesgue 测度下
+\(\|\tau_hf\|_p=\|f\|_p\)，并说明一般测度上为何未必成立。
+
+\exerciseitem{translation-discontinuous-linfty}
+给出 \(f\in L^\infty(\mathbb R)\)，使
+\(\|\tau_hf-f\|_\infty\not\to0\) 当 \(h\to0\)。
+
+\end{enumerate}
+\subsection*{C组　磨光与算子延拓}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{mollifier-norm-bound}
+证明
+\[
+ \|\rho_\varepsilon*f\|_p\le\|f\|_p
+\]
+对 \(1\le p\le\infty\) 成立。
+
+\exerciseitem{mollifier-support}
+若 \(\operatorname{supp}f\subset K\)、
+\(\operatorname{supp}\rho_\varepsilon\subset B(0,\varepsilon)\)，证明
+\[
+ \operatorname{supp}(\rho_\varepsilon*f)
+ \subset K+\overline{B(0,\varepsilon)}.
+\]
+
+\optionalexerciseitem{density-open-set}
+设 \(\Omega\subset\mathbb R^n\) 开。证明
+\(C_c^\infty(\Omega)\) 在 \(L^p(\Omega)\) 中稠密
+\((1\le p<\infty)\)。
+
+\projectexerciseitem{operator-extension-application}
+先在有限支撑序列上定义离散卷积
+\((a*b)_n=\sum_ka_{n-k}b_k\)，证明合适的 Young 范数估计，再用稠密延拓
+把算子定义到相应的 \(\ell^p\) 空间。
+\end{enumerate}

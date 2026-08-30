@@ -64,10 +64,36 @@ $\norm{f_n-f}_\infty\le\varepsilon$，即 $f_n$ 一致收敛于 $f$。连续函�
 \[
  \norm f_p=\left(\int_a^b|f(x)|^p\,dx\right)^{1/p},\qquad 1\le p<\infty.
 \]
-它们也是范数。三角不等式可从有限维 $\ell^p$ 的 Minkowski 不等式得到：
-对同一分割上的标记值应用有限和不等式，再令 Riemann 和趋于积分。这个
-论证之所以适用，是因为 $f,g$ 连续，$|f|^p$、$|g|^p$ 和 $|f+g|^p$
-都 Riemann 可积。第三卷将在可测函数上重新证明一般的 Minkowski 不等式。
+它们也是范数。这里把三角不等式所需的有限维事实写出，以免提前调用第三卷
+的 \(L^p\) 理论。设 \(1<p<\infty\) 且 \(1/p+1/q=1\)。Young 不等式
+\[
+ uv\le \frac{u^p}{p}+\frac{v^q}{q}\qquad(u,v\ge0)
+\]
+经齐次化给出有限和的 Hölder 不等式
+\[
+ \sum_i|a_ib_i|
+ \le\left(\sum_i|a_i|^p\right)^{1/p}
+    \left(\sum_i|b_i|^q\right)^{1/q}.
+\]
+把它分别用于
+\(|a_i|\,|a_i+b_i|^{p-1}\) 和
+\(|b_i|\,|a_i+b_i|^{p-1}\)，得到
+\[
+ \left(\sum_i|a_i+b_i|^p\right)^{1/p}
+ \le
+ \left(\sum_i|a_i|^p\right)^{1/p}
+ +\left(\sum_i|b_i|^p\right)^{1/p};
+\]
+若左端为零则无需相除，非零时约去
+\((\sum_i|a_i+b_i|^p)^{1/q}\) 即可。\(p=1\) 时直接使用数的三角
+不等式。对同一分割上的标记值，把 \(a_i,b_i\) 分别换成
+\(f(\xi_i)(\Delta x_i)^{1/p}\)、
+\(g(\xi_i)(\Delta x_i)^{1/p}\)，再令 Riemann 和趋于积分，便得到
+\[
+ \norm{f+g}_p\le\norm f_p+\norm g_p.
+\]
+这个论证适用，是因为连续函数的有关幂次都 Riemann 可积。第三卷将在
+可测函数上重新证明一般的 Hölder 与 Minkowski 不等式。
 由 $|f(x)|\le\norm f_\infty$ 立即得到
 \begin{equation}
  \norm f_p\le(b-a)^{1/p}\norm f_\infty.
@@ -103,6 +129,10 @@ $(1/2,1]$，与 $g$ 在 $1/2$ 连续矛盾。因此该 Cauchy 列在连续函数
 缺失的极限，得到完备的 $L^p$ 空间。
 
 \section{点值泛函与积分泛函}
+
+为了比较点值与积分这两类映射，只需用到有界线性算子的定义和最基本的
+连续性判据。这里不展开算子空间、对偶空间的完备性或算子之间的运算；这些
+内容将在泛函分析中系统建立。
 
 若 $X$、$Y$ 是赋范空间，线性映射 $T:X\to Y$ 在零点连续，当且仅当存在
 $C\ge0$ 使 $\norm{Tx}\le C\norm x$。这样的线性映射称为有界线性算子；

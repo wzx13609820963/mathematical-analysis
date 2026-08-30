@@ -1,0 +1,330 @@
+\chapter{乘积测度}
+\label{chap:product-measure}
+
+多重积分的换序问题先要回答两个集合论问题：哪些平面集合可测，以及它们的
+测度怎样由矩形的测度决定。若只把“先对一个变量积分”当作计算规则，就会
+遗漏截面的可测性，也无法说明何时可以交换次序。本章在
+\(\sigma\)-有限测度空间上构造乘积测度，并分别处理非负函数和可积函数。
+
+\section{乘积 \texorpdfstring{\(\sigma\)}{sigma}-代数}
+
+设 \((X,\mathcal A)\)、\((Y,\mathcal B)\) 为可测空间。由可测矩形
+\[
+ A\times B,\qquad A\in\mathcal A,\ B\in\mathcal B
+\]
+生成的 \(\sigma\)-代数称为\term{乘积 \(\sigma\)-代数}，记作
+\[
+ \mathcal A\otimes\mathcal B
+ =\sigma\{A\times B:A\in\mathcal A,\ B\in\mathcal B\}.
+\]
+坐标投影在乘积可测空间上可测。若 \(f:X\to X'\)、\(g:Y\to Y'\) 可测，
+则 \((x,y)\mapsto(f(x),g(y))\) 可测。
+
+在拓扑空间上必须区分
+\(\mathcal B(X)\otimes\mathcal B(Y)\) 与
+\(\mathcal B(X\times Y)\)。对第二可数空间（特别是欧氏空间），二者相等：
+开矩形构成可数基，每个开集是可数个开矩形之并。缺少可数性条件时，等式
+可能失败。
+
+\section{矩形上的预测度}
+
+设 \((X,\mathcal A,\mu)\)、\((Y,\mathcal B,\nu)\) 为
+\(\sigma\)-有限测度空间。希望乘积测度满足
+\[
+ (\mu\times\nu)(A\times B)=\mu(A)\nu(B).
+\]
+右端在一个因子为零、另一个为无穷时按 \(0\cdot\infty=0\) 解释。
+
+在由有限个两两不交可测矩形组成的集合环上，定义
+\[
+ \pi\left(\bigsqcup_{k=1}^{m}A_k\times B_k\right)
+ =\sum_{k=1}^{m}\mu(A_k)\nu(B_k).
+\]
+
+\begin{proposition}
+\label{prop:rectangle-ring-premeasure}
+上述定义与不交矩形表示无关，并且 \(\pi\) 是该集合环上的预测度。
+\end{proposition}
+
+\begin{proof}
+设 \(E=\bigsqcup_{k=1}^{m}A_k\times B_k\)。对固定的 \(x\)，所有满足
+\(x\in A_k\) 的 \(B_k\) 两两不交，因此
+\[
+ \nu(E_x)=\sum_{k=1}^{m}\mathbf1_{A_k}(x)\nu(B_k).
+\]
+右侧是非负简单函数，并且
+\[
+ \int_X\nu(E_x)\,d\mu(x)
+ =\sum_{k=1}^{m}\mu(A_k)\nu(B_k).
+\]
+左侧只由集合 \(E\) 决定，故 \(\pi(E)\) 与所选表示无关；有限可加性也由
+截面对不交并保持不交立即得到。
+
+再设 \(E_n\) 是环中两两不交的集合，且
+\(E=\bigsqcup_{n=1}^{\infty}E_n\) 仍属于该环。对每个 \(x\)，截面
+\((E_n)_x\) 两两不交，所以
+\[
+ \nu(E_x)=\sum_{n=1}^{\infty}\nu((E_n)_x).
+\]
+每个截面测度函数都是非负简单函数。对右侧部分和使用单调收敛定理，得到
+\[
+ \pi(E)=\int_X\nu(E_x)\,d\mu
+ =\sum_{n=1}^{\infty}\int_X\nu((E_n)_x)\,d\mu
+ =\sum_{n=1}^{\infty}\pi(E_n).
+\]
+这正是预测度的可数可加性。
+\end{proof}
+
+第 \ref{chap:outer-measures} 章的 Carathéodory 延拓定理于是给出
+\(\mathcal A\otimes\mathcal B\) 上的测度。
+
+\begin{theorem}[乘积测度]
+\label{thm:product-measure-existence}
+若 \(\mu,\nu\) 都是 \(\sigma\)-有限测度，则存在唯一测度
+\(\mu\times\nu\) 满足
+\[
+ (\mu\times\nu)(A\times B)=\mu(A)\nu(B)
+\]
+对所有可测矩形成立。
+\end{theorem}
+
+\begin{proof}
+上述预测度经 Carathéodory 定理延拓到矩形生成的
+\(\sigma\)-代数。因 \(X=\cup_iX_i\)、\(Y=\cup_jY_j\)，其中各
+\(\mu(X_i),\nu(Y_j)<\infty\)，故
+\(X\times Y=\cup_{i,j}X_i\times Y_j\)，预测度是
+\(\sigma\)-有限的。延拓唯一性定理给出唯一性。
+\end{proof}
+
+\section{截面}
+
+对 \(E\subset X\times Y\)，定义
+\[
+ E_x=\{y\in Y:(x,y)\in E\},\qquad
+ E^y=\{x\in X:(x,y)\in E\}.
+\]
+对函数 \(f:X\times Y\to\overline{\mathbb R}\)，记
+\(f_x(y)=f(x,y)\)、\(f^y(x)=f(x,y)\)。
+
+\begin{proposition}[截面的可测性]
+\label{prop:measurable-sections}
+若 \(E\in\mathcal A\otimes\mathcal B\)，则每个 \(E_x\in\mathcal B\)、
+\(E^y\in\mathcal A\)。若 \(f\) 是乘积空间上的扩充实值可测函数，则每个
+\(f_x,f^y\) 可测。
+\end{proposition}
+
+\begin{proof}
+令
+\[
+ \mathcal C=\{E\subset X\times Y:E_x\in\mathcal B
+ \text{ 对所有 }x\}.
+\]
+\(\mathcal C\) 是 \(\sigma\)-代数，且包含所有可测矩形，故包含
+\(\mathcal A\otimes\mathcal B\)。另一方向同理。函数结论由
+\(\{y:f_x(y)>a\}=(\{f>a\})_x\) 和半直线判据得到。
+\end{proof}
+
+截面可测不意味着任意截面的测度函数自动可测；后者是 Tonelli 定理证明中
+需要建立的内容。
+
+\section{集合形式的 Cavalieri 公式}
+
+\begin{theorem}
+\label{thm:cavalieri-sets}
+若 \(E\in\mathcal A\otimes\mathcal B\)，则
+\[
+ x\longmapsto\nu(E_x),\qquad y\longmapsto\mu(E^y)
+\]
+分别可测，并且
+\[
+ (\mu\times\nu)(E)
+ =\int_X\nu(E_x)\,d\mu(x)
+ =\int_Y\mu(E^y)\,d\nu(y).
+\]
+\end{theorem}
+
+\begin{proof}
+先设 \(\mu(X),\nu(Y)<\infty\)。令 \(\mathcal D\) 为使第一项可测且
+第一等式成立的集合 \(E\)。矩形属于 \(\mathcal D\)，因为
+\(\nu((A\times B)_x)=\mathbf1_A(x)\nu(B)\)。若 \(E\in\mathcal D\)，
+则
+\[
+ \nu((E^c)_x)=\nu(Y)-\nu(E_x),
+\]
+故补集仍在 \(\mathcal D\)。对两两不交的 \(E_n\in\mathcal D\)，截面
+也两两不交，测度的可数可加性和单调收敛定理给出
+\[
+ \nu\bigl((\cup_nE_n)_x\bigr)=\sum_n\nu((E_n)_x)
+\]
+及积分公式。因此 \(\mathcal D\) 是包含矩形的 Dynkin 系；矩形构成
+\(\pi\)-系，由 \(\pi\)-\(\lambda\) 定理，
+\(\mathcal D=\mathcal A\otimes\mathcal B\)。
+
+一般 \(\sigma\)-有限情形取递增的有限测度集
+\(X_i\uparrow X,Y_j\uparrow Y\)，先对
+\(E\cap(X_i\times Y_j)\) 应用有限情形，再令 \(i,j\to\infty\)，使用
+测度连续性和单调收敛定理。第二个等式交换 \(X,Y\) 即得。
+\end{proof}
+
+\section{Tonelli 定理}
+
+\begin{theorem}[Tonelli]
+\label{thm:tonelli}
+若 \(f:X\times Y\to[0,+\infty]\) 可测，则
+\[
+ x\longmapsto\int_Yf(x,y)\,d\nu(y)
+\]
+可测，并且
+\[
+ \int_{X\times Y}f\,d(\mu\times\nu)
+ =\int_X\left(\int_Yf(x,y)\,d\nu(y)\right)d\mu(x)
+ =\int_Y\left(\int_Xf(x,y)\,d\mu(x)\right)d\nu(y).
+\]
+三者可以同时为 \(+\infty\)。
+\end{theorem}
+
+\begin{proof}
+对指示函数，这是定理 \ref{thm:cavalieri-sets}。由非负简单函数的线性，
+结论对非负简单函数成立。对一般 \(f\)，取
+\(\varphi_n\uparrow f\)。对每个 \(x\)，单调收敛定理给出
+\[
+ \int_Y\varphi_n(x,y)\,d\nu\uparrow\int_Yf(x,y)\,d\nu.
+\]
+左侧是可测函数，所以极限可测。再次分别在 \(X\) 和 \(X\times Y\) 上
+使用单调收敛定理，得到第一种迭代积分公式；另一种次序同理。
+\end{proof}
+
+\section{Fubini 定理}
+
+\begin{theorem}[Fubini]
+\label{thm:fubini}
+若 \(f\in L^1(\mu\times\nu)\)，则
+\[
+ f_x\in L^1(\nu)\quad\text{对几乎所有 }x,
+\qquad
+ f^y\in L^1(\mu)\quad\text{对几乎所有 }y.
+\]
+把例外点上的迭代积分任意定义为零后，所得函数可积，且
+\[
+ \int_{X\times Y}f\,d(\mu\times\nu)
+ =\int_X\int_Yf(x,y)\,d\nu(y)\,d\mu(x)
+ =\int_Y\int_Xf(x,y)\,d\mu(x)\,d\nu(y).
+\]
+\end{theorem}
+
+\begin{proof}
+对 \(|f|\) 使用 Tonelli 定理：
+\[
+ \int_X\left(\int_Y|f_x|\,d\nu\right)d\mu
+ =\int_{X\times Y}|f|\,d(\mu\times\nu)<\infty.
+\]
+故内层绝对值积分对几乎所有 \(x\) 有限。分别对 \(f^+,f^-\) 使用
+Tonelli，再相减，得到第一个迭代公式；交换变量得到第二个。
+\end{proof}
+
+实用上常先对 \(|f|\) 作一次迭代积分。若结果有限，Fubini 的全部结论随即
+成立。若只算带符号的内层积分并得到有限值，仍不足以交换次序。
+
+\section{二重级数与反例}
+
+在 \(X=Y=\mathbb N\) 上取计数测度，Tonelli 与 Fubini 分别成为：
+\[
+ a_{mn}\ge0\quad\Longrightarrow\quad
+ \sum_m\sum_na_{mn}=\sum_n\sum_ma_{mn},
+\]
+以及
+\[
+ \sum_{m,n}|a_{mn}|<\infty
+ \quad\Longrightarrow\quad
+ \sum_m\sum_na_{mn}=\sum_n\sum_ma_{mn}.
+\]
+
+\begin{counterexample}
+令
+\[
+ a_{mn}=
+ \begin{cases}
+ 1,&n=m,\\
+ -1,&n=m+1,\\
+ 0,&\text{其他}.
+ \end{cases}
+\]
+每一行的和为零，所以 \(\sum_m(\sum_na_{mn})=0\)。第 \(0\) 列的和为
+\(1\)，其余各列的和为零，所以
+\(\sum_n(\sum_ma_{mn})=1\)。绝对值二重和发散，Fubini 条件不成立。
+\end{counterexample}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组　乘积可测结构}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{product-sigma-coordinate}
+证明两个坐标投影可测，并证明可测函数 \(f(x),g(y)\) 组成的
+\((x,y)\mapsto(f(x),g(y))\) 可测。
+
+\exerciseitem{borel-product-euclidean}
+证明
+\(\mathcal B(\mathbb R^m)\otimes\mathcal B(\mathbb R^n)
+=\mathcal B(\mathbb R^{m+n})\)。
+
+\exerciseitem{product-rectangle-refinement}
+证明有限个可测矩形的并可以写成有限个两两不交可测矩形的并，并据此验证
+矩形环上预测度定义的良定义性。
+
+\exerciseitem{section-algebra}
+验证 \((E^c)_x=(E_x)^c\) 和
+\((\cup_nE_n)_x=\cup_n(E_n)_x\)，补全截面可测性的证明。
+
+\end{enumerate}
+\subsection*{B组　Tonelli 与 Fubini}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{cavalieri-graph}
+设 \(f:\mathbb R\to\mathbb R\) Borel 可测。证明其图像
+\(\Gamma_f=\{(x,f(x)):x\in\mathbb R\}\) 是 Borel 集，并用截面公式证明
+\(m_2(\Gamma_f)=0\)。
+
+\exerciseitem{tonelli-layer-cake}
+用 Tonelli 定理证明对 \(f\ge0\)，
+\[
+ \int_Xf\,d\mu=\int_0^\infty\mu(\{f>t\})\,dt.
+\]
+
+\exerciseitem{tonelli-region-integral}
+利用截面计算集合
+\[
+ E=\{(x,y)\in(0,\infty)^2:x+y<1\}
+\]
+的二维 Lebesgue 测度，并交换积分次序复核。
+
+\exerciseitem{fubini-section-null}
+若 \(E\subset X\times Y\) 可测且
+\((\mu\times\nu)(E)=0\)，证明 \(E_x\) 对几乎所有 \(x\) 为
+\(\nu\)-零测集。说明“每个截面都零测”是否必然推出 \(E\) 零测。
+
+\end{enumerate}
+\subsection*{C组　换序、卷积与推广}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{fubini-integrability-test}
+讨论
+\[
+ f(x,y)=\frac{x^2-y^2}{(x^2+y^2)^2}
+\]
+在 \((-1,1)^2\) 上的绝对可积性，并比较两种先后次序的反常迭代积分。
+
+\exerciseitem{double-series-counterexample}
+逐项验证正文二重级数反例的两种迭代和，并证明其绝对值二重和发散。
+
+\optionalexerciseitem{convolution-measurability}
+若 \(f,g:\mathbb R^n\to[0,\infty]\) 可测，证明
+\[
+ (f*g)(x)=\int_{\mathbb R^n}f(x-y)g(y)\,dy
+\]
+是可测函数，并证明
+\(\int(f*g)=(\int f)(\int g)\)，允许无穷值。
+
+\projectexerciseitem{associativity-product-measure}
+对三个 \(\sigma\)-有限测度空间，证明
+\((\mu\times\nu)\times\lambda\) 与
+\(\mu\times(\nu\times\lambda)\) 在自然识别下相同，并给出三重 Tonelli
+和 Fubini 公式。
+\end{enumerate}

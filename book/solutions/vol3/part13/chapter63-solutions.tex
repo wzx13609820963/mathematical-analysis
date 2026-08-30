@@ -1,0 +1,142 @@
+\chapter{含参数积分}
+
+\begin{solution}{parameter-section-measurability}
+集合 \(E_a=\{(t,x):f(t,x)>a\}\) 属于
+\(\mathcal T\otimes\mathcal A\)。集合形式的 Cavalieri 公式说明
+\[
+ t\mapsto\mu((E_a)_t)
+=\mu(\{x:f(t,x)>a\})
+\]
+可测。
+\end{solution}
+
+\begin{solution}{parameter-continuity-sequential}
+若 \(F\) 在 \(t_0\) 不连续，则存在 \(\varepsilon>0\)，使每个
+\(1/n\) 邻域内都能选到 \(t_n\) 满足
+\(|F(t_n)-F(t_0)|\ge\varepsilon\)。于是 \(t_n\to t_0\)，与对任意序列
+得到的积分收敛矛盾。一般拓扑空间中，序列未必刻画闭包和连续性；须直接用
+邻域，或用网、滤子版本的控制收敛论证。
+\end{solution}
+
+\begin{solution}{laplace-continuity-differentiability}
+固定 \(t_0>a\)，取邻域使 \(t\ge(t_0+a)/2>a\)。则
+\[
+ |e^{-tx}h(x)|\le e^{-ax}|h(x)|,
+\]
+控制收敛给出连续性。偏导数为
+\(-xe^{-tx}h(x)\)，其绝对值由
+\(xe^{-ax}|h(x)|\) 控制。因此
+\[
+ F'(t)=-\int_0^\infty xe^{-tx}h(x)\,dx .
+\]
+\end{solution}
+
+\begin{solution}{parameter-no-domination}
+对固定 \(x>0\)，当 \(0<t<x\) 时函数值为零，故随 \(t\downarrow0\)
+趋于零；其积分是 \(t^{-1}m(0,t)=1\)。若
+\(g\ge t^{-1}\mathbf1_{(0,t)}\) 对所有小 \(t\) 成立，则取
+\(t=2x\)（对充分小的 \(x\)）得到
+\[
+ g(x)\ge\frac1{2x}.
+\]
+而 \(1/x\) 在原点附近不可积，故 \(g\notin L^1(0,1)\)。
+\end{solution}
+
+\begin{solution}{differentiate-exponential}
+在 \(t\) 的紧邻域内，\(x^ke^{-tx}\) 由
+\(x^ke^{-cx}\) 控制，后者对 \(k=0,1,2\) 可积。因此可逐次求导。由
+\[
+ F(t)=\int_0^\infty e^{-tx}\,dx=\frac1t
+\]
+得
+\[
+ -F'(t)=\int_0^\infty xe^{-tx}\,dx=\frac1{t^2}.
+\]
+\end{solution}
+
+\begin{solution}{differentiate-gaussian}
+因 \(|x|e^{-x^2}\) 和 \(x^2e^{-x^2}\) 可积，可连续两次在积分号下求导：
+\[
+ F'(t)=-\int_{\mathbb R}xe^{-x^2}\sin(tx)\,dx,
+\qquad
+ F''(t)=-\int_{\mathbb R}x^2e^{-x^2}\cos(tx)\,dx.
+\]
+\end{solution}
+
+\begin{solution}{leibniz-rule-proof}
+固定 \(c\in J\) 并写
+\[
+ G(t)=\int_c^{\beta(t)}f(t,x)\,dx
+      -\int_c^{\alpha(t)}f(t,x)\,dx.
+\]
+记 \(t=t_0\)、\(\beta_h=\beta(t+h)\)、\(\beta_0=\beta(t)\)。第一项的
+增量分解为
+\[
+ \int_c^{\beta_0}\bigl(f(t+h,x)-f(t,x)\bigr)\,dx
+ +\int_{\beta_0}^{\beta_h}f(t+h,x)\,dx.
+\]
+第一项除以 \(h\) 后由积分号下求导定理趋于
+\(\int_c^{\beta_0}\partial_tf(t,x)\,dx\)。第二项除以 \(h\) 后等于
+\[
+ \frac{\beta_h-\beta_0}{h}
+ \left(
+  \frac1{\beta_h-\beta_0}
+  \int_{\beta_0}^{\beta_h}f(t+h,x)\,dx
+ \right),
+\]
+端点不动时把括号内任意补定义。前一因子趋于 \(\beta'(t)\)，联合连续性
+使后一因子趋于 \(f(t,\beta_0)\)。因此第一项的导数为
+\[
+ \int_c^{\beta_0}\partial_tf(t,x)\,dx
+ +f(t,\beta_0)\beta'(t).
+\]
+对 \(\alpha\) 的积分作同一计算并相减，两个固定区间积分合并成
+\(\int_{\alpha(t)}^{\beta(t)}\partial_tf(t,x)\,dx\)，即得所求公式。
+\end{solution}
+
+\begin{solution}{log-integral-parameter}
+在 \(x=1\) 处连续补值为 \(t\)。对 \(t\) 的紧子区间，差商关于 \(t\)
+的导数是 \(x^t\)，由 \(x^\alpha\) 控制，其中 \(\alpha>-1\)。因此
+\[
+ F'(t)=\int_0^1x^t\,dx=\frac1{t+1}.
+\]
+又 \(F(0)=0\)，故
+\[
+ F(t)=\log(t+1).
+\]
+\end{solution}
+
+\begin{solution}{holomorphic-parameter-integral}
+固定闭圆盘 \(\overline{B(z_0,r)}\Subset D\)。Cauchy 公式给
+\[
+ f'(z,x)=\frac1{2\pi i}\int_{|\zeta-z_0|=r}
+ \frac{f(\zeta,x)}{(\zeta-z)^2}\,d\zeta
+\]
+对更小圆盘内的 \(z\) 成立。紧集控制使圆周积分与 \(x\)-积分可由
+Fubini 交换，并给导数统一控制。因此
+\[
+ F'(z)=\int f'(z,x)\,d\mu(x),
+\]
+所以 \(F\) 全纯。
+\end{solution}
+
+\begin{solution}{parameter-integral-checklist}
+以标准正态变量的矩母函数为例：
+\[
+ M(t)=\frac1{\sqrt{2\pi}}\int_{\mathbb R}
+ e^{tx-x^2/2}\,dx.
+\]
+联合连续性给可测性。配方
+\(tx-x^2/2=-(x-t)^2/2+t^2/2\) 给出积分有限及
+\(M(t)=e^{t^2/2}\)。在紧参数区间 \(|t|\le R\) 上，
+\[
+ |x|^k e^{tx-x^2/2}
+ \le |x|^ke^{R|x|-x^2/2},
+\]
+右侧对每个固定 \(k\) 可积，所以可任意次求导：
+\[
+ M^{(k)}(t)=\mathbb E[X^ke^{tX}].
+\]
+特别地 \(M'(0)=0,M''(0)=1\)。四项核验中，可积控制是允许把形式求导
+变成定理应用的关键。
+\end{solution}

@@ -1,0 +1,151 @@
+\chapter{\texorpdfstring{\(L^p\)}{Lp} 空间的包含关系}
+
+\begin{solution}{finite-lp-inclusion-sharp}
+因 \(0<\mu(X)<\infty\)，可取非零常值函数
+\(f=c\mathbf1_X\)。则
+\[
+ \|f\|_p=|c|\mu(X)^{1/p},\qquad
+ \|f\|_q=|c|\mu(X)^{1/q},
+\]
+两边恰好取等。因此任何对所有函数成立的常数不能小于
+\(\mu(X)^{1/p-1/q}\)。
+\end{solution}
+
+\begin{solution}{finite-lp-strict}
+取 \(f(x)=x^{-\alpha}\)，其中
+\(1/q\le\alpha<1/p\)。因为
+\[
+ \int_0^1x^{-\alpha r}\,dx<\infty
+\quad\Longleftrightarrow\quad \alpha r<1,
+\]
+故 \(f\in L^p(0,1)\)，而 \(f\notin L^q(0,1)\)。
+\end{solution}
+
+\begin{solution}{infinite-no-inclusion}
+取 \(1/q<\alpha\le1/p\)，则
+\[
+ f(x)=x^{-\alpha}\mathbf1_{(1,\infty)}
+\]
+满足 \(f\in L^q\setminus L^p\)。取
+\(1/q\le\beta<1/p\)，则
+\[
+ g(x)=x^{-\beta}\mathbf1_{(0,1)}
+\]
+满足 \(g\in L^p\setminus L^q\)。条件分别来自
+\(\int_1^\infty x^{-s}\) 在 \(s>1\) 时收敛和
+\(\int_0^1x^{-s}\) 在 \(s<1\) 时收敛。
+\end{solution}
+
+\begin{solution}{ellp-inclusion-strict}
+正文定理给 \(\ell^p\subset\ell^q\)。令
+\(x_n=(n+1)^{-\alpha}\)，其中
+\(1/q<\alpha\le1/p\)，则
+\(\sum|x_n|^q<\infty\) 而 \(\sum|x_n|^p=\infty\)，故包含严格。
+有限支撑序列属于每个 \(0<p\le\infty\) 的 \(\ell^p\)。
+\end{solution}
+
+\begin{solution}{ellp-tends-zero}
+若不趋于零，则存在 \(\varepsilon>0\) 和无限多个 \(n\) 使
+\(|x_n|\ge\varepsilon\)，从而
+\(\sum|x_n|^p\ge\sum\varepsilon^p=\infty\)，矛盾。并且对每个 \(n\)，
+\[
+ |x_n|^p\le\sum_k|x_k|^p,
+\]
+故 \(\|x\|_\infty\le\|x\|_p\)。
+\end{solution}
+
+\begin{solution}{essential-sup-examples}
+Dirichlet 函数只在可数集上取 \(1\)，故本质上等于零，
+\(\|f\|_\infty=0\)。Thomae 函数也只在可数集上非零，所以本质上确界
+为零。函数 \(x^{-1/2}\mathbf1_{(0,1)}\) 对每个 \(M>0\) 都在
+\((0,\min\{1,M^{-2}\})\) 上大于 \(M\)，该集合正测，故本质上确界为
+\(+\infty\)。
+\end{solution}
+
+\begin{solution}{linfty-completeness-direct}
+若 \((f_n)\) 是 Cauchy 列，给定 \(k\)，取 \(N_k\) 使
+\[
+ m,n\ge N_k\Longrightarrow
+ \|f_m-f_n\|_\infty<2^{-k}.
+\]
+删去所有 \(k,m,n\) 对应的零测例外集后，在同一个满测集上
+\(|f_m(x)-f_n(x)|<2^{-k}\)。于是 \(f_n(x)\) 一致 Cauchy，逐点极限
+\(f\) 满足
+\[
+ \|f_n-f\|_\infty\le2^{-k}\quad(n\ge N_k).
+\]
+取某个 \(f_{N_k}\in L^\infty\) 还知 \(f\in L^\infty\)。
+\end{solution}
+
+\begin{solution}{lp-limit-characteristic}
+\[
+ \|\mathbf1_E\|_p
+ =\left(\int_E1\,d\mu\right)^{1/p}
+ =\mu(E)^{1/p}.
+\]
+若 \(0<\mu(E)<\infty\)，该值趋于 \(1=\|\mathbf1_E\|_\infty\)；若
+\(\mu(E)=0\)，所有范数为零；若 \(\mu(E)=\infty\)，指示函数不属于任何
+有限 \(L^p\)，但属于 \(L^\infty\)。
+\end{solution}
+
+\begin{solution}{lp-limit-unbounded}
+在 \((0,1)\) 上取 \(f(x)=|\log x|\)。变量代换 \(u=-\log x\) 给
+\[
+ \int_0^1|\log x|^p\,dx=\int_0^\infty u^pe^{-u}\,du<\infty
+\]
+对每个有限 \(p\) 成立。但 \(f\) 在任意原点邻域无界，故不属于
+\(L^\infty\)。若 \(\|f\|_p\) 不趋于无穷，则存在趋于无穷的指数序列上
+范数有界；定理 \ref{thm:lp-limit-linfty} 的第二部分会推出
+\(f\in L^\infty\)，矛盾。
+\end{solution}
+
+\begin{solution}{local-lp-singularity}
+原点附近用极坐标：
+\[
+ \int_{|x|<1}|x|^{-\alpha p}\,dx
+ =C_n\int_0^1r^{n-1-\alpha p}\,dr,
+\]
+当且仅当 \(\alpha p<n\) 收敛。因此
+\(|x|^{-\alpha}\in L^p_{\rm loc}\) 恰在 \(\alpha p<n\)（若只在
+\(\mathbb R^n\setminus\{0\}\) 局部则无此限制）。无穷远处积分
+\(\int_1^\infty r^{n-1-\alpha p}dr\) 当且仅当 \(\alpha p>n\) 收敛。
+\end{solution}
+
+\begin{solution}{log-convex-lp-norms}
+令
+\[
+ a=\frac{(1-\theta)p_\theta}{p_0},\qquad
+ b=\frac{\theta p_\theta}{p_1};
+\]
+由指数关系 \(a+b=1\)。写
+\[
+ |f|^{p_\theta}
+ =(|f|^{p_0})^a(|f|^{p_1})^b.
+\]
+对共轭指数 \(1/a,1/b\) 使用 Hölder：
+\[
+ \int|f|^{p_\theta}
+ \le\left(\int|f|^{p_0}\right)^a
+     \left(\int|f|^{p_1}\right)^b.
+\]
+取 \(p_\theta\) 次根即得所求。
+\end{solution}
+
+\begin{solution}{lp-membership-phase-diagram}
+原点附近 \(1+|x|\asymp1\)，所以需要
+\[
+ \alpha p<n.
+\]
+无穷远处
+\[
+ |x|^{-\alpha}(1+|x|)^{-\beta}
+ \asymp |x|^{-(\alpha+\beta)},
+\]
+所以需要
+\[
+ (\alpha+\beta)p>n.
+\]
+两条严格不等式同时成立时属于 \(L^p(\mathbb R^n)\)；等号情形产生
+\(\int dr/r\) 的对数发散。若 \(\alpha\) 或 \(\beta\) 为负，同一渐近
+计算仍适用。
+\end{solution}

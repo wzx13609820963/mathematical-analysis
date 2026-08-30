@@ -2,9 +2,10 @@
 \label{chap:multiple-integrals}
 
 一元 Riemann 积分把区间分成小段；在 $\R^n$ 中，小段由小矩形取代。
-这一步并不只是增加下标。定义域可能不是矩形，边界可能占据不可忽略的体积，
-变量代换还会改变每个小块的形状。因而，多重积分的建立需要同时处理函数的
-振荡、集合的体积以及可微映射对局部体积的作用。
+定义本身仍由 Riemann 和给出，但一般定义域的边界可能占据不可忽略的体积。
+因此本章先在矩形上建立积分，再用 Jordan 零测边界说明哪些有界集合可以由
+有限矩形稳定逼近。累次积分和变量代换另列下一章；那里需要这里建立的集合
+可测性与有限可加性。
 
 本章的矩形均为有界闭矩形
 $Q=\prod_{j=1}^n[a_j,b_j]$，并记
@@ -28,6 +29,8 @@ $\norm P<\delta$，就有
 \]
 此时写作 $I=\int_Q f(x)\,dx$。
 \end{definition}
+
+\section{Darboux 判据与连续函数}
 
 令 $M_R=\sup_Rf$、$m_R=\inf_Rf$，并定义
 \[
@@ -114,7 +117,7 @@ $\delta$ 的分割满足
  \left|\int_Qf\right|\le\int_Q|f|\le |Q|\sup_Q|f|.
 \]
 
-\section{Jordan 可测集}
+\section{Jordan 零测集}
 
 \begin{definition}
 有界集 $N\subset\R^n$ 称为 Jordan 零测集，如果对每个
@@ -161,6 +164,8 @@ Darboux 判据给出可积性。
 零测控制；仅仅说不连续点“很少”或“可数”并不足以适用于 Jordan 理论，
 因为稠密可数集不能由总体积任意小的有限矩形族覆盖。
 
+\section{Jordan 可测集}
+
 \begin{theorem}[集合判据]
 \label{thm:jordan-indicator-boundary}
 设 $E$ 有界，$Q$ 是包含 $E$ 的矩形。以下条件等价：
@@ -181,8 +186,21 @@ $R$ 同时遇到 $E$ 和其补集；这类矩形必与 $\partial E$ 相交。若
 
 反之，若指示函数可积，取振幅和小于 $\varepsilon$ 的分割。所有振幅为一
 的小矩形覆盖 $\partial E$，且总体积小于 $\varepsilon$，故边界为零测集。
-把振幅为零且函数恒为一的小矩形并起来，便得到 (iii)；(iii) 也立即给出
-边界的任意小覆盖。外包矩形改变只会增加函数恒为零的区域，所以积分不变。
+ 把振幅为零且函数恒为一的小矩形并起来，便得到 (iii)。
+
+ 设反过来 (iii) 成立，记这些内部两两不交矩形的并为 $R$，并设
+ $E\mathbin\triangle R$ 包含于有限个闭矩形之并 $G$，其总体积小于
+ $\varepsilon$。集合的边界满足
+ \[
+  \partial E\subseteq \partial R\cup\overline{E\mathbin\triangle R}
+  \subseteq\partial R\cup G.
+ \]
+ 有限矩形并的边界包含在有限多个矩形面的并中；把每个面置于任意薄的矩形
+ 条内，说明 $\partial R$ 为 Jordan 零测集。因此，另取总体积小于
+ $\varepsilon$ 的有限矩形覆盖 $\partial R$，便得到总体积小于
+ $2\varepsilon$ 的 $\partial E$ 覆盖。令 $\varepsilon$ 任意即得 (i)。
+
+ 外包矩形改变只会增加指标函数恒为零的区域，所以积分不变。
 \end{proof}
 
 若 $E$ Jordan 可测，$f:E\to\R$ 有界，并能在某个外包矩形上延拓为
@@ -192,106 +210,6 @@ $\widetilde f$，使 $\widetilde f\mathbf1_E$ 可积，则定义
 \]
 对 $\overline E$ 上连续的 $f$，Tietze 延拓定理或在边界小矩形上的直接
 振幅估计保证定义成立，且与延拓无关。
-
-\section{累次积分与初等 Fubini 定理}
-
-设 $Q=A\times B$，其中 $A\subset\R^p$、$B\subset\R^q$ 为矩形。
-
-\begin{theorem}[连续函数的 Fubini 定理]
-\label{thm:fubini-continuous-rectangles}
-若 $f:A\times B\to\R$ 连续，则截面函数均可积，函数
-\[
- F(x)=\int_Bf(x,y)\,dy
-\]
-在 $A$ 上连续，并且
-\[
- \int_{A\times B}f(x,y)\,d(x,y)
- =\int_A\left(\int_Bf(x,y)\,dy\right)dx.
-\]
-交换 $A,B$ 后得到另一种积分次序。
-\end{theorem}
-
-\begin{proof}
-连续性和紧致性给出一致连续。故 $x'\to x$ 时
-\[
- |F(x')-F(x)|\le |B|\sup_{y\in B}|f(x',y)-f(x,y)|\to0.
-\]
-对 $A,B$ 分别取标记分割。乘积分割的 Riemann 和可写成
-\[
- \sum_{R\subset A}\left(\sum_{S\subset B}
- f(\xi_R,\eta_S)|S|\right)|R|.
-\]
-先令 $B$ 的网格趋零，内和一致逼近 $F(\xi_R)$；一致性来自 $f$ 在紧矩形
-上的一致连续。再令 $A$ 的网格趋零，即得等式。
-\end{proof}
-
-对一般 Riemann 可积函数，个别截面可能不可积。一个安全版本是：若 $f$
-在 $A\times B$ 可积且每个 $y$-截面可积，则 $F$ 可积且上述等式成立。
-证明以每个 $A$-小矩形上截面积分的上下界夹在相应多重上下和之间。若只知道
-几乎所有截面可积，就已经越出 Jordan--Riemann 理论，第三卷的 Lebesgue
-积分会给出自然版本。
-
-\section{Jacobian 与变量代换}
-
-线性映射 $A:\R^n\to\R^n$ 把单位立方体变为平行多面体，其有向体积为
-$\det A$，普通体积为 $|\det A|$。这由行列式对列向量的交错多线性和
-单位矩阵归一化刻画；奇异映射把体积压到低维集合，行列式为零。
-
-若 $\Phi$ 在 $a$ 可微，则
-\[
- \Phi(a+h)=\Phi(a)+D\Phi(a)h+o(\norm h).
-\]
-因此充分小的块在一阶近似下被放大 $|\det D\Phi(a)|$ 倍。
-
-\begin{theorem}[Riemann 变量代换]
-\label{thm:change-variables-riemann-diffeomorphism}
-设 $U,V\subset\R^n$ 为有界 Jordan 可测开集，$\Phi$ 在
-$\overline U$ 的某邻域属于 $C^1$，并把 $U$ 双射到 $V$。再设
-$\det D\Phi\ne0$ 于 $\overline U$，且逆映射在 $\overline V$ 的邻域
-属于 $C^1$。若 $f$ 在 $\overline V$ 连续，则
-\[
- \int_V f(y)\,dy
- =\int_U f(\Phi(x))\,|\det D\Phi(x)|\,dx.
-\]
-\end{theorem}
-
-\begin{proof}
-这里只写出证明中不能由一元代换替代的体积步骤。紧致性使 $D\Phi$ 一致
-连续，并使 $D\Phi$ 与 $D\Phi^{-1}$ 的范数一致有界。把 $U$ 包在细立方
-网格中。与 $\partial U$ 相交的立方体总体积可任意小；其像的总体积也由
-Lipschitz 常数控制而任意小。
-
-对完全位于 $U$ 内、中心为 $a$、边长为 $r$ 的立方体 $C$，一致可微性给出
-\[
- \sup_{x\in C}\norm{\Phi(x)-\Phi(a)-D\Phi(a)(x-a)}=o(r),
-\]
-其中余项对所有小立方体一致。把线性像的每个面向外、向内平移 $o(r)$，
-可夹住 $\Phi(C)$；平行多面体体积的连续性遂给出
-\[
- |\Phi(C)|=|\det D\Phi(a)|\,|C|+o(|C|),
-\]
-且总误差在所有内立方体求和后仍为 $o(1)$。双射性保证不同内立方体的像
-只可能在边界相交，不会重复计算体积。
-
-在每个像块上以 $f$ 的一致连续性把 $f$ 替换为 $f(\Phi(a))$，所得误差由
-总体积乘以振幅控制。于是 $V$ 上的 Riemann 和与
-$f\circ\Phi\,|\det D\Phi|$ 在 $U$ 上的 Riemann 和之差趋于零。边界块
-已经由 Jordan 零测性控制，令网格趋零便得到公式。
-\end{proof}
-
-绝对值不能删去：一维反向代换已经表明普通体积不带方向。极坐标映射
-$(r,\theta)\mapsto(r\cos\theta,r\sin\theta)$ 的 Jacobian 为 $r$；原点和
-切口处不满足全局微分同胚假设，但它们是 Jordan 零测集，可先在
-$\varepsilon\le r\le R$、闭角区间上应用定理，再令删去区域的体积趋零。
-
-若映射能分成有限多个互不重叠的微分同胚分支，则各分支公式相加。目标点
-$y$ 的重数 $N(y)$ 等于其原像个数，得到
-\[
- \int_U g(\Phi(x))|\det D\Phi(x)|\,dx
- =\int_{\Phi(U)}g(y)N(y)\,dy,
-\]
-前提是分支边界和临界例外均为 Jordan 零测集。没有有限分支或零测控制时，
-这条公式属于后续测度论中的面积公式，不能由本章版本自动推出。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -313,34 +231,17 @@ $y$ 的重数 $N(y)$ 等于其原像个数，得到
  证明边界交仅为 Jordan 零测集的有限个 Jordan 可测集满足有限可加性。
 \end{enumerate}
 
-\subsection*{B组　Fubini 与变量代换}
+\subsection*{B组　集合运算与逼近}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{fubini-uniform-section-proof}
- 把定理 \ref{thm:fubini-continuous-rectangles} 中内层 Riemann 和的一致误差写出。
- \exerciseitem{triangle-iterated-integral}
- 从 Jordan 定义证明三角形上的连续函数积分可写为
- $\int_a^b\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy\,dx$。
- \exerciseitem{polar-coordinate-disk}
- 用变量代换计算单位圆盘上 $x^2+y^2$ 的积分，并解释原点与切口的处理。
- \exerciseitem{linear-change-volume}
- 证明可逆线性映射把 Jordan 体积乘以 $|\det A|$。
- \exerciseitem{change-variable-orientation-absolute}
- 给出二维反向定向线性变换，说明变量代换公式为何必须取行列式绝对值。
- \exerciseitem{spherical-coordinate-jacobian}
- 计算三维球坐标的 Jacobian，并指出参数化非单射和退化的位置。
-\end{enumerate}
-
-\subsection*{C组　条件与推广}
-\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{riemann-section-nonintegrable}
- 构造矩形上 Riemann 可积函数，使某一条截面不可积。
- \exerciseitem{piecewise-diffeomorphism-multiplicity}
- 对映射 $(r,\theta)\mapsto(r\cos\theta,r\sin\theta)$ 在两个完整角周期上验证
- 重数公式。
- \exerciseitem{jacobian-zero-no-local-inverse}
- 举例说明 Jacobian 在一点为零并不必然使映射不单射，却阻止在该点使用
- $C^1$ 逆函数定理。
- \optionalexerciseitem{riemann-change-variables-boundary-audit}
- 逐项列出变量代换证明中紧致性、Jordan 边界、双射性和非零 Jacobian 的用途，
- 并为至少两项被删除的情形给出反例。
+ \exerciseitem{multiple-darboux-cauchy}
+ 证明矩形上有界函数的 Darboux 判据，并由此推出标记 Riemann 和的 Cauchy
+ 判据。
+ \exerciseitem{jordan-set-algebra}
+ 证明 Jordan 可测集对有限并、有限交和差封闭，并写出相应边界包含关系。
+ \exerciseitem{jordan-product-volume}
+ 若 $E\subset\R^p$、$F\subset\R^q$ Jordan 可测，证明
+ $E\times F$ Jordan 可测且 $|E\times F|=|E|\,|F|$。
+ \exerciseitem{jordan-continuous-domain}
+ 设 $E$ Jordan 可测，$f$ 在 $\overline E$ 上连续。证明本章定义的
+ $\int_Ef$ 与所取连续延拓及外包矩形无关。
 \end{enumerate}
