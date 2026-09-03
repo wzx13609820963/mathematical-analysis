@@ -98,12 +98,16 @@ Lebesgue 可积函数。Fatou 引理、单调收敛定理和控制收敛定理�
 \end{theorem}
 
 \begin{proof}
-因 \(|f|\mathbf1_{\{|f|\le M\}}\uparrow|f|\)，单调收敛定理给出
+令 \(M\) 取正整数。因
+\(|f|\mathbf1_{\{|f|\le M\}}\uparrow|f|\)，单调收敛定理以及
+\(\int|f|<\infty\) 给出
 \[
- \int_{\{|f|>M\}}|f|\,d\mu\longrightarrow0.
+ \int_{\{|f|>M\}}|f|\,d\mu
+ =\int|f|\,d\mu-\int_{\{|f|\le M\}}|f|\,d\mu
+ \longrightarrow0.
 \]
 取 \(M\) 使该尾积分小于 \(\varepsilon/2\)，再取
-\(\delta=\varepsilon/(2M)\)（若 \(M=0\) 结论显然）。则
+\(\delta=\varepsilon/(2M)\)。则
 \[
  \int_E|f|
  \le M\mu(E)+\int_{\{|f|>M\}}|f|
@@ -207,13 +211,15 @@ Fatou 引理通常只有不等式。以
 \end{proposition}
 
 \begin{proof}
-对非负函数 \(g-f_n\) 应用 Fatou 引理：
+由 \(f_n\le g\) 可知 \(f_n^+\le g^+\)，故 \(f_n\) 的正部积分有限；
+同理 \((\limsup_nf_n)^+\le g^+\)。因此命题中的各积分不会出现
+\(+\infty-\infty\) 型未定义式。对非负函数 \(g-f_n\) 应用 Fatou 引理：
 \[
  \int(g-\limsup_nf_n)
  =\int\liminf_n(g-f_n)
  \le\liminf_n\int(g-f_n).
 \]
-消去 \(\int g\) 即得所求不等式。
+由于 \(\int g\) 是有限实数，两边减去它是合法的；整理后即得所求不等式。
 \end{proof}
 
 若同时有可积下界和上界，Fatou 与反向 Fatou 夹住两侧，便可得到控制收敛

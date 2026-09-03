@@ -1,0 +1,49 @@
+\chapter{现代微积分基本定理}
+\begin{solution}{ftc-monotonicity-ac}
+若递增，则存在的导数非负。反之，任意 \(x<y\) 有
+\(F(y)-F(x)=\int_x^yF'\ge0\)，故递增。反向使用了绝对连续给出的重构式。
+\end{solution}
+\begin{solution}{ftc-lipschitz-derivative}
+\(L\)-Lipschitz 函数在可导点有 \(|F'|\le L\)，故本质上确界不超过 \(L\)。
+反之，由重构式得 \(|F(y)-F(x)|\le\|F'\|_\infty|y-x|\)。所以最小
+Lipschitz 常数恰等于 \(\|F'\|_\infty\)。
+\end{solution}
+\begin{solution}{ftc-derivative-not-enough}
+\(C\) 连续，且几乎处处 \(C'=0\)，因此导数可积且积分为零；但
+\(C(1)-C(0)=1\)。它不绝对连续，基本定理的关键假设不满足。
+\end{solution}
+\begin{solution}{ftc-absolute-value}
+绝对值映射为 \(1\)-Lipschitz，故其复合绝对连续。在 \(F\) 与 \(|F|\)
+都可导的点，由
+\(\bigl||F(x+h)|-|F(x)|\bigr|\le|F(x+h)-F(x)|\)
+除以 \(|h|\) 再取极限得估计；两个不可导例外集的并仍零测。
+\end{solution}
+\begin{solution}{ftc-holder-modulus}
+用积分表示及 Hölder：
+\(|\int_x^yF'|\le(\int_x^y|F'|^p)^{1/p}(\int_x^y1)^{1-1/p}\)。
+再以全区间 \(L^p\) 范数控制局部范数即得结论。
+\end{solution}
+\begin{solution}{ftc-derivative-lone-limit}
+对每个 \(x\)，
+\[
+ |F_n(x)-c-\int_a^xg|\le|F_n(a)-c|+\|F_n'-g\|_1.
+\]
+右侧不依赖 \(x\) 且趋零。极限函数由积分表示绝对连续。
+\end{solution}
+\begin{solution}{ftc-ac-norm-complete}
+正定性由重构式，其他范数性质直接成立。若 \(F_n\) 为 Cauchy 列，
+则端点值在 \(\R\) 中收敛，导数在完备的 \(L^1\) 中收敛到 \(g\)。
+上一题的极限 \(F=c+\int g\) 满足 \(F'=g\) 几乎处处，故在所给范数下收敛。
+\end{solution}
+\begin{solution}{ftc-reciprocal-ac}
+在 \(|u|,|v|\ge\eta\) 的值域上，
+\(|1/u-1/v|\le\eta^{-2}|u-v|\)，故复合绝对连续。
+可导点直接用商法则得 \((1/F)'=-F'/F^2\)，该函数属于 \(L^1\)。
+\end{solution}
+\begin{solution}{ftc-ac-uniform-derivatives}
+在有限测度区间上，一致可积性给出对所有 \(n\) 共用的小集合积分控制。
+任意内部不交区间族上
+\(\sum|\Delta F_n|\le\int_{\cup(u_j,v_j)}|F_n'|\)，所以绝对连续性的
+\(\delta\) 可共用。固定区间族，令 \(n\to\infty\) 并预留半个误差，即得
+\(F\) 绝对连续。没有交换导数与逐点极限。
+\end{solution}

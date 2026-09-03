@@ -1,0 +1,47 @@
+\chapter{Hahn--Banach 定理}
+\begin{solution}{hb-dual-separates}
+对非零向量 \(x-y\) 取范数一的范数化泛函，得到
+\(\phi(x)-\phi(y)=\|x-y\|\ne0\)。
+\end{solution}
+\begin{solution}{hb-nonclosed-subspace}
+取 \(m_n\in M\to x\)，连续性使 \(\phi(x)=\lim\phi(m_n)=0\)。
+因此，点与子空间能够严格分离的条件是该点不在子空间的闭包内。
+\end{solution}
+\begin{solution}{hb-distance-hyperplane}
+对任何 \(m\in\ker\phi\)，\(|\phi(x)|\le\|\phi\|\|x-m\|\)，给下界。
+取单位向量 \(u_n\) 使 \(|\phi(u_n)|\to\|\phi\|\)，则
+\(m_n=x-\phi(x)u_n/\phi(u_n)\in\ker\phi\)，且
+\(\|x-m_n\|\le|\phi(x)|/|\phi(u_n)|\)，取极限得上界。
+\end{solution}
+\begin{solution}{hb-dual-completion}
+标量域完备，所以每个连续泛函由稠密子空间延拓定理唯一等范数延拓。
+反向限制回 \(X\)，两个操作互逆，且保持加法、数乘和范数。
+\end{solution}
+\begin{solution}{dual-czero-lone}
+令 \(a_n=L(e_n)\)。对有限集合 \(\{1,\ldots,N\}\) 选模一系数使
+\(\zeta_na_n=|a_n|\)，测试有限支撑单位球元素得
+\(\sum_{n\le N}|a_n|\le\|L\|\)。故 \(a\in\ell^1\)。
+有限截断在 \(c_0\) 中一致收敛，所以 \(L(x)=\sum a_nx_n\)。
+反向绝对可和系数给有界泛函，范数上界为 \(\|a\|_1\)，有限相位测试给下界。
+\end{solution}
+\begin{solution}{dual-lone-linfty}
+同样令 \(a_n=L(e_n)\)，则 \(|a_n|\le\|L\|\)。有限截断在 \(\ell^1\)
+范数下收敛，故 \(L(x)=\sum a_nx_n\)。反向用
+\(|\sum a_nx_n|\le\|a\|_\infty\|x\|_1\)，逐坐标测试给范数等号。
+\end{solution}
+\begin{solution}{hb-norm-nonattainment}
+范数不超过一；前 \(N\) 项为一、其余为零的数列给值 \(1-2^{-N}\)，
+所以范数为一。若 \(|L(x)|=1\) 且 \(\|x\|_\infty\le1\)，则
+\(\sum2^{-n}|x_n|=1\)，每个正权重迫使 \(|x_n|=1\)，与 \(x_n\to0\) 矛盾。
+\end{solution}
+\begin{solution}{hb-convex-norm-closure}
+所有闭半空间都包含 \(\overline C\)，故交集包含它。
+若 \(x\notin\overline C\)，对闭凸集 \(\overline C\) 用严格分离，得到
+包含 \(C\) 而不含 \(x\) 的闭半空间，故交集没有额外的点。空集情形另行直接验证。
+\end{solution}
+\begin{solution}{dual-adjoint-norm}
+上界由复合范数估计。对单位向量 \(x\)，用范数化泛函选
+\(\phi\in B_{Y^*}\) 使 \(|\phi(Tx)|=\|Tx\|\)，于是
+\(\|T^*\|\ge\|Tx\|\)，对 \(x\) 取确界得等号。
+\(T^*\phi=0\) 等价于 \(\phi\) 在 \(T(X)\) 上为零，连续性又等价于它在闭包上为零。
+\end{solution}

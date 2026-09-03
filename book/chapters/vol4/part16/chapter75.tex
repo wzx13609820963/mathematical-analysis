@@ -1,0 +1,175 @@
+\chapter{Banach 空间}
+\label{chap:banach-spaces}
+
+连续函数的一致范数、可积函数的 \(L^p\) 范数和向量的欧氏范数，都能度量
+加法和数乘下的误差。然而同一个代数空间可以容纳不同的范数，某个范数下
+存在的极限，在另一个范数下未必存在。本章把这些例子中已经反复使用的
+性质整理为赋范空间的语言，再讨论子空间、商空间和线性算子的完备性。
+标量域始终记为 \(\mathbb K\)，取 \(\R\) 或 \(\C\)；线性一律相对于选定标量域。
+
+\section{赋范空间}
+
+向量空间 \(X\) 上的范数是满足正定性、绝对齐次性和三角不等式的映射
+\(\|\cdot\|:X\to[0,\infty)\)。它诱导平移不变距离
+\(d(x,y)=\|x-y\|\)，且
+\[
+ |\|x\|-\|y\||\le\|x-y\|,\qquad
+ \|\alpha x-\beta y\|\le|\alpha|\|x-y\|+|\alpha-\beta|\|y\|.
+\]
+后一式说明加法、数乘在这个拓扑下连续。范数不只指定哪些点接近，也使
+代数运算与极限相容。
+
+前文的 \(\R^n\)、\(C(K)\)、\(L^p(\mu)\)（\(1\le p\le\infty\)）都是例子。
+当 \(1\le p<\infty\) 时，复值 \(L^p\) 使用
+\(\|f\|_p=(\int|f|^p)^{1/p}\)；\(p=\infty\) 时仍用本质上确界。
+Hölder、Minkowski
+证明只用模的三角不等式，原样成立。完备性证明中的绝对可和子列也适用于
+复值函数，或分别对实部、虚部应用已有实值结果。
+
+\section{完备性与级数}
+
+\begin{definition}
+范数诱导的度量完备时，称 \(X\) 为 Banach 空间。记闭单位球为
+\(B_X=\{x:\|x\|\le1\}\)；开单位球另写 \(B_X^\circ\)。
+\end{definition}
+
+\begin{proposition}\label{prop:banach-series-test}
+赋范空间完备当且仅当每个满足 \(\sum_n\|x_n\|<\infty\) 的级数
+\(\sum_nx_n\) 都在该空间收敛。
+\end{proposition}
+\begin{proof}
+完备时，部分和之差由范数级数尾和控制，故为 Cauchy 列。反向对任意
+Cauchy 列 \(y_n\)，抽取子列使
+\(\|y_{n_{k+1}}-y_{n_k}\|\le2^{-k}\)。差级数绝对可和，所以
+\(y_{n_k}=y_{n_1}+\sum_{j<k}(y_{n_{j+1}}-y_{n_j})\) 收敛。
+原 Cauchy 列随之收敛到相同极限。
+\end{proof}
+
+这一判据让“误差分次修正”的构造成为合法方法。以后证明开映射定理时，
+将先得到一个近似原像，再把剩余误差按几何级数逐次修正；完备性保证这些
+修正仍产生空间中的元素。
+
+\section{子空间与有限积}
+
+Banach 空间的线性子空间在限制范数下完备，当且仅当它闭。这是
+度量空间中完备子空间判据的直接应用：子空间内的 Cauchy 列在母空间收敛，
+闭性保证极限留下；反向由完备子空间在度量空间中闭得到。
+
+有限个 Banach 空间的积取最大范数或求和范数都是 Banach 空间，因为
+Cauchy 性和收敛性可逐坐标判断。无限积则需另加有界性条件。例如
+\(\ell^\infty\) 是所有有界数列在上确界范数下的空间；所有数列的代数积中
+有无界元素，不能不作限制就使用同一个范数。
+
+\section{商空间}
+
+设 \(M\) 为 \(X\) 的线性子空间。代数商 \(X/M\) 的元素为陪集
+\([x]=x+M\)，加法、数乘因等价关系相容而良定义。定义
+\[
+ \|[x]\|_{X/M}=\inf_{m\in M}\|x-m\|=d(x,M).
+\]
+换代表元只会平移取下确界的集合，故数值不变。齐次性和三角不等式由
+近似极小代表得到；而 \(\|[x]\|=0\) 等价于 \(x\in\overline M\)。
+所以它成为范数恰好要求 \(M\) 闭。
+
+\begin{theorem}\label{thm:banach-quotient}
+若 \(X\) 为 Banach 空间且 \(M\) 为闭线性子空间，则 \(X/M\) 完备。
+自然映射 \(q:X\to X/M\) 连续、满射且开。
+\end{theorem}
+\begin{proof}
+若商空间级数满足 \(\sum\|u_n\|<\infty\)，可选代表 \(x_n\) 使
+\(\|x_n\|\le\|u_n\|+2^{-n}\)。于是 \(\sum x_n\) 在 \(X\) 收敛，
+连续映射 \(q\) 将其部分和映到 \(\sum u_n\) 的部分和，故后者收敛。
+上一节级数判据给完备性。这里不要求距离的下确界取得。
+
+由 \(\|q(x)\|\le\|x\|\) 得连续性。若 \(\|u\|<r\)，下确界定义保证有
+代表 \(x\) 满足 \(\|x\|<r\)，故 \(q(B_X^\circ(0,r))=B_{X/M}^\circ(0,r)\)。
+平移后即说明 \(q\) 为开映射。
+\end{proof}
+
+\section{有界线性算子}
+
+线性映射 \(T:X\to Y\) 称为有界，若存在 \(C<\infty\) 使
+\(\|Tx\|\le C\|x\|\) 对所有 \(x\) 成立。这里“有界”指把有界集送到有界集，
+不表示 \(T(X)\) 整体有界；非零线性映射的像总是无界的。
+
+\section{算子范数}
+
+有界线性映射全体记为 \(\mathcal L(X,Y)\)，定义
+\[
+ \|T\|=\sup_{\|x\|\le1}\|Tx\|
+       =\sup_{x\ne0}\frac{\|Tx\|}{\|x\|}.
+\]
+这恰是所有允许常数 \(C\) 的最小值，且使 \(\mathcal L(X,Y)\) 成为赋范空间。
+若复合有意义，则 \(\|ST\|\le\|S\|\|T\|\)。
+在 \(C[a,b]\) 上，点值映射 \(f\mapsto f(c)\) 范数为一；积分映射
+\(f\mapsto\int_a^bf\) 范数为 \(b-a\)。上界由直接估计，下界用常函数 \(1\)。
+
+\section{连续与有界}
+
+\begin{theorem}\label{thm:linear-continuous-bounded}
+线性映射 \(T:X\to Y\) 有界、在零点连续、处处连续三者等价。
+\end{theorem}
+\begin{proof}
+有界给出 Lipschitz 估计 \(\|Tx-Ty\|\le C\|x-y\|\)。处处连续当然蕴含
+零点连续。反向，取 \(\delta>0\) 使 \(\|z\|<\delta\) 时 \(\|Tz\|<1\)。
+对 \(x\ne0\) 应用于 \(z=\delta x/(2\|x\|)\)，得
+\(\|Tx\|<2\|x\|/\delta\)。
+\end{proof}
+
+微分算子展示了空间选择的重要性：\(Df=f'\) 从 \(C^1[a,b]\) 配上
+\(\|f\|_\infty+\|f'\|_\infty\) 到 \(C[a,b]\) 有界；若定义域只用
+\(\|f\|_\infty\)，快速振荡的函数有小振幅而导数很大，\(D\) 不有界。
+一个公式是否定义连续算子，不能脱离定义域和值域的范数判断。
+
+\section{算子空间的完备性}
+
+\begin{theorem}\label{thm:operator-space-complete}
+若 \(Y\) 为 Banach 空间，\(X\) 只需赋范，则 \(\mathcal L(X,Y)\) 为 Banach 空间。
+\end{theorem}
+\begin{proof}
+若 \(T_n\) 为算子范数 Cauchy 列，对每个 \(x\)，
+\(\|T_nx-T_mx\|\le\|T_n-T_m\|\|x\|\)，故 \(T_nx\) 在 \(Y\) 中收敛，
+定义 \(Tx=\lim_nT_nx\)。取极限保留线性；因 \(T_n\) 范数有共同上界 \(C\)，
+有 \(\|Tx\|\le C\|x\|\)。最后固定 \(n\) 足够大，先在
+\(\|(T_n-T_m)x\|\le\varepsilon\|x\|\) 中令 \(m\to\infty\)，
+再对单位球取上确界，得 \(\|T_n-T\|\le\varepsilon\)。
+\end{proof}
+
+特别地，连续对偶 \(X^*=\mathcal L(X,\mathbb K)\) 总完备，即使 \(X\) 自身
+不完备。逐点极限只能给出一个候选算子，最后在单位球上一致的误差估计
+才保证算子范数收敛。
+
+\section{维数的作用}
+
+有限维空间的任意范数与坐标范数等价：上界由基向量范数求和，下界在坐标
+单位球面上利用连续范数取得正最小值得到。因此有限维子空间闭且完备，
+定义在有限维空间上的任何线性映射都连续。无限维情形下这些断言须分别判断。
+\chapterref{chap:continuous-function-space}已由 Riesz 引理证明：闭单位球
+范数紧致当且仅当空间有限维。本编将用较弱的拓扑寻找另一种紧致性，
+但不会把它误写成范数紧致。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{banach-czero-closed}证明 \(c_0=\{x=(x_n):x_n\to0\}\) 是 \(\ell^\infty\) 的闭子空间。
+\exerciseitem{banach-cfinite-incomplete}证明有限支撑数列空间 \(c_{00}\) 在上确界范数下不完备，其完备化为 \(c_0\)。
+\exerciseitem{operator-shift-norm}求 \(\ell^p\) 上右移 \(S(x_1,x_2,\ldots)=(0,x_1,x_2,\ldots)\) 的范数，\(1\le p\le\infty\)。
+\exerciseitem{operator-diagonal-norm}证明对角算子 \(Tx=(a_nx_n)\) 在 \(\ell^p\) 上有界当且仅当 \((a_n)\) 有界，并求范数。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{quotient-nonclosed}若 \(M\) 不闭，证明商公式只是半范数，并举出非零陪集却半范数为零的例子。
+\exerciseitem{operator-uniform-not-pointwise}在 \(\ell^2\) 上令 \(P_nx=x_ne_n\)，证明 \(P_nx\to0\) 对每个 \(x\) 成立，但 \(\|P_n\|=1\)。
+\exerciseitem{banach-c-one-complete}证明 \(C^1[a,b]\) 在 \(\|f\|_\infty+\|f'\|_\infty\) 下完备。
+\exerciseitem{operator-extension-dense}设 \(D\) 是 \(X\) 的稠密线性子空间，\(Y\) Banach。证明每个有界 \(T:D\to Y\) 唯一等范数延拓到 \(X\)。
+\exerciseitem{quotient-distance-constant}在 \(C[a,b]\) 中对常函数子空间取商，证明实函数陪集的商范数为
+\[
+ \frac{\max f-\min f}{2}.
+\]
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{operator-neumann-series}若 \(X\) Banach、\(A\in\mathcal L(X,X)\) 且 \(\|A\|<1\)，证明
+\((I-A)^{-1}=\sum_{n=0}^\infty A^n\)，并给出范数估计。
+\end{enumerate}

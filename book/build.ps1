@@ -47,7 +47,7 @@ try {
         }
     }
 
-    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-第一卷至第三卷-附录A至C.pdf'
+    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-第一至三卷及第四卷第十六编-附录A至C.pdf'
     $builtPdf = Join-Path $PSScriptRoot 'main.pdf'
     if (-not (Test-Path -LiteralPath $builtPdf)) {
         throw 'LuaLaTeX did not produce main.pdf.'
@@ -56,13 +56,15 @@ try {
 
     $outputDirectory = Join-Path $repositoryRoot 'output\pdf'
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-第一卷至第三卷-附录A至C.pdf'
+    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-第一至三卷及第四卷第十六编-附录A至C.pdf'
+    $linkTargetPath = Join-Path $outputDirectory 'analysis-vol1-3-vol4-part16-appA-C.pdf'
     try {
         Copy-Item -LiteralPath $candidatePath -Destination $releasePath -Force
+        Copy-Item -LiteralPath $candidatePath -Destination $linkTargetPath -Force
     }
     catch {
         $retainTaskDirectory = $true
-        throw "发布文件可能正被占用：$releasePath。候选文件保留在 $candidatePath；请关闭占用后重新运行，勿创建带后缀的替代 PDF。"
+        throw "发布文件可能正被占用：$releasePath 或 $linkTargetPath。候选文件保留在 $candidatePath；请关闭占用后重新运行，勿创建带后缀的替代 PDF。"
     }
 }
 finally {

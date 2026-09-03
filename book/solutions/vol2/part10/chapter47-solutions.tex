@@ -58,16 +58,30 @@ $2LN h^2=2L(b-a)^2/N$，趋于零。若 $L=0$，同样可用任意小高度的�
 \end{solution}
 
 \begin{solution}{jordan-volume-finite-union}
-先证两个集合。若 $E,F$ Jordan 可测且 $\partial E\cap\partial F$ 为
-Jordan 零测集，则除这个零测集合外，指标恒等式
+先证两个集合。指标恒等式
 \[
  \mathbf1_{E\cup F}=\mathbf1_E+\mathbf1_F-\mathbf1_{E\cap F}
 \]
-逐点成立，其实该式处处成立；各指标函数均可积，因为
-$\partial(E\cap F)\subset\partial E\cup\partial F$。积分的线性性给出
-$m(E\cup F)=m(E)+m(F)-m(E\cap F)$。若各集合内部两两不交，交集包含于
-边界交，体积为零，因而得到可加性。有限多个集合用归纳法处理；有限个
-Jordan 零测集的并仍为 Jordan 零测集。
+处处成立；各指标函数均可积，因为
+$\partial(E\cap F),\partial(E\cup F)\subseteq\partial E\cup\partial F$。
+积分的线性性给出
+\[
+ |E\cup F|=|E|+|F|-|E\cap F|.
+\]
+若 $E^\circ\cap F^\circ=\varnothing$，而 $x\in E\cap F$，则 $x$ 不可能
+同时是 $E$ 与 $F$ 的内点。若它是 $E$ 的内点，则它不是 $F$ 的内点，且
+$x\in F$，所以 $x\in\partial F$；另一种情形同理。因此
+\[
+ E\cap F\subseteq\partial E\cup\partial F.
+\]
+右端为 Jordan 零测集，故 $|E\cap F|=0$，从而
+$|E\cup F|=|E|+|F|$。对于有限族 $(E_i)_{i=1}^m$，每个两两交集
+$E_i\cap E_j$ 都是 Jordan 零测集，因而
+\[
+ E_k\cap\bigcup_{i<k}E_i=\bigcup_{i<k}(E_k\cap E_i)
+\]
+也是 Jordan 零测集。逐次使用两个集合的公式即得
+$|\bigcup_{i=1}^mE_i|=\sum_{i=1}^m|E_i|$。
 \end{solution}
 
 \begin{solution}{multiple-darboux-cauchy}

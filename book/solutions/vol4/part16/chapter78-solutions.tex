@@ -1,0 +1,46 @@
+\chapter{弱拓扑与 Banach--Alaoglu 定理}
+\begin{solution}{weak-finite-dimensional}
+有限个坐标泛函连续，它们的同时小量控制一个坐标范数球，再由范数等价
+控制原范数球。因此范数开集也是弱开集；另一方向总成立。
+\end{solution}
+\begin{solution}{weak-neighborhood-unbounded}
+每个弱零邻域包含一个由有限个 \(\phi_j\) 定义的基本邻域。映射
+\(x\mapsto(\phi_1(x),\ldots,\phi_m(x))\) 从无限维空间到有限维空间，
+核非零。核内任一非零向量的全部倍数都在该基本邻域中，所以无界。
+\end{solution}
+\begin{solution}{weak-unique-limit}
+若同时弱趋于 \(x,y\)，每个 \(\phi\) 给 \(\phi(x)=\phi(y)\)。
+对偶分离点，所以 \(x=y\)。
+\end{solution}
+\begin{solution}{weakstar-coordinate-linfty}
+弱星收敛通过测试 \(\ell^1\) 的坐标向量得到逐坐标收敛。
+反向设共同界 \(M\)，对任意 \(a\in\ell^1\)，先把尾和
+\(2M\sum_{k>N}|a_k|\) 控制得小，再用前 \(N\) 个坐标的收敛控制有限和。
+对网同样成立，因为一次只需有限多个坐标同时接近。
+\end{solution}
+\begin{solution}{weakstar-not-weak-linfty}
+坐标逐项趋零且 \(\|s_n\|_\infty=1\)，由上一题弱星趋零。
+把收敛数列的极限泛函用 Hahn--Banach 延拓为 \(L\in(\ell^\infty)^*\)，
+则 \(L(s_n)=1\)，故不弱趋零。
+\end{solution}
+\begin{solution}{weak-convex-mazur}
+弱极限 \(x\) 在每个尾集的弱闭包中，因而在其凸包的弱闭包中。
+凸集弱闭包等于范数闭包，所以可在尾凸包中选距离小于 \(1/n\) 的点。
+这里 \(y_n\) 是有限凸组合，不是无限形式和。
+\end{solution}
+\begin{solution}{weak-operator-continuous}
+对任意 \(\psi\in Y^*\)，\(\psi\circ T\in X^*\)。
+于是 \(\psi(Tx_\alpha)=(\psi\circ T)(x_\alpha)\to(\psi\circ T)(x)=\psi(Tx)\)。
+\end{solution}
+\begin{solution}{weak-unit-sphere-closure}
+闭单位球弱闭，故球面的弱闭包包含于球。
+反向，若 \(\|x\|<1\)，给定有限评价约束，选其公共核中非零向量 \(z\)。
+连续函数 \(t\mapsto\|x+tz\|\) 在零处小于一且当 \(t\to\infty\) 趋无穷，
+故某个 \(t\) 使其等于一；该点的全部指定评价与 \(x\) 相同。
+因此每个基本弱邻域都碰到球面。范数等于一的点原就在球面。
+\end{solution}
+\begin{solution}{weakstar-incomplete-unbounded}
+每个 \(x\in c_{00}\) 最终有 \(x_n=0\)，故 \(\phi_n(x)\) 最终为零。
+另一方面坐标向量给 \(\|\phi_n\|=n\)。弱星收敛序列有界的结论要求
+原空间 \(X\) Banach，而 \(c_{00}\) 不完备。
+\end{solution}

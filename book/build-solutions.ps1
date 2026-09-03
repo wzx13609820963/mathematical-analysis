@@ -30,6 +30,19 @@ if (-not (Test-Path -LiteralPath $mainAux)) {
     throw 'main.aux 不存在。解答册通过正文标签取得题号，请先运行 book/build.ps1。'
 }
 
+$includedAux = [regex]::Matches(
+    [System.IO.File]::ReadAllText($mainAux),
+    '\\@input\{([^}]+\.aux)\}'
+) | ForEach-Object { $_.Groups[1].Value } | Sort-Object -Unique
+$missingAux = @(
+    $includedAux | Where-Object {
+        -not (Test-Path -LiteralPath (Join-Path $PSScriptRoot $_))
+    }
+)
+if ($missingAux.Count -gt 0) {
+    throw "main.aux 引用的章节辅助文件不完整（缺少 $($missingAux.Count) 个）。请先运行 book/build.ps1，再构建解答册。"
+}
+
 $repositoryRoot = Split-Path $PSScriptRoot -Parent
 $taskId = 'build-solutions-{0}-{1}' -f (Get-Date -Format 'yyyyMMdd-HHmmss'), $PID
 $taskDirectory = Join-Path $repositoryRoot "tmp\tasks\$taskId"
@@ -52,7 +65,7 @@ try {
         }
     }
 
-    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-习题解答-第一卷至第三卷.pdf'
+    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-习题解答-第一至三卷及第四卷第十六编.pdf'
     $builtPdf = Join-Path $PSScriptRoot 'solutions.pdf'
     if (-not (Test-Path -LiteralPath $builtPdf)) {
         throw 'LuaLaTeX did not produce solutions.pdf.'
@@ -61,7 +74,7 @@ try {
 
     $outputDirectory = Join-Path $repositoryRoot 'output\pdf'
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-习题解答-第一卷至第三卷.pdf'
+    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-习题解答-第一至三卷及第四卷第十六编.pdf'
     try {
         Copy-Item -LiteralPath $candidatePath -Destination $releasePath -Force
     }

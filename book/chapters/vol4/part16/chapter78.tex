@@ -1,0 +1,171 @@
+\chapter{弱拓扑与 Banach--Alaoglu 定理}
+\label{chap:weak-topologies}
+
+范数收敛要求所有单位范数泛函检测到的误差同时变小；若只要求每个固定
+泛函检测到的误差趋零，就得到较弱的收敛。损失的是一致性，可能获得的则是
+紧致性。在使用这种交换之前，必须把拓扑定义清楚：一个空间的弱拓扑和它
+作为某个对偶空间时的弱星拓扑，通常并不相同。
+
+\section{对偶配对与初始拓扑}
+
+设 \(X\) 为赋范空间。对每个 \(\phi\in X^*\) 有标量映射
+\(x\mapsto\phi(x)\)。使这些映射全部连续的最弱拓扑称为弱拓扑，
+记 \(\sigma(X,X^*)\)。它是前文初始拓扑构造的一个例子。
+Hahn--Banach 定理保证 \(X^*\) 分离点，故此拓扑 Hausdorff。
+
+在对偶空间上，只用评价映射 \(\phi\mapsto\phi(x)\)（\(x\in X\)）作检测，
+得到弱星拓扑，记为 \(\sigma(X^*,X)\)。
+而 \(X^*\) 自己的弱拓扑是 \(\sigma(X^*,X^{**})\)，通常使用更多检测泛函。
+这里 \(X^{**}=(X^*)^*\)，不把它未经证明地认作 \(X\)。
+
+\section{基本邻域}
+
+弱拓扑中 \(x_0\) 的基本邻域为
+\[
+ \{x:|\phi_j(x-x_0)|<\varepsilon,\ j=1,\ldots,m\},
+\]
+其中 \(\phi_1,\ldots,\phi_m\in X^*\)，\(m\) 有限，\(\varepsilon>0\)。
+弱星拓扑中 \(\phi_0\) 的基本邻域则为
+\[
+ \{\phi:|\phi(x_j)-\phi_0(x_j)|<\varepsilon,\ j=1,\ldots,m\}.
+\]
+有限个条件产生的邻域与无穷多个条件同时成立的范数球不可混同。
+若 \(X\) 无限维，有限多个泛函的公共核含非零向量；基本弱邻域包含这个
+方向的整条直线，因而范数无界。
+
+这些邻域是凸的，且加法、数乘连续。因此弱拓扑和弱星拓扑都是局部凸向量
+空间拓扑；“局部凸”在这里表示零点具有凸邻域基，不要求存在一个范数产生它。
+
+\section{强、弱与弱星收敛}
+
+记 \(x_\alpha\rightharpoonup x\)，若
+\(\phi(x_\alpha)\to\phi(x)\) 对每个 \(\phi\in X^*\) 成立。
+记 \(\phi_\alpha\overset{*}{\rightharpoonup}\phi\)，若
+\(\phi_\alpha(x)\to\phi(x)\) 对每个 \(x\in X\) 成立。
+指标可为序列，也可为一般有向集上的网。由有限基本邻域的描述，这恰好是
+相应拓扑中的收敛。
+
+范数收敛蕴含弱收敛；在 \(X^*\) 中，弱收敛又蕴含弱星收敛。
+例如在 \(\ell^2\) 中，单位坐标向量 \(e_n\) 弱收敛到零，
+因为每个对偶由 \(g\in\ell^2\) 表示，且 \(\langle e_n,g\rangle=g_n\to0\)；
+但 \(\|e_n\|_2=1\)。在 \(\ell^1\) 中，同一坐标向量列不弱收敛到零，
+因为常数列 \(\mathbf1\in\ell^\infty=(\ell^1)^*\) 的检测值恒为一。
+
+\section{有界性与下半连续性}
+
+\begin{proposition}\label{prop:weak-sequence-bounded}
+赋范空间中的弱收敛序列范数有界。若 \(X\) Banach，则 \(X^*\) 中的
+弱星收敛序列范数有界。
+\end{proposition}
+\begin{proof}
+对弱收敛列 \(x_n\)，把它看成定义在 Banach 空间 \(X^*\) 上的评价泛函
+\(Jx_n:\phi\mapsto\phi(x_n)\)。这些泛函逐点有界，一致有界原理与
+\(\|Jx_n\|=\|x_n\|\) 给结论。第二条直接对定义在 \(X\) 上的泛函列应用
+一致有界原理。
+\end{proof}
+
+此处写的是序列。收敛网的全部取值未必有界：收敛只控制最终部分，而有向集
+中一个最终部分之外的指标未必只有有限个，不能照搬收敛数列的有界性证明。
+
+\begin{proposition}\label{prop:weak-lower-semicontinuity}
+范数在弱拓扑下下半连续；凸集的范数闭包等于其弱闭包。
+\end{proposition}
+\begin{proof}
+由对偶范数刻画，闭球为闭集的交
+\(\{x:\|x\|\le r\}=\bigcap_{\phi\in B_{X^*}}\{x:|\phi(x)|\le r\}\)。
+所以范数下半连续，尤其弱收敛序列满足
+\(\|x\|\le\liminf_n\|x_n\|\)。弱闭集必范数闭，故范数闭包包含于弱闭包。
+对凸集的范数闭包以外的点，严格分离定理给一个弱开半空间，将该点与集合
+分开，于是它也不在弱闭包内。
+\end{proof}
+
+\section{对偶球的乘积表示}
+
+每个 \(\phi\in B_{X^*}\) 都满足 \(|\phi(x)|\le\|x\|\)。
+因此可将它嵌入紧圆盘（实情形为闭区间）的乘积
+\[
+ \Phi:B_{X^*}\longrightarrow\prod_{x\in X}D_x,\qquad
+ \Phi(\phi)=(\phi(x))_{x\in X},\quad
+ D_x=\{z\in\mathbb K:|z|\le\|x\|\}.
+\]
+这也可用极集语言表述：单位球 \(B_X\) 的极集为
+\(B_X^\circledast=\{\phi:|\phi(x)|\le1\ (x\in B_X)\}=B_{X^*}\)。
+这里专用符号 \({}^\circledast\) 与前章表示开球的 \({}^\circ\) 区分。
+乘积坐标记录的是所有评价，而积拓扑仍只在每次邻域中约束有限个坐标。
+
+\section{Banach--Alaoglu 定理}
+
+\begin{theorem}\label{thm:banach-alaoglu}
+任意赋范空间 \(X\) 的对偶闭单位球 \(B_{X^*}\) 在弱星拓扑下紧致。
+\end{theorem}
+\begin{proof}
+由 \theoremref{thm:tychonoff-product}，上述乘积紧致。
+其点 \(z=(z_x)\) 属于 \(\Phi(B_{X^*})\) 当且仅当满足全部线性等式
+\[
+ z_{x+y}=z_x+z_y,\qquad z_{\lambda x}=\lambda z_x
+ \quad(x,y\in X,\ \lambda\in\mathbb K).
+\]
+每个等式定义乘积中的闭集，故共同满足它们的集合闭。反向确实成立：
+这些等式给线性映射 \(x\mapsto z_x\)，而坐标圆盘约束给
+\(|z_x|\le\|x\|\)，所以它是范数至多一的连续泛函。
+最后，\(\Phi\) 的坐标映射正是弱星拓扑的定义映射，故它是到像集的
+同胚。闭子集紧致，定理得证。
+\end{proof}
+
+该证明没有假设 \(X\) 完备，也没有使用反射性；所得是对偶球的弱星紧致。
+如果要把“紧”改写成“每个序列可抽收敛子列”，还需下一节的度量化，
+或另外的序列紧致性定理。
+
+\section{可分情形}
+
+\begin{theorem}\label{thm:weakstar-metrizable-ball}
+若 \(X\) 可分，则 \(B_{X^*}\) 上的弱星拓扑可度量化。因而其中每个序列
+都有弱星收敛子列。
+\end{theorem}
+\begin{proof}
+取 \(B_X\) 的至多可数稠密序列 \((x_n)_{n\ge1}\)，定义
+\[
+ d(\phi,\psi)=\sum_{n\ge1}2^{-n}
+       \min\{1,|\phi(x_n)-\psi(x_n)|\}.
+\]
+稠密性和泛函连续性保证正定性，三角不等式由截断标量距离得到。
+弱星收敛控制每个坐标，先控制有限头部，再用几何级数控制尾部，故蕴含
+\(d\)-收敛。反向，对 \(x\in B_X\)，选 \(\|x-x_n\|<\eta\)，有
+\[
+ |\phi(x)-\psi(x)|\le2\eta+|\phi(x_n)-\psi(x_n)|.
+\]
+所以有限个一般向量的评价约束可以由有限个稠密坐标约束及统一的单位球界
+保证。这证明拓扑相同，而不只是两者序列收敛相同。
+紧致度量空间序列紧致，得到子列结论。
+\end{proof}
+
+\section{紧致与序列紧致}
+
+单位球的统一范数界在度量化证明中不能删除。一般弱星拓扑可能需要不可数个
+评价坐标，Tychonoff 定理给的是开覆盖紧致性，不能仅凭“它是一个积空间”
+就使用对角抽取。
+本书采用 ZFC，以上使用已建立的紧 Hausdorff 乘积定理，不在此声称这种
+证明给出了最弱选择原则。下一章将证明 Banach 空间弱拓扑的
+Eberlein--Šmulian 定理；它是额外的线性分析结果，并不适用于任意拓扑空间。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{weak-finite-dimensional}证明有限维空间中弱拓扑等于范数拓扑。
+\exerciseitem{weak-neighborhood-unbounded}证明无限维赋范空间的每个弱零邻域都范数无界。
+\exerciseitem{weak-unique-limit}证明弱极限唯一。
+\exerciseitem{weakstar-coordinate-linfty}在 \(\ell^\infty=(\ell^1)^*\) 的任意范数有界集合上，证明弱星收敛等价于逐坐标收敛。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{weakstar-not-weak-linfty}令 \(s_n=(0,\ldots,0,1,1,\ldots)\)，前 \(n\) 项为零。证明它在 \(\ell^\infty\) 中弱星趋零，却不弱趋零。
+\exerciseitem{weak-convex-mazur}若 \(x_n\rightharpoonup x\)，证明每个尾集的凸包中可选 \(y_n\) 使 \(\|y_n-x\|<1/n\)。
+\exerciseitem{weak-operator-continuous}证明有界线性算子把弱收敛网送到弱收敛网。
+\exerciseitem{weak-unit-sphere-closure}若 \(X\) 无限维，证明单位球面在弱拓扑下的闭包为闭单位球。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{weakstar-incomplete-unbounded}在 \(X=c_{00}\) 配上上确界范数时，令 \(\phi_n(x)=nx_n\)。
+证明 \(\phi_n\overset{*}{\rightharpoonup}0\) 而 \(\|\phi_n\|\to\infty\)，解释与正文的有界性命题不矛盾。
+\end{enumerate}

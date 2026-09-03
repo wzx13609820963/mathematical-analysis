@@ -1,0 +1,194 @@
+\chapter{反射空间}
+\label{chap:reflexive-spaces}
+
+Banach--Alaoglu 定理在对偶空间给出弱星紧致球。但应用中手里的序列往往
+属于原空间 \(X\)，而不是某个已经识别的对偶空间。典范嵌入将 \(X\) 放进
+\(X^{**}\)；反射性要求这一步没有增加新元素。它使对偶球的紧致性回到原空间，
+并为有界序列提供弱收敛子列。后一结论还需要证明弱紧致与序列弱紧致等价，
+不能从一般拓扑中的紧致性直接跳过去。
+
+\section{典范嵌入}
+
+定义
+\[
+ J_X:X\longrightarrow X^{**},\qquad (J_Xx)(\phi)=\phi(x).
+\]
+由对偶范数刻画，\(\|J_Xx\|=\|x\|\)，所以它是等距线性嵌入。
+若它满射，称 \(X\) 为反射空间。反射空间自动完备，因为它与 Banach
+空间 \(X^{**}\) 等距同构。一个空间抽象地与其双对偶同构，不是这里的定义；
+要求满射的是指定的评价映射 \(J_X\)。
+
+\begin{theorem}[Goldstine]\label{thm:goldstine}
+\(J_X(B_X)\) 在 \(B_{X^{**}}\) 中对弱星拓扑 \(\sigma(X^{**},X^*)\) 稠密。
+\end{theorem}
+\begin{proof}
+取 \(z\in B_{X^{**}}\) 和有限个 \(\phi_1,\ldots,\phi_m\in X^*\)。
+只需证明 \((z(\phi_j))_{j=1}^m\) 属于
+\[
+ A=\{(\phi_1(x),\ldots,\phi_m(x)):x\in B_X\}
+\]
+在有限维标量空间中的闭包。若不属于，由有限维闭凸集严格分离，存在标量
+\(c_j\) 使
+\[
+ \operatorname{Re}\sum_jc_jz(\phi_j)>
+ \sup_{\|x\|\le1}\operatorname{Re}\sum_jc_j\phi_j(x)
+ =\left\|\sum_jc_j\phi_j\right\|.
+\]
+但左侧至多 \(\|z\|\|\sum_jc_j\phi_j\|\)，矛盾。复情形中的任意实线性
+分离泛函都可写成这种实部形式。于是任何有限评价邻域都碰到 \(J_X(B_X)\)。
+\end{proof}
+
+稠密并不意味着相等。若 \(X\) 不反射，原空间单位球可以在较弱的拓扑中
+逼近双对偶里的新元素，即使它作为范数闭集没有任何缺失的范数极限。
+
+\section{反射性与弱紧致性}
+
+\begin{theorem}\label{thm:reflexive-weak-ball}
+赋范空间 \(X\) 反射当且仅当闭单位球在弱拓扑下紧致。
+\end{theorem}
+\begin{proof}
+若反射，\(J_X\) 把 \(B_X\) 映到 \(B_{X^{**}}\)，且原空间每个评价
+\(\phi(x)\) 恰等于双对偶的弱星坐标 \(J_Xx(\phi)\)。因此它在两种相对
+拓扑下是同胚。对 \(X^*\) 应用 Banach--Alaoglu，得到紧致性。
+
+反向若 \(B_X\) 弱紧，\(J_X(B_X)\) 弱星紧，且弱星空间 Hausdorff，
+故它弱星闭。Goldstine 定理又给它在 \(B_{X^{**}}\) 中稠密，因此两球相等。
+对任意双对偶元素缩放到单位球，得到 \(J_X\) 满射。
+\end{proof}
+
+于是反射空间中的范数闭有界凸集弱紧致：它弱闭，且包含于某个弱紧球中。
+去掉凸性时，范数闭集可能不弱闭。例如无限维单位球面范数闭，
+弱闭包却是整个闭球。
+
+\section{Eberlein--Šmulian 定理}
+
+下面给出完整的紧致集版本。证明中的有限维取样步骤使它不必假设整个
+Banach 空间可分。
+
+\begin{lemma}\label{lem:finite-norming-samples}
+对 \(X^{**}\) 的任意有限维子空间 \(V\)，存在有限集 \(F\subset B_{X^*}\)，
+使
+\[
+ \|v\|\le2\max_{\phi\in F}|v(\phi)|\quad(v\in V).
+\]
+\end{lemma}
+\begin{proof}
+若 \(V=0\)，可取 \(F=\{0\}\)。否则对其每个单位向量 \(v\)，由双对偶
+范数的定义选 \(\phi_v\in B_{X^*}\) 使 \(|v(\phi_v)|>1/2\)。
+这些严格不等式给单位球面的开覆盖；有限维紧致性给有限子覆盖。
+对一般 \(v\) 缩放即得结论。
+\end{proof}
+
+\begin{theorem}[Eberlein--Šmulian]\label{thm:eberlein-smulian}
+设 \(X\) 为 Banach 空间，\(K\subset X\)。则 \(K\) 弱紧致，当且仅当
+\(K\) 中每个序列都有弱收敛到 \(K\) 中某点的子列。
+\end{theorem}
+\begin{proof}
+空集情形直接成立，以下设 \(K\ne\varnothing\)。
+
+\emph{从紧致性到子列。}
+给定 \(x_n\in K\)，令 \(Y=\overline{\operatorname{span}}\{x_n:n\ge1\}\)。
+它可分且为闭子空间，因 Hahn--Banach 分离也是弱闭的。
+故 \(K\cap Y\) 弱紧。取 \(Y\) 单位球面上的稠密序列 \(y_j\)，为各 \(y_j\)
+取范数一的范数化泛函，并等范数延拓到 \(X\)，记为 \(\phi_j\)。
+这些泛函分离 \(Y\) 的点：对非零 \(y\)，选 \(y_j\) 足够接近
+\(y/\|y\|\)，就有 \(|\phi_j(y)|>0\)。
+于是
+\[
+ K\cap Y\longrightarrow\mathbb K^{\Npos},\qquad
+ y\longmapsto(\phi_j(y))_j
+\]
+连续且单射，从紧空间到 Hausdorff 空间是到像的同胚。可数标量积可度量化，
+因此 \(K\cap Y\) 是紧致度量空间，给出所需子列。若 \(Y=0\)，序列已恒零。
+
+\emph{从子列到紧致性。}
+先知 \(K\) 范数有界。否则选 \(\|x_n\|>n\)，它的任何子列均不可能
+弱收敛，因为弱收敛序列范数有界。
+取 \(R\) 使 \(K\subset RB_X\)，令
+\(C=\overline{J_X(K)}^{\,*}\subset RB_{X^{**}}\)。
+由 Banach--Alaoglu，\(C\) 弱星紧。只须证明每个 \(z\in C\) 都在 \(J_X(K)\) 中。
+
+先取任意 \(x_1\in K\)。递归令
+\[
+ V_n=\operatorname{span}\{z,J_Xx_1,\ldots,J_Xx_n\},
+\]
+为 \(V_n\) 选上一引理的有限取样集 \(F_n\)。因 \(z\) 属于弱星闭包，
+可选 \(x_{n+1}\in K\) 满足
+\[
+ |\phi(x_{n+1})-z(\phi)|<1/n
+ \quad\left(\phi\in\bigcup_{j\le n}F_j\right).
+\]
+每一步只有有限个约束，因此闭包条件确实足够。
+由假设抽子列 \(x_{n_k}\rightharpoonup x\in K\)。对任意
+\(\phi\in F=\bigcup_nF_n\)，最终所有原序列项都满足越来越小的误差，
+所以 \(\phi(x)=z(\phi)\)。
+
+还需证明这些取样足以判定 \(z=J_Xx\)，而不只在一个小集合上相等。
+令 \(Y=\overline{\operatorname{span}}\{x_n\}\)，它弱闭，故 \(x\in Y\)。
+于是 \(z-J_Xx\) 属于 \(V=\overline{\bigcup_nV_n}\)。
+对 \(\bigcup_nV_n\) 中每个向量都有
+\(\|v\|\le2\sup_{\phi\in F}|v(\phi)|\)；因为 \(F\subset B_{X^*}\)，
+取范数极限后该估计仍对全部 \(V\) 成立。应用于 \(z-J_Xx\)，右侧为零，
+从而 \(z=J_Xx\)。因此 \(C=J_X(K)\)，用 \(J_X\) 的拓扑对应得到 \(K\) 弱紧。
+\end{proof}
+
+证明并没有说弱紧集一概可度量化。第一方向只为给定序列产生的可分子空间
+建立度量化；第二方向则根据一个固定双对偶候选点逐步选择有限取样。
+这两处局部构造取代了对全空间可数性的要求。
+
+\section{弱收敛子列及其用途}
+
+\subsection{反射空间与 \texorpdfstring{\(L^p\)}{Lp}}
+
+\begin{corollary}\label{cor:reflexive-bounded-subsequence}
+Banach 空间反射当且仅当其中每个有界序列都有弱收敛子列。
+在 \(\sigma\)-有限测度空间上，\(L^p(\mu)\) 对 \(1<p<\infty\) 反射。
+\end{corollary}
+\begin{proof}
+反射时闭球弱紧，Eberlein--Šmulian 给子列。反向若每个有界序列可抽
+弱收敛子列，闭单位球的弱下半连续性保证子列极限仍在球内，
+Eberlein--Šmulian 给球弱紧，进而反射。
+
+对 \(L^p\)，共轭指数 \(q\) 也在 \((1,\infty)\)。两次应用 \(L^p\) 对偶
+表示，双对偶中的每个元素都形如
+\(g\mapsto\int fg\,d\mu\)，其中 \(f\in L^p\)。
+在本书双线性配对约定下，这正是 \(J_{L^p}f\)，所以典范嵌入满射。
+\end{proof}
+
+\(p=2\) 给出具有内积 \(\int f\overline g\,d\mu\) 的典型 Hilbert 空间。
+下一编将以正交投影和 Riesz 表示处理一般 Hilbert 空间；本节的 \(L^2\)
+结论已经由积分对偶表示独立证明，不依赖尚未建立的抽象投影定理。
+端点不能加入上述范围：在 \(c_0\) 单位球中取
+\(u_n=(1,\ldots,1,0,\ldots)\)，前 \(n\) 项为一。任何子列的坐标极限均为
+常数列一，不属于 \(c_0\)，故没有弱收敛子列。
+
+\subsection{极小化序列}
+
+设 \(X\) 反射，\(C\subset X\) 非空闭凸，实函数 \(\Phi:C\to\R\) 有下界，
+弱下半连续，且当 \(x\in C,\ \|x\|\to\infty\) 时 \(\Phi(x)\to\infty\)。
+取极小化序列，由最后一个条件它有界，故可抽弱收敛子列，极限仍在
+弱闭集 \(C\) 中。下半连续性给
+\(\Phi(x)\le\liminf\Phi(x_n)=\inf_C\Phi\)，所以取得最小值。
+这个论证把存在性分成了三个可逐项核对的条件：有界性、极限留下、函数值
+不在取极限时向上跳。后文变分问题会分别验证它们。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{reflexive-finite-dimension}证明有限维赋范空间反射。
+\exerciseitem{reflexive-czero-failure}完整验证正文的 \(c_0\) 有界序列没有弱收敛子列。
+\exerciseitem{reflexive-lp-weak-bound}若 \(f_n\rightharpoonup f\) 于 \(L^p\)，证明 \(\|f\|_p\le\liminf\|f_n\|_p\)。
+\exerciseitem{reflexive-norm-attainment}证明反射空间上的每个连续线性泛函都在闭单位球上取得其范数。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{reflexive-closed-subspace}证明反射空间的闭线性子空间反射。
+\exerciseitem{reflexive-quotient}证明反射空间对闭线性子空间的商仍反射。
+\exerciseitem{reflexive-best-approximation}若 \(C\) 是反射空间中的非空闭凸集，证明每个 \(x\) 都有到 \(C\) 的最佳逼近点，不要求唯一。
+\exerciseitem{reflexive-dual-equivalence}证明 Banach 空间 \(X\) 反射当且仅当 \(X^*\) 反射。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{reflexive-weak-norm-hilbert}在 \(L^2\) 中证明：弱收敛 \(f_n\rightharpoonup f\) 加上 \(\|f_n\|_2\to\|f\|_2\)，蕴含范数收敛。再用 \(e_n\) 说明不能删除范数条件。
+\end{enumerate}

@@ -172,18 +172,64 @@ $\mathcal A$，称测度空间 $(X,\mathcal A,\mu)$ \term{完备}。
 \end{theorem}
 
 \begin{proof}
-把 $E\cup Z$ 改写为 $(E\setminus N)\cup Z'$，其中 $Z'\subseteq N$、
-$N$ 可测且零测，可见 $\overline{\mathcal A}$ 的成员也正是与某个可测集
-相差一个零测子集的集合。这个表述立即给出补集与可数并的封闭性：可数个
-零测集的并仍包含于一个可测零测集。
+先把集合族改写成对称差形式。若 $A=E\cup Z$，其中
+$Z\subseteq N\in\mathcal A$ 且 $\mu(N)=0$，则
+$A\mathbin\triangle E\subseteq N$。反过来，若
+$A\mathbin\triangle E\subseteq N$，则
+\[
+ A=(E\setminus N)\cup(A\cap N),
+\]
+其中 $E\setminus N\in\mathcal A$，而 $A\cap N\in\mathcal N$。因此
+\begin{equation}
+ A\in\overline{\mathcal A}
+ \quad\Longleftrightarrow\quad
+ \text{存在 }E\in\mathcal A\text{ 及可测零集 }N,
+ \ A\mathbin\triangle E\subseteq N.
+ \label{eq:completion-symmetric-difference}
+\end{equation}
 
-若同一集合既写成 $E\cup Z$ 又写成 $F\cup W$，则
-$E\mathbin\triangle F$ 包含于两个可测零测集的并，故
-$\mu(E\setminus F)=\mu(F\setminus E)=0$，从而 $\mu(E)=\mu(F)$；因此
-$\overline\mu$ 良定义。对两两不交的 $A_n\in\overline{\mathcal A}$，
-各取可测 $E_n$ 使 $A_n\mathbin\triangle E_n$ 零测。把 $E_n$ 依次删去
-前面各项可得到两两不交的可测集，且不改变相应测度。应用 $\mu$ 的可数
-可加性便得 $\overline\mu$ 的可数可加性。完备性和最小性由构造直接得到。
+由这个刻画验证集合运算。若
+$A\mathbin\triangle E\subseteq N$，则
+$A^c\mathbin\triangle E^c=A\mathbin\triangle E\subseteq N$。若
+$A_k\mathbin\triangle E_k\subseteq N_k$，则
+\[
+ \left(\bigcup_kA_k\right)\mathbin\triangle
+ \left(\bigcup_kE_k\right)
+ \subseteq\bigcup_kN_k.
+\]
+右端是可测零集。故 $\overline{\mathcal A}$ 对补集和可数并封闭，因而是
+$\sigma$-代数。
+
+还须核对测度值不依赖可测代表。若同一集合 $A$ 分别与
+$E,F\in\mathcal A$ 相差零测集，则 $E\mathbin\triangle F$ 也包含于某个
+可测零集。于是
+$\mu(E\setminus F)=\mu(F\setminus E)=0$，从而
+$\mu(E)=\mu(E\cap F)=\mu(F)$。所以定义
+$\overline\mu(A)=\mu(E)$ 是良定义的。
+
+设 $A_k\in\overline{\mathcal A}$ 两两不交，并取可测代表 $E_k$，使
+$A_k\mathbin\triangle E_k$ 零测。令
+\[
+ F_1=E_1,\qquad
+ F_k=E_k\setminus\bigcup_{j<k}E_j\quad(k\ge2).
+\]
+$F_k$ 两两不交且可测。由于 $A_j\cap A_k=\varnothing$，交集
+$E_j\cap E_k$ 只能落在代表误差的并中，因而为零测集；所以
+$E_k\mathbin\triangle F_k$ 零测，进而
+$\mu(F_k)=\mu(E_k)=\overline\mu(A_k)$。同时
+$\bigcup_kA_k$ 与 $\bigcup_kF_k$ 相差零测集，故
+\[
+ \overline\mu\left(\bigcup_kA_k\right)
+ =\mu\left(\bigcup_kF_k\right)
+ =\sum_k\mu(F_k)
+ =\sum_k\overline\mu(A_k).
+\]
+
+若 $Z\subseteq A\in\overline{\mathcal A}$ 且 $\overline\mu(A)=0$，取可测
+代表 $E$。集合 $A\cup E$ 包含在一个可测零集内，因此 $Z$ 也属于
+$\overline{\mathcal A}$；这证明完备性。最后，任一包含 $\mathcal A$ 且
+延拓 $\mu$ 的完备测度空间都必须包含所有可测零集的子集，继而包含每个
+$E\cup Z$。故上述完备化在集合域意义下最小。
 \end{proof}
 
 \section{集合列的上下极限}

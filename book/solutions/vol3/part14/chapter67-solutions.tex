@@ -95,10 +95,25 @@
 \[
  d_p(f_{n_{k+1}},f_{n_k})<2^{-k}.
 \]
-非负逐项积分说明
-\(\sum_k|f_{n_{k+1}}-f_{n_k}|^p<\infty\) a.e.，所以差趋零且利用
-\(|\sum a_k|^p\le\sum|a_k|^p\) 可构造逐点极限 \(f\)。尾和积分给
-\(d_p(f_{n_k},f)\to0\)，原列 Cauchy 再给整列收敛。
+Tonelli 定理说明
+\[
+ \sum_k|f_{n_{k+1}}-f_{n_k}|^p<\infty
+\]
+几乎处处。固定这样的点，并记
+\(a_k=|f_{n_{k+1}}-f_{n_k}|\)。于是 \(a_k\to0\)，所以最终
+\(a_k\le1\)，而 \(0<p<1\) 时 \(a_k\le a_k^p\)。因此
+\(\sum_ka_k<\infty\)，差分级数绝对收敛，可据此定义逐点极限 \(f\)。由
+\[
+ |f-f_{n_k}|^p
+ \le\sum_{j=k}^{\infty}|f_{n_{j+1}}-f_{n_j}|^p
+\]
+和 Tonelli 定理，
+\[
+ d_p(f_{n_k},f)
+ \le\sum_{j=k}^{\infty}d_p(f_{n_{j+1}},f_{n_j})
+ <\sum_{j=k}^{\infty}2^{-j}\longrightarrow0.
+\]
+原列是 \(d_p\)-Cauchy 列，故整列也收敛到 \(f\)。
 \end{solution}
 
 \begin{solution}{riesz-fischer-fatou-step}

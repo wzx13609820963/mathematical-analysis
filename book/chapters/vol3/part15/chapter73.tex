@@ -1,0 +1,149 @@
+\chapter{现代微积分基本定理}
+\label{chap:modern-ftc}
+
+现在已经知道，\(L^1\) 函数的不定积分几乎处处可导，且导数等于被积函数。
+逆方向还需要回答：给定一个函数 \(F\)，什么时候积分其几乎处处存在的导数
+能够恢复 \(F\)？连续 BV 函数仍有 Cantor 函数这样的反例。本章证明绝对
+连续恰好给出所需的函数类。这里的“恰好”包括两个方向，不只是一个方便的
+充分条件。
+
+\section{积分函数绝对连续}
+
+\begin{theorem}\label{thm:integral-is-ac}
+若 \(g\in L^1(a,b)\)，则 \(F(x)=c+\int_a^xg(t)\,dt\) 属于 \(AC[a,b]\)。
+\end{theorem}
+\begin{proof}
+对内部不交的有限区间族，令 \(E=\bigcup_j(u_j,v_j)\)，则
+\[
+ \sum_j|F(v_j)-F(u_j)|\le\sum_j\int_{u_j}^{v_j}|g|=\int_E|g|.
+\]
+当总长度 \(m(E)\) 小时，\theoremref{thm:absolute-continuity-of-integral}
+保证右侧任意小。这正是绝对连续定义。
+\end{proof}
+
+若 \(g\) 有界，得到 Lipschitz 估计；若 \(g\) 仅可积，不能期待同一个线性
+连续模。例如 \(g(t)=1/(2\sqrt t)\) 产生 \(F(x)=\sqrt x\)。
+Lebesgue 积分扩大了允许的导数类，也相应扩大了原函数类。
+
+\section{几乎处处导数及其可积性}
+
+由命题~\ref{prop:ac-bv} 与推论~\ref{cor:bv-derivative-integrable}，
+每个绝对连续函数具有几乎处处导数，并且
+\[
+ F'\in L^1(a,b),\qquad \int_a^b|F'|\le V_a^b(F).
+\]
+这一步只使用 BV 分解和单调函数可导定理，尚未使用需要证明的重构公式。
+将 \(F'\) 在例外集上补零，不影响其积分。
+
+于是可构造 \(G(x)=F(a)+\int_a^xF'(t)\,dt\)。上一节说明 \(G\) 绝对连续，
+而 Lebesgue 微分定理说明 \(G'=F'\) 几乎处处。要证明 \(F=G\)，只剩一个
+问题：绝对连续且几乎处处导数为零的函数是否必为常数？不能直接引用
+经典中值定理，因为它不允许零测例外点。以下用适合逐点尺度的分割代替它。
+
+\section{零导数函数}
+
+\subsection{随点变化的分割尺度}
+
+\begin{lemma}[Cousin 分割引理]\label{lem:cousin-gauge}
+若对每个 \(x\in[a,b]\) 给定 \(\delta(x)>0\)，则存在有限带标记分割
+\(( [t_{j-1},t_j],\xi_j)\)，满足
+\[
+ \xi_j\in[t_{j-1},t_j],\qquad
+ [t_{j-1},t_j]\subset(\xi_j-\delta(\xi_j),\xi_j+\delta(\xi_j)).
+\]
+\end{lemma}
+\begin{proof}
+称不能作这种有限分割的闭子区间为坏区间。若全区间坏，则二等分后至少
+一个半区间坏，否则拼接即可。递归选取坏半区间，区间套给出共同点 \(x\)。
+长度趋零，故充分小的这个区间完全落在
+\((x-\delta(x),x+\delta(x))\)，以 \(x\) 为唯一标记即为所需分割，矛盾。
+\end{proof}
+
+\begin{theorem}\label{thm:ac-zero-derivative}
+若 \(H\in AC[a,b]\)，且 \(H'=0\) 几乎处处，则 \(H\) 为常数。
+\end{theorem}
+\begin{proof}
+将不可导点、非零导数点与两个端点合为零测集 \(N\)。给定 \(\eta>0\)，
+为绝对连续性误差 \(\eta\) 选总长度阈值 \(\rho\)，再取开集 \(O\supset N\)，
+\(m(O)<\rho\)。
+若 \(x\in N\)，选 \(\delta(x)\) 使其邻域包含于 \(O\)；若 \(x\notin N\)，
+由 \(H'(x)=0\) 选尺度使
+\[
+ |H(y)-H(x)|\le\eta|y-x|\quad(0<|y-x|<\delta(x)).
+\]
+用分割引理。好标记所在分段的增量至多 \(\eta(t_j-t_{j-1})\)，因为可在
+标记处拆成两段；坏标记所在分段都包含于 \(O\)，内部不交，总长度小于
+\(\rho\)，其增量绝对值之和小于 \(\eta\)。故
+\[
+ |H(b)-H(a)|\le\eta(b-a)+\eta.
+\]
+令 \(\eta\downarrow0\) 得首尾值相同。在任意子区间重复论证，便得常值性。
+\end{proof}
+
+绝对连续性在这里专门控制坏标记分段的总增量；只知道一致连续，无法控制
+这样一个段数不定的区间族。Cantor 函数的反例正好落在这一步。
+
+\section{重构公式}
+
+\begin{theorem}[Lebesgue 微积分基本定理]\label{thm:lebesgue-ftc}
+对实函数 \(F:[a,b]\to\R\)，以下两条件等价：
+\begin{enumerate}
+\item \(F\in AC[a,b]\)；
+\item 存在 \(g\in L^1(a,b)\)，使 \(F(x)=F(a)+\int_a^xg(t)\,dt\) 对所有
+\(x\in[a,b]\) 成立。
+\end{enumerate}
+此时 \(g=F'\) 几乎处处，且
+\[
+ V_a^b(F)=\int_a^b|F'(t)|\,dt.
+\]
+\end{theorem}
+\begin{proof}
+积分表示蕴含绝对连续，已由第一节证明。反向令
+\(G(x)=F(a)+\int_a^xF'\)。前面已经证明 \(F-G\) 绝对连续、几乎处处导数
+为零且在 \(a\) 处为零，由零导数定理得到 \(F=G\)。
+积分函数的导数定理给出 \(g=F'\) 几乎处处，故表示中的 \(g\) 也在
+\(L^1\) 等价类意义下唯一。任意分割上 \(\sum|\Delta F|\le\int|F'|\)，
+给出变差的一侧估计；另一侧由 BV 导数估计得到。
+\end{proof}
+
+\subsection{分部积分与复合函数}
+
+若 \(F,G\in AC[a,b]\)，则乘积绝对连续。在两者可导点的公共全集上，
+\((FG)'=F'G+FG'\)；右侧可积，因为 \(F,G\) 有界。由基本定理，
+\[
+ \int_a^bF G'\,dx=F(b)G(b)-F(a)G(a)-\int_a^bF'G\,dx.
+\]
+若 \(\phi\) 在包含 \(F([a,b])\) 的开区间上 \(C^1\)，其导数在某个包含
+该紧值域的紧区间上有界。故 \(\phi\) 在值域上 Lipschitz，
+\(\phi\circ F\) 绝对连续，且
+\[
+ \phi(F(b))-\phi(F(a))=\int_a^b\phi'(F(x))F'(x)\,dx.
+\]
+这给出连续被积函数的绝对连续变量代换。对一般可测被积函数，需要另外核对
+复合的可测性与零测集的原像，不能仅把 \(C^1\) 字样删掉。
+
+Riemann 理论中的 Newton--Leibniz 公式并未失效：它是上述公式在较规则
+函数类中的版本。新的结论辨认了一个精确的函数类，并解释了遗漏的增长
+为什么可能不被几乎处处导数记录。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{ftc-monotonicity-ac}证明 AC 函数递增当且仅当 \(F'\ge0\) 几乎处处。
+\exerciseitem{ftc-lipschitz-derivative}证明 \(F\in AC[a,b]\) 为 Lipschitz 当且仅当 \(F'\in L^\infty(a,b)\)，并比较最小常数。
+\exerciseitem{ftc-derivative-not-enough}用 Cantor 函数说明“连续、几乎处处可导、导数可积”不足以推出 Newton--Leibniz 公式。
+\exerciseitem{ftc-absolute-value}证明 \(|F|\in AC\)，且 \(|(|F|)'|\le|F'|\) 几乎处处。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ftc-holder-modulus}若 \(F\in AC[a,b]\)，\(F'\in L^p\)，\(1<p<\infty\)，证明
+\(|F(y)-F(x)|\le\|F'\|_p|y-x|^{1-1/p}\)。
+\exerciseitem{ftc-derivative-lone-limit}若 \(F_n\in AC\)，\(F_n(a)\to c\)，\(F_n'\to g\) 于 \(L^1\)，证明 \(F_n\) 一致收敛到 \(c+\int_a^xg\)。
+\exerciseitem{ftc-ac-norm-complete}证明 \(|F(a)|+\|F'\|_1\) 使 \(AC[a,b]\) 成为完备赋范空间。
+\exerciseitem{ftc-reciprocal-ac}若 \(F\in AC\) 且 \(|F|\ge\eta>0\)，证明 \(1/F\in AC\) 并求其导数。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{ftc-ac-uniform-derivatives}若 \(F_n\in AC[a,b]\)，\(F_n\to F\) 逐点且 \(\{F_n'\}\) 一致可积，证明 \(F\in AC[a,b]\)。不要求导数列逐点收敛。
+\end{enumerate}

@@ -1,0 +1,50 @@
+\chapter{Banach 空间}
+\begin{solution}{banach-czero-closed}
+若 \(x^{(k)}\to x\) 于上确界范数，给定 \(\varepsilon>0\) 先选 \(k\) 使
+\(\|x-x^{(k)}\|_\infty<\varepsilon/2\)，再选 \(N\) 使 \(n>N\) 时
+\(|x_n^{(k)}|<\varepsilon/2\)，故 \(x_n\to0\)。线性由数列极限运算得出。
+\end{solution}
+\begin{solution}{banach-cfinite-incomplete}
+取 \(x=(1,1/2,1/3,\ldots)\) 的有限截断列，它在上确界范数下 Cauchy，
+极限不在 \(c_{00}\)。任何 \(c_0\) 元素都由有限截断一致逼近，且 \(c_0\)
+完备，故它就是该空间的完备化。
+\end{solution}
+\begin{solution}{operator-shift-norm}
+求和或取上确界均不受新增一个零坐标影响，所以 \(\|Sx\|_p=\|x\|_p\)。
+空间非零，取任意单位向量即得算子范数为一。
+\end{solution}
+\begin{solution}{operator-diagonal-norm}
+若 \(M=\sup|a_n|<\infty\)，逐坐标估计给 \(\|Tx\|_p\le M\|x\|_p\)。
+对单位坐标向量 \(e_n\) 有 \(\|Te_n\|_p=|a_n|\)，所以有界必有
+\(\sup|a_n|\le\|T\|\)，并得到等号。
+\end{solution}
+\begin{solution}{quotient-nonclosed}
+商公式的齐次性与三角不等式不使用闭性，但对 \(x\in\overline M\setminus M\)
+有 \([x]\ne0\) 而 \(d(x,M)=0\)。例如在 \(c_0\) 中令 \(M=c_{00}\)，
+\(x=(1/n)_{n\ge1}\)。
+\end{solution}
+\begin{solution}{operator-uniform-not-pointwise}
+\(\|P_nx\|_2=|x_n|\to0\)，因为平方可和数列的项趋零。
+但 \(\|P_ne_n\|_2=1\)，而 \(\|P_nx\|_2\le\|x\|_2\)，故算子范数恒一。
+\end{solution}
+\begin{solution}{banach-c-one-complete}
+若 \(f_n\) Cauchy，则 \(f_n\to f,\ f_n'\to g\) 均一致。
+由 \(f_n(x)=f_n(a)+\int_a^xf_n'\)，一致收敛允许积分取极限，
+得 \(f(x)=f(a)+\int_a^xg\)。因 \(g\) 连续，\(f'=g\)，故范数收敛且极限在 \(C^1\)。
+\end{solution}
+\begin{solution}{operator-extension-dense}
+对 \(x\in X\) 取 \(d_n\in D\to x\)。有界性使 \(Td_n\) 在 \(Y\) 中 Cauchy，
+令延拓值为其极限。比较两种逼近列得到同一极限，故良定义。
+线性与 \(\|\widetilde Tx\|\le\|T\|\|x\|\) 由极限得到，反向范数估计由
+限制到 \(D\) 得到。连续映射在稠密集上的值决定全空间值，所以唯一。
+\end{solution}
+\begin{solution}{quotient-distance-constant}
+令 \(m=\min f,M=\max f\)。对常数 \(c\)，
+\(\|f-c\|_\infty=\max(|M-c|,|m-c|)\ge(M-m)/2\)。
+取 \(c=(M+m)/2\) 达到下界，故商范数为所求值。
+\end{solution}
+\begin{solution}{operator-neumann-series}
+算子空间完备且 \(\sum\|A^n\|\le\sum\|A\|^n<\infty\)，所以级数收敛到 \(B\)。
+有限和乘 \(I-A\) 在左右都为 \(I-A^{N+1}\)，算子范数极限给
+\((I-A)B=B(I-A)=I\)。并且 \(\|B\|\le(1-\|A\|)^{-1}\)。
+\end{solution}

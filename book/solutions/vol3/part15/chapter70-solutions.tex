@@ -1,0 +1,57 @@
+\chapter{有界变差函数}
+\begin{solution}{variation-triangle-norm}
+齐次性、三角不等式由变差相应性质得到。若范数为零，则 \(f(a)=0\)，并且
+\(|f(x)-f(a)|\le V_a^b(f)=0\)，所以 \(f=0\)。这验证了正定性。
+\end{solution}
+\begin{solution}{variation-point-spike}
+把 \(c\) 放入分割产生上升和下降各 \(|A|\)，其余增量为零；任意分割的和
+不超过 \(2|A|\)，所以答案为 \(2|A|\)。若 \(c=a\)，只有一次离开端点的
+变化，答案为 \(|A|\)。
+\end{solution}
+\begin{solution}{variation-product}
+写 \(\Delta(fg)=f(t_j)\Delta g+g(t_{j-1})\Delta f\)，取绝对值并求和，
+得每个分割的估计。对分割取上确界即得结论；BV 函数有界保证右侧有限。
+\end{solution}
+\begin{solution}{variation-lipschitz-composition}
+每段满足 \(|\phi(f(t_j))-\phi(f(t_{j-1}))|\le L|\Delta f|\)，求和再取确界。
+只需在值域上满足 Lipschitz 条件，不要求 \(\phi\) 在整条实线上有定义。
+\end{solution}
+\begin{solution}{variation-c-one}
+由 \(f(t_j)-f(t_{j-1})=\int_{t_{j-1}}^{t_j}f'\) 得 \(V(f)\le\int|f'|\)。
+反过来，对任意分割，中值定理给 \(V(f,P)=\sum|f'(\xi_j)|\Delta t_j\)；
+沿网格趋零的分割，这些和趋于连续函数 \(|f'|\) 的积分。故确界至少为该积分。
+\end{solution}
+\begin{solution}{variation-uniform-limit}
+固定一个有限分割，逐点收敛足以保证 \(V(f_n,P)\to V(f,P)\)。由
+\(V(f_n,P)\le V(f_n)\) 得 \(V(f,P)\le\liminf V(f_n)\)，再对 \(P\) 取确界。
+不交换两个上确界或极限，因而无需一致收敛。
+\end{solution}
+\begin{solution}{variation-complete}
+若 \(f_n\) 为该范数的 Cauchy 列，则
+\(\|f_n-f_m\|_\infty\le |f_n(a)-f_m(a)|+V(f_n-f_m)\)，故一致收敛到某个
+有界函数 \(f\)。固定 \(n\)，用上一题对 \(f_n-f_m\) 取 \(m\to\infty\)，得
+\(V(f_n-f)\le\liminf_mV(f_n-f_m)\)。连同端点值收敛可知该范数误差趋零；
+取一个固定 \(n\) 又得 \(V(f)\le V(f-f_n)+V(f_n)<\infty\)。
+\end{solution}
+\begin{solution}{variation-representative}
+沿 \(c\) 左右逼近，将任意分割加入逼近点，变差中经过 \(c\) 的局部贡献为
+\(|f(c)-u|+|v-f(c)|\)。区间外贡献不变；严格地先对 \([a,c-h]\)、
+\([c+h,b]\) 取确界再让 \(h\downarrow0\)。换成 \(w\in[\min(u,v),\max(u,v)]\)
+后局部贡献为 \(|v-u|\)，由三角不等式不大于原贡献。
+\end{solution}
+\begin{solution}{rs-common-jump}
+取网格趋零、且 \(c\) 位于某段内部的分割。该段的 \(\alpha\) 增量为 \(1\)，
+其他段为零。在该段选择小于 \(c\) 的标记，和为零；选择大于 \(c\) 的标记，
+和为一。两种极限不同，故不存在正文意义的积分。
+\end{solution}
+\begin{solution}{variation-reciprocal}
+每段 \(|1/f(t_j)-1/f(t_{j-1})|\le\eta^{-2}|\Delta f|\)，所以
+\(V(1/f)\le\eta^{-2}V(f)\)。不需要 \(f\) 保持同号；远离零才是所用条件。
+\end{solution}
+\begin{solution}{rs-discrete-summable}
+部分和的尾项一致范数不超过 \(\sum_{j>N}|a_j|\)，故定义的级数一致收敛。
+每个阶跃的变差为 \(1\)，尾项的变差由逐点下半连续性不超过
+\(\sum_{j>N}|a_j|\)。因而 \(\alpha\in BV\)，且部分和在变差上趋于 \(\alpha\)。
+有限和的 Stieltjes 积分为 \(\sum_{j\le N}a_jg(c_j)\)。连续被积函数的积分
+估计给尾部误差至多 \(\|g\|_\infty\sum_{j>N}|a_j|\)，趋零后即得公式。
+\end{solution}

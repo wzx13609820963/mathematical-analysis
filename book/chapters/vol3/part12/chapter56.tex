@@ -44,8 +44,12 @@ $b-a-2\varepsilon$；令 $\varepsilon\downarrow0$。端点是外测度零集，
  m^*(E+t)=m^*(E),
  \label{eq:outer-measure-translation}
 \end{equation}
-反向平移给出等号。若集合 $A,B$ 的距离为正，则可把充分短的覆盖区间分别
-归入 $A$、$B$ 两侧，得到
+反向平移给出等号。若集合 $A,B$ 的距离为正，记
+$d(A,B)=\delta>0$。外长度定义中的区间可以限定为长度小于 $\delta$ 的
+区间：把每个有界覆盖区间作有限细分，并将端点处略微重叠，增加的总长度
+可以预先控制为任意小。这样的短区间不可能同时遇到 $A$ 与 $B$。因此一组
+短区间覆盖 $A\cup B$ 时，分别取其中遇到 $A$ 和遇到 $B$ 的区间，便得到
+$A$、$B$ 的两个覆盖。对覆盖代价取下确界可得
 \begin{equation}
  m^*(A\cup B)=m^*(A)+m^*(B).
  \label{eq:metric-outer-additivity}
@@ -93,8 +97,9 @@ Borel 集，这正是两个 $\sigma$-代数的差别来源。
 $m(E)+\varepsilon$；其并 $O$ 开，且有限性允许相减，从而
 $m(O\setminus E)<\varepsilon$。
 
-一般地，把 $E$ 分成可数个有限测度的可测块 $E_j$。选正数 $c_j$ 使
-$\sum_jc_j=1$，并为每个 $E_j$ 取开集 $O_j\supseteq E_j$，使
+一般地，把整数半开区间依次编号为 $I_j$，并令 $E_j=E\cap I_j$。每个
+$E_j$ 可测且测度有限，并且 $E=\bigcup_jE_j$。选正数 $c_j$ 使
+$\sum_jc_j=1$，再为每个 $E_j$ 取开集 $O_j\supseteq E_j$，满足
 $m(O_j\setminus E_j)<\varepsilon c_j$。于是 $O=\bigcup_jO_j$ 开，
 $E\subseteq O$，而
 \[
@@ -103,19 +108,31 @@ $E\subseteq O$，而
 \]
 这也证明了外正则性公式，包括 $m(E)=\infty$ 的情形。
 
-对内正则性，先选 $N$ 使
+以下仍设 $m(E)<\infty$。由
+$E\cap[-N,N]\uparrow E$，可选 $N$ 使
 $m(E\setminus[-N,N])<\varepsilon/2$。对有限测度集
-$[-N,N]\setminus E$ 取开外包 $O$，使
+$F=[-N,N]\setminus E$ 取开外包 $O$，使
 $m(O\setminus([-N,N]\setminus E))<\varepsilon/2$。令
 \[
  K=[-N,N]\setminus O.
 \]
-则 $K$ 紧且 $K\subseteq E$，并有 $m(E\setminus K)<\varepsilon$。
+则 $K$ 紧且 $K\subseteq E$。并且
+\[
+ E\setminus K
+ \subseteq (E\setminus[-N,N])\cup(O\setminus F),
+\]
+所以 $m(E\setminus K)<\varepsilon$。这给出内正则性公式。
 \end{proof}
 
-因此每个 Lebesgue 可测集都与某个 $G_\delta$ 集相差零测集，也与某个
-$F_\sigma$ 集相差零测集。测度的完备性补入的正是这些 Borel 零测集的
-子集。
+正则性还给出常用的 Borel 代表。对每个 $n$ 取开集
+$O_n\supseteq E$，使 $m(O_n\setminus E)<2^{-n}$，则
+$G=\bigcap_nO_n$ 是 $G_\delta$ 集，$E\subseteq G$ 且
+$m(G\setminus E)=0$。若 $m(E)<\infty$，取紧集
+$K_n\subseteq E$，使 $m(E\setminus K_n)<2^{-n}$，则
+$F=\bigcup_nK_n$ 是 $F_\sigma$ 集且 $m(E\setminus F)=0$。一般可测集先
+按整数区间分成有限测度块，再对各块作这一构造；可数个 $F_\sigma$ 集的并
+仍是 $F_\sigma$ 集。因此每个 Lebesgue 可测集都与某个 $G_\delta$ 集、
+某个 $F_\sigma$ 集分别相差零测集。
 
 \section{欧氏空间中的 Lebesgue 测度}
 
@@ -132,14 +149,26 @@ $F_\sigma$ 集相差零测集。测度的完备性补入的正是这些 Borel �
 \end{proposition}
 
 \begin{proof}
-只需核对可数可加性。若长方体 $R$ 被两两不交的长方体 $R_n$ 分解，有限
-次可加性先给出
-$\sum_{n\le N}v(R_n)\le v(R)$。反向固定 $\varepsilon>0$，把 $R$ 稍向
-内收缩为紧长方体 $K$，损失体积小于 $\varepsilon$；再把每个 $R_n$ 稍向
-外扩张为开长方体 $O_n$，使总增加量小于 $\varepsilon$。$O_n$ 覆盖 $K$，
-紧致性给出有限子覆盖。有限网格体积估计于是给出
-$v(R)-\varepsilon\le\sum_nv(R_n)+\varepsilon$。令
-$\varepsilon\downarrow0$。一般环元素化为有限不交并即可。
+只需核对可数可加性。若长方体 $R$ 被两两不交的长方体 $R_n$ 分解，对每个
+$N$ 作共同网格细分，有限可加性给出
+$\sum_{n\le N}v(R_n)\le v(R)$，所以
+$\sum_nv(R_n)\le v(R)$。
+
+反向固定 $\varepsilon>0$。把 $R$ 各面稍向内移动，得到紧长方体
+$K\subset R$，并使 $v(K)>v(R)-\varepsilon$。再把每个 $R_n$ 稍向外
+扩张为开长方体 $O_n\supset R_n$，扩张量安排为
+$v(O_n)<v(R_n)+\varepsilon2^{-n}$。开集族 $(O_n)$ 覆盖 $K$，故有有限
+子覆盖 $O_{n_1},\ldots,O_{n_s}$。用这些长方体的全部坐标端点细分一个包含
+它们的长方体；在所得有限网格上逐格计数，得到有限次可加性的估计
+\[
+ v(K)\le\sum_{j=1}^sv(O_{n_j})
+ \le\sum_{n=1}^{\infty}v(R_n)+\varepsilon.
+\]
+因此
+$v(R)-\varepsilon<\sum_nv(R_n)+\varepsilon$。令
+$\varepsilon\downarrow0$，便得可数可加性。一般环元素先化为有限不交并，
+再对每个分量作同一论证。最后，$\R^d$ 是递增有界半开立方体的并，所以该
+预测度是 $\sigma$-有限的。
 \end{proof}
 
 Carathéodory 延拓给出 $\mathcal B(\R^d)$ 上唯一的 $\sigma$-有限测度；
@@ -169,14 +198,32 @@ $m_d(\partial E)=0$。
 \end{theorem}
 
 \begin{proof}
-Jordan 可测性按定义正是边界可由总体积任意小的有限长方体覆盖，所以
-$m_d(\partial E)=0$。集合的内部是开集，故可测；又
-$E^\circ\subseteq E\subseteq\overline E=E^\circ\cup\partial E$，完备性
-给出 $E$ 可测。取充分细网格，完全落在内部的小长方体给出内逼近，与边界
-相交的小长方体总体积趋零；因此 Jordan 上下体积同时趋于 $m_d(E)$。
+先回顾有限网格判据。取一个有界长方体 $Q\supseteq E$，并对 $Q$ 作有限
+长方体分割。完全落在 $E$ 中的网格块之体积和是一个内和；与 $E$ 相交的
+网格块之体积和是相应外和。二者之差正是“同时遇到 $E$ 与 $E^c$”的网格块
+的总体积，而这类块的闭包覆盖 $\partial E$。因此 $E$ Jordan 可测等价于：
+对每个 $\varepsilon>0$，可用有限个长方体覆盖 $\partial E$，且总体积小于
+$\varepsilon$。换言之，$\partial E$ 是 Jordan 零测集。
 
-反向若 $m_d(\partial E)=0$，紧集 $\partial E$ 可由总体积任意小的有限
-开长方体覆盖，所以它也是 Jordan 零测集，按定义 $E$ Jordan 可测。
+若 $E$ Jordan 可测，上述有限覆盖也是 Lebesgue 外测度的允许覆盖，故
+$m_d(\partial E)=0$。集合 $E^\circ$ 可测，且
+\[
+ E^\circ\subseteq E\subseteq\overline E
+ =E^\circ\cup\partial E.
+\]
+Lebesgue 测度的完备性于是给出 $E$ 可测，并且
+$m_d(E)=m_d(E^\circ)=m_d(\overline E)$。对外和、内和对应的有限长方体并
+应用测度的单调性，得到
+\[
+ \text{内和}\le m_d(E)\le\text{外和}.
+\]
+当分割使两者之差趋于零时，它们的共同极限既是 Jordan 体积，也是
+$m_d(E)$。
+
+反过来，若 $m_d(\partial E)=0$，则紧集 $\partial E$ 有可数开长方体覆盖，
+其总体积可任意小。紧致性从中抽出有限子覆盖，且所取有限族的总体积仍小于
+原可数族的总体积。因此 $\partial E$ 是 Jordan 零测集，由有限网格判据知
+$E$ Jordan 可测。
 \end{proof}
 
 Lebesgue 可测有界集未必 Jordan 可测。例如 $\Q\cap[0,1]$ 可测且零测，

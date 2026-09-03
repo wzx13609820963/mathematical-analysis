@@ -1,0 +1,50 @@
+\chapter{Lebesgue 微分定理}
+\begin{solution}{maximal-sublinear}
+对每个 \(I\ni x\) 先用 \(\int_I|f+g|\le\int_I|f|+\int_I|g|\)，除以长度，
+右侧各自不超过对应的上确界，再对 \(I\) 取上确界。齐次性直接从积分提出 \(|c|\)。
+\end{solution}
+\begin{solution}{maximal-finite-ae}
+\(\{Mf=\infty\}\subset\{Mf>n\}\)，后者测度至多 \(3\|f\|_1/n\)；
+让 \(n\to\infty\) 得零测。
+\end{solution}
+\begin{solution}{lebesgue-continuity-points}
+平均误差至多 \(\sup_{|t-x|<r}|f(t)-f(x)|\)，连续时趋零。
+取 \(f=\mathbf1_\Q\)，每个无理点处 \(f(x)=0\)，平均误差恒为零，
+却因有理、无理数均稠密而处处不连续。
+\end{solution}
+\begin{solution}{density-null-dense}
+任意区间与 \(\Q\) 的交零测，故密度在每个实点都为零，而 \(\overline\Q=\R\)。
+\end{solution}
+\begin{solution}{differentiation-offcenter}
+若 \(I\ni x\)，令 \(\ell=|I|\)，则 \(I\subset[x-\ell,x+\ell]\)。
+平均误差不超过该对称区间平均误差的两倍，所以趋零。这个论证用到了
+一维区间的形状；不能无条件推广到任意偏心率的高维矩形。
+\end{solution}
+\begin{solution}{primitive-unique-integrand}
+对差 \(h=f-g\)，积分函数恒零，其导数处处为零；由积分函数的几乎处处
+可导定理，该导数几乎处处等于 \(h\)。故 \(h=0\) 几乎处处。
+\end{solution}
+\begin{solution}{positive-integrals-positive-function}
+在每个 Lebesgue 点，\(f(x)\) 是非负局部平均的极限，因而非负。
+例外集为零测集，所以得到所求几乎处处结论。
+\end{solution}
+\begin{solution}{density-interior-empty}
+枚举 \((0,1)\cap\Q=\{q_j\}_{j\ge1}\)，取含 \(q_j\) 的开区间长度之和
+小于 \(1/2\)，令 \(E=[0,1]\setminus\bigcup_jI_j\)。
+它闭、无内点且测度至少 \(1/2\)。密度定理说明它的几乎每一点密度为一。
+\end{solution}
+\begin{solution}{maximal-not-strong-one}
+对含 \(x>1\) 的区间，若左端 \(u\le0\)，平均至多 \(1/x\)；
+若 \(0<u<1\)，平均至多 \((1-u)/(x-u)\le1/x\)；若 \(u\ge1\)，为零。
+用 \((-\eta,x+\eta)\) 令 \(\eta\downarrow0\) 达到上确界 \(1/x\)。
+因 \(\int_1^\infty dx/x=\infty\)，极大函数不可积。
+\end{solution}
+\begin{solution}{lebesgue-local-average-lone}
+由 Tonelli 和积分三角不等式，
+\[
+ \|A_rf-f\|_1
+ \le\frac1{2r}\int_{-r}^r\|f(\,\cdot+t)-f\|_1\,dt.
+\]
+平移在 \(L^1\) 中连续，故右侧不超过一个随 \(r\downarrow0\) 趋零的上界。
+几乎处处收敛则由本章微分定理得到；两种收敛各自有依据。
+\end{solution}

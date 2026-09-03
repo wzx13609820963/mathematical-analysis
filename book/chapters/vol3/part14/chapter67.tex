@@ -81,7 +81,8 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \end{theorem}
 
 \begin{proof}
-若某个范数为零，结论显然。否则令
+若某个范数为零，相应函数几乎处处为零，乘积也几乎处处为零。以下设两个
+范数均为正，并令
 \[
  F=\frac{|f|}{\|f\|_p},\qquad
  G=\frac{|g|}{\|g\|_q}.
@@ -107,7 +108,7 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \begin{proof}
 先把所有 \(p_j=\infty\) 的因子用
 \(|f_j|\le\|f_j\|_\infty\) 提出积分号。对余下的有限指数，若某个范数为
-零，结论显然；否则令 \(F_j=|f_j|/\|f_j\|_{p_j}\)。加权算术--几何
+零，相应乘积几乎处处为零；否则令 \(F_j=|f_j|/\|f_j\|_{p_j}\)。加权算术--几何
 平均不等式给出
 \[
  \prod_jF_j
@@ -251,7 +252,8 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 求 Hölder 不等式在 \(1<p<\infty\) 时的等号条件。
 
 \exerciseitem{holder-indicator}
-把 Hölder 不等式应用于 \(f\mathbf1_E\)，证明
+设 \(1<p<\infty\)、\(f\in L^p(\mu)\)，且 \(E\) 可测、
+\(\mu(E)<\infty\)。把 Hölder 不等式应用于 \(f\mathbf1_E\)，证明
 \[
  \int_E|f|\le\mu(E)^{1-1/p}\|f\|_p.
 \]

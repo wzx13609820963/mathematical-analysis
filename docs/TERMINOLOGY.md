@@ -128,11 +128,27 @@
 | 几乎一致收敛 | almost uniform convergence | 对任意小正数，可删去测度小于它的集合，使余集上一致收敛；不同于本质一致收敛 |
 | Egorov 定理 | Egorov's theorem | 有限测度空间上，几乎处处收敛蕴含几乎一致收敛 |
 | 一致可积 | uniform integrability | 函数族在大函数值区域的 $L^1$ 质量统一趋零；有限测度上等价于 $L^1$ 有界加小集合积分统一小 |
+| 质量紧性 | tightness of integral mass | 在 $\sigma$-有限空间上，函数族在某个有限测度区域之外的 $L^1$ 质量可以一致地任意小；不得与集合的拓扑紧致性混同 |
 | de la Vallée--Poussin 判据 | de la Vallée--Poussin criterion | 用超线性增长的凸函数积分有界刻画有限测度空间中的一致可积性 |
 | $L^p$ 空间 | $L^p$ space | $p$ 次可积函数按几乎处处相等取商；$1\le p\le\infty$ 时是 Banach 空间 |
 | 本质上确界 | essential supremum | 忽略零测集后的最小一致上界；用来定义 $L^\infty$ 范数 |
 | Riesz--Fischer 定理 | Riesz--Fischer theorem | 当前指 $L^p$ 在 $1\le p<\infty$ 时完备；后文 Fourier 理论中的历史表述须注明版本 |
 | 磨光核、磨光 | mollifier, mollification | 非负光滑紧支撑核经尺度缩放形成近似恒等，卷积给出 $L^p$ 中的光滑逼近 |
+
+## 第十五、十六编
+
+| 术语 | 英文 | 约定 |
+|---|---|---|
+| 有界变差、绝对连续 | bounded variation, absolute continuity | 函数性质与测度绝对连续分别定义 |
+| Jordan分解 | Jordan decomposition | 区分函数的递增差分解与符号测度的互相奇异正负分解 |
+| Lebesgue点 | Lebesgue point | 局部绝对误差平均趋零 |
+| Lusin N性质 | Lusin property N | 零测集的像仍零测；不同于Lusin连续逼近定理 |
+| Radon--Nikodym定理 | Radon--Nikodym theorem | 采用σ有限基测度版本 |
+| 弱型(1,1) | weak type (1,1) | 超水平集估计，不表示强L1有界 |
+| 连续对偶、零化子 | continuous dual, annihilator | 不与代数对偶、内积正交补混同 |
+| 弱星拓扑 | weak-star topology | 必须说明前对偶 |
+| 反射空间 | reflexive space | 典范映射满射，也称自反空间；正文统一“反射” |
+| Eberlein--Šmulian定理 | Eberlein--Šmulian theorem | Banach空间中弱紧致与序列弱紧致等价 |
 
 ## 风格约定
 

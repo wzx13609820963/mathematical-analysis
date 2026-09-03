@@ -156,19 +156,31 @@ $E_M=E\cap\{|f|\le M\}$ 递增到 $E$；上升连续性给出某个 $M$ 使
 $m(E\setminus E_M)<\varepsilon/4$。
 
 在 $E_M$ 上用嵌套二进网格构造简单函数 $\varphi_n$，使
-$\norm{f-\varphi_n}_{\infty,E_M}\le2^{-n}$。每个 $\varphi_n$ 只有有限
-多个水平集。利用 Lebesgue 正则性，在每个非空水平集中取紧子集，使该
-$\varphi_n$ 全部水平集中删去的总测度小于
-$\varepsilon2^{-n-2}$。这些紧集的有限并记为 $K_n$；不同水平的紧集
-彼此不交，故它们之间距离为正，$\varphi_n|_{K_n}$ 连续。
+$\norm{f-\varphi_n}_{\infty,E_M}\le2^{-n}$。把 $\varphi_n$ 的非空水平集
+记为 $A_{n,1},\ldots,A_{n,r_n}$；它们构成 $E_M$ 的有限可测分割。由内
+正则性，可在每个 $A_{n,j}$ 中取紧集 $K_{n,j}$，并把误差分配成
+\[
+ \sum_{j=1}^{r_n}m(A_{n,j}\setminus K_{n,j})
+ <\varepsilon2^{-n-2}.
+\]
+令 $K_n=\bigcup_jK_{n,j}$。有限个互不相交的紧集之间有正距离，因此
+$\varphi_n|_{K_n}$ 连续；同时
+$m(E_M\setminus K_n)<\varepsilon2^{-n-2}$。
 
 令
 \[
  K=K_0\cap\bigcap_{n=1}^{\infty}K_n,
 \]
 其中先由内正则性取紧 $K_0\subseteq E_M$，使
-$m(E_M\setminus K_0)<\varepsilon/4$。则 $K$ 紧，且误差级数给出
-$m(E\setminus K)<\varepsilon$。每个 $\varphi_n|_K$ 连续，并且
+$m(E_M\setminus K_0)<\varepsilon/4$。集合 $K$ 是紧集 $K_0$ 的闭子集，
+故仍紧。并且
+\[
+ m(E\setminus K)
+ \le m(E\setminus E_M)+m(E_M\setminus K_0)
+    +\sum_{n=1}^{\infty}m(E_M\setminus K_n)
+ <\varepsilon.
+\]
+每个 $\varphi_n|_K$ 连续，并且
 $\varphi_n\to f$ 在 $K$ 上一致。因此 $f|_K$ 是连续函数的一致极限，故
 连续。
 \end{proof}

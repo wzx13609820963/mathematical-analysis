@@ -16,27 +16,30 @@
 \[
  \|\varphi_n-f\|_p\longrightarrow0.
 \]
-若 \(f\ge0\)，可取 \(0\le\varphi_n\uparrow f\) 几乎处处。
+若 \(f\ge0\)，可取 \(0\le\varphi_n\uparrow f\) 几乎处处。无论原测度
+空间是否 \(\sigma\)-有限，每个 \(\varphi_n\) 都可取为只支撑在有限测度
+集合上。
 \end{theorem}
 
 \begin{proof}
-对 \(f\ge0\)，取第 \ref{chap:nonnegative-integral} 章的简单函数
-\(0\le\varphi_n\uparrow f\)。则
+对 \(f\ge0\)，取第 \ref{chap:nonnegative-integral} 章按二进网格构造的
+简单函数 \(0\le\varphi_n\uparrow f\)，并令它在
+\(\{f<2^{-n}\}\) 上取零。于是
+\[
+ \{\varphi_n\ne0\}
+ \subseteq\{f\ge2^{-n}\},
+ \qquad
+ \mu(\{f\ge2^{-n}\})
+ \le 2^{np}\int|f|^p<\infty.
+\]
+同时
 \[
  0\le|f-\varphi_n|^p\le f^p,\qquad
  |f-\varphi_n|^p\to0.
 \]
 控制收敛定理给 \(\|\varphi_n-f\|_p\to0\)。一般实值 \(f\) 分别逼近
-\(f^+,f^-\) 后相减。
+\(f^+,f^-\) 后相减；两个有限测度支撑的并仍有有限测度。
 \end{proof}
-
-若测度空间 \(\sigma\)-有限，还可要求简单函数只支撑在有限测度集上。取
-\(X_k\uparrow X\)、\(\mu(X_k)<\infty\)，先用
-\(f\mathbf1_{X_k}\) 截断空间，再截断函数值并作简单逼近：
-\[
- \|f-f\mathbf1_{X_k}\|_p^p
- =\int_{X\setminus X_k}|f|^p\longrightarrow0.
-\]
 
 \begin{corollary}
 \label{cor:indicator-span-dense}
@@ -187,13 +190,25 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
 \end{theorem}
 
 \begin{proof}
-卷积的光滑性由把导数移到光滑紧支撑核上得到：
+先说明卷积的光滑性。把积分改写为
+\[
+ (\rho_\varepsilon*f)(x)
+ =\int_{\mathbb R^n}\rho_\varepsilon(x-z)f(z)\,dz.
+\]
+若 \(1<p<\infty\)，令 \(q\) 为共轭指数；\(p=1\) 时令 \(q=\infty\)。
+每个 \(\partial^\alpha\rho_\varepsilon\) 都属于 \(L^q\)，Hölder 不等式
+保证下式右端绝对收敛：
 \[
  \partial^\alpha(\rho_\varepsilon*f)
  =(\partial^\alpha\rho_\varepsilon)*f.
 \]
-局部积分可由 Hölder 不等式控制。由于 \(\rho_\varepsilon\) 是概率密度，
-Jensen 不等式给出
+核函数的差商在 \(L^q\) 中趋于相应导数；当 \(q=\infty\) 时，这是光滑
+紧支撑函数差商的一致收敛。再用 Hölder 估计，便可把差商极限移入积分。
+对任意阶导数重复此论证，并对导数函数使用核的平移连续性，得到
+\(\rho_\varepsilon*f\in C^\infty\)。
+
+再证 \(L^p\) 逼近。由于 \(\rho_\varepsilon\) 是概率密度，Jensen 不等式
+给出
 \[
  \left|\int\rho_\varepsilon(y)
    \bigl(f(x-y)-f(x)\bigr)\,dy\right|^p
@@ -208,9 +223,13 @@ Jensen 不等式给出
  \longrightarrow0,
  \end{split}
 \]
-其中 \(C\) 使 \(\operatorname{supp}\rho\subset B(0,C)\)。若
-\(f\) 有紧支撑，则卷积支撑包含于两个紧支撑的 Minkowski 和中，仍为紧
-支撑。先作空间截断，再磨光，即得最后结论。
+其中 \(C\) 使 \(\operatorname{supp}\rho\subset B(0,C)\)。最后令
+\(f_R=f\mathbf1_{\overline{B(0,R)}}\)。由控制收敛定理，
+\(f_R\to f\) 于 \(L^p\)；而
+\(\rho_\varepsilon*f_R\) 的支撑包含在
+\(\overline{B(0,R)}+\operatorname{supp}\rho_\varepsilon\) 中，因而紧。
+先取 \(R\) 控制截断误差，再取 \(\varepsilon\) 控制磨光误差，即得
+\(C_c^\infty\) 逼近。
 \end{proof}
 
 \section{从稠密子空间延拓算子}
@@ -248,8 +267,8 @@ Jensen 不等式给出
 把简单函数稠密性推广到复值 \(L^p\) 函数。
 
 \exerciseitem{finite-support-simple-dense}
-在 \(\sigma\)-有限测度空间上，完整证明有限测度支撑简单函数在
-\(L^p\) 中稠密。
+不假设测度空间 \(\sigma\)-有限，完整证明有限测度支撑简单函数在
+\(L^p\) 中稠密，并指出 \(f\in L^p\) 如何保证适当超水平集具有有限测度。
 
 \exerciseitem{compact-open-distance-function}
 验证引理 \ref{lem:indicator-compact-open-approx} 中距离函数公式的连续性、

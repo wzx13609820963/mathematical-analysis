@@ -211,8 +211,10 @@ Jacobian 的重新参数化会反向定向。Möbius 带不存在全局连续法
 \end{theorem}
 
 \begin{proof}
-对 \(P\,dx\) 项使用沿 \(x\) 方向的有限简单分解，对 \(Q\,dy\) 项使用
-沿 \(y\) 方向的有限简单分解，并分别应用前面的两个一元基本定理。每条
+对 \(-\partial_yP\) 使用形如
+\(\alpha(x)\le y\le\beta(x)\) 的有限简单分解，对 \(\partial_xQ\) 使用
+形如 \(\gamma(y)\le x\le\delta(y)\) 的有限简单分解，并分别应用前面的
+两个一元基本定理。每条
 内部公共弧在相邻两块中具有相反诱导方向，两个线积分相消；有限多个分片
 交于端点不会产生额外一维积分。两次计算留下的都是
 \(\partial D\) 上相应的一项。若区域有洞，内边界作为区域边界的诱导方向
@@ -284,9 +286,11 @@ Jacobian 的重新参数化会反向定向。Möbius 带不存在全局连续法
 
 \begin{theorem}[经典 Stokes 定理]
 \label{thm:stokes-classical-surface}
-设 \(S=X(D)\) 是定向分片 \(C^2\) 曲面，\(D\) 为 Green 定理适用的平面
-区域，边界定向与法向满足右手规则。若 \(F\) 在 \(S\) 的邻域属于
-\(C^1\)，则
+设 \(D\) 是 Green 定理适用的平面区域，且
+\(X\) 在 \(\overline D\) 的邻域为 \(C^2\) 映射。假设 \(X|_{\overline D}\)
+单射，并且 \(X_u\times X_v\ne0\)；以 \(X_u\times X_v\) 为
+\(S=X(D)\) 定向，并给 \(\partial S\) 取相容的右手定向。若 \(F\) 在
+\(S\) 的邻域属于 \(C^1\)，则
 \[
  \int_{\partial S}F\cdot dx
  =\iint_S(\operatorname{curl}F)\cdot n\,dS.
@@ -309,7 +313,8 @@ Green 定理给出
  \partial_uB-\partial_vA
  =\operatorname{curl}F(X)\cdot(X_u\times X_v).
 \]
-这就是曲面积分的参数形式。若曲面由有限参数片组成，内部边界仍因诱导
+这就是曲面积分的参数形式。若曲面由有限个满足上述条件的参数片组成，且
+各片定向相容、只沿分段光滑边界相接，则逐片应用公式后，内部边界因诱导
 方向相反而相消。
 \end{proof}
 

@@ -116,13 +116,13 @@
 记 \(C=\sup_f\int\Phi(|f|)\)。给定 \(\varepsilon>0\)，由
 \(\Phi(t)/t\to\infty\)，可取 \(M\) 使
 \[
- t\le\frac{\varepsilon}{C}\Phi(t)\qquad(t>M)
+ t\le\frac{\varepsilon}{C+1}\Phi(t)\qquad(t>M).
 \]
-（若 \(C=0\) 结论显然）。于是
+于是
 \[
  \sup_f\int_{\{|f|>M\}}|f|
- \le\frac{\varepsilon}{C}\sup_f\int\Phi(|f|)
- \le\varepsilon.
+ \le\frac{\varepsilon}{C+1}\sup_f\int\Phi(|f|)
+ \le\varepsilon\frac C{C+1}<\varepsilon.
 \]
 
 反过来，设 \(\mu(X)<\infty\) 且 \(\mathcal F\) 一致可积。由命题
@@ -220,20 +220,79 @@
 \ref{chap:lebesgue-convergence} 章的直接证明给出，不需要有限测度假设。
 \end{corollary}
 
-\section{无限测度空间上的紧性}
+\section{无限测度空间上的质量紧性}
 
-设 \((X,\mathcal A,\mu)\) 为 \(\sigma\)-有限空间。称
-\(\mathcal F\subset L^1\) 在空间方向\term{紧}，若对每个
-\(\varepsilon>0\)，存在有限测度集 \(K\) 使
+在无限测度空间中，一致可积性只排除高尖峰，不能阻止积分质量移向越来越远
+的区域。还需要一个控制空间尾部的条件。
+
+\begin{definition}
+设 \((X,\mathcal A,\mu)\) 为 \(\sigma\)-有限空间。若
+\(\mathcal F\subset L^1(\mu)\) 满足：对每个 \(\varepsilon>0\)，存在
+\(K\in\mathcal A\)、\(\mu(K)<\infty\)，使
 \[
- \sup_{f\in\mathcal F}\int_{X\setminus K}|f|\,d\mu<\varepsilon.
+ \sup_{f\in\mathcal F}\int_{X\setminus K}|f|\,d\mu<\varepsilon,
 \]
-若 \(f_n\to f\) 在每个有限测度集上依测度收敛，\(\{f_n\}\) 一致可积，
-并具有上述紧性，则先在 \(K\) 上用 Vitali 定理，再控制 \(X\setminus K\)
-的尾部，可得 \(f_n\to f\) 于 \(L^1(X)\)。其中对 \(f\) 的尾部估计可
-先在一列有限测度集上作对角抽取，得到全空间几乎处处收敛子列，再对
-\(|f_n|\mathbf1_{X\setminus K}\) 使用 Fatou 引理。移动指示函数反例恰好
-缺少这一空间紧性。
+则称 \(\mathcal F\) 具有\term{质量紧性}。
+\end{definition}
+
+这里的 \(K\) 只要求可测且测度有限；若空间带有拓扑并具有正则测度，在常见
+情形下还可进一步选取紧集。术语中的“紧”描述积分质量不能逃出所有有限区域，
+不应与集合本身的拓扑紧致性混同。
+
+\begin{theorem}[无限测度空间上的 Vitali 定理]
+\label{thm:vitali-sigma-finite-tight}
+设 \((X,\mathcal A,\mu)\) 为 \(\sigma\)-有限测度空间，
+\(f_n\in L^1(\mu)\)，且 \(f\) 是几乎处处有限的可测函数。假定：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item 对每个有限测度可测集 \(E\)，\(f_n\to f\) 在 \(E\) 上依测度收敛；
+ \item 函数族 \(\{f_n:n\ge1\}\) 一致可积；
+ \item 该函数族具有质量紧性。
+\end{enumerate}
+则 \(f\in L^1(\mu)\)，并且
+\[
+ \|f_n-f\|_1\longrightarrow0.
+\]
+\end{theorem}
+
+\begin{proof}
+先构造一个在全空间几乎处处收敛的子列。取有限测度集
+\(X_j\uparrow X\)。由 (i)，可递归选取严格递增的指标 \(n_j\)，使
+\[
+ \mu\bigl(X_j\cap\{|f_{n_j}-f|>2^{-j}\}\bigr)<2^{-j}.
+\]
+这些坏集的测度和有限，故其上极限为零测集。对不属于该上极限且属于
+\(\bigcup_jX_j=X\) 的点，最终有
+\(|f_{n_j}-f|\le2^{-j}\)；所以 \(f_{n_j}\to f\) a.e.
+
+由 (iii)，可取有限测度集 \(K\)，使
+\(\sup_n\int_{X\setminus K}|f_n|<1\)。把 (ii) 限制到 \(K\) 上仍得到
+一致可积族，而 (i) 给出 \(K\) 上的依测度收敛。有限测度空间上的 Vitali
+定理说明 \(f\in L^1(K)\)。另一方面，对刚才的几乎处处收敛子列使用 Fatou
+引理，得到
+\[
+ \int_{X\setminus K}|f|
+ \le\liminf_{j\to\infty}
+     \int_{X\setminus K}|f_{n_j}|
+ \le1.
+\]
+故 \(f\in L^1(X)\)。
+
+最后给定 \(\varepsilon>0\)，再由质量紧性取有限测度集 \(K\)，使
+\[
+ \sup_n\int_{X\setminus K}|f_n|<\varepsilon.
+\]
+同一 Fatou 论证给出
+\(\int_{X\setminus K}|f|\le\varepsilon\)，而有限测度 Vitali 定理给出
+\(\int_K|f_n-f|\to0\)。因此
+\[
+ \limsup_{n\to\infty}\|f_n-f\|_1
+ \le 2\varepsilon.
+\]
+令 \(\varepsilon\downarrow0\)，得到结论。
+\end{proof}
+
+移动指示函数 \(\mathbf1_{[n,n+1]}\) 局部依测度趋于零且一致可积，但它的
+单位积分质量离开每个固定有限测度区域，因而不满足质量紧性。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -290,8 +349,8 @@
 证明 \(\{\mathbf1_{[n,n+1]}\}\) 一致可积但不满足空间紧性。
 
 \optionalexerciseitem{vitali-infinite-space}
-在 \(\sigma\)-有限空间上，完整证明“局部依测度收敛 + 一致可积 +
-空间紧性”蕴含 \(L^1\) 收敛。
+重作定理 \ref{thm:vitali-sigma-finite-tight} 的证明，尤其写清对角子列怎样
+在全空间几乎处处收敛，并分别说明三个假设排除了哪一类反例。
 
 \projectexerciseitem{ui-random-variables}
 把一致可积性写成概率空间上的期望条件，证明若随机变量

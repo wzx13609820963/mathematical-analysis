@@ -160,10 +160,26 @@
 \(\pi\)-系，由 \(\pi\)-\(\lambda\) 定理，
 \(\mathcal D=\mathcal A\otimes\mathcal B\)。
 
-一般 \(\sigma\)-有限情形取递增的有限测度集
-\(X_i\uparrow X,Y_j\uparrow Y\)，先对
-\(E\cap(X_i\times Y_j)\) 应用有限情形，再令 \(i,j\to\infty\)，使用
-测度连续性和单调收敛定理。第二个等式交换 \(X,Y\) 即得。
+一般 \(\sigma\)-有限情形取递增可测集
+\(X_i\uparrow X\)、\(Y_j\uparrow Y\)，其中
+\(\mu(X_i),\nu(Y_j)<\infty\)。固定 \(j\)。对每个 \(i\)，把有限情形应用于
+\(X_i\times Y_j\) 中的集合 \(E\cap(X_i\times Y_j)\)，得到
+\[
+ (\mu\times\nu)\bigl(E\cap(X_i\times Y_j)\bigr)
+ =\int_{X_i}\nu(E_x\cap Y_j)\,d\mu(x).
+\]
+这里乘积测度限制在 \(X_i\times Y_j\) 上，与两个限制测度的有限乘积相同；
+这可由它们在矩形上一致及延拓唯一性得到。把右端的被积函数在
+\(X\setminus X_i\) 上补为零。随 \(i\) 增大，这些函数逐点递增到
+\(x\mapsto\nu(E_x\cap Y_j)\)。因此测度的上升连续性和单调收敛定理给出
+\[
+ (\mu\times\nu)\bigl(E\cap(X\times Y_j)\bigr)
+ =\int_X\nu(E_x\cap Y_j)\,d\mu(x),
+\]
+并同时说明右端的被积函数可测。最后令 \(j\to\infty\)。左侧递增到
+\((\mu\times\nu)(E)\)，而
+\(\nu(E_x\cap Y_j)\uparrow\nu(E_x)\)；再用一次单调收敛定理，得到第一个
+等式及 \(x\mapsto\nu(E_x)\) 的可测性。交换 \(X,Y\) 即得第二个等式。
 \end{proof}
 
 \section{Tonelli 定理}

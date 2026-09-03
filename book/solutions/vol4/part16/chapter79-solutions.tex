@@ -1,0 +1,52 @@
+\chapter{反射空间}
+\begin{solution}{reflexive-finite-dimension}
+其闭单位球范数紧，因而弱紧，由反射性判据得结论。也可由
+\(\dim X=\dim X^*=\dim X^{**}\) 及典范嵌入单射推出满射。
+\end{solution}
+\begin{solution}{reflexive-czero-failure}
+每个 \(u_n\) 在 \(c_0\) 中且范数一。若子列弱收敛到 \(u\in c_0\)，
+对每个坐标评价取极限得 \(u_j=1\)。这与 \(u_j\to0\) 矛盾。
+\end{solution}
+\begin{solution}{reflexive-lp-weak-bound}
+范数的弱下半连续性可直接应用。也可对 \(\|g\|_q\le1\) 写
+\(|\int fg|=\lim|\int f_ng|\le\liminf\|f_n\|_p\)，再对 \(g\) 取确界。
+\end{solution}
+\begin{solution}{reflexive-norm-attainment}
+单位球弱紧，函数 \(x\mapsto|\phi(x)|\) 弱连续，故在球上取得最大值，
+该最大值按定义即 \(\|\phi\|\)。
+\end{solution}
+\begin{solution}{reflexive-closed-subspace}
+闭子空间 \(M\) 弱闭，其单位球是 \(B_X\cap M\)，故在 \(X\) 的弱拓扑下紧。
+Hahn--Banach 保证 \(M\) 的每个泛函可由 \(X^*\) 限制，故这个相对拓扑
+正是 \(M\) 的弱拓扑。由弱紧球判据得 \(M\) 反射。
+\end{solution}
+\begin{solution}{reflexive-quotient}
+商空间 Banach。给定商空间有界序列 \(u_n\)，选代表 \(x_n\) 使
+\(\|x_n\|\le\|u_n\|+1\)，于是原空间序列有界，可抽弱收敛子列。
+自然商映射有界线性，保持弱收敛，故商空间每个有界序列都有弱收敛子列。
+由本章判据得到反射性。这里无需先证明最小范数代表存在。
+\end{solution}
+\begin{solution}{reflexive-best-approximation}
+取 \(y_n\in C\) 使 \(\|x-y_n\|\to d(x,C)\)，则 \(y_n\) 有界。
+反射性给子列弱趋于 \(y\)，闭凸性保证 \(y\in C\)。
+范数弱下半连续性给 \(\|x-y\|\le d(x,C)\)，故取得下确界。
+例如 \(\R^2\) 的最大范数下，到一条直线的最佳逼近可不唯一。
+\end{solution}
+\begin{solution}{reflexive-dual-equivalence}
+若 \(X\) 反射，任意 \(\Lambda\in X^{***}\) 定义
+\(\phi(x)=\Lambda(J_Xx)\)，则对任意 \(z=J_Xx\in X^{**}\)，
+\((J_{X^*}\phi)(z)=z(\phi)=\phi(x)=\Lambda(z)\)，所以 \(X^*\) 反射。
+反之，若 \(X^*\) 反射，刚证方向给 \(X^{**}\) 反射。
+\(X\) Banach 使等距像 \(J_X(X)\) 范数闭，因此它作为反射空间的闭子空间
+反射。等距同构保持闭单位球弱紧致性，故 \(X\) 反射。
+\end{solution}
+\begin{solution}{reflexive-weak-norm-hilbert}
+展开
+\[
+ \|f_n-f\|_2^2=\|f_n\|_2^2+\|f\|_2^2
+       -2\operatorname{Re}\int f_n\overline f\,d\mu.
+\]
+固定 \(\overline f\in L^2\) 可以作弱收敛测试函数，最后一项趋于
+\(2\|f\|_2^2\)，范数条件使右侧趋零。计数测度上的 \(e_n\) 弱趋零而
+范数恒一，说明只有弱收敛不足。
+\end{solution}

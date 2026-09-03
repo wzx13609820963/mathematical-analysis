@@ -101,26 +101,35 @@
 \(n\) 都有
 \(\int_{\mathbb R\setminus K}\mathbf1_{[n,n+1]}<\varepsilon\)，则
 \(m(K\cap[n,n+1])>1-\varepsilon\) 对所有 \(n\) 成立。对互不相交的
-整数区间求和会推出 \(m(K)=\infty\)，矛盾。因此不具空间紧性。
+整数区间求和会推出 \(m(K)=\infty\)，矛盾。因此不具质量紧性。
 \end{solution}
 
 \begin{solution}{vitali-infinite-space}
-给定 \(\varepsilon>0\)，由紧性选有限测度 \(K\)，使
+取有限测度集 \(X_j\uparrow X\)。由局部依测度收敛，可递归选取严格递增的
+\(n_j\)，满足
+\[
+ \mu\bigl(X_j\cap\{|f_{n_j}-f|>2^{-j}\}\bigr)<2^{-j}.
+\]
+坏集测度之和有限，所以几乎每个点只落入有限多个坏集；又每个点最终属于
+\(X_j\)，故 \(f_{n_j}\to f\) a.e. 先由质量紧性取一个有限测度集 \(K_0\)，
+使全体 \(f_n\) 在 \(X\setminus K_0\) 上的积分小于 \(1\)。有限测度 Vitali
+定理说明 \(f\in L^1(K_0)\)，Fatou 引理说明
+\(\int_{X\setminus K_0}|f|\le1\)，故 \(f\in L^1(X)\)。
+
+现给定 \(\varepsilon>0\)，再由质量紧性选有限测度 \(K\)，使
 \[
  \sup_n\int_{X\setminus K}|f_n|<\varepsilon.
 \]
-取有限测度集递增覆盖 \(X\)。在第一块上抽出几乎处处收敛子列，再在第二块
-上从中抽取子列，如此继续并取对角线，得到在全空间几乎处处收敛于 \(f\)
-的子列。对该子列使用 Fatou，可得
+对上述 a.e. 收敛子列使用 Fatou，可得
 \(\int_{X\setminus K}|f|\le\varepsilon\)。在 \(K\) 上，限制后的函数族
 一致可积且依测度收敛，有限测度 Vitali 定理给
-\(\int_K|f_n-f|\to0\)。因此最终
+\(\int_K|f_n-f|\to0\)。因此
 \[
- \|f_n-f\|_1
- \le\int_K|f_n-f|+
- \int_{X\setminus K}|f_n|+\int_{X\setminus K}|f|
- <3\varepsilon.
+ \limsup_n\|f_n-f\|_1\le2\varepsilon.
 \]
+令 \(\varepsilon\downarrow0\) 即得结论。尖峰列缺少一致可积性；移动指示
+函数列缺少质量紧性；若没有局部依测度收敛，则即使另两项成立也不能确定
+候选极限。
 \end{solution}
 
 \begin{solution}{ui-random-variables}

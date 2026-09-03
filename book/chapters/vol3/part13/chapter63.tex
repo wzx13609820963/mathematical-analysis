@@ -116,15 +116,16 @@
 
 \begin{theorem}[积分号下求导]
 \label{thm:differentiation-under-integral}
-设 \(I\subset\mathbb R\) 为开区间，\(t_0\in I\)。假定：
+设 \(I\subset\mathbb R\) 为开区间，\(t_0\in I\)。假定存在 \(t_0\) 的
+开邻域 \(U\subset I\)，使：
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item 对 \(t\) 在 \(t_0\) 的某邻域内，\(f(t,\cdot)\) 可测；
- \item 对几乎所有 \(x\)，偏导数 \(\partial_tf(t,x)\) 在该邻域存在；
- \item 存在 \(g\in L^1(\mu)\)，使
+ \item 对每个 \(t\in U\)，\(f(t,\cdot)\) 可测；
+ \item 存在一个零测集 \(N\)，使对每个 \(x\notin N\)，函数
+ \(t\mapsto f(t,x)\) 在整个 \(U\) 上可导；
+ \item 存在 \(g\in L^1(\mu)\)，使对每个 \(x\notin N\) 和每个 \(t\in U\)，
  \[
   |\partial_tf(t,x)|\le g(x)
- \]
- 对该邻域内所有 \(t\) 和几乎所有 \(x\) 成立；
+ \]；
  \item \(f(t_0,\cdot)\in L^1(\mu)\)。
 \end{enumerate}
 则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\) 在 \(t_0\) 可导，且
@@ -134,11 +135,14 @@
 \end{theorem}
 
 \begin{proof}
-对足够小的非零 \(h\)，由一元中值定理，对几乎所有 \(x\) 有
+对足够小的非零 \(h\)，区间端点 \(t_0,t_0+h\) 均属于 \(U\)。固定
+\(x\notin N\)，对函数 \(t\mapsto f(t,x)\) 使用一元中值定理，得到
 \[
  \left|\frac{f(t_0+h,x)-f(t_0,x)}{h}\right|\le g(x).
 \]
-差商逐点趋于 \(\partial_tf(t_0,x)\)。控制收敛定理给出
+这里同一个零测集 \(N\) 对所有小 \(h\) 都适用；这正是条件 (ii)--(iii)
+中量词写法的作用。差商在 \(X\setminus N\) 上逐点趋于
+\(\partial_tf(t_0,x)\)。控制收敛定理给出
 \[
  \lim_{h\to0}\frac{F(t_0+h)-F(t_0)}h
  =\int_X\lim_{h\to0}
@@ -167,8 +171,9 @@
 并且 \(f:U\times J\to\mathbb R\) 满足：
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \(f(t,\cdot)\) 可测，且 \(f(t_0,\cdot)\in L^1(J)\)；
- \item 对几乎所有 \(x\in J\)，\(\partial_tf(t,x)\) 在 \(U\) 中存在，且
- 有 \(g\in L^1(J)\) 使 \(|\partial_tf(t,x)|\le g(x)\)；
+ \item 存在零测集 \(N\subset J\)，使对每个 \(x\in J\setminus N\)，
+ \(\partial_tf(t,x)\) 在全部 \(t\in U\) 上存在，并有 \(g\in L^1(J)\)
+ 满足 \(|\partial_tf(t,x)|\le g(x)\) 对这些 \((t,x)\) 同时成立；
  \item \(f\) 在
  \((t_0,\alpha(t_0))\) 与 \((t_0,\beta(t_0))\) 处联合连续。
 \end{enumerate}

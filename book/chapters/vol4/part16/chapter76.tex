@@ -1,0 +1,165 @@
+\chapter{Baire 范畴方法}
+\label{chap:baire-method}
+
+逐点成立的估计通常不能直接升级为单位球上的一致估计。对于定义在 Banach
+空间上的线性算子族，完备性却能完成这种升级。所用的 Baire 纲定理首先是
+一个关于闭集和开集的结果，与线性无关；线性结构随后把一个小球中的控制
+放大为全空间的控制。开映射与闭图像定理也由同一事实导出。
+
+\section{Baire 纲定理}
+
+集合 \(A\) 称为无处稠密，若 \(\overline A\) 的内部为空；至多可数个无处
+稠密集的并称为第一纲集。补集为第一纲的集合称为余第一纲集。
+这些术语描述拓扑大小，与测度大小不同。
+
+\begin{theorem}[Baire]\label{thm:baire-complete}
+非空完备度量空间中，至多可数个稠密开集的交仍稠密。因此这样的空间不能
+是第一纲集。
+\end{theorem}
+\begin{proof}
+设稠密开集为 \(G_n\)，取任意非空开集 \(U\)。在 \(U\cap G_1\) 中取闭球
+\(\overline B(x_1,r_1)\)，\(0<r_1<1/2\)，使其包含于该开集。
+递归在 \(B(x_n,r_n)\cap G_{n+1}\) 内取闭球，半径小于 \(2^{-n-1}\)。
+中心构成 Cauchy 列，完备性给极限 \(x\)。闭球嵌套使 \(x\) 属于每个闭球，
+从而 \(x\in U\cap\bigcap_nG_n\)。孤立点情形也可取足够小的正半径球，
+论证不变。最后对无处稠密集的闭包取补，得到第二个结论。
+\end{proof}
+
+\section{一致有界原理}
+
+\begin{theorem}[Banach--Steinhaus]\label{thm:uniform-boundedness}
+设 \(X\) 为 Banach 空间，\(Y\) 为赋范空间，
+\(\mathcal T\subset\mathcal L(X,Y)\)。若每个 \(x\in X\) 满足
+\(\sup_{T\in\mathcal T}\|Tx\|<\infty\)，则 \(\sup_{T\in\mathcal T}\|T\|<\infty\)。
+\end{theorem}
+\begin{proof}
+令 \(E_n=\{x:\|Tx\|\le n\text{ 对所有 }T\in\mathcal T\}\)。
+各 \(E_n\) 闭，且由假设 \(X=\bigcup_{n\ge1}E_n\)。Baire 定理说明某个
+\(E_N\) 含开球 \(B(x_0,r)\)。若 \(\|h\|<r\)，则 \(x_0+h,x_0\in E_N\)，
+故 \(\|Th\|\le2N\) 对所有 \(T\) 成立。缩放任意单位向量到长度 \(r/2\)，
+得 \(\|T\|\le4N/r\)。
+\end{proof}
+
+这里 \(Y\) 不需完备，算子族也不需可数；可数的是按界的大小形成的闭集族。
+若 \(T_nx\) 对每个 \(x\) 都收敛，则它逐点有界，于是极限映射为有界线性
+算子。不过这仍不保证算子范数收敛，上一章的坐标投影已经给出反例。
+
+\section{开映射定理}
+
+\begin{theorem}\label{thm:open-mapping-banach}
+Banach 空间之间的有界线性满射 \(T:X\to Y\) 为开映射。
+\end{theorem}
+\begin{proof}
+由满射性 \(Y=\bigcup_{n\ge1}\overline{T(nB_X)}\)。Baire 定理给某个
+\(\overline{T(nB_X)}\) 有内点。对其中一个球作差，再缩放，得到某个
+\(\delta>0\)，使
+\[
+ \delta B_Y\subset\overline{T(B_X)}.
+\]
+具体地若 \(B(y_0,r)\) 包含于该闭包，则
+\(B(0,r)\subset\overline{T(2nB_X)}\)，可再缩小半径取得上式。
+
+现在把闭包中的近似原像改造成实际原像。若 \(\|y\|<\delta/2\)，
+可取 \(\|x_1\|\le1/2\) 使 \(\|y-Tx_1\|<\delta/4\)；
+再取 \(\|x_2\|\le1/4\) 使残差小于 \(\delta/8\)，依次继续。
+则 \(\sum x_j\) 在 \(X\) 收敛到 \(x\)，且 \(\|x\|\le1,\ Tx=y\)。
+故 \(B(0,\delta/2)\subset T(B_X)\)。在半径再缩小一倍后可把右侧换成
+\(T(B_X^\circ)\)，平移与缩放说明任意开球的像含相应的开邻域。
+\end{proof}
+
+两个完备性各有作用：\(Y\) 的完备性用于 Baire 定理，\(X\) 的完备性用于
+修正级数。证明不仅给拓扑结论，还给一个常数 \(C\)，使每个 \(y\) 都存在
+原像 \(x\) 满足 \(\|x\|\le C\|y\|\)；原像不必唯一，也不保证可线性选择。
+
+\section{有界逆定理}
+
+\begin{corollary}\label{cor:bounded-inverse}
+Banach 空间之间的有界线性双射具有有界线性逆。
+\end{corollary}
+\begin{proof}
+双射的逆连续等价于原映射开；连续线性映射有界。
+\end{proof}
+
+例如同一个向量空间上的两个 Banach 范数，若
+\(\|x\|_1\le C\|x\|_2\)，恒等映射是连续双射，有界逆定理给反向估计，
+所以两范数等价。若其中一个范数不完备，此结论会失败。
+
+\section{闭图像定理}
+
+\begin{theorem}\label{thm:closed-graph}
+设 \(X,Y\) 都为 Banach 空间，线性映射 \(T:X\to Y\) 定义在整个 \(X\) 上。
+若图像 \(G(T)=\{(x,Tx):x\in X\}\) 在 \(X\times Y\) 中闭，则 \(T\) 有界。
+\end{theorem}
+\begin{proof}
+积空间取求和范数，闭子空间 \(G(T)\) 完备。投影
+\(P:G(T)\to X,\ (x,Tx)\mapsto x\) 为有界线性双射，由有界逆定理，
+\(\|(x,Tx)\|\le C\|x\|\)，所以 \(\|Tx\|\le C\|x\|\)。
+\end{proof}
+
+检查图像闭只要求：若 \(x_n\to x\) 且 \(Tx_n\to y\)，则 \(Tx=y\)。
+其中并不需要先证明每个 \(x_n\to x\) 都使 \(Tx_n\) 收敛，后者已经是
+连续性结论。另一个不可忽略的条件是定义域为整个 Banach 空间；
+只在稠密子空间定义的闭算子未必有界。
+
+\section{完备性缺失时}
+
+在不完备的 \(c_{00}\) 配上上确界范数，令 \(T_nx=nx_n\)。对每个有限支撑
+\(x\)，\(\sup_n|T_nx|<\infty\)，但 \(\|T_n\|=n\)。这直接否定省略完备性
+的一致有界原理。
+
+恒等映射
+\[
+ I:(C[a,b],\|\cdot\|_\infty)\longrightarrow(C[a,b],\|\cdot\|_1)
+\]
+有界双射，却没有有界逆：高为一、支撑长度趋零的三角形函数，积分范数趋零
+而上确界范数恒一。目标空间在积分范数下不完备。逆方向的恒等映射图像闭，
+但不有界，又说明闭图像定理中完备性不能删除。
+
+\section{处处不可微的连续函数}
+
+Baire 方法还可以证明某种性质在连续函数空间中非常普遍，而不必先写出
+一个特定公式。以下在实 Banach 空间 \(C[0,1]\) 中讨论。
+令 \(E_n\) 为存在 \(x\in[0,1]\) 满足
+\[
+ |f(t)-f(x)|\le n|t-x|\quad
+ (t\in[0,1],\ |t-x|\le1/n)
+\]
+的全部 \(f\)。每个 \(E_n\) 闭：若 \(f_k\to f\) 一致，可从相应 \(x_k\)
+抽子列趋于 \(x\)，对 \(|t-x|<1/n\) 取极限，再由连续性补上等号边界。
+
+每个 \(E_n\) 内部为空。给定连续函数及任意一致误差，先用分段线性函数
+逼近，再在每个线性段中加入振幅任意小、斜率绝对值充分大的细锯齿，
+使新折线每一段的斜率绝对值都大于 \(n\)。具体地，固定小振幅 \(h>0\)，
+把原折线的每个线性段分成偶数个等长小段，让附加函数在节点上交替取
+\(0,h,0,h,\ldots,0\)。在原分段端点附加值均为零，故各段连续拼接。
+把每个小段长度取得小于 \(h/(n+L+1)\)，其中 \(L\) 为原折线所有斜率
+绝对值的最大值，就使附加斜率的绝对值大于 \(n+L\)，从而新斜率的
+绝对值大于 \(n\)，一致误差却仍不超过 \(h\)。对新折线的任何点，
+至少一侧有一条小线段从该点出发，斜率绝对值大于 \(n\)，故它不属于 \(E_n\)。
+
+若 \(f\) 在某个内点具有有限导数，差商在某邻域有界，因此 \(f\) 属于某个
+\(E_n\)。所以 Baire 定理保证 \(\bigcap_n(C[0,1]\setminus E_n)\) 稠密，
+其中每个函数在所有内点均无有限导数。此结论谈的是余第一纲集合，不是
+“随机选择函数”的概率；这里没有给函数空间指定概率测度。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{baire-rational-incomplete}解释 \(\Q\) 为什么是自身中的第一纲集，以及这为何不违反 Baire 定理。
+\exerciseitem{ubp-pointwise-limit}证明 Banach 空间上有界线性算子列的逐点极限是有界线性算子。
+\exerciseitem{inverse-two-norms}完整证明正文的两个 Banach 范数单向控制即等价的结论。
+\exerciseitem{graph-continuous-closed}证明连续映射到 Hausdorff 空间的图像闭，特别说明有界线性算子的图像闭。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{open-quotient-isomorphism}若 \(T:X\to Y\) 为 Banach 空间间的有界满射，证明 \(X/\ker T\) 与 \(Y\) 通过诱导映射有界同构。
+\exerciseitem{ubp-dense-subset-insufficient}用 \(T_nx=nx_n\) 在 \(\ell^2\) 上说明只在稠密子集上逐点有界不足以推出一致有界。
+\exerciseitem{closed-derivative-unbounded}证明 \(D:C^1[0,1]\subset C[0,1]\to C[0,1]\) 在两侧上确界拓扑下图像闭，但相对于定义域的上确界范数不有界。
+\exerciseitem{baire-no-countable-basis}证明无限维 Banach 空间不可能有可数 Hamel 基。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{ubp-dense-convergence}设 \(T_n\in\mathcal L(X,Y)\)，\(Y\) 完备且 \(\sup_n\|T_n\|<\infty\)。
+若 \(T_nx\) 在稠密子空间 \(D\) 上收敛，证明它在整个 \(X\) 上收敛。此题不要求 \(X\) 完备。
+\end{enumerate}

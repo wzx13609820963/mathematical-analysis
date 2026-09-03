@@ -22,7 +22,7 @@ lualatex main.tex
 .\build-solutions.ps1
 ```
 
-构建脚本连续编译三次，以稳定目录、书签和交叉引用。当前主文件载入3.4版第0—69章及附录A—C，第一卷至第三卷均已完整接入；解答册只载入正文各章习题，参考型附录不另设习题。
+构建脚本连续编译三次，以稳定目录、书签和交叉引用。当前主文件载入3.4版第0—79章及附录A—C，第一至三卷和第四卷第十六编已接入；解答册只载入正文各章习题，参考型附录不另设习题。发布名称明确这一范围，不把尚未完成的第四卷写成全卷。正文另有同内容的 `analysis-vol1-3-vol4-part16-appA-C.pdf`，它只作为解答册跨册链接的 ASCII 目标文件，避免 PDF 文件名编码造成跳转失败。
 
 `analysisbook` 提供两种色彩模式：
 
@@ -46,8 +46,10 @@ lualatex main.tex
 - `chapters/vol3/part12/`：第三卷第十二编第54—58章正文；
 - `chapters/vol3/part13/`：第三卷第十三编第59—63章正文；
 - `chapters/vol3/part14/`：第三卷第十四编第64—69章正文；
+- `chapters/vol3/part15/`：第三卷第十五编第70—74章正文；
+- `chapters/vol4/part16/`：第四卷第十六编第75—79章正文；
 - `solutions.tex`：习题解答册入口，不由教材正文默认载入；
-- `solutions/vol1/`、`solutions/vol2/part6/` 至 `solutions/vol2/part11/`、`solutions/vol3/part12/` 至 `solutions/vol3/part14/`：当前第0—69章全部正式习题的详细解答；路径与正文平行。
+- `solutions/vol1/` 至 `solutions/vol4/part16/`：当前第0—79章全部正式习题的详细解答；卷、编路径与正文平行。
 
 全书正文必须遵守工作区根目录的 `教材写作规范.md`。新增章节前应先完成其中的依赖检查，交付前按单章验收清单复核。
 

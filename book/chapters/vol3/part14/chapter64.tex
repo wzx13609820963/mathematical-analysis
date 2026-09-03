@@ -8,7 +8,14 @@
 
 \section{逐点、几乎处处与本质一致收敛}
 
-设 \(f_n,f\) 为同一测度空间上的可测函数。
+设 \(f_n,f\) 为同一测度空间上几乎处处有限的可测函数；在一个固定零测集
+上可任意补成有限值。对这样的函数 \(h\)，记
+\[
+ \operatorname*{ess\,sup}_{x\in X}|h(x)|
+ =\inf\{M\ge0:\mu(\{|h|>M\})=0\},
+\]
+若右侧集合为空，则其值为 \(+\infty\)。这个量忽略零测集上的点值；第
+\ref{chap:lp-inclusions} 章将用它定义 \(L^\infty\) 范数。
 
 \begin{definition}
 若存在零测集 \(N\)，使
@@ -52,12 +59,12 @@
 
 \begin{proposition}[依测度收敛的度量化]
 \label{prop:convergence-in-measure-metric}
-定义
+在几乎处处相等的、几乎处处有限的可测函数商空间上定义
 \[
  d_\mu(f,g)=\inf\{\varepsilon\in(0,1]:
    \mu(\{|f-g|>\varepsilon\})\le\varepsilon\},
 \]
-若集合为空则令 \(d_\mu(f,g)=1\)。在几乎处处相等的函数商空间上，
+若集合为空则令 \(d_\mu(f,g)=1\)。则
 \(d_\mu\) 是度量，并且
 \[
  d_\mu(f_n,f)\to0
@@ -67,25 +74,44 @@
 \end{proposition}
 
 \begin{proof}
-对称性和正定性直接成立。若
-\(|f-h|>r+s\)，则
-\(|f-g|>r\) 或 \(|g-h|>s\)，所以
+对称性由定义得到。若 \(d_\mu(f,g)=0\)，则对每个 \(k\) 可取
+\(0<\eta_k<1/k\)，使
+\(\mu(\{|f-g|>\eta_k\})\le\eta_k\)。固定 \(m\)，当 \(k\) 足够大时
+\(\eta_k<1/m\)，因而
 \[
- \mu(\{|f-h|>r+s\})
- \le\mu(\{|f-g|>r\})+\mu(\{|g-h|>s\}).
+ \mu(\{|f-g|>1/m\})
+ \le\mu(\{|f-g|>\eta_k\})\le\eta_k.
 \]
-让 \(r,s\) 分别略大于两个距离。若 \(r+s>1\)，则由
-\(d_\mu\le1<r+s\) 结论直接成立；若 \(r+s\le1\)，上面的集合估计给出
-三角不等式。
+令 \(k\to\infty\)，得到该集合零测。再对 \(m\) 取可数并，便知
+\(f=g\) a.e.；反向结论由定义得到。
 
-若 \(d_\mu(f_n,f)\to0\)，给定 \(\varepsilon>0\)，取
-\(\delta<\varepsilon\) 且最终 \(d_\mu(f_n,f)<\delta\)，便有某
-\(\eta<\delta\) 使
+现证三角不等式。若
+\(d_\mu(f,g)+d_\mu(g,h)\ge1\)，则结论由 \(d_\mu\le1\) 得到。否则取
+\(r>d_\mu(f,g)\)、\(s>d_\mu(g,h)\)，并使 \(r+s<1\)。由下确界定义，可取
+\(0<r'<r\)、\(0<s'<s\)，满足
+\[
+ \mu(\{|f-g|>r'\})\le r',\qquad
+ \mu(\{|g-h|>s'\})\le s'.
+\]
+又因 \(|f-h|>r'+s'\) 时，
+\(|f-g|>r'\) 或 \(|g-h|>s'\)，所以
+\[
+ \mu(\{|f-h|>r'+s'\})
+ \le r'+s'.
+\]
+故 \(d_\mu(f,h)\le r'+s'<r+s\)。令 \(r,s\) 分别下降到前两个距离，
+得到三角不等式。
+
+若 \(d_\mu(f_n,f)\to0\)，给定阈值 \(\varepsilon>0\) 和
+\(\alpha>0\)，取 \(0<\delta<\min\{1,\varepsilon,\alpha\}\)。最终
+\(d_\mu(f_n,f)<\delta\)，因而有某
+\(0<\eta<\delta\) 使
 \[
  \mu(\{|f_n-f|>\varepsilon\})
  \le\mu(\{|f_n-f|>\eta\})\le\eta<\delta.
 \]
-反之，若依测度收敛，给定 \(\delta>0\)，最终
+于是左侧最终小于任意给定的 \(\alpha\)，即依测度收敛。反之，若依测度
+收敛，给定 \(0<\delta\le1\)，最终
 \(\mu(\{|f_n-f|>\delta\})\le\delta\)，故
 \(d_\mu(f_n,f)\le\delta\)。
 \end{proof}
@@ -189,12 +215,16 @@
 \[
  \int|f_n-f|^p\le a_n^p\mu(X)\to0,
 \]
-得到 (ii)。对 (iii)，Hölder 不等式给出
+得到 (ii)。对 (iii)，令 \(h_n=f_n-f\)。固定 \(\rho>0\)，在
+\(\{|h_n|>\rho\}\) 上有
+\(|h_n|^p\le\rho^{p-q}|h_n|^q\)，所以
 \[
- \|h\|_p\le\mu(X)^{1/p-1/q}\|h\|_q;
+ \int|h_n|^p
+ \le \rho^p\mu(X)+\rho^{p-q}\int|h_n|^q.
 \]
-第 \ref{chap:lp-spaces} 章将系统证明这一不等式，也可在此先对
-\(|h|^p\cdot1\) 使用相应指数的 Hölder 不等式。
+先令 \(n\to\infty\)，再令 \(\rho\downarrow0\)，得到
+\(\int|h_n|^p\to0\)。这个证明只给收敛蕴含；带最优常数的范数估计列在
+习题中，第 \ref{chap:lp-inclusions} 章将在 Hölder 不等式之后再次使用它。
 \end{proof}
 
 \section{反向命题的反例}

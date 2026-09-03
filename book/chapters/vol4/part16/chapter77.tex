@@ -1,0 +1,221 @@
+\chapter{Hahn--Banach 定理}
+\label{chap:hahn-banach}
+
+在有限维欧氏空间中，一个非零向量总能被某个线性坐标检测到，点到子空间的
+距离也能由垂直方向读出。一般赋范空间没有预先给定的内积，连续线性泛函
+是否足够多，因而需要证明。Hahn--Banach 定理允许把子空间上的一个泛函
+保持控制地延拓到全空间。它先解决存在问题，然后给出范数、距离和凸集的
+分离刻画。这里不要求空间完备。
+
+\section{次线性控制}
+
+实向量空间 \(X\) 上函数 \(p:X\to\R\) 称为次线性，若
+\(p(x+y)\le p(x)+p(y)\)，且 \(p(tx)=tp(x)\) 对 \(t\ge0\) 成立。
+它可以不对称，也可以取负值；范数是其中一个特例。
+
+\begin{theorem}[实 Hahn--Banach 定理]\label{thm:hahn-banach-real}
+设 \(M\subset X\) 为实线性子空间，\(f:M\to\R\) 线性且 \(f\le p\)。
+则存在全空间上的线性泛函 \(F\)，满足 \(F|_M=f,\ F\le p\)。
+\end{theorem}
+\begin{proof}
+先只增加一个方向 \(x_0\notin M\)。延拓必形如
+\(F(m+tx_0)=f(m)+tc\)。它受 \(p\) 控制所需的全部条件等价于
+\[
+ \sup_{m\in M}\bigl(f(m)-p(m-x_0)\bigr)
+ \le c\le
+ \inf_{m\in M}\bigl(p(m+x_0)-f(m)\bigr).
+\]
+左侧不超过右侧，因为对任意 \(m,n\in M\)，
+\[
+ f(m)+f(n)=f(m+n)\le p(m+n)
+ \le p(m-x_0)+p(n+x_0).
+\]
+取 \(m=0\) 或 \(n=0\) 还表明这两个界不会使可选区间为空或无有限点。
+选一个 \(c\) 后，对 \(t>0\) 缩放到系数 \(1\)，对 \(t<0\) 缩放到系数
+\(-1\)，即可验证所有控制条件。
+
+考虑全部受 \(p\) 控制并延拓 \(f\) 的二元组 \((D,g)\)，按延拓关系排序。
+一条链的定义域之并是子空间，各泛函在重合处相同，其并给出仍受 \(p\)
+控制的线性泛函，故链有上界。由 Zorn 引理存在极大延拓；若定义域不是
+\(X\)，一步延拓还可增加方向，矛盾。
+\end{proof}
+
+Zorn 引理在这里用于处理可能没有可数基的空间。有限维情形只需有限次
+一步延拓，但不能把无限维情形写成未经证明的“依次延拓到每个方向”。
+
+\section{保持范数的实、复延拓}
+
+若 \(X\) 赋范，\(f\in M^*\)，取 \(p(x)=\|f\|\|x\|\)。
+对 \(x\) 和 \(-x\) 应用控制，得到 \(|F(x)|\le\|f\|\|x\|\)，且由限制知
+\(\|F\|=\|f\|\)。
+
+\begin{theorem}\label{thm:hahn-banach-norm}
+实或复赋范空间的任意子空间上的有界线性泛函，都可等范数延拓到全空间。
+\end{theorem}
+\begin{proof}
+实情形已证。复情形令 \(g=\operatorname{Re}f\)，把空间暂作实向量空间，
+实延拓得 \(G\)，满足 \(|G(x)|\le\|f\|\|x\|\)。令
+\[
+ F(x)=G(x)-iG(ix).
+\]
+实线性与 \(F(ix)=iF(x)\) 保证复线性；在 \(M\) 上
+\(f(x)=g(x)-ig(ix)\)，故它确实延拓 \(f\)。
+对给定 \(x\)，选择 \(|\zeta|=1\) 使 \(\zeta F(x)=|F(x)|\)，便有
+\(|F(x)|=\operatorname{Re}F(\zeta x)=G(\zeta x)\le\|f\|\|x\|\)。
+这一步的相位选择避免了对实、虚部分别估计所产生的额外常数。
+\end{proof}
+
+\section{对偶与范数}
+
+\begin{corollary}\label{cor:dual-norming}
+对每个非零 \(x\in X\)，存在 \(\phi\in X^*\)，使
+\(\|\phi\|=1,\ \phi(x)=\|x\|\)。因此
+\[
+ \|x\|=\sup_{\|\phi\|\le1}|\phi(x)|.
+\]
+\end{corollary}
+\begin{proof}
+在一维子空间上定义 \(f(\lambda x)=\lambda\|x\|\)，其范数为一；
+等范数延拓即可。所有范数至多一的泛函给出上界，所构造的泛函给等号。
+\end{proof}
+
+这个结论为每个向量找一个适合它的泛函，并不声称每个泛函都在单位球上
+取得范数。量词顺序不能互换。例如在 \(c_0\) 上，
+\(\phi(x)=\sum_{n\ge1}2^{-n}x_n\) 的范数为一，但不在闭单位球取得模一：
+等号将迫使所有 \(x_n\) 具有同一模一相位，与 \(x_n\to0\) 矛盾。
+
+\section{点与闭集的分离}
+
+\subsection{点到子空间的距离}
+
+\begin{proposition}\label{prop:subspace-distance-dual}
+若 \(M\) 是闭线性子空间，则
+\[
+ d(x,M)=\sup\{|\phi(x)|:\phi\in X^*,\ \|\phi\|\le1,\ \phi|_M=0\}.
+\]
+\end{proposition}
+\begin{proof}
+上界由 \(|\phi(x)|=|\phi(x-m)|\le\|x-m\|\) 对所有 \(m\in M\) 成立。
+对下界，在赋范商空间 \(X/M\) 对 \([x]\) 使用范数刻画，再复合自然映射
+得到所需泛函。当 \(x\in M\) 时两边均零。
+\end{proof}
+
+\subsection{闭凸集}
+
+\begin{theorem}[严格分离]\label{thm:closed-convex-separation}
+设 \(C\) 为非空闭凸集，\(x_0\notin C\)。则存在连续线性泛函 \(\phi\) 和
+实数 \(\alpha\)，满足
+\[
+ \operatorname{Re}\phi(c)\le\alpha<\operatorname{Re}\phi(x_0)
+ \quad(c\in C).
+\]
+实空间中可去掉实部符号。
+\end{theorem}
+\begin{proof}
+先作实空间。取 \(0<\varepsilon<d(x_0,C)\)，令
+\(U=C+B^\circ(0,\varepsilon)\)，选 \(u_0\in U\)。开凸集 \(D=U-u_0\)
+含零，定义其 Minkowski 泛函
+\(p(x)=\inf\{t>0:x\in tD\}\)。若 \(B(0,r)\subset D\)，则
+\(p(x)\le\|x\|/r\)，所以它有限且非负。正齐次性由换元得到。
+若 \(x\in sD,\ y\in tD\)，其中 \(s,t>0\)，凸性给
+\[
+ \frac{x+y}{s+t}
+ =\frac{s}{s+t}\frac{x}{s}+\frac{t}{s+t}\frac{y}{t}\in D.
+\]
+令 \(s,t\) 分别下降到两者的下确界，得次可加性。
+若 \(p(x)<1\)，可取 \(t<1\) 使 \(x\in tD\subset D\)。
+若 \(x\in D\) 且 \(x\ne0\)，开性保证某个 \(\lambda>1\) 满足
+\(\lambda x\in D\)，故 \(p(x)\le1/\lambda<1\)；零点也满足此结论。
+因此 \(D=\{p<1\}\)。
+
+令 \(z=x_0-u_0\notin D\)，于是 \(p(z)\ge1\)。在 \(\R z\) 上定义
+\(g(tz)=tp(z)\)。正 \(t\) 满足等号；负 \(t\) 由
+\(-p(z)\le p(-z)\) 保证 \(g\le p\)。实 Hahn--Banach 延拓给 \(G\le p\)。
+对正负向量使用上述范数界得 \(|G(x)|\le\|x\|/r\)，故连续，且 \(G\ne0\)。
+对 \(u\in U\)，\(G(u-u_0)<1\le G(x_0-u_0)\)。
+将 \(u=c+h,\ \|h\|<\varepsilon\) 代入并取 \(h\) 的上确界，
+得 \(G(c)+\varepsilon\|G\|\le G(x_0)\)。取两者间的实数 \(\alpha\) 即可。
+复空间先按实空间分离，再令 \(\phi(x)=G(x)-iG(ix)\)，其实部为 \(G\)。
+\end{proof}
+
+\section{零化子与商对偶}
+
+定义 \(M^\perp=\{\phi\in X^*:\phi|_M=0\}\)，称为 \(M\) 的零化子。
+它是 \(X^*\) 的闭子空间。若 \(M\) 闭，则
+\[
+ (X/M)^*\longrightarrow M^\perp,\qquad \psi\longmapsto\psi\circ q
+\]
+是等距同构。它显然单射且像落在零化子；反向对 \(\phi\in M^\perp\)
+定义 \(\psi([x])=\phi(x)\)，因 \(\phi\) 在 \(M\) 上为零而良定义，并且
+\(|\phi(x)|\le\|\phi\|\inf_m\|x-m\|\)。两个方向的范数估计给等距性。
+“忽略子空间里的方向”在商空间中是合并元素，在对偶中则是限制允许的检测泛函。
+
+\section{\texorpdfstring{\(L^p\)}{Lp} 的对偶}
+
+本节取 \(\sigma\)-有限测度空间，\(1\le p<\infty\)，令 \(q\) 为共轭指数。
+对实、复标量统一使用双线性配对
+\(\langle f,g\rangle=\int fg\,d\mu\)。复情形这里不加共轭；后面内积采用
+半双线性时须另作区分。
+
+\begin{theorem}\label{thm:lp-duality}
+每个 \(L\in(L^p(\mu))^*\) 唯一表示为
+\[
+ L(f)=\int fg\,d\mu,\qquad g\in L^q(\mu),\qquad \|L\|=\|g\|_q.
+\]
+\end{theorem}
+\begin{proof}
+由 Hölder，任何 \(g\in L^q\) 都产生范数不超过 \(\|g\|_q\) 的泛函。
+反向先在有限测度块 \(E\) 上定义 \(\nu(A)=L(\mathbf1_A)\)，\(A\subset E\)。
+不交并的指示函数在 \(L^p\) 中由有限和收敛，故 \(\nu\) 可数可加。
+对任意有限分割 \(A_j\)，选模一系数 \(\zeta_j\) 使
+\(\zeta_j\nu(A_j)=|\nu(A_j)|\)，得
+\[
+ \sum_j|\nu(A_j)|
+ =L\left(\sum_j\zeta_j\mathbf1_{A_j}\right)
+ \le\|L\|\mu(E)^{1/p}.
+\]
+故实或复测度均有有限变差，且 \(\nu\ll\mu\)。Radon--Nikodym 定理给密度。
+用一列递增有限测度块穷尽 \(X\)，唯一性保证密度相容，可拼为可测函数 \(g\)。
+在每块上先对简单函数、再对有界函数取一致简单逼近，得 \(L(h)=\int hg\)。
+
+若 \(1<p<\infty\)，在有限测度块与 \(\{|g|\le N\}\) 的交上，取
+\(h=\overline g\,|g|^{q-2}\)，在 \(g=0\) 处规定为零，其余处补零。
+这是有界有限支撑函数，且 \(|h|^p=|g|^q\)。记该截断集上
+\(A=\int|g|^q\)，则 \(A\le\|L\|A^{1/p}\)，故 \(A^{1/q}\le\|L\|\)。
+增加块与 \(N\)，由单调收敛得 \(g\in L^q,\ \|g\|_q\le\|L\|\)。
+若 \(p=1\)，对有限测度集合 \(A\subset\{|g|>\|L\|+\eta\}\)，取
+\(h=\overline g/|g|\mathbf1_A\)，得到
+\((\|L\|+\eta)\mu(A)\le L(h)\le\|L\|\mu(A)\)，故此超水平集零测。
+于是 \(g\in L^\infty\) 且具有同样的范数上界。
+
+最后由有限测度支撑简单函数在 \(L^p\) 中稠密，等式延拓到全部 \(f\)。
+唯一性可在有限测度块用相位与超水平集检验密度之差，或直接用 RN 唯一性。
+两侧范数估计合起来得到等号。
+\end{proof}
+
+端点 \(p=\infty\) 不服从同一公式。在 \(\ell^\infty\) 的收敛数列子空间上，
+取极限泛函；其范数为一，由 Hahn--Banach 延拓到 \(\ell^\infty\)。
+延拓泛函在 \(c_0\) 上为零，却在常数列 \(\mathbf1\) 上为一。如果它由
+\(g\in\ell^1\) 表示，逐个代入 \(e_n\) 得 \(g_n=0\)，再代入 \(\mathbf1\)
+便矛盾。因此 \((\ell^\infty)^*\) 严格大于由 \(\ell^1\) 给出的积分泛函。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{hb-dual-separates}证明 \(x\ne y\) 时存在 \(\phi\in X^*\) 满足 \(\phi(x)\ne\phi(y)\)。
+\exerciseitem{hb-nonclosed-subspace}若 \(x\in\overline M\setminus M\)，证明不存在连续泛函在 \(M\) 上为零而在 \(x\) 上非零。
+\exerciseitem{hb-distance-hyperplane}若 \(0\ne\phi\in X^*\)，证明 \(d(x,\ker\phi)=|\phi(x)|/\|\phi\|\)。
+\exerciseitem{hb-dual-completion}证明 \(X\) 与其完备化具有等距同构的连续对偶。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{dual-czero-lone}证明 \(c_0^*\) 与 \(\ell^1\) 等距同构。
+\exerciseitem{dual-lone-linfty}用直接数列论证证明 \((\ell^1)^*=\ell^\infty\)。
+\exerciseitem{hb-norm-nonattainment}详细证明正文的 \(c_0\) 泛函 \(\sum2^{-n}x_n\) 不取得范数。
+\exerciseitem{hb-convex-norm-closure}证明凸集 \(C\) 的范数闭包等于所有包含 \(C\) 的闭半空间之交。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{dual-adjoint-norm}对 \(T\in\mathcal L(X,Y)\)，定义 \(T^*:Y^*\to X^*\) 为 \(T^*\phi=\phi\circ T\)。证明 \(\|T^*\|=\|T\|\)，并证明 \(\ker T^*=(\overline{T(X)})^\perp\)。
+\end{enumerate}

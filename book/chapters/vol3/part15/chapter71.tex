@@ -1,0 +1,150 @@
+\chapter{绝对连续函数}
+\label{chap:absolute-continuity}
+
+一致连续性控制一段短区间上的函数增量。但在积分公式中，需要将许多分段
+的误差同时相加。如果每段误差都小，而段数没有上界，总误差仍可能很大。
+绝对连续性要求一族互不重叠区间的总长度小时，函数在这些区间上的总变化
+也小。这正是以后把导数重新积分时需要的控制。
+
+\section{区间族的增量}
+
+\begin{definition}
+实函数 \(f:[a,b]\to\R\) 称为绝对连续，若对每个 \(\varepsilon>0\)，存在
+\(\delta>0\)，使任意有限族内部两两不交的区间 \([u_j,v_j]\subset[a,b]\) 满足
+\[
+ \sum_j(v_j-u_j)<\delta
+ \quad\Longrightarrow\quad
+ \sum_j|f(v_j)-f(u_j)|<\varepsilon.
+\]
+记这类函数为 \(AC[a,b]\)。
+\end{definition}
+
+允许相邻区间共享端点不改变定义；若采用完全不交的闭区间，可先缩短端点，
+再由定义对单个区间推出的连续性取极限。这里 \(\delta\) 只依赖总误差
+\(\varepsilon\)，不依赖区间的个数。将“总长度”改成“每段长度”，得到的将
+不是同一个条件。
+
+\begin{proposition}\label{prop:ac-bv}
+绝对连续函数一致连续且有界变差。有限线性组合仍绝对连续。
+\end{proposition}
+\begin{proof}
+只用一个区间就得到一致连续性。取绝对连续定义中对应误差 \(1\) 的
+\(\delta\)，把 \([a,b]\) 固定分成 \(M\) 个长度小于 \(\delta\) 的区间。
+任意分割加细到包含这些端点后，每个固定区间内的全部增量绝对值之和小于
+\(1\)，因此 \(V_a^b(f)\le M\)。线性组合的结论由三角不等式及分别分配误差得到。
+\end{proof}
+
+实际上定义还控制各短区间上的变差，而不只是首尾增量。若总长度小于
+\(\delta\)，在每个区间内部任取有限分割，全部小区间仍是定义允许的区间族，
+所以
+\[
+ \sum_j V_{u_j}^{v_j}(f)\le\varepsilon.
+\]
+若希望严格小于给定误差，开始时使用其一半即可。这说明累计变差函数
+\(v(x)=V_a^x(f)\) 也绝对连续；规范 Jordan 分解的两个递增部分随之绝对连续。
+
+\section{几种连续性之间}
+
+\subsection{Lipschitz 函数}
+
+若 \(|f(y)-f(x)|\le L|y-x|\)，则对任意区间族求和得
+\(\sum|\Delta f|\le L\sum\Delta x\)，故 Lipschitz 蕴含绝对连续。
+反向不成立。取 \(f(x)=x^\alpha\)，\(0<\alpha<1,\ 0\le x\le1\)。
+在正端点上直接积分得到
+\[
+ v^\alpha-u^\alpha=\int_u^v\alpha t^{\alpha-1}\,dt,
+\]
+当 \(u=0\) 时由反常积分极限仍成立。因为被积函数在 \((0,1)\) 可积，
+\theoremref{thm:absolute-continuity-of-integral}控制任意小总长度区间族，
+故 \(f\) 绝对连续；但 \(f(h)/h=h^{\alpha-1}\to\infty\)，它不是 Lipschitz。
+
+\subsection{有界变差并不保证连续}
+
+阶跃函数属于 BV 而不连续；连续 BV 函数也未必绝对连续。另一方面，
+\chapterref{chap:bounded-variation}中的 \(x\sin(1/x)\) 在紧区间上一致连续，
+却没有有限总变差。因而一致连续和 BV 不能互相推出，而绝对连续同时蕴含二者。
+两种必要条件相加仍不成为充分条件，以下构造说明这一点。
+
+\section{Cantor 函数}
+
+\subsection{逐段构造}
+
+令 \(K_n\) 为三分 Cantor 构造第 \(n\) 步留下的 \(2^n\) 个闭区间之并，
+\(K=\bigcap_nK_n\)。从 \(C_0(x)=x\) 出发，在每个尚未删去的区间上，把原来
+线性增长的函数改为：左三分之一完成原增量的一半，中三分之一保持常数，
+右三分之一完成另一半。区间外保持原值，得到 \(C_{n+1}\)。
+
+每个 \(C_n\) 连续递增，端点值为 \(0,1\)，且每个第 \(n\) 步基本区间上的
+总增量是 \(2^{-n}\)。以后的所有修改都留在该区间的原有值域内，因此
+\(\|C_m-C_n\|_\infty\le2^{-n}\) 对 \(m\ge n\) 成立。于是 \(C_n\) 一致收敛
+到连续递增函数 \(C\)，称为 Cantor 函数。这个构造同时避免了三进展开不唯一
+所带来的端点约定问题。
+
+\begin{proposition}\label{prop:cantor-function}
+Cantor 函数满足
+\[
+ C(0)=0,\quad C(1)=1,\quad V_0^1(C)=1,\quad C'=0\ \text{几乎处处},
+\]
+但不绝对连续。
+\end{proposition}
+\begin{proof}
+前面三项来自递增性与端点值。若 \(x\notin K\)，它位于某个被删去的开区间，
+从有限某步起所有 \(C_n\) 都在那里恒定，故 \(C\) 在 \(x\) 附近恒定。
+又 \(m(K)=\lim_n(2/3)^n=0\)，所以 \(C'=0\) 几乎处处。
+
+在第 \(n\) 步的全部基本区间上，长度之和为 \((2/3)^n\to0\)，而
+\(C\) 的增量之和始终为 \(2^n2^{-n}=1\)。取绝对连续定义中的
+\(\varepsilon=1/2\)，任何 \(\delta\) 都会被充分大的 \(n\) 否定。
+\end{proof}
+
+经典中值定理要求整个开区间每一点都可导。这里例外集合虽然零测，仍不能
+删除这一假设后照用中值定理。几乎处处陈述忽略的是长度，不是函数可能
+积累变化的位置。Cantor 函数把全部增长留在一个零测集上，而导数只在其
+补集上提供了零增长的信息。
+
+\section{Lusin \texorpdfstring{\(N\)}{N} 性质}
+
+\begin{definition}
+函数具有 Lusin \(N\) 性质，指对定义域内任意零测集 \(E\)，像集 \(f(E)\)
+也为零测集。这里可先用外测度写 \(m^*(f(E))=0\)，从而同时保证可测性。
+\end{definition}
+
+\begin{theorem}\label{thm:ac-lusin-n}
+绝对连续函数具有 Lusin \(N\) 性质。
+\end{theorem}
+\begin{proof}
+固定 \(\varepsilon>0\)，取控制总变差的 \(\delta\)。零测集 \(E\) 可由开集
+\(G\) 覆盖，且 \(m(G)<\delta\)。将 \(G\cap[a,b]\) 分解为至多可数个相对开
+区间 \(J_j\)。先在有限多个 \(J_j\) 中取紧子区间，绝对连续性给它们的变差
+总和至多 \(\varepsilon\)；穷尽各开区间并增加个数，仍有
+\(\sum_j\operatorname{osc}_{J_j}f\le\varepsilon\)。每个 \(f(E\cap J_j)\)
+包含于长度为该振幅的区间中，故 \(m^*(f(E))\le\varepsilon\)。可能遗漏的
+定义域端点的像只有两个点，不影响外测度。令 \(\varepsilon\downarrow0\)。
+\end{proof}
+
+Cantor 函数恰好违反此性质。连续性和端点值保证 \(C([0,1])=[0,1]\)，而
+被删除开区间上的常值也在其端点取得；这些端点属于 \(K\)。故 \(C(K)=[0,1]\)。
+这给出了同一反例的另一种说明：输入中的零测集可以被连续函数扩张成正长度
+的集合，绝对连续性排除了这种现象。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{ac-restriction-gluing}证明绝对连续性可限制到子区间；若 \(f\) 在 \([a,c]\)、\([c,b]\) 上都绝对连续，则在 \([a,b]\) 上也绝对连续。
+\exerciseitem{ac-product}证明两个绝对连续函数的乘积绝对连续。
+\exerciseitem{ac-lipschitz-outer}若 \(f\in AC[a,b]\)，\(\phi\) 在其值域上 Lipschitz，证明 \(\phi\circ f\in AC[a,b]\)。
+\exerciseitem{ac-variation-parts}证明 AC 函数的累计变差与规范 Jordan 部分均绝对连续。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ac-uniform-limit-failure}用 Cantor 函数说明绝对连续函数的一致极限未必绝对连续。
+\exerciseitem{ac-common-modulus}若 \(f_n\to f\) 逐点，且绝对连续定义中的 \(\delta\) 可对全部 \(n\) 共用，证明 \(f\) 绝对连续。
+\exerciseitem{cantor-functional-equations}证明 \(C(x)=\frac12C(3x)\) 于 \([0,1/3]\)，\(C=1/2\) 于 \([1/3,2/3]\)，且 \(C(x)=\frac12+\frac12C(3x-2)\) 于 \([2/3,1]\)。
+\exerciseitem{cantor-not-lipschitz}用 \(C(3^{-n})=2^{-n}\) 证明 \(C\) 不是 Lipschitz。
+\exerciseitem{ac-not-closed-sup}证明 \(AC[0,1]\) 是 \(C[0,1]\) 中稠密而不闭的线性子空间。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{cantor-strict-increase}令 \(F(x)=x+C(x)\)。证明 \(F\) 连续严格递增，\(F'=1\) 几乎处处，其逆函数为 \(1\)-Lipschitz，而 \(F\) 不绝对连续。
+\end{enumerate}

@@ -1,0 +1,275 @@
+\chapter{有界变差函数}
+\label{chap:bounded-variation}
+
+对单调函数而言，整个区间上的增量等于各段增量之和；函数上下振荡时，正负
+增量却可能互相抵消。若只看 \(f(b)-f(a)\)，就无法知道这种振荡累积了多少。
+例如一个回到起点的折线函数可以有很长的图像，而首尾增量为零。本章把各段
+增量的绝对值相加，再让分割任意加细。这一数量既能描述不光滑函数，也能
+解释为什么单调性对可导性有如此强的约束。
+
+本章函数均取实值，定义在非退化紧区间 \([a,b]\) 上，测度均指 Lebesgue 测度。
+“几乎处处可导”只讨论内点，端点对测度结论没有影响。
+
+\section{总变差}
+
+\begin{definition}
+对分割 \(P:a=t_0<\cdots<t_n=b\)，令
+\[
+ V(f,P)=\sum_{j=1}^n|f(t_j)-f(t_{j-1})|,\qquad
+ V_a^b(f)=\sup_P V(f,P).
+\]
+若 \(V_a^b(f)<\infty\)，称 \(f\) 为有界变差函数，记 \(f\in BV[a,b]\)。
+退化区间的变差规定为零。
+\end{definition}
+
+加细分割不会减小这个和，因为 \(|u-w|\le |u-v|+|v-w|\)。取上确界
+消除了对某一种采样方式的依赖；即使极细的等距网格遗漏了孤立点的异常
+取值，允许任意分割仍能将该点计入。
+
+\begin{proposition}\label{prop:variation-additive}
+若 \(a<c<b\)，则 \(V_a^b(f)=V_a^c(f)+V_c^b(f)\)，等式允许无穷值。
+并且
+\[
+ V_a^b(f+g)\le V_a^b(f)+V_a^b(g),\qquad
+ V_a^b(\lambda f)=|\lambda|V_a^b(f).
+\]
+\end{proposition}
+\begin{proof}
+将任意分割加入 \(c\)，其变差和不减，且分成左右两个和，因此得到不超过
+右侧的估计。反过来，分别取左右的分割，再合并成全区间的分割。对两侧
+独立取上确界即得反向不等式。其余两式先对有限和使用三角不等式与齐次性，
+再取上确界。
+\end{proof}
+
+单调递增函数的总变差为 \(f(b)-f(a)\)。若 \(f\) 是 \(L\)-Lipschitz
+函数，则 \(V_a^b(f)\le L(b-a)\)。有界变差也蕴含有界，因为
+\(|f(x)|\le |f(a)|+V_a^b(f)\)。但有界性不控制往返次数：
+在 \([0,1]\) 上令 \(f(0)=0,\ f(x)=x\sin(1/x)\)。它连续，沿依次相邻的
+正负峰值取分割，所得变差和含有一个与调和级数同阶的发散和，故不属于 BV。
+
+\section{Jordan 分解}
+
+把截至 \(x\) 的累计变差记为 \(v(x)=V_a^x(f)\)。上一命题给出
+\[
+ v(y)-v(x)=V_x^y(f)\ge |f(y)-f(x)|\quad(x<y).
+\]
+所以总变差的增长足以同时控制函数的上升与下降。
+
+\begin{theorem}[函数的 Jordan 分解]\label{thm:bv-jordan}
+函数 \(f\) 属于 \(BV[a,b]\) 当且仅当它是两个有界递增函数之差。
+可规范地取
+\[
+ p(x)=\tfrac12\bigl(v(x)+f(x)-f(a)\bigr),\quad
+ n(x)=\tfrac12\bigl(v(x)-f(x)+f(a)\bigr),\quad
+ f=f(a)+p-n.
+\]
+这里 \(p(a)=n(a)=0\)，且 \(p,n\) 均递增。
+\end{theorem}
+\begin{proof}
+由上述增量不等式，\(p(y)-p(x)\) 与 \(n(y)-n(x)\) 都非负，且二者之和
+为 \(v(y)-v(x)\)。反之，若 \(f=u-w\)，其中 \(u,w\) 递增，则每个分割上
+\[
+ V(f,P)\le u(b)-u(a)+w(b)-w(a)<\infty.
+\]
+这也说明规范分解的最小性：对任意这种分解及任意 \(x<y\)，
+\(V_x^y(f)\le\Delta u+\Delta w\) 与 \(\Delta f=\Delta u-\Delta w\)
+相加、相减，给出 \(\Delta p\le\Delta u,\ \Delta n\le\Delta w\)。
+\end{proof}
+
+一般分解不唯一，同时给两个递增部分加上同一个递增函数不会改变差。
+最小性是规范分解有用的原因；它防止在两个部分中人为加入相互抵消的变差。
+
+\section{左右极限}
+
+有界递增函数在内点的左右极限分别是左侧值的上确界和右侧值的下确界。
+Jordan 分解因此保证每个 BV 函数都有有限左右极限，但函数在点上的取值
+未必等于其中任何一个。
+
+\begin{proposition}
+BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，有
+\[
+ \sum_j\bigl(|f(x_j)-f(x_j-)|+|f(x_j+)-f(x_j)|\bigr)\le V_a^b(f).
+\]
+\end{proposition}
+\begin{proof}
+在各点左右选互不相交的小区间，把所有端点与 \(x_j\) 放入一个分割，
+再让端点趋于 \(x_j\)，即得不等式。因此括号内大于 \(1/k\) 的点至多
+\(kV_a^b(f)\) 个。每个不连续内点至少属于这样一个集合；再加两个端点。
+\end{proof}
+
+例如仅在一个内点取值 \(1\)、其余处为零的函数有总变差 \(2\)。它几乎处处
+等于零，却不是零变差函数。因此本章 BV 首先指逐点函数，而非 \(L^1\)
+等价类。后面把 BV 与测度联系时，将明确选择右连续代表。
+
+\section{单调函数几乎处处可导}
+
+\subsection{细覆盖的互不相交选取}
+
+差商在不同点需要不同大小的区间，固定网格不足以同时捕捉这些局部信息。
+以下覆盖引理允许区间随点而定，并把它们选成可求和的一族。
+
+\begin{lemma}[一维 Vitali 细覆盖]\label{lem:vitali-fine-intervals}
+设 \(E\) 有界，\(G\supset E\) 是有界开集。一族正长度闭区间包含于 \(G\)，
+且每个 \(x\in E\) 都属于其中任意小的区间。则可选有限或可数个两两不交
+区间 \(I_j\)，使 \(m^*(E\setminus\bigcup_j I_j)=0\)。
+\end{lemma}
+\begin{proof}
+每次从与已选区间不交的候选中，选长度大于剩余长度上确界一半的区间。
+若无候选即停止。所选长度之和不超过 \(m(G)\)，故无限情形下长度趋零。
+令 \(x\in E\setminus\bigcup_jI_j\)。给定 \(N\)，前 \(N\) 个闭区间离
+\(x\) 有正距离，可选含 \(x\) 的候选 \(J\) 与它们不交。它不能永远留下，
+否则以后每个所选长度都大于 \(|J|/2\)。所以它在某一步与 \(I_k\)
+相交而被排除，其中 \(k>N\) 且 \(|J|\le2|I_k|\)。于是 \(J\subset5I_k\)，
+这里 \(5I_k\) 表示同中心、五倍长的区间。故
+\[
+ m^*(E\setminus\bigcup_jI_j)\le5\sum_{k>N}|I_k|\longrightarrow0.
+\]
+有限停止时若仍有未覆盖点，同样可以在该点取与全部已选区间不交的小区间，
+与停止条件矛盾。
+\end{proof}
+
+\subsection{上、下斜率的比较}
+
+\begin{theorem}[Lebesgue 单调函数可导定理]\label{thm:monotone-ae-derivative}
+有界递增函数 \(f:[a,b]\to\R\) 几乎处处具有有限导数，并且
+\[
+ f'\ge0\ \text{几乎处处},\qquad \int_a^b f'\,dx\le f(b)-f(a).
+\]
+导数在不存在处补成零后视为可测函数。
+\end{theorem}
+\begin{proof}
+对内点 \(x\)，考察所有满足 \(u<x<v,\ u,v\in\Q\cap(a,b)\) 且
+\(v-u<r\) 的斜率 \(s(u,v)=(f(v)-f(u))/(v-u)\)。令这些斜率的下确界、
+上确界在 \(r\downarrow0\) 时的极限为 \(L(x),U(x)\)。它们可测：
+每个阈值集合由至多可数个有理端点区间的并、交表示。并且 \(0\le L\le U\)。
+
+先证一个局部估计。若可测集 \(E\subset(c,d)\subset(a,b)\) 上 \(U>b_0>0\)，
+则斜率大于 \(b_0\) 的有理端点区间细覆盖 \(E\)。用引理选不交区间并求和，
+单调性给
+\[
+ b_0m(E)\le\sum_j(f(v_j)-f(u_j))\le f(d)-f(c).
+\]
+令 \(b_0\to\infty\)，再穷尽 \((a,b)\)，可知 \(U=\infty\) 的集合为零测集。
+
+固定有理数 \(0<a_0<b_0\)，设 \(E=\{L<a_0<b_0<U\}\)。
+取有界开集 \(G\subset(a,b)\) 包含 \(E\)，使 \(m(G)<m(E)+\eta\)。
+斜率小于 \(a_0\) 且包含于 \(G\) 的区间细覆盖 \(E\)，选出不交的 \(I_j=[u_j,v_j]\)。
+在每个 \((u_j,v_j)\) 中使用刚才的高斜率估计，忽略至多可数个端点，得
+\[
+ b_0m(E)\le\sum_j(f(v_j)-f(u_j))
+ \le a_0\sum_j|I_j|\le a_0(m(E)+\eta).
+\]
+令 \(\eta\downarrow0\)，得到 \(m(E)=0\)。对所有有理阈值取并，说明
+\(L=U<\infty\) 几乎处处。
+
+还需把区间斜率还原为通常导数。排除 \(f\) 的至多可数个不连续点。
+在其余点 \(x\)，若 \(L(x)=U(x)=d\)，则所有充分短的有理端点区间斜率
+都在 \(d\pm\varepsilon\) 之间。对 \(h>0\)，用有理端点从外包住
+\([x,x+h]\)，并使多出的长度为 \(o(h)\)；单调性给右差商的上界。
+对下界，从 \(x\) 左侧取 \(u\)，利用 \(f\) 在 \(x\) 连续使
+\(f(x)-f(u)=o(h)\)，再取 \(x+h\) 左侧的有理 \(v\)，使
+\(x+h-v=o(h)\)。此时
+\[
+ f(x+h)-f(x)\ge f(v)-f(u)-(f(x)-f(u)).
+\]
+相除后分别得到上极限不超过 \(d+\varepsilon\)、下极限不小于
+\(d-\varepsilon\)。左差商同理用内外包区间夹住。故 \(f'(x)=d\)。
+
+最后，对 \(0<h<b-a\)，非负差商在 \([a,b-h]\) 上满足
+\[
+ \int_a^{b-h}\frac{f(x+h)-f(x)}h\,dx
+ =\frac1h\left(\int_{b-h}^bf-\int_a^{a+h}f\right)
+ \le f(b)-f(a).
+\]
+将差商在余下小区间补零，沿 \(h\downarrow0\) 用 Fatou 引理，得到积分估计。
+可测性也可由这列差商的极限得到。
+\end{proof}
+
+这里有限总增量只给出导数积分的上界，尚没有得到等号。单调函数可以把一部分
+增长集中在零测集上；下一章的 Cantor 函数将给出连续的这种例子。
+
+\section{BV 函数的导数}
+
+\begin{corollary}\label{cor:bv-derivative-integrable}
+若 \(f\in BV[a,b]\)，则 \(f'\) 几乎处处存在且属于 \(L^1(a,b)\)，并有
+\(\int_a^b|f'|\le V_a^b(f)\)。
+\end{corollary}
+\begin{proof}
+对规范 Jordan 分解的 \(p,n\) 应用上一条定理。在两个零测例外集之外，
+\(f'=p'-n'\)，所以
+\(\int|f'|\le\int p'+\int n'\le p(b)+n(b)=V_a^b(f)\)。
+\end{proof}
+
+不应由此写出 \(f(x)=f(a)+\int_a^x f'\)。阶跃函数已经否定这个推断：
+它的导数几乎处处为零，而函数并非常数。把条件加强为连续仍不足以修复公式。
+
+\section{Riemann--Stieltjes 积分}
+
+\subsection{以增量为权重}
+
+设 \(g\) 有界，\(\alpha\in BV[a,b]\)。对带标记分割定义
+\[
+ S(g,\alpha;P,\xi)=\sum_jg(\xi_j)
+       \bigl(\alpha(t_j)-\alpha(t_{j-1})\bigr),\quad
+ \xi_j\in[t_{j-1},t_j].
+\]
+若当网格长度趋零时，这些和一致于标记的选择而趋于同一数，称其为
+\(\int_a^b g\,d\alpha\)。取 \(\alpha(x)=x\) 即回到 Riemann 积分。
+
+\begin{theorem}\label{thm:continuous-rs-integral}
+若 \(g\) 连续而 \(\alpha\in BV[a,b]\)，则上述积分存在，且
+\[
+ \left|\int_a^b g\,d\alpha\right|\le\|g\|_\infty V_a^b(\alpha).
+\]
+\end{theorem}
+\begin{proof}
+记 \(g\) 的连续模为 \(\omega_g\)。把一个和与其任意加细后的和比较，
+每个小段标记和原标记都在同一原分段内，故两和之差绝对值至多
+\(\omega_g(|P|)V_a^b(\alpha)\)。任意两个细分割用共同加细比较，差至多
+\((\omega_g(|P|)+\omega_g(|Q|))V_a^b(\alpha)\to0\)。
+实数的 Cauchy 完备性保证共同极限存在；估计由各有限和取极限得到。
+\end{proof}
+
+\subsection{连续部分与跳跃部分}
+
+若 \(\alpha\in C^1[a,b]\)，在每个分段用中值定理，所得和与
+\(\sum g(\xi_j)\alpha'(\xi_j)\Delta t_j\) 的差受
+\(\|g\|_\infty\omega_{\alpha'}(|P|)(b-a)\) 控制，因此
+\(\int g\,d\alpha=\int g\alpha'\,dx\)。
+若 \(\alpha=\mathbf1_{[c,b]}\)，\(a<c<b\)，则只有跨越 \(c\) 的增量有贡献，
+连续性给出 \(\int g\,d\alpha=g(c)\)。Stieltjes 积分因而同时容纳长度权重与
+集中在一点的权重。
+
+若 \(f,g\) 都连续且 BV，则
+\[
+ \int_a^bf\,dg+\int_a^bg\,df=f(b)g(b)-f(a)g(a).
+\]
+证明只需将每段的乘积增量写成
+\(f(t_{j-1})\Delta g+g(t_j)\Delta f\)，求和后取极限。
+连续性不能在此一概删除：当被积函数和积分函数在同一点跳跃时，不同标记
+可能给出不同的和，须另作单侧积分约定。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{variation-triangle-norm}证明 \(|f(a)|+V_a^b(f)\) 是 \(BV[a,b]\) 上的范数。
+\exerciseitem{variation-point-spike}计算仅在内点 \(c\) 取值 \(A\)、其余处为零的函数的总变差；讨论 \(c=a\) 时的答案。
+\exerciseitem{variation-product}证明 \(V(fg)\le\|f\|_\infty V(g)+\|g\|_\infty V(f)\)。
+\exerciseitem{variation-lipschitz-composition}若 \(\phi\) 在 \(f([a,b])\) 上 Lipschitz，证明 \(V(\phi\circ f)\le L V(f)\)。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{variation-c-one}证明 \(f\in C^1[a,b]\) 时 \(V_a^b(f)=\int_a^b|f'|\)。
+\exerciseitem{variation-uniform-limit}若 \(f_n\to f\) 逐点，证明 \(V(f)\le\liminf_nV(f_n)\)。说明为什么不需要一致收敛。
+\exerciseitem{variation-complete}证明 \(BV[a,b]\) 在 A组定义的范数下完备。
+\exerciseitem{variation-representative}设内点 \(c\) 的左右极限为 \(u,v\)。把 \(f(c)\) 换成两者之间的数，证明总变差不会增加。
+\exerciseitem{rs-common-jump}取 \(g=\alpha=\mathbf1_{[c,b]}\)，证明按正文的任意标记定义，\(\int g\,d\alpha\) 不存在。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\optionalexerciseitem{variation-reciprocal}若 \(f\in BV\) 且 \(|f|\ge\eta>0\)，证明 \(1/f\in BV\)，给出变差估计。
+\projectexerciseitem{rs-discrete-summable}设不同点 \(c_j\in(a,b)\)，\(\sum|a_j|<\infty\)，令
+\(\alpha(x)=\sum_j a_j\mathbf1_{[c_j,b]}(x)\)。证明它属于 BV，并对连续 \(g\)
+证明 \(\int g\,d\alpha=\sum_j a_jg(c_j)\)。
+\end{enumerate}

@@ -1,0 +1,216 @@
+\chapter{符号测度}
+\label{chap:signed-measures}
+
+递增函数的增量可以看成区间所携带的质量；BV 函数则允许正负增量。
+另一方面，积分 \(\int_Eg\,d\mu\) 随集合 \(E\) 变化，也具有可数可加性。
+本章将这两种来源放在同一种对象中，并回答何种测度能够写成“密度乘以
+原测度”。这一问题的答案还将用于描述 \(L^p\) 上的连续线性泛函。
+
+\section{有限符号测度}
+
+固定可测空间 \((X,\mathcal A)\)。本章首先处理有限对象，以免在减法中
+出现 \(\infty-\infty\)。
+
+\begin{definition}
+有限符号测度是可数可加映射 \(\nu:\mathcal A\to\R\)，并满足
+\[
+ \sup_{\{E_j\}}\sum_j|\nu(E_j)|<\infty,
+\]
+其中上确界遍历 \(X\) 的全部有限可测分割。这个有界性称为有限变差条件。
+\end{definition}
+
+若 \(\nu=\alpha-\beta\)，其中 \(\alpha,\beta\) 是有限正测度，则上述条件
+自动成立。下面证明逆命题，并且可使正负质量集中在互不相交的集合上。
+有限变差保证所有不交集合列的值绝对可和，故符号测度也具有递增、递减集合列
+的连续性；证明与有限正测度相同，只需用绝对收敛保证取尾和合法。
+
+\begin{theorem}[Hahn 分解与 Jordan 分解]\label{thm:hahn-jordan-measure}
+存在可测分割 \(X=P\cup N\)，使 \(P\) 的每个可测子集上 \(\nu\ge0\)，
+\(N\) 的每个可测子集上 \(\nu\le0\)。令
+\(\nu^+(E)=\nu(E\cap P)\)、\(\nu^-(E)=-\nu(E\cap N)\)，则
+\(\nu=\nu^+-\nu^-\)，且这两个互相奇异的有限正测度唯一。
+\end{theorem}
+\begin{proof}
+令 \(\alpha=\inf_{E\in\mathcal A}\nu(E)>-\infty\)，选
+\(\nu(E_n)<\alpha+2^{-n}\)。由
+\[
+ \nu(A\cup B)=\nu(A)+\nu(B)-\nu(A\cap B)
+ \le\nu(A)+\nu(B)-\alpha
+\]
+归纳并取递增极限，\(F_n=\bigcup_{k\ge n}E_k\) 满足
+\(\alpha\le\nu(F_n)\le\alpha+\sum_{k\ge n}2^{-k}\)。
+令 \(N=\bigcap_nF_n\)，连续性给 \(\nu(N)=\alpha\)。
+若 \(B\subset N\)，则 \(\nu(N\setminus B)\ge\alpha=\nu(N)\)，故
+\(\nu(B)\le0\)。若 \(B\subset P=X\setminus N\)，则
+\(\nu(N\cup B)\ge\alpha\)，故 \(\nu(B)\ge0\)。
+
+所定义的正负部分是正测度。对任意另一表示 \(\nu=\alpha_1-\beta_1\)，
+有 \(\nu^+(E)=\nu(E\cap P)\le\alpha_1(E)\)，同样
+\(\nu^-(E)\le\beta_1(E)\)。若另一表示也互相奇异，则在它的正、负支撑上
+重复此论证，得到反向不等式，故唯一。
+\end{proof}
+
+定义全变差测度 \(|\nu|=\nu^++\nu^-\)。对每个 \(E\)，它等于
+\(E\) 的有限可测分割上 \(\sum|\nu(E_j)|\) 的上确界：上界由三角不等式，
+下界由分成 \(E\cap P,E\cap N\) 取得。若 \(h\in L^1(|\nu|)\)，定义
+\(\int h\,d\nu=\int h\,d\nu^+-\int h\,d\nu^-\)，并有
+\(|\int h\,d\nu|\le\int|h|\,d|\nu|\)。
+
+\section{绝对连续与奇异}
+
+对正测度 \(\mu\)，记 \(\nu\ll\mu\)，若 \(\mu(E)=0\) 总蕴含 \(\nu(E)=0\)。
+对符号测度，这等价于 \(|\nu|\ll\mu\)：零测集的每个子集也零测，
+由全变差的分割描述即可看出。
+记 \(\nu\perp\mu\)，若存在 \(N\in\mathcal A\) 使 \(\mu(N)=0\) 且
+\(|\nu|(X\setminus N)=0\)。例如实线上的单点质量 \(\delta_c\) 与长度测度奇异，
+而 \(g\,m\) 在 \(g\in L^1(m)\) 时绝对连续于 \(m\)。
+
+\section{Radon--Nikodym 定理}
+
+\begin{theorem}\label{thm:radon-nikodym}
+设 \(\mu\) 为 \(\sigma\)-有限正测度，\(\nu\) 为有限符号测度且 \(\nu\ll\mu\)。
+则存在 \(g\in L^1(\mu)\)，使
+\[
+ \nu(E)=\int_Eg\,d\mu\quad(E\in\mathcal A).
+\]
+\(g\) 在几乎处处意义下唯一，记 \(g=d\nu/d\mu\)。
+对 \(\sigma\)-有限正测度 \(\nu\)，同样存在非负密度，积分允许为无穷。
+\end{theorem}
+\begin{proof}
+先设 \(\mu,\nu\) 都为有限正测度。考察所有非负可测函数 \(h\)，满足
+\(\int_Eh\,d\mu\le\nu(E)\) 对每个 \(E\) 成立。这个类非空，并对取最大值封闭：
+把 \(E\) 分成两个函数谁较大的部分即可验证。
+令 \(s\) 为此类中 \(\int h\,d\mu\) 的上确界，选积分趋于 \(s\) 的函数列，
+用逐项最大值使它递增。单调收敛给出极限 \(g\)，仍属此类且积分等于 \(s\)。
+残差 \(\lambda=\nu-g\mu\) 是非负测度，且 \(\lambda\ll\mu\)。
+
+若 \(\lambda(X)>0\)，选 \(\varepsilon>0\) 使
+\(\lambda(X)>\varepsilon\mu(X)\)。对符号测度 \(\lambda-\varepsilon\mu\)
+作 Hahn 分解，其正集 \(P\) 满足
+\((\lambda-\varepsilon\mu)(P)>0\)，从而 \(\mu(P)>0\)，且
+\(\varepsilon\mu(E\cap P)\le\lambda(E\cap P)\le\lambda(E)\)。
+于是 \(g+\varepsilon\mathbf1_P\) 仍属所考察的类，积分却严格大于 \(s\)，矛盾。
+故 \(\lambda=0\)。
+
+若 \(\mu\) 仅 \(\sigma\)-有限，将 \(X\) 分成有限 \(\mu\)-测度的不交块，
+在每块上应用有限情形，再拼接密度。若 \(\nu\) 也是 \(\sigma\)-有限正测度，
+先取对两种测度都有限的共同可数分块，论证相同。符号情形分别处理
+\(\nu^+,\nu^-\)，其密度之差可积，因为两部分总质量有限。
+若 \(g,h\) 表示同一测度，在有限测度块上考察
+\(\{g\ge h+1/n\}\) 及其反向集合，得到它们均零测，故几乎处处唯一。
+\end{proof}
+
+证明从“已被一个密度解释的质量”出发取极大值，再说明任何非零残差都能
+继续贡献一块正密度。绝对连续假设正用在确认那块集合具有正的
+\(\mu\)-测度；没有它，残差可能完全躲在 \(\mu\)-零测集上。
+
+有限复测度可定义为两个有限实符号测度的组合 \(\nu_1+i\nu_2\)。
+分别应用定理得到复密度 \(g_1+ig_2\)。其积分按实部、虚部定义；
+后文复 \(L^p\) 的对偶表示只需要这个版本。
+
+\section{Lebesgue 分解与链式法则}
+
+\begin{theorem}\label{thm:lebesgue-decomposition}
+设 \(\mu,\nu\) 为 \(\sigma\)-有限正测度，则有唯一分解
+\(\nu=\nu_a+\nu_s\)，其中 \(\nu_a\ll\mu,\ \nu_s\perp\mu\)。
+有限符号测度也有同样的唯一分解。
+\end{theorem}
+\begin{proof}
+先设两者有限，令 \(\rho=\mu+\nu\)。Radon--Nikodym 定理给
+\(d\mu=f\,d\rho,\ d\nu=g\,d\rho\)，其中 \(f,g\ge0,\ f+g=1\) 几乎处处。
+在 \(A=\{f>0\}\) 上令 \(d\nu_a=(g/f)\,d\mu\)，在 \(A^c\) 上令
+\(\nu_s=\nu|_{A^c}\)。直接积分验证它们之和为 \(\nu\)，且
+\(\mu(A^c)=0\)。一般情形用共同有限分块拼接。若有两种分解，除去两者
+奇异支撑的并，两个绝对连续部分相等；在该零测并集上它们都为零，因此处处
+作为测度相等，奇异部分也相等。符号情形先分解正负部分再相减，唯一性仍同理。
+\end{proof}
+
+若 \(\lambda\ll\nu\ll\mu\) 是 \(\sigma\)-有限正测度，则
+\[
+ \frac{d\lambda}{d\mu}
+ =\frac{d\lambda}{d\nu}\frac{d\nu}{d\mu}\quad\mu\text{-几乎处处}.
+\]
+选择非负密度，并在 \(d\nu/d\mu=0\) 的集合上把右侧规定为零。先对指示函数，
+再对简单函数和非负极限证明
+\(\int h\,d\nu=\int h(d\nu/d\mu)\,d\mu\)，代入 \(\lambda\) 的密度后由唯一性
+得到公式。它是测度的链式法则，不是对逐点函数取商。
+
+\section{BV 函数的测度增量}
+
+\subsection{右连续代表}
+
+设 \(F\) 递增且右连续于 \([a,b)\)。在 \((a,b]\) 上存在唯一有限正 Borel
+测度 \(\mu_F\)，满足
+\[
+ \mu_F((s,t])=F(t)-F(s)\quad(a\le s<t\le b).
+\]
+一种直接构造是把区间 \((0,F(b)-F(a)]\) 的长度测度经
+\[
+ Q(y)=\inf\{t\in[a,b]:F(t)-F(a)\ge y\}
+\]
+推向 \((a,b]\)。右连续性保证
+\(Q(y)\le t\) 等价于 \(y\le F(t)-F(a)\)，且 \(y>0\) 时 \(Q(y)>a\)。
+因此 \(Q\) 可测，所得推前测度具有所需区间值。唯一性由有限测度在生成
+Borel \(\sigma\)-代数的半开区间族上的唯一性得到。
+
+若 \(F\) 右连续且 BV，其累计变差也右连续。为核实这一点，固定 \(x<t\)，
+取分割 \(x=s_0<s_1<\cdots<s_m=t\)，其变差和大于 \(V_x^t(F)-\eta\)。
+当 \(x<y<s_1\) 时，由变差可加性和在 \([y,t]\) 上使用分割
+\(y,s_1,\ldots,s_m\)，得
+\[
+ V_x^y(F)<\eta+|F(s_1)-F(x)|-|F(s_1)-F(y)|
+ \le\eta+|F(y)-F(x)|.
+\]
+先令 \(y\downarrow x\)，再令 \(\eta\downarrow0\)，得到 \(V_x^y(F)\to0\)，
+亦即累计变差右连续。故规范 Jordan 部分右连续，取其 Stieltjes 测度之差定义
+\(dF\)。端点 \(a\) 不携带质量；改变 \(F(a)\) 可能改变紧邻端点的增量，
+所以右连续性在 \(a\) 处也不可省略。
+
+\subsection{导数能记录的部分}
+
+\begin{proposition}\label{prop:bv-measure-ac}
+对上述右连续 BV 函数，\(F\in AC[a,b]\) 当且仅当 \(dF\ll m\)。
+此时 \(dF=F'\,m\)。一般情况下，\(dF\) 的 Lebesgue 分解为
+\[
+ dF=F'\,m+\nu_s,\qquad \nu_s\perp m.
+\]
+\end{proposition}
+\begin{proof}
+绝对连续时用基本定理在所有半开区间上计算增量，再用测度唯一性。
+反之，Radon--Nikodym 定理给 \(dF=g\,m\)，故
+\(F(t)-F(a)=\int_a^tg\)，于是绝对连续。
+
+为识别一般分解的密度，先设 \(F\) 递增。单调可导定理在每个子区间上给
+\(\int_s^tF'\le F(t)-F(s)\)，所以
+\(H(t)=F(t)-\int_a^tF'\) 仍递增，且 \(dH=dF-F'm\) 为正测度。
+特别地，若 \(dF\) 奇异，\(0\le F'm\le dF\) 同时绝对连续又奇异，
+只能为零，故 \(F'=0\) 几乎处处。
+现在对 \(dF=\nu_a+\nu_s\) 的两个正测度分别取累计函数。前者由密度积分
+构成，导数等于密度；后者奇异，导数几乎处处为零。两者之和与 \(F\)
+只差常数，故绝对连续部分的密度为 \(F'\)。一般 BV 情形对两个递增部分相减。
+\end{proof}
+
+阶跃对应原子质量，Cantor 函数对应无原子的奇异质量，绝对连续函数对应
+密度质量。三者的区分说明：导数为零可能表示函数没有变化，也可能表示变化
+不以长度密度的形式出现。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{signed-density-variation}对 \(d\nu=g\,d\mu\)，证明 \(d|\nu|=|g|\,d\mu\)。
+\exerciseitem{signed-hahn-nonunique}说明 Hahn 分解的集合未必唯一，而 Jordan 测度唯一。
+\exerciseitem{signed-ac-singular-zero}证明同时绝对连续于 \(\mu\) 又与 \(\mu\) 奇异的有限符号测度为零。
+\exerciseitem{signed-dirac-decomposition}求 \(\nu=m|_{[0,1]}+\delta_{1/2}-2\delta_2\) 相对于长度测度的分解及全变差。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{rn-uniform-ac}若 \(\mu\) 为 \(\sigma\)-有限且 \(\nu\) 为有限符号测度，证明 \(\nu\ll\mu\) 等价于：任意 \(\varepsilon>0\) 都有 \(\delta>0\)，使 \(\mu(E)<\delta\) 时 \(|\nu|(E)<\varepsilon\)。
+\exerciseitem{rn-failure-nonsigma}在不可数集合上取计数测度 \(\mu\)，取某个无原子的概率测度 \(\nu\)（可用 \([0,1]\) 上的长度测度）。证明 \(\nu\ll\mu\)，但不存在 \(\nu=g\mu\) 的密度。
+\exerciseitem{stieltjes-jump-mass}证明 \(\mu_F(\{c\})=F(c)-F(c-)\)，其中 \(a<c\le b\)。
+\exerciseitem{cantor-measure-singular}证明 Cantor 函数产生的概率测度奇异于长度测度且没有原子。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\projectexerciseitem{signed-variation-partition}若 \(F\) 右连续且 BV，证明 \(|dF|((s,t])=V_s^t(F)\)，并说明为什么右连续代表的要求不能随意删去。
+\end{enumerate}

@@ -104,7 +104,8 @@
 \end{theorem}
 
 \begin{proof}
-若 \(\|x\|_p=0\) 显然。归一化到 \(\|x\|_p=1\)，则每个
+若 \(\|x\|_p=0\)，则 \(x_n=0\) 对所有 \(n\) 成立。否则由齐次性可归一化
+到 \(\|x\|_p=1\)，此时每个
 \(|x_n|\le1\)，从而 \(|x_n|^q\le|x_n|^p\)。求和得
 \(\|x\|_q^q\le1\)，再恢复齐次性。
 \end{proof}
@@ -158,7 +159,9 @@
 
 \begin{theorem}
 \label{thm:lp-limit-linfty}
-若 \(0<\mu(X)<\infty\) 且 \(f\in L^\infty(\mu)\)，则
+设 \(p_0>0\)。在任意测度空间上，若
+\(f\in L^{p_0}(\mu)\cap L^\infty(\mu)\)，则 \(f\in L^p\) 对所有
+\(p\ge p_0\) 成立，并且
 \[
  \lim_{p\to\infty}\|f\|_p=\|f\|_\infty.
 \]
@@ -168,12 +171,22 @@
 \end{theorem}
 
 \begin{proof}
-记 \(M=\|f\|_\infty\)。上界
+记 \(M=\|f\|_\infty\)。若 \(M=0\)，则 \(f=0\) a.e.，结论成立。以下设
+\(M>0\)。对 \(p>p_0\)，
 \[
- \|f\|_p\le M\mu(X)^{1/p}
+ \|f\|_p^p
+ =\int |f|^{p_0}|f|^{p-p_0}
+ \le M^{p-p_0}\|f\|_{p_0}^{p_0}
 \]
-给出 \(\limsup\|f\|_p\le M\)。若 \(0<a<M\)，则
-\(E_a=\{|f|>a\}\) 有正测度，故
+给出
+\[
+ \|f\|_p
+ \le M^{1-p_0/p}\|f\|_{p_0}^{p_0/p}
+ \longrightarrow M.
+\]
+若 \(0<a<M\)，则
+\(E_a=\{|f|>a\}\) 有正测度；又因 \(f\in L^{p_0}\)，该集合测度有限。
+因此
 \[
  \|f\|_p\ge a\,\mu(E_a)^{1/p}.
 \]
@@ -181,11 +194,16 @@
 
 若 \(\|f\|_p\le C\) 对所有大 \(p\) 成立，则对任意 \(a>C\)，
 \[
- a\,\mu(|f|>a)^{1/p}\le C.
+ \mu(\{|f|>a\})\le\frac{\|f\|_p^p}{a^p}
+ \le\left(\frac Ca\right)^p.
 \]
-若该集合有正测度，令 \(p\to\infty\) 将给出 \(a\le C\)，矛盾。因此
-\(|f|\le C\) 几乎处处。
+令 \(p\to\infty\)，得到该集合零测。因此 \(|f|\le C\) 几乎处处，
+即 \(f\in L^\infty\)。再应用证明的第一部分即得极限公式。
 \end{proof}
+
+当 \(0<\mu(X)<\infty\) 时，\(L^\infty\subset L^{p_0}\)，所以任意本质
+有界函数都满足该极限。无限测度空间上则必须保留某个有限指数的可积性；
+常数函数虽本质有界，却不属于 \(L^p(\mathbb R)\)。
 
 \section{局部 \texorpdfstring{\(L^p\)}{Lp}}
 

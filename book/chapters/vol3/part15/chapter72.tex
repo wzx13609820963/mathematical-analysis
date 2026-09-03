@@ -1,0 +1,149 @@
+\chapter{Lebesgue 微分定理}
+\label{chap:lebesgue-differentiation}
+
+连续函数在一点附近的平均值趋向该点的函数值，这可直接由连续性证明。
+可积函数没有逐点连续性，甚至可以在稠密集上任意修改而保持同一个积分。
+因此合理的结论只能在几乎处处成立，而且应当对某个可测代表陈述。以下证明
+说明：连续函数的积分逼近可以转化为几乎处处的局部平均逼近，但需要一个
+同时控制所有小区间的估计。
+
+\section{局部平均}
+
+称 \(f\in L^1_{\mathrm{loc}}(\R)\)，若它在每个有界区间上可积。选择一个
+几乎处处有限的可测代表，在其有限取值点定义
+\[
+ A_r f(x)=\frac1{2r}\int_{x-r}^{x+r}f(t)\,dt,\qquad
+ Df(x)=\limsup_{r\downarrow0}\frac1{2r}\int_{x-r}^{x+r}|f(t)-f(x)|\,dt.
+\]
+满足 \(Df(x)=0\) 的点称为 \(f\) 的 Lebesgue 点。这个条件比
+\(A_rf(x)\to f(x)\) 强，因为它不允许正负误差相互抵消。
+对连续点有 \(Df(x)=0\)，因为积分平均不超过该邻域的最大振幅。
+
+\section{区间覆盖}
+
+\begin{lemma}[有限三倍覆盖]\label{lem:three-interval-cover}
+给定有限族有界区间，可从中选出内部两两不交的区间 \(I_j\)，使原来
+全部区间的并包含在 \(\bigcup_j3I_j\) 中。
+\end{lemma}
+\begin{proof}
+按长度不增次序选取，每选一个便丢弃与它相交的剩余区间。被丢弃的区间
+长度不大于使它被丢弃的区间，且二者相交，所以被包含在后者的三倍区间中。
+接触端点时可将端点一并计入，对长度估计没有影响。
+\end{proof}
+
+这里丢失一个常数 \(3\)，却不要求区间任意细。
+引理~\ref{lem:vitali-fine-intervals}的细覆盖结论则允许只遗漏零测集，
+二者用途不同。以下只需有限覆盖估计：先覆盖一个紧集，再用内正则性
+恢复整个可测集合。
+
+\section{极大函数的弱型估计}
+
+对 \(f\in L^1(\R)\)，定义非中心极大函数
+\[
+ Mf(x)=\sup_{I\ni x}\frac1{|I|}\int_I|f(t)|\,dt,
+\]
+其中 \(I\) 遍历含 \(x\) 的有界开区间。称下列估计为弱型 \((1,1)\) 估计：
+它控制超水平集的长度，而不是直接控制 \(\int Mf\)。
+
+\begin{theorem}\label{thm:maximal-weak-line}
+对每个 \(\lambda>0\)，
+\[
+ m\{Mf>\lambda\}\le\frac3\lambda\|f\|_1.
+\]
+\end{theorem}
+\begin{proof}
+超水平集是所有满足 \(\int_I|f|>\lambda|I|\) 的开区间的并，故为开集。
+取其中任意紧集 \(K\)，由上述区间有限覆盖它。用三倍覆盖引理选 \(I_j\)，得
+\[
+ m(K)\le3\sum_j|I_j|
+ <\frac3\lambda\sum_j\int_{I_j}|f|
+ \le\frac3\lambda\|f\|_1.
+\]
+区间内部不交使积分可以相加；由 Lebesgue 内正则性对 \(K\) 取上确界。
+\end{proof}
+
+例如 \(f=\mathbf1_{[0,1]}\)，当 \(x>1\) 时，用稍扩大的 \((0,x)\) 给
+\(Mf(x)\ge1/x\)，所以 \(Mf\) 不可积。弱型估计并没有暗中断言
+\(\|Mf\|_1\le C\|f\|_1\)。
+
+\section{几乎处处的平均逼近}
+
+\begin{theorem}[Lebesgue 微分定理]\label{thm:lebesgue-differentiation-line}
+若 \(f\in L^1_{\mathrm{loc}}(\R)\)，则几乎每一点都是它的 Lebesgue 点。
+\end{theorem}
+\begin{proof}
+先设 \(f\in L^1(\R)\)。取 \(g\in C_c(\R)\)，由三角不等式及 \(Dg=0\)，
+\[
+ Df(x)\le M(f-g)(x)+|f(x)-g(x)|.
+\]
+因而对 \(\varepsilon>0\)，极大估计和 Chebyshev 不等式给
+\[
+ m\{Df>\varepsilon\}
+ \le\frac6\varepsilon\|f-g\|_1+\frac2\varepsilon\|f-g\|_1.
+\]
+由 \chapterref{chap:lp-approximation}的 \(C_c\) 稠密性，右侧可以任意小，
+故该集合零测。对 \(\varepsilon=1/n,\ n\ge1\) 取并即得 \(Df=0\) 几乎处处。
+这些集合确实可测：局部积分随 \(r>0\) 连续，故上极限可以只沿有理半径
+求取；积分作为 \(x\) 的函数可测，来自参数积分的可测性。
+
+一般局部可积情形，在 \([-N,N]\) 内用
+\(f\mathbf1_{[-N-1,N+1]}\) 代替 \(f\)。充分小邻域中的平均相同，
+对正整数 \(N\) 取并即可。
+\end{proof}
+
+证明的误差安排值得保留：连续逼近 \(g\) 在每一点的局部误差会消失，
+剩余的 \(f-g\) 虽然可能有尖峰，但极大估计保证坏点集合的长度随其
+\(L^1\) 范数一起变小。这里不需要逐点选择一列连续逼近并交换两个极限。
+
+\begin{corollary}[Lebesgue 密度定理]\label{cor:lebesgue-density-line}
+若 \(E\subset\R\) 可测，则对几乎每个 \(x\in E\)，
+\[
+ \frac{m(E\cap(x-r,x+r))}{2r}\longrightarrow1;
+\]
+对几乎每个 \(x\notin E\)，上述比值趋零。
+\end{corollary}
+\begin{proof}
+应用局部可积函数 \(\mathbf1_E\) 的微分定理。
+\end{proof}
+
+\section{积分函数的导数}
+
+\begin{theorem}\label{thm:primitive-ae-derivative}
+设 \(f\in L^1(a,b)\)，\(F(x)=\int_a^x f(t)\,dt\)。则
+\(F'(x)=f(x)\) 几乎处处。
+\end{theorem}
+\begin{proof}
+在 \(f\) 的 Lebesgue 点，对正负非零 \(h\)，有
+\[
+ \left|\frac{F(x+h)-F(x)}h-f(x)\right|
+ \le\frac1{|h|}\int_{x-|h|}^{x+|h|}|f(t)-f(x)|\,dt\longrightarrow0.
+\]
+右侧是对称平均误差的两倍。左右差商由同一估计控制。
+\end{proof}
+
+若在零测集上改写 \(f\)，积分函数完全不变，但那些点上的等式 \(F'=f\)
+可能改变。取 \(f=\mathbf1_\Q\) 即可看到：\(F=0\) 处处成立，
+而有理点处 \(F'\ne f\)。微分定理对 \(L^1\) 等价类的陈述必须保留
+“几乎处处”。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{maximal-sublinear}证明 \(M(f+g)\le Mf+Mg\) 和 \(M(cf)=|c|Mf\)。
+\exerciseitem{maximal-finite-ae}证明 \(f\in L^1(\R)\) 时 \(Mf<\infty\) 几乎处处。
+\exerciseitem{lebesgue-continuity-points}证明每个连续点都是 Lebesgue 点，并给出 Lebesgue 点不是连续点的例子。
+\exerciseitem{density-null-dense}用 \(E=\Q\) 说明密度为零与“不在集合闭包中”不同。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{differentiation-offcenter}若 \(x\) 为 Lebesgue 点，证明沿任意包含 \(x\)、长度趋零的区间 \(I\)，平均 \(|I|^{-1}\int_I f\to f(x)\)。
+\exerciseitem{primitive-unique-integrand}若 \(f,g\in L^1(a,b)\) 且所有 \(x\) 都有 \(\int_a^xf=\int_a^xg\)，证明 \(f=g\) 几乎处处。
+\exerciseitem{positive-integrals-positive-function}若 \(f\in L^1_{\rm loc}(\R)\) 且任意有界区间上积分非负，证明 \(f\ge0\) 几乎处处。
+\exerciseitem{density-interior-empty}构造内点为空而几乎每个点密度为一的正测度集合。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\optionalexerciseitem{maximal-not-strong-one}对 \(\mathbf1_{[0,1]}\) 给出 \(x>1\) 时的极大函数值，证明它不在 \(L^1(\R)\)。
+\projectexerciseitem{lebesgue-local-average-lone}设 \(f\in L^1(\R)\)。证明 \(A_rf\to f\) 不仅几乎处处，而且在 \(L^1\) 中成立。提示：平移连续性。
+\end{enumerate}

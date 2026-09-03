@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—69章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—79章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -581,7 +581,7 @@ Jordan 体积仍写作 \(|E|\)。三个记号所允许的集合族并不相同�
 
 \section{当前章节依赖}
 
-第0—69章的主要依赖可概括如下：
+第0—79章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -677,5 +677,23 @@ Tonelli 和 Fubini 定理，\chapterref{chap:parameter-integrals}把控制收敛
 Minkowski 和 Riesz--Fischer 定理，\chapterref{chap:lp-inclusions}比较
 不同指数，\chapterref{chap:lp-approximation}证明简单函数、连续紧支撑
 函数和光滑函数的稠密性。
+
+\chapterref{chap:bounded-variation}通过函数 Jordan 分解和一维细覆盖建立
+BV 函数几乎处处可导；\chapterref{chap:absolute-continuity}区分绝对连续
+与连续 BV，并构造 Cantor 函数。\chapterref{chap:lebesgue-differentiation}
+证明局部平均的微分定理，\chapterref{chap:modern-ftc}用 Cousin 分割完成
+绝对连续函数的积分重构。\chapterref{chap:signed-measures}随后建立符号
+测度、Radon--Nikodym 密度和 Lebesgue 分解。函数的 Jordan 分解不要求
+其两个递增部分具有互不相交的点集支撑，不能与测度的正负支撑表述混同。
+
+\chapterref{chap:banach-spaces}中 \(X^*\) 指连续对偶，\(B_X\) 指闭单位球。
+\chapterref{chap:baire-method}的三个基本原理分别使用明确的完备性假设；
+\chapterref{chap:hahn-banach}的等范数延拓却不要求空间完备。
+\chapterref{chap:weak-topologies}区分
+\(\sigma(X,X^*)\)、\(\sigma(X^*,X)\) 和 \(\sigma(X^*,X^{**})\)，后两者
+分别为弱星与弱拓扑。\chapterref{chap:reflexive-spaces}中的反射性专指
+\(J_Xx(\phi)=\phi(x)\) 满射。Banach--Alaoglu 给对偶球的弱星紧致，
+Eberlein--Šmulian 给 Banach 空间中弱紧致集的序列刻画，两者不能互相替代。
+复 \(L^p\) 对偶按 \(\int fg\) 配对，\(L^2\) 内积另用 \(\int f\overline g\)。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

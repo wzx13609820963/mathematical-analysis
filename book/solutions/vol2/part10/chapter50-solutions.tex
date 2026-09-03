@@ -93,15 +93,35 @@ $d\varphi=\omega$。
 \end{solution}
 
 \begin{solution}{poincare-homotopy-identity}
-令 $F(t,x)=tx$，$\partial_t$ 为区间方向。对 $k$-形式定义
-$H\omega=\int_0^1\iota_{\partial_t}F^*\omega\,dt$。坐标展开给出同伦公式
+令 $F(t,x)=tx$，并以 $j_t(x)=(t,x)$ 表示切片嵌入。对 $k$-形式定义
 \[
- \partial_t(F_t^*\omega)=d\iota_{\partial_t}F^*\omega
- +\iota_{\partial_t}F^*d\omega.
+ H\omega=\int_0^1j_t^*\bigl(\iota_{\partial_t}F^*\omega\bigr)\,dt.
+\]
+先设 $k\ge1$。若
+$\omega=\sum_Ia_I(x)\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}$，则
+$F^*dx^i=x_i\,dt+t\,dx^i$，从而
+\[
+ j_t^*\bigl(\iota_{\partial_t}F^*\omega\bigr)
+ =\sum_Ia_I(tx)t^{k-1}
+   \sum_{r=1}^k(-1)^{r-1}x_{i_r}\,
+   dx^{i_1}\wedge\cdots\wedge\widehat{dx^{i_r}}
+   \wedge\cdots\wedge dx^{i_k}.
+\]
+对这个有限和取 $d_x$。微分 $a_I(tx)$ 产生的各项，与
+$j_t^*(\iota_{\partial_t}F^*d\omega)$ 中含偏导数的项逐项配对；微分
+$x_{i_r}$ 产生的 $k$ 个项合为
+$k t^{k-1}a_I(tx)\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}$。连同
+$t^k\frac d{dt}a_I(tx)$，正好得到
+\[
+ \frac d{dt}(F_t^*\omega)
+ =d_xj_t^*\bigl(\iota_{\partial_t}F^*\omega\bigr)
+  +j_t^*\bigl(\iota_{\partial_t}F^*d\omega\bigr).
 \]
 从 $0$ 到 $1$ 积分，左端为 $F_1^*\omega-F_0^*\omega$，右端为
 $dH\omega+Hd\omega$。由于 $F_1=I$、$F_0=s_0$，得到
-$dH+Hd=I-s_0^*$。所有换序只涉及有限和及连续函数的定积分。
+$dH+Hd=I-s_0^*$。当 $k=0$ 时，$H\omega=0$，而对函数使用一元微积分
+基本定理可直接得到 $H(d\omega)=\omega-s_0^*\omega$。所有换序只涉及
+有限和及连续函数的定积分。
 \end{solution}
 
 \begin{solution}{punctured-plane-closed-not-exact-form}

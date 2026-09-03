@@ -3,7 +3,8 @@
 
 \begin{solution}{ck-sup-norm-details}
 紧致性和连续性保证 $|f|$ 取得有限最大值，所以范数定义良好。若
-$\norm f_\infty=0$，则每点 $|f(x)|=0$，故 $f=0$；反向显然。齐次性由
+$\norm f_\infty=0$，则每点 $|f(x)|=0$，故 $f=0$；零函数的上确界范数
+也等于零。齐次性由
 $\max|\lambda f|=|\lambda|\max|f|$ 得到。逐点三角不等式给出
 $|f(x)+g(x)|\le\norm f_\infty+\norm g_\infty$，再取最大值得三角不等式。
 若 $K$ 非紧，连续函数可能无界，例如 $f(x)=x$ 在 $\R$ 上，所以上确界未必
@@ -49,9 +50,19 @@ $\norm{f_n-h}_p^p\le2/n\to0$。若 $f_n$ 在 $C([0,1])$ 中以 $p$-范数收敛�
 
 \begin{solution}{evaluation-functional-norm}
 上界为
-$|T(f)|\le\sum_j|a_j|\norm f_\infty$。由紧致 Hausdorff 空间的正规性和
-有限点集的分离，可构造 $f\in C(K)$，满足 $\norm f_\infty\le1$ 且
-$f(x_j)=\overline{a_j}/|a_j|$（实数情形取符号；$a_j=0$ 任取）。于是
+$|T(f)|\le\sum_j|a_j|\norm f_\infty$。下面构造达到这个上界的函数。
+紧致 Hausdorff 空间正规。由于点 $x_1,\ldots,x_m$ 两两不同，可以先取
+两两不交的开邻域 $U_j$，再取开集 $V_j$ 使
+$x_j\in V_j\subseteq\overline{V_j}\subseteq U_j$。对闭集
+$\overline{V_j}$ 与 $K\setminus U_j$ 使用 Urysohn 引理，得到
+$\varphi_j\in C(K;[0,1])$，使
+\[
+ \varphi_j|_{\overline{V_j}}=1,\qquad
+ \operatorname{supp}\varphi_j\subseteq U_j.
+\]
+令 $c_j=\overline{a_j}/|a_j|$（实数情形取符号；$a_j=0$ 时令 $c_j=0$），并置
+$f=\sum_jc_j\varphi_j$。各支集两两不交，所以 $\norm f_\infty\le1$，且
+$f(x_j)=c_j$。于是
 $T(f)=\sum_j|a_j|$，故
 $\norm T=\sum_j|a_j|$。
 \end{solution}

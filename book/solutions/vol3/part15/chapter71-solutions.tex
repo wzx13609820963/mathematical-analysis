@@ -1,0 +1,51 @@
+\chapter{绝对连续函数}
+\begin{solution}{ac-restriction-gluing}
+限制后允许的区间族减少，原 \(\delta\) 仍有效。拼接时分别为误差
+\(\varepsilon/2\) 选 \(\delta_1,\delta_2\)，取最小值。若某段跨越 \(c\)，
+在 \(c\) 分开，其增量绝对值不超过两段绝对值之和。分别对左右族应用定义即可。
+\end{solution}
+\begin{solution}{ac-product}
+函数在紧区间上有界，设范数分别为 \(M,N\)。对区间族有
+\(\sum|\Delta(fg)|\le M\sum|\Delta g|+N\sum|\Delta f|\)。
+将两个和分别控制在 \(\varepsilon/(2(M+1))\)、\(\varepsilon/(2(N+1))\)
+以内，取相应 \(\delta\) 的最小值。
+\end{solution}
+\begin{solution}{ac-lipschitz-outer}
+区间族上 \(\sum|\Delta(\phi\circ f)|\le L\sum|\Delta f|\)。
+若 \(L=0\) 结论直接成立，否则使用 \(f\) 对误差 \(\varepsilon/L\) 的控制。
+\end{solution}
+\begin{solution}{ac-variation-parts}
+先为误差 \(\varepsilon/2\) 选 \(\delta\)。在每个 \([u_j,v_j]\) 内任取分割，
+全部增量总和小于 \(\varepsilon/2\)。分别取上确界得
+\(\sum V_{u_j}^{v_j}(f)\le\varepsilon/2<\varepsilon\)。变差可加性将其写成
+\(\sum(v(v_j)-v(u_j))\)，故 \(v\) 绝对连续。\(p,n\) 是 \(v,f\) 和常数的
+线性组合，亦绝对连续。
+\end{solution}
+\begin{solution}{ac-uniform-limit-failure}
+构造中的每个 \(C_n\) 是有限分段线性函数，最大斜率有限，因而 Lipschitz。
+它们一致收敛到 \(C\)，但 \(C\) 已由基本区间族否定绝对连续性。
+\end{solution}
+\begin{solution}{ac-common-modulus}
+为误差 \(\varepsilon/2\) 选共同 \(\delta\)，固定任何符合长度条件的有限
+区间族。端点只有有限多个，故可逐项取 \(n\to\infty\)，得到
+\(\sum|\Delta f|\le\varepsilon/2<\varepsilon\)。
+\end{solution}
+\begin{solution}{cantor-functional-equations}
+从第一步起，中间段恒为 \(1/2\)。左段以横坐标放大三倍、纵坐标放大两倍后，
+每次替换与全区间的替换完全相同，右段减去 \(1/2\) 后同样如此。
+故有限构造满足对应的相邻步骤等式，取一致极限得到三式；公共端点由连续性一致。
+\end{solution}
+\begin{solution}{cantor-not-lipschitz}
+反复使用左侧自相似式得 \(C(3^{-n})=2^{-n}C(1)=2^{-n}\)。
+以零点为基点的差商等于 \((3/2)^n\)，无有限共同上界。
+\end{solution}
+\begin{solution}{ac-not-closed-sup}
+有限分段线性函数是 Lipschitz；连续函数由其在细分割节点上的线性插值
+一致逼近，误差不超过连续模。因此 AC 稠密。由 Cantor 逼近列知它不闭。
+线性子空间性质来自定义的三角不等式。
+\end{solution}
+\begin{solution}{cantor-strict-increase}
+当 \(x<y\)，\(F(y)-F(x)\ge y-x>0\)，故连续严格递增并把 \([0,1]\)
+映到 \([0,2]\)。上述不等式改写为逆函数的 Lipschitz 估计。导数结论由
+\(C'=0\) 几乎处处得到。若 \(F\) 绝对连续，则 \(F-x=C\) 绝对连续，矛盾。
+\end{solution}

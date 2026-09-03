@@ -12,15 +12,24 @@
 \end{solution}
 
 \begin{solution}{finite-support-simple-dense}
-取 \(X_k\uparrow X\)、\(\mu(X_k)<\infty\)。由控制收敛，
+先设 \(f\ge0\)，并沿用非负简单逼近中的二进构造
 \[
- \|f-f\mathbf1_{X_k}\|_p^p
- =\int|f|^p\mathbf1_{X\setminus X_k}\to0.
+ \varphi_n(x)=
+ \begin{cases}
+  2^{-n}\lfloor2^nf(x)\rfloor,&f(x)<2^n,\\
+  2^n,&f(x)\ge2^n.
+ \end{cases}
 \]
-固定 \(k\)，再把 \(f\mathbf1_{X_k}\) 的绝对值截断到 \(M\)，截断误差
-随 \(M\to\infty\) 趋零。最后把值域按长度 \(\delta\) 的区间量化，得到
-支撑于 \(X_k\) 的简单函数，点态误差至多 \(\delta\)，其 \(L^p\) 误差
-至多 \(\delta\mu(X_k)^{1/p}\)。
+于是 \(0\le\varphi_n\uparrow f\)，而
+\[
+ \{\varphi_n\ne0\}\subseteq\{f\ge2^{-n}\},
+ \qquad
+ \mu(\{f\ge2^{-n}\})
+ \le2^{np}\|f\|_p^p<\infty.
+\]
+又有 \(|f-\varphi_n|^p\le f^p\) 且逐点趋零，控制收敛定理给出
+\(\|f-\varphi_n\|_p\to0\)。一般实值函数分别处理正部、负部；复值函数再
+分别处理实部、虚部。整个论证没有使用 \(X\) 的 \(\sigma\)-有限分解。
 \end{solution}
 
 \begin{solution}{compact-open-distance-function}

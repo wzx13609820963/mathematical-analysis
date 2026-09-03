@@ -115,13 +115,64 @@ $\sigma(\mathcal P)=\lambda(\mathcal P)\subseteq\mathcal D$。
 \end{solution}
 
 \begin{solution}{outer-measure-from-existing-measure}
-空集和单调性直接成立。对 $A_n$，为每个 $n$ 取可测外包 $E_n$ 使
-$\mu(E_n)<\mu^*(A_n)+\varepsilon2^{-n}$，则 $\bigcup_nE_n$ 可测并外包
-$\bigcup_nA_n$，给出次可加性。每个原可测集满足 Carathéodory 条件。
-此外，$A$ 在所得 Carathéodory 域中且外测度有限时，可取可测 $E_n\supset A$
-使 $\mu(E_n)\downarrow\mu^*(A)$，令 $E=\bigcap_nE_n$，再由可测性条件
-得到 $E\setminus A$ 外测度为零。因此该域恰好给出原测度的完备化；无限
-测度情形在 $\sigma$-有限分块上作同一论证。
+空集条件和单调性由定义得到。证明可数次可加性时，只需考虑
+\[
+ \sum_{n=1}^{\infty}\mu^*(A_n)<\infty
+\]
+的情形。给定 $\varepsilon>0$，为每个 $n$ 取
+$E_n\in\mathcal A$，使
+\[
+ A_n\subseteq E_n,
+ \qquad
+ \mu(E_n)<\mu^*(A_n)+\varepsilon2^{-n}.
+\]
+于是 $\bigcup_nE_n$ 是 $\bigcup_nA_n$ 的可测外包，故
+\[
+ \mu^*\left(\bigcup_nA_n\right)
+ \le \mu\left(\bigcup_nE_n\right)
+ \le \sum_n\mu(E_n)
+ <\sum_n\mu^*(A_n)+\varepsilon.
+\]
+令 $\varepsilon\downarrow0$，便知 $\mu^*$ 是外测度。
+
+先证明 $\mathcal A\subseteq\mathcal M_{\mu^*}$。若 $E\in\mathcal A$，
+$B\subseteq X$，则对任意可测外包 $H\supseteq B$，
+\[
+ \mu(H)=\mu(H\cap E)+\mu(H\setminus E)
+ \ge \mu^*(B\cap E)+\mu^*(B\setminus E).
+\]
+对 $H$ 取下确界，再与外测度的次可加性合并，得到 $E$ 的
+Carathéodory 等式。外测度零集的任意子集也 Carathéodory 可测，所以原
+测度空间的完备化包含在 $\mathcal M_{\mu^*}$ 中。
+
+反过来，先设 $A\in\mathcal M_{\mu^*}$ 且 $\mu^*(A)<\infty$。取可测集
+$E_n\supseteq A$，使
+$\mu(E_n)<\mu^*(A)+2^{-n}$，并令
+\[
+ F_n=\bigcap_{k=1}^nE_k,
+ \qquad F=\bigcap_{n=1}^{\infty}F_n.
+\]
+则 $F_n\downarrow F$、$A\subseteq F$，且 $\mu(F_1)<\infty$。由测度的
+下降连续性，
+\[
+ \mu(F)=\lim_n\mu(F_n)=\mu^*(A).
+\]
+因为 $A$ 满足 Carathéodory 条件，
+\[
+ \mu(F)=\mu^*(F)
+ =\mu^*(F\cap A)+\mu^*(F\setminus A)
+ =\mu^*(A)+\mu^*(F\setminus A),
+\]
+所以 $F\setminus A$ 外测度为零。于是 $A$ 与可测集 $F$ 只相差零测集。
+
+最后使用 $\sigma$-有限性。取两两不交的可测集 $X_j$，使
+$X=\bigcup_jX_j$ 且 $\mu(X_j)<\infty$。每个 $A\cap X_j$ 仍是
+Carathéodory 可测集，且外测度有限；由上一步，存在
+$F_j\in\mathcal A$，可令 $F_j\subseteq X_j$，并使
+$F_j\setminus(A\cap X_j)$ 外测度为零。令 $F=\bigcup_jF_j$，则
+$F\in\mathcal A$，而 $F\mathbin\triangle A$ 是可数个零测集的并。
+因此每个 Carathéodory 可测集都属于原测度空间的完备化。这里把全空间分成
+有限测度块正是 $\sigma$-有限性的用途。
 \end{solution}
 
 \begin{solution}{outer-measure-restriction}

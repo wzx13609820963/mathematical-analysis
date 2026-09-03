@@ -92,8 +92,9 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
  0\le f\le g\quad\Longrightarrow\quad
  \int f\,d\mu\le\int g\,d\mu .
 \]
-对 \(c\ge0\)，有 \(\int cf\,d\mu=c\int f\,d\mu\)。加法公式并非只靠
-上确界的形式便显然成立；它将由单调收敛定理得到。
+对 \(c\ge0\)，有 \(\int cf\,d\mu=c\int f\,d\mu\)。加法公式需要同时
+协调两个函数的简单逼近，不能只从两个彼此独立的上确界直接读出；它将在
+单调收敛定理之后推出。
 
 \begin{example}
 对 \(E\in\mathcal A\)，
@@ -176,8 +177,10 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
  \int f_n\,d\mu\ge c\int_{E_n}\varphi\,d\mu
  \longrightarrow c\int\varphi\,d\mu .
 \]
-因此 \(L\ge c\int\varphi\,d\mu\)。先令 \(c\uparrow1\)，再对所有
-\(\varphi\le f\) 取上确界，得到 \(L\ge\int f\,d\mu\)。
+因此 \(L\ge c\int\varphi\,d\mu\)。若某个下方简单函数的积分为无穷，
+该式已迫使 \(L=+\infty\)；否则令 \(c\uparrow1\)，得到
+\(L\ge\int\varphi\,d\mu\)。再对所有 \(\varphi\le f\) 取上确界，便有
+\(L\ge\int f\,d\mu\)。
 \end{proof}
 
 \begin{corollary}[非负函数的可数可加性]
@@ -218,7 +221,8 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
 由 \(t\mathbf1_{\{f\ge t\}}\le f\) 得第一式。若 \(\int f=0\)，则
 \(\mu(\{f\ge1/n\})=0\) 对每个 \(n\ge1\) 成立，而
 \(\{f>0\}=\bigcup_{n\ge1}\{f\ge1/n\}\)，故 \(f=0\) 几乎处处。反向
-结论由非负简单函数的定义立即得到。
+若 \(f=0\) a.e.，任意满足 \(0\le\varphi\le f\) 的简单函数也只可能在
+零测集上非零，故其积分为零；对这些简单函数取上确界即得反向结论。
 \end{proof}
 
 若 \(f\ge0\) 可测，集合函数

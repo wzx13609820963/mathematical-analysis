@@ -1,0 +1,48 @@
+\chapter{Baire 范畴方法}
+\begin{solution}{baire-rational-incomplete}
+\(\Q\) 是其单点集合的可数并，每个单点在 \(\Q\) 中闭且无内点，所以第一纲。
+\(\Q\) 在通常距离下不完备，故不满足定理假设。
+\end{solution}
+\begin{solution}{ubp-pointwise-limit}
+逐点收敛给逐点有界，UBP 给 \(\|T_n\|\le C\)。定义 \(Tx=\lim T_nx\)，
+取极限保留线性和 \(\|Tx\|\le C\|x\|\)，所以有界。
+\end{solution}
+\begin{solution}{inverse-two-norms}
+恒等映射从范数二空间到范数一空间有界且双射，两者都是 Banach，
+故其逆有界，存在 \(D\) 使 \(\|x\|_2\le D\|x\|_1\)。连同已知估计即范数等价。
+\end{solution}
+\begin{solution}{graph-continuous-closed}
+对不在图像中的 \((x,y)\)，有 \(y\ne f(x)\)。在 Hausdorff 值域中取
+不交邻域 \(V\ni y,W\ni f(x)\)。连续性给 \(U\ni x\) 满足 \(f(U)\subset W\)，
+于是 \(U\times V\) 与图像不交，故图像补集开。
+\end{solution}
+\begin{solution}{open-quotient-isomorphism}
+\(\ker T\) 因连续性闭，商空间完备。定义 \(\widetilde T([x])=Tx\)，
+因同一陪集之差在核中而良定义，且双射。对任意 \(m\in\ker T\)，
+\(\|Tx\|\le\|T\|\|x-m\|\)，取下确界得有界性。由有界逆定理其逆有界。
+\end{solution}
+\begin{solution}{ubp-dense-subset-insufficient}
+\(c_{00}\) 在 \(\ell^2\) 中稠密，对其任意元素只有有限个坐标非零，
+故 \(\sup_n n|x_n|<\infty\)。然而 \(\|T_n\|=n\)。例如
+\(x_n=n^{-3/4}\)，其平方和
+\(\sum n^{-3/2}\) 收敛，而 \(n|x_n|=n^{1/4}\to\infty\)，说明全集假设确实失败。
+\end{solution}
+\begin{solution}{closed-derivative-unbounded}
+若 \(f_n\to f,\ f_n'\to g\) 均一致，则积分公式取极限得
+\(f(x)=f(0)+\int_0^xg\)，所以 \(f\in C^1,\ f'=g\)，图像闭。
+取 \(f_n(x)=\sin(nx)/n\)，有 \(\|f_n\|_\infty\le1/n\)，
+\(\|f_n'\|_\infty=1\)，故不有界。定义域在上确界范数下不完备。
+\end{solution}
+\begin{solution}{baire-no-countable-basis}
+若 Hamel 基为 \(e_1,e_2,\ldots\)，则 \(X=\bigcup_n\operatorname{span}(e_1,\ldots,e_n)\)。
+每个有限维子空间闭，且因是真子空间而无内点：含一个球的线性子空间
+经平移和缩放必为全空间。于是完备非空空间成为第一纲，矛盾。
+\end{solution}
+\begin{solution}{ubp-dense-convergence}
+令共同界为 \(C\)。对任意 \(x\)，取 \(d\in D\) 足够接近 \(x\)，有
+\[
+ \|T_nx-T_mx\|\le2C\|x-d\|+\|T_nd-T_md\|.
+\]
+先控制第一项，再由 \(D\) 上收敛控制第二项，故 \(T_nx\) Cauchy。
+\(Y\) 完备给极限；线性和有界性由取极限得到。
+\end{solution}

@@ -1,0 +1,46 @@
+\chapter{符号测度}
+\begin{solution}{signed-density-variation}
+在 \(P=\{g\ge0\},N=\{g<0\}\) 上分别取正负密度得到互相奇异的正测度
+\(g^+\mu,g^-\mu\)。Jordan 唯一性说明它们是 \(\nu^\pm\)，故全变差密度为 \(|g|\)。
+\end{solution}
+\begin{solution}{signed-hahn-nonunique}
+例如零测度的任意可测分割都是 Hahn 分解，但两部分测度都只能为零。
+一般情形可把 \(|\nu|\)-零测子集在正负集合间挪动，不改变它们对任何集合的质量。
+\end{solution}
+\begin{solution}{signed-ac-singular-zero}
+设奇异支撑为 \(N\)，则 \(\mu(N)=0\)，绝对连续性给 \(|\nu|(N)=0\)；
+奇异性又给 \(|\nu|(X\setminus N)=0\)，两者相加得全变差为零。
+\end{solution}
+\begin{solution}{signed-dirac-decomposition}
+绝对连续部分为 \(m|_{[0,1]}\)，奇异部分为 \(\delta_{1/2}-2\delta_2\)。
+正部分为 \(m|_{[0,1]}+\delta_{1/2}\)，负部分为 \(2\delta_2\)，它们支撑
+可取为 \(\R\setminus\{2\}\) 与 \(\{2\}\)。全变差是三项取正后相加。
+\end{solution}
+\begin{solution}{rn-uniform-ac}
+由 RN 定理和第一题，\(|\nu|(E)=\int_E|g|\,d\mu\)，积分绝对连续性给正向。
+反向若 \(\mu(E)=0\)，它小于每个 \(\delta\)，所以 \(|\nu|(E)<\varepsilon\)
+对所有正 \(\varepsilon\) 成立，故为零。
+\end{solution}
+\begin{solution}{rn-failure-nonsigma}
+计数测度唯一的零测集为空集，所以 \(\nu\ll\mu\)。若有密度，单点上
+\(g(x)=\int_{\{x\}}g\,d\mu=\nu(\{x\})=0\)，所以 \(g\) 处处零；
+但 \(\nu(X)=1\)，矛盾。计数测度在不可数集合上不是 \(\sigma\)-有限。
+\end{solution}
+\begin{solution}{stieltjes-jump-mass}
+取 \(s_n\uparrow c\)，由有限测度递减连续性，
+\(\mu_F(\{c\})=\lim_n\mu_F((s_n,c])=\lim_n(F(c)-F(s_n))\)，即跳跃大小。
+\end{solution}
+\begin{solution}{cantor-measure-singular}
+每个被删除的开区间上 \(C\) 恒定，所以其 Stieltjes 质量为零；可数相加
+说明质量全在 Cantor 集上，该集长度为零。由 \(C\) 连续和上一题，所有
+单点质量为零。总质量 \(C(1)-C(0)=1\)。
+\end{solution}
+\begin{solution}{signed-variation-partition}
+对任意 \(s=t_0<\cdots<t_n=t\)，有
+\(\sum|\Delta F|=\sum|dF((t_{j-1},t_j])|\le|dF|((s,t])\)，故
+\(V_s^t(F)\le|dF|((s,t])\)。另一方面，规范 Jordan 部分产生正测度
+\(dp,dn\)，其和在 \((s,t]\) 上的质量为 \(v(t)-v(s)=V_s^t(F)\)。
+Jordan 分解的最小性给 \(|dF|\le dp+dn\)，得到反向不等式。
+孤立点尖峰有非零逐点变差，却几乎处处为零；且它的区间增量不满足右连续
+测度分布函数必须满足的连续性，所以不能不作代表约定而直接套用。
+\end{solution}

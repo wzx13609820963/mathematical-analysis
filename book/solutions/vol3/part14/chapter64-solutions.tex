@@ -132,14 +132,27 @@ typewriter 整列没有几乎处处极限，但可按层级抽取每层第一个
 \end{solution}
 
 \begin{solution}{finite-lq-lp-estimate}
-对指数 \(q/p\) 与 \(q/(q-p)\) 使用 Hölder：
+记 \(M=\mu(X)\)、\(A=\|h\|_q\)。若 \(M=0\) 或 \(A=0\)，结论成立。
+以下设二者均为正，并令
 \[
- \int|h|^p
- \le\left(\int|h|^q\right)^{p/q}
- \mu(X)^{1-p/q}.
+ r=\frac qp,\qquad s=\frac q{q-p},\qquad \frac1r+\frac1s=1.
 \]
-取 \(p\) 次方根即得结论。非零常值函数几乎处处时等号成立；Hölder 的
-等号条件也说明在 \(\mu(X)>0\) 时这基本上是等号情形。
+对任意 \(\lambda>0\)，Young 不等式给出
+\[
+ |h|^p=(\lambda|h|^p)\lambda^{-1}
+ \le \frac{\lambda^r|h|^q}{r}+\frac{\lambda^{-s}}s.
+\]
+积分后得到
+\[
+ \int|h|^p\le\frac{\lambda^rA^q}{r}+\frac{M\lambda^{-s}}s.
+\]
+取 \(\lambda=(M/A^q)^{1/(r+s)}\)，两项中去掉系数 \(1/r,1/s\) 后的量
+相等，且 \(1/r+1/s=1\)。于是
+\[
+ \int|h|^p\le A^pM^{1-p/q}.
+\]
+取 \(p\) 次方根即得所需估计。任意非零常值函数都取等号，所以常数
+\(M^{1/p-1/q}\) 不能改小。
 \end{solution}
 
 \begin{solution}{distribution-functions-convergence}
