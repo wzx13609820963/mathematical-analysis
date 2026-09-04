@@ -1,0 +1,199 @@
+\chapter{Plancherel 定理}
+\label{chap:plancherel-theorem}
+
+\(L^1\) Fourier 变换给出有界连续函数，却不保持 \(L^1\) 范数，也未必产生
+可积函数。能量计算使用平方积分范数；在这一范数下，Fourier 变换成为酉算子。
+证明不能直接把两个无穷积分随意换序。我们先在
+\(C_c^\infty(\R^d)\) 上利用反演定理建立内积恒等式，再借助稠密性把变换延拓
+到整个 \(L^2\)。
+
+\section{一个稠密的试验类}
+
+由\chapterref{chap:lp-approximation}，\(C_c^\infty(\R^d)\) 在
+\(L^2(\R^d)\) 中稠密。若 \(\varphi\in C_c^\infty\)，则
+\(\widehat\varphi\in L^1\cap L^2\)。为看出无穷远衰减，任选整数
+\(m>d/2\)，对算子 \((I-\Delta)^m\) 分部积分得
+\[
+ (1+4\pi^2|\xi|^2)^m\widehat\varphi(\xi)
+ =\widehat{(I-\Delta)^m\varphi}(\xi).
+\]
+右侧由 \(L^1\) 范数一致控制，所以
+\(|\widehat\varphi(\xi)|\le C(1+|\xi|)^{-2m}\)，足以同时属于
+\(L^1\) 和 \(L^2\)。
+
+\begin{proposition}[Parseval 公式]\label{prop:fourier-parseval-test}
+若 \(\varphi,\psi\in C_c^\infty(\R^d)\)，则
+\[
+ \int_{\R^d}\widehat\varphi(\xi)\overline{\widehat\psi(\xi)}\,d\xi
+ =\int_{\R^d}\varphi(x)\overline{\psi(x)}\,dx.
+\]
+\end{proposition}
+\begin{proof}
+\(\psi,\widehat\psi\) 都可积，反演定理给
+\[
+ \overline{\psi(x)}
+ =\int_{\R^d}\overline{\widehat\psi(\xi)}e^{-2\pi ix\cdot\xi}\,d\xi.
+\]
+乘以 \(\varphi(x)\) 后的二重积分绝对可积，因为
+\(\|\varphi\|_1\|\widehat\psi\|_1<\infty\)。Fubini 定理于是给
+\[
+ \int\varphi(x)\overline{\psi(x)}dx
+ =\int\overline{\widehat\psi(\xi)}
+      \left(\int\varphi(x)e^{-2\pi ix\cdot\xi}dx\right)d\xi.
+\]
+\end{proof}
+
+取 \(\psi=\varphi\)，得到 \(\|\widehat\varphi\|_2=\|\varphi\|_2\)。
+
+\section{酉延拓}
+
+\begin{theorem}[Plancherel 定理]\label{thm:plancherel}
+存在唯一酉算子
+\[
+ \mathcal F:L^2(\R^d)\longrightarrow L^2(\R^d)
+\]
+在 \(L^1\cap L^2\) 上与积分定义的 Fourier 变换一致。其逆算子为
+\[
+ \mathcal F^{-1}g(x)=\mathcal Fg(-x)
+\]
+在稠密试验类上的连续延拓，并且
+\[
+ \langle\mathcal Ff,\mathcal Fg\rangle_{L^2}
+ =\langle f,g\rangle_{L^2},\qquad
+ \|\mathcal Ff\|_2=\|f\|_2.
+\]
+\end{theorem}
+\begin{proof}
+若 \(f\in L^2\)，取 \(\varphi_n\in C_c^\infty\) 使
+\(\varphi_n\to f\) 于 \(L^2\)。Parseval 公式给
+\(\|\widehat\varphi_n-\widehat\varphi_m\|_2
+=\|\varphi_n-\varphi_m\|_2\)，故变换后的序列在 \(L^2\) 中收敛。定义
+\(\mathcal Ff=\lim\widehat\varphi_n\)。相同估计说明定义与逼近列无关，且
+得到线性和等距性。
+
+在试验类上，两次变换满足
+\(\mathcal F^2\varphi(x)=\varphi(-x)\)，这是反演定理。反射算子
+\(R\varphi(x)=\varphi(-x)\) 在 \(L^2\) 上酉，故稠密延拓给
+\(\mathcal F^2=R\)。于是 \(\mathcal F\) 满射，并且
+\(\mathcal F^{-1}=R\mathcal F=\mathcal FR\)。极化公式再给内积保持。
+\end{proof}
+
+若 \(f\in L^1\cap L^2\)，取 \(\varphi_n\to f\) 同时在 \(L^1\) 和
+\(L^2\) 中成立的光滑紧支撑逼近。则积分变换
+\(\widehat{\varphi_n}\to\widehat f\) 一致，而 Plancherel 延拓在 \(L^2\) 中
+收敛到 \(\mathcal Ff\)。取一个几乎处处收敛子列，两个极限相同，所以延拓
+确实与原 \(L^1\) 定义一致。
+
+\section{\texorpdfstring{\(L^2\)}{L2} 反演与截断}
+
+对一般 \(f\in L^2\)，表达式
+\(\int f(x)e^{-2\pi ix\cdot\xi}dx\) 未必绝对收敛，不能把它当作逐点定义。
+Plancherel 变换是 \(L^2\) 等价类的范数极限。若
+\[
+ f_R=f\,\mathbf1_{B(0,R)},
+\]
+则 \(f_R\in L^1\cap L^2\)，且 \(f_R\to f\) 于 \(L^2\)，所以
+\[
+ \widehat{f_R}\longrightarrow\mathcal Ff\qquad\text{于 }L^2.
+\]
+不同截断方式只要在 \(L^2\) 中逼近 \(f\)，都会得到同一个等价类；逐点极限
+则可能不存在。
+
+同样，若 \(g=\mathcal Ff\)，对频率截断
+\(g_R=g\mathbf1_{B(0,R)}\) 作逆变换，得到带限函数
+\[
+ f_R^\sharp(x)=\int_{B(0,R)}g(\xi)e^{2\pi ix\cdot\xi}\,d\xi,
+\]
+并有 \(f_R^\sharp\to f\) 于 \(L^2\)。这是 \(L^2\) 反演的可计算形式。
+
+\section{卷积与乘积的平方积分版本}
+
+若 \(f\in L^2,g\in L^1\)，Young 不等式给
+\(\|f*g\|_2\le\|f\|_2\|g\|_1\)。用 \(L^1\cap L^2\) 函数逼近 \(f\)，
+从 \(L^1\) 卷积定理和 Plancherel 连续性得到
+\begin{equation}\label{eq:plancherel-convolution}
+ \mathcal F(f*g)=(\mathcal Ff)\widehat g\qquad\text{于 }L^2.
+\end{equation}
+乘以有界频率函数 \(\widehat g\) 因而对应一个有界平移不变算子。
+
+若 \(f,g\in L^2\)，则 \(fg\in L^1\)，而两个 \(L^2\) 函数的卷积可由
+绝对收敛积分定义：
+\[
+ ((\mathcal Ff)*(\mathcal Fg))(\xi)
+ =\int_{\R^d}(\mathcal Ff)(\xi-\eta)(\mathcal Fg)(\eta)\,d\eta.
+\]
+Cauchy--Schwarz 不等式给这个积分以 \(\|f\|_2\|g\|_2\) 为共同上界。
+用 \(L^1\cap L^2\) 函数同时逼近 \(f,g\)，可从 \(L^1\) 乘积公式传到极限，
+得到
+\[
+ \widehat{fg}=(\mathcal Ff)*(\mathcal Fg).
+\]
+两边都是 \(C_0(\R^d)\) 函数；右侧的连续性和无穷远消失可先对紧支撑函数
+验证，再用上述一致估计逼近。这里的卷积属于 \(L^\infty\)，未必属于
+\(L^1\)。
+
+\section{微分算子的频率定义}
+
+对 \(f\in L^2(\R^d)\)，若
+\(\xi_j\mathcal Ff(\xi)\in L^2\)，定义
+\[
+ D_jf=\mathcal F^{-1}\bigl(2\pi i\xi_j\mathcal Ff\bigr).
+\]
+这是闭的、稠密定义的线性算子，定义域为
+\[
+ \mathcal D(D_j)=
+ \{f\in L^2:\xi_j\mathcal Ff\in L^2\}.
+\]
+若 \(f\in C_c^\infty\)，它与经典偏导数相同。若
+\(f_n\to f\) 且 \(D_jf_n\to g\) 于 \(L^2\)，对等式
+\(\mathcal F(D_jf_n)=2\pi i\xi_j\mathcal Ff_n\) 取极限，可知
+\(f\in\mathcal D(D_j)\) 且 \(D_jf=g\)，所以算子闭。
+
+\chapterref{chap:distributions-weak-derivatives}将定义分布导数，并证明
+这里的频率导数正是 \(L^2\) 弱导数。现在已经
+可以看出其自然性：在频率空间中，微分不是处处有界的乘法算子；因子
+\(|\xi_j|\) 无界，所以微分不能成为整个 \(L^2\) 上的有界算子。
+
+\section{一个不确定性估计}
+
+若 \(f\in L^2(\R)\)、\(xf\in L^2\)，且 \(f\) 有平方可积弱导数，则
+\[
+ \|f\|_2^2=-2\operatorname{Re}\int_\R x f'(x)\overline{f(x)}\,dx
+\]
+可先对光滑紧支撑函数分部积分，再由逼近推广。Cauchy--Schwarz 给
+\[
+ \|xf\|_2\,\|f'\|_2\ge\frac12\|f\|_2^2.
+\]
+结合 \(\mathcal F(f')=2\pi i\xi\mathcal Ff\)，得到
+\begin{equation}\label{eq:heisenberg-simple}
+ \|xf\|_2\,\|\xi\mathcal Ff\|_2
+ \ge\frac1{4\pi}\|f\|_2^2.
+\end{equation}
+在这个以原点为中心、以零频为基准的形式中，等号由
+\(f(x)=Ce^{-a x^2}\)（\(a>0\)）达到。若先把 \(x\) 和频率分别减去各自的
+中心，再写相应的方差不等式，则平移、调制和伸缩后的 Gaussian 函数给出
+全部等号情形。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{plancherel-test-decay}证明 \(C_c^\infty\) 函数的 Fourier 变换快于任意指定多项式阶衰减。
+\exerciseitem{plancherel-inner-product}从反演定理严谨推导试验函数上的 Parseval 公式，并标出 Fubini 的控制量。
+\exerciseitem{plancherel-extension-independent}证明等距延拓的定义与所选 \(C_c^\infty\) 逼近列无关。
+\exerciseitem{plancherel-square-reflection}在试验函数上证明 \(\mathcal F^2f(x)=f(-x)\)，再推广到 \(L^2\)。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{plancherel-lone-agreement}证明 Plancherel 延拓在 \(L^1\cap L^2\) 上与积分定义一致。
+\exerciseitem{plancherel-frequency-truncation}证明频率截断反演 \(f_R^\sharp\to f\) 于 \(L^2\)，并求误差范数。
+\exerciseitem{plancherel-convolution-ltwo}证明公式\eqref{eq:plancherel-convolution}及其范数估计。
+\exerciseitem{plancherel-derivative-closed}证明频率定义的 \(D_j\) 是闭算子，且 \(C_c^\infty\) 包含于其定义域。
+\exerciseitem{plancherel-translation-generator}证明 \((\tau_hf-f)/h\to-D_jf\) 于 \(L^2\) 当且仅当相应方向的频率乘子极限可由 \(L^2\) 控制，并给出充分条件。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{plancherel-heisenberg}补全不确定性估计\eqref{eq:heisenberg-simple}的逼近论证，并求等号条件。
+\exerciseitem{plancherel-poisson-solver}设 \(f\in L^2(\R^d)\) 且 \(|\xi|^{-2}\widehat f(\xi)\in L^2\)。用 Fourier 变换构造 \(L^2\) 解 \(u\) 满足 \(-\Delta u=f\)，并说明零频附近的条件。
+\optionalexerciseitem{plancherel-bandlimited-evaluation}若 \(\operatorname{supp}\widehat f\subset B(0,R)\)，证明 \(f\) 有连续代表并估计 \(\|f\|_\infty\)。
+\end{enumerate}

@@ -1,0 +1,141 @@
+\chapter{\texorpdfstring{\(L^2\)}{L2} Fourier 级数}
+
+\begin{solution}{l2-fourier-orthonormality}
+\[
+ \langle e_j,e_k\rangle_{\mathbb T}
+ =\frac1{2\pi}\int_{-\pi}^{\pi}e^{i(j-k)x}\,dx
+ =\begin{cases}1,&j=k,\\0,&j\ne k.\end{cases}
+\]
+\end{solution}
+
+\begin{solution}{l2-fourier-best-approximation}
+令 \(M_N=\operatorname{span}\{e_k:|k|\le N\}\)。由系数定义，
+\(f-S_Nf\) 与每个 \(e_k\)（\(|k|\le N\)）正交，所以
+\(S_Nf=P_{M_N}f\)。正交投影定理给唯一最佳逼近。
+\end{solution}
+
+\begin{solution}{l2-fourier-tail-error}
+完备展开给
+\[
+ f-S_Nf=\sum_{|k|>N}\widehat f(k)e^{ikx}.
+\]
+对该正交级数使用 Pythagoras 或 Parseval 恒等式，得到
+\[
+ \|f-S_Nf\|_2^2
+ =\sum_{|k|>N}|\widehat f(k)|^2.
+\]
+\end{solution}
+
+\begin{solution}{l2-fourier-translation-continuity}
+由平移系数公式和 Parseval 恒等式，
+\[
+ \|\tau_hf-f\|_2^2
+ =\sum_k|e^{-ikh}-1|^2|\widehat f(k)|^2.
+\]
+每个固定 \(k\) 的因子趋零，且被 \(4|\widehat f(k)|^2\) 控制；后者可和。
+计数测度上的控制收敛定理给结论。
+\end{solution}
+
+\begin{solution}{l2-fourier-sawtooth-parseval}
+函数为奇函数。分部积分得
+\[
+ b_n=\frac1\pi\int_{-\pi}^{\pi}x\sin(nx)\,dx
+ =\frac{2(-1)^{n+1}}n,
+\]
+所以 \(\widehat f(n)=(-1)^{n+1}/(in)\)（\(n\ne0\)）。另一方面
+\[
+ \|f\|_2^2=\frac1{2\pi}\int_{-\pi}^{\pi}x^2dx=\frac{\pi^2}{3}.
+\]
+Parseval 给
+\(\pi^2/3=\sum_{n\ne0}n^{-2}=2\sum_{n\ge1}n^{-2}\)，故和为
+\(\pi^2/6\)。
+\end{solution}
+
+\begin{solution}{l2-fourier-derivative-converse}
+由 Riesz--Fischer 定理，存在唯一 \(g\in L^2\) 满足
+\(\widehat g(k)=ik\widehat f(k)\)。对三角多项式 \(\varphi\)，直接比较
+Fourier 系数并作有限求和，得到
+\[
+ \int_{-\pi}^{\pi}f(x)\varphi'(x)\,dx
+ =-\int_{-\pi}^{\pi}g(x)\varphi(x)\,dx.
+\]
+光滑周期函数的 Fourier 部分和连同各阶
+导数一致收敛，故可由三角多项式逼近 \(\varphi,\varphi'\)，将等式传到所有
+光滑周期测试函数。于是 \(g\) 是弱导数。
+\end{solution}
+
+\begin{solution}{l2-fourier-poincare-circle}
+\(\widehat f(0)=0\) 后，Parseval 与导数系数公式给
+\[
+ \|f\|_2^2=\sum_{k\ne0}|\widehat f(k)|^2
+ \le\sum_{k\ne0}k^2|\widehat f(k)|^2=\|f'\|_2^2.
+\]
+等号当且仅当 \(\widehat f(k)=0\) 对所有 \(|k|\ge2\) 成立，即
+\(f=a e^{ix}+b e^{-ix}\) 几乎处处。
+\end{solution}
+
+\begin{solution}{l2-fourier-convolution-young}
+对几乎处处的 \(x\)，Minkowski 积分不等式给
+\[
+ \|f*g\|_p
+ \le\frac1{2\pi}\int_{-\pi}^{\pi}|g(t)|\,
+       \|f(\cdot-t)\|_p\,dt
+ =\|f\|_p\|g\|_1.
+\]
+\(p=\infty\) 直接由本质上确界估计。Fubini 和周期换元给
+\[
+ \widehat{f*g}(k)
+ =\frac1{(2\pi)^2}\iint f(x-t)g(t)e^{-ikx}\,dt\,dx
+ =\widehat f(k)\widehat g(k).
+\]
+\end{solution}
+
+\begin{solution}{l2-fourier-multiplier-norm}
+Parseval 给
+\[
+ \|T_mf\|_2^2=\sum_k|m_k|^2|\widehat f(k)|^2
+ \le\|m\|_\infty^2\|f\|_2^2.
+\]
+反向对 \(f=e_k\) 得 \(\|T_me_k\|_2=|m_k|\)，再对 \(k\) 取上确界。
+\end{solution}
+
+\begin{solution}{l2-fourier-compact-operator}
+若 \(m_k\to0\)，令 \(T_m^{(N)}\) 只保留 \(|k|\le N\) 的系数。它有限秩，且
+\[
+ \|T_m-T_m^{(N)}\|=\sup_{|k|>N}|m_k|\to0.
+\]
+紧算子的算子范数极限仍紧。反之，若 \(T_m\) 紧，则正交规范序列 \(e_k\)
+弱趋零；紧算子把弱收敛序列送成范数收敛序列，故
+\(|m_k|=\|T_me_k\|_2\to0\)。
+\end{solution}
+
+\begin{solution}{l2-fourier-subsequence-ae}
+由 \(S_Nf\to f\) 于 \(L^2\)，可选严格递增 \(N_j\) 使
+\(\|S_{N_j}f-f\|_2^2<2^{-j}\)。于是
+\[
+ \sum_j\int|S_{N_j}f-f|^2<\infty.
+\]
+Tonelli 定理给几乎处处
+\(\sum_j|S_{N_j}f(x)-f(x)|^2<\infty\)，故各项趋零。取
+\(S_{N_j}f\) 即得所需三角多项式列。
+\end{solution}
+
+\begin{solution}{l2-fourier-autocorrelation}
+Cauchy--Schwarz 与平移连续性给
+\[
+ |R_f(h)-R_f(h_0)|
+ \le\|\tau_hf-\tau_{h_0}f\|_2\|f\|_2\to0.
+\]
+对任意 \(c_j,h_j\)，
+\[
+ \sum_{j,k}c_j\overline{c_k}R_f(h_j-h_k)
+ =\left\|\sum_jc_j\tau_{h_j}f\right\|_2^2\ge0,
+\]
+故正定。展开系数并用 Parseval，
+\[
+ R_f(h)=\sum_{k\in\mathbb Z}e^{-ikh}|\widehat f(k)|^2.
+\]
+所以按本章符号约定，\(R_f\) 的第 \(k\) 个 Fourier 系数为
+\(|\widehat f(-k)|^2\)；若改用 \(\langle f,\tau_hf\rangle\)，则为
+\(|\widehat f(k)|^2\)。
+\end{solution}

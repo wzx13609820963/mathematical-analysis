@@ -1,0 +1,124 @@
+\chapter{Hilbert 空间}
+
+\begin{solution}{hilbert-pythagoras-finite}
+展开范数平方时，交叉项均因正交而消失：
+\[
+ \left\|\sum_{j=1}^n x_j\right\|^2
+ =\sum_{j,k}\langle x_j,x_k\rangle=\sum_{j=1}^n\|x_j\|^2.
+\]
+若两两正交的非零向量满足 \(\sum c_jx_j=0\)，应用等式得
+\(0=\sum|c_j|^2\|x_j\|^2\)，故所有 \(c_j=0\)。
+\end{solution}
+
+\begin{solution}{hilbert-lone-not-inner}
+在 \(\ell^p\) 中取 \(e_1,e_2\)。当 \(1\le p<\infty\) 时，
+\[
+ \|e_1+e_2\|_p^2+\|e_1-e_2\|_p^2=2\cdot2^{2/p},
+ \qquad 2\|e_1\|_p^2+2\|e_2\|_p^2=4.
+\]
+两者相等恰好要求 \(p=2\)。当 \(p=\infty\) 时左侧为 \(2\)，右侧为 \(4\)。
+由 Jordan--von Neumann 定理，这些范数不来自内积。
+\end{solution}
+
+\begin{solution}{hilbert-orthogonal-complement}
+对每个 \(m\in M\)，映射 \(x\mapsto\langle x,m\rangle\) 连续，故其核闭；
+\(M^\perp\) 是这些核的交，因而闭。显然
+\(\overline{\operatorname{span}M}\subset M^{\perp\perp}\)。按正交投影定理，
+任意 \(x\) 可写成 \(x=u+v\)，其中
+\(u\in\overline{\operatorname{span}M}\)、\(v\in M^\perp\)。若
+\(x\in M^{\perp\perp}\)，则 \(0=\langle x,v\rangle=\|v\|^2\)，所以
+\(x=u\)，得到反向包含。
+\end{solution}
+
+\begin{solution}{hilbert-projection-line}
+令 \(P x=cu\)。正交条件
+\(\langle x-cu,u\rangle=0\) 给
+\[
+ P x=\frac{\langle x,u\rangle}{\|u\|^2}u.
+\]
+该公式也直接验证 \(P^2=P\)、像为该直线且误差与直线正交。
+\end{solution}
+
+\begin{solution}{hilbert-convex-characterization}
+若 \(p\) 最近，对 \(z\in C\) 和 \(0<t\le1\)，凸性给
+\(p+t(z-p)\in C\)。比较平方距离、消去 \(\|x-p\|^2\)、除以 \(t\)，再令
+\(t\downarrow0\)，得到
+\(\operatorname{Re}\langle x-p,z-p\rangle\le0\)。反之按正文展开
+\(\|x-z\|^2\) 即知 \(p\) 最近。若 \(C=M\) 为线性子空间，可同时取
+\(z=p+u\) 与 \(z=p-u\)；实部既不大于零又不小于零。复情形再用 \(iu\)，
+得到 \(\langle x-p,u\rangle=0\)。
+\end{solution}
+
+\begin{solution}{hilbert-projection-characterization}
+正交投影显然幂等。写 \(x=Px+(I-P)x\)，\(y=Py+(I-P)y\)，两个分量
+互相正交，便得 \(\langle Px,y\rangle=\langle x,Py\rangle\)。
+
+反之，\(P^2=P\) 给 \(H=\operatorname{ran}P\oplus\ker P\)。自伴条件给
+\[
+ \langle Px,(I-P)y\rangle
+ =\langle x,P(I-P)y\rangle=0.
+\]
+所以两个子空间正交。\(P\) 连续使 \(\ker P\) 闭，而
+\(\operatorname{ran}P=\ker(I-P)\) 也闭；故 \(P\) 正是到其像的正交投影。
+\end{solution}
+
+\begin{solution}{hilbert-riesz-sequence-functional}
+数列 \(a=(1/n)_{n\ge1}\) 属于 \(\ell^2\)。数列 Cauchy--Schwarz 不等式给
+\[
+ |\phi(x)|\le\|x\|_2\|a\|_2,
+\]
+所以级数绝对收敛并定义连续线性泛函。按本书内积第一变量线性的约定，
+\(\phi(x)=\langle x,a\rangle\)，故 Riesz 表示元为 \(a\)，并且
+\[
+ \|\phi\|=\|a\|_2
+ =\left(\sum_{n=1}^\infty\frac1{n^2}\right)^{1/2}
+ =\frac{\pi}{\sqrt6}.
+\]
+\end{solution}
+
+\begin{solution}{hilbert-closed-range}
+若 \(x_n=m_n+n_n\to x\)，则由 Pythagoras 等式，
+\(\|m_n-m_k\|\le\|x_n-x_k\|\) 且
+\(\|n_n-n_k\|\le\|x_n-x_k\|\)。闭性与完备性给
+\(m_n\to m\in M,n_n\to n\in N\)，所以 \(x=m+n\in M+N\)。分解正交且唯一，
+于是
+\[
+ P_{M+N}=P_M+P_N.
+\]
+\end{solution}
+
+\begin{solution}{hilbert-gram-normal}
+对列向量 \(c=(c_j)\)，按本书第一变量线性的约定，
+\[
+ \sum_{k,j}c_j\overline{c_k}\langle u_j,u_k\rangle
+ =\left\|\sum_jc_ju_j\right\|^2.
+\]
+所以 Gram 矩阵总半正定，且二次型只在 \(c=0\) 时为零，恰好等价于
+\(u_j\) 线性无关。此时矩阵可逆，正规方程有唯一系数解；该解表示的向量
+使误差与每个 \(u_k\) 正交，因而由投影定理是唯一最佳逼近向量。
+\end{solution}
+
+\begin{solution}{hilbert-von-neumann-complex}
+设范数来自内积。展开四项：
+\[
+ \|x+i^ky\|^2=\|x\|^2+\|y\|^2
+ +2\operatorname{Re}\bigl((-i)^k\langle x,y\rangle\bigr).
+\]
+乘以 \(i^k\) 求和，前两项之和为零，交叉项合成 \(4\langle x,y\rangle\)，
+得到极化公式。反过来，若范数满足平行四边形恒等式，实数情形的加法论证
+先给所定义形式对实标量的线性；极化公式再给
+\(\langle ix,y\rangle=i\langle x,y\rangle\)。共轭对称性与正定性由公式
+直接验证，故得到复内积。
+\end{solution}
+
+\begin{solution}{hilbert-projection-alternating}
+若 \(M\perp N\)，则 \(P_MP_N=P_NP_M=0\)。因此从任意 \(x\) 开始，
+先投到 \(M\) 再投到 \(N\) 便得到零，后续保持为零。
+
+在 \(\R^2\) 中令 \(M=\operatorname{span}(1,0)\)，
+\(N=\operatorname{span}(\cos\theta,\sin\theta)\)，其中
+\(0<\theta<\pi/2\)。从 \(m\in M\) 出发，\(P_Nm\) 的长度乘以
+\(\cos\theta\)，再投回 \(M\) 又乘以 \(\cos\theta\)。故每一轮
+\(P_MP_N\) 在 \(M\) 上把长度乘以 \(\cos^2\theta\)，以几何速度趋于
+\(M\cap N=\{0\}\)。
+\end{solution}

@@ -1,0 +1,302 @@
+\chapter{Hilbert 空间}
+\label{chap:hilbert-spaces}
+
+在一般赋范空间中，距离可以比较向量的大小，却没有给出角度、垂直或沿子空间
+分解向量的方法。欧氏空间的这些概念来自内积；把有限维和有限基的限制去掉，
+再保留完备性，便得到 Hilbert 空间。本章先从 Cauchy--Schwarz 不等式说明
+内积确实产生范数，随后证明闭凸集的最佳逼近、正交投影和 Hilbert 空间的
+Riesz 表示定理。最小二乘法只是这些结果在一个有限维子空间上的表现。
+
+复内积采用“第一变量线性”的约定，即
+\(\langle \alpha x+\beta y,z\rangle
+=\alpha\langle x,z\rangle+\beta\langle y,z\rangle\)。
+
+\section{内积与范数}
+
+\begin{definition}
+设 \(H\) 是域 \(\mathbb K=\R\) 或 \(\C\) 上的向量空间。映射
+\(\langle\cdot,\cdot\rangle:H\times H\to\mathbb K\) 称为内积，如果
+对所有 \(x,y,z\in H\) 和标量 \(\alpha,\beta\) 满足
+\[
+ \langle \alpha x+\beta y,z\rangle
+ =\alpha\langle x,z\rangle+\beta\langle y,z\rangle,
+ \quad \langle x,y\rangle=\overline{\langle y,x\rangle},
+ \quad \langle x,x\rangle>0\ (x\ne0).
+\]
+内积空间若在范数 \(\|x\|=\sqrt{\langle x,x\rangle}\) 下完备，称为
+Hilbert 空间。
+\end{definition}
+
+正定性也给出 \(\langle0,0\rangle=0\)，并由共轭对称性推出第二变量共轭线性。
+实空间中共轭可以删去。典型例子是
+\[
+ \langle x,y\rangle=\sum_{j=1}^n x_j\overline{y_j},\qquad
+ \langle f,g\rangle=\int_X f\overline g\,d\mu.
+\]
+后一公式使 \(L^2(\mu)\) 成为 Hilbert 空间；其完备性已经由
+\chapterref{chap:lp-spaces}的 Riesz--Fischer 定理保证。连续函数空间
+配上上确界范数通常不是内积空间：这一范数不满足下面的平行四边形恒等式。
+
+\begin{theorem}[Cauchy--Schwarz 不等式]\label{thm:hilbert-cauchy-schwarz}
+任意内积空间中都有
+\[
+ |\langle x,y\rangle|\le \|x\|\,\|y\|.
+\]
+等号成立当且仅当 \(x,y\) 线性相关。
+\end{theorem}
+\begin{proof}
+若 \(y=0\)，结论直接成立。设 \(y\ne0\)，对
+\(\lambda=\langle x,y\rangle/\|y\|^2\) 展开非负量：
+\[
+ 0\le\|x-\lambda y\|^2
+ =\|x\|^2-\frac{|\langle x,y\rangle|^2}{\|y\|^2}.
+\]
+这给出不等式。等号恰好等价于 \(x=\lambda y\)；连同 \(y=0\) 的情形，
+即为线性相关。
+\end{proof}
+
+Cauchy--Schwarz 不等式给出三角不等式，因为
+\[
+ \|x+y\|^2=\|x\|^2+2\operatorname{Re}\langle x,y\rangle+\|y\|^2
+ \le(\|x\|+\|y\|)^2.
+\]
+它还说明内积关于两个变量共同连续：
+\[
+ |\langle x,y\rangle-\langle x',y'\rangle|
+ \le\|x-x'\|\|y\|+\|x'\|\|y-y'\|.
+\]
+
+\section{平行四边形恒等式}
+
+直接展开内积可得
+\begin{equation}\label{eq:hilbert-parallelogram}
+ \|x+y\|^2+\|x-y\|^2=2\|x\|^2+2\|y\|^2.
+\end{equation}
+这条等式是内积范数的可识别特征。
+
+\begin{theorem}[Jordan--von Neumann]\label{thm:jordan-von-neumann}
+赋范空间 \(X\) 的范数来自某个内积，当且仅当它满足
+\eqref{eq:hilbert-parallelogram}。此时内积唯一；在实数域上
+\[
+ \langle x,y\rangle=\frac14\bigl(\|x+y\|^2-\|x-y\|^2\bigr),
+\]
+在复数域上还需用
+\[
+ \langle x,y\rangle=\frac14\sum_{k=0}^3 i^k\|x+i^ky\|^2.
+\]
+\end{theorem}
+\begin{proof}
+必要性已经证明。先证实数情形的充分性。令 \(q(x)=\|x\|^2\)，并按所给公式
+定义 \(B_{\mathbb R}(x,y)\)。平行四边形恒等式
+先给
+\[
+ B_{\mathbb R}(x+z,y)+B_{\mathbb R}(x-z,y)=2B_{\mathbb R}(x,y),
+ \qquad B_{\mathbb R}(-x,y)=-B_{\mathbb R}(x,y).
+\]
+把第一式中的 \(x,z\) 换成 \((u+v)/2,(u-v)/2\)，得到
+\[
+ B_{\mathbb R}(u,y)+B_{\mathbb R}(v,y)
+ =2B_{\mathbb R}\!\left(\frac{u+v}{2},y\right).
+\]
+再令 \(v=0,u=2w\)，可知
+\(B_{\mathbb R}(2w,y)=2B_{\mathbb R}(w,y)\)。两式合用便有
+\(B_{\mathbb R}(u+v,y)=B_{\mathbb R}(u,y)+B_{\mathbb R}(v,y)\)。
+于是对整数 \(m\) 和有理数 \(r\) 有
+\(B_{\mathbb R}(rx,y)=rB_{\mathbb R}(x,y)\)。范数连续使
+\(B_{\mathbb R}\) 连续，取有理数
+逼近任意实数便得实齐次性。对称性由定义直接看出，且
+\(B_{\mathbb R}(x,x)=\|x\|^2\)，所以 \(B_{\mathbb R}\) 是产生原范数的
+实内积。
+
+现在设 \(X\) 是复赋范空间，并暂时只把它看成实向量空间。上面的构造给出
+实双线性对称型 \(B_{\mathbb R}\)。记 \(Jx=ix\)。由于 \(\|Jx\|=\|x\|\)，
+实极化公式给
+\[
+ B_{\mathbb R}(Jx,Jy)=B_{\mathbb R}(x,y),\qquad
+ B_{\mathbb R}(Jx,y)=-B_{\mathbb R}(x,Jy).
+\]
+定义
+\[
+ B(x,y)=B_{\mathbb R}(x,y)+iB_{\mathbb R}(x,Jy).
+\]
+实双线性已经成立；上面两式又给
+\[
+ B(Jx,y)=iB(x,y),\qquad B(y,x)=\overline{B(x,y)}.
+\]
+因此 \(B\) 对第一变量复线性、对第二变量共轭线性。再由
+\(B_{\mathbb R}(x,Jx)=0\) 得
+\(B(x,x)=B_{\mathbb R}(x,x)=\|x\|^2\)，所以 \(B\) 是复内积。把
+\(B_{\mathbb R}\) 的实极化公式代回上式，整理即得定理中的复极化公式。
+实、复两种极化公式都由范数唯一确定内积，唯一性也随之得到。
+\end{proof}
+
+例如 \(\R^2\) 上的 \(\ell^1\) 范数不满足平行四边形恒等式：取标准基
+\(e_1,e_2\)，左侧为 \(8\)，右侧为 \(4\)。因此“范数空间中的垂直”不能
+在没有额外定义时沿用欧氏几何的结论。
+
+\section{闭凸集的最佳逼近}
+
+到集合 \(C\subset H\) 的距离记为
+\(d(x,C)=\inf_{z\in C}\|x-z\|\)。在一般 Banach 空间中，即使 \(C\) 闭，
+这个下确界也可能不取得；即使取得，最近点也可能不唯一。Hilbert 空间的
+平行四边形恒等式同时解决这两个问题，只需 \(C\) 非空、闭且凸。
+
+\begin{theorem}[最佳逼近定理]\label{thm:hilbert-best-approximation}
+设 \(C\) 是 Hilbert 空间 \(H\) 的非空闭凸子集。对每个 \(x\in H\)，存在
+唯一的 \(p\in C\) 使
+\[
+ \|x-p\|=d(x,C).
+\]
+并且 \(p\) 的特征条件为
+\begin{equation}\label{eq:hilbert-variational-projection}
+ \operatorname{Re}\langle x-p,z-p\rangle\le0\qquad(z\in C).
+\end{equation}
+\end{theorem}
+\begin{proof}
+记 \(d=d(x,C)\)，取 \(p_n\in C\) 使 \(\|x-p_n\|\to d\)。由凸性，
+\((p_n+p_m)/2\in C\)。对 \(x-p_n,x-p_m\) 用平行四边形恒等式，得
+\[
+ \|p_n-p_m\|^2
+ =2\|x-p_n\|^2+2\|x-p_m\|^2
+   -4\left\|x-\frac{p_n+p_m}{2}\right\|^2
+ \le2\|x-p_n\|^2+2\|x-p_m\|^2-4d^2.
+\]
+右侧趋于零，故 \(p_n\) 为 Cauchy 列。完备性给 \(p_n\to p\)，闭性给
+\(p\in C\)，连续性给 \(\|x-p\|=d\)。若 \(p,q\) 都是最近点，上式对
+常序列 \(p,q\) 给 \(\|p-q\|=0\)，故唯一。
+
+若 \(p\) 为最近点，对 \(0<t\le1\) 和 \(z\in C\)，点
+\(p+t(z-p)\) 仍在 \(C\)，于是
+\[
+ \|x-p\|^2\le\|x-p-t(z-p)\|^2
+ =\|x-p\|^2-2t\operatorname{Re}\langle x-p,z-p\rangle
+   +t^2\|z-p\|^2.
+\]
+除以 \(t\) 再令 \(t\downarrow0\)，得到\eqref{eq:hilbert-variational-projection}。
+反之，若该不等式成立，则
+\[
+ \|x-z\|^2=\|x-p\|^2+\|z-p\|^2
+ -2\operatorname{Re}\langle x-p,z-p\rangle\ge\|x-p\|^2,
+\]
+所以 \(p\) 是最近点。
+\end{proof}
+
+三个条件各有明确用途：凸性使两个近似极小点的中点仍可比较，完备性给出
+极限，闭性使极限留在集合中。若把 Hilbert 空间换成一般严格凸但不具适当
+紧致性的 Banach 空间，存在性仍可能失败。
+
+\section{正交补与投影}
+
+称 \(x\perp y\) 若 \(\langle x,y\rangle=0\)。对 \(M\subset H\)，定义
+\[
+ M^\perp=\{x\in H:\langle x,m\rangle=0\text{ 对所有 }m\in M\}.
+\]
+它是闭线性子空间，且只依赖 \(M\) 的线性闭包。
+
+\begin{theorem}[正交投影定理]\label{thm:hilbert-projection}
+若 \(M\) 是 Hilbert 空间 \(H\) 的闭线性子空间，则
+\[
+ H=M\oplus M^\perp.
+\]
+也就是说，每个 \(x\in H\) 唯一写成 \(x=m+n\)，其中
+\(m\in M,n\in M^\perp\)。映射 \(P_Mx=m\) 是有界线性算子，满足
+\[
+ P_M^2=P_M,\quad \operatorname{ran}P_M=M,\quad
+ \ker P_M=M^\perp,\quad \|P_Mx\|\le\|x\|.
+\]
+若 \(M\ne\{0\}\)，则 \(\|P_M\|=1\)。
+\end{theorem}
+\begin{proof}
+最佳逼近定理给 \(x\) 在 \(M\) 中的唯一最近点 \(m\)。把变分条件分别用于
+\(z=m+u\) 和 \(z=m-u\)，其中 \(u\in M\)，得到
+\(\operatorname{Re}\langle x-m,u\rangle=0\)。复情形再把 \(u\) 换成
+\(iu\)，便得整个内积为零，故 \(x-m\in M^\perp\)。分解的唯一性来自
+\(M\cap M^\perp=\{0\}\)。
+
+唯一分解立即给 \(P_M\) 的线性与幂等性。Pythagoras 等式
+\[
+ \|x\|^2=\|P_Mx\|^2+\|x-P_Mx\|^2
+\]
+给收缩估计。若 \(0\ne m\in M\)，则 \(P_Mm=m\)，故算子范数至少为一。
+\end{proof}
+
+由此还得到 \(M^{\perp\perp}=\overline M\)。事实上
+\(\overline M\subset M^{\perp\perp}\) 显然；若 \(x\perp M^\perp\)，按
+\(\overline M\oplus M^\perp\) 分解，第二个分量必须为零。
+
+\section{Riesz 表示定理}
+
+\begin{theorem}[Hilbert 空间的 Riesz 表示定理]\label{thm:hilbert-riesz}
+对 Hilbert 空间 \(H\) 中每个连续线性泛函 \(\phi\in H^*\)，存在唯一
+\(y\in H\) 使
+\[
+ \phi(x)=\langle x,y\rangle\qquad(x\in H),
+\]
+并且 \(\|\phi\|=\|y\|\)。
+\end{theorem}
+\begin{proof}
+若 \(\phi=0\)，取 \(y=0\)。设 \(\phi\ne0\)。闭仿射超平面
+\(C=\{x:\phi(x)=1\}\) 非空。由最佳逼近定理，存在唯一 \(y_0\in C\)
+使 \(\|y_0\|=d(0,C)>0\)。对任意 \(u\in\ker\phi\) 和任意标量 \(t\)，
+\(y_0+tu\in C\)。令实参数 \(t\) 变化，并在复情形再令 \(t=is\)，由
+\(t=0\) 是 \(\|y_0+tu\|^2\) 的最小点得到
+\(\langle u,y_0\rangle=0\)。对任意 \(x\)，向量
+\(x-\phi(x)y_0\) 属于核，故
+\[
+ \langle x,y_0\rangle=\phi(x)\|y_0\|^2.
+\]
+取 \(y=y_0/\|y_0\|^2\) 即得表示。若两个向量给出同一泛函，则其差与
+所有向量正交，特别与自身正交，因而为零。最后 Cauchy--Schwarz 给
+\(\|\phi\|\le\|y\|\)，而 \(y\ne0\) 时在 \(x=y/\|y\|\) 处取等号。
+\end{proof}
+
+映射 \(y\mapsto\langle\,\cdot\,,y\rangle\) 在实情形线性，在复情形共轭线性。
+因此不能在复空间里不说明约定就说 \(H\) 与 \(H^*\) “线性等同”。Riesz
+表示还给出反射性。事实上，记
+\(Ry=\langle\,\cdot\,,y\rangle\)，则 \(R:H\to H^*\) 是满的共轭线性
+等距映射。给定 \(F\in H^{**}\)，映射
+\(y\mapsto\overline{F(Ry)}\) 是 \(H\) 上的连续线性泛函，故存在
+\(z\in H\) 使
+\[
+ \overline{F(Ry)}=\langle y,z\rangle.
+\]
+取共轭后得到 \(F(Ry)=\langle z,y\rangle=(Ry)(z)\)。因 \(R\) 满射，
+\(F(\phi)=\phi(z)\) 对所有 \(\phi\in H^*\) 成立，即 \(F=J_Hz\)。这与
+\chapterref{chap:reflexive-spaces}对 \(L^2\) 的积分表示相容。
+
+\section{最小二乘与正规方程}
+
+设 \(u_1,\ldots,u_m\in H\)，令 \(M=\operatorname{span}\{u_j\}\)。求
+\(\sum_jc_ju_j\) 使它最接近 \(x\)，等价于求 \(P_Mx\)。误差正交于 \(M\)，
+故系数满足正规方程
+\[
+ \sum_{j=1}^m c_j\langle u_j,u_k\rangle=\langle x,u_k\rangle,
+ \qquad k=1,\ldots,m.
+\]
+Gram 矩阵 \(G=(\langle u_j,u_k\rangle)_{k,j}\) 半正定；当且仅当 \(u_j\)
+线性无关时正定，正规方程此时有唯一系数解。若向量相关，最佳逼近向量仍然
+唯一，但表示它的系数可能不唯一。这一区分在数值最小二乘中也不能省略。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{hilbert-pythagoras-finite}证明两两正交的有限族满足 Pythagoras 等式，并说明等式如何推出线性无关性。
+\exerciseitem{hilbert-lone-not-inner}证明 \(\ell^p\) 的通常范数在 \(p\ne2\) 时不满足平行四边形恒等式。
+\exerciseitem{hilbert-orthogonal-complement}证明 \(M^\perp\) 闭，且 \(M^{\perp\perp}=\overline{\operatorname{span}M}\)。
+\exerciseitem{hilbert-projection-line}设 \(0\ne u\in H\)，求投影到 \(\operatorname{span}\{u\}\) 的公式。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{hilbert-convex-characterization}证明最佳逼近的变分条件\eqref{eq:hilbert-variational-projection}，并说明当 \(C\) 是线性子空间时为何得到等号。
+\exerciseitem{hilbert-projection-characterization}设 \(P\in\mathcal L(H)\)。证明 \(P\) 是某闭子空间的正交投影，当且仅当 \(P^2=P\) 且 \(\langle Px,y\rangle=\langle x,Py\rangle\)。
+\exerciseitem{hilbert-riesz-sequence-functional}在 \(\ell^2\) 上令
+\(\phi(x)=\sum_{n\ge1}x_n/n\)。证明级数定义连续线性泛函，求其范数和 Riesz 表示元。
+\exerciseitem{hilbert-closed-range}证明对闭子空间 \(M,N\subset H\)，若 \(M\perp N\)，则 \(M+N\) 闭，并求其正交投影。
+\exerciseitem{hilbert-gram-normal}证明 Gram 矩阵正定当且仅当向量族线性无关，并由此证明正规方程的结论。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\optionalexerciseitem{hilbert-von-neumann-complex}验证复数域的极化公式，并据此补全 Jordan--von Neumann 定理的复数情形。
+\exerciseitem{hilbert-projection-alternating}设 \(M,N\) 为闭子空间且 \(M\perp N\)。证明交替投影序列在两步后稳定；再构造不正交的两条平面直线，计算交替投影的收敛率。
+\end{enumerate}

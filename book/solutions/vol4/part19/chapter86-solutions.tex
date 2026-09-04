@@ -1,0 +1,149 @@
+\chapter{Picard 迭代}
+
+\begin{solution}{picard-integral-equivalence}
+若 \(y\in C^1\) 满足微分方程，微积分基本定理给
+\[
+ y(t)-y(t_0)=\int_{t_0}^{t}y'(s)ds
+ =\int_{t_0}^{t}f(s,y(s))ds.
+\]
+反之，连续 \(f\) 与连续 \(y\) 使复合函数 \(s\mapsto f(s,y(s))\) 连续；
+积分上限函数可导，导数为 \(f(t,y(t))\)，且令 \(t=t_0\) 得初值。
+\end{solution}
+
+\begin{solution}{picard-invariant-ball}
+若 \(\|u-y_0\|_\infty\le b\)，则 \((t,u(t))\in Q\)，因而
+\[
+ \|(\Phi u)(t)-y_0\|
+ \le\left|\int_{t_0}^{t}\|f(s,u(s))\|ds\right|
+ \le M|t-t_0|\le Mh.
+\]
+所以 \(Mh\le b\) 保证 \(\Phi u\in X\)。
+\end{solution}
+
+\begin{solution}{picard-linear-equation}
+从 \(u_0=y_0\) 开始，
+\[
+ u_1=y_0+(ay_0+b)t,\qquad
+ u_2=y_0+(ay_0+b)\left(t+\frac{at^2}{2}\right),
+\]
+\[
+ u_3=y_0+(ay_0+b)\left(t+\frac{at^2}{2}+\frac{a^2t^3}{6}\right).
+\]
+依此归纳，
+\[
+ u_n=y_0+(ay_0+b)\sum_{k=1}^n\frac{a^{k-1}t^k}{k!}.
+\]
+若 \(a\ne0\)，极限为
+\((y_0+b/a)e^{at}-b/a\)；若 \(a=0\)，为 \(y_0+bt\)。
+\end{solution}
+
+\begin{solution}{picard-contraction-error}
+压缩常数 \(q=Lh<1\) 时，
+\[
+ \|u_n-y\|\le\sum_{j=n}^\infty\|u_{j+1}-u_j\|
+ \le\frac{q^n}{1-q}\|u_1-u_0\|.
+\]
+而 \(\|u_1-u_0\|\le Mh\)。阶乘估计从
+\(\|u_1(t)-u_0(t)\|\le M|t-t_0|\) 开始。若第 \(n\) 步有逐点上界
+\[
+ \|u_{n+1}(t)-u_n(t)\|
+ \le\frac{ML^n|t-t_0|^{n+1}}{(n+1)!},
+\]
+再积分一次即得下一步；对 \(|t-t_0|\le h\) 取上确界。
+\end{solution}
+
+\begin{solution}{picard-local-lipschitz-derivative}
+对固定 \(t\) 和 \(y,z\) 的线段，有限维中值积分公式给
+\[
+ f(t,y)-f(t,z)=\int_0^1D_yf(t,z+s(y-z))(y-z)ds.
+\]
+连续导数在紧矩形上范数有界，记上界为 \(L\)，便得
+\(\|f(t,y)-f(t,z)\|\le L\|y-z\|\)，且 \(L\) 与 \(t,y,z\) 无关。
+\end{solution}
+
+\begin{solution}{picard-nonunique-family}
+\(t<c\) 时 \(y_c'=0=2\sqrt{|y_c|}\)；\(t>c\) 时
+\(y_c'=2(t-c)=2\sqrt{(t-c)^2}\)。在 \(t=c\) 左右导数均为零，故
+\(y_c\in C^1\)，方程也成立。所有 \(c\ge0\) 的解都取同一初值，却在
+\(t>c\) 后不同，故唯一性失败。
+\end{solution}
+
+\begin{solution}{picard-gronwall-variable}
+令 \(v=A+\int b u\)。当 \(A>0\) 时 \(u\le v\) 且
+\((\log v)'=v'/v\le b\) 几乎处处，积分得
+\(v(t)\le A\exp(\int b)\)。\(A=0\) 用 \(A+\varepsilon\) 后取极限。
+对解差 \(u(t)=\|y(t)-z(t)\|\)，积分方程给
+\[
+ u(t)\le\|y_0-z_0\|+\int_{t_0}^{t}Lu(s)ds,
+\]
+应用引理即得所求。
+\end{solution}
+
+\begin{solution}{picard-perturbed-vector-field}
+把差拆为
+\[
+ f(s,y(s))-g(s,z(s))
+ =[f(s,y(s))-f(s,z(s))]+[f(s,z(s))-g(s,z(s))].
+\]
+因此
+\[
+ u(t)\le\|y_0-z_0\|+\eta|t-t_0|+
+ L\int_{t_0}^{t}u(s)ds.
+\]
+在长度 \(T=|t-t_0|\) 的区间上把前两项统一界为
+\(\|y_0-z_0\|+\eta T\)，Grönwall 给正文估计。
+\end{solution}
+
+\begin{solution}{picard-global-linear-growth}
+由积分方程，
+\[
+ \|y(t)\|\le\|y_0\|+A|t-t_0|+
+ B\int_{t_0}^{t}\|y(s)\|ds.
+\]
+Grönwall 给任意固定有限时间带上的共同有限上界。因此轨道不可能因
+\(\|y(t)\|\to\infty\) 在有限端点终止。向量场定义在全空间，有限时间带内的
+轨道闭包是紧集，局部存在长度可统一选择，最大解可继续延拓。
+\end{solution}
+
+\begin{solution}{picard-flow-semigroup}
+记从初值 \(x\) 出发的唯一解为 \(y(t;x)\)，并令
+\(\Phi_t(x)=y(t;x)\)。函数
+\(s\mapsto y(s+t;x)\) 与 \(s\mapsto y(s;\Phi_t(x))\) 满足同一自治方程，
+在 \(s=0\) 取同一初值。唯一性给
+\[
+ \Phi_s(\Phi_t(x))=\Phi_{s+t}(x).
+\]
+等式只在三项均有定义时成立。局部流的定义域通常是
+\[
+ \{(t,x):t\text{ 属于从 }x\text{ 出发的最大区间}\},
+\]
+而不是整个 \(\R\times\R^m\)。
+\end{solution}
+
+\begin{solution}{picard-parameter-differentiation}
+设 \(y(t,\lambda)\) 解
+\[
+ y=y_0(\lambda)+\int_{t_0}^{t}f(s,y(s,\lambda),\lambda)ds.
+\]
+形式导数 \(z=\partial_\lambda y\) 应满足
+\[
+ z(t)=y_0'(\lambda)+\int_{t_0}^{t}
+ \bigl[D_yf(s,y,\lambda)z(s)+\partial_\lambda f(s,y,\lambda)\bigr]ds.
+\]
+对差商与该线性积分方程之差使用一阶展开；连续可微性在紧管道上使余项除以
+参数增量后一致趋零。差的范数满足
+\(u(t)\le o(1)+L\int u\)，Grönwall 给 \(u\to0\) 一致。因此参数导数存在并
+由变分方程唯一确定。
+\end{solution}
+
+\begin{solution}{picard-weighted-norm}
+对 \(t\ge t_0\)，
+\[
+ e^{-\alpha(t-t_0)}\|(\Phi u)(t)-(\Phi v)(t)\|
+ \le L\|u-v\|_\alpha e^{-\alpha(t-t_0)}
+ \int_{t_0}^{t}e^{\alpha(s-t_0)}ds
+ \le\frac L\alpha\|u-v\|_\alpha.
+\]
+\(\alpha>L\) 时压缩常数小于一。这个范数不能代替闭集不变估计，因为
+\(f\) 的 Lipschitz 与有界条件仍只在预先选定的区域内已知。
+\end{solution}

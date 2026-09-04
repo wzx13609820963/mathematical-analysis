@@ -1,0 +1,170 @@
+\chapter{\texorpdfstring{\(L^2\)}{L2} Fourier 级数}
+\label{chap:l2-fourier-series}
+
+点态收敛观察每个 \(x\) 上的数值，\(L^2\) 收敛观察一个周期上的平均平方
+误差。后一问题与 Hilbert 空间的正交投影完全一致：三角部分和是到有限维
+三角多项式空间的投影，唯一尚需证明的是三角系统没有遗漏方向。Fejér 定理
+给出的三角多项式稠密性正好完成这一步。
+
+本章沿用
+\[
+ \langle f,g\rangle_{\mathbb T}
+ =\frac1{2\pi}\int_{-\pi}^{\pi}f(x)\overline{g(x)}\,dx
+\]
+以及\chapterref{chap:trigonometric-fourier-series}的 Fourier 系数约定。
+
+\section{三角系统的完备性}
+
+函数 \(e_k(x)=e^{ikx}\) 满足
+\(\langle e_j,e_k\rangle_{\mathbb T}=\delta_{jk}\)，所以
+\((e_k)_{k\in\mathbb Z}\) 是 \(L^2(\mathbb T)\) 中的正交规范系。
+
+\begin{theorem}\label{thm:trigonometric-system-complete}
+三角系统 \((e^{ikx})_{k\in\mathbb Z}\) 在 \(L^2(\mathbb T)\) 中完备。
+\end{theorem}
+\begin{proof}
+设 \(f\in L^2(\mathbb T)\) 与每个 \(e_k\) 正交，则全部 Fourier 系数为零。
+由于圆周测度有限，\(f\in L^1(\mathbb T)\)。
+\chapterref{chap:trigonometric-fourier-series}的 Fejér 平均
+\(\sigma_Nf\) 的系数是
+\[
+ \widehat{\sigma_Nf}(k)=
+ \begin{cases}
+ (1-|k|/(N+1))\widehat f(k),&|k|\le N,\\
+ 0,&|k|>N,
+ \end{cases}
+\]
+故 \(\sigma_Nf=0\)。另一方面，Fejér 核的 \(L^2\) 逼近恒等性质给
+\(\sigma_Nf\to f\) 于 \(L^2\)：这可直接调用
+\chapterref{chap:trigonometric-fourier-series}的 \(L^p\) 结论，取 \(p=2\)。
+因此 \(f=0\)。由正交系完备判据，三角系统完备。
+\end{proof}
+
+这里没有从 Fourier 系数唯一性循环推出完备性。唯一性在 \(L^1\) 中由 Fejér
+平均证明，而 Fejér 收敛只使用正核和连续函数稠密性，不预设三角系统完备。
+
+\section{\texorpdfstring{\(L^2\)}{L2} 收敛}
+
+\begin{theorem}[Riesz--Fischer 定理的 Fourier 形式]
+\label{thm:l2-fourier-convergence}
+对每个 \(f\in L^2(\mathbb T)\)，
+\[
+ S_Nf=\sum_{k=-N}^{N}\widehat f(k)e^{ikx}
+ \longrightarrow f\qquad\text{于 }L^2(\mathbb T).
+\]
+反之，对每个 \(c=(c_k)_{k\in\mathbb Z}\in\ell^2(\mathbb Z)\)，存在唯一
+\(f\in L^2(\mathbb T)\) 使 \(\widehat f(k)=c_k\) 对所有 \(k\) 成立。
+\end{theorem}
+\begin{proof}
+第一部分是完备正交系展开定理。对第二部分，正交级数
+\(\sum_kc_ke^{ikx}\) 在 \(L^2\) 中收敛到某个 \(f\)。与固定 \(e_j\) 取内积
+是连续操作，故极限的第 \(j\) 个系数为 \(c_j\)。若另一个函数有相同系数，
+两者之差与完备系统正交，因而在 \(L^2\) 中为零。
+\end{proof}
+
+这个结论不声称 \(S_Nf(x)\) 在每一点收敛。\(L^2\) 元素本来就是几乎处处
+等价类，改变零测集上的值不会影响结论；而点态收敛会看见这些代表元差别。
+对一般 \(L^2\) 函数，点态收敛需要比本章多得多的工具。
+
+\section{Parseval 恒等式}
+
+\begin{corollary}[Parseval 恒等式]\label{thm:fourier-parseval-circle}
+对 \(f,g\in L^2(\mathbb T)\)，
+\[
+ \|f\|_{L^2(\mathbb T)}^2=\sum_{k\in\mathbb Z}|\widehat f(k)|^2,
+ \qquad
+ \langle f,g\rangle_{\mathbb T}
+ =\sum_{k\in\mathbb Z}\widehat f(k)\overline{\widehat g(k)}.
+\]
+\end{corollary}
+
+因此 Fourier 变换
+\[
+ \mathcal F_{\mathbb T}:L^2(\mathbb T)\to\ell^2(\mathbb Z),
+ \qquad f\mapsto(\widehat f(k))_{k\in\mathbb Z}
+\]
+是酉同构。部分和误差有精确表达式
+\begin{equation}\label{eq:l2-fourier-tail}
+ \|f-S_Nf\|_2^2=\sum_{|k|>N}|\widehat f(k)|^2.
+\end{equation}
+这比只知道误差趋零更强：任何系数衰减估计都会立即转化为逼近速度。
+
+\section{平移、微分与系数衰减}
+
+对 \(h\in\R\)，平移 \(\tau_hf(x)=f(x-h)\) 满足
+\[
+ \widehat{\tau_hf}(k)=e^{-ikh}\widehat f(k),\qquad
+ \|\tau_hf-f\|_2^2
+ =\sum_k|e^{-ikh}-1|^2|\widehat f(k)|^2.
+\]
+控制收敛定理在计数测度上给出 \(L^2\) 平移连续性。
+
+若 \(f\) 是 \(2\pi\)-周期绝对连续函数且 \(f'\in L^2\)，分部积分给
+\begin{equation}\label{eq:fourier-derivative-coefficients}
+ \widehat{f'}(k)=ik\widehat f(k).
+\end{equation}
+边界项因周期性消失。Parseval 恒等式于是给
+\[
+ \|f'\|_2^2=\sum_{k\in\mathbb Z}k^2|\widehat f(k)|^2.
+\]
+反复应用可知：若有 \(r\) 阶平方可积导数，则
+\(|k|^r\widehat f(k)\in\ell^2\)。这是一种平均意义的衰减，不必逐项推出
+\(|\widehat f(k)|\le C|k|^{-r-1}\)。
+
+反向也成立：若 \(f\in L^2\) 且
+\(\sum k^2|\widehat f(k)|^2<\infty\)，则存在 \(g\in L^2\) 的系数为
+\(ik\widehat f(k)\)，并且
+\[
+ \frac1{2\pi}\int_{-\pi}^{\pi} f\,\varphi'
+ =-\frac1{2\pi}\int_{-\pi}^{\pi}g\,\varphi
+\]
+对所有光滑周期函数 \(\varphi\) 成立。此时 \(g\) 是 \(f\) 的弱导数。
+\chapterref{chap:distributions-weak-derivatives}和
+\chapterref{chap:sobolev-spaces}将把这一定义推广到开集和高维情形。
+
+\section{卷积与乘子}
+
+圆周卷积定义为
+\[
+ (f*g)(x)=\frac1{2\pi}\int_{-\pi}^{\pi}f(x-t)g(t)\,dt.
+\]
+若 \(f\in L^p,g\in L^1\)，Young 不等式给
+\(\|f*g\|_p\le\|f\|_p\|g\|_1\)，其中范数均相对归一化测度。Fubini 定理给
+\begin{equation}\label{eq:circle-convolution-coefficients}
+ \widehat{f*g}(k)=\widehat f(k)\widehat g(k).
+\end{equation}
+所以卷积在 Fourier 坐标中成为逐项乘法。
+
+更一般地，给定有界数列 \(m=(m_k)\)，定义
+\[
+ T_mf=\sum_{k\in\mathbb Z}m_k\widehat f(k)e^{ikx}.
+\]
+Parseval 恒等式给
+\(\|T_m\|_{L^2\to L^2}=\sup_k|m_k|\)。这类算子称为 Fourier 乘子。
+部分和对应 \(m_k=\mathbf1_{\{|k|\le N\}}\)，Fejér 平均对应
+\(m_k=(1-|k|/(N+1))_+\)。在 \(L^2\) 中二者都是收缩；但在
+\(L^\infty\) 中，Dirichlet 核的 \(L^1\) 增长使部分和没有共同算子界。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{l2-fourier-orthonormality}验证 \(e^{ikx}\) 在归一化内积下正交规范。
+\exerciseitem{l2-fourier-best-approximation}证明 \(S_Nf\) 是所有次数不超过 \(N\) 的三角多项式中唯一的 \(L^2\) 最佳逼近。
+\exerciseitem{l2-fourier-tail-error}由 Parseval 恒等式推导误差公式\eqref{eq:l2-fourier-tail}。
+\exerciseitem{l2-fourier-translation-continuity}只用系数和控制收敛证明 \(\|\tau_hf-f\|_2\to0\)。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{l2-fourier-sawtooth-parseval}求 \(f(x)=x\)（\(-\pi<x<\pi\)）的 Fourier 系数，并由 Parseval 恒等式计算 \(\sum_{n=1}^\infty n^{-2}\)。
+\exerciseitem{l2-fourier-derivative-converse}补全“\((k\widehat f(k))\in\ell^2\) 蕴含存在弱导数”的证明。
+\exerciseitem{l2-fourier-poincare-circle}若 \(\widehat f(0)=0\) 且 \(f\) 有平方可积弱导数，证明 \(\|f\|_2\le\|f'\|_2\)，并讨论等号。
+\exerciseitem{l2-fourier-convolution-young}证明圆周上的 Young 不等式及卷积系数公式。
+\exerciseitem{l2-fourier-multiplier-norm}证明 \(L^2\) Fourier 乘子的范数恰为 \(\sup_k|m_k|\)。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{l2-fourier-compact-operator}若 \(m_k\to0\)，证明 \(T_m\) 是 \(L^2(\mathbb T)\) 上的紧算子；反之亦然。
+\exerciseitem{l2-fourier-subsequence-ae}由 \(L^2\) 收敛的子列原理证明：每个 \(f\in L^2(\mathbb T)\) 都有一列三角多项式几乎处处收敛到 \(f\)。
+\optionalexerciseitem{l2-fourier-autocorrelation}对 \(f\in L^2(\mathbb T)\) 定义 \(R_f(h)=\langle \tau_hf,f\rangle\)。证明 \(R_f\) 连续且正定，并求其 Fourier 系数。
+\end{enumerate}

@@ -1,0 +1,209 @@
+\chapter{三角 Fourier 级数}
+\label{chap:trigonometric-fourier-series}
+
+周期函数可以用三角多项式逼近，并不意味着它的 Fourier 部分和必然收敛。
+这两个问题分别由 Dirichlet 核和 Fejér 核控制：前者有剧烈振荡且
+\(L^1\) 范数随阶数增长，后者非负、总质量固定并集中到原点。本章先在点态
+意义下考察这一区别。所有函数都视为 \(2\pi\)-周期函数，积分取任意一个
+长度为 \(2\pi\) 的周期；记圆周为 \(\mathbb T=\R/(2\pi\mathbb Z)\)。
+
+\section{系数与部分和}
+
+在 \(L^1(\mathbb T)\) 中定义
+\[
+ \widehat f(k)=\frac1{2\pi}\int_{-\pi}^{\pi}f(x)e^{-ikx}\,dx,
+ \qquad k\in\mathbb Z.
+\]
+若 \(f\) 实值，则 \(\widehat f(-k)=\overline{\widehat f(k)}\)，从而复指数
+形式与通常的正弦、余弦形式相互换算。第 \(N\) 个对称部分和为
+\[
+ S_Nf(x)=\sum_{k=-N}^{N}\widehat f(k)e^{ikx}.
+\]
+有限求和允许与积分换序，所以
+\begin{equation}\label{eq:fourier-dirichlet-convolution}
+ S_Nf(x)=\frac1{2\pi}\int_{-\pi}^{\pi}f(x-t)D_N(t)\,dt,
+ \qquad D_N(t)=\sum_{k=-N}^Ne^{ikt}.
+\end{equation}
+对 \(t\notin2\pi\mathbb Z\) 求有限等比和，得
+\[
+ D_N(t)=\frac{\sin((N+\tfrac12)t)}{\sin(t/2)},\qquad
+ \frac1{2\pi}\int_{-\pi}^{\pi}D_N(t)\,dt=1.
+\]
+因此 \(D_N\) 具有正确总质量，却不是非负核；事实上
+\(\|D_N\|_1\) 的量级为 \(\log N\)。这个增长说明不能由
+\(\|S_Nf\|_\infty\le C\|f\|_\infty\) 得到与 \(N\) 无关的估计。
+
+\section{局部收敛判据}
+
+点 \(x\) 附近的左右极限若存在，记
+\[
+ s_x=\frac{f(x+)+f(x-)}2.
+\]
+由 Dirichlet 核的偶性和积分为 \(2\pi\)，公式
+\eqref{eq:fourier-dirichlet-convolution}可写成
+\begin{equation}\label{eq:fourier-symmetric-difference}
+ S_Nf(x)-s_x
+ =\frac1{2\pi}\int_0^\pi
+ \frac{f(x+t)+f(x-t)-2s_x}{2\sin(t/2)}
+ 2\sin\bigl((N+\tfrac12)t\bigr)\,dt.
+\end{equation}
+
+\begin{lemma}[圆周上的 Riemann--Lebesgue 引理]\label{lem:circle-riemann-lebesgue}
+若 \(g\in L^1(\mathbb T)\)，则
+\(\int_{-\pi}^{\pi}g(t)e^{-ikt}\,dt\to0\)。
+\end{lemma}
+\begin{proof}
+平移在 \(L^1(\mathbb T)\) 中连续。对 \(k\ne0\) 取
+\(h=\pi/k\)，周期换元给
+\[
+ 2\int g(t)e^{-ikt}\,dt
+ =\int\bigl(g(t)-g(t-h)\bigr)e^{-ikt}\,dt.
+\]
+故左侧绝对值不超过 \(\|g-\tau_hg\|_1\)，而 \(h\to0\)。平移连续性可先
+对连续周期函数由一致连续性证明，再用连续函数在 \(L^1(\mathbb T)\) 中的
+稠密性推广。
+\end{proof}
+
+\begin{theorem}[Dini 判据]\label{thm:fourier-dini-test}
+若 \(f\in L^1(\mathbb T)\)，点 \(x\) 的左右极限存在，并且对某个
+\(\delta>0\)，
+\[
+ t\longmapsto
+ \frac{f(x+t)+f(x-t)-f(x+)-f(x-)}{t}
+\]
+在 \((0,\delta)\) 可积，则 \(S_Nf(x)\to s_x\)。
+\end{theorem}
+\begin{proof}
+在 \((0,\delta)\) 上，\(t/(2\sin(t/2))\) 有界，故
+\eqref{eq:fourier-symmetric-difference}的被积振幅可积。区间
+\([\delta,\pi]\) 上分母离零有界，而 \(f(x+t)+f(x-t)\) 可积。于是整个振幅
+属于 \(L^1(0,\pi)\)，引理应用于频率 \(N+\tfrac12\) 即得结论；半整数频率
+也可把正弦拆成整数频率乘以固定的 \(\sin(t/2),\cos(t/2)\)。
+\end{proof}
+
+若 \(f\) 在 \(x\) 两侧分段 \(C^1\)，分子在每一侧为 \(O(t)\)，所以 Dini
+条件成立。连续性本身却不保证这一积分条件；存在连续周期函数，其 Fourier
+级数在某点发散。因此“连续函数可由三角多项式一致逼近”不能推出它自己的
+Fourier 部分和收敛。
+
+\begin{theorem}[Dirichlet--Jordan 定理]\label{thm:dirichlet-jordan}
+若 \(f\) 在圆周上有界变差，则对每个 \(x\)
+\[
+ S_Nf(x)\longrightarrow\frac{f(x+)+f(x-)}2.
+\]
+特别地，在连续点收敛到 \(f(x)\)，在跳跃点收敛到左右极限的平均值。
+\end{theorem}
+\begin{proof}
+只说明 Dini 判据未覆盖的步骤。对右连续且在 \(0\) 处取零的 BV 函数
+\(u\)，其变差测度在 \((0,\delta]\) 上的质量随 \(\delta\downarrow0\) 趋零。
+令 \(A_\lambda(t)=\int_t^\delta\sin(\lambda s)/\sin(s/2)\,ds\)。
+Dirichlet 估计给 \(|A_\lambda(t)|\le C\)，常数与 \(\lambda,t,\delta\)
+无关；在每个固定 \(t>0\) 上又有 \(A_\lambda(t)\to0\)。Stieltjes 分部积分
+于是给
+\[
+ \int_0^\delta u(t)\frac{\sin(\lambda t)}{\sin(t/2)}\,dt\longrightarrow0:
+\]
+先选 \(\delta\) 使变差小，再在 \([\delta,\pi]\) 上用
+Riemann--Lebesgue 引理。BV 函数在一点的右差
+\(f(x+t)-f(x+)\) 和左差 \(f(x-t)-f(x-)\) 都满足上述条件。
+把二者代入\eqref{eq:fourier-symmetric-difference}，取
+\(\lambda=N+\tfrac12\)，即得结论。
+\end{proof}
+
+\section{跳跃与 Gibbs 现象}
+
+Dirichlet--Jordan 定理只描述固定点的极限。若观察点随 \(N\) 向跳跃点靠近，
+部分和会在越来越窄的区间内出现不消失的超调。以周期阶跃函数
+\[
+ f(x)=\begin{cases}-1,&-\pi<x<0,\\1,&0<x<\pi\end{cases}
+\]
+为例，直接计算得
+\[
+ S_Nf(x)=\frac4\pi\sum_{\substack{1\le k\le N\\k\ {\rm odd}}}
+ \frac{\sin(kx)}k.
+\]
+令 \(x=y/N\)，把和视为 Riemann 和，可得局部极限
+\[
+ S_Nf(y/N)\longrightarrow \frac2\pi\int_0^y\frac{\sin u}{u}\,du.
+\]
+其第一个峰值在 \(y=\pi\) 附近，超过右极限 \(1\) 的比例趋于
+\[
+ \frac2\pi\int_0^\pi\frac{\sin u}{u}\,du-1\approx0.08949.
+\]
+超调区域的宽度趋零，但高度不趋零；这就是 Gibbs 现象。它不与
+\(L^2\) 收敛冲突，因为一个宽度趋零的区域可以携带趋零的平方积分误差。
+
+\section{Fejér 平均}
+
+定义部分和的 Cesàro 平均
+\[
+ \sigma_Nf=\frac1{N+1}\sum_{n=0}^NS_nf.
+\]
+交换有限求和得
+\[
+ \sigma_Nf(x)=\frac1{2\pi}\int_{-\pi}^{\pi}f(x-t)K_N(t)\,dt,
+\]
+其中 Fejér 核
+\begin{equation}\label{eq:fejer-kernel}
+ K_N(t)=\frac1{N+1}\sum_{n=0}^ND_n(t)
+ =\frac1{N+1}\left(\frac{\sin((N+1)t/2)}{\sin(t/2)}\right)^2.
+\end{equation}
+它满足
+\[
+ K_N\ge0,\qquad \frac1{2\pi}\int_{-\pi}^{\pi}K_N=1,\qquad
+ \sup_{\delta\le|t|\le\pi}K_N(t)\longrightarrow0
+\]
+对每个 \(\delta>0\) 成立。三条性质使 \(K_N\) 成为圆周上的逼近恒等。
+
+\begin{theorem}[Fejér 定理]\label{thm:fejer-uniform}
+若 \(f\in C(\mathbb T)\)，则 \(\sigma_Nf\to f\) 一致收敛。更一般地，若
+\(f\in L^1(\mathbb T)\)，则在每个 Lebesgue 点 \(x\) 有
+\(\sigma_Nf(x)\to f(x)\)。
+\end{theorem}
+\begin{proof}
+连续情形中
+\[
+ |\sigma_Nf(x)-f(x)|
+ \le\frac1{2\pi}\int_{-\pi}^{\pi}|f(x-t)-f(x)|K_N(t)\,dt.
+\]
+给定 \(\varepsilon>0\)，一致连续性给 \(\delta>0\)，使
+\(|t|<\delta\) 时差小于 \(\varepsilon\)，这部分积分至多
+\(\varepsilon\)。外部积分由 \(2\|f\|_\infty\) 乘以核在
+\(\delta\le|t|\le\pi\) 上的质量控制，后一质量趋零；估计与 \(x\) 无关。
+
+若 \(x\) 为 Lebesgue 点，把积分按环带
+\(2^j/(N+1)<|t|\le2^{j+1}/(N+1)\) 分解，并用
+\[
+ K_N(t)\le C\min\{N+1,((N+1)t^2)^{-1}\}.
+\]
+每一环带由 \(x\) 处的局部平均误差控制，远离零的部分仍由核集中性消失。
+先固定小邻域，再令 \(N\to\infty\)，得到点态结论。
+\end{proof}
+
+连续情形立即证明三角多项式在 \(C(\mathbb T)\) 中一致稠密，因为
+\(\sigma_Nf\) 本身是次数不超过 \(N\) 的三角多项式。这里使用的是经过平均的
+部分和；不能把结论中的 \(\sigma_Nf\) 替换为 \(S_Nf\)。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{fourier-circle-real-coefficients}把复 Fourier 系数与正弦、余弦系数互相换算，并证明实值函数的共轭对称性。
+\exerciseitem{fourier-dirichlet-kernel-formula}由有限等比和推导 Dirichlet 核公式及其总质量。
+\exerciseitem{fourier-translation-coefficients}若 \(g(x)=f(x-a)\)，证明 \(\widehat g(k)=e^{-ika}\widehat f(k)\)。
+\exerciseitem{fourier-step-series}计算正文周期阶跃函数的 Fourier 系数并写出部分和。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{fourier-dini-piecewise-c-one}证明分段 \(C^1\) 周期函数满足 Dini 判据，并写出跳跃点的极限。
+\exerciseitem{fourier-localization}证明若两个 \(L^1\) 周期函数在 \(x\) 的某邻域相等，则它们 Fourier 部分和在 \(x\) 处之差趋零。
+\exerciseitem{fourier-fejer-three-properties}逐项验证 Fejér 核的非负性、总质量和远离原点的一致趋零。
+\exerciseitem{fourier-fejer-positive-contraction}证明 \(\|\sigma_Nf\|_p\le\|f\|_p\)，其中 \(1\le p\le\infty\)。
+\exerciseitem{fourier-fejer-lp}证明对 \(1\le p<\infty\)，\(\sigma_Nf\to f\) 于 \(L^p(\mathbb T)\)。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{fourier-uniqueness-lone}若 \(f\in L^1(\mathbb T)\) 的全部 Fourier 系数为零，利用 Fejér 平均证明 \(f=0\) 几乎处处。
+\optionalexerciseitem{fourier-dirichlet-lone-growth}证明 \(\|D_N\|_{L^1(-\pi,\pi)}\) 的量级为 \(\log(N+2)\)。
+\exerciseitem{fourier-gibbs-scaling}补全阶跃函数在 \(x=y/N\) 下的 Riemann 和极限，并解释为何超调不妨碍 \(L^2\) 收敛。
+\end{enumerate}

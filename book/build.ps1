@@ -47,7 +47,7 @@ try {
         }
     }
 
-    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-第一至三卷及第四卷第十六编-附录A至C.pdf'
+    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-第一至四卷-附录A至C.pdf'
     $builtPdf = Join-Path $PSScriptRoot 'main.pdf'
     if (-not (Test-Path -LiteralPath $builtPdf)) {
         throw 'LuaLaTeX did not produce main.pdf.'
@@ -56,8 +56,8 @@ try {
 
     $outputDirectory = Join-Path $repositoryRoot 'output\pdf'
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-第一至三卷及第四卷第十六编-附录A至C.pdf'
-    $linkTargetPath = Join-Path $outputDirectory 'analysis-vol1-3-vol4-part16-appA-C.pdf'
+    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-第一至四卷-附录A至C.pdf'
+    $linkTargetPath = Join-Path $outputDirectory 'analysis-vol1-4-appA-C.pdf'
     try {
         Copy-Item -LiteralPath $candidatePath -Destination $releasePath -Force
         Copy-Item -LiteralPath $candidatePath -Destination $linkTargetPath -Force

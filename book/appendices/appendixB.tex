@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—79章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—89章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -463,6 +463,51 @@ Jordan 体积仍写作 \(|E|\)。三个记号所允许的集合族并不相同�
 这里的元素是几乎处处等价类。\(1\le p\le\infty\) 时这些量给出范数；
 \(0<p<1\) 时只保留拟范数型结构。
 
+\section{Hilbert 空间、Fourier 分析与弱解}
+
+Hilbert 空间的内积统一记为 \(\langle x,y\rangle\)，并约定对第一个变量
+线性、对第二个变量共轭线性。因此复Hilbert空间的Riesz表示写成
+\[
+ \phi(x)=\langle x,y\rangle .
+\]
+若 \(M\subseteq H\)，则 \(M^\perp\) 表示 \(H\) 中的内积正交补；若
+\(M\subseteq X\) 且值域是 \(X^*\)，同一个符号表示零化子。两种记号的环境
+不同，使用时须确认对象属于原空间还是连续对偶。闭子空间 \(M\) 的正交投影
+记为 \(P_M\)。
+
+在 \(\mathbb R^n\) 上，本书采用
+\[
+ \widehat f(\xi)
+ =\int_{\mathbb R^n}f(x)e^{-2\pi i x\cdot\xi}\,dx .
+\]
+这一归一化使 \(\widehat{\partial_j f}(\xi)=2\pi i\xi_j\widehat f(\xi)\)，
+反演公式中的指数则取正号。对 \(f\in L^1\)，右端是逐点绝对收敛积分；
+对一般 \(f\in L^2\)，\(\widehat f\) 指Plancherel定理给出的等距延拓，不能
+默认同一个积分逐点存在。
+
+开集 \(\Omega\subseteq\mathbb R^n\) 上的试验函数空间和分布空间分别记为
+\[
+ \mathcal D(\Omega)=C_c^\infty(\Omega),
+ \qquad \mathcal D'(\Omega)=\mathcal D(\Omega)^* .
+\]
+分布作用写作 \(\langle T,\varphi\rangle\)。这里的尖括号表示对偶作用，不是
+Hilbert内积。多重指标 \(\alpha\) 的分布导数由
+\[
+ \langle D^\alpha T,\varphi\rangle
+ =(-1)^{|\alpha|}\langle T,D^\alpha\varphi\rangle
+\]
+定义。若局部可积函数 \(u\) 的分布导数仍由局部可积函数表示，该代表称为
+\(u\) 的弱导数。
+
+Sobolev空间写为 \(W^{k,p}(\Omega)\)，并约定
+\[
+ H^k(\Omega)=W^{k,2}(\Omega),
+ \qquad
+ H_0^1(\Omega)=\overline{C_c^\infty(\Omega)}^{\,H^1}.
+\]
+后一等式是当前定义；把它解释为“边界值为零”需要迹理论，不能仅凭逐点取值
+作出判断。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -581,7 +626,7 @@ Jordan 体积仍写作 \(|E|\)。三个记号所允许的集合族并不相同�
 
 \section{当前章节依赖}
 
-第0—79章的主要依赖可概括如下：
+第0—89章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -695,5 +740,23 @@ BV 函数几乎处处可导；\chapterref{chap:absolute-continuity}区分绝对�
 \(J_Xx(\phi)=\phi(x)\) 满射。Banach--Alaoglu 给对偶球的弱星紧致，
 Eberlein--Šmulian 给 Banach 空间中弱紧致集的序列刻画，两者不能互相替代。
 复 \(L^p\) 对偶按 \(\int fg\) 配对，\(L^2\) 内积另用 \(\int f\overline g\)。
+
+\chapterref{chap:hilbert-spaces}在Banach空间理论之上加入内积几何，由最佳
+逼近得到正交投影和Riesz表示；\chapterref{chap:orthogonal-expansions}随后
+建立Bessel不等式、完备正交系和Parseval恒等式。三角Fourier理论分成三层：
+\chapterref{chap:trigonometric-fourier-series}讨论经典部分和与Fejér平均的
+逐点行为，\chapterref{chap:l2-fourier-series}使用Hilbert空间完备性建立
+平方平均收敛，\chapterref{chap:l1-fourier-transform}转向全空间上的\(L^1\)
+变换、卷积和反演。\chapterref{chap:plancherel-theorem}最后把变换延拓到
+\(L^2\)；这里得到的是等价类意义下的酉算子，不把一般\(L^2\)函数恢复为
+逐点绝对收敛的积分。
+
+常微分方程部分也分开处理两套假设。\chapterref{chap:picard-iteration}以压缩
+映射证明局部Lipschitz向量场的存在唯一性；\chapterref{chap:peano-existence}
+只用连续性，经Euler折线和Arzelà--Ascoli定理得到至少一个局部解，因而不能
+沿用前一章的唯一性结论。\chapterref{chap:distributions-weak-derivatives}把
+求导扩张到分布并识别局部可积代表的弱导数，\chapterref{chap:sobolev-spaces}
+再以这些弱导数定义函数空间，由Poincaré不等式和Lax--Milgram定理构造Poisson
+方程的弱解。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

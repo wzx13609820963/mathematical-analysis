@@ -1,0 +1,153 @@
+\chapter{分布与弱导数}
+
+\begin{solution}{distribution-regular-continuity}
+若 \(\operatorname{supp}\varphi\subset K\Subset\Omega\)，则
+\[
+ |\langle T_f,\varphi\rangle|
+ \le\int_K|f||\varphi|
+ \le\|f\|_{L^1(K)}\|\varphi\|_\infty.
+\]
+所以局部估计成立，阶数可取零。若 \(\varphi_n\to0\) 于试验函数空间，
+存在共同 \(K\) 且上确界范数趋零，上式给 \(T_f\varphi_n\to0\)。
+\end{solution}
+
+\begin{solution}{distribution-dirac-not-regular}
+反设 \(\delta_0=T_f\)。取 \(\eta\in C_c^\infty(B(0,1))\) 且
+\(0\le\eta\le1,\eta(0)=1\)，令 \(\eta_n(x)=\eta(nx)\)。则
+\(\delta_0(\eta_n)=1\)，而
+\[
+ \left|\int f\eta_n\right|
+ \le\int_{B(0,1/n)}|f|\to0
+\]
+由局部积分的绝对连续性成立，矛盾。一般 \(x_0\) 只需平移。
+\end{solution}
+
+\begin{solution}{distribution-derivative-continuity}
+若 \(\operatorname{supp}\varphi\subset K\)，对 \(T\) 使用阶数 \(m\) 的估计，
+\[
+ |\langle\partial^\alpha T,\varphi\rangle|
+ =|\langle T,\partial^\alpha\varphi\rangle|
+ \le C_K\max_{|\beta|\le m}
+ \|\partial^{\alpha+\beta}\varphi\|_\infty.
+\]
+这是阶数至多 \(m+|\alpha|\) 的局部估计，故导数连续。
+\end{solution}
+
+\begin{solution}{distribution-heaviside}
+正文已得 \(H'=\delta_0\)。函数 \(|x|\) 局部绝对连续，故其弱导数为
+\(\operatorname{sgn}x\)。而
+\(\operatorname{sgn}x=2H-1\)，所以
+\[
+ D|x|=\operatorname{sgn}x,\qquad D^2|x|=2\delta_0.
+\]
+\end{solution}
+
+\begin{solution}{distribution-product-rule}
+对测试函数 \(\varphi\)，
+\[
+ \langle\partial_j(\psi T),\varphi\rangle
+ =-\langle T,\psi\,\partial_j\varphi\rangle
+ =-\langle T,\partial_j(\psi\varphi)\rangle
+   +\langle T,(\partial_j\psi)\varphi\rangle.
+\]
+右侧等于
+\(\langle\psi\,\partial_jT+(\partial_j\psi)T,\varphi\rangle\)。
+\end{solution}
+
+\begin{solution}{distribution-piecewise-jumps}
+在每个光滑子区间分部积分，内部积分给经典导数，分点两侧的边界项合并为
+\((f(a_j+)-f(a_j-))\varphi(a_j)\)，即相应 Dirac 项。周期锯齿函数
+\(f(x)=x\)（\(-\pi<x<\pi\)）在内部导数为一，在周期拼接点从 \(\pi\)
+跳到 \(-\pi\)，故在圆周分布意义下
+\[
+ Df=1-2\pi\delta_{\pi},
+\]
+其中 \(\pi\) 与 \(-\pi\) 表示同一点。
+\end{solution}
+
+\begin{solution}{distribution-weak-unique}
+若 \(g_1,g_2\) 都是弱导数，则
+\(\int(g_1-g_2)\varphi=0\) 对所有测试函数成立。正则分布嵌入的单射性给
+\(g_1=g_2\) 几乎处处。
+\end{solution}
+
+\begin{solution}{distribution-weak-ac-one-d}
+令 \(G(x)=\int_a^xg\)，则 \(G\) 局部绝对连续且弱导数为 \(g\)。
+\(h=f-G\) 的弱导数为零。对紧区间 \(J\Subset I\) 及充分小
+\(\varepsilon\)，
+\[
+ (h*\rho_\varepsilon)'=h'*\rho_\varepsilon=0
+\]
+于 \(J\)，故卷积为常数 \(c_\varepsilon\)。卷积在 \(L^1(J)\) 中趋于
+\(h\)，常数列因其 \(L^1\) 距离趋于零而为 Cauchy，故 \(h=c\) 几乎处处。
+重叠区间上的常数相同，得到全局局部绝对连续代表 \(G+c\)。反向由绝对连续
+分部积分直接成立。
+\end{solution}
+
+\begin{solution}{distribution-mollifier-commute}
+对 \(x\) 求导时，
+\[
+ \partial_x^\alpha\langle T,\rho_\varepsilon(x-\cdot)\rangle
+ =\langle T,\partial^\alpha\rho_\varepsilon(x-\cdot)\rangle.
+\]
+按分布导数定义把导数移到 \(T\) 上，得到交换公式。对测试函数 \(\varphi\)，
+Fubini 型配对恒等式给
+\[
+ \langle T*\rho_\varepsilon,\varphi\rangle
+ =\langle T,\widetilde\rho_\varepsilon*\varphi\rangle.
+\]
+右侧测试函数有共同紧支撑且各阶导数一致趋于 \(\partial^\alpha\varphi\)，
+分布连续性给收敛。
+\end{solution}
+
+\begin{solution}{distribution-fundamental-lemma}
+在任意球 \(B\Subset\Omega\) 中延拓 \(f\mathbf1_B\) 为零，并与磨光核卷积。
+题设给
+\[
+ (f*\rho_\varepsilon)(x)
+ =\int f(y)\rho_\varepsilon(x-y)dy=0
+\]
+对离边界足够远的 \(x\) 成立。另一方面磨光近似在 \(L^1_{\rm loc}\) 中趋于
+\(f\)，故 \(f=0\) 于每个较小球中几乎处处。用可数个这样的球覆盖
+\(\Omega\)，得到结论。
+\end{solution}
+
+\begin{solution}{distribution-x-delta}
+\[
+ \langle x\delta_0,\varphi\rangle=0.
+\]
+又
+\[
+ \langle x\delta_0',\varphi\rangle
+ =\langle\delta_0',x\varphi\rangle
+ =-(x\varphi)'|_{0}=-\varphi(0),
+\]
+故 \(x\delta_0'=-\delta_0\)。最后
+\[
+ \langle x^2\delta_0'',\varphi\rangle
+ =(x^2\varphi)''|_0=2\varphi(0),
+\]
+所以 \(x^2\delta_0''=2\delta_0\)。
+\end{solution}
+
+\begin{solution}{distribution-fundamental-solution-one-d}
+由 \(D|x|=\operatorname{sgn}x\) 和
+\(D\,\operatorname{sgn}x=2\delta_0\)，得
+\((|x|/2)''=\delta_0\)。若 \(f\in C_c^\infty\)，令
+\[
+ u=E*f,\qquad E(x)=|x|/2.
+\]
+分布导数与卷积交换，故
+\(u''=E''*f=\delta_0*f=f\)。积分绝对收敛于每个 \(x\)，且直接可见
+\(u\) 为经典二阶可微解。
+\end{solution}
+
+\begin{solution}{distribution-no-general-product}
+取偶磨光核 \(\rho_\varepsilon\)，则
+\((H*\rho_\varepsilon)(0)=1/2\)，形式乘以 \(\delta_0\) 会给
+\(\tfrac12\delta_0\)。若把近似核向一侧轻微平移，使其质量主要落在零点左侧
+或右侧，则同样收敛到 \(H\) 的正则化在零点可趋于任意预定
+\(\theta\in[0,1]\)，候选乘积变为 \(\theta\delta_0\)。因此仅要求用这种
+光滑正则化、保持分布收敛并在正则层面使用经典乘法，结果仍不唯一；这套
+条件不足以定义 \(H\delta_0\)，更不能据此定义任意两个分布的乘积。
+\end{solution}

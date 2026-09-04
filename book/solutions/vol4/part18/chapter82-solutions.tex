@@ -1,0 +1,127 @@
+\chapter{三角 Fourier 级数}
+
+\begin{solution}{fourier-circle-real-coefficients}
+若
+\[
+ a_k=\frac1\pi\int_{-\pi}^{\pi}f(x)\cos kx\,dx,\qquad
+ b_k=\frac1\pi\int_{-\pi}^{\pi}f(x)\sin kx\,dx,
+\]
+则 \(k\ge1\) 时
+\(\widehat f(k)=(a_k-ib_k)/2\)、\(\widehat f(-k)=(a_k+ib_k)/2\)，
+且 \(\widehat f(0)=a_0/2\)。若 \(f\) 实值，对积分取共轭便得
+\(\overline{\widehat f(k)}=\widehat f(-k)\)。
+\end{solution}
+
+\begin{solution}{fourier-dirichlet-kernel-formula}
+\[
+ \sum_{k=-N}^{N}e^{ikt}
+ =e^{-iNt}\frac{1-e^{i(2N+1)t}}{1-e^{it}}
+ =\frac{\sin((N+\tfrac12)t)}{\sin(t/2)}.
+\]
+在 \(t=0\) 处按连续延拓取值 \(2N+1\)。逐项积分时只有 \(k=0\) 项保留，
+故 \((2\pi)^{-1}\int_{-\pi}^{\pi}D_N=1\)。
+\end{solution}
+
+\begin{solution}{fourier-translation-coefficients}
+周期换元 \(u=x-a\) 给
+\[
+ \widehat g(k)=\frac1{2\pi}\int f(x-a)e^{-ikx}\,dx
+ =e^{-ika}\frac1{2\pi}\int f(u)e^{-iku}\,du.
+\]
+积分区间平移后仍覆盖一个完整周期。
+\end{solution}
+
+\begin{solution}{fourier-step-series}
+函数为奇函数，余弦系数全为零。计算得
+\[
+ b_k=\frac2\pi\int_0^\pi\sin(kx)\,dx
+ =\begin{cases}4/(\pi k),&k\text{ 为奇数},\\0,&k\text{ 为偶数}.\end{cases}
+\]
+所以
+\[
+ S_Nf(x)=\frac4\pi
+ \sum_{\substack{1\le k\le N\\k\ {\rm odd}}}\frac{\sin(kx)}k.
+\]
+\end{solution}
+
+\begin{solution}{fourier-dini-piecewise-c-one}
+若 \(f\) 在 \(x\) 的右侧 \(C^1\)，中值定理给
+\(|f(x+t)-f(x+)|\le Ct\)；左侧同理。因此 Dini 商在零附近有界，在
+远离零处因 \(f\in L^1\) 可积。定理给
+\[
+ S_Nf(x)\to\frac{f(x+)+f(x-)}2.
+\]
+连续点两侧极限均为 \(f(x)\)；跳跃点得到算术平均。
+\end{solution}
+
+\begin{solution}{fourier-localization}
+令 \(h=f-g\)，则 \(h\) 在 \(x\) 的某邻域为零。由卷积公式，
+\[
+ S_Nh(x)=\frac1{2\pi}\int_{\delta\le|t|\le\pi}
+ h(x-t)\frac{\sin((N+\tfrac12)t)}{\sin(t/2)}\,dt.
+\]
+被积振幅 \(h(x-t)/\sin(t/2)\) 在该区域属于 \(L^1\)，
+Riemann--Lebesgue 引理给极限为零。
+\end{solution}
+
+\begin{solution}{fourier-fejer-three-properties}
+平方公式直接给 \(K_N\ge0\)。它是 Dirichlet 核平均，故积分平均为一。
+若 \(\delta\le|t|\le\pi\)，则
+\[
+ 0\le K_N(t)\le\frac1{(N+1)\sin^2(\delta/2)}\to0.
+\]
+这也给出该区域积分质量趋零。
+\end{solution}
+
+\begin{solution}{fourier-fejer-positive-contraction}
+记归一化卷积测度为 \(dt/(2\pi)\)。对 \(p<\infty\)，Jensen 不等式给
+\[
+ |\sigma_Nf(x)|^p
+ \le\frac1{2\pi}\int |f(x-t)|^pK_N(t)\,dt.
+\]
+再积分并用 Tonelli 与周期换元，得
+\(\|\sigma_Nf\|_p^p\le\|f\|_p^p\)。\(p=\infty\) 由核非负且质量一直接得到。
+\end{solution}
+
+\begin{solution}{fourier-fejer-lp}
+连续周期函数在 \(L^p\) 中稠密。给定 \(f\in L^p\)，取连续 \(g\) 使
+\(\|f-g\|_p<\varepsilon\)。收缩性和 Fejér 一致收敛给
+\[
+ \|\sigma_Nf-f\|_p
+ \le2\|f-g\|_p+\|\sigma_Ng-g\|_p
+ <2\varepsilon+o(1).
+\]
+令 \(\varepsilon\downarrow0\) 即得。
+\end{solution}
+
+\begin{solution}{fourier-uniqueness-lone}
+全部系数为零时，每个 \(\sigma_Nf\) 都为零。上一题给
+\(\sigma_Nf\to f\) 于 \(L^1\)，故 \(\|f\|_1=0\)，即 \(f=0\) 几乎处处。
+\end{solution}
+
+\begin{solution}{fourier-dirichlet-lone-growth}
+由
+\[
+ |D_N(t)|=\frac{|\sin((N+\tfrac12)t)|}{|\sin(t/2)|}
+\]
+及 \(c|t|\le|\sin(t/2)|\le C|t|\)（\(0<|t|\le\pi\)），问题化为估计
+\(\int_0^\pi|\sin((N+\tfrac12)t)|t^{-1}dt\)。令
+\(u=(N+\tfrac12)t\)，再按长度 \(\pi\) 的区间分块。第 \(j\) 块的积分
+上下界均为常数乘 \(1/j\)，有限个初始块由常数吸收。因此总和与
+\(\sum_{j\le N}1/j\) 同阶，即为 \(\log(N+2)\)。
+\end{solution}
+
+\begin{solution}{fourier-gibbs-scaling}
+只取奇数 \(k=2m+1\)。当 \(x=y/N\) 时，
+\[
+ \frac4\pi\sum_{2m+1\le N}\frac{\sin((2m+1)y/N)}{2m+1}
+\]
+是以步长约 \(2/N\) 对下式积分的 Riemann 和：
+\[
+ \frac2\pi\int_0^1\frac{\sin(ys)}s\,ds
+ =\frac2\pi\int_0^y\frac{\sin u}u\,du.
+\]
+因此左端趋于右端；在 \(y=\pi\) 处得到正文超调常数。
+另一方面，若误差主要位于宽度 \(O(N^{-1})\)、高度有界的邻域，其平方积分
+为 \(O(N^{-1})\)，仍趋于零；固定点处也按 Dirichlet--Jordan 定理收敛。
+\end{solution}

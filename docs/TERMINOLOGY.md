@@ -150,6 +150,25 @@
 | 反射空间 | reflexive space | 典范映射满射，也称自反空间；正文统一“反射” |
 | Eberlein--Šmulian定理 | Eberlein--Šmulian theorem | Banach空间中弱紧致与序列弱紧致等价 |
 
+## 第十七至二十编
+
+| 术语 | 英文 | 约定 |
+|---|---|---|
+| Hilbert 空间 | Hilbert space | 完备内积空间；内积诱导范数，反向需满足平行四边形恒等式 |
+| 正交规范基 | orthonormal basis | 完备的正交规范系；不要求事先可数，不与代数Hamel基混同 |
+| Bessel不等式、Parseval恒等式 | Bessel inequality, Parseval identity | 前者适用于任意正交规范系；后者等号成立与该系在相应闭线性包中的完备性等价 |
+| Fourier级数 | Fourier series | 须说明逐点、Cesàro或\(L^2\)收敛方式；这些结论不得相互替代 |
+| Fourier变换 | Fourier transform | \(\mathbb R^n\)上采用指数\(e^{-2\pi i x\cdot\xi}\)；\(L^1\)逐点定义与\(L^2\)酉延拓分层建立 |
+| Plancherel定理 | Plancherel theorem | Fourier变换从稠密试验类唯一延拓为\(L^2\)上的酉算子；不表示一般\(L^2\)函数的积分公式逐点绝对收敛 |
+| Picard--Lindelöf定理 | Picard--Lindelöf theorem | 连续加局部Lipschitz条件给出ODE初值问题的局部存在唯一性及连续依赖 |
+| Peano存在定理 | Peano existence theorem | 有限维中连续向量场给出局部解，但不保证唯一性 |
+| 试验函数、分布 | test function, distribution | 分别为\(C_c^\infty(\Omega)\)及其连续线性泛函；连续性按每个紧集上的有限阶半范数估计理解 |
+| 分布导数、弱导数 | distributional derivative, weak derivative | 分布均可求导；当正则分布的导数仍由局部可积函数表示时，该函数是弱导数 |
+| Sobolev空间 | Sobolev space | 由函数及其规定阶弱导数的\(L^p\)可积性定义，元素仍按几乎处处相等取商 |
+| Poincaré不等式 | Poincaré inequality | 当前版本在有界区域的\(H_0^1\)上用梯度控制\(L^2\)范数；常数依赖区域 |
+| Lax--Milgram定理 | Lax--Milgram theorem | Hilbert空间上有界、强制的双线性或半双线性型给出弱方程的唯一解 |
+| 弱解 | weak solution | 由积分恒等式定义的函数空间元素；不必具有经典二阶导数，也不必逐点满足微分方程 |
+
 ## 风格约定
 
 - “真值域”不作为 `range` 的译名；需要强调像时写“像集”。

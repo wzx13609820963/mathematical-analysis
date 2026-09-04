@@ -1,0 +1,197 @@
+\chapter{正交展开}
+\label{chap:orthogonal-expansions}
+
+有限维欧氏空间中，正交基把向量写成坐标之和，并把范数平方写成坐标平方和。
+在 Hilbert 空间中，基可能无限，展开因而包含两个问题：系数怎样确定，以及
+由这些系数组成的级数是否回到原向量。Bessel 不等式先给出有限部分和的一致
+控制；完备正交系再排除“所有系数都为零而向量仍非零”的剩余方向。Parseval
+恒等式正是两件事同时成立后的 Pythagoras 等式。
+
+\section{正交系与 Fourier 系数}
+
+设 \(H\) 为 Hilbert 空间。向量族 \((e_j)_{j\in J}\) 称为正交规范系，如果
+\(\langle e_j,e_k\rangle=\delta_{jk}\)。对 \(x\in H\)，数
+\[
+ \widehat x(j)=\langle x,e_j\rangle
+\]
+称为 \(x\) 关于该系统的 Fourier 系数。名称并不预设系统是三角函数，也不
+预设 \(x\) 已经能够展开。
+
+若 \(F\subset J\) 有限，则
+\[
+ P_Fx=\sum_{j\in F}\langle x,e_j\rangle e_j
+\]
+是 \(x\) 到 \(\operatorname{span}\{e_j:j\in F\}\) 的正交投影。特别地，
+系数不是人为选择的：任何有限线性组合最接近 \(x\) 时，其系数只能是
+\(\langle x,e_j\rangle\)。
+
+\section{Bessel 不等式}
+
+由 \(x=P_Fx+(x-P_Fx)\) 的正交分解，
+\[
+ \|x\|^2=\sum_{j\in F}|\langle x,e_j\rangle|^2+\|x-P_Fx\|^2.
+\]
+于是得到以下结论。
+
+\begin{theorem}[Bessel 不等式]\label{thm:bessel-inequality}
+对任意正交规范系 \((e_j)_{j\in J}\) 和任意 \(x\in H\)，
+\[
+ \sum_{j\in J}|\langle x,e_j\rangle|^2\le\|x\|^2,
+\]
+其中对任意指标集的非负和定义为所有有限子和的上确界。
+\end{theorem}
+
+这一定义还说明，每个固定 \(x\) 至多有可数多个非零 Fourier 系数。事实上，
+对每个正整数 \(m\)，满足
+\(|\langle x,e_j\rangle|\ge1/m\) 的指标只能有限；把这些有限集对 \(m\)
+取可数并即可。即使正交系不可数，单个向量的有效展开仍是可数级数。
+
+\begin{corollary}\label{cor:orthogonal-series-convergence}
+若标量族 \((c_j)_{j\in J}\) 满足
+\(\sum_{j\in J}|c_j|^2<\infty\)，则有限和网
+\(\sum_{j\in F}c_je_j\) 按有限集包含关系在 \(H\) 中收敛，并且
+\[
+ \left\|\sum_{j\in J}c_je_j\right\|^2=\sum_{j\in J}|c_j|^2.
+\]
+\end{corollary}
+\begin{proof}
+对有限集 \(F,G\)，正交性给
+\[
+ \left\|\sum_{j\in F}c_je_j-\sum_{j\in G}c_je_j\right\|^2
+ =\sum_{j\in F\triangle G}|c_j|^2.
+\]
+平方和有限意味着右侧在 \(F,G\) 包含某个固定有限集后任意小，故得到
+Cauchy 网。只有可数多个系数非零，等价地也可枚举后使用 Hilbert 空间完备性。
+范数等式先对有限和成立，再取极限。
+\end{proof}
+
+\section{完备正交系}
+
+\begin{definition}
+正交规范系 \((e_j)_{j\in J}\) 称为完备的，如果
+\[
+ \overline{\operatorname{span}}\{e_j:j\in J\}=H.
+\]
+完备正交系也称 Hilbert 基或正交规范基；这里的“基”允许无限级数，不是
+要求每个向量只有有限展开的 Hamel 基。
+\end{definition}
+
+\begin{theorem}\label{thm:orthonormal-completeness-equivalences}
+对正交规范系 \(E=(e_j)_{j\in J}\)，下列条件等价：
+\begin{enumerate}
+ \item \(E\) 完备；
+ \item 若 \(x\perp e_j\) 对所有 \(j\) 成立，则 \(x=0\)；
+ \item 对每个 \(x\in H\)，有限和网 \(P_Fx\) 收敛到 \(x\)；
+ \item 对每个 \(x\in H\)，Parseval 恒等式
+ \[
+   \|x\|^2=\sum_{j\in J}|\langle x,e_j\rangle|^2
+ \]
+ 成立。
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+令 \(M=\overline{\operatorname{span}}E\)。正交投影定理给
+\(H=M\oplus M^\perp\)，而 \(M^\perp\) 正是与所有 \(e_j\) 正交的向量，
+故前两项等价。
+
+对固定 \(x\)，Bessel 不等式说明系数平方可和，因而
+\(s=\sum_j\langle x,e_j\rangle e_j\) 存在。对每个 \(k\)，连续取内积得
+\(\langle x-s,e_k\rangle=0\)，所以 \(x-s\in M^\perp\)，而
+\(s\in M\)。因此 \(s=P_Mx\)。于是 \(M=H\) 当且仅当所有 \(x\) 都有
+\(s=x\)，即第一项与第三项等价。最后正交分解给
+\[
+ \|x\|^2=\|s\|^2+\|x-s\|^2
+ =\sum_j|\langle x,e_j\rangle|^2+\|x-s\|^2,
+\]
+所以第三项与第四项等价。
+\end{proof}
+
+“所有系数确定”并不自动表示系统完备。以 \(L^2[-\pi,\pi]\) 为例，若只取
+偶函数组成的正交系统，那么每个奇函数与系统中所有元素正交；它们的系数
+全为零，但函数本身并非零。必须另证闭线性张成等于整个空间。
+
+\section{Parseval 恒等式与内积展开}
+
+完备时，由极化公式或直接对部分和取极限，还得到
+\begin{equation}\label{eq:parseval-inner-product}
+ \langle x,y\rangle
+ =\sum_{j\in J}\langle x,e_j\rangle
+          \overline{\langle y,e_j\rangle}.
+\end{equation}
+右侧绝对收敛，因为 Cauchy--Schwarz 不等式可先用于有限标量和，再取上确界。
+定义分析算子与合成算子
+\[
+ U:H\to\ell^2(J),\qquad Ux=(\langle x,e_j\rangle)_{j\in J},
+ \quad
+ S:\ell^2(J)\to H,\qquad S(c)=\sum_jc_je_j.
+\]
+Bessel 不等式说明 \(\|U\|\le1\)，正交级数定理说明 \(S\) 是到
+\(M=\overline{\operatorname{span}}E\) 上的等距映射，并且
+\(US=I_{\ell^2(J)}\)、\(SU=P_M\)。所以 \(U\) 总是满射，却只有在系统完备
+时才是等距单射；这时 \(S=U^{-1}\)，从而 \(H\) 与 \(\ell^2(J)\) 酉同构。
+
+\section{构造正交基}
+
+对线性无关序列 \(x_1,x_2,\ldots\)，Gram--Schmidt 过程递归定义
+\[
+ u_n=x_n-\sum_{k<n}\langle x_n,e_k\rangle e_k,
+ \qquad e_n=\frac{u_n}{\|u_n\|}.
+\]
+线性无关保证 \(u_n\ne0\)，且每个前 \(n\) 项的线性张成保持不变。
+
+\begin{theorem}\label{thm:separable-hilbert-basis}
+非零 Hilbert 空间可分，当且仅当它有可数完备正交系。
+\end{theorem}
+\begin{proof}
+若 \(e_n\) 是可数完备正交系，以有理实部、虚部系数构成的有限线性组合全体
+可数且稠密，故空间可分。
+
+反之，取可数稠密集 \(D=\{x_n\}\)。依次删去落在前面线性张成中的向量，
+对剩下的序列作 Gram--Schmidt。所得正交系的闭线性张成包含 \(D\)，因而
+等于 \(H\)。若过程有限停止，也得到有限完备正交系。
+\end{proof}
+
+一般 Hilbert 空间利用 Zorn 引理可以取极大正交规范系。若其正交补含非零
+向量，归一化后还能加入系统，违反极大性；故极大系统必完备。这一论证说明
+任意 Hilbert 空间都有正交规范基，但不可分空间的基可能不可数。
+
+\section{广义 Fourier 展开}
+
+设 \(T\in\mathcal L(H)\)，在完备正交系下可用矩阵元
+\(t_{jk}=\langle Te_k,e_j\rangle\) 描述。对固定 \(k\)，第 \(k\) 列属于
+\(\ell^2(J)\)，且平方和为 \(\|Te_k\|^2\le\|T\|^2\)。然而“每列都在
+\(\ell^2\) 且有共同上界”并不足以保证一个无限矩阵定义有界算子；还需控制
+不同列叠加后的作用。有限维矩阵直觉在这里第一次出现实质限制。
+
+对闭子空间 \(M\)，若 \((e_j)\) 是 \(M\) 的完备正交系，则
+\[
+ P_Mx=\sum_j\langle x,e_j\rangle e_j,
+ \qquad d(x,M)^2=\|x\|^2-\sum_j|\langle x,e_j\rangle|^2.
+\]
+这把最佳逼近误差精确写成遗漏系数的能量。三角函数系统的完备性将在
+\chapterref{chap:trigonometric-fourier-series}和
+\chapterref{chap:l2-fourier-series}借助 Fejér 核证明；在那之前，不能把 Fourier 系数公式本身当作
+展开收敛的证明。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{orthogonal-bessel-finite}从最佳逼近性质直接推出有限正交系的 Bessel 不等式。
+\exerciseitem{orthogonal-coeff-countable}证明关于任意正交规范系，一个向量至多有可数多个非零 Fourier 系数。
+\exerciseitem{orthogonal-ell-two-synthesis}给定 \(c\in\ell^2\)，证明 \(\sum c_ne_n\) 收敛，并计算任意尾和的范数。
+\exerciseitem{orthogonal-complete-kernel}证明正交规范系完备当且仅当没有非零向量与全部基向量正交。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{orthogonal-best-n-term}设 \(e_1,\ldots,e_n\) 正交规范。证明 Fourier 系数给出的组合是所有系数组合中的唯一最佳逼近。
+\exerciseitem{orthogonal-parseval-polarization}由 Parseval 恒等式和极化公式证明\eqref{eq:parseval-inner-product}。
+\exerciseitem{orthogonal-gram-schmidt-polynomials}在 \(L^2[-1,1]\) 中对 \(1,x,x^2\) 作 Gram--Schmidt 正交化。
+\exerciseitem{orthogonal-separable-family}证明可分 Hilbert 空间中每个正交规范集至多可数。
+\exerciseitem{orthogonal-projection-tail}若 \(M_n\) 是递增闭子空间且 \(M=\overline{\bigcup_nM_n}\)，证明 \(P_{M_n}x\to P_Mx\)。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{orthogonal-riesz-fischer}证明合成算子 \(S\) 等距映到正交系的闭线性张成，且 \(US=I\)、\(SU=P_M\)。由此刻画 \(U\) 何时为等距同构。
+\optionalexerciseitem{orthogonal-haar-first-levels}在 \(L^2[0,1]\) 中验证常函数 \(1\) 与前两层 Haar 函数两两正交规范，并计算 \(f(x)=x\) 的相应系数与投影误差。
+\end{enumerate}

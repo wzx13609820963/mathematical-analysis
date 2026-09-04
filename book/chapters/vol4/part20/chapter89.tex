@@ -1,0 +1,301 @@
+\chapter{Sobolev 空间}
+\label{chap:sobolev-spaces}
+
+分布导数总存在，但可能是 Dirac 质量一类奇异对象。Sobolev 空间要求一定
+阶数的分布导数仍由 \(L^p\) 函数表示，并把函数与这些弱导数一起放进同一个
+完备空间。这样既允许尖点和几乎处处等价类，又保留足够的积分估计来建立
+微分方程的存在性。本章证明完备性、弱紧致性、Poincaré 不等式和
+Lax--Milgram 定理，并以 Poisson 方程说明弱解如何产生。
+
+本章固定开集 \(\Omega\subset\R^d\)，\(1\le p\le\infty\)。
+
+\section{定义与例子}
+
+\begin{definition}
+整数 \(k\ge0\) 时，定义
+\[
+ W^{k,p}(\Omega)=
+ \{u\in L^p(\Omega):\partial^\alpha u\in L^p(\Omega)
+ \text{ 对所有 }|\alpha|\le k\},
+\]
+其中导数按分布意义理解，范数取
+\[
+ \|u\|_{W^{k,p}}=
+ \begin{cases}
+ \left(\displaystyle\sum_{|\alpha|\le k}
+ \|\partial^\alpha u\|_p^p\right)^{1/p},&p<\infty,\\[1ex]
+ \displaystyle\max_{|\alpha|\le k}\|\partial^\alpha u\|_\infty,&p=\infty.
+ \end{cases}
+\]
+当 \(p=2\) 时记 \(H^k(\Omega)=W^{k,2}(\Omega)\)。
+\end{definition}
+
+定义在几乎处处等价类上良定义：若两个函数几乎处处相等，它们给出同一个
+正则分布，因而具有相同分布导数。\(W^{0,p}=L^p\)。
+
+一维函数 \(|x|\) 属于 \(W^{1,\infty}(-1,1)\)，弱导数为
+\(\operatorname{sgn}x\)，但它不属于 \(W^{2,1}\)，因为二阶分布导数为
+\(2\delta_0\)。Heaviside 函数不属于任何 \(W^{1,p}(-1,1)\)，因为其一阶
+分布导数已经不是函数。这些例子说明弱导数容许尖点，不容许没有被积分控制的
+跳跃。
+
+\section{完备性}
+
+\begin{theorem}\label{thm:sobolev-complete}
+\(W^{k,p}(\Omega)\) 对 \(1\le p\le\infty\) 是 Banach 空间；
+\(H^k(\Omega)\) 在内积
+\[
+ \langle u,v\rangle_{H^k}
+ =\sum_{|\alpha|\le k}\int_\Omega
+ \partial^\alpha u\,\overline{\partial^\alpha v}
+\]
+下是 Hilbert 空间。
+\end{theorem}
+\begin{proof}
+设 \(u_n\) 在 \(W^{k,p}\) 中为 Cauchy 列。对每个 \(|\alpha|\le k\)，
+\(\partial^\alpha u_n\) 在 \(L^p\) 中 Cauchy，故收敛到某个
+\(v_\alpha\in L^p\)；特别记 \(u=v_0\)。对测试函数 \(\varphi\)，Hölder
+不等式在其紧支撑上给
+\[
+ \int u_n\,\partial^\alpha\varphi\to
+ \int u\,\partial^\alpha\varphi,\qquad
+ \int(\partial^\alpha u_n)\varphi\to\int v_\alpha\varphi.
+\]
+把 \(u_n\) 的弱导数恒等式取极限，得到
+\[
+ \int u\,\partial^\alpha\varphi
+ =(-1)^{|\alpha|}\int v_\alpha\varphi.
+\]
+所以 \(v_\alpha=\partial^\alpha u\)，且各分量的 \(L^p\) 收敛合成
+\(u_n\to u\) 于 \(W^{k,p}\)。\(p=\infty\) 时在有限测度紧支撑上用
+\(L^\infty\) 与 \(L^1\) 配对，论证相同。
+
+\(p=2\) 时给定公式显然产生上述范数；完备性已经证明，故为 Hilbert 空间。
+\end{proof}
+
+映射
+\[
+ J:W^{k,p}(\Omega)\to\prod_{|\alpha|\le k}L^p(\Omega),
+ \qquad Ju=(\partial^\alpha u)_\alpha
+\]
+是等距嵌入，其像由刚才的极限论证可知闭。这个观察还把 \(L^p\) 的反射性
+传给 Sobolev 空间：若 \(1<p<\infty\)，有限积 \(L^p\) 反射，闭子空间也
+反射，所以 \(W^{k,p}\) 反射。
+
+\section{弱收敛与下半连续性}
+
+当 \(1<p<\infty\) 时，Sobolev 有界序列可抽取弱收敛子列。具体地，若
+\(\|u_n\|_{W^{k,p}}\le C\)，反射性给子列和 \(u\in W^{k,p}\) 使
+\[
+ u_{n_j}\rightharpoonup u\quad\text{于 }W^{k,p}.
+\]
+这等价于所有分量 \(\partial^\alpha u_{n_j}\) 在 \(L^p\) 中弱收敛到
+\(\partial^\alpha u\)。一个方向由坐标投影的连续性得到；反方向把
+\(W^{k,p}\) 视为有限积 \(L^p\) 的闭子空间，并用 Hahn--Banach 定理延拓
+其上的连续线性泛函。范数弱下半连续，所以
+\begin{equation}\label{eq:sobolev-weak-lsc}
+ \|u\|_{W^{k,p}}\le\liminf_j\|u_{n_j}\|_{W^{k,p}}.
+\end{equation}
+
+弱收敛只给线性测试量收敛，不给非线性项自动收敛。例如
+\(\|u_n\|\) 一般不趋于 \(\|u\|\)。若要处理
+\(\int F(u_n)\) 或乘积，通常还需紧嵌入、凸性或额外强收敛；这些内容将在
+后面的 PDE 与变分章节中逐步建立。
+
+在 \(\R^d\) 上，Plancherel 定理给出 \(H^1\) 的频率刻画：
+\begin{theorem}\label{thm:h-one-fourier-characterization}
+对 \(u\in L^2(\R^d)\)，下列条件等价：
+\[
+ u\in H^1(\R^d)
+ \quad\Longleftrightarrow\quad
+ (1+4\pi^2|\xi|^2)^{1/2}\widehat u(\xi)\in L^2.
+\]
+并且
+\[
+ \|u\|_{H^1}^2
+ =\int_{\R^d}(1+4\pi^2|\xi|^2)|\widehat u(\xi)|^2d\xi.
+\]
+\end{theorem}
+\begin{proof}
+若 \(u\in H^1\)，先取 \(\chi_R\in C_c^\infty\)，使
+\(\chi_R=1\) 于 \(B(0,R)\)、\(0\le\chi_R\le1\) 且
+\(\|\nabla\chi_R\|_\infty\le C/R\)。乘积法则给
+\[
+ \partial_j(\chi_Ru)=\chi_R\partial_ju+u\partial_j\chi_R.
+\]
+由 \(L^2\) 尾积分和上式，\(\chi_Ru\to u\) 于 \(H^1\)。再把
+\(\chi_Ru\) 与标准磨光核卷积，便得到一列
+\(u_n\in C_c^\infty(\R^d)\) 在 \(H^1\) 中趋于 \(u\)。对 \(u_n\) 有
+\(\widehat{\partial_ju_n}=2\pi i\xi_j\widehat u_n\)；Plancherel 定理允许
+在 \(L^2\) 中取极限，得到同一公式并推出所写范数恒等式。
+反之，若右侧有限，定义
+\(g_j=\mathcal F^{-1}(2\pi i\xi_j\widehat u)\in L^2\)。对
+\(\varphi\in C_c^\infty\)，Plancherel 公式和试验函数的微分公式给
+\[
+ \int u\,\partial_j\varphi=-\int g_j\varphi.
+\]
+例如复值情形可先使用恒等式
+\(\int ab=\int\widehat a(\xi)\widehat b(-\xi)\,d\xi\)，它由
+Plancherel 公式对第二个因子作反射与共轭得到；于是乘子
+\(2\pi i\xi_j\) 的符号恰好给出右侧的负号。
+所以 \(g_j\) 是弱导数，\(u\in H^1\)。
+\end{proof}
+
+\section{\texorpdfstring{\(H_0^1\)}{H01} 与 Poincaré 不等式}
+
+定义
+\[
+ H_0^1(\Omega)=\overline{C_c^\infty(\Omega)}^{\,H^1}.
+\]
+这一定义把“边界值为零”编码为内部光滑紧支撑函数的闭包，不需要在尚未建立
+迹理论时逐点谈边界值。对不规则开集，\(H_0^1\) 与“选一个连续代表并令边界
+值为零”并不等价；迹算子将在后续章节中说明何时可以这样解释。
+
+\begin{theorem}[Poincaré 不等式]\label{thm:poincare-hzero-one}
+若 \(\Omega\) 有界，则存在只依赖 \(\Omega\) 的常数 \(C_P\)，使
+\[
+ \|u\|_{L^2(\Omega)}\le C_P\|\nabla u\|_{L^2(\Omega)}
+ \qquad(u\in H_0^1(\Omega)).
+\]
+\end{theorem}
+\begin{proof}
+取 \(R>0\) 使 \(\Omega\subset(-R,R)^d\)。先设
+\(u\in C_c^\infty(\Omega)\)，延拓为 \(\R^d\) 上的零函数。固定
+\(x'=(x_2,\ldots,x_d)\)，
+\[
+ u(x_1,x')=\int_{-R}^{x_1}\partial_1u(s,x')ds.
+\]
+Cauchy--Schwarz 给
+\[
+ |u(x_1,x')|^2\le2R\int_{-R}^{R}|\partial_1u(s,x')|^2ds.
+\]
+再对 \(x_1\in(-R,R)\) 和 \(x'\) 积分，得到
+\(\|u\|_2\le2R\|\partial_1u\|_2\le2R\|\nabla u\|_2\)。
+最后按 \(H_0^1\) 的定义取 \(C_c^\infty\) 逼近，把不等式传到闭包。
+\end{proof}
+
+所以在 \(H_0^1(\Omega)\) 上，\(\|\nabla u\|_2\) 是一个范数，并与完整的
+\(H^1\) 范数等价。常数函数说明不能把 \(H_0^1\) 无条件换成 \(H^1\)：
+非零常函数梯度为零。
+
+\section{Lax--Milgram 定理}
+
+\begin{theorem}[Lax--Milgram]\label{thm:lax-milgram}
+设 \(H\) 为实 Hilbert 空间，双线性型 \(a:H\times H\to\R\) 满足
+\[
+ |a(u,v)|\le M\|u\|\|v\|,\qquad
+ a(u,u)\ge\alpha\|u\|^2
+\]
+对某些 \(M<\infty,\alpha>0\) 及所有 \(u,v\in H\) 成立。则对每个
+\(F\in H^*\)，存在唯一 \(u\in H\) 使
+\[
+ a(u,v)=F(v)\qquad(v\in H),
+\]
+并且 \(\|u\|\le\alpha^{-1}\|F\|\)。
+\end{theorem}
+\begin{proof}
+由 Riesz 表示定理，对每个 \(u\) 存在唯一 \(Au\in H\) 使
+\[
+ a(u,v)=\langle Au,v\rangle\qquad(v\in H).
+\]
+有界性给 \(A\in\mathcal L(H)\)。强制性和 Cauchy--Schwarz 给
+\[
+ \alpha\|u\|^2\le\langle Au,u\rangle\le\|Au\|\|u\|,
+\]
+所以 \(\|Au\|\ge\alpha\|u\|\)。因此 \(A\) 单射且像闭：若
+\(Au_n\) Cauchy，下界使 \(u_n\) Cauchy，再用连续性取极限。
+
+若 \(w\perp\operatorname{ran}A\)，则
+\(\langle Aw,w\rangle=0\)，强制性给 \(w=0\)。故像的正交补为零，像稠密；
+它又闭，所以等于 \(H\)。把 \(F(v)=\langle f,v\rangle\) 表示后，取唯一
+\(u=A^{-1}f\) 即得方程。下界给
+\(\|u\|\le\alpha^{-1}\|f\|=\alpha^{-1}\|F\|\)。
+\end{proof}
+
+复 Hilbert 空间中把双线性型换成第一变量线性、第二变量共轭线性的型，并把
+强制性写成 \(\operatorname{Re}a(u,u)\ge\alpha\|u\|^2\)，证明相同。
+定理不要求 \(a\) 对称；对称性只在把方程解释为能量最小化时需要。
+
+\section{Poisson 方程的弱解}
+
+设 \(\Omega\) 有界，\(f\in L^2(\Omega)\)。带齐次 Dirichlet 条件的方程
+\[
+ -\Delta u=f\quad\text{于 }\Omega,\qquad u=0\quad\text{于 }\partial\Omega
+\]
+若有光滑解，乘以 \(v\in C_c^\infty(\Omega)\) 并分部积分得到
+\[
+ \int_\Omega\nabla u\cdot\nabla v=\int_\Omega fv.
+\]
+这个恒等式对 \(u,v\in H_0^1\) 仍有意义，因而用它定义弱解。
+
+\begin{theorem}\label{thm:poisson-weak-existence}
+对每个 \(f\in L^2(\Omega)\)，存在唯一 \(u\in H_0^1(\Omega)\) 满足
+\[
+ \int_\Omega\nabla u\cdot\nabla v=\int_\Omega fv
+ \qquad(v\in H_0^1(\Omega)).
+\]
+并有
+\[
+ \|\nabla u\|_2\le C_P\|f\|_2,\qquad
+ \|u\|_{H^1}\le C\|f\|_2.
+\]
+\end{theorem}
+\begin{proof}
+在 \(H=H_0^1(\Omega)\) 上使用等价范数
+\(\|u\|_H=\|\nabla u\|_2\)。令
+\[
+ a(u,v)=\int\nabla u\cdot\nabla v,\qquad F(v)=\int fv.
+\]
+Cauchy--Schwarz 给 \(a\) 有界且 \(a(u,u)=\|u\|_H^2\)。Poincaré 不等式给
+\[
+ |F(v)|\le\|f\|_2\|v\|_2\le C_P\|f\|_2\|v\|_H.
+\]
+Lax--Milgram 定理给唯一解与第一条估计；再次用 Poincaré 得完整
+\(H^1\) 估计。
+\end{proof}
+
+弱解未必有经典二阶导数，也未必逐点满足方程。它首先是一个能量有限的等价
+类，通过对全部测试函数成立的积分恒等式表达方程。若以后证明了额外正则性，
+弱解才可能恢复为经典解。
+
+当 \(a\) 对称时，弱解还唯一最小化
+\[
+ J(v)=\frac12a(v,v)-F(v).
+\]
+事实上若 \(u\) 解方程，则
+\[
+ J(u+w)-J(u)=\frac12a(w,w)\ge\frac\alpha2\|w\|^2.
+\]
+这把方程的存在性与凸能量的极小化联系起来；非对称型仍适用
+Lax--Milgram，却一般没有这一简单能量。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{sobolev-absolute-value}判断 \(|x|\) 在 \((-1,1)\) 中属于哪些 \(W^{k,p}\)，并证明结论。
+\exerciseitem{sobolev-heaviside-failure}证明 Heaviside 函数不属于 \(W^{1,p}(-1,1)\)，任意 \(1\le p\le\infty\)。
+\exerciseitem{sobolev-weak-derivative-limit}若 \(u_n\to u\)、\(\partial_ju_n\to g\) 于 \(L^p\)，证明 \(g=\partial_ju\)。
+\exerciseitem{sobolev-hilbert-inner-product}验证 \(H^k\) 的给定公式是内积且产生定义范数。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{sobolev-reflexive}用闭图像嵌入证明 \(W^{k,p}\) 在 \(1<p<\infty\) 时反射。
+\exerciseitem{sobolev-fourier-hone}补全 \(H^1(\R^d)\) 的 Fourier 刻画，特别核对弱导数恒等式。
+\exerciseitem{sobolev-poincare-interval}在区间 \((0,L)\) 上求一个 Poincaré 常数，并用正弦函数说明最佳常数不少于 \(L/\pi\)。
+\exerciseitem{sobolev-hzero-gradient-norm}证明梯度半范数在 \(H_0^1(\Omega)\) 上是范数，并与 \(H^1\) 范数等价。
+\exerciseitem{sobolev-lax-milgram-complex}写出并证明复 Hilbert 空间的 Lax--Milgram 定理。
+\exerciseitem{sobolev-poisson-energy}证明 Poisson 弱解是能量 \(J(v)=\frac12\int|\nabla v|^2-\int fv\) 的唯一极小点。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{sobolev-elliptic-coefficients}设实矩阵场 \(A(x)\) 可测、本质有界，且对几乎处处的 \(x\) 与所有 \(\xi\in\R^d\) 满足
+\[
+ \xi^{\mathsf T}A(x)\xi\ge\lambda|\xi|^2
+ \qquad(\lambda>0).
+\]
+对 \(f\in L^2(\Omega)\)，用 Lax--Milgram 定理证明 \(-\operatorname{div}(A\nabla u)=f\) 的 \(H_0^1\) 弱解存在唯一。
+\exerciseitem{sobolev-lower-order-term}讨论双线性型 \(\int\nabla u\cdot\nabla v+\int c uv\) 在 \(c\ge0\) 与 \(c\) 有小负部时的强制性。
+\exerciseitem{sobolev-weak-minimization}用反射性和弱下半连续性重新证明对称 Lax--Milgram 情形中能量取得最小值，并与算子证明比较。
+\optionalexerciseitem{sobolev-one-d-continuous-representative}证明 \(W^{1,p}(a,b)\) 的元素有绝对连续代表，并在 \(p>1\) 时推导 Hölder 型估计 \(|u(x)-u(y)|\le\|u'\|_p|x-y|^{1-1/p}\)。
+\end{enumerate}

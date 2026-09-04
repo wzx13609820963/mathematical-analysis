@@ -1,0 +1,123 @@
+\chapter{正交展开}
+
+\begin{solution}{orthogonal-bessel-finite}
+令 \(M=\operatorname{span}\{e_1,\ldots,e_n\}\)。由正交条件，
+\(P_Mx=\sum_{j=1}^n\langle x,e_j\rangle e_j\)。投影是收缩，故
+\[
+ \sum_{j=1}^n|\langle x,e_j\rangle|^2=\|P_Mx\|^2\le\|x\|^2.
+\]
+这也说明不等式来自“投影不能增加长度”，而非形式求和。
+\end{solution}
+
+\begin{solution}{orthogonal-coeff-countable}
+对 \(m\ge1\) 令
+\(J_m=\{j:|\langle x,e_j\rangle|\ge1/m\}\)。若 \(J_m\) 含任意多指标，
+就能取大小超过 \(m^2\|x\|^2\) 的有限子集，使 Bessel 左侧超过
+\(\|x\|^2\)，矛盾。因此每个 \(J_m\) 有限，而非零系数指标集等于
+\(\bigcup_mJ_m\)，至多可数。
+\end{solution}
+
+\begin{solution}{orthogonal-ell-two-synthesis}
+对 \(N>M\)，正交性给
+\[
+ \left\|\sum_{n=M+1}^Nc_ne_n\right\|^2=\sum_{n=M+1}^N|c_n|^2.
+\]
+右侧尾和趋零，部分和是 Cauchy 列；完备性给收敛。固定 \(M\) 后令
+\(N\to\infty\)，得到尾和范数平方为 \(\sum_{n>M}|c_n|^2\)。
+\end{solution}
+
+\begin{solution}{orthogonal-complete-kernel}
+令 \(M=\overline{\operatorname{span}}\{e_j\}\)。与每个 \(e_j\) 正交等价于
+属于 \(M^\perp\)。系统完备等价于 \(M=H\)，又等价于
+\(M^\perp=\{0\}\)。
+\end{solution}
+
+\begin{solution}{orthogonal-best-n-term}
+任意 \(y=\sum c_je_j\in M\) 满足正交分解
+\[
+ \|x-y\|^2=\|x-P_Mx\|^2+\|P_Mx-y\|^2.
+\]
+第二项非负，且只在 \(y=P_Mx\) 时为零。比较系数即得唯一最佳选择
+\(c_j=\langle x,e_j\rangle\)。
+\end{solution}
+
+\begin{solution}{orthogonal-parseval-polarization}
+实情形把 Parseval 分别用于 \(x+y\) 与 \(x-y\)，代入实极化公式：
+\[
+ \langle x,y\rangle
+ =\frac14\sum_j\left(|\langle x+y,e_j\rangle|^2
+ -|\langle x-y,e_j\rangle|^2\right)
+ =\sum_j\langle x,e_j\rangle\overline{\langle y,e_j\rangle}.
+\]
+复情形对 \(x+i^ky\) 使用复极化公式。级数换序合法，因为两列系数均在
+\(\ell^2\)，其逐项乘积由数列 Cauchy--Schwarz 不等式绝对可和。
+\end{solution}
+
+\begin{solution}{orthogonal-gram-schmidt-polynomials}
+先有 \(u_0=1\)，\(e_0=1/\sqrt2\)。因 \(x\perp1\)，
+\(e_1=\sqrt{3/2}\,x\)。对 \(x^2\)，只需减去常数投影：
+\[
+ u_2=x^2-\langle x^2,e_0\rangle e_0=x^2-\frac13.
+\]
+计算
+\(\|u_2\|_2^2=\int_{-1}^1(x^2-1/3)^2dx=8/45\)，故
+\[
+ e_2=\sqrt{\frac{45}{8}}\left(x^2-\frac13\right)
+ =\sqrt{\frac58}\,(3x^2-1).
+\]
+三者是前三个归一化 Legendre 多项式。
+\end{solution}
+
+\begin{solution}{orthogonal-separable-family}
+取可数稠密集 \(D\)。每个单位向量 \(e\) 选 \(d(e)\in D\) 使
+\(\|e-d(e)\|<1/3\)。不同正交单位向量间距离为 \(\sqrt2\)，所以不能选到
+同一个 \(d\)：否则距离小于 \(2/3\)。因此 \(e\mapsto d(e)\) 是到可数集的
+单射，正交规范集至多可数。
+\end{solution}
+
+\begin{solution}{orthogonal-projection-tail}
+记 \(y=P_Mx\)。因并集在 \(M\) 中稠密，对任意 \(\varepsilon>0\)，可取
+\(z\in M_N\) 使 \(\|y-z\|<\varepsilon\)。当 \(n\ge N\) 时，最佳逼近性质给
+\[
+ \|x-P_{M_n}x\|\le\|x-z\|.
+\]
+更直接地，在 \(M\) 中把 \(y=P_{M_n}y+(y-P_{M_n}y)\) 正交分解；由
+\(d(y,M_n)\le\|y-z\|<\varepsilon\) 得
+\(\|P_{M_n}x-y\|=\|P_{M_n}y-y\|<\varepsilon\)，这里用了
+\(P_{M_n}(x-y)=0\)。故所求收敛成立。
+\end{solution}
+
+\begin{solution}{orthogonal-riesz-fischer}
+正交级数的 Pythagoras 等式给
+\(\|S(c)\|^2=\sum_j|c_j|^2\)，故 \(S\) 等距，像因而闭；有限支撑列的像
+稠密于 \(M=\overline{\operatorname{span}}\{e_j\}\)，所以
+\(\operatorname{ran}S=M\)。逐个取内积得 \(US(c)=c\)。另一方面，
+\(SUx=\sum_j\langle x,e_j\rangle e_j=P_Mx\)。因此 \(U\) 总为满射；它的核
+是 \(M^\perp\)。由
+\[
+ \|Ux\|^2=\|P_Mx\|^2=\|x\|^2-\|P_{M^\perp}x\|^2
+\]
+可知 \(U\) 是等距映射当且仅当 \(M^\perp=0\)，亦即系统完备。此时
+\(U,S\) 互为酉逆映射。
+\end{solution}
+
+\begin{solution}{orthogonal-haar-first-levels}
+取
+\[
+ h_0=1,\quad h_1=\mathbf1_{[0,1/2)}-\mathbf1_{[1/2,1]},
+\]
+以及
+\[
+ h_{2,0}=\sqrt2(\mathbf1_{[0,1/4)}-\mathbf1_{[1/4,1/2)}),\quad
+ h_{2,1}=\sqrt2(\mathbf1_{[1/2,3/4)}-\mathbf1_{[3/4,1]}).
+\]
+各函数范数为一；不同层的低层函数在高层支撑的两个半区间上为常数，故
+内积为零；同层两函数支撑不交。对 \(f(x)=x\)，直接积分得
+\[
+ \langle f,h_0\rangle=\frac12,\quad
+ \langle f,h_1\rangle=-\frac14,\quad
+ \langle f,h_{2,0}\rangle=\langle f,h_{2,1}\rangle=-\frac{\sqrt2}{16}.
+\]
+投影能量为 \(1/4+1/16+2(2/256)=21/64\)。由于
+\(\|f\|_2^2=1/3\)，误差平方为 \(1/3-21/64=1/192\)。
+\end{solution}

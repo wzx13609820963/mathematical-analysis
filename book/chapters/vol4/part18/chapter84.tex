@@ -1,0 +1,207 @@
+\chapter{\texorpdfstring{\(L^1\)}{L1} Fourier 变换}
+\label{chap:l1-fourier-transform}
+
+周期函数的频率是整数，定义在整条直线上的函数则需要连续频率。把周期长度
+送向无穷，离散系数的求和形式转为频率变量上的积分，得到 Fourier 变换。
+本章在 \(\R^d\) 上从 \(L^1\) 理论开始，因为绝对可积性允许直接使用 Fubini
+定理和控制收敛定理。采用约定
+\begin{equation}\label{eq:fourier-transform-convention}
+ \widehat f(\xi)=\int_{\R^d}f(x)e^{-2\pi i x\cdot\xi}\,dx.
+\end{equation}
+这一约定使卷积公式和反演公式都不带额外常数；微分公式中出现 \(2\pi i\xi\)。
+
+\section{定义与基本估计}
+
+若 \(f\in L^1(\R^d)\)，则积分\eqref{eq:fourier-transform-convention}绝对收敛，
+且
+\begin{equation}\label{eq:fourier-lone-bound}
+ |\widehat f(\xi)|\le\|f\|_1.
+\end{equation}
+因此 Fourier 变换是从 \(L^1(\R^d)\) 到有界函数空间的有界线性映射，算子
+范数为一。范数恰为一可用非负积分为一的函数在 \(\xi=0\) 处取等号说明。
+
+\begin{theorem}\label{thm:fourier-lone-continuous-czero}
+若 \(f\in L^1(\R^d)\)，则 \(\widehat f\) 一致连续且在无穷远处趋于零。
+换言之，Fourier 变换把 \(L^1(\R^d)\) 映入 \(C_0(\R^d)\)。
+\end{theorem}
+\begin{proof}
+对 \(h\to0\)，
+\[
+ |\widehat f(\xi+h)-\widehat f(\xi)|
+ \le\int|f(x)|\,|e^{-2\pi ix\cdot h}-1|\,dx.
+\]
+右侧与 \(\xi\) 无关；被积函数逐点趋零并由 \(2|f|\) 控制，故一致连续。
+
+再证无穷远消失。平移在 \(L^1\) 中连续。给定 \(\xi\ne0\)，取
+\(h=\xi/(2|\xi|^2)\)，则 \(e^{-2\pi ih\cdot\xi}=-1\)。换元给
+\[
+ 2\widehat f(\xi)
+ =\int_{\R^d}\bigl(f(x)-f(x-h)\bigr)e^{-2\pi ix\cdot\xi}\,dx,
+\]
+所以 \(2|\widehat f(\xi)|\le\|f-\tau_hf\|_1\)。当
+\(|\xi|\to\infty\) 时 \(h\to0\)，右侧趋零。
+\end{proof}
+
+结论的逆命题错误：并非每个 \(C_0\) 函数都是某个 \(L^1\) 函数的 Fourier
+变换。变换的像还带有更细的代数和正定性约束，单凭连续与消失不足以刻画。
+
+\section{平移、调制与伸缩}
+
+令 \((\tau_af)(x)=f(x-a)\)、\((M_bf)(x)=e^{2\pi ib\cdot x}f(x)\)。
+直接换元得到
+\begin{align}
+ \widehat{\tau_af}(\xi)&=e^{-2\pi ia\cdot\xi}\widehat f(\xi),\label{eq:fourier-translation}\\
+ \widehat{M_bf}(\xi)&=\widehat f(\xi-b).\label{eq:fourier-modulation}
+\end{align}
+空间中的平移对应频率中的相位，空间中的振荡因子对应频率平移。
+
+若 \(A\) 是可逆实矩阵，令 \(g(x)=f(Ax)\)。变量代换给
+\begin{equation}\label{eq:fourier-linear-change}
+ \widehat g(\xi)=|\det A|^{-1}\widehat f(A^{-T}\xi).
+\end{equation}
+特别地，\(f_\varepsilon(x)=\varepsilon^{-d}f(x/\varepsilon)\) 满足
+\(\widehat{f_\varepsilon}(\xi)=\widehat f(\varepsilon\xi)\)。
+
+\section{乘法与微分}
+
+多重指标记作 \(\alpha=(\alpha_1,\ldots,\alpha_d)\)，
+\(|\alpha|=\sum\alpha_j\)、\(x^\alpha=\prod x_j^{\alpha_j}\)。
+若 \(x^\alpha f\in L^1\)，可在积分号下求导：
+\begin{equation}\label{eq:fourier-moment-derivative}
+ \partial_\xi^\alpha\widehat f(\xi)
+ =(-2\pi i)^{|\alpha|}\widehat{x^\alpha f}(\xi).
+\end{equation}
+证明由差商、控制收敛和归纳完成。空间中具有可积矩，频率函数便具有相应
+阶数的连续导数。
+
+反过来，若 \(f\in C_c^1(\R^d)\)，分部积分的边界项为零，从而
+\begin{equation}\label{eq:fourier-derivative-multiplier}
+ \widehat{\partial_jf}(\xi)=2\pi i\xi_j\widehat f(\xi).
+\end{equation}
+更一般地，若 \(f\) 及其弱导数都属于 \(L^1\)，先作光滑截断和磨光，便可
+在 \(L^1\) 中同时逼近函数与弱导数，取极限后得到同一公式；弱导数将在
+\chapterref{chap:distributions-weak-derivatives}中正式定义。
+微分提高频率权重，乘以坐标则在频率中求导；这对偶关系是后面用 Fourier
+变换处理微分方程的起点。
+
+\section{卷积代数}
+
+对 \(f,g\in L^1(\R^d)\)，定义
+\[
+ (f*g)(x)=\int_{\R^d}f(x-y)g(y)\,dy.
+\]
+Tonelli 定理给
+\[
+ \|f*g\|_1\le\|f\|_1\|g\|_1,
+\]
+故卷积几乎处处有定义且仍在 \(L^1\)。换元与 Fubini 定理给
+\begin{theorem}[卷积定理]\label{thm:fourier-convolution}
+\[
+ \widehat{f*g}=\widehat f\,\widehat g.
+\]
+\end{theorem}
+乘积公式需要不同的条件。若 \(f,g\in L^1\) 且
+\(\widehat f,\widehat g\in L^1\)，由反演和 Fubini 可得
+\[
+ \widehat{fg}=\widehat f*\widehat g
+\]
+在 \(fg\in L^1\) 时成立。不能只凭 \(f,g\in L^1\) 断言乘积仍可积。
+
+卷积交换、结合，并对平移不变。没有 \(L^1\) 函数充当卷积单位：若
+\(e*f=f\) 对所有 \(f\) 成立，则 \(\widehat e\equiv1\)，这与
+Riemann--Lebesgue 引理矛盾。Dirac 质量将在分布空间中补上这一单位。
+
+\section{Gaussian 函数与逼近恒等}
+
+令
+\[
+ \gamma(x)=e^{-\pi|x|^2},\qquad
+ \gamma_\varepsilon(x)=\varepsilon^{-d}\gamma(x/\varepsilon).
+\]
+由一维积分 \(\int_\R e^{-\pi x^2}dx=1\) 的乘积形式，
+\(\int_{\R^d}\gamma=1\)。
+
+\begin{proposition}\label{prop:gaussian-fourier}
+\(\widehat\gamma=\gamma\)，从而
+\(\widehat{\gamma_\varepsilon}(\xi)=e^{-\pi\varepsilon^2|\xi|^2}\)。
+\end{proposition}
+\begin{proof}
+先在一维。积分号下求导并分部积分，记 \(G=\widehat\gamma\)，得
+\[
+ G'(\xi)=-2\pi i\int x e^{-\pi x^2}e^{-2\pi ix\xi}dx
+ =-2\pi\xi G(\xi).
+\]
+又 \(G(0)=1\)，常微分方程唯一解为 \(G(\xi)=e^{-\pi\xi^2}\)。
+高维函数与指数核均按坐标分解，Fubini 定理给乘积结论；伸缩公式给第二式。
+\end{proof}
+
+族 \((\gamma_\varepsilon)\) 是逼近恒等：对 \(1\le p<\infty\)，
+\[
+ \|f*\gamma_\varepsilon-f\|_p
+ \le\int\gamma(y)\|\tau_{\varepsilon y}f-f\|_p\,dy\longrightarrow0.
+\]
+这里先对固定 \(y\) 使用平移连续性，再由
+\(2\|f\|_p\gamma(y)\) 控制。若 \(x\) 是 \(f\in L^1_{\rm loc}\) 的 Lebesgue
+点，且卷积有意义，则 \(f*\gamma_\varepsilon(x)\to f(x)\)。
+
+\section{Fourier 反演}
+
+\begin{theorem}[Fourier 反演定理]\label{thm:fourier-inversion-lone}
+设 \(f\in L^1(\R^d)\) 且 \(\widehat f\in L^1(\R^d)\)。则在 \(f\) 的每个
+Lebesgue 点 \(x\)，
+\[
+ f(x)=\int_{\R^d}\widehat f(\xi)e^{2\pi ix\cdot\xi}\,d\xi.
+\]
+因而该右侧给出 \(f\) 的一个连续代表；等式至少几乎处处成立。
+\end{theorem}
+\begin{proof}
+对 \(\varepsilon>0\)，绝对可积性允许使用 Fubini：
+\begin{align*}
+ \int \widehat f(\xi)e^{2\pi ix\cdot\xi}
+       e^{-\pi\varepsilon^2|\xi|^2}\,d\xi
+ &=\int f(y)\left[\int
+ e^{2\pi i(x-y)\cdot\xi}e^{-\pi\varepsilon^2|\xi|^2}\,d\xi\right]dy\\
+ &=(f*\gamma_\varepsilon)(x).
+\end{align*}
+当 \(\varepsilon\downarrow0\) 时，左侧由 \(|\widehat f|\) 控制，趋于所写
+反演积分；右侧在 Lebesgue 点趋于 \(f(x)\)。
+\end{proof}
+
+反演假设中的 \(\widehat f\in L^1\) 不能由 \(f\in L^1\) 自动推出。例如
+区间指标函数的变换按 \(1/|\xi|\) 衰减，在一维并不可积。对这类函数仍可用
+对称截断、Cesàro 平均或 \(L^2\) 理论讨论反演，但不能套用本定理。
+
+\begin{corollary}[唯一性]\label{cor:fourier-lone-uniqueness}
+若 \(f,g\in L^1(\R^d)\) 且 \(\widehat f=\widehat g\)，则 \(f=g\) 几乎处处。
+\end{corollary}
+\begin{proof}
+令 \(h=f-g\)。卷积定理给
+\(\widehat{h*\gamma_\varepsilon}=\widehat h\,
+\widehat{\gamma_\varepsilon}=0\)。该乘积可积，所以反演定理给
+\(h*\gamma_\varepsilon=0\)。让 \(\varepsilon\downarrow0\)，在 \(L^1\) 中
+得到 \(h=0\)。
+\end{proof}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{fourier-transform-indicator-interval}计算 \(\mathbf1_{[-a,a]}\) 的 Fourier 变换，并判断其变换是否属于 \(L^1(\R)\)。
+\exerciseitem{fourier-transform-translation-modulation}逐项证明平移与调制公式\eqref{eq:fourier-translation}—\eqref{eq:fourier-modulation}。
+\exerciseitem{fourier-transform-dilation}证明可逆线性变量代换公式\eqref{eq:fourier-linear-change}。
+\exerciseitem{fourier-transform-continuity}用控制收敛证明 \(\widehat f\) 一致连续，并指出估计为何与基点 \(\xi\) 无关。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{fourier-transform-moments}在 \(x^\alpha f\in L^1\) 的条件下证明公式\eqref{eq:fourier-moment-derivative}。
+\exerciseitem{fourier-transform-derivative}对 \(f\in C_c^1(\R^d)\) 证明公式\eqref{eq:fourier-derivative-multiplier}；学完弱导数后，再用稠密逼近推广到 \(f,\partial_jf\in L^1\) 的情形。
+\exerciseitem{fourier-convolution-associative}证明 \(L^1(\R^d)\) 中卷积交换、结合，且满足 Young 不等式。
+\exerciseitem{fourier-no-lone-identity}补全“\(L^1\) 卷积代数无单位”的论证。
+\exerciseitem{fourier-gaussian-approximate-identity}证明 Gaussian 族在 \(L^p\) 中构成逼近恒等，\(1\le p<\infty\)。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{fourier-inversion-continuous-representative}证明若 \(f,\widehat f\in L^1\)，则 \(f\) 几乎处处等于一个属于 \(C_0\) 的函数。
+\exerciseitem{fourier-heat-kernel}求 \(e^{-4\pi^2t|\xi|^2}\) 的逆 Fourier 变换，并验证它关于 \(t\) 满足热方程。
+\optionalexerciseitem{fourier-positive-definite}若 \(f\ge0\) 且 \(f\in L^1\)，证明 \(\widehat f\) 是正定函数；再说明正定性比“连续且趋零”多给出了什么限制。
+\end{enumerate}

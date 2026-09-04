@@ -1,0 +1,130 @@
+\chapter{\texorpdfstring{\(L^1\)}{L1} Fourier 变换}
+
+\begin{solution}{fourier-transform-indicator-interval}
+\[
+ \widehat{\mathbf1_{[-a,a]}}(\xi)
+ =\int_{-a}^{a}e^{-2\pi ix\xi}dx
+ =\begin{cases}\dfrac{\sin(2\pi a\xi)}{\pi\xi},&\xi\ne0,\\2a,&\xi=0.\end{cases}
+\]
+它的绝对值在无穷远与 \(|\sin(2\pi a\xi)|/|\xi|\) 同阶。按半周期区间分块，
+绝对积分控制着调和级数，因而发散；所以变换不属于 \(L^1(\R)\)。
+\end{solution}
+
+\begin{solution}{fourier-transform-translation-modulation}
+对平移作 \(u=x-a\)：
+\[
+ \widehat{\tau_af}(\xi)=\int f(u)e^{-2\pi i(u+a)\cdot\xi}du
+ =e^{-2\pi ia\cdot\xi}\widehat f(\xi).
+\]
+对调制直接合并指数：
+\[
+ \widehat{M_bf}(\xi)=\int f(x)e^{-2\pi ix\cdot(\xi-b)}dx
+ =\widehat f(\xi-b).
+\]
+\end{solution}
+
+\begin{solution}{fourier-transform-dilation}
+令 \(u=Ax\)，则 \(dx=|\det A|^{-1}du\)，且
+\(x\cdot\xi=u\cdot A^{-T}\xi\)。代入定义得
+\[
+ \widehat{f(A\cdot)}(\xi)
+ =|\det A|^{-1}\widehat f(A^{-T}\xi).
+\]
+\end{solution}
+
+\begin{solution}{fourier-transform-continuity}
+对所有 \(\xi\)，
+\[
+ |\widehat f(\xi+h)-\widehat f(\xi)|
+ \le\int|f(x)|\,|e^{-2\pi ix\cdot h}-1|dx.
+\]
+右侧没有 \(\xi\)，且随 \(h\to0\) 由控制收敛趋零。因此同一个 \(h\) 阈值
+同时控制所有基点，得到一致连续而不只是逐点连续。
+\end{solution}
+
+\begin{solution}{fourier-transform-moments}
+先取 \(|\alpha|=1\)。差商为
+\[
+ \frac{\widehat f(\xi+he_j)-\widehat f(\xi)}h
+ =\int f(x)e^{-2\pi ix\cdot\xi}
+   \frac{e^{-2\pi ihx_j}-1}{h}\,dx.
+\]
+括号逐点趋于 \(-2\pi ix_j\)，且绝对值不超过 \(2\pi|x_j|\)。
+由 \(x_jf\in L^1\) 和控制收敛可交换极限。对各坐标反复应用即得多重指标公式；
+连续性由相同控制论证得到。
+\end{solution}
+
+\begin{solution}{fourier-transform-derivative}
+紧支撑使分部积分边界项为零：
+\[
+ \widehat{\partial_jf}(\xi)
+ =\int\partial_jf(x)e^{-2\pi ix\cdot\xi}dx
+ =2\pi i\xi_j\widehat f(\xi).
+\]
+若 \(f\in W^{1,1}\)，取 \(f_n\in C_c^\infty\) 使
+\(f_n\to f\)、\(\partial_jf_n\to\partial_jf\) 于 \(L^1\)。
+基本估计给相应 Fourier 变换一致收敛；令 \(n\to\infty\) 保留等式。
+\end{solution}
+
+\begin{solution}{fourier-convolution-associative}
+Tonelli 给
+\[
+ \iint|f(x-y)g(y)|\,dy\,dx=\|f\|_1\|g\|_1,
+\]
+于是卷积存在且满足范数估计。换元 \(y\mapsto x-y\) 给交换律。对三个
+\(L^1\) 函数，三重绝对积分等于范数乘积，故可用 Fubini 任意换序，得到
+\((f*g)*h=f*(g*h)\)。
+\end{solution}
+
+\begin{solution}{fourier-no-lone-identity}
+若 \(e*f=f\) 对所有 \(f\in L^1\) 成立，则卷积定理给
+\((\widehat e(\xi)-1)\widehat f(\xi)=0\)。对每个固定 \(\xi\)，取平移调制后的
+Gaussian，使 \(\widehat f(\xi)\ne0\)，便得 \(\widehat e(\xi)=1\)。
+但 \(e\in L^1\) 的变换在无穷远趋零，矛盾。
+\end{solution}
+
+\begin{solution}{fourier-gaussian-approximate-identity}
+换元写成
+\[
+ f*\gamma_\varepsilon-f
+ =\int_{\R^d}\gamma(y)\bigl(\tau_{\varepsilon y}f-f\bigr)\,dy.
+\]
+Minkowski 积分不等式给正文估计。对每个 \(y\)，平移连续性使范数趋零；
+被 \(2\|f\|_p\gamma(y)\) 控制。对 \(y\) 使用控制收敛定理即得结论。
+\end{solution}
+
+\begin{solution}{fourier-inversion-continuous-representative}
+令
+\[
+ F(x)=\int\widehat f(\xi)e^{2\pi ix\cdot\xi}d\xi.
+\]
+把连续性定理用于 \(\widehat f\) 并改变指数符号，得 \(F\in C_0(\R^d)\)。
+反演定理说明在 \(f\) 的每个 Lebesgue 点 \(F(x)=f(x)\)；Lebesgue 点几乎
+处处，故 \(F\) 是所求代表。
+\end{solution}
+
+\begin{solution}{fourier-heat-kernel}
+由 Gaussian 伸缩公式，
+\[
+ \mathcal F^{-1}\!\left(e^{-4\pi^2t|\xi|^2}\right)(x)
+ =(4\pi t)^{-d/2}e^{-|x|^2/(4t)}=:K_t(x).
+\]
+直接求导可得
+\[
+ \partial_tK_t=\left(-\frac d{2t}+\frac{|x|^2}{4t^2}\right)K_t,
+ \qquad
+ \Delta K_t=\left(-\frac d{2t}+\frac{|x|^2}{4t^2}\right)K_t.
+\]
+故 \(\partial_tK_t=\Delta K_t\)，且积分为一。
+\end{solution}
+
+\begin{solution}{fourier-positive-definite}
+对任意点 \(\xi_1,\ldots,\xi_n\) 和标量 \(c_1,\ldots,c_n\)，
+\[
+ \sum_{j,k}c_j\overline{c_k}\widehat f(\xi_j-\xi_k)
+ =\int_{\R^d}f(x)
+ \left|\sum_jc_je^{-2\pi ix\cdot\xi_j}\right|^2dx\ge0.
+\]
+这就是正定性。一般 \(C_0\) 函数不满足上述所有有限矩阵半正定条件；例如
+正定函数必须有 \(|F(\xi)|\le F(0)\)，而任意连续消失函数并无此限制。
+\end{solution}

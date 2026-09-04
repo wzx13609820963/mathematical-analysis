@@ -1,0 +1,158 @@
+\chapter{Plancherel 定理}
+
+\begin{solution}{plancherel-test-decay}
+对任意整数 \(m\ge0\)，分部积分给
+\[
+ (1+4\pi^2|\xi|^2)^m\widehat\varphi(\xi)
+ =\widehat{(I-\Delta)^m\varphi}(\xi).
+\]
+右侧绝对值不超过
+\(\|(I-\Delta)^m\varphi\|_1\)。因此
+\[
+ |\widehat\varphi(\xi)|\le C_m(1+|\xi|)^{-2m}.
+\]
+\(m\) 任意，故得到任意多项式阶衰减。
+\end{solution}
+
+\begin{solution}{plancherel-inner-product}
+反演给
+\(\overline{\psi(x)}=\int\overline{\widehat\psi(\xi)}
+e^{-2\pi ix\cdot\xi}d\xi\)。二重被积函数的绝对积分为
+\[
+ \iint|\varphi(x)|\,|\widehat\psi(\xi)|\,dx\,d\xi
+ =\|\varphi\|_1\|\widehat\psi\|_1<\infty.
+\]
+所以 Fubini 合法。换序后内层正是 \(\widehat\varphi(\xi)\)，得到 Parseval
+公式。
+\end{solution}
+
+\begin{solution}{plancherel-extension-independent}
+若 \(\varphi_n\to f\)、\(\psi_n\to f\) 于 \(L^2\)，则
+\[
+ \|\widehat\varphi_n-\widehat\psi_n\|_2
+ =\|\varphi_n-\psi_n\|_2
+ \le\|\varphi_n-f\|_2+\|\psi_n-f\|_2\to0.
+\]
+两列变换有同一极限。因此定义不依赖逼近；同样估计给线性和等距性。
+\end{solution}
+
+\begin{solution}{plancherel-square-reflection}
+对 \(\varphi\in C_c^\infty\)，\(\varphi,\widehat\varphi\in L^1\)，反演公式为
+\[
+ \varphi(x)=\int\widehat\varphi(\xi)e^{2\pi ix\cdot\xi}d\xi
+ =\widehat{\widehat\varphi}(-x).
+\]
+故 \(\mathcal F^2\varphi=R\varphi\)。两侧都是 \(L^2\) 上连续算子，且试验
+函数稠密，等式推广到全空间。
+\end{solution}
+
+\begin{solution}{plancherel-lone-agreement}
+对 \(f\in L^1\cap L^2\)，先截断再磨光，可取
+\(\varphi_n\in C_c^\infty\) 同时在 \(L^1,L^2\) 中趋于 \(f\)。
+于是
+\[
+ \|\widehat\varphi_n-\widehat f\|_\infty\le\|\varphi_n-f\|_1\to0,
+\]
+而 Plancherel 定义给 \(\widehat\varphi_n\to\mathcal Ff\) 于 \(L^2\)。
+从后一收敛抽取几乎处处收敛子列；一致极限与几乎处处极限必须相同，故
+\(\mathcal Ff=\widehat f\) 几乎处处。
+\end{solution}
+
+\begin{solution}{plancherel-frequency-truncation}
+设 \(g=\mathcal Ff\)。Plancherel 等距性给
+\[
+ \|f_R^\sharp-f\|_2
+ =\|g\mathbf1_{B(0,R)}-g\|_2
+ =\left(\int_{|\xi|>R}|g(\xi)|^2d\xi\right)^{1/2}\to0.
+\]
+第一等号中的逆变换积分绝对收敛，因为有限测度球上的 \(L^2\) 函数属于
+\(L^1\)。
+\end{solution}
+
+\begin{solution}{plancherel-convolution-ltwo}
+取 \(f_n\in L^1\cap L^2\) 使 \(f_n\to f\) 于 \(L^2\)。Young 不等式给
+\(f_n*g\to f*g\) 于 \(L^2\)。另一方面
+\[
+ \widehat{f_n*g}=\widehat f_n\,\widehat g
+\]
+且 \(\widehat f_n\to\mathcal Ff\) 于 \(L^2\)；由于
+\(\|\widehat g\|_\infty\le\|g\|_1\)，右侧也在 \(L^2\) 中收敛。取极限得到
+公式，并有 \(\|f*g\|_2\le\|f\|_2\|g\|_1\)。
+\end{solution}
+
+\begin{solution}{plancherel-derivative-closed}
+若 \(f_n\to f\)、\(D_jf_n\to g\) 于 \(L^2\)，酉性给
+\[
+ \widehat f_n\to\widehat f,\qquad
+ 2\pi i\xi_j\widehat f_n=\widehat{D_jf_n}\to\widehat g
+\]
+于 \(L^2\)。从两列各抽取同一子列，使二者几乎处处收敛，得到
+\(2\pi i\xi_j\widehat f=\widehat g\) 几乎处处。因此
+\(\xi_j\widehat f\in L^2\) 且 \(D_jf=g\)，算子闭。对
+\(C_c^\infty\) 函数，频率变换快速衰减，显然属于定义域。
+\end{solution}
+
+\begin{solution}{plancherel-translation-generator}
+按正文平移约定，\(\widehat{\tau_hf}=e^{-2\pi ih\xi_j}\widehat f\)。故
+\[
+ \mathcal F\!\left(\frac{\tau_hf-f}{h}\right)
+ =\frac{e^{-2\pi ih\xi_j}-1}{h}\widehat f
+ \longrightarrow-2\pi i\xi_j\widehat f.
+\]
+若 \(\xi_j\widehat f\in L^2\)，差商因子绝对值不超过
+\(2\pi|\xi_j|\)，控制收敛给 \(L^2\) 收敛，极限为 \(-D_jf\)。
+反之若差商在 \(L^2\) 中有极限，从子列的几乎处处极限可知该极限的变换只能
+是 \(-2\pi i\xi_j\widehat f\)，故后者属于 \(L^2\)。
+\end{solution}
+
+\begin{solution}{plancherel-heisenberg}
+先对 \(C_c^\infty\) 函数分部积分：
+\[
+ \|f\|_2^2=-\int x(|f|^2)'dx
+ =-2\operatorname{Re}\int xf'\overline f\,dx.
+\]
+Cauchy--Schwarz 给
+\(\|f\|_2^2\le2\|xf\|_2\|f'\|_2\)，再用
+\(\|f'\|_2=2\pi\|\xi\widehat f\|_2\)。一般情形先取满足
+\(\chi_R=1\) 于 \([-R,R]\)、\(|\chi_R'|\le C/R\) 的光滑截断。于是
+\(\chi_Rf\to f\)、\(x\chi_Rf\to xf\)，并且
+\((\chi_Rf)'=\chi_Rf'+\chi_R'f\to f'\) 于 \(L^2\)。再与紧支撑磨光核
+卷积；导数与卷积交换，而恒等式
+\[
+ x(f*\rho_\varepsilon)
+ =(xf)*\rho_\varepsilon+f*(x\rho_\varepsilon)
+\]
+及 \(\|x\rho_\varepsilon\|_1=O(\varepsilon)\) 控制加权项。这样得到
+\(C_c^\infty\) 函数在三项共同的图范数中逼近 \(f\)，故分部积分估计可传到
+极限。等号要求
+\(f'=-cx f\) 几乎处处，其中 \(c>0\)，故
+\(f(x)=Ae^{-cx^2/2}\)；平移与调制后得到一般中心和平均频率版本。
+\end{solution}
+
+\begin{solution}{plancherel-poisson-solver}
+定义
+\[
+ \widehat u(\xi)=\frac{\widehat f(\xi)}{4\pi^2|\xi|^2}
+\]
+（零点取任意值不影响 \(L^2\) 等价类）。题设保证 \(u\in L^2\)。
+在频率意义下
+\[
+ \widehat{-\Delta u}=4\pi^2|\xi|^2\widehat u=\widehat f,
+\]
+故唯一性给 \(-\Delta u=f\)。条件的困难只在 \(\xi=0\)：高频处
+\(|\xi|^{-2}\) 有界，而低频处要求 \(\widehat f\) 有足够消失或可积性；
+例如一维中连续的 \(\widehat f\) 通常至少需要零均值并有进一步消失。
+\end{solution}
+
+\begin{solution}{plancherel-bandlimited-evaluation}
+有限测度支撑和 Cauchy--Schwarz 给
+\[
+ \|\widehat f\|_1
+ \le |B(0,R)|^{1/2}\|\widehat f\|_2
+ =|B(0,R)|^{1/2}\|f\|_2.
+\]
+因此逆变换绝对收敛并给出连续、趋零代表，且
+\[
+ \|f\|_\infty\le |B(0,R)|^{1/2}\|f\|_2.
+\]
+\end{solution}

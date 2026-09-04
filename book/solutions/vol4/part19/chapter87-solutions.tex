@@ -1,0 +1,120 @@
+\chapter{Peano 存在定理}
+
+\begin{solution}{peano-euler-stays-rectangle}
+在第 \(k\) 个节点前，各段斜率范数至多 \(M\)，所以
+\[
+ \|y_n(t_k)-y_0\|
+ \le\sum_{j<k}M\Delta=Mk\Delta.
+\]
+在段内再加 \(M(t-t_k)\)，得
+\(\|y_n(t)-y_0\|\le M(t-t_0)\le Mh\le b\)。由归纳，每次计算斜率时
+\((t_k,y_n(t_k))\) 都仍在 \(Q\)。
+\end{solution}
+
+\begin{solution}{peano-euler-equilipschitz}
+若 \(s<t\)，把 \([s,t]\) 按网格点分成有限小段。在每个小段上折线斜率范数
+不超过 \(M\)，故端点增量不超过 \(M\) 乘以该段长度。三角不等式求和得
+\(\|y_n(t)-y_n(s)\|\le M(t-s)\)。
+\end{solution}
+
+\begin{solution}{peano-euler-residual}
+在每段上 \(y_n'=f(t_k,y_n(t_k))\) 几乎处处。积分并把左端点写成
+\(\kappa_n(s)\)，得到
+\[
+ y_n(t)=y_0+\int_{t_0}^{t}f(\kappa_n(s),y_n(\kappa_n(s)))ds.
+\]
+若 \(\omega_f\) 是 \(f\) 在紧集 \(Q\) 上关于两变量的连续模，则
+\[
+ \left\|y_n(t)-y_0-\int_{t_0}^{t}f(s,y_n(s))ds\right\|
+ \le h\,\omega_f((1+M)\Delta),
+\]
+右侧趋零。
+\end{solution}
+
+\begin{solution}{peano-two-sided-gluing}
+在 \([t_0-h,t_0]\) 上以节点从 \(t_0\) 向左递推，或令
+\(\widetilde y(s)=y(t_0-s)\)，把方程改写为
+\(\widetilde y'=-f(t_0-s,\widetilde y)\)，应用同一右向构造。
+两侧函数在 \(t_0\) 都取 \(y_0\)，故连续粘合。两侧导数趋于同一个
+\(f(t_0,y_0)\)，积分方程在整个区间成立，因此粘合函数为 \(C^1\)。
+\end{solution}
+
+\begin{solution}{peano-compact-solution-set}
+每个解满足 \(\|y'\|\le M\)，所以全体共同 \(M\)-Lipschitz 且取值在紧球
+中。Arzelà--Ascoli 给相对紧性。若 \(y_n\) 是解且一致收敛到 \(y\)，
+\(f(s,y_n(s))\to f(s,y(s))\) 一致，积分方程取极限说明 \(y\) 仍是解。
+故解集闭且相对紧，即紧。
+\end{solution}
+
+\begin{solution}{peano-approximate-residual}
+由 Arzelà--Ascoli 取 \(y_{n_j}\to y\) 一致。共同有界使所有图像落在同一
+紧集，\(f\) 在该集上一致连续，故
+\[
+ \sup_s\|f(s,y_{n_j}(s))-f(s,y(s))\|\to0.
+\]
+在残差等式中令 \(j\to\infty\)，得到
+\(y(t)=y_0+\int f(s,y(s))ds\)，所以 \(y\) 是解。
+\end{solution}
+
+\begin{solution}{peano-scalar-sqrt-selection}
+从 \(y_n(0)=0\) 出发，每个节点的斜率 \(2\sqrt{|0|}=0\)，归纳得标准 Euler
+折线恒为零。另一方面取初值 \(y_\varepsilon(0)=\varepsilon^2>0\)，对应解
+\[
+ y_\varepsilon(t)=(t+\varepsilon)^2.
+\]
+当 \(\varepsilon\downarrow0\) 时，它在每个有界区间上一致趋于 \(t^2\)，
+即立即离开的解。不同近似方案可选择不同解。
+\end{solution}
+
+\begin{solution}{peano-osgood-logarithm}
+此时 \(\omega(s)=s^\alpha\)，而
+\[
+ \int_{0+}\frac{ds}{s^\alpha}
+\]
+在 \(\alpha\ge1\) 时发散，在 \(0<\alpha<1\) 时收敛。因此
+\(\alpha\ge1\) 时非负零初值解唯一；\(\alpha<1\) 时存在
+\[
+ y_c(t)=
+ \begin{cases}
+ 0,&t\le c,\\
+ [(1-\alpha)(t-c)]^{1/(1-\alpha)},&t>c,
+ \end{cases}
+\]
+给出非唯一性。
+\end{solution}
+
+\begin{solution}{peano-continuity-not-global}
+取 \(y'=y^2,y(0)=1\)。右端处处连续且局部 Lipschitz，所以局部解存在唯一；
+分离变量得到 \(y(t)=1/(1-t)\)，它在 \(t\uparrow1\) 时无界，不能延拓为
+经过 \(t=1\) 的有限值经典解。故连续性不保证全局存在。
+\end{solution}
+
+\begin{solution}{peano-upper-lower-solutions}
+取足够小 \(h\)，令
+\[
+ (Tu)(t)=y_0+\int_{t_0}^{t}f(s,u(s))ds.
+\]
+若 \(f\) 关于 \(y\) 单调递增，且初值满足
+\(\alpha(t_0)\le y_0\le\beta(t_0)\)，则对
+\(\alpha\le u\le\beta\)，
+\[
+ Tu-\alpha
+ \ge y_0-\alpha(t_0)+\int_{t_0}^{t}
+ [f(s,\alpha(s))-\alpha'(s)]ds\ge0,
+\]
+同理 \(Tu\le\beta\)。所以序区间不变。若从 \(\alpha,\beta\) 分别迭代，
+单调性还给出两列的相应单调关系；要证明其极限和极值性质，仍需紧性或额外
+连续性论证。
+\end{solution}
+
+\begin{solution}{peano-schauder-route}
+Schauder 定理的一种形式是：Banach 空间中非空闭凸集 \(C\) 上的连续映射
+\(T:C\to C\)，若 \(T(C)\) 相对紧，则 \(T\) 有不动点。取
+\[
+ C=\{u\in C(I,\R^m):\|u-y_0\|_\infty\le b\}
+\]
+及 Picard 积分算子。\(h\le b/M\) 给 \(T(C)\subset C\)；\(f\) 在紧矩形上
+一致连续，给 \(T\) 的连续性；并且 \(T(C)\) 一致有界且共同
+\(M\)-Lipschitz，Arzelà--Ascoli 给相对紧性。Schauder 定理于是给不动点，
+即积分方程的解。此法仍不给唯一性。
+\end{solution}

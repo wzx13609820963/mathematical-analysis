@@ -1,0 +1,182 @@
+\chapter{Picard 迭代}
+\label{chap:picard-iteration}
+
+常微分方程的计算方法通常从已经知道解存在开始。分析问题要先回答：给定初值
+后，至少在多长的时间内有解，解是否唯一，初值和方程略有改变时解会怎样
+变化。Picard 的办法是把微分方程改写成积分方程，再把解看成函数空间中的
+不动点。Lipschitz 条件提供压缩估计，连续性则保证积分确实定义出连续函数。
+
+本章讨论
+\begin{equation}\label{eq:ode-ivp}
+ y'(t)=f(t,y(t)),\qquad y(t_0)=y_0,
+\end{equation}
+其中 \(y\) 取值于 \(\R^m\)，范数取任意固定范数；有限维范数等价使局部
+结论不依赖这一选择。
+
+\section{积分方程}
+
+若 \(f\) 连续，则 \(C^1\) 函数 \(y\) 解\eqref{eq:ode-ivp}，当且仅当
+\begin{equation}\label{eq:ode-integral-equation}
+ y(t)=y_0+\int_{t_0}^{t}f(s,y(s))\,ds.
+\end{equation}
+一个方向由微积分基本定理积分，另一个方向由连续被积函数的积分上限函数
+求导。积分形式有两项优势：初值已经写入公式，导数问题变成连续函数空间中的
+积分算子问题。
+
+在矩形
+\[
+ Q=[t_0-a,t_0+a]\times\overline B(y_0,b)
+\]
+上，若 \(f\) 连续，则 \(M=\max_Q\|f\|<\infty\)。为保证曲线不离开 \(Q\)，
+时间长度必须满足 \(Mh\le b\)。这个限制与唯一性无关，只是让后续估计始终
+在已知 \(f\) 性质的区域内进行。
+
+\section{Picard 算子}
+
+取 \(I=[t_0-h,t_0+h]\)，在 Banach 空间 \(C(I,\R^m)\) 的上确界范数中考虑
+闭集
+\[
+ X=\{u\in C(I,\R^m):\|u-y_0\|_\infty\le b\}.
+\]
+定义
+\[
+ (\Phi u)(t)=y_0+\int_{t_0}^{t}f(s,u(s))\,ds.
+\]
+若 \(h\le b/M\)，则 \(\Phi(X)\subset X\)。若进一步有
+\begin{equation}\label{eq:ode-lipschitz-y}
+ \|f(t,y)-f(t,z)\|\le L\|y-z\|\qquad((t,y),(t,z)\in Q),
+\end{equation}
+则
+\[
+ \|\Phi u-\Phi v\|_\infty\le Lh\|u-v\|_\infty.
+\]
+选 \(h<1/L\) 后，\(\Phi\) 是压缩映射。这里必须同时验证闭集不变和统一
+压缩常数；只知道 \(\partial_yf(t_0,y_0)\) 在一个点有限，不足以套用定理。
+
+\section{存在唯一性与误差估计}
+
+\begin{theorem}[Picard--Lindelöf]\label{thm:picard-lindelof}
+设 \(f\) 在 \(Q\) 上连续，并关于 \(y\) 一致满足
+\eqref{eq:ode-lipschitz-y}。则存在 \(h>0\)，使初值问题
+\eqref{eq:ode-ivp}在 \(I=[t_0-h,t_0+h]\) 上有唯一 \(C^1\) 解。
+从任意 \(u_0\in X\) 开始的迭代 \(u_{n+1}=\Phi u_n\) 在上确界范数下收敛
+到该解。
+\end{theorem}
+\begin{proof}
+取
+\[
+ 0<h<\min\{a,b/M,1/L\},
+\]
+其中 \(M=0\) 或 \(L=0\) 时相应商限制删去。集合 \(X\) 在 Banach 空间中闭，
+因而完备；上一节已证明 \(\Phi:X\to X\) 为压缩。Banach 压缩映射原理给唯一
+不动点 \(y\)，它满足积分方程，故是 \(C^1\) 解。
+
+定理先给出 \(X\) 中唯一不动点。若 \(z\) 是同一初值的另一解，并在
+\(I\) 内第一次到达球面 \(\|z-y_0\|=b\)，那么到达前曲线留在 \(Q\)，从而
+\(\|z(t)-y_0\|\le M|t-t_0|\le Mh<b\)，矛盾。因此任何定义在 \(I\) 上的
+另一解都留在球内，也属于 \(X\) 并满足同一积分方程，故 \(z=y\)。
+\end{proof}
+
+取 \(u_0(t)\equiv y_0\)。若 \(q=Lh<1\)，压缩定理给后验误差
+\[
+ \|u_n-y\|_\infty\le\frac{q^n}{1-q}\|u_1-u_0\|_\infty
+ \le\frac{q^n}{1-q}Mh.
+\]
+还可不用 \(q<1\) 的几何估计而反复积分，得到
+\[
+ \|u_{n+1}-u_n\|_\infty
+ \le \frac{M L^n h^{n+1}}{(n+1)!}.
+\]
+阶乘使 Picard 级数在任何固定有限 \(h\) 上可和；不过闭集不变性仍需另行
+保证，不能因阶乘出现就忽略解可能离开矩形。
+
+\section{唯一性条件不能删除}
+
+连续右端项足以保证有限维中的局部存在性，但不保证唯一。考虑
+\[
+ y'=2\sqrt{|y|},\qquad y(0)=0.
+\]
+除零解外，对每个 \(c\ge0\)，函数
+\[
+ y_c(t)=
+ \begin{cases}
+ 0,&t\le c,\\
+ (t-c)^2,&t>c
+ \end{cases}
+\]
+在 \(t\ge0\) 上也是 \(C^1\) 解。右端在 \(y=0\) 附近只有 Hölder 连续，
+不满足 Lipschitz 条件。解可以在零点停留任意长时间后离开。
+
+Lipschitz 是方便而稳定的充分条件，并非唯一性的必要条件。例如标量方程
+\(y'=|y|\log(1/|y|)\) 在零附近不 Lipschitz，却可由 Osgood 判据得到零初值
+解唯一。使用定理时应区分“当前条件保证唯一”与“没有这一条件必不唯一”。
+
+\section{Grönwall 不等式}
+
+\begin{lemma}[Grönwall 不等式]\label{lem:gronwall}
+设 \(u:[t_0,T]\to[0,\infty)\) 连续，并且
+\[
+ u(t)\le A+\int_{t_0}^{t}b(s)u(s)\,ds,
+\]
+其中 \(A\ge0\)、\(b\ge0\) 可积。则
+\[
+ u(t)\le A\exp\!\left(\int_{t_0}^{t}b(s)\,ds\right).
+\]
+\end{lemma}
+\begin{proof}
+令 \(v(t)=A+\int_{t_0}^{t}b(s)u(s)ds\)。若 \(A>0\)，则
+\(u\le v\)、\(v'\le bv\) 几乎处处，于是
+\((\log v)'\le b\)，积分即得 \(v(t)\le A e^{\int b}\)。若 \(A=0\)，
+先以 \(A+\varepsilon\) 代替 \(A\)，再令 \(\varepsilon\downarrow0\)。
+\end{proof}
+
+若两个解 \(y,z\) 对应初值 \(y_0,z_0\)，右端对 \(y\) 的 Lipschitz 常数为
+\(L\)，则
+\begin{equation}\label{eq:ode-initial-dependence}
+ \|y(t)-z(t)\|\le e^{L|t-t_0|}\|y_0-z_0\|.
+\end{equation}
+如果右端也改变为 \(g\)，且在共同区域
+\(\|f-g\|\le\eta\)，同一论证给
+\[
+ \|y(t)-z(t)\|
+ \le e^{L|t-t_0|}\bigl(\|y_0-z_0\|+\eta|t-t_0|\bigr).
+\]
+存在性定理给出解，Grönwall 不等式则把唯一性与连续依赖写成定量估计。
+
+\section{延拓与最大解}
+
+局部唯一性允许把相交区间上的解粘合，得到包含 \(t_0\) 的最大存在区间
+\((\alpha,\beta)\)。若 \(f\) 在开集 \(D\subset\R\times\R^m\) 上局部
+Lipschitz，且 \(\beta<\infty\)，那么当 \(t\uparrow\beta\) 时，轨道
+\((t,y(t))\) 必须离开 \(D\) 的每个紧子集。否则在某个紧集上 \(f\) 有界且
+有共同的局部存在长度，可以在接近 \(\beta\) 的点重新启动方程，把解延到
+\(\beta\) 之后，和最大性矛盾。
+
+在全空间中，若 \(\|f(t,y)\|\le A+B\|y\|\) 在每个有限时间带上一致成立，
+Grönwall 不等式给解在有限时间内有界，因此最大区间不能在有限端点终止。
+相反，方程 \(y'=y^2,y(0)=1\) 的解 \(y=(1-t)^{-1}\) 在 \(t=1\) 爆破；
+局部定理从未承诺全局存在。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{picard-integral-equivalence}严格证明微分方程与积分方程\eqref{eq:ode-integral-equation}的等价性。
+\exerciseitem{picard-invariant-ball}在给定矩形上推导 \(h\le b/M\) 的闭集不变条件。
+\exerciseitem{picard-linear-equation}对 \(y'=ay+b,y(0)=y_0\) 写出 Picard 前四次迭代，并识别其极限。
+\exerciseitem{picard-contraction-error}证明 Picard 迭代的几何误差与阶乘误差估计。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{picard-local-lipschitz-derivative}若 \(\partial_yf\) 在矩形上连续，证明 \(f\) 关于 \(y\) 一致 Lipschitz。
+\exerciseitem{picard-nonunique-family}逐点验证正文 \(y_c\) 的可微性和微分方程，并说明解族为何否定唯一性。
+\exerciseitem{picard-gronwall-variable}证明变系数 Grönwall 不等式，并推出初值依赖估计\eqref{eq:ode-initial-dependence}。
+\exerciseitem{picard-perturbed-vector-field}证明正文中右端扰动为 \(\eta\) 时的解差估计。
+\exerciseitem{picard-global-linear-growth}证明局部 Lipschitz 且满足线性增长的向量场在有限时间内不能爆破。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{picard-flow-semigroup}对自治方程 \(y'=f(y)\) 证明局部流的组合律 \(\Phi_{t+s}=\Phi_t\circ\Phi_s\)，并指出定义域限制。
+\exerciseitem{picard-parameter-differentiation}设 \(f(t,y,\lambda)\) 对 \((y,\lambda)\) 连续可微，初值 \(y_0(\lambda)\) 也连续可微，并假设这些条件在一个共同紧管道上成立。求参数导数的变分方程，并用积分方程与 Grönwall 不等式证明其正确性。
+\optionalexerciseitem{picard-weighted-norm}在 \(C([t_0,t_0+h])\) 上取 Bielecki 范数 \(\|u\|_\alpha=\sup e^{-\alpha(t-t_0)}\|u(t)\|\)，证明 \(\alpha>L\) 时 Picard 算子在任意固定有限 \(h\) 上为压缩，只要闭集不变已另行保证。
+\end{enumerate}

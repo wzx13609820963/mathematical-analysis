@@ -1,0 +1,172 @@
+\chapter{Peano 存在定理}
+\label{chap:peano-existence}
+
+Picard--Lindelöf 定理把存在性和唯一性同时归结为 Lipschitz 估计。若右端
+只有连续性，压缩性消失，但有限维中的紧致性仍能保存存在性。Peano 的证明
+先构造 Euler 折线；这些折线未必收敛，却具有共同有界性和等度连续性。
+Arzelà--Ascoli 定理抽出一致收敛子列，再由右端的一致连续性把近似积分方程
+传到极限。
+
+\section{连续向量场与统一时间区间}
+
+仍考虑
+\[
+ y'=f(t,y),\qquad y(t_0)=y_0,
+\]
+并假设 \(f\) 在
+\[
+ Q=[t_0-a,t_0+a]\times\overline B(y_0,b)
+\]
+上连续。紧致性给 \(M=\max_Q\|f\|<\infty\)。取
+\[
+ h=\min\{a,b/M\},
+\]
+其中 \(M=0\) 时第二个限制删去。下面先在
+\(I_+=[t_0,t_0+h]\) 上构造解；向左时间完全相同。
+
+只知道每条近似曲线在自己的区间上存在还不够。选择 \(h\le b/M\) 保证任何
+斜率范数不超过 \(M\) 的曲线从 \(y_0\) 出发后，在整个 \(I_+\) 上都留在
+\(\overline B(y_0,b)\)。因此所有近似解共享同一个紧矩形，右端的有界性和
+一致连续性可共同使用。
+
+\section{Euler 折线}
+
+把 \(I_+\) 等分为 \(n\) 段，步长 \(\Delta=h/n\)，节点
+\(t_k=t_0+k\Delta\)。递归定义
+\[
+ y_n(t_0)=y_0,\qquad
+ y_n(t)=y_n(t_k)+(t-t_k)f(t_k,y_n(t_k)),
+ \quad t_k\le t\le t_{k+1}.
+\]
+由于每段斜率范数至多 \(M\)，归纳得
+\[
+ \|y_n(t)-y_0\|\le M(t-t_0)\le Mh\le b.
+\]
+于是定义过程不会离开 \(Q\)。此外对任意 \(s,t\in I_+\)，跨过有限个折线段
+并求和可得
+\begin{equation}\label{eq:euler-equilipschitz}
+ \|y_n(t)-y_n(s)\|\le M|t-s|.
+\end{equation}
+故函数族一致有界且共同 Lipschitz。
+
+令 \(\kappa_n(s)=t_k\) 当 \(t_k\le s<t_{k+1}\)。折线公式等价于
+\begin{equation}\label{eq:euler-integral-residual}
+ y_n(t)=y_0+\int_{t_0}^{t}
+ f(\kappa_n(s),y_n(\kappa_n(s)))\,ds.
+\end{equation}
+并且
+\[
+ |s-\kappa_n(s)|\le\Delta,\qquad
+ \|y_n(s)-y_n(\kappa_n(s))\|\le M\Delta.
+\]
+
+\section{紧性与极限}
+
+\begin{theorem}[Peano 存在定理]\label{thm:peano-existence}
+若 \(f\) 在 \(Q\) 上连续，则初值问题在
+\([t_0-h,t_0+h]\) 上至少有一个 \(C^1\) 解。此处不要求
+\(f\) 关于 \(y\) 满足 Lipschitz 条件。
+\end{theorem}
+\begin{proof}
+在 \(I_+\) 上，由\eqref{eq:euler-equilipschitz}和共同有界性，
+Arzelà--Ascoli 定理给子列 \(y_{n_j}\) 一致收敛到某个连续函数 \(y\)。
+极限仍满足 \(\|y(t)-y_0\|\le b\)。
+
+\(f\) 在紧集 \(Q\) 上一致连续。由
+\[
+ |s-\kappa_{n_j}(s)|\le\Delta_{n_j},\quad
+ \|y_{n_j}(s)-y_{n_j}(\kappa_{n_j}(s))\|\le M\Delta_{n_j},
+\]
+有
+\[
+ \sup_{s\in I_+}
+ \|f(\kappa_{n_j}(s),y_{n_j}(\kappa_{n_j}(s)))
+      -f(s,y_{n_j}(s))\|\longrightarrow0.
+\]
+又因 \(y_{n_j}\to y\) 一致，第二次使用一致连续性得到
+\[
+ \sup_{s\in I_+}\|f(s,y_{n_j}(s))-f(s,y(s))\|\to0.
+\]
+故\eqref{eq:euler-integral-residual}的被积函数一致收敛到
+\(f(s,y(s))\)。令 \(j\to\infty\)，得到
+\[
+ y(t)=y_0+\int_{t_0}^{t}f(s,y(s))ds.
+\]
+由积分方程等价性，\(y\in C^1\) 且解方程。向左时间作同样构造，并在
+\(t_0\) 处粘合，得到双侧局部解。
+\end{proof}
+
+证明中有限维性出现在值域闭球的紧致性。一般无限维 Banach 空间的闭有界集
+不紧，连续向量场的初值问题甚至可能没有局部解；因此 Peano 定理不能只把
+\(\R^m\) 替换成任意 Banach 空间。Picard--Lindelöf 定理则依赖完备性和压缩，
+可以在 Banach 空间中成立。
+
+\section{近似解的其他形式}
+
+Euler 折线不是唯一选择。若连续函数 \(y_n\) 满足共同有界、等度连续，并且
+\[
+ r_n(t)=y_n(t)-y_0-\int_{t_0}^{t}f(s,y_n(s))ds
+\]
+在上确界范数下趋零，那么任何一致收敛子列的极限都是解。证明只需在上式
+取极限：共同紧区域上的一致连续性把
+\(f(s,y_n(s))\) 一致送到 \(f(s,y(s))\)。
+
+这一表述把构造与极限分开。数值方法产生的离散近似、延迟参数法产生的光滑
+近似，只要给出紧性和残差趋零，也能使用同一收束论证。残差小本身不保证
+整个序列收敛；非唯一方程的不同子列可能趋向不同解。
+
+\section{非唯一性与解集}
+
+连续性只给存在。对
+\[
+ y'=2\sqrt{|y|},\qquad y(0)=0,
+\]
+\chapterref{chap:picard-iteration}已经给出一族延迟离开的解。Euler 折线若从
+零点取右端斜率零，会始终给出零解；另一种微小正扰动可能趋向立即离开的解。
+紧性论证只保证至少有一个聚点，不能从构造中恢复唯一性。
+
+在标量方程中，解集还可用序关系研究。若 \(f\) 连续，在同一局部矩形上的
+所有解共同有界且等度连续；解集在 \(C(I)\) 中紧。对任意固定 \(t\)，评价
+映射连续，因而解在该时刻的取值集合紧。进一步使用上、下解和比较方法，可以
+构造极大解与极小解，但这需要标量的全序，在向量方程中没有直接对应物。
+
+\begin{proposition}[Osgood 唯一性判据]\label{prop:osgood-uniqueness}
+设标量自治方程 \(y'=\omega(|y|)\)、\(y(0)=0\)，其中
+\(\omega:[0,\delta]\to[0,\infty)\) 连续、递增，\(\omega(0)=0\)，且
+\[
+ \int_{0+}\frac{ds}{\omega(s)}=\infty.
+\]
+则零解是在零附近唯一的非负解。
+\end{proposition}
+\begin{proof}
+若某个非负解在 \(t_1>0\) 处为正，取首次达到小正数 \(\varepsilon\) 的时间。
+在解为正的区间上分离变量，对 \(0<\eta<\varepsilon\) 得
+\[
+ t(\varepsilon)-t(\eta)=\int_\eta^\varepsilon\frac{ds}{\omega(s)}.
+\]
+令 \(\eta\downarrow0\)，右侧发散，左侧却有界，矛盾。若
+\(\omega(s)=2\sqrt s\)，该积分有限，正好允许延迟解。
+\end{proof}
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{peano-euler-stays-rectangle}证明 Euler 折线在共同区间内始终留在矩形 \(Q\)。
+\exerciseitem{peano-euler-equilipschitz}证明跨越多个网格段时仍有估计\eqref{eq:euler-equilipschitz}。
+\exerciseitem{peano-euler-residual}由折线定义推导积分式\eqref{eq:euler-integral-residual}并估计残差。
+\exerciseitem{peano-two-sided-gluing}详细完成向左时间的构造，并证明两侧解在 \(t_0\) 处粘合后属于 \(C^1\)。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{peano-compact-solution-set}在共同区间上证明所有取值留在 \(Q\) 的解构成 \(C(I,\R^m)\) 的紧集。
+\exerciseitem{peano-approximate-residual}证明共同有界、等度连续且残差一致趋零的近似解，其任一一致收敛子列的极限为真解。
+\exerciseitem{peano-scalar-sqrt-selection}对平方根方程说明标准 Euler 折线为何选择零解，并构造一列微扰初值解趋向立即离开的解。
+\exerciseitem{peano-osgood-logarithm}用 Osgood 判据判断 \(y'=|y|^\alpha\)、\(y(0)=0\) 在不同 \(\alpha>0\) 下的唯一性。
+\exerciseitem{peano-continuity-not-global}给出连续且局部有解但解在有限时间爆破的标量方程，说明 Peano 定理仍是局部结论。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{peano-upper-lower-solutions}设 \(I=[t_0,t_0+h]\)，标量函数 \(\alpha,\beta\in C^1(I)\) 满足 \(\alpha\le\beta\)、\(\alpha'\le f(t,\alpha)\)、\(\beta'\ge f(t,\beta)\)，且 \(\alpha(t_0)\le y_0\le\beta(t_0)\)。若 \(f\) 关于 \(y\) 单调递增，证明序区间 \(\{u:\alpha\le u\le\beta\}\) 对 Picard 积分算子不变。
+\optionalexerciseitem{peano-schauder-route}查阅并陈述 Schauder 不动点定理，说明如何用它和积分算子的相对紧致性给出 Peano 定理的另一证明；须逐项验证所用闭凸集和紧性条件。
+\end{enumerate}

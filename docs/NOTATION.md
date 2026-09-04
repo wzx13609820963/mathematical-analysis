@@ -143,6 +143,20 @@
 | \(J_Xx(\phi)=\phi(x)\) | 典范等距嵌入，反射性指这一个映射满射 |
 | \(\langle f,g\rangle=\int fg\) | Lp复对偶使用双线性配对；L2内积另外写 \(\int f\overline g\) |
 
+## 第十七至二十编新增约定
+
+| 记号 | 含义及限制 |
+|---|---|
+| \(\langle x,y\rangle\) | Hilbert空间内积；本书约定对第一个变量线性、对第二个变量共轭线性 |
+| \(M^\perp\subseteq H\) | 内积空间中子集的正交补；不同于第十六编中位于连续对偶的零化子，须由值域辨认 |
+| \(P_M\) | Hilbert空间到闭子空间\(M\)的正交投影 |
+| \(\widehat f(\xi)=\int_{\mathbb R^n}f(x)e^{-2\pi i x\cdot\xi}\,dx\) | 本书在\(\mathbb R^n\)上的Fourier变换归一化；反演同样使用\(2\pi\)约定 |
+| \(D^\alpha\)、\(\partial^\alpha\) | 多重指标弱导数或经典导数；分布导数含符号\((-1)^{|\alpha|}\)的分部积分约定 |
+| \(\mathcal D(\Omega)=C_c^\infty(\Omega)\)、\(\mathcal D'(\Omega)\) | 试验函数空间及其连续线性对偶，即分布空间 |
+| \(\langle T,\varphi\rangle\) | 分布\(T\)作用于试验函数\(\varphi\)；不与Hilbert内积混同 |
+| \(W^{k,p}(\Omega)\)、\(H^k(\Omega)\) | 具有至\(k\)阶\(L^p\)弱导数的Sobolev空间；\(H^k=W^{k,2}\) |
+| \(H_0^1(\Omega)\) | \(C_c^\infty(\Omega)\)在\(H^1\)范数下的闭包；当前不把它未经证明地等同于逐点边界值为零 |
+
 ## 稳定交叉引用
 
 | 源码 | 用途 |

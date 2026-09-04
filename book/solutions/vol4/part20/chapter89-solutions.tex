@@ -1,0 +1,156 @@
+\chapter{Sobolev 空间}
+
+\begin{solution}{sobolev-absolute-value}
+\(|x|\in L^p(-1,1)\) 对所有 \(p\) 成立，一阶弱导数
+\(\operatorname{sgn}x\in L^\infty\)，故属于所有 \(W^{1,p}\)。
+二阶分布导数为 \(2\delta_0\)，不由局部可积函数表示，所以不属于任何
+\(W^{2,p}\)，更不属于更高阶空间。
+\end{solution}
+
+\begin{solution}{sobolev-heaviside-failure}
+若 \(H\in W^{1,p}\)，其弱导数应由某个 \(g\in L^p\subset L^1_{\rm loc}\)
+表示。但分布计算给 \(DH=\delta_0\)，而 Dirac 质量不是正则分布，矛盾。
+\end{solution}
+
+\begin{solution}{sobolev-weak-derivative-limit}
+对 \(\varphi\in C_c^\infty\)，由 Hölder 不等式，
+\[
+ \int u_n\partial_j\varphi\to\int u\partial_j\varphi,\qquad
+ \int(\partial_ju_n)\varphi\to\int g\varphi.
+\]
+在
+\(\int u_n\partial_j\varphi=-\int(\partial_ju_n)\varphi\) 中取极限，得到
+\(g\) 是 \(u\) 的弱导数。
+\end{solution}
+
+\begin{solution}{sobolev-hilbert-inner-product}
+每项 \(L^2\) 内积均满足共轭对称和线性，有限和仍满足。若
+\(\langle u,u\rangle_{H^k}=0\)，其中零阶项给 \(\|u\|_2=0\)，故 \(u=0\)
+作为等价类。范数平方恰为
+\(\sum_{|\alpha|\le k}\|\partial^\alpha u\|_2^2\)，与定义一致。
+\end{solution}
+
+\begin{solution}{sobolev-reflexive}
+映射
+\[
+ Ju=(\partial^\alpha u)_{|\alpha|\le k}
+\]
+把 \(W^{k,p}\) 等距嵌入有限积 \(Y=\prod L^p\)。完备性证明已经表明其像闭。
+\(1<p<\infty\) 时每个 \(L^p\) 反射，有限积反射，反射空间的闭子空间反射。
+因此 \(W^{k,p}\) 反射。
+\end{solution}
+
+\begin{solution}{sobolev-fourier-hone}
+若 \(u\in H^1\)，先用梯度为 \(O(R^{-1})\) 的光滑截断 \(\chi_R\) 乘以
+\(u\)，再磨光。乘积法则和 \(L^2\) 尾积分表明所得
+\(u_n\in C_c^\infty\) 在 \(H^1\) 中逼近 \(u\)。对每个 \(n\)，
+\(\widehat{\partial_ju_n}=2\pi i\xi_j\widehat u_n\)。Plancherel 使左右两边
+分别在 \(L^2\) 中收敛，得到同一公式与范数恒等式。
+
+反向令 \(g_j=\mathcal F^{-1}(2\pi i\xi_j\widehat u)\)。对测试函数使用
+Parseval，并注意
+\(\widehat{\partial_j\varphi}=2\pi i\xi_j\widehat\varphi\)，可得
+\(\int u\,\partial_j\varphi=-\int g_j\varphi\)；复值情形按双线性分布配对或
+先分实虚部处理。故 \(g_j\) 是弱导数。
+\end{solution}
+
+\begin{solution}{sobolev-poincare-interval}
+若 \(u\in C_c^\infty(0,L)\)，则
+\[
+ |u(x)|=\left|\int_0^xu'(t)dt\right|
+ \le\sqrt{x}\|u'\|_2.
+\]
+积分给 \(\|u\|_2\le L/\sqrt2\,\|u'\|_2\)，并延拓到 \(H_0^1\)。
+最佳常数事实上是 \(L/\pi\)：函数 \(u(x)=\sin(\pi x/L)\) 的范数比恰为
+\(L/\pi\)，所以任何有效常数至少为该值。用 Fourier 正弦展开可证明这就是
+最佳值。
+\end{solution}
+
+\begin{solution}{sobolev-hzero-gradient-norm}
+若 \(\|\nabla u\|_2=0\)，Poincaré 不等式给 \(\|u\|_2=0\)，故这是范数。
+显然 \(\|\nabla u\|_2\le\|u\|_{H^1}\)，而
+\[
+ \|u\|_{H^1}^2=\|u\|_2^2+\|\nabla u\|_2^2
+ \le(C_P^2+1)\|\nabla u\|_2^2.
+\]
+所以两范数等价。
+\end{solution}
+
+\begin{solution}{sobolev-lax-milgram-complex}
+设 \(a\) 第一变量线性、第二变量共轭线性，且
+\(|a(u,v)|\le M\|u\|\|v\|\)、
+\(\operatorname{Re}a(u,u)\ge\alpha\|u\|^2\)。
+用复 Riesz 表示定义 \(A\) 使 \(a(u,v)=\langle Au,v\rangle\)。
+则
+\[
+ \alpha\|u\|^2\le\operatorname{Re}\langle Au,u\rangle
+ \le\|Au\|\|u\|,
+\]
+故 \(A\) 有下界、单射且像闭。若 \(w\perp\operatorname{ran}A\)，取
+\(u=w\) 得 \(a(w,w)=0\)，与强制性矛盾，故像稠密并等于全空间。对连续
+共轭线性右端 \(F(v)=\langle f,v\rangle\) 解 \(Au=f\)，估计同实情形。
+\end{solution}
+
+\begin{solution}{sobolev-poisson-energy}
+若 \(u\) 是弱解，对任意 \(w\in H_0^1\)，
+\[
+ J(u+w)-J(u)
+ =\int\nabla u\cdot\nabla w-\int fw+\frac12\int|\nabla w|^2
+ =\frac12\|\nabla w\|_2^2\ge0.
+\]
+等号由 Poincaré 不等式只在 \(w=0\) 时成立，故极小点唯一。反之若 \(u\)
+极小，对 \(J(u+tw)\) 在 \(t=0\) 求导，得到弱方程。
+\end{solution}
+
+\begin{solution}{sobolev-elliptic-coefficients}
+令
+\[
+ a(u,v)=\int_\Omega A(x)\nabla u\cdot\nabla v,\qquad
+ F(v)=\int_\Omega fv.
+\]
+矩阵有界给 \(|a(u,v)|\le C\|\nabla u\|_2\|\nabla v\|_2\)，椭圆性给
+\(a(u,u)\ge\lambda\|\nabla u\|_2^2\)。Poincaré 不等式给
+\(|F(v)|\le C_P\|f\|_2\|\nabla v\|_2\)。在以梯度为范数的 \(H_0^1\) 上
+应用 Lax--Milgram，得到唯一弱解及
+\(\|\nabla u\|_2\le C_P\lambda^{-1}\|f\|_2\)。
+\end{solution}
+
+\begin{solution}{sobolev-lower-order-term}
+\(c\ge0\) 时
+\[
+ a(u,u)=\|\nabla u\|_2^2+\int c|u|^2\ge\|\nabla u\|_2^2,
+\]
+故强制。若 \(c_-= \max\{-c,0\}\in L^\infty\)，则
+\[
+ a(u,u)\ge\|\nabla u\|_2^2-\|c_-\|_\infty\|u\|_2^2
+ \ge(1-C_P^2\|c_-\|_\infty)\|\nabla u\|_2^2.
+\]
+因此 \(C_P^2\|c_-\|_\infty<1\) 是一个充分的小负部条件。
+\end{solution}
+
+\begin{solution}{sobolev-weak-minimization}
+取极小化序列 \(u_n\)。强制性与有界线性项给
+\[
+ J(u_n)\ge\frac\alpha2\|u_n\|^2-\|F\|\|u_n\|,
+\]
+故 \(u_n\) 有界。Hilbert 空间反射，抽取 \(u_{n_j}\rightharpoonup u\)。
+连续线性泛函 \(F\) 弱连续；由 \(a\) 对称正定所产生的等价范数弱下半连续，
+故 \(J(u)\le\liminf J(u_{n_j})\)，得到极小点。严格凸性给唯一。对一阶变分
+求导得到 \(a(u,v)=F(v)\)，与 Lax--Milgram 解一致。此法突出紧性和下半
+连续性，算子证明则不要求对称并直接给出可逆性。
+\end{solution}
+
+\begin{solution}{sobolev-one-d-continuous-representative}
+\chapterref{chap:distributions-weak-derivatives}的一维刻画给
+\[
+ u(x)=u(a_0)+\int_{a_0}^{x}u'(t)dt
+\]
+的局部绝对连续代表。若 \(p>1\)，Hölder 不等式给
+\[
+ |u(x)-u(y)|
+ \le\int_x^y|u'(t)|dt
+ \le\|u'\|_{L^p(a,b)}|x-y|^{1-1/p}.
+\]
+因此该代表 Hölder 连续；\(p=1\) 时仍绝对连续，但没有统一正指数的
+Hölder 估计。
+\end{solution}
