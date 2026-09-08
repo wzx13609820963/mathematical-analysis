@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—89章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第0—103章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -111,8 +111,8 @@ Cauchy 条件写为
 \]
 条件 \(0<|x-a|\) 排除点 \(a\) 本身，因此函数极限只由删心邻域中的值决定。若 \(a\) 同时是 \(D\) 的聚点，则 \(f\) 在 \(a\in D\) 连续等价于
 \[
- \lim_{\substack{x\to a\\x\in D}}f(x)=f(a)
-\]。
+ \lim_{\substack{x\to a\\x\in D}}f(x)=f(a).
+\]
 更一般的连续性定义不要求 \(a\) 是聚点；若 \(a\) 是 \(D\) 的孤立点，它自动满足连续性定义，但此时不能把上式当作一个已经定义的删心极限等式。
 
 单侧极限中的 \(x\to a+\)、\(x\to a-\) 分别把变量限制在 \(x>a\)、\(x<a\)。无穷远处极限 \(x\to+\infty\) 通过条件 \(x>M\) 定义；无穷极限 \(f(x)\to+\infty\) 则通过结论 \(f(x)>K\) 定义。两种“无穷”分别作用于自变量和函数值，量词位置不同。
@@ -508,6 +508,52 @@ Sobolev空间写为 \(W^{k,p}(\Omega)\)，并约定
 后一等式是当前定义；把它解释为“边界值为零”需要迹理论，不能仅凭逐点取值
 作出判断。
 
+\section{复分析、流形与几何记号}
+
+Riemann 球面与单位圆盘分别记为
+\[
+ \widehat{\C}=\C\cup\{\infty\},\qquad
+ \mathbb D=\{z\in\C:|z|<1\}.
+\]
+闭曲线 \(\gamma\) 关于曲线外一点 \(a\) 的绕数记为
+\(\operatorname{Ind}(\gamma,a)\)。若 \(a\) 是全纯函数的孤立奇点，则
+\(\operatorname{Res}(f,a)\) 表示 Laurent 展开中 \((z-a)^{-1}\) 的系数。
+Wirtinger 导数写作
+\[
+ f_z=\frac12(f_x-if_y),\qquad
+ f_{\bar z}=\frac12(f_x+if_y).
+\]
+对实意义下 \(C^1\) 的复值函数，Cauchy--Riemann 方程等价于
+\(f_{\bar z}=0\)；只有一点上的这个等式并不足以保证邻域全纯。
+
+对光滑流形 \(M\) 和 \(p\in M\)，切空间、余切空间记为
+\(T_pM\)、\(T_p^*M\)。光滑映射 \(F:M\to N\) 的切映射写为
+\[
+ dF_p:T_pM\longrightarrow T_{F(p)}N.
+\]
+流形上的光滑 \(q\)-形式空间记为 \(\Omega^q(M)\)，外微分仍记为 \(d\)。
+这一记号与欧氏开集上的版本相容。奇异链、同调、上链和上同调采用实系数：
+\[
+ C_q(X;\R),\quad H_q(X;\R),\quad
+ C^q(X;\R),\quad H^q(X;\R).
+\]
+光滑流形上的光滑奇异链记为 $C_q^\infty(M)$，其对偶上链记为
+$C_{\mathrm{sm}}^q(M;\R)$，以免与通常奇异上链或无穷阶对象混淆。
+de Rham 上同调写为 \(H_{\mathrm{dR}}^q(M)\)。省略系数域时，本卷仍取
+实系数；若改用整数系数，正文中依赖线性泛函延拓的论证不能原样照搬。
+
+Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率张量
+采用
+\[
+ R(X,Y)Z=\nabla_X\nabla_YZ-\nabla_Y\nabla_XZ-\nabla_{[X,Y]}Z
+\]
+的号差。Riemann 体积密度写为 \(dV_g\)；流形定向后，它可识别为与定向相容
+的正体积形式。Laplace--Beltrami 算子写为 \(\Delta_g\)，并约定
+\(\Delta_g=\operatorname{div}\operatorname{grad}\)。因此在无边界紧流形上，
+\(\int u\Delta_gu\,dV_g=-\int|\nabla u|^2\,dV_g\)。曲率号差与 Laplacian
+号差是彼此独立的约定：采用相反曲率号差只改变含 \(R\) 的公式，采用
+\(-\operatorname{div}\operatorname{grad}\) 才改变 Laplacian 的谱符号。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -604,14 +650,18 @@ Sobolev空间写为 \(W^{k,p}(\Omega)\)，并约定
  \item[Vitali 定理]
  \chapterref{chap:null-nonmeasurable-sets}中的 Vitali 构造给出不可测集；
  \chapterref{chap:uniform-integrability}的 Vitali 收敛定理在有限测度
- 空间上把依测度收敛和一致可积性提升为 \(L^1\) 收敛。后文复分析中的
- Vitali--Porter 定理还属于另一类正规族结论。
+ 空间上把依测度收敛和一致可积性提升为 \(L^1\) 收敛。
+ \chapterref{chap:normal-families}的 Vitali--Porter 定理则在局部有界全纯
+ 函数列中，把有聚点集合上的逐点收敛提升为整个域上的局部一致收敛。
 
  \item[Stokes 定理]
  \chapterref{chap:parametric-classical-integrals}的经典版本以旋度和向量面积元
  表述；\chapterref{chap:differential-forms-euclidean}在欧氏参数化子流形上
- 写成 $\int_Md\omega=\int_{\partial M}\omega$。后文流形版本还需抽象
- 流形、单位分解和边界定向，当前证明不能无条件移植到任意流形。
+ 写成 $\int_Md\omega=\int_{\partial M}\iota^*\omega$，其中
+ $\iota:\partial M\hookrightarrow M$ 为包含映射。
+ \chapterref{chap:stokes-manifolds}再由光滑图册、单位分解和边界定向证明抽象
+ 流形上的一般版本。后一证明以局部Euclidean公式为前置，不能反过来充当前者
+ 的无循环证明。
 
  \item[紧致性与 Arzelà--Ascoli 定理]
  Heine--Borel 定理描述有限维欧氏空间中的点集；
@@ -626,7 +676,7 @@ Sobolev空间写为 \(W^{k,p}(\Omega)\)，并约定
 
 \section{当前章节依赖}
 
-第0—89章的主要依赖可概括如下：
+第0—103章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -758,5 +808,24 @@ Eberlein--Šmulian 给 Banach 空间中弱紧致集的序列刻画，两者不�
 求导扩张到分布并识别局部可积代表的弱导数，\chapterref{chap:sobolev-spaces}
 再以这些弱导数定义函数空间，由Poincaré不等式和Lax--Milgram定理构造Poisson
 方程的弱解。
+
+复分析从\chapterref{chap:holomorphic-functions}的复可微和Cauchy--Riemann方程
+出发。\chapterref{chap:cauchy-theorem}先独立建立曲线积分与Cauchy定理，
+\chapterref{chap:cauchy-integral-formula}才由积分公式推出解析性、Cauchy估计、
+Liouville定理和开映射定理。\chapterref{chap:isolated-singularities-residues}在
+Laurent展开上建立留数理论，\chapterref{chap:argument-principle-analytic-continuation}
+进一步处理零点计数和解析延拓。正规族与映射理论依次位于
+\chapterref{chap:normal-families}和\chapterref{chap:riemann-mapping-theorem}；
+\chapterref{chap:harmonic-functions}则把全纯函数的实部虚部关系用于平均值性质、
+Harnack不等式和圆盘Dirichlet问题。
+
+流形部分先由\chapterref{chap:smooth-manifolds}建立光滑图册、正则值和单位分解，
+\chapterref{chap:tangent-differential-forms}再定义切空间、张量和外微分。
+\chapterref{chap:stokes-manifolds}把第二卷的Euclidean Stokes公式推广到定向流形。
+为准确陈述de Rham定理，\chapterref{chap:singular-cohomology}独立建立奇异链、
+同伦不变性和Mayer--Vietoris序列；\chapterref{chap:de-rham-theorem}随后通过积分
+配对、光滑奇异链比较和局部到整体论证得到两个上同调理论的同构。
+\chapterref{chap:riemannian-geometry}最后在切空间上加入随点变化的内积，建立
+Levi--Civita联络、曲率、Laplace--Beltrami算子和测地线变分。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

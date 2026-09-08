@@ -1,0 +1,286 @@
+\chapter{全纯函数}
+\label{chap:holomorphic-functions}
+
+一元实函数在一点可导，只要求差商沿实轴趋于同一极限。复函数的自变量有两个
+实方向，而复导数仍要求差商趋于一个复数，并且极限不得依赖接近方向。这个
+局部要求强迫函数满足一组偏微分方程；在后续章节中，它还会导出积分公式、
+幂级数展开和很强的唯一性。本章先建立复微分的局部语言。全纯函数一定解析
+将在\chapterref{chap:cauchy-integral-formula}由 Cauchy 积分公式推出。
+
+\section{复平面、Riemann 球面和复极限}
+
+把 \(z=x+iy\) 与 \((x,y)\in\R^2\) 对应，得到复平面 \(\C\)。模
+\[
+ |z|=(x^2+y^2)^{1/2}
+\]
+给出距离 \(d(z,w)=|z-w|\)，所以开集、紧集、连通性和序列收敛都沿用
+\chapterref{chap:euclidean-limits}的定义。非空连通开集称为\term{域}。
+若 \(f:E\to\C\)，\(a\) 是 \(E\) 的聚点，则
+\[
+ \lim_{z\to a}f(z)=L
+\]
+表示：对每个 \(\varepsilon>0\)，存在 \(\delta>0\)，使 \(z\in E\) 且
+\(0<|z-a|<\delta\) 时有 \(|f(z)-L|<\varepsilon\)。写
+\(f=u+iv\)，这个极限等价于
+\(u\to\operatorname{Re}L\) 与 \(v\to\operatorname{Im}L\)。
+
+加入一点 \(\infty\) 得到扩充复平面
+\[
+ \widehat{\C}=\C\cup\{\infty\}.
+\]
+\(\infty\) 的邻域取
+\[
+ \{\infty\}\cup\{z:|z|>R\}\qquad(R>0).
+\]
+于是 \(z_n\to\infty\) 当且仅当 \(|z_n|\to\infty\)。映射
+\(z\mapsto1/z\) 在约定 \(1/0=\infty\)、\(1/\infty=0\) 后交换 \(0\)
+与 \(\infty\)。球面拓扑也由弦距离
+\[
+ \chi(z,w)=\frac{|z-w|}
+ {\sqrt{1+|z|^2}\sqrt{1+|w|^2}},\qquad
+ \chi(z,\infty)=\frac1{\sqrt{1+|z|^2}}
+\]
+给出。立体投影把 \(\widehat{\C}\) 与二维球面同胚，因此它是紧空间。
+
+\section{复可微与 Cauchy--Riemann 方程}
+
+设 \(D\subseteq\C\) 开，\(f:D\to\C\)，\(z_0\in D\)。若
+\[
+ f'(z_0)=\lim_{h\to0}\frac{f(z_0+h)-f(z_0)}h
+\]
+存在，就称 \(f\) 在 \(z_0\)\term{复可微}。这里 \(h\) 从复平面的任意
+方向趋于零。若 \(f\) 在 \(D\) 每一点复可微，则称它在 \(D\)\term{全纯}。
+
+写 \(f(x+iy)=u(x,y)+iv(x,y)\)。先令 \(h\in\R\)，再令 \(h=it\)，得到
+\[
+ f'(z_0)=u_x+iv_x=v_y-iu_y.
+\]
+因此复可微必有
+\begin{equation}
+ u_x=v_y,\qquad u_y=-v_x.
+ \label{eq:cauchy-riemann-cartesian}
+\end{equation}
+这就是 Cauchy--Riemann 方程。
+
+两个最简单的例子已经显示实微分与复微分的差别。函数 \(f(z)=z^2\) 满足
+\[
+ \frac{(z_0+h)^2-z_0^2}{h}=2z_0+h\longrightarrow2z_0,
+\]
+所以它处处复可微。共轭映射 \(f(z)=\bar z\) 则给出差商
+\(\bar h/h\)：沿实方向趋近时它等于 \(1\)，沿纯虚方向趋近时等于
+\(-1\)，因此共轭映射在任何一点都不复可微。函数是否复可微取决于增量的
+二维行为，而不取决于所考察点的特殊位置。
+
+只在一点验证四个偏导和上述方程并不够。令
+\[
+ f(x+iy)=
+ \begin{cases}
+ \displaystyle\frac{x^3}{x^2+y^2}
+ +i\frac{y^3}{x^2+y^2},&(x,y)\ne(0,0),\\[0.8em]
+ 0,&(x,y)=(0,0).
+ \end{cases}
+\]
+在原点有 \(u_x=v_y=1\)、\(u_y=-v_x=0\)，但沿实轴的差商为 \(1\)，
+沿 \(y=x\) 的差商为 \(1/2\)。偏导只检测坐标方向，不能替代二维的一阶
+线性近似。
+
+\section{全纯函数和实可微结构}
+
+把复函数视为 \(\R^2\to\R^2\) 的映射。若它在 \(z_0\) 实 Fréchet 可微，
+则
+\[
+ f(z_0+h)-f(z_0)=Df(z_0)h+o(|h|).
+\]
+
+\begin{theorem}[复可微的实微分判据]
+\label{thm:complex-differentiability-real-criterion}
+设 \(f=u+iv\) 在 \(z_0\) 实 Fréchet 可微。则 \(f\) 在 \(z_0\) 复可微，
+当且仅当 \(u,v\) 满足 Cauchy--Riemann 方程。此时
+\[
+ Df(z_0)=\begin{pmatrix}a&-b\\ b&a\end{pmatrix},
+ \qquad f'(z_0)=a+ib,
+\]
+其中 \(a=u_x=v_y\)、\(b=v_x=-u_y\)。
+\end{theorem}
+
+\begin{proof}
+复可微时
+\[
+ f(z_0+h)-f(z_0)=f'(z_0)h+o(|h|),
+\]
+所以实微分就是乘以 \(f'(z_0)\) 的映射，其矩阵具有所示形式。反之，实可微
+加 Cauchy--Riemann 方程使实微分等于乘以 \(a+ib\)。于是
+\[
+ \frac{f(z_0+h)-f(z_0)}h
+ =a+ib+\frac{o(|h|)}h\longrightarrow a+ib.
+\]
+\end{proof}
+
+\begin{corollary}[连续偏导判据]
+\label{cor:continuous-cr-holomorphic}
+若 \(u,v\) 在开集 \(D\) 上具有连续一阶偏导，并在 \(D\) 满足
+Cauchy--Riemann 方程，则 \(u+iv\) 在 \(D\) 全纯。
+\end{corollary}
+
+这是因为连续偏导保证实 Fréchet 可微。连续性只是一个便于核查的充分条件，
+不是复可微定义的一部分。更准确地说，在已知实可微时，Cauchy--Riemann
+方程与复可微等价；若只知道四个偏导在一点存在，方程本身并不能补出缺失的
+实可微性，上一节的分式函数正是反例。
+
+当 \(f'(z_0)\ne0\) 时，实微分是乘以复数 \(f'(z_0)\) 的映射，因而等于一次
+旋转再接一次伸缩；它保持夹角及其定向。若 \(f'(z_0)=0\)，一阶项消失，局部
+行为要由更高阶项决定。这一区别以后会分别出现在共形映射和零点重数中。
+
+复导数的线性、乘积、商和链式法则都由差商代数得到。
+若 \(f\) 在 \(z_0\) 的邻域还是 \(C^1\) 映射，且 \(f'(z_0)\ne0\)，则
+\[
+ \det Df(z_0)=|f'(z_0)|^2>0.
+\]
+实逆函数定理给出局部 \(C^1\) 逆；逆微分仍是复线性的，所以逆映射全纯，
+导数为 \(1/f'(z_0)\)。
+
+\section{复幂级数及收敛圆盘}
+
+对复幂级数
+\[
+ \sum_{n=0}^{\infty}a_n(z-z_0)^n
+\]
+令
+\[
+ R^{-1}=\limsup_{n\to\infty}|a_n|^{1/n},
+\]
+并采用 \(0^{-1}=\infty\)、\(\infty^{-1}=0\)。根值判别表明
+\(|z-z_0|<R\) 时绝对收敛，\(|z-z_0|>R\) 时发散。收敛域是圆盘，而不是
+实轴上的区间。根值判别对边界 \(|z-z_0|=R\) 不作结论；同一圆周上的不同
+点甚至可能有不同的收敛行为。
+
+\begin{theorem}[复幂级数的逐项求导]
+\label{thm:complex-power-series-calculus}
+若收敛半径 \(R>0\)，则对每个 \(0<r<R\)，级数在
+\(|z-z_0|\le r\) 上绝对一致收敛，并且
+\[
+ \left(\sum_{n=0}^{\infty}a_n(z-z_0)^n\right)'
+ =\sum_{n=1}^{\infty}na_n(z-z_0)^{n-1}
+\]
+于 \(|z-z_0|<R\) 成立。导数级数具有同一收敛半径。
+\end{theorem}
+
+\begin{proof}
+取 \(r<\rho<R\)。数项级数 \(\sum|a_n|\rho^n\) 收敛，而
+\(|a_n(z-z_0)^n|\le|a_n|\rho^n\) 于闭圆盘成立，所以 M-判别给一致收敛。
+由 \(n^{1/n}\to1\)，Cauchy--Hadamard 公式说明导数级数半径仍为 \(R\)。
+在任意较小闭圆盘上应用逐项求导定理即得公式。
+\end{proof}
+
+反复求导给
+\[
+ a_n=\frac{f^{(n)}(z_0)}{n!},
+\]
+所以已经存在的幂级数表示唯一。任意全纯函数都能这样展开则要等到
+Cauchy 积分公式建立之后。
+
+\section{指数、对数和初等全纯函数}
+
+复指数由
+\[
+ e^z=\sum_{n=0}^{\infty}\frac{z^n}{n!}
+\]
+定义。Cauchy 乘积给 \(e^{z+w}=e^ze^w\)，逐项求导给
+\((e^z)'=e^z\)，并且
+\[
+ e^{x+iy}=e^x(\cos y+i\sin y).
+\]
+故 \(e^z\ne0\)，而 \(e^{z+2\pi i}=e^z\)。事实上
+\(e^z=e^w\) 当且仅当 \(z-w\in2\pi i\Z\)，所以复指数没有全局单值逆。
+
+在裂平面 \(\C\setminus(-\infty,0]\) 上，每个 \(z\) 唯一写成
+\(z=re^{i\theta}\)，其中 \(r>0\)、\(-\pi<\theta<\pi\)。定义
+\[
+ \operatorname{Log}z=\log r+i\theta.
+\]
+直接计算实偏导可知它全纯且导数为 \(1/z\)。若域
+\(D\subseteq\C\setminus\{0\}\) 上有全纯 \(L\) 满足 \(e^{L(z)}=z\)，
+就称 \(L\) 是一个\term{对数分支}。其导数必为 \(1/z\)，两个分支在连通域
+上相差 \(2\pi i\) 的整数倍。事实上，若 \(L_1,L_2\) 是两个分支，则
+\(e^{L_1-L_2}=1\)；连续函数 \((L_1-L_2)/(2\pi i)\) 取值于离散集
+\(\Z\)，在连通域上只能为常数。下一章将用闭曲线积分判定分支是否存在。
+
+正弦和余弦可由幂级数定义，也可写成
+\[
+ \cos z=\frac{e^{iz}+e^{-iz}}2,\qquad
+ \sin z=\frac{e^{iz}-e^{-iz}}{2i}.
+\]
+它们在复平面上不再有界，例如 \(\cos(iy)=\cosh y\)。选定对数分支后才可
+定义 \(z^\alpha=e^{\alpha L(z)}\)；改变分支通常会改变函数。
+
+\section{复可微性的刚性}
+
+\begin{proposition}
+\label{prop:zero-derivative-holomorphic-constant}
+若域 \(D\) 上的全纯函数满足 \(f'\equiv0\)，则 \(f\) 为常数。
+\end{proposition}
+
+\begin{proof}
+每一点都有一个闭含于 \(D\) 的小矩形。矩形中任意两点可用水平和竖直线段
+连接；沿每条线段应用一元链式法则与“导数为零则常值”，得到端点函数值相同。
+因此 \(f\) 局部常值。一个局部常值函数在连通域上只能取一个值。
+\end{proof}
+
+若全纯函数只取实值，Cauchy--Riemann 方程给其实部的两个偏导为零，所以它
+为常数。像落在某一条仿射直线中的情形经平移、旋转后相同。若 \(|f|\) 恒定且
+非零，对 \(u^2+v^2=c^2\) 求偏导并结合 Cauchy--Riemann 方程，也得到
+四个偏导全为零。幂级数还显示：若其和在中心的所有阶导数都为零，则所有系数
+为零。后面的恒等定理会把这一性质推广到全部全纯函数。
+
+\section{Wirtinger 导数和实微分表示}
+
+对实可微的 \(f=u+iv\)，定义
+\[
+ f_z=\frac12(f_x-if_y),\qquad
+ f_{\bar z}=\frac12(f_x+if_y).
+\]
+展开后
+\[
+ f_z=\frac12[(u_x+v_y)+i(v_x-u_y)],\qquad
+ f_{\bar z}=\frac12[(u_x-v_y)+i(v_x+u_y)].
+\]
+所以 Cauchy--Riemann 方程等价于 \(f_{\bar z}=0\)，此时 \(f'=f_z\)。
+
+每个实线性映射 \(L:\C\to\C\) 唯一写成
+\[
+ L(h)=ah+b\bar h.
+\]
+应用于实微分得到
+\begin{equation}
+ Df(z)h=f_z(z)h+f_{\bar z}(z)\bar h.
+ \label{eq:wirtinger-real-differential}
+\end{equation}
+乘以复数的映射恰好对应 \(b=0\)，所以实可微函数复可微当且仅当其实微分
+为复线性。例如 \(f(z)=|z|^2=z\bar z\) 满足
+\(f_z=\bar z\)、\(f_{\bar z}=z\)，故只在原点复可微，并不在任何域上全纯。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{complex-spherical-convergence}证明 \(z_n\to\infty\) 当且仅当 \(1/z_n\to0\)，并验证弦距离给出的 \(\infty\) 邻域与正文定义相同。
+\exerciseitem{complex-limit-components}从定义证明复函数极限存在当且仅当实部、虚部极限分别存在，并推出复乘法保持极限。
+\exerciseitem{cr-point-counterexample}核对正文中分式函数在原点的四个偏导、Cauchy--Riemann 方程和两条路径上的差商。
+\exerciseitem{complex-linear-real-matrix}证明实线性映射 \(L:\C\to\C\) 为复线性，当且仅当其矩阵为 \(\begin{psmallmatrix}a&-b\\b&a\end{psmallmatrix}\)。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{continuous-cr-sufficiency}从实 Fréchet 可微定义完整证明“连续偏导加 Cauchy--Riemann 方程”推出全纯。
+\exerciseitem{holomorphic-real-line-image}证明域上的全纯函数若像包含在某一条仿射直线中，则函数为常数。
+\exerciseitem{holomorphic-constant-modulus}证明域上的全纯函数若模恒定，则函数为常数，并分别处理常数模为零和非零的情形。
+\exerciseitem{complex-power-series-derivatives}设 \(f(z)=\sum_{n\ge0}a_n(z-z_0)^n\) 的半径为 \(R>0\)。证明 \(f^{(k)}(z_0)=k!a_k\)，并说明级数表示的唯一性。
+\exerciseitem{complex-exponential-fibres}证明 \(e^z=e^w\) 当且仅当 \(z-w\in2\pi i\Z\)，并求复指数在一点的全部逆像。
+\exerciseitem{principal-logarithm-derivative}从 \(u(x,y)=\frac12\log(x^2+y^2)\) 和主辐角的偏导出发，证明主值对数全纯且导数为 \(1/z\)。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{wirtinger-real-linear-decomposition}证明每个实线性 \(L:\C\to\C\) 唯一写成 \(L(h)=ah+b\bar h\)，并推导式\eqref{eq:wirtinger-real-differential}。
+\exerciseitem{polar-cauchy-riemann}设 \(f=u+iv\) 在不含原点的开集上 \(C^1\)。用极坐标推导
+\(u_r=r^{-1}v_\theta\)、\(v_r=-r^{-1}u_\theta\)，并用于检验 \(z\mapsto z^n\)。
+\optionalexerciseitem{local-holomorphic-inverse}设 \(f\) 在 \(z_0\) 邻域 \(C^1\) 且全纯，\(f'(z_0)\ne0\)。由实逆函数定理证明局部逆全纯，并求其导数。
+\end{enumerate}

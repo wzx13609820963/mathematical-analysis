@@ -1,0 +1,204 @@
+\chapter{调和函数}
+
+\begin{solution}{harmonic-real-imaginary}
+若 $f=u+iv$ 全纯，则 $u_x=v_y$、$u_y=-v_x$。再求导并用混合偏导相等，
+\[
+ \Delta u=u_{xx}+u_{yy}=v_{yx}-v_{xy}=0,
+ \qquad
+ \Delta v=-u_{yx}+u_{xy}=0.
+\]
+对 $f(z)=z^n$，写 $z=re^{i\theta}$，其实部为
+$u=r^n\cos(n\theta)$，虚部
+$v=r^n\sin(n\theta)$ 是一个调和共轭；所有调和共轭为 $v+C$。
+\end{solution}
+
+\begin{solution}{harmonic-conjugate-closed-form}
+令 $\omega=-u_y\,dx+u_x\,dy$。若把它写为 $Pdx+Qdy$，则
+\[
+ Q_x-P_y=u_{xx}+u_{yy}=\Delta u.
+\]
+故 $u$ 调和时 $d\omega=0$。若 $v$ 满足 $dv=\omega$，就有
+$v_x=-u_y$、$v_y=u_x$，即 Cauchy--Riemann 方程。若 $v_1,v_2$ 都满足，
+则两者之差的两个偏导均为零；沿区域中连接任意两点的折线积分，差值不变，
+所以它们相差常数。
+\end{solution}
+
+\begin{solution}{harmonic-log-obstruction}
+对 $u(x,y)=\tfrac12\log(x^2+y^2)$，
+\[
+ -u_y\,dx+u_x\,dy
+ =\frac{-y\,dx+x\,dy}{x^2+y^2}.
+\]
+沿单位圆 $x=\cos t,y=\sin t$，该形式化为 $dt$，故积分为 $2\pi$。
+若存在全局调和共轭 $v$，该形式应等于 $dv$，而恰当形式沿闭曲线的积分为零，
+矛盾。这也说明局部辐角不能拼成穿孔平面上的单值函数。
+\end{solution}
+
+\begin{solution}{harmonic-circle-disk-mean}
+由极坐标公式和每个 $0<s<r$ 上的圆周平均，
+\begin{align*}
+ \int_{B(a,r)}u(x)dx
+ &=\int_0^r\int_0^{2\pi}u(a+se^{it})s\,dt\,ds\\
+ &=\int_0^r2\pi u(a)s\,ds
+ =\pi r^2u(a).
+\end{align*}
+除以圆盘面积 $\pi r^2$ 即得圆盘平均。$s$ 是极坐标 Jacobian，若漏掉它便
+会得到错误常数。
+\end{solution}
+
+\begin{solution}{harmonic-mean-converse}
+径向核可写为 $\rho_\varepsilon(x)=R_\varepsilon(|x|)$。于是
+\begin{align*}
+ (u*\rho_\varepsilon)(a)
+ &=\int_0^\varepsilon R_\varepsilon(r)r
+ \int_0^{2\pi}u(a-re^{it})dt\,dr\\
+ &=2\pi u(a)\int_0^\varepsilon R_\varepsilon(r)rdr=u(a).
+\end{align*}
+最后等式使用核的总积分为一。故 $u$ 局部等于光滑函数。
+
+对 $e(t)=(\cos t,\sin t)$，Taylor 公式给
+\[
+ u(a+re(t))=u(a)+r\nabla u(a)\cdot e(t)
+ +\frac{r^2}{2}e(t)^{\mathsf T}D^2u(a)e(t)+o(r^2),
+\]
+余项关于 $t$ 一致。平均时 $e$ 的一次矩为零，
+$\overline{\cos^2}=\overline{\sin^2}=1/2$、
+$\overline{\sin\cos}=0$，故二次项平均为 $r^2\Delta u(a)/4$。平均值恒等
+迫使 $\Delta u(a)=0$。
+\end{solution}
+
+\begin{solution}{harmonic-maximum-uniqueness}
+设 $u,v\in C(\overline\Omega)$ 都在 $\Omega$ 内调和且边界值同为 $g$。
+$w=u-v$ 调和并在边界为零。最大值原理给
+$\max_{\overline\Omega}w\le0$；对 $-w$ 使用同一结论，得
+$\min_{\overline\Omega}w\ge0$。所以 $w=0$，即 $u=v$。
+\end{solution}
+
+\begin{solution}{harmonic-harnack-chain}
+固定基点 $a\in\Omega$。用有限条紧含于 $\Omega$ 的折线连接 $a$ 与覆盖
+$K$ 的有限个小圆盘中心。该有限并到边界有正距离，故可选统一半径 $r>0$，
+使沿每条折线相邻中心距离小于 $r$，且每个中心的三倍闭圆盘仍含于
+$\Omega$。设从 $a$ 到任一覆盖圆盘最多经过 $N$ 次相邻比较。正文的局部估计
+每次至多引入因子 $4$，故
+\[
+ 4^{-N}u(a)\le u(x)\le4^Nu(a)\qquad(x\in K).
+\]
+于是可取 $C_K=4^{2N}$ 使 $\sup_Ku\le C_K\inf_Ku$。常数不是最佳的，但其
+依赖只来自有限圆盘链。
+\end{solution}
+
+\begin{solution}{harmonic-harnack-convergence}
+设 $u_n$ 单调递减，并且 $(u_n(a))$ 下方有界。取调和函数
+$v_n=u_1-u_n\ge0$，则 $v_n$ 单调递增，且 $v_n(a)$ 上方有界。Harnack
+收敛原理给 $v_n$ 局部一致收敛到调和函数 $v$。所以
+$u_n=u_1-v_n$ 局部一致收敛到调和函数 $u_1-v$。若没有一点的下界，另一种
+可能是 $u_n\to-\infty$ 在紧集上一致成立。
+\end{solution}
+
+\begin{solution}{harmonic-poisson-modes}
+Poisson 核的 Fourier 展开为
+\[
+ P_r(\theta-t)=1+2\sum_{k\ge1}r^k
+ \cos k(\theta-t).
+\]
+利用三角函数正交性，边界数据 $\cos nt$ 与 $\sin nt$ 分别给
+\[
+ r^n\cos n\theta,\qquad r^n\sin n\theta.
+\]
+因此若
+$g(t)=a_0+\sum_{n=1}^N(a_n\cos nt+b_n\sin nt)$，其调和延拓为
+\[
+ u(re^{i\theta})=a_0+
+ \sum_{n=1}^Nr^n(a_n\cos n\theta+b_n\sin n\theta).
+\]
+有限和无需讨论交换极限。
+\end{solution}
+
+\begin{solution}{harmonic-poisson-boundary}
+给定 $\varepsilon>0$，由 $g$ 在圆周上一致连续，取 $\delta>0$，使
+$|g(e^{it})-g(e^{i\theta})|<\varepsilon$ 当圆周距离小于 $\delta$。利用
+Poisson 核积分为一，
+\begin{align*}
+ |Pg(re^{i\theta})-g(e^{i\theta})|
+ &\le\frac1{2\pi}\int P_r(\theta-t)
+ |g(e^{it})-g(e^{i\theta})|dt\\
+ &\le\varepsilon+
+ 2\|g\|_\infty\frac1{2\pi}
+ \int_{|t-\theta|\ge\delta}P_r(\theta-t)dt.
+\end{align*}
+在后一积分区域，分母
+$1-2r\cos(\theta-t)+r^2$ 有与 $r$ 接近一时无关的正下界，而分子
+$1-r^2\to0$。故第二项关于 $\theta$ 一致趋零。先令 $r$ 接近一，再令
+$\varepsilon\downarrow0$，得到一致边界收敛。
+\end{solution}
+
+\begin{solution}{harmonic-sharp-harnack}
+先在单位圆盘处理。若 $|z|=r$、$|\zeta|=1$，则
+\[
+ 1-r\le|\zeta-z|\le1+r,
+\]
+所以
+\[
+ \frac{1-r}{1+r}\le
+ \frac{1-r^2}{|\zeta-z|^2}
+ \le\frac{1+r}{1-r}.
+\]
+为避免预先假定 $u$ 连续到单位圆周，固定 $r<R'<1$，对
+$v(\xi)=u(R'\xi)$ 使用单位圆盘的 Poisson 表示。在点 $\xi=z/R'$ 处，核的
+上下界把 $r$ 换成 $r/R'$，故
+\[
+ \frac{R'-r}{R'+r}u(0)
+ \le u(z)\le
+ \frac{R'+r}{R'-r}u(0).
+\]
+令 $R'\uparrow1$，得到
+\[
+ \frac{1-r}{1+r}u(0)\le u(z)\le\frac{1+r}{1-r}u(0).
+\]
+平移伸缩给一般 $B(a,R)$ 的公式。
+
+常数不可改进。对趋近某个边界点 $\zeta_0$ 的非负连续边界数据，其 Poisson
+积分比值 $u(z)/u(0)$ 可任意接近核在 $\zeta_0$ 的值；让数据集中在与 $z$
+同向或反向的边界点，分别逼近上、下界。
+\end{solution}
+
+\begin{solution}{harmonic-liouville}
+设 $u$ 在 $\C$ 上调和且有上界。平面单连通，故 $u$ 有全局调和共轭
+$v$，函数 $f=u+iv$ 整。于是
+\[
+ |e^{f(z)}|=e^{u(z)}
+\]
+有界。Liouville 定理说明 $e^f$ 为常数；求导得 $f'e^f=0$，而 $e^f$ 不为
+零，所以 $f'=0$，$u$ 为常数。有下界时对 $-u$ 使用同一论证。
+\end{solution}
+
+\begin{solution}{harmonic-green-disk}
+固定 $a\in\mathbb D$。在 $z\ne a$ 时，
+\[
+ G(z,a)=\frac1{2\pi}\bigl(\log|1-\overline a z|-\log|z-a|\bigr)
+\]
+是两个无零全纯函数的对数模之差，故调和。若 $|z|=1$，则
+$|1-\overline a z|=|z-a|$，所以边界值为零。第一项在圆盘中光滑调和，
+第二项由基本解公式给
+$-\Delta[-(2\pi)^{-1}\log|z-a|]=\delta_a$，故
+$-\Delta_zG=\delta_a$。
+
+令 $z=r\zeta$、$|\zeta|=1$，对 $r$ 求导并在 $r=1$ 代入；通分化简得到
+\[
+ -\partial_rG(r\zeta,a)|_{r=1}
+ =\frac1{2\pi}\frac{1-|a|^2}{|\zeta-a|^2}.
+\]
+$\partial_r$ 在单位圆上就是外法向导数，所以上式为正文公式。
+\end{solution}
+
+\begin{solution}{harmonic-step-boundary}
+令边界数据在上半圆为一、下半圆为零，端点值任意。Poisson 核在零点恒为一，
+故
+\[
+ u(0)=\frac1{2\pi}\int_0^\pi1\,dt=\frac12.
+\]
+在非跳跃边界点，近似恒等核给径向极限等于相应常值零或一。在端点
+$1$ 与 $-1$，边界数据从零跳到一；Poisson 核关于径向方向对称，两侧各占
+一半质量，故径向极限为 $(0+1)/2=1/2$。这说明不连续边界数据不能期待
+Poisson 解连续取得任意指定的端点值。
+\end{solution}

@@ -1,0 +1,397 @@
+\chapter{调和函数}
+\label{chap:harmonic-functions}
+
+全纯函数的实部和虚部满足 Laplace 方程。反过来，调和函数在局部可以补成
+全纯函数；在单连通区域上，这个补充可以全局完成。因此 Cauchy 积分公式的
+许多结论都有调和版本，但调和函数只取实值，不再能直接使用零点重数或复函数
+乘法。
+
+平均值性质是本章的中心工具。它同时给出最大值原理、Harnack 不等式和紧性
+结论，也把圆盘上的 Dirichlet 边值问题化为 Poisson 积分。最后引入二维
+Laplace 算子的基本解与圆盘 Green 函数，把经典调和理论同前一卷的分布和弱解
+语言联系起来。
+
+\section{调和函数和调和共轭}
+
+\begin{definition}
+设 $\Omega\subset\R^2$ 为区域。实值函数
+$u\in C^2(\Omega)$ 称为\term{调和函数}，如果
+\[
+ \Delta u=u_{xx}+u_{yy}=0\qquad\text{于 }\Omega.
+\]
+\end{definition}
+
+若 $f=u+iv$ 全纯，Cauchy--Riemann 方程
+\[
+ u_x=v_y,\qquad u_y=-v_x
+\]
+和混合偏导相等给 $\Delta u=\Delta v=0$。所以全纯函数的实部、虚部都是
+调和函数。反方向需要求解
+\begin{equation}\label{eq:harmonic-conjugate-system}
+ v_x=-u_y,\qquad v_y=u_x.
+\end{equation}
+满足该方程的 $v$ 称为 $u$ 的\term{调和共轭}。
+
+多项式 $\operatorname{Re}z^n$ 与 $\operatorname{Im}z^n$ 给出一批调和函数；
+例如 $x^2-y^2$ 调和，而 $x^2+y^2$ 不调和，因为后者的 Laplace 算子等于
+$4$。函数 $\log|z|$ 则说明调和函数不必来自整个平面上的全纯函数。由下面
+的局部共轭定理，每个调和函数局部都是全纯函数的实部，故定义中虽只先假设
+$C^2$，它事实上自动属于 $C^\infty$，并且是实解析的。
+
+\begin{theorem}[调和共轭]\label{thm:harmonic-conjugate}
+调和函数在每一点附近都有调和共轭。若 $\Omega$ 单连通，则每个定义在
+$\Omega$ 上的调和函数都有全局调和共轭；任意两个调和共轭相差常数。
+\end{theorem}
+
+\begin{proof}
+考虑微分形式
+\[
+ \omega=-u_y\,dx+u_x\,dy.
+\]
+其外微分为
+\[
+ d\omega=(u_{xx}+u_{yy})\,dx\wedge dy=0.
+\]
+每一点都有一个小圆盘完全包含在 $\Omega$ 中。圆盘单连通，闭形式在其中有
+原函数 $v$，即 $dv=\omega$；这正是
+式\eqref{eq:harmonic-conjugate-system}。若 $\Omega$ 单连通，同一原函数定理
+可在整个区域使用。若 $v_1,v_2$ 都是调和共轭，则
+$\nabla(v_1-v_2)=0$；区域连通，故差为常数。
+\end{proof}
+
+单连通性只用于全局存在。函数
+\[
+ u(z)=\log|z|
+\]
+在 $\C\setminus\{0\}$ 上调和，局部调和共轭是辐角。但沿单位圆有
+\[
+ \int_{|z|=1}(-u_y\,dx+u_x\,dy)=2\pi,
+\]
+所以该闭形式不是全局恰当形式，$u$ 没有单值调和共轭。这与全局对数不存在
+是同一个障碍。
+
+调和性在保角坐标变换下保持。若 $u$ 在 $\Omega$ 上调和，$F:G\to\Omega$
+全纯，则直接使用链式法则可得
+\begin{equation}\label{eq:laplacian-conformal-change}
+ \Delta(u\circ F)=|F'|^2(\Delta u)\circ F.
+\end{equation}
+因此 $u\circ F$ 在 $G$ 上调和。这个公式也说明二维 Laplace 方程为何与
+保角映射配合良好。
+
+\section{平均值性质和最大值原理}
+
+\begin{theorem}[平均值性质]\label{thm:harmonic-mean-value}
+若 $u$ 在 $\Omega$ 上调和，且
+$\overline{B(a,R)}\subset\Omega$，则对 $0<r\le R$，
+\begin{align}
+ u(a)&=\frac1{2\pi}\int_0^{2\pi}u(a+re^{it})\,dt,
+ \label{eq:harmonic-circle-mean}\\
+ u(a)&=\frac1{\pi r^2}\int_{B(a,r)}u(x)\,dx.
+ \label{eq:harmonic-disk-mean}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+在 $B(a,R)$ 上取 $u$ 的调和共轭 $v$，则 $f=u+iv$ 全纯。Cauchy 积分
+公式写成
+\[
+ f(a)=\frac1{2\pi}\int_0^{2\pi}f(a+re^{it})\,dt.
+\]
+取实部得到圆周平均公式。再用极坐标积分，
+\[
+ \int_{B(a,r)}u
+ =\int_0^r\int_0^{2\pi}u(a+se^{it})s\,dt\,ds
+ =\int_0^r2\pi u(a)s\,ds
+ =\pi r^2u(a),
+\]
+得到圆盘平均公式。
+\end{proof}
+
+平均值性质也刻画调和函数。
+
+\begin{theorem}[平均值刻画]\label{thm:harmonic-mean-value-converse}
+设 $u\in C(\Omega)$。若式\eqref{eq:harmonic-circle-mean}对每个闭圆盘
+$\overline{B(a,r)}\subset\Omega$ 成立，则 $u$ 调和。
+\end{theorem}
+
+\begin{proof}
+取径向磨光核 $\rho_\varepsilon$，其支撑包含于 $B(0,\varepsilon)$。当
+$\overline{B(a,\varepsilon)}\subset\Omega$ 时，用极坐标和圆周平均性质得
+\[
+ (u*\rho_\varepsilon)(a)
+ =\int_0^\varepsilon \rho_\varepsilon(r)r
+ \int_0^{2\pi}u(a-re^{it})\,dt\,dr
+ =u(a)\int_{\R^2}\rho_\varepsilon=u(a).
+\]
+所以 $u$ 在每个内含子区域上等于一个光滑卷积，从而 $u\in C^\infty$。
+
+对光滑 $u$ 在 $a$ 作二阶 Taylor 展开并沿圆周平均。一次项平均为零，二次
+项中的混合项平均为零，且 $\cos^2t$、$\sin^2t$ 的平均均为 $1/2$，故
+\[
+ \frac1{2\pi}\int_0^{2\pi}u(a+re^{it})dt
+ =u(a)+\frac{r^2}{4}\Delta u(a)+o(r^2).
+\]
+左侧恒等于 $u(a)$。除以 $r^2$ 并令 $r\downarrow0$，得到
+$\Delta u(a)=0$。
+\end{proof}
+
+\begin{theorem}[强最大值原理]\label{thm:harmonic-maximum-principle}
+区域上的调和函数若在内部一点取得最大值或最小值，则它为常函数。因此，若
+$\Omega$ 有界且 $u\in C(\overline\Omega)$ 在 $\Omega$ 内调和，则
+\[
+ \max_{\overline\Omega}u=\max_{\partial\Omega}u,
+ \qquad
+ \min_{\overline\Omega}u=\min_{\partial\Omega}u,
+\]
+除非 $u$ 为常函数。
+\end{theorem}
+
+\begin{proof}
+设 $u(a)=M=\max_\Omega u$。对任意充分小的 $r$，圆周上 $u\le M$，而其
+平均等于 $M$。连续性迫使整个圆周上 $u=M$，并由圆盘平均或逐半径考察得到
+$u=M$ 于 $a$ 的一个邻域。于是集合 $\{u=M\}$ 在 $\Omega$ 中既开又闭；
+它非空而 $\Omega$ 连通，故等于 $\Omega$。最小值情形应用于 $-u$。
+
+若 $u$ 连续到有界区域的闭包，紧性保证最大、最小值取得。非常值时它们不能
+在内部取得，只能位于边界。
+\end{proof}
+
+这里的有界性并非装饰性条件。上半平面
+$\mathbb H=\{(x,y):y>0\}$ 上的函数 $u(x,y)=y$ 调和，并连续延拓到实轴且
+边界值恒为零，但它在内部为正且无上界。由于 $\overline{\mathbb H}$ 不紧，
+函数没有必须取得的全局最大值，因而不能由边界值控制整个区域。对无界域应用
+最大值原理时，通常还要给出无穷远处的增长条件。
+
+最大值原理立即给 Dirichlet 问题的唯一性：两个具有相同边界值的调和函数之
+差在边界为零，对差及其负函数使用最大值原理便知差恒为零。
+
+\section{Harnack 不等式与收敛原理}
+
+正调和函数不能在一个小区域内一处很大、近旁另一处任意小。平均值性质先给出
+一个不追求最佳常数的局部比较。若
+$\overline{B(a,3r)}\subset\Omega$、$u>0$ 调和且 $y\in B(a,r)$，则
+\[
+ u(y)=\frac1{\pi r^2}\int_{B(y,r)}u
+ \le\frac1{\pi r^2}\int_{B(a,2r)}u=4u(a).
+\]
+交换中心的角色，并使用 $B(a,r)\subset B(y,2r)\subset B(a,3r)$，也得
+$u(a)\le4u(y)$。沿有限条相交圆盘组成的链迭代，得到如下形式。
+
+\begin{theorem}[Harnack 不等式]\label{thm:harnack-compact}
+若 $u>0$ 在区域 $\Omega$ 上调和，则对每个非空紧集 $K\Subset\Omega$，存在
+只依赖 $K$ 和 $\Omega$ 的常数 $C_K$，使
+\[
+ \sup_Ku\le C_K\inf_Ku.
+\]
+\end{theorem}
+
+\begin{proof}
+固定 $a\in K$。区域 $\Omega$ 道路连通，所以对每个 $x\in K$ 可选一条从
+$a$ 到 $x$、像紧含于 $\Omega$ 的分段光滑道路。道路像到 $\partial\Omega$
+有正距离；选充分小的统一半径 $r_x>0$，再把道路参数区间细分，使相邻分点
+的像距离小于 $r_x$，且以每个分点为中心的三倍闭圆盘均包含在 $\Omega$ 中。
+上一段的局部比较可以从一个分点依次传到下一个分点，并在末端的一个小圆盘内
+继续成立。这样得到 $x$ 的一个邻域 $V_x$ 和常数 $A_x\ge1$，
+使对 $y\in V_x$ 有
+\[
+ A_x^{-1}u(a)\le u(y)\le A_xu(a).
+\]
+有限多个 $V_{x_j}$ 覆盖 $K$。令 $A=\max_jA_{x_j}$，则上述不等式对所有
+$y\in K$ 成立。因此任取 $y,z\in K$，有
+$u(y)\le A u(a)\le A^2u(z)$；取上确界和下确界即得结论，其中可取
+$C_K=A^2$。
+\end{proof}
+
+\begin{theorem}[Harnack 收敛原理]\label{thm:harnack-convergence}
+设 $u_n$ 是区域 $\Omega$ 上单调递增的调和函数列。则或者
+$u_n\to+\infty$ 在每个紧集上一致成立，或者 $u_n$ 局部一致收敛到一个调和
+函数。
+\end{theorem}
+
+\begin{proof}
+固定 $a\in\Omega$，并令 $w_n=u_n-u_1+1$。则 $w_n\ge1$ 调和且单调递增。
+若 $u_n(a)\to\infty$，也有 $w_n(a)\to\infty$；Harnack 不等式给
+$\inf_Kw_n\ge C_K^{-1}w_n(a)$，故 $w_n$，从而 $u_n$，在每个紧集上一致
+趋于无穷。
+
+若 $(u_n(a))$ 有界，则它收敛。对 $m>n$，差
+$v_{m,n}=u_m-u_n\ge0$ 调和。若差不恒为零，可对它用 Harnack 不等式；
+恒为零时估计也成立。因此
+\[
+ \sup_K|u_m-u_n|\le C_K|u_m(a)-u_n(a)|\longrightarrow0.
+\]
+所以 $(u_n)$ 在每个紧集上一致 Cauchy，局部一致收敛到连续函数 $u$。在圆周
+平均公式中取极限，$u$ 仍满足平均值性质，故由
+定理\ref{thm:harmonic-mean-value-converse}知 $u$ 调和。
+\end{proof}
+
+这个定理不要求预先知道导数有界。正性和单调性通过 Harnack 不等式把一个点
+的 Cauchy 性传到整个紧集；这是它与一般连续函数列的差别。
+
+若把 Harnack 不等式中的正性放宽为 $u\ge0$，结论仍可按下述方式理解：若
+$u(a)=0$ 于某个内部点，则 $-u$ 在该点取得最大值，强最大值原理给
+$u\equiv0$；否则 $u$ 处处为正，可以直接使用 Harnack 不等式。因此非负调和
+函数要么恒为零，要么在整个区域严格为正。
+
+\section{Poisson 核和圆盘上的表示公式}
+
+对 $0\le r<1$ 定义 Poisson 核
+\begin{equation}\label{eq:poisson-kernel-circle}
+ P_r(\theta)=\frac{1-r^2}{1-2r\cos\theta+r^2}.
+\end{equation}
+它非负、$2\pi$ 周期，并且
+\[
+ \frac1{2\pi}\int_0^{2\pi}P_r(\theta)d\theta=1.
+\]
+后一等式可由
+\[
+ P_r(\theta)=\operatorname{Re}\frac{e^{i\theta}+r}{e^{i\theta}-r}
+ =1+2\sum_{n=1}^{\infty}r^n\cos(n\theta)
+\]
+逐项积分得到。
+
+若 $g\in C(\partial\mathbb D)$，定义
+\begin{equation}\label{eq:poisson-integral}
+ (Pg)(re^{i\theta})=\frac1{2\pi}\int_0^{2\pi}
+ P_r(\theta-t)g(e^{it})dt.
+\end{equation}
+对固定 $t$，核是全纯函数
+$(e^{it}+z)/(e^{it}-z)$ 的实部；积分在紧圆盘上可一致求导，所以 $Pg$ 在
+$\mathbb D$ 中调和。
+
+Poisson 核在 $r\uparrow1$ 时把质量集中到 $0$。具体地，对每个
+$0<\delta<\pi$，
+\[
+ \sup_{\delta\le|\theta|\le\pi}P_r(\theta)\longrightarrow0.
+\]
+利用 $g$ 的一致连续性，把式\eqref{eq:poisson-integral}中的积分分为
+$|t-\theta|<\delta$ 与其补集，可得
+\begin{equation}\label{eq:poisson-boundary-uniform}
+ Pg(re^{i\theta})\longrightarrow g(e^{i\theta})
+ \quad(r\uparrow1)
+\end{equation}
+关于 $\theta$ 一致成立。因此 $Pg$ 连续延拓到闭圆盘并取得边界值 $g$。
+
+具体说，给定 $\varepsilon>0$，先由一致连续性选取 $\delta$，使
+$|g(e^{it})-g(e^{i\theta})|<\varepsilon$ 当圆周距离小于 $\delta$。由于
+Poisson 核非负且积分为 $2\pi$，近弧对
+$|Pg(re^{i\theta})-g(e^{i\theta})|$ 的贡献不超过 $\varepsilon$；远弧的
+贡献至多为
+\[
+ 2\|g\|_\infty
+ \sup_{\delta\le |s|\le\pi}P_r(s),
+\]
+故随 $r\uparrow1$ 一致趋于零。这里同时使用了核的正性、总质量为一和远离
+原点时的一致衰减；只有总质量为一并不足以保证边界恢复。
+
+\begin{theorem}[Poisson 表示公式]\label{thm:poisson-representation}
+若 $u\in C(\overline{\mathbb D})$ 在 $\mathbb D$ 中调和，则
+\[
+ u(re^{i\theta})=\frac1{2\pi}\int_0^{2\pi}
+ P_r(\theta-t)u(e^{it})dt.
+\]
+\end{theorem}
+
+\begin{proof}
+令 $g=u|_{\partial\mathbb D}$。刚才已经证明 $Pg$ 在圆盘中调和、连续到边界
+且边界值为 $g$。差 $u-Pg$ 在边界为零，最大值原理给它恒为零。
+\end{proof}
+
+Poisson 表示给出圆盘上的最佳 Harnack 常数。若 $u>0$ 调和于
+$B(a,R)$，$|z-a|=r<R$，把稍小同心圆盘上的 Poisson 公式令半径趋于 $R$，
+或先对 $R'<R$ 使用再令 $R'\uparrow R$，得到
+\begin{equation}\label{eq:harnack-sharp-disk}
+ \frac{R-r}{R+r}u(a)
+ \le u(z)\le
+ \frac{R+r}{R-r}u(a).
+\end{equation}
+因为半径为 $R$ 的 Poisson 核在 $|z-a|=r$ 时介于
+$(R-r)/(R+r)$ 与 $(R+r)/(R-r)$ 之间。这里不要求 $u$ 预先连续到
+$|z-a|=R$，使用 $R'<R$ 即可。
+
+\section{Dirichlet 问题与位势论}
+
+\begin{theorem}[圆盘 Dirichlet 问题]\label{thm:disk-dirichlet-problem}
+对每个 $g\in C(\partial\mathbb D)$，存在唯一
+$u\in C(\overline{\mathbb D})\cap C^2(\mathbb D)$ 满足
+\[
+ \Delta u=0\quad\text{于 }\mathbb D,
+ \qquad u=g\quad\text{于 }\partial\mathbb D.
+\]
+该解由 Poisson 积分\eqref{eq:poisson-integral}给出。
+\end{theorem}
+
+\begin{proof}
+存在性由 Poisson 积分的调和性和一致边界收敛
+\eqref{eq:poisson-boundary-uniform}得到。唯一性由最大值原理得到。
+\end{proof}
+
+连续边界数据保证解连续到整个边界。对不连续数据，Poisson 积分仍可在许多
+函数空间中定义，但边界值只能以几乎处处、$L^p$ 或弱意义恢复；这些版本需要
+明确所采用的边界收敛概念。对一般有界区域，边界点是否正则也需要额外几何
+条件，不能只凭区域有界断言连续 Dirichlet 问题总可解。
+
+二维 Laplace 算子的基本解为
+\[
+ \Phi(x)=\frac1{2\pi}\log|x|.
+\]
+它在 $\R^2\setminus\{0\}$ 上调和，并在分布意义下满足
+\begin{equation}\label{eq:laplace-fundamental-solution}
+ \Delta\Phi=\delta_0.
+\end{equation}
+为验证它，取测试函数 $\varphi$，在 $|x|>\varepsilon$ 上使用 Green 恒等式。
+外边界项因测试函数紧支撑而消失；内圆周的外法向为 $-e_r$，故
+\begin{align*}
+ \int_{|x|>\varepsilon}\Phi\,\Delta\varphi
+ &=\int_{|x|=\varepsilon}
+ \left(\Phi\,\partial_n\varphi-
+ \varphi\,\partial_n\Phi\right)ds\\
+ &\longrightarrow \varphi(0).
+\end{align*}
+第一项由 $\varepsilon|\log\varepsilon|\to0$ 消失，第二项是圆周上
+$\varphi$ 的平均。这就得到式\eqref{eq:laplace-fundamental-solution}。
+
+对单位圆盘和 $a\in\mathbb D$，定义
+\begin{equation}\label{eq:disk-green-function}
+ G_{\mathbb D}(z,a)=\frac1{2\pi}
+ \log\left|\frac{1-\overline a z}{z-a}\right|.
+\end{equation}
+它在 $z\ne a$ 时调和，在 $|z|=1$ 时为零，并满足
+$-\Delta_zG_{\mathbb D}(z,a)=\delta_a$。分子项是为消去边界值加入的调和
+修正。它的边界外法向导数与 Poisson 核满足
+\[
+ -\partial_{n_\zeta}G_{\mathbb D}(\zeta,a)
+ =\frac1{2\pi}\frac{1-|a|^2}{|\zeta-a|^2},
+ \qquad |\zeta|=1.
+\]
+因此 Poisson 核也可以看成 Green 函数在边界上的通量密度。这一关系在一般
+光滑区域上仍成立，但构造 Green 函数和处理边界正则性需要更多位势论工具。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{harmonic-real-imaginary}证明全纯函数的实部和虚部调和，并求 $z^n$ 的实部的一个调和共轭。
+\exerciseitem{harmonic-conjugate-closed-form}验证调和共轭方程对应的 $1$-形式闭合，并证明共轭的唯一性。
+\exerciseitem{harmonic-log-obstruction}证明 $\log|z|$ 在穿孔平面上没有全局调和共轭。
+\exerciseitem{harmonic-circle-disk-mean}从圆周平均公式独立推出圆盘平均公式，并核对极坐标中的常数。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{harmonic-mean-converse}补全平均值刻画中径向磨光与二阶 Taylor 平均的计算。
+\exerciseitem{harmonic-maximum-uniqueness}用最大值原理证明有界区域 Dirichlet 问题至多有一个连续解。
+\exerciseitem{harmonic-harnack-chain}为给定 $K\Subset\Omega$ 构造有限圆盘链，并给出一个可追踪的 Harnack 常数。
+\exerciseitem{harmonic-harnack-convergence}证明 Harnack 收敛原理仍适用于单调递减且有一个点下方有界的调和函数列。
+\exerciseitem{harmonic-poisson-modes}用 Poisson 公式求边界数据 $\cos nt$、$\sin nt$ 的解，并由此求任意三角多项式的解。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{harmonic-poisson-boundary}完整证明 Poisson 积分对连续边界数据一致趋于边界值。
+\exerciseitem{harmonic-sharp-harnack}由 Poisson 核证明式\eqref{eq:harnack-sharp-disk}，并说明上下常数不可改进。
+\exerciseitem{harmonic-liouville}证明整个平面上有上界或有下界的调和函数必为常数。
+\exerciseitem{harmonic-green-disk}验证式\eqref{eq:disk-green-function}的调和性、边界值、奇性以及法向导数公式。
+\optionalexerciseitem{harmonic-step-boundary}以单位圆上半圆弧的示性函数为边界数据，计算其 Poisson 积分在零点的值，并考察两个跳跃端点处的径向极限。
+\end{enumerate}

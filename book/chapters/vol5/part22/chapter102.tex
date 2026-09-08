@@ -1,0 +1,572 @@
+\chapter{de Rham 定理}
+\label{chap:de-rham-theorem}
+
+闭微分形式与恰当微分形式之差给出一种由微分方程定义的上同调；奇异上同调
+则只使用连续单形和边界算子。de Rham 定理断言，对光滑流形而言，这两种
+构造得到同一个有限维或无限维实向量空间。这个结论并非形式上的类比：同构
+由积分给出，Stokes 定理正好保证积分与两个复形的微分相容。
+
+本章先建立积分映射，再处理两项不能略去的技术工作。其一，奇异单形只要求
+连续，而微分形式只能沿光滑映射拉回；其二，局部 Poincaré 引理必须通过
+Mayer--Vietoris 方法推广到整个流形。流形均按
+\chapterref{chap:smooth-manifolds}的约定取 Hausdorff、
+第二可数的有限维光滑流形，可有多个连通分支，本章暂不讨论边界。
+
+\section{de Rham 复和上同调群}
+
+令 $\Omega^q(M)$ 表示 $M$ 上光滑 $q$-形式的实向量空间。外微分满足
+$d^2=0$，因而形成上链复形
+\[
+ 0\longrightarrow\Omega^0(M)\xrightarrow{d}\Omega^1(M)
+ \xrightarrow{d}\cdots\xrightarrow{d}\Omega^n(M)\longrightarrow0.
+\]
+
+\begin{definition}
+流形 $M$ 的 $q$ 次 de Rham 上同调定义为
+\[
+ H_{\mathrm{dR}}^q(M)
+ =\frac{\ker(d:\Omega^q(M)\to\Omega^{q+1}(M))}
+ {\operatorname{im}(d:\Omega^{q-1}(M)\to\Omega^q(M))}.
+\]
+闭形式 $\omega$ 的类记为 $[\omega]_{\mathrm{dR}}$。
+\end{definition}
+
+零次闭形式是各连通分支上的常数，所以
+\[
+ H_{\mathrm{dR}}^0(M)\cong
+ \prod_{P\in\pi_0(M)}\R.
+\]
+若 $q>\dim M$，则 $\Omega^q(M)=0$。光滑映射 $F:M\to N$ 的拉回与外微分
+可交换，故诱导反变映射
+\[
+ F^*:H_{\mathrm{dR}}^q(N)\to H_{\mathrm{dR}}^q(M).
+\]
+楔积在上同调类上良定义：若把一个闭因子改为恰当形式，分次 Leibniz 公式
+说明乘积只改变一个恰当形式。因此 $H_{\mathrm{dR}}^*(M)$ 还是分次交换代数。
+
+\section{同伦算子和同伦不变性}
+
+设 $F:M\times[0,1]\to N$ 光滑，记 $F_t(x)=F(x,t)$。对
+$\omega\in\Omega^q(N)$ 定义
+\[
+ K\omega=\int_0^1\iota_{\partial_t}(F^*\omega)\,dt
+ \in\Omega^{q-1}(M),
+\]
+即在坐标中先把 $F^*\omega$ 写成
+$\alpha_t+dt\wedge\beta_t$，再令 $K\omega=\int_0^1\beta_tdt$。
+
+\begin{theorem}[同伦公式]\label{thm:de-rham-homotopy-formula}
+上述算子满足
+\begin{equation}\label{eq:de-rham-homotopy-formula}
+ F_1^*-F_0^*=dK+Kd.
+\end{equation}
+所以光滑同伦的映射诱导相同的 de Rham 上同调映射，光滑可缩流形的正次
+de Rham 上同调为零。
+\end{theorem}
+\begin{proof}
+将 $F^*\omega=\alpha_t+dt\wedge\beta_t$ 代入外微分坐标公式，得到
+\[
+ d_{M\times I}F^*\omega
+ =d_M\alpha_t+dt\wedge(\partial_t\alpha_t-d_M\beta_t).
+\]
+对含 $dt$ 的部分从 $0$ 积分到 $1$，Newton--Leibniz 公式给
+\[
+ \alpha_1-\alpha_0
+ =d_M\int_0^1\beta_tdt
+ +\int_0^1\iota_{\partial_t}d(F^*\omega)dt.
+\]
+拉回与 $d$ 可交换，右侧即 $dK\omega+Kd\omega$。左侧为
+$F_1^*\omega-F_0^*\omega$。若 $d\omega=0$，两端相差恰当形式，故同伦映射
+在上同调上相同。
+\end{proof}
+
+\chapterref{chap:stokes-manifolds}的局部 Poincaré 引理是这一公式对
+坐标球径向收缩的特例。这里把
+算子写在任意光滑同伦上，是为了下一节比较函子性。
+
+\section{积分配对与 de Rham 映射}
+
+若 $\sigma:\Delta^q\to M$ 光滑，定义
+\[
+ I(\omega)(\sigma)=\int_{\Delta^q}\sigma^*\omega.
+\]
+按线性延拓，$I(\omega)$ 是光滑奇异链复形 $C_*^\infty(M)$ 上的 $q$ 次
+上链。流形上的 Stokes 定理给
+\begin{equation}\label{eq:de-rham-integration-chain-map}
+ (\delta I(\omega))(\sigma)
+ =I(\omega)(\partial\sigma)
+ =\int_{\partial\Delta^{q+1}}\sigma^*\omega
+ =\int_{\Delta^{q+1}}\sigma^*(d\omega)
+ =I(d\omega)(\sigma).
+\end{equation}
+因此 $I$ 是上链映射。
+
+需要说明为什么光滑单形可以替代上一章的连续单形。
+
+这里把有限多个单形连同它们反复取面所得的数据称为一个\term{有限单形图式}：
+每个对象是一份闭标准单形，面映射是标准仿射嵌入；同一个低维单形可以同时
+充当几个面，也允许一个高维单形的两个面指向同一对象。其实现空间由这些闭
+单形按指定面映射粘合而成。这个表述包括退化单形和自面识别，不要求实现空间
+是通常意义下没有自识别的单纯复形。
+
+\begin{lemma}[相对光滑逼近]\label{lem:relative-smoothing-delta-complex}
+设 $K$ 是有限单形图式，$L\subset K$ 是由若干单形及其所有面组成的子图式，
+$f:|K|\to M$ 连续，并且 $f$ 在 $L$ 的每个闭单形上光滑。则存在连续映射
+$g:|K|\to M$，使 $g$ 在 $K$ 的每个闭单形上光滑，$g=f$ 于 $|L|$，且
+$g$ 与 $f$ 通过一条相对于 $|L|$ 不动的同伦相连。
+\end{lemma}
+\begin{proof}
+证明分成目标空间的局部嵌入和参数单形上的逼近。先把紧集
+$C=f(|K|)$ 放进一个可嵌入 Euclidean 空间的开邻域。取有限个坐标域
+$(U_i,x_i)$ 及支撑紧含于 $U_i$ 的光滑函数 $\rho_i\geq0$，使
+$\sum_i\rho_i>0$ 于 $C$。在开集 $U=\{\sum_i\rho_i>0\}$ 上令
+\[
+ E(p)=(\rho_i(p),\rho_i(p)x_i(p))_{i=1}^m\in\R^N.
+\]
+每个乘积在 $U_i$ 外补零。和紧流形嵌入的证明一样，某个
+$\rho_i(p)>0$ 同时保证单射性和满秩；像上局部逆由相应向量分量除以
+标量分量，再应用 $x_i^{-1}$ 给出，故 $E$ 是光滑嵌入。
+
+在紧集 $E(C)$ 附近还存在光滑回缩到 $E(U)$。为说明这一点，取
+$C\subset V\Subset U$。对 $p\in E(U)$ 和垂直于 $T_pE(U)$ 的向量 $v$，
+考虑 $\Psi(p,v)=p+v$。坐标内可用 Gram--Schmidt 法光滑选取法向标架，
+因而 $(p,v)$ 有普通 Euclidean 局部坐标；在 $(p,0)$ 处，$D\Psi$
+把切向和法向直和同构地映到 $\R^N$。逆函数定理给出局部逆。
+在紧集 $E(\overline V)$ 上可把法向长度限制为同一个充分小的 $\eta>0$，
+使 $\Psi$ 的导数处处可逆且 $\Psi$ 单射。后一断言可用反证法核对：
+若任意小的长度限制下均有 $p_j+v_j=q_j+w_j$、两原像不同，则取子列使
+$p_j\to p$、$q_j\to q$；由 $v_j,w_j\to0$ 得 $p=q$，与 $(p,0)$
+附近的局部单射性矛盾。在以 $E(V)$ 为底的这个开法向邻域中，$\Psi$
+于是为到开集 $W\subset\R^N$ 的微分同胚。取其逆的底点分量，便得到
+\[
+ r:W\longrightarrow E(V),\qquad r(p)=p\quad(p\in E(V)).
+\]
+这只是紧像附近的回缩，不需要一般非紧流形的嵌入定理。
+
+令 $u=E\circ f$。下面在 $\R^N$ 中构造逐单形光滑的 $v$，使
+$v=u$ 于 $|L|$，并使 $\|v-u\|_\infty$ 任意小。所需的边界延拓事实是：
+闭单形各面上的光滑函数，若在所有公共面上一致，就能延拓为整份闭单形上的
+光滑函数。这里“在闭单形上光滑”指可延拓到其仿射包络中的开邻域。
+
+这个事实在角点附近可直接验证。设恰有 $k$ 个面经过该点，在仿射坐标中
+写成 $t_1=0,\ldots,t_k=0$，单形局部满足 $t_i\geq0$。对非空
+$J\subset\{1,\ldots,k\}$，记 $P_J$ 为把 $t_j$（$j\in J$）置零的投影，
+$b_J$ 为给定函数在相应交面上的限制。则
+\[
+ B(t)=\sum_{\varnothing\ne J\subset\{1,\ldots,k\}}
+          (-1)^{|J|+1}b_J(P_Jt)
+\]
+是局部光滑延拓：每个 $b_J$ 可在其交面的仿射包络内光滑延拓；在单形一侧
+令 $t_i=0$ 后，不含 $i$ 与添入 $i$ 的项两两抵消，只留下 $b_{\{i\}}$。
+有限个角点邻域上的这些延拓用参数空间的光滑单位分解拼接，得到边界邻域
+中的延拓；再乘以等于 $1$ 于边界附近的截断函数并向内部补零，即得整份
+单形上的光滑延拓。这个论证逐分量适用于 $\R^N$ 值函数。
+
+现在按维数归纳。零维单形保持 $u$ 不变；属于 $L$ 的每个单形也保持不变。
+设其余某个 $s$ 维单形的边界已经得到相容光滑值，且与原 $u$ 相差至多
+$(s-1)\varepsilon$。由刚证的事实，取这些边界值的光滑延拓 $b$。连续性
+保证在边界的某个相对开邻域 $O$ 内有
+$|b-u|<s\varepsilon$。另一方面，$u$ 可任意一致逼近为光滑函数 $h$：
+先用到闭单形的最近点投影把 $u$ 连续延拓到其仿射包络，再卷积磨光，取
+$\|h-u\|_\infty<\varepsilon$ 即可。选择光滑 $\chi$，使
+$0\leq\chi\leq1$，$\chi=1$ 于边界附近，且 $\operatorname{supp}\chi\subset O$，
+令
+\[
+ v=\chi b+(1-\chi)h.
+\]
+两项 $b,h$ 都光滑，所以过渡区也光滑；$v$ 等于指定边界值，且
+$|v-u|<s\varepsilon$。对该维所有单形如此处理。公共面使用同一份已定值，
+故所得映射下降到 $|K|$，自面识别也不会产生不一致。有限维归纳给出所需
+一致逼近。
+
+紧集 $u(|K|)$ 与 $\R^N\setminus W$ 的距离为正。取
+$\varepsilon$ 足够小，使每条线段
+$(1-t)u(x)+tv(x)$（$0\leq t\leq1$）均落在 $W$ 中。于是
+\[
+ g=E^{-1}\circ r\circ v,\qquad
+ F(x,t)=E^{-1}\bigl(r((1-t)u(x)+tv(x))\bigr)
+\]
+分别给出逐单形光滑映射和从 $f$ 到 $g$ 的同伦。在 $|L|$ 上 $v=u$，
+故 $g=f$ 且同伦不动。
+\end{proof}
+
+\begin{theorem}[光滑奇异链比较]\label{thm:smooth-singular-comparison}
+对光滑流形 $M$，包含链映射
+\[
+ C_*^\infty(M)\hookrightarrow C_*(M)
+\]
+诱导各维同调同构，因而也诱导实系数上同调同构。
+\end{theorem}
+\begin{proof}
+先证满射。连续循环 $z$ 只含有限个奇异单形。把这些单形及其反复取面所得的
+有限族组成有限单形图式 $K$：若两个面原来就是同一个奇异单形，便让它们指向
+同一个低维对象。原奇异单形共同给出连续映射 $f:|K|\to M$，而 $z$
+对应 $K$ 上一个有限循环 $\bar z$，满足 $f_\#\bar z=z$。由
+引理~\ref{lem:relative-smoothing-delta-complex}（取 $L=\varnothing$），有逐
+单形光滑的 $g$ 及从 $f$ 到 $g$ 的同伦 $F$。棱柱算子在 $K$ 的各个单形上
+相容，故
+\[
+ g_\#\bar z-f_\#\bar z
+ =\partial P_F\bar z+P_F\partial\bar z
+ =\partial P_F\bar z.
+\]
+因此 $z$ 与光滑循环 $g_\#\bar z$ 同调。
+
+再证单射。设光滑循环 $z$ 在连续复形中满足 $z=\partial c$。用 $c$ 中的
+单形及其面组成有限单形图式 $K$，并令 $L$ 为支撑 $z$ 的光滑单形连同
+其全部面组成的子复形。这里先把相同的奇异单形合并，所以链恒等式
+$\partial\bar c=\bar z$ 已在 $K$ 的单形链中成立。对评价映射
+$f:|K|\to M$ 应用相对版本，得到逐单形光滑且在 $L$ 上等于 $f$ 的 $g$。
+于是 $g_\#\bar c$ 是光滑链，并且
+\[
+ \partial(g_\#\bar c)=g_\#\bar z=f_\#\bar z=z.
+\]
+故 $z$ 已在光滑奇异链复形中为边界。这就证明同调同构。最后，
+命题~\ref{prop:real-cohomology-dual-homology}的证明适用于任意实向量空间
+链复形，并且对链映射自然；把刚得到的同调同构取对偶，便得到相应的
+上同调同构。
+\end{proof}
+
+记 $C_{\mathrm{sm}}^q(M;\R)=\operatorname{Hom}(C_q^\infty(M),\R)$，并记包含为
+$j:C_*^\infty(M)\hookrightarrow C_*(M)$。它在上链上的限制映射
+$j^*:H^q(C^*(M))\to H^q(C_{\mathrm{sm}}^*(M))$ 是同构。由此定义
+\begin{equation}\label{eq:de-rham-natural-map}
+ \mathcal I_M:H_{\mathrm{dR}}^q(M)\longrightarrow H^q(M;\R),
+ \qquad
+ \mathcal I_M[\omega]=(j^*)^{-1}[I(\omega)].
+\end{equation}
+若 $c$ 是连续奇异循环，选一个与它同调的光滑循环 $c_\infty$，并约定
+\[
+ \int_c\omega:=\int_{c_\infty}\omega.
+\]
+两个光滑选择之差在光滑链复形中为边界，故闭形式的 Stokes 公式说明此值与
+选择无关。这样才可把式\eqref{eq:de-rham-natural-map}写成通常的配对形式
+$\mathcal I_M[\omega]([c])=\int_c\omega$；连续单形本身并未被直接拉回微分
+形式。
+
+\section{局部情形和可缩开集}
+
+若 $U$ 是坐标球，它可光滑收缩到一点。同伦公式给
+$H_{\mathrm{dR}}^q(U)=0$（$q>0$），同伦不变性给
+$H^q(U;\R)=0$（$q>0$）；零次两边都由常数构成，积分映射把常数函数送到
+在点上取同一常数的零上链。因此 $\mathcal I_U$ 是同构。
+
+同样的论证适用于每个非空有限交仍可缩的开覆盖。这样的覆盖称为良覆盖。
+其存在性用到一个局部微分几何事实，先把所需版本单独列出。
+
+\begin{lemma}[局部强凸邻域]\label{lem:local-strongly-convex-neighborhoods}
+光滑流形上任取一个光滑正定度量。每一点都有一组邻域基，其中每个开集
+$B$ 具有下述性质：$B$ 中任意两点由唯一一条长度最短的度量测地线相连，且
+该线段完全包含在 $B$ 中，并随两端点光滑变化。
+\end{lemma}
+\begin{proof}
+这里只证明良覆盖所需的局部结论。单位分解把坐标域中的 Euclidean 内积拼成
+光滑正定度量。写其系数为 $g_{ij}$，逆矩阵为 $(g^{ij})$，并令
+\[
+ \Gamma^k_{ij}=\tfrac12g^{k\ell}
+ (\partial_i g_{j\ell}+\partial_jg_{i\ell}-\partial_\ell g_{ij}).
+\]
+这里重复的上下指标求和。所需的测地线就是下列方程的解；对坐标变换应用
+二阶链式法则可核对解曲线不依赖坐标。在坐标中，该方程为
+\[
+ \ddot x^k+\frac12g^{k\ell}
+ (\partial_i g_{j\ell}+\partial_jg_{i\ell}-\partial_\ell g_{ij})
+ \dot x^i\dot x^j=0.
+\]
+这是能量 $\tfrac12\int g_{ij}\dot x^i\dot x^jdt$ 的 Euler 方程，亦可直接
+由分部积分得到。它是光滑常微分方程。解对初值的光滑依赖以及逆函数定理表明，端点映射
+$(x,v)\mapsto(x,\gamma_{x,v}(1))$ 在零截面附近为微分同胚。因此充分接近的
+两点之间有唯一一条留在预定坐标域内、且随端点光滑变化的短测地线。
+
+还需把“留在坐标域内”改进为凸性。缩小到 Christoffel 系数一致有界的坐标
+球。沿上述短测地线对坐标平方距离 $r(x)=|x-x_0|^2$ 求两次导数，得到
+\[
+ (r\circ\gamma)''
+ =2|\dot x|^2-2(x-x_0)^k\Gamma^k_{ij}(x)\dot x^i\dot x^j.
+\]
+球半径取得足够小时，后一项的绝对值小于 $|\dot x|^2$，所以
+$r\circ\gamma$ 严格凸；端点在更小球内时，整段曲线也留在该球内。
+
+短测地线的最短性还需一个正交计算。沿曲线暂记
+$(D_tY)^k=\dot Y^k+\Gamma^k_{ij}\dot x^iY^j$。把上式中的系数代入，逐项
+消去偏导项便得到
+\[
+ \frac{d}{dt}\langle Y,Z\rangle_g
+ =\langle D_tY,Z\rangle_g+\langle Y,D_tZ\rangle_g.
+\]
+特别地，测地线的速度恒定。固定起点 $a$，令
+$\sigma(s,t)=\gamma_{a,v(s)}(t)$，$T=\partial_t\sigma$、$S=\partial_s\sigma$。
+由 $\Gamma^k_{ij}=\Gamma^k_{ji}$ 和混合偏导交换，$D_tS=D_sT$，故
+\[
+ \partial_t\langle T,S\rangle_g
+ =\tfrac12\partial_s\langle T,T\rangle_g
+ =\langle v(s),v'(s)\rangle_{g_a}.
+\]
+在 $t=0$ 有 $S=0$，所以
+$\langle T,S\rangle_g=t\langle v,v'\rangle_{g_a}$。当 $v(s)$ 沿初速度
+空间中的球面变化时，右端为零。这证明径向曲线与球面方向正交，即局部
+Gauss 引理。在端点映射给出的法坐标中写竞争曲线为
+$\exp_a(r(s)u(s))$、$|u(s)|_{g_a}=1$，上述正交性给出
+$|\dot\gamma(s)|_g^2\geq|\dot r(s)|^2$。从 $a$ 连到 $\exp_a(v)$ 的
+曲线因而长至少 $|v|_{g_a}$；取等号时方向恒定且径向参数单调，故与径向
+测地线有相同的像。穿过 $a$ 的参数可分段处理，再用连续性取极限。
+这些法坐标及估计对足够接近的起点一致成立。另一方面，局部
+度量与 Euclidean 度量一致等价，任何离开预定坐标球的曲线都有一个固定正的
+长度下界；再缩小端点所在的球，使上述短测地线长度小于此界，便排除从球外
+绕行的更短曲线。于是同时得到全局最短性和唯一性。上述估计在一个较小紧坐标
+球上一致成立，因而所得强凸开集构成邻域基。
+\end{proof}
+
+\begin{lemma}[良覆盖]\label{lem:smooth-good-cover}
+每个光滑流形都有可数、局部有限的良覆盖；紧流形可取有限良覆盖。
+\end{lemma}
+\begin{proof}
+取紧穷竭
+\[
+ K_0=\varnothing\subset K_1\subset\operatorname{int}K_2\subset K_2
+ \subset\operatorname{int}K_3\subset\cdots,
+ \qquad \bigcup_{n\geq1}K_n=M;
+\]
+第二可数局部紧流形总可这样选取。令
+$A_n=K_n\setminus\operatorname{int}K_{n-1}$。对每个 $x\in A_n$，由
+引理~\ref{lem:local-strongly-convex-neighborhoods}选强凸开集 $B_x$，并缩小到
+\[
+ \overline{B_x}\subset
+ \operatorname{int}K_{n+1}\setminus K_{n-2}
+ \quad(K_{-1}=K_0=\varnothing).
+\]
+紧集 $A_n$ 可由有限多个这样的 $B_x$ 覆盖。把各层选出的有限族合在一起，
+得到可数覆盖 $\{U_i\}$。它局部有限：若一点位于
+$\operatorname{int}K_N$，则其一个较小邻域与所有 $n\geq N+2$ 层的开集不交，
+而余下只有有限多层、每层只有有限多个开集。
+
+若 $x,y$ 属于非空有限交
+$U_{i_0\cdots i_p}$，连接它们的唯一最短测地线落在每个 $U_{i_j}$ 中，因而
+落在交集中。固定交集中的一点 $x_0$，沿这条唯一测地线收缩到 $x_0$；端点的
+光滑依赖说明这是光滑收缩。因此每个非空有限交可缩，所得覆盖为良覆盖。
+紧流形从中取有限子覆盖即可；子族仍保持良覆盖性质。
+\end{proof}
+
+\section{Mayer--Vietoris 归纳}
+
+若 $M=U\cup V$，则形式复形有短正合列
+\begin{equation}\label{eq:de-rham-mv-short-exact}
+ 0\to\Omega^*(M)\xrightarrow{\omega\mapsto(\omega|_U,\omega|_V)}
+ \Omega^*(U)\oplus\Omega^*(V)
+ \xrightarrow{(\alpha,\beta)\mapsto\alpha|_{U\cap V}-\beta|_{U\cap V}}
+ \Omega^*(U\cap V)\to0.
+\end{equation}
+最后一个箭头满射需用单位分解。若 $\eta\in\Omega^q(U\cap V)$，取从属于
+$U,V$ 的 $\rho_U+\rho_V=1$。$\rho_V\eta$ 可从交集向 $U$ 作零延拓，
+$-\rho_U\eta$ 可向 $V$ 作零延拓，二者之差在交集上为 $\eta$。
+
+短正合列给出 de Rham Mayer--Vietoris 长正合序列。积分映射与限制、差映射
+以及连接同态相容，故与
+\theoremref{thm:mayer-vietoris-singular}组成交换梯图。
+
+\begin{proposition}[有限并归纳]\label{prop:de-rham-finite-mv-induction}
+若 $\mathcal I_U$、$\mathcal I_V$ 和 $\mathcal I_{U\cap V}$ 都是各维同构，
+则 $\mathcal I_{U\cup V}$ 也是各维同构。
+\end{proposition}
+\begin{proof}
+固定次数 $q$，把两条 Mayer--Vietoris 长正合序列中围绕
+$H^q(U\cup V)$ 的五项排成交换图。除中间竖箭头外其余四个都是同构，五
+引理给中间箭头为同构。连接同态处的交换性可直接核对：de Rham 连接类由
+单位分解提升后取外微分，奇异连接类由链的提升取边界，而
+式\eqref{eq:de-rham-integration-chain-map}把二者
+对应起来。
+\end{proof}
+
+对有限良覆盖，命题可作双重归纳：把最后一个覆盖元与其余之并分开；它们的
+交集仍由较少的可缩有限交覆盖。于是紧流形上的结论已经得到。
+
+\section{de Rham 定理的证明}
+
+非紧流形的良覆盖可能是无限的，不能把有限归纳一句话照搬。下面同时记录
+开集的交叠次数和微分形式的次数，用两个微分整理相应的方程。
+
+保持微分的复形映射若在每个次数诱导上同调同构，称为\emph{拟同构}；
+它不要求在复形的每个向量空间上都是同构。设 $E^{p,q}$ 配有
+$d_h:E^{p,q}\to E^{p+1,q}$ 和 $d_v:E^{p,q}\to E^{p,q+1}$，满足
+$d_h^2=d_v^2=0$ 以及 $d_hd_v=d_vd_h$，则称其为这里所用约定下的
+\emph{双复形}。其总复形为
+\[
+ \operatorname{Tot}^n E=\bigoplus_{p+q=n}E^{p,q},
+ \qquad D|_{E^{p,q}}=d_h+(-1)^p d_v.
+\]
+两个混合项相消，故 $D^2=0$。以下指标各自有固定下界，所以每个总次数中
+只有有限个分量；这里的有限性与开覆盖是否有限无关。
+
+先证明：若每一列关于 $d_v$ 正合，则总复形无上同调。设 $Dz=0$，
+从 $z$ 最左边的非零分量 $z^{p,q}$ 开始。没有更左的分量，故
+$d_vz^{p,q}=0$。列正合性给出 $y^{p,q-1}$，使
+$(-1)^p d_vy^{p,q-1}=z^{p,q}$。用 $z-Dy^{p,q-1}$ 替换 $z$，
+便消去了这一列，只可能在右侧相邻列增加一项。逐列进行；到达竖直指标的
+最小值时，列正合性说明该处闭元为零，过程终止。因此 $z$ 是总微分的像。
+交换两个指标，同样证明“每行正合”也推出总复形无上同调。
+
+为把此结论用于比较映射，设 $f:A^*\to B^*$ 保持微分，定义其
+\emph{映射锥}
+\[
+ \operatorname{Cone}(f)^n=B^n\oplus A^{n+1},
+ \qquad \partial(b,a)=(d_Bb+f(a),-d_Aa).
+\]
+直接计算有 $\partial^2=0$。映射锥无上同调当且仅当 $f$ 为拟同构。
+事实上，若 $f$ 在上同调上为同构且 $(b,a)$ 闭，则 $a$ 闭且
+$f(a)=-d_Bb$；单射性给 $a=d_Ac$。减去 $\partial(0,-c)$ 后只剩
+$(b+f(c),0)$，其中第一项闭。满射性再给闭元 $u\in A^n$ 及
+$v\in B^{n-1}$，使 $b+f(c)=f(u)+d_Bv$，即剩余项为
+$\partial(v,u)$。反之，锥无上同调时，对闭元 $b$ 将 $(b,0)$ 写成边界
+便得满射性；若 $a$ 闭且 $f(a)=d_Bb$，将闭元 $(-b,a)$ 写成边界便得单射性。
+
+现在若双复形映射 $\Phi:A^{p,q}\to B^{p,q}$ 在每一列上都是拟同构，
+逐列取上述映射锥，所得双复形的列全部正合。因此其总复形无上同调。
+把第 $p$ 列锥中的第二分量乘以 $(-1)^p$，便将这个总复形识别为
+$\operatorname{Cone}(\operatorname{Tot}\Phi)$，故总复形映射也是拟同构。
+最后，若一个双复形每条行的增广序列
+$0\to V^q\to E^{0,q}\to E^{1,q}\to\cdots$ 正合，把 $V^q$ 放在
+第 $-1$ 列；增广双复形按行正合，其总复形无上同调。它的第 $n$ 次空间为
+$\operatorname{Tot}^nE\oplus V^{n+1}$，微分正是增广映射
+$V^*\to\operatorname{Tot}E$ 的映射锥微分。
+因此增广映射也为拟同构。这两个比较结论将分别用于下述证明的列和行。
+
+\begin{lemma}[Čech 局部到整体]\label{lem:cohomology-local-to-global}
+设 $\mathcal U=\{U_i\}_{i\in I}$ 是光滑流形 $M$ 的可数局部有限开覆盖。
+若积分映射在每个非空有限交 $U_{i_0\cdots i_p}$ 上诱导上同调同构，则它在
+$M$ 上也诱导上同调同构。
+\end{lemma}
+\begin{proof}
+对一列开集指标采用交错 Čech 上链的约定：指标重复时分量为零，置换指标时按
+符号变化。令
+\[
+ A^{p,q}=\prod_{i_0,\ldots,i_p}
+ \Omega^q(U_{i_0\cdots i_p}),
+ \qquad
+ B^{p,q}=\prod_{i_0,\ldots,i_p}
+ C_{\mathrm{sm}}^q(U_{i_0\cdots i_p};\R).
+\]
+水平方向取交错限制算子 $\check\delta$，竖方向分别取 $d$ 与奇异余边界，并用
+$D=\check\delta+(-1)^p d_v$ 作为总微分。逐个交集上的积分组成双复形映射
+$A^{*,*}\to B^{*,*}$。
+
+先核对形式端的增广行。取从属于 $\mathcal U$ 的单位分解 $\{\rho_j\}$。对
+$p\geq0$ 定义
+\[
+ (hc)_{i_0\ldots i_{p-1}}
+ =\sum_j\rho_j c_{j i_0\ldots i_{p-1}},
+\]
+$p=0$ 时右侧理解为 $M$ 上的形式。各项在 $U_j$ 外作零延拓；局部有限性保证
+和在每点附近有限。直接展开交错和得到
+$\check\delta h+h\check\delta=\operatorname{id}$，因为剩余项的系数是
+$\sum_j\rho_j=1$。因此
+\[
+ 0\to\Omega^q(M)\to A^{0,q}\to A^{1,q}\to\cdots
+\]
+对每个 $q$ 都正合。
+
+奇异端要先使用小链。记 $C_*^{\infty,\mathcal U}(M)$ 为由像落在某个
+$U_i$ 内的光滑奇异单形生成的链复形。式~\eqref{eq:iterated-subdivision-homotopy}
+之后的小链论证逐字适用：仿射重心
+细分和相应链同伦保持单形光滑，故
+$C_*^{\infty,\mathcal U}(M)\hookrightarrow C_*^\infty(M)$ 是拟同构。对每个
+小单形 $\sigma$ 固定选择一个指标 $a(\sigma)$，使
+$\operatorname{im}\sigma\subset U_{a(\sigma)}$。在奇异 Čech 行上定义
+\[
+ (kc)_{i_0\ldots i_{p-1}}(\sigma)
+ =c_{a(\sigma)i_0\ldots i_{p-1}}(\sigma).
+\]
+这一定义先在奇异单形基上给出，再线性延拓。展开交错和同样得到
+$\check\delta k+k\check\delta=\operatorname{id}$。所以以
+$\operatorname{Hom}(C_*^{\infty,\mathcal U}(M),\R)$ 为增广端的奇异 Čech
+行也正合；该增广端与通常奇异上链具有相同上同调。
+
+由开头的增广行结论，$\Omega^*(M)$ 与形式总复形拟同构，小光滑奇异上链与
+奇异总复形拟同构。另一方面，假设保证每个分量
+$A^{p,*}\to B^{p,*}$ 都是拟同构；积按坐标取核、像，故整列映射仍为拟同构。
+开头的列比较结论遂给两个总复形拟同构。把两端的增广拟同构合成，便得到
+$M$ 上的积分同构。
+\end{proof}
+
+\begin{theorem}[de Rham 定理]\label{thm:de-rham}
+对每个光滑流形 $M$ 和每个 $q\ge0$，积分映射
+\[
+ \mathcal I_M:H_{\mathrm{dR}}^q(M)\longrightarrow H^q(M;\R)
+\]
+是自然同构。
+\end{theorem}
+\begin{proof}
+取引理~\ref{lem:smooth-good-cover}给出的局部有限良覆盖。每个非空有限交
+光滑可缩，故积分映射在其上是同构。引理~\ref{lem:cohomology-local-to-global}
+遂给出 $M$ 上的同构。若 $F:M\to N$ 光滑，变量代换给
+$I(F^*\omega)(\sigma)=I(\omega)(F\circ\sigma)$，所以同构对光滑映射自然。
+\end{proof}
+
+定理的直接含义是：闭形式是否恰当，可以由周期判断。具体地，闭 $q$-形式
+$\omega$ 恰当，当且仅当它在每个光滑奇异 $q$-循环上的积分为零；等价地，
+按前述光滑代表约定，它在每个连续奇异同调类上的周期都为零。
+
+\section{圆周、球面和环面的计算}
+
+在 $S^1$ 上，角形式
+\[
+ \alpha=-y\,dx+x\,dy
+\]
+沿参数化 $(\cos t,\sin t)$ 拉回为 $dt$，故积分为 $2\pi$。若它是恰当形式，
+闭路积分应为零，所以 $[\alpha]\ne0$；它生成
+$H_{\mathrm{dR}}^1(S^1)\cong\R$。在穿孔平面上，相应形式
+\[
+ \eta=\frac{-y\,dx+x\,dy}{x^2+y^2}
+\]
+满足 $d\eta=0$，限制到单位圆就是 $\alpha$。它在每个不绕原点的小坐标域内
+都是辐角函数的微分，却没有全局原函数；非零周期准确记录了这一障碍。
+
+球面上归一化体积形式 $\omega_n$ 满足
+$\int_{S^n}\omega_n=1$，其类生成
+$H_{\mathrm{dR}}^n(S^n)$；结合上一章的球面同调，
+\[
+ H_{\mathrm{dR}}^q(S^n)\cong
+ \begin{cases}\R,&q=0,n,\\0,&\text{其他}.\end{cases}
+\]
+
+把二维环面写为 $T^2=\R^2/(2\pi\Z)^2$。常系数形式 $d\theta_1,d\theta_2$
+以及 $d\theta_1\wedge d\theta_2$ 从 $\R^2$ 下降到环面。沿两条坐标圆周的
+周期说明前两个一次形式的类线性无关，顶次积分说明二次形式的类非零。用良
+覆盖的 Mayer--Vietoris 计算可知没有其他类。具体地，用两个开弧
+$A,B$ 覆盖第一个圆周，并取 $U=A\times S^1$、$V=B\times S^1$；则
+$U,V$ 各形变收缩到一份 $S^1$，而 $U\cap V$ 是两份 $S^1$ 的不交并。
+限制差映射在零次和一次上都把 $(a,b)$ 送到 $(a-b,a-b)$，秩为 $1$；长正合
+序列依次给出各次维数 $1,2,1$。因而
+\[
+ H_{\mathrm{dR}}^0(T^2)=\R,\qquad
+ H_{\mathrm{dR}}^1(T^2)=\R[d\theta_1]\oplus\R[d\theta_2],
+ \qquad
+ H_{\mathrm{dR}}^2(T^2)=\R[d\theta_1\wedge d\theta_2].
+\]
+楔积还记录了两个一次类相乘得到定向类；这比只列各维维数包含更多信息。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{de-rham-zero-degree}证明 $H_{\mathrm{dR}}^0(M)$ 是所有连通分支上常值函数组成的空间。
+\exerciseitem{de-rham-wedge-well-defined}证明楔积在 de Rham 上同调类上良定义，并核对分次交换律。
+\exerciseitem{de-rham-homotopy-operator}在 $M\times I$ 的坐标分解中逐项证明同伦公式\eqref{eq:de-rham-homotopy-formula}。
+\exerciseitem{de-rham-integration-chain-map}逐项核对式\eqref{eq:de-rham-integration-chain-map}的定向与符号。
+\exerciseitem{de-rham-period-exact}证明恰当形式在每个循环上的积分为零。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{de-rham-punctured-plane}计算 $\R^2\setminus\{0\}$ 的 de Rham 上同调，并给出一次生成元。
+\exerciseitem{de-rham-mv-surjectivity}用从属于 $U,V$ 的单位分解完整证明形式短正合列\eqref{eq:de-rham-mv-short-exact}的满射性。
+\exerciseitem{de-rham-connecting-formula}写出 de Rham Mayer--Vietoris 连接同态的代表形式，并证明不依赖单位分解。
+\exerciseitem{de-rham-smooth-chain-relative}说明相对光滑化为何必须保持已指定的光滑面，并用正文的相对逼近引理分别证明光滑奇异链包含映射在同调上的满射性与单射性。说明为何不能把结论写成两个链复形本身同构。
+\exerciseitem{de-rham-circle-generator}证明 $-y\,dx+x\,dy$ 在 $S^1$ 上闭而不恰当，并归一化为与基本循环配对为 $1$ 的类。
+\exerciseitem{de-rham-sphere-volume}证明积分非零的 $S^n$ 顶次形式不恰当，并用 de Rham 定理说明它生成顶次上同调。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{de-rham-torus-periods}用两条基本圆周和整个环面的积分验证正文给出的三个环面上同调类线性独立。
+\exerciseitem{de-rham-torus-mv}选择适当开覆盖，用 Mayer--Vietoris 序列完成 $T^2$ 各次 de Rham 上同调的计算。
+\exerciseitem{de-rham-degree-integral}若 $f:S^n\to S^n$，证明存在实数 $d$ 使对任意顶次形式 $\omega$ 有 $\int_{S^n}f^*\omega=d\int_{S^n}\omega$，并把 $d$ 与 $f_*$ 联系起来。
+\optionalexerciseitem{de-rham-compact-support-warning}构造非紧流形上的顶次闭形式，使其积分非零但普通 de Rham 类为零；解释为什么非紧情形若要用积分研究定向类，必须引入紧支撑上同调。
+\end{enumerate}

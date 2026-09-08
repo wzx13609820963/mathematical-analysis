@@ -1,0 +1,533 @@
+\chapter{切空间与微分形式}
+\label{chap:tangent-differential-forms}
+
+流形的坐标取值于欧氏空间，但同一点附近可以选用不同坐标。切向量、张量和
+微分形式的定义若要反映流形自身的几何，就不能依赖某一张坐标图，也不能依赖
+流形在欧氏空间中的某个嵌入。本章从曲线速度与导子两种观点构造切空间，继而
+引入切映射、向量场、张量场和微分形式。最后把
+\chapterref{chap:differential-forms-euclidean}中的外微分移植到流形上。
+这些构造都不需要度量；对微分形式进行积分时，还要加入定向，这将在下一章
+处理。
+
+\section{切向量的等价定义}
+
+设 \(M\) 为光滑 \(n\) 维流形，\(p\in M\)。考虑所有定义在 \(0\) 的某个
+邻域且满足 \(\gamma(0)=p\) 的光滑曲线。若在一张含 \(p\) 的坐标图
+\((U,x)\) 中
+\[
+ (x\circ\gamma_1)'(0)=(x\circ\gamma_2)'(0),
+\]
+就称 \(\gamma_1,\gamma_2\) 在 \(p\) 具有相同速度。这个条件与坐标图的
+选择无关。事实上，若 \(y\) 是另一组坐标，则链式法则给出
+\[
+ (y\circ\gamma_j)'(0)
+ =D(y\circ x^{-1})(x(p))(x\circ\gamma_j)'(0).
+\]
+曲线关于“具有相同速度”的等价类称为\term{曲线切向量}。
+
+曲线速度类具有自然的线性运算。固定一张坐标图，把两个速度类的和及数乘定义
+为坐标速度向量在 \(\R^n\) 中的和及数乘；向量 \(w\in\R^n\) 总能由曲线
+\(t\mapsto x^{-1}(x(p)+tw)\) 在充分小的参数区间内实现。更换坐标时，速度
+向量乘以坐标变换在 \(p\) 处的可逆导数。这个变换是线性的，所以刚才的运算
+与坐标选择无关，曲线速度类由此成为向量空间。
+
+还可以完全借助流形上的函数描述切向量。记 \(C_p^\infty(M)\) 为 \(p\)
+附近光滑函数的芽所成的实代数：两个局部光滑函数在 \(p\) 的某个邻域相等
+时，视为同一个芽。
+
+\begin{definition}
+\label{def:tangent-derivation}
+\(p\) 处的\term{导子}是一个实线性映射
+\[
+ D:C_p^\infty(M)\longrightarrow\R,
+\]
+它满足 Leibniz 规则
+\[
+ D(fg)=f(p)Dg+g(p)Df.
+\]
+所有导子组成的向量空间记为 \(T_pM\)，称为 \(M\) 在 \(p\) 处的
+\term{切空间}。
+\end{definition}
+
+函数芽只保留 \(p\) 附近的信息，正与切向量的局部性质相符。也可以从全局
+光滑函数出发定义导子。为核对两种定义等价，先注意全局导子只依赖函数在
+\(p\) 附近的取值：若 \(f\) 在 \(p\) 的一个邻域为零，取截断函数
+\(\chi\) 使 \(\chi(p)=1\) 且 \(\operatorname{supp}\chi\) 包含在该邻域内，
+则 \(\chi f=0\)，Leibniz 规则给
+\[
+ 0=D(\chi f)=Df.
+\]
+反过来，任一函数芽可先缩小代表元的定义域，再乘以上述截断函数并补零，得到
+全局光滑函数；两个这样的延拓在 \(p\) 附近相同，故全局导子给它们相同的值。
+因此全局函数导子与函数芽导子确实得到同一个切空间。
+
+曲线 \(\gamma\) 给出导子
+\[
+ D_\gamma f
+ :=\left.\frac{d}{dt}\right|_{t=0}f(\gamma(t)).
+\]
+链式法则表明 \(D_\gamma\) 只依赖 \(\gamma\) 的速度类，乘积求导法则则表明
+它满足 Leibniz 规则。
+
+\begin{theorem}[切向量的曲线表示与导子表示]
+\label{thm:tangent-curves-derivations}
+从曲线速度类到导子的映射
+\[
+ [\gamma]\longmapsto D_\gamma
+\]
+是线性双射。在局部坐标 \((x^1,\ldots,x^n)\) 中，每个 \(v\in T_pM\)
+唯一写成
+\[
+ v=\sum_{i=1}^n v^i
+ \left.\frac{\partial}{\partial x^i}\right|_p,
+ \qquad v^i=v(x^i).
+\]
+特别地，\(\dim T_pM=n\)。
+\end{theorem}
+
+\begin{proof}
+先证明导子由它在坐标函数上的值决定。平移坐标后可设 \(x(p)=0\)，并把
+坐标域缩小为以 \(0\) 为中心的开球。对任意局部光滑函数 \(f\)，记
+\(\widetilde f=f\circ x^{-1}\)。微积分基本定理给出 Hadamard 分解
+\[
+ \widetilde f(u)-\widetilde f(0)
+ =\sum_{i=1}^n u^i g_i(u),
+ \qquad
+ g_i(u)=\int_0^1\partial_i\widetilde f(tu)\,dt .
+\]
+各 \(g_i\) 光滑，并且
+\(g_i(0)=\partial_i\widetilde f(0)\)。由
+\(D1=D(1\cdot1)=2D1\) 可知导子在常数上为零。对 Hadamard 分解使用
+Leibniz 规则，得到
+\[
+ Df=\sum_{i=1}^nD(x^i)\,\partial_i\widetilde f(0).
+\]
+因此导子的坐标表示存在且唯一。
+
+反过来，给定 \(v=(v^1,\ldots,v^n)\in\R^n\)，在充分小的 \(t\) 上定义
+\[
+ \gamma_v(t)=x^{-1}(tv).
+\]
+链式法则给出
+\[
+ D_{\gamma_v}f
+ =\sum_{i=1}^n v^i\partial_i\widetilde f(0),
+\]
+正好得到具有坐标分量 \(v^i\) 的导子。故每个导子都来自一条曲线，而两条
+曲线给出同一导子，当且仅当它们的坐标速度相同。预先定义的速度类线性运算
+在此对应于导子的逐点线性运算，所以上述双射是线性的。
+\end{proof}
+
+若 \(y=y(x)\) 是另一组坐标，则坐标基按照
+\begin{equation}
+ \left.\frac{\partial}{\partial x^i}\right|_p
+ =\sum_{j=1}^n
+ \frac{\partial y^j}{\partial x^i}(p)
+ \left.\frac{\partial}{\partial y^j}\right|_p
+ \label{eq:tangent-coordinate-change}
+\end{equation}
+变换。相应地，切向量的分量乘以坐标变换的 Jacobian。基与分量的变换互相
+补偿，切向量本身不随坐标改变。
+
+在欧氏开集上，这一定义恢复熟悉的方向向量：
+\[
+ T_p\R^n\simeq\R^n,\qquad
+ v(f)=\sum_i v^i\partial_i f(p).
+\]
+对单位球面则有
+\[
+ T_pS^{n-1}=\{v\in\R^n:p\cdot v=0\}.
+\]
+确实，若 \(\gamma(t)\in S^{n-1}\) 且 \(\gamma(0)=p\)，对
+\(\norm{\gamma(t)}^2=1\) 求导便得 \(p\cdot\gamma'(0)=0\)。反过来，若
+\(p\cdot v=0\)，曲线
+\[
+ \gamma(t)=\frac{p+tv}{\norm{p+tv}}
+\]
+在零点的速度为 \(v\)。这也说明嵌入给出的环境向量表示很方便，但切空间的
+定义本身并不需要先选一个嵌入。
+
+\section{切映射、向量场和 Lie 括号}
+
+若 \(F:M\to N\) 光滑，定义 \(F\) 在 \(p\) 处的\term{切映射}
+\[
+ dF_p:T_pM\longrightarrow T_{F(p)}N,\qquad
+ (dF_pv)(g)=v(g\circ F).
+\]
+右端满足 Leibniz 规则，因而确实是 \(F(p)\) 处的导子。在曲线表示中，
+\[
+ dF_p[\gamma]=[F\circ\gamma],
+\]
+在局部坐标中，\(dF_p\) 就是由 \(F\) 的 Jacobian 矩阵表示的线性映射。
+
+\begin{proposition}[切映射的函子性]
+\label{prop:tangent-map-functoriality}
+若 \(F:M\to N\)、\(G:N\to P\) 光滑，则
+\[
+ d(G\circ F)_p=dG_{F(p)}\circ dF_p,
+ \qquad d(\operatorname{id}_M)_p=I_{T_pM}.
+\]
+若 \(F\) 是微分同胚，则 \(dF_p\) 在每一点都是线性同构，而且
+\[
+ (dF_p)^{-1}=d(F^{-1})_{F(p)}.
+\]
+\end{proposition}
+
+\begin{proof}
+对任意 \(h\in C_{G(F(p))}^\infty(P)\)，有
+\[
+ [dG_{F(p)}(dF_pv)]h
+ =(dF_pv)(h\circ G)
+ =v(h\circ G\circ F),
+\]
+这就是 \(d(G\circ F)_pv\) 对 \(h\) 的作用。恒等映射的结论直接来自
+定义。若 \(F\) 是微分同胚，把函子性用于
+\(F^{-1}\circ F=\operatorname{id}_M\) 和
+\(F\circ F^{-1}=\operatorname{id}_N\)，便得到最后一个公式。
+\end{proof}
+
+\term{向量场}是在每一点 \(p\) 选取 \(X(p)\in T_pM\) 的光滑选择。所谓
+光滑，是指在任一坐标图中
+\[
+ X=\sum_{i=1}^nX^i\frac{\partial}{\partial x^i}
+\]
+的系数 \(X^i\) 都光滑。向量场作用于函数所得
+\[
+ Xf(p)=X(p)f
+\]
+仍是光滑函数，并满足乘积规则。
+
+两个向量场作为微分算子的复合 \(XY\) 一般含有二阶导数，不再是向量场；
+交换子中的二阶项却会消去。定义
+\[
+ [X,Y]f=X(Yf)-Y(Xf).
+\]
+
+\begin{proposition}
+\label{prop:lie-bracket-properties}
+Lie 括号 \([X,Y]\) 是向量场，并在局部坐标中满足
+\[
+ [X,Y]
+ =\sum_{k=1}^n
+ \left(\sum_{i=1}^n
+  \bigl(X^i\partial_iY^k-Y^i\partial_iX^k\bigr)\right)
+ \frac{\partial}{\partial x^k}.
+\]
+它是双线性的、反对称的，并满足 Jacobi 恒等式
+\[
+ [X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]=0.
+\]
+\end{proposition}
+
+\begin{proof}
+在坐标中展开 \(X(Yf)\) 和 \(Y(Xf)\)。含
+\(\partial_i\partial_j f\) 的项因混合偏导对称而相消，只留下所列的一阶
+项，所以交换子确实是向量场。双线性和反对称性直接来自定义。把向量场视为
+函数代数上的线性算子，Jacobi 恒等式归结为算子交换子的恒等式
+\[
+ [A,[B,C]]+[B,[C,A]]+[C,[A,B]]=0;
+\]
+展开后，每个三重算子复合恰出现一次正号和一次负号。
+\end{proof}
+
+例如在 \(\R^2\) 上取
+\[
+ X=\frac{\partial}{\partial x},\qquad
+ Y=x\frac{\partial}{\partial y}.
+\]
+则 \(X\) 沿 \(x\) 方向平移，而 \(Y\) 以依赖于 \(x\) 的速度沿 \(y\) 方向
+移动；坐标公式给
+\[
+ [X,Y]=\frac{\partial}{\partial y}.
+\]
+先沿 \(X\) 再沿 \(Y\) 与颠倒次序所得位移的一阶部分相同，差异首先出现在
+混合的二阶小量中，除以两个时间参数后留下 Lie 括号。因而括号为零表达的是
+两个局部运动在最低非平凡阶可交换，而非仅仅两个向量在每一点线性无关或相关。
+
+若 \(F:M\to N\) 是微分同胚，向量场可以自然地推到 \(N\) 上：
+\[
+ (F_*X)_{F(p)}=dF_pX_p.
+\]
+一般光滑映射可能把多个点映到同一点，而不同原像处推出的向量未必相同，
+因此不能无条件定义整个向量场的推前。
+
+\section{余切空间和张量场}
+
+\(T_pM\) 的对偶空间称为\term{余切空间}，记为 \(T_p^*M\)。若
+\(f\in C^\infty(M)\)，定义
+\[
+ df_p(v)=v(f),\qquad v\in T_pM.
+\]
+于是 \(df_p\in T_p^*M\)。坐标余切向量
+\((dx^1|_p,\ldots,dx^n|_p)\) 与
+\((\partial/\partial x^1|_p,\ldots,\partial/\partial x^n|_p)\)
+互为对偶基，因为
+\[
+ dx^i\left(\frac{\partial}{\partial x^j}\right)=\delta^i_j.
+\]
+函数的链式法则现在可以写成
+\[
+ d(g\circ F)_p=(dF_p)^*(dg_{F(p)}),
+\]
+其中 \((dF_p)^*\) 是线性映射 \(dF_p\) 的对偶映射。
+
+切向量与余切向量虽有相同维数，却没有自然的相等关系。给定坐标可以把二者
+都写成 \(n\) 个数，但换坐标时它们按互逆矩阵变换；任意线性同构
+\(T_pM\to T_p^*M\) 都需要额外选择。Riemann 度量以后会用
+\(v\mapsto g_p(v,\mathord\cdot)\) 给出这样的同构，没有度量时不应把上、下
+指标任意互换。
+
+按照本书的约定，\(p\) 处的一个 \((r,s)\) 型张量是
+\[
+ T\in (T_pM)^{\otimes r}\otimes(T_p^*M)^{\otimes s}.
+\]
+等价地，它可视为关于 \(r\) 个余切向量和 \(s\) 个切向量的多重线性函数。
+若张量在各坐标基下的分量都是光滑函数，就得到一个\term{张量场}。向量场
+是 \((1,0)\) 型张量场，一次形式是 \((0,1)\) 型张量场；下一章出现的
+Riemann 度量是对称正定的 \((0,2)\) 型张量场。
+
+张量积使类型相加；一个上指标与一个下指标可以收缩。换坐标时，上指标和
+下指标按互逆的矩阵规律变换，所以完全收缩所得的标量与坐标无关。张量本身
+由无坐标的张量积定义，坐标指标只是其计算表示。
+
+\section{微分形式与楔积}
+
+\(p\) 处的交错 \(k\) 次余切张量组成空间
+\(\Lambda^kT_p^*M\)。一个光滑 \(k\)-形式是在每一点选取
+\(\omega_p\in\Lambda^kT_p^*M\)，并要求它在任一局部坐标中写成
+\[
+ \omega=\sum_{i_1<\cdots<i_k}
+ a_{i_1\cdots i_k}\,
+ dx^{i_1}\wedge\cdots\wedge dx^{i_k}
+\]
+时，各系数都光滑。全体光滑 \(k\)-形式记为 \(\Omega^k(M)\)，并约定
+\(\Omega^0(M)=C^\infty(M)\)。当 \(k>n\) 时，\(\Omega^k(M)=\{0\}\)。
+
+楔积逐点由外代数定义。若
+\(\alpha\in\Omega^k(M)\)、\(\beta\in\Omega^\ell(M)\)，则
+\[
+ \alpha\wedge\beta=(-1)^{k\ell}\beta\wedge\alpha.
+\]
+若 \(F:M\to N\) 光滑，定义形式的\term{拉回}
+\[
+ (F^*\omega)_p(v_1,\ldots,v_k)
+ =\omega_{F(p)}(dF_pv_1,\ldots,dF_pv_k).
+\]
+由定义可得
+\[
+ F^*(\alpha\wedge\beta)=F^*\alpha\wedge F^*\beta,
+ \qquad (G\circ F)^*=F^*\circ G^*.
+\]
+
+若 \(\iota:S\hookrightarrow M\) 是嵌入子流形，则
+\(\iota^*\omega\) 称为 \(\omega\) 在 \(S\) 上的限制。这里不仅限制
+坐标系数，还要先用 \(d\iota\) 把 \(S\) 的切向量送入 \(M\) 的切空间。
+
+拉回也包含熟悉的曲线积分换元。若
+\(\alpha=P\,dx+Q\,dy\) 是 \(\R^2\) 上的一次形式，而
+\(\gamma(t)=(x(t),y(t))\)，则
+\[
+ \gamma^*\alpha
+ =\bigl(P(\gamma(t))x'(t)+Q(\gamma(t))y'(t)\bigr)\,dt.
+\]
+因此一次形式沿曲线的积分就是其拉回在参数区间上的积分。参数改变之所以不改
+变积分值，来自拉回的复合律和一元变量代换公式。
+
+\section{拉回、外微分与 Cartan 公式}
+
+在坐标图 \((U,x)\) 中，按照欧氏空间中的公式定义
+\[
+ d\left(\sum_Ia_I\,dx^I\right)
+ =\sum_{I,j}\partial_ja_I\,dx^j\wedge dx^I.
+\]
+\chapterref{chap:differential-forms-euclidean}已经证明外微分与欧氏空间中
+光滑映射的拉回可交换。坐标变换正是这样的映射，因此两张图给出的定义在
+重叠处一致，局部算子可以拼成全局算子
+\[
+ d:\Omega^k(M)\longrightarrow\Omega^{k+1}(M).
+\]
+
+在低次数中，这一公式就是熟悉的偏导组合。对函数 \(f\)，
+\[
+ df=\sum_i\partial_i f\,dx^i;
+\]
+在平面上若 \(\alpha=P\,dx+Q\,dy\)，则
+\[
+ d\alpha=(\partial_xQ-\partial_yP)\,dx\wedge dy.
+\]
+系数中的交叉偏导之差来自楔积的反对称性。下一章把 \(d\alpha\) 的积分与
+\(\alpha\) 在边界上的积分联系起来。
+
+\begin{theorem}[流形上的外微分]
+\label{thm:manifold-exterior-derivative}
+外微分是唯一具有下列性质的实线性局部算子：在函数上，
+\[
+ df(v)=v(f);
+\]
+若 \(\alpha\in\Omega^k(M)\)，则
+\[
+ d(\alpha\wedge\beta)
+ =d\alpha\wedge\beta+(-1)^k\alpha\wedge d\beta;
+\]
+并且 \(d^2=0\)。此外，对任意光滑映射 \(F:M\to N\)，都有
+\[
+ d(F^*\omega)=F^*(d\omega).
+\]
+\end{theorem}
+
+\begin{proof}
+存在性及各恒等式都可在坐标图中检验，归结为欧氏空间中的相应结论。为证
+唯一性，注意每个形式局部都是
+\[
+ a_I\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}
+\]
+的有限和。算子在函数上的作用、分次 Leibniz 规则以及
+\(d(dx^i)=d^2x^i=0\) 已经唯一决定每一项的外微分，因而唯一决定全局算子。
+\end{proof}
+
+对向量场 \(X\)，内乘算子
+\(\iota_X:\Omega^k(M)\to\Omega^{k-1}(M)\) 定义为
+\[
+ (\iota_X\omega)(X_1,\ldots,X_{k-1})
+ =\omega(X,X_1,\ldots,X_{k-1}).
+\]
+Lie 导数可以先用向量场及其括号定义：
+\[
+ (\mathcal L_X\omega)(X_1,\ldots,X_k)
+ =X\bigl(\omega(X_1,\ldots,X_k)\bigr)
+ -\sum_{j=1}^k
+ \omega(X_1,\ldots,[X,X_j],\ldots,X_k),
+\]
+并约定 \(\mathcal L_Xf=Xf\)。
+
+\begin{theorem}[Cartan 公式]
+\label{thm:cartan-magic-formula}
+对任意向量场 \(X\) 和微分形式 \(\omega\)，有
+\[
+ \mathcal L_X\omega=d(\iota_X\omega)+\iota_X(d\omega).
+\]
+\end{theorem}
+
+\begin{proof}
+先核对所需的导子性质。把楔积代入 Lie 导数的定义，并分别让 \(X\) 作用于
+两个因子的系数，可得
+\[
+ \mathcal L_X(\alpha\wedge\beta)
+ =(\mathcal L_X\alpha)\wedge\beta
+  +\alpha\wedge\mathcal L_X\beta .
+\]
+因此 \(\mathcal L_X\) 是零次导子。若 \(\alpha\in\Omega^p(M)\)，则内乘的
+分次 Leibniz 规则为
+\[
+ \iota_X(\alpha\wedge\beta)
+ =\iota_X\alpha\wedge\beta+(-1)^p\alpha\wedge\iota_X\beta.
+\]
+把它和外微分的分次 Leibniz 规则依次用于
+\(D=d\iota_X+\iota_Xd\)，含
+\(d\alpha\wedge\iota_X\beta\) 与
+\(\iota_X\alpha\wedge d\beta\) 的交叉项分别抵消，得到
+\[
+ D(\alpha\wedge\beta)=D\alpha\wedge\beta+\alpha\wedge D\beta.
+\]
+所以 \(D\) 也是零次导子。局部坐标下的微分形式由光滑函数和
+\(dx^i=d(x^i)\) 生成，只需在函数 \(f\) 和一次形式 \(df\) 上检验等式。
+
+在函数上，\(\iota_Xf=0\)，所以右端为
+\[
+ \iota_Xdf=df(X)=Xf=\mathcal L_Xf.
+\]
+对 \(df\)，右端为
+\[
+ d(\iota_Xdf)+\iota_Xd^2f=d(Xf).
+\]
+另一方面，对任意向量场 \(Y\)，
+\[
+ (\mathcal L_Xdf)(Y)
+ =X(Yf)-df([X,Y])
+ =X(Yf)-[X,Y]f
+ =Y(Xf),
+\]
+也等于 \(d(Xf)(Y)\)。两算子在局部生成元上一致，故在所有微分形式上
+一致。
+\end{proof}
+
+若 \(X\) 有局部流 \(\Phi_t\)，则上述定义还满足
+\[
+ \mathcal L_X\omega
+ =\left.\frac{d}{dt}\right|_{t=0}\Phi_t^*\omega.
+\]
+这给出了 Lie 导数的动力学解释。证明这一等式需要局部流对初值与参数的
+光滑依赖；Cartan 公式本身则可由上面的代数论证直接得到。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　切空间和切映射}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{tangent-coordinate-basis-change}
+ 从导子定义推导两组坐标之间切向量基和分量的变换公式。
+ \exerciseitem{tangent-hadamard-derivation}
+ 补全\theoremref{thm:tangent-curves-derivations}中的 Hadamard 分解，并
+ 证明每个导子由坐标函数上的值唯一决定。
+ \exerciseitem{tangent-map-curve-chain-rule}
+ 分别用曲线表示和导子表示证明切映射的链式法则。
+ \exerciseitem{tangent-regular-level-kernel}
+ 设 \(F:M^n\to N^m\) 光滑，\(m\le n\)，而 \(c\in N\) 是正则值。若
+ \(S=F^{-1}(c)\)，证明对每个 \(p\in S\)，
+ \[
+  T_pS=\ker dF_p .
+ \]
+ \exerciseitem{tangent-product-splitting}
+ 构造自然同构
+ \[
+  T_{(p,q)}(M\times N)\cong T_pM\oplus T_qN,
+ \]
+ 并证明它与积映射的切映射相容。
+\end{enumerate}
+
+\subsection*{B组　向量场与张量}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{lie-bracket-coordinate-formula}
+ 逐项推导 Lie 括号的坐标公式，并核对二阶偏导项为何相消。
+ \exerciseitem{lie-bracket-jacobi-expansion}
+ 不引用命题~\ref{prop:lie-bracket-properties}，把向量场当作算子展开并
+ 证明 Jacobi 恒等式。
+ \exerciseitem{lie-bracket-diffeomorphism-naturality}
+ 若 \(F\) 是微分同胚，证明
+ \[
+  F_*[X,Y]=[F_*X,F_*Y].
+ \]
+ \exerciseitem{cotangent-chain-rule}
+ 由定义证明 \(d(g\circ F)=F^*(dg)\)，并写出它的矩阵形式。
+ \exerciseitem{tensor-contraction-invariance}
+ 对一个 \((1,1)\) 型张量证明其收缩在换坐标后不变，并说明该收缩就是相应
+ 线性算子的迹。
+\end{enumerate}
+
+\subsection*{C组　微分形式与 Cartan 公式}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{forms-pullback-wedge-functorial}
+ 从定义证明拉回保持楔积并反转复合次序。
+ \exerciseitem{forms-exterior-coordinate-free-formula}
+ 证明对 \(\omega\in\Omega^k(M)\)，
+ \[
+ \begin{aligned}
+ d\omega(X_0,\ldots,X_k)
+ ={}&\sum_i(-1)^iX_i
+ \omega(X_0,\widehat X_i,\ldots,X_k)\\
+ &+\sum_{i<j}(-1)^{i+j}
+ \omega\bigl([X_i,X_j],X_0,\ldots,\widehat X_i,\ldots,\\
+ &\hspace{10em}\widehat X_j,\ldots,X_k\bigr).
+ \end{aligned}
+ \]
+ 第二项中，省略的向量保持原来的相对次序。
+ \exerciseitem{forms-cartan-one-form-direct}
+ 对一般一次形式直接展开并验证 Cartan 公式，不使用“由生成元推广”的论证。
+ \optionalexerciseitem{forms-flow-lie-derivative}
+ 设光滑向量场 \(X\) 已有局部流 \(\Phi_t\)。用坐标链式法则证明
+ \[
+  \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*f=Xf,\qquad
+  \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*(df)=d(Xf),
+ \]
+ 再把结论推广到所有微分形式。
+\end{enumerate}

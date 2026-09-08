@@ -1,0 +1,359 @@
+\chapter{流形上的 Stokes 定理}
+\label{chap:stokes-manifolds}
+
+第\ref{chap:differential-forms-euclidean}章已经在欧氏区域和有限参数胞腔上
+证明了 Stokes 公式。一般流形未必能用一张坐标图覆盖，也没有必要先把它
+剖分成互不重叠的参数胞腔。这里采用另一种做法：先定义顶次微分形式的积分，
+再借助单位分解把欧氏空间中的局部公式拼成全局公式。
+
+本章的 Stokes 定理适用于任意正维有限维光滑流形；在非紧流形上，被积形式须有
+紧支集。定理不依赖 Riemann 度量：积分的符号由定向决定，外微分则只依赖
+光滑结构。
+
+\section{定向和体积形式}
+
+设 $V$ 是 $n$ 维实向量空间。行列式线
+$\det V=\Lambda^nV$ 是一维实向量空间；从
+$\det V\setminus\{0\}$ 的两个连通分支中选择一个，称为 $V$ 的一个定向。
+当 $n\ge1$ 时，这等价于把有序基按照过渡矩阵行列式的正负分成两类并选择
+一类。若 $n=0$，则 $\det V=\Lambda^0V=\R$，两个定向分别由 $1$ 和
+$-1$ 表示；这个约定用于给定向区间的两个边界点赋予相反符号。
+
+设 $M^n$ 为光滑流形。流形的定向是在各 $T_pM$ 上光滑地选择一个定向。
+当 $n\ge1$ 时，这等价于选取一个图册，使任意两个相交坐标图之间的坐标
+变换都有正 Jacobian 行列式；这样的图册称为\emph{定向图册}，其中的图称为
+定向坐标图。若连通流形可定向，则在一点选定正向以后，连续性迫使这一选择
+沿流形一致地延续，因而它恰有两个定向。零维流形是离散的，其定向是在每个
+点分别选择正号或负号。
+
+\(\R^n\) 的标准定向由有序基
+\((\partial_1,\ldots,\partial_n)\) 给出。球面 \(S^n=\partial B^{n+1}\)
+取边界定向时，\((v_1,\ldots,v_n)\) 在 \(p\) 处为正，恰当且仅当
+\((p,v_1,\ldots,v_n)\) 是 \(\R^{n+1}\) 的正向基。并非每个流形都可定向：
+沿 M\"obius 带的中心圆周连续搬运一个横向方向，绕行一周后它反向，因此不
+可能在所有切空间上连续选取相容的正向基。
+
+处处不为零的光滑 $n$-形式称为\emph{体积形式}。这里的“体积”只表示
+顶次形式，并未指定长度或 Riemann 度量。当 $n\ge1$ 时，体积形式 $\mu$
+规定一个定向：有序基 $(v_1,\ldots,v_n)$ 为正，当且仅当
+\[
+ \mu(v_1,\ldots,v_n)>0.
+\]
+当 $n=0$ 时，定向由 $\mu(p)$ 的符号规定。
+
+\begin{theorem}\label{thm:orientation-volume-form}
+光滑流形可定向，当且仅当它存在体积形式。
+\end{theorem}
+
+\begin{proof}
+当 $n=0$ 时，按各点所选的符号令零形式 $\mu$ 取值为 $1$ 或 $-1$
+即可；反向结论也立即成立。以下设 $n\ge1$。
+
+体积形式给出定向已经由上述正值条件说明。在两个由它定向的坐标图的重叠处，
+顶次形式的系数按照 Jacobian 行列式变换；两边系数均为正，故坐标变换的
+Jacobian 行列式为正。
+
+反过来，设 $M$ 已定向。取定向坐标覆盖 $\{(U_i,x_i)\}_{i\in I}$ 和从属于
+它的光滑单位分解 $\{\rho_i\}_{i\in I}$。在 $U_i$ 上令
+\[
+ \mu_i=x_i^*(du^1\wedge\cdots\wedge du^n).
+\]
+由于 $\operatorname{supp}\rho_i\subset U_i$，形式 $\rho_i\mu_i$ 在
+$U_i$ 外补零以后是全局光滑形式。定义
+\[
+ \mu=\sum_{i\in I}\rho_i\mu_i.
+\]
+这个和局部有限。对任意正向基，每个非零项的取值都为正；在每一点又至少有
+一个 $\rho_i>0$，所以 $\mu$ 处处不为零。
+\end{proof}
+
+体积形式并不唯一。同一定向下的两个体积形式满足
+$\nu=f\mu$，其中 $f$ 是处处为正的光滑函数。反之，正光滑函数的这种乘法
+不改变定向；若 $f<0$，则 $\nu$ 给出相反定向。
+
+\section{流形上微分形式的积分}
+
+当 $n=0$ 时，紧支撑零形式只在有限多个点非零；定义其积分为这些函数值按
+各点定向符号所得的有限和。以下的坐标积分构造设 $n\ge1$。
+
+先设 $\omega\in\Omega_c^n(M)$ 的支集包含在一张定向坐标图 $(U,x)$ 中。
+定义
+\[
+ \int_M\omega
+ :=\int_{x(U)}(x^{-1})^*\omega.
+\]
+右端是欧氏空间中紧支撑函数的积分。若改用另一张定向坐标图，欧氏变量代换
+公式中的 Jacobian 行列式为正，所得数值不变。
+
+一般紧支撑顶次形式的支集可能跨越多张坐标图。取从属于定向坐标覆盖的单位
+分解 $\{\rho_i\}$，定义
+\begin{equation}\label{eq:manifold-form-integral}
+ \int_M\omega:=\sum_i\int_M\rho_i\omega.
+\end{equation}
+紧集只与局部有限族中的有限多个支集相交，故上式实际是有限和。
+
+\begin{proposition}\label{prop:manifold-integral-well-defined}
+式 \eqref{eq:manifold-form-integral} 与所选定向坐标覆盖及单位分解无关。
+若 $F:M\to N$ 是定向保持微分同胚，则
+\[
+ \int_MF^*\omega=\int_N\omega,
+ \qquad \omega\in\Omega_c^n(N).
+\]
+若 $F$ 反转定向，等式右端应乘以 $-1$。
+\end{proposition}
+
+\begin{proof}
+先比较从属于两套定向坐标覆盖的单位分解
+$\{\rho_i\}$、$\{\sigma_j\}$。由于 $\sum_j\sigma_j=1$，
+\[
+ \sum_i\int_M\rho_i\omega
+ =\sum_{i,j}\int_M\rho_i\sigma_j\omega.
+\]
+这里仅有有限多项非零。每一项的支集都落在两张坐标图的交中。欧氏变量代换
+公式表明，两张图给出的积分相同。交换有限求和的次序便得到
+$\sum_j\int_M\sigma_j\omega$。
+
+微分同胚公式同样可由单位分解化到支集位于一张坐标图的情形；此时它就是欧氏
+变量代换公式。定向保持与定向反转分别对应 Jacobian 行列式恒正与恒负。
+\end{proof}
+
+若 $S^k\subset M$ 是定向嵌入子流形，$\iota:S\hookrightarrow M$ 为
+包含映射，且 $\eta\in\Omega^k(M)$ 限制到 $S$ 后有紧支集，则约定
+\[
+ \int_S\eta:=\int_S\iota^*\eta.
+\]
+若 $\Phi:P^k\to S$ 是定向保持微分同胚，也可把右端写成
+$\int_P\Phi^*\iota^*\eta$，其重参数化不变性已包含在上述命题中。对一般
+非单射参数化，像中各点可能被覆盖多次，必须另行计入重数，不能直接沿用这个
+定义。
+
+\section{边界流形及边界定向}
+
+以下设 $n\ge1$，并记闭半空间
+\[
+ \mathbb H^n=\{(x^1,\ldots,x^n)\in\R^n:x^n\ge0\}.
+\]
+带边界光滑流形局部同胚于 $\mathbb H^n$ 的相对开集。坐标变换及其逆要求
+可以光滑延拓到环境欧氏开集；这样的坐标变换把 $x^n=0$ 保持到边界超平面。
+事实上，设坐标变换把边界点 $x$ 送到半空间内部点 $y$。两个方向的光滑延拓
+在半空间内部互逆，故其导数恒等式连续延伸到 $x,y$，坐标变换的环境导数在
+$x$ 处可逆。逆函数定理于是给出 $y$ 的一个欧氏开邻域 $O$，使逆延拓把 $O$
+微分同胚地映到 $x$ 的一个欧氏开邻域。由于 $y$ 是半空间内部点，可缩小
+$O\subset\mathbb H^n$；在 $O$ 上逆延拓等于原坐标逆变换，故其像包含在
+$\mathbb H^n$ 中。这就得到一个包含边界点 $x$ 的欧氏开集且该开集包含在
+$\mathbb H^n$ 中，矛盾。对逆坐标变换使用同一论证，内点也不可能变成边界点。
+
+因此，下列集合与坐标图的选择无关：
+\[
+ \partial M=\{p\in M:x(p)\in\{x^n=0\}\},
+ \qquad M^\circ=M\setminus\partial M.
+\]
+把边界图的前 $n-1$ 个坐标限制到 $\partial M$，得到一个 $n-1$ 维
+无边界光滑流形。区间 $[a,b]$ 是一维带边界流形，其边界由两个零维流形点
+组成。
+
+设 $M$ 已定向。边界定向采用\emph{外法向优先}约定：若 $n_{\rm out}$
+指向半空间之外，则 $(v_1,\ldots,v_{n-1})$ 是 $\partial M$ 的正向基，
+当且仅当
+\[
+ (n_{\rm out},v_1,\ldots,v_{n-1})
+\]
+是 $M$ 的正向基。这个约定在平面圆盘上给出逆时针边界；在取标准定向的
+区间 $[a,b]$ 上，右端点带正号，左端点带负号。
+
+第\ref{chap:smooth-manifolds}章的单位分解定理同样适用于带边界流形。
+Hausdorff、第二可数和局部紧性仍给出同样的紧穷竭与局部有限加细；在边界图
+中把欧氏开球换成相对开半球，并把环境欧氏空间中的光滑截断函数限制到半空间，
+即可重复光滑截断与归一化求和的证明。因此，带边界流形的每个开覆盖都有从属
+的光滑单位分解。
+
+\section{单位分解下的一般 Stokes 定理}
+
+先计算所需的局部模型。设
+$\omega\in\Omega_c^{n-1}(\mathbb H^n)$，写成
+\[
+ \omega=\sum_{j=1}^n(-1)^{j-1}a_j\,
+ dx^1\wedge\cdots\wedge\widehat{dx^j}\wedge\cdots\wedge dx^n.
+\]
+于是
+\[
+ d\omega=\left(\sum_{j=1}^n\partial_ja_j\right)
+ dx^1\wedge\cdots\wedge dx^n.
+\]
+当 $j<n$ 时，沿 $x^j$ 积分所得的边界项因紧支撑而为零；当 $j=n$ 时，
+\[
+ \int_0^\infty\partial_na_n(x',t)\,dt=-a_n(x',0).
+\]
+按外法向优先约定，半空间边界的定向恰好使右侧等于
+$\int_{\partial\mathbb H^n}\iota^*\omega$。因此
+\begin{equation}\label{eq:half-space-stokes}
+ \int_{\mathbb H^n}d\omega
+ =\int_{\partial\mathbb H^n}\iota^*\omega.
+\end{equation}
+若 $\omega$ 的支集落在半空间内部，右端为零；这也包含了无边界欧氏坐标图
+中的局部公式。
+
+\begin{theorem}[流形上的 Stokes 定理]\label{thm:manifold-stokes}
+设 $n\ge1$，且 $M$ 是定向光滑 $n$ 维带边界流形，
+$\iota:\partial M\hookrightarrow M$ 为包含映射。对每个
+$\omega\in\Omega_c^{n-1}(M)$，都有
+\[
+ \int_Md\omega=\int_{\partial M}\iota^*\omega.
+\]
+若 $M$ 紧，可以删去紧支撑条件。
+\end{theorem}
+
+\begin{proof}
+用定向内部图和定向边界图覆盖 $\operatorname{supp}\omega$，再把
+$M\setminus\operatorname{supp}\omega$ 加入这一族，得到 $M$ 的开覆盖，
+并取从属的局部有限单位分解。支撑在
+$M\setminus\operatorname{supp}\omega$ 中的项乘以 $\omega$ 后为零，将其
+删去，余下函数记为 $\{\rho_i\}$。因为 $\operatorname{supp}\omega$ 紧，
+只有有限项参与积分；并且在它的一个邻域内 $\sum_i\rho_i=1$，因而
+\[
+ \sum_i d(\rho_i\omega)
+ =\sum_i(d\rho_i\wedge\omega+\rho_i\,d\omega)
+ =d\left(\sum_i\rho_i\right)\wedge\omega
+  +\left(\sum_i\rho_i\right)d\omega
+ =d\omega.
+\]
+每个 $\rho_i\omega$ 支撑在一张图中。把它拉回欧氏开集或半空间的相对
+开集，并在一个较大的半空间中补零，公式 \eqref{eq:half-space-stokes}
+给出
+\[
+ \int_Md(\rho_i\omega)
+ =\int_{\partial M}\iota^*(\rho_i\omega).
+\]
+边界图中的符号与外法向优先约定一致；内部图的边界积分为零。对有限多个指标
+求和，并在 $\operatorname{supp}(\iota^*\omega)$ 上使用
+$\sum_i\iota^*\rho_i=1$，便得到结论。
+\end{proof}
+
+若 $\partial M=\varnothing$，每个紧支撑恰当顶次形式的积分都为零。
+对区间 $[a,b]$ 和零形式 $f$，定理化为
+\[
+ \int_{[a,b]}df=f(b)-f(a),
+\]
+也就是 Newton--Leibniz 公式。
+
+在非紧流形上，紧支撑条件不能任意删去。取 \(M=\R\) 及
+\(f(x)=\arctan x\)。虽然 \(df=dx/(1+x^2)\) 可积，但
+\[
+ \int_{\R}df=\pi,
+\]
+而 \(\partial\R=\varnothing\)。这里 \(f\) 不具有紧支撑；把局部公式在
+无穷远处拼接时出现的端点贡献没有消失。若要处理非紧支撑形式，必须另外给出
+足以控制无穷远处边界项的条件。
+
+第\ref{chap:differential-forms-euclidean}章的证明依靠有限胞腔之间的内部
+边界相消；本章允许坐标图重叠，单位分解把形式拆成可以分别应用局部公式的
+有限和。两种证明使用同一局部公式，区别在于全局拼接的方法。
+
+\section{局部 Poincaré 引理}
+
+称 $\omega\in\Omega^k(M)$ 为\emph{闭形式}，如果 $d\omega=0$；若存在
+$\eta\in\Omega^{k-1}(M)$ 使 $\omega=d\eta$，则称 $\omega$ 为
+\emph{恰当形式}。恒等式 $d^2=0$ 表明每个恰当形式都是闭形式。
+
+\begin{theorem}[局部 Poincaré 引理]\label{thm:local-poincare-manifold}
+若 $k\ge1$ 且 $\omega\in\Omega^k(M)$ 为闭形式，则每个 $p\in M$ 都有
+开邻域 $U$，使 $\omega|_U$ 为恰当形式。
+\end{theorem}
+
+\begin{proof}
+若 $p\in M^\circ$，取 $p$ 的坐标图并适当缩小，使坐标像为一个欧氏开球
+$B$。若 $x:U\to B$，则
+\[
+ \widetilde\omega=(x^{-1})^*(\omega|_U)
+\]
+是 $B$ 上的闭 $k$-形式，因为拉回与外微分交换。开球关于其中心星形，
+第\ref{chap:differential-forms-euclidean}章的 Poincaré 引理给出
+$\widetilde\eta\in\Omega^{k-1}(B)$，使
+$d\widetilde\eta=\widetilde\omega$。令 $\eta=x^*\widetilde\eta$，便有
+\[
+ d\eta=x^*(d\widetilde\eta)
+ =x^*\widetilde\omega=\omega|_U.
+\]
+
+若 $p\in\partial M$，则把 $B$ 换成以边界点为中心的半球
+$B\cap\mathbb H^n$。流形上光滑形式的坐标系数可延拓到这个半球的一个
+欧氏邻域，而第\ref{chap:differential-forms-euclidean}章证明
+Poincaré 引理所用的径向同伦保持半球不变。因此同一同伦公式限制到半球后
+仍然成立，以上拉回论证无需改变。
+\end{proof}
+
+当 \(k=1\) 时，引理说闭一次形式在每一点附近都是某个函数的微分。因而在
+足够小的坐标邻域中，它沿曲线的积分只取决于端点，并且沿闭曲线的积分为零。
+反过来，若一次形式在一个道路连通邻域内沿任意闭曲线积分为零，固定基点后用
+路径积分定义函数，就可得到局部原函数。局部 Poincaré 引理把偏导相容条件
+\(d\omega=0\) 与局部势函数的存在联系起来；全局是否存在势函数还受流形拓扑
+影响。
+
+局部结论不能直接改成全局结论。在单位圆 $S^1\subset\R^2$ 上，一次形式
+\[
+ \alpha=(x\,dy-y\,dx)|_{S^1}
+\]
+自动闭，因为 $S^1$ 上没有非零二形式。用参数
+$\gamma(t)=(\cos t,\sin t)$ 计算得
+\[
+ \int_{S^1}\alpha=\int_0^{2\pi}dt=2\pi.
+\]
+若 $\alpha=df$，一维 Stokes 定理会给出闭流形上 $\alpha$ 的积分为零，
+矛盾。下一章将用上同调记录“局部恰当而不能全局恰当”的障碍。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　定向与积分}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+ \exerciseitem{orientation-connected-two-choices}
+ 证明连通可定向流形恰有两个定向，并说明不连通情形如何计数。
+ \exerciseitem{orientation-volume-form-ratio}
+ 证明给出同一定向的两个体积形式之比是正光滑函数；反之也成立。
+ \exerciseitem{orientation-product-swap-sign}
+ 给 $M^m\times N^n$ 取积定向，证明交换映射
+ $(p,q)\mapsto(q,p)$ 改变定向的符号为 $(-1)^{mn}$。
+ \exerciseitem{orientation-sphere-outward-normal}
+ 用外法向优先约定给 $S^{n-1}=\partial B^n$ 定向，并验证在 $S^1$ 上
+ 得到逆时针方向。
+ \exerciseitem{integration-diffeomorphism-sign}
+ 从欧氏变量代换公式出发，完整证明命题
+ \ref{prop:manifold-integral-well-defined} 中微分同胚的积分公式。
+\end{enumerate}
+
+\subsection*{B组　边界与 Stokes 公式}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{boundary-oriented-interval}
+ 求正向区间 $[a,b]$ 的两个边界点所带符号，并由流形 Stokes 定理恢复
+ Newton--Leibniz 公式。
+ \exerciseitem{boundary-product-orientation}
+ 设 $M^m$ 是无边界定向流形，区间 $[a,b]$ 取标准定向。核对定向并证明
+ \[
+ \partial(M\times[a,b])
+ =(-1)^m(M\times\{b\})\;\sqcup\;(-1)^{m+1}(M\times\{a\}).
+ \]
+ \exerciseitem{stokes-half-space-sign}
+ 逐项完成公式 \eqref{eq:half-space-stokes}，特别核对 $j=n$ 项和边界定向
+ 的符号。
+ \exerciseitem{stokes-partition-derivative-cancellation}
+ 证明 $\sum_i d(\rho_i\omega)=d\omega$，并说明局部有限性为何足以逐项
+ 求外微分。
+ \exerciseitem{stokes-exact-top-form-zero}
+ 若 $M$ 是无边界紧定向流形，证明每个恰当顶次形式的积分为零；再给出
+ 非紧且原形式不具紧支撑时结论失败的例子。
+\end{enumerate}
+
+\subsection*{C组　局部恰当与全局障碍}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+ \exerciseitem{poincare-chart-transfer}
+ 详细核对局部 Poincaré 引理证明中各次拉回的方向以及拉回与 $d$ 的交换。
+ \exerciseitem{poincare-circle-not-exact}
+ 计算 $(x\,dy-y\,dx)|_{S^1}$ 的积分，并证明它闭而不恰当。
+ \exerciseitem{stokes-boundary-of-boundary-integral}
+ 设 $n\ge2$，$M$ 紧且有边界，$\eta\in\Omega^{n-2}(M)$。证明
+ $\int_{\partial M}d(\iota^*\eta)=0$，并指出证明中使用的两个交换关系。
+ \optionalexerciseitem{stokes-compact-support-euclidean-top}
+ 设 $f\in C_c^\infty(\R^n)$。证明顶次形式
+ $f\,dx^1\wedge\cdots\wedge dx^n$ 若有紧支撑原形式，则其积分为零；
+ 再证明积分为零时它确实有紧支撑原形式。
+\end{enumerate}

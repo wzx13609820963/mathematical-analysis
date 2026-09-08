@@ -1,0 +1,203 @@
+\chapter{Riemann 映射定理}
+
+\begin{solution}{riemann-mobius-disk-identity}
+直接通分得
+\begin{align*}
+ 1-|\phi_a(z)|^2
+ &=\frac{|1-\overline a z|^2-|z-a|^2}{|1-\overline a z|^2}\\
+ &=\frac{1-|a|^2-|z|^2+|a|^2|z|^2}{|1-\overline a z|^2}\\
+ &=\frac{(1-|a|^2)(1-|z|^2)}{|1-\overline a z|^2}.
+\end{align*}
+所以 $|z|<1$ 当且仅当 $|\phi_a(z)|<1$。解方程
+$w=(z-a)/(1-\overline a z)$ 得
+\[
+ \phi_a^{-1}(w)=\frac{w+a}{1+\overline a w}=\phi_{-a}(w).
+\]
+\end{solution}
+
+\begin{solution}{riemann-cayley-half-plane}
+对 $|z|<1$，
+\[
+ \operatorname{Im}\left(i\frac{1+z}{1-z}\right)
+ =\operatorname{Re}\frac{1+z}{1-z}
+ =\frac{1-|z|^2}{|1-z|^2}>0.
+\]
+所以 $C(\mathbb D)\subset\mathbb H$。解 $w=i(1+z)/(1-z)$ 得
+\[
+ z=\frac{w-i}{w+i}.
+\]
+当 $\operatorname{Im}w>0$ 时，$|w-i|<|w+i|$，故逆式落在单位圆盘。
+两式均为分母不为零的 M\"obius 变换，因而给出双全纯映射。
+\end{solution}
+
+\begin{solution}{riemann-univalent-derivative}
+若 $f'(a)=0$，设 $m\ge2$ 是 $f-f(a)$ 在 $a$ 的零点阶数。写
+$f(z)-f(a)=(z-a)^mg(z)$，其中 $g(a)\ne0$。在小圆盘中可取 $g$ 的全纯
+$m$ 次方根 $q$，并令 $h(z)=(z-a)q(z)$。则 $h'(a)=q(a)\ne0$，所以 $h$
+把 $a$ 的小邻域双全纯映到零的邻域，而
+\[
+ f(z)-f(a)=h(z)^m.
+\]
+小圆环中取 $w$ 与 $e^{2\pi i/m}w$，它们有相同 $m$ 次幂；经 $h^{-1}$ 拉回
+得到两个不同点具有相同 $f$ 值，违背单叶性。
+\end{solution}
+
+\begin{solution}{riemann-family-construction}
+若 $h(z)=1/(g(z)+w_0)$，正文已由
+$B(-w_0,r)\cap g(\Omega)=\varnothing$ 得
+$|g(z)+w_0|\ge r$，故 $|h(z)|\le1/r$。若 $h(z_1)=h(z_2)$，分母非零，
+取倒数得 $g(z_1)=g(z_2)$；$g$ 单叶，所以 $z_1=z_2$。因此 $h$ 有界且
+单叶。再取
+\[
+ 0<\lambda<\bigl(1/r+|h(a)|\bigr)^{-1},
+\]
+便有 $|\lambda(h(z)-h(a))|<1$，所得函数属于 $\mathcal F_a$。
+\end{solution}
+
+\begin{solution}{riemann-extremal-compactness}
+由 $|f_n|<1$ 和 Montel 定理，取子列局部一致收敛到全纯函数 $f$，且
+$|f|\le1$。导数局部一致收敛给
+\[
+ f(a)=0,\qquad |f'(a)|=\lim_n|f_n'(a)|=\alpha>0.
+\]
+因此 $f$ 非常值；最大模原理遂给 $|f|<1$。单叶函数极限或者单叶或者常值，
+后一种已由 $f'(a)\ne0$ 排除。故 $f$ 单叶、映入圆盘并在 $a$ 取零，即
+$f\in\mathcal F_a$。
+\end{solution}
+
+\begin{solution}{riemann-omitted-value-improvement}
+记 $r=|c|\in(0,1)$。由 $T=\phi_c\circ f$、$q^2=T$、$s=q(a)$，
+\[
+ |T'(a)|=(1-r^2)|f'(a)|,\qquad |s|=\sqrt r,\qquad
+ |q'(a)|=\frac{(1-r^2)|f'(a)|}{2\sqrt r}.
+\]
+又 $|\phi_s'(s)|=(1-|s|^2)^{-1}=(1-r)^{-1}$。所以
+\[
+ \frac{|(\phi_s\circ q)'(a)|}{|f'(a)|}
+ =\frac{1-r^2}{2\sqrt r(1-r)}
+ =\frac{1+r}{2\sqrt r}
+ =1+\frac{(1-\sqrt r)^2}{2\sqrt r}>1.
+\]
+这给出比极值函数更大的基点导数，故遗漏值不可能存在。
+\end{solution}
+
+\begin{solution}{riemann-normalized-uniqueness}
+设 $f,g:\Omega\to\mathbb D$ 双全纯且 $f(a)=g(a)=0$。则
+$T=g\circ f^{-1}$ 是圆盘自同构并固定零点。对 $T$ 和 $T^{-1}$ 分别使用
+Schwarz 引理，得到 $|T(z)|=|z|$。于是 $T(z)/z$ 在圆盘上全纯且模恒为一，
+最大模原理给 $T(z)=e^{i\theta}z$。因此 $g=e^{i\theta}f$。若两者在 $a$
+的导数都为正实数，则求导后 $e^{i\theta}=1$。
+\end{solution}
+
+\begin{solution}{riemann-schwarz-equality}
+在 Schwarz 引理的证明中，$g(z)=f(z)/z$ 满足 $|g|\le1$。若
+$|f(z_0)|=|z_0|$ 对某个 $z_0\ne0$ 成立，则 $|g(z_0)|=1$；若
+$|f'(0)|=1$，则 $|g(0)|=1$。两者都迫使 $g$ 为模一常数，因而都推出
+$f(z)=e^{i\theta}z$，这时两种等号处处成立。
+
+若圆盘自同构 $T$ 固定不同两点 $a,b$，则
+$S=\phi_a\circ T\circ\phi_a^{-1}$ 固定零点和非零点 $\phi_a(b)$。
+$S$ 必为旋转，而一个旋转固定非零点只能是恒等映射，故 $T$ 为恒等映射。
+\end{solution}
+
+\begin{solution}{riemann-schwarz-pick-half-plane}
+令 $C:\mathbb D\to\mathbb H$ 为 Cayley 变换，并把
+$F=C^{-1}\circ f\circ C$ 应用 Schwarz--Pick 导数不等式。也可直接利用
+圆盘双曲线元在 $C$ 下的变换：计算
+\[
+ \frac{2|(C^{-1})'(w)|}{1-|C^{-1}(w)|^2}
+ =\frac1{\operatorname{Im}w}.
+\]
+全纯自映射不增加线元，于是
+\[
+ \frac{|f'(z)|}{\operatorname{Im}f(z)}
+ \le\frac1{\operatorname{Im}z}.
+\]
+等号的非平凡情形对应上半平面自同构。
+\end{solution}
+
+\begin{solution}{riemann-punctured-obstruction}
+若存在双全纯映射 $F:\mathbb D\setminus\{0\}\to\mathbb D$，则它是同胚，
+因而把闭路同伦类双射地对应。穿孔圆盘中的单位小圆周绕零点的绕数为一，
+不能在穿孔圆盘中收缩到一点；圆盘单连通，其中每条闭路都可收缩。矛盾。
+同样的论证表明单连通性是双全纯不变量。
+\end{solution}
+
+\begin{solution}{riemann-hyperbolic-invariance}
+若 $F,G:\Omega\to\mathbb D$ 都是 Riemann 映射，则
+$T=G\circ F^{-1}$ 是圆盘自同构。Schwarz--Pick 对 $T$ 与 $T^{-1}$ 分别给
+\[
+ d_{\mathbb D}(Tz,Tw)\le d_{\mathbb D}(z,w)
+ \le d_{\mathbb D}(Tz,Tw),
+\]
+故取等。于是
+$d_{\mathbb D}(Fz,Fw)=d_{\mathbb D}(Gz,Gw)$，拉回距离与选择无关。
+若 $H:\Omega_1\to\Omega_2$ 双全纯，选 $F_2:\Omega_2\to\mathbb D$，则
+$F_2\circ H$ 是 $\Omega_1$ 的 Riemann 映射，立即得到
+$d_{\Omega_2}(Hz,Hw)=d_{\Omega_1}(z,w)$。
+
+对密度也有同样的独立性。若 \(G=T\circ F\)，其中 \(T\) 是圆盘自同构，
+Schwarz--Pick 的等号公式给
+\[
+ \frac{|T'(F(z))|}{1-|T(F(z))|^2}
+ =\frac{1}{1-|F(z)|^2}.
+\]
+乘以 \(2|F'(z)|\) 即得由 \(F\) 和 \(G\) 定义的密度相同。
+
+任选 Riemann 映射 \(F_j:\Omega_j\to\mathbb D\)，并令
+\[
+ q=F_2\circ h\circ F_1^{-1}.
+\]
+Schwarz--Pick 的导数形式在 \(w=F_1(z)\) 处给
+\[
+ \frac{|q'(w)|}{1-|q(w)|^2}\le\frac1{1-|w|^2}.
+\]
+代入链式法则并整理，便得到
+\[
+ \lambda_{\Omega_2}(h(z))|h'(z)|
+ \le\lambda_{\Omega_1}(z).
+\]
+若 \(h\) 双全纯，对 \(h^{-1}\) 使用同一不等式即可得到反向不等式，故处处
+取等。反过来，若导数不等式在某一点取等，则 \(q\) 在 Schwarz--Pick
+不等式中取等，因而是圆盘自同构；于是 \(h=F_2^{-1}\circ q\circ F_1\)
+也是双全纯映射。
+\end{solution}
+
+\begin{solution}{riemann-radial-cluster}
+令
+\[
+ K_r=\overline{\{F(t\zeta):r<t<1\}}\subset\overline\Omega.
+\]
+因 $\Omega$ 有界，$\overline\Omega$ 紧；$K_r$ 是非空闭集，故紧。区间
+$(r,1)$ 连通，其连续像及闭包仍连通，所以 $K_r$ 连通。若 $r<s$，则
+$K_s\subset K_r$。取 $r_n\uparrow1$，嵌套非空紧集定理给
+$C_\zeta=\bigcap_nK_{r_n}\ne\varnothing$；嵌套紧连通集之交仍连通，故
+$C_\zeta$ 紧连通。
+
+每个聚点属于 $\overline\Omega$。若其中有 $w\in\Omega$，可取
+$t_n\uparrow1$ 使 $F(t_n\zeta)\to w$。连续逆映射给
+$t_n\zeta\to F^{-1}(w)\in\mathbb D$，另一方面左侧趋于边界点 $\zeta$，
+矛盾。因此 $C_\zeta\subset\partial\Omega$。
+\end{solution}
+
+\begin{solution}{riemann-half-plane-automorphisms}
+设 $T(z)=(az+b)/(cz+d)$，其中 $a,b,c,d\in\R$ 且
+$ad-bc>0$。直接计算
+\[
+ T'(z)=\frac{ad-bc}{(cz+d)^2},
+ \qquad
+ \operatorname{Im}T(z)=\frac{(ad-bc)\operatorname{Im}z}{|cz+d|^2}.
+\]
+所以
+\[
+ \frac{|T'(z)||dz|}{\operatorname{Im}T(z)}
+ =\frac{|dz|}{\operatorname{Im}z}.
+\]
+这样的变换及其逆都保持上半平面，故是双曲线元的等距。
+\end{solution}
+
+\begin{solution}{riemann-area-nonexample}
+单位圆盘 $\mathbb D$ 与半径 $2$ 的圆盘 $2\mathbb D$ 由 $f(z)=2z$ 双全纯
+等价，面积分别为 $\pi$ 与 $4\pi$。保角只说明微分在每一点是旋转与伸缩，
+并不要求伸缩因子等于一；面积元按 $|f'(z)|^2$ 伸缩。
+\end{solution}

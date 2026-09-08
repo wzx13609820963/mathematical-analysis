@@ -1,0 +1,280 @@
+\chapter{正规族}
+\label{chap:normal-families}
+
+逐点有界并不能保证一列全纯函数有收敛子列。复分析中起作用的是局部一致
+有界：Cauchy 估计把函数值的一致界传给导数，于是一个函数族在每个紧集上
+同时具有有界性和等度连续性。Arzel\`a--Ascoli 定理随后给出收敛子列，而
+Cauchy 积分公式保证极限仍全纯。这就是 Montel 定理的内容。
+
+正规族方法不直接计算候选极限。它先从任意序列中抽取极限，再用归一化、
+恒等定理或极值条件识别极限。下一章的 Riemann 映射定理将采用这一方法。
+
+\section{局部一致收敛和全纯极限}
+
+设 $\Omega\subset\C$ 为区域。称 $f_n\to f$ 在 $\Omega$ 上
+\term{局部一致收敛}，如果对每个紧集 $K\Subset\Omega$，都有
+\[
+ \sup_{z\in K}|f_n(z)-f(z)|\longrightarrow0.
+\]
+这也称为紧开收敛。它比整个 $\Omega$ 上的一致收敛弱，但足以在任意固定
+闭曲线和任意内含圆盘上使用一致极限。
+
+\begin{theorem}[Weierstrass 全纯极限定理]\label{thm:holomorphic-local-uniform-limit}
+若 $f_n$ 在 $\Omega$ 上全纯且局部一致收敛到 $f$，则 $f$ 全纯。并且对每个
+$k\ge0$，
+\[
+ f_n^{(k)}\longrightarrow f^{(k)}
+\]
+也在 $\Omega$ 上局部一致。
+\end{theorem}
+
+\begin{proof}
+固定 $a\in\Omega$，取 $R>0$ 使闭圆盘
+$\overline{B(a,R)}\subset\Omega$。在较小圆盘 $|z-a|<R$ 中，Cauchy 积分
+公式给
+\[
+ f_n(z)=\frac{1}{2\pi i}\int_{|\zeta-a|=R}
+ \frac{f_n(\zeta)}{\zeta-z}\,d\zeta.
+\]
+$f_n$ 在圆周上一致收敛到 $f$，故可在积分中取极限，得到同一公式，其中
+$f_n$ 换成 $f$。右侧关于 $z$ 全纯，所以 $f$ 在 $B(a,R)$ 中全纯。
+
+再对核求导，得到
+\[
+ f_n^{(k)}(z)-f^{(k)}(z)
+ =\frac{k!}{2\pi i}\int_{|\zeta-a|=R}
+ \frac{f_n(\zeta)-f(\zeta)}{(\zeta-z)^{k+1}}\,d\zeta.
+\]
+若 $|z-a|\le r<R$，右侧绝对值至多为
+\[
+ \frac{k!R}{(R-r)^{k+1}}
+ \max_{|\zeta-a|=R}|f_n(\zeta)-f(\zeta)|,
+\]
+因而在每个较小闭圆盘上一致趋零。任意紧集可由有限个这样的圆盘覆盖，结论
+成立。
+\end{proof}
+
+定理中的局部一致性不能在证明中直接换成逐点收敛：逐点收敛既不能保证在
+Cauchy 积分中交换极限，也不给导数的统一控制。若再有局部有界性，并且已知
+函数值在一个具有内部聚点的集合上收敛，Vitali--Porter 定理才会把这些较弱
+信息提升为局部一致收敛。
+
+在单位圆盘中，$f_n(z)=z^n$ 局部一致收敛到零，因为对
+$K\Subset\mathbb D$ 存在 $r<1$ 使 $|z|\le r$ 于 $K$，从而
+$\sup_K|z|^n\le r^n$。它在闭单位圆盘上并不一致收敛。这一例子也说明
+“局部”不能省略：紧集必须与区域边界保持正距离。
+
+\section{正规族}
+
+\begin{definition}
+区域 $\Omega$ 上的一族全纯函数 $\mathcal F$ 称为\term{正规族}，如果
+$\mathcal F$ 中任意序列都含有一个在 $\Omega$ 上局部一致收敛的子列，且
+极限为有限值全纯函数。
+\end{definition}
+
+这里采用有限值版本；常数列 $f_n\equiv n$ 因而没有正规子列。有些文献在
+Riemann 球面的球面距离下允许子列收敛到无穷远点，那是亚纯函数族常用的
+另一种约定，使用时必须另行说明。
+
+两个简单的函数族可以说明定义中各项的含义。族
+\[
+ \mathcal F_1=\{az:|a|<1\}
+\]
+在 $\mathbb D$ 上正规；系数列 $(a_n)$ 总可抽取收敛子列，函数列便在每个紧集
+上一致收敛。它却不是紧开拓扑下的闭集，因为 $a_n\to1$ 时极限 $z$ 不属于
+$\mathcal F_1$。所以正规性说的是相对紧性，并不包含封闭性。相反，
+$\mathcal F_2=\{nz:n\ge1\}$ 在原点逐点有界，却在任何含有非零点的紧集上
+都不一致有界，因而不是正规族。正规性所需的控制必须同时作用于一个邻域，
+只控制单个点没有作用。
+
+取紧集穷竭
+\[
+ K_m=\{z\in\Omega:|z|\le m,
+ \operatorname{dist}(z,\C\setminus\Omega)\ge1/m\},
+\]
+删去空项并适当扩大，可令 $K_m\subset\operatorname{int}K_{m+1}$ 且
+$\bigcup_mK_m=\Omega$。在全纯函数空间上定义
+\[
+ d(f,g)=\sum_{m=1}^{\infty}2^{-m}
+ \min\{1,\|f-g\|_{C(K_m)}\}.
+\]
+则 $d(f_n,f)\to0$ 当且仅当 $f_n\to f$ 局部一致。这个度量把“每个紧集
+上的一致收敛”变成普通的序列收敛，也使逐层抽取的对角线过程可以同时控制
+所有紧集。
+
+称 $\mathcal F$ \term{局部有界}，如果每个点 $a\in\Omega$ 都有邻域 $U$ 和
+常数 $M_U$，使
+\[
+ |f(z)|\le M_U\qquad(f\in\mathcal F, z\in U).
+\]
+有限覆盖说明，这等价于对每个 $K\Subset\Omega$ 都有
+$\sup_{f\in\mathcal F}\sup_K|f|<\infty$。
+
+\section{Montel 定理}
+
+\begin{theorem}[Montel 定理]\label{thm:montel-locally-bounded}
+区域上的任意局部有界全纯函数族都是正规族。
+\end{theorem}
+
+\begin{proof}
+先在一个紧集上取得等度连续性。固定 $K\Subset\Omega$，选取开集 $U$ 使
+$K\Subset U\Subset\Omega$。局部有界性与 $\overline U$ 的紧性给常数 $M$，
+使 $|f|\le M$ 对所有 $f\in\mathcal F$ 及 $z\in U$ 成立。记
+$d=\operatorname{dist}(K,\partial U)>0$，并取
+\[
+ 0<\rho<\frac d2.
+\]
+令 $K_\rho=\{z:\operatorname{dist}(z,K)\le\rho\}$。对
+$z\in K_\rho$，闭圆盘 $\overline{B(z,\rho)}$ 仍包含在 $U$ 中，故 Cauchy
+导数估计给
+\[
+ |f'(z)|\le \frac{M}{\rho}.
+\]
+若 $z,w\in K$ 且 $|z-w|<\rho$，连接它们的线段包含在 $K_\rho$ 中，沿线段
+积分便得
+\[
+ |f(z)-f(w)|\le \frac{M}{\rho}|z-w|.
+\]
+这就证明了 $\mathcal F|_K$ 等度连续；它还一致有界。
+
+现取上一节的紧集穷竭 $K_1\subset K_2\subset\cdots$，以及任意序列
+$(f_n)\subset\mathcal F$。由 Arzel\`a--Ascoli 定理，在 $K_1$ 上可抽取
+一致收敛子列；从该子列中再抽取在 $K_2$ 上一致收敛的子列，如此继续。
+取第 $m$ 层子列的第 $m$ 项组成对角子列 $(f_{n_m})$。对每个固定 $j$，它从
+某项起属于第 $j$ 层子列，故在 $K_j$ 上一致收敛。各层极限在交叠处相同，
+于是得到 $\Omega$ 上的局部一致极限 $f$。由
+定理\ref{thm:holomorphic-local-uniform-limit}，$f$ 全纯。
+\end{proof}
+
+在这里，Cauchy 估计承担了复分析特有的一步。对任意连续函数族，局部一致
+有界并不能推出等度连续；全纯性把函数值的控制自动转化为导数控制。
+证明的其余两步各有不同作用：Arzel\`a--Ascoli 只在一个固定紧集上给出子列，
+对角线过程把可数个紧集上的选择合并为同一子列；最后的 Weierstrass 定理才
+保证所得连续极限仍属全纯函数类。缺少其中任何一步，都还没有得到区域上的
+正规性。
+
+有限值意义下，Montel 定理还有逆向结论。
+
+\begin{proposition}\label{prop:normal-iff-locally-bounded}
+一族全纯函数正规，当且仅当它局部有界。
+\end{proposition}
+
+\begin{proof}
+只需证明正规蕴含局部有界。若在某个紧集 $K\Subset\Omega$ 上不一致有界，
+可选 $f_n\in\mathcal F$ 和 $z_n\in K$ 使 $|f_n(z_n)|\ge n$。取子列使
+$z_n\to z\in K$。正规性给进一步子列局部一致收敛到有限全纯函数，因而在
+$K$ 的一个紧邻域上一致有界，与 $|f_n(z_n)|\to\infty$ 矛盾。
+\end{proof}
+
+特别地，所有从 $\Omega$ 映入单位圆盘的全纯函数构成正规族。若再施加在一点
+取值、导数或单叶性等条件，需要检查这些条件在局部一致极限下是否封闭。
+取值与导数条件由
+定理\ref{thm:holomorphic-local-uniform-limit}保持；单叶性则由
+推论\ref{cor:univalent-limit}保持到“单叶或常值”这一准确形式。
+
+\section{Vitali--Porter 收敛定理}
+
+Montel 定理只给子列。若函数列已在一个具有内部聚点的集合上收敛，恒等定理
+会迫使所有子列极限相同，于是整个序列收敛。
+
+\begin{theorem}[Vitali--Porter 定理]\label{thm:vitali-porter}
+设 $(f_n)$ 是区域 $\Omega$ 上局部有界的全纯函数列。若存在集合
+$E\subset\Omega$，$E$ 在 $\Omega$ 内有聚点，并且对每个 $z\in E$，数列
+$(f_n(z))$ 收敛，则存在全纯函数 $f$，使 $f_n\to f$ 在 $\Omega$ 上局部
+一致。
+\end{theorem}
+
+\begin{proof}
+由 Montel 定理，$(f_n)$ 至少有一个局部一致收敛子列，记其极限为 $f$。
+若另一子列有局部一致极限 $g$，则对每个 $z\in E$，两者都必须等于原数列
+$f_n(z)$ 的同一极限。因此 $f=g$ 于 $E$，而 $E$ 在 $\Omega$ 内有聚点；
+恒等定理给 $f\equiv g$。
+
+现在反设原序列不局部一致收敛到 $f$。则存在紧集 $K\Subset\Omega$、
+$\varepsilon>0$ 和一个子列 $(f_{n_j})$，使
+\[
+ \sup_K|f_{n_j}-f|\ge\varepsilon\qquad(j\ge1).
+\]
+该子列仍局部有界，Montel 定理给出进一步局部一致收敛子列。按上一段，它的
+极限只能是 $f$，这与所写下界矛盾。因此整个序列局部一致收敛到 $f$。
+\end{proof}
+
+局部有界性不可省略。在单位圆盘中令
+\[
+ p_n(z)=n!\, z\prod_{k=1}^{n}\left(z-\frac1k\right).
+\]
+对 $E=\{0\}\cup\{1/k:k\ge2\}\subset\mathbb D$ 中每一点，$p_n(z)$ 最终
+为零，故逐点收敛；$E$ 的聚点 $0$ 位于圆盘内。但是在圆盘内的点
+$z=-1/2$，
+\[
+ |p_n(-1/2)|
+ =\frac{n!(n+1)(n+2)}{2^{n+2}}\longrightarrow\infty.
+\]
+所以该列在 $-1/2$ 的邻域不可能局部有界，也不可能局部一致收敛。
+
+集合 $E$ 的聚点必须位于区域内部。令
+\[
+ g(z)=\sin\frac{1}{1-z},\qquad
+ E=\left\{1-\frac{1}{k\pi}:k\ge1\right\}\subset\mathbb D,
+\]
+并令 $f_{2m}=0$、$f_{2m+1}=g$。这个函数列只含两个全纯函数，当然局部有界；
+它在 $E$ 上恒为零，故逐点收敛。然而 $E$ 在 $\mathbb D$ 内没有聚点，在
+$g(z)\ne0$ 的点处数列在 $0$ 与 $g(z)$ 之间交替，因而不收敛。边界点 $1$
+不能供恒等定理使用。
+
+\section{全纯函数族的紧性判据与应用}
+
+Montel 定理常通过容易核验的充分条件使用。第一种情形是值域有界：若所有
+$f\in\mathcal F$ 都把 $\Omega$ 映入同一个有界集合，则 $\mathcal F$ 正规。
+第二种情形是导数受控并固定一个基点。
+
+\begin{proposition}[导数判据]\label{prop:normal-derivative-criterion}
+设 $a\in\Omega$。若 $\{f(a):f\in\mathcal F\}$ 有界，并且导函数族
+$\{f':f\in\mathcal F\}$ 局部有界，则 $\mathcal F$ 正规。
+\end{proposition}
+
+\begin{proof}
+固定紧集 $K\Subset\Omega$。取一个包含 $a$ 与 $K$ 的紧致道路连通集
+$L\Subset\Omega$；例如用有限条位于 $\Omega$ 中的折线把覆盖 $K$ 的有限个
+小圆盘中心连到 $a$。在 $L$ 的一个邻域上，$|f'|\le M_L$ 对所有
+$f\in\mathcal F$ 成立。沿这些长度有统一上界的折线积分，得到
+\[
+ |f(z)|\le |f(a)|+C_LM_L\qquad(z\in K).
+\]
+故 $\mathcal F$ 局部有界，再用 Montel 定理。
+\end{proof}
+
+正规族还提供极值对象。设 $\mathcal F$ 局部有界，并且在局部一致收敛下
+封闭；若泛函 $J(f)$ 对局部一致收敛连续，则任何满足
+$J(f_n)\to\sup_{f\in\mathcal F}J(f)$ 的序列都有子列收敛到极大元，前提是
+极限不因退化而离开 $\mathcal F$。在单叶函数问题中，退化极限可能成为常数；
+规定一个非零导数极值可以排除这种情形。下一章将把这套论证用于 Riemann
+映射定理。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{normal-local-uniform-integrals}证明局部一致收敛保持沿任意固定分段 $C^1$ 曲线的积分。
+\exerciseitem{normal-derivative-convergence}由 Cauchy 积分公式推导 $f_n'\to f'$ 在紧集上的显式误差估计。
+\exerciseitem{normal-power-sequence}证明 $z^n$ 在单位圆盘上局部一致趋于零，但在整个圆盘上不一致收敛。
+\exerciseitem{normal-compact-open-metric}验证正文中的度量 $d$ 恰好诱导局部一致收敛，并说明更换紧集穷竭不改变收敛概念。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{normal-cauchy-equicontinuity}补全 Montel 定理中由 Cauchy 估计推出等度连续的有限覆盖论证。
+\exerciseitem{normal-disk-maps}设 $\mathcal F\subset\mathcal O(\Omega,\mathbb D)$。证明它正规，并刻画局部一致极限可能落在单位圆周上的情形。
+\exerciseitem{normal-basepoint-derivatives}证明命题\ref{prop:normal-derivative-criterion}在 $\Omega$ 非凸时仍成立。
+\exerciseitem{normal-vitali-dense-set}设局部有界全纯函数列在 $\Omega$ 的一个稠密子集上逐点收敛。证明它局部一致收敛。
+\exerciseitem{normal-vitali-necessity}详细验证正文的多项式列 $p_n$ 说明 Vitali--Porter 定理不能删去局部有界性。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{normal-finite-normal-converse}不用命题\ref{prop:normal-iff-locally-bounded}，直接从正规性的序列定义证明紧集上一致有界。
+\exerciseitem{normal-holomorphic-series}设 $\sum f_n$ 的部分和在区域上局部有界，并在具有内部聚点的集合上逐点收敛。证明该级数局部一致收敛，且可逐项求导。
+\exerciseitem{normal-coefficient-compactness}设 $f_n:\mathbb D\to\mathbb D$，$f_n(z)=\sum_{k\ge0}a_{n,k}z^k$。证明可取子列使每个系数 $a_{n,k}$ 收敛，并说明所得系数确实来自一个全纯极限。
+\optionalexerciseitem{normal-univalent-closure}设单叶函数 $f_n:\Omega\to\mathbb D$ 局部一致收敛且 $|f_n'(a)|\ge c>0$。证明极限仍单叶，并解释导数下界的作用。
+\end{enumerate}

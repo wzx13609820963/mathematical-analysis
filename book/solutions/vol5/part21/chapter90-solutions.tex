@@ -1,0 +1,205 @@
+\chapter{全纯函数}
+\label{chap:holomorphic-functions-solutions}
+
+\begin{solution}{complex-spherical-convergence}
+若 \(z_n\to\infty\)，则对每个 \(M>0\)，最终有 \(|z_n|>M\)，因而
+\(|1/z_n|<1/M\)，所以 \(1/z_n\to0\)。逆向完全相同。又
+
+\[
+ \chi(z,\infty)<\varepsilon
+ \iff \frac1{\sqrt{1+|z|^2}}<\varepsilon
+ \iff |z|>\sqrt{\varepsilon^{-2}-1}
+\]
+
+对 \(0<\varepsilon<1\) 成立。因此弦距离球
+\(B_\chi(\infty,\varepsilon)\) 恰含一个通常意义的圆外区域，也被另一个
+圆外区域包含；两类集合生成同一组 \(\infty\) 邻域。
+\end{solution}
+
+\begin{solution}{complex-limit-components}
+若 \(|f(z)-L|<\varepsilon\)，则
+
+\[
+ |\operatorname{Re}f(z)-\operatorname{Re}L|
+ \le|f(z)-L|,\qquad
+ |\operatorname{Im}f(z)-\operatorname{Im}L|
+ \le|f(z)-L|,
+\]
+
+故两个分量分别收敛。反之，若两分量误差都小于
+\(\varepsilon/\sqrt2\)，则
+
+\[
+ |f(z)-L|^2
+ =|\operatorname{Re}(f-L)|^2+|\operatorname{Im}(f-L)|^2
+ <\varepsilon^2.
+\]
+
+对乘法，写
+\[
+ f(z)g(z)-LM=f(z)(g(z)-M)+M(f(z)-L).
+\]
+收敛函数在充分小的删心邻域有界，故右端两项分别趋零。
+\end{solution}
+
+\begin{solution}{cr-point-counterexample}
+沿坐标轴计算：
+\[
+ \frac{u(h,0)-u(0,0)}h=1,\quad
+ \frac{u(0,h)-u(0,0)}h=0,
+\]
+\[
+ \frac{v(h,0)-v(0,0)}h=0,\quad
+ \frac{v(0,h)-v(0,0)}h=1.
+\]
+所以 \(u_x=v_y=1\)、\(u_y=-v_x=0\)。沿 \(h=t\in\R\)，复差商为
+\(1\)。沿 \(h=t(1+i)\)，有
+\[
+ f(t+it)=\frac t2+i\frac t2=\frac12t(1+i),
+\]
+故差商为 \(1/2\)。两个方向极限不同，复导数不存在。这也说明在一点仅核对
+偏导和 Cauchy--Riemann 方程不能代替实 Fréchet 可微性。
+\end{solution}
+
+\begin{solution}{complex-linear-real-matrix}
+在实基 \(1,i\) 下设 \(L(1)=a+ib\)。若 \(L\) 复线性，则
+\(L(i)=iL(1)=-b+ia\)，故两列分别为 \((a,b)^{\mathsf T}\) 与
+\((-b,a)^{\mathsf T}\)。反之，具有该矩阵的实线性映射满足
+\[
+ L(x+iy)=x(a+ib)+y(-b+ia)=(a+ib)(x+iy),
+\]
+所以 \(L(\lambda z)=\lambda L(z)\) 对所有 \(\lambda,z\in\C\) 成立。
+\end{solution}
+
+\begin{solution}{continuous-cr-sufficiency}
+固定 \((x_0,y_0)\)。连续偏导给出
+\[
+ \begin{aligned}
+ u(x_0+h_1,y_0+h_2)-u(x_0,y_0)
+ &=u_x(x_0,y_0)h_1+u_y(x_0,y_0)h_2+o(|h|),\\
+ v(x_0+h_1,y_0+h_2)-v(x_0,y_0)
+ &=v_x(x_0,y_0)h_1+v_y(x_0,y_0)h_2+o(|h|).
+ \end{aligned}
+\]
+可用先沿水平、再沿竖直线段的一元中值定理证明这两个展开，连续性保证两处
+偏导可换成基点偏导而只产生 \(o(|h|)\)。令
+\(a=u_x=v_y\)、\(b=v_x=-u_y\)，合并两式得到
+\[
+ f(z_0+h)-f(z_0)=(a+ib)h+o(|h|).
+\]
+除以 \(h\ne0\) 后余项模为 \(o(1)\)，故复导数存在且等于 \(a+ib\)。
+\end{solution}
+
+\begin{solution}{holomorphic-real-line-image}
+设像包含在直线 \(w_0+e^{i\theta}\R\) 中。函数
+\[
+ g(z)=e^{-i\theta}(f(z)-w_0)
+\]
+全纯且取实值。写 \(g=u+iv\)，则 \(v\equiv0\)。Cauchy--Riemann 方程给
+\(u_x=v_y=0\)、\(u_y=-v_x=0\)，所以 \(g'=0\)。域连通，故 \(g\) 常值，
+从而 \(f\) 常值。
+\end{solution}
+
+\begin{solution}{holomorphic-constant-modulus}
+若恒定模为零，显然 \(f\equiv0\)。设 \(|f|=c>0\)，写 \(f=u+iv\)。
+由 \(u^2+v^2=c^2\) 分别对 \(x,y\) 求导，并用 Cauchy--Riemann 方程，得到
+\[
+ \begin{pmatrix}u&v\\-v&u\end{pmatrix}
+ \binom{u_x}{v_x}=0.
+\]
+矩阵行列式为 \(u^2+v^2=c^2>0\)，故 \(u_x=v_x=0\)，CR 方程再给
+\(u_y=v_y=0\)。于是 \(f'=0\)，连通性说明 \(f\) 为常数。
+\end{solution}
+
+\begin{solution}{complex-power-series-derivatives}
+内闭一致收敛和逐项求导允许反复求导：
+\[
+ f^{(k)}(z)=
+ \sum_{n=k}^{\infty}n(n-1)\cdots(n-k+1)a_n(z-z_0)^{n-k}.
+\]
+取 \(z=z_0\) 时只有 \(n=k\) 项留下，故 \(f^{(k)}(z_0)=k!a_k\)。
+若另一个系数列 \(b_n\) 在同一中心的某邻域表示 \(f\)，同样计算给
+\(k!a_k=f^{(k)}(z_0)=k!b_k\)，所以 \(a_k=b_k\) 对所有 \(k\) 成立。
+\end{solution}
+
+\begin{solution}{complex-exponential-fibres}
+由 \(e^{x+iy}=e^x(\cos y+i\sin y)\)，若 \(e^z=e^w\)，比较模得到
+\(e^{\operatorname{Re}z}=e^{\operatorname{Re}w}\)，故实部相等。再比较单位
+复数得到
+\[
+ e^{i(\operatorname{Im}z-\operatorname{Im}w)}=1,
+\]
+即虚部之差属于 \(2\pi\Z\)。逆向由周期性立即成立。因此若
+\(w\ne0\)，选取任一辐角 \(\theta\)，则
+\[
+ \exp^{-1}(\{w\})
+ =\{\log|w|+i(\theta+2k\pi):k\in\Z\}.
+\]
+\(w=0\) 没有逆像。
+\end{solution}
+
+\begin{solution}{principal-logarithm-derivative}
+在裂平面上令
+\[
+ u=\frac12\log(x^2+y^2),\qquad
+ v=\operatorname{Arg}(x+iy)\in(-\pi,\pi).
+\]
+局部选取连续辐角后，
+\[
+ u_x=\frac{x}{x^2+y^2},\quad u_y=\frac{y}{x^2+y^2},\quad
+ v_x=-\frac{y}{x^2+y^2},\quad v_y=\frac{x}{x^2+y^2}.
+\]
+偏导连续且满足 \(u_x=v_y\)、\(u_y=-v_x\)，故主值对数全纯。其导数为
+\[
+ u_x+iv_x=\frac{x-iy}{x^2+y^2}=\frac1{x+iy}.
+\]
+切口使辐角能单值连续选择；跨过负实轴时上下极限相差 \(2\pi\)。
+\end{solution}
+
+\begin{solution}{wirtinger-real-linear-decomposition}
+令
+\[
+ a=\frac12\bigl(L(1)-iL(i)\bigr),\qquad
+ b=\frac12\bigl(L(1)+iL(i)\bigr).
+\]
+则 \(a+b=L(1)\)、\(i(a-b)=L(i)\)。对 \(h=x+iy\)，实线性给
+\[
+ L(h)=xL(1)+yL(i)=a(x+iy)+b(x-iy)=ah+b\bar h.
+\]
+取 \(h=1,i\) 可反解出 \(a,b\)，所以表示唯一。对 \(L=Df(z)\)，由
+\[
+ Df(z)(1)=f_x,\qquad Df(z)(i)=f_y
+\]
+代入上式得到 \(a=(f_x-if_y)/2=f_z\)、
+\(b=(f_x+if_y)/2=f_{\bar z}\)，即正文公式。
+\end{solution}
+
+\begin{solution}{polar-cauchy-riemann}
+由 \(x=r\cos\theta\)、\(y=r\sin\theta\)，链式法则给
+\[
+ u_r=u_x\cos\theta+u_y\sin\theta,\qquad
+ \frac1r u_\theta=-u_x\sin\theta+u_y\cos\theta,
+\]
+对 \(v\) 也有同样公式。把 \(u_x=v_y\)、\(u_y=-v_x\) 代入，整理得
+\[
+ u_r=\frac1r v_\theta,\qquad v_r=-\frac1r u_\theta.
+\]
+反向由旋转矩阵可逆同样成立。对 \(z^n=r^ne^{in\theta}\)，
+\(u=r^n\cos n\theta\)、\(v=r^n\sin n\theta\)，直接求导即满足两式；
+导数为 \(nz^{n-1}\)。负整数时结论在 \(r>0\) 的区域成立。
+\end{solution}
+
+\begin{solution}{local-holomorphic-inverse}
+实 Jacobian 行列式为 \(|f'(z_0)|^2>0\)。实逆函数定理给邻域
+\(U\ni z_0\)、\(V\ni f(z_0)\)，使 \(f:U\to V\) 为 \(C^1\) 微分同胚。
+令 \(g=f^{-1}\)。链式法则给
+\[
+ Dg(f(z))=[Df(z)]^{-1}.
+\]
+\(Df(z)\) 是乘以 \(f'(z)\) 的复线性映射；缩小 \(U\) 后
+\(f'(z)\ne0\)，其逆是乘以 \(1/f'(z)\)，仍复线性。实微分判据说明
+\(g\) 全纯，并有
+\[
+ g'(w)=\frac1{f'(g(w))}.
+\]
+\end{solution}

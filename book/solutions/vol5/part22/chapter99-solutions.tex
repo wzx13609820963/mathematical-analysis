@@ -1,0 +1,358 @@
+\chapter{切空间与微分形式}
+\label{chap:tangent-differential-forms-solutions}
+
+\begin{solution}{tangent-coordinate-basis-change}
+设 \(y=y(x)\) 是两组局部坐标之间的变换。把
+\(\partial/\partial x^i|_p\) 看成导子。对任意局部光滑函数 \(f\)，链式
+法则给出
+\[
+ \frac{\partial f}{\partial x^i}(p)
+ =\sum_j\frac{\partial y^j}{\partial x^i}(p)
+       \frac{\partial f}{\partial y^j}(p).
+\]
+因为该式对每个 \(f\) 成立，所以
+\[
+ \left.\frac{\partial}{\partial x^i}\right|_p
+ =\sum_j\frac{\partial y^j}{\partial x^i}(p)
+       \left.\frac{\partial}{\partial y^j}\right|_p.
+\]
+
+若
+\[
+ v=\sum_i v_x^i\left.\frac{\partial}{\partial x^i}\right|_p
+  =\sum_j v_y^j\left.\frac{\partial}{\partial y^j}\right|_p,
+\]
+代入基变换公式并比较 \(\partial/\partial y^j|_p\) 的系数，得到
+\[
+ v_y^j
+ =\sum_i\frac{\partial y^j}{\partial x^i}(p)v_x^i.
+\]
+换言之，分量向量按照坐标变换的 Jacobian 变换；若把新的坐标基用旧基表示，
+则出现逆 Jacobian。两种变化互相抵消，所得导子 \(v\) 与坐标无关。
+\end{solution}
+
+\begin{solution}{tangent-hadamard-derivation}
+把坐标平移后设 \(x(p)=0\)，并把坐标域缩小成关于径向线段星形的邻域。
+记 \(\widetilde f=f\circ x^{-1}\)。对固定的 \(u\)，一元微积分基本定理
+给出
+\begin{align*}
+ \widetilde f(u)-\widetilde f(0)
+ &=\int_0^1\frac{d}{dt}\widetilde f(tu)\,dt\\
+ &=\sum_i u^i\int_0^1\partial_i\widetilde f(tu)\,dt.
+\end{align*}
+令
+\[
+ g_i(u)=\int_0^1\partial_i\widetilde f(tu)\,dt.
+\]
+积分号下逐阶求导表明 \(g_i\) 光滑，并且
+\[
+ g_i(0)=\partial_i\widetilde f(0).
+\]
+
+由 \(D1=D(1\cdot1)=2D1\) 得 \(D1=0\)，所以导子在常数函数上为零。
+把上面的分解写成
+\[
+ f-f(p)=\sum_i x^i g_i
+\]
+并使用 Leibniz 规则，注意 \(x^i(p)=0\)，便有
+\[
+ Df
+ =\sum_i\bigl(D(x^i)g_i(p)+x^i(p)Dg_i\bigr)
+ =\sum_iD(x^i)\partial_i\widetilde f(0).
+\]
+因此 \(D\) 完全由
+\((D(x^1),\ldots,D(x^n))\) 决定。这也证明了正文坐标表示的唯一性。
+\end{solution}
+
+\begin{solution}{tangent-map-curve-chain-rule}
+在曲线表示下，
+\[
+ d(G\circ F)_p[\gamma]
+ =[G\circ F\circ\gamma]
+ =dG_{F(p)}[F\circ\gamma]
+ =dG_{F(p)}dF_p[\gamma].
+\]
+
+在导子表示下，对任意 \(h\in C^\infty_{G(F(p))}(P)\)，有
+\begin{align*}
+ \bigl[dG_{F(p)}(dF_pv)\bigr]h
+ &=(dF_pv)(h\circ G)\\
+ &=v(h\circ G\circ F)\\
+ &=\bigl[d(G\circ F)_pv\bigr]h.
+\end{align*}
+两个导子对所有函数芽的作用相同，因而相等。两种证明分别把通常链式法则
+表述为复合曲线的速度公式和复合函数的方向导数公式。
+\end{solution}
+
+\begin{solution}{tangent-regular-level-kernel}
+令 \(\iota:S\hookrightarrow M\) 为包含映射。若
+\(v=[\gamma]\in T_pS\)，则 \(F\circ\gamma\equiv c\)，从而
+\[
+ dF_p(d\iota_pv)=0.
+\]
+在用 \(d\iota_p\) 把 \(T_pS\) 视为 \(T_pM\) 的子空间后，这给出
+\[
+ T_pS\subseteq\ker dF_p.
+\]
+
+由于 \(c\) 是正则值，正则水平集定理给出 \(p\) 附近的坐标
+\((u^1,\ldots,u^{n-m},w^1,\ldots,w^m)\)，使得 \(F\) 在目标的相应
+坐标中写成
+\[
+ (u,w)\longmapsto w,
+\]
+而 \(S\) 由 \(w=0\) 描述。于是 \(T_pS\) 由
+\(\partial/\partial u^1,\ldots,\partial/\partial u^{n-m}\) 张成；
+\(dF_p\) 的核也恰由这些向量张成。因此反向包含成立，故
+\[
+ T_pS=\ker dF_p.
+\]
+\end{solution}
+
+\begin{solution}{tangent-product-splitting}
+令 \(\pi_M,\pi_N\) 为两个投影，定义
+\[
+ \Psi:T_{(p,q)}(M\times N)\longrightarrow T_pM\oplus T_qN,
+ \qquad
+ \Psi(v)=(d\pi_Mv,d\pi_Nv).
+\]
+在积坐标 \((x,y)\) 中，\(\Psi\) 把坐标分量
+\[
+ (v^1,\ldots,v^m,w^1,\ldots,w^n)
+\]
+分成前后两块，所以它是线性同构。由于定义只使用两个典范投影，这个同构
+不依赖坐标。
+
+若 \(F:M\to M'\)、\(G:N\to N'\)，则
+\[
+ \pi_{M'}\circ(F\times G)=F\circ\pi_M,\qquad
+ \pi_{N'}\circ(F\times G)=G\circ\pi_N.
+\]
+对这两个等式求切映射，并使用链式法则，得到
+\[
+ d(F\times G)_{(p,q)}(v,w)=(dF_pv,dG_qw).
+\]
+这正是所要求的自然相容性。
+\end{solution}
+
+\begin{solution}{lie-bracket-coordinate-formula}
+写
+\[
+ X=\sum_iX^i\partial_i,\qquad
+ Y=\sum_jY^j\partial_j.
+\]
+对光滑函数 \(f\) 展开：
+\begin{align*}
+ X(Yf)
+ &=\sum_{i,j}X^i(\partial_iY^j)\partial_jf
+   +\sum_{i,j}X^iY^j\partial_i\partial_jf,\\
+ Y(Xf)
+ &=\sum_{i,j}Y^i(\partial_iX^j)\partial_jf
+   +\sum_{i,j}Y^iX^j\partial_i\partial_jf.
+\end{align*}
+第二行的二阶项交换求和指标 \(i,j\) 后，与第一行的二阶项相同，因为
+\(\partial_i\partial_jf=\partial_j\partial_if\)。相减后只剩
+\[
+ [X,Y]f
+ =\sum_j\left(\sum_i
+   \bigl(X^i\partial_iY^j-Y^i\partial_iX^j\bigr)\right)\partial_jf.
+\]
+因此 \([X,Y]\) 是一阶导子，并具有正文所列的坐标表达式。
+\end{solution}
+
+\begin{solution}{lie-bracket-jacobi-expansion}
+用并置表示算子的复合。第一项展开为
+\[
+ [X,[Y,Z]]=XYZ-XZY-YZX+ZYX.
+\]
+循环地，
+\begin{align*}
+ [Y,[Z,X]]&=YZX-YXZ-ZXY+XZY,\\
+ [Z,[X,Y]]&=ZXY-ZYX-XYZ+YXZ.
+\end{align*}
+三式相加时，六种三重算子复合各出现一次正号和一次负号，故总和为零。由
+前一题可知向量场的交换子仍是向量场，所以这个算子恒等式就是 Lie 括号的
+Jacobi 恒等式。
+\end{solution}
+
+\begin{solution}{lie-bracket-diffeomorphism-naturality}
+记
+\[
+ \widetilde X=F_*X,\qquad \widetilde Y=F_*Y.
+\]
+对任意 \(h\in C^\infty(N)\)，推前的定义给出
+\[
+ (\widetilde Xh)\circ F=X(h\circ F),\qquad
+ (\widetilde Yh)\circ F=Y(h\circ F).
+\]
+于是
+\begin{align*}
+ ([\widetilde X,\widetilde Y]h)\circ F
+ &=X\bigl((\widetilde Yh)\circ F\bigr)
+   -Y\bigl((\widetilde Xh)\circ F\bigr)\\
+ &=X(Y(h\circ F))-Y(X(h\circ F))\\
+ &=[X,Y](h\circ F).
+\end{align*}
+右端等于 \((F_*[X,Y]h)\circ F\)。微分同胚 \(F\) 是满射，因此两个
+向量场对所有光滑函数的作用相同，故
+\[
+ F_*[X,Y]=[F_*X,F_*Y].
+\]
+\end{solution}
+
+\begin{solution}{cotangent-chain-rule}
+对任意 \(v\in T_pM\)，
+\[
+ d(g\circ F)_p(v)
+ =v(g\circ F)
+ =dg_{F(p)}(dF_pv)
+ =[F^*(dg)]_p(v).
+\]
+所以
+\[
+ d(g\circ F)=F^*(dg).
+\]
+在局部坐标中，若把微分写成行向量，则该式成为
+\[
+ D(g\circ F)(p)=Dg(F(p))\,DF(p),
+\]
+即 Jacobian 的链式法则。若把余切向量写成列向量，则相应公式中出现
+Jacobian 的转置。
+\end{solution}
+
+\begin{solution}{tensor-contraction-invariance}
+一个 \((1,1)\) 型张量可以看作线性映射
+\[
+ A:T_pM\longrightarrow T_pM.
+\]
+设它在两组坐标基下的矩阵分别为 \(A_x,A_y\)，而基变换矩阵为 \(J\)。
+那么
+\[
+ A_y=J A_xJ^{-1}.
+\]
+收缩一个上指标与一个下指标，在 \(x\) 坐标中得到
+\[
+ A^i{}_i=\operatorname{tr}A_x.
+\]
+利用迹的循环性，
+\[
+ \operatorname{tr}A_y
+ =\operatorname{tr}(JA_xJ^{-1})
+ =\operatorname{tr}(A_xJ^{-1}J)
+ =\operatorname{tr}A_x.
+\]
+故该收缩不依赖坐标，并且正是线性算子 \(A\) 的迹。
+\end{solution}
+
+\begin{solution}{forms-pullback-wedge-functorial}
+设 \(\alpha\) 是 \(k\)-形式，\(\beta\) 是 \(\ell\)-形式。楔积由张量积的
+交错化定义。先把每个输入向量经 \(dF\) 送入目标切空间再交错，与分别计算
+\(F^*\alpha,F^*\beta\) 后再交错相同。因此
+\[
+ F^*(\alpha\wedge\beta)=F^*\alpha\wedge F^*\beta.
+\]
+
+对复合映射，切映射的链式法则给
+\[
+ d(G\circ F)_p=dG_{F(p)}\circ dF_p.
+\]
+逐个代入形式的定义，有
+\begin{align*}
+ ((G\circ F)^*\omega)_p(v_1,\ldots,v_k)
+ &=\omega_{G(F(p))}
+   (dG_{F(p)}dF_pv_1,\ldots,dG_{F(p)}dF_pv_k)\\
+ &=[F^*(G^*\omega)]_p(v_1,\ldots,v_k).
+\end{align*}
+故
+\[
+ (G\circ F)^*=F^*\circ G^*.
+\]
+这里复合次序的反转来自函数与形式的拉回方向同映射方向相反。
+\end{solution}
+
+\begin{solution}{forms-exterior-coordinate-free-formula}
+先验证题中右端关于每个 \(X_i\) 都是
+\(C^\infty(M)\)-线性的。以 \(X_0\) 为例，把它换成 \(aX_0\) 时，第一
+个求和中 \(X_j(a)\) 产生的附加项，与
+\[
+ [aX_0,X_j]=a[X_0,X_j]-X_j(a)X_0
+\]
+在第二个求和中产生的附加项恰好相消。其余位置相同。因此右端在一点的取值
+只依赖 \(X_0(p),\ldots,X_k(p)\)，确实定义了一个 \((k+1)\)-形式。
+
+固定 \(p\)，选取局部坐标，并把每个 \(X_i(p)\) 延拓成常系数坐标向量场
+\(\widetilde X_i\)。由刚才证明的张量性，可以用这些延拓计算题中等式的
+两边。常系数坐标向量场彼此交换，第二个求和为零，公式化为
+\[
+ d\omega(\widetilde X_0,\ldots,\widetilde X_k)
+ =\sum_i(-1)^i\widetilde X_i
+   \omega(\widetilde X_0,\ldots,\widehat{\widetilde X_i},
+          \ldots,\widetilde X_k).
+\]
+对坐标形式
+\[
+ \omega=\sum_I a_I\,dx^I
+\]
+直接展开
+\[
+ d\omega=\sum_I da_I\wedge dx^I
+\]
+便得到上式。两边都是张量，所以等式对原来的任意向量场成立。
+\end{solution}
+
+\begin{solution}{forms-cartan-one-form-direct}
+设 \(\alpha\) 是一次形式，\(Y\) 是任意向量场。由函数外微分以及二形式
+外微分的公式，
+\begin{align*}
+ [d(\iota_X\alpha)+\iota_Xd\alpha](Y)
+ &=Y(\alpha(X))+d\alpha(X,Y)\\
+ &=Y(\alpha(X))
+   +X(\alpha(Y))-Y(\alpha(X))-\alpha([X,Y])\\
+ &=X(\alpha(Y))-\alpha([X,Y])\\
+ &=(\mathcal L_X\alpha)(Y).
+\end{align*}
+两边对所有 \(Y\) 的取值相同，故
+\[
+ \mathcal L_X\alpha=d(\iota_X\alpha)+\iota_Xd\alpha.
+\]
+\end{solution}
+
+\begin{solution}{forms-flow-lie-derivative}
+局部流满足
+\[
+ \frac{\partial}{\partial t}\Phi_t(p)=X_{\Phi_t(p)},
+ \qquad \Phi_0=\operatorname{id}.
+\]
+因此，对函数 \(f\)，
+\[
+ \left.\frac{d}{dt}\right|_{t=0}(\Phi_t^*f)(p)
+ =\left.\frac{d}{dt}\right|_{t=0}f(\Phi_t(p))
+ =Xf(p).
+\]
+拉回与外微分可交换，故
+\[
+ \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*(df)
+ =\left.\frac{d}{dt}\right|_{t=0}d(\Phi_t^*f)
+ =d(Xf).
+\]
+
+任意微分形式在坐标邻域内都是
+\[
+ f_0\,df_1\wedge\cdots\wedge df_k
+\]
+型形式的有限和；这里可取 \(f_j\) 为坐标函数并把系数并入 \(f_0\)。对
+拉回后的乘积与楔积求 \(t\) 导数，使用前面两个公式，可知
+\[
+ A\omega:=\left.\frac{d}{dt}\right|_{t=0}\Phi_t^*\omega
+\]
+是零次导子，并且在函数及函数的微分上与 \(\mathcal L_X\) 相同。因此
+\[
+ \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*\omega
+ =\mathcal L_X\omega.
+\]
+再应用 Cartan 公式，得到
+\[
+ \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*\omega
+ =d(\iota_X\omega)+\iota_Xd\omega.
+\]
+\end{solution}

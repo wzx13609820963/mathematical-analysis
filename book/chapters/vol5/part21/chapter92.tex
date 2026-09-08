@@ -1,0 +1,392 @@
+\chapter{Cauchy 积分公式}
+\label{chap:cauchy-integral-formula}
+
+Cauchy 定理只给出闭曲线积分为零。把被积函数换成
+\(f(\zeta)/(\zeta-z)\) 后，分母在 \(z\) 处出现一个不能忽略的奇点，闭曲线
+积分不再消失，而是准确地恢复 \(f(z)\)。由这一公式可以同时得到高阶导数、
+幂级数展开、导数估计和最大模原理。本章中的各项刚性都由同一个积分表示产生。
+
+\section{Cauchy 积分公式}
+
+\begin{theorem}[圆盘上的 Cauchy 积分公式]
+\label{thm:cauchy-integral-circle}
+设 \(f\) 在域 \(D\) 全纯，闭圆盘
+\(\overline{B(a,R)}\subseteq D\)。若 \(|z-a|<R\)，则
+
+\begin{equation}
+ f(z)=\frac1{2\pi i}\int_{|\zeta-a|=R}
+ \frac{f(\zeta)}{\zeta-z}\,d\zeta,
+ \label{eq:cauchy-integral-circle}
+\end{equation}
+
+圆周取正向。
+\end{theorem}
+
+\begin{proof}
+取 \(0<\rho<R-|z-a|\)，记两个正向圆周为
+\(C_R=\partial B(a,R)\) 和 \(C_\rho=\partial B(z,\rho)\)。平面域删去一点后
+仍为域：连接两点的折线路径若经过该点，可在一个闭含于原域的小圆盘内把
+相应线段换成避开圆心的折线。因此可在域 \(D\setminus\{z\}\) 中考虑曲线链
+\(\Gamma=C_R-C_\rho\)。若
+\(w\notin D\)，则 \(w\) 位于 \(C_R\) 外，两个圆周关于 \(w\) 的绕数均为
+零；而在被删去的点 \(w=z\) 处，两个绕数均为一。因此
+\[
+ \operatorname{Ind}(\Gamma,w)=0
+ \qquad\bigl(w\notin D\setminus\{z\}\bigr).
+\]
+函数 \(\zeta\mapsto f(\zeta)/(\zeta-z)\) 在 \(D\setminus\{z\}\) 全纯。
+对它应用推论~\ref{cor:cauchy-cycle-form}，得到
+
+\[
+ \int_{|\zeta-a|=R}\frac{f(\zeta)}{\zeta-z}\,d\zeta
+ =\int_{|\zeta-z|=\rho}\frac{f(\zeta)}{\zeta-z}\,d\zeta.
+\]
+
+右边令 \(\zeta=z+\rho e^{it}\)，便成为
+
+\[
+ i\int_0^{2\pi}f(z+\rho e^{it})\,dt.
+\]
+
+全纯函数连续，故当 \(\rho\downarrow0\) 时被积函数一致趋于 \(f(z)\)，
+右端趋于 \(2\pi i f(z)\)。左端与 \(\rho\) 无关，公式得证。
+\end{proof}
+
+积分公式把圆盘内部的全部函数值交给一条圆周上的数据决定。特别地，若两个
+全纯函数在这条圆周上相同，则它们在圆盘内相同；若圆周数据发生一致小扰动，
+内部任一固定紧子圆盘上的函数值也按积分核给出的界一致变化。后面的导数估计
+是同一现象对高阶导数的定量表述。
+
+圆并不是公式的实质。若闭曲线 \(\gamma\subset D\) 满足
+\theoremref{thm:cauchy-winding-condition}的绕数条件，且
+\(z\in D\setminus\gamma([0,1])\)，则
+
+\begin{equation}
+ \frac1{2\pi i}\int_\gamma\frac{f(\zeta)}{\zeta-z}\,d\zeta
+ =\operatorname{Ind}(\gamma,z)f(z).
+ \label{eq:cauchy-integral-winding}
+\end{equation}
+
+事实上，令 \(n=\operatorname{Ind}(\gamma,z)\)，并取以 \(z\) 为圆心、
+闭含于 \(D\setminus\gamma([0,1])\) 的小圆，其正向边界记为 \(C_\rho\)。曲线链
+\(\Gamma=\gamma-nC_\rho\) 位于 \(D\setminus\{z\}\)。在 \(z\) 处，
+\(\operatorname{Ind}(\Gamma,z)=n-n=0\)；在 \(D\) 外，两项的绕数也都是零。
+把推论~\ref{cor:cauchy-cycle-form}用于
+\(f(\zeta)/(\zeta-z)\)，可得
+\[
+ \int_\gamma\frac{f(\zeta)}{\zeta-z}\,d\zeta
+ =n\int_{C_\rho}\frac{f(\zeta)}{\zeta-z}\,d\zeta.
+\]
+令 \(\rho\downarrow0\)，右侧的小圆积分趋于 \(2\pi i n f(z)\)，这就证明了
+式\eqref{eq:cauchy-integral-winding}。绕数说明同一曲线若绕 \(z\) 多周，积分
+也按代数重数增加。
+
+公式还有一个平均值形式。取 \(z=a\)，参数化圆周后得到
+
+\begin{equation}
+ f(a)=\frac1{2\pi}\int_0^{2\pi}f(a+re^{it})\,dt
+ \qquad(0<r<R).
+ \label{eq:holomorphic-circle-mean}
+\end{equation}
+
+这不是一般连续函数的性质；它把圆心值固定为每个小圆周上的平均值。
+
+\section{高阶导数公式和解析性}
+
+取 \(z\) 在圆周内部的一个较小闭圆盘中。分母与零有统一正距离，所以可在
+式\eqref{eq:cauchy-integral-circle}中对 \(z\) 求导；差商由一个沿圆周可积
+的统一界控制。反复进行便得以下公式。
+
+\begin{theorem}[Cauchy 高阶导数公式]
+\label{thm:cauchy-derivative-formula}
+在\theoremref{thm:cauchy-integral-circle}的条件下，\(f\) 在圆盘内有任意阶
+复导数，并且
+
+\begin{equation}
+ f^{(n)}(z)=\frac{n!}{2\pi i}
+ \int_{|\zeta-a|=R}\frac{f(\zeta)}{(\zeta-z)^{n+1}}\,d\zeta,
+ \qquad n\ge0.
+ \label{eq:cauchy-derivative-formula}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+固定 \(z\in B(a,R)\)，令
+\(d=R-|z-a|>0\)。当 \(|h|<d/2\) 时，圆周上的每个 \(\zeta\) 都满足
+\(|\zeta-z|\ge d\) 和 \(|\zeta-z-h|\ge d/2\)，并且
+
+\[
+ \frac1h\left(\frac1{\zeta-z-h}-\frac1{\zeta-z}\right)
+ =\frac1{(\zeta-z-h)(\zeta-z)}
+\]
+
+当 \(h\to0\) 时在积分圆周上一致趋于 \((\zeta-z)^{-2}\)，并由
+\(2/d^2\) 控制。圆周有限长，故可把差商极限移入积分，得到一阶公式。
+对已经得到的积分表示重复这一论证；每次固定当前的 \(z\)，取一个仍闭含于
+圆周内部的小邻域，就有统一的正距离可供估计。因子
+\((\zeta-z)^{-n-1}\) 对 \(z\) 求导产生
+\((n+1)(\zeta-z)^{-n-2}\)，归纳即得一般公式。
+\end{proof}
+
+高阶可导仍不是最强结论。固定 \(a\in D\)，取
+\(0<R<\operatorname{dist}(a,\C\setminus D)\)。当 \(|z-a|<R\) 时，
+
+\[
+ \frac1{\zeta-z}
+ =\frac1{\zeta-a}\frac1{1-(z-a)/(\zeta-a)}
+ =\sum_{n=0}^{\infty}\frac{(z-a)^n}{(\zeta-a)^{n+1}}
+\]
+
+在积分圆周上一致收敛。逐项积分得到
+
+\[
+ f(z)=\sum_{n=0}^{\infty}c_n(z-a)^n,\qquad
+ c_n=\frac1{2\pi i}\int_{|\zeta-a|=R}
+ \frac{f(\zeta)}{(\zeta-a)^{n+1}}\,d\zeta
+ =\frac{f^{(n)}(a)}{n!}.
+\]
+
+\begin{theorem}[全纯函数的解析性]
+\label{thm:holomorphic-is-analytic}
+域上的每个全纯函数都在每一点附近等于其 Taylor 级数；以 \(a\) 为中心的
+Taylor 级数至少在圆盘
+
+\[
+ |z-a|<\operatorname{dist}(a,\C\setminus D)
+\]
+
+内表示 \(f\)。
+\end{theorem}
+
+\begin{proof}
+固定 \(a\in D\)。给定
+\(|z-a|<\operatorname{dist}(a,\C\setminus D)\)，可选择半径 \(R\)，使
+\[
+ |z-a|<R<\operatorname{dist}(a,\C\setminus D).
+\]
+圆周上的几何级数展开一致收敛，所以可逐项积分；上面的计算给出
+\[
+ f(z)=\sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(z-a)^n.
+\]
+由于 \(z\) 任意，等式在所述整个开圆盘成立。若距离为无穷大，同一论证可对
+任意有限 \(R\) 使用，故 Taylor 级数在全平面表示 \(f\)。
+\end{proof}
+
+这里的距离取值可为 \(\infty\)。结论与实分析形成鲜明差别：实函数即使
+\(C^\infty\)，也未必等于 Taylor 级数；复函数只要一阶复导数在邻域内存在，
+就自动解析。
+
+解析性也给出零点的局部结构。若 \(f(a)=0\) 而 \(f\) 不在 \(a\) 的邻域
+恒为零，取最小的 \(m\ge1\) 使 \(f^{(m)}(a)\ne0\)，则
+
+\begin{equation}
+ f(z)=(z-a)^m g(z),\qquad g(a)\ne0,
+ \label{eq:holomorphic-zero-factorization}
+\end{equation}
+
+其中 \(g\) 全纯。整数 \(m\) 称为零点的阶。
+
+\begin{corollary}[恒等定理]
+\label{cor:holomorphic-identity-theorem}
+设 \(f,g\) 在域 \(D\) 全纯。若集合
+\(\{z\in D:f(z)=g(z)\}\) 在 \(D\) 中有聚点，则 \(f\equiv g\)。特别地，
+非零全纯函数的零点在域内是孤立的。
+\end{corollary}
+
+\begin{proof}
+只需考察 \(h=f-g\)。由零点分解，若 \(a\) 是 \(h\) 的零点而 \(h\)
+不在 \(a\) 的任何邻域恒为零，则 \(a\) 是孤立零点。因此，题设给出的
+聚点必有一个邻域，在该邻域上 \(h\) 恒为零。
+
+令 \(A\) 为所有这样的点组成的集合。按定义，\(A\) 是开集。再设
+\(a_j\in A\) 且 \(a_j\to a\in D\)。对每个 \(n\geq 0\)，函数
+\(h^{(n)}\) 连续，且 \(h^{(n)}(a_j)=0\)，故 \(h^{(n)}(a)=0\)。在
+\(a\) 附近作 Taylor 展开即得 \(h\equiv0\)，所以 \(a\in A\)。这说明
+\(A\) 在 \(D\) 中也是闭集。集合 \(A\) 非空，而 \(D\) 连通，故
+\(A=D\)，即 \(f\equiv g\)。
+\end{proof}
+
+聚点必须属于域的内部。函数
+\[
+ z\longmapsto \sin\frac1{1-z}
+\]
+在单位圆盘全纯，并在点 \(1-1/(n\pi)\)（充分大的正整数 \(n\)）处为零；
+这些零点趋于边界点 \(1\)，但函数并不恒为零。恒等定理不能越过尚未给出全纯
+延拓的边界。
+
+\section{Cauchy 估计与 Liouville 定理}
+
+\begin{theorem}[Cauchy 估计]
+\label{thm:cauchy-estimates}
+若 \(f\) 在 \(\overline{B(a,R)}\) 的一个邻域全纯，且
+\(|f(\zeta)|\le M\) 对 \(|\zeta-a|=R\) 成立，则
+
+\[
+ |f^{(n)}(a)|\le\frac{n!M}{R^n}
+ \qquad(n\ge0).
+\]
+\end{theorem}
+
+\begin{proof}
+在式\eqref{eq:cauchy-derivative-formula}中取 \(z=a\)，再用圆周长度
+\(2\pi R\) 和 \(ML\) 估计：
+
+\[
+ |f^{(n)}(a)|
+ \le\frac{n!}{2\pi}(2\pi R)\frac{M}{R^{n+1}}
+ =\frac{n!M}{R^n}.
+\]
+\end{proof}
+
+把圆心换成任意 \(z\in D\)，对每个
+\(0<r<\operatorname{dist}(z,\C\setminus D)\) 还得到局部形式
+\[
+ |f^{(n)}(z)|
+ \le \frac{n!}{r^n}\max_{|\zeta-z|=r}|f(\zeta)|.
+\]
+常数不能普遍改小：在圆心为 \(a\) 的圆盘上取
+\(f(z)=(z-a)^n\)，上述估计在 \(a\) 处取等号。
+
+\begin{theorem}[Liouville 定理]
+\label{thm:liouville}
+有界整函数必为常数。
+\end{theorem}
+
+\begin{proof}
+设 \(|f|\le M\) 于 \(\C\)。对任意 \(a\in\C\) 和 \(R>0\)，Cauchy 估计给
+
+\[
+ |f'(a)|\le M/R.
+\]
+
+令 \(R\to\infty\)，得到 \(f'(a)=0\)。因 \(a\) 任意，
+\ref{prop:zero-derivative-holomorphic-constant}给出 \(f\) 为常数。
+\end{proof}
+
+同一估计还说明：若整函数满足
+
+\[
+ |f(z)|\le C(1+|z|)^m
+\]
+
+其中 \(m\) 是非负整数，则 \(f\) 是次数不超过 \(m\) 的多项式。固定中心并
+令圆半径趋于无穷，所有 \(n>m\) 阶导数的 Cauchy 估计都趋于零。这类结论
+把全局增长速度转化为 Taylor 系数的消失。
+
+\section{代数基本定理}
+
+\begin{theorem}[代数基本定理]
+\label{thm:fundamental-theorem-algebra-complex}
+每个非常数复系数多项式在 \(\C\) 中至少有一个零点；因而次数为 \(n\ge1\)
+的多项式按重数恰有 \(n\) 个复根。
+\end{theorem}
+
+\begin{proof}
+设非常数多项式 \(p\) 没有零点，则 \(1/p\) 是整函数。若 \(p\) 的次数为
+\(n\ge1\)，首项系数为 \(a_n\ne0\)，则
+
+\[
+ \frac{p(z)}{a_nz^n}\longrightarrow1\qquad(|z|\to\infty).
+\]
+
+故存在 \(R\) 使 \(|z|\ge R\) 时
+\(|p(z)|\ge |a_n||z|^n/2\)，于是 \(1/p\) 在圆外有界；它在紧圆盘
+\(|z|\le R\) 上连续，也有界。Liouville 定理迫使 \(1/p\) 为常数，与
+\(p\) 非常数矛盾。得到一个根后，用多项式除法提出一个一次因子，归纳得到
+完全分解及根的总重数。
+\end{proof}
+
+这份证明没有提供根的位置或数值算法。它说明的是完备的复数域与全纯函数的
+全局刚性共同排除了“无根多项式”。下一章的辐角原理还会给出区域内零点数的
+稳定计数。
+
+\section{最大模原理、最小模原理与开映射定理}
+
+\begin{theorem}[强最大模原理]
+\label{thm:maximum-modulus-principle}
+设 \(f\) 在域 \(D\) 全纯。若 \(|f|\) 在 \(D\) 的某一点取得局部最大值，
+则 \(f\) 为常数。
+\end{theorem}
+
+\begin{proof}
+设 \(a\) 是局部最大点，并取 \(r_0>0\) 使
+\(\overline{B(a,r_0)}\subseteq D\) 且 \(|f(z)|\le|f(a)|\) 于该圆盘。
+若 \(f(a)=0\)，则圆盘上 \(f=0\)，恒等定理给出结论。否则取
+\(e^{-i\theta}f(a)=|f(a)|\)。由平均值公式，对每个 \(0<r<r_0\)，
+
+\[
+ |f(a)|=\frac1{2\pi}\int_0^{2\pi}
+ \operatorname{Re}\bigl(e^{-i\theta}f(a+re^{it})\bigr)\,dt.
+\]
+
+被积函数处处不超过 \(|f(a)|\)，且连续。平均值达到上界迫使它处处等于
+\(|f(a)|\)；再由
+\(\operatorname{Re}(e^{-i\theta}f)\le|f|\le|f(a)|\)，得到
+\(f(a+re^{it})=f(a)\)。对所有 \(r<r_0\) 成立，故 \(f\) 在一个圆盘上常值；
+恒等定理把结论延伸到 \(D\)。
+\end{proof}
+
+若 \(D\) 有界，\(f\) 在 \(\overline D\) 连续并在 \(D\) 全纯，而且非常数，
+则 \(|f|\) 的最大值只能在边界取得。这是高等数学中“闭集上取最大值”之外的
+新信息：紧致性保证最大值存在，最大模原理则排除内部位置。
+
+若 \(f\) 在域中不为零，对 \(1/f\) 应用最大模原理，得到\term{最小模原理}：
+非常数全纯函数的模不能在内部取得正的局部最小值。必须保留“正”这一条件，
+因为零点当然给出模的最小值零。
+
+\begin{theorem}[开映射定理]
+\label{thm:holomorphic-open-mapping}
+域上的非常数全纯函数把开集映成开集。
+\end{theorem}
+
+\begin{proof}
+固定 \(z_0\in D\)，记 \(w_0=f(z_0)\)。零点孤立性允许选择 \(r>0\)，使
+\(\overline{B(z_0,r)}\subseteq D\)，且 \(f(z)\ne w_0\) 在边界圆周上。
+令
+
+\[
+ \delta=\min_{|z-z_0|=r}|f(z)-w_0|>0.
+\]
+
+若 \(|w-w_0|<\delta/2\)，则边界上
+\(|f(z)-w|\ge\delta-|w-w_0|>\delta/2\)，而在 \(z_0\) 处
+\(|f(z_0)-w|=|w-w_0|<\delta/2\)。假设 \(f(z)\ne w\) 于整个闭圆盘，
+则连续函数 \(|f-w|\) 在闭圆盘取得一个正最小值；由上述严格不等式，最小点
+位于内部。
+最小模原理迫使 \(f-w\) 为常数，矛盾。因此某个 \(z\in B(z_0,r)\) 满足
+\(f(z)=w\)。于是 \(B(w_0,\delta/2)\subseteq f(B(z_0,r))\)，证明像在每个
+像点附近都含开圆盘。
+\end{proof}
+
+开映射定理说明非常数全纯函数不能把二维开集压到曲线，也不能只取实值。
+它还表明全纯函数的局部非单射来自零点重数，而不是像集失去内部。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{cauchy-formula-basic-integrals}设 \(|a|<R\)。分别计算
+\(\int_{|z|=R}\frac{e^z}{z-a}dz\) 和
+\(\int_{|z|=R}\frac{e^z}{(z-a)^3}dz\)，圆周取正向。
+\exerciseitem{cauchy-mean-value}从 Cauchy 积分公式推导圆周平均值公式，并说明常数函数与 \(z^n\;(n\ge1)\) 怎样满足它。
+\exerciseitem{cauchy-estimate-coefficients}若 \(f(z)=\sum a_nz^n\) 在 \(|z|<R_0\) 全纯，并且 \(|f(z)|\le M\) 于 \(|z|=R<R_0\)，证明 \(|a_n|\le M/R^n\)。
+\exerciseitem{isolated-zero-factorization}从 Taylor 展开完整证明式\eqref{eq:holomorphic-zero-factorization}，并证明 \(g\) 在 \(a\) 邻域不为零。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{entire-polynomial-growth}证明若整函数满足 \(|f(z)|\le C(1+|z|)^\alpha\)，其中 \(\alpha\ge0\) 不必为整数，则 \(f\) 是次数不超过 \(\lfloor\alpha\rfloor\) 的多项式。
+\exerciseitem{liouville-real-part}证明实部有上界或有下界的整函数为常数。提示：对适当的指数函数应用 Liouville 定理。
+\exerciseitem{liouville-bounded-mobius}设整函数 \(f\) 的像落在某个不经过无穷远点的闭圆盘内。分别用 Liouville 定理和最大模原理证明 \(f\) 为常数。
+\exerciseitem{maximum-modulus-boundary}设 \(D\) 有界，\(f\in C(\overline D)\) 且在 \(D\) 全纯。证明 \(\max_{\overline D}|f|=\max_{\partial D}|f|\)；若 \(f\) 非常数，再证明 \(|f|\) 的每个最大点都属于 \(\partial D\)。
+\exerciseitem{minimum-modulus-condition}构造非常数全纯函数，其模在域内取得最小值；说明这不违背最小模原理，并写出正确条件。
+\exerciseitem{open-mapping-real-valued}用开映射定理重新证明：域上的实值全纯函数必为常数。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{morera-uniform-limit}设 \(f_n\) 在域 \(D\) 全纯并在每个紧子集上一致收敛到 \(f\)。用 Morera 定理证明 \(f\) 全纯；再用 Cauchy 公式证明各阶导数也在紧子集上一致收敛。
+\exerciseitem{cauchy-derivative-distance}设 \(f\) 在域 \(D\) 有界，\(|f|\le M\)。证明
+\(|f^{(n)}(z)|\le n!M/d(z,\partial D)^n\)，并说明无界域中距离应怎样解释。
+\exerciseitem{schwarz-lemma-from-maximum}设 \(f\) 在单位圆盘全纯，\(f(0)=0\)，且 \(|f(z)|\le1\)。证明 \(|f(z)|\le|z|\)、\(|f'(0)|\le1\)，并刻画非零点取等号的情形。
+\optionalexerciseitem{cauchy-estimates-converse}设 \(f\in C^\infty((-1,1))\)，且对每个 \(0<r<1\) 存在 \(M_r\) 使
+\(|f^{(n)}(0)|\le n!M_r/r^n\) 对所有 \(n\) 成立。说明这些中心导数估计仍不能保证 \(f\) 等于其 Taylor 级数，并用实变量平坦函数给出反例；再指出复全纯情形中缺失的关键条件。
+\end{enumerate}

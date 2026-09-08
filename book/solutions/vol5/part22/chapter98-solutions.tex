@@ -1,0 +1,288 @@
+\chapter{光滑流形}
+
+\begin{solution}{manifold-sphere-stereographic}
+记 \(N=(0,\ldots,0,1)\)、\(S=(0,\ldots,0,-1)\)，并把球面点写成
+\((u,t)\in\R^n\times\R\)。取
+\[
+ \sigma_N(u,t)=\frac{u}{1-t},\qquad
+ \sigma_S(u,t)=\frac{u}{1+t}.
+\]
+直接解方程得到
+\[
+ \sigma_N^{-1}(x)=
+ \left(\frac{2x}{1+\norm{x}^2},
+       \frac{\norm{x}^2-1}{1+\norm{x}^2}\right),
+ \qquad
+ \sigma_S^{-1}(y)=
+ \left(\frac{2y}{1+\norm{y}^2},
+       \frac{1-\norm{y}^2}{1+\norm{y}^2}\right).
+\]
+两个分母都恒正；代入后可以直接验证所得点在 \(S^n\) 上，并分别避开
+\(N,S\)。两图重叠对应 \(x\ne0\)，而
+\[
+ (\sigma_S\circ\sigma_N^{-1})(x)=\frac{x}{\norm{x}^2}.
+\]
+这个映射在 \(\R^n\setminus\{0\}\) 上光滑，并且等于自己的逆映射，故
+两张立体投影图光滑相容。
+\end{solution}
+
+\begin{solution}{manifold-product-atlas}
+若 \((U_i,x_i)\)、\((V_j,y_j)\) 分别来自两个光滑图册，则两张积图之间
+的坐标变换为
+\[
+ (x_k,y_\ell)\circ(x_i,y_j)^{-1}(u,v)
+ =\bigl(x_k\circ x_i^{-1}(u),\,
+        y_\ell\circ y_j^{-1}(v)\bigr)
+\]
+（等式限于相应公共定义域）。两个分量都光滑，逆变换同理，所以积图构成
+光滑图册。
+
+映射
+\[
+ ((p,q),r)\longmapsto(p,(q,r))
+\]
+是拓扑同胚，在任意积坐标中只改变括号而不改变欧氏坐标，因而其坐标表示
+是恒等线性映射。它和逆映射都光滑，给出
+\[
+ (M\times N)\times P\cong M\times(N\times P)
+\]
+之间的自然微分同胚。
+\end{solution}
+
+\begin{solution}{manifold-atlas-common-refinement}
+若图册 \(\mathcal A,\mathcal B\) 等价，对每个
+\((U,x)\in\mathcal A\)、\((V,y)\in\mathcal B\) 的非空交集
+\(U\cap V\)，取限制图
+\[
+ (U\cap V,x|_{U\cap V}).
+\]
+这些图覆盖 \(M\)，其坐标域同时细于两组原坐标域。它们彼此光滑相容，并且
+同 \(\mathcal A,\mathcal B\) 中所有图相容，故构成共同光滑加细。
+
+反过来，设 \(\mathcal C\) 是这样的共同光滑加细。取
+\((U,x)\in\mathcal A\)、\((V,y)\in\mathcal B\) 及
+\(p\in U\cap V\)。从 \(\mathcal C\) 中取含 \(p\) 的图 \((W,z)\)，
+并把 \(W\) 缩小到 \(U\cap V\) 内。在 \(p\) 的一个邻域上，
+\[
+ y\circ x^{-1}
+ =(y\circ z^{-1})\circ(z\circ x^{-1}).
+\]
+右端两个因子光滑。坐标变换的光滑性是局部性质，所以 \(x,y\) 在整个
+重叠处相容。任取两图均如此，故两个图册等价。
+\end{solution}
+
+\begin{solution}{manifold-smoothness-all-charts}
+设 \(F\) 在给定的源、目标覆盖图中都有光滑坐标表示。任取极大图册中的
+源图 \((U,x)\) 和目标图 \((V,y)\)。对每个
+\[
+ p\in U\cap F^{-1}(V),
+\]
+从给定覆盖中取图 \((U_0,x_0)\)、\((V_0,y_0)\)，分别覆盖
+\(p,F(p)\)。缩小 \(p\) 的邻域，使其像落在 \(V\cap V_0\) 中，则
+\[
+ y\circ F\circ x^{-1}
+ =(y\circ y_0^{-1})\circ
+  (y_0\circ F\circ x_0^{-1})\circ
+  (x_0\circ x^{-1}).
+\]
+三个因子都光滑，故左侧在每一点附近光滑，从而在其定义域上光滑。
+\end{solution}
+
+\begin{solution}{manifold-rank-coordinate-invariance}
+若 \(\widetilde x,\widetilde y\) 是另一对源、目标坐标，则链式法则给出
+\[
+ D(\widetilde y\circ F\circ\widetilde x^{-1})
+ =D(\widetilde y\circ y^{-1})\,
+  D(y\circ F\circ x^{-1})\,
+  D(x\circ\widetilde x^{-1}).
+\]
+左右两个坐标变换的导数都可逆。矩阵左乘或右乘可逆矩阵不改变秩，因此
+中间矩阵的秩与坐标选择无关。浸入和浸没的定义也就与坐标无关。
+\end{solution}
+
+\begin{solution}{manifold-graph-submanifold}
+定义
+\[
+ \Phi:U\times\R^{n-k}\longrightarrow U\times\R^{n-k},\qquad
+ \Phi(u,v)=(u,v-f(u)).
+\]
+它的逆映射为
+\[
+ \Phi^{-1}(u,w)=(u,w+f(u)),
+\]
+所以 \(\Phi\) 是微分同胚，并且
+\[
+ \Phi(\Gamma_f)=U\times\{0\}.
+\]
+这给出切片坐标，证明 \(\Gamma_f\) 是嵌入子流形。
+
+投影
+\[
+ \pi:\Gamma_f\longrightarrow U,\qquad (u,f(u))\longmapsto u
+\]
+光滑，其逆映射 \(u\mapsto(u,f(u))\) 也光滑，故 \(\pi\) 是微分同胚。
+\end{solution}
+
+\begin{solution}{manifold-sphere-regular-value}
+令 \(F(x)=\norm{x}^2\)。对 \(x\in S^{n-1}\)，
+\[
+ DF(x)h=2x\cdot h.
+\]
+取 \(h=x\) 得 \(DF(x)x=2\)，故线性映射
+\(DF(x):\R^n\to\R\) 满射。于是 \(1\) 是正则值，正则值定理说明
+\(S^{n-1}\) 是 \(n-1\) 维嵌入子流形。
+
+给定 \(p\in S^{n-1}\)，可选 \(j\) 使 \(p_j\ne0\)。在 \(p\) 的
+足够小邻域中固定第 \(j\) 个坐标的符号，球面可写成
+\[
+ x_j=\operatorname{sgn}(p_j)
+ \sqrt{1-\sum_{i\ne j}x_i^2}.
+\]
+根号内在这个邻域中为正，其余 \(n-1\) 个坐标便给出所求局部图像坐标。
+\end{solution}
+
+\begin{solution}{manifold-special-linear-submanifold}
+把矩阵空间识别为 \(\R^{n^2}\)，令 \(F(A)=\det A\)。当 \(A\) 可逆时，
+Jacobi 公式给出
+\[
+ DF(A)H=\det(A)\operatorname{tr}(A^{-1}H).
+\]
+若 \(A\in SL(n,\R)\)，取 \(H=A\)，便有
+\[
+ DF(A)A=n\ne0.
+\]
+因此 \(DF(A):\R^{n^2}\to\R\) 满射。正则值定理说明
+\[
+ F^{-1}(1)=SL(n,\R)
+\]
+是 \(\R^{n^2}\) 中的 \(n^2-1\) 维嵌入子流形。
+\end{solution}
+
+\begin{solution}{manifold-singular-level-examples}
+方程 \(x^2-y^2=0\) 等价于 \(y=x\) 或 \(y=-x\)。零水平集在原点是两条
+直线交叉的并。去掉原点后，原点的任意充分小邻域与该集合的交有四个连通
+分支；而开区间去掉一点只有两个连通分支。因此该集合在原点附近不同胚于
+开区间，不是一维流形。梯度
+\[
+ \nabla(x^2-y^2)=(2x,-2y)
+\]
+在原点为零。
+
+对 \(F(x)=x^3\)，零水平集只是 \(\{0\}\)，它是 \(\R\) 中的零维嵌入
+子流形；但 \(F'(0)=0\)，所以 \(0\) 不是正则值。这两个例子分别说明：
+正则值条件失效时，水平集可能出现奇点，也可能仍然是子流形。
+\end{solution}
+
+\begin{solution}{manifold-injective-immersion-not-embedding}
+首先
+\[
+ \gamma'(t)=(\cos t,2\cos 2t).
+\]
+若第一分量为零，则 \(t=\pm\pi/2\)，此时第二分量等于 \(-2\)。所以
+\(\gamma'(t)\) 从不为零，\(\gamma\) 是浸入。
+
+再证单射。若 \(\sin s=\sin t\)，在 \((-\pi,\pi)\) 中除 \(s=t\) 外，
+只可能有 \(s=\pi-t\) 或 \(s=-\pi-t\)，只取其中仍落在给定区间的一项。
+在这两种情形下都有 \(\sin 2s=-\sin 2t\)。若第二坐标也相等，则
+\(\sin 2t=0\)。检查 \(t=-\pi/2,0,\pi/2\) 后，或者另一个候选点落在
+区间外，或者它就是 \(t\) 本身。因此 \(s=t\)，从而 \(\gamma\) 单射。
+
+然而，令 \(t_k=\pi-1/k\)。当 \(k\) 足够大时 \(t_k\in(-\pi,\pi)\)，且
+\[
+ \gamma(t_k)\longrightarrow(0,0)=\gamma(0),
+ \qquad t_k\not\longrightarrow0.
+\]
+若 \(\gamma^{-1}:\gamma((-\pi,\pi))\to(-\pi,\pi)\) 连续，上述收敛将
+迫使 \(t_k\to0\)，矛盾。因此 \(\gamma\) 不是到其像的同胚，也就不是
+光滑嵌入。
+\end{solution}
+
+\begin{solution}{manifold-cutoff-finite-combination}
+设 \(0\le\chi_j\le1\)，每个 \(\chi_j\) 在覆盖 \(K\) 的某个开集上
+等于 \(1\)，并且 \(\operatorname{supp}\chi_j\Subset U\)。有限乘积
+\[
+ \chi=1-\prod_{j=1}^r(1-\chi_j)
+\]
+光滑且取值于 \([0,1]\)。若一点属于某个 \(\chi_j=1\) 的邻域，则
+\(\chi=1\)。这些邻域覆盖 \(K\)，其并是 \(K\) 的开邻域，所以
+\(\chi=1\) 于 \(K\) 的一个邻域。
+
+在所有 \(\operatorname{supp}\chi_j\) 之外，各 \(\chi_j\) 都为零，
+因而
+\[
+ \operatorname{supp}\chi
+ \subset\bigcup_{j=1}^r\operatorname{supp}\chi_j\Subset U.
+\]
+右端是有限个紧集之并。每个局部截断都已经在坐标域外光滑补零，有限次乘法
+和减法保持光滑，故 \(\chi\in C_c^\infty(M)\)。
+\end{solution}
+
+\begin{solution}{manifold-locally-finite-smooth-sum}
+若 \(\{f_i\}\) 局部有限，则每个 \(p\) 都有邻域 \(V\)，其上只有有限多个
+\(f_i\) 非零。因此
+\[
+ \left.\sum_i f_i\right|_V
+\]
+是有限个光滑函数之和，故光滑；这些局部表达在重叠处显然一致。
+
+反例可在 \(\R\) 上构造。对 \(n\ge2\)，令
+\[
+ I_n=
+ \left(
+ \frac12\left(\frac1{n+1}+\frac1n\right),
+ \frac12\left(\frac1n+\frac1{n-1}\right)
+ \right).
+\]
+这些开区间两两不交，并且 \(1/n\in I_n\)。取
+\(\varphi_n\in C_c^\infty(I_n)\) 满足 \(\varphi_n(1/n)=1\)。每一点
+至多属于一个支集，所以逐点只有有限项非零；但这族在 \(0\) 的任何邻域中
+都有无穷多个非零成员，因而不局部有限。逐点和
+\[
+ f=\sum_{n\ge2}\varphi_n
+\]
+满足 \(f(0)=0\)、\(f(1/n)=1\)，故在 \(0\) 不连续。
+\end{solution}
+
+\begin{solution}{manifold-partition-glue-functions}
+先把 \(\rho_i f_i\) 在 \(U_i\) 外定义为零。由于
+\(\operatorname{supp}\rho_i\subset U_i\)，每一点若在 \(U_i\) 的边界
+附近，则有一个邻域不遇到 \(\operatorname{supp}\rho_i\)；所以补零函数
+仍然光滑。单位分解局部有限，因此
+\[
+ f=\sum_i\rho_i f_i
+\]
+在每一点附近都是有限和，故良定义且光滑。
+
+它一般只是局部函数的加权平均。若两个重叠开集上分别取常函数
+\(f_1=0\)、\(f_2=1\)，并且某点满足 \(0<\rho_2<1\)，则该点有
+\(f=\rho_2\)，既不等于 \(f_1\) 也不等于 \(f_2\)。只有各局部函数在
+重叠处相等时，单位分解粘合才恢复它们共同定义的函数。
+\end{solution}
+
+\begin{solution}{manifold-compact-embedding-reconstruction}
+取有限坐标覆盖 \(\{(U_i,x_i)\}_{i=1}^m\)，以及从属于它的单位分解
+\(\{\rho_i\}_{i=1}^m\)，定义
+\[
+ \Phi(p)=
+ \bigl(\rho_1(p),\rho_1(p)x_1(p),\ldots,
+       \rho_m(p),\rho_m(p)x_m(p)\bigr).
+\]
+各 \(\rho_i x_i\) 因 \(\operatorname{supp}\rho_i\Subset U_i\) 而可在
+\(U_i\) 外光滑补零。
+
+若 \(\Phi(p)=\Phi(q)\)，选 \(i\) 使 \(\rho_i(p)>0\)。标量分量给出
+\(\rho_i(q)=\rho_i(p)>0\)，所以 \(p,q\in U_i\)；向量分量随后给出
+\(x_i(p)=x_i(q)\)，故 \(p=q\)。
+
+再在 \(p\) 处用 \(x_i\) 作坐标。若
+\[
+ D(\Phi\circ x_i^{-1})(x_i(p))v=0,
+\]
+则第 \(i\) 个标量分量给 \(D\rho_i(p)v=0\)，相应向量分量给
+\[
+ \rho_i(p)v+x_i(p)D\rho_i(p)v=\rho_i(p)v=0.
+\]
+于是 \(v=0\)，所以 \(\Phi\) 是浸入。最后，\(M\) 紧而欧氏空间
+Hausdorff，连续单射 \(\Phi\) 是到其像的同胚。因此 \(\Phi\) 是光滑
+嵌入。
+\end{solution}

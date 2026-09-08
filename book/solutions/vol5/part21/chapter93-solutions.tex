@@ -1,0 +1,267 @@
+\chapter{孤立奇点与留数}
+\label{chap:isolated-singularities-residues-solutions}
+
+\begin{solution}{laurent-geometric-annuli}
+当 \(0<|z|<1\) 时，
+\[
+ \frac1{z(1-z)}
+ =\frac1z\sum_{n=0}^{\infty}z^n
+ =\sum_{n=0}^{\infty}z^{n-1}.
+\]
+其正向几何级数要求 \(|z|<1\)，而因子 \(1/z\) 排除中心。当 \(|z|>1\) 时，
+\[
+ \frac1{z(1-z)}
+ =-\frac1{z^2}\frac1{1-z^{-1}}
+ =-\sum_{n=0}^{\infty}z^{-n-2}.
+\]
+这一级数要求 \(|z^{-1}|<1\)。两个展开的公共函数相同，但环域不相交，
+Laurent 系数也不同。
+\end{solution}
+
+\begin{solution}{laurent-shifted-rational}
+先作部分分式
+\[
+ \frac1{(z-1)(z-2)}=-\frac1{z-1}+\frac1{z-2}.
+\]
+在 \(|z|<1\) 中，
+\[
+ \frac1{(z-1)(z-2)}
+ =\sum_{n=0}^{\infty}\left(1-\frac1{2^{n+1}}\right)z^n.
+\]
+在 \(1<|z|<2\) 中，
+\[
+ \frac1{(z-1)(z-2)}
+ =-\sum_{n=0}^{\infty}z^{-n-1}
+   -\sum_{n=0}^{\infty}\frac{z^n}{2^{n+1}}.
+\]
+在 \(|z|>2\) 中，
+\[
+ \frac1{(z-1)(z-2)}
+ =\sum_{n=0}^{\infty}(2^n-1)z^{-n-1}.
+\]
+最后一式的 \(n=0\) 系数为零。三个最大环域的边界正是到两个奇点
+\(1,2\) 的距离。
+\end{solution}
+
+\begin{solution}{classify-elementary-singularities}
+由幂级数
+\[
+ \frac{\sin z}{z^3}=\frac1{z^2}-\frac16+\frac{z^2}{120}-\cdots,
+\]
+故 \(0\) 是二阶极点，留数为零。又
+\[
+ \frac{1-\cos z}{z^4}
+ =\frac1{2z^2}-\frac1{24}+\frac{z^2}{720}-\cdots,
+\]
+同样是二阶极点且留数为零。最后
+\[
+ e^{1/z}=\sum_{n=0}^{\infty}\frac1{n!z^n}
+\]
+有无穷多个非零负次项，所以 \(0\) 是本性奇点；\(z^{-1}\) 的系数为 \(1\)，
+故留数为 \(1\)。
+\end{solution}
+
+\begin{solution}{residue-simple-quotient}
+Taylor 展开给
+\[
+ \psi(z)=(z-a)\bigl(\psi'(a)+(z-a)h(z)\bigr),
+\]
+其中括号内函数在 \(a\) 处非零。于是
+\[
+ \frac{\phi(z)}{\psi(z)}
+ =\frac1{z-a}\,
+ \frac{\phi(z)}{\psi'(a)+(z-a)h(z)}.
+\]
+后一因子全纯，其在 \(a\) 的值为 \(\phi(a)/\psi'(a)\)。因此 Laurent
+展开中 \((z-a)^{-1}\) 的系数就是该值。
+\end{solution}
+
+\begin{solution}{removable-small-order}
+令 \(g(z)=(z-a)f(z)\)。题设使 \(g(z)\to0\)，故令 \(g(a)=0\) 后连续。
+它在删心邻域全纯，并在 \(a\) 附近有界，所以可去奇点定理使 \(g\) 全纯。
+若这一延拓恒为零，则 \(f\) 在删心邻域恒为零，直接令 \(f(a)=0\) 即得全纯
+延拓。否则，\(g(a)=0\) 的孤立零点分解给
+\(g(z)=(z-a)^mh(z)\)，其中 \(m\ge1\) 且 \(h(a)\ne0\)。于是
+\[
+ f(z)=(z-a)^{m-1}h(z)
+\]
+在 \(a\) 可去。若只知 \((z-a)f(z)\) 有界，取
+\(f(z)=1/(z-a)\)，乘积恒为 \(1\)，而 \(a\) 是单极点，故条件不够。
+\end{solution}
+
+\begin{solution}{pole-reciprocal-zero}
+若 \(f=(z-a)^{-m}g\)，其中 \(g(a)\ne0\)，则
+\[
+ \frac1f=(z-a)^m\frac1g
+\]
+延拓为全纯函数，并在 \(a\) 有恰好 \(m\) 阶零点。反之，若
+\(1/f=(z-a)^mh(z)\)，其中 \(h(a)\ne0\)，则
+\[
+ f=(z-a)^{-m}\frac1h,
+\]
+\(1/h\) 在 \(a\) 附近全纯且非零，所以 \(f\) 有 \(m\) 阶极点。
+\end{solution}
+
+\begin{solution}{residue-higher-pole}
+令 \(g(z)=(z-a)^mf(z)\)。它在 \(a\) 附近全纯，写
+\[
+ g(z)=\sum_{n=0}^{\infty}\frac{g^{(n)}(a)}{n!}(z-a)^n.
+\]
+除以 \((z-a)^m\) 后，\((z-a)^{-1}\) 来自 \(n=m-1\)，故
+\[
+ \operatorname{Res}(f,a)=\frac{g^{(m-1)}(a)}{(m-1)!}.
+\]
+对 \(e^z/(z-1)^4\)，有 \(m=4\)、\(g=e^z\)，所以留数为
+\[
+ \frac{g^{(3)}(1)}{3!}=\frac e6.
+\]
+\end{solution}
+
+\begin{solution}{logarithmic-derivative-local-residue}
+若 \(a\) 是 \(f\) 的 \(m\) 阶零点，写
+\(f(z)=(z-a)^mg(z)\)，其中 \(g(a)\ne0\)，则
+\[
+ \frac{f'}f=\frac m{z-a}+\frac{g'}g.
+\]
+后一项在 \(a\) 全纯，所以留数为 \(m\)。若 \(a\) 是 \(p\) 阶极点，则
+\(f=(z-a)^{-p}g\)，同样计算给留数 \(-p\)。若既无零点也无极点，留数为
+零。因此统一写成“零点阶数减极点阶数”。
+\end{solution}
+
+\begin{solution}{residue-infinity-coefficient}
+设无穷远 Laurent 展开为
+\[
+ f(z)=\sum_{n=-\infty}^{\infty}c_nz^n.
+\]
+代入 \(z=1/w\) 并除以 \(w^2\)，得到
+\[
+ \frac{f(1/w)}{w^2}=\sum_{n=-\infty}^{\infty}c_nw^{-n-2}.
+\]
+\(w^{-1}\) 项对应 \(-n-2=-1\)，即 \(n=-1\)。按定义中的负号，
+\(\operatorname{Res}(f,\infty)=-c_{-1}\)。
+
+对有理函数 \(P/Q\)，先作多项式除法，再在 \(w=1/z=0\) 对真分式作 Taylor
+展开，读出 \(z^{-1}\) 系数。若真分式满足
+\(\deg P\le\deg Q-2\)，则它在无穷远处是 \(O(z^{-2})\)，因而
+\(c_{-1}=0\)。若 \(\deg P=\deg Q-1\)，则 \(c_{-1}\) 等于分子、分母
+首项系数之比；例如
+\(1/(z-a)=z^{-1}+az^{-2}+\cdots\)，故其无穷远留数为 \(-1\)。一般也可
+先求全部有限极点留数，再用
+\(\operatorname{Res}(f,\infty)=-\sum_{a\in\C}\operatorname{Res}(f,a)\)。
+\end{solution}
+
+\begin{solution}{real-rational-residue-integral}
+上半平面只有二阶极点 \(z=i\)。写
+\[
+ \frac1{(z^2+1)^2}
+ =\frac1{(z-i)^2(z+i)^2}.
+\]
+留数为
+\[
+ \left.\frac d{dz}(z+i)^{-2}\right|_{z=i}
+ =-\frac2{(2i)^3}=-\frac i4.
+\]
+在半径 \(R>2\) 的上半圆上，
+\[
+ |z^2+1|\ge |z|^2-1\ge\frac34R^2,
+\]
+故被积函数模不超过 \(16/(9R^4)\)，弧积分模至多
+\(16\pi/(9R^3)\to0\)。留数定理于是给
+\[
+ \int_{-\infty}^{\infty}\frac{dx}{(x^2+1)^2}
+ =2\pi i\left(-\frac i4\right)=\frac\pi2.
+\]
+\end{solution}
+
+\begin{solution}{casorati-no-limit}
+若 \(f(z)\to L\in\C\)，则充分小删心邻域的像包含在
+\(B(L,1)\) 中，不可能在 \(\C\) 稠密。若 \(f(z)\to\infty\)（球面意义），
+则充分小删心邻域上 \(|f(z)|>1\)，其像避开圆盘 \(B(0,1)\)，也不稠密。
+两种情形都与 Casorati--Weierstrass 定理矛盾。
+\end{solution}
+
+\begin{solution}{trigonometric-residue-integral}
+令 \(z=e^{it}\)，则 \(dt=dz/(iz)\) 且
+\(\cos t=(z+z^{-1})/2\)。积分化为
+\[
+ \int_{|z|=1}\frac{2\,dz}{i(bz^2+2az+b)}.
+\]
+令 \(\Delta=\sqrt{a^2-b^2}\)。二次式的根为
+\[
+ z_\pm=\frac{-a\pm\Delta}{b}.
+\]
+因为
+\[
+ |z_+|=\frac{a-\Delta}{|b|}=\frac{|b|}{a+\Delta}<1,\qquad
+ |z_-|>1,
+\]
+单位圆内只有 \(z_+\)。被积函数在该点的留数为
+\[
+ \frac2{i(2bz_++2a)}
+ =\frac1{i\Delta}.
+\]
+因此原积分为
+\[
+ 2\pi i\frac1{i\Delta}
+ =\frac{2\pi}{\sqrt{a^2-b^2}}.
+\]
+\end{solution}
+
+\begin{solution}{cotangent-lattice-sum}
+令
+\[
+ F(z)=\frac{\pi\cot(\pi z)}{z^2+a^2}.
+\]
+整数 \(n\) 处留数为 \(1/(n^2+a^2)\)。另外在 \(z=ia\) 处，
+\[
+ \operatorname{Res}(F,ia)
+ =\frac{\pi\cot(\pi ia)}{2ia}
+ =-\frac{\pi}{2a}\coth(\pi a),
+\]
+因为 \(\cot(ix)=-i\coth x\)。在 \(-ia\) 处得到同一个留数。
+
+取边经过半整数且包住 \(\pm ia\) 的正方形轮廓。其上
+\(\cot(\pi z)\) 一致有界，而 \((z^2+a^2)^{-1}=O(N^{-2})\)，故边界积分
+为 \(O(N^{-1})\to0\)。留数定理及级数绝对收敛给
+\[
+ 0=\sum_{n\in\Z}\frac1{n^2+a^2}
+ -\frac{\pi}{a}\coth(\pi a),
+\]
+即所求公式。
+\end{solution}
+
+\begin{solution}{keyhole-beta-integral}
+在 \(0<\arg z<2\pi\) 上定义
+\[
+ z^{\alpha-1}
+ =\exp((\alpha-1)(\log|z|+i\arg z)).
+\]
+取沿正实轴上岸从 \(\varepsilon\) 到 \(R\)、外圆逆时针、下岸从 \(R\)
+回到 \(\varepsilon\)、内圆顺时针的钥匙孔轮廓。上岸函数值为
+\(x^{\alpha-1}\)，下岸为
+\(e^{2\pi i(\alpha-1)}x^{\alpha-1}=e^{2\pi i\alpha}x^{\alpha-1}\)；
+方向相反，所以两岸之和为
+\[
+ (1-e^{2\pi i\alpha})
+ \int_\varepsilon^R\frac{x^{\alpha-1}}{1+x}\,dx.
+\]
+外圆上被积函数为 \(O(R^{\alpha-2})\)，弧长 \(2\pi R\)，故贡献
+\(O(R^{\alpha-1})\to0\)。内圆上分母有正下界，贡献
+\(O(\varepsilon^\alpha)\to0\)。
+
+轮廓内只有简单极点 \(-1\)，其辐角为 \(\pi\)，留数为
+\[
+ (-1)^{\alpha-1}=e^{i\pi(\alpha-1)}.
+\]
+因此令 \(\varepsilon\downarrow0\)、\(R\to\infty\)，得到
+\[
+ (1-e^{2\pi i\alpha})I
+ =2\pi i e^{i\pi(\alpha-1)}.
+\]
+利用
+\[
+ 1-e^{2\pi i\alpha}
+ =-2i e^{i\pi\alpha}\sin(\pi\alpha)
+\]
+化简即得 \(I=\pi/\sin(\pi\alpha)\)。
+\end{solution}

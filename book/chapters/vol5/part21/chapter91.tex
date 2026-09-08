@@ -1,0 +1,404 @@
+\chapter{Cauchy 定理}
+\label{chap:cauchy-theorem}
+
+全纯函数由局部差商定义，Cauchy 定理却控制闭曲线上的整体积分。若额外假设
+导数连续，可把实部、虚部分开并使用 Green 定理，但这会给结论带入不必要的
+\(C^1\) 假设。本章采用 Goursat 的三角形分割证明，只假设函数全纯；随后
+用同伦与绕数说明区域中的孔洞怎样影响积分。
+
+\section{复曲线积分和参数化不变性}
+
+一条分片 \(C^1\) 曲线是连续映射
+\(\gamma:[a,b]\to\C\)，它在某个有限分割的每段上为 \(C^1\)。若 \(f\)
+在曲线像上连续，定义
+\[
+ \int_\gamma f(z)\,dz
+ =\int_a^b f(\gamma(t))\gamma'(t)\,dt.
+\]
+反向曲线记为 \(-\gamma\)，首尾相接记为 \(\gamma_1*\gamma_2\)。定义给出
+\[
+ \int_{-\gamma}f\,dz=-\int_\gamma f\,dz,\qquad
+ \int_{\gamma_1*\gamma_2}f\,dz
+ =\int_{\gamma_1}f\,dz+\int_{\gamma_2}f\,dz.
+\]
+若 \(\phi:[c,d]\to[a,b]\) 是保持方向的分片 \(C^1\) 重参数化，一元变量
+代换给
+\[
+ \int_{\gamma\circ\phi}f\,dz=\int_\gamma f\,dz.
+\]
+反向重参数化使积分变号。曲线长度
+\[
+ \ell(\gamma)=\int_a^b|\gamma'(t)|\,dt
+\]
+给出 \(ML\) 估计
+\begin{equation}
+ \left|\int_\gamma f(z)\,dz\right|
+ \le\max_{\gamma([a,b])}|f|\,\ell(\gamma).
+ \label{eq:complex-ml-estimate}
+\end{equation}
+它只是实积分三角不等式的直接结果：
+\[
+ \left|\int_a^b f(\gamma(t))\gamma'(t)\,dt\right|
+ \le\int_a^b|f(\gamma(t))|\,|\gamma'(t)|\,dt.
+\]
+分片点对两边都没有影响。这个估计在缩小圆周、扩大半圆以及比较相邻路径时
+反复使用；每次都必须同时控制被积函数的上界和路径长度。
+
+正向圆周 \(\gamma(t)=a+re^{it}\) 满足
+\[
+ \int_\gamma\frac{dz}{z-a}=2\pi i.
+\]
+因此 \(1/(z-a)\) 虽在穿孔平面上全纯，却不可能在那里有原函数。局部可导并不
+使闭路积分自动消失；障碍来自定义域绕过了缺失点。
+
+\section{原函数和道路无关}
+
+若 \(F\) 在域 \(D\) 全纯且 \(F'=f\)，就称 \(F\) 是 \(f\) 的原函数。
+
+\begin{theorem}[曲线积分基本定理]
+\label{thm:complex-line-integral-fundamental}
+若 \(F'=f\) 于域 \(D\)，而 \(\gamma:[a,b]\to D\) 分片 \(C^1\)，则
+\[
+ \int_\gamma f(z)\,dz=F(\gamma(b))-F(\gamma(a)).
+\]
+\end{theorem}
+
+\begin{proof}
+每个光滑子区间上都有
+\[
+ \frac d{dt}F(\gamma(t))=F'(\gamma(t))\gamma'(t).
+\]
+逐段使用一元 Newton--Leibniz 公式，内部端点相消。
+\end{proof}
+
+\begin{theorem}[原函数判据]
+\label{thm:primitive-path-independence}
+设 \(D\) 为域，\(f:D\to\C\) 连续。以下条件等价：
+\begin{enumerate}[label=(\roman*)]
+ \item \(f\) 在 \(D\) 有原函数；
+ \item 任意两条同起点、同终点的分片 \(C^1\) 道路积分相同；
+ \item \(f\) 沿 \(D\) 中每条分片 \(C^1\) 闭曲线的积分为零。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\((i)\Rightarrow(ii)\) 来自积分基本定理；把一条道路接上另一条的反向，得到
+\((ii)\) 与 (iii) 等价。设 (ii) 成立，固定 \(z_*\in D\)，定义
+\[
+ F(z)=\int_{z_*}^{z}f(\zeta)\,d\zeta.
+\]
+开连通集道路连通，而道路无关性保证定义良好。若从 \(z\) 到 \(z+h\) 的
+线段位于 \(D\)，则
+\[
+ \frac{F(z+h)-F(z)}h=\int_0^1f(z+th)\,dt\longrightarrow f(z).
+\]
+故 \(F'=f\)。
+\end{proof}
+
+闭曲线积分 \(\int_\gamma f\,dz\) 常称为 \(f\) 沿 \(\gamma\) 的一个
+\term{周期}。原函数判据可以简述为：连续函数有全局原函数，当且仅当它的
+全部周期为零。三角形上的局部结论将保证全纯函数局部总有原函数，而区域中的
+孔洞决定这些局部原函数能否拼接。
+
+\section{三角形与矩形上的 Cauchy 定理}
+
+\begin{theorem}[Goursat 三角形定理]
+\label{thm:goursat-triangle}
+设三角形 \(T\) 连同内部包含在开集 \(D\) 中，\(f\) 在 \(D\) 全纯。若
+\(\partial T\) 取正向，则
+\[
+ \int_{\partial T}f(z)\,dz=0.
+\]
+\end{theorem}
+
+\begin{proof}
+记 \(I(T)=\int_{\partial T}f\,dz\)。连接三边中点，把 \(T\) 分成四个相似
+小三角形。内部边方向相反而抵消，故四个边界积分之和为 \(I(T)\)。至少有
+一个小三角形 \(T_1\) 满足
+\[
+ |I(T_1)|\ge\frac14|I(T)|.
+\]
+重复选择得到闭三角形套 \(T_n\)。若原三角形的直径和周长分别为
+\(d\) 和 \(L\)，则
+\[
+ \begin{aligned}
+  \operatorname{diam}T_n&=2^{-n}d,
+  &\ell(\partial T_n)&=2^{-n}L,\\
+  |I(T_n)|&\ge 4^{-n}|I(T)|.
+ \end{aligned}
+\]
+三角形套有唯一公共点 \(z_0\)。
+
+由 \(f\) 在 \(z_0\) 可微，对每个 \(\varepsilon>0\)，在充分小的邻域中
+\[
+ f(z)=f(z_0)+f'(z_0)(z-z_0)+(z-z_0)\eta(z),
+ \qquad|\eta(z)|<\varepsilon.
+\]
+常数项和线性项沿三角形边界的积分均为零。设原三角形的直径、周长为
+\(d,L\)，则对充分大的 \(n\)，\(ML\) 估计给
+\[
+ |I(T_n)|\le\varepsilon(2^{-n}d)(2^{-n}L)
+ =\varepsilon dL\,4^{-n}.
+\]
+与下界比较得 \(|I(T)|\le\varepsilon dL\)。令
+\(\varepsilon\downarrow0\) 即得结论。
+\end{proof}
+
+证明只在公共点 \(z_0\) 使用了 \(f\) 的复可微性，没有假设 \(f'\) 连续。
+减去常数项和线性项后，余项在直径为 \(2^{-n}d\) 的三角形上是
+\(o(2^{-n})\)，再乘以周长 \(O(2^{-n})\)，恰好得到比
+\(4^{-n}|I(T)|\) 更小的量。这是四分法能够闭合的定量原因。
+
+沿对角线分割即得矩形上的 Cauchy 定理。三角形定理还给出局部原函数。
+
+\begin{corollary}[圆盘上的原函数]
+\label{cor:holomorphic-local-primitive}
+若 \(B(a,r)\subseteq D\)，\(f\) 在 \(D\) 全纯，则 \(f\) 在
+\(B(a,r)\) 上有原函数。
+\end{corollary}
+
+\begin{proof}
+令
+\[
+ F(z)=\int_{[a,z]}f(\zeta)\,d\zeta.
+\]
+对充分小的 \(h\)，三角形 \(a,z,z+h\) 位于圆盘。其边界积分为零，所以
+\[
+ F(z+h)-F(z)=\int_{[z,z+h]}f(\zeta)\,d\zeta.
+\]
+除以 \(h\) 并用连续性即得 \(F'(z)=f(z)\)。
+\end{proof}
+
+局部原函数总存在，但它们在有孔区域中未必能拼成单值的全局原函数。
+
+\section{单连通域上的 Cauchy 定理}
+
+两条同端点道路 \(\gamma_0,\gamma_1:[0,1]\to D\) 若存在连续映射
+\(H:[0,1]^2\to D\)，满足
+\[
+ H(0,t)=\gamma_0(t),\quad H(1,t)=\gamma_1(t),\quad
+ H(s,0)=z_0,\quad H(s,1)=z_1,
+\]
+就称它们在固定端点下同伦。
+
+\begin{theorem}[同伦形式的 Cauchy 定理]
+\label{thm:cauchy-homotopy-invariance}
+若 \(f\) 在域 \(D\) 全纯，而两条分片 \(C^1\) 道路在 \(D\) 中固定端点
+同伦，则
+\[
+ \int_{\gamma_0}f(z)\,dz=\int_{\gamma_1}f(z)\,dz.
+\]
+特别地，零伦闭曲线上的积分为零。
+\end{theorem}
+
+\begin{proof}
+同伦像 \(H([0,1]^2)\) 是紧集。它的每一点都有一个闭含于 \(D\) 的开圆盘，
+而 \(f\) 在该圆盘上有原函数。取有限个这样的圆盘 \(U_\nu\) 覆盖同伦像。
+开集 \(H^{-1}(U_\nu)\) 覆盖参数正方形；由 Lebesgue 数引理，可取网格
+\[
+ 0=s_0<\cdots<s_m=1,\qquad
+ 0=t_0<\cdots<t_n=1,
+\]
+使每个参数小矩形的像都落在某个 \(U_\nu\) 中。
+
+记 \(p_{jk}=H(s_j,t_k)\)。把相邻的两个 \(p_{jk}\) 用直线段连接。若这条
+线段是某个小矩形的一条边，它的两个端点都在包含该小矩形像的圆盘内；圆盘
+凸，故整条线段也在其中。每个小矩形的四条弦因而落在一个有原函数的圆盘内，
+沿其有向边界的四个积分之和为零。对所有小矩形求和，内部弦方向相反而抵消；
+\(t=0\) 与 \(t=1\) 上的端点固定，相应的弦是常值曲线，也没有贡献。因此
+只剩 \(s=0\) 和 \(s=1\) 两条边界折线，且方向相反。
+
+还须把边界折线与原来的 \(\gamma_0,\gamma_1\) 比较。每个小区间上的原曲线
+段和连接其端点的弦都落在同一个 \(U_\nu\) 中，故二者的积分都是该圆盘上
+原函数的端点差。逐段相加可知两条边界折线的积分分别等于
+\(\gamma_0,\gamma_1\) 的积分。于是
+\[
+ \int_{\gamma_0}f\,dz=\int_{\gamma_1}f\,dz .
+\]
+整个构造只对参数网格的边使用直线段，并未沿一般连续曲线
+\(H(s,\cdot)\) 定义积分。
+\end{proof}
+
+域 \(D\) 称为\term{单连通}，若其中每条闭曲线都可在 \(D\) 中收缩为一点。
+平面域自动道路连通。
+
+\begin{corollary}[单连通域上的 Cauchy 定理]
+\label{cor:cauchy-simply-connected}
+若 \(D\subseteq\C\) 单连通且 \(f\) 在 \(D\) 全纯，则任意闭分片
+\(C^1\) 曲线上的积分为零；等价地，\(f\) 在 \(D\) 上有原函数。
+\end{corollary}
+
+圆盘、凸域和星形域都单连通。穿孔平面不是单连通，因为
+\(\int_{|z|=1}dz/z=2\pi i\)。
+
+\section{同伦版本、绕数与拓扑条件}
+
+对避开 \(a\) 的闭分片 \(C^1\) 曲线定义绕数
+\[
+ \operatorname{Ind}(\gamma,a)
+ =\frac1{2\pi i}\int_\gamma\frac{dz}{z-a}.
+\]
+
+\begin{proposition}[绕数的基本性质]
+\label{prop:winding-number-properties}
+绕数为整数；它关于 \(a\) 在曲线补集的每个连通分支上常值，在无界分支上
+为零，并在不穿过 \(a\) 的闭曲线同伦下保持不变。
+\end{proposition}
+
+\begin{proof}
+令
+\[
+ G(t)=\int_0^t\frac{\gamma'(s)}{\gamma(s)-a}\,ds.
+\]
+直接求导可知 \(e^{-G(t)}(\gamma(t)-a)\) 为常数。闭曲线条件给
+\(e^{G(1)}=1\)，故 \(G(1)\in2\pi i\Z\)。绕数关于 \(a\) 连续而取整数值，
+所以在每个连通分支上常值；\(|a|\) 充分大时由 \(ML\) 估计得绕数为零。
+同伦不变性把\theoremref{thm:cauchy-homotopy-invariance}用于
+\(1/(z-a)\)。
+\end{proof}
+
+例如，正向圆周 \(a+re^{it}\) 关于圆内点的绕数为 \(1\)，关于圆外点为
+\(0\)；把圆周反向或重复 \(k\) 次，绕数相应变为 \(-1\) 或 \(k\)。对一般
+自交曲线，绕数仍逐个补集分支取整数值，但不同有界分支上的整数可以不同。
+因此后面的条件 \(\operatorname{Ind}(\gamma,w)=0\;(w\notin D)\) 并不要求
+\(D\) 单连通；它只要求这条具体曲线没有围住落在 \(D\) 外的点。
+
+单连通性是简洁的整体条件，但某一条曲线只会感受到它实际围住的孔洞。
+
+为处理这种情形，先记录一个平面链引理。有限个闭分片 \(C^1\) 曲线的整数
+线性组合
+\[
+ \Gamma=\sum_{\nu=1}^q m_\nu\gamma_\nu
+\]
+称为一个\term{曲线链}；积分和绕数都按线性方式定义。
+
+\begin{lemma}[平面多边形链引理]
+\label{lem:planar-polygonal-chain}
+设 \(P\) 是域 \(D\) 中的闭多边形链，并且
+\[
+ \operatorname{Ind}(P,w)=0\qquad(w\notin D).
+\]
+则存在有限个闭含于 \(D\) 的有向三角形 \(\Delta_\mu\) 和整数
+\(n_\mu\)，使
+\[
+ P=\sum_\mu n_\mu\partial\Delta_\mu
+\]
+作为有向线段链成立。
+\end{lemma}
+
+\begin{proof}
+先在所有自交点和重合线段的端点处分割 \(P\)，把它看成有限平面直线图上
+带整数重数的有向边链。令
+\[
+ K=|P|\cup
+ \{w\in\C\setminus |P|:\operatorname{Ind}(P,w)\ne0\}.
+\]
+绕数在 \(\C\setminus|P|\) 的每个连通分支上常值，并在无界分支为零。
+\(|P|\) 的凸包之外都属于无界分支，所以 \(K\) 有界；其补集是绕数为零的
+分支之并，因而是开集，故 \(K\) 闭。
+题设和 \(|P|\subset D\) 又给 \(K\subset D\)。于是 \(K\) 是 \(D\) 的
+紧子集，可取 \(\delta>0\) 使
+\[
+ \{z:\operatorname{dist}(z,K)\le\delta\}\subset D.
+\]
+
+取包含 \(K\) 于内部的大正方形，在其中叠加网格宽小于
+\(\delta/3\) 的方格线以及 \(P\) 的全部线段。在所有交点处分割各边。若某个
+面有多个边界分支，就先在该面内添加有限条互不相交的连接线，把它切成简单
+多边形，再逐个三角剖分。所有新增线段都可取在同一方格内。这样得到一个有限
+三角剖分，它以 \(P\) 的每条分割边为边，并且每个三角形的直径小于
+\(\sqrt2\,\delta/3<\delta\)。
+
+对内部不与 \(P\) 相交的每个三角形 \(\Delta\)，取内点 \(q_\Delta\)，并
+赋权
+\[
+ n_\Delta=\operatorname{Ind}(P,q_\Delta).
+\]
+绕数在该三角形内部常值。若 \(n_\Delta\ne0\)，则
+\(q_\Delta\in K\)，由直径的选择可知
+\(\overline\Delta\subset D\)。
+
+考察链 \(\sum_\Delta n_\Delta\partial\Delta\)。一条不属于 \(P\) 的公共边
+两侧可以在不穿过 \(P\) 的情况下互相接近，故两侧绕数相等，该边的系数
+相消；大正方形边界邻接的三角形权为零，外边界也不留下系数。若一条边属于
+\(P\)，则其左、右两侧绕数之差等于 \(P\) 沿该有向边的重数。这个跳跃公式
+可在边的内点附近核对：令左右两点垂直趋向该内点，\(P\) 中不经过该小邻域
+的部分对两个绕数之差趋于零，而每条同向直线段的局部贡献之差趋于 \(1\)，
+反向线段趋于 \(-1\)。总差始终是整数，故两点充分接近时总差恰等于该边的
+整数重数。因此加权三角形边界在每条边上的系数恰与 \(P\) 相同。删除权为
+零的三角形便得到所需有限表示。
+\end{proof}
+
+\begin{theorem}[绕数条件下的 Cauchy 定理]
+\label{thm:cauchy-winding-condition}
+设 \(\gamma\) 是域 \(D\) 中的闭分片 \(C^1\) 曲线，并且
+\[
+ \operatorname{Ind}(\gamma,a)=0\qquad(a\notin D).
+\]
+若 \(f\) 在 \(D\) 全纯，则 \(\int_\gamma f(z)\,dz=0\)。
+\end{theorem}
+
+\begin{proof}
+先把 \(\gamma\) 化为多边形。用有限个凸圆盘覆盖其像，每个圆盘都闭含于
+\(D\)，并且 \(f\) 在其中有原函数。把参数区间分得足够细，使每段曲线像
+落在一个这样的圆盘内，再以端点间的弦替代该段，得到闭多边形 \(P\)。
+局部原函数说明
+\[
+ \int_\gamma f\,dz=\int_P f\,dz.
+\]
+若 \(a\notin D\)，同一圆盘内的函数 \(1/(z-a)\) 也有原函数，所以替换前后
+关于 \(a\) 的绕数相同。因此 \(P\) 满足平面多边形链引理的条件。
+
+取该引理给出的三角形和整数权。Goursat 三角形定理给
+\[
+ \int_\gamma f\,dz
+ =\int_P f\,dz
+ =\sum_\mu n_\mu\int_{\partial\Delta_\mu}f\,dz
+ =0.
+\]
+\end{proof}
+
+\begin{corollary}[Cauchy 定理的曲线链形式]
+\label{cor:cauchy-cycle-form}
+若曲线链 \(\Gamma\) 位于域 \(D\)，并且
+\(\operatorname{Ind}(\Gamma,w)=0\) 对所有 \(w\notin D\) 成立，则每个
+在 \(D\) 全纯的函数都满足
+\[
+ \int_\Gamma f(z)\,dz=0.
+\]
+\end{corollary}
+
+\begin{proof}
+对链中的有限条曲线同时作上述多边形替换。积分和绕数关于整数线性组合均为
+线性，故所得闭多边形链仍满足平面多边形链引理；随后逐个三角形应用
+Goursat 定理即可。
+\end{proof}
+
+域 \(D\subseteq\C\setminus\{0\}\) 上存在全纯对数分支，当且仅当
+\(\operatorname{Ind}(\gamma,0)=0\) 对每条闭曲线成立。这等价于 \(1/z\)
+有原函数 \(L\)；调整常数后，\((ze^{-L(z)})'=0\)，从而 \(e^{L(z)}=z\)。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{complex-integral-reparametrization}完整证明复曲线积分在递增分片 \(C^1\) 重参数化下不变，并证明反向参数化使其变号。
+\exerciseitem{complex-ml-circle}用 \(ML\) 估计证明：若 \(f\) 在 \(a\) 连续，则 \(\int_{|z-a|=r}f(z)\,dz\to0\) 当 \(r\downarrow0\)。
+\exerciseitem{complex-monomial-circle-integral}计算正向圆周 \(|z|=r\) 上 \(\int z^n\,dz\)，其中 \(n\in\Z\)。
+\exerciseitem{primitive-closed-integrals}证明有原函数的连续函数沿任意闭曲线积分为零，并据此证明 \(1/z\) 在穿孔平面上没有原函数。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{goursat-quarter-selection}补全 Goursat 证明中的两个细节：四分后边界积分相加为何等于原积分；为何闭三角形套有唯一公共点。
+\exerciseitem{star-shaped-holomorphic-primitive}设 \(D\) 关于 \(a\) 星形。直接用三角形定理证明 \(F(z)=\int_{[a,z]}f(\zeta)d\zeta\) 是全纯 \(f\) 的原函数。
+\exerciseitem{morera-triangle-theorem}设 \(f\) 在域 \(D\) 连续，并且每个闭含于 \(D\) 的三角形 \(T\) 都满足 \(\int_{\partial T}f\,dz=0\)。先证明 \(f\) 局部具有原函数；学完下一章的全纯函数解析性后，再证明 \(f\) 全纯。这一结论称为 Morera 定理。
+\exerciseitem{winding-number-circle}求曲线 \(\gamma(t)=a+re^{ikt}\)、\(0\le t\le2\pi\)，关于圆内、圆外各点的绕数，其中 \(k\in\Z\)。
+\exerciseitem{winding-local-constancy}直接从积分及一致估计证明 \(a\mapsto\operatorname{Ind}(\gamma,a)\) 在曲线补集上局部常值。
+\exerciseitem{logarithm-branch-criterion}证明域 \(D\subseteq\C\setminus\{0\}\) 有全纯对数分支，当且仅当 \(1/z\) 沿 \(D\) 中每条闭曲线的积分为零。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{annulus-boundary-cauchy}设 \(f\) 在闭圆环 \(r\le|z-a|\le R\) 的一个邻域全纯。证明外圆取正向、内圆取反向时两条边界积分之和为零。
+\exerciseitem{homotopy-integral-subdivision}把\theoremref{thm:cauchy-homotopy-invariance}中的网格论证写成有限求和，明确内部边和固定端点边如何消去。
+\optionalexerciseitem{square-chain-cauchy}补全引理~\ref{lem:planar-polygonal-chain}的证明：构造同时含有给定多边形链和细方格线的三角剖分，证明相邻面的绕数之差恰给出公共边在原链中的重数，并说明所有非零权三角形为何闭含于 \(D\)。
+\end{enumerate}

@@ -1,0 +1,346 @@
+\chapter{辐角原理与解析延拓}
+\label{chap:argument-principle-analytic-continuation}
+
+全纯函数的零点具有局部代数结构：在零点附近，函数等于一个非零全纯函数
+乘以某个整数次幂。沿闭曲线观察函数值时，这个整数表现为辐角的总变化。
+留数定理把两种描述联系起来，并由此得到计算零点数目的辐角原理和
+Rouché 定理。后一结论还说明，局部一致收敛不会任意制造或消灭孤立零点。
+
+本章后半讨论另一个由恒等定理引出的现象。一个局部定义的全纯函数可以沿
+曲线逐段延拓；延拓在每一步都是唯一的，但沿不同曲线所得的结果未必相同。
+单值性取决于定义域的拓扑，而自然边界则说明有些幂级数不能越过其收敛圆的
+任何一点。
+
+\section{零点和极点的重数}
+
+设 $f$ 在 $a$ 的邻域中全纯且不恒为零。由 Taylor 展开，存在唯一整数
+$m\ge 0$ 以及在 $a$ 附近全纯的函数 $g$，使
+\[
+ f(z)=(z-a)^m g(z),\qquad g(a)\ne0.
+\]
+整数 $m$ 称为 $f$ 在 $a$ 的\term{零点阶数}或\term{重数}，记作
+$\operatorname{ord}_a f=m$。当 $m=0$ 时，$a$ 不是零点。若 $m\ge1$，
+则
+\[
+ f(a)=f'(a)=\cdots=f^{(m-1)}(a)=0,
+ \qquad f^{(m)}(a)\ne0.
+\]
+这也给出了重数的导数判据。
+
+对不恒为零的亚纯函数，允许整数阶。若
+\[
+ f(z)=(z-a)^m g(z),\qquad g(a)\ne0,
+\]
+其中 $m\in\mathbb Z$，则仍定义 $\operatorname{ord}_a f=m$。此时
+$m<0$ 表示 $a$ 是 $-m$ 阶极点。因子分解立即给出
+\[
+ \operatorname{ord}_a(fh)=\operatorname{ord}_a f+
+ \operatorname{ord}_a h,
+ \qquad
+ \operatorname{ord}_a\frac f h=\operatorname{ord}_a f-
+ \operatorname{ord}_a h,
+\]
+只要右侧所涉及的亚纯函数不恒为零。
+
+重数还可以由对数导数读出。由
+\[
+ \frac{f'(z)}{f(z)}=\frac{m}{z-a}+\frac{g'(z)}{g(z)}
+\]
+可见 $g'/g$ 在 $a$ 附近全纯，因而
+\begin{equation}\label{eq:logarithmic-derivative-residue}
+ \operatorname*{Res}_{z=a}\frac{f'(z)}{f(z)}
+ =\operatorname{ord}_a f.
+\end{equation}
+这个等式同时适用于零点和极点；它是辐角原理的局部部分。
+
+\section{辐角原理}
+
+以下把有界区域 $D$ 的边界看作有限条分段 $C^1$ Jordan 曲线之并，外边界
+取逆时针方向，内边界取顺时针方向。这样的定向称为 $\partial D$ 的正向。
+
+\begin{theorem}[辐角原理]\label{thm:argument-principle}
+设 $f$ 在 $\overline D$ 的一个开邻域中亚纯，在 $\partial D$ 上既无零点也无
+极点。若 $Z_D(f)$ 与 $P_D(f)$ 分别表示 $D$ 内零点和极点按重数计算的总数，
+则
+\begin{equation}\label{eq:argument-principle}
+ \frac{1}{2\pi i}\int_{\partial D}\frac{f'(z)}{f(z)}\,dz
+ =Z_D(f)-P_D(f).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+$f'/f$ 在 $D$ 中的奇点恰是 $f$ 的零点和极点。先说明这些点只有有限多个。
+在每个边界点附近，$f$ 都全纯且不为零；由边界的紧致性，可取
+$\partial D$ 的一个邻域 $V$，使其中没有 $f$ 的零点或极点。于是 $D$ 中的
+全部零点和极点都落在紧集 $\overline D\setminus V\Subset D$ 内。零点与极点
+在 $D$ 中都是孤立的；若它们有无限多个，该紧集中便存在聚点，与孤立性矛盾。
+由
+式\eqref{eq:logarithmic-derivative-residue}，每个奇点处的留数等于相应的
+整数阶。对 $f'/f$ 使用留数定理，便得到
+\[
+ \frac{1}{2\pi i}\int_{\partial D}\frac{f'}f
+ =\sum_{a\in D}\operatorname{ord}_a f
+ =Z_D(f)-P_D(f).
+\]
+\end{proof}
+
+若 $\gamma$ 是 $\partial D$ 的一个光滑分段，链式法则给
+\[
+ \int_\gamma\frac{f'}f\,dz
+ =\int\frac{(f\circ\gamma)'(t)}{f(\gamma(t))}\,dt.
+\]
+因此式\eqref{eq:argument-principle}左侧就是闭曲线 $f\circ\partial D$ 绕原点
+的绕数。换言之，沿边界走一周时 $f$ 的连续辐角总变化为
+$2\pi(Z_D(f)-P_D(f))$。这里所说的连续辐角只需沿参数区间选取；并未假设
+$f$ 在整个区域上有全纯对数。
+
+辐角原理也可计算方程 $f(z)=w$ 的根数。只要 $w\notin f(\partial D)$，
+将定理用于 $f-w$。减去有限常数不会改变极点及其阶数，故一般的亚纯情形给出
+\[
+ \frac{1}{2\pi i}\int_{\partial D}
+ \frac{f'(z)}{f(z)-w}\,dz
+ =Z_D(f-w)-P_D(f).
+\]
+若 $f$ 在 $\overline D$ 的邻域全纯，则 $P_D(f)=0$，右端才正是
+$\#\{z\in D:f(z)=w\}$，其中原像按重数计算。随着 $w$ 在
+$\C\setminus f(\partial D)$ 的同一连通分支中移动，上式左端连续而取
+整数值，因而保持不变；$P_D(f)$ 固定，所以原像总数也保持不变。
+
+\section{Rouché 定理}
+
+\begin{theorem}[Rouché 定理]\label{thm:rouche}
+设 $f,g$ 在 $\overline D$ 的一个开邻域中全纯，并且
+\[
+ |g(z)|<|f(z)|\qquad(z\in\partial D).
+\]
+则 $f$ 与 $f+g$ 在 $D$ 内的零点总数相同，重数计入。
+\end{theorem}
+
+\begin{proof}
+令 $F_t=f+tg$，$0\le t\le1$。在边界上
+\[
+ |F_t(z)|\ge |f(z)|-t|g(z)|>0,
+\]
+故每个 $F_t$ 都可使用辐角原理。定义
+\[
+ N(t)=\frac{1}{2\pi i}\int_{\partial D}\frac{F_t'(z)}{F_t(z)}\,dz.
+\]
+边界紧且分母对 $(t,z)\in[0,1]\times\partial D$ 不为零，所以被积函数关于
+$t$ 一致连续；$N(t)$ 因而连续。另一方面，辐角原理说明 $N(t)$ 始终为整数。
+连续区间的整数值连续函数必为常数，于是 $N(0)=N(1)$。
+\end{proof}
+
+常用的等价写法是
+\[
+ |F-f|<|f|\quad\hbox{于 }\partial D
+ \quad\Longrightarrow\quad F\hbox{ 与 }f\hbox{ 在 }D\hbox{ 内零点数相同}.
+\]
+不等式只要求在边界成立；区域内部允许扰动项较大。严格不等号不能无条件
+改为小于等于。例如在单位圆上取 $f(z)=z$、$g(z)=-z$，有
+$|g|=|f|$，但 $f+g$ 恒为零，零点计数已失去意义。
+
+作为典型应用，设
+\[
+ p(z)=z^n+a_{n-1}z^{n-1}+\cdots+a_0.
+\]
+当 $R$ 充分大时，在 $|z|=R$ 上有
+\[
+ |a_{n-1}z^{n-1}+\cdots+a_0|<|z|^n.
+\]
+Rouché 定理说明 $p$ 在 $|z|<R$ 中恰有 $n$ 个零点。这重新得到代数基本
+定理，并且保留了重数信息。更精细地选择比较项和圆周，常可确定零点所在的
+环域或半平面。
+
+\section{零点分布和 Hurwitz 定理}
+
+Rouché 定理把边界上的一致小扰动转化为内部零点数的不变性。它特别适合
+研究全纯函数列的局部一致极限。
+
+\begin{proposition}[零点数的稳定性]\label{prop:zero-count-stability}
+设 $f_n,f$ 在区域 $\Omega$ 上全纯，$f_n\to f$ 局部一致，且 $f$ 不恒为零。
+若闭圆盘 $\overline{B(a,r)}\subset\Omega$ 且 $f$ 在圆周上无零点，则充分大
+的 $n$ 满足
+\[
+ N_{B(a,r)}(f_n)=N_{B(a,r)}(f),
+\]
+其中零点按重数计算。
+\end{proposition}
+
+\begin{proof}
+圆周紧，故 $m:=\min_{|z-a|=r}|f(z)|>0$。局部一致收敛给
+\[
+ \max_{|z-a|=r}|f_n(z)-f(z)|<m
+\]
+对充分大 $n$ 成立。把 Rouché 定理用于 $f$ 与 $f_n-f$ 即得结论。
+\end{proof}
+
+\begin{theorem}[Hurwitz 定理]\label{thm:hurwitz}
+设 $\Omega$ 为区域，$f_n$ 在 $\Omega$ 上全纯且从不取零，并且
+$f_n\to f$ 局部一致。则 $f$ 或者恒为零，或者在 $\Omega$ 上也从不取零。
+\end{theorem}
+
+\begin{proof}
+假设 $f$ 不恒为零却有零点 $a$。零点孤立，故可取充分小的 $r>0$，使
+$\overline{B(a,r)}\subset\Omega$，圆周上无零点，而圆盘内至少有一个零点。
+命题\ref{prop:zero-count-stability}说明充分大的 $f_n$ 在该圆盘内也有零点，
+与题设矛盾。
+\end{proof}
+
+定理的“恒为零”不能删除，例如常函数 $f_n\equiv1/n$ 从不取零，却局部一致
+收敛到零函数。另一方面，极限若非零，则零点不仅不能突然出现，其重数也由
+命题\ref{prop:zero-count-stability}在小圆盘中稳定控制。
+
+后文将用到下面的直接推论。
+
+\begin{corollary}[单叶函数的极限]\label{cor:univalent-limit}
+区域上的单叶全纯函数列若局部一致收敛，则极限或者为常函数，或者仍为单叶
+函数。
+\end{corollary}
+
+\begin{proof}
+设 $f_n\to f$ 且 $f$ 非常值。固定 $a\in\Omega$，在区域
+$\Omega\setminus\{a\}$ 上考虑
+\[
+ g_n(z)=f_n(z)-f_n(a).
+\]
+单叶性说明 $g_n$ 在该区域不取零，而 $g_n$ 局部一致收敛到
+$g(z)=f(z)-f(a)$。平面区域删去一点仍连通；Hurwitz 定理说明 $g$ 在
+$\Omega\setminus\{a\}$ 上不取零，因为它不恒为零。故
+$f(z)=f(a)$ 只能发生在 $z=a$。$a$ 任意，所以 $f$ 单叶。
+\end{proof}
+
+\section{解析延拓、单值性与自然边界}
+
+设 $a\in U$，$U$ 为开集，而 $f$ 在 $U$ 全纯。三元组 $(a,U,f)$ 称为以
+$a$ 为中心的一个\term{函数元素}。两个以 $a$ 为中心的函数元素若在 $a$ 的
+某个邻域中相同，就视为等价；所得等价类称为 $a$ 处的一个
+\term{全纯函数芽}。恒等定理说明：若两个代表的定义域交集在 $a$ 所在的连通
+分支上考察，那么它们一旦在 $a$ 附近相同，就在该分支上处处相同。函数芽
+因此保留了局部函数所需的全部信息，而不把偶然选取的邻域当作数据的一部分。
+
+令 $\gamma:[0,1]\to\Omega$ 为道路。初始函数芽称为可沿 $\gamma$
+\term{解析延拓}，若存在分割
+\[
+ 0=t_0<t_1<\cdots<t_m=1
+\]
+以及全纯函数 $f_j\in\mathcal O(U_j)$，使
+$\gamma([t_{j-1},t_j])\subset U_j$，$f_1$ 代表初始芽，并且 $f_j$ 与
+$f_{j+1}$ 在 $\gamma(t_j)$ 处给出同一个函数芽。$f_m$ 在 $\gamma(1)$ 处的芽
+称为这次延拓的终点芽。定义允许更换分割和代表；下面的唯一性保证终点芽不会
+因此改变。
+
+\begin{proposition}[沿固定道路延拓的唯一性]
+\label{prop:continuation-fixed-path-unique}
+同一初始函数芽沿同一道路若可以解析延拓，则终点函数芽唯一；更一般地，两次
+延拓在道路的每个参数处所得函数芽都相同。
+\end{proposition}
+
+\begin{proof}
+每一条延拓链都在道路的每个参数处给出一个芽：在分点处，相邻的两个代表按
+定义给出同一芽。比较两次延拓，令 $E$ 为所得两个芽相同的参数集合。初始芽
+相同，故 $0\in E$。
+
+若 $t\in E$，可在 $\gamma(t)$ 周围取一个小圆盘，使两条链在这里的代表都
+有定义，并因芽相同而在更小圆盘上相等。沿两条有限延拓链把圆盘再缩小后，
+存在 $t$ 在 $[0,1]$ 中的相对邻域 $J$，使任意 $s\in J$ 处的两个芽分别由
+这两个代表给出。恒等定理于是给 $J\subset E$，所以 $E$ 是开集。
+
+再设 $t_n\in E$ 且 $t_n\to t$。取 $\gamma(t)$ 的一个小圆盘 $B$，其闭包
+同时包含在两条链于 $t$ 附近所用代表的定义域中，并取参数邻域 $J$ 使
+\(\gamma(J)\subset B\)。充分大时 \(t_n\in J\)。两个代表在
+\(\gamma(t_n)\) 处给出同一芽，故在 \(B\) 的某个非空开子集上相等；恒等
+定理说明它们在整个 \(B\) 上相等，特别在 \(\gamma(t)\) 处给出同一芽。
+故 $E$ 闭。由 $[0,1]$ 的连通性，$E=[0,1]$。
+\end{proof}
+
+收敛圆周本身不一定妨碍延拓。例如几何级数 $\sum_{n\ge0}z^n$ 在单位圆盘
+内表示 $1/(1-z)$；后一个函数把原函数芽延拓到 $\C\setminus\{1\}$，所以除
+$1$ 外的单位圆周点都可以越过。另一方面，从正实轴附近的对数函数芽出发，
+可沿 $\C\setminus\{0\}$ 中任一道路逐段选取对数分支；绕原点正向一周后，
+终点值比初始值增加 $2\pi i$。沿每一小段的延拓都是唯一的，差异来自两条道路
+不在固定端点下同伦。平方根沿这样的圆周一周后则改变符号。
+
+\begin{theorem}[单值性定理]\label{thm:monodromy}
+设 $\Omega$ 为单连通区域，$a\in\Omega$，并给定 $a$ 处的一个全纯函数芽。
+若该函数芽可以沿 $\Omega$ 中每一条从 $a$ 出发的道路解析延拓，则这些延拓
+共同确定 $\Omega$ 上唯一的全纯函数。
+\end{theorem}
+
+\begin{proof}
+先证明终点芽在道路的固定端点同伦下不变。设
+$H:[0,1]^2\to\Omega$ 是固定端点同伦，$\gamma_s(t)=H(s,t)$。固定
+$s_0$，为 $\gamma_{s_0}$ 选取一条延拓链 $(U_j,f_j)$。加细参数分割后，可使
+每段紧像 $\gamma_{s_0}([t_{j-1},t_j])$ 与 $\C\setminus U_j$ 有正距离；在
+每个连接参数 $t_j$ 附近，还可取一个闭含于 $U_j\cap U_{j+1}$ 的小圆盘，
+$f_j=f_{j+1}$ 在该圆盘上成立。于是存在 $\varepsilon>0$，使任何与
+$\gamma_{s_0}$ 一致距离小于 $\varepsilon$、且具有相同端点的道路都可沿同一串
+函数元素延拓，并得到同一个终点芽。
+
+$H$ 在紧正方形上一致连续，所以 $s$ 充分接近 $s_0$ 时
+$\sup_t|\gamma_s(t)-\gamma_{s_0}(t)|<\varepsilon$。因此终点芽作为 $s$ 的函数
+局部常值；它在连通区间 $[0,1]$ 上便为常值。这就证明了固定端点同伦不改变
+终点芽。
+
+单连通性说明从 $a$ 到任意 $z$ 的两条道路固定端点同伦，故沿道路延拓所得的
+终点函数芽与道路无关。定义 $F(z)$ 为该函数芽在 $z$ 的值。若 $w$ 位于终点
+代表的一个小圆盘中，把原道路接上一条留在圆盘内的短路，所得值正是该代表在
+$w$ 的值。因此 $F$ 在每点附近都等于一个全纯函数，故在 $\Omega$ 上全纯。
+它延拓初始函数芽。唯一性由恒等定理得到。
+\end{proof}
+
+单值性定理的假设包含两部分：沿每条道路都能继续，保证不存在延拓途中遇到的
+奇点；单连通性保证不同道路不产生分支差异。缺少第一项时，即使区域单连通，
+局部函数也可能在内部奇点前停止；缺少第二项时，对数和平方根会出现多值性。
+
+为了准确说明最后一种障碍，设幂级数在 $B(a,R)$ 内定义 $f$。若对圆周上的
+每个 $\zeta$，都不存在 $\zeta$ 的邻域 $V$ 和 $V$ 上的全纯函数 $g$，使
+$g=f$ 在 $V\cap B(a,R)$ 的相应连通分支上成立，就称 $|z-a|=R$ 是该幂级数
+的\term{自然边界}。几何级数说明“收敛半径有限”并不等于“收敛圆周是自然
+边界”。下面的稀疏幂级数给出相反情形：
+\begin{equation}\label{eq:lacunary-natural-boundary}
+ F(z)=\sum_{n=0}^{\infty}z^{2^n},\qquad |z|<1.
+\end{equation}
+它满足函数方程
+\[
+ F(z)=z+F(z^2).
+\]
+当 $r\uparrow1$ 时，$F(r)\to+\infty$：给定 $N$，前 $N$ 项都趋于 $1$，
+所以 $\liminf_{r\uparrow1}F(r)\ge N$。因此 $F$ 不可能在 $1$ 的邻域全纯。
+若 $\zeta$ 是 $2^m$ 次单位根而 $F$ 可越过 $\zeta$ 延拓，映射
+$q(z)=z^2$ 在 $\zeta\ne0$ 处有全纯局部逆 $s$，满足
+$s(\zeta^2)=\zeta$。在单位圆盘内可把函数方程写为
+\[
+ F(w)=F(s(w))-s(w).
+\]
+右端利用 $F$ 在 $\zeta$ 附近的延拓，便给出 $F$ 在 $\zeta^2$ 附近的延拓；
+恒等定理保证它与原函数相容。逐次平方将得到 $F$ 在 $1$ 附近的延拓，矛盾。
+所有 $2^m$ 次单位根在单位圆上稠密，任何跨过单位圆的延拓邻域都会含有其中
+一个点，故单位圆是式\eqref{eq:lacunary-natural-boundary}的自然边界。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{argument-multiplicity-product}证明零点重数的乘积公式，并写出商的相应公式。
+\exerciseitem{argument-derivative-multiplicity}设 $a$ 是 $f$ 的 $m$ 重零点。证明 $a$ 是 $f'$ 的 $m-1$ 重零点；说明 $m=0$ 时为何不能这样陈述。
+\exerciseitem{argument-logarithmic-residue}直接由局部分解证明式\eqref{eq:logarithmic-derivative-residue}。
+\exerciseitem{argument-polynomial-disk}求证：若 $|a|>2$，则 $z^5+az+1$ 在单位圆盘内恰有一个零点。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{argument-rouche-perturbation}设 $f$ 在 $\overline D$ 的邻域中全纯且边界无零点。证明充分小的一致扰动不改变 $D$ 内的零点总数。
+\exerciseitem{argument-rouche-annulus}确定多项式 $z^7+4z^3+1$ 在 $|z|<1$ 与 $|z|<2$ 中的零点数。
+\exerciseitem{argument-hurwitz-zero-sequence}设 $f_n\to f$ 局部一致，$z_n\to z_0\in\Omega$ 且 $f_n(z_n)=0$。证明 $f(z_0)=0$；再说明反向结论应怎样用重数稳定性表述。
+\exerciseitem{argument-injective-limit}补全推论\ref{cor:univalent-limit}中“区域删去一点仍连通”的论证。
+\exerciseitem{argument-local-degree}设 $f(a)=w_0$ 且 $a$ 是 $f-w_0$ 的 $m$ 重零点。证明在充分小圆盘中，每个充分接近 $w_0$ 且避开临界值的 $w$ 恰有 $m$ 个原像，重数计入。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{argument-log-continuation}从 $1$ 附近的对数函数芽出发，计算沿 $t\mapsto e^{2\pi i t}$ 延拓一周后的函数芽，并说明它为何不与初始芽相同。
+\exerciseitem{argument-square-root-monodromy}证明在 $\C\setminus\{0\}$ 上不存在全纯函数 $g$ 满足 $g(z)^2=z$，但在任意单连通且不含零的区域上存在这样的函数。
+\exerciseitem{argument-lacunary-boundary}补全式\eqref{eq:lacunary-natural-boundary}具有自然边界的证明，特别说明局部平方根怎样传递延拓。
+\optionalexerciseitem{argument-rouche-nonstrict}构造 $f,g$，使 $|g|\le|f|$ 在边界成立，而 $f$ 与 $f+g$ 的零点数不同；指出严格不等式在证明中用在何处。
+\end{enumerate}

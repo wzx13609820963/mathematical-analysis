@@ -1,0 +1,195 @@
+\chapter{奇异上同调}
+
+\begin{solution}{singular-boundary-low-dimensions}
+记 $[v_0\cdots v_q]$ 为按所列顶点参数化的单形。则
+\begin{align*}
+ \partial[v_0v_1]&=[v_1]-[v_0],\\
+ \partial[v_0v_1v_2]&=[v_1v_2]-[v_0v_2]+[v_0v_1],\\
+ \partial[v_0v_1v_2v_3]&=[v_1v_2v_3]-[v_0v_2v_3]
+ +[v_0v_1v_3]-[v_0v_1v_2].
+\end{align*}
+对三角形再取边界，每条边的两个端点分别以相反符号出现。对四面体，每条
+棱属于恰好两个面；由两个面继承的定向相反，所以十二个带符号棱两两相消。
+这同时显示符号 $(-1)^i$ 不能全部去掉。
+\end{solution}
+
+\begin{solution}{singular-induced-chain-map}
+对生成元 $\sigma:\Delta^q\to X$，
+\[
+ \partial(f_\#\sigma)=\sum_i(-1)^if\circ\sigma\circ\varepsilon_i
+ =f_\#(\partial\sigma).
+\]
+线性延拓后得到 $\partial f_\#=f_\#\partial$。此外
+$(\operatorname{id}_X)_\#\sigma=\sigma$，而
+$(g\circ f)_\#\sigma=g\circ f\circ\sigma
+=g_\#(f_\#\sigma)$。这些等式下降到同调商空间，给出相应函子律。
+\end{solution}
+
+\begin{solution}{singular-hzero-components}
+设道路分支为 $P_1,\ldots,P_m$。把零链中位于 $P_j$ 的系数相加，得到线性
+映射 $\Phi:C_0(X)\to\R^m$。道路边界的两个端点在同一分支，故
+$B_0\subseteq\ker\Phi$。反过来，若某零链在每一分支中的系数和均为零，
+对该链实际涉及的每个分支选一点 $p_j$，并把其他点以道路连到 $p_j$；用
+$\partial\gamma=x-p_j$ 逐项替换即可把该零链写成道路边界之和。因此
+$\ker\Phi=B_0$，而 $\Phi$ 满射，故 $H_0(X)\cong\R^m$。
+\end{solution}
+
+\begin{solution}{singular-reduced-homology-point}
+一点空间在每一维都有一个常值奇异单形，但链群以所有参数化映射为基；对
+一点只有这个常值映射。其边界在偶数维为该低一维生成元，在奇数维为零，
+因为 $\sum_{i=0}^q(-1)^i$ 在 $q$ 偶数时为 $1$、奇数时为 $0$。接上
+$\epsilon:C_0\to\R$ 后，增广链复形逐项正合。因此一点空间所有约化同调
+均为零，这也可由一点可缩及同伦不变性得到。
+\end{solution}
+
+\begin{solution}{singular-cochain-coboundary}
+对 $\varphi\in C^q(X)$ 和 $c\in C_{q+2}(X)$，
+\[
+ (\delta^2\varphi)(c)=(\delta\varphi)(\partial c)
+ =\varphi(\partial^2c)=0.
+\]
+若 $f:X\to Y$，上链 $\varphi$ 原来作用于 $Y$ 中的链；先把 $X$ 中的链
+用 $f_\#$ 送到 $Y$，才能让 $\varphi$ 取值，所以
+$f^*\varphi=\varphi\circ f_\#:C_q(X)\to\R$。这解释了箭头方向由
+$X\to Y$ 变为 $C^q(Y)\to C^q(X)$。
+\end{solution}
+
+\begin{solution}{singular-prism-interval}
+$q=0$ 时，$\Delta^0\times I$ 本身是一条棱，$P_0(x)$ 是轨迹
+$t\mapsto F(x,t)$，故
+$\partial P_0(x)=g(x)-f(x)$。
+
+$q=1$ 时，方形 $\Delta^1\times I$ 由对角线分成两个三角形，按约定
+$P_1(\sigma)$ 是二者带相反的交错符号之和。取边界后，对角线出现两次且
+方向相反；上边为 $g_\#\sigma$，下边为 $-f_\#\sigma$，两条竖边合成
+$-P_0(\partial\sigma)$。因此
+$\partial P_1(\sigma)+P_0(\partial\sigma)=g_\#\sigma-f_\#\sigma$。
+\end{solution}
+
+\begin{solution}{singular-deformation-retract}
+设 $i:A\hookrightarrow X$，$r:X\to A$ 满足 $r\circ i=\operatorname{id}_A$，
+且 $i\circ r\simeq\operatorname{id}_X$。函子性给
+$r_*i_*=\operatorname{id}_{H_q(A)}$；同伦不变性给
+$i_*r_*=\operatorname{id}_{H_q(X)}$。所以 $i_*$ 与 $r_*$ 互为逆同构。
+\end{solution}
+
+\begin{solution}{singular-contractible-cohomology}
+非空可缩空间与一点同伦等价。一点空间的同调为
+$H_0\cong\R$、$H_q=0$（$q>0$）。由同伦不变性，$X$ 具有同样同调；再由
+实系数上同调与同调的线性对偶关系，
+$H^0(X)\cong\R$ 且 $H^q(X)=0$（$q>0$）。约化同调在所有维数均为零。
+\end{solution}
+
+\begin{solution}{singular-small-chain-lemma}
+固定奇异单形 $\sigma:\Delta^q\to X$，设 $\mathcal U$ 是 $X$ 的开覆盖。
+逆像族 $\{\sigma^{-1}(W):W\in\mathcal U\}$ 覆盖紧度量空间 $\Delta^q$，
+故有 Lebesgue 数 $\lambda_\sigma>0$。当 $q\geq1$ 时，一次重心细分把每个
+参数子单形的直径至多乘以 $q/(q+1)$。取 $N_\sigma$ 使
+\[
+ \left(\frac q{q+1}\right)^{N_\sigma}
+ \operatorname{diam}\Delta^q<\lambda_\sigma .
+\]
+于是 $\operatorname{sd}^{N_\sigma}\sigma$ 中每个参数子单形包含在某个
+$\sigma^{-1}(W)$ 中；与 $\sigma$ 复合后，其像落在 $W$ 内。$q=0$ 时结论
+直接成立。
+
+若 $c=\sum_{j=1}^ma_j\sigma_j$ 是有限链，取
+$N=\max_jN_{\sigma_j}$。已经从属于覆盖的单形在继续细分后仍从属于原覆盖元，
+所以 $\operatorname{sd}^Nc$ 是小链。细分链同伦 $T$ 的每一项都由
+$\sigma_j$ 像内的锥构成，故它也保持小链子复形。令
+$T_N=\sum_{r=0}^{N-1}\operatorname{sd}^{\,r}T$，则
+\[
+ \operatorname{sd}^N-\operatorname{id}=\partial T_N+T_N\partial.
+\]
+因此每个循环都与一个小循环同调；若小循环 $z=\partial c$，细分填充链后
+$\operatorname{sd}^Nz$ 在小复形中为边界，而
+$\operatorname{sd}^Nz-z=\partial T_Nz$ 也是小复形中的边界。由此同时得到小链
+复形包含映射在同调上的满射性和单射性。
+\end{solution}
+
+\begin{solution}{singular-mv-connecting-map}
+设 $[z]\in H_q(C_*^{U,V}(X))$。由短正合列的满射，选
+$(b,c)\in C_q(U)\oplus C_q(V)$ 使 $b+c=z$。因 $\partial z=0$，有
+$\partial b=-\partial c$，并且这一公共链落在 $U\cap V$；定义
+$\partial_{\rm MV}[z]=[\partial b]$，符号与嵌入 $a\mapsto(a,-a)$ 一致。
+
+若换提升，两提升之差是 $(a,-a)$，于是 $\partial b$ 改变
+$\partial a$，同调类不变。若把 $z$ 换为 $z+\partial w$，先把 $w$ 提升为
+$(r,s)$，再以 $(b+\partial r,c+\partial s)$ 提升新代表，连接链保持不变。
+
+正合性可直接追踪。来自 $H_q(U)\oplus H_q(V)$ 的类有闭提升，故连接类为零；
+若 $[\partial b]=0$，取 $a\in C_q(U\cap V)$ 使 $\partial a=\partial b$，则
+$(b-a,c+a)$ 是 $z$ 的闭提升，所以 $[z]$ 来自中间项。在中间项处，
+$(b,c)$ 映为零意味着 $b+c=\partial w$；提升 $w$ 为 $(r,s)$ 后，
+$(b-\partial r,c-\partial s)$ 落在左端像中，故原同调类来自
+$H_q(U\cap V)$。左端处的核像关系同理由定义得到。
+\end{solution}
+
+\begin{solution}{singular-real-universal-coefficient}
+若上闭链 $\varphi$ 在 $H_q$ 上诱导零泛函，则 $\varphi|_{Z_q}=0$。边界映射
+$\partial:C_q\to B_{q-1}$ 诱导同构
+$C_q/Z_q\cong B_{q-1}$，故存在 $B_{q-1}$ 上的线性泛函 $\psi_0$ 使
+$\varphi=\psi_0\circ\partial$。选取补空间
+$C_{q-1}=B_{q-1}\oplus W$，令 $\psi$ 在 $W$ 上为零，便把 $\psi_0$ 延拓
+到 $C_{q-1}$，于是 $\varphi=\delta\psi$。
+
+反向给定 $H_q=Z_q/B_q$ 上泛函，先拉回到 $Z_q$，再选补空间把它延拓到
+$C_q$。它在 $B_q$ 上为零，故所得上链闭。两构造在商空间上互逆。
+\end{solution}
+
+\begin{solution}{singular-circle-two-arcs}
+取 $U,V$ 为各删去圆周上一点的开弧，二者可缩，而 $U\cap V$ 有两个道路
+分支。约化序列的有关部分为
+\[
+ 0\to\widetilde H_1(S^1)\to\widetilde H_0(U\cap V)
+ \to\widetilde H_0(U)\oplus\widetilde H_0(V)=0.
+\]
+由于两个分支给 $\widetilde H_0(U\cap V)\cong\R$，得到
+$H_1(S^1)\cong\R$。更高次同调由序列为零；圆周道路连通，所以
+$H_0(S^1)\cong\R$。
+\end{solution}
+
+\begin{solution}{singular-sphere-induction}
+用略扩大的南北半球覆盖 $S^n$。$U,V$ 可缩，交集形变收缩到
+$S^{n-1}$。约化序列中 $U,V$ 的全部约化同调为零，因此每个 $q$ 都有
+\[
+ \widetilde H_q(S^n)\cong\widetilde H_{q-1}(S^{n-1}).
+\]
+$S^0$ 有两个点，故只有 $\widetilde H_0(S^0)\cong\R$ 非零。反复降维得到
+$\widetilde H_n(S^n)\cong\R$，其余约化群为零。最后用道路连通性恢复
+$H_0(S^n)\cong\R$。
+\end{solution}
+
+\begin{solution}{singular-punctured-euclidean-space}
+定义
+\[
+ H(x,t)=\bigl((1-t)+t/\|x\|\bigr)x,\qquad x\ne0.
+\]
+系数为正，所以同伦始终避开原点；$H(x,0)=x$，$H(x,1)=x/\|x\|$，且
+球面上的点在整个同伦中固定。这是到 $S^{n-1}$ 的形变收缩。当 $n\geq2$
+时，因此
+\[
+ H_q(\R^n\setminus\{0\};\R)\cong
+ \begin{cases}\R,&q=0,n-1,\\0,&\text{其他},\end{cases}
+\]
+其中 $q=0,n-1$ 表示两个不同次数。$n=1$ 时 $S^0$ 有两个点，故
+\[
+ H_0(\R\setminus\{0\};\R)\cong\R^2,
+ \qquad H_q(\R\setminus\{0\};\R)=0\quad(q>0).
+\]
+\end{solution}
+
+\begin{solution}{singular-degree-obstruction}
+若 $f$ 延拓为 $F:B^{n+1}\to S^n$，则包含 $i:S^n\hookrightarrow B^{n+1}$
+满足 $f=F\circ i$。但 $H_n(B^{n+1})=0$，所以
+$f_*=F_*i_*=0$，与 $d\ne0$ 矛盾。
+
+若 $f$ 无不动点，则
+\[
+ K(x,t)=\frac{(1-t)f(x)-tx}{\|(1-t)f(x)-tx\|}
+\]
+给出 $f$ 到反足映射 $a(x)=-x$ 的同伦。分母若为零，则单位向量
+$f(x)$ 是 $x$ 的正倍数，迫使 $f(x)=x$，矛盾。故
+$d=\deg f=\deg a=(-1)^{n+1}$。其逆否命题说明
+$d\ne(-1)^{n+1}$ 时 $f$ 必有不动点。
+\end{solution}

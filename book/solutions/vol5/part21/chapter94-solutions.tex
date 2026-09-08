@@ -1,0 +1,154 @@
+\chapter{辐角原理与解析延拓}
+
+\begin{solution}{argument-multiplicity-product}
+在 $a$ 附近写
+\[
+ f(z)=(z-a)^m u(z),\qquad h(z)=(z-a)^n v(z),
+\]
+其中 $u(a)v(a)\ne0$。于是
+\[
+ f(z)h(z)=(z-a)^{m+n}u(z)v(z),
+\]
+且 $uv$ 在 $a$ 不为零，故 $\operatorname{ord}_a(fh)=m+n$。对亚纯函数
+$m,n$ 可为负整数，论证不变。若 $h\not\equiv0$，则
+\[
+ \frac f h=(z-a)^{m-n}\frac uv,
+\]
+而 $u/v$ 在 $a$ 附近全纯且不为零，所以
+$\operatorname{ord}_a(f/h)=m-n$。
+\end{solution}
+
+\begin{solution}{argument-derivative-multiplicity}
+若 $m\ge1$，写 $f=(z-a)^m g$，其中 $g(a)\ne0$。求导得
+\[
+ f'(z)=(z-a)^{m-1}\bigl(mg(z)+(z-a)g'(z)\bigr).
+\]
+括号内函数在 $a$ 的值为 $mg(a)\ne0$，故 $f'$ 在 $a$ 的零点阶数为
+$m-1$。若 $m=0$，$a$ 不是 $f$ 的零点，而 $f'(a)$ 可以为零，也可以不为零；
+“$-1$ 重零点”在全纯零点的语境中没有意义。
+\end{solution}
+
+\begin{solution}{argument-logarithmic-residue}
+若 $f=(z-a)^m g$ 且 $g(a)\ne0$，则
+\[
+ \frac{f'}f=\frac m{z-a}+\frac{g'}g.
+\]
+$g$ 在充分小邻域中不取零，故 $g'/g$ 全纯。Laurent 展开中
+$(z-a)^{-1}$ 的系数因此恰为 $m$。当 $m<0$ 时同一计算给出负留数，正好
+记录极点阶数。
+\end{solution}
+
+\begin{solution}{argument-polynomial-disk}
+在 $|z|=1$ 上取比较项 $az$。由 $|a|>2$，
+\[
+ |z^5+1|\le2<|a|=|az|.
+\]
+Rouché 定理说明 $z^5+az+1$ 与 $az$ 在单位圆盘内零点数相同，均为一个，
+重数计入。边界上的严格不等式也保证原多项式在单位圆上无零点。
+\end{solution}
+
+\begin{solution}{argument-rouche-perturbation}
+紧集 $\partial D$ 上连续函数 $|f|$ 有正的最小值
+$m=\min_{\partial D}|f|$。若全纯函数 $h$ 满足
+$\|h\|_{C(\partial D)}<m$，则 $|h|<|f|$ 于边界。Rouché 定理给出
+$f$ 与 $f+h$ 的零点总数相同。因而可以取扰动阈值为任意小于 $m$ 的数。
+\end{solution}
+
+\begin{solution}{argument-rouche-annulus}
+在 $|z|=1$ 上，
+\[
+ |z^7+1|\le2<4=|4z^3|,
+\]
+所以多项式与 $4z^3$ 有相同零点数，即单位圆盘内有三个零点。
+
+在 $|z|=2$ 上，
+\[
+ |4z^3+1|\le 33<128=|z^7|.
+\]
+故半径 $2$ 的圆盘内有七个零点。于是环域 $1<|z|<2$ 中有四个零点；两条
+圆周上均无零点。
+\end{solution}
+
+\begin{solution}{argument-hurwitz-zero-sequence}
+取闭圆盘 $K\Subset\Omega$ 包含所有充分大的 $z_n$ 及 $z_0$。局部一致收敛
+给 $\sup_K|f_n-f|\to0$，而 $f$ 在 $K$ 上一致连续。因此
+\[
+ |f(z_0)|\le |f(z_0)-f(z_n)|+|f(z_n)-f_n(z_n)|\longrightarrow0.
+\]
+故 $f(z_0)=0$。
+
+反向不能要求每个 $f$ 的零点都是所有 $f_n$ 的零点。正确表述是：若 $a$ 是
+$f$ 的 $m$ 重零点，取只含该零点且边界无零点的小圆盘，则充分大的 $f_n$
+在该圆盘中恰有 $m$ 个零点，重数计入；这些零点随圆盘缩小而聚向 $a$。
+\end{solution}
+
+\begin{solution}{argument-injective-limit}
+平面区域是道路连通的。给定 $x,y\in\Omega\setminus\{a\}$，取一条连接二者
+的折线路径 $\gamma\subset\Omega$。若它不经过 $a$，工作完成。若经过 $a$，
+取 $r>0$ 使 $\overline{B(a,r)}\subset\Omega$，并使路径进入、离开该圆盘的
+端点不等于 $a$。把圆盘内经过 $a$ 的那段路径替换为圆周内一条避开 $a$ 的
+弧与两条短线段，即得位于 $\Omega\setminus\{a\}$ 的道路。因此删点区域仍
+道路连通，特别仍连通。
+\end{solution}
+
+\begin{solution}{argument-local-degree}
+取 $r>0$，使 $a$ 是 $\overline{B(a,r)}$ 中 $f-w_0$ 的唯一零点且边界无零点。
+令
+\[
+ \eta=\min_{|z-a|=r}|f(z)-w_0|>0.
+\]
+若 $|w-w_0|<\eta$，则在圆周上
+\[
+ |(f-w)-(f-w_0)|=|w-w_0|<|f-w_0|.
+\]
+Rouché 定理说明 $f-w$ 与 $f-w_0$ 在圆盘内均有 $m$ 个零点，重数计入。
+若再避开临界值，这些零点全为单零点，因而是 $m$ 个不同原像。
+\end{solution}
+
+\begin{solution}{argument-log-continuation}
+沿圆周可连续选择参数辐角 $\theta(t)=2\pi t$，故延拓值为
+\[
+ L(e^{2\pi it})=2\pi i t.
+\]
+当 $t=1$ 返回点 $1$ 时，所得函数芽在 $1$ 的值为 $2\pi i$，而初始实对数芽
+的值为 $0$。两芽若相同，其在 $1$ 的值必须相同，所以它们不同。沿绕数为
+$k$ 的闭路延拓，值相应增加 $2\pi i k$。
+\end{solution}
+
+\begin{solution}{argument-square-root-monodromy}
+若 $g$ 在 $\C\setminus\{0\}$ 上全纯且 $g^2=z$，则 $g$ 不取零并有
+\[
+ 2\frac{g'}g=\frac1z.
+\]
+沿单位圆积分，左侧除以 $2\pi i$ 是 $2$ 倍整数，右侧除以 $2\pi i$ 等于
+$1$，矛盾。
+
+若 $\Omega$ 单连通且不含零，函数 $1/z$ 在 $\Omega$ 上有原函数 $L$。调整
+常数使 $e^{L(z)}=z$：因为 $(e^{-L}z)'=0$，该乘积为非零常数，常数可吸收
+进 $L$。于是 $g=e^{L/2}$ 全纯且满足 $g^2=z$。
+\end{solution}
+
+\begin{solution}{argument-lacunary-boundary}
+对 $|z|<1$，逐项整理绝对收敛级数得到
+$F(z)=z+F(z^2)$。若 $F$ 在某个 $\zeta\ne0$ 的邻域有延拓，映射
+$q(z)=z^2$ 在 $\zeta$ 处导数非零，故存在把 $\zeta^2$ 的邻域映回 $\zeta$
+邻域的全纯局部逆 $s$。函数方程可改写为
+\[
+ F(w)=F(s(w))-s(w),
+\]
+右侧便给出 $F$ 在 $\zeta^2$ 附近的延拓。
+
+若 $\zeta^{2^m}=1$，重复上述过程将推出 $F$ 可在 $1$ 附近延拓。然而
+$F(r)=\sum r^{2^n}\to\infty$ 当 $r\uparrow1$：给定 $N$，前 $N$ 项均趋于
+$1$，故下极限至少为 $N$，而 $N$ 任意。这与在 $1$ 附近全纯所要求的局部
+有界性矛盾。所有 $2^m$ 次单位根稠密于单位圆，所以任何跨越圆周的延拓圆盘
+都会包含一个这样的奇点。单位圆因而是自然边界。
+\end{solution}
+
+\begin{solution}{argument-rouche-nonstrict}
+在单位圆盘取 $f(z)=z$、$g(z)=1$。边界上 $|g|=|f|=1$，故满足非严格
+不等式。$f$ 在圆盘内有一个零点，而 $f+g=z+1$ 的零点位于边界，在开圆盘
+内没有零点。Rouché 证明中的严格不等式用于推出
+$|f+tg|>0$ 对所有 $0\le t\le1$ 及边界点成立；只有非严格不等式时，
+同伦可能在边界经过零点，辐角数便可改变。
+\end{solution}

@@ -1,0 +1,448 @@
+\chapter{孤立奇点与留数}
+\label{chap:isolated-singularities-residues}
+
+Taylor 级数描述全纯函数在普通点附近的行为。若函数只在删去中心的圆盘上
+全纯，正幂级数不再足够：负幂记录函数接近缺失点时的发散和振荡。Laurent
+展开把这种局部行为编码为双向级数，其中 \((z-a)^{-1}\) 的系数又恰好决定
+闭曲线积分。留数法的计算效率来自这一事实，而不是一种脱离 Cauchy 定理的
+形式规则。
+
+\section{环域上的 Laurent 展开}
+
+设
+
+\[
+ A(a;r,R)=\{z\in\C:r<|z-a|<R\},
+ \qquad 0\le r<R\le\infty .
+\]
+
+双向级数 \(\sum_{n=-\infty}^{\infty}a_n(z-a)^n\) 的含义是正幂部分
+\(\sum_{n\ge0}\) 与负幂部分 \(\sum_{n\ge1}a_{-n}(z-a)^{-n}\) 分别收敛。
+
+\begin{theorem}[Laurent 展开定理]
+\label{thm:laurent-expansion}
+若 \(f\) 在环域 \(A(a;r,R)\) 全纯，则存在唯一系数列
+\((a_n)_{n\in\Z}\)，使
+
+\begin{equation}
+ f(z)=\sum_{n=-\infty}^{\infty}a_n(z-a)^n
+ \label{eq:laurent-series}
+\end{equation}
+
+在环域内成立，并在每个紧子环域上一致绝对收敛。对任意
+\(r<\rho<R\)，系数由
+
+\begin{equation}
+ a_n=\frac1{2\pi i}\int_{|\zeta-a|=\rho}
+ \frac{f(\zeta)}{(\zeta-a)^{n+1}}\,d\zeta,
+ \qquad n\in\Z,
+ \label{eq:laurent-coefficients}
+\end{equation}
+
+给出，且右端与 \(\rho\) 无关。
+\end{theorem}
+
+\begin{proof}
+固定 \(z\in A(a;r,R)\)，选择
+
+\[
+ r<\rho<|z-a|<\sigma<R.
+\]
+
+对曲线链 \(C_\sigma-C_\rho\) 使用绕数形式的 Cauchy 公式
+\eqref{eq:cauchy-integral-winding}；该公式的证明对有限曲线链逐项相加仍然
+成立。由于这条链关于 \(z\) 的绕数为一，内边界取反向，得到
+
+\[
+ f(z)=\frac1{2\pi i}\int_{|\zeta-a|=\sigma}
+ \frac{f(\zeta)}{\zeta-z}\,d\zeta
+ +
+ \frac1{2\pi i}\int_{|\zeta-a|=\rho}
+ \frac{f(\zeta)}{z-\zeta}\,d\zeta.
+\]
+
+在外圆上有
+
+\[
+ \frac1{\zeta-z}
+ =\sum_{n=0}^{\infty}\frac{(z-a)^n}{(\zeta-a)^{n+1}},
+\]
+
+在内圆上则有
+
+\[
+ \frac1{z-\zeta}
+ =\sum_{k=0}^{\infty}\frac{(\zeta-a)^k}{(z-a)^{k+1}}.
+\]
+
+两级数分别在积分圆周上一致收敛，故可逐项积分；所得系数正是
+式\eqref{eq:laurent-coefficients}中 \(n\ge0\) 和 \(n=-k-1\) 的情形。
+若改换积分半径，两圆之间的被积函数
+\(f(\zeta)(\zeta-a)^{-n-1}\) 全纯，Cauchy 定理说明两积分相同。
+
+对任意紧子环域
+\(r<r_1\le|z-a|\le R_1<R\)，可固定
+\(r<\rho<r_1\le R_1<\sigma<R\)。上面的两个几何级数在该紧子环域上各有
+统一比值小于一，因而所得 Laurent 级数一致绝对收敛。
+
+若另一个 Laurent 级数也表示 \(f\)，在任意中间圆周上一致收敛允许逐项
+积分。乘以 \((z-a)^{-m-1}\) 后，只有指数为 \(-1\) 的项积分不为零，
+由此恢复 \(a_m\)，故系数唯一。
+\end{proof}
+
+系数公式还给出双向的 Cauchy 估计。若
+\(M_\rho=\max_{|\zeta-a|=\rho}|f(\zeta)|\)，则对每个 \(n\in\Z\)，
+\begin{equation}
+ |a_n|\le M_\rho\rho^{-n}.
+ \label{eq:laurent-coefficient-estimate}
+\end{equation}
+当 \(n<0\) 时，右端含有正幂 \(\rho^{-n}\)；这正是让圆周缩向中心后消去
+负次系数的工具。
+
+负幂部分
+
+\[
+ \sum_{n=1}^{\infty}a_{-n}(z-a)^{-n}
+\]
+
+称为 Laurent 展开的\term{主部}。同一个函数在不同环域上的展开可能不同。
+例如
+
+\[
+ \frac1{z(1-z)}
+\]
+
+在 \(0<|z|<1\) 中展开为
+\(\sum_{n\ge0}z^{n-1}\)，而在 \(|z|>1\) 中展开为
+\(-\sum_{n\ge0}z^{-n-2}\)。写 Laurent 级数时必须同时说明环域。
+
+\section{可去奇点、极点和本性奇点}
+
+若 \(f\) 在某个删心圆盘 \(0<|z-a|<R\) 全纯，则称 \(a\) 是 \(f\) 的
+\term{孤立奇点}。Laurent 主部给出三种互斥情形。
+
+\begin{theorem}[孤立奇点分类]
+\label{thm:isolated-singularity-classification}
+设 \(a\) 是 \(f\) 的孤立奇点。
+
+\begin{enumerate}[label=(\roman*)]
+ \item 若所有负次系数都为零，则 \(a\) 是可去奇点，\(f\) 可唯一延拓为
+       \(a\) 邻域的全纯函数。
+ \item 若主部只有有限项，且 \(a_{-m}\ne0\) 是最低次项，则 \(a\) 是
+       \(m\) 阶极点，并有
+       \(f(z)=(z-a)^{-m}g(z)\)，其中 \(g\) 在 \(a\) 附近全纯且
+       \(g(a)\ne0\)。
+ \item 若主部有无穷多非零项，则 \(a\) 是本性奇点。
+\end{enumerate}
+\end{theorem}
+
+第一种情形直接把正幂级数在 \(a\) 处取值 \(a_0\)。第二种情形提出最低负幂
+即可。由于 Laurent 展开唯一，不存在第四种情形。
+
+三类情形可由熟悉的函数看清。函数
+\[
+ \frac{\sin(z-a)}{z-a}
+\]
+在 \(a\) 可去，延拓值为 \(1\)；\(1/\sin(z-a)\) 在 \(a\) 有单极点；
+\(e^{1/(z-a)}\) 则有无穷多个负次项，所以是本性奇点。最后一个函数沿
+\(z=a-t^{-1}\)、\(t\to\infty\) 趋于零，沿 \(z=a+t^{-1}\) 却趋于无穷。
+因而沿一条路径有界甚至存在极限，都不足以判定可去性；可去奇点定理要求整个
+删心邻域上的控制。
+
+\begin{theorem}[Riemann 可去奇点定理]
+\label{thm:riemann-removable-singularity}
+设 \(f\) 在 \(0<|z-a|<R\) 全纯。以下条件等价：
+
+\begin{enumerate}[label=(\roman*)]
+ \item \(a\) 是可去奇点；
+ \item \(f\) 在 \(a\) 的某个删心邻域有界；
+ \item \(\lim_{z\to a}f(z)\) 存在且有限。
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\((i)\Rightarrow(iii)\Rightarrow(ii)\) 来自延拓函数的连续性。设 (ii) 成立。
+则存在 \(r_0\in(0,R)\) 和一个与半径无关的常数 \(M\)，使
+\[
+ |f(z)|\le M\qquad(0<|z-a|<r_0).
+\]
+对任意 \(0<\rho<r_0\) 和 \(n\ge1\)，Laurent 系数公式给
+
+\[
+ |a_{-n}|
+ =\left|\frac1{2\pi i}\int_{|\zeta-a|=\rho}
+ f(\zeta)(\zeta-a)^{n-1}\,d\zeta\right|
+ \le M\rho^n.
+\]
+
+该估计对任意充分小的 \(\rho\) 成立，令 \(\rho\downarrow0\) 得
+\(a_{-n}=0\)。主部消失，所以奇点可去。
+\end{proof}
+
+极点也有不依赖级数的判据：\(a\) 是极点当且仅当
+\(|f(z)|\to\infty\) 当 \(z\to a\)。正向由分解
+\(f=(z-a)^{-m}g\) 得到；反向令 \(1/f\) 在删心邻域定义，它趋于零并可去，
+延拓后在 \(a\) 有某个正阶零点，取倒数便得到极点。
+
+本性奇点的行为不能归结为有限阶发散。
+
+\begin{theorem}[Casorati--Weierstrass 定理]
+\label{thm:casorati-weierstrass}
+若 \(a\) 是 \(f\) 的本性奇点，则任意删心邻域的像在 \(\C\) 中稠密。
+\end{theorem}
+
+\begin{proof}
+若某个删心邻域的像不稠密，则存在 \(w_0\in\C\) 和 \(\varepsilon>0\)，
+使 \(|f(z)-w_0|\ge\varepsilon\)。于是
+
+\[
+ g(z)=\frac1{f(z)-w_0}
+\]
+
+有界，按可去奇点定理延拓到 \(a\)。若 \(g(a)\ne0\)，则
+\(f=w_0+1/g\) 可去；若 \(g(a)=0\)，则 \(1/g\) 有极点，\(f\) 也有极点。
+两者都与本性奇点矛盾。
+\end{proof}
+
+稠密不等于每个值都在每个删心邻域取得。更强的 Picard 大定理只允许至多
+遗漏一个值，但其证明不在当前理论链中。
+
+\section{留数和留数定理}
+
+设 \(a\) 是孤立奇点。Laurent 系数 \(a_{-1}\) 称为 \(f\) 在 \(a\) 的
+\term{留数}，记为
+
+\[
+ \operatorname{Res}(f,a)=a_{-1}
+ =\frac1{2\pi i}\int_{|z-a|=\rho}f(z)\,dz.
+\]
+
+若 \(a\) 是可去奇点，留数为零；反之留数为零并不能推出奇点可去，例如
+\(1/(z-a)^2\)。若 \(a\) 是单极点，则
+
+\[
+ \operatorname{Res}(f,a)=\lim_{z\to a}(z-a)f(z).
+\]
+
+若 \(f=\phi/\psi\)，其中 \(\phi,\psi\) 在 \(a\) 附近全纯，
+\(\psi(a)=0\)、\(\psi'(a)\ne0\)，则
+
+\[
+ \operatorname{Res}(f,a)=\frac{\phi(a)}{\psi'(a)}.
+\]
+
+对于 \(m\) 阶极点，
+
+\begin{equation}
+ \operatorname{Res}(f,a)
+ =\frac1{(m-1)!}
+ \left[\frac{d^{m-1}}{dz^{m-1}}\bigl((z-a)^m f(z)\bigr)\right]_{z=a}.
+ \label{eq:residue-pole-formula}
+\end{equation}
+
+\begin{theorem}[留数定理]
+\label{thm:residue-theorem}
+设 \(D\) 为域，\(a_1,\ldots,a_N\in D\)，函数 \(f\) 在
+\(D\setminus\{a_1,\ldots,a_N\}\) 全纯。设闭分片 \(C^1\) 曲线
+\(\gamma\subset D\setminus\{a_1,\ldots,a_N\}\) 满足
+\(\operatorname{Ind}(\gamma,w)=0\) 对所有 \(w\notin D\) 成立。则
+
+\begin{equation}
+ \int_\gamma f(z)\,dz
+ =2\pi i\sum_{j=1}^N
+ \operatorname{Ind}(\gamma,a_j)\operatorname{Res}(f,a_j).
+ \label{eq:residue-theorem}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+在每个 \(a_j\) 周围取互不相交、避开 \(\gamma\) 且闭含于 \(D\) 的小闭圆盘，
+其正向边界记为 \(C_j\)。令
+\[
+ n_j=\operatorname{Ind}(\gamma,a_j),\qquad
+ \Gamma=\gamma-\sum_{j=1}^N n_jC_j,\qquad
+ \Omega=D\setminus\{a_1,\ldots,a_N\}.
+\]
+平面域删去有限多个点后仍为域（逐次使用上一章的删点绕行论证），曲线链
+\(\Gamma\) 位于 \(\Omega\)。若 \(w\notin D\)，则题设给
+\(\operatorname{Ind}(\gamma,w)=0\)，而每个小圆盘闭含于 \(D\)，故
+\(\operatorname{Ind}(C_j,w)=0\)。若 \(w=a_k\)，小圆盘互不相交给出
+\[
+ \operatorname{Ind}(C_j,a_k)=
+ \begin{cases}1,&j=k,\\0,&j\ne k,
+ \end{cases}
+\]
+因而 \(\operatorname{Ind}(\Gamma,a_k)=n_k-n_k=0\)。这已经核对了
+\(\operatorname{Ind}(\Gamma,w)=0\) 对所有 \(w\notin\Omega\) 成立。
+
+函数 \(f\) 在 \(\Omega\) 全纯，故曲线链形式的 Cauchy 定理
+（推论~\ref{cor:cauchy-cycle-form}）给出 \(\int_\Gamma f\,dz=0\)，即
+
+\[
+ \int_\gamma f(z)\,dz
+ =\sum_{j=1}^N\operatorname{Ind}(\gamma,a_j)\int_{C_j}f(z)\,dz.
+\]
+
+Laurent 级数在每个 \(C_j\) 上一致收敛，逐项积分时只有
+\((z-a_j)^{-1}\) 项留下 \(2\pi i\)，所以
+\(\int_{C_j}f\,dz=2\pi i\operatorname{Res}(f,a_j)\)。代入上式即得
+式\eqref{eq:residue-theorem}。
+\end{proof}
+
+若 \(\gamma\) 是简单闭曲线的正向边界，所有内部点绕数为 \(1\)、外部点为
+\(0\)，公式退化为“边界积分等于内部留数之和的 \(2\pi i\) 倍”。奇点落在
+曲线上时公式没有定义；必须改变路径、取主值，或另作局部处理。
+
+\section{无穷远点处的奇点}
+
+若 \(f\) 在 \(|z|>R\) 全纯，则令
+
+\[
+ F(w)=f(1/w).
+\]
+
+按 \(F\) 在 \(w=0\) 的类型，把 \(\infty\) 分为可去奇点、极点或本性奇点。
+例如多项式在无穷远有极点，非多项式整函数在无穷远有本性奇点，而
+\(1/z\) 在无穷远可去。
+
+无穷远点的留数定义为
+
+\begin{equation}
+ \operatorname{Res}(f,\infty)
+ =-\operatorname{Res}\left(\frac{f(1/w)}{w^2},0\right).
+ \label{eq:residue-infinity}
+\end{equation}
+
+负号来自变量代换 \(z=1/w\) 对边界方向的改变。若 \(f\) 在某个外圆域的
+Laurent 展开写成
+\[
+ f(z)=\sum_{n=-\infty}^{\infty}c_nz^n,
+\]
+则代入定义可见 \(\operatorname{Res}(f,\infty)=-c_{-1}\)。若 \(f\) 在充分大的圆外
+全纯，则对每个充分大的 \(R\) 都有
+
+\[
+ \operatorname{Res}(f,\infty)
+ =-\frac1{2\pi i}\int_{|z|=R}f(z)\,dz.
+\]
+
+若 \(f\) 还在有限平面上亚纯，且 \(R\) 包含它的全部有限奇点，留数定理遂给出
+
+\begin{equation}
+ \sum_{a\in\C}\operatorname{Res}(f,a)
+ +\operatorname{Res}(f,\infty)=0.
+ \label{eq:global-residue-sum}
+\end{equation}
+
+这里有限奇点确实只有有限多个：它们全在闭圆盘 \(|z|\le R\) 内，而亚纯函数
+的极点在有限平面中没有聚点。特别地，有理函数的有限留数之和可以通过无穷远
+展开迅速求得。
+
+\section{留数法计算实积分与级数}
+
+留数定理用于实积分时，必须同时证明补上的复路径积分趋于零。下面三种计算
+展示不同的轮廓选择。
+
+\subsection{有理函数积分}
+
+若有理函数 \(P/Q\) 在实轴上无极点，且
+\(\deg Q\ge\deg P+2\)，取上半圆轮廓。大半圆上
+\(P(z)/Q(z)=O(|z|^{-2})\)，弧长为 \(\pi R\)，所以弧积分为 \(O(R^{-1})\)。
+令 \(R\to\infty\) 得
+
+\[
+ \int_{-\infty}^{\infty}\frac{P(x)}{Q(x)}\,dx
+ =2\pi i\sum_{\operatorname{Im}a>0}
+ \operatorname{Res}\left(\frac P Q,a\right).
+\]
+
+例如 \(1/(z^4+1)\) 在上半平面的极点为
+\(e^{i\pi/4}\) 和 \(e^{3i\pi/4}\)，简单极点公式给
+
+\[
+ \int_{-\infty}^{\infty}\frac{dx}{x^4+1}
+ =\frac{\pi}{\sqrt2}.
+\]
+
+\subsection{带分支的积分}
+
+设 \(0<\alpha<1\)。在 \(0<\arg z<2\pi\) 上取
+\(z^{\alpha-1}=e^{(\alpha-1)(\log|z|+i\arg z)}\)，并沿正实轴作钥匙孔轮廓。
+大小圆弧上的积分分别由 \(R^{\alpha-1}\) 和
+\(\varepsilon^\alpha\) 控制而趋于零。正实轴上、下两岸的积分之和为
+
+\[
+ (1-e^{2\pi i\alpha})
+ \int_0^\infty\frac{x^{\alpha-1}}{1+x}\,dx.
+\]
+
+轮廓内唯一极点是 \(-1\)，其留数为 \(e^{i\pi(\alpha-1)}\)。故
+
+\[
+ \int_0^\infty\frac{x^{\alpha-1}}{1+x}\,dx
+ =\frac{2\pi i\,e^{i\pi(\alpha-1)}}{1-e^{2\pi i\alpha}}
+ =\frac{\pi}{\sin\pi\alpha}.
+\]
+
+分支、切口和两岸相位若有一项未说明，所得常数就可能错误。
+
+\subsection{由亚纯核求和}
+
+函数 \(\pi\cot(\pi z)\) 在每个整数处有留数 \(1\)。对
+
+\[
+ F(z)=\frac{\pi\cot(\pi z)}{z^2}
+\]
+
+取边长 \(2N+1\)、边经过半整数的正方形轮廓。轮廓上
+\(\cot(\pi z)\) 一致有界，而 \(z^{-2}=O(N^{-2})\)，故边界积分趋于零。
+非零整数 \(n\) 处留数为 \(1/n^2\)；由
+
+\[
+ \pi\cot(\pi z)=\frac1z-\frac{\pi^2z}{3}+O(z^3)
+\]
+
+知 \(z=0\) 处留数为 \(-\pi^2/3\)。令 \(N\to\infty\)，留数定理给
+
+\[
+ 0=-\frac{\pi^2}{3}+2\sum_{n=1}^{\infty}\frac1{n^2},
+ \qquad
+ \sum_{n=1}^{\infty}\frac1{n^2}=\frac{\pi^2}{6}.
+\]
+
+这里级数极限可由绝对收敛控制；不能只写下所有整数留数的形式和而略去轮廓
+积分的极限。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{laurent-geometric-annuli}分别在 \(0<|z|<1\) 与 \(|z|>1\) 展开 \(1/[z(1-z)]\)，并直接核对两个 Laurent 级数的收敛域。
+\exerciseitem{laurent-shifted-rational}求 \(1/[(z-1)(z-2)]\) 在以 \(0\) 为中心的三个最大环域中的 Laurent 展开。
+\exerciseitem{classify-elementary-singularities}分类 \(z^{-3}\sin z\)、\((1-\cos z)/z^4\)、\(e^{1/z}\) 在 \(0\) 的孤立奇点，并求可求的留数。
+\exerciseitem{residue-simple-quotient}设 \(\phi,\psi\) 在 \(a\) 附近全纯，\(\psi(a)=0\)、\(\psi'(a)\ne0\)。从 Taylor 展开证明 \(\operatorname{Res}(\phi/\psi,a)=\phi(a)/\psi'(a)\)。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{removable-small-order}设 \(f\) 在 \(0<|z-a|<R\) 全纯。证明若 \((z-a)f(z)\to0\)，则 \(a\) 可去；并说明仅有 \((z-a)f(z)\) 有界为什么不够。
+\exerciseitem{pole-reciprocal-zero}证明 \(f\) 在 \(a\) 有 \(m\) 阶极点，当且仅当 \(1/f\) 在 \(a\) 可去并延拓为 \(m\) 阶零点。
+\exerciseitem{residue-higher-pole}证明式\eqref{eq:residue-pole-formula}，并用它计算 \(e^z/(z-1)^4\) 在 \(1\) 的留数。
+\exerciseitem{logarithmic-derivative-local-residue}设 \(f\) 在 \(a\) 亚纯且不恒为零。证明 \(f'/f\) 在 \(a\) 的留数等于 \(f\) 的零点阶数减去极点阶数。
+\exerciseitem{residue-infinity-coefficient}证明 \(\operatorname{Res}(f,\infty)\) 等于 \(f\) 在无穷远 Laurent 展开中 \(z^{-1}\) 系数的相反数，并计算任意有理函数 \(P/Q\) 的该留数。
+\exerciseitem{real-rational-residue-integral}用上半圆轮廓计算
+\(\int_{-\infty}^{\infty}(x^2+1)^{-2}\,dx\)，并给出弧积分趋零的明确估计。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{casorati-no-limit}用 Casorati--Weierstrass 定理证明本性奇点处既不可能有有限极限，也不可能有球面意义下的无穷极限。
+\exerciseitem{trigonometric-residue-integral}设 \(a>|b|>0\)。令 \(z=e^{it}\)，用留数计算
+\(\int_0^{2\pi}(a+b\cos t)^{-1}\,dt\)。
+\exerciseitem{cotangent-lattice-sum}对 \(a>0\)，用函数
+\(\pi\cot(\pi z)/(z^2+a^2)\) 证明
+\[
+ \sum_{n=-\infty}^{\infty}\frac1{n^2+a^2}
+ =\frac{\pi}{a}\coth(\pi a).
+\]
+\optionalexerciseitem{keyhole-beta-integral}完整补写钥匙孔轮廓证明，包括分支选取、方向、两段圆弧估计以及常数
+\((1-e^{2\pi i\alpha})\) 的来源。
+\end{enumerate}

@@ -1,0 +1,216 @@
+\chapter{Cauchy 定理}
+\label{chap:cauchy-theorem-solutions}
+
+\begin{solution}{complex-integral-reparametrization}
+设 \(\phi:[c,d]\to[a,b]\) 递增并满足题设。逐个光滑子区间作一元变量代换：
+\[
+ \int_c^d f(\gamma(\phi(s)))\gamma'(\phi(s))\phi'(s)\,ds
+ =\int_a^b f(\gamma(t))\gamma'(t)\,dt.
+\]
+有限个分点对积分无影响。若 \(\phi\) 递减，变量代换的上下限交换，右端多一个
+负号。特别地，反向参数化
+\(\widetilde\gamma(s)=\gamma(a+b-s)\) 满足
+\(\widetilde\gamma'(s)=-\gamma'(a+b-s)\)，故积分变号。
+\end{solution}
+
+\begin{solution}{complex-ml-circle}
+连续性给出 \(r_0>0\) 和 \(M<\infty\)，使
+\(|f(z)|\le M\) 于 \(|z-a|\le r_0\)。当 \(0<r<r_0\) 时，圆周长度为
+\(2\pi r\)，所以
+\[
+ \left|\int_{|z-a|=r}f(z)\,dz\right|\le 2\pi Mr\longrightarrow0.
+\]
+若希望得到一阶主项，还可写
+\(\int(f(z)-f(a))dz\)；常数项的闭曲线积分为零。
+\end{solution}
+
+\begin{solution}{complex-monomial-circle-integral}
+取 \(z=re^{it}\)，则
+\[
+ \int_{|z|=r}z^n\,dz
+ =ir^{n+1}\int_0^{2\pi}e^{i(n+1)t}\,dt.
+\]
+当 \(n=-1\) 时右端为 \(2\pi i\)；当 \(n\ne-1\) 时指数函数在两个端点
+取值相同，积分为零。结论对所有整数 \(n\) 成立，因为圆周不经过原点。
+\end{solution}
+
+\begin{solution}{primitive-closed-integrals}
+若 \(F'=f\)，曲线积分基本定理给
+\[
+ \int_\gamma f\,dz=F(\gamma(b))-F(\gamma(a)).
+\]
+闭曲线两端相同，故积分为零。若 \(1/z\) 在
+\(\C\setminus\{0\}\) 有原函数，则单位圆周上的积分应为零；但直接参数化得到
+\[
+ \int_{|z|=1}\frac{dz}{z}=2\pi i,
+\]
+矛盾。
+\end{solution}
+
+\begin{solution}{goursat-quarter-selection}
+四个小三角形的正向边界相加时，原三角形的三条边各出现一次；每条内部中位线
+分别作为相邻两个小三角形的边出现两次，方向相反，故其积分抵消。于是
+\(I(T)=\sum_{j=1}^4I(T_j)\)。若四个小积分的模都小于
+\(|I(T)|/4\)，三角不等式将给
+\[
+ |I(T)|<4\cdot |I(T)|/4,
+\]
+矛盾，因此至少有一个满足所需下界。
+
+每一步选出的 \(T_{n+1}\subset T_n\) 都是非空紧三角形，直径为
+\(2^{-n-1}\operatorname{diam}T\)。有限交性质给公共点非空；若有两个公共点，
+它们的距离不超过每个 \(T_n\) 的直径，令 \(n\to\infty\) 可知两点相同。
+\end{solution}
+
+\begin{solution}{star-shaped-holomorphic-primitive}
+固定星心 \(a\)，令
+\[
+ F(z)=\int_0^1 f(a+t(z-a))(z-a)\,dt.
+\]
+对充分小的 \(h\)，线段 \([a,z]\)、\([a,z+h]\) 及 \([z,z+h]\) 围成的
+三角形位于 \(D\)。Goursat 定理给
+\[
+ F(z+h)-F(z)=\int_{[z,z+h]}f(\zeta)\,d\zeta.
+\]
+参数化最后线段，得
+\[
+ \frac{F(z+h)-F(z)}h=\int_0^1f(z+th)\,dt\to f(z).
+\]
+连续性使收敛成立，故 \(F'=f\)。
+\end{solution}
+
+\begin{solution}{morera-triangle-theorem}
+固定 \(z_0\in D\)，取圆盘 \(B(z_0,r)\Subset D\)，并定义
+\[
+ F(z)=\int_{[z_0,z]}f(\zeta)\,d\zeta.
+\]
+对 \(z,z+h\) 充分接近，三角形 \(z_0,z,z+h\) 闭含于该圆盘。题设使其
+边界积分为零，所以
+\[
+ F(z+h)-F(z)=\int_{[z,z+h]}f(\zeta)\,d\zeta.
+\]
+与上一题相同，差商趋于 \(f(z)\)。故 \(F\) 在圆盘全纯且 \(F'=f\)。
+到这里已经证明了 \(f\) 局部是某个全纯函数的导函数。下一章的
+\theoremref{thm:holomorphic-is-analytic}说明全纯函数可由幂级数表示，因而其导函数
+仍全纯；应用于 \(F\) 便知 \(f=F'\) 在该圆盘全纯。每点都有这样的圆盘，
+所以 \(f\) 在 \(D\) 全纯。
+\end{solution}
+
+\begin{solution}{winding-number-circle}
+曲线把圆周按 \(k\) 的符号和绝对值绕行。若 \(|w-a|<r\)，曲线可在
+\(\C\setminus\{w\}\) 中同伦到绕中心 \(w\) 的同向圆周，故绕数为 \(k\)。
+若 \(|w-a|>r\)，可在不经过 \(w\) 的情况下把圆收缩到 \(a\)，绕数为零。
+也可直接令 \(z=a+re^{ikt}\) 并用几何级数计算。\(k=0\) 时曲线为常值，
+两处绕数均为零；曲线上的点不定义绕数。
+\end{solution}
+
+\begin{solution}{winding-local-constancy}
+设 \(a\notin\gamma([0,1])\)，令
+\[
+ d=\min_t|\gamma(t)-a|>0.
+\]
+当 \(|b-a|<d/2\) 时，\(|\gamma(t)-b|\ge d/2\)，并且
+\[
+ \left|\operatorname{Ind}(\gamma,b)-\operatorname{Ind}(\gamma,a)\right|
+ \le\frac{\ell(\gamma)}{2\pi}
+ \frac{|b-a|}{(d/2)d}.
+\]
+右端随 \(b\to a\) 趋零，所以绕数关于补集中的点连续。绕数取整数值，取
+\(b\) 更接近 \(a\) 使右端小于 \(1\)，两个整数便必须相等。这证明局部
+常值。
+\end{solution}
+
+\begin{solution}{logarithm-branch-criterion}
+若 \(L\) 是全纯对数分支，则对 \(e^{L(z)}=z\) 求导得 \(L'(z)=1/z\)。
+因此 \(1/z\) 有原函数，所有闭曲线积分为零。
+
+反之，闭曲线积分全为零时，原函数判据给出全纯 \(L_0\) 满足
+\(L_0'=1/z\)。固定 \(z_0\in D\)，选常数 \(c\) 使
+\(e^{L_0(z_0)+c}=z_0\)，令 \(L=L_0+c\)。计算
+\[
+ \frac d{dz}\bigl(ze^{-L(z)}\bigr)
+ =e^{-L(z)}(1-zL'(z))=0.
+\]
+域连通，所以 \(ze^{-L(z)}\) 恒等于其在 \(z_0\) 的值 \(1\)，即
+\(e^{L(z)}=z\)。
+\end{solution}
+
+\begin{solution}{annulus-boundary-cauchy}
+记正向圆周 \(|z-a|=R\)、\(|z-a|=r\) 分别为 \(C_R,C_r\)，并令
+\(\Gamma=C_R-C_r\)。设 \(U\) 是包含闭圆环且使 \(f\) 全纯的开集，取其中
+包含闭圆环的连通分支。若 \(w\notin U\)，则 \(w\) 不在闭圆环中；当
+\(|w-a|<r\) 时两个圆周关于 \(w\) 的绕数都是 \(1\)，当 \(|w-a|>R\) 时
+两者都是 \(0\)。因此
+\[
+ \operatorname{Ind}(\Gamma,w)=0\qquad(w\notin U).
+\]
+曲线链形式的 Cauchy 定理（推论~\ref{cor:cauchy-cycle-form}）遂给出
+\[
+ \int_{|z-a|=R}f(z)\,dz-\int_{|z-a|=r}f(z)\,dz=0.
+\]
+\end{solution}
+
+\begin{solution}{homotopy-integral-subdivision}
+取网格 \(0=s_0<\cdots<s_m=1\)、\(0=t_0<\cdots<t_n=1\)，使每个参数小矩形
+\[
+ Q_{jk}=[s_j,s_{j+1}]\times[t_k,t_{k+1}]
+\]
+的像落在一个有原函数 \(F_{jk}\) 的凸圆盘 \(U_{jk}\) 中。记
+\(p_{jk}=H(s_j,t_k)\)，并把相邻顶点用直线弦连接。每个小矩形的四条弦都在
+相应的 \(U_{jk}\) 内，故沿其正向边界的积分是四个端点差之和，等于零。
+
+对全部小矩形求和。每条内部弦以相反方向出现两次，因而抵消；在 \(t=0\)
+和 \(t=1\) 上，相邻顶点分别都是固定端点，弦退化为常值曲线。余下的是
+\(s=0\) 与 \(s=1\) 上的两条边界折线，方向相反。对 \(s=0\) 的每个小区间，
+原曲线段 \(\gamma_0|_{[t_k,t_{k+1}]}\) 和连接其端点的弦均在同一个
+\(U_{0k}\) 中，它们的积分都等于该圆盘上原函数的端点差；\(s=1\) 一侧同理。
+所以两条边界折线的积分分别等于原道路积分，最终得到
+\[
+ \int_{\gamma_1}f-\int_{\gamma_0}f=0.
+\]
+这里没有沿 \(H(s,\cdot)\) 积分；当 \(H\) 只有连续性时，这些中间曲线本来
+也未必分片 \(C^1\)。
+\end{solution}
+
+\begin{solution}{square-chain-cauchy}
+把闭多边形链记为 \(P\)，并在自交点和重合边端点处分割，使其成为有限平面
+直线图上的整数边链。集合
+\[
+ K=|P|\cup\{w\notin|P|:\operatorname{Ind}(P,w)\ne0\}
+\]
+是有界闭集；题设又给 \(K\subset D\)。故可取 \(\delta>0\)，使 \(K\) 的
+闭 \(\delta\)-邻域仍在 \(D\) 中。
+
+取包含 \(K\) 的大正方形，叠加网宽小于 \(\delta/3\) 的方格线以及 \(P\)
+的全部线段，并在所有交点处分割。若一个面有多个边界分支，先在面内添加
+互不相交的连接线，把它切成简单多边形；随后逐面三角剖分。所得三角形都
+位于一个方格中，因而直径小于 \(\delta\)，而 \(P\) 的每条分割边都是剖分
+的边。给每个不与 \(P\) 相交的三角形 \(T\) 赋整数权
+\[
+ n_T=\operatorname{Ind}(P,q_T),
+\]
+其中 \(q_T\) 是内点。若 \(n_T\ne0\)，则 \(q_T\in K\)，从而
+\(\overline T\subset D\)。
+
+现在考察 \(S=\sum_Tn_T\partial T\) 中任一有向边的系数。不在 \(P\) 上的
+公共边两侧处于 \(\C\setminus|P|\) 的同一局部分支，绕数相等，边便抵消；
+大正方形边界附近的绕数为零，也没有剩余边。若边 \(e\) 属于 \(P\)，按
+\(e\) 的方向指定左、右两侧，则绕数的跳跃公式为
+\[
+ \operatorname{Ind}(P,q_{\rm left})-
+ \operatorname{Ind}(P,q_{\rm right})=m_e,
+\]
+其中 \(m_e\) 是 \(P\) 沿 \(e\) 的整数重数。为验证它，取横截 \(e\) 的
+充分短线段：不经过该小邻域的那些边对两端点绕数之差趋于零，而沿 \(e\)
+的每条同向副本的局部贡献之差趋于 \(1\)，反向副本趋于 \(-1\)。总差取整数
+值，所以横截线段充分短时它恰等于 \(m_e\)。因此 \(S\) 在每条边上的系数
+都与 \(P\) 相同，即
+\[
+ P=\sum_Tn_T\partial T.
+\]
+删除零权三角形即得有限表示。在每个非零权三角形上应用 Goursat 定理，再
+将积分按权相加，得到
+\[
+ \int_Pf\,dz=0.
+\]
+\end{solution}

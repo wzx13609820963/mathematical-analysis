@@ -1,0 +1,260 @@
+\chapter{流形上的 Stokes 定理}
+
+\begin{solution}{orientation-connected-two-choices}
+固定一个定向及相应的体积形式 $\mu$。另一个定向也可以用某个体积形式
+$\nu$ 表示。由于每个 $\Lambda^nT_p^*M$ 都是一维空间，存在处处非零的
+光滑函数 $f$ 使 $\nu=f\mu$。连通空间上的连续函数若处处非零，就不可能
+同时取正值和负值；否则介值性会迫使它取零。因此 $f>0$ 或 $f<0$。前者
+给出原定向，后者给出相反定向。这两个定向确实不同，故恰有两个。
+
+若可定向流形 $M$ 的连通分支族为 $\pi_0(M)$，则每个分支上的两个方向可以
+独立选择。因此定向的全体与 $\{\pm1\}^{\pi_0(M)}$ 对应；特别地，若有
+$r$ 个连通分支，就有 $2^r$ 个定向。
+\end{solution}
+
+\begin{solution}{orientation-volume-form-ratio}
+在每一点，$\Lambda^nT_p^*M$ 是一维空间，所以存在唯一标量 $f(p)$ 使
+$\nu_p=f(p)\mu_p$。当 $n=0$ 时，同一定向直接给
+$f(p)=\nu(p)/\mu(p)>0$。以下设 $n\ge1$。在任一定向坐标中，若
+\[
+ \mu=a\,dx^1\wedge\cdots\wedge dx^n,\qquad
+ \nu=b\,dx^1\wedge\cdots\wedge dx^n,
+\]
+则 $f=b/a$。由于 $a$ 处处非零，$f$ 是光滑函数。两形式给出同一定向，
+恰好意味着 $a$ 与 $b$ 同号，也就是 $f>0$。反之，乘以正函数不改变
+顶次形式在任何有序基上的符号，因此不改变定向。
+\end{solution}
+
+\begin{solution}{orientation-product-swap-sign}
+设 $(e_1,\ldots,e_m)$、$(f_1,\ldots,f_n)$ 分别是 $M$、$N$ 的正向基。
+$M\times N$ 的积定向以
+\[
+ (e_1,\ldots,e_m,f_1,\ldots,f_n)
+\]
+为正。交换映射的导数把这些向量送到同一列向量，而 $N\times M$ 的积正向
+顺序为
+\[
+ (f_1,\ldots,f_n,e_1,\ldots,e_m).
+\]
+把每个 $e_i$ 越过全部 $n$ 个 $f_j$，总共需要 $mn$ 次换位，故交换映射
+改变定向的符号为 $(-1)^{mn}$。
+\end{solution}
+
+\begin{solution}{orientation-sphere-outward-normal}
+在 $p\in S^{n-1}$ 处取外法向 $p$。规定切基
+$(v_1,\ldots,v_{n-1})$ 为正，当且仅当
+$(p,v_1,\ldots,v_{n-1})$ 是 $\R^n$ 的正向基。这个规定随 $p$ 光滑变化，
+因而给出球面的定向。
+
+当 $n=2$ 时，令 $\gamma(t)=(\cos t,\sin t)$。外法向为 $\gamma(t)$，
+而
+\[
+ \gamma'(t)=(-\sin t,\cos t),\qquad
+ \det\bigl(\gamma(t),\gamma'(t)\bigr)
+ =\cos^2t+\sin^2t=1>0.
+\]
+所以 $t$ 增大的方向是边界正向，即通常的逆时针方向。
+\end{solution}
+
+\begin{solution}{integration-diffeomorphism-sign}
+取 $N$ 上从属于定向坐标图 $\{(V_i,y_i)\}$ 的单位分解 $\{\rho_i\}$。
+则 $\{\rho_i\circ F\}$ 是 $M$ 上从属于 $\{F^{-1}(V_i)\}$ 的单位分解，
+并且
+\[
+ F^*(\rho_i\omega)=(\rho_i\circ F)F^*\omega.
+\]
+对每个非零项，在 $F^{-1}(V_i)$ 上取坐标 $x_i=y_i\circ F$。若 $F$
+保持定向，则 $x_i$ 是定向坐标；由局部积分的定义直接得到
+\[
+ \int_MF^*(\rho_i\omega)=\int_N\rho_i\omega.
+\]
+也可以在任意源坐标中应用欧氏变量代换公式得到同一等式。对有限多个非零项
+求和，便有
+\[
+ \int_MF^*\omega=\int_N\omega.
+\]
+若 $F$ 反转定向，每个局部等式都多出同一个负号，故全局公式也多出负号。
+\end{solution}
+
+\begin{solution}{boundary-oriented-interval}
+区间以坐标向量 $\partial_x$ 为正。在右端点 $b$，外向量为
+$+\partial_x$，故该零维边界点取正号；在左端点 $a$，外向量为
+$-\partial_x$，故该点取负号。对零形式 $f$，Stokes 定理给出
+\[
+ \int_{[a,b]}df=\int_{\partial[a,b]}f=f(b)-f(a).
+\]
+左端在坐标中就是 $\int_a^bf'(x)\,dx$，这便是 Newton--Leibniz 公式。
+\end{solution}
+
+\begin{solution}{boundary-product-orientation}
+设 $(e_1,\ldots,e_m)$ 是 $M$ 的正向基。$M\times[a,b]$ 的积定向以
+$(e_1,\ldots,e_m,\partial_t)$ 为正。在上端 $t=b$，外法向为
+$\partial_t$。把它从首位越过 $m$ 个 $e_i$ 后才成为积正向顺序，因此
+$M\times\{b\}$ 的诱导定向是 $M$ 原定向的 $(-1)^m$ 倍。
+
+在下端 $t=a$，外法向为 $-\partial_t$，比上端的计算再多一个负号。
+所以 $M\times\{a\}$ 的诱导定向是 $(-1)^{m+1}$ 倍，从而
+\[
+ \partial(M\times[a,b])
+ =(-1)^m(M\times\{b\})
+ \sqcup(-1)^{m+1}(M\times\{a\}).
+\]
+\end{solution}
+
+\begin{solution}{stokes-half-space-sign}
+写
+\[
+ \omega=\sum_{j=1}^n(-1)^{j-1}a_j\,
+ dx^1\wedge\cdots\wedge\widehat{dx^j}\wedge\cdots\wedge dx^n.
+\]
+则
+\[
+ d\omega=\left(\sum_{j=1}^n\partial_ja_j\right)
+ dx^1\wedge\cdots\wedge dx^n.
+\]
+当 $j<n$ 时，Fubini 定理和一元微积分基本定理给出
+$\int_{\R}\partial_ja_j\,dx^j=0$。法向项为
+\[
+ \int_{\R^{n-1}}\int_0^\infty
+ \partial_na_n(x',t)\,dt\,dx'
+ =-\int_{\R^{n-1}}a_n(x',0)\,dx'.
+\]
+
+半空间在边界处的外法向为 $-e_n$。相对于标准的 $x'$ 坐标次序，诱导边界
+定向的符号是 $(-1)^n$，而
+\[
+ \iota^*\omega=(-1)^{n-1}a_n(x',0)\,
+ dx^1\wedge\cdots\wedge dx^{n-1}.
+\]
+两符号之积为 $-1$，故边界积分正好等于上面的法向项。这就证明了半空间中的
+局部 Stokes 公式。
+\end{solution}
+
+\begin{solution}{stokes-partition-derivative-cancellation}
+局部有限性说明每一点都有一个邻域，在其中只有有限多个 $\rho_i$ 不恒为零，
+所以在这个邻域中可以把外微分逐项移入求和。由分次 Leibniz 公式，
+\begin{align*}
+ \sum_i d(\rho_i\omega)
+ &=\sum_i(d\rho_i\wedge\omega+\rho_i\,d\omega)\\
+ &=d\left(\sum_i\rho_i\right)\wedge\omega
+   +\left(\sum_i\rho_i\right)d\omega\\
+ &=d(1)\wedge\omega+d\omega=d\omega.
+\end{align*}
+最后一个等式先在 $\operatorname{supp}\omega$ 的邻域内成立；在其外两边
+都为零。若函数族只有逐点有限性而没有局部有限性，其和甚至未必连续，逐项
+求导也就没有依据。
+\end{solution}
+
+\begin{solution}{stokes-exact-top-form-zero}
+若 $\omega=d\eta$，且 $M$ 紧而无边界，则 Stokes 定理给出
+\[
+ \int_M\omega=\int_Md\eta=\int_{\partial M}\eta=0.
+\]
+非紧且原形式没有紧支撑时，结论可能失败。例如在 $\R$ 上，
+\[
+ d(\arctan x)=\frac{dx}{1+x^2}
+\]
+是可积的恰当一形式，但
+\[
+ \int_\R\frac{dx}{1+x^2}=\pi.
+\]
+这里无穷远处产生的贡献没有出现在流形边界 $\partial\R$ 中。
+\end{solution}
+
+\begin{solution}{poincare-chart-transfer}
+若 $x:U\to B$，要把流形上的形式送到欧氏球上，应沿
+$x^{-1}:B\to U$ 拉回：
+\[
+ \widetilde\omega=(x^{-1})^*(\omega|_U).
+\]
+于是
+\[
+ d\widetilde\omega=(x^{-1})^*(d\omega)=0.
+\]
+欧氏 Poincaré 引理给出
+$\widetilde\eta\in\Omega^{k-1}(B)$，使
+$\widetilde\omega=d\widetilde\eta$。要把原形式送回 $U$，则沿
+$x:U\to B$ 拉回，令 $\eta=x^*\widetilde\eta$。最后
+\[
+ d\eta=d(x^*\widetilde\eta)
+ =x^*(d\widetilde\eta)
+ =x^*(x^{-1})^*(\omega|_U)
+ =(x^{-1}\circ x)^*(\omega|_U)
+ =\omega|_U.
+\]
+这里两次使用了拉回与外微分交换，并使用了拉回反转复合次序这一事实。
+\end{solution}
+
+\begin{solution}{poincare-circle-not-exact}
+令 $\gamma(t)=(\cos t,\sin t)$。则
+\[
+ \gamma^*(x\,dy-y\,dx)
+ =\cos^2t\,dt+\sin^2t\,dt=dt,
+\]
+所以该形式沿 $S^1$ 的积分为 $2\pi$。由于 $S^1$ 是一维流形，其上的
+二形式全为零，故每个一次形式都是闭形式。若
+$x\,dy-y\,dx=df$，则 Stokes 定理在无边界紧流形 $S^1$ 上给出的积分
+应为零，与 $2\pi$ 矛盾。因此它不是恰当形式。
+\end{solution}
+
+\begin{solution}{stokes-boundary-of-boundary-integral}
+拉回与外微分交换，所以
+\[
+ d(\iota^*\eta)=\iota^*(d\eta).
+\]
+把 Stokes 定理用于 $M$ 上的 $(n-1)$-形式 $d\eta$，得到
+\[
+ \int_{\partial M}\iota^*(d\eta)
+ =\int_Md(d\eta)=0.
+\]
+因此题中的积分为零。论证使用了
+$d\iota^*=\iota^*d$ 和 $d^2=0$；Stokes 定理则把边界上的积分转成了
+$M$ 上的积分。
+\end{solution}
+
+\begin{solution}{stokes-compact-support-euclidean-top}
+若
+\[
+ f\,dx^1\wedge\cdots\wedge dx^n=d\eta,
+ \qquad \eta\in\Omega_c^{n-1}(\R^n),
+\]
+则 Stokes 定理立即给出 $\int_{\R^n}f=0$。
+
+反向用维数归纳。当 $n=1$ 时，令
+\[
+ F(x)=\int_{-\infty}^xf(t)\,dt.
+\]
+条件 $\int_\R f=0$ 保证 $F$ 在 $\operatorname{supp}f$ 两侧都为零，
+故 $F\in C_c^\infty(\R)$ 且 $dF=f\,dx$。
+
+设结论已经对 $n-1$ 维成立。取
+$h\in C_c^\infty(\R)$，使 $\int_\R h=1$，并令
+\[
+ g(x')=\int_\R f(x',t)\,dt,\qquad
+ F(x',x_n)=\int_{-\infty}^{x_n}
+ \bigl[f(x',t)-g(x')h(t)\bigr]\,dt.
+\]
+对每个 $x'$，方括号内的函数关于 $t$ 的积分为零，所以 $F$ 有紧支集，
+并且 $\partial_nF=f-gh$。又因
+\[
+ \int_{\R^{n-1}}g(x')\,dx'=\int_{\R^n}f(x)\,dx=0,
+\]
+归纳假设给出 $\theta\in\Omega_c^{n-2}(\R^{n-1})$，使
+\[
+ d'\theta=g\,dx^1\wedge\cdots\wedge dx^{n-1}.
+\]
+定义
+\[
+ \eta=(-1)^{n-1}F\,dx^1\wedge\cdots\wedge dx^{n-1}
+      +h(x_n)\theta\wedge dx^n.
+\]
+两项都有紧支集。第一项的外微分为
+\[
+ (f-gh)\,dx^1\wedge\cdots\wedge dx^n,
+\]
+第二项的外微分为
+\[
+ gh\,dx^1\wedge\cdots\wedge dx^n.
+\]
+相加便得到给定的顶次形式。
+\end{solution}

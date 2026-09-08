@@ -1,0 +1,372 @@
+\chapter{Riemann 映射定理}
+\label{chap:riemann-mapping-theorem}
+
+圆盘、半平面和许多形状迥异的平面区域可以通过全纯双射互相转化。这样的
+映射在导数不为零处保持有向角度，因而称为保角映射。Riemann 映射定理断言，
+单连通真子域都与单位圆盘保角等价。结论只假设区域单连通，没有给出边界的
+光滑性，也没有提供显式公式。
+
+证明从所有归一化单叶映射中最大化一个导数。Montel 定理给出极值函数，
+Hurwitz 定理排除单叶性的丢失；若极值函数遗漏圆盘中的一点，平方根构造会
+产生导数更大的竞争者。这几步分别使用紧性、零点稳定性和单连通性。
+
+本章记单位圆盘为 $\mathbb D=\{z:|z|<1\}$，Riemann 球面为
+$\widehat{\C}=\C\cup\{\infty\}$。
+
+\section{局部保角性和 \texorpdfstring{M\"obius}{Mobius} 变换}
+
+若 $f$ 在 $a$ 处全纯且 $f'(a)\ne0$，则
+\[
+ f(a+h)-f(a)=f'(a)h+o(|h|).
+\]
+复数乘法 $h\mapsto f'(a)h$ 是一个伸缩与旋转的复合，所以 $f$ 在 $a$ 附近
+保持两条光滑曲线的有向夹角。反之，一个实线性映射保持有向角并保向，当且
+仅当它是某个非零复数的乘法。因此，全纯且导数不为零正是平面上的局部保角
+条件。
+
+单叶全纯函数的导数处处不为零。若 $f'(a)=0$，Taylor 展开给
+\[
+ f(z)-f(a)=(z-a)^m g(z),\qquad m\ge2,\quad g(a)\ne0.
+\]
+取 $g$ 的局部 $m$ 次方根，可把右侧写成 $h(z)^m$，而 $m$ 次幂在任意充分
+小删心邻域中都不是单射，矛盾。于是单叶全纯映射由复逆函数定理得到全纯局部
+逆；若它还是双射，局部逆拼成全局全纯逆。
+
+球面上的 M\"obius 变换为
+\[
+ T(z)=\frac{az+b}{cz+d},\qquad ad-bc\ne0,
+\]
+并按 $T(-d/c)=\infty$、$T(\infty)=a/c$ 解释含无穷远点的情形。矩阵乘法
+对应变换复合，非零标量倍矩阵给出同一变换。M\"obius 变换把广义圆——圆或
+直线连同无穷远点——映成广义圆。
+
+对 $a\in\mathbb D$，记
+\begin{equation}\label{eq:disk-automorphism-basic}
+ \phi_a(z)=\frac{z-a}{1-\overline a z}.
+\end{equation}
+恒等式
+\begin{equation}\label{eq:disk-automorphism-identity}
+ 1-|\phi_a(z)|^2
+ =\frac{(1-|a|^2)(1-|z|^2)}{|1-\overline a z|^2}
+\end{equation}
+说明 $\phi_a$ 把 $\mathbb D$ 双全纯地映到自身，并把 $a$ 送到零。所有圆盘
+自同构将在本章后面由 Schwarz 引理刻画。Cayley 变换
+\[
+ C(z)=i\frac{1+z}{1-z}
+\]
+把 $\mathbb D$ 双全纯地映到上半平面。
+
+由少数基本变换复合，可以写出若干非圆形区域的 Riemann 映射。例如指数函数
+把水平带
+\[
+ S=\{z:0<\operatorname{Im}z<\pi\}
+\]
+双全纯地映到上半平面：辐角的取值落在 $(0,\pi)$，而带宽小于一个完整周期，
+故映射既满又单。再与 $w\mapsto(w-i)/(w+i)$ 复合，便得到 $S$ 到圆盘的
+显式映射。若 $0<\alpha<2\pi$，在扇形
+\[
+ S_\alpha=\{re^{i\theta}:r>0,\ 0<\theta<\alpha\}
+\]
+上选择相应的对数分支，则 $z\mapsto z^{\pi/\alpha}$ 把它双全纯地映到上半
+平面。这些例子说明，显式映射往往来自对边界几何有明确作用的初等变换；一般
+单连通域没有可供直接组合的公式。
+
+\section{单叶函数族与正规族方法}
+
+设 $\Omega\subsetneq\C$ 为单连通区域，固定 $a\in\Omega$。考虑
+\[
+ \mathcal F_a=\{f:\Omega\to\mathbb D:
+ f\text{ 全纯单叶且 }f(a)=0\}.
+\]
+证明极值函数以前，须先核对这个集合非空。
+
+\begin{lemma}\label{lem:riemann-family-nonempty}
+$\mathcal F_a\ne\varnothing$。
+\end{lemma}
+
+\begin{proof}
+取 $b\in\C\setminus\Omega$。函数 $z-b$ 在单连通域 $\Omega$ 上不取
+零，故有全纯对数 $L$。令
+\[
+ g(z)=\exp\!\left(\frac{L(z)}2\right),
+\]
+则 $g(z)^2=z-b$。若 $g(z_1)=g(z_2)$，平方后得 $z_1=z_2$，所以 $g$ 单叶。
+而且 $g(\Omega)\cap[-g(\Omega)]=\varnothing$：交集中若有
+$g(z_1)=-g(z_2)$，平方后先得 $z_1=z_2$，再得 $g(z_1)=0$，不可能。
+
+记 $w_0=g(a)$。因 $g(\Omega)$ 开，可取 $r>0$ 使
+$B(w_0,r)\subset g(\Omega)$。上面的不交性给
+$B(-w_0,r)\cap g(\Omega)=\varnothing$，从而
+\[
+ |g(z)+w_0|\ge r\qquad(z\in\Omega).
+\]
+函数 $h(z)=1/(g(z)+w_0)$ 因此有界且单叶。选充分小的 $\lambda>0$，使
+\[
+ f(z)=\lambda(h(z)-h(a))
+\]
+把 $\Omega$ 映入 $\mathbb D$。它仍单叶并满足 $f(a)=0$，故属于
+$\mathcal F_a$。
+\end{proof}
+
+这个构造先用平方根把值域与它关于原点的反射分开，再把反射一侧的一个圆盘
+变成值域所遗漏的圆盘。取倒数以后，遗漏圆盘给出全局有界性。单连通性只在
+全纯对数、从而平方根的存在处使用；若区域有洞，绕洞一周可能改变平方根的
+符号，论证便不能照搬。
+
+取 $r>0$ 使 $B(a,r)\subset\Omega$。对每个 $f\in\mathcal F_a$，Cauchy
+估计给 $|f'(a)|\le1/r$。所以
+\[
+ \alpha:=\sup_{f\in\mathcal F_a}|f'(a)|
+\]
+有限；引理中的单叶函数导数非零，故 $\alpha>0$。选极值序列
+$f_n\in\mathcal F_a$ 使 $|f_n'(a)|\to\alpha$。由于 $|f_n|<1$，Montel
+定理给局部一致收敛子列。全纯极限定理同时给导数收敛，而单叶极限定理说明
+极限只可能是单叶函数或常函数。导数的正极限将排除常函数。
+
+因此，极值论证还需核对三点：导数在紧开收敛下连续，归一化能够排除常值
+极限，以及取得最大导数的函数不能遗漏圆盘中的点。
+
+\section{Riemann 映射定理}
+
+\begin{theorem}[Riemann 映射定理]\label{thm:riemann-mapping}
+设 $\Omega\subsetneq\C$ 为单连通区域，$a\in\Omega$。存在双全纯映射
+$f:\Omega\to\mathbb D$ 满足
+\[
+ f(a)=0,\qquad f'(a)>0.
+\]
+满足这两个归一化条件的映射唯一。
+\end{theorem}
+
+\begin{proof}[存在性的证明]
+按上一节取 $f_n\in\mathcal F_a$ 使 $|f_n'(a)|\to\alpha$。乘以模为一的
+常数不改变所属函数族，可令 $f_n'(a)>0$。抽取子列使 $f_n\to f$ 局部一致。
+于是
+\[
+ f(a)=0,\qquad f'(a)=\alpha>0.
+\]
+最大模原理说明 $f(\Omega)\subset\mathbb D$；因为 $f$ 非常值，单叶函数
+极限的推论说明 $f$ 单叶。因此 $f\in\mathcal F_a$ 并取得极值。
+
+只剩证明 $f$ 满射。反设存在 $c\in\mathbb D\setminus f(\Omega)$。因
+$f(a)=0$，有 $c\ne0$。令
+\[
+ T(z)=\phi_c(f(z))=\frac{f(z)-c}{1-\overline c f(z)}.
+\]
+$T$ 映入 $\mathbb D$ 且不取零。单连通性保证 $T$ 有全纯平方根 $q$，即
+$q^2=T$；并且 $|q|<1$。由 $q(z_1)=q(z_2)$ 可先推出
+$T(z_1)=T(z_2)$，再由 $f$ 和 $\phi_c$ 的单射性推出 $z_1=z_2$，所以 $q$
+单叶。
+
+置 $s=q(a)$，并令
+\[
+ F=\phi_s\circ q.
+\]
+则 $F\in\mathcal F_a$。由 $s^2=T(a)=\phi_c(0)=-c$，有
+$|s|=\sqrt{|c|}$。又
+\[
+ |\phi_c'(0)|=1-|c|^2,\qquad
+ |\phi_s'(s)|=\frac1{1-|s|^2},\qquad
+ |q'(a)|=\frac{|T'(a)|}{2|s|}.
+\]
+合并这些等式得到
+\begin{align*}
+ \frac{|F'(a)|}{|f'(a)|}
+ &=\frac{1-|c|^2}{2\sqrt{|c|}(1-|c|)}\\
+ &=\frac{1+|c|}{2\sqrt{|c|}}>1.
+\end{align*}
+最后一个严格不等式来自 $(1-\sqrt{|c|})^2>0$。这与 $f$ 已使
+$|f'(a)|=\alpha$ 最大矛盾，故 $f(\Omega)=\mathbb D$。
+
+唯一性留到下一节，用圆盘自同构的归一化完成。
+\end{proof}
+
+排除 $\Omega=\C$ 是必要的。若存在双全纯映射
+$f:\C\to\mathbb D$，则 $f$ 是有界整函数，Liouville 定理迫使它为
+常函数。区域单连通也不能删除：双全纯映射保持闭路是否可缩，穿孔圆盘因而
+不可能与圆盘双全纯。
+
+定理是存在性定理，并不直接给出映射公式。多边形、狭缝域等区域的显式映射
+还需要 Schwarz--Christoffel 积分或特殊函数；这些计算不属于上述紧性证明
+的一部分。
+
+\section{归一化、唯一性与自同构群}
+
+先刻画固定原点的圆盘自同构。若 $h:\mathbb D\to\mathbb D$ 全纯、
+$h(0)=0$，则 $h(z)/z$ 在零点有可去奇点。对 $0<r<1$ 在 $|z|=r$ 上应用
+最大模原理，再令 $r\uparrow1$，得到 $|h(z)|\le|z|$。若 $h$ 是自同构，
+把同一结论用于 $h^{-1}$，便有
+\[
+ |h(z)|=|z|.
+\]
+最大模原理作用于 $h(z)/z$，说明该商为模一常数。因此固定零点的圆盘自同构
+恰为旋转 $h(z)=e^{i\theta}z$。
+
+任意圆盘自同构 $T$ 若把 $a$ 送到零，则 $T\circ\phi_a^{-1}$ 固定零点，
+故
+\begin{equation}\label{eq:disk-automorphism-classification}
+ T(z)=e^{i\theta}\phi_a(z).
+\end{equation}
+反过来，这些函数显然都是圆盘自同构。
+
+现设 $f,g:\Omega\to\mathbb D$ 都是 Riemann 映射且
+$f(a)=g(a)=0$。复合 $g\circ f^{-1}$ 是固定零点的圆盘自同构，所以
+$g=e^{i\theta}f$。若再有 $f'(a)>0$、$g'(a)>0$，求导后可知
+$e^{i\theta}=1$，故 $f=g$。这完成
+定理\ref{thm:riemann-mapping}的唯一性证明。
+
+没有归一化时，两个 Riemann 映射相差一个圆盘自同构。式
+\eqref{eq:disk-automorphism-classification}给出三个实参数：点
+$a\in\mathbb D$ 提供两个，旋转角提供一个。指定一个内部点的像以及该点处
+导数的辐角，正好消除这三个自由度。
+
+\section{Schwarz 引理、双曲度量与边界行为}
+
+\begin{theorem}[Schwarz 引理]\label{thm:schwarz-lemma}
+若 $f:\mathbb D\to\mathbb D$ 全纯且 $f(0)=0$，则
+\[
+ |f(z)|\le|z|,\qquad |f'(0)|\le1.
+\]
+若第一个不等式在某个非零点取等，或 $|f'(0)|=1$，则
+$f(z)=e^{i\theta}z$。
+\end{theorem}
+
+\begin{proof}
+令 $g(z)=f(z)/z$，并在零点定义 $g(0)=f'(0)$。固定 $0<r<1$。在
+$|z|=r$ 上有 $|g(z)|<1/r$，最大模原理给同一估计于 $|z|\le r$。对固定
+$z$ 令 $r\uparrow1$，得到 $|g(z)|\le1$，即所需两个不等式。
+
+若在非零点有 $|f(z)|=|z|$，则 $|g|$ 在内部取得最大值一；若
+$|f'(0)|=1$，同样有 $|g(0)|=1$。最大模原理在两种情形下都给
+$g\equiv e^{i\theta}$。
+\end{proof}
+
+把任意点移到零，得到 Schwarz--Pick 定理。
+
+\begin{theorem}[Schwarz--Pick]\label{thm:schwarz-pick}
+若 $f:\mathbb D\to\mathbb D$ 全纯，则对 $a,z\in\mathbb D$，
+\begin{equation}\label{eq:schwarz-pick-distance}
+ |\phi_{f(a)}(f(z))|\le|\phi_a(z)|,
+\end{equation}
+并且
+\begin{equation}\label{eq:schwarz-pick-derivative}
+ \frac{|f'(a)|}{1-|f(a)|^2}\le\frac1{1-|a|^2}.
+\end{equation}
+若式\eqref{eq:schwarz-pick-distance}对某对不同的点 $a,z$ 取等，或者
+式\eqref{eq:schwarz-pick-derivative}在某点 $a$ 取等，则 $f$ 为圆盘自同构。
+\end{theorem}
+
+\begin{proof}
+函数
+\[
+ F=\phi_{f(a)}\circ f\circ\phi_a^{-1}
+\]
+把圆盘映入自身并固定零点。Schwarz 引理给 $|F(w)|\le|w|$，代入
+$w=\phi_a(z)$ 得式\eqref{eq:schwarz-pick-distance}。在零点求导并使用
+\[
+ |\phi_a'(a)|=\frac1{1-|a|^2}
+\]
+得到式\eqref{eq:schwarz-pick-derivative}。等号情形由 Schwarz 引理的刚性
+部分和 M\"obius 变换的可逆性得到。
+\end{proof}
+
+定义伪双曲距离与双曲距离
+\[
+ \delta(z,w)=|\phi_w(z)|,
+ \qquad
+ d_{\mathbb D}(z,w)=2\operatorname{artanh}\delta(z,w)
+ =\log\frac{1+\delta(z,w)}{1-\delta(z,w)}.
+\]
+Schwarz--Pick 定理说明圆盘上的全纯自映射不增加这些距离；自同构保持距离。
+相应的无穷小线元为
+\[
+ ds_{\mathbb D}=\frac{2|dz|}{1-|z|^2}.
+\]
+若 $F:\Omega\to\mathbb D$ 是 Riemann 映射，可用
+$d_\Omega(z,w)=d_{\mathbb D}(F(z),F(w))$ 把双曲距离拉回 $\Omega$。归一化
+唯一性说明该定义与所选 Riemann 映射无关。
+
+同样可以拉回无穷小线元。定义
+\begin{equation}\label{eq:hyperbolic-density-domain}
+ \lambda_\Omega(z)=\frac{2|F'(z)|}{1-|F(z)|^2}.
+\end{equation}
+若 $G:\Omega\to\mathbb D$ 是另一 Riemann 映射，则
+$G\circ F^{-1}$ 是圆盘自同构。Schwarz--Pick 的等号情形给
+\[
+ \frac{2|G'(z)|}{1-|G(z)|^2}
+ =\frac{2|F'(z)|}{1-|F(z)|^2},
+\]
+所以式\eqref{eq:hyperbolic-density-domain}不依赖 $F$。若 $\Omega_1,\Omega_2$
+都是单连通真子域，选择 Riemann 映射
+$F_j:\Omega_j\to\mathbb D$。对全纯映射 $h:\Omega_1\to\Omega_2$，向
+$F_2\circ h\circ F_1^{-1}:\mathbb D\to\mathbb D$ 使用
+式\eqref{eq:schwarz-pick-derivative}可得
+\begin{equation}\label{eq:hyperbolic-density-contraction}
+ \lambda_{\Omega_2}(h(z))|h'(z)|\le \lambda_{\Omega_1}(z).
+\end{equation}
+因此全纯映射关于双曲线元是收缩的；双全纯映射的逆映射给出反向不等式，故
+此时取等。双曲度量由此成为区域在双全纯变换下的内在量，而不依赖坐标图的
+选择。
+
+Riemann 映射定理本身不保证映射在普通边界点连续延拓。现有工具可以准确说明
+径向像的聚点落在哪里。设 $F:\mathbb D\to\Omega$ 为 Riemann 映射，且
+$\Omega$ 有界。对 $\zeta\in\partial\mathbb D$ 定义径向聚点集
+\[
+ C_\zeta=\bigcap_{0<r<1}
+ \overline{\{F(t\zeta):r<t<1\}}.
+\]
+这些集合是嵌套的非空紧连通集，故 $C_\zeta$ 非空、紧且连通。并且
+\begin{equation}\label{eq:riemann-radial-cluster-boundary}
+ C_\zeta\subset\partial\Omega.
+\end{equation}
+事实上，若 $F(t_n\zeta)\to w\in\Omega$，连续逆映射给
+$t_n\zeta=F^{-1}(F(t_n\zeta))\to F^{-1}(w)\in\mathbb D$，这与
+$t_n\zeta\to\zeta\in\partial\mathbb D$ 矛盾。
+
+若 $C_\zeta$ 是单点，便得到该方向的径向极限。要从区域边界的几何条件推出
+所有边界点都有单点聚点集，需要额外理论。特别地，Jordan 域上的连续同胚
+延拓不能仅从 Riemann 映射定理的上述证明读出；这里不把它当作已经证明的
+结论。若某个 Riemann 映射已知连续且单射地延拓为
+$\overline F:\overline{\mathbb D}\to\overline\Omega$，则
+$\overline F(\overline{\mathbb D})$ 是包含 $\Omega$ 的闭集，因而也包含
+$\overline\Omega$；它本来又包含在 $\overline\Omega$ 中，所以
+$\overline F$ 满射。紧空间到 Hausdorff 空间的连续双射原理于是说明
+$\overline F$ 是闭圆盘到 $\overline\Omega$ 的同胚。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{riemann-mobius-disk-identity}验证式\eqref{eq:disk-automorphism-identity}，并写出 $\phi_a^{-1}$。
+\exerciseitem{riemann-cayley-half-plane}证明 Cayley 变换把单位圆盘双全纯地映到上半平面。
+\exerciseitem{riemann-univalent-derivative}补全“单叶全纯函数导数不为零”的局部幂次论证。
+\exerciseitem{riemann-family-construction}逐项核验引理\ref{lem:riemann-family-nonempty}中的函数 $h$ 有界且单叶。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{riemann-extremal-compactness}证明极值序列的局部一致极限属于 $\mathcal F_a$，并指出导数极值怎样排除常值极限。
+\exerciseitem{riemann-omitted-value-improvement}独立重算遗漏值平方根构造中的导数比，并证明它严格大于一。
+\exerciseitem{riemann-normalized-uniqueness}证明任意两个把 $a$ 送到零的 Riemann 映射相差一个旋转。
+\exerciseitem{riemann-schwarz-equality}证明 Schwarz 引理的两种等号条件彼此等价，并推出固定两个不同内点的圆盘自同构必为恒等映射。
+\exerciseitem{riemann-schwarz-pick-half-plane}把 Schwarz--Pick 导数不等式搬到上半平面，证明
+$f:\mathbb H\to\mathbb H$ 满足
+\[
+ \frac{|f'(z)|}{\operatorname{Im}f(z)}
+ \le \frac{1}{\operatorname{Im}z}.
+\]
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{riemann-punctured-obstruction}用闭路或基本群说明穿孔圆盘不可能与单位圆盘双全纯。
+\exerciseitem{riemann-hyperbolic-invariance}证明双曲距离和双曲密度的定义与 Riemann 映射的选择无关，并由 Schwarz--Pick 定理证明
+\[
+ \lambda_{\Omega_2}(h(z))|h'(z)|\le\lambda_{\Omega_1}(z)
+\]
+对单连通真子域之间的全纯映射 \(h:\Omega_1\to\Omega_2\) 成立。证明双全纯
+映射是双曲等距，并讨论导数不等式在一点取等的情形。
+\exerciseitem{riemann-radial-cluster}完整证明 $C_\zeta$ 非空、紧、连通且满足式\eqref{eq:riemann-radial-cluster-boundary}。
+\exerciseitem{riemann-half-plane-automorphisms}证明所有保持上半平面的实系数 M\"obius 变换在双曲线元 $|dz|/\operatorname{Im}z$ 下为等距。
+\optionalexerciseitem{riemann-area-nonexample}给出两个面积不同却双全纯等价的有界单连通域，说明保角映射并不保持面积。
+\end{enumerate}

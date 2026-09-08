@@ -1,0 +1,141 @@
+\chapter{正规族}
+
+\begin{solution}{normal-local-uniform-integrals}
+设 $\gamma:[a,b]\to\Omega$ 分段 $C^1$。其像 $K=\gamma([a,b])$ 是
+$\Omega$ 中的紧集，故 $f_n\to f$ 在 $K$ 上一致。于是
+\[
+ \left|\int_\gamma f_n(z)\,dz-\int_\gamma f(z)\,dz\right|
+ \le \sup_K|f_n-f|\int_a^b|\gamma'(t)|dt\longrightarrow0.
+\]
+分段点不影响长度估计。
+\end{solution}
+
+\begin{solution}{normal-derivative-convergence}
+设 $K\Subset\Omega$，取 $\rho>0$ 使闭 $\rho$ 邻域
+$K_\rho\Subset\Omega$。对 $z\in K$ 在圆 $|\zeta-z|=\rho$ 上使用 Cauchy
+导数公式，得
+\[
+ |f_n'(z)-f'(z)|
+ \le \frac1\rho\sup_{\zeta\in K_\rho}|f_n(\zeta)-f(\zeta)|.
+\]
+右端与 $z$ 无关并趋于零。高阶导数同理，常数变为 $k!\rho^{-k}$。
+\end{solution}
+
+\begin{solution}{normal-power-sequence}
+若 $K\Subset\mathbb D$，则 $r:=\max_K|z|<1$，所以
+$\sup_K|z^n|\le r^n\to0$。另一方面，
+\[
+ \sup_{|z|<1}|z|^n=1
+\]
+对每个 $n$ 都成立，故在整个开圆盘上的上确界误差不趋零。注意上确界不必
+在开圆盘内取得。
+\end{solution}
+
+\begin{solution}{normal-compact-open-metric}
+若 $f_n\to f$ 局部一致，则每个固定 $m$ 的
+$\|f_n-f\|_{C(K_m)}\to0$。给定 $\varepsilon>0$，先取 $M$ 使
+$\sum_{m>M}2^{-m}<\varepsilon/2$，再同时控制前 $M$ 项，得到
+$d(f_n,f)<\varepsilon$。
+
+反之，若 $d(f_n,f)\to0$，对固定 $m$ 有
+\[
+ 2^{-m}\min\{1,\|f_n-f\|_{C(K_m)}\}\le d(f_n,f)\to0,
+\]
+故在 $K_m$ 上一致收敛。任意紧集包含于某个 $K_m$ 的内部，因而得到局部
+一致收敛。两套穷竭都刻画“在每个紧集上一致收敛”，所以所得收敛概念相同。
+\end{solution}
+
+\begin{solution}{normal-cauchy-equicontinuity}
+取 $K\Subset U\Subset\Omega$，并令
+$\delta=\operatorname{dist}(K,\partial U)>0$。在 $U$ 上统一有 $|f|\le M$。
+以半径 $\delta/4$ 的圆盘有限覆盖 $K$。若 $z,w$ 位于同一个这样的圆盘，
+连接线段落在以同一圆心、半径 $\delta/2$ 的圆盘中；Cauchy 估计在那里给
+$|f'|\le 2M/\delta$。因此
+\[
+ |f(z)-f(w)|\le(2M/\delta)|z-w|.
+\]
+若两点不在同一覆盖圆盘，而 $|z-w|$ 足够小，可先取覆盖的 Lebesgue 数，
+保证二点集落入某个覆盖成员。所得模数与 $f$ 无关，故等度连续。
+\end{solution}
+
+\begin{solution}{normal-disk-maps}
+因 $|f|<1$，函数族局部有界，Montel 定理给正规性。设子列局部一致收敛到
+$g$。则 $|g|\le1$。若存在 $a\in\Omega$ 使 $|g(a)|=1$，最大模原理说明
+$g$ 为常数，且该常数位于单位圆周。否则 $|g(z)|<1$ 对所有 $z$ 成立，故
+$g:\Omega\to\mathbb D$。所以极限或者仍映入开圆盘，或者退化为单位圆周上
+的常值函数。
+\end{solution}
+
+\begin{solution}{normal-basepoint-derivatives}
+固定 $K\Subset\Omega$。对每个 $z\in K$，区域的道路连通性给一条从基点
+$a$ 到 $z$ 的折线，且像紧含于 $\Omega$。用这些折线终点的小邻域覆盖 $K$，
+再取有限子覆盖；相应有限条折线及有限个小圆盘之并构成紧集
+$L\Subset\Omega$，并给出从 $a$ 到每个 $z\in K$、长度不超过某个
+$C_L$ 的分段 $C^1$ 道路。导函数族在 $L$ 的邻域上一致有界，故
+\[
+ |f(z)|\le |f(a)|+\left|\int_a^z f'(\zeta)d\zeta\right|
+ \le C_0+C_LM_L.
+\]
+这给出 $K$ 上一致界，不需要 $\Omega$ 凸。
+\end{solution}
+
+\begin{solution}{normal-vitali-dense-set}
+稠密子集只要非空，就在区域内有聚点；更直接地，区域中任意小圆盘含有无穷
+多个稠密集的点。题设因此满足 Vitali--Porter 定理的集合条件，局部有界性
+给出所需正规性，故整个序列局部一致收敛到全纯函数。
+\end{solution}
+
+\begin{solution}{normal-vitali-necessity}
+每个 $p_n$ 是多项式。若 $z=0$，因前置因子 $z$，恒有 $p_n(0)=0$；若
+$z=1/k$，则当 $n\ge k$ 时乘积中出现因子 $z-1/k=0$。所以在
+$E=\{0\}\cup\{1/k:k\ge2\}\subset\mathbb D$ 上逐点极限为零，且 $0$ 是
+位于单位圆盘内的聚点。
+
+但在圆盘内部的 $z=-1/2$，
+\[
+ |p_n(-1/2)|
+ =\frac{n!}{2}\prod_{k=1}^n\left(\frac12+\frac1k\right)
+ =\frac{n!(n+1)(n+2)}{2^{n+2}}\to\infty.
+\]
+因此函数列在含 $-1/2$ 的任何紧邻域上不一致有界，也不可能局部一致收敛。
+\end{solution}
+
+\begin{solution}{normal-finite-normal-converse}
+反设某紧集 $K\Subset\Omega$ 上不存在统一界。可递归选取
+$f_n\in\mathcal F$ 与 $z_n\in K$，使 $|f_n(z_n)|>n$。由紧性，取子列使
+$z_{n_j}\to z\in K$。正规性再给进一步子列 $f_{n_{j_\ell}}$ 局部一致收敛
+到有限全纯函数 $f$。取紧邻域 $L\Subset\Omega$ 包含 $z$ 和所有充分大的
+$z_{n_{j_\ell}}$，局部一致收敛说明这些函数在 $L$ 上一致有界，矛盾。
+\end{solution}
+
+\begin{solution}{normal-holomorphic-series}
+记部分和 $S_N=\sum_{n=0}^Nf_n$。题设说 $(S_N)$ 局部有界，并在一个具有
+内部聚点的集合上逐点收敛。Vitali--Porter 定理给 $S_N\to S$ 局部一致，
+且 $S$ 全纯。由全纯极限定理，
+\[
+ S_N'=\sum_{n=0}^N f_n'\longrightarrow S'
+\]
+局部一致。因此原级数可逐项求导，导数级数也在紧集上一致收敛。
+\end{solution}
+
+\begin{solution}{normal-coefficient-compactness}
+函数族映入单位圆盘，故由 Montel 定理可取子列 $f_{n_j}$ 局部一致收敛到
+$f\in\mathcal O(\mathbb D)$。全纯极限定理给每阶导数在零点收敛，因而
+\[
+ a_{n_j,k}=\frac{f_{n_j}^{(k)}(0)}{k!}
+ \longrightarrow \frac{f^{(k)}(0)}{k!}=:a_k
+\]
+对每个固定 $k$ 成立。所得 $(a_k)$ 正是 $f$ 在零点的 Taylor 系数；因此它
+不是逐坐标抽取产生的任意形式序列，而确实在单位圆盘内表示全纯极限
+$f(z)=\sum a_kz^k$。
+\end{solution}
+
+\begin{solution}{normal-univalent-closure}
+局部一致极限 $f$ 全纯，且导数也局部一致收敛，所以
+\[
+ |f'(a)|=\lim_n|f_n'(a)|\ge c>0.
+\]
+故 $f$ 不是常函数。单叶函数极限的推论随即说明 $f$ 仍单叶。若没有导数
+下界，极限可能退化为常值，例如 $f_n(z)=z/n$ 在单位圆盘上均单叶，却局部
+一致收敛到零。
+\end{solution}

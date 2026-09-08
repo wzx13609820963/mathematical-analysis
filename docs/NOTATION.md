@@ -157,6 +157,25 @@
 | \(W^{k,p}(\Omega)\)、\(H^k(\Omega)\) | 具有至\(k\)阶\(L^p\)弱导数的Sobolev空间；\(H^k=W^{k,2}\) |
 | \(H_0^1(\Omega)\) | \(C_c^\infty(\Omega)\)在\(H^1\)范数下的闭包；当前不把它未经证明地等同于逐点边界值为零 |
 
+## 第二十一、二十二编新增约定
+
+| 记号 | 含义及限制 |
+|---|---|
+| \(\widehat{\C}=\C\cup\{\infty\}\) | Riemann球面；无穷远点的邻域由复平面中紧集的补集给出 |
+| \(\mathbb D\) | 单位圆盘 \(\{z\in\C:|z|<1\}\) |
+| \(\operatorname{Ind}(\gamma,a)\) | 闭曲线 \(\gamma\) 关于 \(a\notin\gamma\) 的绕数；在曲线补集的每个连通分支上常值 |
+| \(\operatorname{Res}(f,a)\) | \(f\) 在孤立奇点 \(a\) 的留数，即Laurent展开中 \((z-a)^{-1}\) 的系数 |
+| \(f_z,f_{\bar z}\) | Wirtinger导数；对实 \(C^1\) 映射，\(f_{\bar z}=0\) 等价于Cauchy--Riemann方程 |
+| \(T_pM,T_p^*M\) | 光滑流形 \(M\) 在 \(p\) 处的切空间和余切空间；约束流形语境中的同一记号由自然识别相容 |
+| \(dF_p:T_pM\to T_{F(p)}N\) | 光滑映射的切映射；不用 \(DF(p)\) 的坐标矩阵代替其坐标无关定义 |
+| \(\Omega^q(M)\) | \(M\) 上光滑实值 \(q\)-形式的空间；\(\Omega^0(M)=C^\infty(M)\) |
+| \(C_q(X;\R),H_q(X;\R)\) | 实系数奇异链空间和奇异同调；省略系数时本编仍取 \(\R\) |
+| \(C^q(X;\R),H^q(X;\R)\) | 实系数奇异上链和奇异上同调；上标不是幂 |
+| \(C_q^\infty(M),C_{\mathrm{sm}}^q(M;\R)\) | 光滑奇异链及其对偶上链；前者由光滑奇异单形生成，包含到连续奇异链后诱导同调同构 |
+| \(H_{\mathrm{dR}}^q(M)\) | 第 \(q\) 个de Rham上同调，由闭 \(q\)-形式模恰当 \(q\)-形式得到 |
+| \(g,\nabla,R,\operatorname{Ric}\) | Riemann度量、Levi--Civita联络、曲率张量和Ricci张量；曲率号差采用第103章定义 |
+| \(dV_g,\Delta_g\) | Riemann体积密度和Laplace--Beltrami算子；定向流形上把 \(dV_g\) 识别为正体积形式；本书取 \(\Delta_g=\operatorname{div}\operatorname{grad}\)，故在无边界紧流形的 \(L^2\) 配对中非正 |
+
 ## 稳定交叉引用
 
 | 源码 | 用途 |

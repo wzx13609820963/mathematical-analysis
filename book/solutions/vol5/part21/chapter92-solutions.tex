@@ -1,0 +1,203 @@
+\chapter{Cauchy 积分公式}
+\label{chap:cauchy-integral-formula-solutions}
+
+\begin{solution}{cauchy-formula-basic-integrals}
+Cauchy 公式直接给
+\[
+ \int_{|z|=R}\frac{e^z}{z-a}\,dz=2\pi i e^a.
+\]
+高阶导数公式中 \(n=2\) 时
+\[
+ e^a=\frac{2!}{2\pi i}
+ \int_{|z|=R}\frac{e^z}{(z-a)^3}\,dz,
+\]
+所以第二个积分为 \(\pi i e^a\)。条件 \(|a|<R\) 保证奇点在圆内；若
+\(|a|>R\)，两个被积函数都在圆盘内全纯，积分应为零。
+\end{solution}
+
+\begin{solution}{cauchy-mean-value}
+在
+\[
+ f(a)=\frac1{2\pi i}\int_{|\zeta-a|=r}
+ \frac{f(\zeta)}{\zeta-a}\,d\zeta
+\]
+中令 \(\zeta=a+re^{it}\)，则
+\(d\zeta=ire^{it}dt\)，分母为 \(re^{it}\)，约去后得到
+\[
+ f(a)=\frac1{2\pi}\int_0^{2\pi}f(a+re^{it})dt.
+\]
+常数函数显然满足。对 \(f(z)=z^n\)，展开
+\[
+ (a+re^{it})^n=\sum_{k=0}^n\binom nk a^{n-k}r^ke^{ikt};
+\]
+积分时 \(k\ge1\) 的项平均为零，只留下 \(a^n=f(a)\)。
+\end{solution}
+
+\begin{solution}{cauchy-estimate-coefficients}
+系数公式 \(a_n=f^{(n)}(0)/n!\) 与 Cauchy 估计给
+\[
+ |a_n|=\frac{|f^{(n)}(0)|}{n!}\le\frac M{R^n}.
+\]
+也可直接使用积分表示
+\[
+ a_n=\frac1{2\pi i}\int_{|z|=R}\frac{f(z)}{z^{n+1}}dz
+\]
+和 \(ML\) 估计。必须取 \(R<R_0\)，或另知函数在边界圆的邻域全纯。
+\end{solution}
+
+\begin{solution}{isolated-zero-factorization}
+Taylor 展开写成
+\[
+ f(z)=\sum_{n=m}^{\infty}a_n(z-a)^n
+ =(z-a)^m\sum_{k=0}^{\infty}a_{m+k}(z-a)^k.
+\]
+令后一幂级数之和为 \(g\)，则它在同一圆盘全纯，且
+\(g(a)=a_m=f^{(m)}(a)/m!\ne0\)。连续性给出一个更小圆盘，使
+\(|g(z)-g(a)|<|g(a)|/2\)，故其中 \(g(z)\ne0\)。所以 \(a\) 是
+\(f\) 的孤立 \(m\) 阶零点。
+\end{solution}
+
+\begin{solution}{entire-polynomial-growth}
+取整数 \(n>\alpha\)。在以 \(0\) 为中心、半径 \(R\ge1\) 的圆上，
+\[
+ M_R\le C(1+R)^\alpha\le C2^\alpha R^\alpha.
+\]
+Cauchy 估计给
+\[
+ |f^{(n)}(0)|\le n!C2^\alpha R^{\alpha-n}.
+\]
+令 \(R\to\infty\)，得到 \(f^{(n)}(0)=0\)。对所有整数
+\(n>\alpha\) 都成立，故 \(f\) 的全局 Taylor 级数只含
+\(0\le n\le\lfloor\alpha\rfloor\) 的项。全纯函数等于其 Taylor 级数，
+所以 \(f\) 是相应次数的多项式。
+\end{solution}
+
+\begin{solution}{liouville-real-part}
+若 \(\operatorname{Re}f\le M\)，则整函数 \(e^f\) 满足
+\[
+ |e^{f(z)}|=e^{\operatorname{Re}f(z)}\le e^M.
+\]
+Liouville 定理使 \(e^f\) 为常数。求导得 \(e^ff'=0\)，而指数从不为零，
+故 \(f'=0\)，于是 \(f\) 常值。若实部有下界，对 \(e^{-f}\) 作同样处理。
+\end{solution}
+
+\begin{solution}{liouville-bounded-mobius}
+像落在闭圆盘 \(\overline{B(w_0,R)}\) 中时，
+\(|f(z)|\le |w_0|+R\)，所以 Liouville 定理直接给出常值。
+
+再给出只用最大模原理的证明。取 \(B>0\) 使 \(|f|\le B\)，并定义
+\[
+ g(z)=
+ \begin{cases}
+  \dfrac{f(z)-f(0)}z,&z\ne0,\\[4pt]
+  f'(0),&z=0.
+ \end{cases}
+\]
+由 \(f\) 在原点的 Taylor 展开，\(g\) 是整函数。给定 \(r>0\)，在
+\(|\zeta|=r\) 上有 \(|g(\zeta)|\le 2B/r\)。最大模原理应用于闭圆盘
+\(|z|\le r\)，于是
+\[
+ |g(z)|\le\frac{2B}{r}\qquad(|z|\le r).
+\]
+固定 \(z\) 并令 \(r\to\infty\)，得到 \(g(z)=0\)。因此
+\(f(z)=f(0)\) 对所有 \(z\) 成立。
+\end{solution}
+
+\begin{solution}{maximum-modulus-boundary}
+\(\overline D\) 是紧集，故连续函数 \(|f|\) 在其上取得最大值。若某个最大点
+位于 \(D\)，强最大模原理说明 \(f\) 常值。若 \(f\) 非常数，所有最大点都
+属于 \(\overline D\setminus D=\partial D\)，所以
+\[
+ \max_{\overline D}|f|=\max_{\partial D}|f|.
+\]
+若 \(f\) 为常数，同一等式仍成立，只是“最大值只能在边界”不再成立。
+\end{solution}
+
+\begin{solution}{minimum-modulus-condition}
+取单位圆盘上的 \(f(z)=z\)。它非常数，而 \(|f|\) 在内部点 \(0\) 取得
+全局最小值 \(0\)。最小模原理的正确说法是：若 \(f\) 全纯、非常数且在一个
+邻域不为零，则 \(|f|\) 不能在内部取得正的局部最小值。证明要对 \(1/f\)
+应用最大模原理；在零点处 \(1/f\) 没有定义，所以不能省略非零或“正最小值”
+条件。
+\end{solution}
+
+\begin{solution}{open-mapping-real-valued}
+若 \(f\) 非常数，开映射定理说明 \(f(D)\) 是 \(\C\) 中的开集。实轴
+\(\R\subset\C\) 不含任何复平面开圆盘，所以非空集合
+\(f(D)\subseteq\R\) 不可能在 \(\C\) 中开。矛盾表明 \(f\) 必为常数。
+\end{solution}
+
+\begin{solution}{morera-uniform-limit}
+紧子集上一致收敛首先给 \(f\) 连续。任取闭含于 \(D\) 的三角形 \(T\)，
+其边界紧，故
+\[
+ \left|\int_{\partial T}(f_n-f)\,dz\right|
+ \le \ell(\partial T)\max_{\partial T}|f_n-f|\to0.
+\]
+每个 \(f_n\) 全纯，所以其边界积分为零，因而
+\(\int_{\partial T}f\,dz=0\)。Morera 定理给 \(f\) 全纯。
+
+再取紧集 \(K\Subset D\)，令
+\(d=\operatorname{dist}(K,\C\setminus D)>0\)，并在每个 \(z\in K\)
+周围取半径 \(d/2\) 的圆。Cauchy 导数公式给
+\[
+ |f_n^{(k)}(z)-f^{(k)}(z)|
+ \le \frac{k!}{(d/2)^k}
+ \max_{|\zeta-z|=d/2}|f_n(\zeta)-f(\zeta)|.
+\]
+这些圆周都落在紧集
+\(\{\zeta:\operatorname{dist}(\zeta,K)\le d/2\}\Subset D\)，右端一致
+趋零，所以 \(f_n^{(k)}\to f^{(k)}\) 在 \(K\) 上一致。
+\end{solution}
+
+\begin{solution}{cauchy-derivative-distance}
+令 \(d=\operatorname{dist}(z,\C\setminus D)\)。若 \(d<\infty\)，对每个
+\(0<r<d\)，闭圆盘 \(\overline{B(z,r)}\subset D\)，Cauchy 估计给
+\[
+ |f^{(n)}(z)|\le\frac{n!M}{r^n}.
+\]
+令 \(r\uparrow d\) 得题中估计。对一般开集，把
+\(d(z,\partial D)\) 理解为到补集的距离；当 \(D=\C\) 时补集为空，可约定
+\(d=\infty\)。这时对 \(n\ge1\) 令任意圆半径趋于无穷，得到
+\(f^{(n)}(z)=0\)，与 Liouville 定理一致。
+\end{solution}
+
+\begin{solution}{schwarz-lemma-from-maximum}
+定义
+\[
+ g(z)=
+ \begin{cases}f(z)/z,&z\ne0,\\ f'(0),&z=0.\end{cases}
+\]
+由 \(f\) 在 \(0\) 的 Taylor 展开，\(g\) 在单位圆盘全纯。固定
+\(0<r<1\)，最大模原理在 \(|z|\le r\) 上给
+\[
+ |g(z)|\le\max_{|\zeta|=r}\frac{|f(\zeta)|}{r}\le\frac1r
+ \qquad(|z|\le r).
+\]
+对固定 \(z\) 令 \(r\uparrow1\)，得到 \(|g(z)|\le1\)，所以
+\(|f(z)|\le|z|\) 且 \(|f'(0)|=|g(0)|\le1\)。
+
+若某个非零点满足 \(|f(z_0)|=|z_0|\)，或 \(|f'(0)|=1\)，则 \(|g|\)
+在内部取得最大值 \(1\)。强最大模原理给 \(g\equiv e^{i\theta}\)，故
+\(f(z)=e^{i\theta}z\)。这些旋转也确实处处取等号。
+\end{solution}
+
+\begin{solution}{cauchy-estimates-converse}
+取实平坦函数
+\[
+ f(x)=
+ \begin{cases}e^{-1/x^2},&x\ne0,\\0,&x=0.\end{cases}
+\]
+它在 \((-1,1)\) 上 \(C^\infty\)，且 \(f^{(n)}(0)=0\) 对所有 \(n\) 成立。
+因此题设中心导数估计对任意 \(M_r>0\) 都成立，但 Taylor 级数恒为零，而
+\(f(x)>0\) 对 \(x\ne0\)。中心导数的大小没有控制 Taylor 余项，也没有把
+邻域中函数值与这些导数联系起来。
+
+复全纯情形多出的关键条件是 Cauchy 积分表示。它不仅估计中心导数，还通过
+\[
+ \frac1{\zeta-z}
+ =\sum_{n\ge0}\frac{z^n}{\zeta^{n+1}}
+\]
+的圆周上一致收敛直接证明函数等于所得级数；这一步在一般实
+\(C^\infty\) 函数中不存在。
+\end{solution}

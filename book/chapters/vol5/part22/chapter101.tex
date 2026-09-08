@@ -1,0 +1,388 @@
+\chapter{奇异上同调}
+\label{chap:singular-cohomology}
+
+流形上的微分形式能够记录闭曲线不能收缩、闭形式不能写成外微分等整体
+现象，但这种语言依赖光滑结构。为了把这些现象与空间本身的拓扑联系起来，
+本章从连续映射出发建立奇异同调和奇异上同调。构造的基本思想是把空间中的
+参数化单形作形式线性组合，再用边界算子记录各个面如何相消。
+
+为与下一章的 de Rham 理论比较，本章采用实系数。整数系数能够看见挠元，
+但会引入本书当前不需要的代数问题。除特别说明外，空间和映射均为拓扑空间
+及连续映射。
+
+\section{奇异单形}
+
+标准 $q$-单形为
+\[
+ \Delta^q=\left\{(t_0,\ldots,t_q)\in\R^{q+1}:
+ t_i\ge0,\ \sum_{i=0}^qt_i=1\right\}.
+\]
+其顶点记为 $e_0,\ldots,e_q$。删去第 $i$ 个顶点所得到的面由仿射映射
+\[
+ \varepsilon_i:\Delta^{q-1}\longrightarrow\Delta^q,
+ \qquad
+ \varepsilon_i(t_0,\ldots,t_{q-1})
+ =(t_0,\ldots,t_{i-1},0,t_i,\ldots,t_{q-1})
+\]
+参数化。
+
+\begin{definition}
+空间 $X$ 中的一个\term{奇异 $q$-单形}是连续映射
+$\sigma:\Delta^q\to X$。所有奇异 $q$-单形生成的自由实向量空间记为
+$C_q(X;\R)$，简称 $C_q(X)$。其中元素
+\[
+ c=\sum_{j=1}^N a_j\sigma_j
+\]
+称为奇异 $q$-链；这里只允许有限和。
+\end{definition}
+
+“自由”意味着不同映射被看作不同基向量，即使它们有相同的像集。这个区别
+不可省略：边界不仅取决于像，还取决于单形如何参数化以及顶点的次序。
+零维单形就是 $X$ 中的点，一维单形是带方向的道路，而二维单形可看作一张
+允许退化、自交的参数化三角片。
+
+连续映射 $f:X\to Y$ 通过复合给出线性映射
+\[
+ f_\#:C_q(X)\to C_q(Y),\qquad f_\#\sigma=f\circ\sigma.
+\]
+这个简单定义是奇异理论具有函子性的原因：不需要为不同空间选择三角剖分。
+
+\section{链群与边界算子}
+
+\begin{definition}
+对 $q\ge1$，奇异边界算子 $\partial_q:C_q(X)\to C_{q-1}(X)$ 由
+\[
+ \partial_q\sigma=\sum_{i=0}^q(-1)^i\sigma\circ\varepsilon_i
+\]
+在线性延拓后定义；约定 $\partial_0=0$。
+\end{definition}
+
+一条道路的边界是终点减起点。二维单形的三个边依次带符号，正好与定向
+三角形的边界方向相符。符号的作用由下一命题说明。
+
+\begin{proposition}\label{prop:singular-boundary-square-zero}
+对每个 $q\ge1$，有 $\partial_q\partial_{q+1}=0$。
+\end{proposition}
+\begin{proof}
+对 $i<j$，两次插入零坐标满足
+\[
+ \varepsilon_j\circ\varepsilon_i
+ =\varepsilon_i\circ\varepsilon_{j-1}.
+\]
+在 $\partial^2\sigma$ 中，同一个余维二面因此出现两次：一次先删第 $j$
+个顶点再删第 $i$ 个，符号为 $(-1)^{i+j}$；另一次先删第 $i$ 个再删原来的
+第 $j$ 个，第二次的指标变为 $j-1$，符号为 $(-1)^{i+j-1}$。两项相消。
+所有二面均唯一地这样配对，故 $\partial^2\sigma=0$，再由线性性得到结论。
+\end{proof}
+
+一列向量空间和线性映射满足相邻复合为零时称为链复形。因此
+$(C_*(X),\partial)$ 是链复形。若 $f:X\to Y$ 连续，则
+\begin{equation}\label{eq:singular-chain-map}
+ \partial f_\#=f_\#\partial.
+\end{equation}
+因为复合映射与取面可交换。满足这个等式的分次线性映射称为链映射。
+
+\section{奇异同调}
+
+记
+\[
+ Z_q(X)=\ker\partial_q,\qquad B_q(X)=\operatorname{im}\partial_{q+1}.
+\]
+由 $\partial^2=0$，$B_q(X)\subseteq Z_q(X)$。
+
+\begin{definition}
+$q$ 次奇异同调群（在实系数下为向量空间）定义为
+\[
+ H_q(X;\R)=Z_q(X)/B_q(X).
+\]
+闭链称为循环，边界链称为边界；循环 $z$ 的同调类记为 $[z]$。
+\end{definition}
+
+同调把“有边界的闭链”视为零。若一个闭曲线确实是某张二维链的边界，它在
+$H_1$ 中消失；若不存在这样的填充，它可能给出非零类。
+
+\begin{proposition}\label{prop:h-zero-components}
+若 $X$ 的道路连通分支组成集合 $\pi_0^{\rm path}(X)$，则
+\[
+ H_0(X;\R)\cong
+ \bigoplus_{P\in\pi_0^{\rm path}(X)}\R.
+\]
+特别地，非空道路连通空间的 $H_0$ 同构于 $\R$。
+\end{proposition}
+\begin{proof}
+$C_0(X)$ 以点为基。道路 $\gamma$ 的边界是
+$\gamma(1)-\gamma(0)$，所以同一道路分支中的点在商空间中相等。反之，定义
+\[
+ \Phi:C_0(X)\to\bigoplus_P\R,\qquad
+ \Phi\!\left(\sum a_jx_j\right)_P=\sum_{x_j\in P}a_j.
+\]
+每条道路的边界被 $\Phi$ 送到零，故 $B_0\subseteq\ker\Phi$。若
+$c\in\ker\Phi$，在每个出现于 $c$ 的分支中选一个基点，并用有限条道路
+把其余点连到该点；该分支的系数和为零，逐项相减便把 $c$ 写成这些道路边界
+的线性组合。因此 $\ker\Phi=B_0$，商空间同构由第一同构定理得到。
+\end{proof}
+
+计算不交并和球面同调时，常用约化同调。增广映射
+$\epsilon:C_0(X)\to\R$ 定义为各系数之和；把它接在链复形末端，所得同调
+记为 $\widetilde H_q(X)$。当 $X$ 非空时，$q>0$ 有
+$\widetilde H_q=H_q$，而道路连通时 $\widetilde H_0=0$。
+
+\section{诱导映射与同伦不变性}
+
+式\eqref{eq:singular-chain-map}说明 $f_\#$ 把循环送到循环、把边界送到边界，因而诱导
+\[
+ f_*:H_q(X)\to H_q(Y),\qquad f_*[z]=[f_\#z].
+\]
+定义与代表元无关。恒等映射诱导恒等，且
+$(g\circ f)_*=g_*\circ f_*$。
+
+拓扑中把连续形变视为不改变空间。为证明同调确实满足这一要求，需要在链
+层面记录同伦扫出的棱柱。
+
+\begin{lemma}[棱柱算子]\label{lem:prism-operator}
+若 $F:X\times[0,1]\to Y$ 是从 $f$ 到 $g$ 的同伦，则存在
+$P_q:C_q(X)\to C_{q+1}(Y)$ 使
+\begin{equation}\label{eq:singular-prism-identity}
+ \partial P+P\partial=g_\#-f_\#.
+\end{equation}
+\end{lemma}
+\begin{proof}
+把棱柱 $\Delta^q\times[0,1]$ 沿顶点序列
+\[
+ (e_0,0),\ldots,(e_i,0),(e_i,1),\ldots,(e_q,1),
+ \qquad 0\le i\le q,
+\]
+分成 $q+1$ 个定向 $(q+1)$-单形。令 $p_i:\Delta^{q+1}\to
+\Delta^q\times[0,1]$ 为相应仿射参数化，并定义
+\[
+ P_q(\sigma)=\sum_{i=0}^q(-1)^iF\circ(\sigma\times\operatorname{id})
+ \circ p_i.
+\]
+逐面取边界时，棱柱内部的公共面以相反符号成对消失；顶面给
+$g\circ\sigma$，底面给 $-f\circ\sigma$，侧面恰为
+$-P_{q-1}(\partial\sigma)$。这就得到\eqref{eq:singular-prism-identity}。这个符号核对与
+命题~\ref{prop:singular-boundary-square-zero}中的二面相消相同，只是
+还多出顶面和底面。
+\end{proof}
+
+\begin{theorem}[同伦不变性]\label{thm:homotopy-invariance-singular}
+同伦映射 $f,g:X\to Y$ 诱导相同的同调映射。特别地，同伦等价空间具有
+同构的奇异同调群。
+\end{theorem}
+\begin{proof}
+若 $z$ 是循环，由\eqref{eq:singular-prism-identity}
+\[
+ g_\#z-f_\#z=\partial Pz+P\partial z=\partial Pz,
+\]
+故二者代表同一同调类。若 $f:X\to Y$ 和 $h:Y\to X$ 为同伦逆，则函子性和
+同伦不变性给 $h_*f_*=\operatorname{id}$、$f_*h_*=\operatorname{id}$。
+\end{proof}
+
+可缩空间与一点同伦等价，因而其正次同调为零，零次同调为 $\R$。这里的
+结论来自一个显式链同伦，而不是“空间没有洞”的图形直觉。
+
+\section{上链与余边界}
+
+\begin{definition}
+$q$ 次奇异上链空间为
+\[
+ C^q(X;\R)=\operatorname{Hom}(C_q(X;\R),\R).
+\]
+余边界 $\delta:C^q(X)\to C^{q+1}(X)$ 定义为
+\[
+ (\delta\varphi)(c)=\varphi(\partial c).
+\]
+\end{definition}
+
+由于 $\partial^2=0$，有 $\delta^2=0$。
+
+\section{奇异上同调}
+
+记
+\[
+ Z^q(X)=\ker\delta,
+ \qquad B^q(X)=\operatorname{im}\delta,
+ \qquad H^q(X;\R)=Z^q(X)/B^q(X).
+\]
+它们分别称为上闭链、上边界和奇异上同调。连续映射的方向在取对偶后反转：
+\[
+ f^*:C^q(Y)\to C^q(X),\qquad f^*\varphi=\varphi\circ f_\#,
+\]
+并诱导 $f^*:H^q(Y)\to H^q(X)$。因此同调是协变函子，上同调是反变函子。
+
+实系数使上同调与同调之间没有挠元修正。
+\begin{proposition}\label{prop:real-cohomology-dual-homology}
+存在自然同构
+\[
+ H^q(X;\R)\cong\operatorname{Hom}(H_q(X;\R),\R).
+\]
+\end{proposition}
+\begin{proof}
+上闭链 $\varphi$ 在 $B_q$ 上为零，故其对 $Z_q$ 的限制下降为
+$H_q=Z_q/B_q$ 上的线性泛函。若该泛函为零，则 $\varphi|_{Z_q}=0$。
+在向量空间中可选取补空间，把 $\varphi$ 写成某个
+$\psi\in C^{q-1}$ 在 $B_{q-1}=\operatorname{im}\partial_q$ 上的拉回，即
+$\varphi=\delta\psi$；这里用到线性泛函可从子空间延拓。反过来，
+$H_q$ 上任意线性泛函先拉回到 $Z_q$，再延拓到 $C_q$，所得上链在
+$B_q$ 上为零，因而上闭。两个构造对上边界取商后互逆。
+\end{proof}
+
+这个结论依赖系数域。若改用整数系数，子空间延拓的线性代数步骤不再成立，
+上同调还会含有挠群贡献。
+
+\section{Mayer--Vietoris 序列}
+
+设 $X=U\cup V$，其中 $U,V$ 为开集。直接把 $X$ 中任意奇异单形拆到
+$U$ 或 $V$ 中通常做不到；单形的像可能横跨两个开集。所缺的工具是把单形
+反复细分，直到每个小单形落在其中之一。
+
+标准单形的重心细分在线性延拓后给链映射
+$\operatorname{sd}:C_*(X)\to C_*(X)$。锥构造给出自然链同伦
+\begin{equation}\label{eq:singular-subdivision-homotopy}
+ \operatorname{sd}-\operatorname{id}=\partial T+T\partial.
+\end{equation}
+这里还要记录锥构造的局部性质：$\operatorname{sd}\sigma$ 与 $T\sigma$ 中
+出现的每个奇异单形，其像都包含在 $\sigma(\Delta^q)$ 中。因而若 $\sigma$
+的像包含在某个开集中，细分和链同伦都不会离开该开集。
+
+记 $C_*^{U,V}(X)$ 为由像落在 $U$ 或 $V$ 中的单形生成的子复形。下面把小链
+论证写全。对奇异 $q$-单形 $\sigma:\Delta^q\to X$，
+$\{\sigma^{-1}(U),\sigma^{-1}(V)\}$ 是紧度量空间 $\Delta^q$ 的开覆盖。取其
+Lebesgue 数 $\lambda>0$。当 $q\geq1$ 时，一次重心细分所得子单形的直径至多
+为原直径的 $q/(q+1)$；充分多次细分后，每个参数子单形的直径小于
+$\lambda$，从而它整个落在某个 $\sigma^{-1}(U)$ 或 $\sigma^{-1}(V)$ 中。
+零维情形无需细分。有限链中只出现有限个单形，因而可为整条链选取同一个
+细分次数。
+
+由\eqref{eq:singular-subdivision-homotopy}以及 $\operatorname{sd}$ 与边界算子
+可交换，令
+\[
+ T_N=\sum_{r=0}^{N-1}\operatorname{sd}^{\,r}T,
+\]
+便有
+\begin{equation}\label{eq:iterated-subdivision-homotopy}
+ \operatorname{sd}^{N}-\operatorname{id}=\partial T_N+T_N\partial.
+\end{equation}
+若 $z$ 是 $C_*(X)$ 中的循环，取 $N$ 使 $\operatorname{sd}^Nz$ 属于
+$C_*^{U,V}(X)$；上式说明 $z$ 与这个小循环在 $C_*(X)$ 中同调，故包含映射
+在同调上满射。反过来，若小循环 $z\in C_*^{U,V}(X)$ 在 $C_*(X)$ 中等于
+$\partial c$，取 $N$ 使 $\operatorname{sd}^Nc$ 为小链。于是
+$\operatorname{sd}^Nz=\partial(\operatorname{sd}^Nc)$ 已在小链复形中为边界。
+由于 $T$ 保持每个单形所在的覆盖元，$T_Nz$ 仍是小链，而
+\[
+ \operatorname{sd}^Nz-z=\partial(T_Nz).
+\]
+所以 $z$ 本身也是小链复形中的边界。这证明
+$C_*^{U,V}(X)\hookrightarrow C_*(X)$ 诱导同调同构。
+
+另一方面有链复形短
+正合列
+\begin{equation}\label{eq:singular-mv-short-exact}
+ 0\longrightarrow C_*(U\cap V)
+ \xrightarrow{a\mapsto(a,-a)} C_*(U)\oplus C_*(V)
+ \xrightarrow{(b,c)\mapsto b+c} C_*^{U,V}(X)
+ \longrightarrow0.
+\end{equation}
+满射来自小链的定义；中间核由同一个奇异单形既属于 $U$ 又属于 $V$ 的基
+向量逐项识别。
+
+\begin{theorem}[Mayer--Vietoris]\label{thm:mayer-vietoris-singular}
+若 $X=U\cup V$ 且 $U,V$ 开，则有自然长正合序列
+\[
+ \cdots\to H_q(U\cap V)\xrightarrow{(i_*,-j_*)}
+ H_q(U)\oplus H_q(V)\xrightarrow{k_*+\ell_*}H_q(X)
+ \xrightarrow{\partial_{\rm MV}}H_{q-1}(U\cap V)\to\cdots .
+\]
+取对偶得到上同调长正合序列
+\[
+ \cdots\to H^{q-1}(U\cap V)\xrightarrow{\delta_{\rm MV}}H^q(X)
+ \to H^q(U)\oplus H^q(V)\to H^q(U\cap V)\to\cdots .
+\]
+\end{theorem}
+\begin{proof}
+对一般链复形短正合列，连接同态这样构造：若 $[z]$ 属于右端同调，先提升
+$z$ 到中间元素 $y$；因为 $z$ 闭，$\partial y$ 落在左端像中，写成左端
+元素 $x$ 的像，并令连接同态为 $[x]$。改变提升或代表元只改变边界，逐项
+追踪即得良定义和正合性。把这个构造用于\eqref{eq:singular-mv-short-exact}，再以小链子复形与
+$C_*(X)$ 的同调同构替换右端，得到同调序列。
+
+实向量空间上的 $\operatorname{Hom}(-,\R)$ 是正合函子：子空间上的线性
+泛函总能延拓。对\eqref{eq:singular-mv-short-exact}取对偶得到方向相反的上链短正合列，再用同样的
+连接同态构造得到上同调序列。映射的符号由该短正合列固定。
+\end{proof}
+
+\section{圆周、球面和可缩空间}
+
+\begin{example}[圆周的第一次计算]
+用两个略大于半圆的开弧覆盖 $S^1$。两个覆盖元都可缩，而交集有两个可缩的
+道路分支，故
+$\widetilde H_0(U\cap V)\cong\R$，其余约化同调为零。约化
+Mayer--Vietoris 序列的非平凡部分缩成
+\[
+ 0\longrightarrow\widetilde H_1(S^1)\longrightarrow
+ \widetilde H_0(U\cap V)\longrightarrow0.
+\]
+所以 $H_1(S^1;\R)\cong\R$；道路连通性另给 $H_0(S^1;\R)\cong\R$。
+交集有两个分支这一事实正好产生一个一维循环类。
+\end{example}
+
+\begin{theorem}\label{thm:homology-spheres-real}
+对 $n\ge1$，
+\[
+ H_q(S^n;\R)\cong
+ \begin{cases}
+ \R,&q=0,n,\\
+ 0,&q\ne0,n.
+ \end{cases}
+\]
+相应地 $H^q(S^n;\R)$ 仅在 $q=0,n$ 时同构于 $\R$。
+\end{theorem}
+\begin{proof}
+取略大于南、北半球的开集 $U,V$。二者可缩，交集形变收缩到赤道
+$S^{n-1}$。约化 Mayer--Vietoris 序列在正次给出
+\[
+ \widetilde H_q(S^n)\cong\widetilde H_{q-1}(S^{n-1}).
+\]
+起点为 $S^0$ 的两个点，$\widetilde H_0(S^0)\cong\R$，其他约化同调为
+零。归纳得到 $\widetilde H_n(S^n)\cong\R$ 且其他约化同调为零；再恢复
+$H_0$。上同调结论由
+命题~\ref{prop:real-cohomology-dual-homology}得到。
+\end{proof}
+
+特别地，$H_1(S^1;\R)\cong\R$。沿圆周一次的闭路给出生成元，而在圆盘中
+它成为二维链的边界。这说明“是否可填充”依赖环境空间。也由此可知
+$S^n$ 不可缩，并且不同维数的球面不同伦等价。
+
+下一章要把闭微分形式沿单形积分。形式只能沿光滑单形直接拉回，而本章允许
+连续单形。所需的比较事实是：在光滑流形中，由光滑奇异单形生成的子复形
+$C_*^\infty(M)$ 包含到 $C_*(M)$ 中会诱导同调同构。证明可在每个单形上
+相对其已经光滑的边界作光滑逼近，并用同伦延拓把逼近连接回原单形；按维数
+归纳可使各面选择相容。这个比较将在下一章连同积分配对一并证明，不能把
+连续单形直接代入微分形式。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{singular-boundary-low-dimensions}写出一维、二维和三维标准单形的边界，并逐面核对二维、三维情形的 $\partial^2=0$。
+\exerciseitem{singular-induced-chain-map}证明连续映射诱导的 $f_\#$ 与边界算子可交换，并验证恒等与复合律。
+\exerciseitem{singular-hzero-components}不引用正文命题，直接计算有限个道路连通分支之并的 $H_0$。
+\exerciseitem{singular-reduced-homology-point}写出一点空间的增广链复形，计算其约化同调。
+\exerciseitem{singular-cochain-coboundary}证明 $\delta^2=0$，并说明连续映射诱导的上链映射为何反转方向。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{singular-prism-interval}对 $q=0,1$ 显式写出棱柱算子，核对式\eqref{eq:singular-prism-identity}的全部符号。
+\exerciseitem{singular-deformation-retract}证明形变收缩 $A\subset X$ 的包含映射诱导 $H_q(A)\cong H_q(X)$。
+\exerciseitem{singular-contractible-cohomology}计算非空可缩空间的实系数同调和上同调。
+\exerciseitem{singular-small-chain-lemma}补全重心细分小链论证：证明任意有限链经充分多次细分后从属于给定开覆盖。
+\exerciseitem{singular-mv-connecting-map}从短正合列\eqref{eq:singular-mv-short-exact}显式构造 Mayer--Vietoris 连接同态，并证明它与代表元和提升的选择无关。
+\exerciseitem{singular-real-universal-coefficient}补全实系数下 $H^q(X)\cong H_q(X)^*$ 证明中“泛函延拓”步骤。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{singular-circle-two-arcs}用两个略长于半圆的开弧和 Mayer--Vietoris 序列直接计算 $H_*(S^1;\R)$。
+\exerciseitem{singular-sphere-induction}详细写出约化 Mayer--Vietoris 序列，归纳计算所有 $S^n$ 的同调。
+\exerciseitem{singular-punctured-euclidean-space}证明 $\R^n\setminus\{0\}$ 与 $S^{n-1}$ 形变收缩等价，并计算其同调。
+\optionalexerciseitem{singular-degree-obstruction}设 $f:S^n\to S^n$ 的诱导映射在 $H_n$ 上为标量 $d$ 的乘法。证明：若 $d\ne0$，则 $f$ 不能延拓为 $B^{n+1}\to S^n$；若 $d\ne(-1)^{n+1}$，则 $f$ 必有不动点。
+\end{enumerate}

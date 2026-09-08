@@ -1,0 +1,186 @@
+\chapter{de Rham 定理}
+
+\begin{solution}{de-rham-zero-degree}
+零形式就是光滑函数，闭性为 $df=0$。在任意坐标域中，这等价于所有偏导
+为零，故 $f$ 在每个连通坐标球上为常数。沿连通分支中的道路用有限个相交
+坐标球连接，常数必须一致。反过来，各连通分支上常值的光滑函数显然满足
+$df=0$；负一次形式不存在，所以零次没有非零上边界。
+\end{solution}
+
+\begin{solution}{de-rham-wedge-well-defined}
+设 $d\alpha=d\beta=0$。若 $\alpha$ 改为 $\alpha+d\eta$，则
+\[
+ (\alpha+d\eta)\wedge\beta-\alpha\wedge\beta
+ =d\eta\wedge\beta=d(\eta\wedge\beta),
+\]
+因为 $d\beta=0$。改变第二个因子同理，故乘积只依赖同调类。形式层面的
+$\alpha\wedge\beta=(-1)^{pq}\beta\wedge\alpha$ 下降到商空间，得到分次
+交换律。
+\end{solution}
+
+\begin{solution}{de-rham-homotopy-operator}
+写 $F^*\omega=\alpha_t+dt\wedge\beta_t$。按 $M$ 方向与 $t$ 方向分开，
+\[
+ d(F^*\omega)=d_M\alpha_t+dt\wedge
+ (\partial_t\alpha_t-d_M\beta_t).
+\]
+所以
+\[
+ K(d\omega)=\int_0^1(\partial_t\alpha_t-d_M\beta_t)dt,
+ \qquad dK\omega=d_M\int_0^1\beta_tdt.
+\]
+两式相加后 $d_M\beta_t$ 项相消，余下
+$\int_0^1\partial_t\alpha_tdt=\alpha_1-\alpha_0=F_1^*\omega-F_0^*\omega$。
+\end{solution}
+
+\begin{solution}{de-rham-integration-chain-map}
+标准 $(q+1)$-单形的第 $i$ 个面采用诱导定向时带符号 $(-1)^i$，故
+\[
+ I(\omega)(\partial\sigma)
+ =\sum_i(-1)^i\int_{\Delta^q}(\sigma\circ\varepsilon_i)^*\omega
+ =\int_{\partial\Delta^{q+1}}\sigma^*\omega.
+\]
+Stokes 定理把末式变为
+$\int_{\Delta^{q+1}}d(\sigma^*\omega)$。拉回与外微分可交换，故它等于
+$\int_{\Delta^{q+1}}\sigma^*(d\omega)=I(d\omega)(\sigma)$。
+\end{solution}
+
+\begin{solution}{de-rham-period-exact}
+若 $\omega=d\eta$ 且 $c$ 为光滑奇异循环，则
+\[
+ \int_c\omega=I(d\eta)(c)=\delta I(\eta)(c)
+ =I(\eta)(\partial c)=0.
+\]
+若 $c$ 只是连续奇异循环，先由光滑奇异链比较选取同调的光滑循环
+$c_\infty$，再把 $\int_c\omega$ 定义为 $\int_{c_\infty}\omega$。两个选择的
+差是光滑边界，故所得数值相同。因此非零周期能够证明闭形式不恰当。
+\end{solution}
+
+\begin{solution}{de-rham-punctured-plane}
+径向投影给 $\R^2\setminus\{0\}$ 到 $S^1$ 的光滑形变收缩，所以
+$H^0_{\rm dR}\cong\R$、$H^1_{\rm dR}\cong\R$，其余为零。一次形式
+\[
+ \eta=\frac{-y\,dx+x\,dy}{x^2+y^2}
+\]
+直接计算得 $d\eta=0$。沿单位圆参数化 $(\cos t,\sin t)$，拉回为 $dt$，
+故周期为 $2\pi$，它不恰当并给出一次上同调生成元。
+\end{solution}
+
+\begin{solution}{de-rham-mv-surjectivity}
+取 $\rho_U+\rho_V=1$，其中
+$\operatorname{supp}\rho_U\subset U$、$\operatorname{supp}\rho_V\subset V$。
+给定 $\eta\in\Omega^q(U\cap V)$，在 $U$ 上令
+$\alpha=\rho_V\eta$ 于交集，交集外令零。因为 $\rho_V$ 的支撑闭含于 $V$，
+该零延拓在 $U\setminus V$ 附近平滑。同理在 $V$ 上把
+$\beta=-\rho_U\eta$ 作零延拓。于是交集上
+$\alpha-\beta=(\rho_V+\rho_U)\eta=\eta$，证明末箭头满射。
+\end{solution}
+
+\begin{solution}{de-rham-connecting-formula}
+设 $\eta\in\Omega^{q-1}(U\cap V)$ 闭。按上一题取
+$(\alpha,\beta)$ 使 $\alpha-\beta=\eta$。则
+$d\alpha-d\beta=d\eta=0$，所以 $d\alpha$ 与 $d\beta$ 在交集相等，拼成
+$M$ 上闭 $q$-形式 $\omega$；连接同态把 $[\eta]$ 送到 $[\omega]$。
+
+若另一提升为 $(\alpha',\beta')$，则
+$(\alpha'-\alpha)-(\beta'-\beta)=0$ 于交集，故两项拼成某个
+$\theta\in\Omega^{q-1}(M)$。于是新旧连接形式之差在 $U,V$ 上分别为
+$d(\alpha'-\alpha)$、$d(\beta'-\beta)$，恰好拼成 $d\theta$。若把
+$\eta$ 改为 $\eta+d\xi$，把 $\xi$ 作同样的单位分解提升，所得修正也为一个
+全局恰当形式。改变单位分解只会改变提升，故不改变连接同调类。
+\end{solution}
+
+\begin{solution}{de-rham-smooth-chain-relative}
+若分别光滑化两个共享面的单形而不固定它们的共同边界值，得到的两个新面
+一般不同，原来在循环中相消的项便不再相消。正文的归纳在处理高维单形时
+保持低维面上的已定值，因而边界算子的相消关系仍成立。
+
+把有限链中出现的单形连同其所有面组成有限单形图式 $K$，相同的奇异面只
+保留一次。原单形给评价映射 $f:|K|\to M$。相对逼近的具体步骤是把紧像
+的一个邻域嵌入 $\R^N$，再在每个参数单形上把已定光滑边界值延拓为 $b$，
+把原连续映射一致逼近为光滑函数 $h$。用 $\chi b+(1-\chi)h$ 拼接时，
+$b$ 和 $h$ 都光滑，且边界附近 $\chi=1$；最后利用紧像附近的光滑回缩
+回到流形。充分小的逼近保证直线插值始终在回缩定义域内，于是得到相对于
+指定子图式 $L$ 不动的同伦。
+
+若 $z=f_\#\bar z$ 是循环，取 $L=\varnothing$。同伦棱柱恒等式给
+$g_\#\bar z-z=\partial(P\bar z)$，而 $g_\#\bar z$ 是光滑循环，故包含映射
+在同调上满射。若光滑循环 $z=\partial c$，令 $L$ 为支撑 $z$ 的光滑单形及
+其全部面，并对表示 $c$ 的有限单形图式相对于 $L$ 光滑化。此时
+$g_\#\bar c$ 是光滑链且
+$\partial(g_\#\bar c)=g_\#\bar z=f_\#\bar z=z$，故包含映射也单射。
+所证的是包含映射诱导同调同构，即它是拟同构。连续奇异链还包含不光滑
+的参数单形，所以包含映射本身不是链群上的满射，不能称为链复形同构。
+\end{solution}
+
+\begin{solution}{de-rham-circle-generator}
+在 $S^1$ 上 $x^2+y^2=1$，故 $\alpha=-y\,dx+x\,dy$ 是一次形式；一维
+流形上的二次形式为零，所以它闭。沿正向参数化
+$\gamma(t)=(\cos t,\sin t)$ 有 $\gamma^*\alpha=dt$，积分为 $2\pi$。
+恰当形式在闭路上的积分为零，故 $\alpha$ 不恰当。归一化类
+$[\alpha/(2\pi)]$ 与基本循环的配对为 $1$，由
+$H^1(S^1;\R)\cong\R$ 可知它是生成元。
+\end{solution}
+
+\begin{solution}{de-rham-sphere-volume}
+若顶次形式 $\omega$ 恰当，写成 $d\eta$，则无边界 Stokes 定理给
+$\int_{S^n}\omega=\int_{S^n}d\eta=0$。因此积分非零的体积形式给非零类。
+上一章算得 $H^n(S^n;\R)\cong\R$，de Rham 定理把它与
+$H^n_{\rm dR}(S^n)$ 同构，所以任一非零顶次类都生成该一维空间。
+\end{solution}
+
+\begin{solution}{de-rham-torus-periods}
+设 $\gamma_1(t)=(t,0)$、$\gamma_2(t)=(0,t)$，参数按模 $2\pi$ 理解。则
+\[
+ \int_{\gamma_i}d\theta_j=2\pi\delta_{ij}.
+\]
+若 $a[d\theta_1]+b[d\theta_2]=0$，分别与两条循环配对即得 $a=b=0$。
+此外
+\[
+ \int_{T^2}d\theta_1\wedge d\theta_2=(2\pi)^2\ne0,
+\]
+故二次类非零。零次常数类显然非零；不同次数本来属于不同分次空间。
+\end{solution}
+
+\begin{solution}{de-rham-torus-mv}
+取圆周开覆盖 $S^1=A\cup B$，其中 $A,B$ 均为开弧而 $A\cap B$ 有两个
+连通分支；令 $U=A\times S^1$、$V=B\times S^1$。$U,V$ 各形变收缩到
+$S^1$，$U\cap V$ 是两份 $S^1$ 的不交并。因此其上同调维数分别为
+\[
+ \dim H^*(U)=\dim H^*(V)=(1,1,0),\qquad
+ \dim H^*(U\cap V)=(2,2,0).
+\]
+Mayer--Vietoris 中，从 $H^q(U)\oplus H^q(V)$ 到
+$H^q(U\cap V)$ 的限制差映射在 $q=0,1$ 都把 $(a,b)$ 送到
+$(a-b,a-b)$，秩为 $1$。逐项正合遂给
+\[
+ \dim H^0(T^2)=1,\qquad \dim H^1(T^2)=2,\qquad
+ \dim H^2(T^2)=1,
+\]
+更高次为零。结合上一题的独立类即得到正文所列基。
+\end{solution}
+
+\begin{solution}{de-rham-degree-integral}
+$H^n(S^n;\R)$ 一维，所以 $f^*$ 在其上是某个标量 $d$ 的乘法。取积分为
+$1$ 的顶次形式 $\omega_0$。任意顶次形式满足
+$[\omega]=(\int\omega)[\omega_0]$，于是
+\[
+ \int f^*\omega=d\int\omega.
+\]
+积分配对的自然性表明
+$\langle f^*[\omega],[S^n]\rangle
+=\langle[\omega],f_*[S^n]\rangle$，所以同一个 $d$ 也是 $f_*$ 在顶维同调
+上的乘数，即映射的度（实系数表示）。
+\end{solution}
+
+\begin{solution}{de-rham-compact-support-warning}
+在 $M=\R$ 上取 $f\in C_c^\infty(\R)$ 且 $\int_\R f=1$。一形式
+$\omega=f(x)\,dx$ 自动闭，并且
+\[
+ \omega=dF,\qquad F(x)=\int_{-\infty}^xf(t)dt,
+\]
+所以其普通 de Rham 类为零，但 $\int_\R\omega=1$。非紧流形上的 Stokes
+公式要使无边界积分自动为零，需要原形式具有紧支撑或适当衰减；这里原函数
+$F$ 在 $+\infty$ 端趋于 $1$，不具紧支撑。故用积分刻画非紧流形的定向类时
+应改用紧支撑 de Rham 上同调。
+\end{solution}

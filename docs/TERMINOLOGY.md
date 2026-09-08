@@ -99,13 +99,13 @@
 | 多重积分变量代换 | change of variables for multiple integrals | 先证明紧含开集的 Jordan 可测域在 \(C^1\) 微分同胚下的公式；有限分支参数化另按重数求和，普通体积使用 Jacobian 绝对值 |
 | 第一型、第二型曲线积分 | scalar and vector line integrals | 正文也写“标量曲线积分”“向量曲线积分”；第二型依赖曲线方向 |
 | 第一型、第二型曲面积分 | scalar surface integral and flux integral | 正文优先写“标量曲面积分”“通量”；通量依赖曲面定向 |
-| 微分形式 | differential form | 当前只在 Euclidean 开集及参数化子流形上建立；抽象流形版本后置 |
+| 微分形式 | differential form | 第50章在 Euclidean 开集及参数化子流形上建立；第99—100章建立抽象流形上的形式、积分和 Stokes 定理 |
 | 外微分 | exterior derivative | 记作 (d)，满足分次 Leibniz 公式和 (d^2=0)，并与拉回交换 |
 | 闭形式、恰当形式 | closed form, exact form | 分别满足 (d\omega=0) 和 (\omega=d\eta)；恰当必闭，反向需定义域条件 |
-| Poincaré 引理 | Poincaré lemma | 当前版本断言星形域上的正次数闭形式恰当；不得用于任意穿孔开集 |
+| Poincaré 引理 | Poincaré lemma | 星形域上的正次数闭形式恰当；第100章给出流形上的局部版本，第102章推广到光滑可缩开集；不得用于任意穿孔开集 |
 | Banach 空间 | Banach space | 完备赋范线性空间；第51章的 (C(K)) 是首个系统研究的函数空间实例 |
 | 有界线性算子 | bounded linear operator | 线性算子满足统一范数估计；在线性映射情形与连续性等价 |
-| 等度连续 | equicontinuous | 连续性中的邻域或 (delta) 对函数族全体共同有效；不得与各函数分别连续混同 |
+| 等度连续 | equicontinuous | 连续性中的邻域或 $\delta$ 对函数族全体共同有效；不得与各函数分别连续混同 |
 | 相对紧致 | relatively compact | 集合的闭包紧致；在 (C(K)) 中由 Arzelà--Ascoli 定理刻画 |
 | Arzelà--Ascoli 定理 | Arzelà--Ascoli theorem | 当前版本针对紧致度量定义域和有限维值域，以等度连续及逐点相对紧刻画函数族相对紧致性 |
 | Bernstein 多项式 | Bernstein polynomial | 以非负二项权重对采样值作凸组合，给出 Weierstrass 逼近的构造性证明 |
@@ -168,6 +168,33 @@
 | Poincaré不等式 | Poincaré inequality | 当前版本在有界区域的\(H_0^1\)上用梯度控制\(L^2\)范数；常数依赖区域 |
 | Lax--Milgram定理 | Lax--Milgram theorem | Hilbert空间上有界、强制的双线性或半双线性型给出弱方程的唯一解 |
 | 弱解 | weak solution | 由积分恒等式定义的函数空间元素；不必具有经典二阶导数，也不必逐点满足微分方程 |
+
+## 第二十一、二十二编
+
+| 术语 | 英文 | 约定 |
+|---|---|---|
+| 全纯函数 | holomorphic function | 在开集每一点复可微；“解析”用于局部等于收敛幂级数，二者的等价性由Cauchy理论证明 |
+| 整函数 | entire function | 定义在整个复平面上的全纯函数 |
+| 单叶函数 | univalent function | 单射全纯函数；在域上其导数不为零，但反命题一般不成立 |
+| 绕数 | winding number / index | 记为 \(\operatorname{Ind}(\gamma,a)\)；须有 \(a\) 不在闭曲线像上 |
+| 留数 | residue | 孤立奇点Laurent展开的 \((-1)\) 次系数；无穷远点留数按本书的坐标变换符号约定定义 |
+| 正规族 | normal family | 每个序列都有一个在紧子集上一致收敛的子列；采用Riemann球面值时须另行注明允许极限为无穷 |
+| Vitali--Porter定理 | Vitali--Porter theorem | 局部有界全纯函数列若在域内有聚点的集合上逐点收敛，则整列局部一致收敛；不同于实分析的Vitali收敛定理 |
+| Riemann映射定理 | Riemann mapping theorem | 每个真单连通平面域与单位圆盘双全纯等价；不包括整个复平面，也不自动给出边界延拓 |
+| 调和函数 | harmonic function | 当前指 \(C^2\) 且Laplacian为零的实值函数；弱调和版本后文另行说明 |
+| 光滑流形 | smooth manifold | 本书默认有限维、Hausdorff且第二可数，不把这些条件在每次出现时重复书写 |
+| 浸入、浸没、嵌入 | immersion, submersion, embedding | 分别由切映射单射、满射以及“浸入且为到像集的同胚”刻画；单射浸入不必是嵌入 |
+| 单位分解 | partition of unity | 从属于开覆盖的局部有限光滑函数族，非负且逐点和为一 |
+| 微分同胚 | diffeomorphism | 双射光滑映射且逆映射光滑；仅有连续逆不足以称为微分同胚 |
+| 一般Stokes定理 | generalized Stokes theorem | 若 \(\iota:\partial M\hookrightarrow M\)，则定向边界流形上 \(\int_Md\omega=\int_{\partial M}\iota^*\omega\)；边界定向采用“外法向优先”约定 |
+| 奇异同调、奇异上同调 | singular homology, singular cohomology | 本编先取实系数；同调协变，上同调反变 |
+| 拟同构 | quasi-isomorphism | 复形映射在所有次数诱导同调或上同调同构；不等于复形逐次同构 |
+| 双复形、总复形 | double complex, total complex | 第102章采用两个微分交换的约定，总微分为 \(d_h+(-1)^p d_v\)；指标有下界，使每个总次数只含有限个分量 |
+| 映射锥 | mapping cone | 第102章指复形映射的代数映射锥；\(\operatorname{Cone}(f)^n=B^n\oplus A^{n+1}\)，微分为 \((d_Bb+f(a),-d_Aa)\) |
+| de Rham定理 | de Rham theorem | 以积分配对给出de Rham上同调和实系数奇异上同调的自然同构 |
+| Riemann度量 | Riemannian metric | 切空间上随点光滑变化的正定内积族 |
+| Levi--Civita联络 | Levi--Civita connection | 唯一的无挠且与Riemann度量相容的联络 |
+| 测地线、Jacobi场 | geodesic, Jacobi field | 测地线满足 \(\nabla_{\dot\gamma}\dot\gamma=0\)；Jacobi场来自测地线变分并满足相应二阶方程 |
 
 ## 风格约定
 
