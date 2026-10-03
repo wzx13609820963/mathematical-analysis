@@ -6,8 +6,10 @@
 \[
  \int_Md\omega=\int_{\partial M}\omega.
 \]
-这里的统一并非只改记号。交错性编码定向体积，拉回保证参数化不变，外微分
-则同时包含梯度、旋度和散度。
+为了使这个公式有确定的含义，需要说明被积对象怎样随参数改变、边界怎样
+定向。行列式的交错性给出前一种变换规则，外微分则把函数的导数、向量场
+的旋度和散度放在相邻的次数中。本章先在线性空间中建立这些运算，再对
+有限个正则参数块证明积分公式。
 
 \section{交错形式与外代数}
 
@@ -15,11 +17,21 @@
 $\omega:V^k\to\R$ 若交换任意两个变量便变号，称为交错 $k$-形式；其空间
 记为 $\Lambda^kV^*$。约定 $\Lambda^0V^*=\R$。
 
-若 $e^1,\ldots,e^n$ 是对偶基，则
+取基 $e_1,\ldots,e_n$ 及其对偶基 $e^1,\ldots,e^n$。对递增指标组
+$I=(i_1,\ldots,i_k)$，定义
 \[
- e^{i_1}\wedge\cdots\wedge e^{i_k},\qquad i_1<\cdots<i_k,
+ E_I(v_1,\ldots,v_k)=\det\bigl(e^{i_p}(v_q)\bigr)_{p,q=1}^k.
 \]
-构成 $\Lambda^kV^*$ 的基，维数为 $\binom nk$。楔积由交错化定义，并满足
+它是交错形式。把每个向量按基展开，多重线性性表明任意交错形式由
+其在基向量组上的值决定。重复指标的值为零，其余指标可排序，故
+\[
+ \omega=\sum_{i_1<\cdots<i_k}
+ \omega(e_{i_1},\ldots,e_{i_k})E_I.
+\]
+在递增基向量组 $e_J$ 上，$E_I(e_J)$ 等于 $I=J$ 时的1或 $I\ne J$
+时的0。因此这些形式构成一组基，维数为 $\binom nk$；$k>n$ 时空间为零。
+
+对 $\alpha\in\Lambda^kV^*$、$\beta\in\Lambda^\ell V^*$，定义楔积
 \[
  (\alpha\wedge\beta)(v_1,\ldots,v_{k+\ell})
  =\frac1{k!\ell!}\sum_{\sigma\in S_{k+\ell}}
@@ -27,9 +39,16 @@ $\omega:V^k\to\R$ 若交换任意两个变量便变号，称为交错 $k$-形式
  \alpha(v_{\sigma(1)},\ldots,v_{\sigma(k)})
  \beta(v_{\sigma(k+1)},\ldots,v_{\sigma(k+\ell)}).
 \]
-这个归一化使
-$e^{i_1}\wedge\cdots\wedge e^{i_k}(e_{i_1},\ldots,e_{i_k})=1$
-（指标递增）。从定义交换前 $k$ 个变量和后 $\ell$ 个变量可得
+零次形式的楔积约定为标量乘法。置换和按前后两组内部的排列分组，每组
+恰有 $k!\ell!$ 项；因两形式都交错，组内各项相同。于是对基形式，若
+$I,J$ 有公共指标，$E_I\wedge E_J=0$；否则它等于连接指标组 $(I,J)$
+排序后对应的基形式，乘以排序的符号。这也可在每个递增基向量组上直接
+核验：只有把 $I$ 的指标送入第一组的项可能非零。
+
+此乘法规则证明结合律：三组指标有重复时两种加括号方式都为零；无重复时
+两者的符号都是把三组连接后排序的符号。由双线性性，结合律对任意形式
+成立。特别地 $E_I=e^{i_1}\wedge\cdots\wedge e^{i_k}$。交换两组指标
+需要 $k\ell$ 次对换，故
 \[
  \alpha\wedge\beta=(-1)^{k\ell}\beta\wedge\alpha,
  \qquad \alpha\in\Lambda^kV^*,\ \beta\in\Lambda^\ell V^*.
@@ -42,40 +61,72 @@ $e^{i_1}\wedge\cdots\wedge e^{i_k}(e_{i_1},\ldots,e_{i_k})=1$
 \]
 若 $B:W\to Z$，则直接代入定义得到
 $(B\circ A)^*=A^*\circ B^*$；拉回的次序与映射复合的次序相反。
-对顶次形式，$A^*(dy^1\wedge\cdots\wedge dy^n)
-=\det(A)dx^1\wedge\cdots\wedge dx^n$，这正是变量代换中的有向
-Jacobian。
+把 $Av_j$ 代入楔积的置换和，还得到
+$A^*(\alpha\wedge\beta)=A^*\alpha\wedge A^*\beta$。若 $V,W$ 同为
+$n$ 维，分别选定坐标对偶基 $dx^i,dy^i$，则
+$A^*(dy^1\wedge\cdots\wedge dy^n)=\det(A)dx^1\wedge\cdots\wedge dx^n$。
+这里的行列式相对于所选基计算；它保留方向的符号。
 
 \section{微分形式与外微分}
 
-开集 $U\subset\R^n$ 上的 $C^r$ 微分 $k$-形式写成
+开集 $U\subset\R^n$ 上的微分 $k$-形式，是在每个点 $x$ 指定一个
+交错形式 $\omega_x\in\Lambda^k(\R^n)^*$。记 $dx^i(v)=v_i$，
+$dx^I=dx^{i_1}\wedge\cdots\wedge dx^{i_k}$，其中 $I$ 总按递增次序排列。
+所谓 $C^r$，指下式的全部系数 $a_I$ 属于 $C^r(U)$：
 \[
  \omega=\sum_{|I|=k}a_I(x)\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}.
 \]
-外微分定义为
+光滑即 $C^\infty$ 形式的空间记为 $\Omega^k(U)$；零次形式就是函数。
+对 $C^1$ 形式，外微分定义为
 \[
  d\omega=\sum_{|I|=k}\sum_{j=1}^n
  \partial_ja_I\,dx^j\wedge dx^{i_1}\wedge\cdots\wedge dx^{i_k}.
 \]
 
+还需要把形式沿非线性映射拉回。若 $F:U\to W$ 是开集之间的 $C^1$
+映射，$\omega$ 是 $W$ 上的连续 $k$-形式，定义
+\[
+ (F^*\omega)_x(v_1,\ldots,v_k)
+ =\omega_{F(x)}(DF(x)v_1,\ldots,DF(x)v_k).
+\]
+零次时规定 $F^*f=f\circ F$。于是
+\[
+ F^*(a(y)\,dy^I)=(a\circ F)\,dF^{i_1}\wedge\cdots\wedge dF^{i_k}.
+\]
+链式法则给出 $(G\circ F)^*=F^*G^*$；逐点应用线性拉回的性质，得到
+拉回与楔积相容。$F$ 为 $C^1$ 时拉回连续形式仍连续；若要对拉回再取
+外微分，本章使用 $F\in C^2$、$\omega\in C^1$，使拉回系数确实为 $C^1$。
+
 \begin{theorem}[外微分的代数性质]
 \label{thm:exterior-derivative-properties}
-对适当光滑的形式，
+若 $\alpha$ 是 $C^1$ 的 $k$-形式，$\beta$ 是 $C^1$ 形式，则
 \begin{align*}
  d(\alpha\wedge\beta)&=d\alpha\wedge\beta+(-1)^k\alpha\wedge d\beta,
- &&\alpha\in\Omega^k(U),\\
- d(d\alpha)&=0.
+ &&\deg\alpha=k.
 \end{align*}
-若 $F:U\to V$ 为 $C^2$ 映射，则
+若 $\alpha$ 为 $C^2$，则 $d(d\alpha)=0$。
+若 $F:U\to W$ 为 $C^2$ 映射，$\omega$ 是 $W$ 上的 $C^1$ 形式，则
 $d(F^*\omega)=F^*(d\omega)$。
 \end{theorem}
 
 \begin{proof}
-第一式由乘积求导和把 $dx^j$ 越过 $k$ 个一次形式产生的符号得到。
-$d^2=0$ 中，混合偏导由 Schwarz 定理相等，而
-$dx^i\wedge dx^j=-dx^j\wedge dx^i$，故成对相消。拉回公式先对
-$\omega=f\,dy^{i_1}\wedge\cdots\wedge dy^{i_k}$ 用链式法则验证，再由
-线性性相加。
+只需先算单项。对 $\alpha=a\,dx^I$、$\beta=b\,dx^J$，
+$d(ab)=b\,da+a\,db$。把 $db$ 越过 $k$ 个一次形式产生 $(-1)^k$，
+便得第一式，再对有限和使用线性性。另一方面，
+\[
+ d^2(a\,dx^I)=\sum_{p,q}\partial_p\partial_q a\,
+ dx^p\wedge dx^q\wedge dx^I=0.
+\]
+当 $p=q$ 时楔积为零，$p\ne q$ 时两项因 Schwarz 定理和交错性相消。
+
+最后设 $\omega=a\,dy^I$。由 $d(dF^i)=0$ 及第一式，
+\begin{align*}
+ d(F^*\omega)
+ &=d(a\circ F)\wedge dF^{i_1}\wedge\cdots\wedge dF^{i_k}\\
+ &=\sum_j(\partial_j a\circ F)dF^j\wedge dF^{i_1}\wedge\cdots\wedge dF^{i_k}
+ =F^*(d\omega).
+\end{align*}
+这一步只用到 $a\in C^1$ 和 $F\in C^2$。零次形式的等式就是链式法则。
 \end{proof}
 
 在 $\R^3$ 中，若 $\alpha=P\,dx+Q\,dy+R\,dz$，则
@@ -88,40 +139,54 @@ $\omega=f\,dy^{i_1}\wedge\cdots\wedge dy^{i_k}$ 用链式法则验证，再由
 看似重复的九个偏导项中，有三个因 $dx^i\wedge dx^i=0$ 消失，其余六个
 按反对称性两两合并。这个计算解释了旋度各分量中的符号从何而来。
 
-满足 $d\omega=0$ 的形式称为闭形式；能写成 $\omega=d\eta$ 的形式称为
-恰当形式。$d^2=0$ 说明恰当必闭，反向是否成立取决于定义域。
+对光滑形式，满足 $d\omega=0$ 的形式称为闭形式；能写成
+$\omega=d\eta$、其中 $\eta$ 光滑的形式称为恰当形式。
+$d^2=0$ 说明恰当必闭，反向是否成立取决于定义域。
 
 \section{形式的积分与定向}
 
-设 $X:D\subset\R^k\to\R^n$ 是保持给定定向的正则参数化。对紧支撑或
-定义在紧参数域上的 $k$-形式，定义
+先取有界闭 Jordan 区域 $D\subset\R^k$。设 $X$ 在 $D$ 的一个开邻域
+上为 $C^1$，在 $D$ 上单射且微分处处秩为 $k$。这样的参数片采用
+$(\partial_1X,\ldots,\partial_kX)$ 给出的定向：两组有序切向基同向，
+指它们之间的换基行列式为正。若 $\omega$ 在 $X(D)$ 的邻域连续，定义
 \[
  \int_{X(D)}\omega:=\int_DX^*\omega.
 \]
+右端指 $X^*\omega=b(t)dt^1\wedge\cdots\wedge dt^k$ 的系数积分
+$\int_D b(t)\,dt$，由连续性与 Jordan 条件可积。参数换元取闭域邻域上的
+$C^1$ 微分同胚，映满相应参数域。
 若重新参数化保持定向，拉回的复合律和变量代换中的 Jacobian 绝对值使积分
-不变；反向定向则变号。多个参数片之间需要相容定向，并按有限分割相加。
+不变；反向定向则变号。有限参数片的内部不能重叠，公共边界须在各自参数
+域中为 Jordan 零测集，随后按片相加。这里积分计的是定向区域，不把同一
+片的多次覆盖自动当作一次；允许重覆盖时应明确另定义带重数的参数积分。
 
 边界定向采用“先外法向，后边界正向基给出内部正向基”的约定。对平面区域，
 这给出熟悉的逆时针外边界；对定向曲面，则等价于右手规则。
+有向零维点的积分规定为带符号的函数值。因此正向区间 $[a,b]$ 的边界
+是右端点减左端点，$\int_{\partial[a,b]}f=f(b)-f(a)$。
 
 \section{Stokes 公式}
 
 \begin{theorem}[欧氏参数化 Stokes 公式]
 \label{thm:stokes-differential-forms-euclidean}
-设 $D\subset\R^k$ 为紧区域，并且具有有限个定向相容的 $C^1$ 参数胞腔；
-每个胞腔由闭矩形上的 $C^1$ 嵌入给出，嵌入在矩形内部具有满秩微分，两个
-胞腔只沿共同的整张边界面相交。设 $X$ 是
-在 $D$ 的邻域定义的保持定向 $C^2$ 嵌入，$M=X(D)$。若 $\omega$ 是 $M$
-邻域中的 $C^1$ 的 $(k-1)$-形式，则
+设 $1\le k\le n$，定向区域 $M\subset\R^n$ 是有限个参数块
+$X_j(Q_j)$ 之并。每个 $Q_j$ 是非退化闭 $k$ 维矩形；$X_j$ 在其开邻域
+为 $C^2$，在 $Q_j$ 上单射且处处秩为 $k$，并保持该片定向。
+各块内部不交，块间只沿整张面或更低维的面相接。每张内部的
+$(k-1)$ 维面恰为两块共有，两种参数由面邻域上的 $C^2$ 微分同胚联系，
+诱导定向相反；其余 $(k-1)$ 维面的有向和记为 $\partial M$。
+若 $\omega$ 是 $M$ 邻域中的 $C^1$ 的 $(k-1)$-形式，则
 \[
  \int_Md\omega=\int_{\partial M}\omega.
 \]
-有限个相容参数片覆盖且交叠处可作上述有限细分的情形同样成立。
+能细分为上述块的参数区域也适用。此处不主张任意光滑边界区域都已得到
+这种有限分解；一般流形上的版本留待后文建立。
 \end{theorem}
 
 \begin{proof}
-由拉回与外微分可交换，左端为 $\int_Dd(X^*\omega)$。先设 $D$ 是坐标
-矩形，并写
+先对一个块 $M=X(Q)$ 证明，写 $Q=\prod_{j=1}^k[\ell_j,u_j]$。
+参数 $X$ 为 $C^2$，故 $X^*\omega$ 为
+$C^1$，且 $X^*(d\omega)=d(X^*\omega)$。写
 \[
  X^*\omega=\sum_{j=1}^k(-1)^{j-1}a_j(t)\,
  dt^1\wedge\cdots\wedge\widehat{dt^j}\wedge\cdots\wedge dt^k.
@@ -135,10 +200,15 @@ $\omega=f\,dy^{i_1}\wedge\cdots\wedge dy^{i_k}$ 用链式法则验证，再由
 定理，得到矩形上、下两张 $j$-边界面的积分；系数 $(-1)^{j-1}$ 正是诱导
 边界定向的符号。
 
-对一般 $D$，把公式逐胞腔相加。每一张内部公共面在相邻胞腔中带相反的
-诱导定向，故积分相消，只留下 $\partial D$。最后用
-$X|_{\partial D}$ 参数化边界，并利用拉回的复合律，得到
-$\int_{\partial M}\omega$。
+具体地，上面 $t^j=u_j$ 的定向相对于删去 $e_j$ 的坐标基具有符号
+$(-1)^{j-1}$，下面 $t^j=\ell_j$ 的符号相反，因而两面的贡献恰为
+$a_j(\ldots,u_j,\ldots)-a_j(\ldots,\ell_j,\ldots)$ 的其余坐标积分。
+当 $k=1$ 时这就是两端点之差。
+
+对所有块相加。公共面的两种参数表示由换元公式给出相同的绝对积分，
+定向相反使它们抵消。更低维的面在面参数中为 Jordan 零测集；这一点也可
+用低维 Lipschitz 像的矩形覆盖估计验证，所以不会另生积分项。剩下的
+正是按所定方向计算的 $\partial M$ 积分。
 \end{proof}
 
 \section{星形域上的 Poincaré 引理}
@@ -158,22 +228,46 @@ $\omega=d\eta$。
  (H\omega)_x(v_1,\ldots,v_{k-1})
  =\int_0^1t^{k-1}\omega_{tx}(x,v_1,\ldots,v_{k-1})\,dt.
 \]
-为看清同伦恒等式，先把 $dH\omega+Hd\omega$ 作用在固定向量
-$v_1,\ldots,v_k$ 上。按外微分的坐标公式逐项展开后，含有 $x$ 的导数项
-和含有 $v_j$ 的交错项正好组合成
+先解释求导为什么能进入积分。固定 $x_0\in U$，线段 $[0,x_0]$ 紧且
+包含于开集 $U$，故它的某个闭管状邻域仍在 $U$ 内。$x$ 足够接近 $x_0$
+时全部线段 $[0,x]$ 都落在这个共同紧集内。被积系数的各阶导数在那里
+连续，差商由一元中值公式一致趋于相应偏导，所以可逐次移入积分，
+$H\omega$ 因而光滑。
+
+下面完整计算一个单项 $\omega=a(x)\theta$，其中 $\theta=dx^I$ 为
+常系数 $k$-形式。用插入径向向量的记号
 \[
- \frac{d}{dt}\left[
- t^k\omega_{tx}(v_1,\ldots,v_k)\right].
+ (\iota_R\theta)_x(v_1,\ldots,v_{k-1})=\theta(x,v_1,\ldots,v_{k-1}).
 \]
-于是对 $t$ 积分并使用一元基本定理，得到
+按第一列展开行列式，得到
+\[
+ \iota_R\theta=\sum_{r=1}^k(-1)^{r-1}x_{i_r}
+ dx^{i_1}\wedge\cdots\wedge\widehat{dx^{i_r}}\wedge\cdots\wedge dx^{i_k},
+ \qquad d\iota_R\theta=k\theta.
+\]
+帽号表示删去该因子；求导后把 $dx^{i_r}$ 移回原位，产生的符号恰好
+抵消前面的 $(-1)^{r-1}$，所以有 $k$ 个 $\theta$。
+对一次形式 $\lambda$，由交错展开还有
+$\iota_R(\lambda\wedge\theta)=\lambda(R)\theta-\lambda\wedge\iota_R\theta$。
+记 $b_t(x)=a(tx)$、$\lambda_t=\sum_j\partial_j a(tx)dx^j$，于是
+\begin{align*}
+ dH\omega&=\int_0^1\left(t^k\lambda_t\wedge\iota_R\theta
+                       +k t^{k-1}b_t\theta\right)dt,\\
+ Hd\omega&=\int_0^1t^k\left(\sum_jx_j\partial_ja(tx)\theta
+                       -\lambda_t\wedge\iota_R\theta\right)dt.
+\end{align*}
+相加后含 $\lambda_t$ 的两项抵消，余下为
+$\int_0^1\frac{d}{dt}(t^ka(tx))\,dt\,\theta= a(x)\theta$。
+对所有单项相加得到同伦恒等式
 \[
  dH\omega+Hd\omega=\omega-s_0^*\omega,
 \]
 其中 $s_0(x)=0$；右端两项分别来自 $t=1$ 与 $t=0$。当 $k\ge1$ 时，
 常值映射的导数为零，所以 $s_0^*\omega=0$。又因 $d\omega=0$，
-$d(H\omega)=\omega$。令 $\eta=H\omega$ 即得。上述求导移入积分可对
-每个坐标系数分别验证；在任一紧子集上，被积系数及其一阶偏导连续且一致
-有界，故差商收敛是统一的。
+$d(H\omega)=\omega$。令 $\eta=H\omega$ 即得。
+零次时约定 $Hf=0$，直接由一元基本定理有
+$Hdf=\int_0^1\sum_jx_j\partial_jf(tx)dt=f(x)-f(0)$，所以同伦恒等式
+在零次也成立，但闭零次形式不在引理的恰当性结论之内。
 \end{proof}
 
 对任意开集 $U$ 和任意 $x\in U$，都可取一个以 $x$ 为中心、闭包仍包含于
@@ -192,7 +286,9 @@ $F=(P,Q,R)$ 可对应
 \]
 于是 $df$ 对应梯度，$d\alpha$ 对应旋度，$d\beta$ 对应散度。对曲线、曲面
 和区域应用同一 Stokes 公式，分别得到 Newton--Leibniz、经典 Stokes 与
-Gauss 定理；二维的 $Pdx+Qdy$ 则给出 Green 定理。
+Gauss 定理的公式；二维的 $Pdx+Qdy$ 则给出 Green 公式。
+作为定理的推导，这里限于已经满足本章有限正则分块条件的区域；记号上的
+对应不能代替对一般积分域的证明。
 
 这种对应依赖欧氏内积和定向，而外微分本身不依赖度量。后续流形章节会把
 积分与 Stokes 定理保留在抽象流形上；梯度、散度和 Hodge 星算子则需要额外
@@ -205,7 +301,8 @@ Gauss 定理；二维的 $Pdx+Qdy$ 则给出 Green 定理。
  \exerciseitem{alternating-form-basis}
  证明 $\dim\Lambda^k(\R^n)^*=\binom nk$，并写出 $n=4,k=2$ 的标准基。
  \exerciseitem{wedge-sign-computation}
- 计算若干一次形式的楔积，说明含重复因子的项为何为零。
+ 计算 $(dx+dy)\wedge(dx-dy)$ 及
+ $(dx+dy)\wedge(dy+dz)\wedge(dz+dx)$，说明含重复一次形式因子的项为何为零。
  \exerciseitem{top-form-determinant-pullback}
  证明线性映射对顶次体积形式的拉回乘以行列式。
  \exerciseitem{exterior-derivative-leibniz}

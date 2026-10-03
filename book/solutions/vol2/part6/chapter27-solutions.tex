@@ -36,7 +36,15 @@
 \[
  0\le\frac{x^ne^{-x}}{n!}\le\frac{M^n}{n!},
 \]
-而 \(\sum M^n/n!=e^M\) 收敛，故在 \([0,M]\) 上一致收敛。
+而正项级数 \(\sum M^n/n!\) 的相邻项比为 \(M/(n+1)\to0\)，故
+在 \([0,M]\) 上一致收敛。
+为检验整个半轴，先确定和函数。对固定 \(x\ge0\)，有限Taylor公式给出
+\[
+ \left|e^x-\sum_{n=0}^N\frac{x^n}{n!}\right|
+ \le e^x\frac{x^{N+1}}{(N+1)!}\longrightarrow0;
+\]
+余项右端趋零也由相邻项比趋零得到。因此
+\(\sum x^ne^{-x}/n!=1\)，不需要预用后面的幂级数理论。
 在半轴上，级数的和恒为 \(1\)，而任一有限部分和 \(S_N\) 都满足
 \(S_N(x)\to0\ (x\to\infty)\)。若 \(S_N\) 一致趋于 \(1\)，则充分大的
 \(N\) 应满足 \(\sup_{x\ge0}|S_N(x)-1|<1/2\)；固定这样的 \(N\) 再令
@@ -91,14 +99,13 @@ Dirichlet 判别给出结论。
 \end{solution}
 
 \begin{solution}{uniform-dirichlet-trigonometric}
-复指数几何和给出
+第一卷的正弦有限和公式给出
 \[
- \left|\sum_{k=1}^Ne^{ikx}\right|
- \le\frac2{|1-e^{ix}|}.
+ \left|\sum_{k=1}^N\sin(kx)\right|
+ \le\frac1{|\sin(x/2)|}.
 \]
-取虚部后同一上界控制正弦部分和。在
-\([\delta,2\pi-\delta]\) 上，
-\(|1-e^{ix}|\) 有正的最小值，因此部分和一致有界，\(1/n\) 又单调
+在 \([\delta,2\pi-\delta]\) 上，
+\(\sin(x/2)\ge\sin(\delta/2)>0\)，因此部分和一致有界，\(1/n\) 又单调
 趋零，一致 Dirichlet 判别适用。当 \(\delta\downarrow0\) 时，这个最小值
 趋零，部分和上界趋于无穷，无法给出端点附近的共同控制。正文的尾和下界
 进一步说明全闭区间上的一致收敛确实失败。
@@ -151,8 +158,17 @@ Dirichlet 判别给出结论。
  |b_q|+\sum_{k=N}^{q-1}|b_k-b_{k+1}|
  \right).
 \]
-右端不超过题设中从 \(N\) 开始的统一变差尾的 \(2M\) 倍，并随
-\(N\to\infty\) 趋于零。一致 Cauchy 准则给出一致收敛。
+还需把末端 \(b_q\) 改为题设中的起始端：
+\[
+ |b_q|\le |b_N|+\sum_{k=N}^{q-1}|b_{k+1}-b_k|.
+\]
+因此尾和绝对值不超过
+\[
+ 2M\left(|b_N|+2\sum_{k=N}^\infty|b_{k+1}-b_k|\right)
+ \le4M\left(|b_N|+\sum_{k=N}^\infty|b_{k+1}-b_k|\right).
+\]
+先对 \(x\) 取上确界，再令 \(N\to\infty\)，题设使这个界趋零。估计对
+所有 \(q\ge N\) 有效，所以满足一致Cauchy准则。
 \end{solution}
 
 \begin{solution}{series-continuity-m-test}
@@ -166,7 +182,8 @@ M-判别法给出 \(\sum u_n\) 在 \([a,b]\) 上一致收敛。有限部分和�
 \end{solution}
 
 \begin{solution}{series-integral-upper-limit-uniform}
-设 \(S_N=\sum_{n=1}^Nu_n\)、\(S=\sum_{n=1}^\infty u_n\)。则
+设 \(S_N=\sum_{n=1}^Nu_n\)、\(S=\sum_{n=1}^\infty u_n\)。
+各 \(S_N\) 可积，其一致极限 \(S\) 也可积。于是
 \[
  \sup_{x\in[a,b]}
  \left|\sum_{n=1}^N\int_a^xu_n-\int_a^xS\right|
@@ -199,27 +216,30 @@ M-判别法给出 \(\sum u_n\) 在 \([a,b]\) 上一致收敛。有限部分和�
  \le\norm{S-S_N}_\infty+\norm{S_N}_\infty
  <1+\norm{S_N}_\infty.
 \]
-有限部分和有界时，右端有限，故和函数有界。
+每个有限部分和有界，右端有限，故和函数有界。若各项未必有界，取
+\(E=\R\)、\(u_1(x)=x\)，其余 \(u_n=0\)。部分和从首项起就等于
+\(x\)，一致收敛成立，而和函数无界。
 \end{solution}
 
 \begin{solution}{series-exchange-double-sum}
-一个充分条件是 \(x_m\to x\in E\)，且每个固定的 \(n\) 都满足
-\(u_n(x_m)\to u_n(x)\)。设
+一个无需给 \(E\) 另设拓扑的充分条件是：每个固定的 \(n\) 都有有限极限
+\(u_n(x_m)\to\ell_n\)。设
 \(\sum\norm{u_n}_\infty<\infty\)。给定 \(\varepsilon>0\)，先取
 \(N\) 使
 \[
  2\sum_{n>N}\norm{u_n}_\infty<\frac{\varepsilon}{2}.
 \]
+因 \(|\ell_n|\le\norm{u_n}_\infty\)，级数 \(\sum\ell_n\) 绝对收敛。
 再由有限个 \(n\le N\) 的收敛，取充分大的 \(m\) 使
 \[
- \sum_{n=1}^N|u_n(x_m)-u_n(x)|<\frac{\varepsilon}{2}.
+ \sum_{n=1}^N|u_n(x_m)-\ell_n|<\frac{\varepsilon}{2}.
 \]
 于是
 \[
- \left|\sum_nu_n(x_m)-\sum_nu_n(x)\right|<\varepsilon.
+ \left|\sum_nu_n(x_m)-\sum_n\ell_n\right|<\varepsilon.
 \]
-故极限与求和可以交换。若 \(u_n\) 连续，第一项条件由 \(x_m\to x\)
-自动满足。
+故极限与求和可以交换。特别地，若 \(E\subseteq\R\)、\(x_m\to x\in E\)，
+各 \(u_n\) 在 \(x\) 连续，则 \(\ell_n=u_n(x)\)。
 \end{solution}
 
 \begin{solution}{series-cauchy-product-functions}

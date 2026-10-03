@@ -24,7 +24,8 @@ $\operatorname{ord}_a(f/h)=m-n$。
  f'(z)=(z-a)^{m-1}\bigl(mg(z)+(z-a)g'(z)\bigr).
 \]
 括号内函数在 $a$ 的值为 $mg(a)\ne0$，故 $f'$ 在 $a$ 的零点阶数为
-$m-1$。若 $m=0$，$a$ 不是 $f$ 的零点，而 $f'(a)$ 可以为零，也可以不为零；
+$m-1$。特别地，$m=1$ 时 $f'(a)=g(a)\ne0$，此时阶数为零表示它并非零点。
+若 $m=0$，$a$ 不是 $f$ 的零点，而 $f'(a)$ 可以为零，也可以不为零；
 “$-1$ 重零点”在全纯零点的语境中没有意义。
 \end{solution}
 
@@ -83,12 +84,16 @@ $f$ 的 $m$ 重零点，取只含该零点且边界无零点的小圆盘，则�
 \end{solution}
 
 \begin{solution}{argument-injective-limit}
-平面区域是道路连通的。给定 $x,y\in\Omega\setminus\{a\}$，取一条连接二者
-的折线路径 $\gamma\subset\Omega$。若它不经过 $a$，工作完成。若经过 $a$，
-取 $r>0$ 使 $\overline{B(a,r)}\subset\Omega$，并使路径进入、离开该圆盘的
-端点不等于 $a$。把圆盘内经过 $a$ 的那段路径替换为圆周内一条避开 $a$ 的
-弧与两条短线段，即得位于 $\Omega\setminus\{a\}$ 的道路。因此删点区域仍
-道路连通，特别仍连通。
+平面区域可由折线连通。给定 $x,y\in\Omega\setminus\{a\}$，取连接二者的
+折线路径 $\gamma:[0,1]\to\Omega$。若它不经过 $a$，已得所需道路。
+否则取 $r<\min(|x-a|,|y-a|)$，使 $\overline{B(a,r)}\subset\Omega$。
+集合 $\gamma^{-1}(\overline{B(a,r)})$ 非空且紧，令其最小和最大元素为
+$s,t$。因两端点在闭圆盘外，连续性给 $0<s<t<1$，
+且 $\gamma(s),\gamma(t)$ 均在圆周上。
+用圆周上连接这两个点的一条弧替换 $\gamma|_{[s,t]}$；
+若两点相同，就用常值道路。保留的首尾两段不经过闭圆盘，替换段也避开 $a$，
+所以所得道路全在 $\Omega\setminus\{a\}$ 中。它处理了原道路可能反复经过
+$a$ 的情形，证明删点区域仍道路连通。
 \end{solution}
 
 \begin{solution}{argument-local-degree}
@@ -136,7 +141,9 @@ $q(z)=z^2$ 在 $\zeta$ 处导数非零，故存在把 $\zeta^2$ 的邻域映回 
 \[
  F(w)=F(s(w))-s(w),
 \]
-右侧便给出 $F$ 在 $\zeta^2$ 附近的延拓。
+右侧的 $F$ 使用 $\zeta$ 附近的延拓代表。由于 $s(w)^2=w$，
+$|w|<1$ 蕴含 $|s(w)|<1$，故在新邻域与单位圆盘的交集上，
+右侧等于原来的 $F(w)$。这才给出相容的全纯延拓。
 
 若 $\zeta^{2^m}=1$，重复上述过程将推出 $F$ 可在 $1$ 附近延拓。然而
 $F(r)=\sum r^{2^n}\to\infty$ 当 $r\uparrow1$：给定 $N$，前 $N$ 项均趋于

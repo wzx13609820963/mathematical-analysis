@@ -14,8 +14,15 @@
 \end{solution}
 \begin{solution}{weakstar-coordinate-linfty}
 弱星收敛通过测试 \(\ell^1\) 的坐标向量得到逐坐标收敛。
-反向设共同界 \(M\)，对任意 \(a\in\ell^1\)，先把尾和
-\(2M\sum_{k>N}|a_k|\) 控制得小，再用前 \(N\) 个坐标的收敛控制有限和。
+反向设共同界 \(M\)。若各坐标趋于 \(x_k\)，取标量极限得
+\(|x_k|\le M\)，故 \(x=(x_k)_{k\ge0}\in\ell^\infty\)。
+对任意 \(a\in\ell^1\)，有
+\[
+ \left|\sum_{k\ge0}a_k(x_{\alpha,k}-x_k)\right|
+ \le \sum_{k=0}^N|a_k|\,|x_{\alpha,k}-x_k|
+       +2M\sum_{k>N}|a_k|.
+\]
+先选 \(N\) 控制尾和，再用第 \(0,\ldots,N\) 号坐标的收敛控制有限和。
 对网同样成立，因为一次只需有限多个坐标同时接近。
 \end{solution}
 \begin{solution}{weakstar-not-weak-linfty}
@@ -25,7 +32,8 @@
 \end{solution}
 \begin{solution}{weak-convex-mazur}
 弱极限 \(x\) 在每个尾集的弱闭包中，因而在其凸包的弱闭包中。
-凸集弱闭包等于范数闭包，所以可在尾凸包中选距离小于 \(1/n\) 的点。
+凸集弱闭包等于范数闭包，所以对每个 \(n\ge1\)，可在相应尾凸包中
+选距离小于 \(1/n\) 的点。
 这里 \(y_n\) 是有限凸组合，不是无限形式和。
 \end{solution}
 \begin{solution}{weak-operator-continuous}

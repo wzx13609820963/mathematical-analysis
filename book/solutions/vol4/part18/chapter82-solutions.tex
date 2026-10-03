@@ -18,8 +18,10 @@
  =e^{-iNt}\frac{1-e^{i(2N+1)t}}{1-e^{it}}
  =\frac{\sin((N+\tfrac12)t)}{\sin(t/2)}.
 \]
-在 \(t=0\) 处按连续延拓取值 \(2N+1\)。逐项积分时只有 \(k=0\) 项保留，
-故 \((2\pi)^{-1}\int_{-\pi}^{\pi}D_N=1\)。
+在 \(2\pi\mathbb Z\) 上连续补值为 \(2N+1\)。逐项积分只留下常数项，故
+\[
+ \frac1{2\pi}\int_{-\pi}^{\pi}D_N(t)\,dt=1.
+\]
 \end{solution}
 
 \begin{solution}{fourier-translation-coefficients}
@@ -45,7 +47,8 @@
 \end{solution}
 
 \begin{solution}{fourier-dini-piecewise-c-one}
-若 \(f\) 在 \(x\) 的右侧 \(C^1\)，中值定理给
+按正文的分段 \(C^1\) 约定，每个开片上的函数都有闭片上的 \(C^1\) 延拓。
+故在 \(x\) 两侧分别有有界导数，中值定理给
 \(|f(x+t)-f(x+)|\le Ct\)；左侧同理。因此 Dini 商在零附近有界，在
 远离零处因 \(f\in L^1\) 可积。定理给
 \[
@@ -84,7 +87,8 @@ Riemann--Lebesgue 引理给极限为零。
 \end{solution}
 
 \begin{solution}{fourier-fejer-lp}
-连续周期函数在 \(L^p\) 中稠密。给定 \(f\in L^p\)，取连续 \(g\) 使
+正文章首已用截断与实线上的连续函数逼近证明：连续周期函数在
+\(L^p(\mathbb T)\) 中稠密，\(1\le p<\infty\)。给定 \(f\in L^p\)，取连续周期 \(g\) 使
 \(\|f-g\|_p<\varepsilon\)。收缩性和 Fejér 一致收敛给
 \[
  \|\sigma_Nf-f\|_p
@@ -106,22 +110,39 @@ Riemann--Lebesgue 引理给极限为零。
 \]
 及 \(c|t|\le|\sin(t/2)|\le C|t|\)（\(0<|t|\le\pi\)），问题化为估计
 \(\int_0^\pi|\sin((N+\tfrac12)t)|t^{-1}dt\)。令
-\(u=(N+\tfrac12)t\)，再按长度 \(\pi\) 的区间分块。第 \(j\) 块的积分
-上下界均为常数乘 \(1/j\)，有限个初始块由常数吸收。因此总和与
-\(\sum_{j\le N}1/j\) 同阶，即为 \(\log(N+2)\)。
+\(u=(N+\tfrac12)t\)。初始块 \([0,\pi]\) 的积分为固定正数。
+对 \(j\ge1\)，由 \(\int_{j\pi}^{(j+1)\pi}|\sin u|\,du=2\) 得
+\[
+ \frac{2}{(j+1)\pi}\le
+ \int_{j\pi}^{(j+1)\pi}\frac{|\sin u|}{u}\,du
+ \le\frac{2}{j\pi}.
+\]
+当 \(N\ge2\) 时把 \(j=1,\ldots,N-1\) 相加；末端
+\([N\pi,(N+\tfrac12)\pi]\) 的积分不超过 \(1/N\)。于是存在固定
+正数 \(c,C\)，使 \(c\log(N+2)\le\|D_N\|_1\le C\log(N+2)\)。
+\(N=0,1\) 时范数均正且有限，调整常数即可一并包含。
 \end{solution}
 
 \begin{solution}{fourier-gibbs-scaling}
-只取奇数 \(k=2m+1\)。当 \(x=y/N\) 时，
+固定 \(y\in\R\)，令 \(q_y(s)=\sin(ys)/s\)，并在零处补值
+\(q_y(0)=y\)。这是连续函数。只取奇数 \(k=2m+1\)，有
 \[
- \frac4\pi\sum_{2m+1\le N}\frac{\sin((2m+1)y/N)}{2m+1}
+ S_Nf(y/N)=\frac2\pi
+ \sum_{\substack{m\ge0\\2m+1\le N}}\frac2N
+ q_y\left(\frac{2m+1}{N}\right).
 \]
-是以步长约 \(2/N\) 对下式积分的 Riemann 和：
+若 \(N\) 为偶数，这正是 \([0,1]\) 上步长 \(2/N\) 的中点和；
+若 \(N\) 为奇数，它覆盖 \([0,1+1/N]\)，多出的区间长度为 \(1/N\)。
+\(q_y\) 在固定紧区间上一致连续且有界，故两种情形都趋于
 \[
  \frac2\pi\int_0^1\frac{\sin(ys)}s\,ds
  =\frac2\pi\int_0^y\frac{\sin u}u\,du.
 \]
-因此左端趋于右端；在 \(y=\pi\) 处得到正文超调常数。
-另一方面，若误差主要位于宽度 \(O(N^{-1})\)、高度有界的邻域，其平方积分
-为 \(O(N^{-1})\)，仍趋于零；固定点处也按 Dirichlet--Jordan 定理收敛。
+换元对负 \(y\) 同样成立，\(y=0\) 时两端均为零。
+在 \(y=\pi\) 处，超出右极限一的量趋于
+\(A=(2/\pi)\int_0^\pi(\sin u)/u\,du-1\approx0.17898\)。
+除以跳跃高度二，得到相对超调比例 \(A/2\approx0.08949\)。
+这说明一致收敛失败，却不能否定 \(L^2\) 收敛，因为 \(L^2\) 范数不控制
+移动观察点的函数值。整体平方误差趋零需另作证明；下一章的三角系统
+完备性将保证本题阶跃函数的部分和在 \(L^2\) 中收敛。
 \end{solution}

@@ -10,6 +10,8 @@
 和保持定理可以直接移植到级数。级数形式又带来一项额外工具：可以从尾和
 估计、绝对值比较和分部求和判断一致收敛，而不必先猜出和函数。
 
+公共定义域 \(E\) 非空，函数取实值；涉及闭区间微分时设 \(a<b\)。
+
 \section{逐点、一致和绝对收敛}
 
 设 \(u_n:E\to\R\)，定义部分和
@@ -190,7 +192,7 @@ M-判别法把函数问题化成正项数项级数，但它是充分条件，不
 \[
  \left|\sum_{n=p}^qa_n(x)b_n(x)\right|
  \le\frac{\varepsilon}{M+1}b_p(x)
- \le\varepsilon.
+ \le\frac{M}{M+1}\varepsilon<\varepsilon.
 \]
 故乘积级数满足一致 Cauchy 条件。
 \end{proof}
@@ -200,15 +202,10 @@ Dirichlet 判别中的单调性可以替换为对 \(b_n(x)\) 关于指标的总�
 同向单调的有符号 \(b_n\)，只需在分部求和中把总变差估计改为相应常数。
 
 \begin{example}[三角级数的内闭一致收敛]
-对 \(x\notin2\pi\Z\)，
-\[
- \sum_{k=1}^Ne^{ikx}
- =e^{ix}\frac{1-e^{iNx}}{1-e^{ix}},
-\]
-因而
+\chapterref{chap:conditional-convergence-rearrangement} 的三角有限和公式给出
 \[
  \left|\sum_{k=1}^N\sin(kx)\right|
- \le\frac{2}{|1-e^{ix}|}.
+ \le\frac{1}{|\sin(x/2)|}\qquad(x\notin2\pi\Z).
 \]
 在 \([\delta,2\pi-\delta]\)、\(0<\delta<\pi\) 上，分母有统一正下界。
 一致 Dirichlet 判别遂给出
@@ -405,7 +402,7 @@ Dirichlet 判别中的单调性可以替换为对 \(b_n(x)\) 关于指标的总�
  设 \(u_n\in C[a,b]\) 且 \(|u_n(x)|\le M_n\)、\(\sum M_n<\infty\)。
  证明和函数连续，并可逐项积分。
  \exerciseitem{series-integral-upper-limit-uniform}
- 证明若 \(\sum u_n\) 在 \([a,b]\) 上一致收敛，则
+ 设每个 \(u_n\) 在 \([a,b]\) 上Riemann可积。证明若 \(\sum u_n\) 一致收敛，则
  \[
   \sum_{n=1}^\infty\int_a^x u_n(t)\,dt
  \]
@@ -418,12 +415,12 @@ Dirichlet 判别中的单调性可以替换为对 \(b_n(x)\) 关于指标的总�
  在 \(\R\) 上一致收敛且可逐项求一次导；讨论正文定理能否直接保证逐项
  求二次导。
  \exerciseitem{series-uniform-limit-bound}
- 若 \(\sum u_n\) 一致收敛于 \(S\)，证明对充分大的 \(N\)，
+ 若各 \(u_n\in\mathcal B(E)\)，\(\sum u_n\) 一致收敛于 \(S\)，证明对充分大的 \(N\)，
  \[
   \norm S_\infty
   \le \norm{S_N}_\infty+1
  \]
- （在这些范数有限时），并说明一致收敛的级数和为何继承有界性。
+ 并证明 \(S\) 有界。若不假设各项有界，只保留一致收敛，结论是否仍成立？
  \exerciseitem{series-exchange-double-sum}
  设 \(\sum_nu_n(x)\) 在 \(E\) 上按上确界范数绝对收敛，且
  \(x_m\in E\)。在何种附加条件下可交换

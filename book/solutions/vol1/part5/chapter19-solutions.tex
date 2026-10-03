@@ -11,7 +11,9 @@
  \abs{S(f,\dot P)-(b-c)}\le2\norm P.
 \]
 当 \(\norm P\to0\) 时右端趋于零，故积分为 \(b-c\)。这个估计也覆盖
-标记点恰等于 \(c\) 的情形。
+标记点恰等于 \(c\) 的情形。若 \(c=a\)，函数恒为1，标记和恒为
+\(b-a\)；若 \(c=b\)，只有最后一段可能有非零贡献，标记和绝对值
+至多 \(\norm P\)，故积分为零。这两种情形也符合 \(b-c\)。
 \end{solution}
 
 \begin{solution}{riemann-integrable-bounded-reproof}
@@ -56,9 +58,9 @@
 \end{solution}
 
 \begin{solution}{riemann-oscillation-step}
-设间断点为 \(c_1,\ldots,c_m\)，且 \(\abs f\le M\)。给定
+设间断点为 \(c_1,\ldots,c_m\)，取 \(M\ge1\) 使 \(\abs f\le M\)。给定
 \(\varepsilon>0\)，用总长度小于
-\(\varepsilon/(4M)\) 的有限个区间覆盖这些点。删去这些区间后留下有限个
+\(\varepsilon/(4M)\) 的有限个相对开区间覆盖这些点。删去这些区间后留下有限个
 紧区间，\(f\) 在其并上连续，故一致连续。把覆盖区间端点和足够细的等距点
 加入分割，使其余各段振幅之和乘长度小于 \(\varepsilon/2\)。覆盖部分的
 振幅至多 \(2M\)，贡献小于 \(\varepsilon/2\)。总振幅和小于
@@ -104,20 +106,26 @@
 \end{solution}
 
 \begin{solution}{riemann-continuous-composition}
-可积函数 \(f\) 有界，故其值域包含于某紧区间 \(K\)。函数 \(\Phi\) 在
-\(K\) 上一致连续。给定 \(\varepsilon>0\)，先取 \(\eta>0\)，使
+可积函数 \(f\) 有界，故 \(K=\overline{f([a,b])}\) 是紧集。
+函数 \(\Phi\) 在 \(K\) 上一致连续。给定 \(\varepsilon>0\)，先取 \(\eta>0\)，使
 \(\abs{u-v}<\eta\) 蕴含
 \(\abs{\Phi(u)-\Phi(v)}<\varepsilon/(2(b-a))\)。设
-\(\abs{\Phi}\le M\) 于 \(K\)。由 \(f\) 的振幅判据取分割，使
+\(\abs{\Phi}\le M\) 于 \(K\)，其中 \(M\ge1\)。由 \(f\) 的振幅判据取分割，使
 \[
  \sum_i\omega(f;I_i)\Delta x_i
  <\frac{\eta\varepsilon}{4M}.
 \]
-把指标分成 \(\omega(f;I_i)<\eta\) 与其余两类。第一类上复合振幅小于
-\(\varepsilon/(2(b-a))\)，总贡献小于 \(\varepsilon/2\)；第二类区间
+把指标分成 \(\omega(f;I_i)<\eta\) 与其余两类。第一类上复合振幅不超过
+\(\varepsilon/(2(b-a))\)，总贡献不超过 \(\varepsilon/2\)；第二类区间
 总长度不超过
 \(\eta^{-1}\sum_i\omega(f;I_i)\Delta x_i\)，其复合振幅至多
-\(2M\)，贡献也小于 \(\varepsilon/2\)。故复合函数可积。
+\(2M\)，贡献小于 \(\varepsilon/2\)。故复合函数可积。
+
+反例取 \(f(0)=1\)、\(f(x)=x\)（\(0<x\le1\)）。它只在零点处
+不同于恒等函数，故可积，值域为 \((0,1]\)。取
+\(\Phi(t)=1/t\) 于 \((0,2)\)，则 \(\Phi\) 连续，但
+\((\Phi\circ f)(x)=1/x\)（\(x>0\)）无界，不是 Riemann 可积函数。
+这里遗漏的恰是值域闭包中的零点，不能将外函数的连续性擅自延伸到该点。
 \end{solution}
 
 \begin{solution}{riemann-integral-zero-positive}
@@ -141,6 +149,9 @@
 \end{solution}
 
 \begin{solution}{riemann-uniform-limit-preview}
+先取一个 \(n_0\) 使 \(\sup\abs{f-f_{n_0}}<1\)。由于 \(f_{n_0}\)
+有界，\(f\) 也有界。以下用 \(\norm h_\infty:=\sup_{[a,b]}\abs h\)
+简记上确界，不调用函数空间理论。
 给定 \(\varepsilon>0\)，取 \(n\) 使
 \[
  \norm{f_n-f}_\infty<\frac{\varepsilon}{4(b-a)}.
@@ -160,7 +171,8 @@
 \begin{solution}{riemann-dense-countable-spikes}
 给定 \(\varepsilon>0\)，先取 \(N\) 使 \(2^{-N}<\varepsilon/2\)。
 用总长度小于 \(\varepsilon/2\) 的有限个区间覆盖
-\(r_1,\ldots,r_N\)，并把端点加入分割。覆盖部分振幅至多 \(1\)；
+\(r_1,\ldots,r_N\)，使这些点均位于覆盖集的相对内部，再把端点加入分割。
+覆盖部分振幅至多 \(1\)；
 其余部分函数值至多 \(2^{-N}\)。因此上和小于 \(\varepsilon\)。
 无理点在每段稠密，故下和为零。积分为零。
 \end{solution}
@@ -187,19 +199,30 @@
 \end{solution}
 
 \begin{solution}{riemann-change-single-point-upper-lower}
-设两函数只在 \(c\) 处不同，并都由 \(M\) 控制绝对值。给定分割，再加入
-\(c-\eta,c,c+\eta\) 中落在区间内的点。除与 \(c\) 相邻的至多两个
-小区间外，上下和完全相同；这些区间总长度至多 \(2\eta\)，因而两函数
-的 Darboux 差相差不超过 \(4M\eta\)。令 \(\eta\to0\)，一个函数可使
-上下和差任意小当且仅当另一个也可以。对上下积分分别作同样比较，积分值
-之差为零。
+取 \(M\ge1\) 同时控制两函数的绝对值。给定分割 \(P\)，加入
+\(c-\eta,c,c+\eta\) 中落在区间内的点，得加细 \(Q\)。除与 \(c\)
+相邻的至多两个小区间外，上下和的各项相同；这些区间总长度至多
+\(2\eta\)，故
+\[
+ |U(f,Q)-U(g,Q)|\le4M\eta,\qquad
+ |L(f,Q)-L(g,Q)|\le4M\eta.
+\]
+记两函数的上积分为 \(\overline I_f,\overline I_g\)。给定 \(\delta>0\)，
+选 \(P\) 使 \(U(f,P)<\overline I_f+\delta\)。由加细单调性，
+\[
+ \overline I_g\le U(g,Q)\le U(f,P)+4M\eta
+ <\overline I_f+\delta+4M\eta.
+\]
+令 \(\delta,\eta\downarrow0\)，再交换 \(f,g\)，得两上积分相等。
+对下和用同样方法，或对 \(-f,-g\) 应用上积分结论，得到两下积分相等。
+因此可积性相同，可积时积分也相同。
 \end{solution}
 
 \begin{solution}{riemann-regulated-approximation}
 固定 \(\varepsilon>0\)。对每个 \(x\in(a,b)\)，左、右极限的存在给出
 \(\delta_x>0\)，使 \(f\) 在
 \((x-\delta_x,x)\) 和 \((x,x+\delta_x)\) 上的振幅都小于
-\(\varepsilon\)；端点只保留区间内的一侧。较小的开区间
+\(\varepsilon/2\)；端点只保留区间内的一侧。较小的开区间
 \[
  U_x=(x-\delta_x/2,x+\delta_x/2)\cap[a,b]
 \]
@@ -209,13 +232,13 @@
 构造一个网格小于 \(\lambda\) 的分割，同时把所有 \(x_j\) 加为分点。
 任一相邻分点之间的开区间 \(I\) 落在某个 \(U_{x_j}\) 中；由于 \(I\)
 内部不含 \(x_j\)，它完全位于 \(x_j\) 的一侧。因此
-\(\omega(f;I)<\varepsilon\)。在每个开段 \(I_i\) 任选
+\(\omega(f;I)<\varepsilon/2\)。在每个开段 \(I_i\) 任选
 \(\xi_i\)，令阶梯函数 \(s=f(\xi_i)\) 于 \(I_i\)，并在分点处令
 \(s=f\)。于是每个非分点 \(y\in I_i\) 满足
 \[
- \abs{f(y)-s(y)}<\varepsilon,
+ \abs{f(y)-s(y)}<\varepsilon/2,
 \]
-分点处差为零，故 \(\norm{f-s}_\infty\le\varepsilon\)。
+分点处差为零，故 \(\norm{f-s}_\infty\le\varepsilon/2<\varepsilon\)。
 
 阶梯函数可积；又可将 \(\varepsilon\) 任意缩小，所以 \(f\) 是一列
 阶梯函数的一致极限。由习题 \ref{ex:riemann-uniform-limit-preview}，

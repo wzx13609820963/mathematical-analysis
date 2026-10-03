@@ -2,8 +2,22 @@
 \label{chap:multiple-integrals-solutions}
 
 \begin{solution}{multiple-integral-product-function}
-设 $f\in\mathcal R([a,b])$、$g\in\mathcal R([c,d])$，并取乘积分割
-$P=P_x\times P_y$。若样点为 $(\xi_i,\eta_j)$，则
+设 $|f|\le M$、$|g|\le N$。若某区间退化，两端均为零。以下设
+$a<b,c<d$，先证明 $h(x,y)=f(x)g(y)$ 可积。对乘积分割
+$P=P_x\times P_y$，在 $I_i\times J_j$ 上有
+\[
+ \omega(h;I_i\times J_j)
+ \le N\omega(f;I_i)+M\omega(g;J_j).
+\]
+乘以 $|I_i||J_j|$ 并求和，得到
+\[
+ U(h,P)-L(h,P)
+ \le N(d-c)\sum_i\omega(f;I_i)|I_i|
+     +M(b-a)\sum_j\omega(g;J_j)|J_j|.
+\]
+分别选择一元振幅和足够小的分割，右端可任意小，所以 $h$ 可积。
+这一步已保证任意标记的细分割和都趋向同一积分。现在为求这个值，
+特选可分离标记 $(\xi_i,\eta_j)$，便有
 \[
  \sum_{i,j}f(\xi_i)g(\eta_j)\Delta x_i\Delta y_j
  =\left(\sum_i f(\xi_i)\Delta x_i\right)
@@ -14,31 +28,40 @@ $P=P_x\times P_y$。若样点为 $(\xi_i,\eta_j)$，则
  \int_{[a,b]\times[c,d]}f(x)g(y)\,d(x,y)
  =\int_a^bf(x)\,dx\int_c^dg(y)\,dy.
 \]
-一般矩形分割可由乘积分割加细；Riemann 可积性的 Cauchy 判据说明加细
-不会改变极限。
+仅有可分离标记下的等式不足以证明可积性；前面的振幅估计正是用来处理
+各块标记彼此独立的情形。
 \end{solution}
 
 \begin{solution}{multiple-continuous-integrability}
 设 $Q\subset\R^n$ 是非退化闭矩形。连续函数在紧集 $Q$ 上一致连续，故给定
 $\varepsilon>0$，存在 $\delta>0$，使同一子矩形中任意两点距离小于
-$\delta$ 时函数值之差小于 $\varepsilon/|Q|$。取网径充分小的分割，
-每个子矩形 $Q_j$ 上的振幅 $\omega_j$ 都小于该数，因而
+$\delta$ 时函数值之差小于 $\varepsilon/(2|Q|)$。取网径充分小的分割，
+每个子矩形 $Q_j$ 上的振幅 $\omega_j$ 至多为该数，因而
 \[
- U(f,P)-L(f,P)=\sum_j\omega_j|Q_j|<\varepsilon.
+ U(f,P)-L(f,P)=\sum_j\omega_j|Q_j|\le\varepsilon/2<\varepsilon.
 \]
 Darboux 判据给出可积性。若 $Q$ 有一个边长为零，则每个子矩形的 $n$ 维
 体积均为零，上和与下和都为零；按照本章约定积分为零。
 \end{solution}
 
 \begin{solution}{jordan-boundary-indicator}
-设 $E\subset Q$ 有界。若 $\mathbf1_E$ Riemann 可积，则其不连续点集恰为
-$\partial E$：在内点和外点附近指标函数恒定；在边界点的每个邻域中同时有
-$E$ 与补集中的点，故发生振荡。对指标函数，每个子矩形上的振幅不是 $0$
-就是 $1$，且等于 $1$ 当且仅当子矩形碰到边界两侧。因此振幅和可任意小
-等价于可用总体积任意小的有限个矩形覆盖 $\partial E$，即边界为 Jordan
-零测集。此时
-$\int_Q\mathbf1_E$ 与包住 $E$ 的矩形 $Q$ 无关：换一个矩形只在指标函数
-恒为零的区域上增加积分。它便定义了 $E$ 的 Jordan 体积。
+若 $Q$ 退化，则 $\partial E\subseteq Q$ 是零测集，指示函数积分为零，
+结论成立。以下设 $Q$ 非退化。若 $\partial E$ Jordan 零测，则指示函数
+在 $Q$ 上的相对不连续点包含于 $\partial E$，由零测不连续集判据可积。
+
+反向设指示函数可积。给定 $\varepsilon>0$，取分割 $P$，使
+\[
+ \sum_{R\in P}\omega(\mathbf1_E;R)|R|<\varepsilon/2.
+\]
+令 $B$ 为所有分割面的并（包含 $\partial Q$），以总体积小于
+$\varepsilon/2$ 的有限薄矩形覆盖 $B$。任何 $x\in\partial E\setminus B$
+都处在某一块内部；在该块内的小球同时遇到 $E$ 与补集，所以该块的振幅
+为一。这些振幅为一的块，加上覆盖 $B$ 的薄矩形，覆盖整个 $\partial E$，
+总体积小于 $\varepsilon$。因此 $\partial E$ Jordan 零测。
+
+必须保留 $B$：例如 $E=Q$ 时，指示函数在 $Q$ 上处处连续，却有
+$\partial E=\partial Q\ne\varnothing$。两个外包矩形可嵌入同一个大矩形，
+把各矩形面加入分割，零延拓与矩形分割可加性保证积分值不变。
 \end{solution}
 
 \begin{solution}{graph-jordan-null}
@@ -85,16 +108,29 @@ $|\bigcup_{i=1}^mE_i|=\sum_{i=1}^m|E_i|$。
 \end{solution}
 
 \begin{solution}{multiple-darboux-cauchy}
-设 \(f\) 有界。若存在分割 \(P\) 使
-\(U(f,P)-L(f,P)<\varepsilon\)，则任意加细分割上的两个标记和都夹在
-\(L(f,P)\) 与 \(U(f,P)\) 之间，因而相差小于 \(\varepsilon\)。任意两个
-网径充分小的分割取公共加细，并把因端点不一致产生的小矩形先用有界性控制，
-即可得到标记和的 Cauchy 判据。
+设 $|f|\le M$，先设 $Q$ 非退化且 $M>0$。若振幅判据成立，给定
+$\varepsilon>0$，选 $P_0$ 使 $U(f,P_0)-L(f,P_0)<\varepsilon/3$。
+记其有限个内部分割面附近、宽 $2\eta$ 的薄条总体积上界为 $C\eta$。
+选 $\eta$ 使 $4MC\eta<\varepsilon/3$。对任意网格小于 $\eta$ 的
+分割 $P$，将其加细为同时包含 $P_0$ 的分割。没有碰到 $P_0$ 分割面的
+块可以保留原标记；被切开的块总体积至多为 $C\eta$。在其中任取新标记，
+新旧和之差至多为 $2MC\eta$。加细和介于 $L(f,P_0)$ 与 $U(f,P_0)$
+之间。因此任意两个网格小于 $\eta$ 的标记和相差至多
+\[
+ U(f,P_0)-L(f,P_0)+4MC\eta<\varepsilon.
+\]
+这就是 Cauchy 判据，其中两个分割及其标记均可独立选择。
 
-反之，若所有充分细标记和两两相差小于 \(\varepsilon\)，固定一个充分细
-分割。在每个小矩形中分别选取使函数值距上确界、下确界任意近的点；相应
-两个标记和之差任意接近 \(U(f,P)-L(f,P)\)。故该差不超过
-\(\varepsilon\)。令 \(\varepsilon\downarrow0\)，得到 Darboux 判据。
+反之，给定 $\varepsilon>0$，按 Cauchy 条件选网格阈值，使任意两个
+充分细标记和相差小于 $\varepsilon/2$。固定这样的分割 $P$，分别在每块
+选取逼近上、下确界的标记；让逼近误差趋零，可得
+$U(f,P)-L(f,P)\le\varepsilon/2<\varepsilon$。于是振幅判据成立。
+
+为同时核验 Darboux 判据与 Riemann 定义的关系，公共加细使每个下和
+不超过每个上和。振幅和可任意小时，上下积分相等；上面的薄条估计说明
+所有充分细的标记和均趋于公共值。若反过来所有细标记和趋于同一值，则
+它们满足 Cauchy 条件，前段给出振幅判据。$M=0$ 或 $Q$ 退化时所有和
+均为零，结论直接成立。
 \end{solution}
 
 \begin{solution}{jordan-set-algebra}
@@ -130,12 +166,14 @@ Jordan 零测集之并，仍为 Jordan 零测集。集合判据于是说明三�
 \end{solution}
 
 \begin{solution}{jordan-continuous-domain}
-设 \(Q\) 包含 \(E\)，并把 \(f\in C(\overline E)\) 连续延拓为
-\(F\in C(Q)\)。函数 \(F\mathbf1_E\) 只可能在 \(\partial E\) 上不连续，
-所以由振幅判据可积。
+$\overline E$ 紧，所以 $f$ 有界。对包含 $E$ 的闭矩形 $Q$，令
+$f_E=f$ 于 $E$，并令 $f_E=0$ 于 $Q\setminus E$。若一点不在
+$\partial E$ 上，则它或者在 $E$ 的内部，或者在 $\overline E$ 的外部；
+前一种情形由 $f$ 的连续性，后一种情形由局部恒零性，说明 $f_E$ 连续。
+因此不连续点包含于 Jordan 零测集 $\partial E$，从而 $f_E$ 可积。
 
-若 \(G\) 是另一延拓，则 \((F-G)\mathbf1_E=0\)：在 \(E\) 上两者都等于
-\(f\)，在 \(Q\setminus E\) 上指标为零。因此积分相同。若更换外包矩形，
-在共同的大矩形中比较，两种被积函数只在指标为零的区域增加零值，积分仍
-不变。
+若 $F$ 是 $f|_E$ 的任意延拓，不要求它连续，则仍有 $F\mathbf1_E=f_E$，
+所以积分值与延拓选择无关。对另一个外包矩形 $Q'$，取同时包含 $Q,Q'$
+的大矩形并按二者的面分割。零延拓在 $Q$ 外为零，矩形分割可加性给出
+大矩形积分等于 $Q$ 上的积分；对 $Q'$ 同理。这证明外包矩形无关性。
 \end{solution}

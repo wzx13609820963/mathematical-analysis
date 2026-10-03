@@ -10,7 +10,7 @@
 \section{局部平均}
 
 称 \(f\in L^1_{\mathrm{loc}}(\R)\)，若它在每个有界区间上可积。选择一个
-几乎处处有限的可测代表，在其有限取值点定义
+几乎处处有限的可测代表，在非有限取值的可测零集上补零。对 \(r>0\) 定义
 \[
  A_r f(x)=\frac1{2r}\int_{x-r}^{x+r}f(t)\,dt,\qquad
  Df(x)=\limsup_{r\downarrow0}\frac1{2r}\int_{x-r}^{x+r}|f(t)-f(x)|\,dt.
@@ -22,13 +22,15 @@
 \section{区间覆盖}
 
 \begin{lemma}[有限三倍覆盖]\label{lem:three-interval-cover}
-给定有限族有界区间，可从中选出内部两两不交的区间 \(I_j\)，使原来
-全部区间的并包含在 \(\bigcup_j3I_j\) 中。
+给定有限族正长度有界区间，可从中选出内部两两不交的区间 \(I_j\)，使原来
+全部区间的并包含在 \(\bigcup_j3I_j\) 中。这里 \(3I_j\) 指与 \(I_j\)
+同中心、长度为其三倍的闭区间，不论原区间采用何种端点约定。
 \end{lemma}
 \begin{proof}
-按长度不增次序选取，每选一个便丢弃与它相交的剩余区间。被丢弃的区间
-长度不大于使它被丢弃的区间，且二者相交，所以被包含在后者的三倍区间中。
-接触端点时可将端点一并计入，对长度估计没有影响。
+先将区间取闭包，按长度不增次序选取，每选一个便丢弃闭包与它相交的剩余
+区间。被丢弃的区间长度不大于所选区间。两中心的距离至多为两长度之和
+的一半，所以被丢弃区间中每点到所选中心的距离至多为所选长度的三半。
+这正是包含于 \(3I_j\) 的条件。把所选闭包对应回原区间，长度和积分不变。
 \end{proof}
 
 这里丢失一个常数 \(3\)，却不要求区间任意细。
@@ -109,11 +111,12 @@
 \section{积分函数的导数}
 
 \begin{theorem}\label{thm:primitive-ae-derivative}
-设 \(f\in L^1(a,b)\)，\(F(x)=\int_a^x f(t)\,dt\)。则
+设 \(-\infty<a<b<\infty\)、\(f\in L^1(a,b)\)，\(F(x)=\int_a^x f(t)\,dt\)。则
 \(F'(x)=f(x)\) 几乎处处。
 \end{theorem}
 \begin{proof}
-在 \(f\) 的 Lebesgue 点，对正负非零 \(h\)，有
+将 \(f\) 在区间外延拓为零。在内点 \(x\) 若它是 Lebesgue 点，对满足
+\(0<|h|<\min\{x-a,b-x\}\) 的正负 \(h\)，有
 \[
  \left|\frac{F(x+h)-F(x)}h-f(x)\right|
  \le\frac1{|h|}\int_{x-|h|}^{x+|h|}|f(t)-f(x)|\,dt\longrightarrow0.
@@ -130,7 +133,7 @@
 \addcontentsline{toc}{section}{习题}
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
-\exerciseitem{maximal-sublinear}证明 \(M(f+g)\le Mf+Mg\) 和 \(M(cf)=|c|Mf\)。
+\exerciseitem{maximal-sublinear}设 \(f,g\in L^1(\R)\)。证明 \(M(f+g)\le Mf+Mg\)；对 \(c\ne0\) 证明 \(M(cf)=|c|Mf\)，并单独说明 \(M(0)=0\)。
 \exerciseitem{maximal-finite-ae}证明 \(f\in L^1(\R)\) 时 \(Mf<\infty\) 几乎处处。
 \exerciseitem{lebesgue-continuity-points}证明每个连续点都是 Lebesgue 点，并给出 Lebesgue 点不是连续点的例子。
 \exerciseitem{density-null-dense}用 \(E=\Q\) 说明密度为零与“不在集合闭包中”不同。
@@ -140,7 +143,7 @@
 \exerciseitem{differentiation-offcenter}若 \(x\) 为 Lebesgue 点，证明沿任意包含 \(x\)、长度趋零的区间 \(I\)，平均 \(|I|^{-1}\int_I f\to f(x)\)。
 \exerciseitem{primitive-unique-integrand}若 \(f,g\in L^1(a,b)\) 且所有 \(x\) 都有 \(\int_a^xf=\int_a^xg\)，证明 \(f=g\) 几乎处处。
 \exerciseitem{positive-integrals-positive-function}若 \(f\in L^1_{\rm loc}(\R)\) 且任意有界区间上积分非负，证明 \(f\ge0\) 几乎处处。
-\exerciseitem{density-interior-empty}构造内点为空而几乎每个点密度为一的正测度集合。
+\exerciseitem{density-interior-empty}构造内点为空，而集合中几乎每个点密度为一的正测度集合。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]

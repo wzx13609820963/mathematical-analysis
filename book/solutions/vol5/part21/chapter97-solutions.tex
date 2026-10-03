@@ -183,7 +183,21 @@ $|1-\overline a z|=|z-a|$，所以边界值为零。第一项在圆盘中光滑�
 $-\Delta[-(2\pi)^{-1}\log|z-a|]=\delta_a$，故
 $-\Delta_zG=\delta_a$。
 
-令 $z=r\zeta$、$|\zeta|=1$，对 $r$ 求导并在 $r=1$ 代入；通分化简得到
+令 $z=r\zeta$、$|\zeta|=1$。由非零复函数的对数模求导公式，
+\[
+ 2\pi\partial_rG(r\zeta,a)
+ =\operatorname{Re}\left(
+ -\frac{\overline a\zeta}{1-r\overline a\zeta}
+ -\frac{\zeta}{r\zeta-a}\right).
+\]
+在 $r=1$ 时记 $b=\overline\zeta a$，括号中的两项分别为
+$-\overline b/(1-\overline b)$ 和 $-1/(1-b)$。因此其实部为
+\[
+ -\operatorname{Re}\frac{1+b}{1-b}
+ =-\frac{1-|b|^2}{|1-b|^2}
+ =-\frac{1-|a|^2}{|\zeta-a|^2}.
+\]
+于是
 \[
  -\partial_rG(r\zeta,a)|_{r=1}
  =\frac1{2\pi}\frac{1-|a|^2}{|\zeta-a|^2}.

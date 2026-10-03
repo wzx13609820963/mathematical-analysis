@@ -14,7 +14,8 @@ Lebesgue 测度。
  E\subseteq\bigcup_{n=1}^{\infty}I_n, I_n\text{ 为开区间}\right\}.
  \label{eq:lebesgue-outer-measure-line}
 \end{equation}
-由覆盖外测度的一般构造，$m^*$ 是外测度。允许无界区间不会改变定义；
+覆盖族中允许空区间，其长度为零；由覆盖外测度的一般构造，$m^*$ 是外测度。
+允许无界区间不会改变定义；
 需要有限总代价时，所用区间必可取为有界区间。
 
 \begin{lemma}[区间的外长度]
@@ -136,57 +137,84 @@ $F=\bigcup_nK_n$ 是 $F_\sigma$ 集且 $m(E\setminus F)=0$。一般可测集先
 
 \section{欧氏空间中的 Lebesgue 测度}
 
-在 $\R^d$ 中，对半开长方体
+设 $d\ge1$ 为整数。对有界开、闭或半开长方体，规定体积为各边长之积，
+空集体积为零。有限个半开长方体的不交并，其体积按各块相加；两种有限
+分解可用所有坐标端点作共同网格细分，因此结果与分解无关。不过这些集合
+不包含全空间，不能直接套用上一章在集合代数上陈述的延拓定理。
+以下从开长方体覆盖构造。
 \[
- R=\prod_{j=1}^d[a_j,b_j)
+ m_d^*(E)=\inf\left\{\sum_{n\ge1}v(O_n):
+ E\subseteq\bigcup_{n\ge1}O_n,\ O_n\text{ 为有界开长方体或空集}\right\}.
 \]
-规定体积 $v(R)=\prod_j(b_j-a_j)$。有限个这类长方体的有限不交并构成一个
-环；把体积按不交分解相加，所得数值与分解无关，因为两个有限分解可用全部
-坐标端点作共同网格细分。
+它由覆盖构造成为外测度。
 
 \begin{proposition}
-上述体积是长方体环上的 $\sigma$-有限预测度。
+每个有界开、闭或半开长方体 $R$ 满足 $m_d^*(R)=v(R)$。
 \end{proposition}
-
 \begin{proof}
-只需核对可数可加性。若长方体 $R$ 被两两不交的长方体 $R_n$ 分解，对每个
-$N$ 作共同网格细分，有限可加性给出
-$\sum_{n\le N}v(R_n)\le v(R)$，所以
-$\sum_nv(R_n)\le v(R)$。
-
-反向固定 $\varepsilon>0$。把 $R$ 各面稍向内移动，得到紧长方体
-$K\subset R$，并使 $v(K)>v(R)-\varepsilon$。再把每个 $R_n$ 稍向外
-扩张为开长方体 $O_n\supset R_n$，扩张量安排为
-$v(O_n)<v(R_n)+\varepsilon2^{-n}$。开集族 $(O_n)$ 覆盖 $K$，故有有限
-子覆盖 $O_{n_1},\ldots,O_{n_s}$。用这些长方体的全部坐标端点细分一个包含
-它们的长方体；在所得有限网格上逐格计数，得到有限次可加性的估计
+稍向外扩张各面，得到覆盖 $R$ 的开长方体，其体积任意接近 $v(R)$，
+故 $m_d^*(R)\le v(R)$。若 $R$ 非退化，给定 $\varepsilon>0$，稍向内收缩
+各面，可取紧长方体 $K\subset R$ 且 $v(K)>v(R)-\varepsilon$。
+任意开长方体覆盖 $(O_n)$ 覆盖 $K$，由紧致性存在有限子覆盖。
+按这有限族及 $K$ 的全部坐标端点细分，逐格比较体积，得到
 \[
- v(K)\le\sum_{j=1}^sv(O_{n_j})
- \le\sum_{n=1}^{\infty}v(R_n)+\varepsilon.
+ v(K)\le\sum_{j=1}^s v(O_{n_j})\le\sum_{n\ge1}v(O_n).
 \]
-因此
-$v(R)-\varepsilon<\sum_nv(R_n)+\varepsilon$。令
-$\varepsilon\downarrow0$，便得可数可加性。一般环元素先化为有限不交并，
-再对每个分量作同一论证。最后，$\R^d$ 是递增有界半开立方体的并，所以该
-预测度是 $\sigma$-有限的。
+网格面不影响有限体积和；这也是前文有限长方体覆盖的体积不等式。
+令 $\varepsilon\downarrow0$，再对覆盖取下确界，得反向不等式。
+退化长方体可以装入体积任意小的开长方体，故其外测度为零。
 \end{proof}
 
-Carathéodory 延拓给出 $\mathcal B(\R^d)$ 上唯一的 $\sigma$-有限测度；
-再取完备化，得到 $\R^d$ 上的 Lebesgue $\sigma$-代数
-$\mathcal L(\R^d)$ 和 Lebesgue 测度 $m_d$。不致混淆时仍写 $m$ 或
-$|E|$。它满足
-\[
- m_d(x+E)=m_d(E),
- \qquad
- m_d(rE)=|r|^d m_d(E)\quad(r\ne0).
-\]
-第一式先在长方体上成立，再由延拓唯一性推广；第二式同理，或直接缩放
-覆盖长方体得到。若 $r=0$，则 $rE$ 为空集或单点，因而测度为零；当
-$m_d(E)=+\infty$ 时，不把这一结论写成未定义的乘积 $0\cdot(+\infty)$。
+任给 $\delta>0$，覆盖可限定为直径小于 $\delta$ 的开长方体。
+每个有界覆盖长方体作有限细分，再微量扩大各块，就能开覆盖原长方体，
+保持直径小于 $\delta$，并使第 $n$ 个长方体增加的总体积小于
+$\varepsilon2^{-n}$。因此外测度有限时，总增加量可任意小。
+距离为正的两个集合不能同时与这样的短长方体相交，分开覆盖后取下确界，
+得到度量可加性；若并集外测度无穷，所需反向不等式自动成立。
+由上一章度量外测度的证明，所有闭集、从而所有Borel集可测。
 
-同一正则性证明在 $\R^d$ 中成立：可测集可由开集从外逼近，有限测度可测
-集可由紧集从内逼近。开集还可写成至多可数个内部不交的半开有理长方体之
-并，这使长方体预测度确实控制全部 Borel 集。
+定义 $\mathcal L(\R^d)=\mathcal M_{m_d^*}$，以及
+$m_d=m_d^*|_{\mathcal L(\R^d)}$。Carathéodory 定理给出完备测度，
+它在长方体上等于体积；整数单位半开立方体覆盖全空间，故它是
+$\sigma$-有限的。不致混淆时仍写 $m$ 或 $|E|$。
+
+它在Borel集上的限制由长方体体积唯一确定。固定 $Q_N=[-N,N)^d$，
+其中有限个半开长方体的并构成 $Q_N$ 上的相对代数，总测度有限。
+欧氏开集有可数有理长方体基，而开长方体又可写成内部半开长方体的可数并，
+故这个相对代数生成 $\mathcal B(Q_N)$。两个给长方体相同体积的Borel测度，
+由上一章有限延拓唯一性在 $Q_N$ 上相等；令 $N\uparrow\infty$ 即在全部
+Borel集上相等。这里所用代数始终包含其相对全集。
+
+平移及非零伸缩把开长方体覆盖一一对应，故对任意集合 $E$，
+\[
+ m_d^*(x+E)=m_d^*(E),\qquad
+ m_d^*(rE)=|r|^d m_d^*(E)\quad(r\ne0).
+\]
+将任意测试集作逆变换，在Carathéodory等式两边同乘相同的有限正数，
+可知这些变换保持Lebesgue可测性。因此对可测集，
+\[
+ m_d(x+E)=m_d(E),\qquad m_d(rE)=|r|^d m_d(E)\quad(r\ne0).
+\]
+若 $r=0$，像为空集或单点，测度为零；当 $m_d(E)=\infty$ 时，
+不把它写成未定义的乘积 $0\cdot\infty$。
+
+正则性也由覆盖定义得到。设 $m_d(E)<\infty$，选取总体积小于
+$m_d(E)+\varepsilon$ 的开长方体覆盖。其并为开外包 $O$，并且
+$m_d(O\setminus E)<\varepsilon$。一般 $E$ 先与整数单位半开立方体逐个相交，
+对第 $j$ 块使用误差 $\varepsilon2^{-j}$（$j\ge1$），再取开外包的并。
+由于多出的部分包含于各块多出部分之并，仍有差集测度小于 $\varepsilon$。
+
+若 $m_d(E)<\infty$，取大闭立方体 $Q$ 使
+$m_d(E\setminus Q)<\varepsilon/2$。对 $Q\setminus E$ 取开外包 $O$，
+额外测度小于 $\varepsilon/2$，则 $K=Q\setminus O\subseteq E$ 紧，且
+$m_d(E\setminus K)<\varepsilon$。这证明了开外逼近和紧内逼近，
+不需要预先分解所有开集。
+
+由开外包逐次取交，每个可测 $E$ 都包含于某个Borel集 $G$，且
+$m_d(G\setminus E)=0$。再对这个零测差集取开外包的交，得到包含它的
+Borel零测集 $H$。于是 $E\mathbin\triangle G\subseteq H$，说明
+$\mathcal L(\R^d)$ 恰是Borel测度的完备化；反向包含来自Carathéodory
+测度的完备性。覆盖构造与Borel测度完备化因而给出同一测度空间。
 
 \section{与 Jordan 测度的关系}
 
@@ -198,12 +226,10 @@ $m_d(\partial E)=0$。
 \end{theorem}
 
 \begin{proof}
-先回顾有限网格判据。取一个有界长方体 $Q\supseteq E$，并对 $Q$ 作有限
-长方体分割。完全落在 $E$ 中的网格块之体积和是一个内和；与 $E$ 相交的
-网格块之体积和是相应外和。二者之差正是“同时遇到 $E$ 与 $E^c$”的网格块
-的总体积，而这类块的闭包覆盖 $\partial E$。因此 $E$ Jordan 可测等价于：
-对每个 $\varepsilon>0$，可用有限个长方体覆盖 $\partial E$，且总体积小于
-$\varepsilon$。换言之，$\partial E$ 是 Jordan 零测集。
+定理 \ref{thm:jordan-indicator-boundary} 已经证明：有界集 $E$ 的指标函数
+Riemann可积，当且仅当 $\partial E$ 为Jordan零测集。这正是Jordan可测性
+的有限网格判据。该证明把网格所有面另作零测覆盖；只覆盖指标函数振幅非零
+的网格块不足以覆盖全部边界，尤其不能遗漏外围矩形的面。
 
 若 $E$ Jordan 可测，上述有限覆盖也是 Lebesgue 外测度的允许覆盖，故
 $m_d(\partial E)=0$。集合 $E^\circ$ 可测，且
@@ -256,8 +282,10 @@ Jordan 理论稳定得多。
  证明每个有限测度 Lebesgue 可测集含有 $F_\sigma$ 集 $F$，且
  $m(E\setminus F)=0$。
  \exerciseitem{borel-versus-lebesgue-cardinality}
- 说明只要存在一个不可数 Borel 零测集，Lebesgue $\sigma$-代数就严格大于
- Borel $\sigma$-代数。可使用 Cantor 集与幂集的基数结论。
+ 设 $C=\{\sum_{n\ge1}2\varepsilon_n3^{-n}:\varepsilon_n\in\{0,1\}\}$。
+ 证明 $C$ 是闭零测集且与 $\mathcal P(\Npos)$ 等势，并由此证明
+ $\mathcal B(\R)\ne\mathcal L(\R)$。为估计Borel集族的大小，可把可数并和
+ 补运算编码为 $\N$ 的有限序列组成的可数树；须说明这种编码为何涵盖全部Borel集。
  \exerciseitem{regular-approximation-symmetric-difference}
  若 $E$ 可测且有限测度，证明对每个 $\varepsilon>0$ 存在紧集 $K$ 与开集
  $O$，使 $K\subseteq E\subseteq O$ 且 $m(O\setminus K)<\varepsilon$。

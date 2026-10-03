@@ -8,13 +8,19 @@
 
 \section{逐点、几乎处处与本质一致收敛}
 
-设 \(f_n,f\) 为同一测度空间上几乎处处有限的可测函数；在一个固定零测集
-上可任意补成有限值。对这样的函数 \(h\)，记
+本章固定测度空间 \((X,\mathcal A,\mu)\)，函数取实值，序列指标从1开始。
+对几乎处处有限的可测函数列及其候选极限，可把它们取无穷值的集合的可数并
+记作 \(N\)，并在这个可测零集上统一置零，得到处处有限的可测代表。
+不假定测度完备时，不能在零测集上任意赋值后仍声称可测。
+以下涉及逐点或普通一致收敛时，均针对指定的有限代表；涉及几乎处处性质时，
+上述修改不影响结论。对可测函数 \(h\)，记
 \[
  \operatorname*{ess\,sup}_{x\in X}|h(x)|
  =\inf\{M\ge0:\mu(\{|h|>M\})=0\},
 \]
-若右侧集合为空，则其值为 \(+\infty\)。这个量忽略零测集上的点值；第
+若右侧集合为空，则其值为 \(+\infty\)；若 \(\mu(X)=0\)，则其值为零。
+在比较非负误差的普通上确界时，约定空定义域上的上确界误差为零。
+这个量忽略零测集上的点值；第
 \ref{chap:lp-inclusions} 章将用它定义 \(L^\infty\) 范数。
 
 \begin{definition}
@@ -74,9 +80,10 @@
 \end{proposition}
 
 \begin{proof}
-对称性由定义得到。若 \(d_\mu(f,g)=0\)，则对每个 \(k\) 可取
+替换几乎处处相等的可测代表不改变任何超水平集的测度，故定义与代表无关。
+对称性由定义得到。若 \(d_\mu(f,g)=0\)，则对每个 \(k\ge1\) 可取
 \(0<\eta_k<1/k\)，使
-\(\mu(\{|f-g|>\eta_k\})\le\eta_k\)。固定 \(m\)，当 \(k\) 足够大时
+\(\mu(\{|f-g|>\eta_k\})\le\eta_k\)。固定 \(m\ge1\)，当 \(k\) 足够大时
 \(\eta_k<1/m\)，因而
 \[
  \mu(\{|f-g|>1/m\})
@@ -125,8 +132,8 @@
  \quad\Longrightarrow\quad
  \Phi(f_n)\xrightarrow{\mu}\Phi(f).
 \]
-若进一步有 \(\mu(X)<\infty\)，则“一致连续”可放宽为“连续”；对几乎
-处处有限的函数列，乘法也保持依测度收敛。特别地，此时
+若进一步有 \(\mu(X)<\infty\)，则“一致连续”可放宽为“连续”；乘法也保持
+依测度收敛。即若 \(f_n\xrightarrow{\mu}f\)、\(g_n\xrightarrow{\mu}g\)，则
 \[
  f_n+g_n\to f+g,\qquad f_ng_n\to fg
 \]
@@ -169,12 +176,23 @@
 
 \section{\texorpdfstring{\(L^p\)}{Lp} 收敛}
 
-对 \(0<p<\infty\)，若
+对 \(0<p<\infty\) 和可测函数 \(h\)，记
+\[
+ \|h\|_p=\left(\int_X|h|^p\,d\mu\right)^{1/p},
+\]
+暂时允许该量为无穷。以 \(L^p(\mu)\) 表示使此量有限的函数所成的
+几乎处处等价类集合。设 \(f_n,f\in L^p(\mu)\)。若
 \[
  \int_X|f_n-f|^p\,d\mu\longrightarrow0,
 \]
 则称 \(f_n\to f\) 于 \(L^p\)。第 \ref{chap:lp-spaces} 章将证明
-\(p\ge1\) 时这来自一个完备范数；目前只需把它看作平均误差趋零。
+\(p\ge1\) 时 \(\|\cdot\|_p\) 是完备范数；\(0<p<1\) 时它不是范数。
+这里的收敛定义对所有 \(p>0\) 都适用。
+
+只知道差的 \(p\) 次积分趋零，并不能推出函数本身属于 \(L^p\)。例如
+在 \(\mathbb R\) 上取 \(f_n=f=1\)，误差恒为零，但任何一个函数都不属于
+有限 \(p\) 的 \(L^p(\mathbb R)\)。下文说“于 \(L^p\) 收敛”时，
+始终包括函数与极限属于该空间的要求。
 
 \begin{theorem}
 \label{thm:lp-implies-measure}
@@ -201,7 +219,8 @@
 若 \(\mu(X)<\infty\)，则：
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item 几乎处处收敛蕴含依测度收敛；
- \item 本质一致收敛蕴含 \(L^p\) 收敛，对每个 \(0<p<\infty\)；
+ \item 对任意 \(0<p<\infty\)，若 \(f_n,f\in L^p(\mu)\)，
+ 则本质一致收敛蕴含 \(L^p\) 收敛；
  \item 若 \(0<p<q<\infty\)，则 \(L^q\) 收敛蕴含 \(L^p\) 收敛。
 \end{enumerate}
 \end{theorem}
@@ -211,11 +230,14 @@
 \(\mathbf1_{\{|f_n-f|>\varepsilon\}}\to0\) a.e.，并由
 \(\mathbf1_X\in L^1\) 控制；控制收敛给出 (i)。
 
-若本质上 \(|f_n-f|\le a_n\to0\)，则
+若本质一致收敛，舍去有限项后可取有限数 \(a_n\to0\)，使
+\(|f_n-f|\le a_n\) 几乎处处。于是
 \[
  \int|f_n-f|^p\le a_n^p\mu(X)\to0,
 \]
-得到 (ii)。对 (iii)，令 \(h_n=f_n-f\)。固定 \(\rho>0\)，在
+得到 (ii)。对 (iii)，先注意 \(|u|^p\le1+|u|^q\) 保证
+\(L^q(\mu)\subseteq L^p(\mu)\)，所以函数列与极限都属于目标空间。
+令 \(h_n=f_n-f\)。固定 \(\rho>0\)，在
 \(\{|h_n|>\rho\}\) 上有
 \(|h_n|^p\le\rho^{p-q}|h_n|^q\)，所以
 \[
@@ -229,15 +251,19 @@
 
 \section{反向命题的反例}
 
+有限测度使一致控制的误差可积，并不自动使原函数可积。例如在 \((0,1)\)
+上令 \(f_n=f=1/x\)，虽一致收敛，函数本身却不属于 \(L^1\)。
+这说明上一条定理的第二项仍须说明函数所属的空间。
+
 \begin{example}[typewriter 函数列]
-依次枚举所有二进区间
+在 \([0,1)\) 上，依次枚举所有二进区间
 \[
  [k2^{-m},(k+1)2^{-m}),\qquad
  m=0,1,\ldots,\quad k=0,\ldots,2^m-1,
 \]
 并令 \(f_n\) 为相应区间的指示函数。支撑长度趋于零，所以
-\(f_n\to0\) 依测度，且对每个 \(p>0\)，\(\|f_n\|_p\to0\)。但除二进
-端点外，每个 \(x\) 在每一层恰落入一个区间，也在同层其他项取零，所以
+\(f_n\to0\) 依测度，且对每个 \(p>0\)，\(\|f_n\|_p\to0\)。每个
+\(x\in[0,1)\) 在每一层恰落入一个区间，当层级 \(m\ge1\) 时也在同层其他项取零，所以
 \((f_n(x))\) 不收敛。故 \(L^p\) 收敛和依测度收敛都不推出整列几乎处处
 收敛。
 \end{example}
@@ -285,7 +311,8 @@ Cauchy 条件。
 测度收敛。
 
 \exerciseitem{typewriter-details}
-给 typewriter 函数列写出精确编号公式，证明它在每个 \(L^p(0,1)\) 中
+给 typewriter 函数列写出精确编号公式，证明它在每个 \(L^p(0,1)\)
+（\(0<p<\infty\)）中
 趋于零但几乎处处不收敛。
 
 \exerciseitem{measure-not-lp-spike}
@@ -304,12 +331,14 @@ Cauchy 条件。
 并不矛盾。
 
 \exerciseitem{finite-lq-lp-estimate}
-证明有限测度空间上的
+设 \(\mu(X)<\infty\)，\(h\) 可测。允许 \(\|h\|_p,\|h\|_q\)
+取无穷值，并约定本题中的 \(0\cdot\infty=0\)。证明
 \[
  \|h\|_p\le\mu(X)^{1/p-1/q}\|h\|_q
 \quad(0<p<q<\infty),
 \]
-并找出等号成立的非零函数。
+当 \(0<\mu(X)<\infty\) 时，找出有限值且不几乎处处为零的等号例子，
+并说明常数最优；另行处理零测空间。
 
 \optionalexerciseitem{distribution-functions-convergence}
 设 \(\mu(X)<\infty\)，且 \(f_n\to f\) 依测度。证明对每个满足

@@ -64,14 +64,11 @@
 \(D\subseteq B\cap C\)，再取 \(z\in D\)。则 \((D,z)\) 是共同
 上界，所以指标集有向。
 
-若 \(\langle\mathcal B\rangle\to a\)，给定邻域 \(U\ni a\)，存在
-\(B\in\mathcal B\) 使 \(B\subseteq U\)。从任意 \((B,x)\) 开始，
-后继 \((C,y)\) 满足 \(C\subseteq B\)，故网值 \(y\in U\)。规范网
-趋于 \(a\)。反之，若规范网趋于 \(a\)，给定邻域 \(U\)，存在
-\((B_0,x_0)\) 使其后网值全在 \(U\)。取滤子基中
-\(B_1\subseteq B_0\)。对每个 \(y\in B_1\)，指标 \((B_1,y)\) 都在
-\((B_0,x_0)\) 之后，故 \(y\in U\)。于是 \(B_1\subseteq U\)，从而
-\(U\in\langle\mathcal B\rangle\)。
+从指标 \((B,x)\) 开始，所有后继网值都属于 \(B\)；反之，对任意
+\(y\in B\)，指标 \((B,y)\) 是其后继，网值就是 \(y\)。故该尾部的
+值集恰为 \(B\)。当 \(B\) 遍历滤子基时，全部尾部正好生成
+\(\langle\mathcal B\rangle\)。网收敛等价于尾滤子收敛，因而所需
+收敛点完全相同，且两者的聚点也相同。
 \end{solution}
 
 \begin{solution}{net-cluster-tail-closure}
@@ -195,14 +192,23 @@
 \end{solution}
 
 \begin{solution}{compact-map-closed}
-设 \(A\subseteq X\) 闭。由于 \(X\) 紧致，\(A\) 紧致；连续像
-\(f(A)\) 也紧致。Hausdorff 空间中的紧致子集闭，所以 \(f(A)\) 闭，
-即 \(f\) 为闭映射。
+设 \(A\subseteq X\) 闭，则 \(A\) 紧致。若 \(A=\varnothing\)，像闭；
+以下设 \(y\in\overline{f(A)}\)，由闭包的网刻画，存在
+\((y_i)_{i\in I}\subseteq f(A)\) 趋于 \(y\)。为同时保留所有原像，令
+\[
+ J=\{(i,a):i\in I,\ a\in A,\ f(a)=y_i\},
+\]
+并按第一坐标排序。每个 \(y_i\) 都有原像，所以 \(J\) 非空；给定两个
+指标，先取第一坐标的共同上界 \(k\)，再取任意 \(a\in A\) 满足
+\(f(a)=y_k\)，便得到共同上界 \((k,a)\)。故 \(J\) 有向。
 
-也可直接用网验证最后一步：若 \(y_i\in f(A)\) 且 \(y_i\to y\)，取
-\(x_i\in A\) 使 \(f(x_i)=y_i\)。避免逐项选择时可把所有这样的
-\((i,x_i)\) 作为加细指标。紧致性给出收敛子网趋于某个 \(x\in A\)，
-连续性和 Hausdorff 极限唯一性给出 \(f(x)=y\)，故 \(y\in f(A)\)。
+投影 \(p:J\to I\) 最终共尾：给定 \(i_0\)，取一个 \((i_0,a_0)\)，
+它之后的所有第一坐标都超过 \(i_0\)。网 \(z_{(i,a)}=a\) 位于紧空间
+\(A\) 中，故有一个收敛子网 \(z_{\psi(\ell)}\to a\in A\)。由连续性，
+\(f(z_{\psi(\ell)})\to f(a)\)。另一方面，这个像网是原网的子网，
+因为 \(p\circ\psi\) 最终共尾，所以它也趋于 \(y\)。Hausdorff空间
+中的网极限唯一，给出 \(y=f(a)\in f(A)\)。因此 \(f(A)\) 闭，
+\(f\) 为闭映射。
 
 若 \(f\) 还是双射，则逆映射 \(f^{-1}:Y\to X\) 的开集原像为
 \(f(U)\)。由于 \(f\) 闭且双射，\(f(U)=Y\setminus f(X\setminus U)\)

@@ -133,12 +133,14 @@ $\operatorname{div}X=\rho^{-1}\partial_i(\rho X^i)$。反向坐标变换同时�
 \end{solution}
 
 \begin{solution}{riemannian-first-variation}
-记 $T=\partial_t\Gamma$、$V=\partial_s\Gamma$。度量相容性给
+记 $T=\partial_t\Gamma$、$V=\partial_s\Gamma$，以下用沿参数族的协变导数。
+度量相容性给
 \[
  \frac d{ds}E(\Gamma_s)\bigg|_{s=0}
  =\int_a^bg(\nabla_VT,T)dt.
 \]
-坐标向量场交换且联络无挠，故 $\nabla_VT=\nabla_TV$。再用乘积法则，
+由 $D_sT=D_tV$，上式的 $\nabla_VT$ 理解为 $D_sT$，等于 $D_tV$。
+再用乘积法则，
 \[
  g(\nabla_TV,T)=\frac d{dt}g(V,T)-g(V,\nabla_TT).
 \]
@@ -152,8 +154,16 @@ $\int g(V,\nabla_TT)=0$ 对所有紧支撑变分场成立。局部坐标中的�
 设 $\gamma(t)$ 是单位球面上的单位速大圆。作为 $\R^{n+1}$ 中曲线，
 $\ddot\gamma=-\gamma$，完全沿球面的法向；球面 Levi--Civita 导数是环境
 导数的切向分量，故 $D\dot\gamma/dt=0$。小圆的环境加速度除法向分量外通常
-还有指向小圆圆心的球面切向分量，因此其协变加速度不为零。只有赤道，即过
-球心的圆，消去该切向分量。
+还有球面切向分量。具体地，小圆可写为
+$\gamma(t)=a+r(\cos(t/r)e_1+\sin(t/r)e_2)$，其中
+$a\perp e_1,e_2$、$r^2+|a|^2=1$、$0<|a|<1$。它为单位速曲线，且
+\[
+ \frac{D\dot\gamma}{dt}
+ =\ddot\gamma+\gamma
+ =\frac{a-|a|^2\gamma}{r^2}\ne0.
+\]
+若该向量为零，则 $a=|a|^2\gamma$，取长度会迫使 $|a|=1$，矛盾。
+所以任何这样的圆弧都不是测地线；$a=0$ 的大圆才消去此切向分量。
 \end{solution}
 
 \begin{solution}{riemannian-curvature-tensorial}
@@ -172,12 +182,10 @@ $fZ$ 时，二阶求导产生的 $X(f)$、$Y(f)$ 和二阶标量导数项与括�
 \end{solution}
 
 \begin{solution}{riemannian-jacobi-equation}
-对测地线变分有 $\nabla_TT=0$。沿 $V=\partial_s\Gamma$ 求导，并用
-$[V,T]=0$ 及曲率定义，
+对测地线变分有 $D_tT=0$。沿 $s$ 求导，并用参数协变导数交换式和
+$D_sT=D_tV$，得到
 \[
- 0=\nabla_V\nabla_TT
- =\nabla_T\nabla_VT+R(V,T)T
- =\nabla_T\nabla_TV+R(V,T)T.
+ 0=D_sD_tT=D_tD_sT+R(V,T)T=D_t^2V+R(V,T)T.
 \]
 这就是 Jacobi 方程。Euclidean 空间 $R=0$ 且协变导数是普通导数，所以
 $J''(t)=0$，全部解为 $J(t)=A+tB$，其中 $A,B$ 为常向量。
@@ -191,9 +199,9 @@ $J(t)=d(\exp_p)_{tv}(tW)$。这同时说明 $d(\exp_p)_{t_0v}$ 有非零核等�
 
 \begin{solution}{riemannian-incomplete-interval}
 度量就是通常的 $dx^2$，两点间最短长度为 $|x-y|$，所以
-$d_g(x,y)=|x-y|$。序列 $x_n=1/n$ 是 Cauchy 列，却在 $(0,1)$ 中没有极限，
+$d_g(x,y)=|x-y|$。序列 $x_n=1/(n+2)$（$n\in\N$）是 Cauchy 列，却在 $(0,1)$ 中没有极限，
 故不完备。测地线为 $x(t)=a+bt$；例如从 $1/2$ 以速度 $-1$ 出发的极大
-测地线只在 $(-1/2,1/2)$ 的相应平移区间内留在流形，有限时间到达缺失端点，
+测地线 $x(t)=1/2-t$ 的极大区间为 $(-1/2,1/2)$，有限时间到达缺失端点，
 故测地线也不完备。
 \end{solution}
 
@@ -217,7 +225,15 @@ $\phi(0)=\phi(\ell)=0$ 的变分场满足
 \[
  I(V,V)=\int_0^\ell\bigl((\phi')^2-\phi^2\bigr)dt.
 \]
-若 $\ell<\pi$，Wirtinger 不等式给
+所需的区间 Wirtinger 不等式可直接证明。令 $\lambda=\pi/\ell$、
+$s(t)=\sin(\lambda t)$，把 $\phi=s\psi$ 代入并分部积分，得到
+\[
+ \int_0^\ell\left((\phi')^2-\lambda^2\phi^2\right)dt
+ =\int_0^\ell s^2(\psi')^2dt\geq0.
+\]
+先在 $[\varepsilon,\ell-\varepsilon]$ 上计算；边界项为 $ss'\psi^2$。
+由于 $\phi$ 光滑且在两端为零，$\psi=\phi/s$ 在端点有光滑延拓，所以边界项
+趋于零，给出上述等式。若 $\ell<\pi$，此不等式给
 $\int(\phi')^2\ge(\pi/\ell)^2\int\phi^2>\int\phi^2$，二阶变分正定。
 在 $\ell=\pi$ 时取 $\phi(t)=\sin t$，等号成立，正好得到上述 Jacobi 场。
 \end{solution}

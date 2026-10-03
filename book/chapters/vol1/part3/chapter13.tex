@@ -94,11 +94,11 @@
 \paragraph{缺失边界附近的奇异性。}
 函数 \(f(x)=1/x\) 在 \((0,1)\) 上连续。取
 \[
- x_n=\frac1n,\qquad y_n=\frac1{n+1}.
+ x_n=\frac1{n+1},\qquad y_n=\frac1{n+2}.
 \]
 输入距离趋零，而
 \[
- f(x_n)-f(y_n)=n-(n+1)=-1.
+ f(x_n)-f(y_n)=(n+1)-(n+2)=-1.
 \]
 故不一致连续。
 
@@ -169,7 +169,7 @@
 \end{proof}
 
 \begin{proof}[有限覆盖证明]
-给定 \(\varepsilon>0\)。对每个 \(a\in K\)，由连续性取 \(r_a>0\)，使
+空集上结论自动成立，以下设 \(K\ne\varnothing\)。给定 \(\varepsilon>0\)。对每个 \(a\in K\)，由连续性取 \(r_a>0\)，使
 \[
  x\in K,\quad\abs{x-a}<2r_a
  \Longrightarrow\abs{f(x)-f(a)}<\varepsilon/2.
@@ -193,13 +193,58 @@
 \end{proof}
 
 \begin{insightbox}[定义域为什么取紧集]
-紧致性不可替换为单纯有界或单纯闭。开区间上的 \(1/x\) 与闭但无界集合上的 \(x^2\) 分别给出反例。Heine--Cantor 定理需要的是能从局部控制中抽取有限个控制尺度的性质。
+紧致性不能只换成有界性或闭性：\((0,1)\) 上的 \(1/x\) 与 \(\R\) 上的 \(x^2\) 分别给出反例。
 \end{insightbox}
 
 \section{Lipschitz、Hölder 与连续模}
 
 \subsection{Lipschitz 连续与 Hölder 连续}
 
+下面的估计会用到实指数幂。整数次根的存在性已由\exerciseref{12.23}建立，根函数的连续性见\chapterref{chap:continuity-discontinuity}。先从这些结果说明实指数的含义，以免在使用幂次估计时暗中依赖尚未讨论的指数、对数函数。
+
+对 \(b>0\) 及有理数 \(p/q\)（\(p\in\mathbb Z,q\in\Npos\)），定义
+\[
+ b^{p/q}=(b^{1/q})^p.
+\]
+负整数次幂按倒数定义。两个分数表示同一有理数时，对所得的两个正数同取公共分母次幂，结果相等；正整数次幂严格递增，故原数相等。相同的通分论证给出有理指数的加法律及底数乘法律。
+
+\begin{proposition}[实指数幂]
+\label{prop:positive-real-powers}
+对每个 \(b>0\)，有理指数幂可以唯一连续延拓为所有实指数的函数 \(r\mapsto b^r\)。它满足
+\[
+ b^{r+s}=b^rb^s,\qquad (bc)^r=b^rc^r,\qquad (b^r)^s=b^{rs}
+ \quad(b,c>0;\ r,s\in\R).
+\]
+当 \(b>1\) 时，它关于指数严格递增；当 \(0<b<1\) 时严格递减。固定 \(\alpha>0\)，补充定义 \(0^\alpha=0\)，则 \(x\mapsto x^\alpha\) 在 \([0,\infty)\) 上连续且严格递增。
+\end{proposition}
+
+\begin{proof}
+先设 \(b>1\)。写 \(b^{1/n}=1+u_n\)，则 \(u_n>0\)，Bernoulli 不等式给出 \(b\ge1+nu_n\)，故 \(b^{1/n}\to1\)。若有理数 \(h\) 满足 \(|h|<1/n\)，则
+\[
+ b^{-1/n}\le b^h\le b^{1/n}.
+\]
+因而有理指数趋于零时，其幂趋于一。
+
+任取有理列 \(r_n\to r\)。选正整数 \(M\) 使 \(|r_n|\le M\)，便有
+\[
+ |b^{r_n}-b^{r_m}|=b^{r_m}|b^{r_n-r_m}-1|
+ \le b^M|b^{r_n-r_m}-1|\longrightarrow0
+ \quad(m,n\to\infty).
+\]
+实数完备性保证 \((b^{r_n})\) 收敛。交错两条逼近 \(r\) 的有理列，仍得到上述 Cauchy 估计，所以极限与选择无关。以此定义 \(b^r\)；它不小于 \(b^{-M}>0\)，并与有理指数的定义相容。对 \(0<b<1\) 定义 \(b^r=(1/b)^{-r}\)，对 \(b=1\) 定义 \(b^r=1\)。这三种情形都满足：有理数 \(r_n\to r\) 时，\(b^{r_n}\to b^r\)。
+
+取有理列分别逼近 \(r,s\)，在有理加法律中取极限，得到 \(b^{r+s}=b^rb^s\)。对底数乘法律使用同一有理列，即得 \((bc)^r=b^rc^r\)。有理指数的次序关系也在极限下保留。若 \(b>1\)、\(r<s\)，取有理数 \(0<q<s-r\)，便有 \(b^{s-r}\ge b^q>1\)，故 \(b^s>b^r\)。对 \(0<b<1\) 用倒数得到反向次序。
+
+前面的夹逼现在对实数 \(|h|<1/n\) 同样成立。因此 \(b^h\to1\)（\(h\to0\)），加法律便给出指数变量的连续性。有理数稠密性又保证这样的连续延拓唯一。对有理 \(s=p/q\)，等式 \((b^r)^s=b^{rs}\) 可通过同取 \(q\) 次幂及加法律验证；再用有理数逼近任意实数 \(s\)，由刚证明的指数连续性得到一般情形。
+
+最后固定 \(\alpha>0\)。若 \(0<x<y\)，则 \((y/x)^\alpha>1\)，所以 \(x^\alpha<y^\alpha\)。取整数 \(M>\alpha\)，对 \(t>0\) 有
+\[
+ \min\{1,t^M\}\le t^\alpha\le\max\{1,t^M\}.
+\]
+当 \(t\to1\) 时，夹逼得 \(t^\alpha\to1\)。对 \(x\to a>0\)，令 \(t=x/a\)，结合底数乘法律得 \(x^\alpha\to a^\alpha\)。在零点取正有理数 \(q<\alpha\)，当 \(0<x\le1\) 时，\(0\le x^\alpha\le x^q\)。有理幂是整数次根与整数次幂的复合，故 \(x^q\to0\)，零点处也连续。
+\end{proof}
+
+以上构造只用到了有理数稠密性、整数次根和实数的 Cauchy 完备性。下面可以直接用 \(|x-y|^\alpha\) 控制函数增量。
 
 \begin{definition}
 设 \(f:D\to\R\)。
@@ -244,7 +289,7 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 \[
  y^\alpha+h^\alpha\ge x^\alpha,
 \]
-即 \(x^\alpha-y^\alpha\le h^\alpha\)。\(x=0\) 时不等式平凡。因此 \(f\) 是 Hölder 连续的。它在包含 \(0\) 的区间上不是 Lipschitz 连续，因为
+即 \(x^\alpha-y^\alpha\le h^\alpha\)。\(x=0\) 时不等式平凡。因此 \(f\) 是 Hölder 连续的。它在任何非退化区间 \([0,b]\) 上都不是 Lipschitz 连续，因为
 \[
  \frac{x^\alpha-0}{x-0}=x^{\alpha-1}\to+\infty.
 \]
@@ -312,29 +357,30 @@ Lipschitz 连续是 \(\alpha=1\) 的 Hölder 连续；任意 Hölder 连续函�
 各反向一般都失败：
 \begin{itemize}
  \item \(\sqrt x\) 在 \([0,\infty)\) 上是 \(1/2\)-Hölder，但不是 Lipschitz；
- \item 在 \([0,e^{-1}]\) 上定义 \(f(0)=0\)，并对 \(x>0\) 定义 \(f(x)=1/\abs{\log x}\)。它连续，因而一致连续，却不满足任何正指数的 Hölder 条件；
+ \item 在 \([0,1/2]\) 上令 \(f(0)=0\)、\(f(2^{-n})=1/n\)（\(n\ge1\)），在每段 \([2^{-(n+1)},2^{-n}]\) 上用直线连接端点值。它一致连续，却不满足任何正指数的 Hölder 条件；
  \item \(x^2\) 在 \(\R\) 上连续但不一致连续。
 \end{itemize}
 
-第二个断言需要核对。若它在 \(0\) 处满足某个指数 \(\alpha>0\) 的 Hölder 估计，则充分小的 \(x>0\) 应有
+第二个函数在每个正点附近由一条或两条相接的线段给出，因而连续。当 \(0\le x\le2^{-n}\) 时，\(0\le f(x)\le1/n\)，故在零点也连续。Heine--Cantor 定理保证它一致连续。若存在 \(C\) 和 \(\alpha>0\) 使 \(|f(x)-f(0)|\le Cx^\alpha\)，取 \(x=2^{-n}\) 就得到 \(2^{n\alpha}/n\le C\)。然而令 \(q=2^\alpha>1\)，二项式定理给出
 \[
- \frac1{\abs{\log x}}\le Cx^\alpha.
+ \frac{q^n}{n}=\frac{(1+(q-1))^n}{n}
+ \ge\frac{n-1}{2}(q-1)^2\longrightarrow+\infty.
 \]
-取 \(x=e^{-n}\) 得 \(1/n\le Ce^{-\alpha n}\)，即 \(e^{\alpha n}/n\le C\)，这与左端趋于无穷矛盾。因此一致连续并不蕴含任何幂次型连续模。
+矛盾。因此一致连续并不保证任何正指数的 Hölder 估计。
 
 在紧集上，连续与一致连续等价；但连续仍未必 Lipschitz。例如 \(\sqrt x\) 在 \([0,1]\) 上连续且一致连续，却不是 Lipschitz。
 
 \begin{remark}
-集合 \(D\) 的直径定义为
+非空集合 \(D\) 的直径定义为
 \[
  \operatorname{diam}D=\sup\{\abs{x-y}:x,y\in D\},
 \]
-允许其值为 \(+\infty\)。在有界定义域上，指数较大的 Hölder 条件蕴含指数较小的 Hölder 条件。若 \(\operatorname{diam}D\le R\) 且 \(0<\beta<\alpha\le1\)，则
+允许其值为 \(+\infty\)，另约定空集的直径为零。在有界定义域上，指数较大的 Hölder 条件蕴含指数较小的 Hölder 条件。若 \(\operatorname{diam}D\le R\) 且 \(0<\beta<\alpha\le1\)，则
 \[
  \abs{x-y}^{\alpha}
  \le R^{\alpha-\beta}\abs{x-y}^{\beta}.
 \]
-在无界定义域上不能直接使用这一全局比较。
+在无界定义域上不能直接使用这一全局比较。例如恒等函数在 \(\R\) 上是 Lipschitz 的，却不满足任何固定 \(0<\beta<1\) 的全局 Hölder 估计：取 \(y=0\)、\(x\to+\infty\)，所需不等式 \(x^{1-\beta}\le C\) 不成立。上面的蕴含链中，第一步允许选取指数 \(1\)，并未断言任意较小指数都可用。
 \end{remark}
 
 \subsection{连续模及一致连续性的定量描述}
@@ -416,7 +462,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 
 \section{Cauchy 列的保持与稠密延拓}
 
-点连续只控制收敛到定义域内某点的数列，一致连续则直接控制任意 Cauchy 列。这个差别决定了函数能否穿过定义域中的缺口：在稠密子集上取逼近列时，极限点可能尚未属于原定义域，只有一致连续性保证所有逼近方式产生同一个 Cauchy 像列。
+点连续只控制收敛到定义域内某点的数列，一致连续则能控制任意 Cauchy 列。在稠密子集上选择逼近列时，极限点可能不属于原定义域，不能在该点直接使用连续性。一致连续条件足以保证像列收敛，并使其极限与逼近方式无关。它不是连续延拓的必要条件，例如平方函数在整条实线上连续，却不一致连续。
 
 \subsection{一致连续函数对 Cauchy 列的保持}
 
@@ -433,7 +479,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 于是 \(\abs{f(x_m)-f(x_n)}<\varepsilon\)。
 \end{proof}
 
-点连续不足以保证这一结论。数列 \(x_n=1/n\) 是 \((0,1)\) 中的 Cauchy 列，而连续函数 \(f(x)=1/x\) 把它映成 \(n\)，不是 Cauchy 列。失败原因是原列趋向定义域外的缺失端点，点连续无法在那里提供控制。
+点连续不足以保证这一结论。数列 \(x_n=1/(n+1)\) 是 \((0,1)\) 中的 Cauchy 列，而连续函数 \(f(x)=1/x\) 把它映成 \(n+1\)，不是 Cauchy 列。原列趋向定义域外的缺失端点，点连续无法在那里提供控制。
 
 反过来，“把 Cauchy 列映成 Cauchy 列”并不推出一致连续。实数本身完备，所以每条实 Cauchy 列都收敛；连续函数 \(f(x)=x^2\) 因而把每条实 Cauchy 列映成收敛列，却不在 \(\R\) 上一致连续。另一方面，保持 Cauchy 列仍推出连续性：若 \(x_n\to x\)，把 \(x_1,x,x_2,x,\ldots\) 交错成一条 Cauchy 列，其像为 Cauchy 列，便有 \(f(x_n)\to f(x)\)。因此无附加条件时只有
 \[
@@ -462,7 +508,13 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 \subsection{闭包上的延拓}
 
 
-先陈述实数子集版本。设 \(D\subset X\subset\R\)，且 \(D\) 在 \(X\) 中稠密。
+集合 \(D\subset\R\) 的\term{闭包}记为 \(\overline D\)，定义为
+\[
+ \overline D=\{x\in\R:\ \forall r>0,\ (x-r,x+r)\cap D\ne\varnothing\}.
+\]
+这里使用不删心邻域，所以 \(D\subseteq\overline D\)。若 \(x\notin\overline D\)，存在一个与 \(D\) 不交的邻域；其半径减半后，其中每一点也有与 \(D\) 不交的邻域。因此 \(\R\setminus\overline D\) 是开集，\(\overline D\) 是闭集。对 \(D\subset X\subset\R\)，称 \(D\) 在 \(X\) 中\term{稠密}，是指 \(X\subseteq\overline D\)。这等价于：对每个 \(x\in X\)，存在 \(x_n\in D\) 使 \(x_n\to x\)。必要性按半径 \(1/n\) 选点；充分性由任何这样的逼近列最终进入每个邻域得到。
+
+以下设 \(D\subset X\subset\R\)，且 \(D\) 在 \(X\) 中稠密。
 
 \begin{theorem}[稠密集上的一致连续延拓]
 若 \(f:D\to\R\) 一致连续，则存在唯一的一致连续函数
@@ -531,7 +583,11 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
 \end{proof}
 
 \begin{remark}[度量空间版本]
-若 \(D\) 稠密于度量空间 \(X\)，值域 \(Y\) 完备，则任意一致连续映射 \(f:D\to Y\) 唯一延拓为 \(X\to Y\) 的一致连续映射。定义域完备性并非构造像极限所必需；值域完备性保证 Cauchy 像列有极限。
+若 \(D\) 稠密于度量空间 \(X\)，值域 \(Y\) 完备，则任意一致连续映射 \(f:D\to Y\) 唯一延拓为 \(X\to Y\) 的一致连续映射。这里稠密性指每个 \(X\) 中的开球都与 \(D\) 相交。证明中用 \(d_X\) 替换输入距离、\(d_Y\) 替换像距，三角不等式及 Cauchy 列的论证不变；对距离取极限所用的估计为
+\[
+ |d_Y(u_n,v_n)-d_Y(u,v)|\le d_Y(u_n,u)+d_Y(v_n,v).
+\]
+定义域完备性并非构造像极限所必需；值域完备性保证 Cauchy 像列有极限。
 \end{remark}
 
 闭包延拓与完备化延拓应当区分。上面的实数子集版本是在一个已经指定的集合 \(X\subset\R\) 上补入 \(D\) 的极限点；若取 \(X=\overline D\)，得到的是闭包上的延拓。所谓完备化还包含另一项结论：把原度量空间嵌入某个完备空间，使其像稠密，并说明这样的完备空间在适当意义下唯一。完成这一步以后，同一延拓定理才可作用于完备化。度量空间的构造与唯一性将在后文建立，此处只使用实数完备性来处理值域中的像极限。
@@ -575,10 +631,10 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
  \exerciseitem{19.20} 说明延拓证明中稠密性、一致连续性和值域完备性分别用于何处。
  \exerciseitem{19.21} 证明 \(\sin x\) 在 \(\Q\) 上的限制唯一延拓为 \(\R\) 上的 \(\sin x\)。
  \optionalexerciseitem{19.22} 构造在 \(\Q\) 上连续但不能连续延拓到 \(\R\) 的函数。
- \optionalexerciseitem{19.23} 证明若 \(f\) 在 \((a,b)\) 上一致连续，则左右有限极限存在，因而可连续延拓到 \([a,b]\)。
+ \optionalexerciseitem{19.23} 设 \(a<b\) 是有限实数。证明若实值函数 \(f\) 在 \((a,b)\) 上一致连续，则在两端的有限单侧极限存在，因而可连续延拓到 \([a,b]\)。
  \projectexerciseitem{19.24} \ 【前置：\chapterref{chap:cauchy-criterion}、\chapterref{chap:continuous-functions-closed-interval}与本章；预计用时：90分钟】建立“紧致性—Heine--Cantor—保持 Cauchy 列—稠密子集上的一致连续延拓”的证明链，并给每个箭头配置一个删条件反例。
- \openexerciseitem{19.25} 研究一致连续是否由“保持收敛列”刻画，并比较它与“保持 Cauchy 列”的强弱。
- \optionalexerciseitem{19.26} 若 \(f\) 是双射且 \(f,f^{-1}\) 都一致连续，称其为一致同胚。证明一致同胚保持 Cauchy 性与完备性。
+ \openexerciseitem{19.25} 对 \(f:D\to\R\)，“保持收敛列”指：\(x_n\to x\in D\) 时，\(f(x_n)\) 在 \(\R\) 中收敛，暂不指定像极限。证明这已经蕴含 \(f(x_n)\to f(x)\)。再比较它、“保持 Cauchy 列”和一致连续的强弱。
+ \optionalexerciseitem{19.26} 设 \(X,Y\) 是度量空间。若 \(f:X\to Y\) 是双射且 \(f,f^{-1}\) 都一致连续，称其为一致同胚。证明一致同胚保持 Cauchy 性与完备性。
 \end{enumerate}
 
 \section*{本编综合习题}
@@ -588,7 +644,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
  \exerciseitem{III.1} \textbf{（定义链）} 对函数在有限点的有限极限完成下列任务：
  \begin{enumerate}
   \item 写出聚点条件和删心极限定义；
-  \item 写出极限失败的量词否定；
+  \item 对给定候选值 \(L\)，写出“极限等于 \(L\)”的量词否定，并区别于“不存在任何有限极限”；
   \item 从否定构造坏点数列；
   \item 说明为何孤立点会使删心极限空泛成立。
  \end{enumerate}
@@ -620,9 +676,9 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
   \item 证明分段函数连续必须核对交界值；
   \item 说明相对定义域对端点连续性的影响。
  \end{enumerate}
- \exerciseitem{III.6} \textbf{（单调函数）}
+ \exerciseitem{III.6} \textbf{（单调函数）} 设实值函数在一个非退化区间上单调递增。
  \begin{enumerate}
-  \item 证明递增函数的左右极限公式；
+  \item 在区间内点证明递增函数的有限左右极限公式；
   \item 推出内点间断必为跳跃；
   \item 证明跳跃区间两两不交；
   \item 由有理数注入证明间断点至多可数。
@@ -641,7 +697,7 @@ Lipschitz 函数满足 \(\omega_f(t)\le Lt\)；指数 \(\alpha\) 的 Hölder 函
   \item 证明零点定理；
   \item 从连通性角度解释介值定理。
  \end{enumerate}
- \exerciseitem{III.9} \textbf{（一致连续判别）} 对 \(x^2\)、\(\sqrt x\)、\(1/x\)、\(\sin x\) 在若干自然定义域上：
+ \exerciseitem{III.9} \textbf{（一致连续判别）} 分别考察 \(x^2\) 在 \(\R\) 与 \([-1,1]\) 上、\(\sqrt x\) 在 \([0,\infty)\) 与 \([1,\infty)\) 上、\(1/x\) 在 \((0,1)\) 与 \([1,\infty)\) 上，以及 \(\sin x\) 在 \(\R\) 上：
  \begin{enumerate}
   \item 判定连续与一致连续；
   \item 给出有效的统一半径或反例点列；

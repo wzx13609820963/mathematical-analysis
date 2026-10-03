@@ -292,9 +292,9 @@ $w$ 的值。因此 $F$ 在每点附近都等于一个全纯函数，故在 $\Om
 奇点；单连通性保证不同道路不产生分支差异。缺少第一项时，即使区域单连通，
 局部函数也可能在内部奇点前停止；缺少第二项时，对数和平方根会出现多值性。
 
-为了准确说明最后一种障碍，设幂级数在 $B(a,R)$ 内定义 $f$。若对圆周上的
-每个 $\zeta$，都不存在 $\zeta$ 的邻域 $V$ 和 $V$ 上的全纯函数 $g$，使
-$g=f$ 在 $V\cap B(a,R)$ 的相应连通分支上成立，就称 $|z-a|=R$ 是该幂级数
+设幂级数在 $B(a,R)$ 内定义 $f$，其中 $0<R<\infty$。若对圆周上的
+每个 $\zeta$，都不存在 $\varepsilon>0$ 和 $B(\zeta,\varepsilon)$ 上的
+全纯函数 $g$，使 $g=f$ 在两圆盘的交集上成立，就称 $|z-a|=R$ 是该幂级数
 的\term{自然边界}。几何级数说明“收敛半径有限”并不等于“收敛圆周是自然
 边界”。下面的稀疏幂级数给出相反情形：
 \begin{equation}\label{eq:lacunary-natural-boundary}
@@ -313,7 +313,10 @@ $s(\zeta^2)=\zeta$。在单位圆盘内可把函数方程写为
  F(w)=F(s(w))-s(w).
 \]
 右端利用 $F$ 在 $\zeta$ 附近的延拓，便给出 $F$ 在 $\zeta^2$ 附近的延拓；
-恒等定理保证它与原函数相容。逐次平方将得到 $F$ 在 $1$ 附近的延拓，矛盾。
+因为 $s(w)^2=w$ 给出 $|s(w)|^2=|w|$，当 $w$ 在单位圆盘内时
+$s(w)$ 也在其中。因此上式在新邻域与单位圆盘的交集上确实等于原来的
+$F(w)$，而不只是形式上满足一个函数方程。
+逐次平方将得到 $F$ 在 $1$ 附近的延拓，矛盾。
 所有 $2^m$ 次单位根在单位圆上稠密，任何跨过单位圆的延拓邻域都会含有其中
 一个点，故单位圆是式\eqref{eq:lacunary-natural-boundary}的自然边界。
 
@@ -323,18 +326,18 @@ $s(\zeta^2)=\zeta$。在单位圆盘内可把函数方程写为
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{argument-multiplicity-product}证明零点重数的乘积公式，并写出商的相应公式。
-\exerciseitem{argument-derivative-multiplicity}设 $a$ 是 $f$ 的 $m$ 重零点。证明 $a$ 是 $f'$ 的 $m-1$ 重零点；说明 $m=0$ 时为何不能这样陈述。
+\exerciseitem{argument-derivative-multiplicity}设 $f$ 在 $a$ 附近全纯，$a$ 是 $f$ 的 $m$ 重零点，$m\ge1$。证明：当 $m\ge2$ 时，$a$ 是 $f'$ 的 $m-1$ 重零点；当 $m=1$ 时，$f'(a)\ne0$。说明 $\operatorname{ord}_a f=0$ 时为何不能套用这一导数阶数公式。
 \exerciseitem{argument-logarithmic-residue}直接由局部分解证明式\eqref{eq:logarithmic-derivative-residue}。
 \exerciseitem{argument-polynomial-disk}求证：若 $|a|>2$，则 $z^5+az+1$ 在单位圆盘内恰有一个零点。
 \end{enumerate}
 
 \subsection*{B组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{argument-rouche-perturbation}设 $f$ 在 $\overline D$ 的邻域中全纯且边界无零点。证明充分小的一致扰动不改变 $D$ 内的零点总数。
+\exerciseitem{argument-rouche-perturbation}设 $f,h$ 在 $\overline D$ 的邻域中全纯，且 $f$ 在边界无零点。证明只要 $\sup_{\partial D}|h|$ 充分小，$f+h$ 与 $f$ 在 $D$ 内的零点总数相同。这里 $D$ 满足本章辐角原理的边界条件。
 \exerciseitem{argument-rouche-annulus}确定多项式 $z^7+4z^3+1$ 在 $|z|<1$ 与 $|z|<2$ 中的零点数。
-\exerciseitem{argument-hurwitz-zero-sequence}设 $f_n\to f$ 局部一致，$z_n\to z_0\in\Omega$ 且 $f_n(z_n)=0$。证明 $f(z_0)=0$；再说明反向结论应怎样用重数稳定性表述。
+\exerciseitem{argument-hurwitz-zero-sequence}设 $f_n$ 在区域 $\Omega$ 上全纯并局部一致收敛到 $f$，$z_n\in\Omega$，$z_n\to z_0\in\Omega$ 且 $f_n(z_n)=0$。证明 $f(z_0)=0$；再对 $f$ 的孤立零点说明反向结论应怎样用重数稳定性表述。
 \exerciseitem{argument-injective-limit}补全推论\ref{cor:univalent-limit}中“区域删去一点仍连通”的论证。
-\exerciseitem{argument-local-degree}设 $f(a)=w_0$ 且 $a$ 是 $f-w_0$ 的 $m$ 重零点。证明在充分小圆盘中，每个充分接近 $w_0$ 且避开临界值的 $w$ 恰有 $m$ 个原像，重数计入。
+\exerciseitem{argument-local-degree}设 $f$ 在 $a$ 附近全纯，$f(a)=w_0$，且 $a$ 是 $f-w_0$ 的 $m$ 重零点，$m\ge1$。证明在充分小圆盘中，每个充分接近 $w_0$ 的 $w$ 恰有 $m$ 个原像，重数计入。若 $w$ 不等于该圆盘中任何满足 $f'(z)=0$ 的点的像，证明这些原像互不相同；这样的像称为临界值。
 \end{enumerate}
 
 \subsection*{C组}

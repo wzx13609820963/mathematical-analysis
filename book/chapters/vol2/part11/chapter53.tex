@@ -3,7 +3,7 @@
 
 Taylor 多项式来自函数在一点的导数，只在余项可控时才逼近原函数。连续函数
 可能处处不可导，却仍能在整个闭区间上被多项式一致逼近。这里的多项式不再
-由某一点的局部数据决定，而是由函数在许多采样点的值共同构造。
+由某一点的局部数据决定；下面的 Bernstein 构造将使用函数在许多采样点的值。
 
 本章先给出 Bernstein 的显式构造，再证明更一般的 Stone--Weierstrass
 定理。前者回答“怎样逼近”，后者说明“哪些函数代数足以逼近”。
@@ -22,18 +22,20 @@ $\varepsilon>0$，可以找到一个多项式 $p$，使
 同时成立。这里的多项式次数可以依赖于 $f$ 和 $\varepsilon$，但不能依赖于
 $x$。逐点为每个 $x$ 另选一个多项式并不能得到一致逼近。
 
-稠密子空间不必等于整个空间。多项式集合只是可数维线性空间，而
-$C([a,b])$ 是无限维的；极限过程填补了二者之间的差距。若限制多项式次数
+稠密子空间不必等于整个空间。若 $a<b$，取 $c\in(a,b)$，连续函数
+$|x-c|$ 在 $c$ 处不可导，因而不可能是多项式；下面却能用多项式一致逼近它。
+一致极限不保持可导性，所以这并不矛盾。在非退化区间 $a<b$ 上，若限制多项式次数
 不超过固定 $N$，所得有限维子空间是闭的，不可能稠密于 $C([a,b])$。
 
 \section{Bernstein 多项式}
 
-先在 $[0,1]$ 上工作。对 $f\in C([0,1])$，定义第 $n$ 个 Bernstein 多项式
+先在 $[0,1]$ 上工作。对 $f\in C([0,1])$ 和整数 $n\ge1$，定义第 $n$ 个 Bernstein 多项式
 \[
  B_nf(x)=\sum_{k=0}^n f\left(\frac kn\right)
  \binom nk x^k(1-x)^{n-k}.
 \]
-基函数非负，且由二项式定理
+这里的零次幂是常多项式 $1$，在端点也按此取值。因而
+$B_nf(0)=f(0)$、$B_nf(1)=f(1)$。基函数非负，且由二项式定理
 \[
  \sum_{k=0}^n\binom nkx^k(1-x)^{n-k}=1.
 \]
@@ -50,15 +52,27 @@ $B_nf\ge0$，并且 $B_n1=1$。这些性质使误差估计可以直接从函数�
  B_n((t-x)^2)(x)&=\frac{x(1-x)}n.
  \label{eq:bernstein-moments}
 \end{align}
-第二式可对 $(u+v)^n$ 求导后令 $u=x,v=1-x$ 得到；再求一次导数可算出
-$k(k-1)$ 的和，从而得到第三式。
+这里 $t$ 表示被作用函数的变量；第三式对每个固定 $x$，先对函数
+$t\mapsto(t-x)^2$ 施加 $B_n$，再在 $x$ 处取值。对 $(u+v)^n$
+关于 $u$ 求导并乘以 $u$，令 $u=x,v=1-x$，得到
+$\sum_k k p_{n,k}(x)=nx$，其中 $p_{n,k}(x)=\binom nkx^k(1-x)^{n-k}$。
+当 $n\ge2$ 时，二次求导并乘以 $u^2$ 给出
+\[
+ \sum_k k(k-1)p_{n,k}(x)=n(n-1)x^2.
+\]
+利用 $k^2=k(k-1)+k$，可得
+$B_n(t^2)(x)=(1-1/n)x^2+x/n$；展开 $(t-x)^2$ 即得第三式。
+当 $n=1$ 时，$B_1f(x)=(1-x)f(0)+xf(1)$，直接代入得到相同结论。
 
-定义连续模
+对 $\delta\ge0$ 定义连续模
 \[
  \omega_f(\delta)=\sup\{|f(s)-f(t)|:s,t\in[0,1],\ |s-t|\le\delta\}.
 \]
-一致连续性说明 $\omega_f(\delta)\to0$。若 $|s-t|>\delta$，把区间分成
-不超过 $1+|s-t|/\delta$ 段，便有
+一致连续性说明当 $\delta\downarrow0$ 时 $\omega_f(\delta)\to0$。
+固定 $\delta>0$。若 $|s-t|\le\delta$，函数值之差至多为
+$\omega_f(\delta)$；否则把两点之间的区间分成
+$\lceil|s-t|/\delta\rceil$ 段，每段长度不超过 $\delta$。
+用三角不等式累加各段的变化，便在两种情形下都有
 \begin{equation}
  |f(s)-f(t)|\le
  \left(1+\frac{|s-t|}{\delta}\right)\omega_f(\delta).
@@ -103,14 +117,15 @@ $\norm{B_nf-f}_\infty\le L/(2\sqrt n)$。
 
 \begin{theorem}[Weierstrass]
 \label{thm:weierstrass-polynomial-approximation}
-实多项式在 $C([a,b];\R)$ 的上确界范数下稠密。
+设 $a\le b$。实多项式在 $C([a,b];\R)$ 的上确界范数下稠密。
 \end{theorem}
 
 \begin{proof}
+若 $a=b$，常多项式已经足够。以下设 $a<b$。
 仿射变换 $x=a+(b-a)t$ 把 $[0,1]$ 映到 $[a,b]$。令
 $g(t)=f(a+(b-a)t)$。定理 \ref{thm:bernstein-uniform-approximation} 给出
 多项式 $B_ng(t)$ 一致逼近 $g$。把 $t=(x-a)/(b-a)$ 代回，仍得到 $x$ 的
-多项式，并一致逼近 $f$。若 $a=b$，常多项式已经足够。
+多项式，并一致逼近 $f$。
 \end{proof}
 
 逼近多项式一般不是 Taylor 多项式。连续函数没有导数时，Taylor 展开甚至
@@ -126,7 +141,7 @@ $\Delta f_k=f((k+1)/n)-f(k/n)$，直接求导得
  \binom{n-1}{k}x^k(1-x)^{n-1-k}.
 \]
 若 $f$ 单调递增，则每个 $\Delta f_k\ge0$，所以 $B_nf$ 也单调递增。
-再求一次导数，
+当 $n\ge2$ 时，再求一次导数，
 \[
  (B_nf)''(x)
  =n(n-1)\sum_{k=0}^{n-2}
@@ -135,18 +150,22 @@ $\Delta f_k=f((k+1)/n)-f(k/n)$，直接求导得
  +f\!\left(\frac{k}{n}\right)\right]
  \binom{n-2}{k}x^k(1-x)^{n-2-k}.
 \]
-凸函数在等距节点上的二阶差分非负，故 $B_nf$ 保持凸性。这些保形性质是
+凸函数在等距节点上的二阶差分非负，故 $B_nf$ 保持凸性。
+$n=1$ 时所得函数是仿射函数，也为凸函数。这些保形性质是
 显式构造相对于纯存在性证明的优点；Weierstrass 定理本身只给存在性，不会
 自动给出这样的形状控制。
 
 \section{分离点的函数代数}
 
-设 $K$ 为紧致 Hausdorff 空间，$A\subset C(K;\R)$ 是子代数。称 $A$
+以下设 $K$ 为非空紧致 Hausdorff 空间。空集上只有一个函数，所有稠密性
+结论均平凡成立，上确界范数约定为零。
+设 $A\subset C(K;\R)$ 是子代数。称 $A$
 含常数，如果所有常函数属于 $A$；称 $A$ 分离 $K$ 中的点，如果任意
 $x\ne y$，都存在 $f\in A$ 使 $f(x)\ne f(y)$。
 
 分离点是必要条件：若 $f(x)=f(y)$ 对每个 $f\in A$ 都成立，那么该等式在
-$\overline A$ 中仍成立，$A$ 不可能逼近一个在 $x,y$ 取不同值的连续函数。
+$\overline A$ 中仍成立。紧致 Hausdorff 空间正规，由 Urysohn 引理可取
+连续函数在这两个单点集上分别等于 $0$ 和 $1$，这样的函数便不在闭包中。
 含常数则保证能同时调节函数的平移和尺度。
 
 证明一般定理还需要一个格闭包事实。
@@ -158,7 +177,18 @@ $\overline A$ 对绝对值、有限最大值和有限最小值封闭。
 \end{lemma}
 
 \begin{proof}
-给定 $f\in\overline A$，设 $M=\norm f_\infty$。由 Weierstrass 定理，在
+先验证 $\overline A$ 仍为子代数。若 $f_j,g_j\in A$ 分别一致趋于 $f,g$，
+线性组合的一致收敛保证闭包对线性运算封闭。又因 $\norm{f_j}_\infty$
+有界，
+\[
+ \norm{f_jg_j-fg}_\infty
+ \le\norm{f_j}_\infty\norm{g_j-g}_\infty
+    +\norm{f_j-f}_\infty\norm g_\infty\longrightarrow0.
+\]
+因此 $fg\in\overline A$，且原有的常函数仍在其中。
+
+给定 $f\in\overline A$，设 $M=\norm f_\infty$。若 $M=0$，则 $f=|f|=0$，
+无需逼近。若 $M>0$，由 Weierstrass 定理，在
 $[-M,M]$ 上存在实多项式 $p_n$ 一致逼近 $|t|$；可把常数项稍作调整使
 $p_n(0)=0$。由于 $\overline A$ 是闭子代数且含常数，$p_n\circ f\in
 \overline A$，并一致趋于 $|f|$，故 $|f|\in\overline A$。再利用
@@ -173,7 +203,7 @@ $p_n(0)=0$。由于 $\overline A$ 是闭子代数且含常数，$p_n\circ f\in
 
 \begin{theorem}[实 Stone--Weierstrass 定理]
 \label{thm:real-stone-weierstrass}
-设 $K$ 为紧致 Hausdorff 空间。若子代数 $A\subset C(K;\R)$ 含常数并
+设 $K$ 为非空紧致 Hausdorff 空间。若子代数 $A\subset C(K;\R)$ 含常数并
 分离点，则 $A$ 在 $C(K;\R)$ 中一致稠密。
 \end{theorem}
 
@@ -199,7 +229,9 @@ $g=g_{x_1}\wedge\cdots\wedge g_{x_s}\in\overline A$。每个 $g_{x_i}$ 都
  f-\varepsilon<g<f+\varepsilon\quad\text{于 }K.
 \]
 于是 $\norm{g-f}_\infty\le\varepsilon$。因为 $g\in\overline A$，还可从
-$A$ 中选函数任意逼近 $g$；合并误差即知 $f\in\overline A$。
+$A$ 中选 $h$ 使 $\norm{h-g}_\infty<\varepsilon$，于是
+$\norm{h-f}_\infty<2\varepsilon$。对任意目标误差 $\eta>0$，以上取
+$\varepsilon=\eta/2$，便得到 $A$ 内误差小于 $\eta$ 的逼近。
 \end{proof}
 
 对复函数，分离点和含常数还不够。需要 $A$ 对复共轭封闭，即
@@ -210,9 +242,14 @@ $f(x)\ne f(y)$，二者中至少一个分离 $x,y$，所以 $A_{\R}$ 仍分离�
 
 \begin{corollary}[复 Stone--Weierstrass 定理]
 \label{cor:complex-stone-weierstrass}
-设 $A\subset C(K;\C)$ 是含常数、分离点且对共轭封闭的复子代数，则
+设 $K$ 为非空紧致 Hausdorff 空间，
+$A\subset C(K;\C)$ 是含常数、分离点且对共轭封闭的复子代数，则
 $\overline A=C(K;\C)$。
 \end{corollary}
+
+具体地，对 $f=u+iv$ 分别取 $a,b\in A_{\R}$，使
+$\norm{u-a}_\infty<\varepsilon/2$、$\norm{v-b}_\infty<\varepsilon/2$。
+则 $a+ib\in A$，且 $\norm{f-(a+ib)}_\infty<\varepsilon$。
 
 几个稠密性结论现在可由同一判据得到：
 \begin{enumerate}
@@ -246,7 +283,8 @@ $\overline A=C(K;\C)$。
  若 $f$ 的 Lipschitz 常数为 $L$，证明
  $\norm{B_nf-f}_\infty\le L/(2\sqrt n)$。
  \exerciseitem{bernstein-linear-quadratic}
- 计算 $B_n1$、$B_nt$、$B_nt^2$，并判断哪些多项式被精确保持。
+ 计算 $B_n1$、$B_nt$、$B_nt^2$。对每个固定的整数 $n\ge1$，
+ 求出所有满足 $B_np=p$ 的实多项式 $p$。
  \exerciseitem{bernstein-monotonicity}
  用相邻差分证明 $f$ 单调时 $B_nf$ 单调。
 \end{enumerate}
@@ -254,7 +292,8 @@ $\overline A=C(K;\C)$。
 \subsection*{B组　稠密性与格方法}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{fixed-degree-polynomials-closed}
- 证明次数不超过 $N$ 的多项式在 $C([a,b])$ 中构成闭子空间。
+ 设 $N\in\N$、$a\le b$。证明次数不超过 $N$ 的多项式限制在
+ $[a,b]$ 上构成 $C([a,b])$ 的闭子空间。
  \exerciseitem{dense-subspace-propagates-linear-identity}
  证明连续线性泛函若在稠密子集上为零，则在全空间为零。
  \exerciseitem{absolute-value-polynomial-approximation}

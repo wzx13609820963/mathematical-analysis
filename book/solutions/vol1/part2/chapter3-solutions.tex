@@ -136,7 +136,7 @@ a_n\not\to+\infty
 \[
  \abs{\frac{u_n}{n^\alpha}}\le\frac M{n^\alpha}.
 \]
-给定 \(\varepsilon>0\)，若 \(M=0\) 取 \(N=1\)；若 \(M>0\)，取
+给定 \(\varepsilon>0\)，若 \(M=0\) 取 \(N=1\)；对正整数 \(\alpha\)，可直接取整数 \(N>\max\{1,M/\varepsilon\}\)，因为 \(n^\alpha\ge n\)。于是 \(n\ge N\) 时误差小于 \(\varepsilon\)。建立实指数幂及其单调性后，对实数 \(\alpha>0\) 还可使用更精细的选择
 \[
  N>\left(\frac M\varepsilon\right)^{1/\alpha}.
 \]
@@ -207,7 +207,9 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{7.9}
-给定 \(\varepsilon>0\)，取
+给定 \(\varepsilon>0\)。由于 \(p\) 为正整数，\(n^p\ge n\)，故取整数 \(N>\max\{1,C/\varepsilon\}\) 后，\(n\ge N\) 时有 \(|a_n-a|\le C/n<\varepsilon\)。这已证明收敛，无须先定义根式。
+
+建立实指数幂及其单调性后，对于任意实数 \(p>0\)，可以取
 \[
  N>\left(\frac C\varepsilon\right)^{1/p}.
 \]
@@ -216,7 +218,7 @@ a_n\not\to+\infty
  \abs{a_n-a}\le\frac C{n^p}
  \le\frac C{N^p}<\varepsilon.
 \]
-因此 \(a_n\to a\)。指标量级为 \(N(\varepsilon)=O(\varepsilon^{-1/p})\)，常数依赖于 \(C,p\)。
+因此实指数版本同样有 \(a_n\to a\)。
 \end{solution}
 
 \begin{solution}{7.10}
@@ -264,7 +266,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{8.8}
-固定 \(t<1\) 时，若 \(t=0\) 结论直接成立；若 \(0<t<1\)，由\exerciseref{8.6}有 \(t^n\to0\)。若存在对整个 \([0,1)\) 统一的 \(N\)，取 \(\varepsilon=1/2\)。对该 \(N\)，选 \(t\in(2^{-1/N},1)\)，则 \(t^N>1/2\)，与统一估计矛盾。
+固定 \(t<1\) 时，若 \(t=0\) 结论直接成立；若 \(0<t<1\)，由\exerciseref{8.6}有 \(t^n\to0\)。若存在对整个 \([0,1)\) 统一的 \(N\)，取 \(\varepsilon=1/2\)。对该 \(N\)，选 \(t=1-1/(4N)\)。Bernoulli 不等式给出 \(t^N\ge1-N/(4N)=3/4>1/2\)，与统一估计矛盾。这样无需提前使用一般的 \(N\) 次根。
 \end{solution}
 
 \begin{solution}{8.9}
@@ -288,12 +290,14 @@ a_n\not\to+\infty
  \le\sum_{k=n+1}^{2n}\frac1k
  \le\frac n{n+1}<1.
 \]
-还可以把各项写成
+仅凭这些界不能推出收敛，例如在 \(1/2\) 与 \(3/4\) 之间交替的数列也满足同样的界。
+
+学完积分后，把各项写成
 \[
  \frac1n\frac1{1+k/n},\qquad k=1,\ldots,n,
 \]
 看出它是函数 \(1/(1+x)\) 的一种 Riemann 和。要严格识别极限为
-\(\int_0^1(1+x)^{-1}\,dx=\log2\)，需要定积分理论和对数函数的严格建立，当前章节尚未给出。因此本题只能先记录界与后续证明位置，不能循环引用积分结论。
+\(\int_0^1(1+x)^{-1}\,dx=\log2\)，可以使用连续函数的 Riemann 和收敛定理，再用对数的积分公式计算。这个后续解法不应倒过来充当本章极限运算法则的证明；这里也没有断言其他不经积分的证明不可能存在。
 \end{solution}
 
 \begin{solution}{8.12}
@@ -423,7 +427,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{7.17}
-若 \(E\) 有限，则从某项起 \(\chi_E(n)=0\)，故极限为 \(0\)。若 \(N\setminus E\) 有限，则最终恒为 \(1\)，故极限为 \(1\)。
+若 \(E\) 有限，则从某项起 \(\chi_E(n)=0\)，故极限为 \(0\)。若 \(\N\setminus E\) 有限，则最终恒为 \(1\)，故极限为 \(1\)。
 
 反之，若 \(\chi_E(n)\to L\)，取 \(\varepsilon=1/3\)。尾部所有项都在
 \((L-1/3,L+1/3)\) 中。该区间不可能同时含 \(0,1\)，所以尾部示性值恒为 \(0\) 或恒为 \(1\)。前者说明 \(E\) 有限，后者说明补集有限；相应极限分别为 \(0,1\)。
@@ -435,7 +439,7 @@ a_n\not\to+\infty
 \end{solution}
 
 \begin{solution}{7.19}
-设严格递增正整数列 \((n_k)\) 满足 \(a_{n_k}\to L\)。固定 \(n\)，选 \(k\) 使 \(n_k\ge n\)，则 \(a_n\le a_{n_k}\)。令 \(k\to\infty\)，由序关系对极限的保持性得 \(a_n\le L\)，故原列以上界 \(L\) 控制。对 \(\varepsilon>0\)，取 \(k\) 使 \(L-\varepsilon<a_{n_k}\le L\)。单调性给出 \(n\ge n_k\) 时
+设严格递增正整数列 \((n_k)\) 满足 \(a_{n_k}\to L\)，先设原列单调递增。固定 \(n\)，对所有充分大的 \(k\) 都有 \(n_k\ge n\)，故 \(a_n\le a_{n_k}\)。令 \(k\to\infty\)，由序关系对极限的保持性得 \(a_n\le L\)，故原列以上界 \(L\) 控制。对 \(\varepsilon>0\)，取 \(k\) 使 \(L-\varepsilon<a_{n_k}\le L\)。单调性给出 \(n\ge n_k\) 时
 \(L-\varepsilon<a_n\le L\)，所以 \(a_n\to L\)。递减情形对称。
 \end{solution}
 
@@ -462,11 +466,11 @@ a_n\not\to+\infty
  \left(\frac rq\right)^n=(1+c)^n
  \ge\binom n{m+1}c^{m+1}.
 \]
-对 \(n\ge2(m+1)\)，组合数不小于常数 \(C_0n^{m+1}\)，故
+对 \(n\ge2(m+1)\)，每个分子因子 \(n,n-1,\ldots,n-m\) 至少为 \(n/2\)，故可取 \(C_0=1/[2^{m+1}(m+1)!]\)，使组合数不小于 \(C_0n^{m+1}\)。再取 \(C_1=1/(C_0c^{m+1})\)，便有
 \[
  n^mq^n\le C_1\frac{r^n}{n}\le\frac{C_1}{n}\to0.
 \]
-若 \(p>0\) 非整数，取整数 \(m\ge p\)。对 \(n\ge1\)，\(n^p\le n^m\)，由夹逼得结论。
+在实指数幂已经建立之后，若 \(p>0\) 非整数，取整数 \(m\ge p\)。对 \(n\ge1\)，\(n^p\le n^m\)，由夹逼得结论。
 \end{solution}
 
 \begin{solution}{8.18}
@@ -474,7 +478,7 @@ a_n\not\to+\infty
 \[
  0\le a_n\le a_{N_0}q^{n-N_0}\qquad(n\ge N_0).
 \]
-右端为常数乘几何数列并趋于零，故 \(a_n\to0\)。这同时给出几何误差界。
+右端为常数乘几何数列并趋于零，故 \(a_n\to0\)。这同时给出几何误差界。若尾部某项为零，则下一项也为零，归纳可知此后恒为零；递推不等式没有除以零的问题。
 \end{solution}
 
 \begin{solution}{8.19}
@@ -522,7 +526,7 @@ a_n\not\to+\infty
  a_n-b_n=b_n\left(\frac{a_n}{b_n}-1\right),
 \]
 若 \((b_n)\) 有界，则有界列乘零列给出差趋零。无此条件取
-\(a_n=n+1,b_n=n\)，则 \(a_n/b_n\to1\)，但 \(a_n-b_n=1\)。
+\(a_n=n+1,b_n=n\)，则 \(a_n/b_n\to1\)，但 \(a_n-b_n=1\)。有界性并非必要条件：取 \(b_n=n\)、\(a_n=n+1/n\)，两列均无界，而 \(a_n/b_n=1+1/n^2\to1\)，同时 \(a_n-b_n=1/n\to0\)。
 \end{solution}
 
 \begin{solution}{9.23}

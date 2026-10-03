@@ -277,18 +277,40 @@ Lie 括号 \([X,Y]\) 是向量场，并在局部坐标中满足
 \(v\mapsto g_p(v,\mathord\cdot)\) 给出这样的同构，没有度量时不应把上、下
 指标任意互换。
 
-按照本书的约定，\(p\) 处的一个 \((r,s)\) 型张量是
+令 $V=T_pM$。按照本书的约定，一个 $(r,s)$ 型张量是多重线性映射
 \[
- T\in (T_pM)^{\otimes r}\otimes(T_p^*M)^{\otimes s}.
+ T:(V^*)^r\times V^s\longrightarrow\R.
 \]
-等价地，它可视为关于 \(r\) 个余切向量和 \(s\) 个切向量的多重线性函数。
+当 $r=s=0$ 时，张量就是实数。给定 $v_1,\ldots,v_r\in V$ 和
+$\alpha_1,\ldots,\alpha_s\in V^*$，记
+\[
+ (v_1\otimes\cdots\otimes v_r\otimes\alpha_1\otimes\cdots\otimes\alpha_s)
+ (\xi_1,\ldots,\xi_r;w_1,\ldots,w_s)
+ =\prod_{a=1}^r\xi_a(v_a)\prod_{b=1}^s\alpha_b(w_b).
+\]
+这定义了一个张量。若 $(e_i)$ 是 $V$ 的基、$(\varepsilon^i)$ 是对偶基，
+把每个输入按基展开，多重线性性给
+\[
+ T=\sum_{i_1,\ldots,i_r,j_1,\ldots,j_s}
+ T^{i_1\cdots i_r}{}_{j_1\cdots j_s}\,
+ e_{i_1}\otimes\cdots\otimes e_{i_r}
+ \otimes\varepsilon^{j_1}\otimes\cdots\otimes\varepsilon^{j_s},
+\]
+其中系数等于 $T(\varepsilon^{i_1},\ldots,\varepsilon^{i_r};
+e_{j_1},\ldots,e_{j_s})$。代入这些基输入还证明展开唯一。因此这些简单
+张量组成一组基，张量空间维数为 $n^{r+s}$（标量情形维数为一）。有限维
+张量积记号 $V^{\otimes r}\otimes(V^*)^{\otimes s}$ 表示的正是这个空间。
 若张量在各坐标基下的分量都是光滑函数，就得到一个\term{张量场}。向量场
-是 \((1,0)\) 型张量场，一次形式是 \((0,1)\) 型张量场；下一章出现的
+是 \((1,0)\) 型张量场，一次形式是 \((0,1)\) 型张量场；
+第\ref{chap:riemannian-geometry}章中的
 Riemann 度量是对称正定的 \((0,2)\) 型张量场。
 
 张量积使类型相加；一个上指标与一个下指标可以收缩。换坐标时，上指标和
 下指标按互逆的矩阵规律变换，所以完全收缩所得的标量与坐标无关。张量本身
-由无坐标的张量积定义，坐标指标只是其计算表示。
+由多重线性映射定义，坐标指标只是其计算表示。例如收缩第一个上、下指标，
+就是对 $T$ 的相应两个输入代入 $(\varepsilon^i,e_i)$ 后对 $i$ 求和。
+若换基矩阵为 $A$，对偶基的变换矩阵为 $A^{-1}$，求和中的两矩阵相乘为
+恒等矩阵，因此结果与所选基无关。
 
 \section{微分形式与楔积}
 
@@ -331,7 +353,8 @@ Riemann 度量是对称正定的 \((0,2)\) 型张量场。
  =\bigl(P(\gamma(t))x'(t)+Q(\gamma(t))y'(t)\bigr)\,dt.
 \]
 因此一次形式沿曲线的积分就是其拉回在参数区间上的积分。参数改变之所以不改
-变积分值，来自拉回的复合律和一元变量代换公式。
+变积分值，是在保向重参数化下使用拉回的复合律和一元变量代换公式；反向
+重参数化使积分变号。
 
 \section{拉回、外微分与 Cartan 公式}
 
@@ -386,19 +409,23 @@ Riemann 度量是对称正定的 \((0,2)\) 型张量场。
 \end{proof}
 
 对向量场 \(X\)，内乘算子
-\(\iota_X:\Omega^k(M)\to\Omega^{k-1}(M)\) 定义为
+\(\iota_X:\Omega^k(M)\to\Omega^{k-1}(M)\) 在 $k\ge1$ 时定义为
 \[
  (\iota_X\omega)(X_1,\ldots,X_{k-1})
  =\omega(X,X_1,\ldots,X_{k-1}).
 \]
-Lie 导数可以先用向量场及其括号定义：
+约定 $\Omega^{-1}(M)=\{0\}$、$\iota_Xf=0$。Lie 导数可以先用向量场及其括号定义：
 \[
  (\mathcal L_X\omega)(X_1,\ldots,X_k)
  =X\bigl(\omega(X_1,\ldots,X_k)\bigr)
  -\sum_{j=1}^k
  \omega(X_1,\ldots,[X,X_j],\ldots,X_k),
 \]
-并约定 \(\mathcal L_Xf=Xf\)。
+并约定 \(\mathcal L_Xf=Xf\)。这个表达确实是微分形式：将任一输入 $Y$
+换为 $aY$ 时，第一项中的 $X(a)$ 项，与
+$[X,aY]=a[X,Y]+X(a)Y$ 在对应括号项中产生的项相消，余下表达乘以 $a$。
+因此它对每个输入都为 $C^\infty(M)$ 线性。交换两个输入使整式变号，坐标
+表达中的系数光滑，故得到光滑交错张量。
 
 \begin{theorem}[Cartan 公式]
 \label{thm:cartan-magic-formula}
@@ -451,13 +478,14 @@ Lie 导数可以先用向量场及其括号定义：
 一致。
 \end{proof}
 
-若 \(X\) 有局部流 \(\Phi_t\)，则上述定义还满足
+若 \(X\) 有对时间和初值联合光滑的局部流 \(\Phi_t\)，则上述定义还满足
 \[
  \mathcal L_X\omega
  =\left.\frac{d}{dt}\right|_{t=0}\Phi_t^*\omega.
 \]
 这给出了 Lie 导数的动力学解释。证明这一等式需要局部流对初值与参数的
-光滑依赖；Cartan 公式本身则可由上面的代数论证直接得到。
+光滑依赖，计算见习题\ref{ex:forms-flow-lie-derivative}及其解答；Cartan
+公式本身则可由上面的代数论证直接得到。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -524,7 +552,8 @@ Lie 导数可以先用向量场及其括号定义：
  \exerciseitem{forms-cartan-one-form-direct}
  对一般一次形式直接展开并验证 Cartan 公式，不使用“由生成元推广”的论证。
  \optionalexerciseitem{forms-flow-lie-derivative}
- 设光滑向量场 \(X\) 已有局部流 \(\Phi_t\)。用坐标链式法则证明
+ 设光滑向量场 \(X\) 已有对时间和初值联合光滑的局部流 \(\Phi_t\)。
+ 在共同的小坐标邻域及时间区间内，用坐标链式法则证明
  \[
   \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*f=Xf,\qquad
   \left.\frac{d}{dt}\right|_{t=0}\Phi_t^*(df)=d(Xf),

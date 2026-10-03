@@ -24,7 +24,8 @@
  =\frac1{\abs h}\int_{x_0+h}^{x_0}f(t)\,dt,
 \]
 故得到同样的上界，只需把区间改为
-\([x_0+h,x_0]\)。连续性使两侧上界都趋于零。
+\([x_0+h,x_0]\)。连续性使两侧上界都趋于零。在 \(a\) 处只取
+\(h>0\)，在 \(b\) 处只取 \(h<0\)，分别得到右导数和左导数。
 \end{solution}
 
 \begin{solution}{ftc-antiderivative-difference}
@@ -32,8 +33,10 @@
 \[
  (F-G)(y)-(F-G)(x)=(F-G)'(\xi)(y-x)=0.
 \]
-所以在一个区间上差为常数。若定义域不是区间，只能断言它在每个连通分支
-（实线上即每个区间分支）上为常数，不同分支的常数可以不同。
+所以在一个区间上差为常数。若定义域是实线上的开集，每个连通分支都是
+开区间，上述论证在每一分支上分别成立，不同分支的常数可以不同。
+例如在 \((-2,-1)\cup(1,2)\) 上，零函数和分别取值0、1的函数有相同导数，
+但其差不在整个定义域上恒定。
 \end{solution}
 
 \begin{solution}{ftc-integral-zero-continuous}
@@ -61,6 +64,21 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
 \((0,1)\) 中任何数，矛盾。
 \end{solution}
 
+\begin{solution}{integral-mean-value-weight-sign}
+在 \([-1,1]\) 上取 \(f(x)=x\)、\(g(x)=x\)。则
+\[
+ \int_{-1}^1g=0,\qquad
+ \int_{-1}^1fg=\int_{-1}^1x^2\,dx=\frac23.
+\]
+若中值公式成立，右端应为 \(f(\xi)\int g=0\)，矛盾。这里权函数变号。
+\end{solution}
+
+\begin{solution}{integral-average-between-extrema}
+平均值总在 \([m,M]\) 中。若平均值等于 \(M\)，则连续非负函数
+\(M-f\) 的积分为零，故 \(f\equiv M\)。等于 \(m\) 同理。因此非常值时
+平均值严格介于两端。常函数显然在端点取平均值。
+\end{solution}
+
 \begin{solution}{hermite-hadamard}
 记 \(m=(a+b)/2\)。对 \(x\in[a,m]\)，凸性给出
 \[
@@ -83,27 +101,12 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
  \frac1{b-a}\int_a^bf(x)\,dx\le\frac{f(a)+f(b)}2.
 \]
 若 \(f\) 严格凸，则第一组点对在 \(x\ne m\) 时互异，第二个弦下估计在
-\(a<x<b\) 时严格。相应严格不等式都在正长度的区间上成立，因此积分后
-仍为严格不等式。
-\end{solution}
-
-\begin{solution}{integral-mean-value-weight-sign}
-在 \([-1,1]\) 上取 \(f(x)=x\)、\(g(x)=x\)。则
-\[
- \int_{-1}^1g=0,\qquad
- \int_{-1}^1fg=\int_{-1}^1x^2\,dx=\frac23.
-\]
-若中值公式成立，右端应为 \(f(\xi)\int g=0\)，矛盾。这里权函数变号。
-\end{solution}
-
-\begin{solution}{integral-average-between-extrema}
-平均值总在 \([m,M]\) 中。若平均值等于 \(M\)，则连续非负函数
-\(M-f\) 的积分为零，故 \(f\equiv M\)。等于 \(m\) 同理。因此非常值时
-平均值严格介于两端。常函数显然在端点取平均值。
+\(a<x<b\) 时严格。两处差函数均连续、非负且在某个内点为正，
+所以各自的积分为正，两个不等号都严格。
 \end{solution}
 
 \begin{solution}{integration-by-parts-log}
-在 \([1,b]\) 上取 \(u=\log x\)、\(v'=1\)，于是 \(v=x\)。
+在连接 \(1,b\) 的闭区间上取 \(u=\log x\)、\(v'=1\)，于是 \(v=x\)。
 两函数均为 \(C^1\)，故分部积分合法：
 \[
  \int_1^b\log x\,dx
@@ -132,7 +135,16 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
 \[
  \int_{-a}^{-b}f(-u)(-1)\,du=\int_a^b f(x)\,dx,
 \]
-整理即得题式。若 \(f\) 为奇函数，两半区间积分互相抵消；若为偶函数，
+换元产生的负号与交换积分上下限产生的负号抵消，因此
+\[
+ \int_a^b f(x)\,dx
+ =-\int_{-a}^{-b}f(-u)\,du
+ =\int_{-b}^{-a}f(-u)\,du.
+\]
+特别取 \(a=0,b=1,f=1\)，左右两边都为 \(1\)，可用来检查符号。
+若 \(f\) 为奇函数，换元给
+\(\int_{-c}^0f(x)\,dx=\int_0^cf(-u)\,du=-\int_0^cf(u)\,du\)，
+两半区间积分互相抵消；若为偶函数，
 \[
  \int_{-c}^c f=2\int_0^c f.
 \]
@@ -175,8 +187,9 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
 \begin{solution}{ftc-integral-upper-function-convex}
 由基本定理 \(F'=f\)。若 \(f\) 单调不减，则可导函数的导数判据说明
 \(F\) 凸。若 \(f\) 严格递增，则 \(F'\) 在任何非退化子区间上都不恒定，
-因而 \(F\) 严格凸。更弱的充分条件是：\(f\) 单调不减且不在任何非退化
-子区间上为常数。
+因而 \(F\) 严格凸。在单调不减的假设下，严格递增等价于不在任何非退化
+子区间上为常数：若 \(x<y\) 而 \(f(x)=f(y)\)，单调性便迫使
+\(f\) 在 \([x,y]\) 上恒定。
 \end{solution}
 
 \begin{solution}{ftc-second-derivative-integral-reconstruction}
@@ -186,17 +199,36 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
 \]
 这里没有使用二重积分换序；所需公式已经由一元分部积分证明。
 
-若 \(f''\ge0\)，则余项
-\(\int_a^x(x-t)f''(t)\,dt\ge0\)（\(x>a\)），从而函数位于每条切线
-上方；这等价于凸性。
+为证明凸性，须把展开中心改为任意 \(y\in[a,b]\)。同一公式给出
+\[
+ f(x)-f(y)-f'(y)(x-y)=\int_y^x(x-t)f''(t)\,dt.
+\]
+若 \(x\ge y\)，右端非负；若 \(x<y\)，将其写成
+\(\int_x^y(t-x)f''(t)\,dt\)，仍非负。故函数位于每一条切线上方。
+具体地，取 \(z=(1-\lambda)x+\lambda y\)、\(0<\lambda<1\)，
+把以 \(z\) 为中心、分别在 \(x,y\) 处的两个切线不等式乘以
+\(1-\lambda,\lambda\) 后相加，线性项消去，得到
+\(f(z)\le(1-\lambda)f(x)+\lambda f(y)\)。
 \end{solution}
 
 \begin{solution}{integral-jensen-weighted-equality}
-记加权平均为 \(m\)。严格凸性给出：对每个 \(u\ne m\)，
-\(\Phi(u)\) 严格高于 \(\Phi\) 在 \(m\) 处的任一支撑线。若 \(f\)
-非常值，由连续性存在一段区间使 \(f\ne m\)，且 \(w>0\)；在该段上严格
-差值连续且为正，因此积分后的 Jensen 不等式严格。反之，若 \(f\) 常值，
-显然取等。
+若 \(f\) 常值，直接代入即取等。以下设它非常值，记
+\(l=\min f<\max f=r\)、\(W=\int_a^b w>0\)，并令
+\(m=W^{-1}\int_a^b fw\)。连续非负函数 \((f-l)w\) 与
+\((r-f)w\) 都在某个内点为正，故积分均为正，得到 \(l<m<r\)。
+因此 \(m\) 是 \(\Phi\) 定义区间的内点，一维次梯度公式保证可取
+\(p\in\partial\Phi(m)\)。令
+\[
+ H(u)=\Phi(u)-\Phi(m)-p(u-m)\ge0.
+\]
+若某个 \(u\ne m\) 有 \(H(u)=0\)，严格凸性会使连接 \(u,m\) 的
+内点处 \(H<0\)，与支撑线不等式矛盾。所以 \(H(u)>0\) 对一切
+\(u\ne m\) 成立。\(H(f(x))w(x)\) 连续非负，且由 \(f\) 非常值在
+某个内点为正，故
+\[
+ 0<\int_a^b H(f)w=\int_a^b\Phi(f)w-W\Phi(m).
+\]
+这证明非常值情形必严格，也完成等号条件的两向证明。
 \end{solution}
 
 \begin{solution}{ftc-derivative-discontinuity-primitive}
@@ -205,7 +237,9 @@ Riemann 可积性使右端趋于 \(\int_a^bF'\)，即得公式。
  F'(x)=2x\sin(1/x^2)-\frac2x\cos(1/x^2),
 \]
 而 \(F'(0)=\lim_{h\to0}h\sin(1/h^2)=0\)。第二项使 \(F'\) 在
-\(0\) 附近无界，故不连续，但它按定义仍是 \(F\) 的导函数。Riemann
-可积函数必须有界，所以 \(F'\) 在任何包含 \(0\) 的闭区间上都不
+\(0\) 附近无界：取 \(x_n=(2\pi n)^{-1/2}\)（\(n\ge1\)），则
+\(F'(x_n)=-2/x_n\to-\infty\)；负半轴可取 \(-x_n\)。故不连续，
+但它按定义仍是 \(F\) 的导函数。Riemann 可积函数必须有界，所以
+\(F'\) 在任何包含 \(0\) 的非退化闭区间上都不
 Riemann 可积。
 \end{solution}

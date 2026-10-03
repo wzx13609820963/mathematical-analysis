@@ -39,7 +39,7 @@ $\ker\Phi=B_0$，而 $\Phi$ 满射，故 $H_0(X)\cong\R^m$。
 一点只有这个常值映射。其边界在偶数维为该低一维生成元，在奇数维为零，
 因为 $\sum_{i=0}^q(-1)^i$ 在 $q$ 偶数时为 $1$、奇数时为 $0$。接上
 $\epsilon:C_0\to\R$ 后，增广链复形逐项正合。因此一点空间所有约化同调
-均为零，这也可由一点可缩及同伦不变性得到。
+均为零。
 \end{solution}
 
 \begin{solution}{singular-cochain-coboundary}
@@ -60,7 +60,16 @@ $t\mapsto F(x,t)$，故
 $\partial P_0(x)=g(x)-f(x)$。
 
 $q=1$ 时，方形 $\Delta^1\times I$ 由对角线分成两个三角形，按约定
-$P_1(\sigma)$ 是二者带相反的交错符号之和。取边界后，对角线出现两次且
+$P_1(\sigma)$ 是二者带相反的交错符号之和。记 $v_i=(e_i,0)$、
+$w_i=(e_i,1)$，并令 $H=F\circ(\sigma\times\operatorname{id})$，则
+\[
+ P_1(\sigma)=H_\#[v_0,w_0,w_1]-H_\#[v_0,v_1,w_1].
+\]
+两项的边界相减为
+\[
+ H_\#\bigl([w_0,w_1]-[v_0,v_1]+[v_0,w_0]-[v_1,w_1]\bigr).
+\]
+取边界后，对角线出现两次且
 方向相反；上边为 $g_\#\sigma$，下边为 $-f_\#\sigma$，两条竖边合成
 $-P_0(\partial\sigma)$。因此
 $\partial P_1(\sigma)+P_0(\partial\sigma)=g_\#\sigma-f_\#\sigma$。
@@ -95,8 +104,9 @@ $\sigma^{-1}(W)$ 中；与 $\sigma$ 复合后，其像落在 $W$ 内。$q=0$ 时
 
 若 $c=\sum_{j=1}^ma_j\sigma_j$ 是有限链，取
 $N=\max_jN_{\sigma_j}$。已经从属于覆盖的单形在继续细分后仍从属于原覆盖元，
-所以 $\operatorname{sd}^Nc$ 是小链。细分链同伦 $T$ 的每一项都由
-$\sigma_j$ 像内的锥构成，故它也保持小链子复形。令
+所以 $\operatorname{sd}^Nc$ 是小链。细分链同伦 $T$ 先在参数单形内作仿射
+锥，再与 $\sigma_j$ 复合；没有在一般空间 $X$ 内作直线锥的操作。其像
+仍包含在原单形像内，故它也保持小链子复形。令
 $T_N=\sum_{r=0}^{N-1}\operatorname{sd}^{\,r}T$，则
 \[
  \operatorname{sd}^N-\operatorname{id}=\partial T_N+T_N\partial.
@@ -122,11 +132,16 @@ $(r,s)$，再以 $(b+\partial r,c+\partial s)$ 提升新代表，连接链保持
 $(b-a,c+a)$ 是 $z$ 的闭提升，所以 $[z]$ 来自中间项。在中间项处，
 $(b,c)$ 映为零意味着 $b+c=\partial w$；提升 $w$ 为 $(r,s)$ 后，
 $(b-\partial r,c-\partial s)$ 落在左端像中，故原同调类来自
-$H_q(U\cap V)$。左端处的核像关系同理由定义得到。
+$H_q(U\cap V)$。最后，若 $a\in C_{q-1}(U\cap V)$ 闭且
+$(a,-a)=\partial(b,c)$，则 $b+c$ 闭，其连接类为 $[\partial b]=[a]$。
+反之，任何连接类的代表满足 $(\partial b,-\partial b)=\partial(b,c)$，
+在中间项的同调中为零。这补齐左端处的核像关系。
 \end{solution}
 
 \begin{solution}{singular-real-universal-coefficient}
-若上闭链 $\varphi$ 在 $H_q$ 上诱导零泛函，则 $\varphi|_{Z_q}=0$。边界映射
+若 $q=0$，则 $Z_0=C_0$、$B^0=0$，零泛函只能来自零上链，满射性按后文
+的延拓构造得到。以下设 $q\ge1$。若上闭链 $\varphi$ 在 $H_q$ 上诱导
+零泛函，则 $\varphi|_{Z_q}=0$。边界映射
 $\partial:C_q\to B_{q-1}$ 诱导同构
 $C_q/Z_q\cong B_{q-1}$，故存在 $B_{q-1}$ 上的线性泛函 $\psi_0$ 使
 $\varphi=\psi_0\circ\partial$。选取补空间
@@ -180,8 +195,9 @@ $H_0(S^n)\cong\R$。
 \end{solution}
 
 \begin{solution}{singular-degree-obstruction}
-若 $f$ 延拓为 $F:B^{n+1}\to S^n$，则包含 $i:S^n\hookrightarrow B^{n+1}$
-满足 $f=F\circ i$。但 $H_n(B^{n+1})=0$，所以
+若 $f$ 延拓为 $F:\overline{B^{n+1}}\to S^n$，则包含
+$i:S^n\hookrightarrow\overline{B^{n+1}}$
+满足 $f=F\circ i$。闭球可缩且 $n\ge1$，故 $H_n(\overline{B^{n+1}})=0$，所以
 $f_*=F_*i_*=0$，与 $d\ne0$ 矛盾。
 
 若 $f$ 无不动点，则
@@ -190,6 +206,7 @@ $f_*=F_*i_*=0$，与 $d\ne0$ 矛盾。
 \]
 给出 $f$ 到反足映射 $a(x)=-x$ 的同伦。分母若为零，则单位向量
 $f(x)$ 是 $x$ 的正倍数，迫使 $f(x)=x$，矛盾。故
-$d=\deg f=\deg a=(-1)^{n+1}$。其逆否命题说明
+$d=\deg f=\deg a=(-1)^{n+1}$，其中反足映射的作用已由正文的覆盖交换
+与坐标反射计算得到。其逆否命题说明
 $d\ne(-1)^{n+1}$ 时 $f$ 必有不动点。
 \end{solution}

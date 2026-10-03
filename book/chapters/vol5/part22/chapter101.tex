@@ -54,7 +54,7 @@ $C_q(X;\R)$，简称 $C_q(X)$。其中元素
 \[
  \partial_q\sigma=\sum_{i=0}^q(-1)^i\sigma\circ\varepsilon_i
 \]
-在线性延拓后定义；约定 $\partial_0=0$。
+在线性延拓后定义；约定 $\partial_0=0$，普通链复形的所有负次数空间为零。
 \end{definition}
 
 一条道路的边界是终点减起点。二维单形的三个边依次带符号，正好与定向
@@ -178,7 +178,9 @@ $-P_{q-1}(\partial\sigma)$。这就得到\eqref{eq:singular-prism-identity}。�
 同伦不变性给 $h_*f_*=\operatorname{id}$、$f_*h_*=\operatorname{id}$。
 \end{proof}
 
-可缩空间与一点同伦等价，因而其正次同调为零，零次同调为 $\R$。这里的
+一点空间每个非负次数的链空间为 $\R$，边界算子在正偶数次数为恒等、在
+奇数次数为零，故其同调仅在零次为 $\R$。可缩空间与一点同伦等价，因而
+其正次同调为零，零次同调为 $\R$。这里的
 结论来自一个显式链同伦，而不是“空间没有洞”的图形直觉。
 
 \section{上链与余边界}
@@ -204,7 +206,8 @@ $q$ 次奇异上链空间为
  \qquad B^q(X)=\operatorname{im}\delta,
  \qquad H^q(X;\R)=Z^q(X)/B^q(X).
 \]
-它们分别称为上闭链、上边界和奇异上同调。连续映射的方向在取对偶后反转：
+在零次约定 $B^0=0$。它们分别称为上闭链、上边界和奇异上同调。
+连续映射的方向在取对偶后反转：
 \[
  f^*:C^q(Y)\to C^q(X),\qquad f^*\varphi=\varphi\circ f_\#,
 \]
@@ -224,7 +227,12 @@ $H_q=Z_q/B_q$ 上的线性泛函。若该泛函为零，则 $\varphi|_{Z_q}=0$�
 $\psi\in C^{q-1}$ 在 $B_{q-1}=\operatorname{im}\partial_q$ 上的拉回，即
 $\varphi=\delta\psi$；这里用到线性泛函可从子空间延拓。反过来，
 $H_q$ 上任意线性泛函先拉回到 $Z_q$，再延拓到 $C_q$，所得上链在
-$B_q$ 上为零，因而上闭。两个构造对上边界取商后互逆。
+$B_q$ 上为零，因而上闭。两个构造对上边界取商后互逆。零次时 $Z_0=C_0$，
+零泛函已意味着上链为零，无须构造负次数上链。自然性来自评价等式
+\[
+ (f^*\varphi)(z)=\varphi(f_\#z),
+\]
+故在同调与上同调取商后，上述同构也与连续映射相容。
 \end{proof}
 
 这个结论依赖系数域。若改用整数系数，子空间延拓的线性代数步骤不再成立，
@@ -236,8 +244,32 @@ $B_q$ 上为零，因而上闭。两个构造对上边界取商后互逆。
 $U$ 或 $V$ 中通常做不到；单形的像可能横跨两个开集。所缺的工具是把单形
 反复细分，直到每个小单形落在其中之一。
 
-标准单形的重心细分在线性延拓后给链映射
-$\operatorname{sd}:C_*(X)\to C_*(X)$。锥构造给出自然链同伦
+先在参数单形中建立细分及其链同伦，随后才与映到 $X$ 的连续单形复合。
+在凸集合内，对仿射单形 $[v_0,\ldots,v_k]$ 定义锥
+$b*[v_0,\ldots,v_k]=[b,v_0,\ldots,v_k]$，线性延拓到仿射链。在增广链
+复形中还令 $b*1=[b]$。逐面取边界给
+\[
+ \partial(b*c)=c-b*(\partial c).
+\]
+此处零链的边界是系数和。以点的细分为自身，对正维仿射单形 $s$，令
+\[
+ \operatorname{sd}s=b_s*\operatorname{sd}(\partial s),
+\]
+其中 $b_s$ 为重心。按维数归纳，锥公式及 $\partial^2=0$ 给
+$\partial\operatorname{sd}s=\operatorname{sd}\partial s$。递归产生的子单形
+顶点是严格递增面链的重心；这些锥把单形分成通常的重心细分，各项的符号
+由边界递归确定。
+
+链同伦也按维数构造。令 $T_0=0$；若各面上已定义 $T$，则
+\[
+ c_s=\operatorname{sd}s-s-T(\partial s)
+\]
+由归纳假设为循环。定义 $Ts=b_s*c_s$，锥公式给 $\partial Ts=c_s$。
+所有构造都在 $s$ 内进行，且仿射映射保持重心和锥，所以各面上的定义相容。
+对任意奇异单形 $\sigma:\Delta^q\to X$，定义
+$\operatorname{sd}\sigma=\sigma_\#\operatorname{sd}[e_0,\ldots,e_q]$、
+$T\sigma=\sigma_\#T[e_0,\ldots,e_q]$，再线性延拓，得到链映射
+$\operatorname{sd}:C_*(X)\to C_*(X)$ 和自然链同伦
 \begin{equation}\label{eq:singular-subdivision-homotopy}
  \operatorname{sd}-\operatorname{id}=\partial T+T\partial.
 \end{equation}
@@ -249,7 +281,10 @@ $\operatorname{sd}:C_*(X)\to C_*(X)$。锥构造给出自然链同伦
 论证写全。对奇异 $q$-单形 $\sigma:\Delta^q\to X$，
 $\{\sigma^{-1}(U),\sigma^{-1}(V)\}$ 是紧度量空间 $\Delta^q$ 的开覆盖。取其
 Lebesgue 数 $\lambda>0$。当 $q\geq1$ 时，一次重心细分所得子单形的直径至多
-为原直径的 $q/(q+1)$；充分多次细分后，每个参数子单形的直径小于
+为原直径的 $q/(q+1)$。确实，若面 $F\subset G$ 分别有 $k,l$ 个顶点，
+则 $b_G=(k/l)b_F+((l-k)/l)b_{G\setminus F}$，所以
+$|b_G-b_F|\le(1-k/l)\operatorname{diam}s\le q\operatorname{diam}s/(q+1)$。
+细分子单形中的顶点来自同一面链，这就控制了其直径。充分多次细分后，每个参数子单形的直径小于
 $\lambda$，从而它整个落在某个 $\sigma^{-1}(U)$ 或 $\sigma^{-1}(V)$ 中。
 零维情形无需细分。有限链中只出现有限个单形，因而可为整条链选取同一个
 细分次数。
@@ -303,12 +338,27 @@ $C_*^{U,V}(X)\hookrightarrow C_*(X)$ 诱导同调同构。
 对一般链复形短正合列，连接同态这样构造：若 $[z]$ 属于右端同调，先提升
 $z$ 到中间元素 $y$；因为 $z$ 闭，$\partial y$ 落在左端像中，写成左端
 元素 $x$ 的像，并令连接同态为 $[x]$。改变提升或代表元只改变边界，逐项
-追踪即得良定义和正合性。把这个构造用于\eqref{eq:singular-mv-short-exact}，再以小链子复形与
+追踪如下。将一般短正合列记为 $0\to A\xrightarrow{i}B\xrightarrow{p}C\to0$。
+若提升 $y$ 改为 $y+i(a)$，连接循环 $x$ 改为 $x+\partial a$；若代表元
+$z$ 改为 $z+\partial c$，取 $c$ 的提升 $b$，用 $y+\partial b$ 提升，
+连接循环不变，故连接映射良定义。三处正合性分别为：
+\begin{itemize}
+\item 在 $H_q(C)$ 处，闭提升使连接类为零；反之若 $x=\partial a$，
+则 $y-i(a)$ 为闭提升，所以原类来自 $H_q(B)$。
+\item 在 $H_q(B)$ 处，若闭链 $y$ 满足 $p(y)=\partial c$，提升 $c$ 为 $b$，
+则 $y-\partial b=i(a)$，且 $a$ 闭，故类来自 $H_q(A)$。
+\item 在 $H_{q-1}(A)$ 处，若闭链 $a$ 满足 $i(a)=\partial b$，则 $p(b)$
+闭，其连接类就是 $[a]$；反向包含来自 $i(x)=\partial y$。
+\end{itemize}
+把这个构造用于\eqref{eq:singular-mv-short-exact}，再以小链子复形与
 $C_*(X)$ 的同调同构替换右端，得到同调序列。
 
 实向量空间上的 $\operatorname{Hom}(-,\R)$ 是正合函子：子空间上的线性
 泛函总能延拓。对\eqref{eq:singular-mv-short-exact}取对偶得到方向相反的上链短正合列，再用同样的
-连接同态构造得到上同调序列。映射的符号由该短正合列固定。
+连接同态构造得到上同调序列。映射的符号由该短正合列固定。若 $U,V$ 及
+$U\cap V$ 均非空，给三个链复形接上增广，零次以下的短正合列成为
+$0\to\R\to\R^2\to\R\to0$，箭头仍是 $(a,-a)$ 与相加。相同构造就给出
+下面球面计算所用的约化长正合列。
 \end{proof}
 
 \section{圆周、球面和可缩空间}
@@ -349,9 +399,18 @@ $H_0$。上同调结论由
 命题~\ref{prop:real-cohomology-dual-homology}得到。
 \end{proof}
 
-特别地，$H_1(S^1;\R)\cong\R$。沿圆周一次的闭路给出生成元，而在圆盘中
+特别地，$H_1(S^1;\R)\cong\R$。把一次绕行的闭路分为分别位于两个覆盖弧
+内的有向路径，连接同态将其送到交集两个分支中端点之差，这是
+$\widetilde H_0(U\cap V)$ 的非零生成元。因此沿圆周一次的闭路给出生成元，而在圆盘中
 它成为二维链的边界。这说明“是否可填充”依赖环境空间。也由此可知
 $S^n$ 不可缩，并且不同维数的球面不同伦等价。
+
+还可由这套计算确定反射的作用。关于赤道的反射交换南北覆盖元，但在赤道
+上为恒等。Mayer--Vietoris 连接映射原来用分解 $z=b+c$ 的 $\partial b$
+定义；交换覆盖元后改用 $\partial c=-\partial b$，所以反射在
+$H_n(S^n)$ 上乘以 $-1$。其他坐标反射与它共轭，因最高次空间是一维，
+诱导作用仍为 $-1$。反足映射是 $n+1$ 个坐标反射的复合，故在最高次同调
+上乘以 $(-1)^{n+1}$；这不需要预用 de Rham 定理。
 
 下一章要把闭微分形式沿单形积分。形式只能沿光滑单形直接拉回，而本章允许
 连续单形。所需的比较事实是：在光滑流形中，由光滑奇异单形生成的子复形
@@ -383,6 +442,6 @@ $C_*^\infty(M)$ 包含到 $C_*(M)$ 中会诱导同调同构。证明可在每个
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{singular-circle-two-arcs}用两个略长于半圆的开弧和 Mayer--Vietoris 序列直接计算 $H_*(S^1;\R)$。
 \exerciseitem{singular-sphere-induction}详细写出约化 Mayer--Vietoris 序列，归纳计算所有 $S^n$ 的同调。
-\exerciseitem{singular-punctured-euclidean-space}证明 $\R^n\setminus\{0\}$ 与 $S^{n-1}$ 形变收缩等价，并计算其同调。
-\optionalexerciseitem{singular-degree-obstruction}设 $f:S^n\to S^n$ 的诱导映射在 $H_n$ 上为标量 $d$ 的乘法。证明：若 $d\ne0$，则 $f$ 不能延拓为 $B^{n+1}\to S^n$；若 $d\ne(-1)^{n+1}$，则 $f$ 必有不动点。
+\exerciseitem{singular-punctured-euclidean-space}设 $n\ge1$。证明 $\R^n\setminus\{0\}$ 与 $S^{n-1}$ 形变收缩等价，并计算其同调。
+\optionalexerciseitem{singular-degree-obstruction}设 $n\ge1$，$f:S^n\to S^n$ 的诱导映射在 $H_n$ 上为标量 $d$ 的乘法。证明：若 $d\ne0$，则 $f$ 不能延拓为 $\overline{B^{n+1}}\to S^n$；若 $d\ne(-1)^{n+1}$，则 $f$ 必有不动点。
 \end{enumerate}

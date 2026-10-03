@@ -69,9 +69,37 @@ Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还�
 则称二重级数正则收敛。
 \end{definition}
 
-正则收敛要求矩形只要沿一个方向远离原点，其和就很小；这正是逐行、逐列
-极限与矩形极限能够协调所需的尾部控制。这里只把它作为换序问题的参照，
-后续结论主要在更容易核验的绝对收敛条件下陈述。
+正则收敛要求矩形只要沿一个方向远离原点，其和就很小。例如只在第一行
+放入 \(a_{1n}=1\)，其余各行恒为零，则两个下指标都大的矩形和为零，
+但第一行不收敛。定义中的“或”正是为了同时控制这种横条和竖条。
+
+\begin{proposition}[正则收敛的迭代和]
+\label{prop:regular-double-series-iterated}
+正则收敛的二重级数按Pringsheim意义收敛，每行、每列级数也收敛，且
+两个迭代和等于矩形极限。
+\end{proposition}
+
+\begin{proof}
+固定行指标 \(m\)，在正则条件中取只有一行的矩形。列下指标充分大时
+任意有限尾和都小，级数Cauchy准则给出该行收敛；各列同理。
+
+给定 \(\varepsilon>0\)，取 \(N_0\)，使远处矩形和的绝对值小于
+\(\varepsilon/2\)。若 \(M,N,P,Q\ge N_0\)，写
+\[
+ S_{MN}-S_{PQ}=(S_{MN}-S_{PN})+(S_{PN}-S_{PQ}).
+\]
+当 \(M\ne P\) 时，第一差是一个矩形带的和或其相反数，行下指标为
+\(\min\{M,P\}+1>N_0\)。当 \(N\ne Q\) 时，第二差的列下指标为
+\(\min\{N,Q\}+1>N_0\)。相应指标相等时，该差为零。
+差的绝对值因而小于 \(\varepsilon\)，矩形Cauchy准则给出极限 \(s\)。
+记各行和为 \(r_m\)。对固定的充分大 \(M\)，令 \(N\to\infty\)
+于 \(|S_{MN}-s|<\varepsilon\)，有限行可逐行取极限，得到
+\[
+ \left|\sum_{m=1}^M r_m-s\right|\le\varepsilon.
+\]
+预先以任意小的精度使用矩形极限，即得 \(\sum_mr_m=s\)。交换指标得到
+列版本。后续将主要使用非负性和绝对收敛，它们有更直接的检验方法。
+\end{proof}
 
 \section{逐行和、逐列和及换序问题}
 
@@ -244,8 +272,9 @@ Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还�
  c_n=(-1)^n\sum_{k=0}^n
  \frac1{\sqrt{(k+1)(n-k+1)}}.
 \]
-中间一半的指标中，每个分母至多 \(n+1\)，而这样的项有比例为正的
-\(n\) 项，所以 \(\abs{c_n}\) 有固定正下界，不趋于零。Cauchy 乘积发散。
+对每个 \(0\le k\le n\)，分母不超过 \(n+1\)，故每项至少为
+\(1/(n+1)\)。共有 \(n+1\) 项，因而 \(\abs{c_n}\ge1\)，不趋于零。
+Cauchy 乘积发散。
 \end{counterexample}
 
 \section{无穷乘积的定义和 Cauchy 准则}
@@ -261,7 +290,7 @@ Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还�
 若 \(P_N\to0\)，称乘积\term{趋于零}，但按本书约定不称为收敛。
 \end{definition}
 
-非零极限的约定使有限个因子的改变只按一个非零常数缩放乘积，也使尾乘积
+非零极限的约定使有限个因子改为其他非零因子时只按一个非零常数缩放乘积，也使尾乘积
 趋于 \(1\)。
 
 \begin{theorem}[无穷乘积的 Cauchy 准则]
@@ -274,11 +303,17 @@ Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还�
 \end{theorem}
 
 \begin{proof}
-若 \(P_N\to P\ne0\)，则
+若 \(P_N\to P\ne0\)，给定 \(\varepsilon>0\)，取 \(N\) 使所有
+\(k\ge N-1\) 都满足
 \[
- \prod_{k=m}^n p_k=\frac{P_n}{P_{m-1}}\to1
+ |P_k-P|<\min\{|P|/2,\varepsilon|P|/4\}.
 \]
-在 \(m,n\to\infty\) 时成立。
+于是 \(|P_{m-1}|>|P|/2\)，并且对任意 \(n\ge m\ge N\)，
+\[
+ \left|\prod_{k=m}^np_k-1\right|
+ =\frac{|P_n-P_{m-1}|}{|P_{m-1}|}<\varepsilon.
+\]
+同一个 \(N\) 控制两个端点，与尾乘积的长度无关。
 
 反之，先取 \(N_0\) 使一切从 \(N_0\) 开始的有限尾乘积落在
 \((1/2,3/2)\)。固定 \(m=N_0\)，可知
@@ -418,7 +453,7 @@ Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还�
  \exerciseitem{infinite-product-zero-harmonic} 证明
  \(\prod_{n=2}^\infty(1-1/n)=0\)，并解释为何本书不称其为收敛乘积。
  \exerciseitem{infinite-product-absolute-perturbation} 证明若
- \(\sum\abs{u_n}<\infty\) 且无零因子，则改变有限多个因子只把乘积乘以
+ \(\sum\abs{u_n}<\infty\) 且无零因子，则把有限多个因子改为其他非零因子只把乘积乘以
  一个非零常数。
  \exerciseitem{infinite-product-log-second-order} 若 \(u_n\to0\)、
  \(\sum u_n\) 收敛且 \(\sum u_n^2<\infty\)，证明
@@ -431,5 +466,6 @@ Pringsheim 收敛只控制以 \((1,1)\) 为左下角的矩形部分和。若还�
   \prod_{p\in P}\frac1{1-p^{-s}},
  \]
  说明每个只含 \(P\) 中素因子的正整数恰出现一次。再讨论把 \(P\) 扩大时，
- 这些有限乘积与 \(\sum_{n\ge1}n^{-s}\) 的关系。
+ 这些有限乘积与 \(\sum_{n\ge1}n^{-s}\) 的关系。可使用算术基本定理：每个
+ 大于1的正整数都可唯一写为有限个素数幂的乘积（不计因子的排列）。
 \end{enumerate}

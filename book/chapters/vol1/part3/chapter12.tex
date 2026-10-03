@@ -110,7 +110,7 @@
 \end{proposition}
 
 \begin{proof}
-空集没有需要覆盖的点，有限集只需为每个点选一个覆盖成员。设 \(F\subset K\)，其中 \(F\) 在 \(K\) 中相对闭且 \(K\) 紧。给定 \(F\) 的相对开覆盖，把 \(K\setminus F\) 添入便得到 \(K\) 的相对开覆盖；取有限子覆盖后删去 \(K\setminus F\)，余下成员覆盖 \(F\)。最后，若 \(K_1,\ldots,K_m\) 紧，则给定它们的并集的开覆盖，分别从每个 \(K_j\) 上取有限子覆盖，把这有限多组成员合在一起即可。
+空集没有需要覆盖的点，有限集只需为每个点选一个覆盖成员。设 \(F\subset K\)，其中 \(F\) 在 \(K\) 中相对闭且 \(K\) 紧。给定 \(F\) 的实线开覆盖 \(\{U_\lambda\}\)，则 \(\{K\cap U_\lambda\}\) 的各成员在 \(K\) 中相对开；再添入 \(K\setminus F\)，就覆盖 \(K\)。取有限子覆盖后删去 \(K\setminus F\)，对应的有限多个 \(U_\lambda\) 仍覆盖 \(F\)。这里不能直接把 \(F\) 中的相对开集当作 \(K\) 中的相对开集。最后，若 \(K_1,\ldots,K_m\) 紧，则给定它们的并集的开覆盖，分别从每个 \(K_j\) 上取有限子覆盖，把这有限多组成员合在一起即可。
 \end{proof}
 
 \begin{theorem}[Lebesgue 数引理]
@@ -281,7 +281,7 @@
 \[
  x,y\in I,\quad x<z<y\Longrightarrow z\in I.
 \]
-因此实线中的连通集恰为各种区间和单点集。
+因此实线中的非空连通集恰为各种区间和单点集；空集按定义也连通。
 \end{theorem}
 
 \begin{proof}
@@ -451,6 +451,6 @@
  \exerciseitem{18.22}  证明紧致集上的连续双射到实数子集时逆映射连续。
  \exerciseitem{18.23} \ 【前置：\chapterref{chap:subsequences-bw}与本章；预计用时：90分钟】建立“闭且有界—序列紧致—有限覆盖性质”的三向证明链，要求每个方向独立注明使用的实数完备性形式。
  \exerciseitem{18.24}  设 \(\mathcal U\) 是紧集 \(K\) 的开覆盖。若 \(\lambda>0\) 满足：每个 \(x\in K\) 的相对邻域 \(K\cap(x-\lambda,x+\lambda)\) 都包含于某个 \(U\in\mathcal U\)，则称 \(\lambda\) 为覆盖的 Lebesgue 数。完整证明每个紧集开覆盖都有 Lebesgue 数。
- \exerciseitem{18.25}  设 \(K_1\supset K_2\supset\cdots\) 为非空紧集。证明若 \(K_1\) 有界，则 \(\bigcap_nK_n\ne\varnothing\)。
+ \exerciseitem{18.25}  设 \(K_1\supset K_2\supset\cdots\) 为实线中的非空紧集。证明 \(\bigcap_nK_n\ne\varnothing\)，说明为何不必另行假设 \(K_1\) 有界；若只要求各集合非空且闭，结论是否仍成立？
  \exerciseitem{18.26}  设 \(K\subset\R\) 为非空紧集，\(f:K\to\R\) 连续。证明零点集 \(\{x\in K:f(x)=0\}\) 是紧集；若 \(f(x)\ne0\) 对每个 \(x\in K\) 成立，证明 \(\abs f\) 在 \(K\) 上有正的最小值。
 \end{enumerate}

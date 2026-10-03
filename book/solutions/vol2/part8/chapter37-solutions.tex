@@ -35,7 +35,7 @@
 \[
  A\subseteq V\subseteq\overline V\subseteq X\setminus W\subseteq U.
 \]
-反之，给定不相交闭集 \(A,B\)，对 \(A\subseteq X\setminus B\) 取 \(V\) 满足闭包缩小条件。于是 \(V\) 与 \(X\setminus\overline V\) 是 \(A,B\) 的不相交开邻域。
+反之，给定不相交闭集 \(A,B\)，对 \(A\subseteq X\setminus B\) 取 \(V\) 满足闭包缩小条件。于是 \(V\) 与 \(X\setminus\overline V\) 是 \(A,B\) 的不相交开邻域。结合预设的 \(T_1\) 条件，得到本书定义下的正规性。此预设不能省略：两点不可分空间只有空集和全集闭，满足闭包缩小条件，却不是 \(T_1\) 空间。
 \end{solution}
 
 \begin{solution}{regular-lindelof-normal}
@@ -53,7 +53,7 @@
 \(d(x,A)+d(x,B)=0\)，则两个非负项都为零。闭性给出
 \(x\in A\cap B\)，矛盾，所以分母严格为正。
 
-若 \(A\) 紧、\(B\) 闭且不相交，连续函数 \(x\mapsto d(x,B)\) 在 \(A\) 上取得最小值。该最小值不能为零，否则某个 \(a\in A\) 满足
+若 \(A\) 非空且紧，\(B\) 非空、闭且与 \(A\) 不相交，连续函数 \(x\mapsto d(x,B)\) 在 \(A\) 上取得最小值。该最小值不能为零，否则某个 \(a\in A\) 满足
 \(d(a,B)=0\)，闭性给出 \(a\in B\)。所以
 \[
  d(A,B)=\min_{a\in A}d(a,B)>0.
@@ -77,6 +77,7 @@
 \end{solution}
 
 \begin{solution}{tietze-series-error}
+若 \(A\) 为空，零函数已经给出延拓；以下讨论正文中 \(A\ne\varnothing\) 的级数构造。
 构造给出
 \[
  \left\|f-\sum_{n=0}^{N}g_n|_A\right\|_{\infty,A}
@@ -121,11 +122,22 @@
 \begin{solution}{metrization-separating-family}
 非负性、对称性和三角不等式逐项成立，级数由 \(\sum2^{-n-1}=1\) 控制。分离点保证 \(x\ne y\) 时某个 \(f_n(x)\ne f_n(y)\)，故 \(d(x,y)>0\)。
 
-每个 \(f_n\) 连续和尾项的一致控制说明原拓扑收敛蕴含 \(d\)-收敛。所谓函数族“决定原拓扑”，是指映射
+固定 \(x\in X\) 和 \(\varepsilon>0\)，取 \(N\) 使
+\(\sum_{n>N}2^{-n-1}<\varepsilon/2\)。有限交
 \[
- e:X\to[0,1]^{\N},\qquad e(x)=(f_n(x))
+ W=\bigcap_{n=0}^{N}\{y:|f_n(y)-f_n(x)|<\varepsilon/2\}
 \]
-是到其像的拓扑嵌入；于是给定原邻域 \(U\ni x\)，有有限多个坐标及相应开区间组成的柱集，其在 \(e(X)\) 中的原像包含 \(x\) 且包含于 \(U\)。取这些坐标对应的有限个正距离阈值的最小加权值，即得到 \(d\)-球包含于 \(U\)。故两种拓扑一致。
+是原拓扑中 \(x\) 的开邻域。对 \(y\in W\)，级数前段小于 \(\varepsilon/2\)，尾段也小于 \(\varepsilon/2\)，故 \(W\subseteq B_d(x,\varepsilon)\)。这直接证明从原拓扑到度量拓扑的恒等映射连续，不需要用数列判据。
+
+反向利用初始拓扑的定义。给定原开集 \(U\ni x\)，存在有限指标集 \(J\subseteq\N\) 及 \([0,1]\) 中开集 \(V_j\)，使
+\[
+ x\in\bigcap_{j\in J}f_j^{-1}(V_j)\subseteq U.
+\]
+若 \(J\) 为空，则 \(U=X\)，任意球均可。否则对每个 \(j\in J\) 取 \(\eta_j>0\)，使 \((f_j(x)-\eta_j,f_j(x)+\eta_j)\cap[0,1]\subseteq V_j\)，并令
+\[
+ \delta=\min_{j\in J}2^{-j-1}\eta_j>0.
+\]
+当 \(d(x,y)<\delta\) 时，\(2^{-j-1}|f_j(x)-f_j(y)|\le d(x,y)<2^{-j-1}\eta_j\) 对所有 \(j\in J\) 成立，故 \(y\in U\)。所以 \(B_d(x,\delta)\subseteq U\)，两种拓扑一致。若 \(X\) 为空，结论直接成立。
 \end{solution}
 
 \begin{solution}{metrization-basis-pair-detail}
@@ -148,11 +160,11 @@
 \end{solution}
 
 \begin{solution}{complete-regular-product}
-设 \(F\) 是积空间中的闭集且 \(x\notin F\)。取基本柱集
+积空间的 \(T_1\) 性已由坐标投影证明。设 \(F\) 是积空间中的闭集且 \(x\notin F\)。若 \(F=\varnothing\)，取常函数零即可；以下设 \(F\ne\varnothing\)。取基本柱集
 \[
  x\in U=\bigcap_{k=1}^m\pi_{i_k}^{-1}(U_k)\subseteq X\setminus F.
 \]
-完全正则性给出连续 \(g_k:X_{i_k}\to[0,1]\)，在 \(x_{i_k}\) 为零，在闭集 \(X_{i_k}\setminus U_k\) 上为一。每个 \(g_k\circ\pi_{i_k}\) 连续；两个实值连续函数的最大值可写成
+因 \(F\ne\varnothing\)，有 \(m\ge1\)。完全正则性给出连续 \(g_k:X_{i_k}\to[0,1]\)，在 \(x_{i_k}\) 为零，在闭集 \(X_{i_k}\setminus U_k\) 上为一。每个 \(g_k\circ\pi_{i_k}\) 连续；两个实值连续函数的最大值可写成
 \[
  \max\{u,v\}=\frac{u+v+|u-v|}{2},
 \]

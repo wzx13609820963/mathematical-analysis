@@ -90,7 +90,8 @@ Sierpiński 空间唯一需要检验的非平凡开集是 \(\{1\}\)。而
 \[
  \widetilde q:[0,1]/(0\sim1)\longrightarrow S^1.
 \]
-商空间是紧空间的连续像，故紧；\(S^1\subseteq\R^2\) 为 Hausdorff 空间。定理 \ref{thm:compact-continuous-image} 说明紧空间到 Hausdorff 空间的连续双射是同胚。
+商空间是紧空间的连续像，故紧；\(S^1\subseteq\R^2\) 是度量空间。
+由\chapterref{chap:metric-connectedness}中已经证明的结论，该连续双射为同胚。
 \end{solution}
 
 \begin{solution}{first-countable-sequential-continuity}
@@ -108,5 +109,10 @@ Sierpiński 空间唯一需要检验的非平凡开集是 \(\{1\}\)。而
 \begin{solution}{finite-support-sequential-closure}
 若 \((x^{(n)})\subseteq A\) 收敛到 \(x\)，则对任意 \(i\) 满足 \(x_i=1\)，坐标收敛迫使最终 \(x_i^{(n)}=1\)，特别地 \(i\in\bigcup_n\operatorname{supp}x^{(n)}\)。右端至多可数，故 \(x\) 支集至多可数。
 
-反之，若 \(\operatorname{supp}x=\{i_0,i_1,\ldots\}\) 至多可数，令 \(x^{(n)}\) 在前 \(n\) 个这些坐标上与 \(x\) 相同、其余为零。对每个固定坐标，数列最终等于 \(x\) 的该坐标，故在积拓扑中收敛到 \(x\)。所以序列闭包正是支集至多可数的点集；它严格小于 \(X=\overline A\)。
+反之，若支集有限（包括空集），则 \(x\in A\)，取常列即可。若支集可数无限，
+枚举为 \(\{i_0,i_1,\ldots\}\)，令 \(x^{(n)}\) 只在
+\(i_0,\ldots,i_n\) 上与 \(x\) 相同，其余为零。每个固定坐标最终等于
+\(x\) 的该坐标。任一基本邻域只限制有限多个坐标，取这有限多个最终指标的
+最大值，便知该列最终落在邻域中。因此 \(x^{(n)}\to x\)。序列闭包正是
+支集至多可数的点集；它严格小于 \(X=\overline A\)。
 \end{solution}

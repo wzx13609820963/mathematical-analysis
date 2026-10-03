@@ -5,6 +5,10 @@ Riemann 积分只在有限闭区间上处理有界函数。把区间端点移到
 或允许函数在端点、内点附近无界，都超出了这个定义。反常积分不另造一种
 有限和，而是把每个截断后的 Riemann 积分组成一个极限问题。
 
+以下各判别均以被积函数在远离奇点的每个有限闭子区间上 Riemann 可积
+为前提。仅有绝对值可积或点态比较，不能代替这一局部可积性假设。
+需要连续性或连续可导性的定理另行注明。
+
 \section{无穷区间、无界函数和多奇点积分}
 
 \begin{definition}[无穷区间上的积分]
@@ -241,12 +245,20 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
 由 Dirichlet 判别收敛，因为 \(\int_1^R\sin x\,dx\) 有界而 \(1/x\)
 单调趋零。它不绝对收敛；可在每个
 \([k\pi+\pi/6,k\pi+5\pi/6]\) 上用
-\(\abs{\sin x}\ge1/2\) 与调和型比较证明。
+\(\abs{\sin x}\ge1/2\) 得到下界 \(1/(3(k+1))\)（\(k\ge1\)）。
+对前 \(N\) 段相加，并用
+\[
+ \sum_{k=1}^N\frac1{k+1}\ge\int_2^{N+2}\frac{dt}{t}
+ =\log\frac{N+2}{2}\longrightarrow+\infty,
+\]
+可见绝对值的截断积分无界。这里比较的是有限和与已经建立的积分，
+不需要预先使用级数判别法。
 \end{example}
 
 \begin{theorem}[反常积分的 Abel 判别]
 \label{thm:improper-abel}
-若 \(\int_a^\infty f\) 收敛，\(g\in C^1([a,\infty))\) 单调且有界，
+设 \(f\) 在每个有限区间上连续。若 \(\int_a^\infty f\) 收敛，
+\(g\in C^1([a,\infty))\) 单调且有界，
 则 \(\int_a^\infty fg\) 收敛。
 \end{theorem}
 
@@ -255,7 +267,9 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
 \[
  fg=L f+f(g-L).
 \]
-第一项可积；函数 \(g-L\) 单调趋零，而 \(f\) 的不定积分有界，所以第二项
+第一项的反常积分收敛；函数 \(g-L\) 单调趋零，而
+\(F(x)=\int_a^x f\) 在无穷远有有限极限，又在每个有限闭区间连续，
+因而在整个半轴有界。所以第二项
 由 Dirichlet 判别收敛。
 \end{proof}
 
@@ -274,16 +288,28 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
  \quad\text{与}\quad
  \int_\alpha^\beta f(\phi(t))\phi'(t)\,dt
 \]
-同敛散，并在收敛时取相同值。
+同敛散，并在收敛时取相同值。若变换后的函数在 \(\alpha\) 附近无界，
+新积分在该端也按反常积分理解；这一端的绝对收敛由上述假设自动保证。
 \end{theorem}
 
 \begin{proof}
-对任意 \(s<\beta\)，有限区间代换公式给出
+固定 \(\alpha<r<s<\beta\)。在 \([r,s]\) 上可用有限区间代换公式，
+得到
+\[
+ \int_r^s f(\phi(t))\phi'(t)\,dt
+ =\int_{\phi(r)}^{\phi(s)}f(x)\,dx.
+\]
+\(\phi\) 递增，故 \(\phi'\ge0\)。对连续函数 \(\abs f\) 同样换元，
+再令 \(r\downarrow\alpha\)，右端趋于有限积分
+\(\int_a^{\phi(s)}\abs f\)。所以新下端绝对收敛，而且
 \[
  \int_\alpha^s f(\phi(t))\phi'(t)\,dt
  =\int_a^{\phi(s)}f(x)\,dx.
 \]
-当 \(s\to\beta-\) 时，\(\phi(s)\to\infty\)，两侧极限同时存在且相等。
+当 \(s\to\beta-\) 时，\(\phi(s)\to\infty\)。反过来，任意充分大的
+\(R\) 都可唯一写为 \(\phi(s)\)，且 \(R\to\infty\) 必有
+\(s\to\beta-\)：否则 \(s\) 会有一个小于 \(\beta\) 的上界，
+从而 \(\phi(s)\) 也有界。故两侧上端极限同时存在且相等。
 \end{proof}
 
 变量代换并不能把一个发散积分自动变成收敛积分。定理中的“同敛散”来自
@@ -396,17 +422,17 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
 
 \subsection*{B组　比较与振荡}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{improper-log-power-infinity} 判定
+ \exerciseitem{improper-log-power-infinity} 设 \(p,q\in\R\)，判定
  \[
   \int_e^\infty\frac{dx}{x^p(\log x)^q}
  \]
  的敛散性，完整处理 \(p=1\) 的临界情形。
- \exerciseitem{improper-log-power-zero} 判定
+ \exerciseitem{improper-log-power-zero} 设 \(p,q\in\R\)，判定
  \[
   \int_0^{1/2}\frac{dx}{x^p\abs{\log x}^{\,q}}
  \]
  的敛散性。
- \exerciseitem{improper-sine-over-power} 判定
+ \exerciseitem{improper-sine-over-power} 对 \(\alpha\in\R\)，判定
  \(\int_1^\infty \sin x/x^\alpha\,dx\) 的收敛、绝对收敛和发散范围。
  \exerciseitem{improper-dirichlet-quantitative-tail} 在 Dirichlet 判别的条件下
  证明尾积分估计
@@ -414,7 +440,8 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
   \abs{\int_u^\infty fg}\le 2M\abs{g(u)}
  \]
  （在单调趋零的固定符号尾部）。
- \exerciseitem{improper-abel-from-dirichlet} 不直接引用 Abel 判别，按
+ \exerciseitem{improper-abel-from-dirichlet} 在本章 Abel 判别的假设下，
+ 不直接引用其结论，按
  \(g=L+(g-L)\) 的分解逐项验证全部条件。
  \exerciseitem{improper-absolute-not-necessary} 证明
  \(\int_1^\infty\sin x/x\) 条件收敛。
@@ -422,7 +449,8 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
 
 \subsection*{C组　变换与反例}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
- \exerciseitem{improper-substitution-inversion} 用 \(x=1/t\) 把零点附近的
+ \exerciseitem{improper-substitution-inversion} 设 \(f:(0,1]\to\R\) 连续。
+ 用 \(x=1/t\) 把零点附近的
  反常积分化为无穷远积分，并重新得到 \(p\)-型判别。
  \exerciseitem{improper-gaussian-convergence} 不计算具体值，只用比较判别证明
  \(\int_0^\infty e^{-x^2}\,dx\) 收敛。
@@ -430,7 +458,8 @@ Cauchy 准则把收敛归结为尾积分的控制。上面的命题则说明，�
  \(\int u'v\) 收敛但 \(u(R)v(R)\) 无极限，从而说明反常分部积分的边界项
  条件不能删去。
  \exerciseitem{improper-conditional-substitution-warning} 证明
- \(\int_1^\infty\sin x/x\) 在单调 \(C^1\) 代换下保持其值；说明为什么
+ \(\int_1^\infty\sin x/x\) 在满足定理 \ref{thm:improper-substitution}
+ 假设的代换下保持其值；说明为什么
  任意重排有限区间的贡献不属于变量代换定理。
  \optionalexerciseitem{improper-fresnel-dirichlet} 用代换 \(t=x^2\) 和
  Dirichlet 判别证明 \(\int_0^\infty\sin(x^2)\,dx\) 收敛但不绝对收敛。

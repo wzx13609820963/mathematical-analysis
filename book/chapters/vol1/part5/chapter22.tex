@@ -51,7 +51,7 @@
 \(a_n=s_n-s_{n-1}\to s-s=0\)。
 \end{proof}
 
-逆命题不成立，调和级数是最基本的反例。改变有限项只改变有限个部分和，
+逆命题不成立，调和级数是最基本的反例。改变有限项使后续部分和相差一个常数，
 不影响敛散性；收敛时总和按有限改变量相应改变。
 
 \begin{proposition}[有限项的影响]
@@ -143,6 +143,16 @@
 \end{example}
 
 \section{比值、根值与上极限判据}
+
+以下允许 \(a_n\) 有正负号。若 \(\sum |a_n|\) 收敛，称 \(\sum a_n\)
+绝对收敛；它与通常收敛的关系将在下一章证明。
+
+几何级数提供了这些判别法的比较对象。若 \(|q|<1\)，有限恒等式
+\[
+ \sum_{k=0}^Nq^k=\frac{1-q^{N+1}}{1-q}
+\]
+和 \(q^{N+1}\to0\) 给出总和 \(1/(1-q)\)。根值判别要检验的，是原级数
+尾部能否由某个收敛几何级数控制；比值判别则从相邻两项间建立这样的控制。
 
 \begin{theorem}[根值判别]
 \label{thm:root-test}
@@ -322,13 +332,38 @@
 \]
 故 \(a_n\le Cn^{-p}\)，级数收敛。
 
-若 \(R<1\)，取 \(R<p<1\)。充分大时
+若 \(R<1\)，取 \(\max\{R,0\}<p<1\)。充分大时
 \[
  \frac{a_n}{a_{n+1}}\le1+\frac pn.
 \]
-用 \(\log(1+t)\le t\) 求和可得
+用 \(\log(1+t)\le t\) 求和，并使用
+\(\sum_{k=N}^{n-1}1/k\le \log n+C_N\)，可得
 \(\log a_n\ge C-p\log n\)，即
-\(a_n\ge c n^{-p}\)，故发散。
+\(a_n\ge c n^{-p}\)，故发散。这里各常数与 \(n\) 无关；它们由固定的
+起始指标、\(a_N\) 及所选 \(p\) 决定。第一种情形的对数估计则由有限
+Taylor 公式在零点附近给出，二次误差由收敛的 \(\sum k^{-2}\) 控制。
+\end{proof}
+
+Gauss 判别不仅给出敛散性，还给出通项的渐近大小。为取得渐近式中的有限
+常数，先补足调和和与对数之差的极限。
+
+\begin{lemma}[调和和的对数修正]
+\label{lem:harmonic-log-correction}
+记 \(H_n=\sum_{k=1}^n1/k\)。存在实数 \(\gamma\)，使
+\[
+ H_n=\log n+\gamma+o(1).
+\]
+\end{lemma}
+
+\begin{proof}
+令 \(d_n=H_n-\log n\)。由于
+\[
+ \log(1+1/n)=\int_n^{n+1}\frac{dx}{x}>\frac1{n+1},
+\]
+有 \(d_{n+1}-d_n<0\)。另一方面，逐区间积分比较给出
+\(\log n\le H_{n-1}<H_n\)，故 \(d_n>0\)。单调有界收敛定理说明
+\(d_n\to\gamma\)，于是得到所述渐近式。特别地，
+\(H_{n-1}=\log n+\gamma+o(1)\) 也成立。
 \end{proof}
 
 \begin{theorem}[Gauss 判别]
@@ -355,7 +390,7 @@
   +O\!\left(\frac1{n^{1+\eta}}\right),
 \qquad \eta=\min\{1,\delta\}>0.
 \]
-求和后，误差级数收敛，而
+求和后，误差级数绝对收敛，而引理 \ref{lem:harmonic-log-correction} 给出
 \(\sum_{k=1}^{n-1}1/k=\log n+\gamma+o(1)\)。所以
 \[
  \log a_n+\alpha\log n
@@ -420,7 +455,8 @@ Gauss 判别在临界值 \(\alpha=1\) 仍能判定发散，因为余项具有可
  \(\sum_{n\ge1}\mathbf1_{\{n=2^k\}}/n\) 收敛，而其非零项对应的分母集合
  无限。
  \exerciseitem{series-divergent-slow-terms} 构造一个正项发散级数，使
- \(a_n\to0\) 比 \(1/n\) 更快地发生在无穷多个指标上。
+ \(a_n\to0\)，且存在严格递增指标列 \((n_k)\) 满足
+ \(n_ka_{n_k}\to0\)。
  \exerciseitem{series-comparison-oscillation-positive} 构造正项数列
  \(a_n,b_n\)，使 \(a_n/b_n\) 无极限，但两级数仍可由双边比较判定同敛散。
  \exerciseitem{series-cauchy-condensation-base} 把凝聚判别中的底数 \(2\)

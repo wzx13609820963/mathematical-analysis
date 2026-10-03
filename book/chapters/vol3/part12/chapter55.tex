@@ -40,7 +40,8 @@ $\ell(\varnothing)=0$。定义
 
 \begin{proof}
 空集可由全为空集的集合列覆盖，故外测度为零。包含关系只扩大允许覆盖的
-要求，给出单调性。对 $A\subseteq\bigcup_kA_k$，若右侧有限，给定
+要求，给出单调性。对 $A\subseteq\bigcup_{k\ge1}A_k$，若
+$\sum_{k\ge1}\mu^*(A_k)<\infty$，给定
 $\varepsilon>0$，为每个 $A_k$ 选覆盖，使其总代价小于
 $\mu^*(A_k)+\varepsilon2^{-k}$。把所有覆盖集合排成一个序列便覆盖 $A$，
 故
@@ -112,6 +113,10 @@ $Z$ 满足 Carathéodory 条件，且测度为零。因此所得测度完备。
 
 \section{从预测度到外测度}
 
+包含 $X$、对补集和有限并封闭的集合族称为 $X$ 上的\term{集合代数}。
+它也包含空集，并对有限交和差封闭；但不要求包含任意可数并。
+在这样的集合族上规定体积时，可加性只能针对并集仍在定义域中的情形。
+
 \begin{definition}
 设 $\mathcal A_0$ 是 $X$ 上的代数。函数
 $\mu_0:\mathcal A_0\to[0,+\infty]$ 称为\term{预测度}，如果
@@ -141,7 +146,8 @@ $A\subseteq\bigcup_nA_n$，把 $A$ 依次分成
 \[
  B_n=A\cap A_n\setminus\bigcup_{k<n}A_k.
 \]
-$B_n$ 两两不交、属于代数且并为 $A$。预测度的可数可加性和单调性给出
+$B_n$ 两两不交、属于代数且并为 $A$。预测度先由在有限不交族后补空集得到
+有限可加性，再由 $D=C\dot\cup(D\setminus C)$ 得到单调性。因此
 $\mu_0(A)=\sum_n\mu_0(B_n)\le\sum_n\mu_0(A_n)$。对所有覆盖取下确界。
 
 固定 $E\subseteq X$ 和 $A\in\mathcal A_0$。任一代数覆盖 $(A_n)$ 可按
@@ -171,13 +177,39 @@ $\sigma(\mathcal A_0)\subseteq\mathcal M_{\mu^*}$。定理
 
 \section{延拓的唯一性}
 
-存在性不自动给出唯一性。最简单的反例是只在代数
-$\{\varnothing,X\}$ 上规定 $\mu_0(X)=+\infty$；任何总质量无穷的测度
-都延拓它。$\sigma$-有限性排除了这种完全没有局部有限控制的情形。
+延拓唯一性必须先指定目标：本节比较的是同一个
+$\sigma(\mathcal A_0)$ 上的测度，而不是任意扩大定义域后得到的测度。
+例如 $\mathcal A_0=\{\varnothing,X\}$ 本身已经是 $\sigma$-代数，
+无论总测度是否有限，在 $\sigma(\mathcal A_0)$ 上都没有新集合需要赋值；
+它不能作为本节唯一性失败的反例。
+
+反例可在 $\R$ 上构造。令 $\mathcal A_0$ 为有限个非退化区间
+$[a,b)$、$(-\infty,b)$、$[a,\infty)$ 的并所成的代数，有限端点取有理数，
+并包括 $\varnothing,\R$。其每个非空成员都含一个非退化区间，
+而 $\sigma(\mathcal A_0)=\mathcal B(\R)$。定义
+\[
+ \mu_0(A)=
+ \begin{cases}0,&A=\varnothing,\\+\infty,&A\ne\varnothing.\end{cases}
+\]
+它是预测度：不交并若非空，至少有一个非空成员，等式两端都为无穷。
+在 Borel 集上，计数测度 $\mu$ 和测度
+\[
+ \nu(E)=
+ \begin{cases}0,&E\text{ 至多可数},\\+\infty,&E\text{ 不可数}\end{cases}
+\]
+都延拓 $\mu_0$。为验证 $\nu$ 可数可加，只需注意可数个至多可数集的并
+仍至多可数；若并不可数，则至少一项不可数。但
+$\mu(\{0\})=1$、$\nu(\{0\})=0$，所以两延拓不同。
+
+$\sigma$-有限性将给出唯一性的充分条件，并非必要条件。
+其作用是在可数多个有限测度块上允许用减法比较补集，再拼回整个空间。
 
 唯一性证明要用到一个集合族闭包结论。称包含 $X$、对补集以及两两不交的
-可数并封闭的集合族为 \term{Dynkin 系统}；称对有限交封闭的集合族为
+可数并封闭的集合族为 \term{Dynkin 系统}；称对两集合的交封闭的集合族为
 \term{$\pi$-系统}。
+这里不要求 $\pi$-系统包含 $X$。Dynkin 系统对嵌套差集封闭：若
+$B\subseteq A$ 且两者在系统中，则 $B$ 与 $A^c$ 不交，故
+$A\setminus B=(B\cup A^c)^c$ 仍在系统中。一般差集则未必具有这个性质。
 
 \begin{lemma}[$\pi$--$\lambda$ 定理]
 \label{lem:pi-lambda}
@@ -189,14 +221,18 @@ $\mathcal P$ 的 Dynkin 系统，则
 \end{lemma}
 
 \begin{proof}
-记 $\lambda(\mathcal P)$ 为包含 $\mathcal P$ 的最小 Dynkin 系统。先
+包含 $\mathcal P$ 的所有 Dynkin 系统的交仍是 Dynkin 系统，且这样的系统
+至少有 $\mathcal P(X)$，故存在最小者，记为 $\lambda(\mathcal P)$。先
 固定 $A\in\mathcal P$，令
 \[
  \mathcal D_A=\{B\subseteq X:A\cap B\in\lambda(\mathcal P)\}.
 \]
 因为 $A\in\lambda(\mathcal P)$，集合族 $\mathcal D_A$ 包含 $X$；
-Dynkin 系统的差集封闭性和不交可数并封闭性说明 $\mathcal D_A$ 仍是
-Dynkin 系统。$\mathcal P$ 对有限交封闭，所以
+若 $B\in\mathcal D_A$，则
+$A\cap B^c=A\setminus(A\cap B)$ 属于 $\lambda(\mathcal P)$，这里用的是
+嵌套差集封闭性。若 $B_n\in\mathcal D_A$ 两两不交，则 $A\cap B_n$ 也两两
+不交，其并属于 $\lambda(\mathcal P)$。因此 $\mathcal D_A$ 是 Dynkin 系统。
+$\mathcal P$ 对交封闭，所以
 $\mathcal P\subseteq\mathcal D_A$，从而
 $\lambda(\mathcal P)\subseteq\mathcal D_A$。
 
@@ -204,11 +240,15 @@ $\lambda(\mathcal P)\subseteq\mathcal D_A$。
 \[
  \mathcal E_B=\{A\subseteq X:A\cap B\in\lambda(\mathcal P)\}.
 \]
-前一段说明 $\mathcal P\subseteq\mathcal E_B$；同样的检验表明
-$\mathcal E_B$ 是 Dynkin 系统。因此
+前一段说明 $\mathcal P\subseteq\mathcal E_B$。又 $X\cap B=B$，
+$A^c\cap B=B\setminus(A\cap B)$；后一式仍是系统内两个嵌套集合之差。
+不交并与取交的分配律则给出不交可数并封闭性。因此 $\mathcal E_B$ 是
+Dynkin 系统，并有
 $\lambda(\mathcal P)\subseteq\mathcal E_B$，即
 $\lambda(\mathcal P)$ 对有限交封闭。一个对有限交封闭的 Dynkin 系统
-同时对补集和任意可数并封闭，因而是 $\sigma$-代数。于是
+对补集和有限并封闭。任意集合列可用
+$H_n\setminus\bigcup_{k<n}H_k$ 化为系统内的不交集合列，故它也对任意可数并
+封闭，因而是 $\sigma$-代数。于是
 \[
  \lambda(\mathcal P)=\sigma(\mathcal P).
 \]
@@ -271,11 +311,13 @@ $\pi$--$\lambda$ 定理以后还会用于乘积测度和概率分布的唯一性
  \exerciseitem{premeasure-outer-agreement}
  逐项补全引理 \ref{lem:premeasure-agrees-on-algebra}。
  \exerciseitem{finite-partition-premeasure}
- 给定有限分割 $X=A_1\dot\cup\cdots\dot\cup A_m$ 和权重 $w_j\ge0$，在
- 由这些原子生成的代数上构造预测度，并求其 Carathéodory 延拓。
+ 给定有限分割 $X=A_1\dot\cup\cdots\dot\cup A_m$，其中 $m\ge1$，各块非空，
+ 以及有限实权重 $w_j\ge0$。在由这些原子生成的代数上构造预测度，
+ 求诱导外测度、完整的 Carathéodory 可测域及其上的测度。
  \exerciseitem{extension-nonunique-infinite-total}
- 在 $X=\N$ 上，从代数 $\{\varnothing,X\}$ 和规定
- $\mu_0(X)=+\infty$ 出发，写出两个不同的测度延拓。
+ 对本节的有理端点区间代数，证明它生成 $\mathcal B(\R)$，并逐项验证
+ 计数测度和“至多可数集取零、不可数集取无穷”的测度是不同的延拓。
+ 再说明为什么在 $\N$ 上把有限集赋零、无限集赋无穷不能定义测度。
  \exerciseitem{sigma-finite-disjoint-cover}
  证明延拓唯一性定理中的 $X_n$ 可替换为两两不交的代数成员，并保持有限
  测度。

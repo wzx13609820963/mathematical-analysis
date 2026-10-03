@@ -17,14 +17,18 @@ $\eta(b-a)$。先令网径趋零，再令 $\eta\downarrow0$，便得到弧长公
 \end{solution}
 
 \begin{solution}{arc-length-reparametrization}
-设 $t=\phi(s)$。若 $\phi$ 严格递增且为 $C^1$ 微分同胚，
+设 $\phi:[c,d]\to[a,b]$ 为严格单调 $C^1$ 满射。若它递增，则
+$\phi(c)=a$、$\phi(d)=b$，且 $\phi'\ge0$，于是
 \[
- \int\norm{(\gamma\circ\phi)'(s)}\,ds
- =\int\norm{\gamma'(\phi(s))}\phi'(s)\,ds
- =\int\norm{\gamma'(t)}\,dt.
+ \int_c^d\norm{(\gamma\circ\phi)'(s)}\,ds
+ =\int_c^d\norm{\gamma'(\phi(s))}\phi'(s)\,ds
+ =\int_a^b\norm{\gamma'(t)}\,dt.
 \]
-若严格递减，则 $\phi'<0$，范数产生 $|\phi'|=-\phi'$，换元时上下限也
-交换，最后仍得同一积分。因此弧长与方向无关，只依赖几何轨迹及其重数。
+若严格递减，则 $\phi'\le0$，端点反向对应。范数产生
+$|\phi'|=-\phi'$，换元时上下限也交换，仍得到同一积分。
+一元换元是对连续函数的原函数应用链式法则，不需要 $\phi^{-1}$ 可微。
+例如 $\phi(s)=s^3$ 把 $[-1,1]$ 严格递增地映满自身，虽然
+$\phi'(0)=0$，长度公式仍不变。曲线的正则性可能在该点失去。
 \end{solution}
 
 \begin{solution}{helix-length-line-integral}
@@ -86,8 +90,16 @@ $f=x^2+y^2$ 和单位圆盘，面积为
 \[
  |S_R|=\int_0^{2\pi}\int_0^\pi R^2\sin\varphi\,d\varphi\,d\theta=4\pi R^2.
 \]
-两极的参数秩下降，但它们是两个点，面积为零。可先在
-$\eta\le\varphi\le\pi-\eta$ 积分，再令 $\eta\downarrow0$。
+为说明上式确实计算几何面积，先在
+$\eta\le\varphi\le\pi-\eta$ 上把 $\theta$ 分成几个长度小于
+$2\pi$ 的区间。各片正则单射，公共经线在参数域中的面积为零。
+这部分面积为 $4\pi R^2\cos\eta$。两极冠分别改用
+$z=\pm\sqrt{R^2-x^2-y^2}$，其面积因子在投影圆盘上不超过
+$\sqrt2$（$\eta<\pi/4$），故总遗漏面积至多为
+$2\sqrt2\pi R^2\sin^2\eta$。令 $\eta\downarrow0$ 得到整球面积。
+若另外删去总角宽 $2\delta$ 的经线条带，其面积不超过
+$2\pi R^2\delta$，也可令 $\delta\downarrow0$ 补回。这些误差估计
+均未使用整球面积公式。
 \end{solution}
 
 \begin{solution}{sphere-radial-flux}
@@ -137,11 +149,27 @@ $\int_{-1}^1\norm{\gamma'(t)}dt=\int_{-1}^13t^2dt=2$，恰为线段长度。
  X(u,v)=((1+v\cos(u/2))\cos u,
  (1+v\cos(u/2))\sin u,v\sin(u/2))
 \]
-表示 Möbius 带，$0\le u\le2\pi$。沿中心线 $v=0$ 选连续法向
-$N(u)$（例如由 $X_u\times X_v$ 归一化）。直接代入可见
-$N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局连续
-法向，其沿中心线限制必须在同一点取同一值，与此反向关系矛盾。因此 Möbius
-带不可定向。
+表示 Möbius 带，取 $0\le u\le2\pi$、$|v|\le w$，其中 $0<w<1$，在两端识别
+$(0,v)$ 与 $(2\pi,-v)$。令
+$e_r=(\cos u,\sin u,0)$、$e_\theta=(-\sin u,\cos u,0)$、$e_z=(0,0,1)$。
+直接求导得到
+\[
+ X_v=\cos(u/2)e_r+\sin(u/2)e_z,
+ \quad
+ X_u=(1+v\cos(u/2))e_\theta
+       +\tfrac v2(-\sin(u/2)e_r+\cos(u/2)e_z).
+\]
+这两个向量正交，$\norm{X_v}=1$ 且
+$\norm{X_u}\ge1-w>0$，所以参数正则。沿中心线 $v=0$，单位法向为
+\[
+ N(u)=X_u\times X_v
+     =\sin(u/2)e_r-\cos(u/2)e_z.
+\]
+因此 $N(0)=-e_z$、$N(2\pi)=e_z$。若全局连续单位法向 $n$ 存在，
+它沿中心线必为 $n(X(u,0))=\sigma(u)N(u)$，其中
+$\sigma(u)=\langle n(X(u,0)),N(u)\rangle$ 是取值于 $\{-1,1\}$ 的
+连续函数，故在 $[0,2\pi]$ 上恒定。两端于是仍反向，而 $X(0,0)=X(2\pi,0)$，
+矛盾。这排除了所有连续法向选择，而不只是所算的 $N$。
 \end{solution}
 
 \begin{solution}{green-simple-domain-proof}
@@ -165,7 +193,10 @@ $N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局�
  =\int_c^d[Q(\delta(y),y)-Q(\gamma(y),y)]\,dy
  =\iint_D Q_x\,dx\,dy.
 \]
-两式相加得到 Green 公式。有限个端点不改变一维积分。
+两式相加得到 Green 公式。若图函数在端点具有竖直切线，就把图线先用
+其分段 $C^1$ 参数表示。例如 $h(x)=P(x,\alpha(x))$ 连续，沿下边界有
+$\int h(x(t))x'(t)\,dt=\int_a^b h(x)\,dx$。这项换元不要求
+$\alpha'$ 在端点存在。有限个拼接点不改变一维积分。
 \end{solution}
 
 \begin{solution}{green-annulus-orientation}
@@ -222,7 +253,19 @@ $N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局�
 半径 \(R\) 的球面上 \(x\cdot n=R\)，得到
 \(|B_R|=4\pi R^3/3\)。对底半径 \(R\)、高 \(h\) 的直圆锥，把原点取在
 锥顶；侧面母线方向与 \(x\) 相切，所以 \(x\cdot n=0\)，只有底面贡献，
-得到体积 \(\pi R^2h/3\)。
+形式上得到体积 \(\pi R^2h/3\)，还须处理锥顶。
+把圆锥写成 $0\le z\le h$、$x^2+y^2\le (Rz/h)^2$，先取
+$\varepsilon\le z\le h$ 的截锥；它的上下圆盘与侧面正则，可沿各坐标的
+投影轮廓分成有限个本章的简单块。截面边缘处使用正则曲面参数，不要求
+投影图函数在轮廓处导数有界。新增下底的外法向为 $-e_z$，故
+\[
+ |\Omega_\varepsilon|
+ =\frac13\left(h\pi R^2
+             -\varepsilon\pi(R\varepsilon/h)^2\right).
+\]
+被删去的小锥包含于边长分别为 $2R\varepsilon/h$、$2R\varepsilon/h$、
+$\varepsilon$ 的盒中，体积不超过 $4R^2\varepsilon^3/h^2$。
+令 $\varepsilon\downarrow0$，得到所求体积；没有直接在非正则顶点应用定理。
 \end{solution}
 
 \begin{solution}{gauss-inverse-square-flux}
@@ -253,10 +296,24 @@ $N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局�
 \end{solution}
 
 \begin{solution}{stokes-hemisphere-disk}
-取 \(F=(-y/2,x/2,0)\)，则
-\(\operatorname{curl}F=(0,0,1)\)。单位圆盘上的通量为 \(\pi\)；上半球
-上的通量为 \(\int_Sn_3\,dS\)，即向 \(xy\) 平面的投影面积，也为
-\(\pi\)。两个定向曲面具有同一条正向边界，Stokes 公式因而给出同一环流。
+由 \(F=(-y/2,x/2,0)\) 得 \(\operatorname{curl}F=(0,0,1)\)。圆盘向上
+定向，故旋度通量为 $\iint_{x^2+y^2\le1}1\,dx\,dy=\pi$。
+上半球取参数
+\[
+ X(\varphi,\theta)=(\sin\varphi\cos\theta,
+ \sin\varphi\sin\theta,\cos\varphi),
+ \quad 0\le\varphi\le\pi/2.
+\]
+外向面积向量为 $X_\varphi\times X_\theta=\sin\varphi\,X$，所以通量为
+\[
+ \int_0^{2\pi}\int_0^{\pi/2}\sin\varphi\cos\varphi\,d\varphi\,d\theta
+ =\pi.
+\]
+该参数的极点和切口按球面积题中的正则分片及极冠估计处理；旋度有界，
+误差趋零。上半球的外向法向诱导赤道从上方看逆时针，与向上圆盘一致。
+直接取 $\gamma(t)=(\cos t,\sin t,0)$，还有
+$F(\gamma(t))\cdot\gamma'(t)=1/2$，所以边界积分为 $\pi$。
+三次计算相符；不能在不说明定向时只说两曲面具有同一个边界。
 \end{solution}
 
 \begin{solution}{curl-gradient-divcurl}
@@ -273,7 +330,8 @@ $N(2\pi)=-N(0)$，而 $(0,0)$ 与 $(2\pi,0)$ 表示同一点。若存在全局�
 \end{solution}
 
 \begin{solution}{path-independent-potential-construction}
-固定 \(x_0\)，定义 \(\varphi(x)\) 为从 \(x_0\) 到 \(x\) 的任一路径积分；
+由开连通域的折线连通性，所需分段 $C^1$ 道路存在。固定 \(x_0\)，
+定义 \(\varphi(x)\) 为从 \(x_0\) 到 \(x\) 的任一此类道路积分；
 路径无关使定义良好。对坐标方向 \(e_i\) 和充分小的 \(h\)，把到
 \(x+he_i\) 的路径取为先到 \(x\) 再走线段，故
 \[
@@ -326,7 +384,14 @@ Green 定理于是给出两条曲线积分相等。
 \[
  \varphi(x)=\int_0^1F(tx)\cdot x\,dt.
 \]
-对第 \(j\) 个坐标求导，
+固定 $x$ 后，径向线段是 $U$ 中的紧集；在 $x$ 的一个足够小闭邻域内，
+全部径向线段仍包含于 $U$ 中一个共同紧集。函数 $G(t,y)=F(ty)\cdot y$
+的 $y$ 偏导在 $[0,1]$ 与这个邻域的乘积上连续。因而
+\[
+ \sup_{0\le t\le1}
+ \left|\frac{G(t,x+he_j)-G(t,x)}h-\partial_jG(t,x)\right|\to0.
+\]
+积分误差不超过该上确界，所以对第 \(j\) 个坐标求导得到
 \[
  \partial_j\varphi(x)
  =\int_0^1\left[
@@ -338,9 +403,12 @@ Green 定理于是给出两条曲线积分相等。
 \end{solution}
 
 \begin{solution}{classical-theorem-hypothesis-audit}
-Green 公式要求平面区域可有限分割为简单区域，边界分段 \(C^1\)，场在
-区域邻域中 \(C^1\)；Gauss 公式要求三维区域可作坐标简单分割，边界分片
-光滑并有外向定向；Stokes 公式要求定向分片正则曲面及相容的分段光滑边界。
+Green 公式要求平面区域分别沿两个坐标方向作有限简单分割，边界分段
+\(C^1\)，场在闭区域邻域中 \(C^1\)；Gauss 公式要求分别沿三个坐标方向
+作本章规定的简单分割，边界分片正则并有外向定向，场为 \(C^1\)；
+Stokes 的当前证明要求参数为 \(C^2\)、场为 \(C^1\)，各正则片有相容
+定向和分段光滑边界。图函数的端点竖直切线不等于几何边界不正则，但不能
+省去换参或截断的验证。
 连续但无连续偏导的场、分形边界、不可定向曲面以及含场奇点的区域均不由
 本章证明覆盖。更弱条件下的版本需要测度、弱导数或几何测度论工具。
 \end{solution}

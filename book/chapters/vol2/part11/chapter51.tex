@@ -1,9 +1,9 @@
 \chapter{函数空间 \texorpdfstring{$C(K)$}{C(K)}}
 \label{chap:continuous-function-space}
 
-此前讨论函数列时，函数只是带有自变量的表达式；一致收敛定理却已经暗示，
-一整个连续函数也可以作为空间中的一个点。两个函数之间的距离取为最大偏差，
-逐点变化的问题便转化为这个空间中的收敛、完备性和紧致性问题。
+一致收敛用一个误差界同时控制定义域中的所有点。把这个误差界写成两函数
+之差的上确界范数，便可用赋范空间的语言研究函数列。这里既要确定连续函数
+空间是否完备，也要考察它的有界集是否紧致；这两个问题将给出不同的答案。
 
 本章设 $K$ 为非空紧致 Hausdorff 空间，标量域为 $\mathbb F=\R$ 或 $\C$。
 若只关心第一遍阅读，可以把 $K$ 始终看成闭区间或紧致度量空间。
@@ -16,6 +16,8 @@
  \norm f_\infty=\max_{x\in K}|f(x)|
 \]
 总是有限的。
+实、复标量下的范数都要求正定性、三角不等式以及
+$\norm{\lambda f}=|\lambda|\norm f$；复标量的齐次性使用复数的模。
 
 \begin{proposition}
 \label{prop:sup-norm-on-ck}
@@ -32,9 +34,10 @@ $\norm{\cdot}_\infty$ 是 $C(K;\mathbb F)$ 上的范数，并且
 $|f_n(x)-f(x)|<\varepsilon$，这正是一致收敛定义中的量词次序。
 \end{proof}
 
-完备性是这个函数空间的第一个重要性质。它把
-\chapterref{chap:uniform-convergence-preservation}“连续函数的一致极限连续”
-改写成空间本身没有缺口。
+完备的赋范线性空间称为 \emph{Banach 空间}。下面将
+\chapterref{chap:uniform-convergence-preservation}的连续函数一致极限定理
+用于 $C(K)$。定义域此时可以是一般紧致 Hausdorff 空间，因而仍须核对
+逐点取得的极限是否连续。
 
 \begin{theorem}[\texorpdfstring{$C(K)$}{C(K)} 的完备性]
 \label{thm:ck-banach}
@@ -60,16 +63,24 @@ $\norm{f_n-f}_\infty\le\varepsilon$，即 $f_n$ 一致收敛于 $f$。连续函�
 
 \section{积分范数}
 
-在 $C([a,b])$ 上还可以定义
+本节固定 $a<b$。在 $C([a,b];\mathbb F)$ 上还可以定义
 \[
  \norm f_p=\left(\int_a^b|f(x)|^p\,dx\right)^{1/p},\qquad 1\le p<\infty.
 \]
-它们也是范数。这里把三角不等式所需的有限维事实写出，以免提前调用第三卷
+这些量有限且满足齐次性。若连续函数 $f$ 在某点非零，连续性保证在该点
+附近的一段正长度子区间上 $|f|$ 有正的下界，故 $\int_a^b|f|^p>0$。
+即使该点是端点，也可取单侧子区间。这就证明了正定性；若允许 $a=b$，
+这一步将失败。下面把三角不等式所需的有限维事实写出，以免提前调用第三卷
 的 \(L^p\) 理论。设 \(1<p<\infty\) 且 \(1/p+1/q=1\)。Young 不等式
 \[
  uv\le \frac{u^p}{p}+\frac{v^q}{q}\qquad(u,v\ge0)
 \]
-经齐次化给出有限和的 Hölder 不等式
+可由对固定 $v$ 极小化 $u^p/p-uv$ 得到：其最小值在
+$u=v^{1/(p-1)}$ 取得，值为 $-v^q/q$。令
+$A=(\sum_i|a_i|^p)^{1/p}$、$B=(\sum_i|b_i|^q)^{1/q}$。
+若 $AB=0$，所有乘积均为零；否则对 $u_i=|a_i|/A$、$v_i=|b_i|/B$
+使用 Young 不等式并求和，得到 $\sum_i u_iv_i\le1/p+1/q=1$。
+乘回 $AB$，便是有限和的 Hölder 不等式
 \[
  \sum_i|a_ib_i|
  \le\left(\sum_i|a_i|^p\right)^{1/p}
@@ -101,8 +112,10 @@ $\norm{f_n-f}_\infty\le\varepsilon$，即 $f_n$ 一致收敛于 $f$。连续函�
 \end{equation}
 所以一致收敛必推出每个积分范数下的收敛。
 
-反向推论不成立。令 $f_n$ 是以 $1/2$ 为中心、高为 $1$、底宽为 $2/n$ 的
-三角形函数。则 $\norm{f_n}_\infty=1$，而
+反向推论不成立。对 $n\ge2$，令
+$f_n(x)=\max\{1-n|x-1/2|,0\}$，$0\le x\le1$。
+它是以 $1/2$ 为中心、高为 $1$、底宽为 $2/n$ 的三角形函数。
+则 $\norm{f_n}_\infty=1$，而
 $\norm{f_n}_p^p=2/(n(p+1))\to0$。积分范数允许误差集中在越来越小的区间；
 上确界范数只看最大误差，不考虑其发生区域有多小。
 
@@ -114,14 +127,18 @@ $C([0,1])$ 赋予 $\norm{\cdot}_1$ 后不是完备空间。
 \end{proposition}
 
 \begin{proof}
-令 $f_n$ 在 $[0,1/2-1/n]$ 上为 $0$，在 $[1/2+1/n,1]$ 上为 $1$，中间作
-线性连接。它在 $\norm{\cdot}_1$ 下趋于阶跃函数
-$h=\mathbf1_{(1/2,1]}$，因二者只在长度 $2/n$ 的区间上可能不同。故
-$(f_n)$ 是 $\norm{\cdot}_1$-Cauchy 列。
+对 $n\ge2$，令 $f_n$ 在 $[0,1/2-1/n]$ 上为 $0$，在
+$[1/2+1/n,1]$ 上为 $1$，中间作线性连接。置
+$h=\mathbf1_{(1/2,1]}$。虽然 $h$ 不连续，但它分段连续，下面涉及的积分
+都有 Riemann 意义。由于 $f_n-h$ 只在长度 $2/n$ 的区间上可能非零，且
+$|f_n-h|\le1$，有 $\int_0^1|f_n-h|\le2/n$。因此
+$\norm{f_n-f_m}_1\le2/n+2/m$，即 $(f_n)$ 是 $\norm{\cdot}_1$-Cauchy 列。
 
 若它在 $C([0,1])$ 中还收敛于某个连续函数 $g$，则三角不等式给出
-$\norm{g-h}_1=0$。连续性于是迫使 $g=0$ 于 $[0,1/2)$、$g=1$ 于
-$(1/2,1]$，与 $g$ 在 $1/2$ 连续矛盾。因此该 Cauchy 列在连续函数空间中
+$\int_0^1|g-h|=0$。若左半区某点 $g\ne0$，连续性便给出一段正长度
+区间，使 $|g-h|=|g|$ 有正下界，积分不可能为零。因此 $g=0$ 于
+$[0,1/2)$；对右半区的 $g-1$ 作同一论证，得 $g=1$ 于 $(1/2,1]$。
+这与 $g$ 在 $1/2$ 连续矛盾。因此该 Cauchy 列在连续函数空间中
 没有 $\norm{\cdot}_1$ 极限。
 \end{proof}
 
@@ -163,7 +180,7 @@ $\delta_{x_0}(f)=f(x_0)$ 是 $C(K)$ 上的线性泛函，而且
 等号由常函数 $1$ 取得。因而上确界范数收敛时，每一点的函数值都连续地
 随函数变化。
 
-若 $K=[a,b]$，积分映射
+若 $K=[a,b]$ 且 $a<b$，积分映射
 \[
  I(f)=\int_a^bf(x)\,dx
 \]
@@ -245,8 +262,15 @@ $x=(z-y_0)/\norm{z-y_0}$。任取 $y\in M$，有
 \end{theorem}
 
 \begin{proof}
-有限维情形由 Heine--Borel 定理成立。反之，若 $X$ 无限维，递归令
-$M_n=\operatorname{span}\{x_1,\ldots,x_n\}$，并用 Riesz 引理选单位向量
+若 $X$ 有限维，选定一组基后，范数等价定理说明坐标映射及其逆均连续。
+闭单位球的坐标像是欧氏空间中的闭有界集，由 Heine--Borel 定理紧致，
+故原闭单位球紧致。复 $n$ 维空间在此视为实 $2n$ 维空间；零维情形的
+单位球只有一个点。
+
+反之，若 $X$ 无限维，先取一个单位向量 $x_1$，递归令
+$M_n=\operatorname{span}\{x_1,\ldots,x_n\}$。有限维范数等价还说明 $M_n$
+完备：其中的 Cauchy 列对应于欧氏坐标中的 Cauchy 列，坐标极限再映回
+$M_n$。完备子空间是闭集，且 $M_n\ne X$，所以可以用 Riesz 引理选单位向量
 $x_{n+1}$，使它到 $M_n$ 的距离大于 $1/2$。于是 $m<n$ 时
 $\norm{x_n-x_m}>1/2$，所以闭单位球中的序列 $(x_n)$ 没有 Cauchy 子列，
 更没有收敛子列；闭单位球不紧致。
@@ -287,8 +311,8 @@ $\norm{h_n-h_m}_\infty=1$。因此 $(h_n)$ 没有 Cauchy 子列。所有函数�
  求有限个点值线性组合 $T(f)=\sum_{j=1}^m a_jf(x_j)$ 的范数，其中 $x_j$
  两两不同。
  \exerciseitem{weighted-integral-functional-norm}
- 补全 $\norm{I_g}=\int|g|$ 的证明，并解释当 $g$ 有零点时为何不能直接取
- $f=\operatorname{sgn}g$。
+ 补全 $\norm{I_g}=\int|g|$ 的证明。在实值情形给出一个连续 $g$，使
+ $\operatorname{sgn}g$ 不连续；说明有零点并不总能这样取到连续的测试函数。
  \exerciseitem{point-evaluation-l1-discontinuous}
  构造连续函数列，证明点值泛函在 $\norm{\cdot}_1$ 下不连续。
  \exerciseitem{ck-lattice-lipschitz}

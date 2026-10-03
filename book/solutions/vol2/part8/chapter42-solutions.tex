@@ -16,6 +16,7 @@
 \end{solution}
 
 \begin{solution}{metric-uniformity-topology}
+空空间按正文约定具有唯一一致结构，结论直接成立。以下设 \(X\ne\varnothing\)。
 集合 \(U_\varepsilon\) 都含对角线且对称，并满足
 \[
  U_{\varepsilon/2}\circ U_{\varepsilon/2}\subseteq U_\varepsilon
@@ -150,7 +151,8 @@ Cauchy 列，其尾滤子是 Cauchy 滤子，却在 \(\Q\) 中没有聚点，也
  |d(x_n,y_n)-d(x_m,y_m)|
  \le d(x_n,x_m)+d(y_n,y_m),
 \]
-右端数列是 Cauchy 列，极限存在。若换用等价代表 \((x_n')\)、
+当 \(m,n\) 同时趋于无穷时，右端趋于零，所以实数列
+\((d(x_n,y_n))\) 是 Cauchy 列；实数的完备性保证其极限存在。若换用等价代表 \((x_n')\)、
 \((y_n')\)，则
 \[
  |d(x_n,y_n)-d(x_n',y_n')|
@@ -207,8 +209,9 @@ Cauchy 列，其尾滤子是 Cauchy 滤子，却在 \(\Q\) 中没有聚点，也
 \(A_n\in\mathcal H\) 使 \(A_n\) 的直径小于 \(2^{-n}\)，并令
 \(B_n=A_1\cap\cdots\cap A_n\)。取 \(z_n\in B_n\)。若 \(m\ge n\)，
 则 \(z_m,z_n\in A_n\)，故 \(\widehat d(z_m,z_n)<2^{-n}\)。完备性给出
-\(z_n\to z\)。给定 \(\varepsilon>0\)，取 \(n\) 使
-\(2^{1-n}<\varepsilon\) 且 \(\widehat d(z_n,z)<2^{-n}\)。对任意
+\(z_n\to z\)。固定 \(n\) 并让上述不等式中的 \(m\to\infty\)，得到
+\(\widehat d(z_n,z)\le2^{-n}\)。给定 \(\varepsilon>0\)，取 \(n\) 使
+\(2^{1-n}<\varepsilon\)。对任意
 \(y\in B_n\)，
 \[
  \widehat d(y,z)
@@ -221,6 +224,9 @@ Cauchy 列，其尾滤子是 Cauchy 滤子，却在 \(\Q\) 中没有聚点，也
 \end{solution}
 
 \begin{solution}{completion-extension-map}
+一致连续映射保持Cauchy滤子已在正文中证明，所以不需要额外的保持性假设。
+若 \(X=\varnothing\)，稠密性迫使 \(\widehat X=\varnothing\)，唯一延拓
+就是空映射。以下设 \(X\ne\varnothing\)。
 对 \(\widehat x\in\widehat X\)，令 \(\mathcal F_{\widehat x}\) 为
 \(X\) 中集合 \(U[\widehat x]\cap X\) 生成的滤子，其中 \(U\) 遍历
 \(\widehat X\) 的周围。稠密性保证这些集合非空。给定周围 \(W\)，取

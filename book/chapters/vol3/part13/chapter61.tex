@@ -6,6 +6,10 @@
 再用可测简单函数逼近。比较二者不只是核对一个公式：它说明 Riemann
 可积性的限制恰好落在不连续点集的测度上。
 
+本章约定 \(a<b\)，测度取完备的 Lebesgue 测度。讨论 \([a,b]\) 上函数的
+连续性、集合的内部和边界时，均以 \([a,b]\) 为母空间；端点只需考察区间内
+的邻域。特别地，\(\partial_{[a,b]}[a,b]=\varnothing\)。
+
 \section{上下阶梯函数}
 
 设 \(f:[a,b]\to\mathbb R\) 有界，分割
@@ -55,7 +59,9 @@
  0\le\int(t-s)\,dm
  \le\liminf_n\int(t_n-s_n)\,dm=0.
 \]
-所以 \(f=s=t\) 几乎处处，因而 \(f\) 可测。又 \(|f|\) 有界且区间
+所以 \(f=s=t\) 几乎处处。这里从 \(s\) 可测推出 \(f\) 可测使用了 Lebesgue
+测度的完备性：二者不同的点包含于可测零集，该集合的每个子集仍可测。
+这个推断不适用于任意未完备的测度空间。又 \(|f|\) 有界且区间
 测度有限，故 \(f\in L^1\)。若 \(|f|\le M\)，则
 \(|s_n|,|t_n|\le M\) 几乎处处；控制收敛定理给出
 \[
@@ -178,8 +184,8 @@
 \end{proof}
 
 \begin{example}[稠密开集的指示函数]
-若 \(G\subset[0,1]\) 是稠密开集，且其补集也无孤立点，则
-\(\mathbf1_G\) 在 \(\partial G=[0,1]\setminus G\) 上不连续，在 \(G\)
+若 \(G\subset[0,1]\) 是相对稠密开集，则
+\(\mathbf1_G\) 在 \(\partial_{[0,1]}G=[0,1]\setminus G\) 上不连续，在 \(G\)
 内连续。因此它 Riemann 可积当且仅当 \(m(\partial G)=0\)，积分等于
 \(m(G)\)。取 \(G\) 为 Cantor 集的补集，可得到不连续点集不可数的例子；
 前面的 Thomae 函数则给出不连续点集稠密而零测的例子。
@@ -210,7 +216,7 @@
 
 \exerciseitem{oscillation-upper-semicontinuity}
 证明 \(x\mapsto\omega_f(x)\) 是上半连续的，即
-\(\{\omega_f<\varepsilon\}\) 为开集。
+\(\{\omega_f<\varepsilon\}\) 在 \([a,b]\) 中相对开。
 
 \exerciseitem{riemann-criterion-forward-detail}
 补全定理 \ref{thm:lebesgue-riemann-criterion} 正向证明中分点和区间端点
@@ -220,8 +226,8 @@
 \subsection*{B组　判别准则与典型函数}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{riemann-criterion-backward-detail}
-补全反向证明中的有限分割构造，并给出只依赖 \(M,b-a,\varepsilon\) 的
-上和减下和估计。
+补全反向证明中的有限分割构造，并用 \(M,b-a,\varepsilon\) 写出
+上和减下和的估计。说明所需网格大小还依赖函数的局部振幅，不能仅由这三个数决定。
 
 \exerciseitem{thomae-continuity-set}
 完整求出 Thomae 函数的连续点集和不连续点集，并分别用 Riemann 理论与
@@ -229,8 +235,9 @@ Lebesgue 理论计算其积分。
 
 \exerciseitem{indicator-riemann-boundary}
 对 \(E\subset[a,b]\)，证明 \(\mathbf1_E\) 的不连续点集恰为
-\(\partial E\)。由此证明 \(\mathbf1_E\) Riemann 可积当且仅当
-\(m(\partial E)=0\)。
+\(\partial_{[a,b]}E\)。这里补集、邻域和边界均相对于 \([a,b]\)。
+由此证明 \(\mathbf1_E\) Riemann 可积当且仅当
+\(m(\partial_{[a,b]}E)=0\)。
 
 \exerciseitem{fat-cantor-indicator}
 设 \(F\subset[0,1]\) 是正测度、无内点闭集。判断 \(\mathbf1_F\) 的

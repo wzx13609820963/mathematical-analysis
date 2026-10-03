@@ -7,6 +7,9 @@
 的增量，还必须控制导数列。本章逐一证明这些结论，并用反例说明条件缺失时
 误差集中在何处。
 
+本章出现闭区间 \([a,b]\) 的微分结论时均设 \(a<b\)；连续性按定义域的
+相对连续性理解。
+
 \section{连续函数的一致极限与局部一致收敛}
 
 \begin{theorem}[一致极限保持连续性]
@@ -170,7 +173,7 @@
 \end{proof}
 
 若只有逐点收敛，上确界误差可能集中在越来越窄或不断移动的区间上，积分
-是否收敛便取决于峰高与宽度的共同作用。第五节将给出积分保持不变的尖峰。
+是否收敛便取决于峰高与宽度的共同作用。本章最后一节将给出积分保持不变的尖峰。
 
 \section{极限与微分交换}
 
@@ -209,25 +212,25 @@ Lagrange 中值定理用于 \(f_m-f_n\) 在 \(x\) 与 \(x_0\) 之间的区间，
 固定 \(x\in(a,b)\) 和 \(\varepsilon>0\)。导数列一致 Cauchy，所以可取
 \(N\)，使对所有 \(n\ge N\) 及 \(t\in(a,b)\)，
 \[
- |f_n'(t)-f_N'(t)|<\frac{\varepsilon}{3}.
+ |f_n'(t)-f_N'(t)|<\frac{\varepsilon}{4}.
 \]
 令 \(n\to\infty\)，先对 \(f_n-f_N\) 使用中值定理，可得当
 \(x+h\in(a,b)\) 时
 \[
  |(f-f_N)(x+h)-(f-f_N)(x)|
- \le\frac{\varepsilon}{3}|h|.
+ \le\frac{\varepsilon}{4}|h|.
 \]
 另一方面，一致极限给出
 \[
- |g(x)-f_N'(x)|\le\frac{\varepsilon}{3}.
+ |g(x)-f_N'(x)|\le\frac{\varepsilon}{4}.
 \]
 由 \(f_N\) 在 \(x\) 可导，可取充分小的 \(h\ne0\)，使
 \[
  \left|
  \frac{f_N(x+h)-f_N(x)}h-f_N'(x)
- \right|<\frac{\varepsilon}{3}.
+ \right|<\frac{\varepsilon}{4}.
 \]
-三项相加便得
+三项相加得到小于 \(3\varepsilon/4\) 的上界，因而
 \[
  \left|\frac{f(x+h)-f(x)}h-g(x)\right|<\varepsilon.
 \]
@@ -351,7 +354,7 @@ Lagrange 中值定理用于 \(f_m-f_n\) 在 \(x\) 与 \(x_0\) 之间的区间，
  核对正文 \(s_n\) 的连续性、逐点极限、最大值和积分，并说明它为什么
  不可能一致收敛于零。
  \exerciseitem{uniform-integral-with-moving-interval}
- 若 \(f_n\rightrightarrows f\) 于 \([a,b]\)，且
+ 若每个 \(f_n\) 在 \([a,b]\) 上Riemann可积，\(f_n\rightrightarrows f\)，且
  \(a_n,b_n,\alpha,\beta\in[a,b]\)、\(a_n\to\alpha\)、\(b_n\to\beta\)，
  证明
  \[
@@ -374,7 +377,8 @@ Lagrange 中值定理用于 \(f_m-f_n\) 在 \(x\) 与 \(x_0\) 之间的区间，
  \exerciseitem{uniform-functions-pointwise-derivatives}
  完整分析正文 \(f_n(x)=x/(1+n^2x^2)\) 的一致收敛和导数逐点极限。
  \exerciseitem{uniform-derivative-no-pointwise-function-given}
- 设 \(f_n'\rightrightarrows g\) 于 \((a,b)\)，且 \(f_n(x_0)\) 收敛。
+ 设各 \(f_n\) 在 \([a,b]\) 连续、在 \((a,b)\) 可导，
+ \(x_0\in[a,b]\)，\(f_n'\rightrightarrows g\) 于 \((a,b)\)，且 \(f_n(x_0)\) 收敛。
  证明不必预先假设 \(f_n\) 逐点收敛，正文定理已经能推出一致收敛。
  \exerciseitem{termwise-derivative-series-form}
  设 \(u_n\in C[a,b]\) 且在 \((a,b)\) 可导，若

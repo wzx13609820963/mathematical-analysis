@@ -9,6 +9,10 @@
 
 \section{简单函数逼近}
 
+先在任意测度空间上讨论实函数。这里“有限测度支撑”指函数在某个有限
+测度的可测集外为零，不涉及非零集的拓扑闭包。逼近时既要截去过高的值，
+也要把接近零的值暂时置零；后一步使所保留的部分具有有限测度。
+
 \begin{theorem}
 \label{thm:simple-dense-lp}
 设 \(0<p<\infty\)。对每个 \(f\in L^p(\mu)\)，存在可测简单函数
@@ -110,11 +114,18 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
 \end{theorem}
 
 \begin{proof}
-考虑所有如下函数：支撑在有理端点有界矩形的有限并上，在有限个有理端点
-半开矩形上取有理值。这样的函数只有可数多个。任意
-\(C_c(\mathbb R^n)\) 函数在某个大有理立方体内一致连续，可用足够细的
-有理网格和有理函数值作一致逼近；支撑所在立方体测度有限，所以一致误差
-控制 \(L^p\) 误差。结合 \(C_c\) 的稠密性，该可数族在 \(L^p\) 中稠密。
+考虑有理端点半开有界矩形的指示函数的有限有理线性组合。这些函数构成
+至多可数的集合。给定 \(g\in C_c(\mathbb R^n)\)，取有理端点立方体
+\(Q\)，使 \(\operatorname{supp}g\subset Q^\circ\)。把 \(Q\) 分成足够小
+的有理半开网格，在每格选一点，将该点的函数值近似为有理数，格外取零。
+由 \(g\) 的一致连续性，可使所得阶梯函数 \(s\) 在 \(Q\) 上与 \(g\)
+相差小于任意给定的 \(\delta>0\)。在 \(Q\) 外二者均为零；边界网格
+可按半开约定划分，最外层面零测，不影响积分。因此
+\[
+ \|s-g\|_p^p\le m(Q)\delta^p.
+\]
+先用 \(C_c\) 逼近，再令 \(\delta\downarrow0\)，得到稠密性。若
+\(p<1\)，合并两次误差时用 \(p\) 次幂的次可加性。
 \end{proof}
 
 \begin{proposition}
@@ -139,18 +150,41 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
 本质有界函数按值域等分，仍能在本质上确界范数中得到简单函数逼近。失败的
 是存在一个对所有函数都稠密的可数简单函数族。
 
+连续逼近在这个范数下也会失败。令 \(f=\mathbf1_{(1/2,1)}\) 于
+\((0,1)\)。若连续函数 \(g\) 满足 \(\|f-g\|_\infty<1/2\)，可取
+\(\|f-g\|_\infty<c<1/2\)。左半区几乎处处有 \(|g|\le c\)，
+连续性使这一界在左半区处处成立，故 \(|g(1/2)|\le c\)。右半区同理给
+\(|1-g(1/2)|\le c\)，于是 \(1\le2c<1\)，矛盾。把跳跃压缩在很短
+区间内可以减小有限 \(p\) 的积分误差，却不能把本质最大误差任意减小。
+
 \section{平移与磨光}
 
-取 \(\rho\in C_c^\infty(\mathbb R^n)\)，满足
-\(\rho\ge0\)、\(\int\rho=1\)，并令
+连续逼近已经能处理积分范数，但求导需要更光滑的函数。把邻近点的函数值
+按光滑权重取平均，可以改善光滑性，同时利用平移连续性控制所付出的误差。
+
+令 \(\psi(x)=\exp(-1/(1-|x|^2))\) 于 \(|x|<1\)，球外及球面上取零。
+\chapterref{chap:taylor-theory}中已证明一元函数 \(e^{-1/t}\) 在 \(t\le0\)
+补零后光滑，因而复合函数
+\(\psi\) 光滑且紧支撑。它的积分有限且为正，故
+\(\rho=\psi/\int\psi\) 满足
+\(\rho\ge0\)、\(\int\rho=1\)。对 \(\varepsilon>0\)，令
 \[
  \rho_\varepsilon(x)=\varepsilon^{-n}\rho(x/\varepsilon).
 \]
-这样的函数族称为磨光核。对 \(f\in L^p\)，定义
+这些函数称为磨光核，支撑包含于 \(\overline{B(0,\varepsilon)}\)。
+由 Lebesgue 测度的伸缩公式先对指示函数、再对简单函数及非负极限计算，
+得 \(\int\rho_\varepsilon=1\)。对 \(f\in L^1_{\mathrm{loc}}(\mathbb R^n)\)，定义
 \[
  (\rho_\varepsilon*f)(x)
  =\int_{\mathbb R^n}\rho_\varepsilon(y)f(x-y)\,dy.
 \]
+
+核有界且紧支撑，所以对每个 \(x\) 此积分绝对收敛；更换 \(f\) 的
+几乎处处代表不改变积分。尤其 \(f\in L^p\)、\(1\le p\le\infty\)
+时可以如此定义。\(0<p<1\) 时则不然：在一维取
+\(f(x)=x^{-\alpha}\) 于 \(0<x<1\)，其余处取零，其中
+\(1\le\alpha<1/p\)。它属于 \(L^p\)，却不在原点附近可积；上述核在
+原点附近为正，故 \((\rho_\varepsilon*f)(0)=+\infty\)。
 
 \begin{proposition}[平移连续性]
 \label{prop:translation-continuity-lp}
@@ -202,28 +236,34 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
  \partial^\alpha(\rho_\varepsilon*f)
  =(\partial^\alpha\rho_\varepsilon)*f.
 \]
-核函数的差商在 \(L^q\) 中趋于相应导数；当 \(q=\infty\) 时，这是光滑
-紧支撑函数差商的一致收敛。再用 Hölder 估计，便可把差商极限移入积分。
+对每个坐标方向，由微积分基本定理，核差商等于该方向导数沿短线段的平均。
+导数一致连续，所以差商一致趋于相应导数。所有足够小平移的支撑位于同一
+紧集 \(K\)；有限 \(q\) 时再用
+\(\|u\|_q\le m(K)^{1/q}\|u\|_\infty\)，便得差商在 \(L^q\) 中收敛。
+\(q=\infty\) 时直接使用一致收敛。再用 Hölder 估计，便可把差商极限移入积分。
 对任意阶导数重复此论证，并对导数函数使用核的平移连续性，得到
 \(\rho_\varepsilon*f\in C^\infty\)。
 
-再证 \(L^p\) 逼近。由于 \(\rho_\varepsilon\) 是概率密度，Jensen 不等式
-给出
+再证 \(L^p\) 逼近。对总质量为 \(1\) 的测度
+\(d\nu(y)=\rho_\varepsilon(y)\,dy\)，当 \(p>1\) 时把 Hölder 用于
+\(|u|\cdot1\)，得 \(|\int u\,d\nu|^p\le\int|u|^p\,d\nu\)；
+右侧无穷时不等式自动成立。\(p=1\) 时这就是积分三角不等式。于是
 \[
  \left|\int\rho_\varepsilon(y)
    \bigl(f(x-y)-f(x)\bigr)\,dy\right|^p
  \le\int\rho_\varepsilon(y)|f(x-y)-f(x)|^p\,dy.
 \]
-对 \(x\) 积分并用 Tonelli 定理，得到
+可先选择 \(f\) 的有限 Borel 代表，此时 \((x,y)\mapsto f(x-y)\)
+可测，更换代表不改变各积分。对 \(x\) 积分并用 Tonelli 定理，得到
 \[
  \begin{split}
  \|\rho_\varepsilon*f-f\|_p^p
  &\le\int\rho_\varepsilon(y)\|\tau_yf-f\|_p^p\,dy\\
- &\le\sup_{|y|\le C\varepsilon}\|\tau_yf-f\|_p^p
+ &\le\sup_{|y|\le\varepsilon}\|\tau_yf-f\|_p^p
  \longrightarrow0,
  \end{split}
 \]
-其中 \(C\) 使 \(\operatorname{supp}\rho\subset B(0,C)\)。最后令
+这里使用磨光核的支撑条件。最后令
 \(f_R=f\mathbf1_{\overline{B(0,R)}}\)。由控制收敛定理，
 \(f_R\to f\) 于 \(L^p\)；而
 \(\rho_\varepsilon*f_R\) 的支撑包含在
@@ -252,22 +292,32 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
  \|Tf_n-Tf_m\|_Y\le C\|f_n-f_m\|_X
 \]
 说明 \((Tf_n)\) 在完备空间 \(Y\) 中收敛。定义
-\(\widetilde Tf=\lim_nTf_n\)。同一估计说明定义与逼近列无关，并给出
-线性、有界性。若两个连续延拓在稠密集 \(D\) 上相同，则在 \(X\) 上相同。
+\(\widetilde Tf=\lim_nTf_n\)。若 \(g_n\in D\) 也趋于 \(f\)，则
+\[
+ \|Tf_n-Tg_n\|_Y\le C(\|f_n-f\|_X+\|g_n-f\|_X)\to0,
+\]
+所以定义与逼近列无关。对 \(f,g\) 分别选逼近列，
+\(af_n+bg_n\to af+bg\)；由 \(T\) 的线性性取极限，得到延拓的线性性。
+在 \(\|Tf_n\|_Y\le C\|f_n\|_X\) 中取极限，得
+\(\|\widetilde Tf\|_Y\le C\|f\|_X\)，即算子范数不超过 \(C\)。
+\(f\in D\) 时可用常值逼近列，所以确为延拓。任一连续延拓 \(S\) 都满足
+\(Sf=\lim_nSf_n=\lim_nTf_n\)，从而等于 \(\widetilde T\)。
 \end{proof}
 
-这一命题解释了为什么可以先在 \(C_c^\infty\) 上定义积分算子、Fourier
-变换或弱导数估计：只要范数估计与所选光滑逼近无关，算子就有唯一连续延拓。
+运算可以先在光滑函数上计算，再由这一定理延拓，但需要先选定定义域、
+值域及其范数，并证明相应估计。稠密性本身不保证运算有连续延拓；例如
+微分会放大小尺度振荡，不能只凭光滑函数在 \(L^p\) 中稠密，就把求导
+延拓为该空间上的有界算子。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 \subsection*{A组　稠密性}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{simple-dense-complex}
-把简单函数稠密性推广到复值 \(L^p\) 函数。
+设 \(0<p<\infty\)。把简单函数稠密性推广到复值 \(L^p\) 函数。
 
 \exerciseitem{finite-support-simple-dense}
-不假设测度空间 \(\sigma\)-有限，完整证明有限测度支撑简单函数在
+设 \(0<p<\infty\)。不假设测度空间 \(\sigma\)-有限，完整证明有限测度支撑简单函数在
 \(L^p\) 中稠密，并指出 \(f\in L^p\) 如何保证适当超水平集具有有限测度。
 
 \exerciseitem{compact-open-distance-function}
@@ -275,7 +325,9 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
 取值和紧支撑性质。
 
 \exerciseitem{cc-density-error-budget}
-设 \(\varphi=\sum_{j=1}^ma_j\mathbf1_{E_j}\)。给定
+在 \(\mathbb R^n\) 上使用 Lebesgue 测度。设 \(0<p<\infty\)，
+\(E_j\) 可测且 \(m(E_j)<\infty\)，\(a_j\in\mathbb R\)，
+\(\varphi=\sum_{j=1}^ma_j\mathbf1_{E_j}\)。给定
 \(\varepsilon>0\)，明确分配每项误差以构造
 \(g\in C_c\) 使 \(\|\varphi-g\|_p<\varepsilon\)。
 
@@ -301,15 +353,16 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
 \subsection*{C组　磨光与算子延拓}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{mollifier-norm-bound}
-证明
+设 \(f\in L^p(\mathbb R^n)\)。证明
 \[
  \|\rho_\varepsilon*f\|_p\le\|f\|_p
 \]
 对 \(1\le p\le\infty\) 成立。
 
 \exerciseitem{mollifier-support}
-若 \(\operatorname{supp}f\subset K\)、
-\(\operatorname{supp}\rho_\varepsilon\subset B(0,\varepsilon)\)，证明
+设 \(1\le p\le\infty\)、\(f\in L^p(\mathbb R^n)\)，紧集 \(K\) 外
+\(f=0\) 几乎处处。若
+\(\operatorname{supp}\rho_\varepsilon\subset\overline{B(0,\varepsilon)}\)，证明
 \[
  \operatorname{supp}(\rho_\varepsilon*f)
  \subset K+\overline{B(0,\varepsilon)}.
@@ -321,7 +374,10 @@ Minkowski 不等式控制有限和，即得 \(p\ge1\) 的结论。\(0<p<1\) 时�
 \((1\le p<\infty)\)。
 
 \projectexerciseitem{operator-extension-application}
-先在有限支撑序列上定义离散卷积
-\((a*b)_n=\sum_ka_{n-k}b_k\)，证明合适的 Young 范数估计，再用稠密延拓
-把算子定义到相应的 \(\ell^p\) 空间。
+固定 \(b\in\ell^1(\mathbb Z)\)，所有序列均以整数为指标。先对有限支撑
+\(a\) 定义 \((a*b)_n=\sum_{k\in\mathbb Z}a_{n-k}b_k\)，证明
+\(\|a*b\|_p\le\|a\|_p\|b\|_1\)。对 \(1\le p<\infty\) 用稠密延拓
+定义 \(\ell^p(\mathbb Z)\) 上的算子，并验证延拓仍由该卷积公式给出。
+对 \(p=\infty\) 直接证明级数绝对收敛及同一估计，说明为什么不能照搬
+有限支撑序列上的稠密延拓论证。
 \end{enumerate}

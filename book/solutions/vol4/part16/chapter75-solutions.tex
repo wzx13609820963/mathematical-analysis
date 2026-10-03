@@ -17,11 +17,17 @@
 若 \(M=\sup|a_n|<\infty\)，逐坐标估计给 \(\|Tx\|_p\le M\|x\|_p\)。
 对单位坐标向量 \(e_n\) 有 \(\|Te_n\|_p=|a_n|\)，所以有界必有
 \(\sup|a_n|\le\|T\|\)，并得到等号。
+
+若系数无界，可选互异指标 \(n_k\)，使 \(|a_{n_k}|\ge2^k\)，\(k\ge1\)。
+对有限 \(p\)，令 \(x_{n_k}=1/a_{n_k}\)，其余坐标为零，则
+\(\sum_n|x_n|^p\le\sum_{k\ge1}2^{-kp}<\infty\)，而像在每个 \(n_k\)
+坐标等于一，不属于 \(\ell^p\)。当 \(p=\infty\) 时取 \(x_n=1\)，像即无界系数列。
+所以无界系数时，不仅算子界失败，公式也不能在整个空间上取值于原空间。
 \end{solution}
 \begin{solution}{quotient-nonclosed}
 商公式的齐次性与三角不等式不使用闭性，但对 \(x\in\overline M\setminus M\)
 有 \([x]\ne0\) 而 \(d(x,M)=0\)。例如在 \(c_0\) 中令 \(M=c_{00}\)，
-\(x=(1/n)_{n\ge1}\)。
+\(x=(1/(n+1))_{n\ge0}\)。
 \end{solution}
 \begin{solution}{operator-uniform-not-pointwise}
 \(\|P_nx\|_2=|x_n|\to0\)，因为平方可和数列的项趋零。
@@ -33,7 +39,8 @@
 得 \(f(x)=f(a)+\int_a^xg\)。因 \(g\) 连续，\(f'=g\)，故范数收敛且极限在 \(C^1\)。
 \end{solution}
 \begin{solution}{operator-extension-dense}
-对 \(x\in X\) 取 \(d_n\in D\to x\)。有界性使 \(Td_n\) 在 \(Y\) 中 Cauchy，
+对 \(x\in X\) 取 \(d_n\in D\to x\)。线性与有界性给
+\(\|Td_n-Td_m\|\le\|T\|\|d_n-d_m\|\)，故 \(Td_n\) 在 \(Y\) 中 Cauchy，
 令延拓值为其极限。比较两种逼近列得到同一极限，故良定义。
 线性与 \(\|\widetilde Tx\|\le\|T\|\|x\|\) 由极限得到，反向范数估计由
 限制到 \(D\) 得到。连续映射在稠密集上的值决定全空间值，所以唯一。

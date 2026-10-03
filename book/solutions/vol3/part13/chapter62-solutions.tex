@@ -3,14 +3,17 @@
 \begin{solution}{product-sigma-coordinate}
 对 \(A\in\mathcal A\)，
 \(\pi_X^{-1}(A)=A\times Y\in\mathcal A\otimes\mathcal B\)，故
-\(\pi_X\) 可测；另一坐标同理。若 \(f,g\) 可测，则有理开矩形
-\(I\times J\) 的原像为
-\(f^{-1}(I)\times g^{-1}(J)\)，可测。因有理开矩形生成
-\(\mathcal B(\mathbb R^2)\)，向量映射可测。
+\(\pi_X\) 可测；另一坐标同理。对目标空间中的可测矩形
+\(A'\times B'\)，乘积映射的原像为
+\(f^{-1}(A')\times g^{-1}(B')\)，属于 \(\mathcal A\otimes\mathcal B\)。
+原像保持补和可数并，而这些矩形生成目标的乘积 \(\sigma\)-代数，
+所以乘积映射可测。
 \end{solution}
 
 \begin{solution}{borel-product-euclidean}
-开矩形 \(U\times V\) 是 \(\mathbb R^{m+n}\) 的开集，所以
+坐标投影连续，因此对任意 Borel 集 \(A\subseteq\R^m\)、
+\(B\subseteq\R^n\)，矩形
+\(A\times B=\pi_1^{-1}(A)\cap\pi_2^{-1}(B)\) 是 Borel 集。故
 \(\mathcal B(\mathbb R^m)\otimes\mathcal B(\mathbb R^n)
 \subset\mathcal B(\mathbb R^{m+n})\)。反过来，有理中心、有理半径的开球
 构成可数基，每个开集是可数个基元素之并，而每个开球是可数个有理端点开
@@ -80,21 +83,36 @@
 \end{solution}
 
 \begin{solution}{fubini-integrability-test}
-用极坐标估计，
+令 \(f(0,0)=0\)，所得函数 Borel 可测。在区域
+\(0<x<1/2\)、\(0<y<x/2\) 上，
 \[
- |f(x,y)|=\frac{|x^2-y^2|}{(x^2+y^2)^2}
- =\frac{|\cos2\theta|}{r^2}.
+ f(x,y)\geq\frac{3x^2/4}{(5x^2/4)^2}
+ =\frac{12}{25x^2}.
 \]
-面积元为 \(r\,dr\,d\theta\)，故原点附近的绝对值积分含
-\(\int_0^\varepsilon dr/r=\infty\)，不绝对可积。固定 \(x\ne0\)，
+对 \(|f|\) 用 Tonelli 定理，得到
+\[
+ \int_{(-1,1)^2}|f|\geq
+ \int_0^{1/2}\int_0^{x/2}\frac{12}{25x^2}\,dy\,dx
+ =\frac6{25}\int_0^{1/2}\frac{dx}{x}=\infty.
+\]
+这里一元积分的发散可先在 \([\delta,1/2]\) 上计算，再用单调收敛。
+固定 \(x\ne0\)，
 \[
  \int_{-1}^{1}\frac{x^2-y^2}{(x^2+y^2)^2}\,dy
  =\left[\frac{y}{x^2+y^2}\right]_{-1}^{1}
  =\frac{2}{x^2+1},
 \]
-再对 \(x\) 积分得 \(\pi\)。交换 \(x,y\) 时被积函数变号，得到
-\(-\pi\)。原点处的单个异常截面不影响外层积分。这正说明缺少绝对可积性
-时换序失败。
+在 \(x=0\) 的截面上，函数为 \(-1/y^2\)（\(y\ne0\)），内层反常积分
+发散至 \(-\infty\)。因此按题意，先对非零外层参数计算，再取
+\[
+ \lim_{\delta\downarrow0}\left(\int_{-1}^{-\delta}
+ +\int_\delta^1\right)\frac2{1+x^2}\,dx=\pi.
+\]
+两侧外层积分各自收敛，此处不依赖主值抵消。交换次序后，\(y\ne0\) 时
+内层积分为 \(-2/(1+y^2)\)，而 \(y=0\) 的截面为 \(1/x^2\)，发散至
+\(+\infty\)。相同的外层极限为 \(-\pi\)。把两个异常参数处的内层值
+分别补为零，也给出这两个外层Lebesgue积分；这不使原函数绝对可积，
+因而不能调用 Fubini 定理换序。
 \end{solution}
 
 \begin{solution}{double-series-counterexample}
@@ -105,15 +123,40 @@
 每行绝对值和为 \(2\)，故绝对值二重和为无穷。
 \end{solution}
 
+\begin{solution}{completed-product-exceptional-section}
+集合 \(Z=\{0\}\times[0,1]\) 是二维 Borel 零测集，其任意子集均
+Lebesgue 可测，所以 \(E=\{0\}\times V\) 可测且测度为零。
+若 \(E\in\mathcal L(\R)\otimes\mathcal L(\R)\)，截面可测性命题将推出
+\(E_0=V\in\mathcal L(\R)\)，与选择矛盾。
+另一方面 \(Z\) 本身属于这个乘积 \(\sigma\)-代数且乘积测度为零。
+其子集 \(E\) 不在其中，故两个完备 Lebesgue 测度的乘积测度不完备。
+完备化后 \(E\) 已经允许作为积分对象，却有一个不可测截面。
+所以完备化版本只能保证几乎每个截面可测。
+\end{solution}
+
 \begin{solution}{convolution-measurability}
-映射 \((x,y)\mapsto x-y\) 连续，故
-\((x,y)\mapsto f(x-y)g(y)\) 非负可测。Tonelli 定理说明对 \(y\) 的
-积分是 \(x\) 的可测函数。再次使用 Tonelli，并作平移变量代换：
+先设 \(f,g\) Borel 可测。映射 \((x,y)\mapsto x-y\) 连续，所以
+\((x,y)\mapsto f(x-y)g(y)\) 非负 Borel 可测，约定 \(0\cdot\infty=0\)。
+Tonelli 定理说明对 \(y\) 的积分是 \(x\) 的可测函数。
+一般 Lebesgue 可测情形，取非负 Borel 代表 \(f_0,g_0\)，使
+\(f=f_0\)、\(g=g_0\) 分别在零测集 \(N_f,N_g\) 以外成立。
+对每个固定 \(x\)，两种被积函数只可能在
+\((x-N_f)\cup N_g\) 上不同，该集合仍为零测集。
+因此 \(f*g=f_0*g_0\) 对每个 \(x\) 成立，卷积可测。
+对 Borel 代表再次使用 Tonelli，并利用平移不变性。令
+\(A=\int f\)、\(B=\int g\)。对每个固定的 \(y\)，有
+\(\int_x f(x-y)g(y)\,dx=A g(y)\)：有限常数时由齐次性；
+若 \(g(y)=\infty\)，用常数截断和单调收敛得到同一结论。
+于是
 \[
  \int_x(f*g)(x)\,dx
  =\int_y g(y)\int_x f(x-y)\,dx\,dy
  =\left(\int f\right)\left(\int g\right).
 \]
+最后一步的无穷值约定也可直接核验。\(A=0\) 时 \(Ag=0\)；
+\(0<A<\infty\) 时用有限常数齐次性；\(A=\infty\) 时，若 \(B=0\)，
+则 \(g=0\) 几乎处处，积分为零；若 \(B>0\)，则 \(\{g>0\}\) 有正测度，
+\(Ag\) 在该集合上为无穷，积分为无穷。各情形都符合 \(0\cdot\infty=0\)。
 \end{solution}
 
 \begin{solution}{associativity-product-measure}

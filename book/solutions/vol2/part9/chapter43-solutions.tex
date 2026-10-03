@@ -72,8 +72,14 @@
 \[
  D\norm{\cdot}(x)h=\frac{\langle x,h\rangle}{\norm x}.
 \]
-在原点，沿方向 \(v\) 的方向导数为 \(\norm v\)。若 Fréchet 导数存在，
-方向导数必须关于 \(v\) 线性，而范数不是线性函数，故原点不可微。
+在原点，对任意 \(v\ne0\)，方向差商为
+\[
+ \frac{\norm{tv}}t=\frac{|t|}{t}\norm v.
+\]
+它在 \(t\to0^+\) 与 \(t\to0^-\) 时分别趋于 \(\norm v\) 与
+\(-\norm v\)。本章方向导数使用双侧极限，所以非零方向的方向导数
+均不存在，原点因而不可微。只有把方向极限改为单侧极限时，才会得到
+\(\norm v\)；那不是本题采用的定义。
 \end{solution}
 
 \begin{solution}{partial-derivatives-discontinuous-example}
@@ -118,6 +124,12 @@ Fréchet 可微。
 \end{solution}
 
 \begin{solution}{frechet-uniqueness-sequence-proof}
+若余项满足可微定义，把极限限制到任意上述序列即可。反之，若定义中的
+极限不是零，则存在 \(\varepsilon_0>0\)，对每个 \(k\ge1\) 可选
+\(0<\norm{h_k}<1/k\)、\(a+h_k\in U\)，使余项比不小于
+\(\varepsilon_0\)，这与序列假设矛盾。
+
+唯一性只需在这个“对每个序列”条件中选择一个能检出两映射差异的序列。
 若 \(A\ne B\)，取 \(v\) 使 \((A-B)v\ne0\)，并令 \(h_k=v/k\)。两种
 展开相减后有
 \[
@@ -136,7 +148,8 @@ Fréchet 可微。
  t\longmapsto f(a^{(j-1)}+te_j)
 \]
 在连接 $0$ 与 $h_j$ 的区间上逐分量可微。对每个分量 $f_\ell$ 使用一元
-中值定理，存在该段上的点 $\xi_{j\ell}$，使
+中值定理；若 $h_j=0$，增量恒为零，直接取
+$\xi_{j\ell}=a^{(j-1)}$。因此总能取该段上的点 $\xi_{j\ell}$，使
 \[
  f_\ell(a^{(j)})-f_\ell(a^{(j-1)})
  =h_j\partial_jf_\ell(\xi_{j\ell}).
@@ -247,7 +260,7 @@ $o(\norm h)$ 余项。证明只需偏导在邻域存在并在 $a$ 连续，不�
 \[
  \frac{\phi(t)-\phi(0)}t=t\sin(1/t^2)\to0,
 \]
-所以 $\phi'(0)=0$。取 $t_k=(2\pi k)^{-1/2}$，则
+所以 $\phi'(0)=0$。取 $t_k=(2\pi k)^{-1/2}$（$k\ge1$），则
 \[
  \phi'(t_k)=-\frac2{t_k},
 \]
@@ -283,7 +296,8 @@ $|F(x)|\le x_1^2\le\norm x^2$，它在原点的 Fréchet 导数为零；但第�
 \begin{solution}{zero-derivative-constant-convex}
 凸情形下，对任意 \(x,y\in U\)，向量值平均估计以 \(M=0\) 给出
 \(f(x)=f(y)\)。若只假设道路连通，取连接 \(x,y\) 的道路 \(\gamma\)。
-每个 \(z\in U\) 都有一个闭球包含于 \(U\)，在该球内同一估计说明 \(f\)
+每个 \(z\in U\) 都有半径 \(r_z>0\) 使
+\(\overline B(z,r_z)\subset U\)，在该球内同一估计说明 \(f\)
 常值。因此集合
 \[
  A=\{t\in[0,1]:f(\gamma(t))=f(\gamma(0))\}

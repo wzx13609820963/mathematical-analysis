@@ -24,7 +24,8 @@
 不作定义，因为不同逼近方式会产生不同结果。只有不会造成歧义的运算才使用，例如 \(x+(+\infty)=+\infty\) 对有限 \(x\) 成立。
 
 \begin{definition}
-在 \(\overline{\R}\) 中，若数列趋于 \(+\infty\) 或 \(-\infty\)，也把相应符号称为其扩充实数极限。
+设 \(x_n\in\overline{\R}\)。若 \(L\in\R\)，规定 \(x_n\to L\) 是指：对每个 \(\varepsilon>0\)，最终有
+\(L-\varepsilon<x_n<L+\varepsilon\)。规定 \(x_n\to+\infty\) 是指：对每个实数 \(M\)，最终有 \(x_n>M\)；\(x_n\to-\infty\) 对偶定义。这些定义允许 \(x_n\) 本身取无穷值，且在实数列上与已有定义一致。
 \end{definition}
 
 任意集合 \(E\subseteq\R\) 在扩充实数中都有上确界与下确界：若 \(E\) 在实数中无上界，规定 \(\sup E=+\infty\)；若 \(E=\varnothing\)，为统一尾部公式规定
@@ -33,6 +34,8 @@
  \inf\varnothing=+\infty.
 \]
 本章尾部值集均非空，因此空集约定不会直接进入数列计算。
+
+同样，\(\overline{\R}\) 的任意子集也有扩充实数中的上、下确界。单调递增的扩充实数列收敛到其上确界 \(s\)：若 \(s\) 有限，对每个 \(\varepsilon>0\) 选一项大于 \(s-\varepsilon\)，则以后各项都在 \((s-\varepsilon,s+\varepsilon)\) 中；若 \(s=+\infty\)，对每个有限阈值选一项超过它，单调性保证后续项也超过它；若 \(s=-\infty\)，各项只能恒为 \(-\infty\)。递减列收敛到其下确界的证明对偶。因此下文的单调尾列即使含无穷值，也有相应的扩充实数极限。
 
 \subsection{尾部上确界与下确界}
 
@@ -240,11 +243,11 @@
 \end{theorem}
 
 \begin{proof}
-设 \(\beta_n=\sup_{k\ge n}a_k\downarrow s\)。对每个 \(j\)，由上确界近似性可在尾部 \(k\ge j\) 中选指标 \(n_j\ge j\)，使
+设 \(\beta_n=\sup_{k\ge n}a_k\downarrow s\)。置 \(n_0=0\)。选好 \(n_{j-1}\) 后，令 \(m_j=n_{j-1}+1\)，由上确界近似性在这一尾部选取 \(n_j\ge m_j\)，使
 \[
- \beta_j-\frac1j<a_{n_j}\le\beta_j.
+ \beta_{m_j}-\frac1j<a_{n_j}\le\beta_{m_j}.
 \]
-为了保证严格递增，可在第 \(j\) 步把尾部起点改为 \(n_{j-1}+1\)，并使用该尾部的上确界；所得上确界仍趋于 \(s\)。夹逼给出 \(a_{n_j}\to s\)。下极限情形对 \(-a_n\) 应用同一论证。
+于是 \(n_j>n_{j-1}\)，且 \(m_j\ge j\)，故 \(\beta_{m_j}\to s\)。夹逼给出 \(a_{n_j}\to s\)。下极限情形对 \(-a_n\) 应用同一论证。
 
 若 \(a_{n_j}\to L\)，固定尾部起点 \(m\)。充分大时 \(n_j\ge m\)，故
 \[
@@ -502,7 +505,7 @@
  \exerciseitem{12.10} 证明任意部分极限位于 \([\liminf a_n,\limsup a_n]\)。
  \exerciseitem{12.11} 证明 \(\limsup(-a_n)=-\liminf a_n\)。
  \exerciseitem{12.12} 证明最终 \(a_n\le b_n\) 蕴含上下极限的相应单调性。
- \exerciseitem{12.13} 证明和的上极限不等式，并给出严格不等的例子。
+ \exerciseitem{12.13} 对两个有界实数列证明和的上极限不等式，并给出严格不等的例子。
  \exerciseitem{12.14} 若 \(a_n\to a\)，证明
  \[
  \limsup(a_n+b_n)=a+\limsup b_n
@@ -525,7 +528,16 @@
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{12.19} 证明有界数列收敛当且仅当尾部振幅 \(\omega_n\to0\)。
  \exerciseitem{12.21} 构造有界数列 \(a_n,b_n\)，使两个上极限都为 \(1\)，而和的上极限分别可以为 \(0,1,2\)。
- \optionalexerciseitem{12.23} 设 \(a_n>0\)。比较 \(\limsup a_{n+1}/a_n\) 与 \(a_n^{1/n}\) 的可能关系，给出至少一个不能直接交换的反例。
+ \optionalexerciseitem{12.23} 设 \(a_n>0\)。
+ \begin{enumerate}[label=(\arabic*)]
+  \item 用确界原理证明：对 \(c>0\) 及正整数 \(m\)，存在唯一正数 \(c^{1/m}\)，其 \(m\) 次方等于 \(c\)。再证对固定 \(c>0\)，有 \(c^{1/n}\to1\)。
+  \item 在扩充实数中证明
+  \[
+   \liminf\frac{a_{n+1}}{a_n}\le\liminf a_n^{1/n}
+   \le\limsup a_n^{1/n}\le\limsup\frac{a_{n+1}}{a_n}.
+  \]
+  \item 构造例子，使最右边的不等式严格成立。
+ \end{enumerate}
  \optionalexerciseitem{12.24} 证明若 \(\limsup\abs{a_n}<1\)，则存在 \(q<1\) 使 \(\abs{a_n}\le q\) 最终成立。
  \projectexerciseitem{12.26} \ 【前置：本章全部；预计用时：60分钟】设 \((a_n)\) 有界，令 \(A_N=\{a_k:k\ge N\}\)，并沿用\chapterref{chap:subsequences-cluster-points}的记号
  \[
@@ -536,7 +548,7 @@
 
 \section*{部分习题提示}
 \begin{itemize}
- \item \exerciseref{12.5}：分别找尾部中最大的第一个偶项与最小的第一个奇项。
+ \item \exerciseref{12.5}：偶数项递减，奇数项也递减。分别判断尾部上、下确界是否取到。
  \item \exerciseref{12.16}：利用 \(\max\) 与尾部上确界可交换。
  \item \exerciseref{12.17}：正确关系涉及 \(\max\{\abs{\liminf a_n},\abs{\limsup a_n}\}\)。
  \item \exerciseref{12.21}：通过让两个数列的高峰同位、错位或部分同位安排结果。

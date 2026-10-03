@@ -68,17 +68,20 @@
 \[
  \int_1^\infty e^{-(p-1)t}t^{-q}\,dt.
 \]
-若 \(p>1\)，指数衰减压过任意幂，积分收敛；若 \(p<1\)，被积函数甚至
-不趋零并最终指数增长，积分发散。若 \(p=1\)，得到
+若 \(p>1\)，指数衰减可控制幂因子的增长，积分收敛；若 \(p<1\)，
+被积函数最终大于1，故积分发散。若 \(p=1\)，得到
 \(\int_1^\infty t^{-q}dt\)，恰在 \(q>1\) 时收敛。
 
-为补足第一句话，令 \(c=p-1>0\)。由指数函数的幂级数，充分大时
-\(e^{ct/2}\ge t^{\abs q+2}\)，从而
+具体地，对 \(c>0\)，取整数 \(m>\abs q\)。有限 Taylor 公式及
+正余项给出 \(e^{ct/2}\ge(ct/2)^m/m!\)。因 \(m>\abs q\)，
+充分大时右端大于 \(t^{\abs q}\)。当 \(c=p-1>0\) 时，遂有
 \[
  e^{-ct}t^{-q}\le e^{-ct/2}.
 \]
 右端可积。若 \(p<1\)，令 \(c=1-p>0\)，则
-\(e^{ct}t^{-q}\to+\infty\)，所以非负被积函数的积分不可能收敛。
+同一估计给出 \(e^{ct}t^{-q}\ge e^{ct/2}\to+\infty\)，所以尾部
+可与常数1比较，积分发散。这里没有使用尚待建立的指数幂级数展开；
+也没有把“被积函数趋零”当作一般反常积分收敛的必要条件。
 \end{solution}
 
 \begin{solution}{improper-log-power-zero}
@@ -94,14 +97,11 @@
 \begin{solution}{improper-sine-over-power}
 当 \(\alpha>0\) 时，\(x^{-\alpha}\) 单调趋零，Dirichlet 判别给出收敛。
 绝对收敛在 \(\alpha>1\) 时由 \(p\)-型比较得到。若
-\(\alpha\le1\)，在区间
-\[
- I_k=[k\pi+\pi/6,k\pi+5\pi/6]
-\]
-上 \(\abs{\sin x}\ge1/2\)，这些区间上的积分与
-\(\sum k^{-\alpha}\) 比较，故绝对积分发散。
+\(\alpha\le1\)，则在 \(x\ge1\) 有
+\(\abs{\sin x}/x^\alpha\ge\abs{\sin x}/x\)。正文已用有限和与
+\(\int dt/t\) 的比较证明后者积分发散，故绝对积分也发散。
 
-当 \(\alpha=0\) 时截断积分 \(1-\cos R\) 无极限；当
+当 \(\alpha=0\) 时截断积分 \(\cos1-\cos R\) 无极限；当
 \(\alpha<0\) 时令 \(\beta=-\alpha>0\)，并取
 \[
  u_k=2k\pi+\frac{\pi}{6},\qquad
@@ -127,8 +127,9 @@
 
 \begin{solution}{improper-abel-from-dirichlet}
 单调有界的 \(g\) 有极限 \(L\)。由 \(\int f\) 收敛，函数
-\(F(x)=\int_a^x f\) 收敛，因而有界。第一项
-\(Lf\) 可积；第二项 \(f(g-L)\) 中，\(g-L\) 单调趋零，满足
+\(F(x)=\int_a^x f\) 在无穷远有有限极限，因此在某个尾部有界；在
+余下有限闭区间上，它的连续性保证有界。第一项 \(Lf\) 的反常积分
+收敛；第二项 \(f(g-L)\) 中，\(f\) 连续、\(g-L\) 连续可导且单调趋零，满足
 Dirichlet 判别的全部条件。两项之和收敛。
 \end{solution}
 
@@ -141,11 +142,19 @@ Dirichlet 判别的全部条件。两项之和收敛。
  \ge \frac{1}{2(k+1)\pi}\cdot\frac{2\pi}{3}
  =\frac1{3(k+1)}.
 \]
-对 \(k\) 求和发散。
+对 \(k=1,\ldots,N\) 求和，所得下界至少为
+\(\frac13\int_2^{N+2}dt/t=\frac13\log((N+2)/2)\)，趋于正无穷。
+因此非负的截断积分无界，不绝对收敛。
 \end{solution}
 
 \begin{solution}{improper-substitution-inversion}
-令 \(x=1/t\)。则
+先对 \(0<\varepsilon<1\) 作有限区间代换 \(x=1/t\)，有
+\[
+ \int_\varepsilon^1 f(x)\,dx
+ =\int_1^{1/\varepsilon}\frac{f(1/t)}{t^2}\,dt.
+\]
+\(\varepsilon\downarrow0\) 与 \(1/\varepsilon\to\infty\) 一一对应，
+所以两边的反常积分同敛散，收敛时相等。特别地，取 \(f(x)=x^{-p}\)，得
 \[
  \int_0^1 x^{-p}\,dx
  =\int_1^\infty t^{p-2}\,dt
@@ -196,6 +205,6 @@ Dirichlet 判别的全部条件。两项之和收敛。
 \[
  \frac12\int_1^\infty\frac{\abs{\sin t}}{\sqrt t}\,dt
 \]
-在上述 \(I_k\) 上逐块下界为常数乘 \(k^{-1/2}\)，其和发散。因此原积分
-不绝对收敛。
+大于等于 \(\frac12\int_1^\infty\abs{\sin t}/t\,dt\)，后者已经用
+有限截断比较证明发散。因此原积分不绝对收敛。
 \end{solution}

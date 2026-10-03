@@ -122,6 +122,10 @@ Abel 引理适用。取逆否命题还可得到：若级数在 \(y_1\) 处发散
 \end{proof}
 
 \begin{example}
+对 \(n\ge2\)，阶乘的后 \(\lfloor n/2\rfloor\) 个因子都不小于 \(n/2\)，故
+\[
+ (n!)^{1/n}\ge(n/2)^{\lfloor n/2\rfloor/n}\longrightarrow+\infty.
+\]
 \[
  \sum_{n=0}^\infty\frac{x^n}{n!}
 \]
@@ -247,15 +251,30 @@ M-判别法给出内闭区间上的一致绝对收敛。有限部分和是多项
 
 \section{逐项积分、逐项求导与收敛半径}
 
-先记录一个系数事实。若
+先核对移位后的系数增长率，这一步不以形式求导为依据。令
+\(v_n=|a_n|^{1/n}\)（\(n\ge1\)），\(\rho=\limsup v_n\)。若
+\(t_m\to1\)、\(t_m>0\)，则
 \[
- \rho=\limsup|a_n|^{1/n},
+ \limsup_{m\to\infty}v_{m+1}^{t_m}=\rho.
 \]
-则乘上或除以 \(n+1\) 不改变指数增长率，因为
+当 \(\rho<\infty\) 时，给定 \(\eta>0\)，尾部
+\(v_{m+1}\le\rho+\eta\)，所以左侧不超过
+\(\lim(\rho+\eta)^{t_m}=\rho+\eta\)。再令 \(\eta\downarrow0\)。
+若 \(\rho>0\)，取趋于 \(\rho\) 的子列给出反向不等式；若 \(\rho=0\)，
+非负性已给出反向不等式。若 \(\rho=+\infty\)，取趋于无穷的子列，
+并用最终 \(t_m\ge1/2\)，其幂仍趋于无穷。同一论证适用于 \(v_{m-1}\)。
+
+导数级数的第 \(m\) 次幂系数为 \(b_m=(m+1)a_{m+1}\)。对 \(m\ge1\)，
 \[
- (n+1)^{1/n}\to1.
+ |b_m|^{1/m}=(m+1)^{1/m}v_{m+1}^{(m+1)/m}.
 \]
-指标平移也不改变相应的收敛半径。因此以下三个幂级数具有同一收敛半径：
+前因子趋于1，后因子的上极限为 \(\rho\)。积分级数的系数为
+\(c_m=a_{m-1}/m\)（\(m\ge1\)），对 \(m\ge2\) 同样有
+\[
+ |c_m|^{1/m}=m^{-1/m}v_{m-1}^{(m-1)/m},
+\]
+其上极限也为 \(\rho\)。有限个首项不影响上极限。因此Cauchy--Hadamard
+公式说明以下三个幂级数具有同一收敛半径：
 \[
  \sum_{n=0}^\infty a_ny^n,\qquad
  \sum_{n=0}^\infty\frac{a_n}{n+1}y^{n+1},\qquad
@@ -351,7 +370,7 @@ Taylor 级数何时等于原函数，以及实解析函数的零点结构。
   \lim_{x\to1-}\sum_{n=1}^\infty\frac{(-1)^{n-1}x^n}{n}=\log2.
  \]
  \exerciseitem{power-inner-uniform-tail}
- 设幂级数在 \(x_0+\rho\) 处收敛。对 \(r<|\rho|\) 给出内闭区间上余项
+ 设幂级数在 \(x_0+\rho\) 处收敛，其中 \(\rho\ne0\)。对 \(0<r<|\rho|\) 给出内闭区间上余项
  \(\sum_{n>N}a_n(x-x_0)^n\) 的显式几何上界。
  \exerciseitem{power-open-interval-not-uniform}
  证明几何级数 \(\sum x^n\) 不在 \((-1,1)\) 上一致收敛，并比较它在

@@ -1,7 +1,7 @@
 \chapter{Sobolev 空间}
 
 \begin{solution}{sobolev-absolute-value}
-\(|x|\in L^p(-1,1)\) 对所有 \(p\) 成立，一阶弱导数
+\(|x|\in W^{0,p}(-1,1)=L^p(-1,1)\) 对所有 \(1\le p\le\infty\) 成立，一阶弱导数
 \(\operatorname{sgn}x\in L^\infty\)，故属于所有 \(W^{1,p}\)。
 二阶分布导数为 \(2\delta_0\)，不由局部可积函数表示，所以不属于任何
 \(W^{2,p}\)，更不属于更高阶空间。
@@ -44,10 +44,14 @@
 若 \(u\in H^1\)，先用梯度为 \(O(R^{-1})\) 的光滑截断 \(\chi_R\) 乘以
 \(u\)，再磨光。乘积法则和 \(L^2\) 尾积分表明所得
 \(u_n\in C_c^\infty\) 在 \(H^1\) 中逼近 \(u\)。对每个 \(n\)，
-\(\widehat{\partial_ju_n}=2\pi i\xi_j\widehat u_n\)。Plancherel 使左右两边
-分别在 \(L^2\) 中收敛，得到同一公式与范数恒等式。
+\(\widehat{\partial_ju_n}=2\pi i\xi_j\widehat u_n\)。由 Plancherel，
+\(\widehat u_n\to\widehat u\)，且 \(\widehat{\partial_ju_n}\to
+\widehat{\partial_ju}\) 于 \(L^2\)。对 \(u_n\) 及全部一阶导数的变换同时
+抽取几乎处处收敛子列，乘子等式便在该满测集上保留。
+因而 \(\widehat{\partial_ju}=2\pi i\xi_j\widehat u\) 几乎处处，
+范数恒等式再由等距性得到。不能直接把乘以 \(\xi_j\) 当成连续的 \(L^2\) 算子。
 
-反向令 \(g_j=\mathcal F^{-1}(2\pi i\xi_j\widehat u)\)。对测试函数使用
+反向令 \(g_j=\mathcal F^{-1}(2\pi i\xi_j\widehat u)\)。对试验函数使用
 Parseval，并注意
 \(\widehat{\partial_j\varphi}=2\pi i\xi_j\widehat\varphi\)，可得
 \(\int u\,\partial_j\varphi=-\int g_j\varphi\)；复值情形按双线性分布配对或
@@ -61,9 +65,33 @@ Parseval，并注意
  \le\sqrt{x}\|u'\|_2.
 \]
 积分给 \(\|u\|_2\le L/\sqrt2\,\|u'\|_2\)，并延拓到 \(H_0^1\)。
-最佳常数事实上是 \(L/\pi\)：函数 \(u(x)=\sin(\pi x/L)\) 的范数比恰为
-\(L/\pi\)，所以任何有效常数至少为该值。用 Fourier 正弦展开可证明这就是
-最佳值。
+为证明下界，令 \(s(x)=\sin(\pi x/L)\)。先核实 \(s\in H_0^1(0,L)\)。
+取光滑截断 \(\chi_\varepsilon\)，在 \([2\varepsilon,L-2\varepsilon]\)
+上为一，在端点各长 \(\varepsilon\) 的邻域内为零，满足
+\(0\le\chi_\varepsilon\le1\)、\(|\chi_\varepsilon'|\le C/\varepsilon\)。
+则 \(\chi_\varepsilon s\in C_c^\infty(0,L)\)。误差仅在总长度
+\(4\varepsilon\) 的端点区域上出现，其中 \(|s(x)|\le C\varepsilon\)、
+\(|s'(x)|\le C\)，故
+\[
+ \|(1-\chi_\varepsilon)s\|_2=O(\varepsilon^{3/2}),\qquad
+ \|(1-\chi_\varepsilon)s'-\chi_\varepsilon's\|_2=O(\varepsilon^{1/2}).
+\]
+所以确有 \(H^1\) 逼近。直接积分给
+\(\|s\|_2^2=L/2\)、\(\|s'\|_2^2=\pi^2/(2L)\)，任何有效常数因此至少为 \(L/\pi\)。
+
+还能在不预用正弦展开的情况下证明这就是最佳常数。令 \(\lambda=\pi/L\)。
+对 \(u\in C_c^\infty(0,L)\)，因 \(s>0\) 于内部，\(v=u/s\) 光滑且紧支撑。
+展开 \(u'=s'v+sv'\)，再将交叉项分部积分，得到
+\[
+ \begin{aligned}
+ \int_0^L|u'|^2
+ &=\int_0^L\bigl(s^2|v'|^2+(s')^2|v|^2+ss'(|v|^2)'\bigr)\\
+ &=\int_0^Ls^2|v'|^2-\int_0^Lss''|v|^2
+ =\int_0^Ls^2|v'|^2+\lambda^2\int_0^L|u|^2.
+ \end{aligned}
+\]
+边界项因 \(v\) 紧支撑消失，最后用 \(s''=-\lambda^2s\)。右侧第一项非负，
+故 \(\|u\|_2\le (L/\pi)\|u'\|_2\)。由密度延拓到 \(H_0^1\)，结合上述下界即得最佳性。
 \end{solution}
 
 \begin{solution}{sobolev-hzero-gradient-norm}
@@ -116,6 +144,13 @@ Parseval，并注意
 \end{solution}
 
 \begin{solution}{sobolev-lower-order-term}
+因为 \(\Omega\) 有界，Poincaré 不等式可用。先核对有界性：
+\[
+ \left|\int c uv\right|
+ \le\|c\|_\infty\|u\|_2\|v\|_2
+ \le C_P^2\|c\|_\infty\|\nabla u\|_2\|\nabla v\|_2.
+\]
+加上梯度项后，双线性型在梯度范数下有界。
 \(c\ge0\) 时
 \[
  a(u,u)=\|\nabla u\|_2^2+\int c|u|^2\ge\|\nabla u\|_2^2,
@@ -141,16 +176,30 @@ Parseval，并注意
 \end{solution}
 
 \begin{solution}{sobolev-one-d-continuous-representative}
-\chapterref{chap:distributions-weak-derivatives}的一维刻画给
+\chapterref{chap:distributions-weak-derivatives}的一维刻画给一个局部绝对连续代表 \(U\)。固定 \(a_0\in(a,b)\)，有
 \[
- u(x)=u(a_0)+\int_{a_0}^{x}u'(t)dt
+ U(x)=U(a_0)+\int_{a_0}^{x}u'(t)\,dt.
 \]
-的局部绝对连续代表。若 \(p>1\)，Hölder 不等式给
+由于区间长度有限，\(u'\in L^p(a,b)\subset L^1(a,b)\)，右侧在两端均有有限
+极限，按同一积分公式定义 \(U(a),U(b)\)。积分函数的绝对连续性证明
+\(U\in AC[a,b]\)。若另有连续代表，两者在内部几乎处处相同，连续性使它们
+在内部处处相同，端点极限也相同，故此代表唯一。
+
+对 \(a\le x<y\le b\)，若 \(1<p<\infty\)，Hölder 不等式给
 \[
- |u(x)-u(y)|
+ |U(x)-U(y)|
  \le\int_x^y|u'(t)|dt
  \le\|u'\|_{L^p(a,b)}|x-y|^{1-1/p}.
 \]
-因此该代表 Hölder 连续；\(p=1\) 时仍绝对连续，但没有统一正指数的
-Hölder 估计。
+交换 \(x,y\) 得另一方向。\(p=\infty\) 时直接用
+\(\int_x^y|u'|\le\|u'\|_\infty(y-x)\)，得到 Lipschitz 估计。
+
+\(p=1\) 的反例可在 \([0,1]\) 上取
+\[
+ U(0)=0,\qquad U(x)=\frac1{\log(e/x)}\quad(0<x\le1).
+\]
+其导数 \(g(x)=1/[x\log^2(e/x)]\) 满足 \(\int_0^1g=1\)，且
+\(U(x)=\int_0^xg\)，故 \(U\in AC[0,1]\subset W^{1,1}(0,1)\)。
+对每个 \(\alpha>0\)，\(U(x)/x^\alpha\to\infty\)（令 \(t=\log(e/x)\)，
+此比值为 \(e^{\alpha(t-1)}/t\)），所以它在零点不满足任何正指数的 Hölder 估计。
 \end{solution}

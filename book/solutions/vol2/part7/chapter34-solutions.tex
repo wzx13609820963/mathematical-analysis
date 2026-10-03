@@ -12,6 +12,7 @@
 \end{solution}
 
 \begin{solution}{connected-common-point-union}
+指标集为空时并集为空，连通。以下设指标集非空。
 设 \(p\in\bigcap_{\lambda}C_\lambda\)，并反设
 \(C=\bigcup_\lambda C_\lambda\) 有分离 \(C=U\cup V\)。不妨设
 \(p\in U\)。对每个 \(\lambda\)，集合
@@ -20,7 +21,8 @@
 \(C_\lambda\subset U\) 对所有 \(\lambda\) 成立，进而 \(V=\varnothing\)，
 矛盾。
 
-更一般地，设连通集 \(D\) 与每个 \(C_\lambda\) 相交。由于
+更一般地，若指标集为空，所求并集就是连通集 \(D\)。若指标集非空，
+设连通集 \(D\) 与每个 \(C_\lambda\) 相交。由于
 \(D\cap C_\lambda\ne\varnothing\)，集合 \(D\cup C_\lambda\) 连通。
 这族连通集都包含 \(D\)，所以它们有公共点；应用刚证结论可知
 \[
@@ -214,8 +216,10 @@
  q^{-1}\bigl(g^{-1}(W)\bigr)=(g\circ q)^{-1}(W),
 \]
 右端在 \(X\) 中开。由商映射的定义，\(g^{-1}(W)\) 在 \(Y\) 中开；
-故 \(g\) 连续。这里需要 \(q\) 满射，才能把 \(Y\) 的开集完全由原像
-判定；若 \(q(X)\ne Y\)，原像看不到 \(Y\setminus q(X)\) 上的拓扑信息。
+故 \(g\) 连续。这个推理只使用开集判定的双向条件，没有另用满射性。
+例如从单点空间到两点离散空间的包含映射不满射，
+却仍满足该双向条件，因而仍有上述连续性判据。满射约定保证值域每个点都
+代表一个非空纤维，从而值域作为集合与 \(X\) 按纤维划分的等价类集合对应。
 \end{solution}
 
 \begin{solution}{continuous-surjection-not-quotient}
@@ -250,9 +254,9 @@
 \([0,1]\) 中，这只可能给出 \(s=t\) 或端点对 \(0,1\)，两种情形均有
 \(q(s)=q(t)\)。故 \(\bar p\) 单射。
 
-商空间是紧区间在 \(q\) 下的连续像，所以紧；\(S^1\) 是度量空间，因而
-Hausdorff。紧空间到 Hausdorff 空间的连续双射是同胚，故
-\(\bar p^{-1}\) 连续。
+商空间是紧区间在 \(q\) 下的连续像，所以紧。它的闭子集紧，在
+\(\bar p\) 下的像也是紧集，因 \(S^1\) 是度量空间而闭。因此
+\(\bar p\) 是闭映射，双射性说明其逆映射连续。
 \end{solution}
 
 \begin{solution}{finite-closed-pasting}

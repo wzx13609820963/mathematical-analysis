@@ -38,8 +38,10 @@ Banach--Alaoglu 定理在对偶空间给出弱星紧致球。但应用中手里�
 分离泛函都可写成这种实部形式。于是任何有限评价邻域都碰到 \(J_X(B_X)\)。
 \end{proof}
 
-稠密并不意味着相等。若 \(X\) 不反射，原空间单位球可以在较弱的拓扑中
-逼近双对偶里的新元素，即使它作为范数闭集没有任何缺失的范数极限。
+稠密并不意味着相等。当 \(X\) 是不反射的 Banach 空间时，
+\(J_X(X)\) 是双对偶中的范数闭子空间，但 \(J_X(B_X)\) 仍可在弱星拓扑中
+逼近像空间以外的单位球元素。若 \(X\) 不完备，其等距像未必范数闭，
+不能作同样的解释。
 
 \section{反射性与弱紧致性}
 
@@ -88,6 +90,7 @@ Banach 空间可分。
 
 \emph{从紧致性到子列。}
 给定 \(x_n\in K\)，令 \(Y=\overline{\operatorname{span}}\{x_n:n\ge1\}\)。
+若 \(Y=\{0\}\)，原序列恒为零，结论已成立。以下设 \(Y\ne\{0\}\)。
 它可分且为闭子空间，因 Hahn--Banach 分离也是弱闭的。
 故 \(K\cap Y\) 弱紧。取 \(Y\) 单位球面上的稠密序列 \(y_j\)，为各 \(y_j\)
 取范数一的范数化泛函，并等范数延拓到 \(X\)，记为 \(\phi_j\)。
@@ -99,7 +102,7 @@ Banach 空间可分。
  y\longmapsto(\phi_j(y))_j
 \]
 连续且单射，从紧空间到 Hausdorff 空间是到像的同胚。可数标量积可度量化，
-因此 \(K\cap Y\) 是紧致度量空间，给出所需子列。若 \(Y=0\)，序列已恒零。
+因此 \(K\cap Y\) 是紧致度量空间，给出所需子列。
 
 \emph{从子列到紧致性。}
 先知 \(K\) 范数有界。否则选 \(\|x_n\|>n\)，它的任何子列均不可能
@@ -158,9 +161,22 @@ Eberlein--Šmulian 给球弱紧，进而反射。
 \(p=2\) 给出具有内积 \(\int f\overline g\,d\mu\) 的典型 Hilbert 空间。
 下一编将以正交投影和 Riesz 表示处理一般 Hilbert 空间；本节的 \(L^2\)
 结论已经由积分对偶表示独立证明，不依赖尚未建立的抽象投影定理。
-端点不能加入上述范围：在 \(c_0\) 单位球中取
+一个非反射空间的例子是 \(c_0\)。在其单位球中取
 \(u_n=(1,\ldots,1,0,\ldots)\)，前 \(n\) 项为一。任何子列的坐标极限均为
 常数列一，不属于 \(c_0\)，故没有弱收敛子列。
+
+这也说明 \(\ell^\infty\) 不反射。事实上，反射空间 \(X\) 的闭线性
+子空间 \(M\) 仍反射：\(M\) 弱闭，故 \(B_X\cap M\) 弱紧；
+Hahn--Banach 延拓保证 \(X\) 的弱拓扑在 \(M\) 上的相对拓扑就是
+\(\sigma(M,M^*)\)，由弱紧球判据得到结论。而 \(c_0\) 是
+\(\ell^\infty\) 的闭子空间，故 \(\ell^\infty\) 若反射便产生矛盾。
+
+对另一端点 \(\ell^1\)，单位坐标向量列 \(e_n\) 也没有弱收敛子列。
+若某子列弱趋于 \(x\in\ell^1\)，各坐标泛函使 \(x\) 的每个坐标为零；
+但 \(\ell^\infty=(\ell^1)^*\) 中的常数列一在每个 \(e_n\) 上取值一，
+不可能趋于在零向量上的取值。这两个计数测度例子说明，一般的
+\(L^p\) 反射性结论不能加入 \(p=1,\infty\)；并非所有端点空间都不反射，
+有限维的端点空间仍然反射。
 
 \subsection{极小化序列}
 
@@ -178,7 +194,7 @@ Eberlein--Šmulian 给球弱紧，进而反射。
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{reflexive-finite-dimension}证明有限维赋范空间反射。
 \exerciseitem{reflexive-czero-failure}完整验证正文的 \(c_0\) 有界序列没有弱收敛子列。
-\exerciseitem{reflexive-lp-weak-bound}若 \(f_n\rightharpoonup f\) 于 \(L^p\)，证明 \(\|f\|_p\le\liminf\|f_n\|_p\)。
+\exerciseitem{reflexive-lp-weak-bound}设 \(1\le p\le\infty\)。若 \(f_n\rightharpoonup f\) 于 \(L^p\)，证明 \(\|f\|_p\le\liminf\|f_n\|_p\)。
 \exerciseitem{reflexive-norm-attainment}证明反射空间上的每个连续线性泛函都在闭单位球上取得其范数。
 \end{enumerate}
 \subsection*{B组}

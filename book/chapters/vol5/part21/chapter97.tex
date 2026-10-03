@@ -92,7 +92,8 @@ $\overline{B(a,R)}\subset\Omega$，则对 $0<r\le R$，
 \end{theorem}
 
 \begin{proof}
-在 $B(a,R)$ 上取 $u$ 的调和共轭 $v$，则 $f=u+iv$ 全纯。Cauchy 积分
+由闭圆盘紧含于 $\Omega$，可取 $R'>R$ 使 $\overline{B(a,R')}\subset\Omega$。
+在 $B(a,R')$ 上取 $u$ 的调和共轭 $v$，则 $f=u+iv$ 全纯。Cauchy 积分
 公式写成
 \[
  f(a)=\frac1{2\pi}\int_0^{2\pi}f(a+re^{it})\,dt.
@@ -143,7 +144,7 @@ $\Omega$ 有界且 $u\in C(\overline\Omega)$ 在 $\Omega$ 内调和，则
  \qquad
  \min_{\overline\Omega}u=\min_{\partial\Omega}u,
 \]
-除非 $u$ 为常函数。
+非常值时，最大值和最小值都不能在内部取得。
 \end{theorem}
 
 \begin{proof}
@@ -162,7 +163,8 @@ $\mathbb H=\{(x,y):y>0\}$ 上的函数 $u(x,y)=y$ 调和，并连续延拓到实
 函数没有必须取得的全局最大值，因而不能由边界值控制整个区域。对无界域应用
 最大值原理时，通常还要给出无穷远处的增长条件。
 
-最大值原理立即给 Dirichlet 问题的唯一性：两个具有相同边界值的调和函数之
+在有界区域上，最大值原理给 Dirichlet 问题的唯一性：两个连续到闭包、
+具有相同边界值的调和函数之
 差在边界为零，对差及其负函数使用最大值原理便知差恒为零。
 
 \section{Harnack 不等式与收敛原理}
@@ -209,16 +211,18 @@ $u_n\to+\infty$ 在每个紧集上一致成立，或者 $u_n$ 局部一致收敛
 \end{theorem}
 
 \begin{proof}
-固定 $a\in\Omega$，并令 $w_n=u_n-u_1+1$。则 $w_n\ge1$ 调和且单调递增。
+固定 $a\in\Omega$；以下对任意紧集 $K$，将 Harnack 不等式用于
+$K\cup\{a\}$，并把相应常数记为 $C_{K,a}$。令 $w_n=u_n-u_1+1$，
+则 $w_n\ge1$ 调和且单调递增。
 若 $u_n(a)\to\infty$，也有 $w_n(a)\to\infty$；Harnack 不等式给
-$\inf_Kw_n\ge C_K^{-1}w_n(a)$，故 $w_n$，从而 $u_n$，在每个紧集上一致
+$\inf_Kw_n\ge C_{K,a}^{-1}w_n(a)$，故 $w_n$，从而 $u_n$，在每个紧集上一致
 趋于无穷。
 
 若 $(u_n(a))$ 有界，则它收敛。对 $m>n$，差
 $v_{m,n}=u_m-u_n\ge0$ 调和。若差不恒为零，可对它用 Harnack 不等式；
 恒为零时估计也成立。因此
 \[
- \sup_K|u_m-u_n|\le C_K|u_m(a)-u_n(a)|\longrightarrow0.
+ \sup_K|u_m-u_n|\le C_{K,a}|u_m(a)-u_n(a)|\longrightarrow0.
 \]
 所以 $(u_n)$ 在每个紧集上一致 Cauchy，局部一致收敛到连续函数 $u$。在圆周
 平均公式中取极限，$u$ 仍满足平均值性质，故由
@@ -250,7 +254,7 @@ $u\equiv0$；否则 $u$ 处处为正，可以直接使用 Harnack 不等式。�
 \]
 逐项积分得到。
 
-若 $g\in C(\partial\mathbb D)$，定义
+若 $g\in C(\partial\mathbb D;\R)$，定义
 \begin{equation}\label{eq:poisson-integral}
  (Pg)(re^{i\theta})=\frac1{2\pi}\int_0^{2\pi}
  P_r(\theta-t)g(e^{it})dt.
@@ -312,7 +316,7 @@ $|z-a|=R$，使用 $R'<R$ 即可。
 \section{Dirichlet 问题与位势论}
 
 \begin{theorem}[圆盘 Dirichlet 问题]\label{thm:disk-dirichlet-problem}
-对每个 $g\in C(\partial\mathbb D)$，存在唯一
+对每个 $g\in C(\partial\mathbb D;\R)$，存在唯一
 $u\in C(\overline{\mathbb D})\cap C^2(\mathbb D)$ 满足
 \[
  \Delta u=0\quad\text{于 }\mathbb D,
@@ -339,7 +343,9 @@ $u\in C(\overline{\mathbb D})\cap C^2(\mathbb D)$ 满足
 \begin{equation}\label{eq:laplace-fundamental-solution}
  \Delta\Phi=\delta_0.
 \end{equation}
-为验证它，取测试函数 $\varphi$，在 $|x|>\varepsilon$ 上使用 Green 恒等式。
+首先 $\Phi$ 局部可积，因为 $\int_0^\varepsilon r|\log r|\,dr<\infty$，
+所以它定义一个分布。为验证上式，取试验函数 $\varphi$，在 $|x|>\varepsilon$
+上使用 Green 恒等式。
 外边界项因测试函数紧支撑而消失；内圆周的外法向为 $-e_r$，故
 \begin{align*}
  \int_{|x|>\varepsilon}\Phi\,\Delta\varphi

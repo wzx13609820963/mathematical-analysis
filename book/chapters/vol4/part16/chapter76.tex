@@ -29,7 +29,7 @@
 
 \begin{theorem}[Banach--Steinhaus]\label{thm:uniform-boundedness}
 设 \(X\) 为 Banach 空间，\(Y\) 为赋范空间，
-\(\mathcal T\subset\mathcal L(X,Y)\)。若每个 \(x\in X\) 满足
+\(\varnothing\ne\mathcal T\subset\mathcal L(X,Y)\)。若每个 \(x\in X\) 满足
 \(\sup_{T\in\mathcal T}\|Tx\|<\infty\)，则 \(\sup_{T\in\mathcal T}\|T\|<\infty\)。
 \end{theorem}
 \begin{proof}
@@ -41,7 +41,8 @@
 \end{proof}
 
 这里 \(Y\) 不需完备，算子族也不需可数；可数的是按界的大小形成的闭集族。
-若 \(T_nx\) 对每个 \(x\) 都收敛，则它逐点有界，于是极限映射为有界线性
+若 \(T_n\in\mathcal L(X,Y)\)，且 \(T_nx\) 对每个 \(x\) 都在 \(Y\) 中收敛，
+则它逐点有界，于是极限映射为有界线性
 算子。不过这仍不保证算子范数收敛，上一章的坐标投影已经给出反例。
 
 \section{开映射定理}
@@ -69,7 +70,10 @@ Banach 空间之间的有界线性满射 \(T:X\to Y\) 为开映射。
 
 两个完备性各有作用：\(Y\) 的完备性用于 Baire 定理，\(X\) 的完备性用于
 修正级数。证明不仅给拓扑结论，还给一个常数 \(C\)，使每个 \(y\) 都存在
-原像 \(x\) 满足 \(\|x\|\le C\|y\|\)；原像不必唯一，也不保证可线性选择。
+原像 \(x\) 满足 \(\|x\|\le C\|y\|\)。具体地，取 \(C>4/\delta\)，
+对 \(y\ne0\) 把 \(y/(C\|y\|)\) 放入 \(B(0,\delta/4)\subset T(B_X^\circ)\)，
+再把所得原像乘以 \(C\|y\|\)；\(y=0\) 时取 \(x=0\)。
+原像不必唯一，也不保证可线性选择。
 
 \section{有界逆定理}
 
@@ -103,29 +107,39 @@ Banach 空间之间的有界线性双射具有有界线性逆。
 
 \section{完备性缺失时}
 
-在不完备的 \(c_{00}\) 配上上确界范数，令 \(T_nx=nx_n\)。对每个有限支撑
+在不完备的 \(c_{00}\) 配上上确界范数，令 \(T_nx=nx_n\)，\(n\ge1\)。对每个有限支撑
 \(x\)，\(\sup_n|T_nx|<\infty\)，但 \(\|T_n\|=n\)。这直接否定省略完备性
 的一致有界原理。
 
-恒等映射
+取有限实数 \(a<b\)。恒等映射
 \[
  I:(C[a,b],\|\cdot\|_\infty)\longrightarrow(C[a,b],\|\cdot\|_1)
 \]
 有界双射，却没有有界逆：高为一、支撑长度趋零的三角形函数，积分范数趋零
-而上确界范数恒一。目标空间在积分范数下不完备。逆方向的恒等映射图像闭，
-但不有界，又说明闭图像定理中完备性不能删除。
+而上确界范数恒一。目标空间在积分范数下不完备：命题
+\ref{prop:c-interval-not-complete-l1}已在 \([0,1]\) 上用连续函数逼近跳跃函数证明；
+仿射变量代换只将积分范数乘以 \(b-a>0\)，故结论适用于 \([a,b]\)。
+逆方向的恒等映射图像闭：若 \(f_n\) 在积分范数下趋于连续函数 \(f\)，
+同时在上确界范数下趋于连续函数 \(g\)，则它在积分范数下也趋于 \(g\)。
+极限唯一性给出 \(f=g\) 几乎处处，连续性进而给出处处相等。
+这个逆映射不有界，说明闭图像定理中完备性不能删除。
 
 \section{处处不可微的连续函数}
 
 Baire 方法还可以证明某种性质在连续函数空间中非常普遍，而不必先写出
 一个特定公式。以下在实 Banach 空间 \(C[0,1]\) 中讨论。
-令 \(E_n\) 为存在 \(x\in[0,1]\) 满足
+对正整数 \(n\)，令 \(E_n\) 为存在 \(x\in[0,1]\) 满足
 \[
  |f(t)-f(x)|\le n|t-x|\quad
  (t\in[0,1],\ |t-x|\le1/n)
 \]
 的全部 \(f\)。每个 \(E_n\) 闭：若 \(f_k\to f\) 一致，可从相应 \(x_k\)
-抽子列趋于 \(x\)，对 \(|t-x|<1/n\) 取极限，再由连续性补上等号边界。
+抽子列趋于 \(x\)。由
+\[
+ |f_k(x_k)-f(x)|\le\|f_k-f\|_\infty+|f(x_k)-f(x)|\longrightarrow0,
+\]
+对固定 \(|t-x|<1/n\)，充分大时 \(|t-x_k|<1/n\)，可以在对应不等式中
+取极限。再由连续性补上 \(|t-x|=1/n\) 的边界，便得 \(f\in E_n\)。
 
 每个 \(E_n\) 内部为空。给定连续函数及任意一致误差，先用分段线性函数
 逼近，再在每个线性段中加入振幅任意小、斜率绝对值充分大的细锯齿，
@@ -137,8 +151,9 @@ Baire 方法还可以证明某种性质在连续函数空间中非常普遍，�
 绝对值大于 \(n\)，一致误差却仍不超过 \(h\)。对新折线的任何点，
 至少一侧有一条小线段从该点出发，斜率绝对值大于 \(n\)，故它不属于 \(E_n\)。
 
-若 \(f\) 在某个内点具有有限导数，差商在某邻域有界，因此 \(f\) 属于某个
-\(E_n\)。所以 Baire 定理保证 \(\bigcap_n(C[0,1]\setminus E_n)\) 稠密，
+若 \(f\) 在某个内点具有有限导数，差商在某个半径 \(r>0\) 的邻域内
+有界，记其界为 \(M\)。选择正整数 \(n\ge M\) 且 \(1/n<r\)，便有
+\(f\in E_n\)。所以 Baire 定理保证 \(\bigcap_{n\ge1}(C[0,1]\setminus E_n)\) 稠密，
 其中每个函数在所有内点均无有限导数。此结论谈的是余第一纲集合，不是
 “随机选择函数”的概率；这里没有给函数空间指定概率测度。
 
@@ -147,14 +162,14 @@ Baire 方法还可以证明某种性质在连续函数空间中非常普遍，�
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{baire-rational-incomplete}解释 \(\Q\) 为什么是自身中的第一纲集，以及这为何不违反 Baire 定理。
-\exerciseitem{ubp-pointwise-limit}证明 Banach 空间上有界线性算子列的逐点极限是有界线性算子。
+\exerciseitem{ubp-pointwise-limit}设 \(X\) Banach、\(Y\) 赋范，\(T_n\in\mathcal L(X,Y)\)，且对每个 \(x\in X\)，\(T_nx\) 的极限存在于 \(Y\)。证明该逐点极限是有界线性算子。
 \exerciseitem{inverse-two-norms}完整证明正文的两个 Banach 范数单向控制即等价的结论。
 \exerciseitem{graph-continuous-closed}证明连续映射到 Hausdorff 空间的图像闭，特别说明有界线性算子的图像闭。
 \end{enumerate}
 \subsection*{B组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{open-quotient-isomorphism}若 \(T:X\to Y\) 为 Banach 空间间的有界满射，证明 \(X/\ker T\) 与 \(Y\) 通过诱导映射有界同构。
-\exerciseitem{ubp-dense-subset-insufficient}用 \(T_nx=nx_n\) 在 \(\ell^2\) 上说明只在稠密子集上逐点有界不足以推出一致有界。
+\exerciseitem{open-quotient-isomorphism}若 \(T:X\to Y\) 为 Banach 空间间的有界线性满射，证明 \(X/\ker T\) 与 \(Y\) 通过诱导映射有界同构。
+\exerciseitem{ubp-dense-subset-insufficient}用 \(T_nx=nx_n\)，\(n\ge1\)，在 \(\ell^2\) 上说明只在稠密子集上逐点有界不足以推出一致有界。
 \exerciseitem{closed-derivative-unbounded}证明 \(D:C^1[0,1]\subset C[0,1]\to C[0,1]\) 在两侧上确界拓扑下图像闭，但相对于定义域的上确界范数不有界。
 \exerciseitem{baire-no-countable-basis}证明无限维 Banach 空间不可能有可数 Hamel 基。
 \end{enumerate}

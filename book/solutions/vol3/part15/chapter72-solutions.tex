@@ -1,7 +1,9 @@
 \chapter{Lebesgue 微分定理}
 \begin{solution}{maximal-sublinear}
 对每个 \(I\ni x\) 先用 \(\int_I|f+g|\le\int_I|f|+\int_I|g|\)，除以长度，
-右侧各自不超过对应的上确界，再对 \(I\) 取上确界。齐次性直接从积分提出 \(|c|\)。
+右侧各自不超过对应的上确界，再对 \(I\) 取上确界。\(c\ne0\) 时从积分
+提出 \(|c|\) 后再取确界，齐次性成立，也允许结果为无穷。
+\(c=0\) 时每个平均都为零，故 \(M(0)=0\)，不使用 \(0\cdot\infty\)。
 \end{solution}
 \begin{solution}{maximal-finite-ae}
 \(\{Mf=\infty\}\subset\{Mf>n\}\)，后者测度至多 \(3\|f\|_1/n\)；

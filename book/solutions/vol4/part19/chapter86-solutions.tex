@@ -11,13 +11,13 @@
 \end{solution}
 
 \begin{solution}{picard-invariant-ball}
-若 \(\|u-y_0\|_\infty\le b\)，则 \((t,u(t))\in Q\)，因而
+取 \(0<h\le a\)。若 \(\|u-y_0\|_\infty\le b\)，则 \((t,u(t))\in Q\)，因而
 \[
  \|(\Phi u)(t)-y_0\|
  \le\left|\int_{t_0}^{t}\|f(s,u(s))\|ds\right|
  \le M|t-t_0|\le Mh.
 \]
-所以 \(Mh\le b\) 保证 \(\Phi u\in X\)。
+所以 \(Mh\le b\) 保证 \(\Phi u\in X\)。\(M=0\) 时算子恒等于常函数 \(y_0\)，不必写出无意义的 \(b/M\)。
 \end{solution}
 
 \begin{solution}{picard-linear-equation}
@@ -29,6 +29,11 @@
 \[
  u_3=y_0+(ay_0+b)\left(t+\frac{at^2}{2}+\frac{a^2t^3}{6}\right).
 \]
+第四次为
+\[
+ u_4=y_0+(ay_0+b)\left(t+\frac{at^2}{2}+\frac{a^2t^3}{6}
+                       +\frac{a^3t^4}{24}\right).
+\]
 依此归纳，
 \[
  u_n=y_0+(ay_0+b)\sum_{k=1}^n\frac{a^{k-1}t^k}{k!}.
@@ -38,12 +43,15 @@
 \end{solution}
 
 \begin{solution}{picard-contraction-error}
-压缩常数 \(q=Lh<1\) 时，
+压缩常数 \(0<q=Lh<1\) 时，
 \[
  \|u_n-y\|\le\sum_{j=n}^\infty\|u_{j+1}-u_j\|
  \le\frac{q^n}{1-q}\|u_1-u_0\|.
 \]
-而 \(\|u_1-u_0\|\le Mh\)。阶乘估计从
+而 \(\|u_1-u_0\|\le Mh\)。同一尾和中改用
+\(\|u_{j+1}-u_j\|\le q^{j-n+1}\|u_n-u_{n-1}\|\)，给出
+\(\|u_n-y\|\le q\|u_n-u_{n-1}\|/(1-q)\)（\(n\ge1\)）。
+\(q=0\) 时 \(u_1\) 已是不动点。这里的范数均为上确界范数。阶乘估计从
 \(\|u_1(t)-u_0(t)\|\le M|t-t_0|\) 开始。若第 \(n\) 步有逐点上界
 \[
  \|u_{n+1}(t)-u_n(t)\|
@@ -69,14 +77,17 @@
 \end{solution}
 
 \begin{solution}{picard-gronwall-variable}
-令 \(v=A+\int b u\)。当 \(A>0\) 时 \(u\le v\) 且
+令 \(v(t)=A+\int_{t_0}^t b(s)u(s)\,ds\)。它绝对连续。当 \(A>0\) 时 \(u\le v\)、\(v\ge A\)，故 \(\log v\) 也绝对连续，且
 \((\log v)'=v'/v\le b\) 几乎处处，积分得
 \(v(t)\le A\exp(\int b)\)。\(A=0\) 用 \(A+\varepsilon\) 后取极限。
-对解差 \(u(t)=\|y(t)-z(t)\|\)，积分方程给
+对解差 \(u(t)=\|y(t)-z(t)\|\)，当 \(t\ge t_0\) 时积分方程给
 \[
  u(t)\le\|y_0-z_0\|+\int_{t_0}^{t}Lu(s)ds,
 \]
-应用引理即得所求。
+应用引理即得正向估计。若 \(t<t_0\)，对
+\(Y(s)=y(t_0-s)\)、\(Z(s)=z(t_0-s)\) 使用正向估计。
+二者满足右端 \(-f(t_0-s,\cdot)\) 的方程，Lipschitz 常数仍为 \(L\)，
+于是指数为 \(e^{Ls}=e^{L|t-t_0|}\)。
 \end{solution}
 
 \begin{solution}{picard-perturbed-vector-field}
@@ -85,24 +96,29 @@
  f(s,y(s))-g(s,z(s))
  =[f(s,y(s))-f(s,z(s))]+[f(s,z(s))-g(s,z(s))].
 \]
-因此
+因此对 \(t\ge t_0\)，
 \[
  u(t)\le\|y_0-z_0\|+\eta|t-t_0|+
  L\int_{t_0}^{t}u(s)ds.
 \]
 在长度 \(T=|t-t_0|\) 的区间上把前两项统一界为
 \(\|y_0-z_0\|+\eta T\)，Grönwall 给正文估计。
+对负向时间采用 \(s=t_0-t\)，两个新右端分别为 \(-f(t_0-s,\cdot)\)
+与 \(-g(t_0-s,\cdot)\)，差仍由 \(\eta\) 控制，得到相同估计。
 \end{solution}
 
 \begin{solution}{picard-global-linear-growth}
-由积分方程，
+固定有限时间带，取该带上的增长常数 \(A,B\)。对 \(t\ge t_0\)，由积分方程，
 \[
  \|y(t)\|\le\|y_0\|+A|t-t_0|+
  B\int_{t_0}^{t}\|y(s)\|ds.
 \]
-Grönwall 给任意固定有限时间带上的共同有限上界。因此轨道不可能因
-\(\|y(t)\|\to\infty\) 在有限端点终止。向量场定义在全空间，有限时间带内的
-轨道闭包是紧集，局部存在长度可统一选择，最大解可继续延拓。
+在长度不超过 \(T\) 的时间带上，Grönwall 给
+\(\|y(t)\|\le(\|y_0\|+AT)e^{BT}\)。对负向时间将方程反向，
+新右端也满足同一增长估计。因此任一有限端点附近的轨道都包含在
+全空间中的一个紧时间带与闭球的乘积中。正文的最大解延拓结论排除有限端点，
+故最大区间是 \(\R\)。仅说“没有趋于无穷”不足以结束证明，这里还用了
+定义域为全空间及有限维紧致性。
 \end{solution}
 
 \begin{solution}{picard-flow-semigroup}
@@ -121,19 +137,57 @@ Grönwall 给任意固定有限时间带上的共同有限上界。因此轨道�
 \end{solution}
 
 \begin{solution}{picard-parameter-differentiation}
-设 \(y(t,\lambda)\) 解
+记基准解为 \(\bar y(t)=y(t,\lambda_0)\)，\(T=\max_{t\in I}|t-t_0|\)。
+由图像紧且位于开域内部，可选 \(r,\delta>0\)，使管道
 \[
- y=y_0(\lambda)+\int_{t_0}^{t}f(s,y(s,\lambda),\lambda)ds.
+ K=\{(t,z,\lambda):t\in I,\ \|z-\bar y(t)\|\le r,
+                  \|\lambda-\lambda_0\|\le\delta\}
 \]
-形式导数 \(z=\partial_\lambda y\) 应满足
+仍在开域内。缩小参数球后，\(D_yf,D_\lambda f,Dy_0\) 在相关紧集上有界，
+分别记界为 \(L,B,C_0\)。只要附近参数解尚在管道中，沿同一时间截面的线段
+使用中值积分公式和双侧 Grönwall 估计，便有
 \[
- z(t)=y_0'(\lambda)+\int_{t_0}^{t}
- \bigl[D_yf(s,y,\lambda)z(s)+\partial_\lambda f(s,y,\lambda)\bigr]ds.
+ \|y(t,\lambda)-\bar y(t)\|
+ \le (C_0+BT)e^{LT}\|\lambda-\lambda_0\|.
 \]
-对差商与该线性积分方程之差使用一阶展开；连续可微性在紧管道上使余项除以
-参数增量后一致趋零。差的范数满足
-\(u(t)\le o(1)+L\int u\)，Grönwall 给 \(u\to0\) 一致。因此参数导数存在并
-由变分方程唯一确定。
+取参数足够近，使右侧小于 \(r/2\)。首次离开管道的时刻不可能存在；
+如果解在到达 \(I\) 端点前终止，其图像仍在开域内的紧管道中，
+正文的延拓结论又排除终止。因此这些解在整个 \(I\) 上存在，且解差为
+\(O(\|\lambda-\lambda_0\|)\)，常数与时间无关。
+
+固定这样的参数 \(\lambda\)。设
+\(A(t)=D_yf(t,y(t,\lambda),\lambda)\)、
+\(B(t)=D_\lambda f(t,y(t,\lambda),\lambda)\)，求矩阵值函数
+\(Z:I\to\mathcal L(\R^q,\R^m)\) 满足
+\[
+ Z(t)=Dy_0(\lambda)+\int_{t_0}^{t}[A(s)Z(s)+B(s)]\,ds.
+\]
+这是有限维线性方程，系数连续有界。局部存在唯一性及线性增长延拓保证它在
+\(I\) 上有唯一解。
+
+令 \(d_h(t)=y(t,\lambda+h)-y(t,\lambda)\)。在已选管道稍小的内部，
+上述估计同样给 \(\|d_h\|_\infty=O(\|h\|)\)。沿
+\((y(t,\lambda)+\theta d_h(t),\lambda+\theta h)\) 的线段积分，得到
+\[
+ f(t,y(t,\lambda+h),\lambda+h)-f(t,y(t,\lambda),\lambda)
+ =A(t)d_h(t)+B(t)h+R_h(t).
+\]
+两偏导在紧管道上一致连续，故存在 \(\omega(\rho)\to0\) 使
+\[
+ \|R_h\|_\infty\le
+ \omega(\|d_h\|_\infty+\|h\|)(\|d_h\|_\infty+\|h\|)
+ =o(\|h\|).
+\]
+初值的可微性给同阶余项。把两个积分方程相减，令
+\(e_h=d_h-Zh\)，则在正向时间
+\[
+ \|e_h(t)\|\le o(\|h\|)+L\int_{t_0}^t\|e_h(s)\|\,ds.
+\]
+反向时间先作变量代换再用同一估计，得
+\(\|e_h\|_\infty=o(\|h\|)\)。这证明了到 \(C(I,\R^m)\) 的 Fréchet 可微性。
+最后，参数趋近时解一致趋近，系数 \(A,B\) 及初值 \(Dy_0\) 也一致趋近；
+对两个线性变分方程之差再用 Grönwall，得到 \(Z\) 在上确界算子范数下连续。
+因此参数映射连续可微，导数由该变分方程给出。
 \end{solution}
 
 \begin{solution}{picard-weighted-norm}

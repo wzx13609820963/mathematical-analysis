@@ -27,7 +27,8 @@ Riesz 表示定理。最小二乘法只是这些结果在一个有限维子空�
 Hilbert 空间。
 \end{definition}
 
-正定性也给出 \(\langle0,0\rangle=0\)，并由共轭对称性推出第二变量共轭线性。
+第一变量线性给出 \(\langle0,0\rangle=0\)，并与共轭对称性一起推出
+第二变量共轭线性。
 实空间中共轭可以删去。典型例子是
 \[
  \langle x,y\rangle=\sum_{j=1}^n x_j\overline{y_j},\qquad
@@ -220,9 +221,12 @@ Cauchy--Schwarz 不等式给出三角不等式，因为
 给收缩估计。若 \(0\ne m\in M\)，则 \(P_Mm=m\)，故算子范数至少为一。
 \end{proof}
 
-由此还得到 \(M^{\perp\perp}=\overline M\)。事实上
-\(\overline M\subset M^{\perp\perp}\) 显然；若 \(x\perp M^\perp\)，按
-\(\overline M\oplus M^\perp\) 分解，第二个分量必须为零。
+对任意子集 \(M\subseteq H\)，令 \(V=\overline{\operatorname{span}M}\)，
+则 \(M^\perp=V^\perp\)，并且 \(M^{\perp\perp}=V\)。
+事实上，\(V\subseteq M^{\perp\perp}\)；反向若 \(x\perp M^\perp\)，
+按 \(V\oplus V^\perp\) 分解 \(x=v+w\)，则
+\(0=\langle x,w\rangle=\|w\|^2\)，所以 \(x=v\in V\)。
+特别地，若 \(M\) 是线性子空间，双正交补就是 \(\overline M\)。
 
 \section{Riesz 表示定理}
 
@@ -281,8 +285,8 @@ Gram 矩阵 \(G=(\langle u_j,u_k\rangle)_{k,j}\) 半正定；当且仅当 \(u_j\
 \addcontentsline{toc}{section}{习题}
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
-\exerciseitem{hilbert-pythagoras-finite}证明两两正交的有限族满足 Pythagoras 等式，并说明等式如何推出线性无关性。
-\exerciseitem{hilbert-lone-not-inner}证明 \(\ell^p\) 的通常范数在 \(p\ne2\) 时不满足平行四边形恒等式。
+\exerciseitem{hilbert-pythagoras-finite}证明两两正交的有限族满足 Pythagoras 等式，并说明各向量非零时，等式如何推出线性无关性。
+\exerciseitem{hilbert-lone-not-inner}设 \(1\le p\le\infty\)、\(p\ne2\)，证明 \(\ell^p\) 的通常范数不满足平行四边形恒等式。
 \exerciseitem{hilbert-orthogonal-complement}证明 \(M^\perp\) 闭，且 \(M^{\perp\perp}=\overline{\operatorname{span}M}\)。
 \exerciseitem{hilbert-projection-line}设 \(0\ne u\in H\)，求投影到 \(\operatorname{span}\{u\}\) 的公式。
 \end{enumerate}

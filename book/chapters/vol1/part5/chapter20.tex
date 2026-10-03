@@ -6,13 +6,18 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 一点附近可比较的函数；其增量恰是一个短区间上的积分，这使差商与局部平均
 联系起来。
 
+本章设 \(a<b\)。对可积函数约定 \(\int_a^a f=0\) 和
+\(\int_y^x f=-\int_x^y f\)（\(x<y\)）。区间可加性在这种定向约定下
+仍成立，例如无论 \(x,y\) 的大小次序如何，均有
+\(\int_a^y f-\int_a^x f=\int_x^y f\)。
+
 \section{积分上限函数}
 
 设 \(f\) 在 \([a,b]\) 上 Riemann 可积，定义
 \[
  F(x)=\int_a^x f(t)\,dt,\qquad x\in[a,b],
 \]
-其中 \(x<a\) 的反向积分约定不会在本节出现。
+其增量允许向左或向右取，分别对应负向或正向的定向积分。
 
 \begin{theorem}[积分上限函数的连续性]
 \label{thm:indefinite-integral-lipschitz}
@@ -34,6 +39,9 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \end{proof}
 
 这个结论只需 \(f\) 可积，不需连续。可导性则取决于基点附近的局部行为。
+例如改变被积函数在有限个点的值，并不改变任何区间上的积分，因而也不改变
+积分上限函数。这已经说明：单凭积分上限函数，不能恢复被积函数每一点的值。
+下面的连续性条件恰好排除了基点处这种任意改值的可能。
 
 \begin{theorem}[连续点处的求导]
 \label{thm:indefinite-integral-derivative-continuity-point}
@@ -73,6 +81,11 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \(f\) 可积，但 \(F\) 在 \(0\) 不可导。积分上限函数在被积函数的连续点
 可导，并不保证在每个点可导。
 \end{counterexample}
+
+反过来，\(F\) 在一点可导也不能推出 \(f\) 在该点连续，甚至不能保证
+\(F'=f\) 在该点成立。在 \([-1,1]\) 上取 \(f=\mathbf1_{\{0\}}\)，
+每个区间上的积分都为零，所以积分上限函数恒为零，但 \(f(0)=1\)。
+是否可导应由短区间的平均值来判断，不能只依据被积函数在该点的点值。
 
 \section{微积分基本定理与 Newton--Leibniz 公式}
 
@@ -116,14 +129,15 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \end{proof}
 
 \begin{corollary}[微积分基本定理第二部分]
-若 \(f\in C([a,b])\)，而 \(G\) 是 \(f\) 的任一原函数，则
+若 \(f\in C([a,b])\)，\(G\in C([a,b])\)，且 \(G'=f\) 于
+\((a,b)\)，则
 \[
  \int_a^b f(x)\,dx=G(b)-G(a).
 \]
 \end{corollary}
 
 “微分与积分互为逆运算”应按两个方向分别理解：连续函数积分后再求导，
-恢复原函数；具有 Riemann 可积导数的函数求导后再积分，恢复端点增量。
+恢复被积函数；具有 Riemann 可积导数且端点连续的函数求导后再积分，恢复端点增量。
 两个方向的假设不同。
 
 \section{原函数存在性的条件}
@@ -160,7 +174,8 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \end{proof}
 
 \begin{proposition}[原函数的唯一性]
-若 \(F,G\) 是同一区间上函数 \(f\) 的原函数，则 \(F-G\) 为常函数。
+若 \(F,G\) 在同一非退化区间 \(I\) 上连续，且在其内部满足
+\(F'=G'=f\)，则 \(F-G\) 为常函数。
 \end{proposition}
 
 \begin{proof}
@@ -268,7 +283,9 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \end{theorem}
 
 \begin{proof}
-只写 \(a<x\)；反向积分情形相同。对积分连续使用分部积分：
+\(n=0\) 时公式就是 \(f(x)-f(a)=\int_a^x f'(t)\,dt\)。
+以下设 \(n\ge1\)。只写 \(a<x\)；反向积分情形同样由定向积分的
+分部积分公式得到。对积分连续使用分部积分：
 \[
  \frac1{n!}\int_a^x f^{(n+1)}(t)(x-t)^n\,dt
  =-\frac{f^{(n)}(a)}{n!}(x-a)^n
@@ -304,7 +321,7 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \label{thm:integral-jensen-riemann}
 设 \(\Phi\) 在区间 \(J\) 上连续且凸，\(f:[a,b]\to J\) 连续，
 \(w:[a,b]\to[0,+\infty)\) Riemann 可积且
-\(\int_a^b w>0\)。若 \(\Phi\circ f\) 可积，则
+\(\int_a^b w>0\)。则
 \[
  \Phi\!\left(
  \frac{\int_a^b fw}{\int_a^b w}
@@ -315,6 +332,9 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
 \end{theorem}
 
 \begin{proof}
+连续复合 \(\Phi\circ f\) 在闭区间上连续，因而可积。若
+\(m=\min f\)、\(M=\max f\)，则 \([m,M]\subset J\)。积分的序性质
+说明加权平均也在 \([m,M]\) 中，所以左端确有定义。
 对细标记分割，把非负数
 \[
  \lambda_i=
@@ -371,9 +391,10 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
  \exerciseitem{ftc-indefinite-step-function} 对本章阶梯函数反例，逐点求积分
  上限函数的左右导数，并与被积函数的连续点比较。
  \exerciseitem{ftc-continuity-point-general} 设 \(f\) 可积，证明积分上限函数
- 在 \(f\) 的任一连续点可导；要求同时处理 \(h>0\) 与 \(h<0\)。
+ 在 \(f\) 的任一内点连续处可导；要求同时处理 \(h>0\) 与 \(h<0\)，
+ 并说明端点应改用相应单侧导数。
  \exerciseitem{ftc-antiderivative-difference} 用中值定理证明同一函数的任意
- 两个原函数只差常数，并说明定义域若不是区间时结论应怎样修改。
+ 两个原函数只差常数，并说明定义域改为实线上的开集时结论应怎样修改。
  \exerciseitem{ftc-integral-zero-continuous} 若连续函数 \(f\) 满足
  \(\int_a^x f(t)\,dt=0\) 对所有 \(x\in[a,b]\) 成立，证明 \(f\equiv0\)。
  \exerciseitem{ftc-derivative-integrable-newton} 设 \(F\) 可导且 \(F'\) Riemann
@@ -392,17 +413,17 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
  证明 Hermite--Hadamard 不等式；再证明：若 \(f\) 严格凸且 \(a<b\)，
  则两个不等号都严格。
  \exerciseitem{integration-by-parts-log} 用分部积分计算
- \(\int_1^b\log x\,dx\)，并只引用已经证明的定理说明每一步合法。
+ \(\int_1^b\log x\,dx\)（\(b>0\)），并只引用已经证明的定理说明每一步合法。
  \exerciseitem{substitution-nonmonotone} 取 \(\phi(t)=t^2\) 于 \([-1,1]\)，
  分别对 \(f(x)=1\) 与 \(f(x)=x\) 核对变量代换公式，解释折返抵消。
- \exerciseitem{substitution-oriented-integral} 从变量代换公式推出
+ \exerciseitem{substitution-oriented-integral} 设 \(f\in C([a,b])\)，从变量代换公式推出
  \[
-  \int_a^b f(x)\,dx=-\int_{-b}^{-a}f(-u)\,du,
+  \int_a^b f(x)\,dx=\int_{-b}^{-a}f(-u)\,du,
  \]
  并导出奇偶函数在对称区间上的积分公式。
  \exerciseitem{ftc-taylor-integral-remainder-bound} 从积分余项推出 Lagrange 型
  一致误差界，并说明该推导只给出估计，不自动给出某个中间点公式。
- \exerciseitem{integral-jensen-square} 以 \(\Phi(u)=u^2\) 推出
+ \exerciseitem{integral-jensen-square} 设 \(f\in C([a,b])\)，以 \(\Phi(u)=u^2\) 推出
  \[
  \left(\frac1{b-a}\int_a^b f\right)^2
  \le\frac1{b-a}\int_a^b f^2,
@@ -422,10 +443,12 @@ Riemann 积分由函数值的有限和定义，导数由局部差商定义。两
  f(x)=f(a)+f'(a)(x-a)+\int_a^x(x-t)f''(t)\,dt
  \]
  并由此重新证明 \(f''\ge0\Rightarrow f\) 凸。
- \exerciseitem{integral-jensen-weighted-equality} 若 \(\Phi\) 严格凸、
+ \exerciseitem{integral-jensen-weighted-equality} 在积分 Jensen 定理的假设下，
+ 进一步设 \(\Phi\) 严格凸、
  \(f,w\) 连续、\(w>0\)，证明积分 Jensen 不等式取等当且仅当
  \(f\) 为常函数。
  \optionalexerciseitem{ftc-derivative-discontinuity-primitive} 研究
  \(F(x)=x^2\sin(1/x^2)\)（在 \(0\) 处补零）的导函数，证明该导函数虽不连续
- 却有原函数；再说明为什么它的导数在包含 \(0\) 的区间上不是 Riemann 可积。
+ 却有原函数；再说明为什么 \(F'\) 在任何包含 \(0\) 的非退化闭区间上
+ 都不是 Riemann 可积。
 \end{enumerate}

@@ -92,13 +92,22 @@ $\mathcal F_2=\{nz:n\ge1\}$ 在原点逐点有界，却在任何含有非零点�
  K_m=\{z\in\Omega:|z|\le m,
  \operatorname{dist}(z,\C\setminus\Omega)\ge1/m\},
 \]
-删去空项并适当扩大，可令 $K_m\subset\operatorname{int}K_{m+1}$ 且
-$\bigcup_mK_m=\Omega$。在全纯函数空间上定义
+这里约定到空集的距离为无穷，所以也包括 $\Omega=\C$。
+这些集合闭且有界，且 $K_m\subset\operatorname{int}K_{m+1}$：
+两条界限从 $m$ 到 $m+1$ 都严格放宽。每点到补集的距离为正，
+因而各 $K_m$ 的内部覆盖 $\Omega$。删去开头的空项并重新编号后，
+得到非空紧集穷竭。任意紧集由这些内部的有限多个覆盖，故包含于某个 $K_m$。
+在全纯函数空间上定义
 \[
  d(f,g)=\sum_{m=1}^{\infty}2^{-m}
  \min\{1,\|f-g\|_{C(K_m)}\}.
 \]
-则 $d(f_n,f)\to0$ 当且仅当 $f_n\to f$ 局部一致。这个度量把“每个紧集
+级数各项不超过 $2^{-m}$，所以 $d$ 有限。对称性和非负性直接成立；
+若 $d(f,g)=0$，则 $f=g$ 于每个 $K_m$，从而在 $\Omega$ 上相等。
+由上确界范数的三角不等式及
+$\min(1,s+t)\le\min(1,s)+\min(1,t)$，逐项相加得到 $d$ 的三角不等式。
+因此它确为度量。先控制有限项、再控制级数尾部可知，
+$d(f_n,f)\to0$ 当且仅当 $f_n\to f$ 局部一致。这个度量把“每个紧集
 上的一致收敛”变成普通的序列收敛，也使逐层抽取的对角线过程可以同时控制
 所有紧集。
 
@@ -234,30 +243,40 @@ $\{f':f\in\mathcal F\}$ 局部有界，则 $\mathcal F$ 正规。
 \end{proposition}
 
 \begin{proof}
-固定紧集 $K\Subset\Omega$。取一个包含 $a$ 与 $K$ 的紧致道路连通集
-$L\Subset\Omega$；例如用有限条位于 $\Omega$ 中的折线把覆盖 $K$ 的有限个
-小圆盘中心连到 $a$。在 $L$ 的一个邻域上，$|f'|\le M_L$ 对所有
-$f\in\mathcal F$ 成立。沿这些长度有统一上界的折线积分，得到
+对非空紧集 $K\Subset\Omega$，取有限个圆盘 $B(z_j,r_j)$ 覆盖 $K$，
+且各闭圆盘包含于 $\Omega$。用域内折线 $\alpha_j$ 把 $a$ 连到 $z_j$，
+令 $L$ 为这些折线的像及闭圆盘的有限并。则 $L$ 紧且包含于 $\Omega$，
+导函数族在其上有统一界 $M_L$。
+对每个 $z\in K$，选含有它的圆盘，先沿 $\alpha_j$ 再沿直线段走到 $z$。
+这条路径全在 $L$ 内，长度不超过
+\[
+ C_L=\max_j\bigl(\ell(\alpha_j)+r_j\bigr).
+\]
+沿路径积分，得到
 \[
  |f(z)|\le |f(a)|+C_LM_L\qquad(z\in K).
 \]
 故 $\mathcal F$ 局部有界，再用 Montel 定理。
 \end{proof}
 
-正规族还提供极值对象。设 $\mathcal F$ 局部有界，并且在局部一致收敛下
-封闭；若泛函 $J(f)$ 对局部一致收敛连续，则任何满足
-$J(f_n)\to\sup_{f\in\mathcal F}J(f)$ 的序列都有子列收敛到极大元，前提是
-极限不因退化而离开 $\mathcal F$。在单叶函数问题中，退化极限可能成为常数；
-规定一个非零导数极值可以排除这种情形。下一章将把这套论证用于 Riemann
-映射定理。
+正规族还提供极值对象。设 $\mathcal F$ 非空、局部有界，并且在局部一致收敛下
+封闭；设 $J:\mathcal F\to\R$ 连续。先说明 $J$ 有界。否则可选
+$|J(f_n)|\to\infty$，而 Montel 定理及封闭性给出局部一致收敛到
+$f\in\mathcal F$ 的子列，连续性又使该子列的泛函值趋于有限数 $J(f)$，矛盾。
+于是上确界有限。取泛函值趋于上确界的序列，再抽取收敛子列，连续性就说明
+极限取得上确界；下确界同理。
+
+单叶函数族一般并不封闭，不能直接套用这段论证：它的极限可能成为常数。
+若极值序列在固定点的导数模有正下界，导数收敛便排除常值极限，再由单叶极限
+定理使极限留在所需函数类中。下一章证明 Riemann 映射定理时会具体核验这一点。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
-\exerciseitem{normal-local-uniform-integrals}证明局部一致收敛保持沿任意固定分段 $C^1$ 曲线的积分。
-\exerciseitem{normal-derivative-convergence}由 Cauchy 积分公式推导 $f_n'\to f'$ 在紧集上的显式误差估计。
+\exerciseitem{normal-local-uniform-integrals}设连续函数 $f_n$ 在 $\Omega$ 上局部一致收敛到 $f$。证明沿任意固定的域内分段 $C^1$ 曲线，积分也收敛。
+\exerciseitem{normal-derivative-convergence}设全纯函数 $f_n$ 在 $\Omega$ 上局部一致收敛到 $f$。由 Cauchy 积分公式推导 $f_n'\to f'$ 在紧集上的显式误差估计。
 \exerciseitem{normal-power-sequence}证明 $z^n$ 在单位圆盘上局部一致趋于零，但在整个圆盘上不一致收敛。
 \exerciseitem{normal-compact-open-metric}验证正文中的度量 $d$ 恰好诱导局部一致收敛，并说明更换紧集穷竭不改变收敛概念。
 \end{enumerate}
@@ -274,7 +293,7 @@ $J(f_n)\to\sup_{f\in\mathcal F}J(f)$ 的序列都有子列收敛到极大元，�
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{normal-finite-normal-converse}不用命题\ref{prop:normal-iff-locally-bounded}，直接从正规性的序列定义证明紧集上一致有界。
-\exerciseitem{normal-holomorphic-series}设 $\sum f_n$ 的部分和在区域上局部有界，并在具有内部聚点的集合上逐点收敛。证明该级数局部一致收敛，且可逐项求导。
+\exerciseitem{normal-holomorphic-series}设各 $f_n$ 在区域 $\Omega$ 上全纯，$\sum f_n$ 的部分和在 $\Omega$ 上局部有界，并在具有内部聚点的集合上逐点收敛。证明该级数局部一致收敛，且可逐项求导。
 \exerciseitem{normal-coefficient-compactness}设 $f_n:\mathbb D\to\mathbb D$，$f_n(z)=\sum_{k\ge0}a_{n,k}z^k$。证明可取子列使每个系数 $a_{n,k}$ 收敛，并说明所得系数确实来自一个全纯极限。
 \optionalexerciseitem{normal-univalent-closure}设单叶函数 $f_n:\Omega\to\mathbb D$ 局部一致收敛且 $|f_n'(a)|\ge c>0$。证明极限仍单叶，并解释导数下界的作用。
 \end{enumerate}

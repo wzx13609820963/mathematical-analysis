@@ -32,6 +32,14 @@ $\sup_K|z^n|\le r^n\to0$。另一方面，
 \end{solution}
 
 \begin{solution}{normal-compact-open-metric}
+先核验度量公理。级数被 $\sum2^{-m}=1$ 控制，非负且对称。
+距离为零当且仅当各紧集上函数相等，因穷竭覆盖区域，这等价于两函数相等。
+对每个 $m$ 使用上确界范数三角不等式，再用
+\[
+ \min(1,s+t)\le\min(1,s)+\min(1,t)\qquad(s,t\ge0),
+\]
+乘以 $2^{-m}$ 并求和，得到 $d(f,h)\le d(f,g)+d(g,h)$。
+
 若 $f_n\to f$ 局部一致，则每个固定 $m$ 的
 $\|f_n-f\|_{C(K_m)}\to0$。给定 $\varepsilon>0$，先取 $M$ 使
 $\sum_{m>M}2^{-m}<\varepsilon/2$，再同时控制前 $M$ 项，得到
@@ -67,11 +75,14 @@ $g:\Omega\to\mathbb D$。所以极限或者仍映入开圆盘，或者退化为�
 \end{solution}
 
 \begin{solution}{normal-basepoint-derivatives}
-固定 $K\Subset\Omega$。对每个 $z\in K$，区域的道路连通性给一条从基点
-$a$ 到 $z$ 的折线，且像紧含于 $\Omega$。用这些折线终点的小邻域覆盖 $K$，
-再取有限子覆盖；相应有限条折线及有限个小圆盘之并构成紧集
-$L\Subset\Omega$，并给出从 $a$ 到每个 $z\in K$、长度不超过某个
-$C_L$ 的分段 $C^1$ 道路。导函数族在 $L$ 的邻域上一致有界，故
+对非空 $K\Subset\Omega$，选有限个圆盘 $B(z_j,r_j)$ 覆盖 $K$，
+使各闭圆盘包含于 $\Omega$。平面域可由折线连通，故有从 $a$ 到各 $z_j$
+的域内折线 $\alpha_j$。令 $L$ 为这些折线与闭圆盘的有限并，它是
+$\Omega$ 中的紧集。若 $z\in B(z_j,r_j)$，把 $\alpha_j$ 接上从 $z_j$
+到 $z$ 的直线段，得到全在 $L$ 内、长度不超过
+$C_L:=\max_j(\ell(\alpha_j)+r_j)$ 的路径。
+这是由具体构造得到的长度界，不能仅从紧致道路连通性推出。
+导函数族在 $L$ 上一致有界，故
 \[
  |f(z)|\le |f(a)|+\left|\int_a^z f'(\zeta)d\zeta\right|
  \le C_0+C_LM_L.

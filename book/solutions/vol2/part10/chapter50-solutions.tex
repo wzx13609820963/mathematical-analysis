@@ -16,6 +16,13 @@ $dx^{i_1}\wedge\cdots\wedge dx^{i_k}$（$i_1<\cdots<i_k$）张成且线性无关
 例如
 $(dx+dy)\wedge(dx-dy)=-2dx\wedge dy$，因为
 $dx\wedge dx=dy\wedge dy=0$ 且 $dy\wedge dx=-dx\wedge dy$。
+另一个积先展开前两项得
+\[
+ (dx+dy)\wedge(dy+dz)=dx\wedge dy+dx\wedge dz+dy\wedge dz.
+\]
+再楔乘 $dz+dx$，只有 $dx\wedge dy\wedge dz$ 与
+$dy\wedge dz\wedge dx$ 留下，后者经过两次交换与前者相等，故结果为
+$2dx\wedge dy\wedge dz$。
 一般地，一项若含两个相同的一次形式，交换这两个因子一方面不改变该项，
 另一方面产生负号，故该项等于自身的负数，只能为零。
 \end{solution}
@@ -35,7 +42,7 @@ $A^*dx^i=\sum_j a_{ij}dx^j$。展开
 \end{solution}
 
 \begin{solution}{exterior-derivative-leibniz}
-对齐次形式 $\alpha=\sum_Ia_I dx^I$、$\beta=\sum_Jb_Jdx^J$，用普通乘积法则
+对 $C^1$ 齐次形式 $\alpha=\sum_Ia_I dx^I$、$\beta=\sum_Jb_Jdx^J$，用普通乘积法则
 $d(a_Ib_J)=b_Jda_I+a_Idb_J$。把 $db_J$ 从 $dx^I$ 左侧移到右侧要交换
 $\deg\alpha$ 次，产生 $(-1)^{\deg\alpha}$，于是
 \[
@@ -46,7 +53,7 @@ $\deg\alpha$ 次，产生 $(-1)^{\deg\alpha}$，于是
 \end{solution}
 
 \begin{solution}{exterior-derivative-square-zero}
-对 $\alpha=\sum_Ia_I dx^I$，
+对系数属于 $C^2$ 的 $\alpha=\sum_Ia_I dx^I$，
 \[
  d^2\alpha=\sum_{I,j,k}\partial_k\partial_ja_I
  \,dx^k\wedge dx^j\wedge dx^I.
@@ -57,12 +64,13 @@ $dx^k\wedge dx^j=-dx^j\wedge dx^k$，故成对相消。前者使用交错性，�
 \end{solution}
 
 \begin{solution}{pullback-commutes-d}
-对一次形式 $\omega=\sum_i a_i(y)dy^i$ 与 $F=(F^i)$，
+对 $C^1$ 一次形式 $\omega=\sum_i a_i(y)dy^i$ 与 $C^2$ 映射 $F=(F^i)$，
 $F^*\omega=\sum_i(a_i\circ F)dF^i$。于是
 \[
  d(F^*\omega)=\sum_i d(a_i\circ F)\wedge dF^i
  =\sum_{i,j}(\partial_ja_i\circ F)dF^j\wedge dF^i=F^*(d\omega).
 \]
+这里因 $F^i\in C^2$ 而有 $d(dF^i)=0$，所以没有留下二阶导数项。
 函数情形是链式法则。一般形式写成函数与坐标一次形式的楔积，再由分次
 Leibniz 公式归纳即可。
 \end{solution}
@@ -87,41 +95,46 @@ $\omega=\sum_i a_i(x)dx^i$。同伦算子给出函数
 \[
  \varphi(x)=\int_0^1\sum_i a_i(tx)x_i\,dt.
 \]
-求 $\partial_j$ 后利用闭性 $\partial_ja_i=\partial_i a_j$，被积式化为
-$\frac d{dt}[t a_j(tx)]$，故 $\partial_j\varphi=a_j(x)$，即
+固定 $x$，线段 $[0,x]$ 有一个仍包含于定义域的紧邻域；附近点的径向
+线段都落在其中，故系数偏导的连续性给出差商一致收敛，可以移入积分。
+求 $\partial_j$ 后利用闭性 $\partial_ja_i=\partial_i a_j$，得到
+\[
+ \partial_j\varphi(x)=\int_0^1\left(a_j(tx)+t\sum_i x_i\partial_i a_j(tx)\right)dt
+ =\int_0^1\frac d{dt}[t a_j(tx)]dt=a_j(x),
+\]
+即
 $d\varphi=\omega$。
 \end{solution}
 
 \begin{solution}{poincare-homotopy-identity}
-令 $F(t,x)=tx$，并以 $j_t(x)=(t,x)$ 表示切片嵌入。对 $k$-形式定义
+只需对单项 $\omega=a(x)\theta$ 计算，$\theta=dx^I$、$|I|=k\ge1$。
+记 $B=\iota_R\theta$，即把向量 $x$ 插入 $\theta$ 的第一个位置，则
 \[
- H\omega=\int_0^1j_t^*\bigl(\iota_{\partial_t}F^*\omega\bigr)\,dt.
-\]
-先设 $k\ge1$。若
-$\omega=\sum_Ia_I(x)\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}$，则
-$F^*dx^i=x_i\,dt+t\,dx^i$，从而
-\[
- j_t^*\bigl(\iota_{\partial_t}F^*\omega\bigr)
- =\sum_Ia_I(tx)t^{k-1}
-   \sum_{r=1}^k(-1)^{r-1}x_{i_r}\,
+ B=\sum_{r=1}^k(-1)^{r-1}x_{i_r}\,
    dx^{i_1}\wedge\cdots\wedge\widehat{dx^{i_r}}
    \wedge\cdots\wedge dx^{i_k}.
 \]
-对这个有限和取 $d_x$。微分 $a_I(tx)$ 产生的各项，与
-$j_t^*(\iota_{\partial_t}F^*d\omega)$ 中含偏导数的项逐项配对；微分
-$x_{i_r}$ 产生的 $k$ 个项合为
-$k t^{k-1}a_I(tx)\,dx^{i_1}\wedge\cdots\wedge dx^{i_k}$。连同
-$t^k\frac d{dt}a_I(tx)$，正好得到
+逐项求导后，每次把 $dx^{i_r}$ 移回第 $r$ 位，两个符号抵消，故
+$dB=k\theta$。令 $\lambda_t=\sum_j\partial_ja(tx)dx^j$，注意
+$d_x[a(tx)]=t\lambda_t$，而 $d\omega$ 的系数在 $tx$ 处仅为
+$\lambda_t\wedge\theta$，两者相差一个 $t$。于是
+\begin{align*}
+ dH\omega&=\int_0^1\bigl(t^k\lambda_t\wedge B
+                  +k t^{k-1}a(tx)\theta\bigr)dt,\\
+ Hd\omega&=\int_0^1t^k\bigl(\lambda_t(x)\theta-\lambda_t\wedge B\bigr)dt.
+\end{align*}
+第二式由交错展开
+$\iota_R(\lambda_t\wedge\theta)=\lambda_t(x)\theta-\lambda_t\wedge B$
+得到。两式相加，留下
 \[
- \frac d{dt}(F_t^*\omega)
- =d_xj_t^*\bigl(\iota_{\partial_t}F^*\omega\bigr)
-  +j_t^*\bigl(\iota_{\partial_t}F^*d\omega\bigr).
+ (dH+Hd)\omega=\int_0^1\frac d{dt}\bigl(t^ka(tx)\bigr)dt\,\theta
+ =a(x)\theta.
 \]
-从 $0$ 到 $1$ 积分，左端为 $F_1^*\omega-F_0^*\omega$，右端为
-$dH\omega+Hd\omega$。由于 $F_1=I$、$F_0=s_0$，得到
-$dH+Hd=I-s_0^*$。当 $k=0$ 时，$H\omega=0$，而对函数使用一元微积分
-基本定理可直接得到 $H(d\omega)=\omega-s_0^*\omega$。所有换序只涉及
-有限和及连续函数的定积分。
+对有限和相加即得一般正次数情形，此时 $s_0^*\omega=0$。
+当 $k=0$ 时约定 $Hf=0$，而
+$Hdf=\int_0^1\sum_jx_j\partial_j f(tx)dt=f(x)-f(0)$。
+这些计算中的积分号下求导，由每条径向线段的共同紧邻域上偏导连续、
+差商一致收敛来保证；这也保证 $H$ 将光滑形式送到光滑形式。
 \end{solution}
 
 \begin{solution}{punctured-plane-closed-not-exact-form}
@@ -154,8 +167,9 @@ $\omega=P\,dy\wedge dz+Q\,dz\wedge dx+R\,dx\wedge dy$。直接求外微分得
  d\omega=(P_x+Q_y+R_z)dx\wedge dy\wedge dz
  =(\operatorname{div}F)dV.
 \]
-在定向曲面上，$\omega$ 的拉回等于 $F\cdot n\,dS$，所以 Stokes 公式恢复
-散度定理。
+在定向曲面上，展开 $\omega(X_u,X_v)$ 得
+$F(X)\cdot(X_u\times X_v)$，所以拉回积分等于通量积分。
+在满足本章有限正则分块条件的区域上，Stokes 公式因而给出散度定理。
 \end{solution}
 
 \begin{solution}{curl-as-exterior-derivative}

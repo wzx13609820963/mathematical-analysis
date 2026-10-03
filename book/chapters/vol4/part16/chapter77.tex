@@ -82,7 +82,8 @@ Zorn 引理在这里用于处理可能没有可数基的空间。有限维情形
 这个结论为每个向量找一个适合它的泛函，并不声称每个泛函都在单位球上
 取得范数。量词顺序不能互换。例如在 \(c_0\) 上，
 \(\phi(x)=\sum_{n\ge1}2^{-n}x_n\) 的范数为一，但不在闭单位球取得模一：
-等号将迫使所有 \(x_n\) 具有同一模一相位，与 \(x_n\to0\) 矛盾。
+等号将迫使所有正权重对应的 \(x_n\)（\(n\ge1\)）具有同一模一相位，
+与 \(x_n\to0\) 矛盾；这里泛函不依赖零号坐标。
 
 \section{点与闭集的分离}
 
@@ -101,6 +102,10 @@ Zorn 引理在这里用于处理可能没有可数基的空间。有限维情形
 \end{proof}
 
 \subsection{闭凸集}
+
+以下把 \(\{x\in X:\operatorname{Re}\phi(x)\le a\}\) 称为闭半空间，
+其中 \(0\ne\phi\in X^*\)，\(a\in\R\)。复空间仍以实部不等式定义半空间，
+凸组合的系数也取非负实数。
 
 \begin{theorem}[严格分离]\label{thm:closed-convex-separation}
 设 \(C\) 为非空闭凸集，\(x_0\notin C\)。则存在连续线性泛函 \(\phi\) 和
@@ -165,27 +170,45 @@ Zorn 引理在这里用于处理可能没有可数基的空间。有限维情形
 \end{theorem}
 \begin{proof}
 由 Hölder，任何 \(g\in L^q\) 都产生范数不超过 \(\|g\|_q\) 的泛函。
-反向先在有限测度块 \(E\) 上定义 \(\nu(A)=L(\mathbf1_A)\)，\(A\subset E\)。
-不交并的指示函数在 \(L^p\) 中由有限和收敛，故 \(\nu\) 可数可加。
-对任意有限分割 \(A_j\)，选模一系数 \(\zeta_j\) 使
+反向先在有限测度的可测集 \(E\) 上，对可测子集 \(A\subset E\)
+定义 \(\nu(A)=L(\mathbf1_A)\)。若 \(A_j\subset E\) 两两不交，
+则并集的指示函数与前 \(n\) 项之和的 \(L^p\) 距离为
+\(\mu(\bigcup_{j>n}A_j)^{1/p}\)，它趋于零，故 \(\nu\) 可数可加。
+对 \(E\) 的任意有限可测分割 \(A_j\)，选模一系数 \(\zeta_j\) 使
 \(\zeta_j\nu(A_j)=|\nu(A_j)|\)，得
 \[
  \sum_j|\nu(A_j)|
  =L\left(\sum_j\zeta_j\mathbf1_{A_j}\right)
  \le\|L\|\mu(E)^{1/p}.
 \]
-故实或复测度均有有限变差，且 \(\nu\ll\mu\)。Radon--Nikodym 定理给密度。
-用一列递增有限测度块穷尽 \(X\)，唯一性保证密度相容，可拼为可测函数 \(g\)。
-在每块上先对简单函数、再对有界函数取一致简单逼近，得 \(L(h)=\int hg\)。
+故实或复测度均有有限变差。若 \(\mu(A)=0\)，则 \(\mathbf1_A\) 是
+\(L^p\) 的零元素，因而 \(\nu(A)=0\)，即 \(\nu\ll\mu\)。
+Radon--Nikodym 定理给出 \(E\) 上的 \(L^1\) 密度。
 
-若 \(1<p<\infty\)，在有限测度块与 \(\{|g|\le N\}\) 的交上，取
+由 \(\sigma\)-有限性，把整个空间分成两两不交的可测集
+\(B_k\)，\(k\ge1\)，每块测度有限。在各块分别作上述构造，所得密度
+在各自的零测例外上取零，拼成有限值可测函数 \(g\)。令
+\(E_k=\bigcup_{j=1}^k B_j\)。在 \(E_k\) 上，\(g\) 可积，且简单函数
+\(h\) 满足 \(L(h)=\int hg\,d\mu\)。若 \(h\) 是支撑于 \(E_k\) 的有界
+可测函数，取同样支撑的一致简单逼近；其 \(L^p\) 误差不超过
+\(\mu(E_k)^{1/p}\) 乘一致误差，积分误差不超过
+\(\int_{E_k}|g|\,d\mu\) 乘一致误差。因此同一表示式也适用于这样的 \(h\)。
+
+若 \(1<p<\infty\)，在 \(E_k\cap\{|g|\le N\}\) 上取
 \(h=\overline g\,|g|^{q-2}\)，在 \(g=0\) 处规定为零，其余处补零。
 这是有界有限支撑函数，且 \(|h|^p=|g|^q\)。记该截断集上
 \(A=\int|g|^q\)，则 \(A\le\|L\|A^{1/p}\)，故 \(A^{1/q}\le\|L\|\)。
-增加块与 \(N\)，由单调收敛得 \(g\in L^q,\ \|g\|_q\le\|L\|\)。
-若 \(p=1\)，对有限测度集合 \(A\subset\{|g|>\|L\|+\eta\}\)，取
-\(h=\overline g/|g|\mathbf1_A\)，得到
-\((\|L\|+\eta)\mu(A)\le L(h)\le\|L\|\mu(A)\)，故此超水平集零测。
+令 \(k=N\to\infty\)，由单调收敛得 \(g\in L^q,\ \|g\|_q\le\|L\|\)。
+若 \(p=1\)，固定 \(\eta>0\)，取
+\(A=E_k\cap\{|g|>\|L\|+\eta\}\)，并令
+\(h=\overline g/|g|\mathbf1_A\)，在 \(A\) 外取零。
+这是已取得表示式的有界函数，于是
+\[
+ (\|L\|+\eta)\mu(A)\le \int_A|g|\,d\mu
+ =L(h)\le\|L\|\mu(A).
+\]
+因 \(\mu(A)<\infty\)，得到 \(\mu(A)=0\)。先对 \(k\) 取并，再令
+\(\eta=1/j\)，\(j\ge1\)，可知 \(\{|g|>\|L\|\}\) 为零测集。
 于是 \(g\in L^\infty\) 且具有同样的范数上界。
 
 最后由有限测度支撑简单函数在 \(L^p\) 中稠密，等式延拓到全部 \(f\)。
@@ -212,8 +235,8 @@ Zorn 引理在这里用于处理可能没有可数基的空间。有限维情形
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{dual-czero-lone}证明 \(c_0^*\) 与 \(\ell^1\) 等距同构。
 \exerciseitem{dual-lone-linfty}用直接数列论证证明 \((\ell^1)^*=\ell^\infty\)。
-\exerciseitem{hb-norm-nonattainment}详细证明正文的 \(c_0\) 泛函 \(\sum2^{-n}x_n\) 不取得范数。
-\exerciseitem{hb-convex-norm-closure}证明凸集 \(C\) 的范数闭包等于所有包含 \(C\) 的闭半空间之交。
+\exerciseitem{hb-norm-nonattainment}详细证明正文的 \(c_0\) 泛函 \(\sum_{n\ge1}2^{-n}x_n\) 不取得范数。
+\exerciseitem{hb-convex-norm-closure}证明非空凸集 \(C\) 的范数闭包等于所有包含 \(C\) 的闭半空间之交；半空间采用正文的约定，空族之交取全空间 \(X\)。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]

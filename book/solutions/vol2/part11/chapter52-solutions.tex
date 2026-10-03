@@ -2,7 +2,7 @@
 \label{chap:arzela-ascoli-solutions}
 
 \begin{solution}{finite-family-equicontinuous}
-设函数族为 $f_1,\ldots,f_N$。给定 $x_0,\varepsilon$，对每个 $j$ 由连续性取
+空族的结论由定义成立。设非空函数族为 $f_1,\ldots,f_N$。给定 $x_0,\varepsilon$，对每个 $j$ 由连续性取
 $\delta_j>0$，使 $d(x,x_0)<\delta_j$ 时
 $\norm{f_j(x)-f_j(x_0)}<\varepsilon$。取有限个正数的最小值
 $\delta=\min_j\delta_j$，便同时适用于全部函数，故该族等度连续。
@@ -11,7 +11,8 @@ $\delta=\min_j\delta_j$，便同时适用于全部函数，故该族等度连续
 \begin{solution}{power-family-not-equicontinuous}
 取 $\varepsilon=1/2$。若在 $1$ 处等度连续，则存在 $\delta>0$，使
 $|x-1|<\delta$ 时 $|x^n-1|<1/2$ 对所有 $n$ 成立。取
-$x=1-\delta/2\in[0,1)$，则 $x^n\to0$，充分大 $n$ 时
+$x=1-\min\{\delta/2,1/2\}\in[0,1)$，则 $|x-1|<\delta$，且
+$x^n\to0$，充分大 $n$ 时
 $|x^n-1|>1/2$，矛盾。因此该族在端点 $1$ 不等度连续。
 \end{solution}
 
@@ -24,14 +25,16 @@ $|x^2-y^2|\to2$。故紧致性不能删除。
 \end{solution}
 
 \begin{solution}{pointwise-bounded-to-uniform}
-取共同的全局 $\delta$，使距离小于 $\delta$ 时函数值差小于 $1$。有限
-$\delta$-网 $x_1,\ldots,x_N$ 上，各点的族值有界；令这些界的最大值为
-$M$。任意 $x$ 距某个网点小于 $\delta$，故
-$\norm{f(x)}\le\norm{f(x_i)}+1\le M+1$。这个界与 $f,x$ 都无关。
+空族无须证明。对每个 $a\in K$，由在 $a$ 处的等度连续性选邻域 $U_a$，
+使 $\norm{f(x)-f(a)}<1$ 对所有 $x\in U_a$、$f\in\mathcal F$ 成立。
+逐点有界性给出有限常数 $M_a=\sup_{f\in\mathcal F}\norm{f(a)}$。
+取有限子覆盖 $U_{a_1},\ldots,U_{a_N}$，则任意 $x$ 都属于其中一个邻域，故
+$\norm{f(x)}\le1+\max_j M_{a_j}$。这直接使用逐点的邻域控制，不先建立
+全局等度连续半径。
 \end{solution}
 
 \begin{solution}{common-modulus-equicontinuity}
-由等度连续和逐点有界，命题
+空族取 $\omega\equiv0$。对非空族，由等度连续和逐点有界，命题
 \ref{prop:equicont-pointwise-to-uniform-bounded} 先给出全族的一致界。令
 $\omega_0(t)=\sup\{\norm{f(x)-f(y)}:f\in\mathcal F,d(x,y)\le t\}$。
 一致有界性保证它有限，且它递增。等度连续的全局形式等价于
@@ -41,8 +44,9 @@ $\omega(\delta)<\varepsilon$，便得到对全族共同有效的等度连续估�
 \end{solution}
 
 \begin{solution}{compact-metric-separable}
-对每个 $n$，开球族 $\{B(x,1/n):x\in K\}$ 覆盖 $K$；紧致性给出有限子覆盖，
-取其球心集 $D_n$。可数并 $D=\bigcup_nD_n$ 可数。给定 $x$ 的任意半径
+空空间取空稠密集。对非空 $K$ 和每个 $n\ge1$，开球族
+$\{B(x,1/n):x\in K\}$ 覆盖 $K$；紧致性给出有限子覆盖，
+取其球心集 $D_n$。可数并 $D=\bigcup_{n\ge1}D_n$ 至多可数。给定 $x$ 的任意半径
 $r>0$，选 $n$ 使 $1/n<r$，某个 $D_n$ 中的点距 $x$ 小于 $1/n$，所以
 $D$ 与该球相交。故 $D$ 稠密。
 \end{solution}
@@ -51,13 +55,17 @@ $D$ 与该球相交。故 $D$ 稠密。
 令 $n^{(1)}_1<n^{(1)}_2<\cdots$ 使 $f_{n^{(1)}_j}(x_1)$ 收敛；递归从第
 $k-1$ 层抽取第 $k$ 层 $n^{(k)}_j$，使在 $x_k$ 处也收敛。定义
 $g_j=f_{n^{(j)}_j}$。固定 $k$ 后，$j\ge k$ 时第 $j$ 层子列包含于第 $k$
-层，故 $n^{(j)}_j$ 是第 $k$ 层指标序列中的一项，且随 $j$ 严格增大。因此
+层，故 $n^{(j)}_j$ 是第 $k$ 层指标序列中的一项。指标满足
+\[
+ n^{(j+1)}_{j+1}\ge n^{(j)}_{j+1}>n^{(j)}_j,
+\]
+第一项不等式来自后一层是前一层的子列，所以对角指标严格递增。因此
 $(g_j(x_k))$ 是第 $k$ 层收敛序列的子列，仍收敛。
 \end{solution}
 
 \begin{solution}{dense-convergence-not-uniform-without-equicont}
-在 $[0,1]$ 上取枚举的有理数集 $D$，更简单可令
-$f_n(x)=x^n$。它在稠密集 $D=[0,1)\cap\Q$ 上趋于零，但
+在 $[0,1]$ 上令 $f_n(x)=x^n$（$n\ge1$）。它在稠密集
+$D=[0,1)\cap\Q$ 上趋于零，但
 $\norm{f_n}_\infty=1$。任何子列在 $x<1$ 处仍趋零而在 $1$ 处恒为一；若有
 一致收敛子列，其极限应连续，却只能是这个不连续逐点极限，矛盾。失败原因
 正是端点附近不等度连续。
@@ -89,8 +97,10 @@ $\norm{f(x)}\le A+M(b-a)$，故一致有界，应用 Ascoli。若不控制任何
 \end{solution}
 
 \begin{solution}{holder-family-relative-compact}
-共同 Hölder 估计直接给出等度连续：给定 $\varepsilon$，取
-$\delta=(\varepsilon/C)^{1/\alpha}$。$|f(x)|\le M$ 给出一致有界。故由
+若 $C=0$，各函数为常函数，任意正半径均满足等度连续的要求。若 $C>0$，
+给定 $\varepsilon>0$，取 $\delta=(\varepsilon/C)^{1/\alpha}>0$；
+距离小于 $\delta$ 时，函数值差小于 $\varepsilon$，故全族等度连续。
+$|f(x)|\le M$ 给出一致有界。故由
 定理 \ref{thm:arzela-ascoli-relative-compactness}，该族在 $C([0,1])$ 中
 相对紧致。
 \end{solution}
@@ -116,9 +126,39 @@ $|F_n(x)-F_n(y)|\le|x-y|$，所以 $(F_n)$ 一致有界并具有共同 Lipschitz
 \end{solution}
 
 \begin{solution}{ascoli-metric-valued}
-在可数稠密集每一点，点值集合相对紧，所以任意序列可逐点抽取收敛子列；
-作对角抽取后，等度连续性仍用三项三角不等式把稠密点收敛提升为一致 Cauchy。
-完备性保证极限落在 $Y$ 中，一致极限仍连续。必要性证明同样成立：紧函数族
-在每个点值映射下的像相对紧；若不等度连续，抽取一致收敛子列便得矛盾。
-因此条件是等度连续且每个 $\{f(x):f\in\mathcal F\}$ 在 $Y$ 中相对紧。
+设 $K$ 非空紧致、$Y$ 为非空完备度量空间，记其距离为 $\rho$。
+在 $C(K;Y)$ 上定义
+\[
+ D(f,g)=\sup_{x\in K}\rho(f(x),g(x)).
+\]
+连续像紧致且有界，故此上确界有限；距离公理逐点取上确界可得。
+等度连续的定义把正文的范数差换成 $\rho$。
+
+设 $\mathcal F$ 等度连续且各点值集合相对紧。在至多可数稠密集的每一点，
+点值序列均有收敛子列；按正文的递增指标作对角抽取，得到 $(g_j)$。
+有限网与三项三角估计说明 $(g_j)$ 在 $D$ 下 Cauchy。于是每个
+$(g_j(x))$ 在 $Y$ 中 Cauchy，由完备性定义 $g(x)=\lim_jg_j(x)$。
+一致 Cauchy 估计中令另一指标趋于无穷，得 $D(g_j,g)\to0$。
+为验证连续性，固定 $x_0$，先取一个 $j$ 使 $D(g_j,g)<\varepsilon/3$，
+再用 $g_j$ 在 $x_0$ 连续，三项三角不等式给出 $g$ 在 $x_0$ 连续。
+
+若族为空，闭包空且紧。以下设族非空，取闭包内任意序列 $(h_n)_{n\ge1}$。
+选取 $f_n\in\mathcal F$ 满足
+\[
+ D(h_n,f_n)<1/n.
+\]
+抽取 $f_n$ 的一致收敛子列后，
+相应的 $h_n$ 子列有相同极限。极限属于闭包，故闭包序列紧致，也就紧致。
+
+反之，若闭包紧致，点值映射在 $D$ 下连续，其像是包含点值集合的紧集，
+所以各点值集合相对紧。若全族不等度连续，取 $\varepsilon_0>0$、
+$f_n\in\mathcal F$ 与 $x_n,y_n\in K$，使 $d(x_n,y_n)<1/n$ 而
+$\rho(f_n(x_n),f_n(y_n))\ge\varepsilon_0$。由两处紧致性取子列，使
+$f_n\to f$ 一致且 $x_n\to x$，于是 $y_n\to x$。但
+\[
+ \rho(f_n(x_n),f_n(y_n))
+ \le2D(f_n,f)+\rho(f(x_n),f(y_n))\longrightarrow0,
+\]
+矛盾。故所求刻画是等度连续加逐点相对紧致。这里完备性为构造极限提供了
+充分条件；上述证明不把它声称为每个具体函数族所必需的条件。
 \end{solution}

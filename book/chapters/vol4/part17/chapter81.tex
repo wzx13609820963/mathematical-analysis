@@ -61,8 +61,14 @@
  =\sum_{j\in F\triangle G}|c_j|^2.
 \]
 平方和有限意味着右侧在 \(F,G\) 包含某个固定有限集后任意小，故得到
-Cauchy 网。只有可数多个系数非零，等价地也可枚举后使用 Hilbert 空间完备性。
-范数等式先对有限和成立，再取极限。
+Cauchy 网。为直接使用已建立的序列完备性，注意非零系数至多可数：
+逐项枚举后，平方尾和估计使部分和成为 Cauchy 列，记其极限为 \(s\)；
+有限支撑的情形则直接取有限和。给定 \(\varepsilon>0\)，可取有限集
+\(F_0\)，使 \(\sum_{j\notin F_0}|c_j|^2<\varepsilon^2\)。
+对每个 \(F\supseteq F_0\)，先对有限部分和用正交等式，再沿枚举取极限，
+得
+\(\|s-\sum_{j\in F}c_je_j\|^2=\sum_{j\notin F}|c_j|^2<\varepsilon^2\)。
+因此有限和网也趋于 \(s\)。范数等式先对有限和成立，再取极限。
 \end{proof}
 
 \section{完备正交系}
@@ -119,7 +125,23 @@ Cauchy 网。只有可数多个系数非零，等价地也可枚举后使用 Hil
           \overline{\langle y,e_j\rangle}.
 \end{equation}
 右侧绝对收敛，因为 Cauchy--Schwarz 不等式可先用于有限标量和，再取上确界。
-定义分析算子与合成算子
+对任意指标集 \(J\)，定义
+\[
+ \ell^2(J)=\left\{c:J\to\mathbb K:
+       \sup_{F\subseteq J,\ F\text{ 有限}}\sum_{j\in F}|c_j|^2<\infty\right\},
+ \qquad \|c\|_2=\left(\sum_{j\in J}|c_j|^2\right)^{1/2}.
+\]
+每个这样的族至多有可数个非零分量。有限维的三角不等式对有限集取
+上确界，给出此处的范数三角不等式。
+这个空间也完备：若 \(c^{(n)}\) 是 Cauchy 列，则每个坐标收敛到某个
+\(c_j\)。给定 \(\varepsilon>0\)，取 \(N\) 使
+\(\|c^{(n)}-c^{(m)}\|_2<\varepsilon\)（\(n,m\ge N\)）。
+对任意有限 \(F\)，先令 \(m\to\infty\)，得到
+\(\sum_{j\in F}|c_j^{(n)}-c_j|^2\le\varepsilon^2\)，再对 \(F\) 取上确界。
+这说明 \(c-c^{(n)}\in\ell^2(J)\)、\(c\in\ell^2(J)\)，且
+\(\|c^{(n)}-c\|_2\le\varepsilon\)。空指标集给零空间。
+
+现在定义分析算子与合成算子
 \[
  U:H\to\ell^2(J),\qquad Ux=(\langle x,e_j\rangle)_{j\in J},
  \quad
@@ -140,18 +162,21 @@ Bessel 不等式说明 \(\|U\|\le1\)，正交级数定理说明 \(S\) 是到
 线性无关保证 \(u_n\ne0\)，且每个前 \(n\) 项的线性张成保持不变。
 
 \begin{theorem}\label{thm:separable-hilbert-basis}
-非零 Hilbert 空间可分，当且仅当它有可数完备正交系。
+非零 Hilbert 空间可分，当且仅当它有至多可数完备正交系。
 \end{theorem}
 \begin{proof}
-若 \(e_n\) 是可数完备正交系，以有理实部、虚部系数构成的有限线性组合全体
-可数且稠密，故空间可分。
+若有至多可数完备正交系，以有理实部、虚部系数构成的有限线性组合全体
+至多可数且稠密，故空间可分；实空间只需有理系数。
 
 反之，取可数稠密集 \(D=\{x_n\}\)。依次删去落在前面线性张成中的向量，
 对剩下的序列作 Gram--Schmidt。所得正交系的闭线性张成包含 \(D\)，因而
 等于 \(H\)。若过程有限停止，也得到有限完备正交系。
 \end{proof}
 
-一般 Hilbert 空间利用 Zorn 引理可以取极大正交规范系。若其正交补含非零
+一般 Hilbert 空间中，把所有正交规范子集按包含关系排序，空集也是
+其中一员。一条链的并仍是正交规范集，因为其中任意两个向量已经同时
+属于链中某个成员。因此每条链都有上界，Zorn 引理给出极大正交规范系。
+若其正交补含非零
 向量，归一化后还能加入系统，违反极大性；故极大系统必完备。这一论证说明
 任意 Hilbert 空间都有正交规范基，但不可分空间的基可能不可数。
 
@@ -161,7 +186,11 @@ Bessel 不等式说明 \(\|U\|\le1\)，正交级数定理说明 \(S\) 是到
 \(t_{jk}=\langle Te_k,e_j\rangle\) 描述。对固定 \(k\)，第 \(k\) 列属于
 \(\ell^2(J)\)，且平方和为 \(\|Te_k\|^2\le\|T\|^2\)。然而“每列都在
 \(\ell^2\) 且有共同上界”并不足以保证一个无限矩阵定义有界算子；还需控制
-不同列叠加后的作用。有限维矩阵直觉在这里第一次出现实质限制。
+不同列叠加后的作用。例如让每列都是同一个单位坐标向量 \(e_0\)。
+它在有限支撑列上给出 \(Tc=(\sum_k c_k)e_0\)；取第 \(0,\ldots,N-1\)
+个分量为 \(1/\sqrt N\)、其余为零的 \(c\)，便有
+\(\|c\|_2=1\)，而 \(\|Tc\|_2=\sqrt N\)。所以该矩阵不能延拓为
+\(\ell^2\) 上的有界算子，尽管每列的范数都等于一。
 
 对闭子空间 \(M\)，若 \((e_j)\) 是 \(M\) 的完备正交系，则
 \[
@@ -193,5 +222,14 @@ Bessel 不等式说明 \(\|U\|\le1\)，正交级数定理说明 \(S\) 是到
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{orthogonal-riesz-fischer}证明合成算子 \(S\) 等距映到正交系的闭线性张成，且 \(US=I\)、\(SU=P_M\)。由此刻画 \(U\) 何时为等距同构。
-\optionalexerciseitem{orthogonal-haar-first-levels}在 \(L^2[0,1]\) 中验证常函数 \(1\) 与前两层 Haar 函数两两正交规范，并计算 \(f(x)=x\) 的相应系数与投影误差。
+\optionalexerciseitem{orthogonal-haar-first-levels}在 \(L^2[0,1]\) 中令 \(h_0=1\)，并定义前两层 Haar 函数
+\[
+ \begin{aligned}
+ h_1&=\mathbf1_{[0,1/2)}-\mathbf1_{[1/2,1]},\\
+ h_{2,0}&=\sqrt2\bigl(\mathbf1_{[0,1/4)}-\mathbf1_{[1/4,1/2)}\bigr),\\
+ h_{2,1}&=\sqrt2\bigl(\mathbf1_{[1/2,3/4)}-\mathbf1_{[3/4,1]}\bigr).
+ \end{aligned}
+\]
+端点取值不影响 \(L^2\) 元素。验证这四个函数两两正交规范，并计算
+\(f(x)=x\) 的相应系数及其到四者张成空间的投影误差。
 \end{enumerate}

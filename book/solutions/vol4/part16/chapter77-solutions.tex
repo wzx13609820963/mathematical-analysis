@@ -9,7 +9,9 @@
 \end{solution}
 \begin{solution}{hb-distance-hyperplane}
 对任何 \(m\in\ker\phi\)，\(|\phi(x)|\le\|\phi\|\|x-m\|\)，给下界。
-取单位向量 \(u_n\) 使 \(|\phi(u_n)|\to\|\phi\|\)，则
+若 \(\phi(x)=0\)，则 \(x\in\ker\phi\)，等式已成立。否则取单位向量
+\(u_n\) 使 \(|\phi(u_n)|\to\|\phi\|>0\)，删去有限项后可设每项
+\(\phi(u_n)\ne0\)。于是
 \(m_n=x-\phi(x)u_n/\phi(u_n)\in\ker\phi\)，且
 \(\|x-m_n\|\le|\phi(x)|/|\phi(u_n)|\)，取极限得上界。
 \end{solution}
@@ -18,10 +20,11 @@
 反向限制回 \(X\)，两个操作互逆，且保持加法、数乘和范数。
 \end{solution}
 \begin{solution}{dual-czero-lone}
-令 \(a_n=L(e_n)\)。对有限集合 \(\{1,\ldots,N\}\) 选模一系数使
+令 \(a_n=L(e_n)\)，\(n\ge0\)。对有限集合 \(\{0,\ldots,N\}\) 选模一系数使
 \(\zeta_na_n=|a_n|\)，测试有限支撑单位球元素得
-\(\sum_{n\le N}|a_n|\le\|L\|\)。故 \(a\in\ell^1\)。
-有限截断在 \(c_0\) 中一致收敛，所以 \(L(x)=\sum a_nx_n\)。
+\(\sum_{n=0}^N|a_n|\le\|L\|\)。故 \(a\in\ell^1\)。
+保留零号至 \(N\) 号坐标的有限截断在 \(c_0\) 中一致收敛，
+所以 \(L(x)=\sum_{n=0}^{\infty}a_nx_n\)。
 反向绝对可和系数给有界泛函，范数上界为 \(\|a\|_1\)，有限相位测试给下界。
 \end{solution}
 \begin{solution}{dual-lone-linfty}
@@ -30,18 +33,26 @@
 \(|\sum a_nx_n|\le\|a\|_\infty\|x\|_1\)，逐坐标测试给范数等号。
 \end{solution}
 \begin{solution}{hb-norm-nonattainment}
-范数不超过一；前 \(N\) 项为一、其余为零的数列给值 \(1-2^{-N}\)，
+范数不超过一；第 \(1,\ldots,N\) 号坐标为一、零号及其余坐标为零的数列
+给值 \(1-2^{-N}\)，
 所以范数为一。若 \(|L(x)|=1\) 且 \(\|x\|_\infty\le1\)，则
-\(\sum2^{-n}|x_n|=1\)，每个正权重迫使 \(|x_n|=1\)，与 \(x_n\to0\) 矛盾。
+\(\sum_{n\ge1}2^{-n}|x_n|=1\)。因此
+\(\sum_{n\ge1}2^{-n}(1-|x_n|)=0\)；各项非负，迫使每个
+\(n\ge1\) 都满足 \(|x_n|=1\)，与 \(x_n\to0\) 矛盾。
 \end{solution}
 \begin{solution}{hb-convex-norm-closure}
 所有闭半空间都包含 \(\overline C\)，故交集包含它。
 若 \(x\notin\overline C\)，对闭凸集 \(\overline C\) 用严格分离，得到
-包含 \(C\) 而不含 \(x\) 的闭半空间，故交集没有额外的点。空集情形另行直接验证。
+包含 \(C\) 而不含 \(x\) 的闭半空间，故交集没有额外的点。
+若 \(\overline C=X\)，没有真闭半空间包含 \(C\)，所取交为空族之交，
+按约定等于 \(X\)。这也包括零空间中唯一的非空凸集。
 \end{solution}
 \begin{solution}{dual-adjoint-norm}
-上界由复合范数估计。对单位向量 \(x\)，用范数化泛函选
-\(\phi\in B_{Y^*}\) 使 \(|\phi(Tx)|=\|Tx\|\)，于是
-\(\|T^*\|\ge\|Tx\|\)，对 \(x\) 取确界得等号。
+\(T^*\) 由复合的线性直接得到线性，且
+\(\|T^*\phi\|\le\|\phi\|\|T\|\)，故有界并给出范数上界。
+对任意 \(\|x\|\le1\)，若 \(Tx\ne0\)，用范数化泛函选
+\(\phi\in B_{Y^*}\) 使 \(|\phi(Tx)|=\|Tx\|\)；若 \(Tx=0\)，取零泛函。
+两种情形均有 \(\|T^*\|\ge\|Tx\|\)，对闭单位球取确界得等号。
+闭单位球始终非空，所以这也覆盖 \(X=\{0\}\) 的情形。
 \(T^*\phi=0\) 等价于 \(\phi\) 在 \(T(X)\) 上为零，连续性又等价于它在闭包上为零。
 \end{solution}

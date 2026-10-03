@@ -8,8 +8,11 @@
 对每个坐标评价取极限得 \(u_j=1\)。这与 \(u_j\to0\) 矛盾。
 \end{solution}
 \begin{solution}{reflexive-lp-weak-bound}
-范数的弱下半连续性可直接应用。也可对 \(\|g\|_q\le1\) 写
-\(|\int fg|=\lim|\int f_ng|\le\liminf\|f_n\|_p\)，再对 \(g\) 取确界。
+对 \(1\le p\le\infty\)，\(L^p\) 是赋范空间，范数的弱下半连续性
+直接给出结论。具体地，对任意 \(\phi\in(L^p)^*\)、\(\|\phi\|\le1\)，
+有 \(|\phi(f)|=\lim_n|\phi(f_n)|\le\liminf_n\|f_n\|_p\)。
+再用范数的连续对偶刻画取上确界即可；这里不必把对偶预先识别为某个
+积分函数空间，也不需要测度的 \(\sigma\)-有限性。
 \end{solution}
 \begin{solution}{reflexive-norm-attainment}
 单位球弱紧，函数 \(x\mapsto|\phi(x)|\) 弱连续，故在球上取得最大值，
@@ -30,7 +33,8 @@ Hahn--Banach 保证 \(M\) 的每个泛函可由 \(X^*\) 限制，故这个相对
 取 \(y_n\in C\) 使 \(\|x-y_n\|\to d(x,C)\)，则 \(y_n\) 有界。
 反射性给子列弱趋于 \(y\)，闭凸性保证 \(y\in C\)。
 范数弱下半连续性给 \(\|x-y\|\le d(x,C)\)，故取得下确界。
-例如 \(\R^2\) 的最大范数下，到一条直线的最佳逼近可不唯一。
+例如在 \(\R^2\) 的最大范数下，点 \((0,1)\) 到横轴的距离是一；
+所有 \((t,0)\)、\(|t|\le1\) 都达到该距离，所以最近点不唯一。
 \end{solution}
 \begin{solution}{reflexive-dual-equivalence}
 若 \(X\) 反射，任意 \(\Lambda\in X^{***}\) 定义

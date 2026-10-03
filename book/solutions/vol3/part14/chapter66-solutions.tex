@@ -26,9 +26,12 @@
  \int_E|f|\le\int_Eg.
 \]
 由 \(g\) 的积分绝对连续性，右侧在 \(\mu(E)\) 足够小时统一小。函数族还
-满足 \(\sup_f\|f\|_1\le\|g\|_1\)。在有限测度空间应用命题
-\ref{prop:ui-finite-measure-criterion}；一般空间则直接用
-\(\{|f|>M\}\subset\{g>M\}\) 的尾积分证明。
+满足 \(\sup_f\|f\|_1\le\|g\|_1=:C\)。给定 \(\varepsilon>0\)，
+先由积分绝对连续性取 \(\delta>0\)，使 \(\mu(E)<\delta\) 时
+\(\int_Eg<\varepsilon/2\)。取 \(M>(C+1)/\delta\)，Markov 不等式给出
+\(\mu(\{|f|>M\})\le C/M<\delta\)。将该集合代入刚才的估计，
+便有 \(\sup_f\int_{\{|f|>M\}}|f|<\varepsilon\)。这里没有用控制函数
+自身的尾积分，也没有要求总测度有限。
 \end{solution}
 
 \begin{solution}{ui-spike-details}
@@ -57,9 +60,10 @@
 记 \(C=\sup_f\int\Phi(|f|)\)。由
 \(\Phi(t)/t\to\infty\)，对给定 \(\varepsilon>0\) 可取 \(M\) 使
 \[
- t\mathbf1_{\{t>M\}}\le\frac{\varepsilon}{C}\Phi(t).
+ t\mathbf1_{\{t>M\}}\le\frac{\varepsilon}{C+1}\Phi(t).
 \]
-积分并取上确界即得尾积分小于 \(\varepsilon\)。这个方向只用
+积分并取上确界即得尾积分至多为 \(\varepsilon C/(C+1)<\varepsilon\)，
+包括 \(C=0\) 的情形。这个方向只用
 \(\Phi(t)/t\to\infty\) 和非负性，没有用凸性；凸性用于反向构造和后续
 函数空间理论中的良好性质。
 \end{solution}
@@ -80,8 +84,17 @@
  \int_E|f_n|
  \le\|f_n-f\|_1+\int_E|f|<2\varepsilon/3.
 \]
-同时 \(\|f_n\|_1\le\|f\|_1+\varepsilon/3\)，故在有限测度空间由判据
-得到一致可积；一般空间可对尾积分作同样的三角分解。
+有限初项也满足相同的小集合估计，极限 \(f\) 亦然，所以整个族满足
+\textup{(UI-set)}。另取固定指标 \(N_0\)，使 \(n\ge N_0\) 时
+\(\|f_n-f\|_1<1\)，则
+\[
+ C=\max\left\{\|f\|_1+1,\ \|f_1\|_1,\ldots,\|f_{N_0-1}\|_1\right\}
+\]
+是整个族的有限 \(L^1\) 上界；当 \(N_0=1\) 时只保留第一项。
+由 Markov 不等式，任意族中函数 \(h\) 都满足
+\(\mu(\{|h|>M\})\le C/M\)。给定小集合估计所需的 \(\delta\)，
+取 \(M>(C+1)/\delta\) 并代入 \textup{(UI-set)}，得到尾积分统一趋零。
+此证明适用于任意测度空间。
 \end{solution}
 
 \begin{solution}{ui-sums}
@@ -101,7 +114,8 @@
 \(n\) 都有
 \(\int_{\mathbb R\setminus K}\mathbf1_{[n,n+1]}<\varepsilon\)，则
 \(m(K\cap[n,n+1])>1-\varepsilon\) 对所有 \(n\) 成立。对互不相交的
-整数区间求和会推出 \(m(K)=\infty\)，矛盾。因此不具质量紧性。
+半开区间 \([n,n+1)\) 求和会推出 \(m(K)=\infty\)，矛盾；改为半开区间
+只删去零测端点，不改变积分。因此不具质量紧性。
 \end{solution}
 
 \begin{solution}{vitali-infinite-space}
@@ -133,19 +147,42 @@
 \end{solution}
 
 \begin{solution}{ui-random-variables}
+在概率空间 \((\Omega,\mathcal A,\mathbb P)\) 上，函数族
+\(\mathcal H\subset L^1(\mathbb P)\) 的一致可积条件为
+\[
+ \lim_{M\to\infty}\sup_{H\in\mathcal H}
+ \mathbb E\bigl(|H|\mathbf1_{\{|H|>M\}}\bigr)=0.
+\]
+题设已包含每个 \(|X_n|^p\) 可积，故 \(X_n\in L^p\)。总测度为1，
+有限测度判据又给出 \(C=\sup_n\mathbb E|X_n|^p<\infty\)。
+由子列原理取 \(X_{n_k}\to X\) 几乎处处，Fatou 引理给出
+\(\mathbb E|X|^p\le C\)，故 \(X\in L^p\)。
+
 令
 \[
  Y_n=|X_n-X|^p.
 \]
-由连续映射性质，\(Y_n\to0\) 依概率。需先注意 \(X\in L^p\)：从任意
-子列抽取 a.s. 收敛子列，再由 Fatou 和
-\(\sup_n\mathbb E|X_n|^p<\infty\) 得到。利用
+对每个 \(\varepsilon>0\)，有
+\(\mathbb P(Y_n>\varepsilon)=\mathbb P(|X_n-X|>\varepsilon^{1/p})\to0\)，
+所以 \(Y_n\to0\) 依概率。利用
 \[
  |X_n-X|^p\le 2^{p-1}(|X_n|^p+|X|^p)
 \quad(p\ge1)
 \]
-以及一致可积族加上一个固定可积函数仍一致可积，可知 \(\{Y_n\}\) 一致
-可积。Vitali 定理给
-\(\mathbb E|X_n-X|^p\to0\)。当 \(0<p<1\) 时用
-\(|a-b|^p\le|a|^p+|b|^p\)。
+以及 \(0<p<1\) 时的
+\(|a-b|^p\le|a|^p+|b|^p\)，得
+\(Y_n\le c_p(|X_n|^p+|X|^p)\)，其中 \(c_p=\max\{1,2^{p-1}\}\)。
+后一幂不等式由 \((u+v)^p\le u^p+v^p\) 得到：固定 \(v\ge0\)，
+函数 \((u+v)^p-u^p\) 在 \(u>0\) 上递减，故不超过其在零点的值 \(v^p\)。
+
+单个可积函数构成一致可积族，前面的和族习题说明
+\(\{|X_n|^p+|X|^p\}\) 一致可积。若非负族 \(\{H_n\}\) 一致可积且
+\(0\le Z_n\le cH_n\)，其中 \(c>0\) 固定，则
+\[
+ \mathbb E\bigl(Z_n\mathbf1_{\{Z_n>M\}}\bigr)
+ \le c\,\mathbb E\bigl(H_n\mathbf1_{\{H_n>M/c\}}\bigr).
+\]
+取上确界并令 \(M\to\infty\)，可见 \(\{Z_n\}\) 也一致可积。
+应用于 \(Y_n\)，再用有限测度 Vitali 定理，便得
+\(\mathbb E|X_n-X|^p\to0\)。
 \end{solution}

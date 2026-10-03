@@ -42,7 +42,10 @@ $\mathcal B(\overline\R)$，故相应原像条件推出可测性。各严格与�
  \qquad
  \{f\ge a\}=\bigcap_{n\ge1}\{f>a-1/n\}
 \]
-及取补集互相推出。任意实端点可用有理数单调逼近。
+及取补集互相推出。任意实端点可用有理数单调逼近。扩充实线的端点也被
+这些集合运算包括：$\{+\infty\}=\bigcap_{n\ge1}(n,+\infty]$，
+$\{-\infty\}=\bigcap_{n\ge1}[-\infty,-n)$。有限端点的开区间可由半直线
+取差得到，所以检验半直线没有遗漏端点或其他Borel集合。
 \end{proof}
 
 \section{代数运算与序运算}
@@ -58,8 +61,9 @@ $x\mapsto(f(x),g(x))$ 从 $X$ 到 $\R^2$ 可测：开矩形原像是两个可测
 \[
  f^+=f\vee0,\qquad f^-=(-f)\vee0
 \]
-总是非负可测，并满足 $f=f^+-f^-$、$|f|=f^++f^-$，其中第一式只在
-$f$ 不同时取两种无穷值时按通常意义使用。
+总是非负可测，并满足 $f=f^+-f^-$、$|f|=f^++f^-$。对每个点，
+$f^+$ 与 $f^-$ 至少一个为零，所以差式不会出现 $\infty-\infty$。
+$f$ 可以在不同点分别取正、负无穷；这与在同一点进行未定义的运算不同。
 
 \begin{theorem}[可数序运算]
 \label{thm:measurable-countable-order-operations}
@@ -94,8 +98,12 @@ $f$ 不同时取两种无穷值时按通常意义使用。
 \[
  \varphi=\sum_{k=1}^ma_k\mathbf1_{E_k},
 \]
-其中 $E_k$ 可测。把相同取值合并后可要求 $E_k$ 两两不交；表示方式可以
-不同，但按取值水平集得到的规范表示唯一。
+其中 $E_k$ 可测。一般表示中的 $E_k$ 可以重叠，此时一个点的函数值是
+所有相关系数之和，不能把每个 $E_k$ 直接当作水平集。
+若把 $a_1,\ldots,a_m$ 取为全部不同的实际函数值，再令
+$E_k=\{\varphi=a_k\}$，便得到两两不交且覆盖 $X$ 的规范表示。
+只列非空水平集，实际取到零时也列入零水平集；在此约定下，规范表示除
+排列外唯一。若 $X=\varnothing$，规范表示为空和。
 \end{definition}
 
 \begin{theorem}[非负简单函数逼近]
@@ -119,9 +127,13 @@ $\varphi_n$，使
   n,&f(x)\ge n.
  \end{cases}
 \]
-水平集由半直线的差得到，故 $\varphi_n$ 简单可测。这个具体序列未必逐项
-单调；改用 $\psi_n=\max_{1\le j\le n}\varphi_j$ 即得单调列，仍满足
-$\psi_n\le f$ 且逐点趋于 $f$。也可直接使用嵌套二进网格得到单调性。
+这里 $n\ge1$，$k$ 为整数。水平集由半直线的差得到，故 $\varphi_n$ 简单可测。
+若 $f(x)<n$，下一步网格把每个旧区间二等分，新的左端点不小于旧的左端点；
+若 $f(x)\ge n$，则 $\varphi_n(x)=n$，而下一步截断高度为 $n+1$，
+网格又包含 $n$，故 $\varphi_{n+1}(x)\ge n$。因此这一个序列本身已递增。
+当 $f(x)<\infty$，取 $n>f(x)$ 后有
+$0\le f(x)-\varphi_n(x)<2^{-n}$；当 $f(x)=+\infty$，有
+$\varphi_n(x)=n\to+\infty$。两种情形都得到 $\varphi_n(x)\uparrow f(x)$。
 若 $f\le M$，当 $n>M$ 时截断不再出现，误差至多 $2^{-n}$，故一致收敛。
 \end{proof}
 
@@ -130,7 +142,8 @@ $\psi_n\le f$ 且逐点趋于 $f$。也可直接使用嵌套二进网格得到�
 
 \section{零测修改与可测代表}
 
-若测度空间完备、$f$ 可测且 $g=f$ a.e.，则 $g$ 可测。事实上，对任意
+设 $f,g$ 是同一测度空间上的扩充实值函数。若空间完备、$f$ 可测且
+$g=f$ a.e.，则 $g$ 可测。事实上，对任意
 $a$，两个水平集 $\{g>a\}$ 与 $\{f>a\}$ 只相差一个零测集。若空间不
 完备，这个结论可能失败：取不可测的零测子集 $Z$，把零函数在 $Z$ 上改为
 $1$，所得函数的水平集恰为 $Z$。
@@ -155,7 +168,8 @@ $f:E\to\R$ 可测。对每个 $\varepsilon>0$，存在紧集 $K\subseteq E$，
 $E_M=E\cap\{|f|\le M\}$ 递增到 $E$；上升连续性给出某个 $M$ 使
 $m(E\setminus E_M)<\varepsilon/4$。
 
-在 $E_M$ 上用嵌套二进网格构造简单函数 $\varphi_n$，使
+在 $E_M$ 上先平移为非负有界函数 $f+M$，用二进网格向下取整，再减去 $M$，
+得到简单函数 $\varphi_n$，使
 $\norm{f-\varphi_n}_{\infty,E_M}\le2^{-n}$。把 $\varphi_n$ 的非空水平集
 记为 $A_{n,1},\ldots,A_{n,r_n}$；它们构成 $E_M$ 的有限可测分割。由内
 正则性，可在每个 $A_{n,j}$ 中取紧集 $K_{n,j}$，并把误差分配成
@@ -163,7 +177,8 @@ $\norm{f-\varphi_n}_{\infty,E_M}\le2^{-n}$。把 $\varphi_n$ 的非空水平集
  \sum_{j=1}^{r_n}m(A_{n,j}\setminus K_{n,j})
  <\varepsilon2^{-n-2}.
 \]
-令 $K_n=\bigcup_jK_{n,j}$。有限个互不相交的紧集之间有正距离，因此
+令 $K_n=\bigcup_jK_{n,j}$。忽略其中的空集后，有限个互不相交的紧集之间
+有正距离（至多一个非空项时无需距离估计），因此
 $\varphi_n|_{K_n}$ 连续；同时
 $m(E_M\setminus K_n)<\varepsilon2^{-n-2}$。
 
@@ -202,9 +217,11 @@ $\varphi_n\to f$ 在 $K$ 上一致。因此 $f|_K$ 是连续函数的一致极�
  \exerciseitem{measurable-algebra-operations}
  由上一题证明有限实值可测函数对加、乘、绝对值和有限最大值封闭。
  \exerciseitem{measurable-limsup-formula}
+ 设 $f_n:X\to\overline\R$ 为同一可测空间上的可测函数，$a\in\R$。
  写出 $\{\limsup f_n>a\}$ 的可数集合运算表达式，并据此直接证明可测性。
  \exerciseitem{measurable-convergence-set}
- 证明函数列 $(f_n)$ 的逐点收敛点集是可测集。
+ 设 $f_n:X\to\R$ 为同一可测空间上的可测函数。分别证明：有限实极限的
+ 收敛点集可测；允许极限为 $\pm\infty$ 时的收敛点集也可测。
 \end{enumerate}
 
 \subsection*{B组　简单函数与零测修改}
@@ -212,7 +229,8 @@ $\varphi_n\to f$ 在 $K$ 上一致。因此 $f|_K$ 是连续函数的一致极�
  \exerciseitem{simple-function-canonical-form}
  证明简单函数可以写成按不同取值水平集分解的规范形式，并说明该形式唯一。
  \exerciseitem{nested-dyadic-simple-approximation}
- 构造无需再取有限最大值、直接逐项递增的二进简单函数逼近。
+ 对非负可测函数，改用截断高度 $2^n$ 构造逐项递增的二进简单函数逼近，
+ 并直接验证单调性及逐点收敛。
  \exerciseitem{bounded-simple-uniform-approximation}
  证明有界可测函数可由简单函数一致逼近。
  \exerciseitem{ae-modification-complete-space}
@@ -233,9 +251,10 @@ $\varphi_n\to f$ 在 $K$ 上一致。因此 $f|_K$ 是连续函数的一致极�
  由 Tietze 延拓定理证明：Lusin 定理中的 $f|_K$ 可延拓为 $\R^d$ 上的连续
  函数。
  \exerciseitem{measurable-almost-continuous-not-continuous-ae}
- 用 Dirichlet 函数说明“对每个 $\varepsilon$ 可删去小测度后连续”不等价于
+ 在 $[a,b]$（$a<b$）上用 Dirichlet 函数说明“对每个 $\varepsilon$ 可删去小测度后连续”不等价于
  “函数的不连续点集零测”。
  \optionalexerciseitem{measurable-functions-generated-sigma}
- 对函数族 $(f_i)_{i\in I}$，证明使全部 $f_i$ 可测的最小 $\sigma$-代数是
+ 对任意实值函数族 $f_i:X\to\R$（$i\in I$），证明 $X$ 上使全部
+ $f_i$ 可测的最小 $\sigma$-代数是
  $\sigma\{f_i^{-1}(B):i\in I,\ B\in\mathcal B(\R)\}$。
 \end{enumerate}

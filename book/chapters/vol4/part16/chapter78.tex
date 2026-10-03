@@ -66,6 +66,9 @@ Hahn--Banach 定理保证 \(X^*\) 分离点，故此拓扑 Hausdorff。
 
 此处写的是序列。收敛网的全部取值未必有界：收敛只控制最终部分，而有向集
 中一个最终部分之外的指标未必只有有限个，不能照搬收敛数列的有界性证明。
+例如将 \(\N\times\N\) 按坐标分别比较排序，令
+\(u_{(0,j)}=j\)，而 \(u_{(i,j)}=0\)（\(i\ge1\)）。该实数网在指标
+\((1,0)\) 之后恒为零，因而收敛到零，但其全部取值无界。
 
 \begin{proposition}\label{prop:weak-lower-semicontinuity}
 范数在弱拓扑下下半连续；凸集的范数闭包等于其弱闭包。
@@ -75,7 +78,8 @@ Hahn--Banach 定理保证 \(X^*\) 分离点，故此拓扑 Hausdorff。
 \(\{x:\|x\|\le r\}=\bigcap_{\phi\in B_{X^*}}\{x:|\phi(x)|\le r\}\)。
 所以范数下半连续，尤其弱收敛序列满足
 \(\|x\|\le\liminf_n\|x_n\|\)。弱闭集必范数闭，故范数闭包包含于弱闭包。
-对凸集的范数闭包以外的点，严格分离定理给一个弱开半空间，将该点与集合
+空凸集的两种闭包都是空集。对非空凸集的范数闭包以外的点，
+严格分离定理给一个弱开半空间，将该点与集合
 分开，于是它也不在弱闭包内。
 \end{proof}
 
@@ -123,25 +127,38 @@ Hahn--Banach 定理保证 \(X^*\) 分离点，故此拓扑 Hausdorff。
 都有弱星收敛子列。
 \end{theorem}
 \begin{proof}
-取 \(B_X\) 的至多可数稠密序列 \((x_n)_{n\ge1}\)，定义
+可分度量空间的子空间可分，故 \(B_X\) 有至多可数稠密集。
+允许重复，把它列为序列 \((x_n)_{n\ge1}\)；若 \(X=\{0\}\)，每项均取零。
+定义
 \[
  d(\phi,\psi)=\sum_{n\ge1}2^{-n}
        \min\{1,|\phi(x_n)-\psi(x_n)|\}.
 \]
 稠密性和泛函连续性保证正定性，三角不等式由截断标量距离得到。
-弱星收敛控制每个坐标，先控制有限头部，再用几何级数控制尾部，故蕴含
-\(d\)-收敛。反向，对 \(x\in B_X\)，选 \(\|x-x_n\|<\eta\)，有
+给定 \(d\)-球的半径 \(\varepsilon>0\)，先取 \(N\) 使
+\(\sum_{n>N}2^{-n}<\varepsilon/2\)。若前 \(N\) 个坐标误差均小于
+\(\varepsilon/2\)，则 \(d(\phi,\psi)<\varepsilon\)。
+这些有限条件给出弱星邻域，所以每个 \(d\)-球包含同中心的弱星邻域。
+
+反向，若 \(0<\tau<1\) 且 \(d(\phi,\psi)<2^{-n}\tau\)，则
+\(|\phi(x_n)-\psi(x_n)|<\tau\)。对 \(x\in B_X\)，选
+\(\|x-x_n\|<\eta\)，有
 \[
  |\phi(x)-\psi(x)|\le2\eta+|\phi(x_n)-\psi(x_n)|.
 \]
-所以有限个一般向量的评价约束可以由有限个稠密坐标约束及统一的单位球界
-保证。这证明拓扑相同，而不只是两者序列收敛相同。
+给定 \(x\) 的评价误差限，先选 \(\eta\) 使第一项小于一半误差限，
+再用上述 \(d\)-球控制第二项。一般的非零 \(x\in X\) 先归一化为
+\(x/\|x\|\)，再把误差乘以 \(\|x\|\)；零向量不产生约束。
+对有限个评价条件，取相应球半径的最小值，就得到包含于给定弱星邻域
+的 \(d\)-球。这证明拓扑相同，而不只是两者序列收敛相同。
 紧致度量空间序列紧致，得到子列结论。
 \end{proof}
 
 \section{紧致与序列紧致}
 
-单位球的统一范数界在度量化证明中不能删除。一般弱星拓扑可能需要不可数个
+上述由稠密坐标控制一般评价的估计使用了单位球的统一范数界；
+仅凭稠密坐标收敛不能在无界集合上重复该论证。这不排除有限维空间的
+整个弱星拓扑可度量化。一般弱星拓扑可能需要不可数个
 评价坐标，Tychonoff 定理给的是开覆盖紧致性，不能仅凭“它是一个积空间”
 就使用对角抽取。
 本书采用 ZFC，以上使用已建立的紧 Hausdorff 乘积定理，不在此声称这种
@@ -155,12 +172,16 @@ Eberlein--Šmulian 定理；它是额外的线性分析结果，并不适用于�
 \exerciseitem{weak-finite-dimensional}证明有限维空间中弱拓扑等于范数拓扑。
 \exerciseitem{weak-neighborhood-unbounded}证明无限维赋范空间的每个弱零邻域都范数无界。
 \exerciseitem{weak-unique-limit}证明弱极限唯一。
-\exerciseitem{weakstar-coordinate-linfty}在 \(\ell^\infty=(\ell^1)^*\) 的任意范数有界集合上，证明弱星收敛等价于逐坐标收敛。
+\exerciseitem{weakstar-coordinate-linfty}设 \((x_\alpha)\) 是 \(\ell^\infty=(\ell^1)^*\)
+中的范数有界网。证明：它弱星收敛到 \(x\)，当且仅当每个坐标收敛到
+\(x\) 的对应坐标；若只预设逐坐标极限存在，先证明这些极限组成
+\(\ell^\infty\) 的元素。序列作为特例。
 \end{enumerate}
 \subsection*{B组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{weakstar-not-weak-linfty}令 \(s_n=(0,\ldots,0,1,1,\ldots)\)，前 \(n\) 项为零。证明它在 \(\ell^\infty\) 中弱星趋零，却不弱趋零。
-\exerciseitem{weak-convex-mazur}若 \(x_n\rightharpoonup x\)，证明每个尾集的凸包中可选 \(y_n\) 使 \(\|y_n-x\|<1/n\)。
+\exerciseitem{weak-convex-mazur}若 \(x_n\rightharpoonup x\)，证明对每个 \(n\ge1\)，
+尾集 \(\{x_k:k\ge n\}\) 的凸包中可选 \(y_n\) 使 \(\|y_n-x\|<1/n\)。
 \exerciseitem{weak-operator-continuous}证明有界线性算子把弱收敛网送到弱收敛网。
 \exerciseitem{weak-unit-sphere-closure}若 \(X\) 无限维，证明单位球面在弱拓扑下的闭包为闭单位球。
 \end{enumerate}

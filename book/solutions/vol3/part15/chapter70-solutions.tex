@@ -30,14 +30,32 @@
 若 \(f_n\) 为该范数的 Cauchy 列，则
 \(\|f_n-f_m\|_\infty\le |f_n(a)-f_m(a)|+V(f_n-f_m)\)，故一致收敛到某个
 有界函数 \(f\)。固定 \(n\)，用上一题对 \(f_n-f_m\) 取 \(m\to\infty\)，得
-\(V(f_n-f)\le\liminf_mV(f_n-f_m)\)。连同端点值收敛可知该范数误差趋零；
-取一个固定 \(n\) 又得 \(V(f)\le V(f-f_n)+V(f_n)<\infty\)。
+\(V(f_n-f)\le\liminf_mV(f_n-f_m)\)。先固定一个充分大的 \(n\)，Cauchy
+条件保证右侧有限，于是 \(V(f)\le V(f-f_n)+V(f_n)<\infty\)，即 \(f\in BV\)。
+再给定 \(\varepsilon>0\)，取 \(N\) 使 \(m,n\ge N\) 时该范数距离
+小于 \(\varepsilon\)。对固定 \(n\ge N\) 让 \(m\to\infty\)，端点值收敛
+与变差下半连续性给
+\(|f_n(a)-f(a)|+V(f_n-f)\le\varepsilon\)。所以在所给范数下收敛。
 \end{solution}
 \begin{solution}{variation-representative}
-沿 \(c\) 左右逼近，将任意分割加入逼近点，变差中经过 \(c\) 的局部贡献为
-\(|f(c)-u|+|v-f(c)|\)。区间外贡献不变；严格地先对 \([a,c-h]\)、
-\([c+h,b]\) 取确界再让 \(h\downarrow0\)。换成 \(w\in[\min(u,v),\max(u,v)]\)
-后局部贡献为 \(|v-u|\)，由三角不等式不大于原贡献。
+记修改后的函数为 \(g\)，\(g(c)=w\)，且 \(w\) 介于 \(u,v\) 之间。
+给定 \(g\) 的任意分割，先加入 \(c\)，变差和不会减小。记 \(c\) 的相邻
+分割点为 \(l,r\)，其他分段的贡献之和为 \(A\)。修改后分割和为
+\(A+|w-f(l)|+|f(r)-w|\)。
+
+在原函数的分割中去掉 \(c\)，改为加入 \(l<s<c<t<r\)，得
+\[
+ V_a^b(f)\ge A+|f(s)-f(l)|+|f(t)-f(s)|+|f(r)-f(t)|.
+\]
+令 \(s\uparrow c\)、\(t\downarrow c\)，右侧趋于
+\(A+|u-f(l)|+|v-u|+|f(r)-v|\)。由于
+\(|w-u|+|v-w|=|v-u|\)，三角不等式给
+\[
+ |w-f(l)|+|f(r)-w|
+ \le |u-f(l)|+|v-u|+|f(r)-v|.
+\]
+因此 \(g\) 的每个分割和都不超过 \(V_a^b(f)\)。取上确界便得
+\(V_a^b(g)\le V_a^b(f)\)，不需要预先假定局部变差的跳跃公式。
 \end{solution}
 \begin{solution}{rs-common-jump}
 取网格趋零、且 \(c\) 位于某段内部的分割。该段的 \(\alpha\) 增量为 \(1\)，

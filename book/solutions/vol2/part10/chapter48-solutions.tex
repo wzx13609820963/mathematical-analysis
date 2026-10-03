@@ -2,7 +2,8 @@
 \label{chap:fubini-change-variables-solutions}
 
 \begin{solution}{fubini-uniform-section-proof}
-设 \(f\) 在 \(Q=[a,b]\times[c,d]\) 上连续。给定 \(\varepsilon>0\)，由
+先以二维非退化矩形说明。设 \(f\) 在 \(Q=[a,b]\times[c,d]\) 上连续，
+$a<b,c<d$。给定 \(\varepsilon>0\)，由
 一致连续性取 \(y\) 方向分割 \(P_y\)，使每个小区间内
 \[
  |f(x,y)-f(x,y')|
@@ -20,7 +21,11 @@
 \(\varepsilon/2\)。再把 \(x\) 方向分割取得充分细，使 \(F(x)\) 的
 Riemann 和与 \(\int_a^bF\) 相差小于 \(\varepsilon/2\)。同一个乘积
 Riemann 和于是同时逼近多重积分与累次积分。紧致性用来把 \(f\) 的连续性
-提升为对全部 \(x,y\) 同时有效的一致连续估计。
+提升为对全部 \(x,y\) 同时有效的一致连续估计。一般的 $A\subset\R^p$、
+$B\subset\R^q$ 完全一样：取连续模 $\omega_f$，内层分割网格为 $\delta$
+时，其误差不超过 $|B|\omega_f(\delta)$，再乘 $|A|$ 即为外层总误差。
+若 $|A|=0$，外层和及乘积和都为零；若 $|B|=0$，所有截面积分和内层和
+均为零。不应在这些情形除以 $|A||B|$。
 \end{solution}
 
 \begin{solution}{triangle-iterated-integral}
@@ -28,15 +33,16 @@ Riemann 和于是同时逼近多重积分与累次积分。紧致性用来把 \(
 \[
  D=\{(x,y):a\le x\le b,\ \alpha(x)\le y\le\beta(x)\},
 \]
-其中 \(\alpha,\beta\) 连续。两条连续图像在紧区间上一致连续。把
+其中 \(\alpha,\beta\) 连续且 $\alpha\le\beta$。两条连续图像在紧区间上一致连续。把
 \([a,b]\) 分得足够细，每段图像都落在高度任意小的矩形条中，故两条图像
 Jordan 零测；连同两端竖线可知 \(\partial D\) Jordan 零测。因此 \(D\)
 Jordan 可测。
 
-把 \(f\) 连续延拓到外包矩形 \(Q=[a,b]\times[c,d]\)。函数
-\(f\mathbf1_D\) 只可能在 \(\partial D\) 上不连续，故可积。对每个 \(x\)，
+将 $f\in C(\overline D)$ 在外包矩形 \(Q=[a,b]\times[c,d]\) 上作零延拓
+$f_D$，其不连续点只可能在 \(\partial D\) 上，故可积。每个截面在内部
+区间上连续、外部恒零，至多在端点跳跃，因而可积。对每个 \(x\)，
 \[
- \int_c^d f(x,y)\mathbf1_D(x,y)\,dy
+ \int_c^d f_D(x,y)\,dy
  =\int_{\alpha(x)}^{\beta(x)}f(x,y)\,dy.
 \]
 Riemann 可积函数的累次积分定理给出
@@ -82,11 +88,18 @@ Riemann 可积且积分为零。可是 \(x=0\) 的截面是 Dirichlet 函数
  \le U(f,P_A\times P_B)-L(f,P_A\times P_B).
 \]
 右端可任意小，所以只由 Darboux 判据就能推出 \(F\) 可积；证明不需要
-\(F\) 连续。随后任取外层标记点，截面积分的上下和仍夹在同一乘积
-Darboux 上下和之间，令其差趋零便得到积分等式。
+\(F\) 连续。随后任取外层标记点，外层标记和夹在同一乘积
+Darboux 上下和之间。把小振幅分割进一步加细，使两边的网格趋零；
+外层和趋于 $\int_AF$，上下和趋于 $\int_{A\times B}f$，便得到积分等式。
 \end{solution}
 
 \begin{solution}{linear-change-volume}
+先说明积分均已定义。平行多面体的边界是有限个低维紧矩形的线性像，
+由 Lipschitz 低维像估计为 Jordan 零测。所有坐标截面是有界凸多面体，
+可由有限个线性不等式描述；它们的边界位于有限个超平面内，退化截面则
+整个落在低维空间中，因而在各自坐标空间里 Jordan 可测。这允许逐坐标
+使用累次积分，无须预先援引待证的线性变量代换公式。
+
 平移不改变体积。对线性部分，坐标置换只重新排列累次积分的次序，反射只
 反转某一截面的方向，二者均保持无向体积。对角伸缩
 \[
@@ -105,8 +118,8 @@ Darboux 上下和之间，令其差趋零便得到积分等式。
 \[
  |A(Q)|=|\det A|\,|Q|.
 \]
-同一论证适用于经过前面步骤得到的平行多面体，因为其相关截面仍是有限个
-区间所成的 Jordan 可积集合。
+每一步的像仍是平行多面体，其沿一个坐标方向的截面是区间、单点或空集，
+上述可积性检查使同一论证能用于连续的各步初等变换。
 \end{solution}
 
 \begin{solution}{local-volume-distortion-details}
@@ -164,8 +177,13 @@ Darboux 上下和之间，令其差趋零便得到积分等式。
 \]
 原点对应整条 \(r=0\)，切口两侧对应 \(\theta=0,2\pi\)。先在
 \(\rho\le r\le1\)、\(\eta\le\theta\le2\pi-\eta\) 上应用变量代换，再令
-\(\rho,\eta\downarrow0\)。删去部分及其像的体积趋于零，所以极限给出
-圆盘上的公式。
+\(\rho,\eta\downarrow0\)。参数侧 $r^3\le1$，删去条带面积至多为
+$2\pi\rho+2\eta$，故误差趋零。像侧删去的中心小圆盘包含于
+$[-\rho,\rho]^2$；角切口附近的两片扇形在 $\eta<\pi/2$ 时包含于
+$[0,1]\times[-\sin\eta,\sin\eta]$。二者总体积上界为
+$4\rho^2+2\sin\eta$；被积函数在单位圆盘上至多为一，所以积分误差也
+趋零。圆周、射线和原点本身为 Jordan 零测，不影响结果。这个估计没有
+使用待证的扇形面积公式。
 \end{solution}
 
 \begin{solution}{spherical-coordinate-jacobian}
@@ -176,7 +194,14 @@ Darboux 上下和之间，令其差趋零便得到积分等式。
    r\sin\varphi\sin\theta,\,
    r\cos\varphi).
 \]
-三个偏导列向量的混合积为
+三个偏导列向量依次为
+\begin{align*}
+ \Phi_r&=(\sin\varphi\cos\theta,\sin\varphi\sin\theta,\cos\varphi),\\
+ \Phi_\varphi&=r(\cos\varphi\cos\theta,\cos\varphi\sin\theta,-\sin\varphi),\\
+ \Phi_\theta&=r\sin\varphi(-\sin\theta,\cos\theta,0).
+\end{align*}
+直接取叉积得到 $\Phi_\varphi\times\Phi_\theta=r^2\sin\varphi\,\Phi_r$，
+又 $\|\Phi_r\|=1$，所以按 $(r,\varphi,\theta)$ 的列次序，混合积为
 \[
  \det D\Phi=r^2\sin\varphi.
 \]
@@ -192,24 +217,38 @@ Darboux 上下和之间，令其差趋零便得到积分等式。
 \begin{solution}{piecewise-diffeomorphism-multiplicity}
 在参数域 \((0,1)\times(0,4\pi)\) 中，除切口外圆盘内每个非零点恰有
 两个原像，分别相差 \(2\pi\)。把角区间分成两个周期并分别变量代换，对
-连续 \(g\) 得
+闭单位圆盘上的连续函数 \(g\) 得
 \[
  \int_0^{4\pi}\int_0^1
  g(r\cos\theta,r\sin\theta)r\,dr\,d\theta
  =2\int_{B(0,1)}g(x,y)\,dx\,dy.
 \]
-原点和切口 Jordan 零测，不影响等式。这正是重数函数在非例外点等于
+对每个周期先作上一题的截断。$g$ 在闭圆盘上有界，删去部分的积分由
+$\sup|g|$ 乘以相应体积控制，因而可取极限。原点和切口 Jordan 零测，
+不影响等式。这正是重数函数在非例外点等于
 \(2\) 的情形。
 \end{solution}
 
 \begin{solution}{riemann-change-variables-boundary-audit}
 紧致性把 \(D\Phi\) 的连续性提升为全体小立方体上的一致误差，并给
-\(D\Phi\)、\(D\Phi^{-1}\) 统一界；Jordan 边界使边界小块总体积趋于零；
+\(D\Phi(x)\)、\((D\Phi(x))^{-1}\) 统一界，逆映射导数在像点取值；Jordan 边界使边界小块总体积趋于零；
 微分同胚保证局部内包、全局不重复计数以及边界映成边界；非零 Jacobian
 使局部线性映射可逆。绝对值则把有向体积改为普通体积。
 
-删除全局单射时，两个角周期的极坐标使同一像点被计数两次。删除非退化性
-时，映射 \((u,v)\mapsto(u,0)\) 把二维区域压到直线，不能再用同维体积
-公式。若 \(U\) 的边界不是 Jordan 零测集，边界网格的总贡献未必趋于零，
-本章的有限分割证明也会失去依据。
+以下两例分别说明漏计重数和积分未定义的失败。
+
+删除全局单射：令 $U=[1,2]\times[0,4\pi]$，取极坐标映射和 $g=1$。
+映射在源矩形邻域上光滑且 Jacobian 处处非零；$U$ 紧且 Jordan 可测。
+右侧参数积分为 $\int_0^{4\pi}\int_1^2r\,dr\,d\theta=6\pi$，但像是
+面积为 $3\pi$ 的闭圆环。因此不计重数的等式失败。
+
+删除 Jordan 条件：在一维取 $\Phi(x)=x$、$U=\Q\cap[0,1]$、$g=1$。
+映射是全局光滑微分同胚，$\overline U$ 紧，但 $\partial U=[0,1]$
+不零测。零延拓为区间上的 Dirichlet 函数，两个所谓区域积分均未定义。
+所以其余条件不能保证 Riemann--Jordan 公式有意义。
+
+不能把降秩投影 $(u,v)\mapsto(u,0)$ 当作数值等式失败的例子：其像体积
+为零，Jacobian 也恒零，对常函数两侧恰好都为零。它说明当前证明中的
+局部逆不存在，却没有反驳所写的等式。某条件在证明中被使用，不等于删除
+该条件的每个例子都会使结论失败。
 \end{solution}

@@ -40,7 +40,31 @@
  {\sqrt{1+|z|^2}\sqrt{1+|w|^2}},\qquad
  \chi(z,\infty)=\frac1{\sqrt{1+|z|^2}}
 \]
-给出。立体投影把 \(\widehat{\C}\) 与二维球面同胚，因此它是紧空间。
+给出，其中另约定 \(\chi(\infty,z)=\chi(z,\infty)\)、
+\(\chi(\infty,\infty)=0\)。为核实这确为距离，令
+\[
+ S(x+iy)=\frac{(2x,2y,x^2+y^2-1)}{1+x^2+y^2},
+ \qquad S(\infty)=(0,0,1).
+\]
+分子的长度平方为 \((1+x^2+y^2)^2\)，故像在单位球面上。除北极以外，
+球面点 \((X,Y,Z)\) 的逆像为 \((X+iY)/(1-Z)\)，所以 \(S\) 是双射。
+直接展开平方得到
+\[
+ |S(z)-S(w)|^2
+ =\frac{4|z-w|^2}{(1+|z|^2)(1+|w|^2)}
+ =4\chi(z,w)^2.
+\]
+一端为无穷点时同样有 \(|S(z)-S(\infty)|=2\chi(z,\infty)\)。
+因此弦距离是球面上欧氏距离的一半，特别地满足三角不等式。
+有限点处 \(S\) 及上述逆公式连续，给出通常的复平面拓扑；北极附近则有
+\[
+ B_\chi(\infty,\varepsilon)
+ =\{\infty\}\cup
+ \{z\in\C:|z|>\sqrt{\varepsilon^{-2}-1}\}
+ \qquad(0<\varepsilon<1).
+\]
+这与约定的无穷点邻域一致。球面是 \(\R^3\) 的闭有界子集，故紧；
+\(S\) 把这个紧致度量空间的结构传到 \(\widehat{\C}\)。
 
 \section{复可微与 Cauchy--Riemann 方程}
 
@@ -132,12 +156,21 @@ Cauchy--Riemann 方程，则 \(u+iv\) 在 \(D\) 全纯。
 行为要由更高阶项决定。这一区别以后会分别出现在共形映射和零点重数中。
 
 复导数的线性、乘积、商和链式法则都由差商代数得到。
-若 \(f\) 在 \(z_0\) 的邻域还是 \(C^1\) 映射，且 \(f'(z_0)\ne0\)，则
+若 \(f\) 在 \(z_0\) 的整个邻域全纯，并且作为实映射为 \(C^1\)，
+且 \(f'(z_0)\ne0\)，则
 \[
  \det Df(z_0)=|f'(z_0)|^2>0.
 \]
-实逆函数定理给出局部 \(C^1\) 逆；逆微分仍是复线性的，所以逆映射全纯，
-导数为 \(1/f'(z_0)\)。
+实逆函数定理给出局部 \(C^1\) 逆 \(g\)。缩小邻域后 \(f'\) 处处不为零，
+且 \(Dg(w)=[Df(g(w))]^{-1}\) 仍是复线性的，所以 \(g\) 全纯，并有
+\[
+ g'(w)=\frac1{f'(g(w))}.
+\]
+只在基点复可微不足以作出这一结论。例如 \(f(z)=z+\bar z^2\) 在零点的
+复导数为一，实逆函数定理也给出局部实逆，但它在每个非零点的实微分含有
+\(2\bar z\,\bar h\) 项，不是复线性的。若其局部逆全纯，该逆的可逆微分及其逆
+都应复线性，便与上述计算矛盾。后面证明全纯函数解析后，邻域 \(C^1\)
+条件将自动成立。
 
 \section{复幂级数及收敛圆盘}
 
@@ -168,8 +201,28 @@ Cauchy--Riemann 方程，则 \(u+iv\) 在 \(D\) 全纯。
 \begin{proof}
 取 \(r<\rho<R\)。数项级数 \(\sum|a_n|\rho^n\) 收敛，而
 \(|a_n(z-z_0)^n|\le|a_n|\rho^n\) 于闭圆盘成立，所以 M-判别给一致收敛。
-由 \(n^{1/n}\to1\)，Cauchy--Hadamard 公式说明导数级数半径仍为 \(R\)。
-在任意较小闭圆盘上应用逐项求导定理即得公式。
+导数级数半径不变的证明只涉及系数的绝对值，故实幂级数中的证明原样适用：
+对 \(n\ge2\)，
+\[
+ |na_n|^{1/(n-1)}
+ =n^{1/(n-1)}\bigl(|a_n|^{1/n}\bigr)^{n/(n-1)};
+\]
+其上极限与 \(|a_n|^{1/n}\) 的上极限相同，包括零和无穷的情形。
+于是函数级数及导数级数都在较小闭圆盘上一致收敛。
+
+尚须证明所得函数具有复导数，不能直接把实区间的求导定理用于圆盘。
+记多项式部分和为 \(S_N\)，导数级数之和为 \(g\)。固定圆盘内的 \(z\)，
+取一个较小闭圆盘包含 \(z\) 及充分小的线段 \([z,z+h]\)。
+对实参数 \(t\) 应用微积分基本定理，得到
+\[
+ S_N(z+h)-S_N(z)=h\int_0^1S_N'(z+th)\,dt.
+\]
+一致收敛允许令 \(N\to\infty\)，故
+\[
+ \frac{f(z+h)-f(z)}h=\int_0^1g(z+th)\,dt.
+\]
+函数 \(g\) 连续；当复增量 \(h\to0\) 时右侧趋于 \(g(z)\)，与方向无关。
+这就证明逐项求导公式。
 \end{proof}
 
 反复求导给
@@ -263,7 +316,7 @@ Cauchy 积分公式建立之后。
 \addcontentsline{toc}{section}{习题}
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
-\exerciseitem{complex-spherical-convergence}证明 \(z_n\to\infty\) 当且仅当 \(1/z_n\to0\)，并验证弦距离给出的 \(\infty\) 邻域与正文定义相同。
+\exerciseitem{complex-spherical-convergence}设 \(z_n\in\widehat{\C}\)，沿用 \(1/0=\infty\)、\(1/\infty=0\)。证明 \(z_n\to\infty\) 当且仅当 \(1/z_n\to0\)，并验证弦距离给出的 \(\infty\) 邻域与正文定义相同。
 \exerciseitem{complex-limit-components}从定义证明复函数极限存在当且仅当实部、虚部极限分别存在，并推出复乘法保持极限。
 \exerciseitem{cr-point-counterexample}核对正文中分式函数在原点的四个偏导、Cauchy--Riemann 方程和两条路径上的差商。
 \exerciseitem{complex-linear-real-matrix}证明实线性映射 \(L:\C\to\C\) 为复线性，当且仅当其矩阵为 \(\begin{psmallmatrix}a&-b\\b&a\end{psmallmatrix}\)。
@@ -280,7 +333,8 @@ Cauchy 积分公式建立之后。
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{wirtinger-real-linear-decomposition}证明每个实线性 \(L:\C\to\C\) 唯一写成 \(L(h)=ah+b\bar h\)，并推导式\eqref{eq:wirtinger-real-differential}。
-\exerciseitem{polar-cauchy-riemann}设 \(f=u+iv\) 在不含原点的开集上 \(C^1\)。用极坐标推导
-\(u_r=r^{-1}v_\theta\)、\(v_r=-r^{-1}u_\theta\)，并用于检验 \(z\mapsto z^n\)。
+\exerciseitem{polar-cauchy-riemann}设 \(f=u+iv\) 在不含原点的开集上 \(C^1\)。
+在局部极坐标片 \(r>0\) 中证明：\(f\) 全纯当且仅当
+\(u_r=r^{-1}v_\theta\)、\(v_r=-r^{-1}u_\theta\)。用于检验 \(z\mapsto z^n\)，其中 \(n\in\Z\)。
 \optionalexerciseitem{local-holomorphic-inverse}设 \(f\) 在 \(z_0\) 邻域 \(C^1\) 且全纯，\(f'(z_0)\ne0\)。由实逆函数定理证明局部逆全纯，并求其导数。
 \end{enumerate}

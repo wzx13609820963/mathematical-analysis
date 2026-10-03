@@ -15,7 +15,11 @@
 \(1/n\) 邻域内都能选到 \(t_n\) 满足
 \(|F(t_n)-F(t_0)|\ge\varepsilon\)。于是 \(t_n\to t_0\)，与对任意序列
 得到的积分收敛矛盾。一般拓扑空间中，序列未必刻画闭包和连续性；须直接用
-邻域，或用网、滤子版本的控制收敛论证。
+邻域并增加足够的统一控制，不能把这里的序列论证直接换成网。
+例如以 \([0,1]\) 的有限子集 \(A\) 按包含关系定向，令
+\(u_A=\mathbf1_{[0,1]\setminus A}\)。每点最终属于 \(A\)，故
+\(u_A\to0\) 逐点成立，且 \(0\le u_A\le1\)，但
+\(\int_0^1u_A=1\) 始终不变。可见一般网并不满足序列形式的控制收敛定理。
 \end{solution}
 
 \begin{solution}{laplace-continuity-differentiability}
@@ -33,13 +37,11 @@
 
 \begin{solution}{parameter-no-domination}
 对固定 \(x>0\)，当 \(0<t<x\) 时函数值为零，故随 \(t\downarrow0\)
-趋于零；其积分是 \(t^{-1}m(0,t)=1\)。若
-\(g\ge t^{-1}\mathbf1_{(0,t)}\) 对所有小 \(t\) 成立，则取
-\(t=2x\)（对充分小的 \(x\)）得到
-\[
- g(x)\ge\frac1{2x}.
-\]
-而 \(1/x\) 在原点附近不可积，故 \(g\notin L^1(0,1)\)。
+趋于零；对 \(0<t\le1\)，其积分是 \(t^{-1}m(0,t)=1\)。
+若存在 \(g\in L^1(0,1)\) 对每个充分小的 \(t>0\) 几乎处处支配
+\(f(t,\cdot)\)，选取 \(t_n\downarrow0\)，并合并这可数多个参数的
+零测例外集，便能对 \(f(t_n,\cdot)\) 应用控制收敛。其积分应趋于零，
+却恒为1，矛盾。这一论证允许支配不等式的零测例外依赖参数。
 \end{solution}
 
 \begin{solution}{differentiate-exponential}
@@ -84,7 +86,8 @@
   \int_{\beta_0}^{\beta_h}f(t+h,x)\,dx
  \right),
 \]
-端点不动时把括号内任意补定义。前一因子趋于 \(\beta'(t)\)，联合连续性
+端点不动时把括号内补定义为 \(f(t,\beta_0)\)，乘积仍为零。
+前一因子趋于 \(\beta'(t)\)，联合连续性
 使后一因子趋于 \(f(t,\beta_0)\)。因此第一项的导数为
 \[
  \int_c^{\beta_0}\partial_tf(t,x)\,dx
@@ -95,7 +98,13 @@
 \end{solution}
 
 \begin{solution}{log-integral-parameter}
-在 \(x=1\) 处连续补值为 \(t\)。被积函数对 \(t\) 的导数是 \(x^t\)。
+在 \(x=1\) 处连续补值为 \(t\)。先验证积分存在：对 \(0<x<1\)，
+把 \(s\mapsto x^s\) 在0与 \(t\) 之间应用中值定理，得
+\[
+ \left|\frac{x^t-1}{\log x}\right|
+ \le |t|x^{\min(0,t)}.
+\]
+因 \(t>-1\)，右侧可积。被积函数对 \(t\) 的导数是 \(x^t\)。
 在 \((-1,\infty)\) 的任一紧子区间上，这些导数可由某个
 \(x^\alpha\) 控制，其中 \(\alpha>-1\)。因此
 \[
@@ -108,17 +117,23 @@
 \end{solution}
 
 \begin{solution}{holomorphic-parameter-integral}
-固定闭圆盘 \(\overline{B(z_0,r)}\Subset D\)。Cauchy 公式给
+固定闭圆盘 \(K=\overline{B(z_0,r)}\Subset D\)，取题设的
+\(g_K\)。在公共零测例外集外，由以 \(w\in B(z_0,r/2)\) 为中心、
+半径 \(r/2\) 的圆周上的 Cauchy 估计，有
+\(|\partial_z f(w,x)|\le 2g_K(x)/r\)。沿连接 \(z_0\) 与
+\(z_0+h\) 的线段积分，得到对 \(0<|h|<r/2\)，
 \[
- f'(z,x)=\frac1{2\pi i}\int_{|\zeta-z_0|=r}
- \frac{f(\zeta,x)}{(\zeta-z)^2}\,d\zeta
+ \left|\frac{f(z_0+h,x)-f(z_0,x)}h\right|
+ \le \frac{2g_K(x)}r.
 \]
-对更小圆盘内的 \(z\) 成立。紧集控制使圆周积分与 \(x\)-积分可由
-Fubini 交换，并给导数统一控制。因此
+所有差商对 \(x\) 可测，取可数差商列的极限说明偏导数（在例外集补零）
+可测。对任意复数列 \(h_n\to0\)、\(h_n\ne0\)，实部与虚部分别应用
+控制收敛，积分差商收敛到同一个值。由复平面的序列判据，
 \[
- F'(z)=\int f'(z,x)\,d\mu(x),
+ F'(z_0)=\int \partial_z f(z_0,x)\,d\mu(x).
 \]
-所以 \(F\) 全纯。
+由于 \(z_0\) 任意，\(F\) 在 \(D\) 上全纯。这里没有交换圆周积分与
+测度积分，因而无须额外证明圆周参数与 \(x\) 的联合可测性。
 \end{solution}
 
 \begin{solution}{parameter-integral-checklist}

@@ -50,9 +50,12 @@ $h=\sum_i h_i e_i$、$k=\sum_j k_j e_j$，双线性性给出
  =\sum_{i,j}h_i k_jD^2f(a)[e_i,e_j]
  =h^{\mathsf T}H_f(a)k,
 \]
-其中 $(H_f(a))_{ij}=D^2f(a)[e_i,e_j]$。若 $f$ 在 $a$ 的某邻域属于
-$C^2$，Schwarz 定理给出
-$D^2f(a)[e_i,e_j]=D^2f(a)[e_j,e_i]$，因而 Hessian 对称。仅有全部二阶
+其中 $(H_f(a))_{ij}=\partial_i(\partial_jf)(a)$：
+第二个参数是 \(Df\) 所作用的向量，第一个参数是对 \(Df\) 求导的方向。
+正文关于二阶 Fréchet 微分的对称性命题给出
+$D^2f(a)[e_i,e_j]=D^2f(a)[e_j,e_i]$，因而 Hessian 对称。
+这里不必要求 \(f\in C^2\)；\(C^2\) 是另一个便于检验的充分条件。
+仅有全部二阶
 偏导在一点存在，不足以保证两个混合偏导相等；选做题给出了反例。
 \end{solution}
 
@@ -69,14 +72,15 @@ $\xi$ 位于 $0$ 与 $h$ 之间，使
 再对 $t\mapsto f_s(\xi,t)$ 使用中值定理，存在 $\eta$ 位于 $0$ 与 $k$
 之间，使
 \[
- \Delta(h,k)=hk f_{st}(\xi,\eta).
+ \Delta(h,k)=hk (f_s)_t(\xi,\eta).
 \]
 交换两次作差的顺序，同样得到某个 $(\xi',\eta')$，使
 \[
- \Delta(h,k)=hk f_{ts}(\xi',\eta').
+ \Delta(h,k)=hk (f_t)_s(\xi',\eta').
 \]
 当 $h,k\to0$ 且 $hk\ne0$ 时，四个中间点都趋于原点。若两个混合偏导在
-原点附近连续，除以 $hk$ 后取极限即得 $f_{st}(0,0)=f_{ts}(0,0)$。
+邻域内存在且在原点连续，除以 $hk$ 后取极限即得
+$(f_s)_t(0,0)=(f_t)_s(0,0)$。括号明确了先后求导的顺序。
 平移坐标便得到任意点的结论。
 \end{solution}
 
@@ -132,22 +136,31 @@ $(\alpha_1,\ldots,\alpha_n)$ 对应在 $k$ 个单位中插入 $n-1$ 个隔板。
 \end{solution}
 
 \begin{solution}{taylor-integral-remainder-derivation}
-令 $\gamma(t)=f(a+th)$。一元微积分基本定理给出
+设 \(f\in C^r\)、\(r\ge1\)，令 $\gamma(t)=f(a+th)$。
+记
+\[
+ I_j=\frac1{(j-1)!}\int_0^1(1-t)^{j-1}\gamma^{(j)}(t)\,dt
+ \quad(1\le j\le r).
+\]
+一元微积分基本定理给出
 \[
  \gamma(1)=\gamma(0)+\int_0^1\gamma'(t)\,dt.
 \]
-再对 $\gamma'$ 使用同一公式并交换三角形区域上的积分次序，得到
+对 \(j\ge2\)，逐分量分部积分，得到
 \[
- \gamma(1)=\gamma(0)+\gamma'(0)
- +\int_0^1(1-t)\gamma''(t)\,dt.
+ I_j=-\frac{\gamma^{(j-1)}(0)}{(j-1)!}+I_{j-1}.
 \]
-反复进行此过程可归纳得到
+边界项在 \(t=1\) 为零，在 \(t=0\) 给出所列负项。
+从 \(I_1=\gamma(1)-\gamma(0)\) 逐次代入，得到
 \[
- \gamma(1)=\sum_{j=0}^{r}\frac{\gamma^{(j)}(0)}{j!}
- +\frac1{r!}\int_0^1(1-t)^r\gamma^{(r+1)}(t)\,dt.
+ \gamma(1)=\sum_{j=0}^{r-1}\frac{\gamma^{(j)}(0)}{j!}
+ +\frac1{(r-1)!}\int_0^1(1-t)^{r-1}\gamma^{(r)}(t)\,dt.
 \]
 链式法则给出
-$\gamma^{(j)}(t)=D^jf(a+th)[h^j]$，代回即为多元 Taylor 积分余项。
+$\gamma^{(j)}(t)=D^jf(a+th)[h^j]$，代回即为正文公式。
+再分出常量 \(D^rf(a)\)，得到第 \(r\) 次项及 Peano 余项。
+全过程只用到 \(r\) 阶连续导数与一元分部积分，不要求第 \(r+1\) 阶导数，
+也不需要尚未建立的多重积分换序定理。
 \end{solution}
 
 \begin{solution}{taylor-multi-index-expansion}
@@ -221,11 +234,16 @@ $h\ne0$，
 \[
  Q(h)=\norm h^2Q\left(\frac h{\norm h}\right)\ge c\norm h^2.
 \]
-有限维性用在单位球面的紧致性上。无限维 Hilbert 空间中的正算子可能满足
+有限维性用在单位球面的紧致性上。为看出它不能略去，取只有有限项
+非零的实数列组成的空间，配以 \(\norm x_2=(\sum_jx_j^2)^{1/2}\)，并令
 \[
- \langle Tx,x\rangle>0\qquad(x\ne0),
+ Q(x)=\sum_{j=1}^{\infty}\frac{x_j^2}{j}.
 \]
-却没有统一的正下界。
+对每个非零 \(x\)，\(Q(x)>0\)，且所有和均为有限和。
+对应双线性型由 Cauchy--Schwarz 不等式满足
+\(|\sum_jx_jy_j/j|\le\norm x_2\norm y_2\)，所以连续。
+但标准单位向量 \(e_j\) 满足 \(Q(e_j)=1/j\to0\) 且
+\(\norm{e_j}_2=1\)，不可能有统一正下界。
 \end{solution}
 
 \begin{solution}{local-minimum-hessian-semidefinite}
@@ -273,14 +291,28 @@ $P_k(-u)=-P_k(u)$，因此它在单位球面上取正负值。将上一题的第
 \end{solution}
 
 \begin{solution}{flat-function-no-finite-taylor-test}
-记 $r=\sqrt{x^2+y^2}$。对 $r>0$，任意阶偏导都是
+记 $r=\sqrt{x^2+y^2}$。在穿孔平面上，任意阶偏导均为
 \[
- P(1/x,1/y,1/r) e^{-1/r^2}
+ P(x,y,r^{-1})e^{-1/r^2}
 \]
-型表达式的有限和；更方便的归纳表述是，它的绝对值可由
-$C r^{-N}e^{-1/r^2}$ 控制，其中 $C,N$ 随偏导阶数而定。因为对每个
-$N$ 都有 $r^{-N}e^{-1/r^2}\to0$，所有偏导都能以零连续延拓到原点，
-并且在原点取零。故每阶 Taylor 多项式都为零。另一方面，$r>0$ 时
+的形式，其中 \(P\) 为多项式：求导时
+\(\partial_x r^{-q}=-qx r^{-q-2}\)，
+\(\partial_x e^{-1/r^2}=2xr^{-4}e^{-1/r^2}\)，对 \(y\) 同理，
+所以该形式归纳保持。它在坐标轴的非原点处也有定义。
+在 \(0<r\le1\) 上，对每个多重指标 \(\alpha\)，相应偏导 \(g_\alpha\)
+可估为 \(C_\alpha r^{-N_\alpha}e^{-1/r^2}\)。
+指数函数快于任意幂的估计说明，对每个 \(L>0\)，
+\(g_\alpha(x,y)=o(r^L)\)。
+
+将每个 \(g_\alpha\) 在原点赋值零。它们不仅连续延拓，而且确实仍是
+延拓函数的偏导：归纳假定 \(\partial^\alpha f=g_\alpha\)，则在原点
+沿坐标方向 \(e_i\) 的差商满足
+\[
+ \left|\frac{g_\alpha(te_i)-g_\alpha(0)}t\right|\longrightarrow0.
+\]
+因此该偏导等于零，即 \(g_{\alpha+e_i}(0)\)；非原点处则由普通求导成立。
+从 \(\alpha=0\) 开始归纳，所有阶偏导均存在且连续，故 \(f\in C^\infty\)，
+每阶 Taylor 多项式都为零。另一方面，$r>0$ 时
 $e^{-1/r^2}>0=f(0,0)$，所以原点仍是严格局部极小点。这个例子说明
 有限阶乃至全部 Taylor 系数都不必决定一般 $C^\infty$ 函数的局部值。
 \end{solution}
@@ -304,5 +336,6 @@ $e^{-1/r^2}>0=f(0,0)$，所以原点仍是严格局部极小点。这个例子�
  f_y(x,0)=\lim_{k\to0}x\frac{x^2-k^2}{x^2+k^2}=x,
 \]
 所以 $(f_y)_x(0,0)=1$。两个混合偏导都存在但不相等；Schwarz 定理中的
-邻域连续性条件不能只用“在一点存在”代替。
+“在一点连续”的条件不能只用“在一点存在”代替。由正文的二阶
+Fréchet 对称性命题，这个函数在原点也不二次 Fréchet 可微。
 \end{solution}

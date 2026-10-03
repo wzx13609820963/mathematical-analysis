@@ -14,11 +14,15 @@
  \norm B_{\mathrm{op}}
  =\sup_{\norm h\le1,\,\norm k\le1}\norm{B(h,k)}.
 \]
-有限维性保证上确界有限，且
+由上一章对双线性映射的标准基估计，上确界有限，且
 \[
  \norm{B(h,k)}\le\norm B_{\mathrm{op}}\norm h\norm k.
 \]
 类似地定义连续 \(r\) 线性映射空间 \(\mathcal L^r(\R^n,\R^m)\)。
+这些空间均为有限维空间：映射由标准基向量组上的有限多个取值确定。
+将这些取值展开为坐标，其最大绝对值不超过算子范数；反向用多线性展开
+和 Cauchy--Schwarz 不等式，算子范数又不超过坐标欧氏范数的某个
+常数倍。因此上一章的可微定义同样适用于以这些空间为值域的映射。
 
 设 \(f:U\to\R^m\) 在开集 \(U\) 上可微。若映射
 \[
@@ -111,6 +115,40 @@
 相等。
 \end{proof}
 
+还有一个容易与 Schwarz 定理混淆的事实：二阶 Fréchet 微分在一点存在，
+已经足以保证该点的二阶微分对称，不必再假定二阶导数连续。
+
+\begin{proposition}[二阶微分的对称性]
+\label{prop:second-frechet-symmetry}
+若 \(f\) 在 \(a\) 的邻域可微，且 \(Df\) 在 \(a\) 可微，则
+\(D^2f(a)[h,k]=D^2f(a)[k,h]\)。
+\end{proposition}
+
+\begin{proof}
+记 \(B=D^2f(a)\)，写
+\[
+ Df(a+z)=Df(a)+B[z,\cdot]+E(z),
+ \qquad \norm{E(z)}_{\mathrm{op}}=o(\norm z).
+\]
+固定 \(h,k\)，对 \(t>0\) 足够小，考察矩形增量
+\[
+ \Delta_t=f(a+th+tk)-f(a+th)-f(a+tk)+f(a).
+\]
+令 \(G_t(s)=f(a+th+sk)-f(a+sk)\)，\(0\le s\le t\)。链式法则给出
+\[
+ G_t'(s)=tB[h,k]+\{E(th+sk)-E(sk)\}k.
+\]
+由于 \(0\le s\le t\)，花括号中的算子范数为 \(o(t)\)，且此估计
+对 \(s\) 一致。对 \(G_t(s)-stB[h,k]\) 的每个标量分量使用一元
+中值定理，得到 \(\Delta_t=t^2B[h,k]+o(t^2)\)。
+交换 \(h,k\)，同一矩形增量又等于 \(t^2B[k,h]+o(t^2)\)。
+除以 \(t^2\) 并令 \(t\to0^+\)，便得结论。
+\end{proof}
+
+因此，应区别“二阶偏导在一点存在”“二阶 Fréchet 微分在一点存在”
+和“在邻域属于 \(C^2\)”这三个条件。第二个条件已经包含对邻近点的
+一阶导数的算子范数控制；第一个条件没有这种控制。
+
 若 \(f\in C^r(U,\R^m)\)，反复应用 Schwarz 定理可知
 \(D^rf(a)\) 是对称的 \(r\) 线性映射：任意交换两个参数都不改变取值。
 证明只需验证相邻参数的交换，再用任意置换可分解为相邻换位。若缺少适当的
@@ -127,7 +165,7 @@
 
 \begin{theorem}[多元 Taylor 公式的 Peano 形式]
 \label{thm:multivariable-taylor-peano}
-若 \(f\in C^r(U,\R^m)\)，则当 \(h\to0\) 且 \([a,a+h]\subset U\) 时，
+设整数 \(r\ge1\)。若 \(f\in C^r(U,\R^m)\)，则当 \(h\to0\) 且 \([a,a+h]\subset U\) 时，
 \[
  f(a+h)=\sum_{k=0}^r\frac1{k!}D^kf(a)[h^k]+o(\norm h^r),
 \]
@@ -141,9 +179,11 @@
  \begin{split}
  f(a+h)={}&\sum_{k=0}^{r-1}\frac1{k!}D^kf(a)[h^k]\\
  &+\frac1{(r-1)!}\int_0^1(1-t)^{r-1}
- D^rf(a+th)[h^r],dt.
+ D^rf(a+th)[h^r]\,dt.
  \end{split}
 \]
+这里向量值积分逐分量定义；由 Riemann 和的三角不等式及取极限，
+\(\norm{\int v(t)\,dt}\le\int\norm{v(t)}\,dt\)。
 把 \(D^rf(a)\) 从积分中分出，并使用
 \(\int_0^1(1-t)^{r-1}dt=1/r\)，便得到第 \(r\) 次项。剩余积分的范数
 不超过
@@ -154,6 +194,30 @@
 \]
 因 \(D^rf\) 在 \(a\) 连续，上确界趋于零，故余项为
 \(o(\norm h^r)\)。
+\end{proof}
+
+二阶极值判别只需在展开点二次可微。为避免在这里额外加入 \(C^2\)
+条件，单独证明相应的余项结论。
+
+\begin{proposition}[一点二次可微时的 Taylor 公式]
+\label{prop:second-peano-pointwise}
+若 \(f\) 在 \(a\) 的邻域可微，且 \(Df\) 在 \(a\) 可微，则
+\[
+ f(a+h)=f(a)+Df(a)h+\tfrac12D^2f(a)[h,h]+o(\norm h^2).
+\]
+\end{proposition}
+
+\begin{proof}
+记 \(B=D^2f(a)\)，并减去右端的二次多项式，令所得差为 \(R(z)\)，
+其中变量 \(z\) 表示相对 \(a\) 的增量。由 \(B\) 的对称性，
+\[
+ DR(z)=Df(a+z)-Df(a)-B[z,\cdot]=o(\norm z),\qquad R(0)=0.
+\]
+给定 \(\varepsilon>0\)，存在 \(\delta>0\)，使
+\(\norm z<\delta\) 时 \(\norm{DR(z)}_{\mathrm{op}}\le\varepsilon\norm z\)。
+对 \(\norm h<\delta\)，线段 \([0,h]\) 上该上界不超过
+\(\varepsilon\norm h\)。向量值平均估计因而给出
+\(\norm{R(h)}\le\varepsilon\norm h^2\)，即所需余项。
 \end{proof}
 
 当 \(f\) 为实值且 \(f\in C^{r+1}\) 时，一元 Lagrange 余项还给出某个
@@ -224,7 +288,8 @@
 
 \begin{proof}
 若二次型正定，则它在欧氏单位球面上的连续函数
-\(h\mapsto D^2f(a)[h,h]\) 取得正的最小值 \(c\)。Taylor 公式给出
+\(h\mapsto D^2f(a)[h,h]\) 取得正的最小值 \(c\)。
+命题\ref{prop:second-peano-pointwise}给出
 \[
  f(a+h)-f(a)
  =\frac12D^2f(a)[h,h]+o(\norm h^2)
@@ -270,9 +335,16 @@ Hessian 半正定时，二阶项可能在某些方向消失，余项便会决定
 
 如果首个非零齐次项只是半正定，仍可能需要更精细的方向分析。例如
 \(f(x,y)=x^2+y^4\) 的二次项为 \(x^2\)，虽退化但高阶项在核方向上为正，
-原点仍是严格极小点；而 \(x^2-y^4\) 在同一二次型下却有鞍点。逐层限制到
-低阶项的零集，是处理退化极值的一种方法，但不存在只看 Hessian 就能覆盖
-所有退化情形的判别法。
+原点仍是严格极小点；而 \(x^2-y^4\) 在同一二次型下却有鞍点。
+但只考察二次型的核也不足以形成一般判据。例如
+\[
+ F(x,y)=(x-y^2)^2-y^6
+\]
+的二次项仍为 \(x^2\)。在核 \(x=0\) 上，
+\(F(0,y)=y^4-y^6>0\)（\(0<|y|<1\)），沿曲线 \(x=y^2\) 却有
+\(F(y^2,y)=-y^6<0\)；在 \(y=0\) 上又取正值。因此原点是鞍点。
+混合项可以使低值点偏离核，并沿弯曲路径趋近原点。退化情形须控制
+邻域中的全部增量，不能只用有限条直线或核上的限制替代。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -318,12 +390,15 @@ Hessian 半正定时，二阶项可能在某些方向消失，余项便会决定
  \(H=\begin{psmallmatrix}a&b\\b&c\end{psmallmatrix}\)，证明
  \(H\) 正定当且仅当 \(a>0\)、\(ac-b^2>0\)，并写出负定与不定判据。
  \exerciseitem{indefinite-hessian-saddle}
- 不直接引用 Hessian 判别定理，沿两个方向证明不定二次项产生鞍点。
+ 设 \(f\) 在内点 \(a\) 二次 Fréchet 可微且 \(Df(a)=0\)，
+ \(D^2f(a)\) 不定。不直接引用 Hessian 判别定理，沿两个方向证明
+ \(a\) 为鞍点。
  \exerciseitem{compact-sphere-uniform-quadratic}
  证明正定二次型存在 \(c>0\) 使 \(Q(h)\ge c\norm h^2\)，并说明有限维性
  在哪里使用。
  \exerciseitem{local-minimum-hessian-semidefinite}
- 从一元限制函数证明局部极小点的 Hessian 必半正定；构造 Hessian 半正定
+ 设实值函数 \(f\) 在内点局部极小点 \(a\) 二次 Fréchet 可微。
+ 从一元限制函数证明其 Hessian 必半正定；构造 Hessian 半正定
  但不是极小点的例子。
 \end{enumerate}
 

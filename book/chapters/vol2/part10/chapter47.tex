@@ -15,10 +15,11 @@ $|Q|=\prod_j(b_j-a_j)$。退化矩形的体积约定为零。
 
 在每个坐标区间选取有限分割，所有坐标小区间的笛卡儿积组成 $Q$ 的一个
 矩形分割 $P$。以子矩形 $R$ 的直径最大值为网格 $\norm P$。在每个
-非退化 $R\in P$ 中取标记点 $\xi_R$，定义
+子矩形 $R\in P$ 中取标记点 $\xi_R$，定义
 \[
  S(f,\dot P)=\sum_{R\in P}f(\xi_R)|R|.
 \]
+零体积子矩形的项为零。特别地，若 $Q$ 退化，所有标记和均为零。
 
 \begin{definition}
 有界函数 $f:Q\to\R$ 称为 Riemann 可积，如果存在 $I\in\R$，使对
@@ -68,7 +69,10 @@ $\overline{\int_Q}f\le U(f,P)$，
 $\varepsilon>0$，选分割 $P_0$
 使 $U(f,P_0)-L(f,P_0)<\varepsilon/3$。$P_0$ 的内部分割面只有有限多个；
 存在只依赖于 $P_0,Q$ 的常数 $C$，使任一网格为 $\eta$ 的矩形分割中，
-所有与这些分割面相交的小矩形总体积不超过 $C\eta$。取 $\eta$ 充分小，
+所有与这些分割面相交的小矩形总体积不超过 $C\eta$。事实上，与面
+$x_j=c$ 相交的块都落在 $|x_j-c|\le\eta$ 中；该薄条在 $Q$ 内的体积
+至多为 $2\eta\prod_{i\ne j}(b_i-a_i)$。对有限个分割面求和即可，
+重叠只会使这个上界变大。取 $\eta$ 充分小，
 使 $2MC\eta<\varepsilon/3$。
 
 任取网格小于 $\eta$ 的标记分割。除上述小矩形外，每个小矩形都包含在
@@ -104,18 +108,40 @@ $U(f,P)-L(f,P)<\varepsilon$。振幅判据成立，两种定义的积分值相�
 \begin{proof}
 若 $|Q|=0$，按约定积分为零。以下设 $|Q|>0$。$Q$ 紧，故 $f$ 一致连续。
 给定 $\varepsilon>0$，取 $\delta>0$，使
-$|x-y|<\delta$ 时 $|f(x)-f(y)|<\varepsilon/|Q|$。网格小于
+$|x-y|<\delta$ 时 $|f(x)-f(y)|<\varepsilon/(2|Q|)$。网格小于
 $\delta$ 的分割满足
 \[
  U(f,P)-L(f,P)
- \le \frac{\varepsilon}{|Q|}\sum_{R\in P}|R|=\varepsilon.
+ \le \frac{\varepsilon}{2|Q|}\sum_{R\in P}|R|=\frac\varepsilon2<\varepsilon.\qedhere
 \]
 \end{proof}
 
-线性、序关系、乘积和绝对值的可积性均由振幅估计得到；特别地
+这些定义还给出积分的代数性质。设 $f,g$ 可积，$|f|\le M_f$、
+$|g|\le M_g$。在每个子矩形 $R$ 上，
+\begin{align*}
+ \omega(af+bg;R)&\le |a|\omega(f;R)+|b|\omega(g;R),\\
+ \omega(fg;R)&\le M_f\omega(g;R)+M_g\omega(f;R),\\
+ \omega(|f|;R)&\le\omega(f;R).
+\end{align*}
+第二式由 $f(x)g(x)-f(y)g(y)=f(x)(g(x)-g(y))+g(y)(f(x)-f(y))$
+得到。对 $f,g$ 的振幅分割取公共加细，这三个估计分别证明线性组合、乘积
+和绝对值可积。对相同分割和标记，Riemann 和满足线性等式；取极限得到
+$\int_Q(af+bg)=a\int_Qf+b\int_Qg$。若 $f\le g$，每个标记和也保持
+此序，因而积分保序。特别地，
 \[
  \left|\int_Qf\right|\le\int_Q|f|\le |Q|\sup_Q|f|.
 \]
+
+若 $P_0$ 是固定矩形分割，则 $f$ 在 $Q$ 上可积当且仅当其在各块上
+都可积，并且
+\[
+ \int_Q f=\sum_{R\in P_0}\int_R f.
+\]
+为证明正向，把使整体振幅和很小的分割与 $P_0$ 加细；每一块上的非负
+振幅和不超过总和，故限制可积。反向则在有限块上分别选小振幅分割，
+把所有坐标分点合并，总振幅和不超过各块预算之和。最后选取包含 $P_0$
+的充分细标记分割，标记和逐块相加，取极限即得等式。这也说明公共边界的
+重复归属不会增加积分：它们可用总体积任意小的薄条覆盖。
 
 \section{Jordan 零测集}
 
@@ -126,10 +152,24 @@ $\sum_k|R_k|<\varepsilon$。有界集 $E$ 称为 Jordan 可测，如果其边界
 $\partial E$ 是 Jordan 零测集。
 \end{definition}
 
-有限集、光滑曲线在 $\R^2$ 中的像以及光滑曲面在 $\R^3$ 中的像都是
-Jordan 零测集。以曲线为例，一致连续性把参数区间分成有限小段，使每段像
-落在边长受控的小正方形中；若曲线为 $C^1$，有界导数还给出总面积
-$O(1/N)$ 的直接估计。稠密可数集则未必 Jordan 零测；Jordan 覆盖只允许
+有限并和子集仍为 Jordan 零测集：给有限个集合分别分配覆盖体积预算，再
+合并覆盖即可。闭包也为 Jordan 零测集，因为有限个闭矩形的并是闭集，
+覆盖一个集合时也覆盖它的闭包。有限矩形面可以放进任意薄的矩形条，
+故为零测集。由坐标公共细分，覆盖一个矩形的有限矩形族的体积和至少为
+被覆盖矩形的体积；这项事实不使用后文的积分换序。
+
+更一般地，设 $K$ 是 $\R^d$ 中的紧矩形，$T:K\to\R^n$ 为 Lipschitz
+映射，且 $d<n$。把每个参数边等分成 $N$ 段，得到 $N^d$ 块，每块直径
+至多为 $C_0/N$。若 Lipschitz 常数为 $L$，每块的像可由边长
+$2(LC_0+1)/N$ 的 $n$ 维立方体覆盖。覆盖体积和至多为
+\[
+ [2(LC_0+1)]^n N^{d-n}\longrightarrow0.
+\]
+因此 $T(K)$ Jordan 零测。定义在紧参数矩形邻域上的 $C^1$ 映射在该
+矩形上导数有界，由线段中值估计为 Lipschitz。于是紧区间上的 $C^1$
+曲线在 $\R^2$ 中的像，以及有限个紧参数片给出的 $C^1$ 曲面在 $\R^3$
+中的像，均为 Jordan 零测集。这里不能只用连续性代替 Lipschitz 估计，
+也不能删去紧参数范围。稠密可数集则未必 Jordan 零测；Jordan 覆盖只允许
 有限个矩形，因而 $\Q^n\cap Q$ 的闭包是整个 $Q$。
 
 连续性是充分条件，却远非必要条件。多元积分中常见的可积函数会沿有限条
@@ -143,9 +183,12 @@ $O(1/N)$ 的直接估计。稠密可数集则未必 Jordan 零测；Jordan 覆�
 
 \begin{proof}
 设 $|f|\le M$。若 $M=0$ 或 $|Q|=0$，结论直接成立。以下设 $M>0$ 且
-$|Q|>0$。给定 $\varepsilon>0$，用有限个开矩形覆盖 $N$，使这些矩形
-的体积和小于 $\varepsilon/(8M)$。把矩形的端点
-加入坐标分割，并把网格进一步取细，可使所有与该覆盖相交的小矩形的总体积
+$|Q|>0$。给定 $\varepsilon>0$，先取有限个闭矩形覆盖 $N$，体积和
+小于 $\varepsilon/(16M)$。每条边略微向外移动，体积随边长连续变化，
+所以可得到覆盖 $N$ 的开矩形族，体积和小于 $\varepsilon/(8M)$。
+把其各面所在的坐标超平面加入分割。网格进一步趋零时，与覆盖相交但
+不全含于覆盖的小矩形，只能落在这些有限个面的薄条中。由前面的薄条估计，
+可使所有与该覆盖相交的小矩形的总体积
 小于 $\varepsilon/(4M)$。这些小矩形上的振幅至多为 $2M$，故它们对振幅和
 的贡献小于 $\varepsilon/2$。
 
@@ -159,7 +202,7 @@ $\varepsilon/(2|Q|)$。其余小矩形已经计入前一类，于是
 Darboux 判据给出可积性。
 \end{proof}
 
-例如，若 $Q$ 被有限个 $C^1$ 曲面分成若干块，而函数在每一块的闭包上连续，
+例如，在三维矩形中，若 $Q$ 被有限个紧 $C^1$ 参数曲面分成若干块，而函数在每一块的闭包上连续，
 则它的不连续点至多落在这些分界曲面上，因而可积。这里要求的是对体积的
 零测控制；仅仅说不连续点“很少”或“可数”并不足以适用于 Jordan 理论，
 因为稠密可数集不能由总体积任意小的有限矩形族覆盖。
@@ -180,13 +223,26 @@ $|E|$。
 \end{theorem}
 
 \begin{proof}
-在一个分割小矩形 $R$ 上，$\mathbf1_E$ 的振幅为一，当且仅当
-$R$ 同时遇到 $E$ 和其补集；这类矩形必与 $\partial E$ 相交。若边界可由
-总体积任意小的有限矩形覆盖，把覆盖端点加入分割，振幅判据给出可积性。
+若 $Q$ 退化，则它本身是零体积矩形，$\partial E\subseteq Q$，三个
+条件均成立，(iii) 可取空并。以下设 $|Q|>0$。
+在 $Q$ 中，指示函数的相对不连续点至多属于环境空间中的 $\partial E$。
+因此 (i) 由零测不连续集判据推出 (ii)。不连续点集不一定等于
+$\partial E$：例如 $E=Q$ 时，指示函数在 $Q$ 上恒为一。
 
-反之，若指示函数可积，取振幅和小于 $\varepsilon$ 的分割。所有振幅为一
-的小矩形覆盖 $\partial E$，且总体积小于 $\varepsilon$，故边界为零测集。
- 把振幅为零且函数恒为一的小矩形并起来，便得到 (iii)。
+反之，设 (ii) 成立。取振幅和小于 $\varepsilon/2$ 的分割 $P$，令
+$B$ 为其全部矩形面的并，包括外边界 $\partial Q$。$B$ 可由总体积
+小于 $\varepsilon/2$ 的有限薄矩形覆盖。若 $x\in\partial E\setminus B$，
+则 $x$ 在某块 $R$ 的内部，其足够小的邻域在 $R$ 内且同时遇到 $E$
+与补集，故 $\omega(\mathbf1_E;R)=1$。于是
+\[
+ \partial E\subseteq B\cup
+ \bigcup_{\omega(\mathbf1_E;R)=1}R.
+\]
+后一族体积和就是振幅和，因而得到总体积小于 $\varepsilon$ 的边界覆盖，
+证明 (i)。遗漏分割面的点，会使这个论证在 $E=Q$ 时失效。
+
+把振幅为零且指示函数恒为一的块并起来，记为 $A$。有 $A\subseteq E$，
+而 $E\setminus A$ 被振幅为一的块覆盖，其总体积可任意小，故 (iii) 成立。
 
  设反过来 (iii) 成立，记这些内部两两不交矩形的并为 $R$，并设
  $E\mathbin\triangle R$ 包含于有限个闭矩形之并 $G$，其总体积小于
@@ -200,16 +256,33 @@ $R$ 同时遇到 $E$ 和其补集；这类矩形必与 $\partial E$ 相交。若
  $\varepsilon$ 的有限矩形覆盖 $\partial R$，便得到总体积小于
  $2\varepsilon$ 的 $\partial E$ 覆盖。令 $\varepsilon$ 任意即得 (i)。
 
- 外包矩形改变只会增加指标函数恒为零的区域，所以积分不变。
+ 对两个外包矩形，取共同的大矩形并把它们的面加入分割。零延拓只会在
+ 原矩形外增加零值；由矩形分割可加性，积分不变。
 \end{proof}
 
-若 $E$ Jordan 可测，$f:E\to\R$ 有界，并能在某个外包矩形上延拓为
-$\widetilde f$，使 $\widetilde f\mathbf1_E$ 可积，则定义
+若 $E$ Jordan 可测，$f:E\to\R$ 有界，在外包矩形 $Q$ 上作零延拓
 \[
- \int_E f=\int_Q\widetilde f\mathbf1_E.
+ f_E(x)=\begin{cases}f(x),&x\in E,\\0,&x\in Q\setminus E.\end{cases}
 \]
-对 $\overline E$ 上连续的 $f$，Tietze 延拓定理或在边界小矩形上的直接
-振幅估计保证定义成立，且与延拓无关。
+当 $f_E$ 可积时，定义
+\[
+ \int_E f=\int_Q f_E.
+\]
+矩形分割可加性保证该值与 $Q$ 无关。若 $f$ 在 $\overline E$ 上连续，
+则它有界，$f_E$ 在 $E^\circ$ 内连续，在 $\R^n\setminus\overline E$
+内恒为零，故不连续点只可能在 $\partial E$，由零测不连续集判据可积。
+这里不需要构造连续延拓；若另有延拓 $F$，则 $F\mathbf1_E=f_E$，
+给出的积分当然相同。
+
+集合的有限并、交、差的边界均包含于各原集合边界的并，因而这些运算保持
+Jordan 可测性。若 $E_1,\ldots,E_m$ 内部两两不交，则重叠点只可能位于
+这些零测边界上。把各零延拓相加，与并集上的函数相比只在零测集上不同；
+该差函数有界且积分为零。因此对并集上可积的有界函数，有
+\[
+ \int_{\bigcup_iE_i}f=\sum_i\int_{E_i}f.
+\]
+各限制可积也可由零延拓乘以 $\mathbf1_{E_i}$ 得到。取 $f=1$ 便是
+Jordan 体积的有限可加性。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -217,7 +290,8 @@ $\widetilde f$，使 $\widetilde f\mathbf1_E$ 可积，则定义
 \subsection*{A组　定义与可积性}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
  \exerciseitem{multiple-integral-product-function}
- 由 Riemann 和证明 $f(x)g(y)$ 在矩形上的积分等于两个一元积分之积。
+ 设 $f$ 在 $[a,b]$ 上、$g$ 在 $[c,d]$ 上 Riemann 可积。证明
+ $f(x)g(y)$ 在乘积矩形上可积，并由 Riemann 和证明其积分等于两个一元积分之积。
  \exerciseitem{multiple-continuous-integrability}
  补全连续函数多重可积性的振幅证明，并处理退化矩形。
  \exerciseitem{jordan-boundary-indicator}
@@ -244,5 +318,6 @@ $\widetilde f$，使 $\widetilde f\mathbf1_E$ 可积，则定义
  $E\times F$ Jordan 可测且 $|E\times F|=|E|\,|F|$。
  \exerciseitem{jordan-continuous-domain}
  设 $E$ Jordan 可测，$f$ 在 $\overline E$ 上连续。证明本章定义的
- $\int_Ef$ 与所取连续延拓及外包矩形无关。
+ $\int_Ef$ 可由零延拓定义，且与外包矩形无关；若使用任意其他延拓再乘
+ $\mathbf1_E$，所得值也不变。
 \end{enumerate}

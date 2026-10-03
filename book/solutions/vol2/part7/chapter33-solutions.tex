@@ -31,9 +31,9 @@
 先比较两种表述。若每个 \(B(x,\lambda)\) 都包含于某个覆盖成员，而
 \(A\subseteq X\) 非空且 \(\operatorname{diam}A<\lambda\)，任取
 \(a\in A\)，便有 \(A\subseteq B(a,\lambda)\)，所以 \(A\) 也包含于
-一个覆盖成员。反之，若每个直径小于 \(\lambda\) 的集合都被某个成员
+一个覆盖成员。反之，若每个直径小于 \(\lambda\) 的非空集合都被某个成员
 包含，则
-\(\operatorname{diam}B(x,\lambda/3)<2\lambda/3<\lambda\)，故
+\(\operatorname{diam}B(x,\lambda/3)\le2\lambda/3<\lambda\)，故
 \(B(x,\lambda/3)\) 被某个成员包含。因此两种定义至多改变常数因子。
 
 若开覆盖 \(\mathcal U\) 没有 Lebesgue 数，对每个 \(n\) 取 \(x_n\)，
@@ -51,6 +51,7 @@
 \end{solution}
 
 \begin{solution}{total-bounded-implies-bounded}
+空空间有界。以下设 \(X\ne\varnothing\)。
 取有限 \(1\)-网 \(a_1,\ldots,a_N\)，并固定中心 \(a_1\)。对任意
 \(x\in X\)，存在 \(j\) 使 \(d(x,a_j)<1\)，于是
 \[
@@ -68,7 +69,7 @@
 \(\varepsilon\)-分离集中，同一个网球不能含两个不同点，否则它们距离小于
 \(\varepsilon\)。因此分离集的点数不超过网球数，必有限。
 
-反之，固定 \(\varepsilon>0\)。从任一点开始，只要已选点的
+反之，空空间有空网。若空间非空，固定 \(\varepsilon>0\)。从任一点开始，只要已选点的
 \(\varepsilon\)-球尚未覆盖 \(X\)，就在未覆盖处选一个新点。新点与此前
 各点距离至少为 \(\varepsilon\)，所选集合是
 \(\varepsilon\)-分离集，故过程有限步停止。停止时所得点正构成有限
@@ -168,13 +169,12 @@ Cauchy 子列收敛到空间中的点。因此每个数列都有收敛子列，�
 \(\varepsilon_0\)。紧致性给出 \(x_{n_k}\to x\)，三角不等式又给出
 \(y_{n_k}\to x\)。连续性使两像列趋于同一点，矛盾。
 
-\textit{覆盖证明。}
+\textit{Lebesgue 数证明。}
 给定 \(\varepsilon>0\)。对每个 \(x\in X\)，由连续性取 \(r_x>0\)，
-使 \(y\in B(x,2r_x)\) 时
-\(d_Y(f(y),f(x))<\varepsilon/2\)。较小球 \(B(x,r_x)\) 覆盖 \(X\)，
-取有限子覆盖并令 \(\delta\) 为这些 \(r_x\) 的最小值。若
-\(d_X(u,v)<\delta\)，取被选中心 \(x\) 使 \(u\in B(x,r_x)\)，则
-\(v\in B(x,2r_x)\)。三角不等式给出
+使 \(y\in B(x,r_x)\) 时
+\(d_Y(f(y),f(x))<\varepsilon/2\)。这些球组成开覆盖，取其Lebesgue数
+\(\lambda>0\)。若 \(d_X(u,v)<\lambda\)，则 \(u,v\in B(u,\lambda)\)，
+因而同属某个覆盖成员 \(B(x,r_x)\)。三角不等式给出
 \(d_Y(f(u),f(v))<\varepsilon\)。
 \end{solution}
 
@@ -213,7 +213,7 @@ Cauchy 子列收敛到空间中的点。因此每个数列都有收敛子列，�
 \(X\)，迫使 \(F_N=\varnothing\)，矛盾。
 
 例如在紧区间 \([0,1]\) 中取 \(F_n=[0,1]\) 对所有 \(n\)，交集含无穷
-多个点。也可取 \(F_n=[0,1+1/n]\cap[0,1]=[0,1]\)。
+多个点。若要求严格递减，可取 \(F_n=[0,1/2+1/(2n)]\)，其交为 \([0,1/2]\)。
 \end{solution}
 
 \begin{solution}{closed-bounded-discrete-counterexample}

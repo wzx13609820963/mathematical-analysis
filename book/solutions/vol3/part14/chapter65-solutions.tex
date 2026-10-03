@@ -11,23 +11,34 @@
 \begin{solution}{egorov-quantifiers}
 几乎处处收敛是
 \[
- \exists N,\ \mu(N)=0,\ \forall x\notin N,\ \forall\varepsilon>0,\
- \exists K(x,\varepsilon),\ \forall n\ge K:\ |f_n(x)-f(x)|<\varepsilon.
+ \begin{gathered}
+ \exists Z\in\mathcal A,\quad\mu(Z)=0,\quad
+ \forall x\in X\setminus Z,\quad\forall\varepsilon>0,\\
+ \exists K\ge1,\quad\forall n\ge K:\quad
+ |f_n(x)-f(x)|<\varepsilon.
+ \end{gathered}
 \]
-一致收敛把 \(K\) 改为与 \(x\) 无关。几乎一致收敛是
+这里的 \(K\) 可依赖 \(x,\varepsilon\)。普通一致收敛不删去点，并要求
+对每个 \(\varepsilon>0\)，在选择 \(x\) 以前先取一个 \(K\)，使不等式
+对全部 \(x\in X,n\ge K\) 成立。几乎一致收敛是
 \[
- \forall\eta>0,\ \exists E,\ \mu(E)<\eta,\ \forall\varepsilon>0,\
- \exists K(\eta,\varepsilon),\ \forall x\notin E,\ \forall n\ge K:
- |f_n-f|<\varepsilon.
+ \begin{gathered}
+ \forall\eta>0,\quad\exists E\in\mathcal A,\quad\mu(E)<\eta,\\
+ \forall\varepsilon>0,\quad\exists K\ge1,\quad
+ \forall x\in X\setminus E,\quad\forall n\ge K:\\
+ |f_n(x)-f(x)|<\varepsilon.
+ \end{gathered}
 \]
-Egorov 定理在有限测度下由第一组量词推出第三组量词。
+例外集 \(E\) 在选取精度 \(\varepsilon\) 以前已经确定，\(K\) 可依赖
+\(\eta,\varepsilon\)，但不依赖余集中的点。Egorov 定理在有限测度下
+由第一组量词推出后一组量词；测度可任意小不等于可取零测集。
 \end{solution}
 
 \begin{solution}{egorov-xn}
-取 \(E=(1-\eta,1]\)，其测度为 \(\eta\)（若需严格小于可取更短区间）。
-在 \([0,1-\eta]\) 上，
+令 \(\delta=\min\{\eta/2,1/2\}\)，取 \(E=(1-\delta,1]\)。则
+\(E\subseteq[0,1]\)，\(m(E)=\delta<\eta\)。在 \([0,1-\delta]\) 上，
 \[
- \sup x^n=(1-\eta)^n\to0,
+ \sup x^n=(1-\delta)^n\to0,
 \]
 故一致收敛。点 \(1\) 本身及其附近是收敛速度不能统一的区域。
 \end{solution}
@@ -84,7 +95,15 @@ Egorov 定理在有限测度下由第一组量词推出第三组量词。
 \end{solution}
 
 \begin{solution}{ae-cauchy-almost-uniform}
-若几乎处处 Cauchy，则它在实数完备性下几乎处处收敛于某个可测函数 \(f\)。
+先把各 \(f_n\) 取为有限可测代表。其点态 Cauchy 集合为
+\[
+ C=\bigcap_{r\ge1}\bigcup_{N\ge1}\bigcap_{m,n\ge N}
+   \{|f_m-f_n|\le1/r\},
+\]
+故 \(C\) 可测。若几乎处处 Cauchy，则 \(\mu(X\setminus C)=0\)。
+由实数完备性，在 \(C\) 上定义 \(f=\lim_n f_n\)，在 \(X\setminus C\)
+上定义 \(f=0\)。它是可测函数列 \(f_n\mathbf1_C\) 的处处有限极限，
+所以可测，且 \(f_n\to f\) 几乎处处。
 Egorov 定理使它在删去任意小测度集合后一致收敛，因而一致 Cauchy。
 反向，取测度小于 \(2^{-k}\) 的例外集 \(E_k\)，使补集上一致 Cauchy。
 \(\limsup E_k\) 零测；其补集上的每一点最终落在某个补集 \(E_k^c\) 中，
@@ -92,21 +111,43 @@ Egorov 定理使它在删去任意小测度集合后一致收敛，因而一致 
 \end{solution}
 
 \begin{solution}{riesz-metric-completeness}
-设 \((f_n)\) 在 \(d_\mu\) 下 Cauchy。选子列 \(f_{n_k}\)，使
+设 \((f_n)\) 在 \(d_\mu\) 下 Cauchy，先选有限可测代表。
+由上一章依测度 Cauchy 判据，对每个 \(k\ge1\) 可取整数 \(N_k\)，使
+\(m,n\ge N_k\) 时有
+\(\mu(\{|f_m-f_n|>2^{-k}\})<2^{-k}\)。把 \(N_k\) 改为递增列，
+再依次选严格递增的 \(n_k\ge N_k\)，便有
 \[
  \mu(|f_{n_{k+1}}-f_{n_k}|>2^{-k})<2^{-k}.
 \]
 由第一 Borel--Cantelli 结论，几乎处处有
-\(|f_{n_{k+1}}-f_{n_k}|\le2^{-k}\) 最终成立，所以该子列几乎处处
-Cauchy，令其极限为 \(f\)。有限测度下 a.e. 收敛蕴含依测度收敛，故
+\(|f_{n_{k+1}}-f_{n_k}|\le2^{-k}\) 最终成立。若一个点从 \(k\ge K\)
+起不再落入坏集，则对 \(j>k\ge K\)，
+\[
+ |f_{n_j}(x)-f_{n_k}(x)|\le\sum_{i=k}^{j-1}2^{-i}
+ \le2^{1-k}.
+\]
+因此子列几乎处处 Cauchy。按上一题构造可测 Cauchy 集合，在其上取有限
+极限，在其补集置零，得到有限可测函数 \(f\)。有限测度下 a.e. 收敛蕴含
+依测度收敛，故
 \(d_\mu(f_{n_k},f)\to0\)。原列 Cauchy，再由三角不等式得
-\(d_\mu(f_n,f)\to0\)。
+\(d_\mu(f_n,f)\to0\)。具体地，给定 \(\varepsilon>0\)，先取Cauchy尾部
+指标，再选尾部内的 \(n_k\) 使 \(d_\mu(f_{n_k},f)<\varepsilon/2\)，
+于是尾部每个 \(n\) 都有
+\(d_\mu(f_n,f)\le d_\mu(f_n,f_{n_k})+d_\mu(f_{n_k},f)<\varepsilon\)。
 \end{solution}
 
 \begin{solution}{egorov-lusin-comparison}
 Egorov 从“一个函数列几乎处处收敛”出发，删去小集合后改善为一致收敛；
 例外集依赖整个函数列和容许测度 \(\eta\)。Lusin 从“一个可测函数”出发，
-在有限测度且具有适当正则性的空间中删去小集合后，使限制成为连续函数；
-例外集依赖该函数和 \(\eta\)。前者改善收敛速度的统一性，后者改善单个
-函数的拓扑正则性。两者都用有限测度把递减坏集的点态消失转化为测度变小。
+本书的版本在有限测度的 Lebesgue 可测集 \(E\subseteq\mathbb R^d\)
+中取紧集 \(K\)，使 \(m(E\setminus K)<\eta\)，且 \(f|_K\) 连续。
+例外集依赖该函数和 \(\eta\)。
+
+Egorov 证明对每个误差阈值取尾部坏集，利用有限测度得到这些递减坏集
+测度趋零，再用可求和的预算合并；它不需要空间带拓扑或测度正则性。
+Lusin 证明先用有限测度删去函数值过大的部分，在余集上以有限值简单函数
+一致逼近；再由 Lebesgue 内正则性用紧集逼近各水平集。每层有限个不交
+紧集的分离性保证简单函数限制连续，最后用连续函数的一致极限传递连续性。
+因此两者都删去小集合，但 Lusin 的结论和证明还依赖拓扑，不能只归结为
+测度的递减连续性。
 \end{solution}

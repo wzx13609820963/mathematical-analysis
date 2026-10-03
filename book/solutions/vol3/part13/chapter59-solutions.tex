@@ -7,7 +7,8 @@
  \cap\bigcap_{\varepsilon_k=0}E_k^c,
  \qquad \varepsilon\in\{0,1\}^m.
 \]
-删去空集后，这些集合两两不交并覆盖 \(\cup_kE_k\)。在
+补集均相对于 \(X\) 取。删去空集后，这些集合两两不交并覆盖 \(X\)；
+全零指标对应 \(X\setminus\bigcup_kE_k\)，其上的函数值为零。在
 \(A_\varepsilon\) 上，\(\varphi\) 的值是
 \(\sum_k a_k\varepsilon_k\)，故规范表示给出的积分为
 \[
@@ -24,7 +25,10 @@
 设规范表示为
 \(\varphi=\sum_{j=1}^rb_j\mathbf1_{A_j}\)，不同正值按
 \(0<b_1<\cdots<b_r\) 排列。函数
-\(t\mapsto\mu(\{\varphi>t\})\) 是阶梯函数。逐点使用
+\(t\mapsto\mu(\{\varphi>t\})\) 是允许取无穷值的阶梯函数。
+若没有正取值，则两端均为零。若某个 \(\mu(A_j)=+\infty\)，左端积分为无穷，
+而 \(0\le t<b_j\) 时水平集测度也为无穷，故右端同为无穷。
+以下设所有这些测度有限。逐点使用
 \[
  b_j=\int_0^\infty\mathbf1_{\{b_j>t\}}\,dt
 \]
@@ -85,17 +89,29 @@
 \begin{solution}{mct-decreasing-counterexample}
 在 \((\mathbb R,\mathcal L,m)\) 上取
 \(f_n=\mathbf1_{[n,\infty)}\)。则 \(f_n(x)\downarrow0\) 对每个 \(x\)
-成立，但 \(\int f_n\,dm=\infty\)。若要求某个 \(f_{n_0}\) 可积，则对
-\(g_n=f_{n_0}-f_n\uparrow f_{n_0}-f\) 使用单调收敛定理，才可推出
-\(\int f_n\downarrow\int f\)。
+成立，但 \(\int f_n\,dm=\infty\)。
+
+相反，设非负可测函数 \(f_n\downarrow f\)，且
+\(A=\int f_{n_0}\,d\mu<\infty\)。由 Markov 估计，对每个 \(k\ge1\)，
+\(\mu(\{f_{n_0}=\infty\})\le A/k\)，所以这个可测集合为零集。
+将 \(f\) 及所有 \(f_n\) 在其上置零，不改变积分。对 \(n\ge n_0\)，
+此时 \(f_{n_0}\) 处处有限，故可定义
+\(g_n=f_{n_0}-f_n\uparrow g=f_{n_0}-f\)。单调收敛给
+\(\int g_n\uparrow\int g\)。非负加法公式给
+\[
+ A=\int g_n+\int f_n=\int g+\int f.
+\]
+各项均不超过有限数 \(A\)，于是只对有限实数作减法，得到
+\(\int f_n=A-\int g_n\downarrow A-\int g=\int f\)。
+若递减关系仅几乎处处成立，先在一个可测零集上把所有函数统一置零即可。
 \end{solution}
 
 \begin{solution}{nonnegative-series-tonelli}
-在 \(\mathbb N^2\) 上取计数测度，令 \(f_m(n)=a_{mn}\)。非负函数逐项积分
+在 \(\mathbb N\) 上取计数测度，令 \(f_m(n)=a_{mn}\)。非负函数逐项积分
 公式给出
 \[
  \sum_m\sum_na_{mn}
- =\sum_{(m,n)\in\mathbb N^2}a_{mn}
+ =\int_{\mathbb N}\sum_m f_m(n)\,d\#(n)
  =\sum_n\sum_ma_{mn}.
 \]
 也可把两边都写成所有有限矩形部分和的上确界；非负性保证不同求和次序取到
@@ -109,7 +125,8 @@
 \]
 在 \([0,1]\) 的 Lebesgue 测度上，取
 \(f=\mathbf1_{\mathbb Q\cap[0,1]}\)。它在稠密集
-\(\mathbb Q\cap[0,1]\) 上为正，但支撑集零测，故积分为零。稠密性是拓扑
+\(\mathbb Q\cap[0,1]\) 上为正，但非零点集零测，故积分为零。这里非零点集
+的闭包却是整个区间，不能把它与拓扑意义的支集混同。稠密性是拓扑
 性质，并不保证函数在正测度集合上具有正下界。
 \end{solution}
 

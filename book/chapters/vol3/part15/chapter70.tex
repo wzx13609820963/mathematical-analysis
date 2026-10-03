@@ -31,8 +31,9 @@
 并且
 \[
  V_a^b(f+g)\le V_a^b(f)+V_a^b(g),\qquad
- V_a^b(\lambda f)=|\lambda|V_a^b(f).
+ V_a^b(\lambda f)=|\lambda|V_a^b(f)\quad(\lambda\ne0).
 \]
+\(\lambda=0\) 时直接有 \(V_a^b(0f)=0\)，不使用 \(0\cdot\infty\)。
 \end{proposition}
 \begin{proof}
 将任意分割加入 \(c\)，其变差和不减，且分成左右两个和，因此得到不超过
@@ -44,8 +45,15 @@
 单调递增函数的总变差为 \(f(b)-f(a)\)。若 \(f\) 是 \(L\)-Lipschitz
 函数，则 \(V_a^b(f)\le L(b-a)\)。有界变差也蕴含有界，因为
 \(|f(x)|\le |f(a)|+V_a^b(f)\)。但有界性不控制往返次数：
-在 \([0,1]\) 上令 \(f(0)=0,\ f(x)=x\sin(1/x)\)。它连续，沿依次相邻的
-正负峰值取分割，所得变差和含有一个与调和级数同阶的发散和，故不属于 BV。
+在 \([0,1]\) 上令 \(f(0)=0,\ f(x)=x\sin(1/x)\)。它连续。取
+\(x_k=(\pi/2+k\pi)^{-1}\)（\(k\ge0\)），则
+\(f(x_k)=(-1)^kx_k\)，相邻两点的绝对增量为 \(x_k+x_{k+1}\)。
+把 \(x_N<\cdots<x_0\) 加入分割，得到
+\[
+ V_0^1(f)\ge\sum_{k=0}^{N-1}(x_k+x_{k+1}).
+\]
+右侧随 \(N\to\infty\) 发散，因为 \(x_k\) 与 \(1/(k+1)\) 同阶。
+所以连续性并不保证有界变差。
 
 \section{Jordan 分解}
 
@@ -93,7 +101,7 @@ BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，
 \end{proposition}
 \begin{proof}
 在各点左右选互不相交的小区间，把所有端点与 \(x_j\) 放入一个分割，
-再让端点趋于 \(x_j\)，即得不等式。因此括号内大于 \(1/k\) 的点至多
+再让端点趋于 \(x_j\)，即得不等式。因此对每个正整数 \(k\)，括号内大于 \(1/k\) 的点至多
 \(kV_a^b(f)\) 个。每个不连续内点至少属于这样一个集合；再加两个端点。
 \end{proof}
 
@@ -144,16 +152,22 @@ BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，
 每个阈值集合由至多可数个有理端点区间的并、交表示。并且 \(0\le L\le U\)。
 
 先证一个局部估计。若可测集 \(E\subset(c,d)\subset(a,b)\) 上 \(U>b_0>0\)，
-则斜率大于 \(b_0\) 的有理端点区间细覆盖 \(E\)。用引理选不交区间并求和，
+则斜率大于 \(b_0\) 的有理端点区间细覆盖 \(E\)。限制这些区间包含于
+\((c,d)\)，仍是细覆盖：每个 \(x\in E\) 到区间外有正距离，而候选长度
+可以任意小。用引理选不交区间并求和，
 单调性给
 \[
  b_0m(E)\le\sum_j(f(v_j)-f(u_j))\le f(d)-f(c).
 \]
-令 \(b_0\to\infty\)，再穷尽 \((a,b)\)，可知 \(U=\infty\) 的集合为零测集。
+对 \(E=\{U=\infty\}\cap(c,d)\)，这个估计对每个 \(b_0>0\) 都成立。
+令 \(b_0\to\infty\)，得 \(m(E)=0\)。再用可数个内部区间穷尽
+\((a,b)\)，可知 \(U=\infty\) 的集合为零测集。
 
 固定有理数 \(0<a_0<b_0\)，设 \(E=\{L<a_0<b_0<U\}\)。
 取有界开集 \(G\subset(a,b)\) 包含 \(E\)，使 \(m(G)<m(E)+\eta\)。
-斜率小于 \(a_0\) 且包含于 \(G\) 的区间细覆盖 \(E\)，选出不交的 \(I_j=[u_j,v_j]\)。
+每个 \(x\in E\) 都有任意小的低斜率区间；因 \(G\) 开，充分小的候选
+包含于 \(G\)。因此斜率小于 \(a_0\) 且包含于 \(G\) 的区间仍细覆盖
+\(E\)，可选出不交的 \(I_j=[u_j,v_j]\)。
 在每个 \((u_j,v_j)\) 中使用刚才的高斜率估计，忽略至多可数个端点，得
 \[
  b_0m(E)\le\sum_j(f(v_j)-f(u_j))
@@ -164,16 +178,31 @@ BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，
 
 还需把区间斜率还原为通常导数。排除 \(f\) 的至多可数个不连续点。
 在其余点 \(x\)，若 \(L(x)=U(x)=d\)，则所有充分短的有理端点区间斜率
-都在 \(d\pm\varepsilon\) 之间。对 \(h>0\)，用有理端点从外包住
-\([x,x+h]\)，并使多出的长度为 \(o(h)\)；单调性给右差商的上界。
-对下界，从 \(x\) 左侧取 \(u\)，利用 \(f\) 在 \(x\) 连续使
-\(f(x)-f(u)=o(h)\)，再取 \(x+h\) 左侧的有理 \(v\)，使
-\(x+h-v=o(h)\)。此时
+都在 \(d\pm\varepsilon\) 之间。以下令 \(h>0\) 足够小，使所取区间
+均在 \((a,b)\) 内。对右差商上界，取有理数 \(u<x<x+h<v\)，使
+\(x-u<h^2\)、\(v-(x+h)<h^2\)。则
+\[
+ \frac{f(x+h)-f(x)}h
+ \le s(u,v)\frac{v-u}{h}\le(d+\varepsilon)(1+2h).
+\]
+对下界，利用 \(f\) 在 \(x\) 连续，取有理数 \(u<x\)，同时满足
+\(x-u<h^2\)、\(f(x)-f(u)<h^2\)。再取有理数 \(x<v<x+h\)，使
+\(x+h-v<h^2\)。于是
 \[
  f(x+h)-f(x)\ge f(v)-f(u)-(f(x)-f(u)).
 \]
-相除后分别得到上极限不超过 \(d+\varepsilon\)、下极限不小于
-\(d-\varepsilon\)。左差商同理用内外包区间夹住。故 \(f'(x)=d\)。
+因此右差商不小于 \((d-\varepsilon)(v-u)/h-h\)。这里
+\(|(v-u)/h-1|<2h\)，故上下极限分别被 \(d\pm\varepsilon\) 夹住。
+
+左差商的上界用有理端点外包 \([x-h,x]\)，两端多出的长度小于 \(h^2\)，
+同样得到 \((d+\varepsilon)(1+2h)\)。对下界，取有理数
+\(x-h<u<x<v\)，使 \(u-(x-h)<h^2\)、\(v-x<h^2\) 及
+\(f(v)-f(x)<h^2\)。则
+\[
+ f(x)-f(x-h)\ge f(v)-f(u)-(f(v)-f(x)),
+\]
+且 \((v-u)/h\to1\)，所以左差商下极限也不小于 \(d-\varepsilon\)。
+让 \(\varepsilon\downarrow0\)，得到两侧导数均为 \(d\)。
 
 最后，对 \(0<h<b-a\)，非负差商在 \([a,b-h]\) 上满足
 \[
@@ -213,7 +242,9 @@ BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，
        \bigl(\alpha(t_j)-\alpha(t_{j-1})\bigr),\quad
  \xi_j\in[t_{j-1},t_j].
 \]
-若当网格长度趋零时，这些和一致于标记的选择而趋于同一数，称其为
+若存在实数 \(I\)，使每个 \(\varepsilon>0\) 都对应一个 \(\delta>0\)，
+对所有 \(|P|<\delta\) 的分割及所有允许的标记都有
+\(|S(g,\alpha;P,\xi)-I|<\varepsilon\)，则称 \(I\) 为
 \(\int_a^b g\,d\alpha\)。取 \(\alpha(x)=x\) 即回到 Riemann 积分。
 
 \begin{theorem}\label{thm:continuous-rs-integral}
@@ -232,7 +263,7 @@ BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，
 
 \subsection{连续部分与跳跃部分}
 
-若 \(\alpha\in C^1[a,b]\)，在每个分段用中值定理，所得和与
+以下继续假设 \(g\) 连续。若 \(\alpha\in C^1[a,b]\)，在每个分段用中值定理，所得和与
 \(\sum g(\xi_j)\alpha'(\xi_j)\Delta t_j\) 的差受
 \(\|g\|_\infty\omega_{\alpha'}(|P|)(b-a)\) 控制，因此
 \(\int g\,d\alpha=\int g\alpha'\,dx\)。
@@ -263,13 +294,13 @@ BV 函数的不连续点至多可数。对任意有限个不同内点 \(x_j\)，
 \exerciseitem{variation-c-one}证明 \(f\in C^1[a,b]\) 时 \(V_a^b(f)=\int_a^b|f'|\)。
 \exerciseitem{variation-uniform-limit}若 \(f_n\to f\) 逐点，证明 \(V(f)\le\liminf_nV(f_n)\)。说明为什么不需要一致收敛。
 \exerciseitem{variation-complete}证明 \(BV[a,b]\) 在 A组定义的范数下完备。
-\exerciseitem{variation-representative}设内点 \(c\) 的左右极限为 \(u,v\)。把 \(f(c)\) 换成两者之间的数，证明总变差不会增加。
+\exerciseitem{variation-representative}设 \(f\in BV[a,b]\)，内点 \(c\) 的左右极限为 \(u,v\)。把 \(f(c)\) 换成两者之间的数，证明总变差不会增加。
 \exerciseitem{rs-common-jump}取 \(g=\alpha=\mathbf1_{[c,b]}\)，证明按正文的任意标记定义，\(\int g\,d\alpha\) 不存在。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \optionalexerciseitem{variation-reciprocal}若 \(f\in BV\) 且 \(|f|\ge\eta>0\)，证明 \(1/f\in BV\)，给出变差估计。
-\projectexerciseitem{rs-discrete-summable}设不同点 \(c_j\in(a,b)\)，\(\sum|a_j|<\infty\)，令
+\projectexerciseitem{rs-discrete-summable}设不同点 \(c_j\in(a,b)\)（\(j\ge1\)），\(\sum_{j=1}^\infty|a_j|<\infty\)，令
 \(\alpha(x)=\sum_j a_j\mathbf1_{[c_j,b]}(x)\)。证明它属于 BV，并对连续 \(g\)
 证明 \(\int g\,d\alpha=\sum_j a_jg(c_j)\)。
 \end{enumerate}

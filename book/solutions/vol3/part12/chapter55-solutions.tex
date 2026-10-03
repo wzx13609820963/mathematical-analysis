@@ -1,8 +1,8 @@
 \chapter{外测度}
 
 \begin{solution}{outer-measure-covering-proof}
-给定 $A\subseteq\bigcup_kA_k$。若某个 $\mu^*(A_k)=+\infty$，所需不等式
-无内容。否则固定 $\varepsilon>0$，为每个 $k$ 取覆盖
+给定 $A\subseteq\bigcup_{k\ge1}A_k$。若 $\sum_{k\ge1}\mu^*(A_k)=+\infty$，
+所需不等式自动成立。否则固定 $\varepsilon>0$，为每个 $k\ge1$ 取覆盖
 $A_k\subseteq\bigcup_jC_{k,j}$，使
 $\sum_j\ell(C_{k,j})<\mu^*(A_k)+\varepsilon2^{-k}$。双重指标族至多可数，
 可排成单列并覆盖 $A$，故
@@ -18,7 +18,7 @@ $\mu^*(A)\le\mu^*(A\cap Z)+\mu^*(A\setminus Z)=\mu^*(A\setminus Z)$，
 
 \begin{solution}{caratheodory-finite-unions}
 补集封闭由条件的对称性得到。若 $E,F$ 可测，先按 $E$ 分割测试集 $A$，
-再分别按 $F$ 分割 $A\cap E$ 与 $A\setminus E$，把落在 $E\cup F$ 中的
+再按 $F$ 分割 $A\setminus E$，把落在 $E\cup F$ 中的
 两项用次可加性合并，得到
 $\mu^*(A)\ge\mu^*(A\cap(E\cup F))+\mu^*(A\setminus(E\cup F))$。
 另一方向自动成立，故有限并封闭。差写成 $E\cap F^c$。
@@ -35,7 +35,8 @@ $\mu^*(A)\ge\mu^*(A\cap(E\cup F))+\mu^*(A\setminus(E\cup F))$。
 \end{solution}
 
 \begin{solution}{metric-outer-measure-borel}
-设 $F$ 闭，并固定 $A\subseteq X$。若 $\mu^*(A)=+\infty$，
+若 $F=\varnothing$，可测性直接成立。以下设 $F$ 非空且闭，并固定
+$A\subseteq X$。若 $\mu^*(A)=+\infty$，
 Carathéodory 不等式自动成立。以下设 $\mu^*(A)<\infty$，并令
 \[
  A_n=\{x\in A:d(x,F)\ge 1/n\}.
@@ -50,7 +51,9 @@ $A_n$ 与 $A\cap F$ 的距离为正，故
 \[
  C_k=\{x\in A:1/(k+1)\le d(x,F)<1/k\}\qquad(k\ge1).
 \]
-任意有限个同奇偶性的 $C_k$ 两两保持正距离，因此度量可加性与
+函数 $x\mapsto d(x,F)$ 为 $1$-Lipschitz；同奇偶性的两个不同指标至少相差2，
+对应距离值区间之间留有正间隙。因此任意有限个同奇偶性的非空 $C_k$ 两两
+保持正距离，逐次把一块与前面有限块的并合并时也保持正距离。度量可加性与
 $\bigcup C_k\subseteq A$ 给出
 \[
  \sum_{k\ge1}\mu^*(C_k)\le 2\mu^*(A)<\infty.
@@ -79,18 +82,48 @@ Carathéodory 条件。
 
 \begin{solution}{finite-partition-premeasure}
 代数中的集合都是若干原子之并。定义
-$\mu_0(E)=\sum_{A_j\subseteq E}w_j$。有限集合上可数不交并实际上只有有限
-多个非空原子贡献，所以预测度条件成立。生成的 $\sigma$-代数就是该有限
-代数，延拓仍由同一公式给出；零权重原子的全部子集若不在原代数中，则
-Carathéodory 完备域还会把它们补入。
+$\mu_0(E)=\sum_{A_j\subseteq E}w_j$。在这个由有限个原子组成的代数上，
+不交集合族至多有 $m$ 个非空成员，每个原子只贡献一次，故预测度条件成立；
+这里不要求 $X$ 是有限集。
+
+对任意 $S\subseteq X$，每个覆盖 $S$ 的代数集合族必须包含所有与 $S$ 相交
+的原子；而这些原子的并本身就是一个允许的覆盖。因此
+\[
+ \mu^*(S)=\sum_{j:S\cap A_j\ne\varnothing}w_j.
+\]
+若 $w_j>0$ 且 $E$ 把 $A_j$ 分成两个非空部分，以 $A_j$ 为测试集，
+Carathéodory 等式就要求 $w_j=2w_j$，与有限正权重矛盾。因此每个正权重
+原子必须全部包含在 $E$ 内或全部在其外。零权重原子的任意子集不受限制。
+反之，满足此条件的 $E$ 对任意测试集 $S$，把每个正权重原子的贡献恰好
+分到内外两侧之一，零权重块无论怎样分割均贡献零，所以满足可测性等式。
+
+记 $Z=\bigcup_{w_j=0}A_j$。所求可测域及测度为
+\[
+ \mathcal M_{\mu^*}
+ =\left\{\left(\bigcup_{j\in J}A_j\right)\cup N:
+ J\subseteq\{j:w_j>0\},\ N\subseteq Z\right\},
+\]
+对于其中的集合，$\mu((\bigcup_{j\in J}A_j)\cup N)=\sum_{j\in J}w_j$。
+这是原有限代数上测度的完备化；若全部权重为零，则可测域是 $\mathcal P(X)$。
 \end{solution}
 
 \begin{solution}{extension-nonunique-infinite-total}
-计数测度 $\#$ 满足 $\#X=+\infty$。另定义
-$\nu(E)=0$ 若 $E$ 有限，$\nu(E)=+\infty$ 若 $E$ 无限。对不交集列，若其并
-无限，则或者某项无限，或者有无穷多个非空有限项，两种情形右侧均为
-$+\infty$；故 $\nu$ 是测度。二者都在 $\{\varnothing,X\}$ 上延拓
-$\mu_0$，但在单点上取值不同。
+记正文的区间代数为 $\mathcal A_0$。每个生成区间都是Borel集，故
+$\sigma(\mathcal A_0)\subseteq\mathcal B(\R)$。反过来，每个开集是其中所含的
+有理端点半开区间的并：给定开集内一点，可在它两侧取仍留在开集内的有理
+端点。这些区间至多可数，因此每个开集都在 $\sigma(\mathcal A_0)$ 中。
+两者相等。
+
+计数测度对有限集取其基数，对无限集取无穷，满足可数可加性。
+定义 $\nu(E)=0$ 当 $E$ 至多可数，$\nu(E)=+\infty$ 当 $E$ 不可数。
+若不交Borel集列每项至多可数，则其并至多可数，等式两端都为零；
+若有不可数的一项，则并也不可数，等式两端都为无穷。因此 $\nu$ 是测度。
+代数中非空集合都含区间，故两种测度在其上都取无穷，都是 $\mu_0$ 的延拓。
+它们在 $\{0\}$ 上分别取 $1$ 和 $0$，确实不同。
+
+相反，在 $\N$ 上设有限集取零、无限集取无穷，则每个单点的值都是零，
+而 $\N=\bigcup_{n\ge0}\{n\}$ 的值为无穷。可数可加性要求它等于
+$\sum_{n\ge0}0=0$，矛盾。可数个零相加不能因非零项的“个数无穷”而变成无穷。
 \end{solution}
 
 \begin{solution}{sigma-finite-disjoint-cover}
@@ -100,17 +133,26 @@ $\mu_0(Y_n)\le\mu_0(X_n)<\infty$。
 \end{solution}
 
 \begin{solution}{pi-lambda-theorem}
-记 $\lambda(\mathcal P)$ 为包含 $\mathcal P$ 的最小 Dynkin 系统。先对
+任意多个 Dynkin 系统的交仍是 Dynkin 系统，且 $\mathcal P(X)$ 包含
+$\mathcal P$，故存在最小者 $\lambda(\mathcal P)$，简记为 $\mathcal L$。
+先注意 Dynkin 系统内 $U\subseteq V$ 时，
+$V\setminus U=(U\cup V^c)^c$ 仍在系统内，因为右边所用的并是不交并。对
 $A\in\mathcal P$ 定义
-$\mathcal D_A=\{B:A\cap B\in\lambda(\mathcal P)\}$。利用
-$A\in\lambda(\mathcal P)$ 可验证 $\mathcal D_A$ 是 Dynkin 系统；
+$\mathcal D_A=\{B\subseteq X:A\cap B\in\mathcal L\}$。
+它包含 $X$，因为 $A\in\mathcal L$；对补封闭，因为
+$A\cap B^c=A\setminus(A\cap B)$ 是 $\mathcal L$ 中的嵌套差集；
+对不交可数并封闭，因为 $A\cap\bigcup_nB_n=\bigcup_n(A\cap B_n)$，
+且右边仍为不交并。因此 $\mathcal D_A$ 是 Dynkin 系统。
 $\mathcal P$ 对交封闭，故 $\mathcal P\subseteq\mathcal D_A$，于是
 $\lambda(\mathcal P)\subseteq\mathcal D_A$。再固定
 $B\in\lambda(\mathcal P)$，令
-$\mathcal E_B=\{A:A\cap B\in\lambda(\mathcal P)\}$。同理它是包含
-$\mathcal P$ 的 Dynkin 系统，故包含 $\lambda(\mathcal P)$。所以
+$\mathcal E_B=\{A\subseteq X:A\cap B\in\mathcal L\}$。
+前一步给出 $\mathcal P\subseteq\mathcal E_B$；它包含 $X$，因为 $B\in\mathcal L$。
+又 $A^c\cap B=B\setminus(A\cap B)$ 为嵌套差集，交与不交并的分配律也仍
+适用，故 $\mathcal E_B$ 是 Dynkin 系统，包含 $\lambda(\mathcal P)$。所以
 $\lambda(\mathcal P)$ 对有限交封闭。一个既是 Dynkin 系统又对有限交封闭
-的集合族是 $\sigma$-代数，故
+的集合族对补和有限并封闭；再将任意可数并化为不交并，就得到
+$\sigma$-代数，故
 $\sigma(\mathcal P)=\lambda(\mathcal P)\subseteq\mathcal D$。
 \end{solution}
 
@@ -163,14 +205,19 @@ $\mu(E_n)<\mu^*(A)+2^{-n}$，并令
  =\mu^*(F\cap A)+\mu^*(F\setminus A)
  =\mu^*(A)+\mu^*(F\setminus A),
 \]
-所以 $F\setminus A$ 外测度为零。于是 $A$ 与可测集 $F$ 只相差零测集。
+所以 $F\setminus A$ 外测度为零。为回到原空间的完备化，还须找到原可测零包。
+一般地，若 $\mu^*(Z)=0$，由下确界定义可取 $H_k\in\mathcal A$，
+$Z\subseteq H_k$ 且 $\mu(H_k)<2^{-k}$。于是
+$H=\bigcap_{k\ge1}H_k\in\mathcal A$ 包含 $Z$，并且
+$0\le\mu(H)\le2^{-k}$ 对所有 $k$ 成立，故 $\mu(H)=0$。
+应用于 $Z=F\setminus A$，便知 $A$ 与原可测集 $F$ 的差包含于原可测零集。
 
 最后使用 $\sigma$-有限性。取两两不交的可测集 $X_j$，使
 $X=\bigcup_jX_j$ 且 $\mu(X_j)<\infty$。每个 $A\cap X_j$ 仍是
 Carathéodory 可测集，且外测度有限；由上一步，存在
 $F_j\in\mathcal A$，可令 $F_j\subseteq X_j$，并使
-$F_j\setminus(A\cap X_j)$ 外测度为零。令 $F=\bigcup_jF_j$，则
-$F\in\mathcal A$，而 $F\mathbin\triangle A$ 是可数个零测集的并。
+$F_j\setminus(A\cap X_j)$ 包含于某个原可测零集 $H_j$。令 $F=\bigcup_jF_j$，则
+$F\in\mathcal A$，而 $F\mathbin\triangle A\subseteq\bigcup_jH_j$，右边是原可测零集。
 因此每个 Carathéodory 可测集都属于原测度空间的完备化。这里把全空间分成
 有限测度块正是 $\sigma$-有限性的用途。
 \end{solution}
@@ -178,9 +225,25 @@ $F\in\mathcal A$，而 $F\mathbin\triangle A$ 是可数个零测集的并。
 \begin{solution}{outer-measure-restriction}
 三个外测度公理在子集 $Y$ 上直接继承。若 $E$ 在 $X$ 中
 Carathéodory 可测，则对任意 $A\subseteq Y$ 使用同一分割公式，说明
-$E\cap Y$ 在 $Y$ 中可测。反向一般不成立，因为 $Y$ 外的测试集合被删去；
-若 $Y$ 本身在 $X$ 中可测，则 $Y$ 上的可测集正可与 $X$ 中可测集的截面
-比较。
+$E\cap Y$ 在 $Y$ 中可测。因此总有
+\[
+ \{E\cap Y:E\in\mathcal M_{\mu^*}\}\subseteq\mathcal M_{\nu^*}.
+\]
+若 $Y\in\mathcal M_{\mu^*}$，反向也成立。取 $B\in\mathcal M_{\nu^*}$，
+对任意 $A\subseteq X$ 先按 $Y$ 分割，再在 $Y$ 内按 $B$ 分割，得到
+\[
+ \mu^*(A)=\mu^*(A\cap B)+\mu^*((A\cap Y)\setminus B)+\mu^*(A\setminus Y)
+ \ge\mu^*(A\cap B)+\mu^*(A\setminus B).
+\]
+次可加性给另一方向，故 $B\in\mathcal M_{\mu^*}$，又 $B=B\cap Y$，所求两族相等。
+
+一般 $Y$ 可严格扩大相对可测域。取 $X=\{a,b,c\}$，用
+$\varnothing,\{a,b\},\{b,c\}$ 覆盖，空集代价0，另两块各代价1。
+诱导外测度在每个单点及 $\{a,b\},\{b,c\}$ 上为1，在 $\{a,c\}$ 及 $X$ 上为2。
+三个单点均不可测：分别以 $\{a,b\},\{a,b\},\{b,c\}$ 为测试集，
+分割后代价从1变成2。由补对称性，三个二点集也不可测，故
+$\mathcal M_{\mu^*}=\{\varnothing,X\}$。但在 $Y=\{a,c\}$ 上，限制外测度
+就是计数测度，所有子集均可测，而原可测集的截面只有 $\varnothing,Y$。
 \end{solution}
 
 \begin{solution}{premeasure-finite-cover-subadditivity}

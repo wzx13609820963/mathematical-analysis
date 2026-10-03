@@ -141,7 +141,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 \]
 故 \((b_n)\) 是 Cauchy 列。逐项乘积从第 \(N\) 项起等于 \(1\)，所以 \([a_n][b_n]=[1]\)。
 
-若从另一个等价代表开始作同样构造，也会得到同一逆元：域中一个元素的乘法逆元至多有一个。因而这里不必再把倒数列的代表独立性作为新的定义前提。
+若从另一个等价代表开始作同样构造，也会得到同一逆元：在已经建立的含幺交换环中，若 \(xb=xc=1\)，则 \(b=b(xc)=(bx)c=c\)。因而这里不必再把倒数列的代表独立性作为新的定义前提。
 \end{proof}
 
 \section{序关系与常值列嵌入}
@@ -398,7 +398,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
 
 
 \begin{theorem}
-任意两个完备有序域 \(F,G\) 之间存在唯一的保序域同构；该同构固定其中的有理数副本。
+任意两个满足确界原理的有序域 \(F,G\) 之间存在唯一的保序域同构；该同构固定其中的有理数副本。这里“完备有序域”指确界完备，或等价地，兼有 Archimedes 性质与 Cauchy 完备性。
 \end{theorem}
 
 \begin{proof}
@@ -455,7 +455,7 @@ Dedekind 分割保存一个数左侧的全部有理信息；Cauchy 构造保存�
  \projectexerciseitem{5.11} \ 【前置：\exerciserange{5.6}{5.10}；预计用时：90分钟】从定义完整证明 \(\widehat{\R}\) 是完备有序域，不引用\chapterref{chap:dedekind-construction}。
  \exerciseitem{5.12} 对\chapterref{chap:real-number-system}逼近 \(\sqrt2\) 的十进制列，证明其类的平方等于常值类 \(2\)。
  \optionalexerciseitem{5.13} 补全 \(\Phi([a_n])=\{q:q<[a_n]\}\) 的满射性证明，明确二分序列的 Cauchy 性与左右部判别。
- \openexerciseitem{5.14} 比较 Cauchy 完备化对一般度量空间的推广：哪些步骤只用距离，哪些步骤依赖域运算与序。
+ \openexerciseitem{5.14} 学完\chapterref{chap:complete-metric-spaces}后回做：比较 Cauchy 完备化对一般度量空间的推广，哪些步骤只用距离，哪些步骤依赖域运算与序？单纯连续的映射是否一定可以延拓到完备化？
  \exerciseitem{5.15} 证明有理 Cauchy 列等价于常值列 \(q\) 当且仅当它在 \(\Q\) 中收敛到 \(q\)。
  \exerciseitem{5.16} 补全构造域完备性证明中的双重尾部估计，严格区分外层指标 \(k\) 与代表列指标 \(j\)。
  \exerciseitem{5.17} 证明构造域中的有理常值类稠密，并给出对给定 \(x<y\) 选择有理 \(q\) 的定量步骤。

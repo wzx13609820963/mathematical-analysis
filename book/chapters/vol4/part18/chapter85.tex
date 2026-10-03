@@ -71,18 +71,26 @@
 \(\mathcal Ff=\lim\widehat\varphi_n\)。相同估计说明定义与逼近列无关，且
 得到线性和等距性。
 
+在使用两次变换之前，须核对这个延拓与积分定义的一致性。若
+\(f\in L^1\cap L^2\)，先用 \(f\mathbf1_{B(0,n)}\) 截断，再选足够小的
+磨光参数，可得 \(\varphi_n\in C_c^\infty\) 同时在 \(L^1,L^2\) 中趋于 \(f\)。
+于是 \(\widehat{\varphi_n}\to\widehat f\) 一致，而按延拓的定义，
+\(\widehat{\varphi_n}\to\mathcal Ff\) 于 \(L^2\)。后一收敛有几乎处处收敛
+子列，故 \(\mathcal Ff=\widehat f\) 几乎处处。这里截断与磨光在两种范数
+中的误差都可分别控制在 \(1/n\) 内，所以不需要为两种范数选择不同的最终序列。
+
 在试验类上，两次变换满足
-\(\mathcal F^2\varphi(x)=\varphi(-x)\)，这是反演定理。反射算子
+\(\mathcal F^2\varphi(x)=\varphi(-x)\)：因为
+\(\widehat\varphi\in L^1\cap L^2\)，第二次延拓变换也可以用积分计算，
+此时再应用反演定理。反射算子
 \(R\varphi(x)=\varphi(-x)\) 在 \(L^2\) 上酉，故稠密延拓给
 \(\mathcal F^2=R\)。于是 \(\mathcal F\) 满射，并且
 \(\mathcal F^{-1}=R\mathcal F=\mathcal FR\)。极化公式再给内积保持。
 \end{proof}
 
-若 \(f\in L^1\cap L^2\)，取 \(\varphi_n\to f\) 同时在 \(L^1\) 和
-\(L^2\) 中成立的光滑紧支撑逼近。则积分变换
-\(\widehat{\varphi_n}\to\widehat f\) 一致，而 Plancherel 延拓在 \(L^2\) 中
-收敛到 \(\mathcal Ff\)。取一个几乎处处收敛子列，两个极限相同，所以延拓
-确实与原 \(L^1\) 定义一致。
+证明中核对两种定义的步骤不可省略。\(\widehat\varphi\) 通常没有紧支撑，
+因此不能仅凭 \(\varphi\in C_c^\infty\)，就把第二次延拓变换当作积分变换。
+一致性一经建立，今后在 \(L^1\cap L^2\) 上便可按计算需要使用任一定义。
 
 \section{\texorpdfstring{\(L^2\)}{L2} 反演与截断}
 
@@ -108,7 +116,14 @@ Plancherel 变换是 \(L^2\) 等价类的范数极限。若
 
 \section{卷积与乘积的平方积分版本}
 
-若 \(f\in L^2,g\in L^1\)，Young 不等式给
+若 \(f\in L^2,g\in L^1\)，先证明所需的 Young 估计。\(g=0\) 时显然。
+否则对概率测度 \(|g(y)|dy/\|g\|_1\) 使用 Cauchy--Schwarz，得到
+\[
+ |f*g(x)|^2\le\|g\|_1\int|f(x-y)|^2|g(y)|\,dy.
+\]
+Tonelli 定理说明右侧对 \(x\) 的积分为 \(\|g\|_1^2\|f\|_2^2<\infty\)。
+因此内层积分几乎处处有限，再用同一概率测度的 Cauchy--Schwarz 可知
+卷积的绝对积分几乎处处有限。积分上述估计便得
 \(\|f*g\|_2\le\|f\|_2\|g\|_1\)。用 \(L^1\cap L^2\) 函数逼近 \(f\)，
 从 \(L^1\) 卷积定理和 Plancherel 连续性得到
 \begin{equation}\label{eq:plancherel-convolution}
@@ -123,13 +138,19 @@ Plancherel 变换是 \(L^2\) 等价类的范数极限。若
  =\int_{\R^d}(\mathcal Ff)(\xi-\eta)(\mathcal Fg)(\eta)\,d\eta.
 \]
 Cauchy--Schwarz 不等式给这个积分以 \(\|f\|_2\|g\|_2\) 为共同上界。
-用 \(L^1\cap L^2\) 函数同时逼近 \(f,g\)，可从 \(L^1\) 乘积公式传到极限，
-得到
+具体取 \(f_n,g_n\in C_c^\infty\)，分别在 \(L^2\) 中逼近 \(f,g\)。
+它们及其变换均在 \(L^1\) 中，故可使用上一章的乘积公式。又有
+\[
+ \|f_ng_n-fg\|_1
+ \le\|f_n-f\|_2\|g_n\|_2+\|f\|_2\|g_n-g\|_2\longrightarrow0.
+\]
+在频率端用相同的 Cauchy--Schwarz 估计，卷积的差一致地趋零。
+因此两边都能一致地传到极限，得到
 \[
  \widehat{fg}=(\mathcal Ff)*(\mathcal Fg).
 \]
-两边都是 \(C_0(\R^d)\) 函数；右侧的连续性和无穷远消失可先对紧支撑函数
-验证，再用上述一致估计逼近。这里的卷积属于 \(L^\infty\)，未必属于
+左侧属于 \(C_0(\R^d)\)，所以等式也证明右侧连续且在无穷远消失。
+这里的卷积属于 \(L^\infty\)，未必属于
 \(L^1\)。
 
 \section{微分算子的频率定义}
@@ -139,20 +160,81 @@ Cauchy--Schwarz 不等式给这个积分以 \(\|f\|_2\|g\|_2\) 为共同上界�
 \[
  D_jf=\mathcal F^{-1}\bigl(2\pi i\xi_j\mathcal Ff\bigr).
 \]
-这是闭的、稠密定义的线性算子，定义域为
+其定义域为
 \[
  \mathcal D(D_j)=
  \{f\in L^2:\xi_j\mathcal Ff\in L^2\}.
 \]
-若 \(f\in C_c^\infty\)，它与经典偏导数相同。若
+若 \(f\in C_c^\infty\)，它与经典偏导数相同。因此定义域包含
+\(C_c^\infty\)，在 \(L^2\) 中稠密。
+称这样的算子闭，是指其图在 \(L^2\times L^2\) 中闭。
+用序列检验：若
 \(f_n\to f\) 且 \(D_jf_n\to g\) 于 \(L^2\)，对等式
-\(\mathcal F(D_jf_n)=2\pi i\xi_j\mathcal Ff_n\) 取极限，可知
+\(\mathcal F(D_jf_n)=2\pi i\xi_j\mathcal Ff_n\)，选一个使两侧涉及的
+两个 \(L^2\) 收敛列同时几乎处处收敛的子列，再逐点取极限，可知
 \(f\in\mathcal D(D_j)\) 且 \(D_jf=g\)，所以算子闭。
 
-\chapterref{chap:distributions-weak-derivatives}将定义分布导数，并证明
-这里的频率导数正是 \(L^2\) 弱导数。现在已经
-可以看出其自然性：在频率空间中，微分不是处处有界的乘法算子；因子
-\(|\xi_j|\) 无界，所以微分不能成为整个 \(L^2\) 上的有界算子。
+这并不是定义在整个 Banach 空间上的闭图定理的情形。
+例如取单位体积的频率长方体，在第 \(j\) 个坐标上为 \([n,n+1]\)，
+其余坐标为 \([0,1]\)，以其指标函数作为 \(\widehat f_n\)。则
+\(f_n\in\mathcal D(D_j)\)、\(\|f_n\|_2=1\)，却有
+\(\|D_jf_n\|_2\ge2\pi n\)。所以 \(D_j\) 不满足关于 \(L^2\) 范数的有界估计。
+
+为处理下一节的一维问题，先建立此时频率导数与函数导数的联系。
+对 \(f,g\in L^2(\R)\)，称 \(g\) 是 \(f\) 的弱导数，如果
+\[
+ \int_\R f\varphi'=-\int_\R g\varphi
+ \qquad(\varphi\in C_c^\infty(\R)).
+\]
+这是周期情形的相同积分条件，只是测试函数现在具有紧支撑。
+
+\begin{proposition}\label{prop:fourier-derivative-ac-line}
+对 \(f,g\in L^2(\R)\)，下列条件等价：
+\(f\in\mathcal D(D_1)\) 且 \(D_1f=g\)；
+\(g\) 是 \(f\) 的弱导数；
+\(f\) 有一个局部绝对连续代表 \(F\)，满足 \(F'=g\) 几乎处处。
+\end{proposition}
+\begin{proof}
+若 \(D_1f=g\)，对测试函数 \(\varphi\) 用 Plancherel 得
+\[
+ \langle g,\varphi\rangle
+ =\langle2\pi i\xi\widehat f,\widehat\varphi\rangle
+ =-\langle\widehat f,2\pi i\xi\widehat\varphi\rangle
+ =-\langle f,\varphi'\rangle.
+\]
+测试函数及其共轭属于同一类，故这正是弱导数条件。
+
+若 \(g\) 是弱导数，令 \(G(x)=\int_0^xg(t)dt\)，并置 \(h=f-G\)。
+\(G\) 局部绝对连续，分部积分给 \(\int h\varphi'=0\)。
+对任意积分为零的 \(\psi\in C_c^\infty\)，其原函数
+\(\varphi(x)=\int_{-\infty}^x\psi(t)dt\) 仍在 \(C_c^\infty\)，所以
+\(\int h\psi=0\)。固定 \(\eta\in C_c^\infty\) 使 \(\int\eta=1\)，
+记 \(c=\int h\eta\)。将任意测试函数减去 \((\int\psi)\eta\)，得到
+\(\int(h-c)\psi=0\)。在每个有界开区间上，\(h-c\in L^2\)，而
+\(C_c^\infty\) 在该区间的 \(L^2\) 中稠密（\exerciseref{density-open-set}），
+故 \(h=c\) 几乎处处。
+因此 \(F=G+c\) 是所需代表。
+
+最后设有这样的代表 \(F\)。取固定光滑截断 \(\chi\)，在 \([-1,1]\)
+上为一、支撑于 \([-2,2]\)、取值于 \([0,1]\)，令 \(\chi_R(x)=\chi(x/R)\)。
+则 \(u_R=\chi_RF\) 绝对连续且紧支撑，
+\[
+ u_R\to f,\qquad u_R'=\chi_Rg+\chi_R'F\to g\quad\text{于 }L^2.
+\]
+第一项由控制收敛，第二式中的截断导数项由
+\(\|\chi_R'F\|_2\le\|\chi'\|_\infty\|f\|_2/R\) 控制。
+取非负、积分为一的紧支撑光滑磨光核 \(\rho_\varepsilon\)。
+对固定 \(R\)，积分号下求导再对绝对连续函数分部积分，给
+\((u_R*\rho_\varepsilon)'=u_R'*\rho_\varepsilon\)。
+边界项因紧支撑消失；涉及的函数在有限区间上可积，故换序合法。
+磨光逼近定理使函数与导数同时在 \(L^2\) 中趋于 \(u_R,u_R'\)。
+依次取 \(R\to\infty\) 和足够小的 \(\varepsilon\)，得到
+\(v_n\in C_c^\infty\)，使 \(v_n\to f\)、\(v_n'\to g\) 于 \(L^2\)。
+已知 \(D_1v_n=v_n'\)，由 \(D_1\) 的闭性得到 \(D_1f=g\)。
+\end{proof}
+
+\chapterref{chap:distributions-weak-derivatives}将系统讨论开集上的分布导数
+和弱导数；本章所需的一维等价关系已经由上述论证建立。
 
 \section{一个不确定性估计}
 
@@ -160,7 +242,19 @@ Cauchy--Schwarz 不等式给这个积分以 \(\|f\|_2\|g\|_2\) 为共同上界�
 \[
  \|f\|_2^2=-2\operatorname{Re}\int_\R x f'(x)\overline{f(x)}\,dx
 \]
-可先对光滑紧支撑函数分部积分，再由逼近推广。Cauchy--Schwarz 给
+先在光滑紧支撑类中由分部积分成立。下面核实推广所需的共同逼近。
+使用上一命题的局部绝对连续代表和截断 \(u_R=\chi_Rf\)，除了函数及导数
+收敛，还有 \(xu_R\to xf\) 于 \(L^2\)。对固定 \(R\)，磨光满足
+\[
+ x(u_R*\rho_\varepsilon)
+ =(xu_R)*\rho_\varepsilon+u_R*(x\rho_\varepsilon).
+\]
+第一项在 \(L^2\) 中趋于 \(xu_R\)，第二项的范数不超过
+\(\|u_R\|_2\|x\rho_\varepsilon\|_1=O(\varepsilon)\|u_R\|_2\)，
+其中常数只由固定磨光核决定。于是可选 \(v_n\in C_c^\infty\)，使
+\(v_n\to f\)、\(xv_n\to xf\)、\(v_n'\to f'\) 同时在 \(L^2\) 中成立。
+积分乘积由 Cauchy--Schwarz 连续地传递到极限，所以上述恒等式对题设函数成立。
+再用 Cauchy--Schwarz 给
 \[
  \|xf\|_2\,\|f'\|_2\ge\frac12\|f\|_2^2.
 \]
@@ -169,8 +263,12 @@ Cauchy--Schwarz 不等式给这个积分以 \(\|f\|_2\|g\|_2\) 为共同上界�
  \|xf\|_2\,\|\xi\mathcal Ff\|_2
  \ge\frac1{4\pi}\|f\|_2^2.
 \end{equation}
-在这个以原点为中心、以零频为基准的形式中，等号由
-\(f(x)=Ce^{-a x^2}\)（\(a>0\)）达到。若先把 \(x\) 和频率分别减去各自的
+零函数显然取等号。若 \(f\ne0\)，实部估计和 Cauchy--Schwarz 同时取等号
+要求 \(f'=-cxf\) 几乎处处，其中 \(c>0\)。对局部绝对连续代表乘以
+\(e^{cx^2/2}\)，其导数几乎处处为零，因而在每个紧区间上为常数。
+故非零等号函数恰为 \(f(x)=Ce^{-a x^2}\)，其中 \(a>0\)、\(C\ne0\)；
+直接代入也验证这些函数取等号。这里以原点和零频为基准。
+若先把 \(x\) 和频率分别减去各自的
 中心，再写相应的方差不等式，则平移、调制和伸缩后的 Gaussian 函数给出
 全部等号情形。
 
@@ -189,11 +287,13 @@ Cauchy--Schwarz 不等式给这个积分以 \(\|f\|_2\|g\|_2\) 为共同上界�
 \exerciseitem{plancherel-frequency-truncation}证明频率截断反演 \(f_R^\sharp\to f\) 于 \(L^2\)，并求误差范数。
 \exerciseitem{plancherel-convolution-ltwo}证明公式\eqref{eq:plancherel-convolution}及其范数估计。
 \exerciseitem{plancherel-derivative-closed}证明频率定义的 \(D_j\) 是闭算子，且 \(C_c^\infty\) 包含于其定义域。
-\exerciseitem{plancherel-translation-generator}证明 \((\tau_hf-f)/h\to-D_jf\) 于 \(L^2\) 当且仅当相应方向的频率乘子极限可由 \(L^2\) 控制，并给出充分条件。
+\exerciseitem{plancherel-translation-generator}设 \(f\in L^2(\R^d)\)。证明
+\((\tau_{he_j}f-f)/h\) 在 \(h\to0\) 时有 \(L^2\) 极限，当且仅当
+\(\xi_j\mathcal Ff\in L^2\)；此时极限为 \(-D_jf\)。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{plancherel-heisenberg}补全不确定性估计\eqref{eq:heisenberg-simple}的逼近论证，并求等号条件。
-\exerciseitem{plancherel-poisson-solver}设 \(f\in L^2(\R^d)\) 且 \(|\xi|^{-2}\widehat f(\xi)\in L^2\)。用 Fourier 变换构造 \(L^2\) 解 \(u\) 满足 \(-\Delta u=f\)，并说明零频附近的条件。
-\optionalexerciseitem{plancherel-bandlimited-evaluation}若 \(\operatorname{supp}\widehat f\subset B(0,R)\)，证明 \(f\) 有连续代表并估计 \(\|f\|_\infty\)。
+\exerciseitem{plancherel-poisson-solver}设 \(f\in L^2(\R^d)\) 且 \(|\xi|^{-2}\widehat f(\xi)\in L^2\)。用 Fourier 变换构造 \(L^2\) 解 \(u\) 满足 \(-\Delta u=f\)，并说明零频附近的条件。这里 \(\Delta=\sum_jD_j^2\)，定义域要求每个 \(D_j^2u\) 存在于 \(L^2\)。
+\optionalexerciseitem{plancherel-bandlimited-evaluation}设 \(f\in L^2(\R^d)\)、\(R>0\)，且 \(\widehat f\) 在 \(B(0,R)\) 外几乎处处为零。证明 \(f\) 有连续代表并估计 \(\|f\|_\infty\)。
 \end{enumerate}

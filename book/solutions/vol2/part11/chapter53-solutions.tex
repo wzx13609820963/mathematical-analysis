@@ -8,8 +8,14 @@ $k\binom nk=n\binom{n-1}{k-1}$ 给出
  \sum_k\frac kn\binom nkx^k(1-x)^{n-k}
  =x\sum_{j=0}^{n-1}\binom{n-1}jx^j(1-x)^{n-1-j}=x.
 \]
-再用 $k(k-1)\binom nk=n(n-1)\binom{n-2}{k-2}$ 得
-$B_n(t^2)=((n-1)/n)x^2+x/n$。因此
+当 $n\ge2$ 时，对 $2\le k\le n$ 使用
+$k(k-1)\binom nk=n(n-1)\binom{n-2}{k-2}$，求和得到
+\[
+ \sum_{k=2}^n k(k-1)\binom nkx^k(1-x)^{n-k}=n(n-1)x^2.
+\]
+再用 $k^2=k(k-1)+k$ 得
+$B_n(t^2)(x)=((n-1)/n)x^2+x/n$。$n=1$ 时直接算得 $B_1(t^2)(x)=x$，
+仍满足该式。因此对所有 $n\ge1$，
 $B_n((t-x)^2)=B_nt^2-2xB_nt+x^2B_n1=x(1-x)/n$。
 \end{solution}
 
@@ -19,7 +25,7 @@ $B_n$ 对采样值线性，故是线性算子。若 $f\ge0$，所有系数和基
 \[
  |B_nf(x)|\le B_n|f|(x)\le\norm f_\infty B_n1(x)=\norm f_\infty.
 \]
-取上确界得到压缩估计；常函数表明算子范数等于 $1$。
+取上确界得到所需范数估计；常函数表明算子范数等于 $1$，并非严格压缩。
 \end{solution}
 
 \begin{solution}{bernstein-modulus-estimate}
@@ -54,8 +60,27 @@ $\omega_f(\delta)\to0$ 和括号有界。
  B_n1=1,\qquad B_nt=t,
  \qquad B_nt^2=t^2+\frac{t(1-t)}n.
 \]
-因此常数和一次多项式被精确保持；当 $n<\infty$ 时，非零二次项一般不被
-保持。由线性性，所有仿射函数且只有至多一次的多项式在每个 $n$ 下都固定。
+因此所有仿射函数均被保持。固定 $n\ge1$。若 $p$ 的次数 $d>n$，
+则 $B_np$ 次数至多为 $n$，不能等于 $p$。
+以下排除 $2\le d\le n$。记下降阶乘
+\[
+ (k)_r=k(k-1)\cdots(k-r+1),\qquad (k)_0=1.
+\]
+多项式 $(k)_r$ 的次数为 $r$、首项系数为 $1$，故逐次消去最高次项可写成
+$k^d=(k)_d+\sum_{r=0}^{d-1}c_r(k)_r$。对 $0\le r\le n$，组合恒等式给出
+\[
+ \sum_{k=0}^n(k)_r\binom nkx^k(1-x)^{n-k}=(n)_r x^r.
+\]
+这里 $k<r$ 的下降阶乘为零；$k\ge r$ 时把
+$(k)_r\binom nk=(n)_r\binom{n-r}{k-r}$ 代入，再用二项式定理。
+因此 $B_n(t^d)$ 的 $x^d$ 系数为
+\[
+ \frac{(n)_d}{n^d}=\prod_{j=0}^{d-1}\left(1-\frac jn\right)<1
+ \qquad(2\le d\le n),
+\]
+而较低次单项式经 $B_n$ 后次数不会升高。若 $p$ 的首项系数为 $a_d\ne0$，
+则 $B_np$ 的首项系数为 $a_d(n)_d/n^d\ne a_d$，所以仍不能等于 $p$。
+结论是：对每个固定 $n\ge1$，所有不动多项式恰为 $p(t)=a+bt$，包括零多项式。
 \end{solution}
 
 \begin{solution}{bernstein-monotonicity}
@@ -69,7 +94,10 @@ $\omega_f(\delta)\to0$ 和括号有界。
 \end{solution}
 
 \begin{solution}{fixed-degree-polynomials-closed}
-次数不超过 $N$ 的多项式空间维数为 $N+1$。正文已经证明有限维赋范子空间
+若 $a=b$，所有限制函数均为单点上的常函数，所得空间等于一维空间
+$C(\{a\})$，因而闭。若 $a<b$，$1,x,\ldots,x^N$ 在区间上线性无关：
+非零多项式不可能在整个区间上为零。因此限制空间维数为 $N+1$。
+前文已经证明有限维赋范子空间
 中的范数与坐标欧氏范数等价，因而它在任意赋范空间中完备。完备子空间必闭：
 若其序列在母空间中收敛，则是 Cauchy 列，极限由子空间完备性仍落在其中。
 故该多项式空间闭。
@@ -78,10 +106,11 @@ $\omega_f(\delta)\to0$ 和括号有界。
 \begin{solution}{dense-subspace-propagates-linear-identity}
 设连续线性泛函 $L$ 在稠密集 $D$ 上为零。任给 $x$，取 $x_n\in D$ 使
 $x_n\to x$。连续性给出 $L(x)=\lim_nL(x_n)=0$。所以 $L$ 在全空间为零。
-这也说明任何由连续运算表达的恒等式只要在稠密子集成立，常可传到闭包。
+此处实际只用了 $L$ 的连续性；线性结构不是这一步极限论证所必需的。
 \end{solution}
 
 \begin{solution}{absolute-value-polynomial-approximation}
+若 $M=0$，可直接取 $p_n=0$。以下设 $M>0$。
 若 $q_n\to|t|$ 于 $[-M,M]$，令 $p_n(t)=q_n(t)-q_n(0)$，则
 $p_n(0)=0$ 且
 $\norm{p_n-|\cdot|}_\infty\le
@@ -100,16 +129,34 @@ $p_n$ 无常数项时仍由 $f$ 的有限次乘法和线性组合构成，它属
 \end{solution}
 
 \begin{solution}{stone-weierstrass-finite-cover-proof}
-第一次固定 $x$：每个 $g_{x,y}$ 在 $y$ 附近高于 $f-\varepsilon$，用紧致性
-取有限个这样的邻域，再取这些函数的最大值，得到全局下界且在 $x$ 精确接触
-$f$ 的 $g_x$。第二次让 $x$ 变化：$g_x$ 在 $x$ 附近低于
-$f+\varepsilon$，再取有限覆盖并取对应函数的最小值。最大值使“至少一个
-局部下界成立”变为全局下界；最小值使“每点至少一个局部上界成立”变为
-全局上界。两次有限性都来自 $K$ 紧致。
+空集情形平凡，以下设 $K\ne\varnothing$。给定 $f\in C(K;\R)$ 和
+$\varepsilon>0$，由两点插值为每对 $x,y$ 取 $g_{x,y}\in A$，使其在
+$x,y$ 处与 $f$ 相等；$x=y$ 时取常函数。固定 $x$，开集
+\[
+ V_y=\{z\in K:g_{x,y}(z)>f(z)-\varepsilon/2\}
+\]
+包含 $y$，因而覆盖 $K$。选有限子覆盖 $V_{y_1},\ldots,V_{y_r}$，令
+$g_x=\max_{1\le j\le r}g_{x,y_j}$。格闭包引理保证 $g_x\in\overline A$；
+每一点至少落在一个 $V_{y_j}$ 中，故 $g_x>f-\varepsilon/2$ 处处成立。
+又因每个被取最大值的函数在 $x$ 处都等于 $f(x)$，有 $g_x(x)=f(x)$。
+
+于是 $U_x=\{z:g_x(z)<f(z)+\varepsilon/2\}$ 是 $x$ 的开邻域。
+再取有限子覆盖 $U_{x_1},\ldots,U_{x_s}$，令
+$g=\min_{1\le i\le s}g_{x_i}\in\overline A$。
+每个 $g_{x_i}$ 都有上述全局下界；在任一点，又至少有一个 $g_{x_i}$
+满足相应上界。因此
+\[
+ f-\varepsilon/2<g<f+\varepsilon/2\quad\text{于 }K,
+ \qquad \norm{g-f}_\infty\le\varepsilon/2.
+\]
+最后由 $g\in\overline A$ 取 $h\in A$ 使
+$\norm{h-g}_\infty<\varepsilon/2$，得到 $\norm{h-f}_\infty<\varepsilon$。
+第一次取最大值保留各处的下界，第二次取最小值补上各处的上界；有限性使
+两次运算均留在代数闭包中。
 \end{solution}
 
 \begin{solution}{multivariate-polynomial-density}
-多元多项式的限制组成 $C(K;\R)$ 的子代数并含常数。若 $x\ne y$，至少有
+若 $K$ 为空，结论平凡。否则多元多项式的限制组成 $C(K;\R)$ 的子代数并含常数。若 $x\ne y$，至少有
 一个坐标 $j$ 满足 $x_j\ne y_j$，坐标函数 $p(z)=z_j$ 便分离这两点。实
 Stone--Weierstrass 定理于是给出该代数在 $C(K;\R)$ 中一致稠密。
 \end{solution}
@@ -159,14 +206,14 @@ $p(z)=\sum_{k=0}^Na_kz^k$，则
 \end{solution}
 
 \begin{solution}{bernstein-convexity-preservation}
-二次求导整理为
+当 $n=1$ 时，$B_1f$ 为仿射函数，故凸。对 $n\ge2$，二次求导整理为
 \[
  (B_nf)''(x)=n(n-1)\sum_{k=0}^{n-2}
  \Delta^2f(k/n)\binom{n-2}kx^k(1-x)^{n-2-k},
 \]
 其中
 $\Delta^2f(k/n)=f((k+2)/n)-2f((k+1)/n)+f(k/n)\ge0$ 对凸函数成立。
-故 $B_nf$ 凸。又凸性给出
+故 $B_nf$ 凸。对所有 $n\ge1$，有限凸组合的 Jensen 不等式给出
 $f(x)=f(\sum_k(k/n)p_{n,k})\le\sum_kf(k/n)p_{n,k}=B_nf(x)$，所以
 Bernstein 多项式从上方逼近凸函数。
 \end{solution}

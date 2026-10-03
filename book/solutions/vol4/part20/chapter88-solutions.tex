@@ -43,7 +43,7 @@
 \end{solution}
 
 \begin{solution}{distribution-product-rule}
-对测试函数 \(\varphi\)，
+对试验函数 \(\varphi\)，
 \[
  \langle\partial_j(\psi T),\varphi\rangle
  =-\langle T,\psi\,\partial_j\varphi\rangle
@@ -55,32 +55,40 @@
 \end{solution}
 
 \begin{solution}{distribution-piecewise-jumps}
-在每个光滑子区间分部积分，内部积分给经典导数，分点两侧的边界项合并为
-\((f(a_j+)-f(a_j-))\varphi(a_j)\)，即相应 Dirac 项。周期锯齿函数
-\(f(x)=x\)（\(-\pi<x<\pi\)）在内部导数为一，在周期拼接点从 \(\pi\)
-跳到 \(-\pi\)，故在圆周分布意义下
+先截去分点附近的小区间，在各剩余段上分部积分，再令截去的长度趋零。
+题设中的 \(f'_{\mathrm{cl}}\in L^1_{\mathrm{loc}}\) 保证内部导数积分收敛；
+分点两侧的边界项由单侧极限合并为
+\((f(a_j+)-f(a_j-))\varphi(a_j)\)，即相应 Dirac 项。
+在实线上定义周期锯齿函数
+\(f(x)=x-2\pi k\)，其中 \((2k-1)\pi<x<(2k+1)\pi\)。
+它在内部导数为一，在每个拼接点从 \(\pi\) 跳到 \(-\pi\)，故
 \[
- Df=1-2\pi\delta_{\pi},
+ Df=1-2\pi\sum_{k\in\mathbb Z}\delta_{(2k+1)\pi}.
 \]
-其中 \(\pi\) 与 \(-\pi\) 表示同一点。
+和式局部有限：每个紧支撑试验函数只遇到有限个分点。因此它在
+\(\mathcal D'(\R)\) 中有定义，无须另行引入圆周上的分布。
 \end{solution}
 
 \begin{solution}{distribution-weak-unique}
 若 \(g_1,g_2\) 都是弱导数，则
-\(\int(g_1-g_2)\varphi=0\) 对所有测试函数成立。正则分布嵌入的单射性给
+\(\int(g_1-g_2)\varphi=0\) 对所有试验函数成立。正则分布嵌入的单射性给
 \(g_1=g_2\) 几乎处处。
 \end{solution}
 
 \begin{solution}{distribution-weak-ac-one-d}
 令 \(G(x)=\int_a^xg\)，则 \(G\) 局部绝对连续且弱导数为 \(g\)。
-\(h=f-G\) 的弱导数为零。对紧区间 \(J\Subset I\) 及充分小
-\(\varepsilon\)，
+\(h=f-G\) 的弱导数为零。取正长度紧区间 \(J\Subset I\)，选
+\(J\subset U\Subset I\)，其中 \(U\) 为开区间；令 \(\widetilde h\)
+为 \(h\mathbf1_U\) 的零延拓。对充分小的 \(\varepsilon\) 及 \(x\in J\)，
 \[
- (h*\rho_\varepsilon)'=h'*\rho_\varepsilon=0
+ (\widetilde h*\rho_\varepsilon)'(x)
+ =-\int_U h(y)\partial_y\rho_\varepsilon(x-y)\,dy=0,
 \]
-于 \(J\)，故卷积为常数 \(c_\varepsilon\)。卷积在 \(L^1(J)\) 中趋于
+因为该核在 \(y\) 变量上是允许的试验函数。这直接从零弱导数的定义推出，
+无需先引用后文的分布卷积交换公式。故卷积在 \(J\) 上为常数 \(c_\varepsilon\)，并在 \(L^1(J)\) 中趋于
 \(h\)，常数列因其 \(L^1\) 距离趋于零而为 Cauchy，故 \(h=c\) 几乎处处。
-重叠区间上的常数相同，得到全局局部绝对连续代表 \(G+c\)。反向由绝对连续
+用递增正长度紧区间穷尽 \(I\)，重叠区间上的常数相同，可数并例外集仍零测，
+得到全局局部绝对连续代表 \(G+c\)。反向由绝对连续
 分部积分直接成立。
 \end{solution}
 
@@ -90,14 +98,17 @@
  \partial_x^\alpha\langle T,\rho_\varepsilon(x-\cdot)\rangle
  =\langle T,\partial^\alpha\rho_\varepsilon(x-\cdot)\rangle.
 \]
-按分布导数定义把导数移到 \(T\) 上，得到交换公式。对测试函数 \(\varphi\)，
-Fubini 型配对恒等式给
+按分布导数定义把导数移到 \(T\) 上，得到交换公式。对试验函数 \(\varphi\)，
+取 \(\varepsilon\) 足够小，使试验函数支撑在 \(\Omega_\varepsilon\) 中。
+按正文证明，用具有共同紧支撑、各阶导数一致收敛的 Riemann 和交换配对，
+得到
 \[
  \langle T*\rho_\varepsilon,\varphi\rangle
  =\langle T,\widetilde\rho_\varepsilon*\varphi\rangle.
 \]
-右侧测试函数有共同紧支撑且各阶导数一致趋于 \(\partial^\alpha\varphi\)，
-分布连续性给收敛。
+右侧试验函数有共同紧支撑且各阶导数一致趋于 \(\partial^\alpha\varphi\)，
+分布连续性给收敛。这里左侧是 \(\Omega_\varepsilon\) 上的积分配对，
+并未将正则化定义成整个 \(\Omega\) 上的函数；每个固定试验函数最终可配对即足够。
 \end{solution}
 
 \begin{solution}{distribution-fundamental-lemma}
@@ -137,17 +148,40 @@ Fubini 型配对恒等式给
 \[
  u=E*f,\qquad E(x)=|x|/2.
 \]
-分布导数与卷积交换，故
-\(u''=E''*f=\delta_0*f=f\)。积分绝对收敛于每个 \(x\)，且直接可见
-\(u\) 为经典二阶可微解。
+本题无需先定义任意两个分布的卷积。由于 \(f\) 紧支撑，下列积分绝对收敛：
+\[
+ u(x)=\frac12\int_{-\infty}^x(x-y)f(y)\,dy
+      +\frac12\int_x^\infty(y-x)f(y)\,dy.
+\]
+积分上限求导时，两项活动端点的因子均为零，所以
+\[
+ u'(x)=\frac12\int_{-\infty}^x f(y)\,dy
+       -\frac12\int_x^\infty f(y)\,dy,\qquad u''(x)=f(x).
+\]
+因此 \(u\) 是经典解，实际上为光滑函数。任意两个经典解之差二阶导数为零，
+故全部经典解为 \(E*f+ax+b\)，其中 \(a,b\in\mathbb K\)。
 \end{solution}
 
 \begin{solution}{distribution-no-general-product}
-取偶磨光核 \(\rho_\varepsilon\)，则
-\((H*\rho_\varepsilon)(0)=1/2\)，形式乘以 \(\delta_0\) 会给
-\(\tfrac12\delta_0\)。若把近似核向一侧轻微平移，使其质量主要落在零点左侧
-或右侧，则同样收敛到 \(H\) 的正则化在零点可趋于任意预定
-\(\theta\in[0,1]\)，候选乘积变为 \(\theta\delta_0\)。因此仅要求用这种
-光滑正则化、保持分布收敛并在正则层面使用经典乘法，结果仍不唯一；这套
-条件不足以定义 \(H\delta_0\)，更不能据此定义任意两个分布的乘积。
+取非负标准核 \(\rho\in C_c^\infty(-1,1)\)，\(\int\rho=1\)，令
+\(h_\varepsilon=H*\rho_\varepsilon\)、
+\(a_\varepsilon(x)=h_\varepsilon(x-2\varepsilon)\)、
+\(b_\varepsilon(x)=h_\varepsilon(x+2\varepsilon)\)。三者光滑且介于0与1之间，
+在每个非零点都趋于 \(H\)，故由紧集上的控制收敛，
+\(T_{a_\varepsilon},T_{b_\varepsilon}\to T_H\)。另一方面，换元给
+\[
+ \int\rho_\varepsilon(x)\varphi(x)\,dx
+ =\int\rho(z)\varphi(\varepsilon z)\,dz\longrightarrow\varphi(0),
+\]
+故 \(T_{\rho_\varepsilon}\to\delta_0\)。但在
+\(\operatorname{supp}\rho_\varepsilon\subset[-\varepsilon,\varepsilon]\) 上，
+\(a_\varepsilon=0\)、\(b_\varepsilon=1\)，于是
+\[
+ a_\varepsilon\rho_\varepsilon=0,\qquad
+ b_\varepsilon\rho_\varepsilon=\rho_\varepsilon.
+\]
+令 \(\varepsilon=1/n\)，若题设的 \(P\) 存在，经典乘法的一致性与联合序列
+连续性使左一列的极限为 \(P(T_H,\delta_0)=0\)，左二列又给
+\(P(T_H,\delta_0)=\delta_0\)，矛盾。结论针对所列两项要求；
+它不否定特定分布之间另有定义的乘积，也不声称任意无连续性要求的代数规则都不存在。
 \end{solution}

@@ -18,41 +18,53 @@ $\bigcap_j\{a_j<f_j<b_j\}$，可测。任意开集是基元素的至多可数并
 \begin{solution}{measurable-algebra-operations}
 映射 $F=(f,g):X\to\R^2$ 可测。函数
 \[
- (u,v)\longmapsto u+v,\qquad
- (u,v)\longmapsto uv,qquad
- u\longmapsto |u|,qquad
- (u,v)\longmapsto\max\{u,v\}
+ \begin{aligned}
+ (u,v)&\longmapsto u+v,&\quad (u,v)&\longmapsto uv,\\
+ u&\longmapsto |u|,& (u,v)&\longmapsto\max\{u,v\}
+ \end{aligned}
 \]
 都连续，因而 Borel 可测；分别与 $F$ 或其坐标函数复合便得结论。有限最小值
 由 $\min(u,v)=-\max(-u,-v)$ 得到。
 \end{solution}
 
 \begin{solution}{measurable-limsup-formula}
-由“对每个 $N$，尾部中仍有一项大于 $a$”可得
+若 $\limsup_nf_n(x)>a$，可取有理数 $r$ 严格介于二者之间；每个尾部中
+必有一项大于 $r$，否则某个尾上确界至多为 $r$，与上极限大于 $r$ 矛盾。
+反之，若存在固定的 $r>a$，使每个尾部都有一项大于 $r$，则每个尾上确界
+至少为 $r$，从而上极限至少为 $r>a$。于是
 \[
  \{\limsup_nf_n>a\}
  =\bigcup_{r\in\Q,\ r>a}
    \bigcap_{N=1}^{\infty}\bigcup_{n\ge N}\{f_n>r\}.
 \]
 右侧只含可数并、交和可测水平集，故可测。也可先证明尾上确界可测，再取
-递减极限。
+递减极限。这里的固定阈值 $r>a$ 不能省去；例如 $f_n=a+1/n$ 每一项
+都大于 $a$，上极限却等于 $a$。
 \end{solution}
 
 \begin{solution}{measurable-convergence-set}
-有限实值情形下，$f_n(x)$ 收敛当且仅当它是 Cauchy 列。因此收敛点集为
+先只考虑极限有限的情形。实数完备性使 $f_n(x)$ 有有限实极限，当且仅当
+它是Cauchy列。因此这一收敛点集为
 \[
  \bigcap_{k=1}^{\infty}\bigcup_{N=1}^{\infty}
  \bigcap_{m,n\ge N}\{|f_m-f_n|<1/k\},
 \]
-可测。扩充实值情形可用
-$\liminf f_n=\limsup f_n$ 表示，并另外允许共同值为无穷。
+差函数可测，所以此集可测。再令 $g_n=\arctan f_n$。它们取值于
+$(-\pi/2,\pi/2)$，也都可测。同一Cauchy集合公式应用于 $g_n$，给出
+它在闭区间 $[-\pi/2,\pi/2]$ 中的收敛点集。把 $\arctan$ 连续延伸为
+$\overline\R$ 到该闭区间的同胚，端点值为 $\pm\pi/2$，便知此集恰为
+$f_n$ 允许无穷极限的收敛点集。两种集合一般不同，例如 $f_n=n$ 在每点
+都有扩充实极限，却没有有限实极限。
 \end{solution}
 
 \begin{solution}{simple-function-canonical-form}
 设简单函数的不同取值为 $a_1,\ldots,a_m$。令
 $E_k=\{x:\varphi(x)=a_k\}$，则 $E_k$ 可测、两两不交且覆盖 $X$，并有
 $\varphi=\sum_ka_k\mathbf1_{E_k}$。任何按不同系数和不交水平集的表示都必须
-把 $a_k$ 的水平集写成对应集合，所以规范形式唯一，允许删去空水平集。
+把 $a_k$ 的水平集写成对应集合，所以规范形式除排列外唯一。
+这里 $a_k$ 列出全部实际取值，$E_k$ 非空；若实际取到零，也列入该水平集。
+不能一面随意增删空项或零项，一面声称这种一般求和表示唯一。
+空定义域时取空和，结论仍成立。
 \end{solution}
 
 \begin{solution}{nested-dyadic-simple-approximation}
@@ -95,7 +107,7 @@ $E=\{\mathbf1_E>1/2\}$ 可测。
 \begin{solution}{lusin-simple-functions}
 写 $\varphi=\sum_{k=1}^ma_k\mathbf1_{E_k}$，其中 $E_k$ 两两不交且 $E$
 有限测度。由内正则性，在每个 $E_k$ 中取紧集 $K_k$，使删去测度总和小于
-$\varepsilon$。不同 $K_k$ 是有限个互不相交紧集，彼此距离为正；因此
+$\varepsilon$。略去空 $K_k$ 后，不同非空项是有限个互不相交紧集，彼此距离为正；因此
 $\varphi$ 在 $K=\bigcup_kK_k$ 上局部常值，从而连续。
 \end{solution}
 
@@ -109,9 +121,10 @@ $\varepsilon/4$。总损失小于 $3\varepsilon/4<\varepsilon$。每个 $K_n$
 \end{solution}
 
 \begin{solution}{lusin-continuous-extension}
-$K$ 是 $\R^d$ 的闭子集，$f|_K$ 连续。若先在 Lusin 证明中限制
-$|f|\le M$，Tietze 延拓定理给出连续 $F:\R^d\to[-M,M]$，满足
-$F|_K=f|_K$。一般 Lusin 定理也已先删去大值部分，故同样适用。
+若 $K=\varnothing$，取 $F=0$ 即可。否则 $K$ 紧且 $f|_K$ 连续，故存在
+$M<\infty$ 使 $|f|\le M$ 于 $K$。$\R^d$ 是正规空间，$K$ 是闭子集，
+Tietze延拓定理给出连续 $F:\R^d\to[-M,M]$，满足 $F|_K=f|_K$。
+这里直接使用紧集上的有界性，不依赖Lusin证明如何选择截断高度。
 \end{solution}
 
 \begin{solution}{measurable-almost-continuous-not-continuous-ae}

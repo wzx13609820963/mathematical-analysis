@@ -7,7 +7,11 @@ $C(K)$ 的闭单位球通常不紧，是因为范数只限制函数值的大小�
 只需再加入对这种局部变化的一致控制，便能恢复有限维空间中有界序列所具有
 的子列紧致性。
 
-本章设 $(K,d)$ 为紧致度量空间，$\mathcal F\subset C(K;\R^m)$。
+本章设 $(K,d)$ 为非空紧致度量空间，$m\ge1$ 为整数，
+$\mathcal F\subset C(K;\R^m)$，值域采用欧氏范数，函数范数为
+$\norm f_\infty=\max_{x\in K}\norm{f(x)}$。空函数族的等度连续、
+有界及相对紧致结论均成立，共同连续模约定为零；以下证明只需考虑非空族。
+若定义域为空，连续映射空间只有空映射，紧致性结论也直接成立。
 
 \section{等度连续与一致有界}
 
@@ -24,7 +28,7 @@ $\mathcal F$ 等度连续。
 \end{definition}
 
 这里的 $\delta$ 可以依赖于 $x_0$ 和 $\varepsilon$，但不能依赖于族中的
-函数。单个连续函数组成的有限族总是等度连续；无限族则未必。例如
+函数。有限个连续函数组成的族总是等度连续；无限族则未必。例如
 $f_n(x)=x^n$ 在 $[0,1]$ 上不是等度连续的，因为在端点 $1$ 附近的变化越来越
 集中。
 
@@ -69,7 +73,7 @@ $\norm{f(x)}\le\norm{f(x_j)}+1\le M_0+1$。
 \end{proof}
 
 把两条命题合在一起，可以用一个函数记录整族的局部变化。若
-$\mathcal F$ 等度连续且逐点有界，定义
+$\mathcal F$ 等度连续且逐点有界，对 $t\ge0$ 定义
 \[
  \omega_{\mathcal F}(t)
  =\sup\{\norm{f(x)-f(y)}:f\in\mathcal F,\ d(x,y)\le t\}.
@@ -82,8 +86,9 @@ $\omega_{\mathcal F}(t)\le Ct^\alpha$。
 
 \section{稠密点上的对角抽取}
 
-紧致度量空间是可分的。事实上，对每个 $n$ 取有限 $1/n$-网，把这些有限
-集合求可数并，便得到可数稠密集 $D=\{x_1,x_2,\ldots\}$。
+紧致度量空间是可分的。事实上，对每个 $n\ge1$ 取有限 $1/n$-网，把这些有限
+集合求可数并，便得到至多可数稠密集 $D$。可写成
+$D=\{x_1,x_2,\ldots\}$；若 $D$ 有限，则重复枚举其中的点。
 
 设 $(f_n)$ 来自逐点有界族。数列 $(f_n(x_1))$ 在有限维空间中有收敛子列；
 从这条子列中再抽取，使 $x_2$ 处的值收敛；继续下去。取第 $j$ 层子列的
@@ -118,16 +123,23 @@ $\delta$-网 $x_1,\ldots,x_N$。每个 $(g_j(x_i))$ 都是 Cauchy 列，有限�
 
 \begin{theorem}[Arzelà--Ascoli]
 \label{thm:arzela-ascoli-sequential}
-设 $K$ 为紧致度量空间。若序列 $(f_n)\subset C(K;\R^m)$ 等度连续且逐点
+设 $K$ 为非空紧致度量空间，$m\ge1$。若序列 $(f_n)\subset C(K;\R^m)$ 等度连续且逐点
 有界，则它有一致收敛子列。
 \end{theorem}
 
 \begin{proof}
-取 $K$ 的可数稠密集。由逐点有界性和有限维 Bolzano--Weierstrass 定理，
+取 $K$ 的至多可数稠密集。由逐点有界性和有限维 Bolzano--Weierstrass 定理，
 按上一节作对角抽取，得到在稠密集每一点都收敛的子列 $(g_j)$。引理
 \ref{lem:dense-convergence-equicont-uniform-cauchy} 说明它在 $C(K;\R^m)$
-中为 Cauchy 列。定理 \ref{thm:ck-banach} 的向量值版本给出
-$g_j\to g\in C(K;\R^m)$ 于上确界范数。
+中为 Cauchy 列。每个坐标 $g_j^{(r)}$ 因而在标量空间 $C(K)$ 中为
+Cauchy 列。由定理 \ref{thm:ck-banach}，它一致收敛于连续函数 $g^{(r)}$。
+令 $g=(g^{(1)},\ldots,g^{(m)})$，则 $g$ 连续，且
+\[
+ \norm{g_j-g}_\infty
+ \le\sqrt m\max_{1\le r\le m}\norm{g_j^{(r)}-g^{(r)}}_\infty
+ \longrightarrow0.
+\]
+这也证明了这里使用的向量值连续函数空间的完备性。
 \end{proof}
 
 逐点有界可以换成一致有界，后者在应用中往往更容易验证。反过来，若一个
@@ -158,22 +170,29 @@ $y_{n_k}\to x$。一致收敛和 $f$ 的连续性使上述差趋于零，矛盾�
 前面的必要性给出 (1)$\Rightarrow$(2)，命题
 \ref{prop:equicont-pointwise-to-uniform-bounded} 给出
 (2)$\Rightarrow$(3)。设 (3) 成立，并取任意序列
-$(g_n)\subset\overline{\mathcal F}$。对每个 $n$ 选
+$(g_n)_{n\ge1}\subset\overline{\mathcal F}$。对每个 $n\ge1$ 选
 $f_n\in\mathcal F$，使 $\norm{g_n-f_n}_\infty<1/n$。由定理
 \ref{thm:arzela-ascoli-sequential}，某个子列 $f_{n_k}$ 一致收敛于
 $f\in C(K;\R^m)$；于是 $g_{n_k}$ 也一致收敛于 $f$。这证明闭包序列紧致。
 度量空间中序列紧致等价于紧致，故 (3)$\Rightarrow$(1)。
 \end{proof}
 
-条件中的两个部分彼此独立。常函数族 $f_n\equiv n$ 等度连续却不逐点有界；
-$f_n(x)=\sin(nx)$ 在 $[0,2\pi]$ 上一致有界却不等度连续。两族都没有一致
-收敛子列。
+条件中的两个部分彼此独立。以下 $n\ge1$；常函数族 $f_n\equiv n$ 等度连续却不逐点有界；
+$f_n(x)=\sin(nx)$ 在 $[0,2\pi]$ 上一致有界却不等度连续。常函数族的任何
+子列在固定点都无有限极限。正弦函数列的任意子列 $\sin(n_kx)$ 也不能一致
+收敛：若一致收敛于连续函数 $g$，则 $g(0)=0$。令
+$x_k=\pi/(2n_k)\to0$，有
+\[
+ 1=|\sin(n_kx_k)|
+ \le\norm{\sin(n_k\cdot)-g}_\infty+|g(x_k)|\longrightarrow0,
+\]
+矛盾。这一论证处理了每个子列，而不仅是原函数族。
 
 \section{两个常用判据}
 
 \begin{corollary}[导数有界的函数族]
 \label{cor:bounded-derivative-ascoli}
-设 $\mathcal F\subset C^1([a,b];\R^m)$。若对某个 $x_0$，
+设 $a<b$、$\mathcal F\subset C^1([a,b];\R^m)$。若对某个 $x_0\in[a,b]$，
 $\{f(x_0):f\in\mathcal F\}$ 有界，且
 $\sup_{f\in\mathcal F}\norm{f'}_\infty<\infty$，则 $\mathcal F$ 在
 $C([a,b];\R^m)$ 中相对紧致。
@@ -184,18 +203,23 @@ $C([a,b];\R^m)$ 中相对紧致。
 $\norm{f(x)}\le\norm{f(x_0)}+M|x-x_0|$ 得一致有界。应用相对紧致性判据。
 \end{proof}
 
-积分算子提供另一类重要例子。若 $k\in C([a,b]\times[c,d])$，定义
+积分算子提供另一类重要例子。设 $a<b$、$c<d$，
+$k\in C([a,b]\times[c,d];\R)$，对 $f\in C([c,d])$ 定义
 \[
  (Tf)(x)=\int_c^d k(x,y)f(y)\,dy.
 \]
+由积分的线性性，$T$ 是线性的，且
+$\norm{Tf}_\infty\le(d-c)\norm k_\infty\norm f_\infty$。
+核的一致连续性保证 $Tf$ 连续，故 $T:C([c,d])\to C([a,b])$ 是有界线性算子。
 对 $C([c,d])$ 的单位球，像函数一致有界；而
 \[
  |Tf(x)-Tf(x')|
  \le(d-c)\sup_y|k(x,y)-k(x',y)|.
 \]
 $k$ 的一致连续性使右端与 $f$ 无关地趋于零。故 $T$ 把有界集送入相对紧
-的函数族。这样的算子称为紧算子；它们将在泛函分析中扮演类似有限维矩阵的
-角色。
+的函数族。把有界集映成相对紧集的有界线性算子称为\emph{紧算子}。
+这里核的共同连续模使单位球的像满足 Arzelà--Ascoli 的条件，尽管定义域
+与值域本身都是无限维空间。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -222,7 +246,7 @@ $k$ 的一致连续性使右端与 $f$ 无关地趋于零。故 $T$ 把有界集
 \subsection*{B组　抽取与紧致性}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{compact-metric-separable}
- 详细证明每个紧致度量空间都有可数稠密子集。
+ 详细证明每个紧致度量空间都有至多可数稠密子集。
  \exerciseitem{diagonal-subsequence-bookkeeping}
  写出对角子列的严格指标构造，并证明它在每个稠密点收敛。
  \exerciseitem{dense-convergence-not-uniform-without-equicont}
@@ -239,7 +263,8 @@ $k$ 的一致连续性使右端与 $f$ 无关地趋于零。故 $T$ 把有界集
  证明推论 \ref{cor:bounded-derivative-ascoli}，并说明只控制导数而不控制一个
  点的函数值为何不够。
  \exerciseitem{holder-family-relative-compact}
- 证明满足 $|f(x)|\le M$、$|f(x)-f(y)|\le C|x-y|^\alpha$ 的函数族在
+ 设 $M,C\ge0$、$\alpha>0$ 为固定常数。证明满足
+ $|f(x)|\le M$、$|f(x)-f(y)|\le C|x-y|^\alpha$ 的函数族在
  $C([0,1])$ 中相对紧致。
  \exerciseitem{integral-operator-compact}
  详细证明连续核积分算子把任意有界集送入相对紧集。

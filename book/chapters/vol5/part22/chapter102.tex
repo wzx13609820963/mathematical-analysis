@@ -14,8 +14,8 @@ Mayer--Vietoris 方法推广到整个流形。流形均按
 
 \section{de Rham 复和上同调群}
 
-令 $\Omega^q(M)$ 表示 $M$ 上光滑 $q$-形式的实向量空间。外微分满足
-$d^2=0$，因而形成上链复形
+令 $\Omega^q(M)$ 表示 $M$ 上光滑 $q$-形式的实向量空间，并约定
+$\Omega^{-1}(M)=0$。外微分满足 $d^2=0$，因而形成上链复形
 \[
  0\longrightarrow\Omega^0(M)\xrightarrow{d}\Omega^1(M)
  \xrightarrow{d}\cdots\xrightarrow{d}\Omega^n(M)\longrightarrow0.
@@ -54,6 +54,7 @@ $\omega\in\Omega^q(N)$ 定义
 \]
 即在坐标中先把 $F^*\omega$ 写成
 $\alpha_t+dt\wedge\beta_t$，再令 $K\omega=\int_0^1\beta_tdt$。
+零次时没有 $dt$ 分量，约定 $K\omega=0$。
 
 \begin{theorem}[同伦公式]\label{thm:de-rham-homotopy-formula}
 上述算子满足
@@ -86,12 +87,33 @@ $F_1^*\omega-F_0^*\omega$。若 $d\omega=0$，两端相差恰当形式，故同�
 
 \section{积分配对与 de Rham 映射}
 
+闭单形上的映射称为光滑，是指它可光滑延拓到其仿射包络中的开邻域。
 若 $\sigma:\Delta^q\to M$ 光滑，定义
 \[
  I(\omega)(\sigma)=\int_{\Delta^q}\sigma^*\omega.
 \]
 按线性延拓，$I(\omega)$ 是光滑奇异链复形 $C_*^\infty(M)$ 上的 $q$ 次
-上链。流形上的 Stokes 定理给
+上链。标准单形有角点，不能直接视为上一章的光滑边界流形。所需公式可在
+参数域中逐坐标积分证明：在 $\Delta^k$ 上取 $t_i\geq0$、$\sum_{i=1}^kt_i\leq1$，
+并写
+\[
+ \beta=\sum_{j=1}^k(-1)^{j-1}b_j\,
+ dt_1\wedge\cdots\wedge\widehat{dt_j}\wedge\cdots\wedge dt_k.
+\]
+逐个积分 $\partial_jb_j$，得到
+\[
+ \int_{\Delta^k}d\beta
+ =\sum_{j=1}^k\int_{\sum_{i\ne j}t_i\leq1}
+ \left[b_j\big|_{t_j=1-\sum_{i\ne j}t_i}
+       -b_j\big|_{t_j=0}\right]\,dt_1\cdots\widehat{dt_j}\cdots dt_k.
+\]
+第 $j\geq1$ 个面拉回的系数为 $(-1)^{j-1}b_j$，乘链边界符号 $(-1)^j$ 后
+即上述负项。第零个面取 $t_2,\ldots,t_k$ 为坐标，代入
+$t_1=1-\sum_{i=2}^kt_i$，所得系数为 $\sum_jb_j$；各正项改用这组坐标时
+Jacobian 绝对值为 $1$，所以其和就是第零个面的积分。$k=1$ 时公式为端点值
+之差。各面交叠部分的面测度为零。因此单形上有
+$\int_{\Delta^k}d\beta=\sum_i(-1)^i\int_{\Delta^{k-1}}\varepsilon_i^*\beta$，
+并由此得到
 \begin{equation}\label{eq:de-rham-integration-chain-map}
  (\delta I(\omega))(\sigma)
  =I(\omega)(\partial\sigma)
@@ -235,7 +257,8 @@ $j^*:H^q(C^*(M))\to H^q(C_{\mathrm{sm}}^*(M))$ 是同构。由此定义
  \qquad
  \mathcal I_M[\omega]=(j^*)^{-1}[I(\omega)].
 \end{equation}
-若 $c$ 是连续奇异循环，选一个与它同调的光滑循环 $c_\infty$，并约定
+若 $\omega$ 闭，且 $c$ 是连续奇异循环，选一个与它同调的光滑循环
+$c_\infty$，并约定
 \[
  \int_c\omega:=\int_{c_\infty}\omega.
 \]
@@ -274,9 +297,20 @@ $B$ 具有下述性质：$B$ 中任意两点由唯一一条长度最短的度量
  \dot x^i\dot x^j=0.
 \]
 这是能量 $\tfrac12\int g_{ij}\dot x^i\dot x^jdt$ 的 Euler 方程，亦可直接
-由分部积分得到。它是光滑常微分方程。解对初值的光滑依赖以及逆函数定理表明，端点映射
+由分部积分得到。它是光滑常微分方程。
+
+这里补出所需的光滑依赖，以免把连续依赖当作可微依赖。
+习题\ref{ex:picard-parameter-differentiation}及其解答已在共同紧时间区间上
+证明 $C^1$ 参数依赖。对自治光滑系统 $y'=F(y)$，初值导数 $Z$ 满足
+$Z'=DF(y)Z$、$Z(0)=\operatorname{id}$，故 $(y,Z)$ 本身满足光滑增广系统。
+若所有光滑系统的解对初值已为 $C^k$，把这一结论用于增广系统就得
+$Z\in C^k$，从而原解为 $C^{k+1}$。从 $k=1$ 归纳得任意阶初值导数；
+时间导数和混合导数再由 $\partial_ty=F(y)$ 得到。非自治光滑方程添入
+$t'=1$ 即归结到自治情形。因此这里的解对时间与初值联合光滑。
+由此及逆函数定理，端点映射
 $(x,v)\mapsto(x,\gamma_{x,v}(1))$ 在零截面附近为微分同胚。因此充分接近的
-两点之间有唯一一条留在预定坐标域内、且随端点光滑变化的短测地线。
+两点之间有一条由充分小的初速度给出的短测地线，并随端点光滑变化。
+这里的唯一性仅在端点映射的局部逆范围内成立，还未排除长测地线。
 
 还需把“留在坐标域内”改进为凸性。缩小到 Christoffel 系数一致有界的坐标
 球。沿上述短测地线对坐标平方距离 $r(x)=|x-x_0|^2$ 求两次导数，得到
@@ -310,11 +344,16 @@ $\exp_a(r(s)u(s))$、$|u(s)|_{g_a}=1$，上述正交性给出
 $|\dot\gamma(s)|_g^2\geq|\dot r(s)|^2$。从 $a$ 连到 $\exp_a(v)$ 的
 曲线因而长至少 $|v|_{g_a}$；取等号时方向恒定且径向参数单调，故与径向
 测地线有相同的像。穿过 $a$ 的参数可分段处理，再用连续性取极限。
-这些法坐标及估计对足够接近的起点一致成立。另一方面，局部
-度量与 Euclidean 度量一致等价，任何离开预定坐标球的曲线都有一个固定正的
-长度下界；再缩小端点所在的球，使上述短测地线长度小于此界，便排除从球外
-绕行的更短曲线。于是同时得到全局最短性和唯一性。上述估计在一个较小紧坐标
-球上一致成立，因而所得强凸开集构成邻域基。
+在一个较小紧坐标球内，含起点参数的逆函数定理和度量的局部等价性允许
+选取同一个 $\eta>0$：对其中每个起点 $a$，$\exp_a$ 在
+$\{|v|_{g_a}<2\eta\}$ 上为微分同胚，其像留在前述平方距离严格凸的大球内。
+再缩小端点球 $B$，使任意 $a,b\in B$ 的局部逆初速度满足
+$|v(a,b)|_{g_a}<\eta/2$。相应线段先留在大球内，平方距离的凸性保证它
+实际留在 $B$ 内。竞争曲线若始终留在 $\exp_a\{|v|_{g_a}<\eta\}$ 内，
+Gauss 引理给出长度不小于 $|v(a,b)|_{g_a}$；若离开这个法坐标球，则到第一次
+离开时径向变量已达到 $\eta$，长度至少 $\eta$。因此绕行曲线不可能更短。
+等长情形必须沿同一径向线单调行进；采用 $[0,1]$ 上的常速参数后，线段唯一。
+端点球可以任意缩小，所得强凸开集遂构成邻域基。
 \end{proof}
 
 \begin{lemma}[良覆盖]\label{lem:smooth-good-cover}
@@ -360,21 +399,34 @@ $U_{i_0\cdots i_p}$，连接它们的唯一最短测地线落在每个 $U_{i_j}$
 $U,V$ 的 $\rho_U+\rho_V=1$。$\rho_V\eta$ 可从交集向 $U$ 作零延拓，
 $-\rho_U\eta$ 可向 $V$ 作零延拓，二者之差在交集上为 $\eta$。
 
-短正合列给出 de Rham Mayer--Vietoris 长正合序列。积分映射与限制、差映射
-以及连接同态相容，故与
-\theoremref{thm:mayer-vietoris-singular}组成交换梯图。
+短正合列给出 de Rham Mayer--Vietoris 长正合序列。奇异端先取从属于
+$U,V$ 的小光滑奇异链，再对其短正合列取实线性对偶；得到的上链箭头同样是
+限制和限制之差。积分与这两个箭头可交换。若闭形式 $\eta$ 提升为
+$(\alpha,\beta)$，其积分上链提升为 $(I\alpha,I\beta)$；提升后取外微分
+或取余边界，由 $\delta I=Id$ 给出同一上链。因此连接同态也可交换。
 
 \begin{proposition}[有限并归纳]\label{prop:de-rham-finite-mv-induction}
 若 $\mathcal I_U$、$\mathcal I_V$ 和 $\mathcal I_{U\cap V}$ 都是各维同构，
 则 $\mathcal I_{U\cup V}$ 也是各维同构。
 \end{proposition}
 \begin{proof}
-固定次数 $q$，把两条 Mayer--Vietoris 长正合序列中围绕
-$H^q(U\cup V)$ 的五项排成交换图。除中间竖箭头外其余四个都是同构，五
-引理给中间箭头为同构。连接同态处的交换性可直接核对：de Rham 连接类由
-单位分解提升后取外微分，奇异连接类由链的提升取边界，而
-式\eqref{eq:de-rham-integration-chain-map}把二者
-对应起来。
+记 $W=U\cap V$。固定 $q$，两条长正合列的五项依次是
+\[
+ H^{q-1}(U)\oplus H^{q-1}(V)\longrightarrow H^{q-1}(W)
+ \longrightarrow H^q(M)\longrightarrow H^q(U)\oplus H^q(V)
+ \longrightarrow H^q(W),
+\]
+上行取 de Rham 上同调，下行取奇异上同调，竖箭头为积分映射。负次数空间
+约定为零。前段已证明此图交换，其余四个竖箭头均为同构。
+
+这里所需的五引理可作如下直接证明。把上、下行记为 $A_i,B_i$，竖箭头记为
+$f_i$。若 $f_3a=0$，则 $a$ 在 $A_4$ 的像为零，故 $a$ 来自某个 $a_2$。
+$f_2a_2$ 的像为零，所以来自 $b_1$；由 $f_1$ 的满射性提升 $b_1$ 后，
+从 $a_2$ 减去相应像。$f_2$ 的单射性使差为零，故 $a=0$。
+反之，给定 $b\in B_3$，把其在 $B_4$ 的像提升为 $a_4$。由 $f_5$ 的
+单射性，$a_4$ 在 $A_5$ 的像为零，故来自 $a_3$。此时 $b-f_3a_3$ 来自
+$B_2$；用 $f_2$ 提升该元并在 $A_3$ 中修正 $a_3$，便得到 $b$ 的原像。
+于是 $f_3$ 也是同构。
 \end{proof}
 
 对有限良覆盖，命题可作双重归纳：把最后一个覆盖元与其余之并分开；它们的
@@ -520,7 +572,7 @@ $H_{\mathrm{dR}}^1(S^1)\cong\R$。在穿孔平面上，相应形式
 满足 $d\eta=0$，限制到单位圆就是 $\alpha$。它在每个不绕原点的小坐标域内
 都是辐角函数的微分，却没有全局原函数；非零周期准确记录了这一障碍。
 
-球面上归一化体积形式 $\omega_n$ 满足
+以下取 $n\geq1$。球面上归一化体积形式 $\omega_n$ 满足
 $\int_{S^n}\omega_n=1$，其类生成
 $H_{\mathrm{dR}}^n(S^n)$；结合上一章的球面同调，
 \[
@@ -561,12 +613,12 @@ $U,V$ 各形变收缩到一份 $S^1$，而 $U\cap V$ 是两份 $S^1$ 的不交�
 \exerciseitem{de-rham-connecting-formula}写出 de Rham Mayer--Vietoris 连接同态的代表形式，并证明不依赖单位分解。
 \exerciseitem{de-rham-smooth-chain-relative}说明相对光滑化为何必须保持已指定的光滑面，并用正文的相对逼近引理分别证明光滑奇异链包含映射在同调上的满射性与单射性。说明为何不能把结论写成两个链复形本身同构。
 \exerciseitem{de-rham-circle-generator}证明 $-y\,dx+x\,dy$ 在 $S^1$ 上闭而不恰当，并归一化为与基本循环配对为 $1$ 的类。
-\exerciseitem{de-rham-sphere-volume}证明积分非零的 $S^n$ 顶次形式不恰当，并用 de Rham 定理说明它生成顶次上同调。
+\exerciseitem{de-rham-sphere-volume}设 $n\geq1$。证明积分非零的 $S^n$ 顶次形式不恰当，并用 de Rham 定理说明它生成顶次上同调。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{de-rham-torus-periods}用两条基本圆周和整个环面的积分验证正文给出的三个环面上同调类线性独立。
 \exerciseitem{de-rham-torus-mv}选择适当开覆盖，用 Mayer--Vietoris 序列完成 $T^2$ 各次 de Rham 上同调的计算。
-\exerciseitem{de-rham-degree-integral}若 $f:S^n\to S^n$，证明存在实数 $d$ 使对任意顶次形式 $\omega$ 有 $\int_{S^n}f^*\omega=d\int_{S^n}\omega$，并把 $d$ 与 $f_*$ 联系起来。
+\exerciseitem{de-rham-degree-integral}设 $n\geq1$ 且 $f:S^n\to S^n$ 光滑。证明存在实数 $d$ 使对任意顶次形式 $\omega$ 有 $\int_{S^n}f^*\omega=d\int_{S^n}\omega$，并把 $d$ 与 $f_*$ 联系起来。
 \optionalexerciseitem{de-rham-compact-support-warning}构造非紧流形上的顶次闭形式，使其积分非零但普通 de Rham 类为零；解释为什么非紧情形若要用积分研究定向类，必须引入紧支撑上同调。
 \end{enumerate}

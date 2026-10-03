@@ -15,7 +15,7 @@
 则 \(|a_n|\le M\) 对所有 \(n\) 成立。有限前项必须并入最大值，Cauchy 条件只控制尾部。
 \end{solution}
 \begin{solution}{5.2}
-若 \(z_n,w_n\to0\)，给定 \(\varepsilon>0\)，从某项起有 \(|z_n|,|w_n|<\min\{1,\sqrt{\varepsilon}\}\)，故 \(|z_nw_n|<\varepsilon\)；和的证明用 \(\varepsilon/2\)。命题“任意数列乘零列仍为零列”错误：\(z_n=1/n\) 是零列，\(a_n=n\) 无界，而 \(a_nz_n=1\) 不是零列。
+若 \(z_n,w_n\to0\)，给定正有理数 \(\varepsilon\)，从某项起有 \(|z_n|,|w_n|<\min\{1,\varepsilon\}\)，故 \(|z_nw_n|<\varepsilon\)；和的证明用 \(\varepsilon/2\)。所选精度均为有理数，不借用外部实数。命题“任意数列乘零列仍为零列”错误：\(z_n=1/n\) 是零列，\(a_n=n\) 无界，而 \(a_nz_n=1\) 不是零列。
 \end{solution}
 
 \begin{solution}{5.3}
@@ -93,7 +93,13 @@
 \begin{solution}{5.11}
 集合 \(\mathcal C/\sim\) 的加法和乘法良定义性由\exerciseref{5.3}、\exerciseref{5.4}给出，环公理由逐项有理运算继承。\exerciseref{5.6}、\exerciseref{5.7}为每个非零类构造良定义倒数，所以得到域。\exerciseref{5.8}给出三歧律；正下界的相加、相乘分别证明序的传递性以及正数乘积为正，故得到有序域。
 
-有理常值类稠密，因为代表 Cauchy 列的某个后项可在任意给定误差内逼近该类。任意类被代表列的有理界控制，故构造域 Archimedean。最后对其中的 Cauchy 列 \(x_k\) 选 \(|x_k-r_k|<1/k\)，\exerciseref{5.10}证明 \([r_k]\) 是其极限。由此完整得到完备有序域，未使用\chapterref{chap:dedekind-construction}。
+有理常值类稠密，因为代表 Cauchy 列的某个后项可在任意给定误差内逼近该类；使用正文的代表估计引理时，把代表差控制在目标误差的一半即可保留严格间隙。任意类被代表列的有理界控制，故构造域具有 Archimedes 性质。最后对其中的 Cauchy 列 \(x_k\) 选 \(|x_k-r_k|<1/k\)。给定正有理数 \(\varepsilon\)，取 \(K\) 使 \(2/K<\varepsilon/2\)，并使 \(m,n\ge K\) 时 \(|x_m-x_n|<\varepsilon/2\)。则
+\[
+ |r_m-r_n|\le 1/m+|x_m-x_n|+1/n<\varepsilon.
+\]
+所以 \((r_k)\) 确实是有理 Cauchy 列。应用\exerciseref{5.10}，可知 \([r_k]\) 是原列的极限。
+
+构造域还具有 Archimedes 性质，故可应用\chapterref{chap:equivalent-completeness}的二分证明，得到确界完备性。整个构造未使用\chapterref{chap:dedekind-construction}。
 \end{solution}
 
 \begin{solution}{5.12}
@@ -116,13 +122,19 @@
 \]
 左端单调且任意两项之差不超过较早区间长度，故 \((a_n)\) 为 Cauchy 列。
 
-若 \(q\in\alpha\)，取 \(q'\in\alpha\) 且 \(q'>q\)。区间长度最终小于 \(q'-q\)，此时不可能仍有 \(a_n\le q<q'\le b_n\)，故从某项起 \(a_n>q\)，于是 \(q<[a_n]\)。若 \(q\notin\alpha\)，则每个 \(a_n<q\)，所以不可能有 \(q<[a_n]\)。因此 \(\Phi([a_n])=\alpha\)。
+若 \(q\in\alpha\)，取 \(q'\in\alpha\) 且 \(q'>q\)。区间长度最终小于 \((q'-q)/2\)，而 \(q'<b_n\)，故最终
+\[
+ a_n>b_n-\frac{q'-q}{2}>q+\frac{q'-q}{2}.
+\]
+代表差 \(a_n-q\) 有固定正有理下界，因此 \(q<[a_n]\)。若 \(q\notin\alpha\)，则每个 \(a_n<q\)，所以不可能有 \(q<[a_n]\)。因此 \(\Phi([a_n])=\alpha\)。
 \end{solution}
 
 \begin{solution}{5.14}
 一般度量空间的 Cauchy 完备化仍可使用“Cauchy 列之差的距离趋于零”定义等价关系；等价性的验证、常值点嵌入、稠密性以及用对角选择证明完备性只依赖距离与三角不等式。
 
-逐项加法、乘法、倒数和正负号需要原空间的代数与序结构。若这些运算对距离连续，它们可延拓到完备化；倒数还需远离零的论证。一般度量空间没有乘法逆元或全序，因此这些步骤没有对应物。
+逐项加法、乘法、倒数和正负号需要原空间的代数与序结构。要在完备化上用代表列定义运算，仍须分别验证：输出为 Cauchy 列；等价输入产生等价输出。本章对乘法用有界性作估计，对倒数另用远离零的条件。
+
+单纯连续不够。例如 \(f(x)=1/x\) 在 \((0,1)\) 上连续，但 Cauchy 列 \(1/(n+1)\) 的像为 \(n+1\)，不是 Cauchy 列；该函数不能作为实值连续函数延拓到完备化 \([0,1]\)。一致连续是保证延拓的一项充分条件：它把 Cauchy 列送到 Cauchy 列，且把距离趋零的两条代表列送到距离趋零的像列；完备值域保证像列极限存在。一般度量空间本身没有乘法逆元或全序，故不能仅凭完备化就赋予这些结构。
 \end{solution}
 
 \begin{solution}{5.15}
@@ -206,7 +218,7 @@
 \end{solution}
 
 \begin{solution}{5.22}
-设两列为 \(a_n,b_n\)。最终存在 \(c>0\) 使 \(a_n+b_n\ge c\)。又
+设两列为 \(a_n,b_n\)。因两列最终为正，且平方最终大于 \(1\)，故最终 \(a_n>1,b_n>1\)，可取 \(c=2\) 使 \(a_n+b_n\ge c\)。又
 \[
  \abs{a_n^2-b_n^2}
  \le\abs{a_n^2-2}+\abs{b_n^2-2}

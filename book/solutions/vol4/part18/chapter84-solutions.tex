@@ -6,8 +6,13 @@
  =\int_{-a}^{a}e^{-2\pi ix\xi}dx
  =\begin{cases}\dfrac{\sin(2\pi a\xi)}{\pi\xi},&\xi\ne0,\\2a,&\xi=0.\end{cases}
 \]
-它的绝对值在无穷远与 \(|\sin(2\pi a\xi)|/|\xi|\) 同阶。按半周期区间分块，
-绝对积分控制着调和级数，因而发散；所以变换不属于 \(L^1(\R)\)。
+在正半轴作 \(u=2\pi a\xi\)，绝对积分成为
+\(\pi^{-1}\int_0^\infty|\sin u|/u\,du\)。对 \(n\ge1\)，
+\[
+ \int_{n\pi}^{(n+1)\pi}\frac{|\sin u|}{u}\,du
+ \ge\frac{2}{(n+1)\pi}.
+\]
+调和级数发散，故变换不属于 \(L^1(\R)\)。这里只用衰减的上界是不够的。
 \end{solution}
 
 \begin{solution}{fourier-transform-translation-modulation}
@@ -50,7 +55,9 @@
    \frac{e^{-2\pi ihx_j}-1}{h}\,dx.
 \]
 括号逐点趋于 \(-2\pi ix_j\)，且绝对值不超过 \(2\pi|x_j|\)。
-由 \(x_jf\in L^1\) 和控制收敛可交换极限。对各坐标反复应用即得多重指标公式；
+由 \(x_jf\in L^1\) 和控制收敛可交换极限。求出 \(\beta\) 阶导数以后，
+再沿 \(j\) 方向求导所需的控制函数是 \(2\pi|x^{\beta+e_j}f|\)；
+题设保证所有这些中间矩均可积。对各坐标反复应用即得多重指标公式；
 连续性由相同控制论证得到。
 \end{solution}
 
@@ -61,8 +68,14 @@
  =\int\partial_jf(x)e^{-2\pi ix\cdot\xi}dx
  =2\pi i\xi_j\widehat f(\xi).
 \]
-若 \(f\in W^{1,1}\)，取 \(f_n\in C_c^\infty\) 使
+若只知道 \(f,\partial_jf\in L^1\)，取光滑截断 \(\chi_R\)，满足
+\(\chi_R=1\) 于 \(B(0,R)\)、支撑在 \(B(0,2R)\)，且
+\(|\partial_j\chi_R|\le C/R\)。弱乘法法则给
+\(\partial_j(\chi_Rf)=\chi_R\partial_jf+f\partial_j\chi_R\)，两项分别在
+\(L^1\) 中趋于 \(\partial_jf\) 和零。再对截断后的函数磨光，选择对角序列，
+即得 \(f_n\in C_c^\infty\) 使
 \(f_n\to f\)、\(\partial_jf_n\to\partial_jf\) 于 \(L^1\)。
+这个构造没有要求其他方向的弱导数存在。
 基本估计给相应 Fourier 变换一致收敛；令 \(n\to\infty\) 保留等式。
 \end{solution}
 
@@ -78,8 +91,8 @@ Tonelli 给
 
 \begin{solution}{fourier-no-lone-identity}
 若 \(e*f=f\) 对所有 \(f\in L^1\) 成立，则卷积定理给
-\((\widehat e(\xi)-1)\widehat f(\xi)=0\)。对每个固定 \(\xi\)，取平移调制后的
-Gaussian，使 \(\widehat f(\xi)\ne0\)，便得 \(\widehat e(\xi)=1\)。
+\((\widehat e(\xi)-1)\widehat f(\xi)=0\)。取 \(f(x)=e^{-\pi|x|^2}\)，
+其变换在每一点都非零，便得 \(\widehat e(\xi)=1\)。
 但 \(e\in L^1\) 的变换在无穷远趋零，矛盾。
 \end{solution}
 
@@ -89,8 +102,13 @@ Gaussian，使 \(\widehat f(\xi)\ne0\)，便得 \(\widehat e(\xi)=1\)。
  f*\gamma_\varepsilon-f
  =\int_{\R^d}\gamma(y)\bigl(\tau_{\varepsilon y}f-f\bigr)\,dy.
 \]
-Minkowski 积分不等式给正文估计。对每个 \(y\)，平移连续性使范数趋零；
-被 \(2\|f\|_p\gamma(y)\) 控制。对 \(y\) 使用控制收敛定理即得结论。
+对概率测度 \(\gamma(y)\,dy\) 使用 Jensen 不等式，再用 Tonelli 定理，得到
+\[
+ \|f*\gamma_\varepsilon-f\|_p^p
+ \le\int\gamma(y)\|\tau_{\varepsilon y}f-f\|_p^p\,dy.
+\]
+对每个 \(y\)，平移连续性使范数趋零；被
+\(2^p\|f\|_p^p\gamma(y)\) 控制。控制收敛定理即给结论。
 \end{solution}
 
 \begin{solution}{fourier-inversion-continuous-representative}
@@ -99,12 +117,12 @@ Minkowski 积分不等式给正文估计。对每个 \(y\)，平移连续性使�
  F(x)=\int\widehat f(\xi)e^{2\pi ix\cdot\xi}d\xi.
 \]
 把连续性定理用于 \(\widehat f\) 并改变指数符号，得 \(F\in C_0(\R^d)\)。
-反演定理说明在 \(f\) 的每个 Lebesgue 点 \(F(x)=f(x)\)；Lebesgue 点几乎
-处处，故 \(F\) 是所求代表。
+正文反演证明先用 Gaussian 卷积的 \(L^1\) 收敛子列得到
+\(F=f\) 几乎处处，故 \(F\) 是所求代表。这不需要另外调用高维微分定理。
 \end{solution}
 
 \begin{solution}{fourier-heat-kernel}
-由 Gaussian 伸缩公式，
+对 \(t>0\)，由 Gaussian 伸缩公式，
 \[
  \mathcal F^{-1}\!\left(e^{-4\pi^2t|\xi|^2}\right)(x)
  =(4\pi t)^{-d/2}e^{-|x|^2/(4t)}=:K_t(x).
@@ -125,6 +143,10 @@ Minkowski 积分不等式给正文估计。对每个 \(y\)，平移连续性使�
  =\int_{\R^d}f(x)
  \left|\sum_jc_je^{-2\pi ix\cdot\xi_j}\right|^2dx\ge0.
 \]
-这就是正定性。一般 \(C_0\) 函数不满足上述所有有限矩阵半正定条件；例如
-正定函数必须有 \(|F(\xi)|\le F(0)\)，而任意连续消失函数并无此限制。
+这就是正定性。取两个点 \(0,\xi\)，相应矩阵半正定蕴含
+\(F(0)\ge0\)、\(F(-\xi)=\overline{F(\xi)}\)，以及
+\(F(0)^2-|F(\xi)|^2\ge0\)，故 \(|F(\xi)|\le F(0)\)。
+一般 \(C_0\) 函数不满足此条件。例如固定 \(a\ne0\)，函数
+\(F(\xi)=e^{-|\xi-a|^2}\) 连续且在无穷远趋零，却有
+\(F(a)=1>F(0)=e^{-|a|^2}\)，所以不是正定函数。
 \end{solution}

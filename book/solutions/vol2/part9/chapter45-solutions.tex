@@ -27,8 +27,9 @@ $DG(z)=A^{-1}Df(z)-I$，故 $\norm{DG(z)}\le q$。连接 $x,y$ 的线段
  \le\norm{A^{-1}(f(y)-f(x))}
  \le(1+q)\norm{y-x}.
 \]
-凸性只用于保证整条线段都在可使用导数上界的区域内。若区域不凸，可改在
-包含该线段的小球中使用结论。
+凸性只用于保证整条线段都在可使用导数上界的区域内。若区域不凸，
+可在其中的小凸邻域内重新取得局部结论；对于原来给定的两个点，
+不能假定存在一个既包含它们的连线、又留在定义域内且保持原导数界的小球。
 \end{solution}
 
 \begin{solution}{inverse-contraction-ball}
@@ -67,14 +68,21 @@ Jacobian 为
  \begin{pmatrix}\cos y&-\sin y\\\sin y&\cos y\end{pmatrix},
  \qquad \det Df=e^{2x}>0.
 \]
-在不穿过所选辐角割线的小邻域内，可取
+固定源点 \((x_0,y_0)\)。对目标坐标 \((u,v)\) 作旋转
 \[
- x=\log\sqrt{u^2+v^2},\qquad y=\operatorname{Arg}(u+iv)
+ U=u\cos y_0+v\sin y_0,\qquad V=-u\sin y_0+v\cos y_0.
 \]
-作为局部逆。若在穿孔平面上存在连续全局逆，其第二分量就给出连续辐角
-$\theta$。沿单位圆走一周，连续性要求 $\theta$ 的净变化为 $2\pi$，而
-起点终点相同又要求净变化为零，矛盾。更直接地，原映射已经满足
-$f(x,y+2\pi)=f(x,y)$，不可能有双侧全局逆。
+在目标点 \((e^{x_0}\cos y_0,e^{x_0}\sin y_0)\) 附近有 \(U>0\)，可取
+\[
+ x=\log\sqrt{u^2+v^2},\qquad y=y_0+\arctan(V/U)
+\]
+作为局部逆，源的角度限制在 \(|y-y_0|<\pi/2\)。
+原映射满足 \(f(x,y+2\pi)=f(x,y)\)，因此不可能有双侧全局逆。
+甚至连续右逆也不存在：若有，其第二分量在单位圆上的复合记为
+\(\theta(t)\)，\(0\le t\le2\pi\)。右逆条件意味着
+\(\theta(t)-t\in2\pi\Z\)。连续的整数值函数在区间上恒定，故
+\(\theta(2\pi)-\theta(0)=2\pi\)。但圆周两端表示同一点，右逆的单值性
+又给出 \(\theta(2\pi)=\theta(0)\)，矛盾。
 \end{solution}
 
 \begin{solution}{complex-square-local-inverse}
@@ -82,9 +90,9 @@ $f(x,y+2\pi)=f(x,y)$，不可能有双侧全局逆。
  DF(x,y)=\begin{pmatrix}2x&-2y\\2y&2x\end{pmatrix},
  \qquad\det DF=4(x^2+y^2).
 \]
-所以除原点外处处局部可逆。可是 $F(x,y)=F(-x,-y)$，故在穿孔平面上
-不是单射。局部平方根可以在避开一条射线的区域选定分支，但不能在整个穿孔
-平面连续选取一个平方根。
+所以除原点外处处局部可逆。原点的每个邻域都含有一对非零相反点，
+而 \(F(x,y)=F(-x,-y)\)，故原点不局部可逆。
+同一个等式也说明穿孔平面上的映射不单射，因此没有整体双侧逆。
 \end{solution}
 
 \begin{solution}{one-dimensional-local-global-inverse}
@@ -131,7 +139,8 @@ $\varphi(x)=x^2+o(x^2)$。
 \[
  e^u-u-1=x(1+y).
 \]
-左端在 $u=0$ 有严格极小值零，并且等于 $u^2/2+O(u^3)$。当
+左端的导数为 \(e^u-1\)，故在负半轴严格递减、在正半轴严格递增，
+在 $u=0$ 有严格极小值零，并且等于 $u^2/2+O(u^3)$。当
 $x(1+y)>0$ 很小时，方程在零附近有一正一负两个解；当右端为负时没有解。
 所以解既不唯一，也不能在原点附近对全部 $(x,y)$ 存在。
 \end{solution}
@@ -171,9 +180,13 @@ $D\Psi(a)h=(h,D\varphi(a)h)$，故图像的切空间是这些向量的集合。
 
 \begin{solution}{singular-level-crossing}
 零水平集为两条直线 $y=x$ 与 $y=-x$ 的并。原点处 $DF(0,0)=0$，不满射。
-若它在原点附近是一条 $C^1$ 正则曲线的像，则原点应有唯一的一维切空间；
-但沿两条分支趋近原点得到的切向分别为 $(1,1)$ 和 $(1,-1)$，它们不共线。
-因此不存在这样的正则参数化。单独每条直线当然都是光滑曲线，问题出在交叉点。
+假设存在题中坐标片 \(\gamma(t)=(x(t),y(t))\)。
+由 \(\gamma'(0)\ne0\)，至少一个坐标导数非零。若 \(x'(0)\ne0\)，
+一元逆函数定理说明缩小参数区间后，曲线像为单值图像 \(y=\psi(x)\)。
+但这个像仍是零水平集的一个相对开邻域，所以它含有充分小的
+\((s,s)\) 和 \((s,-s)\)（\(s\ne0\)），不可能是这样的图像。
+若 \(y'(0)\ne0\)，交换坐标得到相同矛盾。这里使用了坐标片的局部
+单一参数描述；一般浸入曲线可以由不同参数支相交，不能直接排除。
 \end{solution}
 
 \begin{solution}{constant-rank-projection-model}
@@ -207,6 +220,9 @@ $x=x_0$ 时，$y\mapsto e^{x_0}(\cos y,\sin y)$ 的导数也从不为零；以
 \end{solution}
 
 \begin{solution}{inverse-newton-fixed-linearization}
+取正文所选闭球 \(\overline B(0,r)\)、\(0\le q<1\)，并设
+\(\norm y<(1-q)r\)、\(x_0\in\overline B(0,r)\)。
+所有迭代点均留在该球内，压缩映射定理给出唯一不动点。
 不动点 $x_*$ 满足 $f(x_*)=y$。压缩估计直接给出
 \[
  \norm{x_{m+1}-x_*}\le q\norm{x_m-x_*}\le q^{m+1}\norm{x_0-x_*}.
@@ -217,7 +233,13 @@ $x=x_0$ 时，$y\mapsto e^{x_0}(\cos y,\sin y)$ 的导数也从不为零；以
  \le\sum_{j=m}^{\infty}\norm{x_{j+1}-x_j}
  \le\frac{q^m}{1-q}\norm{x_1-x_0}.
 \]
-这给出至少几何速度的先验与后验误差控制。
+上面是先验误差界。若使用已经算出的相邻差，则对 \(m\ge1\)，
+\[
+ \norm{x_m-x_*}\le\frac{q}{1-q}\norm{x_m-x_{m-1}},
+\]
+因为后续相邻差分别不超过
+\(q\norm{x_m-x_{m-1}},q^2\norm{x_m-x_{m-1}},\ldots\)。
+这才是可以在迭代中直接检查的后验误差界。
 \end{solution}
 
 \begin{solution}{inverse-necessity-counterexamples}

@@ -8,7 +8,10 @@
 
 \section{小集合与高函数值}
 
-设 \(\mathcal F\subset L^1(\mu)\)。考虑两种控制：
+本章固定测度空间 \((X,\mathcal A,\mu)\)，函数均为实可测函数。
+可积函数取有限可测代表，积分条件不依赖代表的选择。数列指标从
+\(n=1\) 开始。设 \(\mathcal F\subset L^1(\mu)\)；空函数族的非负积分
+上确界约定为零。考虑两种控制，其中 \(E\in\mathcal A\)：
 \[
 \tag{UI-tail}
 \lim_{M\to\infty}\sup_{f\in\mathcal F}
@@ -40,11 +43,11 @@
 \end{proposition}
 
 \begin{proof}
-先设一致可积。取 \(M\) 使尾积分统一小于 \(1\)，则
+先设一致可积。取 \(M>0\) 使尾积分统一小于 \(1\)，则
 \[
  \int|f|\le M\mu(X)+1,
 \]
-得到 (i)。给定 \(\varepsilon>0\)，取 \(M\) 使尾积分小于
+得到 (i)。给定 \(\varepsilon>0\)，取 \(M>0\) 使尾积分小于
 \(\varepsilon/2\)，再取 \(\delta=\varepsilon/(2M)\)。于是
 \[
  \int_E|f|
@@ -56,11 +59,18 @@
  \mu(\{|f|>M\})\le C/M.
 \]
 给定 \(\varepsilon>0\)，先由 (ii) 取 \(\delta\)，再令
-\(M>C/\delta\)。将 \(E=\{|f|>M\}\) 代入 (ii)，便得尾积分统一小于
+\(M>\max\{C/\delta,0\}\)。将 \(E=\{|f|>M\}\) 代入 (ii)，便得尾积分统一小于
 \(\varepsilon\)。
 \end{proof}
 
 \section{例子与反例}
+
+上述证明中，有限测度只用于从尾积分控制推出整体 \(L^1\) 有界性。
+因此，在任意测度空间上，\(L^1\) 有界加上 \textup{(UI-set)} 仍足以推出
+一致可积；一致可积也总能推出 \textup{(UI-set)}。不能省略的是反向所需的
+整体界：在 \(\mathbb R\) 上，\(\{\mathbf1_{[0,n]}:n\ge1\}\) 的尾积分在
+\(M>1\) 时全为零，但各函数的积分等于 \(n\)。本章采用的尾积分定义因而
+不在无限测度空间上自动包含 \(L^1\) 有界性。
 
 \begin{proposition}
 \label{prop:dominated-family-ui}
@@ -167,6 +177,28 @@
 则取 \(\Phi(t)=t^p\) 得 \(\mathcal F\) 一致可积。因而有限测度空间上的
 \(L^p\) 有界族（\(p>1\)）在 \(L^1\) 意义下不会形成高尖峰。\(p=1\)
 时结论正是尖峰反例所否定的内容。
+\end{example}
+
+\begin{example}[没有共同可积控制函数的一致可积列]
+在 \((0,1)\) 上取互不相交的区间
+\[
+ I_n=\left(\frac1{2(n+1)},\frac1{2n}\right),\qquad
+ f_n=n\mathbf1_{I_n}.
+\]
+由于
+\[
+ \int_0^1 |f_n|^2
+ =n^2\left(\frac1{2n}-\frac1{2(n+1)}\right)
+ =\frac{n}{2(n+1)}\le\frac12,
+\]
+前例说明这列函数一致可积。若有 \(g\in L^1(0,1)\) 对每个 \(n\)
+几乎处处支配 \(|f_n|\)，删去相应零集的可数并后，在每个 \(I_n\)
+上均有 \(g\ge n\)。利用区间互不相交和积分的可数可加性，
+\[
+ \int_0^1 |g|\ge\sum_{n=1}^{\infty}n\,m(I_n)
+ =\sum_{n=1}^{\infty}\frac1{2(n+1)}=\infty,
+\]
+矛盾。这说明寻找一个共同控制函数可能失败，而一致可积判据仍可适用。
 \end{example}
 
 \section{Vitali 收敛定理}
@@ -320,7 +352,7 @@
 \subsection*{B组　Vitali 定理}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{ui-lp-bounded}
-若 \(p>1\) 且 \(\sup_f\|f\|_p\le C\)，证明
+若 \(p>1\)、\(M>0\) 且 \(\sup_f\|f\|_p\le C<\infty\)，证明
 \[
  \int_{\{|f|>M\}}|f|\le C^pM^{1-p}.
 \]
@@ -346,14 +378,16 @@
 一致可积。
 
 \exerciseitem{mass-tightness-translation}
-证明 \(\{\mathbf1_{[n,n+1]}\}\) 一致可积但不满足空间紧性。
+证明 \(\{\mathbf1_{[n,n+1]}:n\ge1\}\) 一致可积但不满足质量紧性。
 
 \optionalexerciseitem{vitali-infinite-space}
 重作定理 \ref{thm:vitali-sigma-finite-tight} 的证明，尤其写清对角子列怎样
 在全空间几乎处处收敛，并分别说明三个假设排除了哪一类反例。
 
 \projectexerciseitem{ui-random-variables}
-把一致可积性写成概率空间上的期望条件，证明若随机变量
-\(X_n\to X\) 依概率且 \(\{|X_n|^p\}\) 一致可积，则
-\(X_n\to X\) 于 \(L^p\)。
+总测度为1的测度空间称为概率空间，实可测函数称为随机变量，其积分记为
+期望 \(\mathbb E\)，依测度收敛在这里称为依概率收敛。
+设 \(0<p<\infty\)。把一致可积性写成期望条件，并证明：若实随机变量
+\(X_n\to X\) 依概率且 \(\{|X_n|^p:n\ge1\}\) 一致可积，则
+\(X_n,X\in L^p\) 且 \(\mathbb E|X_n-X|^p\to0\)。
 \end{enumerate}

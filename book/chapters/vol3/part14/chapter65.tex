@@ -6,6 +6,10 @@
 几乎处处收敛可以提升为一致收敛。依测度收敛虽不保证整列几乎处处收敛，
 却总能抽出具有这一性质的子列。
 
+本章固定测度空间 \((X,\mathcal A,\mu)\)。函数列和候选极限均为几乎处处
+有限的实值可测函数；在它们取无穷值的可测零集的并上统一置零，使用有限
+可测代表。除非特别说明，不要求测度完备或总测度有限；序列指标从1开始。
+
 \section{几乎一致收敛}
 
 \begin{definition}
@@ -45,9 +49,10 @@
 \end{theorem}
 
 \begin{proof}
-先删去一个零测集，设处处收敛。对 \(k,N\ge1\)，令
+取可测零集 \(Z\)，使在 \(X\setminus Z\) 上处处收敛。
+对 \(k,N\ge1\)，令
 \[
- E_{k,N}=\bigcup_{n\ge N}\{|f_n-f|\ge2^{-k}\}.
+ E_{k,N}=\bigcup_{n\ge N}\{x\in X\setminus Z:|f_n(x)-f(x)|\ge2^{-k}\}.
 \]
 固定 \(k\) 时，\(E_{k,N}\downarrow\varnothing\)。因为
 \(\mu(E_{k,1})\le\mu(X)<\infty\)，测度关于递减集合列连续，所以
@@ -56,7 +61,8 @@
 \[
  \mu(E_{k,N_k})<\eta\,2^{-k}.
 \]
-令 \(E=\cup_kE_{k,N_k}\)，则 \(\mu(E)<\eta\)。若 \(x\notin E\)，
+令 \(E=Z\cup\bigcup_{k\ge1}E_{k,N_k}\)。把原零测集并回并不增加测度，
+故 \(\mu(E)<\eta\)。若 \(x\notin E\)，
 则对每个 \(k\)，当 \(n\ge N_k\) 时
 \(|f_n(x)-f(x)|<2^{-k}\)。这正是 \(X\setminus E\) 上的一致收敛。
 \end{proof}
@@ -96,7 +102,8 @@ Egorov 定理没有声称可选一个零测集得到一致收敛。例如
 \end{theorem}
 
 \begin{proof}
-递归选择 \(n_k>n_{k-1}\)，使
+先选 \(n_1\) 满足下式中 \(k=1\) 的要求，再对 \(k\ge2\) 递归选择
+\(n_k>n_{k-1}\)，使
 \[
  \mu(\{|f_{n_k}-f|>2^{-k}\})<2^{-k}.
 \]
@@ -212,6 +219,6 @@ Egorov 定理没有声称可选一个零测集得到一致收敛。例如
 
 \projectexerciseitem{egorov-lusin-comparison}
 比较 Egorov 定理与第 \ref{chap:measurable-functions} 章 Lusin 定理：
-分别写清被改善的是函数列的哪种
-性质、删去的集合如何选择，以及有限测度条件出现在哪里。
+分别写清被改善的是函数列的收敛性质还是单个函数的连续性、删去的集合
+如何选择，以及有限测度和测度正则性各在哪里使用。
 \end{enumerate}

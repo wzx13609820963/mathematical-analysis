@@ -88,6 +88,11 @@
 
 \subsection{最终共尾映射与聚点}
 
+有向集 \(I\) 的子集 \(D\) 称为\term{共尾子集}，若对每个 \(i\in I\)，
+都存在 \(d\in D\) 使 \(i\preccurlyeq d\)。它带诱导关系也有向：先在
+\(I\) 中取两个指标的共同上界，再取超过该上界的 \(D\) 中元素。
+仅要求一个映射的像是共尾子集，还不能保证它把后期指标送到后期指标。
+
 \begin{definition}[子网]
 设 \((x_i)_{i\in I}\) 是网。若 \(J\) 是有向集，映射
 \(\phi:J\to I\) 满足
@@ -102,6 +107,10 @@
 有些文献还要求 \(\phi\) 保序。本书采用上面的最终共尾定义；它恰好保证
 原网最终成立的每个性质在子网上仍最终成立。因此，收敛网的每个子网收敛
 到同一极限。
+
+例如令 \(\phi:\N\to\N\) 满足 \(\phi(2n)=n\)、\(\phi(2n+1)=0\)。
+其像为整个 \(\N\)，当然共尾，但它不是最终共尾映射，因为任意晚的奇数
+指标仍被送到 \(0\)。因此它不能作为上述子网定义中的指标映射。
 
 \begin{definition}[网的聚点]
 点 \(x\in X\) 称为网 \((x_i)\) 的\term{聚点}，若对 \(x\) 的每个
@@ -239,6 +248,11 @@
 \(\langle\mathcal B\rangle\) 携带同样最终信息的网。使用成对指标使这个
 构造不需要为每个 \(B\) 预先选点。
 
+更精确地，从 \((B,x)\) 开始的网值集合恰为 \(B\)。一方面，后继
+\((C,y)\) 满足 \(y\in C\subseteq B\)；另一方面，每个 \(y\in B\)
+都出现在后继指标 \((B,y)\) 处。因此这个网的尾滤子就是
+\(\langle\mathcal B\rangle\)，不仅有相同的收敛点。
+
 \subsection{收敛与聚集}
 
 \begin{definition}[滤子的收敛与聚点]
@@ -253,7 +267,10 @@
 \end{definition}
 
 对网的尾滤子，滤子收敛等价于网收敛，滤子聚点等价于网聚点。更细的滤子
-保留收敛，但未必保留聚点。
+保留收敛，但未必保留聚点。例如在二点离散空间 \(X=\{a,b\}\) 中，
+滤子 \(\{X\}\) 的聚点为 \(a,b\)；较细的主滤子
+\(\{A\subseteq X:a\in A\}\) 只有聚点 \(a\)，因为其成员 \(\{a\}\)
+与 \(b\) 的邻域 \(\{b\}\) 不交。
 
 \subsection{超滤子}
 
@@ -278,9 +295,28 @@
 \subseteq\mathcal G\)，从而空集属于 \(\mathcal G\)，矛盾。
 \end{proof}
 
-任意滤子都能扩张为超滤子。这一超滤子扩张原理使用选择原则；
-\chapterref{chap:compact-topological-spaces}在证明任意乘积紧致性时已经
-说明了本书采用的相应形式。这里不把它误写成有限选择的推论。
+\begin{theorem}[超滤子扩张原理]
+\label{thm:ultrafilter-extension}
+集合 \(X\) 上的每个滤子都包含在某个超滤子中。
+\end{theorem}
+
+\begin{proof}
+设原滤子为 \(\mathcal F\)，令 \(P\) 为所有包含
+\(\mathcal F\) 的真滤子所成的集合，按包含关系排序。它非空，因为
+\(\mathcal F\in P\)。对非空链 \(\mathcal C\subseteq P\)，
+令 \(\mathcal H=\bigcup_{\mathcal G\in\mathcal C}\mathcal G\)。
+它含 \(X\)，不含空集，且向上封闭。若 \(A,B\in\mathcal H\)，链中
+分别含 \(A,B\) 的两个滤子可比较，较大者同时含二者及其交；所以
+\(A\cap B\in\mathcal H\)。因此 \(\mathcal H\) 仍为真滤子，是该链
+在 \(P\) 中的上界。空链则以 \(\mathcal F\) 为上界。
+
+由Zorn引理，\(P\) 有极大元 \(\mathcal U\)。若存在严格更细
+的真滤子，它仍包含 \(\mathcal F\)，便与此极大性矛盾。故 \(\mathcal U\)
+是超滤子。
+\end{proof}
+
+这里使用了附录\ref{chap:appendix-set-theory}中陈述的Zorn引理。上述证明在全书采用的
+选择公理背景下成立，不应把无限链的极大元存在性当作有限选择的结果。
 
 \section{紧致性、连续性与三种收敛语言}
 
@@ -296,6 +332,9 @@
  \item \(X\) 中每个网都有收敛子网。
 \end{enumerate}
 \end{theorem}
+
+空空间也是本定理的一种情形：它紧致，却没有真滤子，也没有以非空有向集
+为指标的网，因此后三条均为空真。
 
 \begin{proof}
 \((\mathrm i)\Rightarrow(\mathrm{ii})\)。对滤子 \(\mathcal F\)，闭集族

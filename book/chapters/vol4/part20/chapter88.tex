@@ -2,11 +2,14 @@
 \label{chap:distributions-weak-derivatives}
 
 经典导数要求差商逐点收敛，因而不能直接处理跳跃、尖点或仅按几乎处处确定的
-函数。积分分部公式提供了另一条路：把导数从待研究函数转移到光滑测试函数。
-测试函数可以任意选取，转移后的恒等式仍能唯一识别导数。分布把这一做法推广
+函数。积分分部公式提供了另一条路：把导数从待研究函数转移到光滑试验函数。
+试验函数可以任意选取，转移后的恒等式仍能唯一识别导数。分布把这一做法推广
 到 Dirac 质量等不由普通函数给出的对象，并使每个分布都可微。
 
-本章固定开集 \(\Omega\subset\R^d\)。多重指标沿用
+本章固定开集 \(\Omega\subset\R^d\) 及标量域 \(\mathbb K=\R\) 或 \(\C\)。
+试验函数亦称测试函数，均取值于 \(\mathbb K\)。复情形中分布对试验函数
+是线性的，配对 \(\langle T,\varphi\rangle\) 不含复共轭，不能与 Hilbert 内积混同。
+多重指标沿用
 \chapterref{chap:l1-fourier-transform}的约定。
 
 \section{试验函数空间}
@@ -25,17 +28,19 @@
 \[
  \|\partial^\alpha\varphi_n-\partial^\alpha\varphi\|_\infty\to0.
 \]
-“各阶导数一致收敛”而没有公共紧支撑并不足够。例如一个固定凸起函数不断
-向无穷远平移，各阶导数范数不变；它在每个固定紧集上最终为零，却不应在
-\(\mathcal D(\R^d)\) 中收敛到零。
+“各阶导数一致收敛”而没有公共紧支撑并不足够。例如取非零
+\(\eta\in C_c^\infty(\R^d)\)，令
+\(\varphi_n(x)=n^{-1}\eta(x-ne_1)\)。每个固定阶的导数在整个
+\(\R^d\) 上一致趋于零，但所有支撑不包含在同一紧集中，
+所以它不在 \(\mathcal D(\R^d)\) 中收敛到零。
 
 \begin{definition}
 分布是线性泛函
 \[
  T:\mathcal D(\Omega)\to\mathbb K
 \]
-且满足如下局部连续性：对每个 \(K\Subset\Omega\)，存在整数 \(m\) 和
-常数 \(C_K\)，使
+且满足如下局部连续性：对每个 \(K\Subset\Omega\)，存在整数 \(m\ge0\) 和
+常数 \(C_K\ge0\)，使
 \begin{equation}\label{eq:distribution-local-order}
  |\langle T,\varphi\rangle|
  \le C_K\max_{|\alpha|\le m}\|\partial^\alpha\varphi\|_\infty
@@ -62,14 +67,21 @@
 \[
  \langle T_f,\varphi\rangle=\int_\Omega f(x)\varphi(x)\,dx.
 \]
-若测试函数支撑在 \(K\)，则
+若试验函数支撑在 \(K\)，则
 \[
  |\langle T_f,\varphi\rangle|
  \le\|f\|_{L^1(K)}\|\varphi\|_\infty,
 \]
 所以 \(T_f\) 是分布，称为正则分布。映射 \(f\mapsto T_f\) 在几乎处处
-等价类上是单射：若 \(\int f\varphi=0\) 对所有测试函数成立，取紧支撑区域
-内的磨光近似并用 Lebesgue 微分定理，可得 \(f=0\) 几乎处处。
+等价类上是单射：若 \(\int f\varphi=0\) 对所有试验函数成立，取紧支撑区域
+内的磨光近似即可证明。具体地，固定
+\(\overline{B(x_0,2r)}\subset\Omega\)，把
+\(g=f\mathbf1_{B(x_0,2r)}\) 零延拓到 \(\R^d\)。当
+\(x\in B(x_0,r)\)、\(0<\varepsilon<r\) 时，
+\(\rho_\varepsilon(x-\cdot)\) 是允许的试验函数，故
+\((g*\rho_\varepsilon)(x)=0\)。磨光近似在 \(L^1\) 中趋于 \(g\)，于是
+\(f=0\) 于 \(B(x_0,r)\) 几乎处处。用可数个这样的球覆盖 \(\Omega\)，
+就得到单射性。
 
 对 \(x_0\in\Omega\)，Dirac 质量定义为
 \[
@@ -89,7 +101,7 @@
  =(-1)^{|\alpha|}\langle T,\partial^\alpha\varphi\rangle.
 \]
 \end{definition}
-右侧对测试函数线性，并由\eqref{eq:distribution-local-order}提高有限个导数阶
+右侧对试验函数线性，并由\eqref{eq:distribution-local-order}提高有限个导数阶
 后仍连续，所以 \(\partial^\alpha T\) 总是分布。这就是“每个分布都可任意
 次求导”的准确含义；它没有声称导数仍由普通函数表示。
 
@@ -99,11 +111,11 @@
 \[
  \partial_j(\psi T)=(\partial_j\psi)T+\psi\,\partial_jT.
 \]
-证明只需在测试函数上展开
+证明只需在试验函数上展开
 \(\partial_j(\psi\varphi)\)。乘数必须足够光滑；两个任意分布的乘积一般没有
 一致定义。
 
-若 \(f\in C^1\)，且测试函数紧支撑于 \(\Omega\)，经典分部积分没有边界项，
+若 \(f\in C^1\)，且试验函数紧支撑于 \(\Omega\)，经典分部积分没有边界项，
 因而
 \[
  \partial_jT_f=T_{\partial_jf}.
@@ -128,23 +140,40 @@
 函数就是警告：它几乎处处导数为零，却不是常函数，分布导数还含有奇异测度。
 
 \begin{theorem}[一维刻画]\label{thm:weak-derivative-ac-characterization}
-设 \(I\) 为区间，\(f,g\in L^1_{\mathrm{loc}}(I)\)。则 \(g\) 是 \(f\) 的弱
+设 \(I\) 为开区间，\(f,g\in L^1_{\mathrm{loc}}(I)\)。则 \(g\) 是 \(f\) 的弱
 导数，当且仅当 \(f\) 有一个局部绝对连续代表 \(F\)，且
 \(F'=g\) 几乎处处。
 \end{theorem}
 \begin{proof}
 若有这样的代表，绝对连续函数的分部积分给测试恒等式。反之，固定
 \(a\in I\)，令 \(G(x)=\int_a^xg(t)dt\)。则 \(G\) 局部绝对连续且弱导数为
-\(g\)，所以 \(h=f-G\) 的弱导数为零。对任意紧含于 \(I\) 的子区间，把
-\(h\) 与磨光核卷积，得到光滑函数 \(h_\varepsilon\)，且
-\((h_\varepsilon)'=0\)，故在稍小区间上为常数。令
-\(\varepsilon\downarrow0\)，得到 \(h\) 几乎处处等于常数。不同子区间上的
-常数在重叠处相同，故 \(f\) 几乎处处等于 \(G+C\)。
+\(g\)，所以 \(h=f-G\) 的弱导数为零。固定正长度闭区间
+\(J\Subset I\)，取稍大的开区间 \(U\)，使 \(J\subset U\)、\(\overline U\subset I\)。
+将 \(h\mathbf1_U\) 零延拓为 \(\widetilde h\in L^1(\R)\)，令
+\(h_\varepsilon=\widetilde h*\rho_\varepsilon\)。当
+\(0<\varepsilon<\operatorname{dist}(J,\R\setminus U)\) 时，对 \(x\in J\)，
+\(y\mapsto\rho_\varepsilon(x-y)\) 是支撑在 \(U\) 中的试验函数，故
+\[
+ h_\varepsilon'(x)
+ =-\int_U h(y)\,\partial_y\rho_\varepsilon(x-y)\,dy=0.
+\]
+积分求导由 \(\widetilde h\in L^1\) 和固定光滑核的导数有界保证；最后一步
+直接使用零弱导数的定义，没有预用分布卷积理论。因此 \(h_\varepsilon\) 在
+\(J\) 上为常数 \(c_\varepsilon\)。由磨光逼近，
+\(h_\varepsilon\to h\) 于 \(L^1(J)\)，从而
+\[
+ |J|\,|c_\varepsilon-c_\delta|
+ \le\|h_\varepsilon-h\|_{L^1(J)}
+   +\|h_\delta-h\|_{L^1(J)}\longrightarrow0.
+\]
+所以常数本身收敛，\(h\) 几乎处处等于其极限。用递增的正长度紧区间穷尽
+\(I\)，相邻区间在正测度集合上重叠，故常数相同；所有例外集的可数并仍为零测集。
+于是 \(f=G+C\) 几乎处处，得到所需代表。
 \end{proof}
 
 \section{跳跃产生的集中项}
 
-Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对测试函数
+Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对试验函数
 \(\varphi\)，
 \[
  \langle H',\varphi\rangle
@@ -154,14 +183,32 @@ Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对测试函数
 因此 \(H'=\delta_0\) 于分布意义。它没有局部可积的弱导数，因为
 \(\delta_0\) 不是正则分布。
 
-更一般地，若 \(f\) 在分点 \(a_1,\ldots,a_N\) 之间 \(C^1\)，并有左右
-极限，则逐段分部积分给
+更一般地，设 \(f\) 在有限个分点 \(a_1,\ldots,a_N\) 之间 \(C^1\)，
+在分点有有限左右极限，并且逐段经典导数 \(f'_{\mathrm{cl}}\)
+在整个区间上局部可积，包括跨越分点的紧区间。则逐段分部积分给
 \begin{equation}\label{eq:piecewise-distribution-derivative}
  Df=T_{f'_{\mathrm{cl}}}
  +\sum_{j=1}^N\bigl(f(a_j+)-f(a_j-)\bigr)\delta_{a_j}.
 \end{equation}
 连续拼接时跳跃系数为零，尖点如 \(|x|\) 仍有一阶弱导数；函数值跳跃时则
 出现 Dirac 项，不能由 \(L^1_{\rm loc}\) 函数表示。
+
+证明时，先在每个分点左右各去掉长度 \(\varepsilon\) 的小区间，再在余下
+闭区间上分部积分。原积分的极限由 \(f\) 的局部可积性保证，导数积分的极限
+由 \(f'_{\mathrm{cl}}\in L^1_{\mathrm{loc}}\) 保证，端点项则由有限单侧极限
+给出。相邻两段的端点项相加，恰为公式中的跳跃量乘以 \(\varphi(a_j)\)。
+
+有限单侧极限本身不保证导数局部可积。例如取
+\[
+ f(x)=
+ \begin{cases}x^2\sin(x^{-2}),&x>0,\\0,&x\le0.\end{cases}
+\]
+它连续且在零点两侧 \(C^1\)，但在 \(x>0\) 上
+\(f'(x)=2x\sin(x^{-2})-2x^{-1}\cos(x^{-2})\)。
+换元 \(t=x^{-2}\) 可知，第二项绝对积分的收敛性等同于
+\(\int^\infty |\cos t|\,dt/t\)，后者按周期分块比较调和级数而发散。
+因此不能把这个导数直接写成正则分布 \(T_{f'_{\mathrm{cl}}}\)。
+分布导数仍然存在，但上面的分段公式不适用于此例。
 
 \section{正则化}
 
@@ -178,7 +225,7 @@ Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对测试函数
  (T*\rho_\varepsilon)(x)
  =\langle T,\rho_\varepsilon(x-\cdot)\rangle.
 \]
-测试函数的支撑随 \(x\) 留在同一紧集时，可以在
+试验函数的支撑随 \(x\) 留在同一紧集时，可以在
 \(\mathcal D(\Omega)\) 中对参数求导，得到
 \[
  \partial^\alpha(T*\rho_\varepsilon)
@@ -187,17 +234,26 @@ Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对测试函数
 \]
 所以正则化为 \(C^\infty\) 函数。
 
+对同一开集上的分布，约定 \(T_n\to T\) 是指对每个固定
+\(\varphi\in\mathcal D(\Omega)\)，都有
+\(\langle T_n,\varphi\rangle\to\langle T,\varphi\rangle\)。
+下面对缩域正则化采用这一约定的局部形式：配对在 \(\varepsilon\) 足够小时才有定义。
+
 \begin{theorem}\label{thm:distribution-mollification}
-当 \(\varepsilon\downarrow0\) 时，
-\(T*\rho_\varepsilon\to T\) 于 \(\mathcal D'(\Omega)\)，即对每个
-\(\varphi\in\mathcal D(\Omega)\)，
+对每个 \(\varphi\in\mathcal D(\Omega)\)，当 \(\varepsilon\) 足够小时，
+\(\operatorname{supp}\varphi\subset\Omega_\varepsilon\)，并有
 \[
- \int_\Omega(T*\rho_\varepsilon)(x)\varphi(x)dx
+ \int_{\Omega_\varepsilon}(T*\rho_\varepsilon)(x)\varphi(x)dx
  \longrightarrow\langle T,\varphi\rangle.
 \]
 \end{theorem}
 \begin{proof}
-交换分布作用与有限区域积分，可把左侧写成
+固定一个包含 \(\operatorname{supp}\varphi\) 的紧区域。将关于 \(x\) 的积分
+用 Riemann 和逼近时，函数
+\(\varphi(x)\rho_\varepsilon(x-\cdot)\) 的所有支撑都在
+\(\Omega\) 的同一紧子集中，且各阶导数的 Riemann 和一致收敛。
+由分布的局部有限阶估计，可以把分布作用与这一极限交换。
+因此左侧等于
 \[
  \left\langle T,\widetilde\rho_\varepsilon*\varphi\right\rangle,
  \qquad \widetilde\rho(x)=\rho(-x).
@@ -207,6 +263,9 @@ Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对测试函数
 \(\widetilde\rho_\varepsilon*\varphi\to\varphi\) 于
 \(\mathcal D(\Omega)\)，分布连续性给结论。
 \end{proof}
+
+正则化函数原本只定义在 \(\Omega_\varepsilon\)，上述结论没有将它零延拓为
+整个 \(\Omega\) 上的分布。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -223,12 +282,16 @@ Heaviside 函数 \(H=\mathbf1_{(0,\infty)}\) 局部可积。对测试函数
 \exerciseitem{distribution-piecewise-jumps}证明公式\eqref{eq:piecewise-distribution-derivative}，并应用于锯齿函数。
 \exerciseitem{distribution-weak-unique}证明弱导数的几乎处处唯一性。
 \exerciseitem{distribution-weak-ac-one-d}补全一维弱导数与局部绝对连续代表的等价证明。
-\exerciseitem{distribution-mollifier-commute}证明分布正则化光滑、与分布导数交换，并在分布空间中收敛。
+\exerciseitem{distribution-mollifier-commute}证明分布正则化光滑、与分布导数交换；并证明对每个固定紧支撑试验函数，正则化最终可与之配对，且配对趋于原分布的作用。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{distribution-fundamental-lemma}证明若 \(f\in L^1_{\rm loc}\) 且 \(\int f\varphi=0\) 对所有测试函数成立，则 \(f=0\) 几乎处处。
+\exerciseitem{distribution-fundamental-lemma}证明若 \(f\in L^1_{\rm loc}\) 且 \(\int f\varphi=0\) 对所有试验函数成立，则 \(f=0\) 几乎处处。
 \exerciseitem{distribution-x-delta}计算 \(x\delta_0\)、\(x\delta_0'\) 与 \(x^2\delta_0''\)。
 \exerciseitem{distribution-fundamental-solution-one-d}证明 \(E(x)=|x|/2\) 满足 \(E''=\delta_0\)，并用卷积形式解 \(u''=f\) 的紧支撑光滑右端情形。
-\optionalexerciseitem{distribution-no-general-product}考察不同光滑逼近下 \(H\delta_0\) 的候选极限，说明为何任意分布之间不能定义同时满足经典乘法与连续性的乘积。
+\optionalexerciseitem{distribution-no-general-product}证明不存在映射
+\(P:\mathcal D'(\R)\times\mathcal D'(\R)\to\mathcal D'(\R)\)，同时满足：
+对任意光滑函数 \(f,g\)，\(P(T_f,T_g)=T_{fg}\)；以及当
+\(S_n\to S\)、\(T_n\to T\) 按分布收敛时，\(P(S_n,T_n)\to P(S,T)\)。
+提示：取 \(H\) 与 \(\delta_0\) 的两组成对光滑逼近，使乘积有不同极限。
 \end{enumerate}

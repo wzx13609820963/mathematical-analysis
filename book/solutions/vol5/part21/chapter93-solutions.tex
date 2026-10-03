@@ -140,11 +140,13 @@ Taylor 展开给
 \(w^{-1}\) 项对应 \(-n-2=-1\)，即 \(n=-1\)。按定义中的负号，
 \(\operatorname{Res}(f,\infty)=-c_{-1}\)。
 
-对有理函数 \(P/Q\)，先作多项式除法，再在 \(w=1/z=0\) 对真分式作 Taylor
-展开，读出 \(z^{-1}\) 系数。若真分式满足
-\(\deg P\le\deg Q-2\)，则它在无穷远处是 \(O(z^{-2})\)，因而
-\(c_{-1}=0\)。若 \(\deg P=\deg Q-1\)，则 \(c_{-1}\) 等于分子、分母
-首项系数之比；例如
+对有理函数 \(P/Q\)，其中 \(Q\not\equiv0\)，先作多项式除法
+\(P=QS+A\)，余式为零或满足 \(\deg A<\deg Q\)。
+多项式部分 \(S\) 不含 \(z^{-1}\) 项。若 \(A=0\)，留数为零；
+否则在 \(w=1/z=0\) 对真分式 \(A/Q\) 作 Taylor 展开。
+当 \(\deg A\le\deg Q-2\) 时，\(A/Q=O(z^{-2})\)，因而 \(c_{-1}=0\)。
+当 \(\deg A=\deg Q-1\) 时，\(c_{-1}\) 等于 \(A,Q\)
+首项系数之比，所求留数为其相反数。例如
 \(1/(z-a)=z^{-1}+az^{-2}+\cdots\)，故其无穷远留数为 \(-1\)。一般也可
 先求全部有限极点留数，再用
 \(\operatorname{Res}(f,\infty)=-\sum_{a\in\C}\operatorname{Res}(f,a)\)。
@@ -220,9 +222,15 @@ Taylor 展开给
 \]
 因为 \(\cot(ix)=-i\coth x\)。在 \(-ia\) 处得到同一个留数。
 
-取边经过半整数且包住 \(\pm ia\) 的正方形轮廓。其上
-\(\cot(\pi z)\) 一致有界，而 \((z^2+a^2)^{-1}=O(N^{-2})\)，故边界积分
-为 \(O(N^{-1})\to0\)。留数定理及级数绝对收敛给
+取正方形 \(|\operatorname{Re}z|,|\operatorname{Im}z|\le A_N=N+1/2\)，
+并令 \(A_N>2a\)。竖边上余切等于 \(-i\tanh(\pi y)\)，模不超过一；
+横边上由 \(\cot(\pi z)=i(e^{2\pi iz}+1)/(e^{2\pi iz}-1)\) 及共轭关系，
+模不超过 \(\coth(\pi/2)\)。记这个一致界为 \(C\)。边界上
+\[
+ |z^2+a^2|\ge |z|^2-a^2\ge A_N^2-a^2>\frac34 A_N^2.
+\]
+轮廓长 \(8A_N\)，故积分模不超过 \(32\pi C/(3A_N)\to0\)。
+留数定理及级数绝对收敛给
 \[
  0=\sum_{n\in\Z}\frac1{n^2+a^2}
  -\frac{\pi}{a}\coth(\pi a),
@@ -236,18 +244,31 @@ Taylor 展开给
  z^{\alpha-1}
  =\exp((\alpha-1)(\log|z|+i\arg z)).
 \]
-取沿正实轴上岸从 \(\varepsilon\) 到 \(R\)、外圆逆时针、下岸从 \(R\)
-回到 \(\varepsilon\)、内圆顺时针的钥匙孔轮廓。上岸函数值为
-\(x^{\alpha-1}\)，下岸为
-\(e^{2\pi i(\alpha-1)}x^{\alpha-1}=e^{2\pi i\alpha}x^{\alpha-1}\)；
-方向相反，所以两岸之和为
+固定 \(0<\varepsilon<1/2\)、\(R>2\) 和 \(0<\delta<\pi/2\)。
+沿角 \(\delta\) 的射线从 \(\varepsilon\) 到 \(R\)，沿外圆逆时针走到
+角 \(2\pi-\delta\)，再沿该射线返回内圆，最后沿内圆顺时针闭合。
+这条路径在所选分支的定义域内；正实轴本身不在定义域内。
+两段径向积分分别为
+\[
+ \int_\varepsilon^R\frac{e^{i\alpha\delta}x^{\alpha-1}}{1+xe^{i\delta}}\,dx,
+ \qquad
+ -\int_\varepsilon^R
+ \frac{e^{i\alpha(2\pi-\delta)}x^{\alpha-1}}{1+xe^{i(2\pi-\delta)}}\,dx.
+\]
+固定 \(\varepsilon,R\) 后，被积函数在径向区间上一致收敛，故
+令 \(\delta\downarrow0\)，两段之和趋于
 \[
  (1-e^{2\pi i\alpha})
  \int_\varepsilon^R\frac{x^{\alpha-1}}{1+x}\,dx.
 \]
-外圆上被积函数为 \(O(R^{\alpha-2})\)，弧长 \(2\pi R\)，故贡献
-\(O(R^{\alpha-1})\to0\)。内圆上分母有正下界，贡献
-\(O(\varepsilon^\alpha)\to0\)。
+圆弧积分随 \(\delta\downarrow0\) 也有极限，其模的界为
+\[
+ \frac{2\pi R^\alpha}{R-1},\qquad
+ \frac{2\pi\varepsilon^\alpha}{1-\varepsilon}.
+\]
+前者随 \(R\to\infty\) 趋零，后者随 \(\varepsilon\downarrow0\) 趋零。
+原实积分在零点和无穷远分别由可积函数 \(x^{\alpha-1}\)、\(x^{\alpha-2}\)
+控制，故这两个截断极限给通常的反常积分，不需要主值解释。
 
 轮廓内只有简单极点 \(-1\)，其辐角为 \(\pi\)，留数为
 \[

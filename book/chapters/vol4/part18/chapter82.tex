@@ -7,6 +7,16 @@
 意义下考察这一区别。所有函数都视为 \(2\pi\)-周期函数，积分取任意一个
 长度为 \(2\pi\) 的周期；记圆周为 \(\mathbb T=\R/(2\pi\mathbb Z)\)。
 
+本章的 \(L^p\) 范数使用一个周期上的长度测度，卷积公式中的
+\(1/(2\pi)\) 则显式保留。以后使用归一化测度时会另作说明。
+连续周期函数在 \(L^p(\mathbb T)\) 中稠密（\(1\le p<\infty\)）：
+先将 \(f\) 在区间端点的小邻域截去，所产生的 \(L^p\) 误差趋零；
+再用\theoremref{thm:cc-dense-lp}在实线上逼近这个零延拓函数。
+乘以一个支撑于 \((-\pi,\pi)\)、在截断函数支撑上为一且取值于
+\([0,1]\) 的连续截断函数，不会增加误差。所得函数可连续地周期延拓。
+平移保持 \(L^p\) 范数，因此连续周期函数的一致连续性和上述稠密性
+也给出圆周上的 \(L^p\) 平移连续性。
+
 \section{系数与部分和}
 
 在 \(L^1(\mathbb T)\) 中定义
@@ -29,9 +39,44 @@
  D_N(t)=\frac{\sin((N+\tfrac12)t)}{\sin(t/2)},\qquad
  \frac1{2\pi}\int_{-\pi}^{\pi}D_N(t)\,dt=1.
 \]
-因此 \(D_N\) 具有正确总质量，却不是非负核；事实上
-\(\|D_N\|_1\) 的量级为 \(\log N\)。这个增长说明不能由
-\(\|S_Nf\|_\infty\le C\|f\|_\infty\) 得到与 \(N\) 无关的估计。
+因此 \(D_N\) 具有正确总质量，却不是非负核。下面核实其绝对积分的增长
+及这一增长对部分和算子的影响。
+
+令 \(\lambda=N+\tfrac12\)。由
+\(t/\pi\le\sin(t/2)\le t/2\)（\(0<t\le\pi\)），
+\(\|D_N\|_1\) 与
+\[
+ I_N=\int_0^{\lambda\pi}\frac{|\sin u|}{u}\,du
+\]
+上下相差固定正倍数。在初始块 \([0,\pi]\)，积分为固定正数且有限。
+对完整块 \([j\pi,(j+1)\pi]\)、\(j\ge1\)，有
+\[
+ \frac{2}{(j+1)\pi}\le
+ \int_{j\pi}^{(j+1)\pi}\frac{|\sin u|}{u}\,du
+ \le\frac{2}{j\pi}.
+\]
+当 \(N\ge2\) 时，完整块包括 \(j=1,\ldots,N-1\)，最后半块的积分
+不超过 \(1/N\)。调和和的估计给出
+\[
+ c\log(N+2)\le\|D_N\|_1\le C\log(N+2)\qquad(N\ge0),
+\]
+其中 \(c,C>0\) 与 \(N\) 无关；\(N=0,1\) 由调整常数包含进去。
+
+固定一点 \(x\)，在 Banach 空间 \(C(\mathbb T)\) 上令
+\(T_Nf=S_Nf(x)\)。卷积公式给
+\(\|T_N\|\le(2\pi)^{-1}\|D_N\|_1\)。反向取连续周期函数
+\[
+ f_\eta(s)=\frac{D_N(x-s)}{\sqrt{D_N(x-s)^2+\eta^2}},\qquad \eta>0.
+\]
+其一致范数不超过一，且由控制收敛，
+\[
+ T_Nf_\eta=\frac1{2\pi}\int_{-\pi}^{\pi}
+ \frac{D_N(t)^2}{\sqrt{D_N(t)^2+\eta^2}}\,dt
+ \longrightarrow\frac1{2\pi}\|D_N\|_1.
+\]
+所以两者相等，定点泛函的范数无共同上界。一致有界原理的逆否命题
+便给出某个 \(f\in C(\mathbb T)\)，使 \(\sup_N|S_Nf(x)|=\infty\)。
+特别地，连续性并不足以保证 Fourier 部分和在每一点收敛。
 
 \section{局部收敛判据}
 
@@ -50,7 +95,7 @@
 
 \begin{lemma}[圆周上的 Riemann--Lebesgue 引理]\label{lem:circle-riemann-lebesgue}
 若 \(g\in L^1(\mathbb T)\)，则
-\(\int_{-\pi}^{\pi}g(t)e^{-ikt}\,dt\to0\)。
+\(\int_{-\pi}^{\pi}g(t)e^{-ikt}\,dt\to0\)，其中整数频率满足 \(|k|\to\infty\)。
 \end{lemma}
 \begin{proof}
 平移在 \(L^1(\mathbb T)\) 中连续。对 \(k\ne0\) 取
@@ -74,6 +119,7 @@
 在 \((0,\delta)\) 可积，则 \(S_Nf(x)\to s_x\)。
 \end{theorem}
 \begin{proof}
+先缩小 \(\delta\)，使 \(0<\delta<\pi\)。
 在 \((0,\delta)\) 上，\(t/(2\sin(t/2))\) 有界，故
 \eqref{eq:fourier-symmetric-difference}的被积振幅可积。区间
 \([\delta,\pi]\) 上分母离零有界，而 \(f(x+t)+f(x-t)\) 可积。于是整个振幅
@@ -81,10 +127,13 @@
 也可把正弦拆成整数频率乘以固定的 \(\sin(t/2),\cos(t/2)\)。
 \end{proof}
 
-若 \(f\) 在 \(x\) 两侧分段 \(C^1\)，分子在每一侧为 \(O(t)\)，所以 Dini
-条件成立。连续性本身却不保证这一积分条件；存在连续周期函数，其 Fourier
-级数在某点发散。因此“连续函数可由三角多项式一致逼近”不能推出它自己的
-Fourier 部分和收敛。
+本章说周期函数分段 \(C^1\)，是指一个周期可作有限分割，使每个开片上的
+限制延拓为相应闭片上的 \(C^1\) 函数；分割点处原函数的取值可以另定。
+因此单侧邻域的导数有界，中值定理给
+\(|f(x\pm t)-f(x\pm)|\le Ct\)，Dini 条件成立。
+仅在开片内部 \(C^1\) 并不保证端点附近的导数有界。
+前面构造的连续函数发散例子则说明，一致逼近的三角多项式不能任意换成
+原函数自己的 Fourier 部分和。
 
 \begin{theorem}[Dirichlet--Jordan 定理]\label{thm:dirichlet-jordan}
 若 \(f\) 在圆周上有界变差，则对每个 \(x\)
@@ -94,20 +143,47 @@ Fourier 部分和收敛。
 特别地，在连续点收敛到 \(f(x)\)，在跳跃点收敛到左右极限的平均值。
 \end{theorem}
 \begin{proof}
-只说明 Dini 判据未覆盖的步骤。对右连续且在 \(0\) 处取零的 BV 函数
-\(u\)，其变差测度在 \((0,\delta]\) 上的质量随 \(\delta\downarrow0\) 趋零。
-令 \(A_\lambda(t)=\int_t^\delta\sin(\lambda s)/\sin(s/2)\,ds\)。
-Dirichlet 估计给 \(|A_\lambda(t)|\le C\)，常数与 \(\lambda,t,\delta\)
-无关；在每个固定 \(t>0\) 上又有 \(A_\lambda(t)\to0\)。Stieltjes 分部积分
-于是给
+先建立与频率无关的核积分界。函数
 \[
- \int_0^\delta u(t)\frac{\sin(\lambda t)}{\sin(t/2)}\,dt\longrightarrow0:
+ r(t)=\frac1{\sin(t/2)}-\frac2t
 \]
-先选 \(\delta\) 使变差小，再在 \([\delta,\pi]\) 上用
-Riemann--Lebesgue 引理。BV 函数在一点的右差
-\(f(x+t)-f(x+)\) 和左差 \(f(x-t)-f(x-)\) 都满足上述条件。
-把二者代入\eqref{eq:fourier-symmetric-difference}，取
-\(\lambda=N+\tfrac12\)，即得结论。
+在 \(t=0\) 可连续补值为零，因而在 \([0,\pi]\) 有界。
+同时 \(\int_a^b\sin u/u\,du\) 对所有 \(0\le a\le b\) 一致有界：
+在 \([0,1]\) 用 \(|\sin u/u|\le1\)，在 \([1,b]\) 分部积分后，
+边界项和 \(\int_1^b u^{-2}du\) 都有固定界；一般子区间是两个初始
+积分之差。因此存在绝对常数 \(C\)，使
+\[
+ \left|\int_a^b\frac{\sin(\lambda t)}{\sin(t/2)}\,dt\right|
+ \le C\qquad(0\le a\le b\le\pi,\ \lambda>0).
+\]
+这里 \(2/t\) 项换元为正弦积分，余项由
+\(\int_0^\pi|r(t)|\,dt\) 控制。
+
+设 \(u\) 在 \([0,\pi]\) 上右连续、有界变差且 \(u(0)=0\)。
+由\chapterref{chap:signed-measures}的 Stieltjes 构造，有有限符号测度
+\(\nu\) 满足 \(u(t)=\nu((0,t])\)；复值时分别处理实部和虚部。
+对固定 \(\lambda>0\)，核在零处有有限极限 \(2\lambda\)，所以有限区间上
+有界。于是下式的换序绝对可积，Fubini 给出
+\[
+ \int_0^\delta u(t)\frac{\sin(\lambda t)}{\sin(t/2)}\,dt
+ =\int_{(0,\delta]}
+       \left(\int_s^\delta\frac{\sin(\lambda t)}{\sin(t/2)}\,dt\right)d\nu(s).
+\]
+其绝对值不超过 \(C|\nu|((0,\delta])\)。因
+\((0,\delta]\downarrow\varnothing\)，有限变差测度的连续性使此界随
+\(\delta\downarrow0\) 趋零，而且与 \(\lambda\) 无关。
+固定 \(\delta>0\) 后，\(u(t)/\sin(t/2)\) 在 \([\delta,\pi]\) 可积；
+取 \(\lambda=N+\tfrac12\)，由 Riemann--Lebesgue 引理（拆开半整数频率）
+知远区积分趋零。先选小 \(\delta\)，再令 \(N\to\infty\)，即得
+\[
+ \int_0^\pi u(t)\frac{\sin((N+\tfrac12)t)}{\sin(t/2)}\,dt\longrightarrow0.
+\]
+
+对固定 \(x\)，右差 \(f(x+t)-f(x+)\) 和左差 \(f(x-t)-f(x-)\)
+在 \(t\downarrow0\) 时均趋零，且都是 BV 函数。它们未必关于 \(t\)
+右连续，但可各取右连续代表，在 \(t=0\) 取零：BV 函数只有至多可数个
+间断点，这种修改不改变上述积分，也不改变零处的右极限或有界变差性质。
+分别应用刚证结论，再代入\eqref{eq:fourier-symmetric-difference}，即得定理。
 \end{proof}
 
 \section{跳跃与 Gibbs 现象}
@@ -126,12 +202,17 @@ Dirichlet--Jordan 定理只描述固定点的极限。若观察点随 \(N\) 向�
 \[
  S_Nf(y/N)\longrightarrow \frac2\pi\int_0^y\frac{\sin u}{u}\,du.
 \]
-其第一个峰值在 \(y=\pi\) 附近，超过右极限 \(1\) 的比例趋于
+记右侧的局部极限函数为 \(G(y)\)。由
+\(G'(y)=2\sin y/(\pi y)\)，它在正半轴的第一个极大点恰为 \(y=\pi\)。
+在观察点 \(x=\pi/N\)，超过右极限 \(1\) 的绝对量趋于
 \[
- \frac2\pi\int_0^\pi\frac{\sin u}{u}\,du-1\approx0.08949.
+ A=\frac2\pi\int_0^\pi\frac{\sin u}{u}\,du-1\approx0.17898.
 \]
-超调区域的宽度趋零，但高度不趋零；这就是 Gibbs 现象。它不与
-\(L^2\) 收敛冲突，因为一个宽度趋零的区域可以携带趋零的平方积分误差。
+跳跃高度为二，所以相对于跳跃高度的超调比例是 \(A/2\approx0.08949\)，
+即约 \(8.949\%\)。这区分了绝对超调量和通常所说的 Gibbs 比例。
+观察点趋向跳跃点，但超调高度不趋零；这不与 \(L^2\) 收敛矛盾，
+因为积分收敛不控制逐点误差。该函数的 \(L^2\) 收敛将在下一章由正交展开证明，
+不能只凭超调区域看起来很窄就断言整体平方误差趋零。
 
 \section{Fejér 平均}
 
@@ -148,12 +229,12 @@ Dirichlet--Jordan 定理只描述固定点的极限。若观察点随 \(N\) 向�
  K_N(t)=\frac1{N+1}\sum_{n=0}^ND_n(t)
  =\frac1{N+1}\left(\frac{\sin((N+1)t/2)}{\sin(t/2)}\right)^2.
 \end{equation}
-它满足
+在 \(t\in2\pi\mathbb Z\) 处按可去值定义 \(K_N(t)=N+1\)。它满足
 \[
  K_N\ge0,\qquad \frac1{2\pi}\int_{-\pi}^{\pi}K_N=1,\qquad
  \sup_{\delta\le|t|\le\pi}K_N(t)\longrightarrow0
 \]
-对每个 \(\delta>0\) 成立。三条性质使 \(K_N\) 成为圆周上的逼近恒等。
+对每个 \(0<\delta\le\pi\) 成立。三条性质使 \(K_N\) 成为圆周上的逼近恒等。
 
 \begin{theorem}[Fejér 定理]\label{thm:fejer-uniform}
 若 \(f\in C(\mathbb T)\)，则 \(\sigma_Nf\to f\) 一致收敛。更一般地，若
@@ -171,13 +252,37 @@ Dirichlet--Jordan 定理只描述固定点的极限。若观察点随 \(N\) 向�
 \(\varepsilon\)。外部积分由 \(2\|f\|_\infty\) 乘以核在
 \(\delta\le|t|\le\pi\) 上的质量控制，后一质量趋零；估计与 \(x\) 无关。
 
-若 \(x\) 为 Lebesgue 点，把积分按环带
-\(2^j/(N+1)<|t|\le2^{j+1}/(N+1)\) 分解，并用
+若 \(x\) 为 Lebesgue 点，令 \(F(t)=|f(x-t)-f(x)|\)，并记
+\(H(s)=\int_{|t|\le s}F(t)\,dt\)。于是 \(H(s)/s\to0\)。
+核公式与 \(|\sin(t/2)|\ge |t|/\pi\) 给
 \[
  K_N(t)\le C\min\{N+1,((N+1)t^2)^{-1}\}.
 \]
-每一环带由 \(x\) 处的局部平均误差控制，远离零的部分仍由核集中性消失。
-先固定小邻域，再令 \(N\to\infty\)，得到点态结论。
+其中 \(C\) 为绝对常数；第一项也可由
+\(|\sum_{k=0}^Ne^{ikt}|\le N+1\) 得到。
+给定 \(\varepsilon>0\)，取 \(0<\delta<\pi\) 使
+\(H(s)\le\varepsilon s\)（\(0<s\le\delta\)），再取 \(N\) 使
+\(\rho=(N+1)^{-1}<\delta\)。中心区间的积分满足
+\[
+ \int_{|t|\le\rho}F(t)K_N(t)\,dt
+ \le C(N+1)H(\rho)\le C\varepsilon.
+\]
+在 \(\rho<|t|\le\delta\) 上，按
+\(a_j=2^j\rho<\delta\)、\(b_j=\min(2a_j,\delta)\) 分成环带。
+每一带（包括末端截断的一带）均满足
+\[
+ \int_{a_j<|t|\le b_j}F(t)K_N(t)\,dt
+ \le\frac{C H(b_j)}{(N+1)a_j^2}
+ \le 2C\varepsilon\,2^{-j}.
+\]
+求和后近区总量不超过 \(5C\varepsilon\)。远区则有
+\[
+ \int_{\delta<|t|\le\pi}F(t)K_N(t)\,dt
+ \le\frac{C}{(N+1)\delta^2}\int_{-\pi}^{\pi}F(t)\,dt\longrightarrow0.
+\]
+因为 \(f\in L^1\) 且 Lebesgue 点的 \(f(x)\) 有限，最后的积分有限。
+乘回 \(1/(2\pi)\)，先令 \(N\to\infty\)，再令
+\(\varepsilon\downarrow0\)，便得结论。
 \end{proof}
 
 连续情形立即证明三角多项式在 \(C(\mathbb T)\) 中一致稠密，因为

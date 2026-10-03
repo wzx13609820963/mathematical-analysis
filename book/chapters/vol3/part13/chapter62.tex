@@ -35,7 +35,9 @@
 \]
 右端在一个因子为零、另一个为无穷时按 \(0\cdot\infty=0\) 解释。
 
-在由有限个两两不交可测矩形组成的集合环上，定义
+有限个可测矩形的并可按各坐标集合及其补集作共同细分，写成有限个两两
+不交可测矩形的并。这些集合对有限并和差封闭，并包含 \(X\times Y\)，
+因而组成集合代数。以下仍称它为矩形环。在其上定义
 \[
  \pi\left(\bigsqcup_{k=1}^{m}A_k\times B_k\right)
  =\sum_{k=1}^{m}\mu(A_k)\nu(B_k).
@@ -47,12 +49,15 @@
 \end{proposition}
 
 \begin{proof}
+记 \(E_x=\{y\in Y:(x,y)\in E\}\) 为集合的竖截面。
 设 \(E=\bigsqcup_{k=1}^{m}A_k\times B_k\)。对固定的 \(x\)，所有满足
 \(x\in A_k\) 的 \(B_k\) 两两不交，因此
 \[
  \nu(E_x)=\sum_{k=1}^{m}\mathbf1_{A_k}(x)\nu(B_k).
 \]
-右侧是非负简单函数，并且
+右侧是非负扩充实值可测函数；当某个 \(\nu(B_k)=\infty\) 时，
+它未必是按本书定义取有限值的简单函数。先把每个系数替换为
+\(\min\{\nu(B_k),N\}\)，再让 \(N\uparrow\infty\)，由单调收敛得到
 \[
  \int_X\nu(E_x)\,d\mu(x)
  =\sum_{k=1}^{m}\mu(A_k)\nu(B_k).
@@ -66,7 +71,7 @@
 \[
  \nu(E_x)=\sum_{n=1}^{\infty}\nu((E_n)_x).
 \]
-每个截面测度函数都是非负简单函数。对右侧部分和使用单调收敛定理，得到
+每个截面测度函数都非负可测。对右侧部分和使用单调收敛定理，得到
 \[
  \pi(E)=\int_X\nu(E_x)\,d\mu
  =\sum_{n=1}^{\infty}\int_X\nu((E_n)_x)\,d\mu
@@ -80,8 +85,9 @@
 
 \begin{theorem}[乘积测度]
 \label{thm:product-measure-existence}
-若 \(\mu,\nu\) 都是 \(\sigma\)-有限测度，则存在唯一测度
-\(\mu\times\nu\) 满足
+若 \((X,\mathcal A,\mu)\)、\((Y,\mathcal B,\nu)\) 都是
+\(\sigma\)-有限测度空间，则在 \(\mathcal A\otimes\mathcal B\) 上存在
+唯一测度 \(\mu\times\nu\) 满足
 \[
  (\mu\times\nu)(A\times B)=\mu(A)\nu(B)
 \]
@@ -131,7 +137,8 @@
 
 \begin{theorem}
 \label{thm:cavalieri-sets}
-若 \(E\in\mathcal A\otimes\mathcal B\)，则
+设 \((X,\mathcal A,\mu)\)、\((Y,\mathcal B,\nu)\) 为
+\(\sigma\)-有限测度空间。若 \(E\in\mathcal A\otimes\mathcal B\)，则
 \[
  x\longmapsto\nu(E_x),\qquad y\longmapsto\mu(E^y)
 \]
@@ -186,7 +193,9 @@
 
 \begin{theorem}[Tonelli]
 \label{thm:tonelli}
-若 \(f:X\times Y\to[0,+\infty]\) 可测，则
+设 \((X,\mathcal A,\mu)\)、\((Y,\mathcal B,\nu)\) 为
+\(\sigma\)-有限测度空间。若 \(f:X\times Y\to[0,+\infty]\)
+对乘积 \(\sigma\)-代数可测，则
 \[
  x\longmapsto\int_Yf(x,y)\,d\nu(y)
 \]
@@ -214,13 +223,16 @@
 
 \begin{theorem}[Fubini]
 \label{thm:fubini}
-若 \(f\in L^1(\mu\times\nu)\)，则
+设 \((X,\mathcal A,\mu)\)、\((Y,\mathcal B,\nu)\) 为
+\(\sigma\)-有限测度空间，\(f\) 是乘积空间上的可测实函数，且
+\(\int|f|\,d(\mu\times\nu)<\infty\)。则
 \[
  f_x\in L^1(\nu)\quad\text{对几乎所有 }x,
 \qquad
  f^y\in L^1(\mu)\quad\text{对几乎所有 }y.
 \]
-把例外点上的迭代积分任意定义为零后，所得函数可积，且
+在内层绝对值积分为无穷的可测零集上，把相应的内层积分定义为零，
+所得函数可积，且
 \[
  \int_{X\times Y}f\,d(\mu\times\nu)
  =\int_X\int_Yf(x,y)\,d\nu(y)\,d\mu(x)
@@ -234,12 +246,52 @@
  \int_X\left(\int_Y|f_x|\,d\nu\right)d\mu
  =\int_{X\times Y}|f|\,d(\mu\times\nu)<\infty.
 \]
-故内层绝对值积分对几乎所有 \(x\) 有限。分别对 \(f^+,f^-\) 使用
-Tonelli，再相减，得到第一个迭代公式；交换变量得到第二个。
+令 \(N_X=\{x:\int_Y|f_x|\,d\nu=\infty\}\)。由 Tonelli 定理，
+它可测且 \(\mu(N_X)=0\)。在补集上，两个可测函数
+\(\int_Y f_x^+\,d\nu\)、\(\int_Y f_x^-\,d\nu\) 都有限，故其差可测；
+在 \(N_X\) 上置零仍可测。其绝对值不超过内层绝对值积分，因此可积。
+分别对 \(f^+,f^-\) 使用 Tonelli 再相减，得到第一个迭代公式；
+交换变量得到第二个。这一处理不要求因子测度完备。
 \end{proof}
+
+复函数的积分按实部、虚部分别定义。若 \(\int|f|<\infty\)，两个分量
+均可积，分别应用上述实函数版本即得相同的迭代积分公式。
 
 实用上常先对 \(|f|\) 作一次迭代积分。若结果有限，Fubini 的全部结论随即
 成立。若只算带符号的内层积分并得到有限值，仍不足以交换次序。
+
+\section{完备化与例外截面}
+
+以上定理首先建立在 \(\mathcal A\otimes\mathcal B\) 上。即使两个因子测度
+都是完备的，乘积测度也不一定完备。对乘积测度作完备化以后，
+“每个截面可测”应相应改为“几乎每个截面可测”。
+
+设两个因子测度完备，\(E\) 属于乘积测度的完备化。按完备化的定义，可取
+\(B,Z\in\mathcal A\otimes\mathcal B\)，使
+\[
+ E\mathbin{\triangle}B\subset Z,\qquad(\mu\times\nu)(Z)=0.
+\]
+由 Cavalieri 公式，\(\nu(Z_x)=0\) 对几乎所有 \(x\) 成立。在这些点，
+\(E_x\mathbin{\triangle}B_x\subset Z_x\)，因子测度的完备性保证
+\(E_x\) 可测，且 \(\nu(E_x)=\nu(B_x)\)。故截面积分公式仍成立，但内层
+积分只需在几乎所有外层参数上定义。
+
+函数形式也如此。任一非负完备化可测函数 \(f\) 都有一个
+\(\mathcal A\otimes\mathcal B\)-可测函数 \(g\)，在某个乘积零测集以外与它相等。
+为证明这一点，取非负简单函数 \(s_n\uparrow f\)，把各 \(s_n\) 中有限个
+完备化可测集换成与其仅相差零测集的乘积可测集。所有差异包含在可数个
+乘积零测集的并 \(Z\) 中。所得函数序列在 \(Z\) 外仍趋于 \(f\)，
+令 \(g\) 在 \(Z\) 外为其上极限，在 \(Z\) 上为零，即得所求。
+对 \(g\) 应用 Tonelli 定理，再对 \(Z\) 应用截面零测性，便得到
+完备化版本。可积实函数拆成正负部，复函数再拆成实部、虚部，Fubini 公式
+因而也保留。
+
+欧氏空间中的 Lebesgue 测度正是 Borel 测度的完备化；Borel 乘积测度在
+矩形上给通常的体积，唯一性保证二者相符。因此上述版本适用于一般
+Lebesgue 可测函数，而不只适用于 Borel 可测函数。
+例外截面不能删去：若 \(V\subset[0,1]\) 不 Lebesgue 可测，则
+\(\{0\}\times V\) 包含在平面 Borel 零测集 \(\{0\}\times[0,1]\) 中，
+所以平面 Lebesgue 可测；但在 \(x=0\) 处的截面恰为 \(V\)。
 
 \section{二重级数与反例}
 
@@ -270,12 +322,26 @@ Tonelli，再相减，得到第一个迭代公式；交换变量得到第二个�
 \(\sum_n(\sum_ma_{mn})=1\)。绝对值二重和发散，Fubini 条件不成立。
 \end{counterexample}
 
+\begin{counterexample}[缺少 \(\sigma\)-有限性]
+在 \([0,1]\) 的 Borel 集上，第一坐标取 Lebesgue 测度 \(m\)，第二坐标
+取计数测度 \(c\)。后者不是 \(\sigma\)-有限的，因为每个有限测度集只有
+有限多个点。对角线 \(D=\{(x,y):x=y\}\) 是 Borel 集，但
+\[
+ \int_{[0,1]}c(D_x)\,dm(x)=\int_{[0,1]}1\,dm=1,
+ \qquad
+ \int_{[0,1]}m(D^y)\,dc(y)=\int_{[0,1]}0\,dc=0.
+\]
+所以即使函数非负且乘积可测，两种迭代积分也未必相等。这个例子否定的是
+无条件换序，并不声称无法构造任何满足矩形公式的乘积测度。
+\end{counterexample}
+
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 \subsection*{A组　乘积可测结构}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{product-sigma-coordinate}
-证明两个坐标投影可测，并证明可测函数 \(f(x),g(y)\) 组成的
+设 \(f:X\to X'\)、\(g:Y\to Y'\) 为可测空间之间的可测映射。
+证明两个坐标投影可测，并证明它们组成的
 \((x,y)\mapsto(f(x),g(y))\) 可测。
 
 \exerciseitem{borel-product-euclidean}
@@ -325,10 +391,17 @@ Tonelli，再相减，得到第一个迭代公式；交换变量得到第二个�
 \[
  f(x,y)=\frac{x^2-y^2}{(x^2+y^2)^2}
 \]
-在 \((-1,1)^2\) 上的绝对可积性，并比较两种先后次序的反常迭代积分。
+在 \((-1,1)^2\) 上的绝对可积性（原点处补为零），并比较两种先后次序
+的反常迭代积分；外层参数为零时的发散截面应单独说明。
 
 \exerciseitem{double-series-counterexample}
 逐项验证正文二重级数反例的两种迭代和，并证明其绝对值二重和发散。
+
+\exerciseitem{completed-product-exceptional-section}
+取一个不 Lebesgue 可测的 \(V\subset[0,1]\)。证明
+\(\{0\}\times V\) 属于二维 Lebesgue \(\sigma\)-代数，却不属于
+\(\mathcal L(\R)\otimes\mathcal L(\R)\)。据此说明两个完备测度的乘积
+不一定完备，并指出 Fubini 定理中为什么需要允许例外截面。
 
 \optionalexerciseitem{convolution-measurability}
 若 \(f,g:\mathbb R^n\to[0,\infty]\) 可测，证明

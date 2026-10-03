@@ -46,8 +46,12 @@
 \((I-A)x^\ast=b\)。
 
 令 \(s_N=\sum_{k=0}^{N}A^kb\)。由
-\(\|A^kb\|\le q^k\|b\|\)，级数在 \(E\) 中绝对收敛，故
-\(s_N\to s\)。有限和满足
+\(\|A^kb\|\le q^k\|b\|\)，对 \(M>N\) 有
+\[
+ \|s_M-s_N\|\le\|b\|\sum_{k=N+1}^{M}q^k
+ \le\frac{q^{N+1}}{1-q}\|b\|\longrightarrow0.
+\]
+所以部分和为Cauchy列，由 \(E\) 完备得到 \(s_N\to s\)。有限和满足
 \[
  (I-A)s_N=b-A^{N+1}b.
 \]
@@ -435,8 +439,10 @@
  \lambda_{\mathrm{opt}}=\frac{2}{m+M},\qquad
  q_{\mathrm{opt}}=\frac{M-m}{M+m}.
 \]
-若两端不等高，略微移动 \(\lambda\) 可降低较大的一端而尚未让另一端超过
-它，所以不可能达到最小值。由于 \(0<m\le M\)，有
+严格地说，若 \(0<\lambda\le2/(m+M)\)，则最大值至少为
+\(1-\lambda m\ge(M-m)/(M+m)\)；若 \(\lambda\ge2/(m+M)\)，则最大值
+至少为 \(\lambda M-1\ge(M-m)/(M+m)\)。候选参数同时达到这个下界，
+所以确为最优；这个论证也包括 \(m=M\)。由于 \(0<m\le M\)，有
 \(0\le q_{\mathrm{opt}}<1\)，相应迭代为压缩映射。
 \end{solution}
 

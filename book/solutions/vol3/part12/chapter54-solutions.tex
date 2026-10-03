@@ -1,7 +1,9 @@
 \chapter{测度空间}
 
 \begin{solution}{sigma-algebra-intersections}
-设 $(\mathcal A_i)_{i\in I}$ 均为 $X$ 上的 $\sigma$-代数。$X$ 属于每个
+设 $(\mathcal A_i)_{i\in I}$ 均为 $X$ 上的 $\sigma$-代数。若 $I=\varnothing$，
+相对于 $\mathcal P(X)$ 的空交就是 $\mathcal P(X)$，结论成立。
+以下设 $I\ne\varnothing$。$X$ 属于每个
 $\mathcal A_i$，故属于其交；若 $E$ 属于其交，则 $E^c$ 属于每个
 $\mathcal A_i$；若每个 $E_n$ 属于其交，则 $\bigcup_nE_n$ 属于每个
 $\mathcal A_i$。所以交仍为 $\sigma$-代数。
@@ -14,12 +16,15 @@ $\mathcal A\cup\mathcal B$。
 \end{solution}
 
 \begin{solution}{finite-generator-atoms}
-对每个符号串 $\varepsilon\in\{0,1\}^m$，令
+若 $m=0$，唯一的交块为 $X$，生成的集合族为 $\{\varnothing,X\}$。
+以下设 $m\ge1$。对每个符号串 $\varepsilon\in\{0,1\}^m$，令
 $A_\varepsilon=\bigcap_jF_j$，其中 $F_j=E_j$ 当 $\varepsilon_j=1$，
 否则 $F_j=E_j^c$。非空的 $A_\varepsilon$ 两两不交并覆盖 $X$。所有这些
 原子的并构成一个 $\sigma$-代数，并包含每个 $E_j$，故包含
 $\sigma(\mathcal E)$；反过来每个原子由有限交和补集得到，所以属于
-$\sigma(\mathcal E)$。因此生成代数正是原子的任意并，原子数至多 $2^m$。
+$\sigma(\mathcal E)$。因此生成代数正是这些非空交块的任意并。
+若其中一个交块含有生成代数的非空子集，该子集也是交块的并；交块两两不交，
+故这个子集只能是整个交块。这验证了原子性，原子数至多 $2^m$。
 \end{solution}
 
 \begin{solution}{measure-finite-additivity}
@@ -49,17 +54,22 @@ $\#\varnothing=0$。失败恰好来自起始集合测度无限。
 \end{solution}
 
 \begin{solution}{weighted-counting-measure}
-对两两不交的 $(E_n)$，每个点至多出现在一个集合中，非负级数重排给出
+沿用正文的无重复枚举 $X=\{x_k:k\in I\}$ 及 $w_k\in[0,+\infty]$。
+空集对应空和，故测度为零。对两两不交的 $(E_n)_{n\ge1}$，每个指标至多
+属于一个指标集 $J_n=\{k\in I:x_k\in E_n\}$，且这些指标集两两不交。
+记 $J=\bigcup_nJ_n$。则
 \[
- \mu\Bigl(\bigcup_nE_n\Bigr)
- =\sum_k w_k\mathbf1_{\cup_nE_n}(x_k)
- =\sum_n\sum_k w_k\mathbf1_{E_n}(x_k).
+ \sum_{k\in J}w_k=\sum_{n=1}^{\infty}\sum_{k\in J_n}w_k.
 \]
-故它是测度。它有限当且仅当 $\sum_kw_k<\infty$。在正文假定每个
-$w_k$ 都是有限实数时，有限集
-$X_m=\{x_1,\ldots,x_m\}$ 具有有限测度，故该测度总是 $\sigma$-有限。
-若允许某个权重取 $+\infty$，包含相应点的集合都具有无穷测度，因而不再
-$\sigma$-有限。
+为直接核对这次分组求和，左侧任一有限子和只涉及有限多个 $J_n$，故不超过
+右侧。反过来，在有限多个 $J_n$ 中各取有限子集，将它们合并，所得和不超过
+左侧；先对这些有限子集取上确界，再对所取组数取上确界，得到反向不等式。
+无穷权重也适用这一论证，不需要积分或双重积分定理。因此公式定义测度。
+
+它有限当且仅当 $\sum_{k\in I}w_k<\infty$；它是 $\sigma$-有限的当且仅当
+每个 $w_k$ 有限。充分性由单点集覆盖得到，有限 $X$ 时在有限覆盖后补空集；
+必要性则因一旦 $w_k=+\infty$，任何包含 $x_k$ 的集合测度均为无穷，
+所以不可能用有限测度集合覆盖该点。
 \end{solution}
 
 \begin{solution}{dirac-integral-preview}
@@ -67,6 +77,11 @@ $\delta_a(\varnothing)=0$。对不交集列，$a$ 至多属于其中一项，所
 都等于 $0$ 或 $1$，可数可加性成立。零测集都不含 $a$，其任意子集仍不含
 $a$ 且在幂集 $\sigma$-代数中可测，故完备。最后
 $\delta_a(E_n)=\mathbf1_{E_n}(a)$，结论只是这一恒等式的改写。
+
+幂集假设不可任意略去。例如在 $X=\{a,b,c\}$ 上，取
+$\mathcal A=\{\varnothing,\{a\},\{b,c\},X\}$。限制到 $\mathcal A$
+的 $\delta_a$ 仍是测度，但可测零集 $\{b,c\}$ 的子集 $\{b\}$ 不可测，
+故这一限制测度不完备。
 \end{solution}
 
 \begin{solution}{completion-equivalent-form}
@@ -89,7 +104,8 @@ $\nu(A)=\nu(E)=\mu(E)=\overline\mu(A)$。
 若 $E\sim E'$、$F\sim F'$，则
 $(E\triangle F)\triangle(E'\triangle F')$ 含于
 $(E\triangle E')\cup(F\triangle F')$，故测度为零，$d$ 良定义。对称性和
-非负性直接成立，$d([E],[F])=0$ 正是 $[E]=[F]$。由集合包含
+非负性直接成立；由 $\mu(X)<\infty$，距离处处有限。
+$d([E],[F])=0$ 正是 $[E]=[F]$。由集合包含
 \[
  E\triangle G\subseteq(E\triangle F)\cup(F\triangle G)
 \]

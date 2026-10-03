@@ -25,7 +25,7 @@
 若 \(x\ne y\) 且 \(0<t<1\) 时不等式总是严格的，则称 \(f\) \term{严格凸}。把不等号反向便得到凹函数和严格凹函数。
 \end{definition}
 
-右端是图像两端点连线在横坐标 \((1-t)x+ty\) 处的高度。因此凸函数的图像位于任意弦的下方。这里允许相等，故仿射函数 \(x\mapsto ax+b\) 既凸又凹，却不严格凸。
+右端是图像两端点连线在横坐标 \((1-t)x+ty\) 处的高度。因此凸函数的图像位于任意弦的下方。这里允许相等，故仿射函数 \(x\mapsto ax+b\) 既凸又凹，在非退化区间上不严格凸。单点区间没有两点可供比较，严格凸条件在该情形真空成立。
 
 \begin{example}
 函数 \(x\mapsto x^2\) 在 \(\R\) 上严格凸，因为
@@ -43,6 +43,8 @@
 \]
 称为 \(f\) 的\term{上图集}。它由函数图像以及图像上方的全部点组成。
 \end{definition}
+
+这里也使用平面凸集：\(C\subset\R^2\) 凸，是指任意 \(u,v\in C\) 和 \(t\in[0,1]\) 都有 \((1-t)u+tv\in C\)，其中向量运算逐坐标进行。
 
 \begin{proposition}[上图集刻画]
 \label{prop:convex-epigraph-characterization}
@@ -300,11 +302,11 @@
 固定有理数的一个枚举 \(\Q=\{q_1,q_2,\dots\}\)。对每个不可导点 \(x\)，令 \(m(x)\) 为满足 \(q_{m(x)}\in J_x\) 的最小正整数。有理数的稠密性保证这样的整数存在，而不交性说明 \(x\ne y\) 时 \(m(x)\ne m(y)\)。因此 \(x\mapsto m(x)\) 把不可导点集单射到正整数集，该集合至多可数。
 \end{proof}
 
-“至多可数”不能改为“有限”。取有界区间内一列互异点 \((a_n)\) 与满足 \(\sum_n c_n<\infty\) 的正数 \((c_n)\)，定义
+“至多可数”不能改为“有限”。取有界点列 \((a_n)_{n\ge1}\)，各项互异，再取正数 \(c_n\)，使部分和 \(S_N=\sum_{n=1}^N c_n\) 收敛到有限数 \(S\)。定义
 \[
- f(x)=\sum_{n=1}^{\infty}c_n\abs{x-a_n}.
+ f(x)=\lim_{N\to\infty}\sum_{n=1}^{N}c_n\abs{x-a_n},\qquad x\in\R.
 \]
-该级数一致收敛，和函数凸，并在每个 \(a_n\) 处出现导数跳跃。完整核对留作习题。
+若 \(\abs{a_n}\le A\)，则对固定 \(x\)，右侧部分和单调不减且不超过 \((\abs x+A)S\)，故极限存在。有限和的凸性不等式取极限后说明 \(f\) 凸。此外，三角不等式给出 \(\abs{f(x)-f(y)}\le S\abs{x-y}\)，故 \(f\) 连续。习题将用尾项估计证明 \(f'_+(a_n)-f'_-(a_n)=2c_n>0\)。这项构造只需单调数列收敛和有限和估计，不必提前使用函数项级数的理论。
 
 \section{支撑线和一维次梯度}
 
@@ -328,7 +330,7 @@
  \partial f(x)=[f'_-(x),f'_+(x)].
  \label{eq:subdifferential-interval}
 \end{equation}
-特别地，\(f\) 在 \(x\) 可导当且仅当 \(\partial f(x)=\{f'(x)\}\)。
+特别地，\(f\) 在 \(x\) 可导当且仅当 \(\partial f(x)\) 为单点集，此时它等于 \(\{f'(x)\}\)。
 \end{theorem}
 
 \begin{proof}
@@ -443,7 +445,7 @@
 令 \(h\to0\) 得 \(f''(x)\ge0\)。
 \end{proof}
 
-条件 \(f''>0\) 是严格凸的充分条件，但不是必要条件。函数 \(x^4\) 在 \(\R\) 上严格凸，然而 \(f''(0)=0\)。在可导情形下，严格凸等价于 \(f'\) 严格递增；二阶条件只是一种便于核对的充分条件。凸函数也可能没有二阶导数，甚至没有一阶导数，\(\abs{x}\) 是最简单的例子。
+条件 \(f''>0\) 是严格凸的充分条件，但不是必要条件。函数 \(x^4\) 在 \(\R\) 上严格凸，然而 \(f''(0)=0\)。在开区间上可导时，严格凸等价于 \(f'\) 严格递增：若 \(f\) 严格凸而 \(f'(u)=f'(v)\)、\(u<v\)，导数的单调性使其在 \([u,v]\) 上恒定，中值定理随即使 \(f\) 在这段区间为仿射函数，矛盾。反向则用刚才两个相邻割线的证明。凸函数也可能没有二阶导数，甚至没有一阶导数，\(\abs{x}\) 是最简单的例子。
 
 \begin{example}[函数的凹凸区间]
 对 \(f(x)=x^3\)，有 \(f''(x)=6x\)。因此它在 \((0,+\infty)\) 上严格凸，在 \((-\infty,0)\) 上严格凹。点 \(0\) 是凹凸性改变的位置，却不是局部极值点。这说明二阶导数变号描述的是弯曲方向，不等同于一阶导数变号的极值判据。
@@ -482,10 +484,10 @@
 \[
  f^*(p)=\sup_{x\in I}\{px-f(x)\},\qquad p\in\R.
 \]
-若上确界无界，允许 \(f^*(p)=+\infty\)。
+若 \(\{px-f(x):x\in I\}\) 无上界，规定 \(f^*(p)=+\infty\)。由于 \(I\ne\varnothing\) 且 \(f\) 为有限值，\(f^*(p)\) 不会等于 \(-\infty\)。
 \end{definition}
 
-对每个固定 \(x\)，\(p\mapsto px-f(x)\) 是仿射函数，所以 \(f^*\) 作为一族仿射函数的逐点上确界总是凸的，即使原函数 \(f\) 并不凸。
+对允许取 \(+\infty\) 而不取 \(-\infty\) 的函数，凸性仍指两点不等式，但只需在 \(0<t<1\) 时检验；若右侧有一项为 \(+\infty\)，不等式自动成立。端点权重单独视为等式，以免出现 \(0\cdot(+\infty)\)。对固定 \(x\)，\(p\mapsto px-f(x)\) 是仿射函数；逐点取上确界的同一证明因此表明 \(f^*\) 总是凸的，即使原函数 \(f\) 并不凸。
 
 \begin{theorem}[Fenchel--Young 不等式]
 \label{thm:fenchel-young}
@@ -514,6 +516,7 @@
 \[
  f^{**}(x)=\sup_{p\in\R}\{px-f^*(p)\}.
 \]
+当 \(f^*(p)=+\infty\) 时，括号内规定为 \(-\infty\)；若所有项均为 \(-\infty\)，其上确界也取 \(-\infty\)。下面的定理说明有限值凸函数不会发生后一种情形。
 \end{definition}
 
 \begin{theorem}[双共轭公式]
@@ -588,7 +591,7 @@ Fenchel--Young 不等式给出
  \]
  成立的显式常数 \(L\)。
  \exerciseitem{convex-one-sided-absolute-value} 计算 \(\abs{x}\) 在每一点的左右导数，并逐点验证 \(f'_-(x)\le f'_+(x)\)。
- \exerciseitem{convex-differentiable-derivative-criterion} 不引用二阶导数，证明可导函数凸当且仅当其导数单调不减。
+ \exerciseitem{convex-differentiable-derivative-criterion} 设 \(f\) 在非空开区间 \(I\) 上可导。不引用二阶导数，证明 \(f\) 凸当且仅当其导数单调不减。
  \exerciseitem{convex-strict-affine-segment} 证明：凸函数若在某条弦的一个真内分点取等号，则在整条弦上为仿射函数。由此给出严格凸性的等价判据。
 \end{enumerate}
 
@@ -607,13 +610,13 @@ Fenchel--Young 不等式给出
  \]
  \exerciseitem{strict-convex-unique-minimum-not-existence} 证明严格凸函数若有极小点则唯一；分别举出严格凸函数没有极小点以及下确界有限却不取得的例子。
  \exerciseitem{second-derivative-sufficient-not-necessary} 证明 \(x^4\) 在 \(\R\) 上严格凸，并说明条件 \(f''>0\) 不是严格凸的必要条件。
- \exerciseitem{strong-convex-tangent-bound} 设 \(f''\ge m>0\)。证明式 \eqref{eq:strong-convexity-one-dimensional}，并推出 \(f\) 的任意临界点都是唯一整体极小点。
- \exerciseitem{convex-countably-many-corners} 设 \((a_n)\) 是有界区间内互异点列，\(c_n>0\) 且 \(\sum_n c_n<\infty\)。证明
+ \exerciseitem{strong-convex-tangent-bound} 设 \(f\) 在非空开区间 \(I\) 上二次可导，且 \(f''\ge m>0\)。证明式 \eqref{eq:strong-convexity-one-dimensional}，并推出 \(f\) 的任意临界点都是唯一整体极小点。
+ \exerciseitem{convex-countably-many-corners} 设 \((a_n)_{n\ge1}\) 是有界互异点列，\(c_n>0\)，部分和 \(\sum_{n=1}^N c_n\) 收敛到有限数 \(S\)。以下无穷和均指部分和的极限。证明
  \[
   f(x)=\sum_{n=1}^{\infty}c_n\abs{x-a_n}
  \]
- 在该区间上定义了连续凸函数，并在每个 \(a_n\) 处不可导。
- \exerciseitem{convex-nondifferentiability-countable-proof} 补全“凸函数至多在可数个点不可导”的证明，特别说明为什么给每个不交开区间选取有理数不需要选择公理。
+ 在 \(\R\) 上定义了 \(S\)-Lipschitz 连续的凸函数，并证明 \(f'_+(a_n)-f'_-(a_n)=2c_n\)。不使用逐项求导定理，直接控制差商的尾项。
+ \exerciseitem{convex-nondifferentiability-countable-proof} 补全“开区间上的凸函数至多在可数个点不可导”的证明，特别说明为什么给每个不交开区间选取有理数不需要选择公理。
 \end{enumerate}
 
 \subsection*{C组　Jensen 与共轭函数}
@@ -627,7 +630,7 @@ Fenchel--Young 不等式给出
  对非负 \(x_i\) 成立。
  \exerciseitem{convex-conjugate-quadratic} 计算 \(f(x)=x^2/2\) 的凸共轭，并核对 Fenchel--Young 不等式恰为一个平方非负。
  \exerciseitem{convex-conjugate-absolute-value} 计算 \(f(x)=\abs{x}\) 的凸共轭，说明为什么结果自然取 \(0\) 与 \(+\infty\) 两种值。
- \exerciseitem{fenchel-equality-subgradient} 对一般凸函数完整证明 Fenchel--Young 等号条件，并在 \(f(x)=\abs{x}\)、\(x=0\) 时解释全部等号情形。
+ \exerciseitem{fenchel-equality-subgradient} 设 \(f:I\to\R\) 凸，\(x\in I^\circ\)。完整证明 Fenchel--Young 等号条件，并在 \(f(x)=\abs{x}\)、\(x=0\) 时解释全部等号情形。
  \exerciseitem{young-inequality-scaled} 由 Young 不等式证明：对任意 \(\varepsilon>0\)，存在显式常数 \(C_{\varepsilon,r}>0\)，使
  \[
   ab\le\varepsilon a^r+C_{\varepsilon,r}b^s
@@ -644,10 +647,10 @@ Fenchel--Young 不等式给出
   \abs{f(x)}\le\frac{M}{2}(x-a)(b-x)\le\frac{M(b-a)^2}{8},
  \]
  并说明常数 \(1/8\) 不能减小。
- \exerciseitem{derivative-rational-valued} 设 \(f\) 在区间 \(I\) 上可导，且 \(f'(x)\in\Q\) 对每个 \(x\in I\) 成立。利用 Darboux 定理证明 \(f\) 为仿射函数；若再知 \(f'\) 在 \(I\) 的一个稠密子集上为零，证明 \(f\) 为常函数。
+ \exerciseitem{derivative-rational-valued} 设 \(f\) 在非空开区间 \(I\) 上可导，且 \(f'(x)\in\Q\) 对每个 \(x\in I\) 成立。利用 Darboux 定理证明 \(f\) 为仿射函数；若再知 \(f'\) 在 \(I\) 的一个稠密子集上为零，证明 \(f\) 为常函数。
  \exerciseitem{mean-value-lhopital-counterexample-suite} 分别构造例子说明：L'H\^opital 法则中若导数商没有极限、分母导数允许为零，或原商不是未定式，套用结论会出现什么问题。
  \exerciseitem{darboux-convex-derivative-continuity} 证明开区间上的可导凸函数具有连续导数。提示：结合导数的单调性与 Darboux 性。说明该结论为何不与一般凸函数的尖点矛盾。
- \exerciseitem{taylor-convexity-local-global} 设 \(f\in C^2(I)\)。从 Taylor 公式和中值定理两条路线分别证明 \(f''\ge0\Rightarrow f\) 凸，并比较两条证明所需的余项信息。
+ \exerciseitem{taylor-convexity-local-global} 设 \(I\) 为非空开区间，\(f\in C^2(I)\)。从 Taylor 公式和中值定理两条路线分别证明 \(f''\ge0\Rightarrow f\) 凸，并比较两条证明所需的余项信息。
  \exerciseitem{inverse-function-convexity} 设 \(f:(a,b)\to(c,d)\) 为严格递增满射，二次可导且 \(f'>0\)。求 \((f^{-1})''\)，并证明：若 \(f\) 凸，则 \(f^{-1}\) 凹。
  \exerciseitem{flat-function-convexity-near-zero} 研究平坦函数 \(e^{-1/x^2}\)（在 \(0\) 处补零）在 \(0\) 两侧充分小邻域内的单调性和凹凸性，说明“所有阶导数在一点为零”为什么不能决定邻域中的凹凸。
  \exerciseitem{convex-logarithm-taylor-inequalities} 用凸性、切线支撑和 Taylor 余项分别证明适当定义域上的

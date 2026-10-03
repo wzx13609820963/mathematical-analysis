@@ -11,14 +11,17 @@ Riemann 积分把区间分成有限多个小块，再让分割变细。这个构
 
 \section{可测集合族}
 
-设 $X$ 是非空集合。若只要求集合族对有限并和补集封闭，便不足以处理
-例如
+设 $X$ 是非空集合，$f_n,f:X\to\R$ 为有限实值函数。若只要求集合族
+对有限并和补集封闭，便不足以处理例如
 \[
- \{x:f_n(x)\to f(x)\}
+ \{x\in X:f_n(x)\to f(x)\}
  =\bigcap_{k=1}^{\infty}\bigcup_{N=1}^{\infty}
-   \bigcap_{n\ge N}\{x:|f_n(x)-f(x)|<1/k\}
+   \bigcap_{n\ge N}\{x\in X:|f_n(x)-f(x)|<1/k\}
 \]
-这样的集合。因而定义必须允许可数集合运算。
+这样的集合。有限复值函数也满足此式，扩充值函数则不能直接写可能出现的
+$\infty-\infty$。可数运算确实增加了要求：在 $\N$ 上，所有有限集和有限集
+的补集组成的集合族对有限并和补集封闭，却不包含偶数集；后者是可数个
+单点集的并。为了处理上述极限集合，需要更强的封闭性。
 
 \begin{definition}
 集合族 $\mathcal A\subseteq\mathcal P(X)$ 称为 $X$ 上的
@@ -37,12 +40,13 @@ Riemann 积分把区间分成有限多个小块，再让分割变细。这个构
 $\varnothing\in\mathcal A$ 以及有限并、有限交和差的封闭性。最小的
 $\sigma$-代数是 $\{\varnothing,X\}$，最大的则是 $\mathcal P(X)$。
 
-任意多个 $\sigma$-代数的交仍为 $\sigma$-代数。因此，对任意
+任意多个 $X$ 上的 $\sigma$-代数的交仍为 $\sigma$-代数，空族的交相对于
+$\mathcal P(X)$ 取，约定为 $\mathcal P(X)$。因此，对任意
 $\mathcal E\subseteq\mathcal P(X)$，包含 $\mathcal E$ 的最小
 $\sigma$-代数
 \[
  \sigma(\mathcal E)
- :=\bigcap\{\mathcal A:\mathcal A\text{ 是包含 }\mathcal E
+ :=\bigcap\{\mathcal A\in\mathcal P(\mathcal P(X)):\mathcal A\text{ 是包含 }\mathcal E
  \text{ 的 }\sigma\text{-代数}\}
 \]
 定义良好，称为由 $\mathcal E$ \term{生成}的 $\sigma$-代数。这里的交集
@@ -50,9 +54,19 @@ $\sigma$-代数
 包含复杂的可数运算。
 
 拓扑空间 $X$ 的开集生成的 $\sigma$-代数记为 $\mathcal B(X)$，称为
-\term{Borel $\sigma$-代数}。在 $\R$ 中，它也可由开区间、闭区间或半直线
-$(-\infty,a)$ 生成；这些等价性来自开集是至多可数个开区间的并以及端点
-逼近。
+\term{Borel $\sigma$-代数}。在 $\R$ 中，有理端点开区间已经足以生成
+$\mathcal B(\R)$：每个开集是包含于它的有理端点开区间之并，这个族至多
+可数；反过来，这些区间本来就是开集。
+
+所有半直线 $(-\infty,a)$ 也生成同一个集合族。它们都是开集，而
+\[
+ (-\infty,u]=\bigcap_{n=1}^{\infty}(-\infty,u+1/n),\qquad
+ (u,v)=(-\infty,v)\setminus(-\infty,u]
+\]
+说明它们生成所有开区间，进而生成所有开集。若改用所有有界闭区间，结果
+仍相同：闭区间是 Borel 集；每个开区间 $(u,v)$ 又是闭区间
+$[u+1/n,v-1/n]$ 的可数并，只取使左端不大于右端的正整数 $n$。
+这些论证同时核对了两个方向的包含。
 
 \section{测度与可数可加性}
 
@@ -85,10 +99,22 @@ $X=\bigcup_nX_n$ 且 $\mu(X_n)<\infty$，称 $\mu$ 为
  \end{cases}
 \]
 它定义在 $\mathcal P(X)$ 上。固定 $a\in X$，Dirac 测度
-$\delta_a(E)=\mathbf1_E(a)$ 把全部质量集中在一点。更一般地，对至多可数
-集合 $X=\{x_k\}$ 和权重 $w_k\ge0$，公式
-$\mu(E)=\sum_{x_k\in E}w_k$ 给出加权计数测度。
+$\delta_a(E)=\mathbf1_E(a)$ 定义在 $\mathcal P(X)$ 上，把全部质量集中在一点。
+更一般地，把至多可数集合无重复地写成 $X=\{x_k:k\in I\}$，其中 $I$
+是有限指标集或 $\Npos$。给定权重 $w_k\in[0,+\infty]$，公式
+\[
+ \mu(E)=\sum_{\{k\in I:x_k\in E\}}w_k
+\]
+给出加权计数测度。这里按属于集合的指标求和，空和为零，不引入
+$0\cdot\infty$。对不交集合列，每个指标至多落在一个集合中；非负项之和
+等于所有有限子和的上确界，所以先按集合分组或直接对全部指标求和结果相同。
+这就验证了可数可加性，并未使用积分的交换定理。
 \end{example}
+
+计数测度的可数可加性也可直接核对：不交并有限时逐点计数；若并无限，
+要么某一项无限，要么有限部分并的点数没有上界，两种情形下右侧均为
+$+\infty$。与长度不同，计数测度对单个点就赋予质量 $1$，可见测度的定义
+规定的是加法规则，并不预先指定“大小”必须是哪一种几何量。
 
 \section{测度的基本运算律}
 
@@ -96,7 +122,7 @@ $\mu(E)=\sum_{x_k\in E}w_k$ 给出加权计数测度。
 \label{thm:measure-basic-continuity}
 设 $(X,\mathcal A,\mu)$ 为测度空间。
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item 若 $E\subseteq F$，则 $\mu(E)\le\mu(F)$；若另有
+ \item 若 $E,F\in\mathcal A$ 且 $E\subseteq F$，则 $\mu(E)\le\mu(F)$；若另有
  $\mu(E)<\infty$，则 $\mu(F\setminus E)=\mu(F)-\mu(E)$。
  \item 对任意可测集列 $(E_n)$，
  \[
@@ -151,13 +177,13 @@ $\sigma$-代数中，后续每次修改函数的零测值都要重新检查可�
 把这些子集一次性补入。
 
 \begin{definition}
-若 $N\in\mathcal A$、$\mu(N)=0$ 且每个 $Z\subseteq N$ 都属于
-$\mathcal A$，称测度空间 $(X,\mathcal A,\mu)$ \term{完备}。
+若对每个满足 $N\in\mathcal A$、$\mu(N)=0$ 的集合 $N$，其每个子集
+$Z\subseteq N$ 都属于 $\mathcal A$，称测度空间 $(X,\mathcal A,\mu)$ \term{完备}。
 \end{definition}
 
 \begin{theorem}[测度空间的完备化]
 \label{thm:measure-completion}
-令 $\mathcal N$ 为全部可测零测集的子集所成的集合族，并令
+令 $\mathcal N\subseteq\mathcal P(X)$ 为全部可测零测集的子集所成的集合族，并令
 \[
  \overline{\mathcal A}
  =\{E\cup Z:E\in\mathcal A, Z\in\mathcal N\}.
@@ -201,14 +227,15 @@ $A_k\mathbin\triangle E_k\subseteq N_k$，则
 $\sigma$-代数。
 
 还须核对测度值不依赖可测代表。若同一集合 $A$ 分别与
-$E,F\in\mathcal A$ 相差零测集，则 $E\mathbin\triangle F$ 也包含于某个
+$E,F\in\mathcal A$ 的对称差分别包含于原可测零集，则 $E\mathbin\triangle F$ 也包含于某个
 可测零集。于是
 $\mu(E\setminus F)=\mu(F\setminus E)=0$，从而
 $\mu(E)=\mu(E\cap F)=\mu(F)$。所以定义
 $\overline\mu(A)=\mu(E)$ 是良定义的。
 
 设 $A_k\in\overline{\mathcal A}$ 两两不交，并取可测代表 $E_k$，使
-$A_k\mathbin\triangle E_k$ 零测。令
+$A_k\mathbin\triangle E_k\subseteq N_k$，其中 $N_k\in\mathcal A$ 且
+$\mu(N_k)=0$。令
 \[
  F_1=E_1,\qquad
  F_k=E_k\setminus\bigcup_{j<k}E_j\quad(k\ge2).
@@ -217,7 +244,8 @@ $F_k$ 两两不交且可测。由于 $A_j\cap A_k=\varnothing$，交集
 $E_j\cap E_k$ 只能落在代表误差的并中，因而为零测集；所以
 $E_k\mathbin\triangle F_k$ 零测，进而
 $\mu(F_k)=\mu(E_k)=\overline\mu(A_k)$。同时
-$\bigcup_kA_k$ 与 $\bigcup_kF_k$ 相差零测集，故
+$\bigcup_kA_k$ 与 $\bigcup_kF_k$ 的对称差包含于可测零集
+$\bigcup_kN_k$，故
 \[
  \overline\mu\left(\bigcup_kA_k\right)
  =\mu\left(\bigcup_kF_k\right)
@@ -226,7 +254,8 @@ $\bigcup_kA_k$ 与 $\bigcup_kF_k$ 相差零测集，故
 \]
 
 若 $Z\subseteq A\in\overline{\mathcal A}$ 且 $\overline\mu(A)=0$，取可测
-代表 $E$。集合 $A\cup E$ 包含在一个可测零集内，因此 $Z$ 也属于
+代表 $E$ 及原可测零集 $N$，使 $A\triangle E\subseteq N$。
+由 $\mu(E)=\overline\mu(A)=0$，$A\cup E\subseteq E\cup N$，右端是原可测零集，因此 $Z$ 也属于
 $\overline{\mathcal A}$；这证明完备性。最后，任一包含 $\mathcal A$ 且
 延拓 $\mu$ 的完备测度空间都必须包含所有可测零集的子集，继而包含每个
 $E\cup Z$。故上述完备化在集合域意义下最小。
@@ -234,7 +263,7 @@ $E\cup Z$。故上述完备化在集合域意义下最小。
 
 \section{集合列的上下极限}
 
-定义
+对集合列 $(E_n)_{n\ge1}$ 定义
 \[
  \liminf_{n\to\infty}E_n
  =\bigcup_{N=1}^{\infty}\bigcap_{n\ge N}E_n,
@@ -279,11 +308,13 @@ $\mu(G_N)\le\sum_{n\ge N}\mu(E_n)\to0$。
  证明任意多个 $\sigma$-代数的交仍为 $\sigma$-代数，并说明它们的并通常
  不是 $\sigma$-代数。
  \exerciseitem{finite-generator-atoms}
- 设 $\mathcal E=\{E_1,\ldots,E_m\}$。证明 $\sigma(\mathcal E)$ 由至多
- $2^m$ 个形如 $\bigcap_{j=1}^mF_j$ 的原子生成，其中
- $F_j=E_j$ 或 $E_j^c$。
+ 设 $m\in\N$、$\mathcal E=\{E_1,\ldots,E_m\}\subseteq\mathcal P(X)$。
+ 证明 $\sigma(\mathcal E)$ 由至多 $2^m$ 个非空交块
+ $\bigcap_{j=1}^mF_j$ 的任意并组成，其中 $F_j=E_j$ 或 $E_j^c$。
+ 证明这些交块是原子，即不含该 $\sigma$-代数的非空真子集。
+ $m=0$ 时，空交约定为 $X$。
  \exerciseitem{measure-finite-additivity}
- 从可数可加性推出有限可加性、单调性和有限次可加公式。
+ 从可数可加性推出有限可加性、单调性和有限并的次可加不等式。
  \exerciseitem{continuity-from-below-proof}
  不引用定理 \ref{thm:measure-basic-continuity}，用两两不交分解证明测度的
  上升连续性。
@@ -296,7 +327,7 @@ $\mu(G_N)\le\sum_{n\ge N}\mu(E_n)\to0$。
  \exerciseitem{weighted-counting-measure}
  验证加权计数公式定义测度，并判定它何时有限、何时 $\sigma$-有限。
  \exerciseitem{dirac-integral-preview}
- 设 $a\in X$。证明 $\delta_a$ 是完备测度，并说明
+ 设 $a\in X$，$\delta_a$ 定义在 $\mathcal P(X)$ 上。证明它是完备测度，并说明
  $\delta_a(E_n)\to\delta_a(E)$ 等价于指标函数在 $a$ 点收敛。
  \exerciseitem{completion-equivalent-form}
  证明 $A\in\overline{\mathcal A}$ 当且仅当存在 $E,F\in\mathcal A$ 使
@@ -317,9 +348,10 @@ $\mu(G_N)\le\sum_{n\ge N}\mu(E_n)\to0$。
  直接从上升连续性证明
  $\mu(\liminf E_n)\le\liminf\mu(E_n)$。
  \exerciseitem{first-borel-cantelli}
- 证明若 $\sum_n\mu(E_n)<\infty$，则几乎每个点只属于有限多个 $E_n$。
+ 设 $E_n\in\mathcal A$。证明若 $\sum_n\mu(E_n)<\infty$，则几乎每个点
+ 只属于有限多个 $E_n$。这里“几乎每个”指除去一个可测零集之后的每个点。
  \optionalexerciseitem{pushforward-measure}
  若 $T:X\to Y$ 且 $\mathcal B$ 是 $Y$ 上的 $\sigma$-代数，假设
- $T^{-1}(B)\in\mathcal A$。证明
+ 对每个 $B\in\mathcal B$ 都有 $T^{-1}(B)\in\mathcal A$。证明
  $T_\#\mu(B)=\mu(T^{-1}(B))$ 定义 $Y$ 上的测度。
 \end{enumerate}

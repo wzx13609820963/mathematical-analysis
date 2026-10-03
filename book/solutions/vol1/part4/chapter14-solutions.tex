@@ -48,7 +48,11 @@
  \frac{|r(h)|}{|h|}
  =\left|\frac{f(a+h)-f(a)}h-A\right|\longrightarrow0,
 \]
-所以 \(r(h)=o(h)\)，且所需分解成立。
+具体地，给定 \(\varepsilon>0\)，导数定义给出 \(\delta>0\)，使每个满足 \(a+h\in D\)、\(0<|h|<\delta\) 的增量都有
+\[
+ \left|\frac{f(a+h)-f(a)}h-A\right|<\varepsilon.
+\]
+乘以 \(|h|\) 即得 \(|r(h)|<\varepsilon|h|\)，所以 \(r=o(h)\)。当 \(h=0\) 时分解式由 \(r(0)=0\) 保证。
 
 反之，若
 \[
@@ -64,7 +68,12 @@
  \left|\frac{r(h)}h\right|
  =\frac{|r(h)|}{|h|}\longrightarrow0,
 \]
-故差商趋于 \(A\)，即 \(f'(a)=A\)。
+逐项写出量词，给定 \(\varepsilon>0\)，对小 \(o\) 条件使用精度 \(\varepsilon/2\)，取得一个 \(\delta>0\)。每个非零允许增量 \(|h|<\delta\) 都满足
+\[
+ \left|\frac{f(a+h)-f(a)}h-A\right|
+ =\frac{|r(h)|}{|h|}\le\frac\varepsilon2<\varepsilon.
+\]
+这就是导数的定义，故 \(f'(a)=A\)。
 \end{solution}
 
 \begin{solution}{differentiability-implies-continuity}
@@ -279,6 +288,8 @@
  |f(a+h_1)-f(a+h_2)|
 \]
 相对于 \(|h_1-h_2|\) 的下界，因而不能排除两个都不同于 \(a\) 的邻近点取到同一函数值。邻域单射性需要额外的单调性或对邻域内导数的统一控制。
+
+具体取 \(F(1/n)=1/n+1/n^2\)（\(n\ge2\)），其余实数点取 \(F(x)=x\)。估计 \(|F(x)-x|\le x^2\) 给出 \(F'(0)=1\)。但 \(y_n=1/n+1/n^2\) 不是任何正整数的倒数，因为 \(1/y_n=n-1+1/(n+1)\) 不是整数。因此 \(F(y_n)=y_n=F(1/n)\)，两列不同的点都趋于零。这验证了非零导数确实不足以保证邻域单射。
 \end{solution}
 
 \begin{solution}{inverse-derivative-minimal}

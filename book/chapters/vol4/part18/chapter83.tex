@@ -6,12 +6,12 @@
 三角多项式空间的投影，唯一尚需证明的是三角系统没有遗漏方向。Fejér 定理
 给出的三角多项式稠密性正好完成这一步。
 
-本章沿用
+本章所有圆周 \(L^p\) 范数均使用归一化测度 \(dx/(2\pi)\)。特别地，内积为
 \[
  \langle f,g\rangle_{\mathbb T}
  =\frac1{2\pi}\int_{-\pi}^{\pi}f(x)\overline{g(x)}\,dx
 \]
-以及\chapterref{chap:trigonometric-fourier-series}的 Fourier 系数约定。
+Fourier 系数仍采用\chapterref{chap:trigonometric-fourier-series}的约定。
 
 \section{三角系统的完备性}
 
@@ -36,7 +36,7 @@
 \]
 故 \(\sigma_Nf=0\)。另一方面，Fejér 核的 \(L^2\) 逼近恒等性质给
 \(\sigma_Nf\to f\) 于 \(L^2\)：这可直接调用
-\chapterref{chap:trigonometric-fourier-series}的 \(L^p\) 结论，取 \(p=2\)。
+\exerciseref{fourier-fejer-lp}的 \(L^p\) 结论，取 \(p=2\)。
 因此 \(f=0\)。由正交系完备判据，三角系统完备。
 \end{proof}
 
@@ -63,7 +63,8 @@
 \end{proof}
 
 这个结论不声称 \(S_Nf(x)\) 在每一点收敛。\(L^2\) 元素本来就是几乎处处
-等价类，改变零测集上的值不会影响结论；而点态收敛会看见这些代表元差别。
+等价类。改变零测集上的值既不改变系数，也不改变任何部分和在任何点的值；
+但它可能改变“部分和是否收敛到所选代表的 \(f(x)\)”这一判断。
 对一般 \(L^2\) 函数，点态收敛需要比本章多得多的工具。
 
 \section{Parseval 恒等式}
@@ -107,18 +108,32 @@
 \[
  \|f'\|_2^2=\sum_{k\in\mathbb Z}k^2|\widehat f(k)|^2.
 \]
-反复应用可知：若有 \(r\) 阶平方可积导数，则
-\(|k|^r\widehat f(k)\in\ell^2\)。这是一种平均意义的衰减，不必逐项推出
+对整数 \(r\ge1\)，反复分部积分需要如下条件：
+\(f,f',\ldots,f^{(r-1)}\) 各有周期绝对连续代表，其逐阶的几乎处处导数
+与下一阶相符，且 \(f^{(r)}\in L^2\)。每一阶代表在周期端点的值相同，
+故每次边界项都消失，得到
+\(\widehat{f^{(r)}}(k)=(ik)^r\widehat f(k)\)。于是
+\((|k|^r\widehat f(k))_{k\in\mathbb Z}\in\ell^2\)。只知道几乎处处经典导数
+存在且平方可积，不足以代替绝对连续性。
+这是一种平均意义的衰减，不必逐项推出
 \(|\widehat f(k)|\le C|k|^{-r-1}\)。
 
-反向也成立：若 \(f\in L^2\) 且
-\(\sum k^2|\widehat f(k)|^2<\infty\)，则存在 \(g\in L^2\) 的系数为
-\(ik\widehat f(k)\)，并且
+为表述反向结论，称 \(g\in L^2(\mathbb T)\) 是 \(f\in L^2(\mathbb T)\)
+的周期弱导数，如果对每个光滑周期函数 \(\varphi\) 都有
 \[
  \frac1{2\pi}\int_{-\pi}^{\pi} f\,\varphi'
  =-\frac1{2\pi}\int_{-\pi}^{\pi}g\,\varphi
 \]
-对所有光滑周期函数 \(\varphi\) 成立。此时 \(g\) 是 \(f\) 的弱导数。
+定义中的积分不依赖代表元。取 \(\varphi(x)=e^{-ikx}\)，立刻得到
+\(\widehat g(k)=ik\widehat f(k)\)，所以三角系的完备性保证弱导数唯一。
+前面的周期绝对连续函数由分部积分满足此定义。
+
+若 \(\sum k^2|\widehat f(k)|^2<\infty\)，Riesz--Fischer 定理给出
+系数为 \(ik\widehat f(k)\) 的 \(g\in L^2\)。先对三角多项式检验上述
+等式，再对光滑 \(\varphi\) 取 \(S_N\varphi\)：分部积分给
+\((S_N\varphi)'=S_N(\varphi')\)。已证的 \(L^2\) 收敛定理同时给出
+\(S_N(\varphi')\to\varphi'\) 和 \(S_N\varphi\to\varphi\)。
+由 Cauchy--Schwarz 不等式传递积分等式，便证明 \(g\) 是弱导数。
 \chapterref{chap:distributions-weak-derivatives}和
 \chapterref{chap:sobolev-spaces}将把这一定义推广到开集和高维情形。
 
@@ -128,8 +143,13 @@
 \[
  (f*g)(x)=\frac1{2\pi}\int_{-\pi}^{\pi}f(x-t)g(t)\,dt.
 \]
-若 \(f\in L^p,g\in L^1\)，Young 不等式给
-\(\|f*g\|_p\le\|f\|_p\|g\|_1\)，其中范数均相对归一化测度。Fubini 定理给
+若 \(f\in L^p,g\in L^1\)、\(1\le p\le\infty\)，Young 不等式给
+\(\|f*g\|_p\le\|f\|_p\|g\|_1\)。当 \(g\ne0\) 且 \(p<\infty\) 时，
+对概率测度 \(|g(t)|\,dt/(2\pi\|g\|_1)\) 用 Jensen 不等式，再对 \(x\)
+积分，Tonelli 定理及平移不变性即给此估计。\(g=0\) 时显然成立；
+\(p=\infty\) 时用本质上确界估计。
+又因圆周测度有限，\(f\in L^1\)，且二重绝对积分等于
+\(\|f\|_1\|g\|_1\)，故卷积几乎处处有定义，Fubini 定理给
 \begin{equation}\label{eq:circle-convolution-coefficients}
  \widehat{f*g}(k)=\widehat f(k)\widehat g(k).
 \end{equation}
@@ -164,7 +184,7 @@ Parseval 恒等式给
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{l2-fourier-compact-operator}若 \(m_k\to0\)，证明 \(T_m\) 是 \(L^2(\mathbb T)\) 上的紧算子；反之亦然。
+\exerciseitem{l2-fourier-compact-operator}称有界线性算子为紧算子，如果它把每个有界序列送到具有范数收敛子列的序列。证明 \(T_m\) 紧当且仅当 \(m_k\to0\)（\(|k|\to\infty\)）。
 \exerciseitem{l2-fourier-subsequence-ae}由 \(L^2\) 收敛的子列原理证明：每个 \(f\in L^2(\mathbb T)\) 都有一列三角多项式几乎处处收敛到 \(f\)。
-\optionalexerciseitem{l2-fourier-autocorrelation}对 \(f\in L^2(\mathbb T)\) 定义 \(R_f(h)=\langle \tau_hf,f\rangle\)。证明 \(R_f\) 连续且正定，并求其 Fourier 系数。
+\optionalexerciseitem{l2-fourier-autocorrelation}对 \(f\in L^2(\mathbb T)\) 定义 \(R_f(h)=\langle \tau_hf,f\rangle\)。证明 \(R_f\) 连续且正定，并求其 Fourier 系数。这里正定是指，对任意有限个实数 \(h_j\) 和复数 \(c_j\)，都有 \(\sum_{j,k}c_j\overline{c_k}R_f(h_j-h_k)\ge0\)。
 \end{enumerate}

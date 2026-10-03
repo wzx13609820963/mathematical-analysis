@@ -29,16 +29,26 @@ $\widehat{\C}=\C\cup\{\infty\}$。
  f(z)-f(a)=(z-a)^m g(z),\qquad m\ge2,\quad g(a)\ne0.
 \]
 取 $g$ 的局部 $m$ 次方根，可把右侧写成 $h(z)^m$，而 $m$ 次幂在任意充分
-小删心邻域中都不是单射，矛盾。于是单叶全纯映射由复逆函数定理得到全纯局部
+小删心邻域中都不是单射。这里可取 $h(z)=(z-a)q(z)$，其中 $q^m=g$；
+因为 $h'(a)=q(a)\ne0$，其像包含零点的一个邻域，故幂函数的非单射性确实
+能经 $h^{-1}$ 拉回原来的邻域，矛盾。于是单叶全纯映射由复逆函数定理得到全纯局部
 逆；若它还是双射，局部逆拼成全局全纯逆。
 
 球面上的 M\"obius 变换为
 \[
  T(z)=\frac{az+b}{cz+d},\qquad ad-bc\ne0,
 \]
-并按 $T(-d/c)=\infty$、$T(\infty)=a/c$ 解释含无穷远点的情形。矩阵乘法
+当 $c\ne0$ 时，约定 $T(-d/c)=\infty$、$T(\infty)=a/c$；当 $c=0$ 时，
+它是非退化仿射变换，并令 $T(\infty)=\infty$。矩阵乘法
 对应变换复合，非零标量倍矩阵给出同一变换。M\"obius 变换把广义圆——圆或
-直线连同无穷远点——映成广义圆。
+直线连同无穷远点——映成广义圆。可用方程
+\[
+ A|z|^2+Bz+\overline B\,\overline z+C=0,
+ \qquad A,C\in\R
+\]
+检验这一点：平移和非零复数乘法保持这种方程的形式，代入 $z=1/w$ 并
+乘以 $|w|^2$ 也保持其形式；$c\ne0$ 时把 $T$ 写成常数加一个非零常数乘
+$(z+d/c)^{-1}$ 即可。方程中的非退化条件由变换的可逆性保持。
 
 对 $a\in\mathbb D$，记
 \begin{equation}\label{eq:disk-automorphism-basic}
@@ -78,7 +88,12 @@ $\widehat{\C}=\C\cup\{\infty\}$。
  \mathcal F_a=\{f:\Omega\to\mathbb D:
  f\text{ 全纯单叶且 }f(a)=0\}.
 \]
-证明极值函数以前，须先核对这个集合非空。
+证明极值函数以前，须先核对这个集合非空。构造所需的全纯根来自以下事实：
+若 $T$ 在单连通域上全纯且不取零，则 $T'/T$ 有全纯原函数 $L_0$。
+求导给 $(Te^{-L_0})'=0$，故 $Te^{-L_0}=c\ne0$。取一个复数 $\ell$ 满足
+$e^\ell=c$，便有 $e^{L_0+\ell}=T$。因此 $L_0+\ell$ 是 $T$ 的全纯对数，
+而 $\exp((L_0+\ell)/m)$ 是它的全纯 $m$ 次根（$m\ge1$）。局部取根只需
+把定义域缩到一个不含零点的小圆盘。
 
 \begin{lemma}\label{lem:riemann-family-nonempty}
 $\mathcal F_a\ne\varnothing$。
@@ -113,7 +128,7 @@ $\mathcal F_a$。
 全纯对数、从而平方根的存在处使用；若区域有洞，绕洞一周可能改变平方根的
 符号，论证便不能照搬。
 
-取 $r>0$ 使 $B(a,r)\subset\Omega$。对每个 $f\in\mathcal F_a$，Cauchy
+取 $r>0$ 使 $\overline{B(a,r)}\subset\Omega$。对每个 $f\in\mathcal F_a$，Cauchy
 估计给 $|f'(a)|\le1/r$。所以
 \[
  \alpha:=\sup_{f\in\mathcal F_a}|f'(a)|
@@ -269,18 +284,40 @@ $w=\phi_a(z)$ 得式\eqref{eq:schwarz-pick-distance}。在零点求导并使用
 部分和 M\"obius 变换的可逆性得到。
 \end{proof}
 
-定义伪双曲距离与双曲距离
+先记
 \[
  \delta(z,w)=|\phi_w(z)|,
  \qquad
  d_{\mathbb D}(z,w)=2\operatorname{artanh}\delta(z,w)
  =\log\frac{1+\delta(z,w)}{1-\delta(z,w)}.
 \]
-Schwarz--Pick 定理说明圆盘上的全纯自映射不增加这些距离；自同构保持距离。
-相应的无穷小线元为
+这些公式确实给出距离。为验证这一点，先对连接 $z,w$ 的分段 $C^1$ 曲线
+$\gamma$ 定义长度
 \[
- ds_{\mathbb D}=\frac{2|dz|}{1-|z|^2}.
+ L(\gamma)=\int\frac{2|\gamma'(t)|}{1-|\gamma(t)|^2}\,dt.
 \]
+Schwarz--Pick 的导数不等式分别用于圆盘自同构及其逆，说明这种长度在
+自同构下不变。因此求从 $w$ 到 $z$ 的最短长度，只需先用 $\phi_w$ 把
+$w$ 送到零。设此时另一个端点为 $v$。函数 $\rho(t)=|\gamma(t)|$ 绝对连续，
+并且几乎处处满足 $|\rho'|\le|\gamma'|$，故
+\[
+ L(\gamma)\ge\int\frac{2|\rho'(t)|}{1-\rho(t)^2}\,dt
+ \ge\left|\int\frac{2\rho'(t)}{1-\rho(t)^2}\,dt\right|
+ =2\operatorname{artanh}|v|.
+\]
+径向线段达到这个下界。变换回去可知，$d_{\mathbb D}(z,w)$ 恰等于所有
+连接曲线长度的下确界。反向参数化给对称性，拼接曲线给三角不等式；上面的
+显式公式又保证不同点的距离为正。因此它是距离，称为\emph{双曲距离}。
+它对应的线元为 $ds_{\mathbb D}=2|dz|/(1-|z|^2)$。
+
+$\delta$ 也满足三角不等式。若 $a=\delta(z,u)$、$b=\delta(u,w)$，利用
+$\tanh$ 的单调性和加法公式，得到
+\[
+ \delta(z,w)\le\frac{a+b}{1+ab}\le a+b.
+\]
+其余距离公理由公式直接得到，故称它为\emph{伪双曲距离}；这里的“伪”
+不表示不同点可以有零距离。Schwarz--Pick 定理说明圆盘上的全纯自映射
+不增加这两种距离，自同构保持距离。
 若 $F:\Omega\to\mathbb D$ 是 Riemann 映射，可用
 $d_\Omega(z,w)=d_{\mathbb D}(F(z),F(w))$ 把双曲距离拉回 $\Omega$。归一化
 唯一性说明该定义与所选 Riemann 映射无关。
@@ -350,7 +387,7 @@ $\overline F$ 是闭圆盘到 $\overline\Omega$ 的同胚。
 \exerciseitem{riemann-normalized-uniqueness}证明任意两个把 $a$ 送到零的 Riemann 映射相差一个旋转。
 \exerciseitem{riemann-schwarz-equality}证明 Schwarz 引理的两种等号条件彼此等价，并推出固定两个不同内点的圆盘自同构必为恒等映射。
 \exerciseitem{riemann-schwarz-pick-half-plane}把 Schwarz--Pick 导数不等式搬到上半平面，证明
-$f:\mathbb H\to\mathbb H$ 满足
+全纯映射 $f:\mathbb H\to\mathbb H$ 满足
 \[
  \frac{|f'(z)|}{\operatorname{Im}f(z)}
  \le \frac{1}{\operatorname{Im}z}.

@@ -18,7 +18,8 @@
 先为误差 \(\varepsilon/2\) 选 \(\delta\)。在每个 \([u_j,v_j]\) 内任取分割，
 全部增量总和小于 \(\varepsilon/2\)。分别取上确界得
 \(\sum V_{u_j}^{v_j}(f)\le\varepsilon/2<\varepsilon\)。变差可加性将其写成
-\(\sum(v(v_j)-v(u_j))\)，故 \(v\) 绝对连续。\(p,n\) 是 \(v,f\) 和常数的
+\(\sum(V(v_j)-V(u_j))\)，这里暂记 \(V(x)=V_a^x(f)\)，以区别函数与
+区间端点。故 \(V\) 绝对连续。\(p,n\) 是 \(V,f\) 和常数的
 线性组合，亦绝对连续。
 \end{solution}
 \begin{solution}{ac-uniform-limit-failure}
@@ -33,7 +34,17 @@
 \begin{solution}{cantor-functional-equations}
 从第一步起，中间段恒为 \(1/2\)。左段以横坐标放大三倍、纵坐标放大两倍后，
 每次替换与全区间的替换完全相同，右段减去 \(1/2\) 后同样如此。
-故有限构造满足对应的相邻步骤等式，取一致极限得到三式；公共端点由连续性一致。
+因此对每个 \(n\ge0\)，有限构造满足
+\[
+ C_{n+1}(x)=
+ \begin{cases}
+  \tfrac12 C_n(3x),&0\le x\le1/3,\\
+  \tfrac12,&1/3\le x\le2/3,\\
+  \tfrac12+\tfrac12 C_n(3x-2),&2/3\le x\le1.
+ \end{cases}
+\]
+公共端点的值因 \(C_n(0)=0\)、\(C_n(1)=1\) 而一致。取一致极限即得
+题目中的三式。
 \end{solution}
 \begin{solution}{cantor-not-lipschitz}
 反复使用左侧自相似式得 \(C(3^{-n})=2^{-n}C(1)=2^{-n}\)。

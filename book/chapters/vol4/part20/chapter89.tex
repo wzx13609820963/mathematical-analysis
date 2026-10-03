@@ -54,7 +54,7 @@ Lax--Milgram 定理，并以 Poisson 方程说明弱解如何产生。
 \begin{proof}
 设 \(u_n\) 在 \(W^{k,p}\) 中为 Cauchy 列。对每个 \(|\alpha|\le k\)，
 \(\partial^\alpha u_n\) 在 \(L^p\) 中 Cauchy，故收敛到某个
-\(v_\alpha\in L^p\)；特别记 \(u=v_0\)。对测试函数 \(\varphi\)，Hölder
+\(v_\alpha\in L^p\)；特别记 \(u=v_0\)。对试验函数 \(\varphi\)，Hölder
 不等式在其紧支撑上给
 \[
  \int u_n\,\partial^\alpha\varphi\to
@@ -126,8 +126,13 @@ Lax--Milgram 定理，并以 Poisson 方程说明弱解如何产生。
 由 \(L^2\) 尾积分和上式，\(\chi_Ru\to u\) 于 \(H^1\)。再把
 \(\chi_Ru\) 与标准磨光核卷积，便得到一列
 \(u_n\in C_c^\infty(\R^d)\) 在 \(H^1\) 中趋于 \(u\)。对 \(u_n\) 有
-\(\widehat{\partial_ju_n}=2\pi i\xi_j\widehat u_n\)；Plancherel 定理允许
-在 \(L^2\) 中取极限，得到同一公式并推出所写范数恒等式。
+\(\widehat{\partial_ju_n}=2\pi i\xi_j\widehat u_n\)。Plancherel 定理给
+\(\widehat u_n\to\widehat u\)、\(\widehat{\partial_ju_n}\to
+\widehat{\partial_ju}\) 于 \(L^2\)。从这有限多列同时抽取几乎处处收敛的子列，
+逐点保留乘子等式，得到
+\(\widehat{\partial_ju}=2\pi i\xi_j\widehat u\) 几乎处处。
+这一步不能以乘子 \(\xi_j\) 在 \(L^2\) 上有界为由传极限，因为它并不有界。
+再由 Plancherel 及有限求和得到范数恒等式。
 反之，若右侧有限，定义
 \(g_j=\mathcal F^{-1}(2\pi i\xi_j\widehat u)\in L^2\)。对
 \(\varphi\in C_c^\infty\)，Plancherel 公式和试验函数的微分公式给
@@ -174,9 +179,19 @@ Cauchy--Schwarz 给
 最后按 \(H_0^1\) 的定义取 \(C_c^\infty\) 逼近，把不等式传到闭包。
 \end{proof}
 
-所以在 \(H_0^1(\Omega)\) 上，\(\|\nabla u\|_2\) 是一个范数，并与完整的
+所以当 \(\Omega\) 有界时，在 \(H_0^1(\Omega)\) 上，
+\(\|\nabla u\|_2\) 是一个范数，并与完整的
 \(H^1\) 范数等价。常数函数说明不能把 \(H_0^1\) 无条件换成 \(H^1\)：
 非零常函数梯度为零。
+
+也不能把这个范数等价结论直接推广到任意无界开集。例如在 \(\R^d\)
+上取非零 \(\eta\in C_c^\infty\)，令 \(u_R(x)=\eta(x/R)\)。换元给
+\[
+ \|u_R\|_2=R^{d/2}\|\eta\|_2,\qquad
+ \|\nabla u_R\|_2=R^{d/2-1}\|\nabla\eta\|_2.
+\]
+二者之比随 \(R\) 线性增长，所以不存在与 \(u\) 无关的 Poincaré 常数。
+有界性在这里给出了限制函数向越来越大区域扩散的估计。
 
 \section{Lax--Milgram 定理}
 
@@ -214,11 +229,14 @@ Cauchy--Schwarz 给
 
 复 Hilbert 空间中把双线性型换成第一变量线性、第二变量共轭线性的型，并把
 强制性写成 \(\operatorname{Re}a(u,u)\ge\alpha\|u\|^2\)，证明相同。
+此时右端 \(F\) 必须是连续共轭线性泛函，
+写成 \(F(v)=\langle f,v\rangle\)，而不是第二变量上的线性泛函；
+范数仍为 \(\sup_{\|v\|\le1}|F(v)|\)。
 定理不要求 \(a\) 对称；对称性只在把方程解释为能量最小化时需要。
 
 \section{Poisson 方程的弱解}
 
-设 \(\Omega\) 有界，\(f\in L^2(\Omega)\)。带齐次 Dirichlet 条件的方程
+本节采用实值函数。设 \(\Omega\) 有界，\(f\in L^2(\Omega)\)。带齐次 Dirichlet 条件的方程
 \[
  -\Delta u=f\quad\text{于 }\Omega,\qquad u=0\quad\text{于 }\partial\Omega
 \]
@@ -255,7 +273,7 @@ Lax--Milgram 定理给唯一解与第一条估计；再次用 Poincaré 得完�
 \end{proof}
 
 弱解未必有经典二阶导数，也未必逐点满足方程。它首先是一个能量有限的等价
-类，通过对全部测试函数成立的积分恒等式表达方程。若以后证明了额外正则性，
+类，通过对全部试验函数成立的积分恒等式表达方程。若以后证明了额外正则性，
 弱解才可能恢复为经典解。
 
 当 \(a\) 对称时，弱解还唯一最小化
@@ -282,20 +300,24 @@ Lax--Milgram，却一般没有这一简单能量。
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{sobolev-reflexive}用闭图像嵌入证明 \(W^{k,p}\) 在 \(1<p<\infty\) 时反射。
 \exerciseitem{sobolev-fourier-hone}补全 \(H^1(\R^d)\) 的 Fourier 刻画，特别核对弱导数恒等式。
-\exerciseitem{sobolev-poincare-interval}在区间 \((0,L)\) 上求一个 Poincaré 常数，并用正弦函数说明最佳常数不少于 \(L/\pi\)。
-\exerciseitem{sobolev-hzero-gradient-norm}证明梯度半范数在 \(H_0^1(\Omega)\) 上是范数，并与 \(H^1\) 范数等价。
+\exerciseitem{sobolev-poincare-interval}设 \(L>0\)。在区间 \((0,L)\) 上求一个 Poincaré 常数，并用正弦函数说明最佳常数不少于 \(L/\pi\)。须按闭包定义验证所用函数属于 \(H_0^1(0,L)\)，不能只核对端点值。
+\exerciseitem{sobolev-hzero-gradient-norm}设 \(\Omega\) 为有界开集。证明梯度半范数在 \(H_0^1(\Omega)\) 上是范数，并与 \(H^1\) 范数等价。
 \exerciseitem{sobolev-lax-milgram-complex}写出并证明复 Hilbert 空间的 Lax--Milgram 定理。
 \exerciseitem{sobolev-poisson-energy}证明 Poisson 弱解是能量 \(J(v)=\frac12\int|\nabla v|^2-\int fv\) 的唯一极小点。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{sobolev-elliptic-coefficients}设实矩阵场 \(A(x)\) 可测、本质有界，且对几乎处处的 \(x\) 与所有 \(\xi\in\R^d\) 满足
+\exerciseitem{sobolev-elliptic-coefficients}设 \(\Omega\) 为有界开集，实矩阵场 \(A(x)\) 可测、本质有界，且对几乎处处的 \(x\) 与所有 \(\xi\in\R^d\) 满足
 \[
  \xi^{\mathsf T}A(x)\xi\ge\lambda|\xi|^2
  \qquad(\lambda>0).
 \]
 对 \(f\in L^2(\Omega)\)，用 Lax--Milgram 定理证明 \(-\operatorname{div}(A\nabla u)=f\) 的 \(H_0^1\) 弱解存在唯一。
-\exerciseitem{sobolev-lower-order-term}讨论双线性型 \(\int\nabla u\cdot\nabla v+\int c uv\) 在 \(c\ge0\) 与 \(c\) 有小负部时的强制性。
+\exerciseitem{sobolev-lower-order-term}设 \(\Omega\) 为有界开集，
+\(c\in L^\infty(\Omega;\R)\)。讨论 \(H_0^1(\Omega)\) 上的双线性型
+\(\int\nabla u\cdot\nabla v+\int c uv\) 在 \(c\ge0\) 与 \(c\) 有小负部时的
+有界性和强制性。
 \exerciseitem{sobolev-weak-minimization}用反射性和弱下半连续性重新证明对称 Lax--Milgram 情形中能量取得最小值，并与算子证明比较。
-\optionalexerciseitem{sobolev-one-d-continuous-representative}证明 \(W^{1,p}(a,b)\) 的元素有绝对连续代表，并在 \(p>1\) 时推导 Hölder 型估计 \(|u(x)-u(y)|\le\|u'\|_p|x-y|^{1-1/p}\)。
+\optionalexerciseitem{sobolev-one-d-continuous-representative}设 \(-\infty<a<b<\infty\)，\(1\le p\le\infty\)。证明 \(W^{1,p}(a,b)\) 的元素有唯一的闭区间绝对连续代表，并在 \(p>1\) 时推导
+\(|u(x)-u(y)|\le\|u'\|_p|x-y|^{1-1/p}\)（\(x,y\in[a,b]\)），其中 \(p=\infty\) 时约定 \(1/p=0\)。说明 \(p=1\) 时不能保证任何正指数的 Hölder 连续性。
 \end{enumerate}

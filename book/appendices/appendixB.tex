@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第0—103章已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总第一至第五卷已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -20,7 +20,10 @@
 \[
  \overline{\R}=\R\cup\{-\infty,+\infty\}.
 \]
-符号 \(\pm\infty\) 不是实数。只有在正文明确给出约定时，才在 \(\overline{\R}\) 中进行序比较或部分代数运算；诸如 \(+\infty-\infty\)、\(0\cdot\infty\) 不作定义。
+符号 \(\pm\infty\) 不是实数。在极限运算中，
+\(+\infty-\infty\) 和 \(0\cdot\infty\) 都不能当作普通数值计算。
+非负积分与乘积测度另有明确约定 \(0\cdot\infty=0\)，用于表达零函数在
+无限测度集上的积分以及零测矩形的测度；这一约定不改变极限中的未定式问题。
 
 正整数指标 \(m,n,k,N\) 默认属于 \(\Npos\)。写
 \[
@@ -63,7 +66,9 @@
 \[
  a_n\to a,\qquad \lim_{n\to\infty}a_n=a
 \]
-均表示有限极限。写 \(a_n\uparrow a\) 表示 \((a_n)\) 单调递增且收敛到 \(a\)，\(a_n\downarrow a\) 类似。符号
+在实数收敛语境中表示有限极限。此时 \(a_n\uparrow a\) 表示 \((a_n)\)
+单调递增且收敛到 \(a\)，\(a_n\downarrow a\) 类似；在扩充实数或非负
+积分的语境中，箭头也允许无穷极限，须按所在空间解释。符号
 \[
  a_n\to+\infty
 \]
@@ -258,6 +263,7 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 \[
  \norm f_\infty=\sup_{x\in E}|f(x)|,
 \]
+空定义域时约定该范数为零。
 并有
 \[
  f_n\rightrightarrows f
@@ -299,8 +305,9 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 \[
  \frac1R=\limsup_{n\to\infty}|a_n|^{1/n},
 \]
-并约定 \(1/0=+\infty\)、\(1/(+\infty)=0\)。有限半径只决定开收敛
-区间；两个端点必须分别判断。若和函数在 \(a\) 处解析，则
+并约定 \(1/0=+\infty\)、\(1/(+\infty)=0\)。当 \(0<R<\infty\) 时，
+半径只决定开收敛区间，两个端点须分别判断；\(R=0\) 时只有中心收敛。
+若和函数在 \(a\) 处解析，则
 \[
  f(x)=\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n
 \]
@@ -314,7 +321,9 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
  B_d(x,r)=\{y\in X:d(x,y)<r\},\qquad
  \overline B_d(x,r)=\{y\in X:d(x,y)\le r\}.
 \]
-不会与其他度量混淆时省略下标。闭球记号上的横线是名称的一部分；在一般度量空间中它确实是闭集，但不能把任意集合上加横线都理解为“闭球”。
+不会与其他度量混淆时省略下标。闭球记号上的横线是名称的一部分；闭球不
+一定等于同半径开球的闭包。例如具有至少两个点的离散度量空间中，
+\(B_d(x,1)=\{x\}\) 的闭包仍为 \(\{x\}\)，而 \(\overline B_d(x,1)=X\)。
 
 对非空集合 \(A\subseteq X\)，点到集合的距离和集合直径为
 \[
@@ -365,7 +374,7 @@ Pringsheim 收敛要求 \(M,N\) 同时且可按不同速度趋于无穷。
 
 \section{多元微分与约束记号}
 
-映射 $f:U\subset\R^n\to\R^m$ 在 $a$ 处的 Fréchet 微分记为
+开集 $U\subseteq\R^n$ 上映射 $f:U\to\R^m$ 在 $a\in U$ 处的 Fréchet 微分记为
 $Df(a)\in\mathcal L(\R^n,\R^m)$；其标准基矩阵记为 $J_f(a)$。若更高阶
 微分存在，则
 \[
@@ -445,12 +454,15 @@ Jordan 体积仍写作 \(|E|\)。三个记号所允许的集合族并不相同�
  E^y=\{x\in X:(x,y)\in E\}.
 \]
 对函数也用 \(f_x(y)=f(x,y)\) 表示固定第一变量后的截面。
+乘积 \(\sigma\)-代数上的可测函数每个截面可测；对乘积测度作完备化后，
+在本书所用的完备且 $\sigma$-有限因子空间上，可以断言几乎每个截面可测；
+不能省去这里的测度假设。
 
 依测度收敛记作 \(f_n\xrightarrow{\mu}f\)；几乎处处收敛通常写作
 \(f_n\to f\) a.e.。二者都不同于第一卷的逐点收敛和第二卷的一致收敛。
 对 \(0<p<\infty\)，
 \[
- L^p(\mu)=\left\{f:\int_X|f|^p\,d\mu<\infty\right\}\big/\text{a.e.},
+ L^p(\mu)=\left\{f\text{ 可测}:\int_X|f|^p\,d\mu<\infty\right\}\big/\text{a.e.},
  \qquad
  \norm f_p=\left(\int_X|f|^p\,d\mu\right)^{1/p}.
 \]
@@ -480,7 +492,8 @@ Hilbert 空间的内积统一记为 \(\langle x,y\rangle\)，并约定对第一�
  \widehat f(\xi)
  =\int_{\mathbb R^n}f(x)e^{-2\pi i x\cdot\xi}\,dx .
 \]
-这一归一化使 \(\widehat{\partial_j f}(\xi)=2\pi i\xi_j\widehat f(\xi)\)，
+对 Schwartz 函数，这一归一化给
+\(\widehat{\partial_j f}(\xi)=2\pi i\xi_j\widehat f(\xi)\)；
 反演公式中的指数则取正号。对 \(f\in L^1\)，右端是逐点绝对收敛积分；
 对一般 \(f\in L^2\)，\(\widehat f\) 指Plancherel定理给出的等距延拓，不能
 默认同一个积分逐点存在。
@@ -490,6 +503,14 @@ Hilbert 空间的内积统一记为 \(\langle x,y\rangle\)，并约定对第一�
  \mathcal D(\Omega)=C_c^\infty(\Omega),
  \qquad \mathcal D'(\Omega)=\mathcal D(\Omega)^* .
 \]
+此处星号表示试验函数拓扑下的连续对偶，不是代数对偶。其具体判据是：对
+每个紧集 $K\subset\Omega$，存在 $C_K$ 和非负整数 $m_K$，使
+\[
+ |\langle T,\varphi\rangle|
+ \leq C_K\max_{|\alpha|\leq m_K}\sup_K|D^\alpha\varphi|,
+ \qquad \operatorname{supp}\varphi\subseteq K.
+\]
+完整定义见\chapterref{chap:distributions-weak-derivatives}。
 分布作用写作 \(\langle T,\varphi\rangle\)。这里的尖括号表示对偶作用，不是
 Hilbert内积。多重指标 \(\alpha\) 的分布导数由
 \[
@@ -585,9 +606,12 @@ Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率�
  当前版本断言导函数即使不连续也具有介值性。它不同于连续函数的介值定理：这里不假设导函数连续，证明依赖原函数与割线斜率构造出的极值问题。
 
  \item[反函数定理]
- 一元版本以 $f'(a)\ne0$ 为条件；\chapterref{chap:local-inversion}的有限维
- 多元版本要求 $Df(a)$ 是线性同构。两者都只保证邻域内的可逆性和逆映射
- 光滑性，不保证原映射在整个定义域上单射或满射。
+ \chapterref{chap:derivative-linearization}的一元反函数求导定理先假定逆映射
+ 已存在，并在对应点连续，再由 $f'(a)\ne0$ 推出逆映射在该点可导。
+ 它没有仅凭一个点的非零导数断言局部单射。
+ \chapterref{chap:local-inversion}的有限维局部反演定理则假设映射在邻域中
+ 为 $C^1$，且 $Df(a)$ 是线性同构，进而证明局部逆的存在与 $C^1$ 性。
+ 这仍不保证原映射在整个定义域上单射。
 
  \item[中值等式与向量中值估计]
  标量函数沿线段可应用一元中值定理，得到一个共同中值点。一般向量值映射
@@ -635,7 +659,8 @@ Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率�
 
  \item[Fubini 定理]
  \chapterref{chap:fubini-change-variables}证明连续函数以及具有全部可积截面的
- Riemann 安全版本；个别截面甚至可以不可 Riemann 积。
+ Riemann 迭代积分版本。一般多重 Riemann 可积函数却可能有个别不可
+ Riemann 积的截面，所以不能未经检查就应用后一版本。
  \chapterref{chap:product-measure}先以 Tonelli 定理处理非负可测函数，再对
  绝对可积函数证明 Lebesgue--Fubini 定理。引用时不能只写“由 Fubini
  定理”而省略所处积分理论和可积性条件。
@@ -676,7 +701,7 @@ Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率�
 
 \section{当前章节依赖}
 
-第0—103章的主要依赖可概括如下：
+第一至第五卷的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -705,8 +730,8 @@ Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率�
 M、Dirichlet 与 Abel 判别以及范数绝对收敛下的 Cauchy 乘积。
 \chapterref{chap:power-series}利用 Abel 引理得到收敛半径和内闭一致收敛，
 再证明逐项微积分；\chapterref{chap:real-analytic-functions}据此建立解析
-函数的 Taylor 表示、解析运算、零点阶和恒等原理，并推出非恒零解析函数
-在紧子集上只有有限个零点。
+函数的 Taylor 表示、解析运算、零点阶和恒等原理，并推出连通开区间上的
+非恒零解析函数在该区间的紧子集上只有有限个零点。
 
 \chapterref{chap:euclidean-limits}把一元极限的距离语言推广到有限维欧氏空间，
 \chapterref{chap:euclidean-compactness}随后证明有限维 Heine--Borel 定理。

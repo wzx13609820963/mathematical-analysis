@@ -1,6 +1,8 @@
 \chapter{Lebesgue 测度}
 
 \begin{solution}{interval-cover-length-lemma}
+若覆盖长度和无穷，结论直接成立。以下所有区间均有有限端点，且 $a<b$；
+$a=b$ 时只需非负性。
 从含 $a$ 的区间中选右端点最远者 $I_1$。若其右端点已超过 $b$，结论显然；
 否则因覆盖无缺口，可在左端点小于该右端点的区间中选右端点最远者 $I_2$。
 有限次后到达 $b$，否则有限覆盖会在当前最远右端点之后留下空隙。记所选
@@ -15,7 +17,7 @@ $\alpha_1<a$、$\alpha_{j+1}<\beta_j$、$\beta_r>b$。于是
 \end{solution}
 
 \begin{solution}{lebesgue-singletons-countable}
-单点 $\{x\}$ 可由长度任意小的区间覆盖，故测度为零。若 $E$ 为可数集，写成
+单点 $\{x\}$ 可由长度任意小的区间覆盖，故测度为零。若 $E$ 为可数无限集，写成
 \[
  E=\{x_1,x_2,\ldots\}.
 \]
@@ -34,8 +36,14 @@ $m^*(E+t)\le m^*(E)$。用平移 $-t$ 作用于 $E+t$ 得反向不等式。
 
 \begin{solution}{scaling-lebesgue-measure}
 $r\ne0$ 时，长方体覆盖在映射 $x\mapsto rx$ 下体积乘以 $|r|^d$，故
-$m^*(rE)\le|r|^dm^*(E)$；对 $rE$ 使用 $1/r$ 得反向不等式。线性同胚把
-Carathéodory 可测集送到可测集，所以限制测度也满足等式。$r=0$ 时，
+$m^*(rE)\le|r|^dm^*(E)$；对 $rE$ 使用 $1/r$ 得反向不等式。
+若 $E$ 可测，对任意 $B\subseteq\R^d$，把测试集 $r^{-1}B$ 按 $E$ 分割，
+再同乘 $|r|^d$，得到
+\[
+ m_d^*(B)=m_d^*(B\cap rE)+m_d^*(B\setminus rE).
+\]
+因此 $rE$ 可测，限制测度也满足等式；理由是已经证明的外测度伸缩公式，
+不是任意同胚都保持Lebesgue可测性。$r=0$ 时，
 $rE$ 为空集或单点，故总是零测；当 $m(E)=+\infty$ 时，不把这一结论写成
 $0^dm(E)$，因为扩充实数中的 $0\cdot\infty$ 没有定义。
 \end{solution}
@@ -70,10 +78,35 @@ $F\subseteq E$；又 $E\setminus F\subseteq E\setminus K_n$ 对每个 $n$
 \end{solution}
 
 \begin{solution}{borel-versus-lebesgue-cardinality}
-$\R$ 的 Borel 集由可数基经可数运算生成，所以 Borel 集族基数至多为
-$\mathfrak c$。若 $C$ 是基数为 $\mathfrak c$ 的 Borel 零测集，则
-$\mathcal P(C)$ 的基数为 $2^{\mathfrak c}>\mathfrak c$。完备性使
-$C$ 的每个子集 Lebesgue 可测，因此其中至少有一个不是 Borel 集。
+记 $C_n$ 为从 $[0,1]$ 连续删去中间三分之一共 $n$ 次后留下的有限闭区间并。
+每个区间长度为 $3^{-n}$，共 $2^n$ 个，且 $C_{n+1}\subseteq C_n$。
+给定0、1序列，逐次选左、右分支，区间套的唯一交点正是题中的级数；
+反过来，交集中的点决定一条相容分支。因此 $C=\bigcap_nC_n$，为闭集，且
+$m(C)\le(2/3)^n$ 对所有 $n$ 成立，故零测。
+两条不同序列若在第 $k$ 位首次不同，相应实数之差的绝对值至少为
+$2\cdot3^{-k}-\sum_{n>k}2\cdot3^{-n}=3^{-k}>0$。
+故上述对应是双射，$|C|=|\mathcal P(\Npos)|=\mathfrak c$。
+最后一个等号也可用两个单射核对：刚构造的映射把幂集嵌入实数，
+而实数 $x\mapsto\{q\in\Q:q<x\}$ 把实数嵌入可数集的幂集。
+
+下面补足Borel集族的基数上界。固定可数有理开区间基，把一个集合表达式
+记成有根树，节点为自然数有限序列：叶节点标记一个基区间或空集；
+补节点只有一个子节点；并节点有至多可数个子节点。要求树没有无限向下分支。
+叶节点有确定值，补、并节点按标记取补集和可数并，因而整棵树有唯一的集合值。
+这一步不需要引入序数：若某子树不能赋值，而其所有直接子树都能赋值，
+合并这些赋值便矛盾；于是不能赋值的节点必有不能赋值的子节点。
+逐次选编号最小者就形成无限分支，与要求相反。唯一性用同样的论证：
+两个赋值不同的节点必有赋值不同的子节点，而叶节点不能不同。
+
+这些树所表示的集合包括可数基，且对补和可数并封闭：分别添加一个新根，
+或把可数棵树接到一个并根之下。新树仍可数且无无限分支。因此它们所表示
+的集合至少包含全部Borel集。自然数有限序列的集合可数，每个节点的标记
+也取自可数集，所以一棵标记树可编码为一个固定可数集的子集；树的总数
+至多为 $\mathfrak c$，Borel集族亦如此。
+
+Cantor的幂集定理给 $|\mathcal P(C)|>\mathfrak c$，而完备性使 $C$ 的每个
+子集Lebesgue可测。因此至少一个子集不是Borel集，所求严格包含成立。
+这里使用的是具体构造的 $C$；没有调用一般不可数Borel集的基数定理。
 \end{solution}
 
 \begin{solution}{regular-approximation-symmetric-difference}
@@ -84,10 +117,14 @@ $m(O\setminus K)<\varepsilon$。
 \end{solution}
 
 \begin{solution}{boundary-null-graph}
-设 $f:Q\subset\R^d\to\R$ 的 Lipschitz 常数为 $L$。把 $Q$ 分成边长
-$h$ 的 $O(h^{-d})$ 个小立方体。每个小立方体上函数振幅至多
-$L\sqrt d\,h$，故对应图像落在底面积 $h^d$、高度 $O(h)$ 的长方体内。
-全部覆盖总体积为 $O(h)$，令 $h\downarrow0$ 即得零测性。
+设 $Q=\prod_{j=1}^d[a_j,b_j]$，各边长允许为零，$f$ 的Lipschitz常数为 $L$。
+取 $0<h\le1$ 的整格，至多
+$\prod_j((b_j-a_j)/h+2)\le C_Qh^{-d}$ 个闭网格立方体与 $Q$ 相交，
+其中 $C_Q=\prod_j(b_j-a_j+2)$。对每个非空交集取一点 $z$，交集内
+$|f(x)-f(z)|\le L\sqrt d\,h$。对应图像因此被底边长为 $h$、高度为
+$2(L\sqrt d+1)h$ 的长方体覆盖，纵向额外留出的 $h$ 使 $L=0$ 时也无退化问题。
+这些有限覆盖的总体积至多 $2C_Q(L\sqrt d+1)h$，令 $h\downarrow0$，
+外测度为零，故图像Lebesgue可测且零测。
 \end{solution}
 
 \begin{solution}{jordan-lebesgue-volume-equality}
@@ -107,24 +144,41 @@ $\Q\cap[0,1]$ 至多可数，故 Lebesgue 零测。它与其补集都在 $[0,1]$
 \end{solution}
 
 \begin{solution}{boundary-positive-fat-set-preview}
-取 Smith--Volterra 集：从 $[0,1]$ 依次在每个剩余区间中删去总长度分别为
-$1/4,1/8,1/16,\ldots$ 的居中开区间。剩余集 $F$ 闭、无内点，测度
+取 Smith--Volterra 集：第 $n\ge1$ 步从每个保留区间中删去长度 $4^{-n}$
+的居中开区间，共删 $2^{n-1}$ 个，总长度为 $2^{-n-1}$。
+每步后的 $2^n$ 个保留区间等长，其长度为
+$2^{-n}(1-\sum_{j=1}^n2^{-j-1})=2^{-n-1}+2^{-2n-1}$，趋于零。
+这些数值也说明下一步删除长度小于各保留区间长度，构造可以持续。
+交集 $F$ 闭；若含非退化区间，该区间在每一步都必须位于一个保留分量中，
+与分量长度趋零矛盾。因此无内点。删除区间两两不交，由可数可加性，剩余集的测度为
 $1-\sum_{n\ge1}2^{-n-1}=1/2$。因 $F$ 无内点且闭，$\partial F=F$，边界
 正测，所以不 Jordan 可测。
 \end{solution}
 
 \begin{solution}{measure-zero-image-linear}
-$k=d$ 时线性映射有 Lipschitz 常数 $\norm A$。用小立方体覆盖 $N$，其像
-落在边长放大至多常数倍的立方体中，故总覆盖体积仍可任意小。若 $k<d$，
-$A(N)$ 位于较低维空间 $\R^k$，不能把 $d$ 维零测直接同 $k$ 维零测比较；
-例如一条直线在 $\R^2$ 中零测，投影到 $\R$ 可为一个区间。若仍把像看作
-$\R^d$ 中的集合，则它落在真线性子空间中，因而 $d$ 维零测。
+$k=d$ 时先设 $L=\norm A>0$。零测集可用开长方体覆盖且总体积任意小。
+每个非退化长方体的各边以其最短边为尺度划分，所得边长不超过该尺度的
+长方体块可各装入同一尺度的立方体，总立方体体积至多为原体积的 $2^d$ 倍。
+因而给定 $\varepsilon>0$，可用立方体 $Q_j$ 覆盖 $N$，使
+$\sum_jv(Q_j)<\varepsilon$。
+边长为 $h_j$ 的 $Q_j$ 的像直径至多 $L\sqrt d\,h_j$，可装入边长
+$2L\sqrt d\,h_j$ 的立方体，故
+$m_d^*(A(N))\le(2L\sqrt d)^d\varepsilon$。令 $\varepsilon\downarrow0$ 即得零测性。
+$L=0$ 时像为空集或单点，结论直接成立。
+
+若 $k<d$，一般不能推出 $k$ 维零测。例如 $[0,1]\times\{0\}$ 在
+$\R^2$ 中零测，向第一坐标投影的像是 $[0,1]$，长度为1。
+若把目标 $\R^k$ 作为坐标子空间嵌入 $\R^d$，则像在环境空间中的
+$d$ 维外测度为零：先将整个坐标子空间分为有界块，每块用任意薄的长方体
+覆盖，再用可数次可加性。这个环境测度结论不同于目标空间中的测度结论。
 \end{solution}
 
 \begin{solution}{uniqueness-translation-invariant-measure}
 平移不变性与有限可加性给出
 $\nu([k/n,(k+1)/n))=1/n$，继而对有理端点半开区间得到
-$\nu([a,b))=b-a$。这些区间构成生成 $\mathcal B(\R)$ 的半环，且
-$\R=\bigcup_n[-n,n)$、各块测度有限。延拓唯一性定理于是说明 $\nu$ 与
-Lebesgue 测度在全部 Borel 集上相等。
+$\nu([a,b))=b-a$。固定正整数 $N$，$[-N,N)$ 内有限个有理端点半开区间的
+并构成包含该相对全集的代数，生成 $\mathcal B([-N,N))$；两测度在该代数
+上相同且有限。上一章的有限延拓唯一性给出在此相对Borel域上相等。
+最后 $E\cap[-N,N)\uparrow E$，上升连续性说明两者在任意Borel集 $E$ 上相等。
+这只确定Lebesgue测度的Borel限制，不把题中 $\nu$ 的定义域擅自扩大到完备域。
 \end{solution}

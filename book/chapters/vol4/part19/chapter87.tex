@@ -17,7 +17,7 @@ Arzelà--Ascoli 定理抽出一致收敛子列，再由右端的一致连续性�
 \[
  Q=[t_0-a,t_0+a]\times\overline B(y_0,b)
 \]
-上连续。紧致性给 \(M=\max_Q\|f\|<\infty\)。取
+上连续，其中 \(a,b>0\)。紧致性给 \(M=\max_Q\|f\|<\infty\)。取
 \[
  h=\min\{a,b/M\},
 \]
@@ -31,7 +31,7 @@ Arzelà--Ascoli 定理抽出一致收敛子列，再由右端的一致连续性�
 
 \section{Euler 折线}
 
-把 \(I_+\) 等分为 \(n\) 段，步长 \(\Delta=h/n\)，节点
+把 \(I_+\) 等分为 \(n\ge1\) 段，步长 \(\Delta=h/n\)，节点
 \(t_k=t_0+k\Delta\)。递归定义
 \[
  y_n(t_0)=y_0,\qquad
@@ -49,7 +49,8 @@ Arzelà--Ascoli 定理抽出一致收敛子列，再由右端的一致连续性�
 \end{equation}
 故函数族一致有界且共同 Lipschitz。
 
-令 \(\kappa_n(s)=t_k\) 当 \(t_k\le s<t_{k+1}\)。折线公式等价于
+令 \(\kappa_n(s)=t_k\) 当 \(t_k\le s<t_{k+1}\)，并令
+\(\kappa_n(t_0+h)=t_0+h\)。折线公式等价于
 \begin{equation}\label{eq:euler-integral-residual}
  y_n(t)=y_0+\int_{t_0}^{t}
  f(\kappa_n(s),y_n(\kappa_n(s)))\,ds.
@@ -101,15 +102,37 @@ Arzelà--Ascoli 定理给子列 \(y_{n_j}\) 一致收敛到某个连续函数 \(
 \(\R^m\) 替换成任意 Banach 空间。Picard--Lindelöf 定理则依赖完备性和压缩，
 可以在 Banach 空间中成立。
 
+下面在实 Banach 空间 \(c_0\) 中给出反例。该空间由趋于零的实数列组成，
+取上确界范数。定义连续映射
+\[
+ F(x)_n=\sqrt{|x_n|}+\frac1n,\qquad n\ge1.
+\]
+确有 \(F(x)\in c_0\)，且
+\(\|F(x)-F(z)\|_\infty\le\|x-z\|_\infty^{1/2}\)。
+假设 \(x'=F(x),\ x(0)=0\) 在 \([0,h]\) 上有一个 \(C^1\) 解。
+每个坐标满足 \(x_n'(t)\ge1/n\)，所以 \(x_n(t)>0\)（\(t>0\)）。
+于是对 \(0<\varepsilon<t\le h\)，
+\[
+ \sqrt{x_n(t)}-\sqrt{x_n(\varepsilon)}
+ =\int_\varepsilon^t\frac{x_n'(s)}{2\sqrt{x_n(s)}}\,ds
+ \ge\frac{t-\varepsilon}{2}.
+\]
+令 \(\varepsilon\downarrow0\)，得 \(x_n(t)\ge t^2/4\)，与
+\(x(t)\in c_0\) 矛盾。这里右端确实连续，失败的是解的存在性本身。
+
 \section{近似解的其他形式}
 
-Euler 折线不是唯一选择。若连续函数 \(y_n\) 满足共同有界、等度连续，并且
+Euler 折线不是唯一选择。在固定紧区间 \(I\ni t_0\) 上，设连续函数
+\(y_n\) 的图像都留在同一个紧集 \(K\subset D\)，其中 \(f\) 在 \(D\) 上连续。
+若 \(y_n\) 等度连续，并且
 \[
  r_n(t)=y_n(t)-y_0-\int_{t_0}^{t}f(s,y_n(s))ds
 \]
 在上确界范数下趋零，那么任何一致收敛子列的极限都是解。证明只需在上式
 取极限：共同紧区域上的一致连续性把
-\(f(s,y_n(s))\) 一致送到 \(f(s,y(s))\)。
+\(f(s,y_n(s))\) 一致送到 \(f(s,y(s))\)。图像的共同紧集条件同时保证
+极限图像仍在定义域内。令 \(t=t_0\) 还可看出
+\(y_n(t_0)-y_0=r_n(t_0)\to0\)，无需另要求每个近似解恰取初值。
 
 这一表述把构造与极限分开。数值方法产生的离散近似、延迟参数法产生的光滑
 近似，只要给出紧性和残差趋零，也能使用同一收束论证。残差小本身不保证
@@ -125,26 +148,40 @@ Euler 折线不是唯一选择。若连续函数 \(y_n\) 满足共同有界、�
 零点取右端斜率零，会始终给出零解；另一种微小正扰动可能趋向立即离开的解。
 紧性论证只保证至少有一个聚点，不能从构造中恢复唯一性。
 
-在标量方程中，解集还可用序关系研究。若 \(f\) 连续，在同一局部矩形上的
-所有解共同有界且等度连续；解集在 \(C(I)\) 中紧。对任意固定 \(t\)，评价
-映射连续，因而解在该时刻的取值集合紧。进一步使用上、下解和比较方法，可以
-构造极大解与极小解，但这需要标量的全序，在向量方程中没有直接对应物。
+在标量方程中，固定 \(I=[t_0-h,t_0+h]\)，令 \(\mathcal S\) 为图像留在
+\(Q\) 中的全部同初值解。Peano 定理保证它非空；导数共同由 \(M\) 控制，
+而积分方程在一致极限下保持，故 Arzelà--Ascoli 定理给 \(\mathcal S\)
+在 \(C(I)\) 中紧。固定时刻的最大值虽然存在，仍需证明这些最大值来自同一条解。
+
+若 \(u,v\in\mathcal S\)，则 \(\max(u,v)\) 和 \(\min(u,v)\) 也在
+\(\mathcal S\) 中：在 \(u\ne v\) 处局部就是其中一解；在相等处二者导数
+都是 \(f(t,u(t))\)，故取最大值或最小值后仍可微，导数仍等于连续的右端。
+取 \(I\) 中至多可数的稠密序列 \((t_j)\)，对每个 \(j\) 取
+\(z_j\in\mathcal S\) 使 \(z_j(t_j)=\max_{u\in\mathcal S}u(t_j)\)。
+令 \(v_n=\max(z_1,\ldots,z_n)\)。紧性给一个一致收敛子列，极限
+\(v\in\mathcal S\)。对每个固定 \(j\)，当 \(n\ge j\) 时 \(v_n(t_j)\)
+已经等于该时刻的最大值，故 \(v(t_j)\ge u(t_j)\) 对所有 \(u\in\mathcal S\)
+成立。稠密性与连续性给 \(v\ge u\) 于整个 \(I\)。同理可构造逐点最小解。
+这里得到的是相对于逐点序的最大、最小解，不是指上一章按定义区间延拓的最大解。
 
 \begin{proposition}[Osgood 唯一性判据]\label{prop:osgood-uniqueness}
 设标量自治方程 \(y'=\omega(|y|)\)、\(y(0)=0\)，其中
-\(\omega:[0,\delta]\to[0,\infty)\) 连续、递增，\(\omega(0)=0\)，且
+\(\delta>0\)，\(\omega:[0,\delta]\to[0,\infty)\) 连续、非减，
+\(\omega(0)=0\)，\(\omega(s)>0\) 对 \(0<s\le\delta\) 成立，且
 \[
  \int_{0+}\frac{ds}{\omega(s)}=\infty.
 \]
-则零解是在零附近唯一的非负解。
+则零解是在零附近唯一的实值解。
 \end{proposition}
 \begin{proof}
-若某个非负解在 \(t_1>0\) 处为正，取首次达到小正数 \(\varepsilon\) 的时间。
+由于 \(y'\ge0\)，正向时间的解自动非负。若在 \(t_1>0\) 处为正，取首次达到小正数 \(\varepsilon\) 的时间。
 在解为正的区间上分离变量，对 \(0<\eta<\varepsilon\) 得
 \[
  t(\varepsilon)-t(\eta)=\int_\eta^\varepsilon\frac{ds}{\omega(s)}.
 \]
-令 \(\eta\downarrow0\)，右侧发散，左侧却有界，矛盾。若
+令 \(\eta\downarrow0\)，右侧发散，左侧却有界，矛盾。对于反向时间，
+\(z(s)=-y(-s)\) 满足 \(z'=\omega(|z|)\)、\(z(0)=0\)，故同样为零。
+本命题是针对这一标量自治方程的判据；其证明无需比较两条任意解。若
 \(\omega(s)=2\sqrt s\)，该积分有限，正好允许延迟解。
 \end{proof}
 
@@ -160,7 +197,7 @@ Euler 折线不是唯一选择。若连续函数 \(y_n\) 满足共同有界、�
 \subsection*{B组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{peano-compact-solution-set}在共同区间上证明所有取值留在 \(Q\) 的解构成 \(C(I,\R^m)\) 的紧集。
-\exerciseitem{peano-approximate-residual}证明共同有界、等度连续且残差一致趋零的近似解，其任一一致收敛子列的极限为真解。
+\exerciseitem{peano-approximate-residual}设固定紧时间区间上的近似解图像都留在同一个紧集 \(K\subset D\)，\(f\) 在 \(D\) 上连续。证明等度连续且残差一致趋零时，存在一致收敛子列，且每个这样的极限都是真解。
 \exerciseitem{peano-scalar-sqrt-selection}对平方根方程说明标准 Euler 折线为何选择零解，并构造一列微扰初值解趋向立即离开的解。
 \exerciseitem{peano-osgood-logarithm}用 Osgood 判据判断 \(y'=|y|^\alpha\)、\(y(0)=0\) 在不同 \(\alpha>0\) 下的唯一性。
 \exerciseitem{peano-continuity-not-global}给出连续且局部有解但解在有限时间爆破的标量方程，说明 Peano 定理仍是局部结论。

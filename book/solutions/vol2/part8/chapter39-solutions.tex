@@ -51,10 +51,15 @@ Hausdorff 空间的正则性，存在 \(K\) 中相对开集 \(O\) 使
 \[
  t=\frac{x}{1-y},
 \]
-所以 \(\Phi:\R\to S^1\setminus\{(0,1)\}\) 是同胚。若 \(t\) 最终
-离开每个紧区间，则 \(|t|\to\infty\)，公式给出
-\(\Phi(t)\to(0,1)\)。因此它在新增点连续。也可在证得连续双射后，直接
-使用紧空间到 Hausdorff 空间的连续双射定理。
+所以 \(\Phi:\R\to S^1\setminus\{(0,1)\}\) 是同胚。为检验新增点处
+的连续性，直接计算
+\[
+ |\Phi(t)-(0,1)|=\frac{2}{\sqrt{1+t^2}}.
+\]
+给定 \(\varepsilon>0\)，取 \(R>2/\varepsilon\)。在 \(\infty\) 的
+开邻域 \(\{\infty\}\cup(\R\setminus[-R,R])\) 上，像与北极的距离
+小于 \(\varepsilon\)。故 \(\Phi\) 连续。它是紧空间到 Hausdorff 空间
+的连续双射，因而是同胚。
 \end{solution}
 
 \begin{solution}{one-point-proper-extension}
@@ -103,19 +108,20 @@ Hausdorff 空间的正则性，存在 \(K\) 中相对开集 \(O\) 使
 
 \begin{solution}{stone-cech-bounded-extension}
 若 \(|u|\le M\)，把 \(u\) 视为到紧区间 \([-M,M]\) 的连续映射。
-Stone--Čech 泛性质给出连续延拓。若 \(U_1,U_2\) 都是延拓，则其等值集
-在 Hausdorff 区间中闭，并含稠密集 \(X\)，故等于 \(\beta X\)。
+Stone--Čech 泛性质给出连续延拓。对任意两个实值连续延拓 \(U_1,U_2\)，
+等值集是连续映射 \((U_1,U_2):\beta X\to\R^2\) 对闭对角线的原像，
+故在 \(\beta X\) 中闭。它含稠密集 \(j(X)\)，于是等于 \(\beta X\)。
+这一唯一性论证不需预先假设候选延拓的值都落在 \([-M,M]\) 中。
 \end{solution}
 
 \begin{solution}{stone-cech-compact-fixed}
-记嵌入为 \(j:X\to\beta X\)。由于 \(X\) 紧而 \(\beta X\) Hausdorff，
-\(j(X)\) 是 \(\beta X\) 中的紧闭集。紧致化的定义又要求 \(j(X)\) 稠密，
-故
-\[
- j(X)=\overline{j(X)}=\beta X.
-\]
-因此 \(j\) 是满射，并由紧到 Hausdorff 的连续双射定理成为同胚。这里实际
-只使用了紧致化的定义；泛性质保证这样的紧致化就是 \(\beta X\)。
+记嵌入为 \(j:X\to\beta X\)。因为 \(X\) 紧 Hausdorff，泛性质可用于
+\(\operatorname{id}_X:X\to X\)，得到连续映射 \(r:\beta X\to X\)
+满足 \(r\circ j=\operatorname{id}_X\)。映射 \(j\circ r\) 与
+\(\operatorname{id}_{\beta X}\) 都是 \(j:X\to\beta X\) 的连续延拓，
+由泛性质中的唯一性，\(j\circ r=\operatorname{id}_{\beta X}\)。因此
+每个 \(z\in\beta X\) 都等于 \(j(r(z))\)，\(j\) 满射，且 \(r\) 是
+它的连续逆映射。此证只用泛性质，不用评价像的具体构造。
 \end{solution}
 
 \begin{solution}{stone-cech-discrete-sequences}

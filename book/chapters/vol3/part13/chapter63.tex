@@ -48,17 +48,21 @@
 
 \begin{theorem}[参数积分的连续性]
 \label{thm:parameter-integral-continuity}
-设 \(T\) 为度量空间，\(t_0\in T\)。假定：
+设 \((X,\mathcal A,\mu)\) 为测度空间，\(T\) 为度量空间，\(t_0\in T\)，
+\(f:T\times X\to\mathbb R\)（或\(\mathbb C\)）的每个截面
+\(f(t,\cdot)\) 都可测。假定：
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item 对几乎所有 \(x\)，\(f(t,x)\to f(t_0,x)\) 当 \(t\to t_0\)；
  \item 存在 \(t_0\) 的邻域 \(U\) 和 \(g\in L^1(\mu)\)，使
  \(|f(t,x)|\le g(x)\) 对 \(t\in U\) 几乎处处成立。
 \end{enumerate}
-则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\) 在 \(t_0\) 连续。
+则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\) 在 \(U\) 上有定义，并在 \(t_0\) 连续。
 \end{theorem}
 
 \begin{proof}
-任取 \(t_n\to t_0\)。对 \(f(t_n,\cdot)\) 使用控制收敛定理，得到
+任取 \(t_n\to t_0\)，舍去有限项后可令所有 \(t_n\in U\)。把这可数多个
+参数对应的控制不等式的零测例外集合并，便可对整列使用同一个控制函数。
+对 \(f(t_n,\cdot)\) 使用控制收敛定理，得到
 \[
  F(t_n)\longrightarrow F(t_0).
 \]
@@ -103,7 +107,7 @@
 的收敛定理。
 
 \begin{counterexample}
-令 \(f(t,x)=t^{-1}\mathbf1_{(0,t)}(x)\)（\(t>0\)），并令
+令 \(f(t,x)=t^{-1}\mathbf1_{(0,t)}(x)\)（\(0<t\le1\)，\(0<x<1\)），并令
 \(f(0,x)=0\)。对每个 \(x>0\)，当 \(t\downarrow0\) 时
 \(f(t,x)\to0\)，但
 \[
@@ -116,8 +120,9 @@
 
 \begin{theorem}[积分号下求导]
 \label{thm:differentiation-under-integral}
-设 \(I\subset\mathbb R\) 为开区间，\(t_0\in I\)。假定存在 \(t_0\) 的
-开邻域 \(U\subset I\)，使：
+设 \((X,\mathcal A,\mu)\) 为测度空间，\(I\subset\mathbb R\) 为开区间，
+\(f:I\times X\to\mathbb R\)，\(t_0\in I\)。假定存在含 \(t_0\) 的
+开区间 \(U\subset I\)，使：
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item 对每个 \(t\in U\)，\(f(t,\cdot)\) 可测；
  \item 存在一个零测集 \(N\)，使对每个 \(x\notin N\)，函数
@@ -128,30 +133,35 @@
  \]；
  \item \(f(t_0,\cdot)\in L^1(\mu)\)。
 \end{enumerate}
-则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\) 在 \(t_0\) 可导，且
+在 \(N\) 上把偏导数定义为零。则 \(F(t)=\int_Xf(t,x)\,d\mu(x)\)
+在 \(U\) 上有定义，在 \(t_0\) 可导，且
 \[
  F'(t_0)=\int_X\partial_tf(t_0,x)\,d\mu(x).
 \]
 \end{theorem}
 
 \begin{proof}
-对足够小的非零 \(h\)，区间端点 \(t_0,t_0+h\) 均属于 \(U\)。固定
+先由中值定理得到
+\(|f(t,x)|\le |f(t_0,x)|+|t-t_0|g(x)\)（\(x\notin N\)），
+故每个 \(t\in U\) 的截面都可积。再取任意非零实数列 \(h_n\to0\)，
+使连接 \(t_0\) 与 \(t_0+h_n\) 的整段都包含在 \(U\) 内。
+这些可测差商在 \(X\setminus N\) 上的极限是偏导数，因而补零后的偏导数
+可测。对足够小的非零 \(h\)，固定
 \(x\notin N\)，对函数 \(t\mapsto f(t,x)\) 使用一元中值定理，得到
 \[
  \left|\frac{f(t_0+h,x)-f(t_0,x)}{h}\right|\le g(x).
 \]
 这里同一个零测集 \(N\) 对所有小 \(h\) 都适用；这正是条件 (ii)--(iii)
 中量词写法的作用。差商在 \(X\setminus N\) 上逐点趋于
-\(\partial_tf(t_0,x)\)。控制收敛定理给出
+\(\partial_tf(t_0,x)\)。对任意这样的序列 \(h_n\) 使用控制收敛，
+再用实变量极限的序列判据，得到
 \[
  \lim_{h\to0}\frac{F(t_0+h)-F(t_0)}h
  =\int_X\lim_{h\to0}
  \frac{f(t_0+h,x)-f(t_0,x)}h\,d\mu(x),
 \]
-即所求公式。条件 (iv) 与导数控制同时保证邻域内各截面可积，因为
-\[
- |f(t,x)|\le|f(t_0,x)|+|t-t_0|g(x).
-\]
+即所求公式。复值函数可分别对实部和虚部应用这一结论；
+不需要对复值函数使用实中值定理。
 \end{proof}
 
 \begin{remark}
@@ -239,7 +249,17 @@
 \[
  \Gamma'(t)=\int_0^\infty x^{t-1}(\log x)e^{-x}\,dx.
 \]
-同样的局部控制可以反复使用，得到 \(\Gamma\in C^\infty(0,\infty)\)。
+对任意整数 \(k\ge0\)，把上述控制函数中的 \(|\log x|\) 改为
+\(|\log x|^k\)。在零附近作代换 \(x=e^{-u}\)，有
+\[
+ \int_0^1x^{\alpha-1}|\log x|^k\,dx
+ =\int_0^\infty e^{-\alpha u}u^k\,du<\infty.
+\]
+无穷远处，\(x^{\beta-1}(\log x)^ke^{-x}\le C e^{-x/2}\)
+对充分大的 \(x\) 成立。因而每一阶导数都有局部可积控制。
+依次应用求导定理得到
+\(\Gamma^{(k)}(t)=\int_0^\infty x^{t-1}(\log x)^ke^{-x}\,dx\)，
+再用连续性定理说明每个导数连续，故 \(\Gamma\in C^\infty(0,\infty)\)。
 \end{example}
 
 \section*{习题}
@@ -247,7 +267,8 @@
 \subsection*{A组　可测性与连续性}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{parameter-section-measurability}
-设 \(f:T\times X\to\mathbb R\) 联合可测。证明
+设 \(T,X\) 为本章可测性定理中的两个\(\sigma\)-有限测度空间，
+\(f:T\times X\to\mathbb R\) 联合可测。证明
 \[
  t\mapsto\mu(\{x:f(t,x)>a\})
 \]
@@ -258,12 +279,13 @@
 论证，并说明若参数空间不是第一可数空间，为什么该证明需要调整。
 
 \exerciseitem{laplace-continuity-differentiability}
-证明
+设 \(h:(0,\infty)\to\mathbb R\) 可测，\(a\in\mathbb R\)，且
+\(e^{-ax}|h(x)|\) 可积。证明
 \[
  F(t)=\int_0^\infty e^{-tx}h(x)\,dx
 \]
-在 \(t>a\) 连续；若 \(e^{-ax}|h(x)|\) 和
-\(xe^{-ax}|h(x)|\) 可积，则证明它在 \(t>a\) 可导并求导。
+在 \(t>a\) 连续；若还假设 \(xe^{-ax}|h(x)|\) 可积，
+则证明它在 \(t>a\) 可导并求导。
 
 \end{enumerate}
 \subsection*{B组　积分号下求导}
@@ -298,9 +320,13 @@
 在适当解释 \(x=1\) 处取值后证明 \(F'(t)=1/(t+1)\)，并求 \(F(t)\)。
 
 \optionalexerciseitem{holomorphic-parameter-integral}
-设 \(D\subset\mathbb C\) 开，\(f(z,x)\) 对 \(z\) 全纯，且在每个紧集
-\(K\Subset D\) 上有 \(g_K\in L^1\) 控制 \(|f(z,x)|\)。利用 Cauchy
-积分公式说明 \(F(z)=\int f(z,x)\,d\mu(x)\) 全纯。
+本题在学过 Cauchy 积分公式后完成。设 \((X,\mathcal A,\mu)\) 为测度空间，
+\(D\subset\mathbb C\) 开，\(f:D\times X\to\mathbb C\) 的每个
+\(x\)-截面可测；存在公共零测集 \(N\)，对 \(x\notin N\)，
+\(f(\cdot,x)\) 全纯。对每个紧集 \(K\Subset D\)，有
+\(g_K\in L^1(\mu)\) 使 \(|f(z,x)|\le g_K(x)\) 对所有 \(z\in K\)
+及公共零测例外集外的 \(x\) 成立。利用 Cauchy 导数估计及控制收敛
+证明 \(F(z)=\int f(z,x)\,d\mu(x)\) 全纯。
 
 \projectexerciseitem{parameter-integral-checklist}
 选择一个概率论中的矩母函数或物理中的配分函数，逐项核验可测性、积分有限、

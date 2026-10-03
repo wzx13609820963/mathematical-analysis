@@ -22,7 +22,7 @@ $-1$ 表示；这个约定用于给定向区间的两个边界点赋予相反符
 设 $M^n$ 为光滑流形。流形的定向是在各 $T_pM$ 上光滑地选择一个定向。
 当 $n\ge1$ 时，这等价于选取一个图册，使任意两个相交坐标图之间的坐标
 变换都有正 Jacobian 行列式；这样的图册称为\emph{定向图册}，其中的图称为
-定向坐标图。若连通流形可定向，则在一点选定正向以后，连续性迫使这一选择
+定向坐标图。若非空连通流形可定向，则在一点选定正向以后，连续性迫使这一选择
 沿流形一致地延续，因而它恰有两个定向。零维流形是离散的，其定向是在每个
 点分别选择正号或负号。
 
@@ -153,13 +153,33 @@ $\mathbb H^n$ 中，矛盾。对逆坐标变换使用同一论证，内点也不
 组成。
 
 设 $M$ 已定向。边界定向采用\emph{外法向优先}约定：若 $n_{\rm out}$
-指向半空间之外，则 $(v_1,\ldots,v_{n-1})$ 是 $\partial M$ 的正向基，
+指向半空间之外的横截向量，则 $(v_1,\ldots,v_{n-1})$ 是 $\partial M$ 的正向基，
 当且仅当
 \[
  (n_{\rm out},v_1,\ldots,v_{n-1})
 \]
 是 $M$ 的正向基。这个约定在平面圆盘上给出逆时针边界；在取标准定向的
-区间 $[a,b]$ 上，右端点带正号，左端点带负号。
+区间 $[a,b]$ 上，右端点带正号，左端点带负号。这里还没有选择度量，
+不要求 $n_{\rm out}$ 为单位向量或垂直于边界。两个向外横截向量的法向
+分量之比为正，差去这一正倍数后为切向量；在行列式中加上切向量不改变
+符号，故边界定向与横截向量的选择无关。
+
+坐标积分也扩展到带边界情形。在任一边界图 $x:U\to V\subset\mathbb H^n$
+中，若 $\omega$ 紧支撑于 $U$，写 $(x^{-1})^*\omega=f\,dx^1\wedge\cdots
+\wedge dx^n$，定义局部积分为
+\[
+ \varepsilon_x\int_V f(x)\,dx,
+\]
+其中 $\varepsilon_x=1$ 表示该图保持定向，$\varepsilon_x=-1$ 表示反转定向；
+必要时缩小到连通坐标域。将 $f$ 在 $\mathbb H^n\setminus V$ 补零后仍在
+半空间上光滑。半空间边界的 $n$ 维测度为零，所以积分及换图公式可由内部
+欧氏开集上的变量代换得到。单位分解和双重求和的证明随即给出全局积分，
+而 $\partial M$ 上的积分另外按其 $(n-1)$ 维结构及诱导定向定义。
+
+一维时尤其须保留 $\varepsilon_x$：正向区间右端点附近的半空间坐标可取
+$x=b-t$，它反转定向。高维时可反射一个切向坐标，把边界图改成保向图，
+一维没有这样的切向坐标。因此以下局部公式在任意边界图中使用时，须让
+半空间及其边界同时带该图的定向符号。
 
 第\ref{chap:smooth-manifolds}章的单位分解定理同样适用于带边界流形。
 Hausdorff、第二可数和局部紧性仍给出同样的紧穷竭与局部有限加细；在边界图
@@ -204,7 +224,7 @@ $\omega\in\Omega_c^{n-1}(M)$，都有
 \end{theorem}
 
 \begin{proof}
-用定向内部图和定向边界图覆盖 $\operatorname{supp}\omega$，再把
+用定向内部图和带有定向符号 $\varepsilon_x$ 的边界图覆盖 $\operatorname{supp}\omega$，再把
 $M\setminus\operatorname{supp}\omega$ 加入这一族，得到 $M$ 的开覆盖，
 并取从属的局部有限单位分解。支撑在
 $M\setminus\operatorname{supp}\omega$ 中的项乘以 $\omega$ 后为零，将其
@@ -219,7 +239,7 @@ $M\setminus\operatorname{supp}\omega$ 中的项乘以 $\omega$ 后为零，将�
 \]
 每个 $\rho_i\omega$ 支撑在一张图中。把它拉回欧氏开集或半空间的相对
 开集，并在一个较大的半空间中补零，公式 \eqref{eq:half-space-stokes}
-给出
+给出（边界图两端积分同时乘 $\varepsilon_x$）
 \[
  \int_Md(\rho_i\omega)
  =\int_{\partial M}\iota^*(\rho_i\omega).
@@ -307,14 +327,14 @@ $\gamma(t)=(\cos t,\sin t)$ 计算得
 \subsection*{A组　定向与积分}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
  \exerciseitem{orientation-connected-two-choices}
- 证明连通可定向流形恰有两个定向，并说明不连通情形如何计数。
+ 证明非空连通可定向流形恰有两个定向，并说明不连通情形如何计数。
  \exerciseitem{orientation-volume-form-ratio}
  证明给出同一定向的两个体积形式之比是正光滑函数；反之也成立。
  \exerciseitem{orientation-product-swap-sign}
  给 $M^m\times N^n$ 取积定向，证明交换映射
  $(p,q)\mapsto(q,p)$ 改变定向的符号为 $(-1)^{mn}$。
  \exerciseitem{orientation-sphere-outward-normal}
- 用外法向优先约定给 $S^{n-1}=\partial B^n$ 定向，并验证在 $S^1$ 上
+ 设 $n\ge1$。用外法向优先约定给 $S^{n-1}=\partial B^n$ 定向，并验证在 $S^1$ 上
  得到逆时针方向。
  \exerciseitem{integration-diffeomorphism-sign}
  从欧氏变量代换公式出发，完整证明命题
@@ -350,10 +370,10 @@ $\gamma(t)=(\cos t,\sin t)$ 计算得
  \exerciseitem{poincare-circle-not-exact}
  计算 $(x\,dy-y\,dx)|_{S^1}$ 的积分，并证明它闭而不恰当。
  \exerciseitem{stokes-boundary-of-boundary-integral}
- 设 $n\ge2$，$M$ 紧且有边界，$\eta\in\Omega^{n-2}(M)$。证明
+ 设 $n\ge2$，$M$ 是紧定向光滑 $n$ 维带边界流形，$\eta\in\Omega^{n-2}(M)$。证明
  $\int_{\partial M}d(\iota^*\eta)=0$，并指出证明中使用的两个交换关系。
  \optionalexerciseitem{stokes-compact-support-euclidean-top}
- 设 $f\in C_c^\infty(\R^n)$。证明顶次形式
+ 设 $n\ge1$，$f\in C_c^\infty(\R^n)$。证明顶次形式
  $f\,dx^1\wedge\cdots\wedge dx^n$ 若有紧支撑原形式，则其积分为零；
  再证明积分为零时它确实有紧支撑原形式。
 \end{enumerate}

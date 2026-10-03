@@ -47,7 +47,11 @@
 \]
 \end{definition}
 
-定义要求的是尾部直径趋于零，不是“项的变化越来越慢”。调和部分和的相邻差趋零，但从第 \(n\) 项累积到第 \(2n\) 项仍约为 \(\log 2\)，因而两个晚期项可以保持固定距离。检验 Cauchy 性时必须估计任意 \(m>n\) 的总变化，而不能停在 \(a_{n+1}-a_n\)。
+调和部分和的相邻差趋零，但
+\[
+ H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac1k\ge n\frac1{2n}=\frac12.
+\]
+因此任意晚的尾部仍有两项相距至少 \(1/2\)。检验 Cauchy 性时必须控制两个独立的尾部指标，不能只估计相邻差。
 
 Cauchy 性与有限极限一样只取决于尾部。改变、删除或补写有限多个首项，不会改变一个数列是否为 Cauchy 列；证明时只需把 Cauchy 条件给出的起点与修改结束的位置取最大值。这也解释了为什么后文讨论最终有定义的商时，可以任意补写有限个首项。
 
@@ -55,11 +59,13 @@ Cauchy 性与有限极限一样只取决于尾部。改变、删除或补写有�
 Cauchy 条件中的同一个 \(N\) 必须同时控制两个独立指标 \(m,n\)。这表示从第 \(N\) 项起，尾部任意两项都彼此接近，而非只比较相邻项。
 \end{insightbox}
 
-把条件写成
+若把两个指标放到起点之前，写成
 \[
- \forall\varepsilon>0\ \forall m,n\ \exists N\le\min\{m,n\}
+ \forall\varepsilon>0\ \forall m,n\in\Npos\
+ \exists N\in\Npos,\quad
+ N\le\min\{m,n\}\ \text{且}\ |a_m-a_n|<\varepsilon,
 \]
-会失去尾部统一性。严格否定为
+便要求任意固定的两项之差小于每个正数，也就是要求数列恒定。这远强于 Cauchy 条件。另一方面，Cauchy 条件的严格否定为
 \[
 \exists\varepsilon_0>0\ \forall N\in\Npos\
  \exists m,n\ge N,\qquad
@@ -376,7 +382,7 @@ Cauchy 列有界，故由 Bolzano--Weierstrass 定理存在收敛子列
  \exerciseitem{13.12} 使用 Bolzano--Weierstrass 定理证明实数 Cauchy 准则。
  \exerciseitem{13.13} 对\chapterref{chap:real-number-system}十进制逼近 \(\sqrt2\) 的有理列，直接验证 Cauchy 性并证明无有理极限。
  \exerciseitem{13.14} 构造 \((0,1)\) 中没有区间内极限的 Cauchy 列。
- \exerciseitem{13.15} 证明实数中的闭区间完备，开区间一般不完备。
+ \exerciseitem{13.15} 称 \(E\subseteq\R\) 完备，如果每个取值于 \(E\) 的 Cauchy 列都在 \(E\) 中收敛。证明闭区间完备，非空有界开区间不完备。
  \exerciseitem{13.16} 判断“每个有界数列都是 Cauchy 列”“每个有收敛子列的数列都是 Cauchy 列”的真伪。
  \exerciseitem{13.17} 证明 Cauchy 列的上下极限相等，并由此再证 Cauchy 收敛准则。
 \end{enumerate}
@@ -393,8 +399,8 @@ Cauchy 列有界，故由 Bolzano--Weierstrass 定理存在收敛子列
  并说明这给出了后文“闭子集完备”的实数原型。
  \optionalexerciseitem{13.20} 给出一个数列，它在通常距离下是 Cauchy 列；把距离改为离散距离后不再是 Cauchy 列。
  \optionalexerciseitem{13.21} 若两个实数列满足 \(\abs{a_n-b_n}\to0\)，证明其中一个为 Cauchy 列当且仅当另一个为 Cauchy 列。
- \optionalexerciseitem{13.22} 证明 Cauchy 列的有限线性组合仍为 Cauchy 列，并讨论无穷线性组合为何需要额外一致控制。
- \openexerciseitem{13.23} 比较“序完备”“Cauchy 完备”和“区间套完备”在 Archimedes 有序域与一般度量空间中的关系。
+ \optionalexerciseitem{13.22} 证明 Cauchy 列的有限线性组合仍为 Cauchy 列。再令 \(u_n^{(j)}=1\) 当 \(n=j\)，否则为 \(0\)：说明对每个固定 \(j\) 有 \(u_n^{(j)}\to0\)，但 \(\sum_{j=1}^{\infty}u_n^{(j)}=1\)。这里每行只有一个非零项，因此和不涉及一般级数理论。这个例子说明有限项的极限运算为什么不能直接用于无限多个分量？
+ \openexerciseitem{13.23} 完成\chapterref{chap:equivalent-completeness}与\chapterref{chap:complete-metric-spaces}后回做：比较“序完备”“Cauchy 完备”和“区间套完备”在 Archimedes 有序域与一般度量空间中的关系。
  \projectexerciseitem{13.24} \ 【完成\chapterref{chap:cauchy-construction}后回做；预计用时：90分钟】概括 \(\Q\) 的 Cauchy 完备化：等价关系、常值嵌入、稠密性和完备性的四个证明模块。
 \end{enumerate}
 

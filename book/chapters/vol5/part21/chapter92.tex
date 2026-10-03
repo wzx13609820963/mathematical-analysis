@@ -297,7 +297,7 @@ Taylor 级数至少在圆盘
 \end{proof}
 
 这份证明没有提供根的位置或数值算法。它说明的是完备的复数域与全纯函数的
-全局刚性共同排除了“无根多项式”。下一章的辐角原理还会给出区域内零点数的
+全局刚性共同排除了“无根多项式”。\chapterref{chap:argument-principle-analytic-continuation}的辐角原理还会给出区域内零点数的
 稳定计数。
 
 \section{最大模原理、最小模原理与开映射定理}
@@ -326,7 +326,7 @@ Taylor 级数至少在圆盘
 恒等定理把结论延伸到 \(D\)。
 \end{proof}
 
-若 \(D\) 有界，\(f\) 在 \(\overline D\) 连续并在 \(D\) 全纯，而且非常数，
+若 \(D\) 是有界域，\(f\) 在 \(\overline D\) 连续并在 \(D\) 全纯，而且非常数，
 则 \(|f|\) 的最大值只能在边界取得。这是高等数学中“闭集上取最大值”之外的
 新信息：紧致性保证最大值存在，最大模原理则排除内部位置。
 
@@ -340,8 +340,9 @@ Taylor 级数至少在圆盘
 \end{theorem}
 
 \begin{proof}
-固定 \(z_0\in D\)，记 \(w_0=f(z_0)\)。零点孤立性允许选择 \(r>0\)，使
-\(\overline{B(z_0,r)}\subseteq D\)，且 \(f(z)\ne w_0\) 在边界圆周上。
+给定开子集 \(U\subseteq D\) 和 \(z_0\in U\)，记 \(w_0=f(z_0)\)。
+恒等定理保证 \(f-w_0\) 不在任何邻域恒零，零点孤立性因而允许选择 \(r>0\)，使
+\(\overline{B(z_0,r)}\subseteq U\)，且 \(f(z)\ne w_0\) 在边界圆周上。
 令
 
 \[
@@ -355,7 +356,8 @@ Taylor 级数至少在圆盘
 位于内部。
 最小模原理迫使 \(f-w\) 为常数，矛盾。因此某个 \(z\in B(z_0,r)\) 满足
 \(f(z)=w\)。于是 \(B(w_0,\delta/2)\subseteq f(B(z_0,r))\)，证明像在每个
-像点附近都含开圆盘。
+像点附近都含开圆盘，且该圆盘包含于 \(f(U)\)。故每个这样的 \(f(U)\) 都开；
+\(U\) 为空集的情形也成立。
 \end{proof}
 
 开映射定理说明非常数全纯函数不能把二维开集压到曲线，也不能只取实值。
@@ -377,15 +379,18 @@ Taylor 级数至少在圆盘
 \exerciseitem{entire-polynomial-growth}证明若整函数满足 \(|f(z)|\le C(1+|z|)^\alpha\)，其中 \(\alpha\ge0\) 不必为整数，则 \(f\) 是次数不超过 \(\lfloor\alpha\rfloor\) 的多项式。
 \exerciseitem{liouville-real-part}证明实部有上界或有下界的整函数为常数。提示：对适当的指数函数应用 Liouville 定理。
 \exerciseitem{liouville-bounded-mobius}设整函数 \(f\) 的像落在某个不经过无穷远点的闭圆盘内。分别用 Liouville 定理和最大模原理证明 \(f\) 为常数。
-\exerciseitem{maximum-modulus-boundary}设 \(D\) 有界，\(f\in C(\overline D)\) 且在 \(D\) 全纯。证明 \(\max_{\overline D}|f|=\max_{\partial D}|f|\)；若 \(f\) 非常数，再证明 \(|f|\) 的每个最大点都属于 \(\partial D\)。
+\exerciseitem{maximum-modulus-boundary}设 \(D\) 为非空有界域，\(f\in C(\overline D)\) 且在 \(D\) 全纯。证明 \(\max_{\overline D}|f|=\max_{\partial D}|f|\)；若 \(f\) 非常数，再证明 \(|f|\) 的每个最大点都属于 \(\partial D\)。说明后一断言为何不能省略连通性。
 \exerciseitem{minimum-modulus-condition}构造非常数全纯函数，其模在域内取得最小值；说明这不违背最小模原理，并写出正确条件。
 \exerciseitem{open-mapping-real-valued}用开映射定理重新证明：域上的实值全纯函数必为常数。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{morera-uniform-limit}设 \(f_n\) 在域 \(D\) 全纯并在每个紧子集上一致收敛到 \(f\)。用 Morera 定理证明 \(f\) 全纯；再用 Cauchy 公式证明各阶导数也在紧子集上一致收敛。
-\exerciseitem{cauchy-derivative-distance}设 \(f\) 在域 \(D\) 有界，\(|f|\le M\)。证明
-\(|f^{(n)}(z)|\le n!M/d(z,\partial D)^n\)，并说明无界域中距离应怎样解释。
+\exerciseitem{cauchy-derivative-distance}设 \(f\) 在域 \(D\) 全纯且有界，\(|f|\le M\)。对整数 \(n\ge1\) 证明
+\[
+ |f^{(n)}(z)|\le\frac{n!M}{d(z,\partial D)^n},
+\]
+并说明无界域及 \(D=\C\) 时距离应怎样解释。
 \exerciseitem{schwarz-lemma-from-maximum}设 \(f\) 在单位圆盘全纯，\(f(0)=0\)，且 \(|f(z)|\le1\)。证明 \(|f(z)|\le|z|\)、\(|f'(0)|\le1\)，并刻画非零点取等号的情形。
 \optionalexerciseitem{cauchy-estimates-converse}设 \(f\in C^\infty((-1,1))\)，且对每个 \(0<r<1\) 存在 \(M_r\) 使
 \(|f^{(n)}(0)|\le n!M_r/r^n\) 对所有 \(n\) 成立。说明这些中心导数估计仍不能保证 \(f\) 等于其 Taylor 级数，并用实变量平坦函数给出反例；再指出复全纯情形中缺失的关键条件。

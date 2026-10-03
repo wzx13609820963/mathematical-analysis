@@ -35,6 +35,7 @@
 | Fenchel--Young 不等式 | Fenchel--Young inequality | 等号条件以次梯度表述 |
 | 标记分割 | tagged partition | 区间分割连同每个子区间内所选标记点；Riemann 和依赖两部分数据 |
 | Riemann 积分 | Riemann integral | 以所有充分细的标记分割的 Riemann 和具有同一极限定义 |
+| 阶梯函数 | step function | 第19章指在某有限分割的每个开子区间上为常数的函数，分点处可单独取任意有限实值；不与一般可测简单函数混同 |
 | Darboux 上和、下和 | upper and lower Darboux sums | 由子区间上的上确界、下确界定义；与标记 Riemann 和区分 |
 | 反常积分 | improper integral | 由端点或无穷远处的单侧极限定义；多个奇点必须分别收敛 |
 | Cauchy 主值 | Cauchy principal value | 对称截断产生的极限，不等同于通常反常积分的收敛 |
@@ -57,7 +58,7 @@
 | 收敛半径 | radius of convergence | 幂级数在半径内部绝对收敛、外部发散；端点另行判断 |
 | Cauchy--Hadamard 公式 | Cauchy--Hadamard formula | 以系数根值上极限计算幂级数收敛半径 |
 | Abel 径向极限定理 | Abel's radial limit theorem | 端点级数收敛时，幂级数和沿区间内侧趋于端点和；与 Abel 判别区分 |
-| 零点的阶 | order of a zero | 解析函数展开中首个非零系数的次数 |
+| 零点的阶、消失阶 | order of a zero / vanishing order | 解析函数展开中首个非零系数的次数；非零点的消失阶为0，实际零点的有限阶至少为1，恒零芽没有有限阶 |
 | 恒等原理（实解析） | identity theorem for real-analytic functions | 连通区间上零点有内聚点即恒为零；不适用于一般 \(C^\infty\) 函数 |
 | 紧致 | compact | 以有限子覆盖性质定义；在欧氏空间中等价于闭且有界，在度量空间中等价于序列紧致，也等价于完备且全有界 |
 | 单位分解 | partition of unity | 流形部分统一采用此译名，不使用“分割统一” |
@@ -65,24 +66,28 @@
 | Vitali--Porter 收敛定理 | Vitali--Porter theorem | 复分析中指正规族背景下由具有聚点的点集上的收敛推出局部一致收敛；不得简称为上一条 |
 | Tychonoff 乘积定理 | Tychonoff product theorem | 正文须说明采用任意乘积、紧 Hausdorff 乘积或其他版本，以及相应选择原则 |
 | Euclidean 空间 | Euclidean space | 中文统一写“欧氏空间”；英文不写“Euclid 空间” |
+| 范数、赋范线性空间 | norm, normed linear space | 第30章给出一般实范数公理，再证明有限维范数等价；具体范数的验证不能替代一般定义 |
+| 空度量空间 | empty metric space | 允许空集合配唯一空度量；它没有序列，因而完备。有限乘积完备性推出各因子完备时须假定因子非空 |
 | 拓扑等价度量 | topologically equivalent metrics | 生成同一拓扑；不自动保持 Cauchy 性或完备性 |
 | 一致等价度量 | uniformly equivalent metrics | 两个恒等映射均一致连续；保持 Cauchy 性和完备性 |
+| 度量完备性 | metric completeness | 每个 Cauchy 序列在空间内收敛；“序列完备”在此为同一定义，不是更弱的替代条件。第10章局部引入，第32章系统展开 |
 | 序列紧致 | sequential compactness | 每个序列都有收敛子列；在度量空间中等价于开覆盖紧致，在一般拓扑空间中不可混同 |
 | 全有界 | totally bounded | 对每个正半径都有有限球覆盖；不得简称为“有界” |
 | 完备化 | completion | 原空间等距或一致嵌入为稠密子空间的完备空间，并按相应意义唯一 |
 | 连通分支 | connected component | 含给定点的极大连通子集；总是闭，但未必开 |
 | 道路分支 | path component | 含给定点的极大道路连通子集；未必闭，也未必与连通分支相同 |
 | 商映射 | quotient map | 满射 \(q:X\to Y\) 满足 \(U\subseteq Y\) 开当且仅当 \(q^{-1}(U)\) 开 |
-| 拓扑基、子基 | basis, subbasis | 基元素直接生成开集；子基先取有限交再取任意并 |
+| 拓扑基、子基 | basis, subbasis | 基元素直接生成开集；子基先取有限交（含空交X）再取任意并，不要求子基本身覆盖X；空子基生成不可分拓扑 |
 | 第一可数、第二可数 | first countable, second countable | 前者要求每点有可数邻域基，后者要求全空间有可数拓扑基 |
 | 正则、完全正则、正规 | regular, completely regular, normal | 本书把相应 \(T_1\) 条件写入定义；引用外文资料时须核对约定 |
 | 一点紧化 | one-point compactification | 局部紧 Hausdorff 空间增加一个无穷远点所得的紧 Hausdorff 空间 |
 | Stone--Čech 紧致化 | Stone--Čech compactification | 完全正则 Hausdorff 空间的最大紧 Hausdorff 紧致化，以紧目标延拓泛性质刻画 |
 | 网、子网 | net, subnet | 网以非空有向集为指标；本书只要求子网的指标映射最终共尾，不另要求保序；不等同于抽取子序列 |
 | 滤子、滤子基、超滤子 | filter, filter base, ultrafilter | 滤子不含空集并向上封闭、对有限交封闭；超滤子是极大真滤子 |
-| 一致空间 | uniform space | 由对角线邻域族同时控制所有点对；其诱导拓扑只保留局部信息 |
+| 一致空间 | uniform space | 周围族同时控制所有点对；非空空间的一致结构是真滤子，空空间另约定唯一一致结构为 `{∅}`；收敛对象仍只用真滤子 |
+| 一致嵌入、一致同构 | uniform embedding, uniform isomorphism | 同构指双向一致连续的双射；嵌入指到带诱导一致结构的像上的一致同构 |
 | Cauchy 滤子、Cauchy 网 | Cauchy filter, Cauchy net | 用一致结构中的周围控制尾部点对；一般一致空间中不得只用序列替代 |
-| 方向导数 | directional derivative | 只沿固定方向取差商极限；所有方向导数存在仍不必推出 Fréchet 可微 |
+| 方向导数 | directional derivative | 本书采用沿固定方向 t→0 的双侧差商极限，不能换成 t→0⁺ 的单侧极限；所有方向导数存在仍不必推出 Fréchet 可微 |
 | Hessian | Hessian matrix | 实值函数二阶微分在标准基下的矩阵；不译作一般“二阶导数矩阵”后省略条件 |
 | Schwarz 定理 | Schwarz theorem / Clairaut theorem | 当前指适当连续性条件下混合偏导可交换；与复分析中的 Schwarz 引理区分 |
 | 逆函数定理 | inverse function theorem | 导数为线性同构推出局部 (C^1) 可逆；不单独保证整体单射或满射 |
@@ -162,7 +167,7 @@
 | Plancherel定理 | Plancherel theorem | Fourier变换从稠密试验类唯一延拓为\(L^2\)上的酉算子；不表示一般\(L^2\)函数的积分公式逐点绝对收敛 |
 | Picard--Lindelöf定理 | Picard--Lindelöf theorem | 连续加局部Lipschitz条件给出ODE初值问题的局部存在唯一性及连续依赖 |
 | Peano存在定理 | Peano existence theorem | 有限维中连续向量场给出局部解，但不保证唯一性 |
-| 试验函数、分布 | test function, distribution | 分别为\(C_c^\infty(\Omega)\)及其连续线性泛函；连续性按每个紧集上的有限阶半范数估计理解 |
+| 试验函数、分布 | test function, distribution | 试验函数亦称测试函数，本书统一使用前者；分别为\(C_c^\infty(\Omega)\)及其连续线性泛函，连续性按每个紧集上的有限阶半范数估计理解 |
 | 分布导数、弱导数 | distributional derivative, weak derivative | 分布均可求导；当正则分布的导数仍由局部可积函数表示时，该函数是弱导数 |
 | Sobolev空间 | Sobolev space | 由函数及其规定阶弱导数的\(L^p\)可积性定义，元素仍按几乎处处相等取商 |
 | Poincaré不等式 | Poincaré inequality | 当前版本在有界区域的\(H_0^1\)上用梯度控制\(L^2\)范数；常数依赖区域 |
@@ -178,6 +183,7 @@
 | 单叶函数 | univalent function | 单射全纯函数；在域上其导数不为零，但反命题一般不成立 |
 | 绕数 | winding number / index | 记为 \(\operatorname{Ind}(\gamma,a)\)；须有 \(a\) 不在闭曲线像上 |
 | 留数 | residue | 孤立奇点Laurent展开的 \((-1)\) 次系数；无穷远点留数按本书的坐标变换符号约定定义 |
+| 亚纯函数 | meromorphic function | 每点附近全纯或具有孤立极点；可去点已补上，不包括恒为无穷的对象。局部等价于全纯函数之商，分母不恒零 |
 | 正规族 | normal family | 每个序列都有一个在紧子集上一致收敛的子列；采用Riemann球面值时须另行注明允许极限为无穷 |
 | Vitali--Porter定理 | Vitali--Porter theorem | 局部有界全纯函数列若在域内有聚点的集合上逐点收敛，则整列局部一致收敛；不同于实分析的Vitali收敛定理 |
 | Riemann映射定理 | Riemann mapping theorem | 每个真单连通平面域与单位圆盘双全纯等价；不包括整个复平面，也不自动给出边界延拓 |
@@ -195,6 +201,7 @@
 | Riemann度量 | Riemannian metric | 切空间上随点光滑变化的正定内积族 |
 | Levi--Civita联络 | Levi--Civita connection | 唯一的无挠且与Riemann度量相容的联络 |
 | 测地线、Jacobi场 | geodesic, Jacobi field | 测地线满足 \(\nabla_{\dot\gamma}\dot\gamma=0\)；Jacobi场来自测地线变分并满足相应二阶方程 |
+| 测地完备 | geodesic completeness | 无边界流形上每条极大测地线定义在整个实轴；不凭局部指数映射直接断言它与距离完备等价 |
 
 ## 风格约定
 

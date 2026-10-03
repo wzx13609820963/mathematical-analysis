@@ -1,7 +1,7 @@
 \chapter{紧致空间}
 \label{chap:compact-topological-spaces}
 
-在度量空间中，紧致性可以用开覆盖、收敛子列、完备性与全有界性等多种方式表达。一般拓扑空间没有距离，也未必能由数列检测闭包；开覆盖定义却仍然有效。它将导出紧集闭性、连续像紧致以及乘积紧致性。紧致化问题留到下一章，在那里把本章的乘积定理用到具体构造中。
+在度量空间中，紧致性可以用开覆盖、收敛子列、完备性与全有界性等多种方式表达。一般拓扑空间没有距离，也未必能由数列检测闭包；开覆盖定义却仍然有效。它将导出 Hausdorff 空间中的紧集闭性、连续像紧致以及乘积紧致性。紧致化问题留到下一章，在那里把本章的乘积定理用到具体构造中。
 
 本章有一处必须明确的集合论依赖。任意多个紧空间的乘积仍紧这一结论需要选择原则；这里在全书约定的 ZFC 背景下使用 Zorn 引理。有限乘积和许多可数情形所需的选择强度较弱，不能由本章采用的证明自动看出最弱公理。
 
@@ -98,18 +98,11 @@
 \end{lemma}
 
 \begin{proof}
-对每个 \(y\in Y\)，由积拓扑的基取开集 \(U_y\ni x_0\) 与
-\(V_y\ni y\)，使
+若 \(Y=\varnothing\)，取 \(U=X\)。以下设 \(Y\ne\varnothing\)。考虑所有满足 \(x_0\in O\)、\(O\times V\subseteq W\) 的开矩形 \(O\times V\)。由积拓扑的定义，这些矩形的第二因子 \(V\) 覆盖 \(Y\)。紧致性给出有限个这样的 \(V_1,\ldots,V_m\) 覆盖 \(Y\)，再为这有限个集合分别取相应 \(O_1,\ldots,O_m\)。令
 \[
- U_y\times V_y\subseteq W.
+ U=\bigcap_{k=1}^m O_k.
 \]
-\((V_y)_{y\in Y}\) 覆盖 \(Y\)，故有限多个
-\(V_{y_1},\ldots,V_{y_m}\) 已覆盖 \(Y\)。令
-\[
- U=U_{y_1}\cap\cdots\cap U_{y_m}.
-\]
-若 \((x,y)\in U\times Y\)，选 \(k\) 使 \(y\in V_{y_k}\)，便有
-\((x,y)\in U_{y_k}\times V_{y_k}\subseteq W\)。
+则 \(U\) 是 \(x_0\) 的开邻域；每个 \(y\in Y\) 属于某个 \(V_k\)，故 \(U\times Y\subseteq W\)。这里先使用全部符合条件的矩形，最后只为有限个 \(V_k\) 选取 \(O_k\)，不需要选择公理。
 \end{proof}
 
 \begin{corollary}[有限乘积紧致性]
@@ -118,14 +111,11 @@
 \end{corollary}
 
 \begin{proof}
-设 \(\mathcal U\) 是 \(X\times Y\) 的开覆盖。固定 \(x\in X\)，紧切片
-\(\{x\}\times Y\) 已被 \(\mathcal U\) 中有限多个成员覆盖；记这些成员之并为 \(W_x\)。由管状引理，存在开邻域 \(O_x\ni x\) 使
-\[
- O_x\times Y\subseteq W_x.
-\]
-\((O_x)_{x\in X}\) 覆盖紧空间 \(X\)，故有限多个 \(O_{x_j}\) 已覆盖
-\(X\)。与每个 \(W_{x_j}\) 对应的原覆盖成员总共只有有限多个，并覆盖
-\(X\times Y\)。有限积结论由归纳得到。
+若任一因子为空，积为空而紧。否则设 \(\mathcal U\) 为积的开覆盖，令 \(\mathcal O\) 为满足下列条件的所有开集 \(O\subseteq X\)：条带 \(O\times Y\) 被 \(\mathcal U\) 的某个有限子族覆盖。
+
+这族开集覆盖 \(X\)。事实上，固定 \(x\in X\)，切片 \(\{x\}\times Y\) 与 \(Y\) 同胚，因而被有限多个原覆盖成员覆盖。将其并记为 \(W\)，管状引理给出 \(x\) 的开邻域 \(O\) 使 \(O\times Y\subseteq W\)，于是 \(O\in\mathcal O\)。
+
+由 \(X\) 紧，从 \(\mathcal O\) 中取有限子覆盖 \(O_1,\ldots,O_m\)，再为这有限个条带分别取原覆盖的有限子族。所有取出的成员构成积的有限子覆盖。证明没有为每个 \(x\) 同时指定一个邻域，所需的选择都只有有限次。有限积结论由归纳得到；空指标积为单点空间，也紧。
 \end{proof}
 
 \section{Alexander 子基定理}
@@ -145,7 +135,7 @@
 \end{lemma}
 
 \begin{proof}
-考虑所有包含 \(\mathcal F\)、且成员均为闭集的有限交性质族，按包含关系排序。一条链的并仍具有有限交性质，因为任意有限多个成员已同时落在链中的某一个族内；其成员仍都是闭集。Zorn 引理给出极大元 \(\mathcal M\)。
+考虑所有包含 \(\mathcal F\)、且成员均为闭集的有限交性质族，按包含关系排序。该偏序集非空，因为含有 \(\mathcal F\) 本身。一条非空链的并仍具有有限交性质，因为任意有限多个成员已同时落在链中的某一个族内；其成员仍都是闭集。空链则以 \(\mathcal F\) 为上界。Zorn 引理给出极大元 \(\mathcal M\)。将全集 \(X\) 加入不会破坏有限交性质，所以 \(X\in\mathcal M\)；这也处理了下文的空有限交。
 
 对(i)，任意有限多个 \(\mathcal M\) 的成员与 \(M_1\cap M_2\) 的交，仍是 \(\mathcal M\) 中有限多个集合的交，故非空；由极大性可把 \(M_1\cap M_2\) 加入。对(ii)同理。
 
@@ -171,7 +161,7 @@
 \[
  x\in\bigcap_{k=1}^nS_{x,k}\subseteq X\setminus M_x.
 \]
-令 \(C_{x,k}=X\setminus S_{x,k}\in\mathcal C\)。于是
+这里 \(n\ge1\)：否则空交等于 \(X\)，将迫使 \(M_x=\varnothing\)，与有限交性质矛盾。令 \(C_{x,k}=X\setminus S_{x,k}\in\mathcal C\)。于是
 \[
  M_x\subseteq\bigcup_{k=1}^nC_{x,k}.
 \]
@@ -194,7 +184,7 @@
 \end{theorem}
 
 \begin{proof}
-若某个 \(X_i\) 为空，则 \(X=\varnothing\) 紧致。以下设每个因子非空。积拓扑的开子基为
+若 \(I=\varnothing\)，积为单点空间；若某个 \(X_i\) 为空，则积为空空间，两者均紧致。以下设 \(I\ne\varnothing\) 且每个因子非空。在选择公理下 \(X\ne\varnothing\)。积拓扑的开子基为
 \[
  \mathcal S=\{\pi_i^{-1}(U):i\in I,\ U\subseteq X_i\text{ 开}\}.
 \]
@@ -206,7 +196,7 @@
 \]
 具有有限交性质。对每个 \(i\)，令
 \[
- \mathcal F_i=\{F\subseteq X_i:\pi_i^{-1}(F)\in\mathcal F\}.
+ \mathcal F_i=\{F\subseteq X_i:F\text{ 闭，且 }\pi_i^{-1}(F)\in\mathcal F\}.
 \]
 若 \(\mathcal F_i\) 非空，它具有有限交性质：同一坐标的有限个闭集交若为空，相应有限个柱集交也为空。由 \(X_i\) 紧，
 \[
@@ -217,7 +207,19 @@
 
 \section{乘积紧致性与选择原则}
 
-上面的证明在两个位置使用选择原则：Zorn 引理产生极大有限交族；最后从所有非空 \(K_i\) 中同时选点。对任意紧空间的完整 Tychonoff 定理在 ZF 中与选择公理等价。仅限紧 Hausdorff 因子的版本则与布尔素理想定理（也称超滤子引理）等价；该原则在 ZF 中弱于选择公理。因而引用“乘积紧致”时应同时说明空间类别与所采用的集合论背景。
+上面的证明用 Zorn 引理产生极大有限交族，又用选择公理保证非空因子的积非空，并从所有非空 \(K_i\) 中同时选点。对任意紧空间的完整 Tychonoff 定理，在 ZF 中反过来可以推出选择公理。下面给出这个方向的证明。
+
+设 \((A_i)_{i\in I}\) 是一族非空集合。为每个 \(A_i\) 添入一个特定的新点 \(\infty_i\)，得到 \(Y_i=A_i\sqcup\{\infty_i\}\)。在 \(Y_i\) 上取由余有限拓扑和开集 \(\{\infty_i\}\) 生成的拓扑。它的开集恰为：空集、\(\{\infty_i\}\) 和所有余有限集。有限交与任意并直接保持这三类，故确为拓扑。
+
+每个 \(Y_i\) 紧。任一开覆盖中必有成员包含 \(A_i\) 的某个点，这个成员必为余有限集；剩下有限个点各取一个覆盖成员即可。又 \(A_i\) 在 \(Y_i\) 中闭，因为其补集为 \(\{\infty_i\}\)。
+
+假设一般 Tychonoff 定理成立，则 \(Y=\prod_iY_i\) 紧。积中有明确给定的点 \((\infty_i)_{i\in I}\)，不需要选择公理来保证它非空。闭集族
+\[
+ C_i=\pi_i^{-1}(A_i)\qquad(i\in I)
+\]
+具有有限交性质：对有限个坐标从相应 \(A_i\) 中各取一点，其余坐标全取 \(\infty_i\)。紧致性给出 \(\bigcap_i C_i\ne\varnothing\)，交中任一点恰是一族同时满足 \(a_i\in A_i\) 的选择。因此选择公理成立。
+
+这个逆向构造使用的因子未必 Hausdorff，不能据此把紧 Hausdorff 版本也说成与完整选择公理等价。弱选择原则的精确比较属于进一步的集合论内容：紧 Hausdorff 乘积定理对应布尔素理想定理，亦称超滤子引理，而非完整选择公理。本章后续只使用已经证明的 ZFC 版本，不以这种公理强度比较作为证明前提。有关讨论可参阅 Thomas Jech 的 \emph{The Axiom of Choice} 中关于拓扑与选择原则的章节。
 
 \begin{corollary}[紧 Hausdorff 乘积]
 \label{cor:compact-hausdorff-product}
@@ -245,6 +247,7 @@
  \exerciseitem{compact-graph}
  若 \(X\) 紧、\(Y\) Hausdorff且 \(f:X\to Y\) 连续，证明图像
  \(\{(x,f(x)):x\in X\}\) 是 \(X\times Y\) 的闭集。
+ 再判断此结论是否需要 \(X\) 紧。
 \end{enumerate}
 
 \subsection*{B组　子基与乘积}

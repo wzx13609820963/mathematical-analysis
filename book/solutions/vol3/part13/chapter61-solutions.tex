@@ -10,8 +10,9 @@
 \end{solution}
 
 \begin{solution}{riemann-measurability-direct}
-取递细分割使 \(\int(t_n-s_n)\to0\)，并令
-\(s=\sup_ns_n,t=\inf_nt_n\)。二者为 Borel 可测函数。由
+取递细分割使 \(\int(t_n-s_n)\to0\)，记全部分点的并为 \(D\)。在
+\([a,b]\setminus D\) 上令 \(s=\sup_ns_n,t=\inf_nt_n\)，在 \(D\) 上
+将二者都置零。由于 \(D\) 至多可数，二者仍为 Borel 可测函数，且 \(s\le t\)。由
 \(\int(t-s)=0\)，集合 \(N=\{s<t\}\) 零测。在所有分点之外，
 \(s\le f\le t\)，故 \(f=s\) 于
 \([a,b]\setminus(N\cup\{\text{分点}\})\)。因此 \(f\) 是 Borel 可测
@@ -42,29 +43,49 @@
 \end{solution}
 
 \begin{solution}{riemann-criterion-backward-detail}
-令 \(|f|\le M\)。选 \(r\) 使 \((b-a)/r<\varepsilon/2\)。用有限开
-区间覆盖紧零测集 \(D_{1/r}\)，总长度小于
-\(\varepsilon/(8M)\)，并可稍扩张使其闭包总长度仍小于
-\(\varepsilon/(4M)\)。在补集紧集上，每点有函数振幅小于 \(1/r\) 的
-邻域。Lebesgue 数引理给出 \(\lambda>0\)，使补集上长度小于
-\(\lambda\) 的小区间包含于某个这样的邻域。取网格小于 \(\lambda\)，
-并加入坏区间端点。坏区间贡献至多
+令 \(|f|\le M\)。若 \(M=0\)，结论立即成立。设 \(M>0\)，选正整数
+\(r\) 使 \((b-a)/r<\varepsilon/2\)。用有限开区间覆盖紧零测集
+\(D_{1/r}\)，总长度小于 \(\varepsilon/(4M)\)，记其并为 \(G\)。
+在紧集 \(K=[a,b]\setminus G\) 上，每点有函数振幅小于 \(1/r\) 的相对
+开邻域；取有限多个这样的邻域覆盖 \(K\)。它们与 \(G\cap[a,b]\) 一起覆盖
+整个 \([a,b]\)。对这个联合覆盖取 Lebesgue 数 \(\lambda>0\)。网格小于
+\(\lambda\) 时，每个闭分割段都含于某一覆盖成员。将其中含于 \(G\) 的段
+列为坏段，其余各段含于一个小振幅邻域。坏段仅在端点重叠，总长度不超过
+\(m(G)\)，故其贡献至多
 \[
  2M\cdot\frac{\varepsilon}{4M}=\frac\varepsilon2,
 \]
-其余区间贡献至多 \((b-a)/r<\varepsilon/2\)。
+其余区间贡献至多 \((b-a)/r<\varepsilon/2\)，所以 \(U(f,P)-L(f,P)<\varepsilon\)。
+网格阈值 \(\lambda\) 取决于上述开覆盖，从而取决于 \(f\)。例如在
+\([0,1]\) 上给定任意等距网格，取函数在网格点等于1、其他点等于0；它只有
+有限个不连续点且 Riemann 可积，但此网格的上和减下和仍为1。
+因此不能仅由界 \(M=1\)、区间长度和小于1的误差要求指定对所有这类函数
+都有效的等距网格。
 \end{solution}
 
 \begin{solution}{thomae-continuity-set}
 给定 \(\varepsilon>0\)，满足 \(t(p/q)\ge\varepsilon\) 的约分有理数只
 可能有 \(q\le1/\varepsilon\)，在 \([0,1]\) 中有限。无理点可取邻域
 避开它们，所以连续。有理点的任意邻域含无理数，函数值沿无理数为零，不能
-趋于该点的正值，故不连续。不连续点集 \(\mathbb Q\cap[0,1]\) 零测，
-所以 Riemann 可积；其积分由稠密无理点给出的下和为零，故为零。
-Lebesgue 意义下函数只在可数集上非零，积分也为零。
+趋于该点的正值，故不连续。
+
+先直接用 Darboux 和计算，不用 Lebesgue 判别准则。给定 \(\varepsilon>0\)，
+选整数 \(Q\) 使 \(1/Q<\varepsilon/2\)。约分分母不超过 \(Q\) 的点构成
+有限集 \(A_Q\)，用有限个开区间覆盖它们，使区间总长度小于
+\(\varepsilon/2\)，记其并为 \(G\)。相对开集 \(G\cap[0,1]\) 与
+\([0,1]\setminus A_Q\) 覆盖 \([0,1]\)。取充分细的分割，使每个闭分割段
+包含于其中之一。含于 \(G\) 的段总长度小于 \(\varepsilon/2\)，其上
+\(t\le1\)；其余段没有 \(A_Q\) 中的点，故 \(t\le1/Q\)。于是
+\[
+ U(t,P)\le m(G)+\frac1Q<\varepsilon.
+\]
+每个非退化分割段含无理数，故所有下和为零。这证明 Riemann 可积且积分为零。
+另一方面，\(t\) 只在可数集上非零，因 Lebesgue 测度完备而可测，
+并且几乎处处为零，故 Lebesgue 积分也为零。
 \end{solution}
 
 \begin{solution}{indicator-riemann-boundary}
+以下内部、补集和边界都在母空间 \([a,b]\) 中取，故 \(E^c=[a,b]\setminus E\)。
 若 \(x\in\operatorname{int}E\) 或
 \(x\in\operatorname{int}(E^c)\)，指示函数在 \(x\) 的某邻域为常值。
 若 \(x\in\partial E\)，每个邻域同时遇到 \(E\) 与 \(E^c\)，函数振幅为
@@ -93,15 +114,31 @@ Thomae 函数就是所求例子：其不连续点集
 \[
  \int_1^\infty u^{\alpha-2}|\sin u|\,du,
 \]
-它当且仅当 \(\alpha<1\) 收敛。故 Lebesgue 可积恰在 \(\alpha<1\)。
+记 \(\beta=\alpha-2\)。对 \(k\ge1\)，在 \([k\pi,(k+1)\pi]\) 上
+\(u^\beta\) 与 \(k^\beta\) 的比值有仅依赖 \(\beta\) 的正上、下界，
+而该区间上 \(|\sin u|\) 的积分为2。因此存在 \(c_\beta,C_\beta>0\) 使
+\[
+ c_\beta k^\beta\le
+ \int_{k\pi}^{(k+1)\pi}u^\beta|\sin u|\,du
+ \le C_\beta k^\beta.
+\]
+比较正项级数，绝对值积分收敛当且仅当 \(\beta<-1\)，即 \(\alpha<1\)。
+故 Lebesgue 可积恰在 \(\alpha<1\)。
 不取绝对值时得到
 \[
  \int_1^\infty u^{\alpha-2}\sin u\,du.
 \]
 Dirichlet 判别表明
-\(\alpha<2\) 时收敛；当 \(\alpha\ge2\)，项幅不趋于零或分部积分可见
-发散。因此 \(1\le\alpha<2\) 时反常积分条件收敛但函数不 Lebesgue
-可积。
+\(\alpha<2\) 时收敛，因为 \(u^{\alpha-2}\) 单调趋于零，\(\sin u\) 的
+原函数有界。若 \(\alpha\ge2\)，即 \(\beta\ge0\)，在趋于无穷远的区间
+\(J_k=[2k\pi+\pi/6,2k\pi+5\pi/6]\) 上有 \(\sin u\ge1/2\)，所以
+\[
+ \int_{J_k}u^\beta\sin u\,du
+ \ge\frac{\pi}{3}(2k\pi+\pi/6)^\beta\ge\frac\pi3
+ \qquad(k\ge1).
+\]
+这些尾区间积分不趋于零，违反反常积分的 Cauchy 准则。因此 \(\alpha\ge2\)
+时发散，\(1\le\alpha<2\) 时条件收敛但不 Lebesgue 可积。
 \end{solution}
 
 \begin{solution}{bounded-ae-continuous-version}

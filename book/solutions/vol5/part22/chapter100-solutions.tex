@@ -26,7 +26,7 @@ $f(p)=\nu(p)/\mu(p)>0$。以下设 $n\ge1$。在任一定向坐标中，若
 \end{solution}
 
 \begin{solution}{orientation-product-swap-sign}
-设 $(e_1,\ldots,e_m)$、$(f_1,\ldots,f_n)$ 分别是 $M$、$N$ 的正向基。
+先设 $m,n\ge1$。设 $(e_1,\ldots,e_m)$、$(f_1,\ldots,f_n)$ 分别是 $M$、$N$ 的正向基。
 $M\times N$ 的积定向以
 \[
  (e_1,\ldots,e_m,f_1,\ldots,f_n)
@@ -37,7 +37,9 @@ $M\times N$ 的积定向以
  (f_1,\ldots,f_n,e_1,\ldots,e_m).
 \]
 把每个 $e_i$ 越过全部 $n$ 个 $f_j$，总共需要 $mn$ 次换位，故交换映射
-改变定向的符号为 $(-1)^{mn}$。
+改变定向的符号为 $(-1)^{mn}$。若某一因子为零维，则积定向由行列式线
+中的符号相乘规定；交换这个零次因子不产生换位负号，仍与 $(-1)^{mn}=1$
+一致。两因子都为零维时亦然。
 \end{solution}
 
 \begin{solution}{orientation-sphere-outward-normal}
@@ -234,7 +236,11 @@ $h\in C_c^\infty(\R)$，使 $\int_\R h=1$，并令
  F(x',x_n)=\int_{-\infty}^{x_n}
  \bigl[f(x',t)-g(x')h(t)\bigr]\,dt.
 \]
-对每个 $x'$，方括号内的函数关于 $t$ 的积分为零，所以 $F$ 有紧支集，
+取紧盒 $K'\times[-A,A]$ 包含 $\operatorname{supp}f$，并增大 $A$ 使
+$\operatorname{supp}h\subset[-A,A]$。在 $K'$ 外 $f,g$ 都为零；在
+$t<-A$ 时原函数为零，而在 $t>A$ 时，由每个 $x'$ 对应的总积分为零，
+原函数也为零。因此 $\operatorname{supp}F\subset K'\times[-A,A]$，
+所以 $F$ 有紧支集，
 并且 $\partial_nF=f-gh$。又因
 \[
  \int_{\R^{n-1}}g(x')\,dx'=\int_{\R^n}f(x)\,dx=0,

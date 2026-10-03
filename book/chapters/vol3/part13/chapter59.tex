@@ -14,7 +14,7 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
  \varphi=\sum_{k=1}^{m}a_k\mathbf 1_{E_k},
  \qquad a_k\geq 0,\quad E_k\in\mathcal A,
 \]
-其中 \(E_k\) 不必互不相交。若按不同的非零函数值取水平集，则得到规范表示
+其中 \(E_k\) 不必互不相交。沿用上一章的规范表示，在计算积分时省去零水平集，得到
 \[
  \varphi=\sum_{j=1}^{r}b_j\mathbf 1_{A_j},
  \qquad b_j>0,\quad A_i\cap A_j=\varnothing\ (i\ne j).
@@ -85,6 +85,13 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
        \varphi\ \text{为非负简单函数且 }\varphi\le f\right\}.
 \]
 积分允许取 \(+\infty\)。若积分有限，称 \(f\) 的非负积分有限。
+对任意 \(E\in\mathcal A\)，定义
+\[
+ \int_E f\,d\mu=\int_X f\mathbf1_E\,d\mu,
+\]
+其中 \((+\infty)\cdot0=0\)，即被积函数在 \(X\setminus E\) 上取零。
+若 \(f\) 本身为简单函数，序性质说明上述上确界等于原来的简单函数积分，
+所以两种局部积分定义也一致。
 \end{definition}
 
 这一上确界定义不依赖某个事先选定的逼近序列。它还立即给出单调性：
@@ -92,9 +99,19 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
  0\le f\le g\quad\Longrightarrow\quad
  \int f\,d\mu\le\int g\,d\mu .
 \]
-对 \(c\ge0\)，有 \(\int cf\,d\mu=c\int f\,d\mu\)。加法公式需要同时
+对 \(c>0\)，映射 \(\varphi\mapsto c\varphi\) 将 \(f\) 下方的非负简单函数
+双射到 \(cf\) 下方的非负简单函数，由简单积分的齐次性可得
+\(\int cf\,d\mu=c\int f\,d\mu\)。当 \(c=0\) 时，两端按约定均为零。
+加法公式需要同时
 协调两个函数的简单逼近，不能只从两个彼此独立的上确界直接读出；它将在
 单调收敛定理之后推出。
+
+这里还可直接证明零测不变性，无须先用收敛定理。设非负可测函数
+\(f,g\) 在一个可测零集 \(N\) 外相等。对任意简单函数 \(0\le\varphi\le f\)，
+有 \(\varphi\mathbf1_{N^c}\le g\)，且简单积分满足
+\(\int\varphi=\int\varphi\mathbf1_{N^c}\)。取上确界给
+\(\int f\le\int g\)，交换二者即得等号。
+这只说明已经可测的函数之间的积分不变，并没有断言零测集上的任意修改都可测。
 
 \begin{example}
 对 \(E\in\mathcal A\)，
@@ -107,6 +124,10 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
  \int_{\mathbb N} f\,d\#=\sum_{n=0}^{\infty}f(n)
 \]
 对每个非负函数成立；右侧按非负级数的部分和上确界理解。
+确实，简单函数的积分就是逐点求和，故每个简单下界的积分不超过右侧。
+反过来，在有限集 \(\{0,\ldots,N\}\) 上取 \(\min\{f,M\}\)，集外取零，
+得到一个简单下界。先令 \(M\to\infty\)，再令 \(N\to\infty\)，就取得
+右侧的上确界，包括某一项或整个级数为无穷的情形。
 \end{example}
 
 \section{从下方作简单函数逼近}
@@ -127,7 +148,8 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
 \end{theorem}
 
 \begin{proof}
-令
+沿用\chapterref{chap:measurable-functions}中已经验证的二进分割，
+此处选取截断高度 \(2^n\) 以保留明确的误差估计。令
 \[
  \varphi_n(x)=
  \begin{cases}
@@ -151,15 +173,16 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
 
 \begin{theorem}[Beppo Levi 单调收敛定理]
 \label{thm:monotone-convergence}
-设 \(0\le f_n\uparrow f\) 几乎处处，其中各 \(f_n\) 可测。则
+设 \(f_n,f:X\to[0,+\infty]\) 均可测，且 \(f_n\uparrow f\) 几乎处处。则
 \[
  \int_X f\,d\mu=\lim_{n\to\infty}\int_X f_n\,d\mu .
 \]
 \end{theorem}
 
 \begin{proof}
-修改一个零测集上的函数值后，可以设处处单调收敛；这不改变本章积分，
-该事实也可直接由零测集上的简单函数积分为零验证。
+取一个可测零集 \(N\)，包含单调性或收敛性失效的全部点。
+把 \(f\) 和所有 \(f_n\) 在整个 \(N\) 上统一置零，所得函数仍可测，
+并由刚才证明的零测不变性保持积分。以下可设处处单调收敛。
 
 由 \(f_n\le f\)，
 \[
@@ -182,6 +205,12 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
 \(L\ge\int\varphi\,d\mu\)。再对所有 \(\varphi\le f\) 取上确界，便有
 \(L\ge\int f\,d\mu\)。
 \end{proof}
+
+若原来处处递增，可以直接定义 \(f=\sup_n f_n\)，其可测性已由
+\chapterref{chap:measurable-functions}证明。只知几乎处处收敛时则不能在
+任意测度空间上省略极限函数可测的假设：若可测零集有不可测子集 \(Z\)，
+取 \(f_n=0\)、\(f=\mathbf1_Z\)，便满足零集外的收敛，但本章并未对这个
+不可测的 \(f\) 定义积分。
 
 \begin{corollary}[非负函数的可数可加性]
 \label{cor:nonnegative-integral-additivity}
@@ -239,11 +268,14 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
 \[
  f(x)=\int_0^\infty\mathbf1_{\{f(x)>t\}}\,dt.
 \]
-在乘积测度建立以后，Tonelli 定理将给出
+相应的水平集公式为
 \[
  \int_Xf\,d\mu=\int_0^\infty\mu(\{f>t\})\,dt.
 \]
-本章暂不把这一步当作已证结论；它说明水平集测度为何能控制积分。
+其证明安排在习题\ref{ex:simple-integral-level-sets}与
+\ref{ex:cavalieri-simple-to-general}中：先处理简单函数，再分别对两个积分
+使用单调收敛定理。这条证明适用于任意测度空间，不要求 \(\sigma\)-有限性，
+也不需要预先使用乘积测度。
 \end{example}
 
 \section*{习题}
@@ -260,11 +292,11 @@ Riemann 积分从定义域的分割出发，先处理区间上的阶梯状近似
 \[
  \int\varphi\,d\mu=\int_0^\infty\mu(\{\varphi>t\})\,dt,
 \]
-右侧按非负函数的扩充值积分理解；当其值有限时，它就是通常的一元
-Riemann 积分。
+右侧按非负函数的扩充值积分理解；当其值有限时，可在包含全部正取值的
+有限区间上用通常的一元 Riemann 积分计算。
 
 \exerciseitem{nonnegative-integral-localization}
-证明对 \(f\ge0\) 和 \(E,F\in\mathcal A\)，若 \(E\cap F=\varnothing\)，
+证明对非负可测函数 \(f\) 和 \(E,F\in\mathcal A\)，若 \(E\cap F=\varnothing\)，
 则 \(\int_{E\cup F}f=\int_Ef+\int_Ff\)。
 
 \exerciseitem{nonnegative-integral-ae-invariance}
@@ -297,12 +329,12 @@ Riemann 积分。
 \subsection*{C组　结构与推广}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{zero-integral-superlevel}
-设 \(f\ge0\)。证明若存在 \(c>0\) 使
+设 \(f\) 非负可测。证明若存在 \(c>0\) 使
 \(\mu(\{f\ge c\})>0\)，则 \(\int f>0\)。给出反例说明
 \(f\) 在一个非空稠密集上为正并不推出 \(\int f>0\)。
 
 \exerciseitem{density-measure}
-完整证明 \(\nu(E)=\int_Ef\,d\mu\) 是测度，并证明
+设 \(f\) 非负可测。完整证明 \(\nu(E)=\int_Ef\,d\mu\) 是测度，并证明
 \(\nu\ll\mu\)，即 \(\mu(E)=0\Rightarrow\nu(E)=0\)。
 
 \optionalexerciseitem{cavalieri-simple-to-general}

@@ -5,6 +5,8 @@
 
 本章中的函数均为实值函数，除非另有说明。中值定理只要求闭区间上的连续性和开区间内的可导性；端点处不必可导。这个条件分工在后面的反例和 L'Hôpital 法则中都会起作用。
 
+本编初等函数的应用沿用高等数学中已知的指数、对数和三角函数及其导数公式；这些公式不参与中值定理、Taylor 公式或凸性判据的一般证明。应用这些定理计算初等函数极限时，仍须检查所用导数公式的证明是否已经依赖待求极限。
+
 \section{Fermat、Rolle 与 Lagrange 定理}
 \label{sec:fermat-rolle-lagrange}
 
@@ -215,7 +217,7 @@ Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
 \end{proposition}
 
 \begin{proof}
-若某个非退化子区间上 \(f'\equiv0\)，零导数判据说明 \(f\) 在该子区间为常值，故不可能严格递增。
+若某个非退化子区间内部有 \(f'\equiv0\)，在该内部任取 \(u<v\)，中值定理给出 \(f(v)-f(u)=f'(\xi)(v-u)=0\)，故 \(f\) 不可能严格递增。
 
 反过来，导数非负已经保证 \(f\) 单调不减。若存在 \(x<y\) 使 \(f(x)=f(y)\)，则对每个 \(z\in[x,y]\) 都有
 \[
@@ -226,7 +228,7 @@ Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
 
 \begin{corollary}[零导数判据]
 \label{cor:zero-derivative-constant}
-设 \(I\) 是区间，\(f:I\to\R\) 满足上一结论的连续与可导条件。则
+设 \(I\) 是区间，\(f:I\to\R\) 连续并在 \(I\) 的内点可导。则
 \[
  f'(x)=0\quad(x\in\operatorname{int}I)
 \]
@@ -261,7 +263,7 @@ Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
 
 \begin{corollary}[有界导数与 Lipschitz 估计]
 \label{cor:bounded-derivative-lipschitz}
-若
+设 \(f:[a,b]\to\R\) 连续并在 \((a,b)\) 内可导。若
 \[
  \abs{f'(x)}\le K\qquad(x\in(a,b)),
 \]
@@ -284,7 +286,7 @@ Rolle 定理给出 \(c\in(a,b)\) 使 \(H'(c)=0\)。展开这一等式便得到
 令 \(h\to0\)，得到 \(\abs{f'(x)}\le K\)。
 \end{proof}
 
-这个等价关系说明，在一元区间上，“导数处处受统一界控制”和“函数具有全局 Lipschitz 增量估计”是同一项定量事实的微分与差分表述。若只知道每一点的导数有限，却没有统一上界，就不能推出整个区间上的同一 Lipschitz 常数。
+在内点可导、所含端点连续的函数类中，导数的统一界等价于 Lipschitz 增量估计。可导性不能从 Lipschitz 条件本身推出：\(\abs{x}\) 是 \(1\)-Lipschitz 函数，却在零点不可导。若只知道每一点的导数有限而没有统一上界，也不能推出整个区间上的同一 Lipschitz 常数。
 
 这里不需要区间有界或闭。若 \(I\) 是任意区间，\(f\) 在内点可导、在属于 \(I\) 的端点连续，并满足 \(|f'|\le K\)，则任取 \(x<y\) 于 \(I\)，在闭区间 \([x,y]\) 上应用中值定理即可得到同一 Lipschitz 估计。反向结论也只使用点附近的差商。因此在这样的区间上，导数的统一界与 Lipschitz 常数可以逐点相互恢复。
 
@@ -828,17 +830,17 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
  \exerciseitem{rolle-polynomial-root} 设实多项式 \(p\) 有两个不同实根。证明 \(p'\) 在两根之间至少有一个实根；进而证明 \(p\) 有 \(k\) 个不同实根时，\(p'\) 至少有 \(k-1\) 个不同实根。
  \exerciseitem{lagrange-secant-example} 对 \(f(x)=x^3\) 在区间 \([a,b]\) 上写出 Lagrange 中值点所满足的方程，并在 \([0,1]\) 上求出全部中值点。
  \exerciseitem{zero-derivative-constant} 证明区间上处处可导且导数恒为零的函数为常值，并构造不连通定义域上的反例。
- \exerciseitem{derivative-sign-monotonicity} 证明若 \(f'\ge0\) 于区间内部，则 \(f\) 单调不减；若 \(f'>0\)，则严格递增。
- \exerciseitem{nonnegative-derivative-strictness} 设 \(f'\ge0\) 于区间内部。证明 \(f\) 严格递增当且仅当不存在非退化子区间使 \(f'\) 在其内部恒为零；给出一个导数在无穷多个点为零但函数仍严格递增的例子。
+ \exerciseitem{derivative-sign-monotonicity} 设 \(I\) 为区间，\(f:I\to\R\) 连续并在内点可导。证明若 \(f'\ge0\) 于区间内部，则 \(f\) 单调不减；若 \(f'>0\)，则严格递增。
+ \exerciseitem{nonnegative-derivative-strictness} 设 \(I\) 为区间，\(f:I\to\R\) 连续并在内点可导，且 \(f'\ge0\) 于内部。证明 \(f\) 严格递增当且仅当不存在非退化子区间使 \(f'\) 在其内部恒为零；给出一个导数在无穷多个点为零但函数仍严格递增的例子。
  \exerciseitem{monotone-derivative-converse} 证明可导的单调不减函数满足 \(f'\ge0\)，并举例说明严格递增函数的导数仍可在某点为零。
- \exerciseitem{derivative-bounds-increments} 设 \(m\le f'\le M\)。证明对 \(x<y\) 有
+ \exerciseitem{derivative-bounds-increments} 设 \(I\) 为区间，\(f:I\to\R\) 连续并在内点可导，且 \(m\le f'\le M\) 于内部。证明对 \(x<y\)、\(x,y\in I\) 有
  \[
   m(y-x)\le f(y)-f(x)\le M(y-x).
  \]
- \exerciseitem{bounded-derivative-lipschitz} 证明 \(\abs{f'}\le K\) 推出 \(f\) 为 \(K\)-Lipschitz，并说明闭区间端点处为何不需要导数。
+ \exerciseitem{bounded-derivative-lipschitz} 设 \(I\) 为区间，\(f:I\to\R\) 连续并在内点可导。证明内部的估计 \(\abs{f'}\le K\) 推出 \(f\) 为 \(K\)-Lipschitz，并说明闭区间端点处为何只需连续、不需要导数。
  \exerciseitem{lipschitz-derivative-bound} 设 \(f\) 在区间上为 \(K\)-Lipschitz 且在内点 \(a\) 可导。证明 \(\abs{f'(a)}\le K\)。
  \exerciseitem{cauchy-mvt-ratio} 从交叉相乘形式推出 Cauchy 中值定理的增量比形式，逐项说明两个非零分母由何处得到。
- \exerciseitem{derivative-comparison} 若 \(f'\le g'\) 于区间内部，证明
+ \exerciseitem{derivative-comparison} 设 \(f,g:I\to\R\) 在区间 \(I\) 上连续并在内点可导。若 \(f'\le g'\) 于内部，证明对 \(x<y\)、\(x,y\in I\)，
  \[
   f(y)-f(x)\le g(y)-g(x)\qquad(x<y).
  \]
@@ -847,11 +849,11 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
 
 \subsection*{B组　条件辨析与 L'Hôpital 法则}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em,resume]
- \exerciseitem{fermat-hypotheses-counterexamples} 分别构造反例说明 Fermat 定理中的内点、可导性和局部极值三个条件不能删去或反向使用。
+ \exerciseitem{fermat-hypotheses-counterexamples} 分别构造反例说明 Fermat 定理中的内点、可导性和局部极值三个条件不能删去；再说明驻点未必是局部极值点。
  \exerciseitem{rolle-hypotheses-counterexamples} 分别删去 Rolle 定理的闭区间连续性、内部可导性和端点等值条件，给出结论失败的反例，并核对其余假设。
  \exerciseitem{interval-hypothesis-counterexample} 构造不连通定义域上的函数，使两个指定端点函数值相同而所有可导点的导数均不为零；解释区间性在 Rolle 证明中的位置。
  \exerciseitem{strict-versus-nonstrict-monotonicity} 分别给出下列反向命题的反例：单调不减推出 \(f'>0\)；严格递增推出 \(f'>0\)；\(f'\ge0\) 推出严格递增。
- \exerciseitem{inverse-lipschitz-from-lower-derivative} 设 \(f'\ge m>0\) 于 \((a,b)\)。证明 \(f^{-1}\) 在像区间上为 \(1/m\)-Lipschitz；指出只假设 \(f'>0\) 而没有统一下界时为何得不到固定常数。
+ \exerciseitem{inverse-lipschitz-from-lower-derivative} 设 \(f:(a,b)\to\R\) 可导且 \(f'\ge m>0\)。证明 \(f^{-1}\) 在像区间上为 \(1/m\)-Lipschitz；指出只假设 \(f'>0\) 而没有统一下界时为何得不到固定常数。
  \exerciseitem{lhopital-zero-zero-sine} 假定正弦函数的导数公式已由不依赖下述极限的方法建立。用 \(0/0\) 型 L'Hôpital 法则证明
  \[
   \lim_{x\to0}\frac{\sin x}{x}=1,
@@ -894,7 +896,7 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
 
 \subsection*{C组　比较、无穷远与向量值映射}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},ref=\thechapter.\arabic*,leftmargin=3.4em,labelsep=0.7em,itemsep=0.85em,topsep=0.8em,resume]
- \exerciseitem{cauchy-comparison-full-proof} 设 \(g'\ne0\)，并有
+ \exerciseitem{cauchy-comparison-full-proof} 设 \(f,g\) 在开区间 \(I\) 上可导，\(g'\ne0\)，并有
  \[
   m\le f'/g'\le M.
  \]
@@ -916,7 +918,7 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
  \]
  的中间点 \(c\)。
  \exerciseitem{vector-mvt-norm-estimate} 通过端点增量方向的标量投影，完整证明向量值中值估计。
- \exerciseitem{vector-derivative-bound-lipschitz} 设 \(F:I\to\R^m\) 可导且 \(\norm{F'}\le M\)。证明 \(F\) 为 \(M\)-Lipschitz，并说明这个常数在 \(F(t)=tv\) 时达到。
+ \exerciseitem{vector-derivative-bound-lipschitz} 设 \(I\) 是非退化区间，\(F:I\to\R^m\) 连续并在内点可导，且 \(\norm{F'}\le M\)。证明 \(F\) 为 \(M\)-Lipschitz，并说明当 \(F(t)=tv\)、\(M=\norm v\) 时常数达到。
  \exerciseitem{vector-projection-mean-value} 设 \(a<b\)，\(F:[a,b]\to\R^m\) 连续并在 \((a,b)\) 内可导。证明对每个固定 \(u\in\R^m\)，存在依赖于 \(u\) 的 \(c_u\in(a,b)\)，使
  \[
   \langle u,F(b)-F(a)\rangle
@@ -925,10 +927,11 @@ Lagrange 中值定理给出某个 \(c\in(a,b)\)，使
  解释为什么这些 \(c_u\) 一般不能取成同一点。
  \projectexerciseitem{mean-value-theorem-dependency-project} 【前置：本章；预计用时：90分钟】整理
  \[
-  \text{极值定理与 Fermat 定理}\Longrightarrow\text{Rolle}
-  \Longrightarrow\text{Lagrange}
-  \Longrightarrow\text{Cauchy}
-  \Longrightarrow\text{L'Hôpital}
+  \begin{gathered}
+  \text{极值定理与 Fermat 定理}\Longrightarrow\text{Rolle},\\
+  \text{Rolle}\Longrightarrow\text{Lagrange},\qquad
+  \text{Rolle}\Longrightarrow\text{Cauchy}\Longrightarrow\text{L'Hôpital}.
+  \end{gathered}
  \]
  的证明依赖。对每个箭头写出辅助函数或关键估计，并给出至少一个删条件反例；最后说明向量值情形在哪个箭头失去标量等式。
 \end{enumerate}

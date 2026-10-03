@@ -27,13 +27,9 @@
 \end{solution}
 
 \begin{solution}{compact-graph}
-映射
-\[
- \Phi:X\to X\times Y,\qquad \Phi(x)=(x,f(x))
-\]
-的两个坐标连续，故连续。其像即图像；\(X\) 紧，所以图像紧。积空间 \(X\times Y\) Hausdorff，因为两个因子 Hausdorff（紧 \(X\) 此处还需假定 Hausdorff，或改在 \(X\times Y\) 中直接证明图像闭）。题设没有说明 \(X\) Hausdorff，因此前述紧集闭路线不充分。
+若 \((x_0,y_0)\) 不在图像上，则 \(y_0\ne f(x_0)\)。取 \(Y\) 中不相交开邻域 \(V\ni y_0\)、\(W\ni f(x_0)\)。由 \(f\) 连续，\(U=f^{-1}(W)\) 是 \(x_0\) 的开邻域，且 \(U\times V\) 不交图像。因此图像的补集开，图像闭。
 
-可以直接证明：若 \((x_0,y_0)\) 不在图像上，则 \(y_0\ne f(x_0)\)。取 \(Y\) 中不相交开邻域 \(V\ni y_0\)、\(W\ni f(x_0)\)。由 \(f\) 连续，\(U=f^{-1}(W)\) 是 \(x_0\) 的开邻域，且 \(U\times V\) 不交图像。因此图像闭。这个证明只需要 \(Y\) Hausdorff，不需要 \(X\) Hausdorff或紧；题设中的紧致性是冗余条件。
+这个证明只需要 \(Y\) Hausdorff，不需要 \(X\) 紧。虽然题设还保证图像是 \(x\mapsto(x,f(x))\) 的紧像，却不能仅以此推出它闭：题设未给 \(X\) Hausdorff，积空间也未必 Hausdorff。
 \end{solution}
 
 \begin{solution}{alexander-closed-subbasis}
@@ -50,15 +46,13 @@
 \end{solution}
 
 \begin{solution}{tychonoff-finite-direct}
-设 \(\mathcal U\) 覆盖 \(X\times Y\)。固定 \(x\in X\)。对每个 \(y\in Y\)，取基本矩形
+若因子为空，结论直接成立。以下设两因子非空，\(\mathcal U\) 为积的开覆盖。固定 \(x\in X\)，考虑所有满足
 \[
- (x,y)\in V_{x,y}\times W_{x,y}\subseteq U_{x,y}\in\mathcal U.
+ x\in V,\qquad V\times W\subseteq U\in\mathcal U
 \]
-由 \(Y\) 紧，有限多个 \(W_{x,y_k}\) 覆盖 \(Y\)。令
-\[
- V_x=\bigcap_kV_{x,y_k}.
-\]
-则条带 \(V_x\times Y\) 被有限多个 \(U_{x,y_k}\) 覆盖。族 \((V_x)_{x\in X}\) 覆盖 \(X\)，再由 \(X\) 紧取有限多个 \(V_{x_j}\)。对应的有限多个原覆盖成员覆盖整个积。
+的开矩形，其中 \(V\subseteq X\)、\(W\subseteq Y\)。所有这样的 \(W\) 覆盖 \(Y\)，不必先为每个 \(y\) 选定一个矩形。由紧致性，有限个 \(W_1,\ldots,W_m\) 已覆盖 \(Y\)；为它们各取对应的 \(V_k,U_k\)，令 \(O=\bigcap_{k=1}^m V_k\)。则 \(x\in O\)，且 \(O\times Y\) 被 \(U_1,\ldots,U_m\) 覆盖。
+
+再令 \(\mathcal O\) 为所有“条带可被原覆盖有限覆盖”的开集 \(O\subseteq X\)。刚才的论证表明 \(\mathcal O\) 覆盖 \(X\)，但没有要求为每个 \(x\) 选定一个 \(O\)。紧致性给出有限子覆盖 \(O_1,\ldots,O_r\)，为这有限个条带各选一组原覆盖成员，合并即得 \(X\times Y\) 的有限子覆盖。整个证明仅作有限次选择，这可在 ZF 中由有限归纳完成。
 \end{solution}
 
 \begin{solution}{product-closed-sets}

@@ -40,6 +40,13 @@
 集合 \(X\) 连同 \(\mathcal U\) 称为\term{一致空间}。
 \end{definition}
 
+上述滤子定义先用于 \(X\ne\varnothing\)。空集上另约定唯一的一致结构为
+\(\{\varnothing\}\)：它满足上列三条及向上、有限交封闭性，但不是真滤子。
+这一例外只用于空空间的一致结构；表示收敛对象的滤子仍一律指真滤子。
+空空间诱导的拓扑为 \(\{\varnothing\}\)，它分离、全有界且完备，最后
+一条因为空空间没有Cauchy滤子。后文涉及选择点或滤子的证明均在非空情形
+进行，空空间单独按此约定处理。
+
 把 \(U\) 换成 \(U\cap U^{-1}\)，可知对每个周围总能取对称周围
 \(V=V^{-1}\subseteq U\)。反复使用第三条，还可以在给定 \(U\) 内取
 对称 \(V\) 使 \(V\circ V\circ V\subseteq U\)。这些“平方根”或
@@ -106,6 +113,14 @@
 由于 \(U[x]\) 同时服务于所有 \(x\)，它比逐点连续多出的正是一个全局
 可用的周围。任意一致连续映射都连续，复合仍一致连续。
 
+子集 \(A\subseteq X\) 的\term{诱导一致结构}由
+\(U\cap(A\times A)\)、\(U\in\mathcal U_X\) 生成。交、逆和复合的
+条件由原结构继承，其基本邻域为 \(U[a]\cap A\)，故诱导的拓扑恰为
+子空间拓扑。空子集采用刚才的约定。双射 \(f:X\to Y\) 若自身及其逆映射
+均一致连续，称为\term{一致同构}；单射 \(f:X\to Y\) 若作为
+\(X\to f(X)\) 的映射是一致同构，称为\term{一致嵌入}，这里像取诱导
+一致结构。
+
 同一个拓扑可以承载不同的一致结构。在 \(\R\) 上，
 \[
  d(x,y)=|x-y|,\qquad
@@ -121,8 +136,11 @@
 \subsection{Cauchy 对象}
 
 称 \(A\subseteq X\) 为 \(U\)-\term{小集}，若
-\(A\times A\subseteq U\)。在度量空间中，这表示 \(A\) 的直径小于
-相应尺度。
+\(A\times A\subseteq U\)。在度量空间中，对 \(U=U_\varepsilon\)，
+这表示 \(A\) 中任意两点的距离小于 \(\varepsilon\)，从而
+\(\operatorname{diam}A\le\varepsilon\)。这里不一定是严格不等式，
+例如 \(A=(0,\varepsilon)\subseteq\R\)。反过来，直径小于
+\(\varepsilon\) 则足以保证 \(U_\varepsilon\)-小。
 
 \begin{definition}[Cauchy 滤子与 Cauchy 网]
 一致空间 \((X,\mathcal U)\) 上的滤子 \(\mathcal F\) 称为
@@ -145,9 +163,34 @@ Cauchy 滤子：给定 \(U\)，取对称 \(V\) 使
 若每个 Cauchy 滤子都收敛，则称一致空间 \(X\) \term{完备}。
 \end{definition}
 
-在分离一致空间中，滤子极限唯一。度量空间里，用尾滤子在 Cauchy 列与
-Cauchy 滤子之间换译，可恢复通常的完备性定义。一般一致空间可能没有
-可数周围基，仅检验 Cauchy 列会漏掉一部分滤子。
+在分离一致空间中，滤子极限唯一。度量空间中的定义与通常的列完备性一致，
+但证明不能只把数列换成尾滤子，还需处理任意Cauchy滤子。
+
+\begin{proposition}[度量空间的两种完备性定义]
+\label{prop:metric-filter-completeness}
+度量空间的每个Cauchy滤子收敛，当且仅当每个Cauchy列收敛。
+\end{proposition}
+
+\begin{proof}
+若每个Cauchy滤子收敛，把这一性质用于Cauchy列的尾滤子即可。
+反之，设每个Cauchy列都收敛，且 \(\mathcal F\) 为Cauchy滤子。
+对每个 \(n\ge1\)，选取 \(A_n\in\mathcal F\)，使其中任意两点的
+距离小于 \(2^{-n}\)。令 \(B_n=\bigcap_{k=1}^n A_k\)，从非空集
+\(B_n\) 中取 \(x_n\)。若 \(m\ge n\)，则 \(x_m,x_n\in A_n\)，
+所以 \(d(x_m,x_n)<2^{-n}\)。故 \((x_n)\) 为Cauchy列，设其极限为
+\(x\)。固定 \(n\)，令 \(m\to\infty\)，可得
+\(d(x_n,x)\le2^{-n}\)。因此，对任意 \(y\in B_n\)，
+\[
+ d(y,x)\le d(y,x_n)+d(x_n,x)<2^{1-n}.
+\]
+给定 \(\varepsilon>0\)，取 \(n\) 使 \(2^{1-n}<\varepsilon\)，便有
+\(B_n\subseteq B(x,\varepsilon)\)。由滤子的向上封闭性，所有这些球
+都属于 \(\mathcal F\)，故 \(\mathcal F\to x\)。选取 \(A_n,x_n\)
+只涉及可数选择，在本书的集合论背景下可用。
+\end{proof}
+
+证明利用了可数个尺度 \(2^{-n}\) 能控制所有正尺度。一般一致结构未必
+有可数基，因此不能把一般完备性也只定义为Cauchy列的收敛。
 
 \subsection{聚点与完备子空间}
 
@@ -208,7 +251,7 @@ Cauchy 滤子。把它视为 \(X\) 上含 \(A\) 的滤子，完备性给出极�
 
 度量空间中这正是对每个 \(\varepsilon>0\) 都可由有限多个
 \(\varepsilon\)-球覆盖。它比有界强：无限维赋范空间的单位球有界，
-但通常不全有界。
+但不全有界；这个反例的证明见\chapterref{chap:continuous-function-space}。
 
 \subsection{紧致、完备与全有界}
 
@@ -253,7 +296,9 @@ Cauchy 滤子。把它视为 \(X\) 上含 \(A\) 的滤子，完备性给出极�
 \end{theorem}
 
 \begin{proof}
-下面给出 Cauchy 滤子构造。称 Cauchy 滤子 \(\mathcal F\) 为最小的，
+若 \(X=\varnothing\)，取空空间为完备化，稠密性也使任何完备化只能为空。
+以下设 \(X\ne\varnothing\)，给出 Cauchy 滤子构造。
+称 Cauchy 滤子 \(\mathcal F\) 为最小的，
 若它不含严格更粗的 Cauchy 滤子。
 
 先说明每个 Cauchy 滤子都有唯一的最小化。对 \(A\subseteq X\) 记
@@ -368,14 +413,16 @@ Cauchy 滤子。它同时比两个最小 Cauchy 滤子更粗，最小性给出
 
 滤子 \(\Phi\) 与 \(\Psi\) 还满足以下相合关系：对每个周围 \(U\)，
 存在 \(\mathcal A\in\Phi\)、\(B\in\Psi\) 使
-\[
- \mathcal A\times B\subseteq U.                                      \tag{*}
-\]
+\begin{equation}
+ \mathcal A\times B\subseteq U.
+ \label{eq:completion-compatible-filters}
+\end{equation}
 为此取对称 \(V\) 使 \(V^2\subseteq U\)，并在 \(\Phi\) 中取
 \(V\)-小集 \(\mathcal A\)，再令
 \(B=B(V,\mathcal A)\)。若 \(a\in\mathcal A\)、\(b\in B\)，可取
 \(c\in\mathcal A\) 使 \((c,b)\in V\)，而
-\((a,c)\in V\)，所以 \((a,b)\in U\)，即得 \((*)\)。
+\((a,c)\in V\)，所以 \((a,b)\in U\)，即得
+\eqref{eq:completion-compatible-filters}。
 
 通过一致同构 \(\iota:X\to D\) 把 \(\Psi\) 拉回为 \(X\) 上的 Cauchy
 滤子 \(\mathcal F\)，并令 \(\mathcal F^0\) 为其最小化。把
@@ -394,7 +441,7 @@ Cauchy 滤子。它同时比两个最小 Cauchy 滤子更粗，最小性给出
 \]
 左端属于 \(\iota_*\mathcal F\)，所以该基本邻域也属于像滤子，收敛得证。
 
-最后由 \((*)\) 把极限传回 \(\Phi\)。这里使用如下直接估计：若两个滤子
+最后由\eqref{eq:completion-compatible-filters}把极限传回 \(\Phi\)。这里使用如下直接估计：若两个滤子
 \(\mathcal H,\mathcal K\) 对每个周围 \(V\) 都含有集合
 \(H\in\mathcal H\)、\(K\in\mathcal K\) 使 \(H\times K\subseteq V\)，
 且 \(\mathcal K\to y\)，则 \(\mathcal H\to y\)。给定周围 \(U\)，取
@@ -438,8 +485,9 @@ Cauchy 滤子。它同时比两个最小 Cauchy 滤子更粗，最小性给出
 关系 \((d,e)\in V^3\subseteq U\) 给出
 \((f(d),f(e))\in W_0\)。利用 \(W_0\) 的对称性连接这三段关系，得到
 \((\widehat f(z),\widehat f(z'))\in W\)。所以 \(\widehat f\) 一致连续。
-若 \(g:Z\to Y_0\) 是另一连续延拓，则 \(g_*\mathcal T_z\) 与
-\(f_*\mathcal T_z\) 是同一滤子；前者趋于 \(g(z)\)，后者趋于
+若 \(g:Z\to Y_0\) 是另一连续延拓，先将 \(\mathcal T_z\) 通过包含映射
+看作 \(Z\) 上的滤子，它趋于 \(z\)。再取 \(g\) 下的像滤子，因
+\(g|_D=f\)，这个像就是 \(f_*\mathcal T_z\)；由连续性它趋于 \(g(z)\)，也趋于
 \(\widehat f(z)\)，分离性给出 \(g(z)=\widehat f(z)\)。唯一性得证。
 
 现在设 \((\widehat X_1,\iota_1)\)、
@@ -453,9 +501,11 @@ Cauchy 滤子。它同时比两个最小 Cauchy 滤子更粗，最小性给出
 一致同构。
 \end{proof}
 
-当 \(X\) 可度量化时，这个构造与
+当给定的一致结构由度量 \(d\) 诱导时，这个构造与
 \chapterref{chap:complete-metric-spaces}的 Cauchy 列等价类构造一致。
-滤子版本的意义在于它不要求一致结构具有可数基。
+仅有诱导拓扑可度量化并不说明某个相容度量给出原来的一致结构；例如前面
+\(d\) 与 \(\rho\) 的拓扑相同，而只有后者的完备化需要增加端点。
+滤子构造不要求一致结构具有可数基。
 
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
@@ -491,9 +541,10 @@ Cauchy 滤子。它同时比两个最小 Cauchy 滤子更粗，最小性给出
  对度量空间 \((X,d)\)，证明 Cauchy 列等价类完备化满足本章一致完备化
  的定义，并说明稠密嵌入为何是一致嵌入。
  \exerciseitem{completion-extension-map}
- 设 \(X\) 在 \(\widehat X\) 中稠密，\(Y\) 为完备分离一致空间。
- 证明一致连续映射 \(f:X\to Y\) 若把 Cauchy 滤子送到 Cauchy 滤子，
- 则有唯一一致连续延拓 \(\widehat f:\widehat X\to Y\)。
+ 设 \(\widehat X\) 为一致空间，\(X\) 是其稠密子集并取诱导一致结构，
+ \(Y\) 为完备分离一致空间。证明每个一致连续映射 \(f:X\to Y\)
+ 都有唯一一致连续延拓 \(\widehat f:\widehat X\to Y\)，并说明无需
+ 另加“把Cauchy滤子送到Cauchy滤子”的假设。
  \optionalexerciseitem{minimal-cauchy-filter-details}
  补全一致完备化证明中的最小化步骤：证明 \(\mathcal F^0\) 是 Cauchy
  滤子，并且包含于 \(\mathcal F\) 的每个 Cauchy 滤子。

@@ -59,9 +59,16 @@ Fourier 系数并作有限求和，得到
  \int_{-\pi}^{\pi}f(x)\varphi'(x)\,dx
  =-\int_{-\pi}^{\pi}g(x)\varphi(x)\,dx.
 \]
-光滑周期函数的 Fourier 部分和连同各阶
-导数一致收敛，故可由三角多项式逼近 \(\varphi,\varphi'\)，将等式传到所有
-光滑周期测试函数。于是 \(g\) 是弱导数。
+对光滑周期函数 \(\varphi\)，分部积分给
+\(\widehat{\varphi'}(k)=ik\widehat\varphi(k)\)，从而
+\((S_N\varphi)'=S_N(\varphi')\)。已证的 \(L^2\) 收敛给
+\(S_N\varphi\to\varphi\)、\(S_N(\varphi')\to\varphi'\)。
+把测试多项式取为 \(S_N\varphi\)，两边误差分别不超过
+\(2\pi\|f\|_2\|S_N(\varphi')-\varphi'\|_2\) 与
+\(2\pi\|g\|_2\|S_N\varphi-\varphi\|_2\)，均趋零，故等式对所有
+光滑周期函数成立。这里的范数使用归一化测度，所以出现 \(2\pi\) 因子。
+若另有弱导数 \(g_1\)，用 \(e^{-ikx}\) 测试可知其系数也为
+\(ik\widehat f(k)\)，三角系统完备性给 \(g_1=g\) 于 \(L^2\)。
 \end{solution}
 
 \begin{solution}{l2-fourier-poincare-circle}
@@ -75,14 +82,23 @@ Fourier 系数并作有限求和，得到
 \end{solution}
 
 \begin{solution}{l2-fourier-convolution-young}
-对几乎处处的 \(x\)，Minkowski 积分不等式给
+记 \(d\mu(t)=dt/(2\pi)\)，所有积分均取一周期。
+圆周测度为一，故 \(f\in L^p\) 蕴含 \(f\in L^1\)，Tonelli 定理给
 \[
- \|f*g\|_p
- \le\frac1{2\pi}\int_{-\pi}^{\pi}|g(t)|\,
-       \|f(\cdot-t)\|_p\,dt
- =\|f\|_p\|g\|_1.
+ \iint |f(x-t)g(t)|\,d\mu(t)d\mu(x)=\|f\|_1\|g\|_1<\infty.
 \]
-\(p=\infty\) 直接由本质上确界估计。Fubini 和周期换元给
+所以卷积几乎处处存在。若 \(\|g\|_1=0\)，结论显然成立。
+否则 \(d\nu=|g|d\mu/\|g\|_1\) 是概率测度。对 \(1\le p<\infty\)，
+Jensen 不等式给
+\[
+ |f*g(x)|^p\le\|g\|_1^p\int |f(x-t)|^p\,d\nu(t).
+\]
+再对 \(x\) 积分，由 Tonelli 和平移不变性得
+\(\|f*g\|_p^p\le\|g\|_1^p\|f\|_p^p\)。
+\(p=\infty\) 时，\(|f(x-t)|\le\|f\|_\infty\) 对几乎处处的
+\((x,t)\) 成立，Fubini 保证对几乎处处 \(x\) 可以积分此不等式，
+从而 \(|f*g(x)|\le\|f\|_\infty\|g\|_1\)。
+由已核实的二重绝对可积性，Fubini 和周期换元给
 \[
  \widehat{f*g}(k)
  =\frac1{(2\pi)^2}\iint f(x-t)g(t)e^{-ikx}\,dt\,dx
@@ -100,13 +116,26 @@ Parseval 给
 \end{solution}
 
 \begin{solution}{l2-fourier-compact-operator}
-若 \(m_k\to0\)，令 \(T_m^{(N)}\) 只保留 \(|k|\le N\) 的系数。它有限秩，且
+若 \(m_k\to0\)（\(|k|\to\infty\)），令 \(T_m^{(N)}\) 只保留
+\(|k|\le N\) 的系数。它有限秩，且
 \[
  \|T_m-T_m^{(N)}\|=\sup_{|k|>N}|m_k|\to0.
 \]
-紧算子的算子范数极限仍紧。反之，若 \(T_m\) 紧，则正交规范序列 \(e_k\)
-弱趋零；紧算子把弱收敛序列送成范数收敛序列，故
-\(|m_k|=\|T_me_k\|_2\to0\)。
+设 \(\|f_j\|_2\le M\)。若 \(M=0\)，像列恒为零。
+否则给定 \(\varepsilon>0\)，选 \(N\) 使上述范数小于
+\(\varepsilon/(2M)\)。\(\{T_m^{(N)}f_j\}\) 是有限维空间中的有界集，
+有有限 \(\varepsilon/2\)-网。因此 \(\{T_mf_j\}\) 有有限
+\(\varepsilon\)-网，是全有界集。在完备的 \(L^2\) 中，其闭包紧，故
+像列有收敛子列。这直接验证了题中的紧算子定义。
+
+反之，若 \(m_k\) 不随 \(|k|\to\infty\) 趋零，可取互异的
+\(k_j\) 和 \(\varepsilon>0\) 使 \(|m_{k_j}|\ge\varepsilon\)。
+单位向量 \(e_{k_j}\) 的像两两满足
+\[
+ \|T_me_{k_j}-T_me_{k_l}\|_2^2
+ =|m_{k_j}|^2+|m_{k_l}|^2\ge2\varepsilon^2\quad(j\ne l).
+\]
+它们不可能有收敛子列，与紧性矛盾。
 \end{solution}
 
 \begin{solution}{l2-fourier-subsequence-ae}
@@ -135,6 +164,8 @@ Cauchy--Schwarz 与平移连续性给
 \[
  R_f(h)=\sum_{k\in\mathbb Z}e^{-ikh}|\widehat f(k)|^2.
 \]
+由 Parseval，\(\sum_k|\widehat f(k)|^2=\|f\|_2^2<\infty\)，
+故上述级数由 M 判别法绝对一致收敛，可逐项积分。
 所以按本章符号约定，\(R_f\) 的第 \(k\) 个 Fourier 系数为
 \(|\widehat f(-k)|^2\)；若改用 \(\langle f,\tau_hf\rangle\)，则为
 \(|\widehat f(k)|^2\)。

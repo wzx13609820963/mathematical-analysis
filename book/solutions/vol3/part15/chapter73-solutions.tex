@@ -19,9 +19,10 @@ Lipschitz 常数恰等于 \(\|F'\|_\infty\)。
 除以 \(|h|\) 再取极限得估计；两个不可导例外集的并仍零测。
 \end{solution}
 \begin{solution}{ftc-holder-modulus}
-用积分表示及 Hölder：
+先设 \(x<y\)，用积分表示及 Hölder：
 \(|\int_x^yF'|\le(\int_x^y|F'|^p)^{1/p}(\int_x^y1)^{1-1/p}\)。
-再以全区间 \(L^p\) 范数控制局部范数即得结论。
+再以全区间 \(L^p\) 范数控制局部范数即得结论。\(x>y\) 时交换端点，
+\(x=y\) 时两端均为零。
 \end{solution}
 \begin{solution}{ftc-derivative-lone-limit}
 对每个 \(x\)，
@@ -32,8 +33,14 @@ Lipschitz 常数恰等于 \(\|F'\|_\infty\)。
 \end{solution}
 \begin{solution}{ftc-ac-norm-complete}
 正定性由重构式，其他范数性质直接成立。若 \(F_n\) 为 Cauchy 列，
-则端点值在 \(\R\) 中收敛，导数在完备的 \(L^1\) 中收敛到 \(g\)。
-上一题的极限 \(F=c+\int g\) 满足 \(F'=g\) 几乎处处，故在所给范数下收敛。
+则端点值在 \(\R\) 中收敛到某个 \(c\)，导数在完备的 \(L^1\) 中收敛到 \(g\)。
+令 \(F(x)=c+\int_a^xg(t)\,dt\)。由本章基本定理，\(F\in AC[a,b]\)，
+\(F(a)=c\)，且 \(F'=g\) 几乎处处，因而
+\[
+ |F_n(a)-F(a)|+\|F_n'-F'\|_1
+ =|F_n(a)-c|+\|F_n'-g\|_1\longrightarrow0.
+\]
+这证明极限确实在该空间中，并在所给范数下收敛。
 \end{solution}
 \begin{solution}{ftc-reciprocal-ac}
 在 \(|u|,|v|\ge\eta\) 的值域上，

@@ -47,7 +47,7 @@
 还不足以应用压缩映射原理。
 
 Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 \(L\)，
-归纳可得
+且 \(T\) 是自映射，则对 \(n\ge1\) 归纳可得
 \[
  d(T^nx,T^ny)\le L^n d(x,y).
 \]
@@ -80,7 +80,7 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 \end{theorem}
 
 \begin{proof}
-任取 \(x_0\in X\)，令 \(x_{n+1}=T(x_n)\)。相邻项之间有
+任取 \(x_0\in X\)，令 \(x_{n+1}=T(x_n)\)。对 \(n\ge1\)，相邻项之间有
 \[
  d(x_{n+1},x_n)
  =d(Tx_n,Tx_{n-1})
@@ -91,6 +91,8 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 \label{eq:contraction-successive-step}
  d(x_{n+1},x_n)\le q^n d(x_1,x_0).
 \end{equation}
+这里及以下的整数幂约定 \(q^0=1\)，也包括 \(q=0\)。当 \(q=0\) 时，
+\(T\) 为常映射，\(x_1\) 就是不动点，此后轨道恒定，各项估计仍成立。
 若 \(m>n\)，三角不等式和几何级数给出
 \begin{equation}
 \label{eq:contraction-cauchy-tail}
@@ -207,7 +209,7 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 
 \begin{theorem}[压缩映射的扰动估计]
 \label{thm:contraction-perturbation}
-设 \(X\) 完备，\(T,S:X\to X\) 均为压缩映射，其中 \(T\) 的一个压缩
+设 \(X\) 非空且完备，\(T,S:X\to X\) 均为压缩映射，其中 \(T\) 的一个压缩
 常数为 \(q<1\)。设其不动点分别为 \(x_T,x_S\)。若存在
 \(\eta\ge0\)，使
 \[
@@ -253,9 +255,10 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 
 \begin{proposition}[一元压缩迭代]
 \label{prop:scalar-contraction-iteration}
-设 \(I=[a,b]\)，函数 \(\varphi:I\to I\) 可导，并满足
+设 \(a<b\)、\(I=[a,b]\)，函数 \(\varphi:I\to I\) 连续且在
+\((a,b)\) 可导，并满足
 \[
- \sup_{x\in I}|\varphi'(x)|\le q<1.
+ \sup_{a<x<b}|\varphi'(x)|\le q<1.
 \]
 则方程 \(x=\varphi(x)\) 在 \(I\) 中有唯一解 \(\alpha\)，且对任意
 \(x_0\in I\)，递推
@@ -288,7 +291,7 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 
 \begin{theorem}[带导数界的求根迭代]
 \label{thm:monotone-root-contraction}
-设 \(F\in C^1([a,b])\)，并且存在常数 \(0<m\le M\)，使
+设 \(a<b\)、\(F\in C^1([a,b])\)，并且存在常数 \(0<m\le M\)，使
 \[
  m\le F'(x)\le M\qquad(a\le x\le b).
 \]
@@ -312,10 +315,10 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 \]
 故 \(T\) 单调且满足压缩估计。
 
-由中值定理，存在 \(\xi,\eta\in(a,b)\)，使
+若 \(r>a\)，在 \([a,r]\) 上用中值定理；若 \(r=a\)，下列第一个不等式
+两边均为零。同理处理 \(r<b\) 与 \(r=b\)，得到
 \[
- -F(a)=F'(\xi)(r-a)\le M(r-a),\qquad
- F(b)=F'(\eta)(b-r)\le M(b-r).
+ -F(a)\le M(r-a),\qquad F(b)\le M(b-r).
 \]
 于是
 \[
@@ -356,12 +359,15 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 给出全程有效的几何误差界；若进一步利用迭代公式的特殊代数结构，还可得到
 更快的二次误差估计。
 
-在线性空间中，设 \(E\) 是有限维赋范空间，线性算子 \(A:E\to E\)
-的算子范数
+在线性空间中，设 \(E\) 是非零有限维实赋范空间。选择一组基，便可将
+其范数拉回 \(\R^n\)；有限维范数等价和坐标完备性说明 \(E\) 完备。
+同样，由矩阵的坐标估计和范数等价，每个线性算子 \(A:E\to E\) 都有
+有限的算子范数。设其算子范数
 \[
  \|A\|:=\sup_{x\ne0}\frac{\|Ax\|}{\|x\|}
 \]
-满足 \(\|A\|\le q<1\)。对任意 \(b\in E\)，仿射映射
+满足 \(\|A\|\le q<1\)。对零空间，约定唯一算子的范数为零，以下结论也成立。
+对任意 \(b\in E\)，仿射映射
 \[
  T(x)=Ax+b
 \]
@@ -378,7 +384,7 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
 
 \subsection{含参数的不动点}
 
-设参数空间为 \((\Lambda,\rho)\)，每个 \(\lambda\in\Lambda\) 对应
+设 \(X\) 是非空完备度量空间，参数空间为 \((\Lambda,\rho)\)，每个 \(\lambda\in\Lambda\) 对应
 压缩映射 \(T_\lambda:X\to X\)。若所有映射共享同一个 \(q<1\)，
 则 \eqref{eq:parametric-fixed-point-bound} 把映射随参数的变化直接传给
 不动点。共同压缩常数不可由
@@ -467,7 +473,8 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
  \]
  由此给出 \(\varepsilon_n\to0\) 时 \(x_n\to x^\ast\) 的证明。
  \exerciseitem{fixed-point-of-contractive-iterate}
- 设 \(X\) 完备，\(T:X\to X\) 为映射，且某个 \(T^m\) 是压缩映射。
+ 设 \(X\) 非空且完备，\(T:X\to X\) 为映射，且对某个正整数 \(m\)，
+ \(T^m\) 是压缩映射。
  证明 \(T\) 有唯一不动点，并且每条 \(T\)-迭代轨道都收敛到该点。
 \end{enumerate}
 
@@ -491,7 +498,8 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
  \]
  说明误差比几何估计所显示的还要快。
  \exerciseitem{parameter-dependent-fixed-points}
- 设 \(T_\lambda:X\to X\) 共享压缩常数 \(q<1\)，且
+ 设 \(X\) 为非空完备度量空间，\((\Lambda,\rho)\) 为参数度量空间。
+ 映射 \(T_\lambda:X\to X\) 共享压缩常数 \(q<1\)，且
  \[
   d(T_\lambda x,T_\mu x)\le L\rho(\lambda,\mu).
  \]
@@ -507,7 +515,8 @@ Lipschitz 映射一致连续，因而连续。若 \(T\) 的 Lipschitz 常数为 
  \(\max_{\mu\in[m,M]}|1-\lambda\mu|\) 最小的 \(\lambda>0\)，并求该
  最小压缩常数。
  \exerciseitem{linear-data-stability}
- 设 \(\|A\|\le q<1\)，\(x_b\) 是 \((I-A)x=b\) 的解。证明
+ 设 \(A\) 是有限维实赋范空间 \(E\) 上的线性算子，\(\|A\|\le q<1\)，
+ \(x_b\) 是 \((I-A)x=b\) 的解。证明
  \[
   \|x_b-x_c\|\le\frac{\|b-c\|}{1-q},
  \]

@@ -9,19 +9,25 @@
 \]
 两边恰好取等。因此任何对所有函数成立的常数不能小于
 \(\mu(X)^{1/p-1/q}\)。
+若 \(q=\infty\)，则 \(\|f\|_\infty=|c|\)，仍由同一常函数取等；
+这里使用 \(1/\infty=0\)。
 \end{solution}
 
 \begin{solution}{finite-lp-strict}
-取 \(f(x)=x^{-\alpha}\)，其中
+先设 \(q<\infty\)。取 \(f(x)=x^{-\alpha}\)，其中
 \(1/q\le\alpha<1/p\)。因为
 \[
  \int_0^1x^{-\alpha r}\,dx<\infty
 \quad\Longleftrightarrow\quad \alpha r<1,
 \]
 故 \(f\in L^p(0,1)\)，而 \(f\notin L^q(0,1)\)。
+若 \(q=\infty\)，取 \(0<\alpha<1/p\)。其 \(p\) 次积分为
+\(1/(1-\alpha p)<\infty\)，而对每个 \(M>1\)，
+\(\{f>M\}=(0,M^{-1/\alpha})\) 有正测度，故不属于 \(L^\infty\)。
 \end{solution}
 
 \begin{solution}{infinite-no-inclusion}
+下面的函数只在指定的正半轴区间内计算幂，其他点取零。
 取 \(1/q<\alpha\le1/p\)，则
 \[
  f(x)=x^{-\alpha}\mathbf1_{(1,\infty)}
@@ -68,13 +74,19 @@ Dirichlet 函数只在可数集上取 \(1\)，故本质上等于零，
  m,n\ge N_k\Longrightarrow
  \|f_m-f_n\|_\infty<2^{-k}.
 \]
-删去所有 \(k,m,n\) 对应的零测例外集后，在同一个满测集上
-\(|f_m(x)-f_n(x)|<2^{-k}\)。于是 \(f_n(x)\) 一致 Cauchy，逐点极限
-\(f\) 满足
+各 \(k\ge1\)、\(m,n\ge N_k\) 对应的集合
+\(\{|f_m-f_n|\ge2^{-k}\}\) 都是可测零集：因本质范数严格小于此阈值，
+可先选一个更小的几乎处处上界。将这些集合及
+\(\{|f_{N_1}|>\|f_{N_1}\|_\infty\}\) 作可数并，记为 \(Z\)。
+在 \(X\setminus Z\) 上整列一致 Cauchy，故逐点存在有限极限。
+定义该极限为 \(f\)，在 \(Z\) 上置零。它是
+\(f_n\mathbf1_{X\setminus Z}\) 的点态极限，故可测，且满足
 \[
  \|f_n-f\|_\infty\le2^{-k}\quad(n\ge N_k).
 \]
-取某个 \(f_{N_k}\in L^\infty\) 还知 \(f\in L^\infty\)。
+取 \(k=1\) 得 \(|f|\le\|f_{N_1}\|_\infty+1/2\) 几乎处处，
+故 \(f\in L^\infty\)。再令 \(k\to\infty\)，得到原列在本质上确界范数下
+收敛。整个论证只在可测零集上补零，不要求测度空间完备。
 \end{solution}
 
 \begin{solution}{lp-limit-characteristic}
@@ -89,12 +101,17 @@ Dirichlet 函数只在可数集上取 \(1\)，故本质上等于零，
 \end{solution}
 
 \begin{solution}{lp-limit-unbounded}
-在 \((0,1)\) 上取 \(f(x)=|\log x|\)。变量代换 \(u=-\log x\) 给
+在 \((0,1)\) 上取 \(f(x)=|\log x|\)。先在
+\([e^{-R},e^{-\delta}]\)（\(0<\delta<R\)）上使用经典积分换元
+\(u=-\log x\)，再令 \(R\uparrow\infty,\delta\downarrow0\)，
+由单调收敛及连续函数的两种积分一致性得到
 \[
  \int_0^1|\log x|^p\,dx=\int_0^\infty u^pe^{-u}\,du<\infty
 \]
-对每个有限 \(p\) 成立。但 \(f\) 在任意原点邻域无界，故不属于
-\(L^\infty\)。若 \(\|f\|_p\) 不趋于无穷，则存在趋于无穷的指数序列上
+对每个 \(0<p<\infty\) 成立：原点附近 \(u^p\) 可积，无穷远处
+\(u^pe^{-u}\le e^{-u/2}\) 最终成立。
+对每个 \(M>0\)，\(\{f>M\}=(0,e^{-M})\) 的测度为 \(e^{-M}>0\)，
+所以 \(f\notin L^\infty\)。若 \(\|f\|_p\) 不趋于无穷，则存在趋于无穷的指数序列上
 范数有界。因为 \((0,1)\) 的测度为 \(1\)，有限测度包含估计说明
 \(p\mapsto\|f\|_p\) 单调不减；所以该子列的有界性推出所有充分大的 \(p\)
 上的范数一致有界。定理 \ref{thm:lp-limit-linfty} 的第二部分于是推出
@@ -102,19 +119,33 @@ Dirichlet 函数只在可数集上取 \(1\)，故本质上等于零，
 \end{solution}
 
 \begin{solution}{local-lp-singularity}
-原点附近用极坐标：
+先在环域 \(\rho<|x|<R\)（\(0<\rho<R<\infty\)）上计算。
+被积函数连续有界，环域边界零测。把函数在包含环域的矩形内延拓为零，
+用矩形分割的下、上阶梯函数夹住它，其 Lebesgue 积分分别就是 Darboux
+下、上和；两和之差趋零，便得到这里两种积分的一致性。
+因此可以先用经典多重积分的极坐标换元，得到
+\[
+ \int_{\rho<|x|<R}|x|^{-\alpha p}\,dx
+ =C_n\int_\rho^R r^{n-1-\alpha p}\,dr,
+\]
+其中 \(C_n>0\) 是单位球面的面积（\(n=1\) 时 \(C_1=2\)，
+公式直接由正负两个区间相加得到）。取 \(R=1\) 并令 \(\rho\downarrow0\)，
+使用非负函数的单调收敛，得
 \[
  \int_{|x|<1}|x|^{-\alpha p}\,dx
  =C_n\int_0^1r^{n-1-\alpha p}\,dr,
 \]
 当且仅当 \(\alpha p<n\) 收敛。因此
 \(|x|^{-\alpha}\in L^p_{\rm loc}\) 恰在 \(\alpha p<n\)（若只在
-\(\mathbb R^n\setminus\{0\}\) 局部则无此限制）。无穷远处积分
+\(\mathbb R^n\setminus\{0\}\) 局部则无此限制）。另取 \(\rho=1\) 并令
+\(R\uparrow\infty\)，同一单调收敛论证给出无穷远处积分
 \(\int_1^\infty r^{n-1-\alpha p}dr\) 当且仅当 \(\alpha p>n\) 收敛。
 \end{solution}
 
 \begin{solution}{log-convex-lp-norms}
-令
+若 \(\theta=0\) 或 \(1\)，结论为端点恒等式。以下设 \(0<\theta<1\)。
+若某个端点范数为零，\(f=0\) 几乎处处，结论成立。其余情形端点范数为正。
+先设 \(p_1<\infty\)，令
 \[
  a=\frac{(1-\theta)p_\theta}{p_0},\qquad
  b=\frac{\theta p_\theta}{p_1};
@@ -131,6 +162,14 @@ Dirichlet 函数只在可数集上取 \(1\)，故本质上等于零，
      \left(\int|f|^{p_1}\right)^b.
 \]
 取 \(p_\theta\) 次根即得所求。
+若 \(p_1=\infty\)，则 \(p_\theta=p_0/(1-\theta)<\infty\)，故
+\[
+ \int|f|^{p_\theta}
+ \le\|f\|_\infty^{p_\theta-p_0}\int|f|^{p_0}.
+\]
+取 \(p_\theta\) 次根并用 \(p_0/p_\theta=1-\theta\)，即得
+\(\|f\|_{p_\theta}\le\|f\|_{p_0}^{1-\theta}\|f\|_\infty^\theta\)。
+两种证明中的右侧均有限，也同时确认了 \(f\in L^{p_\theta}\)。
 \end{solution}
 
 \begin{solution}{lp-membership-phase-diagram}
@@ -150,4 +189,29 @@ Dirichlet 函数只在可数集上取 \(1\)，故本质上等于零，
 两条严格不等式同时成立时属于 \(L^p(\mathbb R^n)\)；等号情形产生
 \(\int dr/r\) 的对数发散。若 \(\alpha\) 或 \(\beta\) 为负，同一渐近
 计算仍适用。
+
+固定 \(p>0\)，记 \(a=n/p\)。可积参数恰为开区域
+\[
+ \{(\alpha,\beta):\alpha<a,\ \beta>a-\alpha\}.
+\]
+它位于竖线 \(\alpha=a\) 左侧、斜线 \(\beta=a-\alpha\) 上方；
+两条边界均不包含。下图画出该区域在坐标窗口中的部分，阴影向上及左上方延伸。
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm]
+ \fill[gray!18] (-1.5,3.5)--(1.5,3.5)--(1.5,0)--(-1.5,3)--cycle;
+ \draw[->] (-1.8,0)--(3.2,0) node[right] {\(\alpha\)};
+ \draw[->] (0,-0.8)--(0,3.8) node[above] {\(\beta\)};
+ \draw[dashed] (1.5,-0.6)--(1.5,3.5);
+ \draw[dashed] (-1.5,3)--(2.1,-0.6);
+ \node[below left] at (0,0) {\(0\)};
+ \node[below right] at (1.5,0) {\(a\)};
+ \node[left] at (0,1.5) {\(a\)};
+ \node at (0.55,2.9) {可积};
+ \node[right] at (1.5,3.25) {\(\alpha=a\)};
+ \node[right] at (2.05,-0.45) {\(\beta=a-\alpha\)};
+\end{tikzpicture}
+\end{center}
+这里 \(a>0\) 只是示意比例；对所有 \(p>0\) 取这些截面，即得到题目所求的
+三参数区域。原点取零不会改变积分。
 \end{solution}

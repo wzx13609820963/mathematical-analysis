@@ -9,7 +9,7 @@
 
 \section{五种完备性命题}
 
-设 \(F\) 为有序域。绝对值、数列收敛、子列和 Cauchy 列均按前几章的定义理解。考虑以下命题：
+设 \(F\) 为有序域。绝对值、数列收敛、子列和 Cauchy 列均按前几章的定义理解，其中精度 \(\varepsilon\) 遍历 \(F\) 的全部正元素，极限也要求属于 \(F\)。自然数通过重复相加单位元嵌入 \(F\)。考虑以下命题：
 \begin{description}[style=nextline,leftmargin=3em]
  \item[(S) 确界原理] 每个非空且有上界的集合 \(A\subseteq F\) 都有上确界。
  \item[(M) 单调有界收敛] 每个单调递增且有上界的 \(F\)-值数列都收敛；递减情形对称。
@@ -205,7 +205,9 @@ Archimedes 性质使右端趋于零。若 \(m\ge n\)，嵌套性给出
 数 \(s-1\) 不是上界，故存在 \(n\in\Npos\) 使 \(n>s-1\)。于是 \(n+1>s\)，但 \(n+1\in\Npos\)，这与 \(s\) 是上界矛盾。因此正整数集合无上界：对每个 \(x\in F\)，总有 \(n\in\Npos\) 满足 \(n>x\)。
 \end{proof}
 
-反向从序列形式重建确界时，Archimedes 性质不能隐去。二分法所依赖的事实是
+从 (C) 或 (N) 出发使用本章的二分法时，需要另有 Archimedes 性质；仅把它们的表述写出，尚不能直接使用任意精度的二分估计。另一方面，(M) 和 (B) 本身已经蕴含 (A)。事实上，若正整数列 \((n)\) 有界，则 (M) 使它收敛；收敛列为 Cauchy 列，却有相邻差恒为 \(1\)，矛盾。若假设 (B)，则它有收敛子列；该子列的任意两个不同项距离至少为 \(1\)，同样不可能是 Cauchy 列。因此在从 (M) 或 (B) 出发时，(A) 可先由假设推出，无须独立添加。
+
+二分法所依赖的具体估计是
 \[
  2^{-n}(u_0-l_0)\longrightarrow0.
 \]
@@ -247,6 +249,8 @@ Archimedes 性质使右端趋于零。若 \(m\ge n\)，嵌套性给出
 \section*{习题}
 \addcontentsline{toc}{section}{习题}
 
+除题目另行指定有序域外，以下数列、集合及区间均在 \(\R\) 中考虑。
+
 \subsection*{A组　定义与基本方法}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
  \exerciseitem{6.1} 从定义证明收敛数列是 Cauchy 列。
@@ -283,7 +287,7 @@ Archimedes 性质使右端趋于零。若 \(m\ge n\)，嵌套性给出
  \exerciseitem{6.21} 证明若 \((a_n)\) 是 Cauchy 列且有子列趋于 \(+\infty\)，则产生矛盾；说明 Cauchy 列不能有不同的扩充实子列极限。
  \exerciseitem{6.22} 只用单调有界收敛与 Archimedes 性质重建确界原理。
  \exerciseitem{6.23} 证明若每个长度趋零的闭区间套交集非空，则交集自动为单点；据此区分“存在性”与“唯一性”的条件来源。
- \optionalexerciseitem{6.24} 给出从 (C) 直接推出 (B) 的证明方案，避免先使用确界原理；可先构造 Cauchy 子列。
+ \optionalexerciseitem{6.24} 在 Archimedes 有序域中，给出从 (C) 直接推出 (B) 的证明，避免先使用确界原理；可先构造 Cauchy 子列。
  \projectexerciseitem{6.25} \ 【前置：本章全部内容；预计用时：120分钟】为依赖图中每条箭头写一份条件清单和反例清单，确保不循环引用等价命题。
  \optionalexerciseitem{6.26} 设 \(A\subseteq\R\) 非空且有上界，\(s\in\R\)。证明：\(s=\sup A\) 当且仅当 \(s\) 是 \(A\) 的上界，并且存在 \(a_n\in A\) 使 \(a_n\to s\)。
 \end{enumerate}

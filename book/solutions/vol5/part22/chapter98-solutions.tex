@@ -245,8 +245,8 @@ Jacobi 公式给出
 
 \begin{solution}{manifold-partition-glue-functions}
 先把 \(\rho_i f_i\) 在 \(U_i\) 外定义为零。由于
-\(\operatorname{supp}\rho_i\subset U_i\)，每一点若在 \(U_i\) 的边界
-附近，则有一个邻域不遇到 \(\operatorname{supp}\rho_i\)；所以补零函数
+\(\operatorname{supp}\rho_i\) 是闭集且包含于 $U_i$，对 $U_i$ 外的每一点
+（包括边界点），都有一个邻域不遇到这个支集；所以补零函数
 仍然光滑。单位分解局部有限，因此
 \[
  f=\sum_i\rho_i f_i
@@ -255,8 +255,8 @@ Jacobi 公式给出
 
 它一般只是局部函数的加权平均。若两个重叠开集上分别取常函数
 \(f_1=0\)、\(f_2=1\)，并且某点满足 \(0<\rho_2<1\)，则该点有
-\(f=\rho_2\)，既不等于 \(f_1\) 也不等于 \(f_2\)。只有各局部函数在
-重叠处相等时，单位分解粘合才恢复它们共同定义的函数。
+\(f=\rho_2\)，既不等于 \(f_1\) 也不等于 \(f_2\)。若各局部函数在
+重叠处相等，单位分解粘合就恢复它们共同定义的函数；这是一项充分条件。
 \end{solution}
 
 \begin{solution}{manifold-compact-embedding-reconstruction}

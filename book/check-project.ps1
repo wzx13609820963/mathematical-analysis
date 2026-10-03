@@ -70,7 +70,7 @@ Add-Matches $bodyFiles '^\s*\\item\s*(?=\\(?:mustdo|optionaldo|projectdo|opendo)
 Add-Matches $bodyFiles '\\exerciseitem\{[^}]+\}\s*\\(?:mustdo|optionaldo|projectdo|opendo)' `
     'Legacy exercise marker follows the item number' $errors
 Add-Matches $allTexFiles '[\x00-\x08\x0B\x0C\x0E-\x1F]' 'ASCII control character in TeX source (possible escaped-command corruption)' $errors
-Add-Matches $allTexFiles '\u7B2C\d+\u7AE0' 'Hard-coded chapter number' $errors
+Add-Matches $allTexFiles '\u7B2C\s*\d+(?:\s*(?:--?|[、，,及至与—–])\s*\d+)*\s*\u7AE0' 'Hard-coded chapter number' $errors
 Add-Matches $allTexFiles '\u4E60\u9898(?:II|III|[A-G]|\d+)\.\d+' 'Hard-coded exercise reference' $errors
 
 $labels = [System.Collections.Generic.List[string]]::new()
@@ -84,6 +84,25 @@ foreach ($item in ($labels | Group-Object | Where-Object Count -gt 1)) {
     $errors.Add("Duplicate body label: $($item.Name)")
 }
 
+# A matching key set does not guarantee that the answer booklet follows the
+# exercise order. Keep legacy discrepancies visible without silently reordering.
+foreach ($file in $bodyFiles | Where-Object Name -like 'chapter*.tex') {
+    $relative = $file.FullName.Substring((Join-Path $bookRoot 'chapters').Length).TrimStart('\')
+    $answerRelative = $relative -replace '\.tex$', '-solutions.tex'
+    $answerPath = Join-Path (Join-Path $bookRoot 'solutions') $answerRelative
+    if (-not (Test-Path -LiteralPath $answerPath)) {
+        $errors.Add("Missing chapter solution file: $answerRelative")
+        continue
+    }
+    $bodyText = [System.IO.File]::ReadAllText($file.FullName)
+    $answerText = [System.IO.File]::ReadAllText($answerPath)
+    $orderedExercises = @([regex]::Matches($bodyText, '\\(?:exerciseitem|optionalexerciseitem|projectexerciseitem|openexerciseitem)\{([^}]+)\}') | ForEach-Object { $_.Groups[1].Value })
+    $orderedAnswers = @([regex]::Matches($answerText, '\\begin\{solution\}\{([^}]+)\}') | ForEach-Object { $_.Groups[1].Value })
+    if (($orderedExercises -join "`n") -cne ($orderedAnswers -join "`n")) {
+        $warnings.Add("Exercise/solution order differs: $relative; inspect before reordering.")
+    }
+}
+
 $requiredRegisters = 'docs\NOTATION.md', 'docs\TERMINOLOGY.md', 'docs\DEPENDENCIES.md'
 foreach ($relative in $requiredRegisters) {
     if (-not (Test-Path -LiteralPath (Join-Path $repositoryRoot $relative))) {
@@ -95,7 +114,7 @@ Write-Host "Checked $($bodyFiles.Count) body files and $($solutionFiles.Count) s
 Write-Host "Exercise labels: $($exerciseKeys.Count); solution entries: $($solutionKeys.Count)."
 foreach ($warning in $warnings) { Write-Warning $warning }
 if ($errors.Count -gt 0) {
-    foreach ($errorMessage in $errors) { Write-Error $errorMessage }
+    foreach ($errorMessage in $errors) { Write-Error $errorMessage -ErrorAction Continue }
     throw "Project consistency check failed with $($errors.Count) error(s)."
 }
 Write-Host 'Project consistency check passed.'

@@ -111,6 +111,10 @@ Liouville 定理使 \(e^f\) 为常数。求导得 \(e^ff'=0\)，而指数从不�
  \max_{\overline D}|f|=\max_{\partial D}|f|.
 \]
 若 \(f\) 为常数，同一等式仍成立，只是“最大值只能在边界”不再成立。
+这里有界非空域的边界非空，故边界最大值有意义。若不要求连通，
+取两个闭包不交的圆盘，在第一圆盘及其边界上取值一，在第二圆盘及其边界上取值零。
+所得函数在闭包连续、在开集全纯且整体非常数，但第一圆盘的所有内点都是
+模的最大点。因此关于最大点位置的断言确实需要连通性。
 \end{solution}
 
 \begin{solution}{minimum-modulus-condition}
@@ -137,17 +141,19 @@ Liouville 定理使 \(e^f\) 为常数。求导得 \(e^ff'=0\)，而指数从不�
 每个 \(f_n\) 全纯，所以其边界积分为零，因而
 \(\int_{\partial T}f\,dz=0\)。Morera 定理给 \(f\) 全纯。
 
-再取紧集 \(K\Subset D\)，令
-\(d=\operatorname{dist}(K,\C\setminus D)>0\)，并在每个 \(z\in K\)
-周围取半径 \(d/2\) 的圆。Cauchy 导数公式给
+再取非空紧集 \(K\Subset D\)。若 \(D\ne\C\)，令
+\(d=\operatorname{dist}(K,\C\setminus D)>0\)，取 \(r=\min(1,d/2)\)；
+若 \(D=\C\)，取 \(r=1\)。这样 \(r\) 总是有限正数，且
+\(K_r=\{\zeta:\operatorname{dist}(\zeta,K)\le r\}\) 为包含于 \(D\) 的紧集。
+在每个 \(z\in K\) 周围取半径 \(r\) 的圆。Cauchy 导数公式给
 \[
  |f_n^{(k)}(z)-f^{(k)}(z)|
- \le \frac{k!}{(d/2)^k}
- \max_{|\zeta-z|=d/2}|f_n(\zeta)-f(\zeta)|.
+ \le \frac{k!}{r^k}
+ \max_{|\zeta-z|=r}|f_n(\zeta)-f(\zeta)|.
 \]
-这些圆周都落在紧集
-\(\{\zeta:\operatorname{dist}(\zeta,K)\le d/2\}\Subset D\)，右端一致
-趋零，所以 \(f_n^{(k)}\to f^{(k)}\) 在 \(K\) 上一致。
+这些圆周都落在固定紧集 \(K_r\) 内，右端由
+\(k!r^{-k}\max_{K_r}|f_n-f|\) 控制并趋零，所以
+\(f_n^{(k)}\to f^{(k)}\) 在 \(K\) 上一致。空紧集没有需要检验的点。
 \end{solution}
 
 \begin{solution}{cauchy-derivative-distance}
@@ -156,8 +162,10 @@ Liouville 定理使 \(e^f\) 为常数。求导得 \(e^ff'=0\)，而指数从不�
 \[
  |f^{(n)}(z)|\le\frac{n!M}{r^n}.
 \]
-令 \(r\uparrow d\) 得题中估计。对一般开集，把
-\(d(z,\partial D)\) 理解为到补集的距离；当 \(D=\C\) 时补集为空，可约定
+令 \(r\uparrow d\) 得题中估计。当 \(D\ne\C\) 时，内部点到边界的距离
+等于到补集的距离：最近补集点存在，若它不在边界，从 \(z\) 连向它的线段
+会先遇边界，给出更近的补集点，矛盾。域是否有界不影响这个论证。
+当 \(D=\C\) 时补集和边界均为空，可约定
 \(d=\infty\)。这时对 \(n\ge1\) 令任意圆半径趋于无穷，得到
 \(f^{(n)}(z)=0\)，与 Liouville 定理一致。
 \end{solution}

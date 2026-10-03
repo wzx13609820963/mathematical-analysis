@@ -2,8 +2,12 @@
 \label{chap:holomorphic-functions-solutions}
 
 \begin{solution}{complex-spherical-convergence}
-若 \(z_n\to\infty\)，则对每个 \(M>0\)，最终有 \(|z_n|>M\)，因而
-\(|1/z_n|<1/M\)，所以 \(1/z_n\to0\)。逆向完全相同。又
+按倒数约定，直接代入弦距离公式可得
+\[
+ \chi(1/z,0)=\chi(z,\infty)\qquad(z\in\widehat{\C}).
+\]
+这在 \(z=0,\infty\) 时分别是两边等于一、两边等于零。因此所述两种
+收敛等价，也包括序列反复取无穷值的情形。对于有限 \(z\)，又有
 
 \[
  \chi(z,\infty)<\varepsilon
@@ -11,9 +15,9 @@
  \iff |z|>\sqrt{\varepsilon^{-2}-1}
 \]
 
-对 \(0<\varepsilon<1\) 成立。因此弦距离球
-\(B_\chi(\infty,\varepsilon)\) 恰含一个通常意义的圆外区域，也被另一个
-圆外区域包含；两类集合生成同一组 \(\infty\) 邻域。
+对 \(0<\varepsilon<1\) 成立。加上球心 \(\infty\) 后，弦距离球恰等于
+正文中的一个无穷点基本邻域；随着 \(\varepsilon\downarrow0\)，圆外半径
+趋于无穷，两种邻域定义一致。
 \end{solution}
 
 \begin{solution}{complex-limit-components}

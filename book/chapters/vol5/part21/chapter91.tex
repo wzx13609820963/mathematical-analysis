@@ -21,7 +21,7 @@
  \int_{\gamma_1*\gamma_2}f\,dz
  =\int_{\gamma_1}f\,dz+\int_{\gamma_2}f\,dz.
 \]
-若 \(\phi:[c,d]\to[a,b]\) 是保持方向的分片 \(C^1\) 重参数化，一元变量
+若 \(\phi:[c,d]\to[a,b]\) 是连续、严格递增、满射的分片 \(C^1\) 重参数化，一元变量
 代换给
 \[
  \int_{\gamma\circ\phi}f\,dz=\int_\gamma f\,dz.
@@ -57,7 +57,8 @@
 
 \begin{theorem}[曲线积分基本定理]
 \label{thm:complex-line-integral-fundamental}
-若 \(F'=f\) 于域 \(D\)，而 \(\gamma:[a,b]\to D\) 分片 \(C^1\)，则
+若连续函数 \(f\) 在域 \(D\) 有原函数 \(F\)，而
+\(\gamma:[a,b]\to D\) 分片 \(C^1\)，则
 \[
  \int_\gamma f(z)\,dz=F(\gamma(b))-F(\gamma(a)).
 \]
@@ -68,7 +69,8 @@
 \[
  \frac d{dt}F(\gamma(t))=F'(\gamma(t))\gamma'(t).
 \]
-逐段使用一元 Newton--Leibniz 公式，内部端点相消。
+右侧逐段连续，故可使用一元 Newton--Leibniz 公式，内部端点相消。
+这里显式要求 \(f\) 连续，尚未使用后面才证明的全纯导函数连续性。
 \end{proof}
 
 \begin{theorem}[原函数判据]
@@ -87,7 +89,11 @@
 \[
  F(z)=\int_{z_*}^{z}f(\zeta)\,d\zeta.
 \]
-开连通集道路连通，而道路无关性保证定义良好。若从 \(z\) 到 \(z+h\) 的
+这里可选有限折线路径。事实上，从 \(z_*\) 可用域内有限折线到达的点组成
+非空集合 \(E\)；每一点附近取包含在 \(D\) 的小圆盘，并以线段连接，可知
+\(E\) 在 \(D\) 中开。若一个这样的圆盘遇到 \(E\)，整个圆盘都在 \(E\) 中，
+故 \(D\setminus E\) 也开。由连通性 \(E=D\)。道路无关性遂保证定义良好。
+若从 \(z\) 到 \(z+h\) 的
 线段位于 \(D\)，则
 \[
  \frac{F(z+h)-F(z)}h=\int_0^1f(z+th)\,dt\longrightarrow f(z).
@@ -189,6 +195,8 @@
  \int_{\gamma_0}f(z)\,dz=\int_{\gamma_1}f(z)\,dz.
 \]
 特别地，零伦闭曲线上的积分为零。
+结论也适用于闭曲线的自由同伦：把固定端点条件换成
+\(H(s,0)=H(s,1)\)，允许共同端点随 \(s\) 移动。
 \end{theorem}
 
 \begin{proof}
@@ -205,7 +213,8 @@
 线段是某个小矩形的一条边，它的两个端点都在包含该小矩形像的圆盘内；圆盘
 凸，故整条线段也在其中。每个小矩形的四条弦因而落在一个有原函数的圆盘内，
 沿其有向边界的四个积分之和为零。对所有小矩形求和，内部弦方向相反而抵消；
-\(t=0\) 与 \(t=1\) 上的端点固定，相应的弦是常值曲线，也没有贡献。因此
+\(t=0\) 与 \(t=1\) 上的端点固定时，相应的弦是常值曲线，没有贡献。
+自由闭曲线同伦时，两侧的对应顶点相同，因此对应弦相同而方向相反，仍相消。因此
 只剩 \(s=0\) 和 \(s=1\) 两条边界折线，且方向相反。
 
 还须把边界折线与原来的 \(\gamma_0,\gamma_1\) 比较。每个小区间上的原曲线
@@ -283,10 +292,11 @@
 \[
  P=\sum_\mu n_\mu\partial\Delta_\mu
 \]
-作为有向线段链成立。
+作为有向线段链成立，其中把线段分割成有限小段不改变所表示的链。
 \end{lemma}
 
 \begin{proof}
+退化为点的线段表示零链，可以删去；若没有其余线段，结论即成立。
 先在所有自交点和重合线段的端点处分割 \(P\)，把它看成有限平面直线图上
 带整数重数的有向边链。令
 \[
@@ -302,15 +312,21 @@
  \{z:\operatorname{dist}(z,K)\le\delta\}\subset D.
 \]
 
-取包含 \(K\) 于内部的大正方形，在其中叠加网格宽小于
-\(\delta/3\) 的方格线以及 \(P\) 的全部线段。在所有交点处分割各边。若某个
-面有多个边界分支，就先在该面内添加有限条互不相交的连接线，把它切成简单
-多边形，再逐个三角剖分。所有新增线段都可取在同一方格内。这样得到一个有限
-三角剖分，它以 \(P\) 的每条分割边为边，并且每个三角形的直径小于
-\(\sqrt2\,\delta/3<\delta\)。
+取包含 \(K\) 于内部的大正方形 \(Q\)，令
+\(d_0=\operatorname{dist}(K,\partial Q)>0\)。叠加网宽
+\(h<\min(\delta,d_0)/3\) 的方格线，并把 \(P\) 中每条非退化线段所在的
+整条直线也加入，只保留这些直线在 \(Q\) 内的部分。有限条直线把 \(Q\)
+切成有限个凸多边形：每个面是若干开半平面及正方形内部的交。
+它们各自位于一个方格内，直径不超过 \(\sqrt2h\)。
+
+在全部直线交点及原链线段的端点处分割各边。对每个凸多边形选一个内点，
+将它与按边界顺序排列的全部分点连接。即使边界上若干相邻分点共线，
+每个边界小线段与内点仍组成非退化三角形。各面共用同一套边界分点，
+所以这些三角形构成匹配的有限剖分；原链的每条线段都是剖分边的有限并。
+所有三角形的直径小于 \(\delta\)。此构造避免了带孔面的剖分问题。
 
 对内部不与 \(P\) 相交的每个三角形 \(\Delta\)，取内点 \(q_\Delta\)，并
-赋权
+令每个三角形的边界取逆时针正向，并赋权
 \[
  n_\Delta=\operatorname{Ind}(P,q_\Delta).
 \]
@@ -320,11 +336,18 @@
 
 考察链 \(\sum_\Delta n_\Delta\partial\Delta\)。一条不属于 \(P\) 的公共边
 两侧可以在不穿过 \(P\) 的情况下互相接近，故两侧绕数相等，该边的系数
-相消；大正方形边界邻接的三角形权为零，外边界也不留下系数。若一条边属于
+相消；邻接大正方形边界的三角形，其所有点离边界小于 \(\sqrt2h<d_0\)，
+故不遇 \(K\)，权为零，外边界也不留下系数。若一条边属于
 \(P\)，则其左、右两侧绕数之差等于 \(P\) 沿该有向边的重数。这个跳跃公式
-可在边的内点附近核对：令左右两点垂直趋向该内点，\(P\) 中不经过该小邻域
-的部分对两个绕数之差趋于零，而每条同向直线段的局部贡献之差趋于 \(1\)，
-反向线段趋于 \(-1\)。总差始终是整数，故两点充分接近时总差恰等于该边的
+可在边的内点附近直接计算。平移、旋转后，局部同向线段为
+\([-r,r]\)，左、右两点为 \(i\varepsilon,-i\varepsilon\)。它对绕数差的贡献为
+\[
+ \frac1{2\pi i}\int_{-r}^r
+ \left(\frac1{t-i\varepsilon}-\frac1{t+i\varepsilon}\right)dt
+ =\frac2\pi\arctan\frac r\varepsilon\longrightarrow1.
+\]
+离该内点有正距离的其余线段，其两项之差的积分趋零；反向副本的贡献变号，
+重合副本按整数重数相加。总差始终是整数，故两点充分接近时总差恰等于该边的
 整数重数。因此加权三角形边界在每条边上的系数恰与 \(P\) 相同。删除权为
 零的三角形便得到所需有限表示。
 \end{proof}
@@ -382,8 +405,8 @@ Goursat 定理即可。
 \addcontentsline{toc}{section}{习题}
 \subsection*{A组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
-\exerciseitem{complex-integral-reparametrization}完整证明复曲线积分在递增分片 \(C^1\) 重参数化下不变，并证明反向参数化使其变号。
-\exerciseitem{complex-ml-circle}用 \(ML\) 估计证明：若 \(f\) 在 \(a\) 连续，则 \(\int_{|z-a|=r}f(z)\,dz\to0\) 当 \(r\downarrow0\)。
+\exerciseitem{complex-integral-reparametrization}完整证明复曲线积分在连续、严格递增、满射的分片 \(C^1\) 重参数化下不变，并证明反向参数化使其变号。
+\exerciseitem{complex-ml-circle}用 \(ML\) 估计证明：若 \(f\) 在 \(a\) 的一个邻域连续，则 \(\int_{|z-a|=r}f(z)\,dz\to0\) 当 \(r\downarrow0\)。
 \exerciseitem{complex-monomial-circle-integral}计算正向圆周 \(|z|=r\) 上 \(\int z^n\,dz\)，其中 \(n\in\Z\)。
 \exerciseitem{primitive-closed-integrals}证明有原函数的连续函数沿任意闭曲线积分为零，并据此证明 \(1/z\) 在穿孔平面上没有原函数。
 \end{enumerate}
@@ -398,7 +421,7 @@ Goursat 定理即可。
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{annulus-boundary-cauchy}设 \(f\) 在闭圆环 \(r\le|z-a|\le R\) 的一个邻域全纯。证明外圆取正向、内圆取反向时两条边界积分之和为零。
-\exerciseitem{homotopy-integral-subdivision}把\theoremref{thm:cauchy-homotopy-invariance}中的网格论证写成有限求和，明确内部边和固定端点边如何消去。
+\exerciseitem{annulus-boundary-cauchy}设 \(0<r<R\)，\(f\) 在闭圆环 \(r\le|z-a|\le R\) 的一个邻域全纯。证明外圆取正向、内圆取反向时两条边界积分之和为零。
+\exerciseitem{homotopy-integral-subdivision}把\theoremref{thm:cauchy-homotopy-invariance}中的网格论证写成有限求和，明确内部边和固定端点边如何消去，并处理闭曲线自由同伦时的两条侧边。
 \optionalexerciseitem{square-chain-cauchy}补全引理~\ref{lem:planar-polygonal-chain}的证明：构造同时含有给定多边形链和细方格线的三角剖分，证明相邻面的绕数之差恰给出公共边在原链中的重数，并说明所有非零权三角形为何闭含于 \(D\)。
 \end{enumerate}

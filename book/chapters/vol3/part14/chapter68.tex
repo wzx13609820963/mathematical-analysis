@@ -9,6 +9,9 @@
 
 \section{有限测度空间}
 
+本章沿用任意测度空间 \((X,\mathcal A,\mu)\) 上实可测函数的几乎处处
+等价类；涉及欧氏空间的例子均使用 Lebesgue 测度。
+
 \begin{theorem}
 \label{thm:finite-measure-lp-inclusion}
 若 \(\mu(X)<\infty\)，且 \(0<p<q\le\infty\)，则
@@ -43,7 +46,9 @@
 \[
  \frac1q\le\alpha<\frac1p
 \]
-即可得到 \(f\in L^p\setminus L^q\)。
+即可得到 \(f\in L^p\setminus L^q\)，这里先设 \(q<\infty\)。
+若 \(q=\infty\)，改取 \(0<\alpha<1/p\)：此时每个充分高的水平集
+\((0,M^{-1/\alpha})\) 都有正测度，所以 \(f\) 不本质有界。
 
 \section{无限测度空间}
 
@@ -70,6 +75,7 @@
 \end{proposition}
 
 \begin{proof}
+以下幂函数公式只在指示的正半轴区间内计算，区间外定义为零。
 取 \(\alpha\) 满足 \(1/q<\alpha\le1/p\)。函数
 \[
  f(x)=x^{-\alpha}\mathbf1_{(1,\infty)}(x)
@@ -121,13 +127,15 @@
 \section{\texorpdfstring{\(L^\infty\)}{L-infinity}}
 
 \begin{definition}
-可测函数 \(f\) 的\term{本质上确界}为
+可测函数 \(f\) 的模的\term{本质上确界}为
 \[
  \|f\|_\infty
  =\operatorname*{ess\,sup}|f|
  =\inf\{M\ge0:|f|\le M\ \text{几乎处处}\}.
 \]
-若该数有限，则 \(f\in L^\infty(\mu)\)。
+空候选集的下确界约定为 \(+\infty\)。若该数有限，则称 \(f\) 本质有界；
+所有本质有界实可测函数按几乎处处相等取商，所得空间记为 \(L^\infty(\mu)\)。
+其元素通常仍写成 \(f\)，上述量不因更换代表而改变。
 \end{definition}
 
 普通上确界会被一个零测点上的取值改变，本质上确界不会。例如在
@@ -138,17 +146,35 @@
 \label{prop:essential-sup-levels}
 \[
  \|f\|_\infty
- =\inf\{M:\mu(|f|>M)=0\}.
+ =\inf\{M\ge0:\mu(|f|>M)=0\}.
 \]
 若 \(0<M<\|f\|_\infty\)，则 \(\mu(|f|>M)>0\)。此外
 \(L^\infty(\mu)\) 在本质上确界范数下完备。
 \end{proposition}
 
 \begin{proof}
-前两项只是定义的改写。若 \((f_n)\) 是 \(L^\infty\)-Cauchy 列，取子列
-使
-\(\|f_{n_{k+1}}-f_{n_k}\|_\infty<2^{-k}\)。删去所有相关零测例外集后，
-差分级数一致收敛，极限 \(f\) 本质有界，且
+第一式中每个非负 \(M\) 满足的条件就是 \(|f|\le M\) 几乎处处，
+所以候选集与定义相同。若 \(0<M<\|f\|_\infty\) 而超水平集零测，
+则 \(M\) 属于候选集，与下确界的性质矛盾。
+
+还须确认下确界本身给出几乎处处界。设 \(a=\|f\|_\infty<\infty\)。
+对每个 \(k\ge1\)，由下确界性质可取候选值小于 \(a+1/k\)，从而
+\(\{|f|>a+1/k\}\) 零测。取这些可测零集的并，得
+\(|f|\le a\) 几乎处处。因此 \(a=0\) 当且仅当 \(f=0\) 几乎处处；
+特别地，零测度空间上的值为零。齐次性由定义得到，而
+\[
+ |f+g|\le\|f\|_\infty+\|g\|_\infty\quad\text{几乎处处}
+\]
+同时证明加法封闭和三角不等式。故这一量在等价类空间上确为范数。
+
+若 \((f_n)\) 是 \(L^\infty\)-Cauchy 列，取有限可测代表，再选严格递增子列，
+使 \(\|f_{n_{k+1}}-f_{n_k}\|_\infty<2^{-k}\)。
+将各差分超过 \(2^{-k}\) 的可测零集与
+\(\{|f_{n_1}|>\|f_{n_1}\|_\infty\}\) 合并为一个可测零集 \(Z\)。
+在 \(X\setminus Z\) 上，差分级数一致绝对收敛；定义相应的极限 \(f\)，
+在 \(Z\) 上置零。它是 \(f_{n_k}\mathbf1_{X\setminus Z}\) 的点态极限，
+故可测，且 \(|f|\le\|f_{n_1}\|_\infty+\sum_k2^{-k}\) 几乎处处。
+所以 \(f\in L^\infty\)，并且
 \[
  \|f-f_{n_k}\|_\infty\le\sum_{j\ge k}2^{-j}\to0.
 \]
@@ -197,7 +223,8 @@
  \mu(\{|f|>a\})\le\frac{\|f\|_p^p}{a^p}
  \le\left(\frac Ca\right)^p.
 \]
-令 \(p\to\infty\)，得到该集合零测。因此 \(|f|\le C\) 几乎处处，
+令 \(p\to\infty\)，得到该集合零测。取 \(a=C+1/k\) 并作可数并，
+得 \(\{|f|>C\}\) 零测。因此 \(|f|\le C\) 几乎处处，
 即 \(f\in L^\infty\)。再应用证明的第一部分即得极限公式。
 \end{proof}
 
@@ -207,7 +234,8 @@
 
 \section{局部 \texorpdfstring{\(L^p\)}{Lp}}
 
-对 \(\mathbb R^n\) 上的可测函数，若对每个紧集 \(K\) 都有
+设 \(n\ge1\) 为整数、\(0<p<\infty\)。对 \(\mathbb R^n\) 上的可测函数，
+若对每个紧集 \(K\) 都有
 \[
  \int_K|f|^p<\infty,
 \]
@@ -216,7 +244,8 @@
 \(L^p_{\mathrm{loc}}(\mathbb R^n)\)，却不属于任何有限
 \(L^p(\mathbb R^n)\)。
 
-若 \(q>p\)，有限测度包含定理在每个紧集上给
+端点 \(L^\infty_{\mathrm{loc}}\) 则要求在每个紧集上本质有界。
+若 \(0<p<q\le\infty\)，有限测度包含定理在每个紧集上给
 \[
  L^q_{\mathrm{loc}}\subset L^p_{\mathrm{loc}}.
 \]
@@ -228,32 +257,33 @@
 \subsection*{A组　包含与反例}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
 \exerciseitem{finite-lp-inclusion-sharp}
-设 \(0<\mu(X)<\infty\)。证明有限测度包含估计中的常数
+设 \(0<\mu(X)<\infty\)、\(0<p<q\le\infty\)，约定 \(1/\infty=0\)。
+证明有限测度包含估计中的常数
 \(\mu(X)^{1/p-1/q}\) 最优。
 
 \exerciseitem{finite-lp-strict}
-在 \((0,1)\) 上对给定 \(0<p<q\) 构造
+在 \((0,1)\) 上对给定 \(0<p<q\le\infty\) 构造
 \(L^p\setminus L^q\) 中的函数，并精确计算其可积条件。
 
 \exerciseitem{infinite-no-inclusion}
-对给定 \(p<q\)，各构造一个函数分别属于
+对给定 \(0<p<q<\infty\)，各构造一个函数分别属于
 \(L^p(\mathbb R)\setminus L^q(\mathbb R)\) 和
 \(L^q(\mathbb R)\setminus L^p(\mathbb R)\)。
 
 \exerciseitem{ellp-inclusion-strict}
-证明 \(\ell^p\subsetneq\ell^q\)（\(p<q\)），并说明有限支撑序列在两边都
+证明 \(\ell^p\subsetneq\ell^q\)（\(0<p<q<\infty\)），并说明有限支撑序列在两边都
 属于哪些空间。
 
 \end{enumerate}
 \subsection*{B组　本质上确界与极限指数}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{ellp-tends-zero}
-证明每个 \(\ell^p\) 序列都趋于零，并用此给出
+设 \(0<p<\infty\)。证明每个 \(\ell^p\) 序列都趋于零，并用此给出
 \(\ell^p\subset\ell^\infty\) 及范数估计。
 
 \exerciseitem{essential-sup-examples}
-计算 Dirichlet 函数、Thomae 函数以及
-\(x^{-1/2}\mathbf1_{(0,1)}\) 的本质上确界。
+在 \([0,1]\) 上使用 Lebesgue 测度，计算 Dirichlet 函数、Thomae 函数以及
+在 \(0<x<1\) 时为 \(x^{-1/2}\)、两端点取零的函数的本质上确界。
 
 \exerciseitem{linfty-completeness-direct}
 不用快速子列，直接从 \(L^\infty\)-Cauchy 条件构造极限并证明完备性。
@@ -266,14 +296,16 @@
 \subsection*{C组　局部空间与插值}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
 \exerciseitem{lp-limit-unbounded}
-在有限测度空间上给出 \(f\in\cap_{p<\infty}L^p\) 但
+在有限测度空间上给出 \(f\in\cap_{0<p<\infty}L^p\) 但
 \(f\notin L^\infty\) 的例子，并证明 \(\|f\|_p\to\infty\)。
 
 \exerciseitem{local-lp-singularity}
-讨论 \(f(x)=|x|^{-\alpha}\) 在 \(\mathbb R^n\) 中属于
+设 \(n\ge1\) 为整数、\(0<p<\infty\)、\(\alpha\in\mathbb R\)。
+讨论 \(f(x)=|x|^{-\alpha}\)（\(x\ne0\)，原点取零）在 \(\mathbb R^n\) 中属于
 \(L^p_{\mathrm{loc}}\) 的条件，以及在无穷远处属于 \(L^p\) 的条件。
 
 \optionalexerciseitem{log-convex-lp-norms}
+设 \(0<p_0<p_1\le\infty\)、\(0\le\theta\le1\)，约定 \(1/\infty=0\)。
 若 \(f\in L^{p_0}\cap L^{p_1}\)，证明
 \[
  \|f\|_{p_\theta}
@@ -281,13 +313,14 @@
  \qquad
  \frac1{p_\theta}=\frac{1-\theta}{p_0}+\frac{\theta}{p_1}.
 \]
+当 \(\theta=0,1\) 时直接将结论理解为相应端点的恒等式，不使用 \(0^0\)。
 
 \projectexerciseitem{lp-membership-phase-diagram}
-对
+设 \(n\ge1\) 为整数、\(\alpha,\beta\in\mathbb R\)、\(0<p<\infty\)。对
 \[
  f(x)=|x|^{-\alpha}(1+|x|)^{-\beta}
-\quad(x\in\mathbb R^n)
+\quad(x\in\mathbb R^n\setminus\{0\}),\qquad f(0)=0,
 \]
-画出参数 \((\alpha,\beta,p)\) 的 \(L^p\) 可积区域，分别分析原点与
-无穷远。
+确定参数 \((\alpha,\beta,p)\) 的 \(L^p\) 可积区域，并对每个固定 \(p\)
+画出 \((\alpha,\beta)\) 平面上的截面，分别分析原点与无穷远，标明不包含的边界。
 \end{enumerate}

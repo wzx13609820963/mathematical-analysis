@@ -3,7 +3,9 @@
 \begin{solution}{lp-quotient-well-defined}
 若 \(f=f'\)、\(g=g'\) 几乎处处，则
 \(f+g=f'+g'\)、\(\alpha f=\alpha f'\) 几乎处处，所以运算与代表元
-无关。又 \(|f|^p=|f'|^p\) 几乎处处，积分相同，故范数良定义。
+无关。正文的幂次估计保证和、数乘仍属于 \(\mathcal L^p\)，故商空间上的
+运算封闭。又 \(|f|^p=|f'|^p\) 几乎处处，积分相同，故所定义的量
+与代表元无关；只有 \(p\ge1\) 时才称它为范数。
 \end{solution}
 
 \begin{solution}{young-calculus-proof}
@@ -22,7 +24,9 @@
 \end{solution}
 
 \begin{solution}{holder-equality}
-归一化后，Young 不等式逐点取等号当且仅当
+若某个范数为零，相应函数几乎处处为零，两侧都为零，恒取等号。
+以下假设两个范数均为正。归一化后，Young 不等式的非负差的积分为零
+当且仅当该差几乎处处为零。因此等号条件为
 \[
  \frac{|f|^p}{\|f\|_p^p}
  =\frac{|g|^q}{\|g\|_q^q}
@@ -95,25 +99,30 @@
 \[
  d_p(f_{n_{k+1}},f_{n_k})<2^{-k}.
 \]
-Tonelli 定理说明
+对非负部分和使用单调收敛定理，由其积分至多为 \(\sum_k2^{-k}\)，得
 \[
  \sum_k|f_{n_{k+1}}-f_{n_k}|^p<\infty
 \]
 几乎处处。固定这样的点，并记
 \(a_k=|f_{n_{k+1}}-f_{n_k}|\)。于是 \(a_k\to0\)，所以最终
 \(a_k\le1\)，而 \(0<p<1\) 时 \(a_k\le a_k^p\)。因此
-\(\sum_ka_k<\infty\)，差分级数绝对收敛，可据此定义逐点极限 \(f\)。由
+\(\sum_ka_k<\infty\)，差分级数绝对收敛，可据此定义逐点极限 \(f\)。
+在上述非负级数发散的可测零集上置零，得到可测函数。由
 \[
  |f-f_{n_k}|^p
  \le\sum_{j=k}^{\infty}|f_{n_{j+1}}-f_{n_j}|^p
 \]
-和 Tonelli 定理，
+和非负部分和的单调收敛，
 \[
  d_p(f_{n_k},f)
  \le\sum_{j=k}^{\infty}d_p(f_{n_{j+1}},f_{n_j})
  <\sum_{j=k}^{\infty}2^{-j}\longrightarrow0.
 \]
-原列是 \(d_p\)-Cauchy 列，故整列也收敛到 \(f\)。
+由次可加性，
+\(\int|f|^p\le d_p(f,f_{n_1})+\int|f_{n_1}|^p<\infty\)，故 \(f\in L^p\)。
+给定 \(\varepsilon>0\)，先取充分大的 \(k\) 使子列误差小于
+\(\varepsilon/2\)，并使 \(n_k\) 超过原列的 Cauchy 阈值，再用
+\(d_p(f_n,f)\le d_p(f_n,f_{n_k})+d_p(f_{n_k},f)\)，得到整列收敛。
 \end{solution}
 
 \begin{solution}{riesz-fischer-fatou-step}
@@ -134,9 +143,9 @@ Tonelli 定理说明
 \end{solution}
 
 \begin{solution}{lp-convergence-series}
-令 \(g_N=\sum_{n=0}^{N}|f_n|\)。Minkowski 给
+先设 \(1\le p<\infty\)。令 \(g_N=\sum_{n=1}^{N}|f_n|\)。Minkowski 给
 \[
- \|g_N\|_p\le\sum_{n=0}^{N}\|f_n\|_p\le C.
+ \|g_N\|_p\le\sum_{n=1}^{N}\|f_n\|_p\le C.
 \]
 单调收敛得 \(g=\sum_n|f_n|\in L^p\)，所以级数几乎处处绝对收敛。其
 部分和之差满足
@@ -144,18 +153,56 @@ Tonelli 定理说明
  \left\|\sum_{n=M}^{N}f_n\right\|_p
  \le\sum_{n=M}^{N}\|f_n\|_p\to0.
 \]
-由 \(L^p\) 完备性，部分和在 \(L^p\) 中收敛；其极限与几乎处处绝对和
-相同。
+在级数不绝对收敛的可测零集上把和定义为零，所得函数 \(s\) 可测，
+且 \(|s|\le g\) 几乎处处，故 \(s\in L^p\)。
+对尾和估计令 \(N\to\infty\)，Fatou 引理给
+\[
+ \left\|s-\sum_{n=1}^{M-1}f_n\right\|_p
+ \le\sum_{n=M}^{\infty}\|f_n\|_p\longrightarrow0.
+\]
+
+当 \(0<p<1\) 且 \(\sum_n\|f_n\|_p^p<\infty\) 时，单调收敛给
+\(\int\sum_n|f_n|^p<\infty\)。几乎处处有 \(\sum_n|f_n|^p<\infty\)，
+故最终 \(|f_n|\le1\)，从而 \(\sum_n|f_n|<\infty\)。
+同样在例外集补零定义 \(s\)，次可加性与 Fatou 给出
+\[
+ \int|s|^p\le\sum_n\|f_n\|_p^p,\qquad
+ \int\left|s-\sum_{n=1}^{M-1}f_n\right|^p
+ \le\sum_{n=M}^{\infty}\|f_n\|_p^p\longrightarrow0.
+\]
+为否定原条件，取实线上两两不交的单位区间 \(I_n=[n,n+1)\)，令
+\(f_n=n^{-r}\mathbf1_{I_n}\)，其中 \(1<r\le1/p\)。
+则 \(\sum_n\|f_n\|_p=\sum_nn^{-r}<\infty\)，而逐点和的
+\(p\) 次积分为 \(\sum_nn^{-rp}=\infty\)。部分和的 \(p\) 次积分
+趋于无穷，所以它们不可能在 \(L^p\) 中收敛。
 \end{solution}
 
 \begin{solution}{clarkson-special-case}
-对实数 \(a,b\) 可由凸性证明
+先证标量式。对任意实数 \(u,v\) 及 \(p\ge2\)，
+\[
+ |u|^p+|v|^p\le(u^2+v^2)^{p/2}.
+\]
+当右侧非零时，除以它后，两项分别为
+\((u^2/(u^2+v^2))^{p/2}\) 和 \((v^2/(u^2+v^2))^{p/2}\)，
+不超过对应的底数，和至多为1；零值情形直接成立。
+另一方面，\(t^{2/p}\) 的凹性给出
+\[
+ a^2+b^2\le2^{1-2/p}(|a|^p+|b|^p)^{2/p}.
+\]
+令 \(u=a+b,v=a-b\)，利用 \(u^2+v^2=2(a^2+b^2)\)，得到
 \[
  |a+b|^p+|a-b|^p\le2^{p-1}(|a|^p+|b|^p)
 \]
-并逐点积分，得到所给式。严格的 Clarkson 不等式还给出单位球中两点若相距
-固定正量，则其中点的范数统一小于 \(1\)；这正是一致凸性。这里的估计展示
-了该结论的标量来源，但完整模函数估计留待泛函分析卷。
+逐点取 \(a=f(x),b=g(x)\) 并积分即得题设不等式。
+当 \(\|f\|_p,\|g\|_p\le1\) 时，两边除以 \(2^p\)，可得
+\[
+ \left\|\frac{f+g}{2}\right\|_p^p+
+ \left\|\frac{f-g}{2}\right\|_p^p\le1.
+\]
+若 \(\|f-g\|_p\ge\varepsilon\)，第二项至少为 \((\varepsilon/2)^p\)。
+移项并取 \(p\) 次根，即得所求估计。因而可取一致凸性模的下界
+\(\delta(\varepsilon)=1-(1-(\varepsilon/2)^p)^{1/p}>0\)，
+它不依赖具体的 \(f,g\)。
 \end{solution}
 
 \begin{solution}{lp-completeness-template}

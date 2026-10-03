@@ -31,10 +31,18 @@
  \mathcal T_{\mathrm{cof}}
  =\{\varnothing\}\cup\{U\subseteq X:X\setminus U\text{ 有限}\}.
 \]
-任意并的补集是有限集族的交，仍为有限集；有限交的补集是有限并，也为有限集。因此它是一个拓扑。它在 \(X\) 不可数时不能由通常那样的“小半径”直观刻画，却是检验分离性、紧致性和数列论证的标准例子。
+空集与全集属于此族。一族成员的并若非空，就含某个非空成员，故其补集包含于
+该成员的有限补集，仍有限。有限个成员的交若有一个成员为空，则交为空；否则
+交的补集是有限个有限集之并，仍有限。因此这确实是拓扑。无限集上的两个非空
+余有限开集总相交，这与度量空间中两个不同点可以被不交小球隔开的情形不同。
 \end{example}
 
-若 \(\mathcal T_1\subseteq\mathcal T_2\)，称 \(\mathcal T_1\) 比 \(\mathcal T_2\) 粗，或 \(\mathcal T_2\) 比 \(\mathcal T_1\) 细。拓扑越细，可供检验连续性的开集越多；同一个由 \(X\) 出发的映射通常越难连续。
+若 \(\mathcal T_1\subseteq\mathcal T_2\)，称 \(\mathcal T_1\) 比 \(\mathcal T_2\) 粗，或 \(\mathcal T_2\) 比 \(\mathcal T_1\) 细。
+这一区别对连续性的影响要区分定义域和值域。连续性要求值域开集的原像在
+定义域中开：固定值域而把定义域拓扑变细，原先连续的映射仍连续；固定定义域
+而把值域拓扑变细，则增加了需要检验的原像。特别地，恒等映射
+\((X,\mathcal T_2)\to(X,\mathcal T_1)\) 连续；反向恒等映射连续当且仅当
+两拓扑相同。连续映射的正式定义见本章后文。
 
 \section{闭集与邻域}
 
@@ -65,7 +73,8 @@
  \item 两个 \(x\) 的邻域之交仍是 \(x\) 的邻域；
  \item 对每个 \(N\in\mathcal N(x)\)，存在 \(M\in\mathcal N(x)\) 使对所有 \(y\in M\)，都有 \(N\in\mathcal N(y)\)。
 \end{enumerate}
-反之，若一族 \(\mathcal N(x)\) 满足这四条，则
+反之，若对每个 \(x\in X\) 给定一个非空子集族 \(\mathcal N(x)\)，
+且这些族满足这四条，则
 \[
  U\text{ 开}\quad\Longleftrightarrow\quad
  U\in\mathcal N(x)\text{ 对每个 }x\in U
@@ -76,13 +85,21 @@
 \begin{proof}
 由开集定义，前四条逐项成立；第四条可取 \(x\in V\subseteq N\) 的开集 \(V\)，再令 \(M=V\)。
 
-反过来，把满足右侧条件的集合称为开集。空集与全体满足要求，任意并也满足。若 \(U,V\) 开且 \(x\in U\cap V\)，则 \(U,V\in\mathcal N(x)\)，故 \(U\cap V\in\mathcal N(x)\)，所以有限交开。
+反过来，把满足右侧条件的集合称为开集。空集空真；每个 \(\mathcal N(x)\)
+非空，由(ii)可知 \(X\in\mathcal N(x)\)，所以全体开。任意并由(ii)满足
+要求。若 \(U,V\) 开且 \(x\in U\cap V\)，则 \(U,V\in\mathcal N(x)\)，
+故 \(U\cap V\in\mathcal N(x)\)，所以有限交开。
 
 还需核对给定的邻域族没有改变。若 \(N\in\mathcal N(x)\)，由(iv)以及必要时把所得邻域与 \(N\) 相交，可取 \(M\in\mathcal N(x)\)、\(M\subseteq N\)，且 \(N\in\mathcal N(y)\) 对每个 \(y\in M\) 成立。令
 \[
  U=\{y\in N:N\in\mathcal N(y)\}.
 \]
-则 \(x\in U\subseteq N\)。对 \(y\in U\)，再用(iv)可在 \(U\) 内找到 \(y\) 的邻域，故 \(U\) 开，于是 \(N\) 是新拓扑下 \(x\) 的邻域。反向包含由(i)、(ii)立即得到。
+则 \(x\in U\subseteq N\)。对 \(y\in U\)，由(iv)取 \(M_y\in\mathcal N(y)\)，
+使 \(N\in\mathcal N(z)\) 对每个 \(z\in M_y\) 成立。由(i)，这些 \(z\)
+也属于 \(N\)，所以 \(M_y\subseteq U\)，再由(ii)得 \(U\in\mathcal N(y)\)。
+因此 \(U\) 开，\(N\) 是新拓扑下 \(x\) 的邻域。反之，新邻域包含一个含
+\(x\) 的开集，开集判据及(ii)说明它属于原来的 \(\mathcal N(x)\)。
+这既证明邻域族未改变，也由开集判据给出拓扑的唯一性。
 \end{proof}
 
 \section{基和子基}
@@ -114,7 +131,10 @@
 \end{proof}
 
 \begin{definition}[子基]
-覆盖 \(X\) 的子集族 \(\mathcal S\) 称为一个\term{子基}。它的有限交（包括空交 \(X\)）组成一个基；该基生成的拓扑称为由 \(\mathcal S\) 生成的拓扑。
+给定任意子集族 \(\mathcal S\subseteq\mathcal P(X)\)，它的有限交
+（包括空交 \(X\)）组成一个基。称 \(\mathcal S\) 为该基所生成拓扑的
+一个\term{子基}。这里不要求 \(\mathcal S\) 覆盖 \(X\)，因为已加入空交；
+特别地，空子基生成不可分拓扑。
 \end{definition}
 
 例如，实直线通常拓扑可由开区间组成的基生成，也可由射线
@@ -123,11 +143,22 @@
 
 \section{可数性公理}
 
+若 \(D\subseteq X\) 且 \(\overline D=X\)，称 \(D\) 在 \(X\) 中稠密；
+这等价于每个非空开集都与 \(D\) 相交。具有至多可数稠密子集的空间称为可分空间。
+点 \(x\) 的邻域基是一族 \(x\) 的邻域，使其每个邻域都包含这族中的某个成员。
+
 \begin{definition}[第一、第二可数性]
 若每个 \(x\in X\) 都有至多可数的邻域基，即存在邻域列 \((N_n)\)，使每个 \(x\) 的邻域都包含某个 \(N_n\)，则称 \(X\) 满足第一可数性公理。若 \(X\) 的拓扑有一个至多可数的基，则称 \(X\) 满足第二可数性公理。
 \end{definition}
 
-度量空间在每点以 \(B(x,1/n)\) 为邻域基，因而第一可数。可分度量空间还是第二可数：若 \(D\) 为至多可数稠密集，则以 \(D\) 为中心、正有理数为半径的开球组成可数基。一般拓扑空间中，可分性、第一可数性和第二可数性不再等价。
+度量空间在每点以 \(B(x,1/n)\)、\(n\ge1\) 为邻域基，因而第一可数。
+可分度量空间还是第二可数：若 \(D\) 为至多可数稠密集，以 \(D\) 为中心、
+正有理数为半径的开球组成至多可数的族。若 \(x\in U\) 且 \(U\) 开，
+取 \(r>0\) 使 \(B(x,r)\subseteq U\)，再取 \(a\in D\) 满足
+\(d(x,a)<r/3\)，以及正有理数 \(s\) 满足 \(r/3<s<2r/3\)。则
+\(x\in B(a,s)\subseteq B(x,r)\subseteq U\)，所以该族是基。
+一般拓扑空间中，可分性不再推出第二可数性；第一可数性也不保证可分性，
+例如不可数离散度量空间。
 
 \begin{proposition}[第二可数性的两个后果]
 \label{prop:second-countable-consequences}
@@ -135,14 +166,21 @@
 \end{proposition}
 
 \begin{proof}
-设 \(\mathcal B=\{B_n:n\in\N\}\) 是可数基。对固定 \(x\)，所有含 \(x\) 的 \(B_n\) 构成可数邻域基。对每个非空 \(B_n\) 选一点 \(x_n\in B_n\)，所得至多可数集 \(D\) 与每个非空开集相交，故稠密。
+若 \(X=\varnothing\)，各项结论直接成立。以下设 \(X\ne\varnothing\)，
+将一个至多可数基枚举为 \(\mathcal B=\{B_n:n\in\N\}\)，有限基允许重复。
+对固定 \(x\)，所有含 \(x\) 的 \(B_n\) 构成至多可数邻域基。对每个非空
+\(B_n\) 选一点 \(x_n\in B_n\)，所得至多可数集 \(D\) 与每个非空开集相交，故稠密。
 
 若 \(\mathcal U\) 为开覆盖，对每个被某个 \(U\in\mathcal U\) 包含的基元素 \(B_n\)，选取一个这样的 \(U_n\)。任给 \(x\in X\)，先取 \(U\in\mathcal U\) 含 \(x\)，再取 \(x\in B_n\subseteq U\)，于是 \(x\in U_n\)。故 \(\{U_n\}\) 是至多可数子覆盖。
 \end{proof}
 
-这里两次选择都只在至多可数族中进行。若希望完全追踪选择原则，可以固定基的枚举，并在每一步取满足条件的最小指标；从任意开覆盖中选取成员仍使用可数选择的一个形式。本书工作在 ZFC 背景下。
+这里从非空基元素中选点、从开覆盖中选成员，都是在至多可数族中的选择。
+枚举基只能排列这些选择任务，不能自动给任意非空基元素指定一个点。本书在
+ZFC背景下进行上述选择；选择原则的进一步讨论见附录。
 
-第一可数性恢复了熟悉的序列判据。
+拓扑空间中的数列 \((x_n)\) 称为收敛到 \(x\)，如果 \(x\) 的每个邻域
+都包含该列的某个尾部。没有附加分离条件时，极限未必唯一，例如不可分空间中
+每条数列都收敛到每个点。第一可数性则恢复了熟悉的闭包序列判据。
 
 \begin{theorem}[第一可数空间中的闭包]
 \label{thm:first-countable-sequential-closure}
@@ -363,12 +401,12 @@
  \exerciseitem{product-coordinate-continuity}
  从初始拓扑泛性质证明 \(h:Z\to X\times Y\) 连续当且仅当两个坐标函数连续，并写出有限积的一般版本。
  \exerciseitem{box-versus-product}
- 在 \(\R^{\N}\) 中证明 \(\prod_{n\in\Npos}(-1/n,1/n)\) 在箱拓扑中开、在积拓扑中不开。
+ 在 \(\R^{\Npos}\) 中证明 \(\prod_{n\in\Npos}(-1/n,1/n)\) 在箱拓扑中开、在积拓扑中不开。
  \exerciseitem{quotient-saturated-open}
  设 \(q:X\to Y\) 为商映射。称 \(A\subseteq X\) 饱和，如果 \(A=q^{-1}(q(A))\)。证明 \(U\subseteq Y\) 开当且仅当 \(q^{-1}(U)\) 是开饱和集，并说明为什么“\(q\) 把开集映成开集”不是商映射定义的一部分。
  \exerciseitem{circle-as-quotient}
  令 \(q:[0,1]\to S^1\)、\(q(t)=(\cos2\pi t,\sin2\pi t)\)。利用
- \chapterref{chap:compact-topological-spaces}中“紧致空间到 Hausdorff 空间的连续双射为同胚”的结论，证明把 \(0,1\) 识别所得商空间同胚于圆周。
+ \chapterref{chap:metric-connectedness}中“紧致空间到度量空间的连续双射为同胚”的结论，证明把 \(0,1\) 识别所得商空间同胚于圆周。
 \end{enumerate}
 
 \subsection*{C组　序列方法的范围}

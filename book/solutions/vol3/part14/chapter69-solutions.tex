@@ -4,11 +4,14 @@
 写 \(f=u+iv\)，其中 \(u,v\) 为实值且
 \(|u|,|v|\le|f|\)，故都属于 \(L^p\)。分别取实简单函数
 \(u_n\to u,v_n\to v\) 于 \(L^p\)，令
-\(\varphi_n=u_n+iv_n\)。当 \(p\ge1\)，Minkowski 给
+\(\varphi_n=u_n+iv_n\)。复简单函数只取有限多个复数值；由
+\(|a+ib|\le|a|+|b|\) 及实数的幂次估计，
 \[
- \|\varphi_n-f\|_p\le\|u_n-u\|_p+\|v_n-v\|_p.
+ \|\varphi_n-f\|_p^p
+ \le C_p\bigl(\|u_n-u\|_p^p+\|v_n-v\|_p^p\bigr)\to0,
 \]
-\(0<p<1\) 时对 \(p\) 次积分使用次可加性，结论相同。
+其中 \(C_p=1\)（\(0<p\le1\)），\(C_p=2^{p-1}\)（\(p\ge1\)）。
+因此不必预先建立复标量的 Minkowski 不等式。
 \end{solution}
 
 \begin{solution}{finite-support-simple-dense}
@@ -33,6 +36,8 @@
 \end{solution}
 
 \begin{solution}{compact-open-distance-function}
+引理在 \(K=\varnothing\) 时已经取 \(g=0\)，不使用距离比值。
+以下 \(K\ne\varnothing\)；\(U\) 有界，所以 \(U^c\ne\varnothing\)。
 到闭集的距离函数是 \(1\)-Lipschitz，故分子、分母连续。若分母为零，则
 某点同时属于 \(K\) 与 \(U^c\)，与 \(K\subset U\) 矛盾。因此商连续。
 在 \(K\) 上 \(d(x,K)=0\)，故 \(g=1\)；在 \(U^c\) 上
@@ -41,7 +46,8 @@
 \end{solution}
 
 \begin{solution}{cc-density-error-budget}
-删去零系数项，并记剩余项数为 \(m\)。若 \(p\ge1\)，对每个 \(j\) 由
+删去零系数项，并记剩余项数为 \(m\)。若 \(m=0\)，取 \(g=0\) 即可。
+以下 \(m\ge1\)。若 \(p\ge1\)，对每个 \(j\) 由
 引理取 \(g_j\in C_c\)，使
 \[
  \|\mathbf1_{E_j}-g_j\|_p
@@ -74,9 +80,13 @@
 \]
 其中 \(q_j\in\mathbb Q\)，\(R_j\) 是有理端点半开有界矩形。所有有理数
 和有理矩形构成可数集；可数集的有限笛卡儿积及其可数并仍可数，故
-\(\mathcal S\) 可数。连续紧支撑函数在大有理立方体上一致连续，用细有理
-网格取样并把函数值近似为有理数，可在 \(L^p\) 中任意逼近；再用
-\(C_c\) 稠密性即得。
+\(\mathcal S\) 至多可数，且包含无限多个不同常值倍数的单个矩形指示函数，
+所以可数无限。对 \(g\in C_c\)，取 \(Q\) 使支撑包含于其内部。
+给定 \(\delta>0\)，网格足够细时，每格的振幅小于 \(\delta/2\)；
+选样点值的有理近似，误差也小于 \(\delta/2\)。所得 \(s\in\mathcal S\)
+在 \(Q\) 外取零，且 \(\|s-g\|_p^p\le m(Q)\delta^p\)。外层面零测。
+再用 \(C_c\) 稠密性即得。若讨论复值空间，应将系数换成
+\(\mathbb Q+i\mathbb Q\)，它仍可数无限。
 \end{solution}
 
 \begin{solution}{linfty-nonseparable-balls}
@@ -91,14 +101,23 @@
 \end{solution}
 
 \begin{solution}{translation-isometry}
-由 Lebesgue 测度的平移不变性和变量代换，
+平移不变性先给出指示函数积分不变，再由简单逼近和单调收敛推广到非负
+可测函数。因而对 \(0<p<\infty\)，
 \[
  \|\tau_hf\|_p^p
  =\int|f(x-h)|^p\,dx
  =\int|f(y)|^p\,dy.
 \]
 \(p=\infty\) 时零测集在平移下仍零测，同样成立。一般测度若不平移不变，
-变量代换后的推前测度可能不同，例如带密度 \(e^{-x^2}dx\) 的测度。
+平移前后的积分未必相等。例如对 \(d\mu=e^{-x^2}dx\)，取
+\(f=\mathbf1_{(0,1)}\)、\(h=1\)。则
+\[
+ \|\tau_1f\|_{L^p(\mu)}^p=\int_1^2 e^{-x^2}\,dx
+ <\int_0^1 e^{-x^2}\,dx=\|f\|_{L^p(\mu)}^p.
+\]
+这是有限指数的反例。某些一般测度甚至不保持零集，因而平移未必能在
+几乎处处等价类上良定义；例如点质量测度下在该点相等的两个函数，平移后
+在该点未必相等。
 \end{solution}
 
 \begin{solution}{translation-discontinuous-linfty}
@@ -111,7 +130,9 @@
 \end{solution}
 
 \begin{solution}{mollifier-norm-bound}
-对 \(1\le p<\infty\)，Jensen 不等式给
+对 \(1<p<\infty\)，在质量为1的测度
+\(\rho_\varepsilon(y)dy\) 下对 \(|f(x-y)|\cdot1\) 使用 Hölder；
+\(p=1\) 时用积分三角不等式，均得
 \[
  |(\rho_\varepsilon*f)(x)|^p
  \le\int\rho_\varepsilon(y)|f(x-y)|^p\,dy.
@@ -133,36 +154,68 @@
 \begin{solution}{mollifier-support}
 若 \(x\notin K+\overline{B(0,\varepsilon)}\)，则对每个
 \(y\in\operatorname{supp}\rho_\varepsilon\)，有 \(x-y\notin K\)，
-故 \(f(x-y)=0\) 几乎处处。因此卷积在该 \(x\) 为零。取闭包便得支撑
-包含关系。
+故关于 \(y\) 几乎处处有 \(f(x-y)=0\)，因为固定平移及反射保持零集。
+因此卷积在该 \(x\) 为零。右端是两个紧集之和，仍为紧集，特别是闭集，
+所以非零集的闭包也包含于其中。\(K=\varnothing\) 时 \(f=0\) 几乎处处，
+结论同样成立。
 \end{solution}
 
 \begin{solution}{density-open-set}
-先取紧集递增穷尽
+若 \(\Omega=\varnothing\)，空间只有零元，结论成立；若
+\(\Omega=\mathbb R^n\)，直接用正文定理。以下假设 \(\Omega\) 非空且
+不是全空间。对整数 \(j\ge1\)，取紧集递增穷尽
 \[
  K_j=\{x\in\Omega:|x|\le j,\ d(x,\Omega^c)\ge1/j\}.
 \]
-则 \(f\mathbf1_{K_j}\to f\) 于 \(L^p(\Omega)\)。把
-\(f\mathbf1_{K_j}\) 零延拓到 \(\mathbb R^n\)，再与支撑半径小于
-\(\tfrac12d(K_j,\Omega^c)\) 的磨光核卷积。所得函数属于
-\(C_c^\infty(\Omega)\)，并在 \(L^p\) 中逼近
-\(f\mathbf1_{K_j}\)。对 \(j\) 作对角选择即得。
+每个点属于最终的 \(K_j\)，故控制收敛给
+\(f\mathbf1_{K_j}\to f\) 于 \(L^p(\Omega)\)。把截断函数零延拓为
+\(F_j\in L^p(\mathbb R^n)\)。若 \(K_j=\varnothing\)，取 \(g_j=0\)。
+否则 \(d(K_j,\Omega^c)\ge1/j\)，由磨光逼近选
+\(0<\varepsilon_j<1/(2j)\)，使
+\(\|\rho_{\varepsilon_j}*F_j-F_j\|_p<1/j\)。令
+\(g_j=\rho_{\varepsilon_j}*F_j\)。其支撑包含在
+\(K_j+\overline{B(0,\varepsilon_j)}\subset\Omega\)，故
+\(g_j\in C_c^\infty(\Omega)\)，且
+\[
+ \|g_j-f\|_{L^p(\Omega)}
+ \le 1/j+\|f\mathbf1_{K_j}-f\|_{L^p(\Omega)}\to0.
+\]
 \end{solution}
 
 \begin{solution}{operator-extension-application}
-固定 \(b\in\ell^1\)，对有限支撑 \(a\) 定义
+固定 \(b\in\ell^1(\mathbb Z)\)。先对 \(a\in\ell^p(\mathbb Z)\)
+考察有限和
 \[
- (T_ba)_n=\sum_ka_{n-k}b_k.
+ (S_Na)_n=\sum_{|k|\le N}a_{n-k}b_k.
 \]
-Minkowski 和平移不变性给
+整数指标的平移保持范数，有限次 Minkowski 给
 \[
- \|T_ba\|_p
- \le\sum_k|b_k|\|(a_{n-k})_n\|_p
- =\|b\|_1\|a\|_p
+ \|S_Na\|_p\le\Bigl(\sum_{|k|\le N}|b_k|\Bigr)\|a\|_p.
 \]
-对 \(1\le p\le\infty\) 成立。有限支撑序列在
-\(\ell^p\) 中对 \(p<\infty\) 稠密，且 \(\ell^p\) 完备，因此延拓定理
-给出唯一有界算子 \(T_b:\ell^p\to\ell^p\)，范数不超过
-\(\|b\|_1\)。对 \(p=\infty\)，有限支撑序列不稠密，但原卷积级数由
-\(\ell^1\) 绝对控制，可直接定义并满足同一估计。
+对 \(1\le p<\infty\)，还有
+\[
+ \|S_Ma-S_Na\|_p
+ \le\|a\|_p\sum_{N<|k|\le M}|b_k|\longrightarrow0\quad(M>N\to\infty).
+\]
+由 \(\ell^p(\mathbb Z)\) 完备，有限和有范数极限。每个坐标的绝对值
+不超过 \(\ell^p\) 范数，所以极限的第 \(n\) 个坐标就是
+\(\sum_k a_{n-k}b_k\)。该级数也绝对收敛，因为
+\(\|a\|_\infty\le\|a\|_p\)，从而
+\(\sum_k|a_{n-k}b_k|\le\|a\|_\infty\|b\|_1\)。令 \(N\to\infty\)，得到
+所求 Young 估计。特别地，这给出有限支撑 \(a\) 上的线性算子 \(T_b\)。
+
+截断 \(a^{(j)}=a\mathbf1_{\{|n|\le j\}}\) 使
+\(\|a^{(j)}-a\|_p\to0\)，故有限支撑序列稠密。延拓定理给出唯一的
+有界延拓。由于
+\[
+ \left|\sum_k(a^{(j)}_{n-k}-a_{n-k})b_k\right|
+ \le\|b\|_1\|a^{(j)}-a\|_\infty
+ \le\|b\|_1\|a^{(j)}-a\|_p\to0,
+\]
+这个延拓与上述逐坐标卷积一致。
+
+当 \(p=\infty\)，同一绝对收敛估计直接给出
+\(\|T_ba\|_\infty\le\|b\|_1\|a\|_\infty\) 和线性性，不用稠密延拓。
+常数序列1与任何有限支撑序列的距离至少为1，所以后者在
+\(\ell^\infty(\mathbb Z)\) 中不稠密。
 \end{solution}

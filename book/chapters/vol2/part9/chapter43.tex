@@ -63,7 +63,7 @@ Fréchet 微分，并证明链式法则与平均估计。
  0,&(x,y)=(0,0)
  \end{cases}
 \]
-在原点连续，并且
+由 \(|q(x,y)|\le |x|\) 可知它在原点连续，并且
 \[
  D_{(a,b)}q(0,0)=\frac{a^3}{a^2+b^2}
 \]
@@ -78,7 +78,15 @@ Fréchet 微分，并证明链式法则与平均估计。
  \norm A_{\mathrm{op}}
  :=\sup_{\norm h_2\le1}\norm{Ah}_2.
 \]
-有限维范数等价保证这个上确界有限；也可直接从矩阵元素估计。由齐次性，
+这个上确界的有限性可以直接验证。若 \(A=(a_{ij})\)，逐行应用
+Cauchy--Schwarz 不等式再求和，得到
+\[
+ \norm{Ah}_2^2
+ \le\sum_{i=1}^m\left(\sum_{j=1}^n a_{ij}^2\right)\norm h_2^2.
+\]
+因此 \(\norm A_{\mathrm{op}}\le(\sum_{i,j}a_{ij}^2)^{1/2}<\infty\)。
+另一方面，\(|a_{ij}|\le\norm{Ae_j}_2\le\norm A_{\mathrm{op}}\)；
+这两个估计说明矩阵逐项收敛与算子范数收敛等价。由齐次性，
 \[
  \norm{Ah}_2\le\norm A_{\mathrm{op}}\norm h_2.
 \]
@@ -169,7 +177,8 @@ Fréchet 微分若存在，则唯一。
 \]
 对每一段和每个标量分量使用一元中值定理。若
 $f=(f_1,\ldots,f_m)$，则对每个 $j,\ell$ 都有位于该坐标线段上的点
-$\xi_{j\ell}$，使
+$\xi_{j\ell}$，使下式成立；若 $h_j=0$，该段增量为零，
+直接取 $\xi_{j\ell}=a^{(j-1)}$ 即可：
 \[
  f_\ell(a^{(j)})-f_\ell(a^{(j-1)})
  =h_j\partial_jf_\ell(\xi_{j\ell}).
@@ -202,6 +211,9 @@ $\sum_jh_j\partial_jf(a)$，便有
 
 若各偏导数在开集 \(U\) 上连续，就写作 \(f\in C^1(U,\R^m)\)。定理说明
 \(C^1\) 映射必可微；仅有“每点可微”不等于 \(C^1\)。
+由矩阵元素与算子范数的双向估计，偏导函数全部连续也等价于
+\(x\mapsto Df(x)\) 在算子范数下连续。这使得导数本身成为一个可以
+继续研究连续性乃至可微性的映射。
 
 \section{Jacobian 矩阵和坐标表示}
 
@@ -283,13 +295,20 @@ $\sum_jh_j\partial_jf(a)$，便有
 \(o(\norm h_2)\)，线性主部是 \(BA\)。
 \end{proof}
 
-连续双线性映射也可直接求导。若
-\(B:\R^r\times\R^s\to\R^p\) 为双线性映射，则
+有限维双线性映射也可直接求导。若
+\(B:\R^r\times\R^s\to\R^p\) 为双线性映射，取两因子的标准基
+\((e_i)\)、\((u_j)\)，并令 \(M=\max_{i,j}\norm{B(e_i,u_j)}\)。
+从 \(B(h,k)=\sum_{i,j}h_i k_j B(e_i,u_j)\) 得到
+\[
+ \norm{B(h,k)}\le M\sum_i|h_i|\sum_j|k_j|
+ \le M\sqrt{rs}\,\norm h\norm k.
+\]
+因此该映射连续，而且
 \[
  DB(u,v)(h,k)=B(h,v)+B(u,k),
 \]
-因为剩余项 \(B(h,k)\) 满足
-\(\norm{B(h,k)}\le C\norm h\norm k=o(\norm{(h,k)})\)。取
+因为剩余项 \(B(h,k)\) 的范数不超过
+\(M\sqrt{rs}\,\norm{(h,k)}^2/2=o(\norm{(h,k)})\)。取
 \(B(u,v)=uv\) 就得到标量函数乘积法则；矩阵乘法、内积和二次型的求导也
 来自同一公式。
 
@@ -417,7 +436,12 @@ Cauchy--Schwarz 不等式和算子范数估计给出所需结论。
 \subsection*{B组　可微性与运算法则}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
  \exerciseitem{frechet-uniqueness-sequence-proof}
- 用任意趋零序列而不是固定射线，重新证明 Fréchet 微分的唯一性。
+ 证明：线性映射 \(A\) 为 \(f\) 在 \(a\) 的 Fréchet 微分，当且仅当
+ 对每个满足 \(h_k\ne0\)、\(h_k\to0\)、\(a+h_k\in U\) 的序列，
+ \[
+ \frac{\norm{f(a+h_k)-f(a)-Ah_k}}{\norm{h_k}}\longrightarrow0.
+ \]
+ 再用此判据证明微分的唯一性。
  \exerciseitem{continuous-partials-proof-details}
  补全连续偏导判据中的坐标折线与逐分量中值估计，并说明为什么只要求
  偏导数在点 $a$ 连续。
@@ -427,7 +451,9 @@ Cauchy--Schwarz 不等式和算子范数估计给出所需结论。
  D(fg)(a)=f(a)Dg(a)+g(a)Df(a).
  \]
  \exerciseitem{reciprocal-rule-frechet}
- 若 \(g(a)\ne0\)，证明 \(1/g\) 在 \(a\) 可微并求导，再推出商法则。
+ 设实值函数 \(g:U\to\R\) 在 \(a\) 可微且 \(g(a)\ne0\)。
+ 证明 \(1/g\) 在 \(a\) 的某邻域有定义并在 \(a\) 可微，求其导数；
+ 当 \(f:U\to\R\) 也在 \(a\) 可微时，再推出 \(f/g\) 的求导公式。
  \exerciseitem{inner-product-derivative}
  对可微映射 \(u,v:U\to\R^m\)，求
  \(x\mapsto\langle u(x),v(x)\rangle\) 的导数。

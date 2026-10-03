@@ -5,12 +5,12 @@
 逆方向还需要回答：给定一个函数 \(F\)，什么时候积分其几乎处处存在的导数
 能够恢复 \(F\)？连续 BV 函数仍有 Cantor 函数这样的反例。本章证明绝对
 连续恰好给出所需的函数类。这里的“恰好”包括两个方向，不只是一个方便的
-充分条件。
+充分条件。以下固定有限实数 \(a<b\)，讨论实值函数。
 
 \section{积分函数绝对连续}
 
 \begin{theorem}\label{thm:integral-is-ac}
-若 \(g\in L^1(a,b)\)，则 \(F(x)=c+\int_a^xg(t)\,dt\) 属于 \(AC[a,b]\)。
+若 \(g\in L^1(a,b)\)、\(c\in\R\)，则 \(F(x)=c+\int_a^xg(t)\,dt\) 属于 \(AC[a,b]\)。
 \end{theorem}
 \begin{proof}
 对内部不交的有限区间族，令 \(E=\bigcup_j(u_j,v_j)\)，则
@@ -21,7 +21,8 @@
 保证右侧任意小。这正是绝对连续定义。
 \end{proof}
 
-若 \(g\) 有界，得到 Lipschitz 估计；若 \(g\) 仅可积，不能期待同一个线性
+若 \(g\) 本质有界，则
+\(|F(y)-F(x)|\le\|g\|_\infty|y-x|\)，得到 Lipschitz 估计；若 \(g\) 仅可积，不能期待同一个线性
 连续模。例如 \(g(t)=1/(2\sqrt t)\) 产生 \(F(x)=\sqrt x\)。
 Lebesgue 积分扩大了允许的导数类，也相应扩大了原函数类。
 
@@ -45,7 +46,7 @@ Lebesgue 积分扩大了允许的导数类，也相应扩大了原函数类。
 \subsection{随点变化的分割尺度}
 
 \begin{lemma}[Cousin 分割引理]\label{lem:cousin-gauge}
-若对每个 \(x\in[a,b]\) 给定 \(\delta(x)>0\)，则存在有限带标记分割
+若对每个 \(x\in[a,b]\) 给定 \(\delta(x)>0\)，不要求 \(\delta\) 连续或可测，则存在有限带标记分割
 \(( [t_{j-1},t_j],\xi_j)\)，满足
 \[
  \xi_j\in[t_{j-1},t_j],\qquad
@@ -108,7 +109,7 @@ Lebesgue 积分扩大了允许的导数类，也相应扩大了原函数类。
 
 \subsection{分部积分与复合函数}
 
-若 \(F,G\in AC[a,b]\)，则乘积绝对连续。在两者可导点的公共全集上，
+若 \(F,G\in AC[a,b]\)，则乘积绝对连续。在 \((a,b)\) 内两者均可导的满测集上，
 \((FG)'=F'G+FG'\)；右侧可积，因为 \(F,G\) 有界。由基本定理，
 \[
  \int_a^bF G'\,dx=F(b)G(b)-F(a)G(a)-\int_a^bF'G\,dx.
@@ -133,7 +134,7 @@ Riemann 理论中的 Newton--Leibniz 公式并未失效：它是上述公式在�
 \exerciseitem{ftc-monotonicity-ac}证明 AC 函数递增当且仅当 \(F'\ge0\) 几乎处处。
 \exerciseitem{ftc-lipschitz-derivative}证明 \(F\in AC[a,b]\) 为 Lipschitz 当且仅当 \(F'\in L^\infty(a,b)\)，并比较最小常数。
 \exerciseitem{ftc-derivative-not-enough}用 Cantor 函数说明“连续、几乎处处可导、导数可积”不足以推出 Newton--Leibniz 公式。
-\exerciseitem{ftc-absolute-value}证明 \(|F|\in AC\)，且 \(|(|F|)'|\le|F'|\) 几乎处处。
+\exerciseitem{ftc-absolute-value}若 \(F\in AC[a,b]\)，证明 \(|F|\in AC[a,b]\)，且 \(|(|F|)'|\le|F'|\) 几乎处处。
 \end{enumerate}
 \subsection*{B组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]

@@ -32,8 +32,9 @@
 \end{solution}
 
 \begin{solution}{absolute-continuity-truncation}
+先在可测零集 \(\{|f|=\infty\}\) 上把 \(f\) 改为零；这不改变任何积分。
 由 \(|f|\mathbf1_{\{|f|\le M\}}\uparrow|f|\)，单调收敛定理给出
-\(\int_{\{|f|>M\}}|f|\to0\)。给定 \(\varepsilon>0\)，取 \(M\)
+\(\int_{\{|f|>M\}}|f|\to0\)。给定 \(\varepsilon>0\)，取 \(M>0\)
 使尾积分小于 \(\varepsilon/2\)，再令
 \(\delta=\varepsilon/(2M)\)。若 \(\mu(E)<\delta\)，则
 \[
@@ -55,8 +56,9 @@
 \[
  \mu(E\cap[n,n+1])\longrightarrow0.
 \]
-否则可抽出两两远离的区间，使它们与 \(E\) 的交具有统一正测度，违背
-\(\mu(E)<\infty\)。故在每个有限测度集上依测度收敛，即局部依测度收敛。
+事实上，\(E\cap[n,n+1]\subseteq E\cap[n,\infty)\)，而右侧集合递减到空集。
+由 \(\mu(E)<\infty\) 及测度的上连续性，其测度趋于零。
+故在每个有限测度集上依测度收敛，即局部依测度收敛。
 \end{solution}
 
 \begin{solution}{dct-bounded-finite-measure}
@@ -69,6 +71,8 @@
 \end{solution}
 
 \begin{solution}{dct-convergence-in-measure-subsequence}
+先由题目所指定的子列原理抽取几乎处处收敛于 \(f\) 的子列。
+在共同的零测例外集之外取极限，得到 \(|f|\le g\)，所以 \(f\in L^1\)。
 若结论不成立，则存在 \(\varepsilon>0\) 和子列
 \((f_{n_k})\) 使 \(\int|f_{n_k}-f|\ge\varepsilon\)。依测度收敛的子列
 原理可从中再抽出几乎处处收敛于 \(f\) 的子列。该子列仍由 \(g\) 控制，
@@ -91,13 +95,13 @@
 \begin{solution}{series-integral-absolute}
 令 \(G=\sum_n|f_n|\)。非负逐项积分公式给出
 \(\int G=\sum_n\int|f_n|<\infty\)，故 \(G<\infty\) 几乎处处，
-\(\sum_nf_n\) 绝对收敛。部分和 \(S_N\) 满足 \(|S_N|\le G\)，控制收敛
+\(\sum_nf_n\) 几乎处处绝对收敛。在可测零集 \(\{G=\infty\}\) 上把各项及其和
+都定义为零。部分和 \(S_N\) 满足 \(|S_N|\le G\)，控制收敛
 给出
 \[
  \int\sum_nf_n=\lim_N\int S_N=\sum_n\int f_n.
 \]
-反例可取任意固定 \(h\in L^1\) 和
-\(h\ne0\)，令
+反例可在 \(\mathbb R\) 上取 \(h=\mathbf1_{[0,1]}\)，令
 \[
  f_n=\frac{(-1)^n}{n+1}h\qquad(n\ge0).
 \]
@@ -108,10 +112,11 @@
  =\sum_{n=0}^{\infty}\int f_n,
 \]
 而
-\(\sum_n\int|f_n|=\|h\|_1\sum_{n=0}^{\infty}(n+1)^{-1}=\infty\)。
+\(\sum_n\int|f_n|=\sum_{n=0}^{\infty}(n+1)^{-1}=\infty\)。
 \end{solution}
 
 \begin{solution}{scheffe-lemma}
+先在这些可积函数取无穷值的可测零集之并上把所有函数改为零。
 因 \(f_n,f\ge0\)，有
 \[
  |f_n-f|=f_n+f-2\min\{f_n,f\}.
@@ -136,7 +141,7 @@
 \(\int|f_n-f|\to0\)。可积函数 \(g\) 同时提供非负性和有限积分预算。
 
 一般的递增列可能满足 \(\int f_n=\infty\)，也可能不存在一个可积函数同时
-控制全部 \(f_n\)。因此控制收敛定理不能直接套用于一般单调收敛问题。在
-有限测度区域或已有可积截断控制时，可以先对截断列使用控制收敛，再解除
-截断；这些附加步骤正是在补足原问题中缺少的可积控制。
+控制全部 \(f_n\)。因此控制收敛定理不能直接套用于一般单调收敛问题。
+若另知极限 \(f\) 可积，则 \(0\le f_n\le f\) 提供了可积控制，控制收敛
+定理可以给出这一特殊情形。它并未涵盖 \(\int f=\infty\) 的情形。
 \end{solution}

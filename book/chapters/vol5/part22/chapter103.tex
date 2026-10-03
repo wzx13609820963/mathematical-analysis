@@ -6,8 +6,8 @@
 有限维线性代数中的正交、梯度和体积由此逐点进入流形；为了比较不同点的
 切向量，还需要一个与度量相容的微分法则，即 Levi--Civita 联络。
 
-本章只建立 Riemann 几何的基本微分结构。除体积积分处特别说明外，流形不必
-定向；所有流形和张量均为 $C^\infty$。
+本章的测地线和指数映射默认定义在无边界流形上，流形不必定向；所有流形和
+张量均为 $C^\infty$。带边界的积分公式另行说明。
 
 \section{Riemann 度量和长度}
 
@@ -44,7 +44,9 @@ $x\in\R^n$ 中，它写成
 \]
 也是共形 Euclidean 度量。竖直线从高度 $1$ 走向 $y=0$ 的长度为
 $\int_y^1dt/t$，当 $y\downarrow0$ 时趋于无穷；所以坐标图上有限的边界不
-一定在 Riemann 距离下有限远。后文将由曲率公式看出，球面与双曲平面的截面
+一定在 Riemann 距离下有限远。事实上任意连接高度 $y_1,y_2$ 的曲线都满足
+$L_g\geq\int|\dot y|/y\,dt\geq|\log y_2-\log y_1|$，所以改走其他路径
+也不能在有限长度内到达 $y=0$。后文将由曲率公式看出，球面与双曲平面的截面
 曲率分别为 $1$ 与 $-1$。
 \end{example}
 
@@ -63,7 +65,10 @@ $d_g$ 是每个连通分支上的度量，并诱导原流形拓扑。
 \end{theorem}
 \begin{proof}
 非负、对称和三角不等式分别来自长度的定义、反向参数化和曲线拼接。只需
-证明 $d_g(p,q)>0$ 及拓扑一致。取含 $p$ 的相对紧坐标球 $U$。矩阵
+证明距离有限、$d_g(p,q)>0$ 及拓扑一致。同一分支内存在分段光滑道路：
+从 $p$ 可沿有限条坐标线段到达的点组成开集，其补集也按同一理由为开集，
+连通性迫使它等于整个分支。这样连接 $p,q$ 的道路有有限长度。
+取含 $p$ 的相对紧坐标球 $U$。矩阵
 $(g_{ij})$ 的最小、最大特征值在一个更小紧坐标球上有正的统一界，故存在
 $0<c\le C<\infty$ 使
 \begin{equation}\label{eq:riemannian-local-norm-equivalence}
@@ -84,7 +89,7 @@ $0<c\le C<\infty$ 使
 
 曲线的能量为
 \[
- E_g(\gamma)=\frac12\int_a^b|\dot\gamma(t)|_g^2dt.
+ E_g(\gamma)=\frac12\int_a^b|\dot\gamma(t)|_g^2dt,\qquad a<b.
 \]
 Cauchy--Schwarz 给
 \begin{equation}\label{eq:riemannian-length-energy}
@@ -120,7 +125,12 @@ $\dot\eta$ 的项分部积分，得到
 $(p,v)\in TM$ 一条唯一的极大测地线 $\gamma_{p,v}$，满足
 $\gamma(0)=p$、$\dot\gamma(0)=v$。当它在 $t=1$ 有定义时，令
 $\exp_p(v)=\gamma_{p,v}(1)$。由解对初值的光滑依赖，指数映射在零向量附近
-光滑；其在零点的微分是恒等，故逆函数定理给出 $p$ 的正规邻域。
+光滑。
+这里所需的联合光滑依赖已在引理~\ref{lem:local-strongly-convex-neighborhoods}
+的证明中由一阶变分方程逐阶建立。由 $\gamma_{p,sv}(t)=\gamma_{p,v}(st)$ 得
+$d(\exp_p)_0(v)=\dot\gamma_{p,v}(0)=v$，故逆函数定理给出 $p$ 的正规邻域。
+若每条极大测地线的参数区间都是 $\R$，则称度量\term{测地完备}；这是
+关于解的整体延拓的定义，此处尚未把它与距离空间完备性等同。
 
 在单位球面上，若 $p\perp v$、$|p|=1$ 且 $v\ne0$，则
 \[
@@ -216,14 +226,35 @@ Christoffel 符号不是张量分量。若从 $x$ 坐标换到 $y$ 坐标，则
 $D\dot\gamma/dt=0$。由度量相容性，测地线速度的长度恒定，这也解释了
 它们为何自然取等速参数。
 
-\section{曲率张量、截面曲率和 Ricci 曲率}
-
 \begin{definition}
 Levi--Civita 联络的曲率张量定义为
 \[
  R(X,Y)Z=\nabla_X\nabla_YZ-\nabla_Y\nabla_XZ-\nabla_{[X,Y]}Z.
 \]
 \end{definition}
+
+联络对一次形式的作用由对偶规则定义：
+$(\nabla_X\alpha)(Y)=X(\alpha(Y))-\alpha(\nabla_XY)$。对一般张量，在
+每个输入槽减去相应的协变导数项，并对张量积采用 Leibniz 法则。例如
+\[
+ (\nabla_Xg)(Y,Z)=Xg(Y,Z)-g(\nabla_XY,Z)-g(Y,\nabla_XZ).
+\]
+度量相容性就是 $\nabla g=0$。
+
+变分时还需要沿映射的协变导数。设 $H(s,t)$ 是光滑参数族，$Y(s,t)$ 为
+$T_{H(s,t)}M$ 中的向量。定义
+\[
+ (D_tY)^k=\partial_tY^k+\Gamma^k_{ij}(H)\partial_tH^iY^j,
+\]
+$D_s$ 类似。Christoffel 的变换律保证这一定义与坐标无关。记
+$T=\partial_tH$、$S=\partial_sH$，混合偏导交换和无挠率给
+$D_sT=D_tS$。展开两个导数，二阶偏导相消，余项正是曲率坐标式，故
+\begin{equation}\label{eq:parameter-covariant-commutator}
+ D_sD_tY-D_tD_sY=R(S,T)Y.
+\end{equation}
+这些是沿 $H$ 的公式，不需要把 $S,T$ 延拓为流形上彼此交换的向量场。
+
+\section{曲率张量、截面曲率和 Ricci 曲率}
 
 虽然定义含向量场的导数，Leibniz 展开表明 $R(X,Y)Z$ 对三个变量都在函数
 意义下线性，因此其在一点的值只依赖 $X_p,Y_p,Z_p$。坐标分量为
@@ -246,7 +277,7 @@ Levi--Civita 联络的曲率张量定义为
 这些恒等式可直接从定义推出。第一式交换 $X,Y$ 即得。把联络对张量的作用
 按 Leibniz 法则延拓到度量，则 $\nabla g=0$，从而
 \[
-0=\bigl([\nabla_X,\nabla_Y]-\nabla_{[X,Y]}\bigr)g(Z,W)
+0=\left(\bigl([\nabla_X,\nabla_Y]-\nabla_{[X,Y]}\bigr)g\right)(Z,W)
  =-g(R(X,Y)Z,W)-g(Z,R(X,Y)W),
 \]
 这给出第二式。对第三式作循环求和，并按最外层导数分组，得到
@@ -264,7 +295,12 @@ $[X,[Y,Z]]+[Y,[Z,X]]+[Z,[X,Y]]$，由 Lie 括号的 Jacobi 恒等式为零。
  \Gamma^k_{ij}=\delta^k_j\partial_i u+\delta^k_i\partial_j u
  -\delta_{ij}\partial^ku.
 \]
-代入曲率坐标式，并在 $\partial_x,\partial_y$ 上取迹，得到 Gaussian 曲率
+取 $1=x,2=y$，有
+$\Gamma^1_{11}=u_x$、$\Gamma^1_{12}=u_y$、$\Gamma^1_{22}=-u_x$，
+$\Gamma^2_{11}=-u_y$、$\Gamma^2_{12}=u_x$、$\Gamma^2_{22}=u_y$。
+代入坐标式得 $R^1{}_{212}=-(u_{xx}+u_{yy})$，二次项相消。因此
+$g(R(\partial_x,\partial_y)\partial_y,\partial_x)
+=-e^{2u}(u_{xx}+u_{yy})$。除以面积平方 $e^{4u}$，得到 Gaussian 曲率
 \begin{equation}\label{eq:conformal-gaussian-curvature}
  K=-e^{-2u}(u_{xx}+u_{yy}).
 \end{equation}
@@ -277,7 +313,9 @@ $u=\log2-\log(1+x^2+y^2)$，代入后得 $K=1$。同一平面域上的两种度�
 \[
  K(\Pi)=\frac{g(R(u,v)v,u)}{|u|^2|v|^2-g(u,v)^2}.
 \]
-分母是平行四边形面积的平方，故该值与基的选择无关。Ricci 曲率和数量曲率
+分母是平行四边形面积的平方。换一组平面基时，分母乘基变换行列式的平方；
+分子因曲率在前两槽和末两槽的反对称性也乘同一个平方，故商与基无关。
+Ricci 曲率和数量曲率
 分别是迹
 \[
  \operatorname{Ric}(X,Y)=\sum_{i=1}^ng(R(e_i,X)Y,e_i),
@@ -285,6 +323,24 @@ $u=\log2-\log(1+x^2+y^2)$，代入后得 $K=1$。同一平面域上的两种度�
 \]
 其中 $(e_i)$ 为正交规范基。Euclidean 空间的 Christoffel 符号在直角坐标中
 全为零，故曲率为零；单位球面的标准度量具有常截面曲率 $1$。
+
+\begin{example}[球面的联络和曲率]\label{ex:sphere-connection-curvature}
+在 $S^n\subset\R^{n+1}$ 上记位置向量为 $p$，环境微分为 $D$。由
+$g(Y,p)=0$ 得 $g(D_XY,p)=-g(X,Y)$，因而切向投影为
+\[
+ \nabla_XY=D_XY+g(X,Y)p.
+\]
+投影保留环境微分的 Leibniz 法则、无挠率和度量相容性，由 Levi--Civita
+唯一性它就是球面的联络。将此式连续用于 $Y,Z$ 并反对称化，环境平坦项
+$D_XD_YZ-D_YD_XZ-D_{[X,Y]}Z$ 为零。位置向量的导数为 $D_Xp=X$，
+保留下来的切向项给出
+\[
+ R(X,Y)Z=g(Y,Z)X-g(X,Z)Y.
+\]
+法向系数则由度量相容性和 $\nabla_XY-\nabla_YX=[X,Y]$ 相消。
+这在任意维数证明球面曲率公式，也说明大圆的环境加速度纯法向时其协变
+加速度为零。
+\end{example}
 
 \begin{theorem}[局部平坦性]\label{thm:riemannian-local-flatness}
 在一点 $p$ 的某个邻域上 $R=0$，当且仅当 $p$ 有坐标邻域，使度量矩阵在该
@@ -299,15 +355,25 @@ $R=0$ 于 $p$ 的一个邻域，缩小为单连通坐标球 $W$。沿分段光�
  \frac D{dt}\frac D{ds}V
  =R(\partial_tH,\partial_sH)V.
 \]
-右侧为零，而 $D_sV$ 在起点为零；线性方程唯一性说明终点的平行移动不随
-$s$ 改变。$W$ 单连通，故平行移动只依赖端点。
+这里的交换式由式\eqref{eq:parameter-covariant-commutator}及 $D_tV=0$
+得到。右侧为零，而 $D_sV$ 在起点为零；线性方程唯一性说明终点的平行移动
+不随 $s$ 改变。在凸坐标球中，任意两条端点相同的分段光滑路径可用坐标
+直线插值同伦连接。对共同的有限分段逐段应用上述公式，便得平行移动只依赖
+端点，不必另调用连续同伦的光滑化。
 
 将 $T_pM$ 的一组正交规范基平行移动，得到 $W$ 上的光滑标架
 $E_1,\ldots,E_n$，并且 $\nabla_XE_i=0$。无挠率给
 \[
  [E_i,E_j]=\nabla_{E_i}E_j-\nabla_{E_j}E_i=0.
 \]
-两两交换的线性无关向量场的局部流彼此交换。映射
+两两交换的向量场的局部流彼此交换。定义
+$(\Phi_t^X)^*Y(p)=(D\Phi_t^X(p))^{-1}Y(\Phi_t^X(p))$。对它求导，利用
+$\partial_tD\Phi_t^X=DX(\Phi_t^X)D\Phi_t^X$ 以及
+$[X,Y]=DY\,X-DX\,Y$，得
+$\frac d{dt}(\Phi_t^X)^*Y=(\Phi_t^X)^*[X,Y]$。
+若 $[X,Y]=0$，该导数为零，所以 $\Phi_t^X$
+保持 $Y$。它将 $Y$ 的积分曲线送到具有对应初值的积分曲线，ODE 唯一性遂
+给 $\Phi_t^X\Phi_s^Y=\Phi_s^Y\Phi_t^X$。因此映射
 \[
  (t^1,\ldots,t^n)\longmapsto
  \Phi^{E_1}_{t^1}\circ\cdots\circ\Phi^{E_n}_{t^n}(p)
@@ -326,7 +392,10 @@ $Xg(E_i,E_j)=0$，所以这些坐标中的 $g_{ij}$ 为常数。
  g(\operatorname{grad}f,X)=df(X)
 \]
 定义，坐标表达为 $(\operatorname{grad}f)^i=g^{ij}\partial_jf$。向量场
-$X$ 的散度可由体积密度的 Lie 导数定义；在坐标中
+$X$ 的散度定义为 $\mathcal L_XdV_g=(\operatorname{div}X)dV_g$。这里密度的
+Lie 导数是局部流拉回的导数 $\frac d{dt}|_{t=0}(\Phi_t^X)^*dV_g$，拉回采用
+Jacobian 绝对值。对流的 Jacobian 在 $t=0$ 求导得 $\partial_iX^i$，连同
+密度系数的导数 $X(\sqrt{|g|})$，在坐标中得到
 \begin{equation}\label{eq:riemannian-divergence-coordinate}
  \operatorname{div}X
  =\frac1{\sqrt{|g|}}\partial_i\bigl(\sqrt{|g|}X^i\bigr),
@@ -386,9 +455,9 @@ Poisson 方程。
 
 \section{测地线的变分与 Jacobi 场}
 
-设 $\Gamma(s,t)$ 是曲线族，$T=\partial_t\Gamma$，
-$V=\partial_s\Gamma|_{s=0}$ 为变分场。零挠率给
-$\nabla_{\partial_s}T=\nabla_TV$。利用度量相容性并沿 $t$ 分部积分，得到
+设 $\Gamma(s,t)$ 是光滑曲线族，$T=\partial_t\Gamma$，
+$V=\partial_s\Gamma|_{s=0}$ 为变分场。上述参数协变导数公式给 $D_sT=D_tV$。
+利用度量相容性并沿 $t$ 分部积分，得到
 能量第一变分公式
 \begin{equation}\label{eq:riemannian-energy-first-variation}
  \left.\frac d{ds}\right|_{0}E(\Gamma_s)
@@ -415,7 +484,9 @@ $\nabla_TT=0$ 沿 $s$ 求协变导数，并用曲率定义交换两次导数，�
  =g\!\left(\frac{D^2J}{dt^2},T\right)
  =-g(R(J,T)T,T)=0.
 \]
-所以 Jacobi 场的切向分量沿参数是仿射函数；它对应平移测地线参数或改变速率。
+当 $T\ne0$ 时，其长度为常数，故 Jacobi 场的切向分量沿参数是仿射函数；
+它对应平移测地线参数或改变速率。常值测地线上没有这个切向方向，Jacobi
+方程在固定切空间内直接成为 $J''=0$。
 垂直分量才记录邻近测地线在横向上的会聚与发散。
 
 反之，Jacobi 方程是向量丛上的二阶线性方程，初值
@@ -477,7 +548,7 @@ $I(J,W)=0$ 对所有两端为零的 $W$ 成立。因此共轭点出现时二阶�
 \end{enumerate}
 \subsection*{C组}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
-\exerciseitem{riemannian-sphere-geodesics}证明单位球面的大圆以常速参数化时是测地线，并说明非整段小圆通常不是测地线。
+\exerciseitem{riemannian-sphere-geodesics}证明单位球面的大圆以常速参数化时是测地线，并证明不在过球心平面内的非退化小圆弧不是测地线。
 \exerciseitem{riemannian-curvature-tensorial}证明 $R(X,Y)Z$ 对 $X,Y,Z$ 都是 $C^\infty(M)$-线性的。
 \exerciseitem{riemannian-jacobi-equation}从测地线变分推导 Jacobi 方程，并写出 Euclidean 空间中的全部 Jacobi 场。
 \exerciseitem{riemannian-incomplete-interval}计算 $(0,1)$ 上 Euclidean 度量的距离和测地线，证明它既不度量完备也不测地完备。

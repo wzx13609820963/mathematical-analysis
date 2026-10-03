@@ -297,7 +297,7 @@
 
 \section{乘法逆元}
 
-倒数会反转正数的次序。若只对 \(a\in\alpha_+\) 取 \(1/a\)，得到的是从上方逼近倒数的集合；因此定义必须使用 \(\alpha\) 的右部。对每个右部元素 \(r\)，数 \(1/r\) 位于目标倒数的左侧，再对这些数向下封闭便得到下式。
+倒数会反转正数的次序。若只对 \(a\in\alpha_+\) 取 \(1/a\)，得到的是从上方逼近倒数的集合；因此定义使用 \(\alpha\) 的右部。对右部元素 \(r\)，数 \(1/r\) 不超过目标倒数；若 \(r\) 恰好是有理边界，则二者相等。所以要取严格小于 \(1/r\) 的数，才能保证所得左部不含端点。
 
 对正分割 \(\alpha\)，定义
 \[
@@ -454,11 +454,11 @@
 \(\iota(\Q)\) 直接记作 \(\Q\)，把 \(\mathbb D\) 记作 \(\R\)；这种记号上的识别以嵌入保持全部有序域结构为依据。分割的集合编码不会进入通常的极限计算，但确界的并集公式解释了这个模型为何没有 Dedekind 缺口。
 
 \begin{proposition}
-分割域中 \(1^*>0^*\)，每个非零分割的平方为正，并且不存在正分割小于所有正主分割 \(1/n^*\)。
+分割域中 \(1^*>0^*\)，每个非零分割的平方为正，并且不存在正分割小于所有正主分割 \((1/n)^*\)（\(n\in\Npos\)）。
 \end{proposition}
 
 \begin{proof}
-前两项是任意有序域的形式后果。确界性质已经证明，因此可以应用\chapterref{chap:real-number-system}由确界原理推出的 Archimedes 性质：对任意正元素 \(\alpha\)，存在 \(n\in\Npos\) 使 \(1/n^*<\alpha\)。故不存在小于所有正主分割 \(1/n^*\) 的正分割。
+前两项是任意有序域的形式后果。确界性质已经证明，因此可以应用\chapterref{chap:real-number-system}由确界原理推出的 Archimedes 性质：对任意正元素 \(\alpha\)，存在 \(n\in\Npos\) 使 \((1/n)^*<\alpha\)。故不存在小于所有正主分割 \((1/n)^*\) 的正分割。
 \end{proof}
 
 \section*{习题}
@@ -509,7 +509,7 @@
  \exerciseitem{4.18} 证明若 \(\alpha<\beta\)，则存在正主分割 \(r^*>0^*\) 使 \(\alpha+r^*<\beta\)。
  \exerciseitem{4.19} 分别说明加法逆元与乘法逆元定义中为何使用右部元素，并构造一个“逐项取相反数或倒数”后不向下封闭的错误候选。
  \exerciseitem{4.20} 对非空有上界分割族 \(\mathcal A\)，验证并集上确界证明的每一条分割条件；再分析若删去共同上界假设哪一步失败。
- \optionalexerciseitem{4.21} 证明
+ \optionalexerciseitem{4.21} 设 \(\mathcal A\subseteq\mathbb D\) 非空且有下界。证明
  \[
   \inf\mathcal A=\bigcup\{\gamma\in\mathbb D:
   \gamma\subseteq\alpha\text{ 对所有 }\alpha\in\mathcal A\},

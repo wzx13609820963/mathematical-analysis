@@ -1,7 +1,7 @@
 \chapter{Riemann 积分}
 \label{chap:riemann-integral}
 
-在微积分计算中，定积分常由原函数公式给出；然而“哪些函数可以积分”并不能由原函数先行回答。阶梯函数没有处处连续的导数，处处振荡的函数甚至可能没有任何适用的原函数公式。Riemann 理论从有限个函数值构成的和出发，考察当区间被不断细分时，这些和是否被迫趋向同一个数。
+在微积分计算中，定积分常由原函数公式给出；然而“哪些函数可以积分”并不能由原函数先行回答。具有跳跃的阶梯函数仍可积分，却不可能成为一个处处可导函数的导函数。Riemann 理论从有限个函数值构成的和出发，考察当区间被不断细分时，这些和是否被迫趋向同一个数。
 
 本章始终设 \(a<b\)，函数取实值。退化区间上的积分约定为
 \(\int_a^a f=0\)，反向积分在后文约定为
@@ -174,7 +174,7 @@ Riemann 定义同时量化所有标记点。对有界函数，可以把每个子
  \underline{\int_a^b} f
  \le \overline{\int_a^b} f.
 \]
-两者相等时，函数称为 Darboux 可积。上确界与下确界在这里不是形式装饰：
+两者相等时，函数称为 Darboux 可积。
 下和从下方逼近所有可能面积，上和从上方逼近；两者之间若仍有正间隙，
 任意细分都不能消除取样的不确定性。
 
@@ -224,7 +224,8 @@ Riemann 定义同时量化所有标记点。对有界函数，可以把每个子
  \delta<\frac{\varepsilon}{4Mr}
 \]
 （若 \(M=0\) 则结论平凡）。对任意 \(\norm P<\delta\) 的标记分割，
-把含有 \(P_0\) 内分点的那些子区间称为坏区间。坏区间至多 \(r-1\)
+把内部含有 \(P_0\) 内分点的那些子区间称为坏区间；仅在端点相交的
+子区间不计入。坏区间至多 \(r-1\)
 个，总长度小于 \(r\delta\)；其对上下估计造成的总误差不超过
 \(2Mr\delta<\varepsilon/2\)。其余子区间完全落在 \(P_0\) 的某一段内，
 标记和夹在相应上下和之间。因此
@@ -281,10 +282,16 @@ Riemann 定义同时量化所有标记点。对有界函数，可以把每个子
 \end{proposition}
 
 \begin{proof}
-只需处理一个修改点 \(c\)。取一个分割，使含 \(c\) 的子区间总长度
-小于任意给定的 \(\eta>0\)。除该区间外，两函数的振幅相同；含
-\(c\) 的区间造成的上下和差异由两函数的统一界乘以 \(\eta\) 控制。
-令 \(\eta\to0\)，应用振幅判据即可。
+设修改点共 \(m\) 个，且 \(\abs f,\abs g\le M\)。在同一标记分割上，
+只有标记点恰为修改点的项可能不同。每个点至多属于两个子区间，故
+\[
+ \abs{S(f,\dot P)-S(g,\dot P)}\le4Mm\norm P.
+\]
+若 \(f\) 可积且积分为 \(I\)，给定 \(\varepsilon>0\)，先令网格足够小，
+使 \(\abs{S(f,\dot P)-I}<\varepsilon/2\)，并同时使上式右端小于
+\(\varepsilon/2\)。于是所有这样的标记和都满足
+\(\abs{S(g,\dot P)-I}<\varepsilon\)。因此 \(g\) 也可积，积分仍为 \(I\)。
+交换两函数便得逆向；\(Mm=0\) 时两者相同，无需另选网格。
 \end{proof}
 
 \section{连续、单调和分段连续函数的可积性}
@@ -335,10 +342,17 @@ Riemann 定义同时量化所有标记点。对有界函数，可以把每个子
 \end{corollary}
 
 \begin{proof}
-在各连续片段上取闭子区间，连续性给出可积性；分点附近留下总长度任意小
-的区间，用有界性控制其振幅。也可先在分点处补成单侧连续函数，再用有限
-点修改命题。
+取 \(M\ge1\) 使 \(\abs f\le M\)。给定 \(\varepsilon>0\)，在各分点
+附近取小区间，使所有分点都位于这些区间的相对内部，且总长度小于
+\(\varepsilon/(4M)\)。余下部分是有限个闭区间，\(f\) 在每个区间上
+连续，故可分别选分割，使这些区间的振幅和的总贡献小于
+\(\varepsilon/2\)。把所有分点和小区间端点加入分割；覆盖部分的
+振幅至多 \(2M\)，贡献也小于 \(\varepsilon/2\)。振幅判据给出可积性。
 \end{proof}
+
+特别地，在某一有限分割的每个开子区间上为常数、在分点处任意取有限实值
+的函数，称为本章的\term{阶梯函数}。它分段连续，因而可积。允许单独规定
+分点值，在逼近具有跳跃或孤立改值的函数时很有用。
 
 \section{可积函数的运算、连续复合与估计}
 
@@ -500,7 +514,8 @@ Darboux 判据得到。
 \begin{proof}
 给定 \(\varepsilon>0\)，先取 \(N\) 使 \(1/N<\varepsilon/2\)。
 分母不超过 \(N\) 的既约分数在 \([0,1]\) 中只有有限个。用总长度小于
-\(\varepsilon/2\) 的有限个小区间覆盖这些点，并把端点加入分割。
+\(\varepsilon/2\) 的有限个小区间覆盖这些点，使每个被覆盖点位于覆盖集
+相对于 \([0,1]\) 的内部，并把这些小区间的端点加入分割。
 这些小区间上振幅至多 \(1\)，其余区间上 \(T\le1/N\)。因此
 \[
  U(T,P)-L(T,P)
@@ -521,7 +536,7 @@ Thomae 函数在所有无理点连续、在所有有理点不连续。它说明�
 \subsection*{A组　定义与上下和}
 \begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
  \exerciseitem{riemann-step-function-direct} 从 Riemann 和定义计算阶梯函数
- \(f=\mathbf 1_{[c,b]}\) 在 \([a,b]\) 上的积分，并说明标记点落在 \(c\)
+ \(f=\mathbf 1_{[c,b]}\) 在 \([a,b]\) 上的积分（\(a\le c\le b\)），并说明标记点落在 \(c\)
  时不影响结论。
  \exerciseitem{riemann-integrable-bounded-reproof} 不引用命题
  \ref{prop:riemann-integrable-bounded}，用 Cauchy 判据重新证明可积函数有界。
@@ -547,8 +562,10 @@ Thomae 函数在所有无理点连续、在所有有理点不连续。它说明�
  并据此重证乘积封闭性。
  \exerciseitem{riemann-lipschitz-composition} 若 \(f\) 可积，\(\Phi\) 在包含
  \(f([a,b])\) 的区间上 Lipschitz 连续，证明 \(\Phi\circ f\) 可积。
- \exerciseitem{riemann-continuous-composition} 把上一题推广为 \(\Phi\) 只需连续。
- 提示：使用紧区间上的一致连续性和振幅判据。
+ \exerciseitem{riemann-continuous-composition} 设 \(f\) 可积，
+ \(\Phi\) 在 \(K=\overline{f([a,b])}\) 上连续。用一致连续性和振幅判据
+ 证明 \(\Phi\circ f\) 可积。再举例说明：只要求 \(\Phi\) 在包含
+ \(f([a,b])\) 的开区间上连续，并不足以保证结论。
  \exerciseitem{riemann-integral-zero-positive} 若 \(f\ge0\) 连续且
  \(\int_a^b f=0\)，证明 \(f\equiv0\)。再举例说明把连续改成 Riemann 可积后
  结论失败。
@@ -572,7 +589,7 @@ Thomae 函数在所有无理点连续、在所有有理点不连续。它说明�
  在有理点不连续。
  \exerciseitem{riemann-dense-indicator-notintegrable} 若 \(A\subset[a,b]\) 与
  其补集都在 \([a,b]\) 中稠密，证明 \(\mathbf1_A\) 不可积。
- \exerciseitem{riemann-change-single-point-upper-lower} 设 \(f,g\) 仅在一点不同。
+ \exerciseitem{riemann-change-single-point-upper-lower} 设有界函数 \(f,g\) 仅在一点不同。
  直接比较上下积分，证明它们可积性相同且可积时积分相等。
  \optionalexerciseitem{riemann-regulated-approximation} 设 \(f\) 在 \([a,b]\) 的
  每一点都有有限左右极限（端点只取内侧极限）。证明对任意

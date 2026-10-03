@@ -63,7 +63,9 @@
 \end{solution}
 
 \begin{solution}{hilbert-riesz-sequence-functional}
-数列 \(a=(1/n)_{n\ge1}\) 属于 \(\ell^2\)。数列 Cauchy--Schwarz 不等式给
+令 \(a_0=0\)，\(a_n=1/n\)（\(n\ge1\)），则
+\(a=(a_n)_{n\ge0}\in\ell^2\)。零号系数为零，是因为题设泛函不使用
+\(x_0\)。数列 Cauchy--Schwarz 不等式给
 \[
  |\phi(x)|\le\|x\|_2\|a\|_2,
 \]
@@ -71,8 +73,7 @@
 \(\phi(x)=\langle x,a\rangle\)，故 Riesz 表示元为 \(a\)，并且
 \[
  \|\phi\|=\|a\|_2
- =\left(\sum_{n=1}^\infty\frac1{n^2}\right)^{1/2}
- =\frac{\pi}{\sqrt6}.
+ =\left(\sum_{n=1}^\infty\frac1{n^2}\right)^{1/2}.
 \]
 \end{solution}
 
@@ -96,6 +97,10 @@
 所以 Gram 矩阵总半正定，且二次型只在 \(c=0\) 时为零，恰好等价于
 \(u_j\) 线性无关。此时矩阵可逆，正规方程有唯一系数解；该解表示的向量
 使误差与每个 \(u_k\) 正交，因而由投影定理是唯一最佳逼近向量。
+若向量族相关，投影向量仍在其张成空间中，所以至少存在一组表示系数
+\(c\)，它满足正规方程。取非零依赖关系 \(\sum_jd_ju_j=0\)，则
+\(c+td\) 对每个标量 \(t\) 都表示同一个投影，也都满足正规方程；
+所以此时系数不唯一。
 \end{solution}
 
 \begin{solution}{hilbert-von-neumann-complex}

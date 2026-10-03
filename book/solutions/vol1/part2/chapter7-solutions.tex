@@ -138,8 +138,8 @@ Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref
 \[
  \sup_{k\ge N}a_k-\inf_{k\ge N}a_k\le\varepsilon.
 \]
-令 \(N\to\infty\)，得到
-\(\limsup a_n-\liminf a_n=0\)。两者有限是因为 Cauchy 列有界；\chapterref{chap:limsup-liminf}判据遂给出收敛。
+同一上界对所有更晚的尾部也成立，故
+\(0\le\limsup a_n-\liminf a_n\le\varepsilon\)。两者有限是因为 Cauchy 列有界；再由 \(\varepsilon>0\) 任意，得两者相等。\chapterref{chap:limsup-liminf}的判据遂给出收敛。
 \end{solution}
 
 \section*{C组}
@@ -164,7 +164,7 @@ Cauchy 列有界，由 Bolzano--Weierstrass 定理有收敛子列。\exerciseref
  P_m=\sum_{j=1}^m d_j^+,\qquad
  Q_m=\sum_{j=1}^m d_j^-
 \]
-都单调递增，且都不超过有限几何和
+规定 \(P_0=Q_0=0\)。上述两列都单调递增，且都不超过有限几何和
 \(\sum_{j=1}^m2^{-j}<1\)，故由单调有界收敛定理分别收敛。于是
 \[
  a_{n_k}=a_{n_1}+P_{k-1}-Q_{k-1}
@@ -201,7 +201,9 @@ Cauchy 列，故按 (2) 它还收敛到某个 \(y\in F\)。实数极限唯一，
 \end{solution}
 
 \begin{solution}{13.22}
-有限线性组合由三角不等式和有限个尾部起点取最大值得到。无穷线性组合若逐项选择起点，通常不存在控制全部项的有限最大值；还需绝对可和、一致尾和或其他允许交换求和与极限的条件。
+设 \(b_n=\sum_{j=1}^r c_j a_n^{(j)}\)，其中各 \((a_n^{(j)})\) 为 Cauchy 列。给定 \(\varepsilon>0\)，对第 \(j\) 列选起点 \(N_j\)，使尾部两项距离小于 \(\varepsilon/[r(1+|c_j|)]\)。取 \(N=\max_j N_j\)，三角不等式给出 \(|b_m-b_n|<\varepsilon\) 对全部 \(m,n\ge N\) 成立。
+
+题给数组的第 \(j\) 列从 \(n>j\) 起恒为零，故逐列极限都是零。但第 \(n\) 行在第 \(n\) 个分量处为 \(1\)，其余为零，所以每行之和为 \(1\)。于是行和的极限为 \(1\)，各列极限之和为 \(0\)。有限和证明中对全部分量的起点取最大值，在这里不能照搬：这些起点随 \(j\) 增大，并无共同的有限起点。
 \end{solution}
 
 \begin{solution}{13.23}

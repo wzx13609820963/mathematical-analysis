@@ -8,7 +8,8 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 
 \section{几乎处处等价类}
 
-对 \(0<p<\infty\)，记
+固定任意测度空间 \((X,\mathcal A,\mu)\)，不假设总测度有限或
+\(\sigma\)-有限。对 \(0<p<\infty\)，记
 \[
  \mathcal L^p(\mu)
  =\left\{f:X\to\mathbb R\text{ 可测}:
@@ -18,7 +19,17 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \[
  f\sim g\quad\Longleftrightarrow\quad f=g\ \text{几乎处处}
 \]
-是等价关系，并与加法、数乘相容。
+是等价关系。先确认加法不会离开 \(\mathcal L^p\)：当 \(p\ge1\) 时，
+凸性给出
+\[
+ |f+g|^p\le2^{p-1}(|f|^p+|g|^p);
+\]
+当 \(0<p<1\) 时，次可加性给出
+\(|f+g|^p\le|f|^p+|g|^p\)。后一估计可由
+\((u+v)^p-u^p\le v^p\) 得到，因为左侧作为 \(u>0\) 的函数递减。
+两种情形的右侧均可积，且 \(\int|\alpha f|^p=|\alpha|^p\int|f|^p\)。
+若更换几乎处处相等的代表，和与数乘只在相应零集的有限并上改变。
+因此这两个运算可以定义在等价类上。
 
 \begin{definition}
 \[
@@ -32,7 +43,9 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \end{definition}
 
 若保留逐点函数而不取商，\(\|f\|_p=0\) 只推出 \(f=0\) 几乎处处，
-不能推出处处为零，因此它只是半范数。取商后正定性成立。逐点取值、某点处
+不能推出处处为零。因此，在稍后证明三角不等式的 \(p\ge1\) 范围内，
+它在逐点函数空间上只是半范数，取商后才有正定性。
+\(0<p<1\) 时还存在三角不等式的问题，将另作讨论。逐点取值、某点处
 连续等性质一般不能直接赋给一个 \(L^p\) 元素，除非另行选定代表。
 
 \section{Young 不等式}
@@ -53,17 +66,21 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \end{lemma}
 
 \begin{proof}
-凸函数 \(\phi(t)=e^t\) 的加权 Jensen 不等式给
+若 \(a=0\) 或 \(b=0\)，左侧为零，右侧非负，且等号要求两者均为零。
+以下设 \(a,b>0\)。凸函数 \(\phi(t)=e^t\) 的加权 Jensen 不等式给
 \[
  e^{\frac1p\log a^p+\frac1q\log b^q}
  \le\frac{a^p}{p}+\frac{b^q}{q}.
 \]
-左侧为 \(ab\)。零值情形由连续性得到。严格凸性说明等号恰在
+左侧为 \(ab\)。严格凸性说明等号恰在
 \(\log a^p=\log b^q\)，即 \(a^p=b^q\) 时成立。
 \end{proof}
 
-也可从 \(t\mapsto t^p/p\) 的凸共轭为 \(s^q/q\) 得到 Young 不等式。
-这一形式将在卷积和对偶理论中反复出现。
+另一个证明是固定 \(s\ge0\)，求
+\(\sup_{t\ge0}(st-t^p/p)\)。当 \(s>0\) 时，导数在
+\(t=s^{1/(p-1)}\) 处由正变负，最大值为 \(s^q/q\)；
+\(s=0\) 时最大值为零。于是 \(st-t^p/p\le s^q/q\)，
+这就是同一个不等式。此处只需要一元极值计算。
 
 \section{Hölder 不等式}
 
@@ -74,7 +91,8 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \[
  \|fg\|_1\le\|f\|_p\|g\|_q.
 \]
-端点形式是
+端点形式要求 \(f\in L^1\)、\(g\) 为本质有界可测函数，记
+\(\|g\|_\infty=\operatorname*{ess\,sup}|g|<\infty\)，则
 \[
  \|fg\|_1\le\|f\|_1\|g\|_\infty.
 \]
@@ -97,8 +115,9 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 
 \begin{corollary}[多重 Hölder]
 \label{cor:multilinear-holder}
-若 \(p_j\in[1,\infty]\) 且
-\(\sum_{j=1}^m1/p_j=1\)，则
+设 \(m\ge1\) 为整数，各 \(p_j\in[1,\infty]\)，各 \(f_j\in L^{p_j}\)，
+其中 \(L^\infty\) 暂指本质有界可测函数的几乎处处等价类。
+若 \(\sum_{j=1}^m1/p_j=1\)（约定 \(1/\infty=0\)），则
 \[
  \left\|\prod_{j=1}^mf_j\right\|_1
  \le\prod_{j=1}^m\|f_j\|_{p_j}.
@@ -170,8 +189,36 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
  \|\mathbf1_E+\mathbf1_F\|_p=2^{1/p}>2
  =\|\mathbf1_E\|_p+\|\mathbf1_F\|_p.
 \]
-因此 \(L^p\) 在此范围是拟 Banach 空间而非赋范空间。许多收敛论证仍可在
-度量 \(d_p\) 下进行，但不能直接调用局部凸空间的工具。
+所以这一表达式一般不是范数。不过，由凹性，
+\[
+ A^p+B^p\le2^{1-p}(A+B)^p\qquad(A,B\ge0).
+\]
+把 \(A=\|f\|_p,B=\|g\|_p\) 代入，再结合积分后的次可加性，得到
+\[
+ \|f+g\|_p\le2^{1/p-1}(\|f\|_p+\|g\|_p),
+\]
+称为拟范数。度量 \(d_p\) 仍足以研究收敛；下面证明其完备性，之后才可以
+称这个空间为拟 Banach 空间。这里并不声称每种测度空间都不能另选范数：
+有限个点组成的空间仍然可以用通常的有限维范数赋予同一拓扑。
+
+设 \((f_n)\) 是 \(d_p\)-Cauchy 列，选子列使
+\(d_p(f_{n_{k+1}},f_{n_k})\le2^{-k}\)。单调收敛定理给
+\[
+ \int\sum_k|f_{n_{k+1}}-f_{n_k}|^p\le\sum_k2^{-k}<\infty.
+\]
+因此这个正项级数几乎处处有限。其各项底数最终小于一，
+而 \(0\le t\le1\) 时 \(t\le t^p\)，故
+\(\sum_k|f_{n_{k+1}}-f_{n_k}|\) 也几乎处处收敛。
+令 \(f\) 为相应逐点极限，在上述级数发散的可测零集上置零。
+它是将同一零集上置零后的子列的点态极限，故可测。由
+\(|a+b|^p\le|a|^p+|b|^p\) 和 Fatou 引理，
+\[
+ d_p(f,f_{n_k})\le\sum_{j=k}^\infty2^{-j}\longrightarrow0.
+\]
+特别地，
+\(\int|f|^p\le\int|f-f_{n_1}|^p+\int|f_{n_1}|^p<\infty\)，
+故 \(f\in L^p\)。再用 \(d_p\) 的三角不等式和原列的 Cauchy 性，
+得到整个序列趋于 \(f\)，完备性得证。
 
 \section{Riesz--Fischer 完备性定理}
 
@@ -202,7 +249,13 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
  \sum_{k=1}^{\infty}
  |f_{n_{k+1}}(x)-f_{n_k}(x)|
 \]
-几乎处处收敛。于是 \(f_{n_k}(x)\) 几乎处处收敛到某个可测函数 \(f(x)\)。
+几乎处处收敛。在可测零集 \(\{g=\infty\}\) 外定义
+\(f(x)=\lim_kf_{n_k}(x)\)，在该零集上令 \(f=0\)。
+这给出有限可测函数。由于几乎处处有 \(|f|\le|f_{n_1}|+g\)，
+\[
+ \int|f|^p\le2^{p-1}\left(\int|f_{n_1}|^p+\int g^p\right)<\infty,
+\]
+所以在估计范数差之前已经确认 \(f\in L^p\)。
 
 对 \(m>k\)，
 \[
@@ -222,9 +275,7 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
  \le\left(\sum_{j=k}^{\infty}2^{-j}\right)^p.
 \]
 取 \(p\) 次根即知 \(\|f-f_{n_k}\|_p\to0\)。
-因此 \(f\in L^p\)（例如由
-\(\|f\|_p\le\|f-f_{n_k}\|_p+\|f_{n_k}\|_p\)），且子列在
-\(L^p\) 中收敛到 \(f\)。原列 Cauchy，故
+即子列在 \(L^p\) 中收敛到 \(f\)。原列 Cauchy，故
 \[
  \|f_n-f\|_p
  \le\|f_n-f_{n_k}\|_p+\|f_{n_k}-f\|_p\to0.
@@ -285,16 +336,25 @@ Minkowski 不等式保证 \(p\) 次平均误差满足三角不等式，Riesz--Fi
 \]
 
 \exerciseitem{lp-convergence-series}
+设 \(1\le p<\infty\)，\(f_n\in L^p\)（\(n\ge1\)）。
 若 \(\sum_n\|f_n\|_p<\infty\)，证明 \(\sum_nf_n\) 几乎处处绝对收敛，
-并在 \(L^p\) 中收敛。
+并在 \(L^p\) 中收敛。对 \(0<p<1\)，证明改用条件
+\(\sum_n\|f_n\|_p^p<\infty\) 可得到相同结论，并说明为什么不能直接沿用
+\(\sum_n\|f_n\|_p<\infty\) 作为充分条件。
 
 \optionalexerciseitem{clarkson-special-case}
-对 \(p\ge2\)，证明或查明条件后证明
+设 \(2\le p<\infty\)，\(f,g\in L^p\)。证明
 \[
  \|f+g\|_p^p+\|f-g\|_p^p
  \le 2^{p-1}(\|f\|_p^p+\|g\|_p^p),
 \]
-并说明它与 \(L^p\) 的一致凸性有何关系。
+并证明：对每个 \(0<\varepsilon\le2\)，若
+\(\|f\|_p,\|g\|_p\le1\) 且 \(\|f-g\|_p\ge\varepsilon\)，则
+\[
+ \left\|\frac{f+g}{2}\right\|_p
+ \le\bigl(1-(\varepsilon/2)^p\bigr)^{1/p}<1.
+\]
+单位球中这种只依赖两点距离下界的中点估计称为一致凸性。
 
 \projectexerciseitem{lp-completeness-template}
 把 Riesz--Fischer 证明抽象成“范数可求和子列”的完备性模板，并用它重证
