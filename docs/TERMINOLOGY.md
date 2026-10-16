@@ -232,6 +232,16 @@
 | 依概率收敛、依分布收敛 | convergence in probability, convergence in distribution | 后者允许样本空间不同；常数分布极限可推出对该常数的依概率收敛，随机极限一般不行 |
 | 连续映射定理 | continuous mapping theorem | 第110章允许Borel映射在极限分布零测集上不连续；不得仅检查各有限阶段分布的不连续点质量 |
 | Slutsky定理 | Slutsky theorem | 一个分布极限与一个依概率趋于常数的变量组成联合极限，不要求独立；不能随意把常数换成随机变量 |
+| 特征函数 | characteristic function | 概率测度的Fourier变换；与集合示性函数不同，后者不译为特征函数 |
+| Lévy连续性定理 | Lévy continuity theorem | 点态变换极限在原点连续时，给出概率极限的存在和弱收敛，不要求先有密度 |
+| 弱大数定律、强大数定律 | weak law, strong law of large numbers | 分别指平均的依概率与a.s.收敛；本章可积同分布情形另有L1收敛 |
+| Kolmogorov三列定理 | Kolmogorov three-series theorem | 固定正阈值下，大跳跃概率、截断均值、截断方差的三项充要条件 |
+| 中心极限定理 | central limit theorem | 中心化独立和按总标准差归一化后的分布极限；不默认路径收敛或误差速率 |
+| Lindeberg条件、Feller条件、Lyapunov条件 | Lindeberg condition, Feller condition, Lyapunov condition | 尾方差消失、最大方差占比消失、高阶矩比消失；Lindeberg足以推出正态极限，Lyapunov蕴含Lindeberg，单有Feller不足 |
+| 正态随机向量、联合正态 | Gaussian random vector, jointly Gaussian | 有限个独立标准正态的仿射像之分布，允许退化；正态边缘不自动给联合正态 |
+| 条件期望 | conditional expectation | 子σ代数上可测且保持全部相应事件积分的可积变量，a.s.唯一 |
+| 可测因子分解 | Doob--Dynkin factorization | 实值σ(V)可测函数可写成Borel函数g(V)，不为零概率观测值指定唯一点值 |
+| 塔式性质、条件Jensen | tower property, conditional Jensen inequality | 前者要求子σ代数嵌套，后者在共同概率一集合上比较凸函数与条件平均 |
 
 ## 风格约定
 

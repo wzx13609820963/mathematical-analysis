@@ -273,6 +273,10 @@
 | 108 概率空间 | `chap:probability-spaces` | 18、54、58—60、62、67、74、84、104—105 | 概率空间、随机变量及联合分布、期望和矩、协方差、Markov与Chebyshev估计、Jensen不等式 |
 | 109 独立性 | `chap:independence` | 54—55、58—60、62、105、108 | 事件与变量独立、π–λ检验、分块独立、有限乘积和指定分布的独立序列构造、概率测度卷积、两条Borel–Cantelli引理与尾零一律 |
 | 110 概率收敛 | `chap:probability-convergence` | 30—31、59—60、64—67、104—105、108—109 | 依分布收敛、Portmanteau判据、连续映射、直接一致紧性、Slutsky、概率Vitali判据和不同空间的期望极限 |
+| 111 特征函数 | `chap:characteristic-functions` | 17、24、31、53、60、62、84、90、104、108—110 | 概率测度变换、Gaussian磨光唯一性、有限维一致紧抽取、Lévy连续性、矩导数与反演 |
+| 112 大数定律 | `chap:laws-of-large-numbers` | 4、24、60、67、108—111 | L1弱律、截断、Kronecker引理、最大不等式、可积同分布强律及完整三列定理 |
+| 113 中心极限定理 | `chap:central-limit-theorem` | 17、24、90、108—112 | 有限二阶矩CLT、多元正态与退化极限、逐行独立Lindeberg定理、Lyapunov条件与反例 |
+| 114 条件期望 | `chap:conditional-expectation` | 18、58、60、62、67、74、80、108—110、113 | 非完备空间中的RN构造、因子分解、Lp投影、塔式性质、条件Jensen与L2最佳逼近 |
 
 - 108采用一般概率空间，不默认其完备。联合密度先选择非负Borel代表，
   再作截面积分；不能从二维Lebesgue可测性直接断言每条截面可测。
@@ -292,6 +296,21 @@
   用球和截断证明，不调用后续概率紧性定理。`thm:slutsky` 需要共同实现以定义
   联合变量，但极限的第一个坐标可在另一空间上；第二个极限必须为常数。
   `thm:weak-ui-expectations` 只用有界连续截断，不使用Skorohod表示或共同耦合。
+- 111的 `lem:euclidean-tight-subsequence` 直接用C0的可数稠密族、对角抽取
+  和104章的 `cor:positive-czero-representation`，不预用118章一般概率紧性。
+  `thm:characteristic-uniqueness` 先作Gaussian卷积，不假设原分布有密度；
+  `thm:levy-continuity` 由原点附近平均变换控制各坐标尾部。
+- 112的 `thm:kolmogorov-three-series` 必要方向使用独立副本和有界变量的
+  四阶矩下界，不借助115章鞅理论。强律先验证线性截断方差和，再应用
+  已证的独立级数定理与Kronecker引理；可积性必要方向用第二Borel--Cantelli。
+- 113先用111的二阶展开和复对数误差证明同分布CLT，再完整证明逐行独立
+  Lindeberg版本。`def:gaussian-random-vector`、`prop:gaussian-vector-characteristic`
+  建立一般有限维正态及线性投影判据，允许协方差奇异；114的回归由此调用。
+- 114的 `thm:conditional-expectation-existence` 用74章符号测度RN版本，
+  不假定概率空间完备。Lp收缩由有界截断测试证明，条件Jensen随后用
+  可数支撑线建立；严格等号处理以局部有界次梯度控制乘积可积性。
+  `thm:conditional-hilbert-projection` 的闭性证明选G可测的收敛集合，
+  不把任意F零集修改自动视为G可测。
 
 ## 附录
 

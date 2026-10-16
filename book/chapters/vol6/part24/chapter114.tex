@@ -1,0 +1,568 @@
+\chapter{条件期望}
+\label{chap:conditional-expectation}
+
+给定一个事件 $A$ 且 $\mathbb P(A)>0$，条件平均
+$\mathbb E[X\mathbf1_A]/\mathbb P(A)$ 是一个数。
+若已知的是某个随机变量的观测值，情况有所不同：不同观测值通常对应
+不同的平均，而每一个精确观测值的概率还可能等于零。此时不能逐个
+用事件概率相除。需要构造一个随已知信息变化的随机变量。
+
+本章在概率空间 $(\Omega,\mathcal F,\mathbb P)$ 上工作，不假设它完备。
+$\mathcal G\subseteq\mathcal F$ 为子 $\sigma$-代数，表示当前允许区分的
+事件。除另行说明外，$X$ 为可积实随机变量。条件期望始终在 a.s.
+相等的意义下唯一，等式和不等式也作相同解释。
+
+\section{子 \texorpdfstring{$\sigma$}{sigma}-代数和信息}
+\label{sec:conditional-information}
+
+\subsection{已知一个可测分割}
+
+先设 $\mathcal G$ 由一个至多可数可测分割 $(B_j)$ 生成。
+若已知样本落在 $B_j$ 中，但无法区分其中的点，就把 $X$ 在这一块上的
+平均作为已知信息下的取值。于是得到 $\mathcal G$-可测变量
+\[
+ Y=\sum_{j:\,\mathbb P(B_j)>0}
+       \frac{\mathbb E[X\mathbf1_{B_j}]}{\mathbb P(B_j)}\mathbf1_{B_j},
+\]
+在零概率块上规定为零。它可积，因为
+$\sum_j|\mathbb E[X\mathbf1_{B_j}]|\le\mathbb E|X|$。
+对每个 $A\in\mathcal G$，块平均恰好保持积分：
+\[
+ \mathbb E[Y\mathbf1_A]=\mathbb E[X\mathbf1_A].
+\]
+这一性质可以在没有分割原子的子 $\sigma$-代数上保留下来。
+
+\begin{definition}
+\label{def:conditional-expectation}
+称可积实随机变量 $Y$ 为 $X$ 关于 $\mathcal G$ 的\term{条件期望}，若
+$Y$ 有 $\mathcal G$-可测代表，且对每个 $A\in\mathcal G$，
+\begin{equation}
+\label{eq:conditional-integral-characterization}
+ \int_A Y\,d\mathbb P=\int_A X\,d\mathbb P.
+\end{equation}
+记 $Y=\mathbb E[X\mid\mathcal G]$。
+\end{definition}
+
+“具有 $\mathcal G$-可测代表”很重要：一个 $\mathcal F$-可测的零集修改
+不一定仍然逐点 $\mathcal G$-可测。下文谈到条件期望的可测性时，均选
+这样的代表，不靠空间完备性补齐可测性。
+
+取 $A=\Omega$ 可知条件期望保持总期望。
+若 $\mathcal G=\{\varnothing,\Omega\}$，条件期望为常数 $\mathbb E X$；
+若 $X$ 已有 $\mathcal G$-可测代表，则 $X$ 自身满足定义。
+这两个例子分别对应没有区分观测结果和已能确定该变量的情形。
+
+\subsection{条件于随机变量}
+
+若 $V$ 为 $\mathbb R^k$ 值随机向量，定义
+$\mathbb E[X\mid V]=\mathbb E[X\mid\sigma(V)]$。
+这个变量可写为 $g(V)$，其中 $g$ 为 Borel 函数。先说明所需的因子分解。
+
+\begin{lemma}[可测因子分解]
+\label{lem:doob-dynkin-real}
+若实函数 $U$ 为 $\sigma(V)$-可测且有限，则存在 Borel 函数
+$g:\mathbb R^k\to\mathbb R$，使 $U=g(V)$。
+\end{lemma}
+
+\begin{proof}
+取有限值的 $\sigma(V)$-可测简单函数 $U_n$ 逐点趋于 $U$。
+全部 Borel 原像本身已经构成一个 $\sigma$-代数，所以每个水平集
+都可写为某个 Borel 集的原像。写成
+\[
+ U_n=\sum_j a_{nj}\mathbf1_{V^{-1}(C_{nj})},\qquad
+ g_n=\sum_j a_{nj}\mathbf1_{C_{nj}}.
+\]
+于是 $U_n=g_n(V)$，各 $g_n$ 为 Borel 函数。
+这些集合即使在 $V(\Omega)$ 外重叠也不影响等式。
+
+函数列 $g_n$ 收敛到有限值的集合为 Borel 集，可用 Cauchy 条件的可数次
+集合运算表示。在此集合上取极限，其余点取零，就得到 Borel 函数 $g$。
+对每个 $\omega$，$g_n(V(\omega))=U_n(\omega)\to U(\omega)$，
+所以 $U=g(V)$。
+\end{proof}
+
+对条件期望选有限的 $\sigma(V)$-可测代表后便可应用此引理。
+写作 $\mathbb E[X\mid V=v]=g(v)$ 时，$g$ 只由 $V$ 的分布几乎处处确定。
+一个零概率的单点 $v$ 上，可以改变该值而不改变条件期望。
+因此这个记号不能在没有额外约定时解释为每个 $v$ 上唯一的事件条件平均。
+
+\section{Radon--Nikodym 构造}
+\label{sec:conditional-radon-nikodym}
+
+\begin{theorem}[存在性与唯一性]
+\label{thm:conditional-expectation-existence}
+每个 $X\in L^1(\mathcal F,\mathbb P)$ 都有关于任一子 $\sigma$-代数
+$\mathcal G$ 的条件期望，且在 a.s. 意义下唯一。
+\end{theorem}
+
+\begin{proof}
+在可测空间 $(\Omega,\mathcal G)$ 上定义有限符号测度
+$\nu(A)=\int_A X\,d\mathbb P$。
+可数可加性由 $X$ 可积及控制收敛得到；对每个有限可测分割，
+$\sum_j|\nu(A_j)|\le\mathbb E|X|$，所以全变差有限。
+又 $\nu\ll\mathbb P|_{\mathcal G}$。后者为有限正测度，
+定理~\ref{thm:radon-nikodym}给出一个 $\mathcal G$-可测的可积密度 $Y$，
+满足\eqref{eq:conditional-integral-characterization}。
+可在其 $\mathcal G$-可测的零测无限值集合上改成零，选到处有限代表。
+
+若 $Y,Z$ 都满足定义，则它们的差可积。对
+$A_j=\{Y\ge Z+1/j\}\in\mathcal G$，有
+\[
+ 0=\int_{A_j}(Y-Z)\,d\mathbb P\ge\mathbb P(A_j)/j.
+\]
+故 $\mathbb P(Y>Z)=0$；交换二者得到 $Y=Z$ a.s.。
+\end{proof}
+
+构造只把符号测度限制到较小的可测空间，再求其密度。
+不要求 $\mathcal G$ 由可数分割生成，也不要求 $X$ 或观测变量具有密度。
+因此分割平均与连续观测可以用同一个定义处理。
+
+\subsection{联合密度的计算公式}
+
+设 $(X,V)$ 有非负 Borel 联合密度 $f(x,v)$，其中 $X$ 为实值，
+$V\in\mathbb R^k$，且 $\mathbb E|X|<\infty$。令
+\[
+ f_V(v)=\int_\mathbb R f(x,v)\,dx,\qquad
+ g(v)=\frac{\int_\mathbb R xf(x,v)\,dx}{f_V(v)}
+\]
+在 $0<f_V(v)<\infty$ 且分子绝对积分有限的点定义，其他点取零。
+Fubini 和 Tonelli 定理说明 $g$ 为 Borel 函数，且
+\[
+ \int|g(v)|f_V(v)\,dv
+ \le\iint |x|f(x,v)\,dx\,dv=\mathbb E|X|<\infty.
+\]
+因此它相对于 $V$ 的分布可积，并有
+\begin{equation}
+\label{eq:conditional-density-mean}
+ \mathbb E[X\mid V]=g(V).
+\end{equation}
+事实上，对任意 Borel 集 $B\subseteq\mathbb R^k$，
+\[
+ \int_{\{V\in B\}}g(V)\,d\mathbb P
+ =\int_Bg(v)f_V(v)\,dv
+ =\int_B\int xf(x,v)\,dx\,dv
+ =\mathbb E[X\mathbf1_{\{V\in B\}}].
+\]
+分子绝对积分或 $f_V$ 取无限值的集合为 Lebesgue 零测集，因而在
+$V$ 的绝对连续分布下也零测；$f_V=0$ 的集合同样不携带 $V$ 的概率。
+
+例如联合密度 $2\mathbf1_{\{0<x<v<1\}}$ 给
+$f_V(v)=2v\mathbf1_{(0,1)}(v)$，从而 $g(v)=v/2$ 在 $0<v<1$ 成立。
+这相当于在观测到的线段 $(0,v)$ 上求均匀平均，尽管事件 $\{V=v\}$
+本身的概率为零。
+
+\section{唯一性、线性、正性与收缩性}
+\label{sec:conditional-properties}
+
+\subsection{从积分刻画推出性质}
+
+\begin{proposition}
+\label{prop:conditional-basic-properties}
+对可积实变量，条件期望线性、保持总期望，并保持 a.s. 大小关系。
+特别地，
+\[
+ |\mathbb E[X\mid\mathcal G]|
+ \le\mathbb E[|X|\mid\mathcal G],\qquad
+ \mathbb E|\mathbb E[X\mid\mathcal G]|\le\mathbb E|X|.
+\]
+若 $X$ 已有 $\mathcal G$-可测代表，则
+$\mathbb E[X\mid\mathcal G]=X$。
+\end{proposition}
+
+\begin{proof}
+线性组合满足相同积分刻画，故由唯一性得到线性；$A=\Omega$ 给总期望。
+若 $X\ge0$，在 $A_j=\{Y\le-1/j\}$ 上，$Y=\mathbb E[X\mid\mathcal G]$
+的积分不超过 $-\mathbb P(A_j)/j$，而由定义它应非负，故各 $A_j$ 都
+为零测集。因此 $Y\ge0$ a.s.；再用于两个变量的差，得到保序性。
+由 $-|X|\le X\le|X|$ 得模不等式，积分得到 $L^1$ 收缩。
+最后一项由定义和唯一性直接得到。
+\end{proof}
+
+\begin{proposition}[可测因子提出]
+\label{prop:conditional-pullout}
+若 $H$ 为有界 $\mathcal G$-可测实函数，则
+\[
+ \mathbb E[H\mathbb E(X\mid\mathcal G)]=\mathbb E(HX),\qquad
+ \mathbb E[HX\mid\mathcal G]=H\mathbb E[X\mid\mathcal G].
+\]
+第二式还适用于到处有限的 $\mathcal G$-可测 $H$，只要 $HX\in L^1$；
+这时右侧乘积自动可积。
+\end{proposition}
+
+\begin{proof}
+第一式对示性函数是定义，对简单函数由线性得到，对有界 $H$ 再以简单
+函数一致逼近。两端都由可积函数控制。
+把 $H$ 换为 $H\mathbf1_A$，$A\in\mathcal G$，验证候选变量
+$H\mathbb E[X\mid\mathcal G]$ 的积分刻画，便得到第二式的有界版本。
+
+对一般 $H$，令 $Y=\mathbb E[X\mid\mathcal G]$。用有界的 $|H|\wedge M$
+及模不等式，单调收敛给
+\[
+ \mathbb E(|H||Y|)
+ \le\mathbb E\bigl[|H|\mathbb E(|X|\mid\mathcal G)\bigr]
+ =\mathbb E(|H||X|)<\infty.
+\]
+取符号不变的截断 $H_M=\operatorname{sgn}(H)(|H|\wedge M)$。
+$H_MX\to HX$ 和 $H_MY\to HY$ 都在 $L^1$ 中成立。
+条件期望的 $L^1$ 收缩性允许对有界版本取 $L^1$ 极限，得到一般版本。
+\end{proof}
+
+\subsection{各个 \texorpdfstring{$L^p$}{Lp} 空间上的算子}
+
+\begin{theorem}
+\label{thm:conditional-lp-contraction}
+对 $1\le p\le\infty$，条件期望是从 $L^p(\mathcal F)$ 到
+$L^p(\mathcal G)$ 的范数为一的线性投影，满足
+\[
+ \|\mathbb E[X\mid\mathcal G]\|_p\le\|X\|_p.
+\]
+这里 $L^p(\mathcal G)$ 指具有 $\mathcal G$-可测代表的等价类。
+\end{theorem}
+
+\begin{proof}
+$p=1$ 已证；$p=\infty$ 由 $-|X|\le X\le|X|$ 和保序性得到。
+设 $1<p<\infty$，$Y=\mathbb E[X\mid\mathcal G]$。取有界 $\mathcal G$-可测
+测试函数
+$H_M=\operatorname{sgn}(Y)|Y|^{p-1}\mathbf1_{\{|Y|\le M\}}$，得到
+\[
+ A_M:=\mathbb E[|Y|^p\mathbf1_{\{|Y|\le M\}}]
+ =\mathbb E(XH_M)
+ \le\|X\|_p A_M^{(p-1)/p}.
+\]
+若 $A_M=0$ 则结论直接成立，否则可除以其相应幂，得
+$A_M\le\|X\|_p^p$。令 $M\to\infty$ 得到收缩性。
+可测变量再取条件期望不变，所以算子幂等且值域正是 $L^p(\mathcal G)$。
+常数一被保持，其范数也是一，故算子范数恰为一。
+\end{proof}
+
+截断测试使 $A_M$ 在尚不知道 $Y\in L^p$ 时仍为有限数；
+先取得不依赖 $M$ 的上界，再令 $M\to\infty$，便得到完整的范数估计。
+当 $0<p<1$ 时，这样的收缩结论一般错误，章末给出有界变量的反例。
+
+\subsection{在可积控制下取极限}
+
+\begin{theorem}[条件控制收敛]
+\label{thm:conditional-dominated-convergence}
+若 $X_n\to X$ a.s.，且 $|X_n|\le Z$ a.s.，其中 $Z\in L^1$ 非负，
+则
+\[
+ \mathbb E[X_n\mid\mathcal G]\longrightarrow\mathbb E[X\mid\mathcal G]
+ \quad\text{a.s. 及于 }L^1.
+\]
+\end{theorem}
+
+\begin{proof}
+删去一个共同零集后有 $|X|\le Z$。令
+$R_n=\sup_{k\ge n}|X_k-X|$，则 $R_n\downarrow0$ a.s. 且 $R_n\le2Z$。
+保序性给 $\mathbb E[R_n\mid\mathcal G]$ 递减到非负极限，
+其总期望由 $\mathbb E R_n\to0$ 趋零，所以极限 a.s. 为零。
+这些关系只涉及可数个变量，可以同时选在一个概率为一集合上。
+又
+\[
+ |\mathbb E[X_n\mid\mathcal G]-\mathbb E[X\mid\mathcal G]|
+ \le\mathbb E[R_n\mid\mathcal G],
+\]
+得到 a.s. 收敛。$L^1$ 收敛由普通控制收敛和算子收缩性得到。
+\end{proof}
+
+仅有 a.s. 收敛时结论不成立。例如对平凡 $\mathcal G$，
+$X_n=n\mathbf1_{(0,1/n)}$ 在区间概率空间上逐点趋零，条件期望却恒为一。
+
+\section{塔式性质和独立性}
+\label{sec:conditional-tower-independence}
+
+\begin{theorem}[塔式性质]
+\label{thm:conditional-tower}
+若 $\mathcal H\subseteq\mathcal G\subseteq\mathcal F$，则
+\[
+ \mathbb E[\mathbb E(X\mid\mathcal G)\mid\mathcal H]
+       =\mathbb E[X\mid\mathcal H],\qquad
+ \mathbb E[\mathbb E(X\mid\mathcal H)\mid\mathcal G]
+       =\mathbb E[X\mid\mathcal H].
+\]
+\end{theorem}
+
+\begin{proof}
+第一式中，左侧为 $\mathcal H$-可测，且对每个 $A\in\mathcal H$，它在
+$A$ 上的积分先等于 $\mathbb E(X\mid\mathcal G)$ 的积分，再等于 $X$ 的
+积分，因为 $A\in\mathcal G$。唯一性给结论。第二式中，内层结果本来
+已有 $\mathcal H$-可测、因而 $\mathcal G$-可测代表，所以再取条件期望不变。
+\end{proof}
+
+先用较细信息取平均，再只保留较粗信息，与直接用较粗信息相同。
+两个子 $\sigma$-代数若没有包含关系，不能使用这一简化；相应投影甚至
+未必交换。
+
+\begin{proposition}
+\label{prop:conditional-independence}
+若 $\sigma(X)$ 与 $\mathcal G$ 独立，则
+$\mathbb E[X\mid\mathcal G]=\mathbb EX$。
+更一般地，$\sigma(X)$ 与 $\mathcal G$ 独立，当且仅当对每个有界 Borel
+函数 $h$，有 $\mathbb E[h(X)\mid\mathcal G]=\mathbb Eh(X)$。
+\end{proposition}
+
+\begin{proof}
+独立性给 $\mathbb E[X\mathbf1_A]=\mathbb EX\,\mathbb P(A)$ 对每个
+$A\in\mathcal G$ 成立；对无界可积 $X$ 可先截断，再取 $L^1$ 极限。
+所以常数均值满足定义。对 $h(X)$ 同理。
+反向取 $h=\mathbf1_B$，得到
+$\mathbb P(X\in B,A)=\mathbb P(X\in B)\mathbb P(A)$，这正是独立性。
+\end{proof}
+
+只验证 $h(x)=x$ 不够。例如令 $X$ 等概率取 $-1,0,1$，
+$\mathcal G=\sigma(X^2)$。在 $X^2=1$ 这一块上正负平均为零，零块上也为零，
+所以 $\mathbb E[X\mid\mathcal G]=0=\mathbb EX$。但观察 $X^2$ 明确改变
+$X=0$ 的条件概率，故二者不独立。
+
+\section{条件 Jensen 不等式与正交投影}
+\label{sec:conditional-jensen-projection}
+
+\subsection{凸函数与条件平均}
+
+\begin{theorem}[条件 Jensen 不等式]
+\label{thm:conditional-jensen}
+设 $\phi:\mathbb R\to\mathbb R$ 为有限值凸函数，$X\in L^1$ 且
+$\phi(X)\in L^1$。则 $\phi(\mathbb E[X\mid\mathcal G])$ 可积，且
+\[
+ \phi(\mathbb E[X\mid\mathcal G])
+       \le\mathbb E[\phi(X)\mid\mathcal G]\quad\text{a.s.}
+\]
+若 $\phi$ 严格凸，则等号 a.s. 成立当且仅当 $X$ 有 $\mathcal G$-可测代表。
+\end{theorem}
+
+\begin{proof}
+对每个有理数 $q$，取 $\phi$ 在 $q$ 的一个次梯度 $a_q$，令
+$\ell_q(x)=\phi(q)+a_q(x-q)$。由
+定理~\ref{thm:one-dimensional-subdifferential}，$\ell_q\le\phi$。
+而 $\phi(x)=\sup_{q\in\mathbb Q}\ell_q(x)$：让有理 $q\to x$，
+凸函数的连续性和邻域中次梯度的有界性使 $\ell_q(x)\to\phi(x)$。
+后一个有界性也由三点斜率不等式给出，用稍大区间两端的割线夹住即可。
+
+记 $Y=\mathbb E[X\mid\mathcal G]$。线性和保序性给
+$\ell_q(Y)\le\mathbb E[\phi(X)\mid\mathcal G]$ a.s.。
+对有理数的可数例外集取并后，可同时取上确界，得到不等式。
+固定一条支撑线给 $\phi(Y)$ 的可积仿射下界，右侧给可积上界，
+因此 $\phi(Y)$ 本身可积。
+
+若 $\phi$ 严格凸，令 $a(y)=\phi'_-(y)$，它单调因而 Borel 可测，
+在每个有界区间上有界，且是 $y$ 处的次梯度。非负差
+\[
+ D=\phi(X)-\phi(Y)-a(Y)(X-Y)
+\]
+只在 $X=Y$ 处为零。设条件 Jensen 中等号 a.s. 成立。对
+$A_M=\{|Y|\le M\}\in\mathcal G$，$a(Y)\mathbf1_{A_M}$ 有界，
+所以 $D\mathbf1_{A_M}$ 可积，并由可测因子提出公式得到
+\[
+ \mathbb E[D\mathbf1_{A_M}]
+ =\mathbb E[(\mathbb E(\phi(X)\mid\mathcal G)-\phi(Y))\mathbf1_{A_M}]=0.
+\]
+于是 $X=Y$ a.s. 于各 $A_M$，令整数 $M\to\infty$ 得到全局结论。
+反向在 $X=Y$ a.s. 时直接成立。
+\end{proof}
+
+用可数条支撑线是为了在取条件期望后仍能同时比较所有支撑线。
+如果对每个实数各取一个零测例外集，再不加说明地取不可数并，
+证明便缺少一个可测性和零测性的步骤。
+
+\subsection{最小均方误差}
+
+\begin{theorem}[条件期望的正交投影表示]
+\label{thm:conditional-hilbert-projection}
+若 $X\in L^2(\mathcal F)$，则 $Y=\mathbb E[X\mid\mathcal G]$ 是
+$X$ 到闭子空间 $L^2(\mathcal G)$ 的正交投影。特别地，对任意
+$Z\in L^2(\mathcal G)$，
+\begin{equation}
+\label{eq:conditional-pythagoras}
+ \mathbb E|X-Z|^2=\mathbb E|X-Y|^2+\mathbb E|Y-Z|^2.
+\end{equation}
+因此 $Y$ 在全部可利用 $\mathcal G$ 信息的平方可积变量中，唯一最小化
+均方误差。
+\end{theorem}
+
+\begin{proof}
+先验证闭性。若 $Z_n\in L^2(\mathcal G)$ 在 $L^2(\mathcal F)$ 中收敛到
+$Z$，抽取 a.s. 收敛子列。在各 $Z_n$ 的 $\mathcal G$-可测代表上，子列
+收敛的集合是 $\mathcal G$-可测的；在其中取逐点极限，其余处取零，
+得到 $Z$ 的 $\mathcal G$-可测代表。因此该子空间闭。
+
+收缩性已保证 $Y\in L^2(\mathcal G)$。对有界 $\mathcal G$-可测 $H$，
+积分刻画给 $\mathbb E[(X-Y)H]=0$。截断任意 $H\in L^2(\mathcal G)$，
+以 Cauchy--Schwarz 控制截断误差，仍有这一正交关系。
+故由定理~\ref{thm:hilbert-projection}，$Y$ 正是该子空间的正交投影。
+展开 $X-Z=(X-Y)+(Y-Z)$ 的平方并用正交性，得到
+\eqref{eq:conditional-pythagoras}和唯一最优性。
+\end{proof}
+
+这里允许预测量是已知变量的任意平方可积函数，并没有限制它为线性
+函数。例如 $V$ 在 $[-1,1]$ 均匀，$X=V^2$，则
+$\mathbb E[X\mid V]=V^2$；即使 $\operatorname{Cov}(X,V)=0$，
+条件期望也不是常数。若只在 $a+bV$ 中寻找最优值，得到的是另一个
+较小子空间上的投影。
+
+\subsection{条件方差与正态回归}
+
+对 $X\in L^2$，定义
+\[
+ \operatorname{Var}(X\mid\mathcal G)
+   :=\mathbb E[(X-\mathbb E(X\mid\mathcal G))^2\mid\mathcal G].
+\]
+展开平方并用可测因子提出，可得
+\begin{equation}
+\label{eq:conditional-total-variance}
+ \operatorname{Var}(X\mid\mathcal G)
+ =\mathbb E[X^2\mid\mathcal G]-\mathbb E[X\mid\mathcal G]^2,
+ \qquad
+ \operatorname{Var}(X)
+ =\mathbb E\operatorname{Var}(X\mid\mathcal G)
+       +\operatorname{Var}(\mathbb E[X\mid\mathcal G]).
+\end{equation}
+右边第一项是仍未由现有信息解释的均方波动，第二项是条件均值随已知
+信息变化的方差。第一式中提出的因子可能无界；此前的可积乘积版本
+正可用于 $X\mathbb E(X\mid\mathcal G)$，其可积性由二阶矩保证。
+
+若 $(X,V)$ 联合正态，均值分别为 $m_X,m_V$，且
+$\sigma_V^2=\operatorname{Var}(V)>0$，令
+$a=\operatorname{Cov}(X,V)/\sigma_V^2$，
+$R=X-m_X-a(V-m_V)$。
+由命题~\ref{prop:gaussian-vector-characteristic}及相应特征函数公式，
+零协方差的 $R$ 与 $V$ 独立：
+其联合二次型没有混合项，变换正好分解为边缘变换之积。
+又 $\mathbb ER=0$，故
+\[
+ \mathbb E[X\mid V]=m_X+a(V-m_V).
+\]
+这是条件期望恰为线性函数的一种重要情形。它使用联合正态假设，
+不能只凭两个边缘正态或协方差的数值套用。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{ce-finite-partition}
+在四点等概率空间上，$X$ 的值依次为 $0,1,3,8$。
+$\mathcal G$ 由分割 $\{1,2,3\},\{4\}$ 生成。求条件期望，逐块验证
+积分刻画，并核对总期望。
+
+\exerciseitem{ce-triangular-density}
+对密度 $2\mathbf1_{\{0<x<v<1\}}$，求
+$\mathbb E[X\mid V]$、$\mathbb E[X^2\mid V]$ 及
+$\operatorname{Var}(X\mid V)$，再核对全方差公式。
+
+\exerciseitem{ce-extreme-sigma-fields}
+证明对平凡子 $\sigma$-代数与全 $\mathcal F$，条件期望分别为
+$\mathbb EX$ 和 $X$。再证明
+$\mathbb E[X\mid\mathcal G]=X$ 当且仅当 $X$ 有 $\mathcal G$-可测代表。
+
+\exerciseitem{ce-conditional-event-probability}
+定义 $\mathbb P(A\mid\mathcal G)=\mathbb E[\mathbf1_A\mid\mathcal G]$。
+证明它取值于 $[0,1]$，其期望为 $\mathbb P(A)$，且在 $A\in\mathcal G$
+时等于 $\mathbf1_A$。说明它通常是随机变量而非一个数。
+
+\exerciseitem{ce-mean-not-absolute-loss-minimizer}
+令 $X\sim\operatorname{Bernoulli}(p)$，$1/2<p<1$，取平凡 $\mathcal G$。
+比较以 $p$ 和一预测时的绝对误差期望，说明条件期望的均方最优性
+不能原样换成平均绝对误差最优性。
+
+\exerciseitem{ce-mean-independence-insufficient}
+完整验证正文 $X\in\{-1,0,1\}$、$\mathcal G=\sigma(X^2)$ 的例子，
+并用 $h(x)=x^2$ 明确否定独立性。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ce-bounded-test-characterization}
+证明积分刻画等价于
+$\mathbb E(HY)=\mathbb E(HX)$ 对每个有界 $\mathcal G$-可测 $H$ 成立，
+前提为 $Y$ 可积且有 $\mathcal G$-可测代表。
+
+\exerciseitem{ce-unbounded-pullout}
+补全无界可测因子提出公式中的可积性和极限步骤。
+再用 $\mathcal G$ 平凡、$H=X$ 为公平符号说明因子的
+$\mathcal G$-可测性不能删除。
+
+\exerciseitem{ce-nonnested-projections}
+在三点等概率空间上，取 $X=\mathbf1_{\{1\}}$，
+$\mathcal G=\sigma(\{1,2\},\{3\})$、
+$\mathcal H=\sigma(\{1\},\{2,3\})$。
+计算两个不同次序的条件期望，说明不嵌套时塔式化简和交换性均不能直接使用。
+
+\exerciseitem{ce-subunit-p-failure}
+对 $0<p<1$，用一个有界 Bernoulli 变量证明
+$\mathbb E|\mathbb E(X\mid\mathcal G)|^p\le\mathbb E|X|^p$ 一般不成立。
+再说明为何本章的 $L^p$ 收缩定理只陈述 $p\ge1$。
+
+\exerciseitem{ce-dominated-and-undominated-limits}
+证明本章条件控制收敛的 a.s. 结论，并验证区间上的尖峰反例在去掉
+可积控制函数后确实使条件期望不收敛到零。
+
+\exerciseitem{ce-strict-jensen-equality}
+对严格凸有限函数 $\phi$，在 $X,\phi(X)$ 可积时，证明
+$\mathbb E\phi(X)=\mathbb E\phi(\mathbb E(X\mid\mathcal G))$
+当且仅当 $X$ 有 $\mathcal G$-可测代表。说明为何不能仅用未控制的
+随机次梯度直接在整个空间上积分。
+
+\exerciseitem{ce-total-variance}
+推导条件方差及全方差公式，逐项说明展开乘积可积。
+若 $\operatorname{Var}(X\mid\mathcal G)=0$ a.s.，能推出什么？
+
+\exerciseitem{ce-total-covariance}
+对 $X,Y\in L^2$ 定义
+$\operatorname{Cov}(X,Y\mid\mathcal G)
+=\mathbb E[XY\mid\mathcal G]-\mathbb E[X\mid\mathcal G]\mathbb E[Y\mid\mathcal G]$。
+证明无条件协方差等于条件协方差的期望加上两个条件均值的协方差。
+
+\exerciseitem{ce-conditional-cauchy-schwarz}
+对 $X,Y\in L^2$，证明
+\[
+ |\mathbb E[XY\mid\mathcal G]|^2
+ \le\mathbb E[X^2\mid\mathcal G]\mathbb E[Y^2\mid\mathcal G].
+\]
+可对所有有理 $t$ 同时使用
+$\mathbb E[(X+tY)^2\mid\mathcal G]\ge0$，再讨论二次多项式。
+
+\exerciseitem{ce-conditional-holder}
+设 $1<p,q<\infty$、$1/p+1/q=1$，$X\in L^p$、$Y\in L^q$。证明
+\[
+ \mathbb E[|XY|\mid\mathcal G]
+ \le\mathbb E[|X|^p\mid\mathcal G]^{1/p}
+       \mathbb E[|Y|^q\mid\mathcal G]^{1/q}.
+\]
+须处理右侧某因子为零的情形，并保证优化参数不引入不可数个零集的并。
+
+\exerciseitem{ce-gaussian-regression}
+对正文联合正态变量，求残差 $R$ 的方差，证明它与 $V$ 独立，
+并计算 $\operatorname{Var}(X\mid V)$。允许残差方差为零。
+
+\exerciseitem{ce-conditioning-at-null-values}
+设 $V$ 在 $(0,1)$ 均匀，$X=V^2$。
+分别给出在 $v=1/2$ 处取不同值、但都表示 $\mathbb E[X\mid V=v]$ 的
+两个 Borel 函数。解释这种非唯一性为何不违背条件期望的唯一性。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ce-information-null-completion}
+设 $\mathcal G\subseteq\mathcal H\subseteq\mathcal F$，每个
+$A\in\mathcal H$ 都与某个 $B\in\mathcal G$ 相差一个 $\mathbb P$-零测集。
+证明两种条件期望对每个 $X\in L^1$ 都相同 a.s.。
+
+\exerciseitem{ce-nested-error-decomposition}
+设 $\mathcal H\subseteq\mathcal G$ 且 $X\in L^2$。证明
+\[
+ \|X-\mathbb E(X\mid\mathcal H)\|_2^2
+ =\|X-\mathbb E(X\mid\mathcal G)\|_2^2
+   +\|\mathbb E(X\mid\mathcal G)-\mathbb E(X\mid\mathcal H)\|_2^2.
+\]
+并说明信息增加时最小均方误差为何不增。
+
+\optionalexerciseitem{ce-conditioning-creates-dependence}
+设 $X,Y$ 为独立公平 Bernoulli 变量，$\mathcal G=\sigma(X+Y)$。
+计算 $\mathbb E[X\mid\mathcal G]$、$\mathbb E[Y\mid\mathcal G]$ 和
+$\mathbb E[XY\mid\mathcal G]$，说明原来的独立性不保证条件乘积公式。
+
+\exerciseitem{ce-fixed-variable-uniform-integrability}
+固定 $X\in L^1$。证明遍历全部子 $\sigma$-代数 $\mathcal G\subseteq\mathcal F$
+所得的族 $\{\mathbb E[X\mid\mathcal G]\}$ 一致可积。
+提示：对 $A=\{|\mathbb E(X\mid\mathcal G)|>M\}\in\mathcal G$，
+把条件模不等式在 $A$ 上积分，并使用固定的 $|X|$ 的积分绝对连续性。
+\end{enumerate}

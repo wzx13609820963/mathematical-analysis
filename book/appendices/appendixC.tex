@@ -728,6 +728,49 @@ Cantor 概率测度的分布函数连续，测度却集中在长度为零的 Can
 有限测度空间上的时间平均极限为常数，见\chapterref{chap:ergodic-theorems}。
 \end{description}
 
+\section{概率极限与条件期望}
+\label{sec:counterexamples-probability-limits}
+
+\begin{description}[leftmargin=2em,style=nextline]
+\item[错误命题：特征函数的逐点极限总是特征函数。]
+$[-n,n]$ 上均匀分布的特征函数在非零频率趋零，在原点恒为一。
+极限在原点不连续，不能对应概率分布。原点连续性在
+定理~\ref{thm:levy-continuity}中保证质量不逃逸。
+
+\item[错误命题：特征函数在零点可微就保证绝对一阶矩有限。]
+密度与 $1/(x^2\log|x|)$ 在 $|x|>e$ 上成正比的对称分布，
+特征函数在零点导数为零，却有无限绝对一阶矩。
+估计与归一化见\exerciseref{char-derivative-without-absolute-moment}。
+二阶差商有有限下极限时则可由 Fatou 引理反推二阶矩，不能混淆两个阶数。
+
+\item[错误命题：任意独立变量只要各有有限方差，其平均就满足强律。]
+取 $X_n=n\varepsilon_n$，其中 $\varepsilon_n$ 是独立公平符号。
+每项均值零且方差有限，但 $X_n/n$ 不趋零，而任何有限的平均极限
+都会迫使它趋零。同分布假设或相应的累计方差控制不能省略，见
+\chapterref{chap:laws-of-large-numbers}。
+
+\item[错误命题：最大单项方差占比趋零就足以推出正态极限。]
+每行 $n$ 个独立 $\operatorname{Bernoulli}(1/n)$ 变量中心化后，
+最大方差占比为 $1/n$，标准化和却趋于中心化 Poisson 分布。
+固定归一化阈值上的尾方差没有消失，计算见
+\exerciseref{clt-poisson-array-counterexample}。
+
+\item[错误命题：条件均值等于总均值就表示独立。]
+$X$ 等概率取 $-1,0,1$ 时，$\mathbb E[X\mid X^2]=0$，但 $X^2$ 显然
+保留了 $X$ 是否为零的信息。独立性要对全部有界 Borel 变换检验，
+见\exerciseref{ce-mean-independence-insufficient}。
+
+\item[错误命题：两个条件期望算子总能交换。]
+三点等概率空间上，分别按分割 $\{1,2\},\{3\}$ 和
+$\{1\},\{2,3\}$ 取平均，两个次序作用于 $\mathbf1_{\{1\}}$ 的结果
+不同，见\exerciseref{ce-nonnested-projections}。塔式化简需要信息的包含关系。
+
+\item[错误命题：条件期望最小化每一种平均误差。]
+对成功概率 $1/2<p<1$ 的 Bernoulli 变量，平凡信息下的条件期望为 $p$，
+但用一作预测的平均绝对误差更小。最小均方性质依赖平方损失和
+$L^2$ 正交结构，见\exerciseref{ce-mean-not-absolute-loss-minimizer}。
+\end{description}
+
 \section{怎样核对一个反例}
 
 验证反例时应依次完成以下工作：

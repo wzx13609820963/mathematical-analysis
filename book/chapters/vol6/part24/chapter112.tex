@@ -1,0 +1,498 @@
+\chapter{大数定律}
+\label{chap:laws-of-large-numbers}
+
+把同一种随机试验重复许多次，样本平均常被用来代替理论期望。
+这一做法需要说明两件事：偏离期望的概率是否趋于零，以及在同一次无限
+重复试验中，平均值是否沿几乎每条路径收敛。前者是弱大数定律的问题，
+后者是强大数定律的问题。两种结论不能仅凭名称中的强弱互相替代。
+
+本章的随机变量均为实值，定义在同一概率空间上，序列指标从一开始。
+记 $S_n=\sum_{k=1}^nX_k$，$S_0=0$。讨论中心化时，各均值都假定存在。
+独立性均指相互独立；只在明确说明时才降低为两两不相关。
+
+\section{经验平均和弱大数定律}
+\label{sec:weak-law-empirical-average}
+
+\subsection{方差估计能提供什么}
+
+若 $X_1,\ldots,X_n$ 两两不相关且有二阶矩，则
+\[
+ \operatorname{Var}(S_n)=\sum_{k=1}^n\operatorname{Var}(X_k).
+\]
+Chebyshev 不等式因此给
+\begin{equation}
+\label{eq:weak-law-variance-estimate}
+ \mathbb P\left(\left|\frac{S_n-\mathbb ES_n}{n}\right|>\varepsilon\right)
+ \le\frac1{\varepsilon^2n^2}\sum_{k=1}^n\operatorname{Var}(X_k).
+\end{equation}
+若右侧趋于零，就得到中心化平均的依概率收敛。特别地，独立同分布且
+方差为 $\sigma^2<\infty$ 时，误差概率不超过 $\sigma^2/(n\varepsilon^2)$。
+
+这里利用了二阶矩，却只得到了每个 $n$ 的一个概率上界。把这些上界对
+$n$ 求和，通常得到发散的调和级数，所以不能直接用 Borel--Cantelli
+引理推出几乎必然收敛。要研究全部时刻的同一条路径，需要控制一段
+时间内的最大偏差，或对变量作更适当的截断。
+
+\subsection{经验频率与一般可积变量}
+
+若 $X_k$ 为某事件在第 $k$ 次独立重复试验中的示性变量，期望为 $p$，
+则 $S_n/n$ 是经验频率。上述估计给它依概率趋于 $p$。对于无界观测值，
+方差可能不存在；只要求有限期望时，平均值仍有弱大数定律。
+
+\begin{theorem}[可积的独立同分布平均]
+\label{thm:iid-weak-law-lone}
+设 $X_1,X_2,\ldots$ 独立同分布，且 $\mathbb E|X_1|<\infty$，
+$m=\mathbb E X_1$。则
+\[
+ \frac{S_n}{n}\longrightarrow m\quad\text{于 }L^1,
+ \qquad \frac{S_n}{n}\xrightarrow{\mathbb P}m.
+\]
+\end{theorem}
+
+\begin{proof}
+固定 $M>0$，令 $Y_k=X_k\mathbf1_{\{|X_k|\le M\}}$。
+这些变量仍独立同分布，且 $\operatorname{Var}(Y_k)\le M^2$。由
+Cauchy--Schwarz 不等式，
+\[
+ \mathbb E\left|\frac1n\sum_{k=1}^nY_k-\mathbb EY_1\right|
+ \le\frac{M}{\sqrt n}.
+\]
+原平均和截断平均的 $L^1$ 距离不超过
+$\mathbb E[|X_1|\mathbf1_{\{|X_1|>M\}}]$，均值之差也不超过这个数。
+所以
+\[
+ \mathbb E\left|\frac{S_n}{n}-m\right|
+ \le\frac M{\sqrt n}
+      +2\mathbb E\bigl[|X_1|\mathbf1_{\{|X_1|>M\}}\bigr].
+\]
+先令 $n\to\infty$，再令 $M\to\infty$，得到 $L^1$ 收敛；依概率收敛
+再由 Markov 不等式推出。
+\end{proof}
+
+截断把一个没有二阶矩的变量分成有界部分和 $L^1$ 很小的尾部。这里
+$M$ 先固定，随后才增大；若在这一估计中直接让 $M$ 任意依赖 $n$，
+还须核对两项是否同时趋零。
+
+一阶绝对可积性不能从结论中任意删除。独立标准 Cauchy 变量的平均
+仍服从标准 Cauchy 分布，见\exerciseref{char-cauchy-stability}。
+其尾概率不随 $n$ 缩小，因而不依概率收敛到任何常数。
+
+\section{截断和方差估计}
+\label{sec:truncation-tail-variance}
+
+\subsection{可积性怎样控制大观测值}
+
+对非负变量 $Z$，层蛋糕公式给
+$\mathbb E Z=\int_0^\infty\mathbb P(Z>t)\,dt$。单调性还给离散比较
+\begin{equation}
+\label{eq:tail-sum-integrability}
+ \sum_{n=1}^\infty\mathbb P(Z>n)
+ \le\mathbb E Z
+ \le1+\sum_{n=1}^\infty\mathbb P(Z>n).
+\end{equation}
+因此有限一阶矩等价于整数阈值上的尾概率可求和。
+若 $X_n$ 同分布且可积，则
+\[
+ \sum_n\mathbb P(|X_n|>n)<\infty.
+\]
+第一 Borel--Cantelli 引理说明，几乎每条路径上只有有限多个观测值超过
+它所在的位置 $n$。这个结论本身不需要变量独立。
+
+\begin{lemma}[线性截断的方差和]
+\label{lem:linear-truncation-variance}
+若 $X_n$ 同分布且 $\mathbb E|X_1|<\infty$，令
+$Y_n=X_n\mathbf1_{\{|X_n|\le n\}}$。则
+\[
+ \sum_{n=1}^\infty\frac{\operatorname{Var}(Y_n)}{n^2}<\infty,
+ \qquad \mathbb E Y_n\longrightarrow\mathbb E X_1.
+\]
+\end{lemma}
+
+\begin{proof}
+记 $X$ 具有共同分布。$Y_n$ 有界，且
+$\operatorname{Var}(Y_n)\le\mathbb E[X^2\mathbf1_{\{|X|\le n\}}]$。
+Tonelli 定理把非负级数换到期望内部，得到
+\[
+ \sum_n\frac{\operatorname{Var}(Y_n)}{n^2}
+ \le\mathbb E\left[X^2\sum_{n\ge\max\{1,\lceil|X|\rceil\}}\frac1{n^2}\right].
+\]
+对 $r>1$，记 $N=\lceil r\rceil$，则
+$\sum_{n\ge N}n^{-2}\le N^{-2}+N^{-1}\le2/r$；对 $0\le r\le1$，
+$r^2\sum_{n\ge1}n^{-2}\le2r$。所以期望内的函数处处不超过 $2|X|$。
+第二个结论直接由控制收敛得到。
+\end{proof}
+
+注意 $Y_n$ 不再同分布，但独立性仍保留。方差和有限意味着加权的中心化
+级数将收敛。接下来的最大不等式正用于完成这一步。
+
+\subsection{级数收敛与平均收敛}
+
+\begin{lemma}[Kronecker 引理]
+\label{lem:kronecker-average}
+若实数级数 $\sum_{n\ge1}a_n/n$ 收敛，则
+$n^{-1}\sum_{k=1}^na_k\to0$。
+\end{lemma}
+
+\begin{proof}
+令 $s_n=\sum_{k=1}^na_k/k$，$s_0=0$。Abel 变换给
+\[
+ \frac1n\sum_{k=1}^na_k
+ =s_n-\frac1n\sum_{k=1}^{n-1}s_k.
+\]
+若 $s_n\to s$，右侧两项都趋于 $s$，差趋于零。这只使用收敛序列的
+Cesàro 平均性质。
+\end{proof}
+
+它把随机级数的逐路径收敛转化成样本平均的逐路径收敛。引理本身是
+确定性的，不能反过来由平均收敛断言原加权级数收敛。
+
+\section{Kolmogorov 不等式}
+\label{sec:kolmogorov-maximal-inequality}
+
+\subsection{控制一个时间区间内的最大值}
+
+\begin{theorem}[Kolmogorov 最大不等式]
+\label{thm:kolmogorov-maximal-inequality}
+设 $Z_1,\ldots,Z_n$ 独立、均值为零且有有限二阶矩，
+$T_k=\sum_{j=1}^kZ_j$。则对 $\lambda>0$，
+\[
+ \mathbb P\left(\max_{1\le k\le n}|T_k|\ge\lambda\right)
+ \le\frac1{\lambda^2}\sum_{j=1}^n\mathbb E Z_j^2.
+\]
+\end{theorem}
+
+\begin{proof}
+按首次达到阈值的时刻分割事件：
+\[
+ A_k=\{|T_j|<\lambda\ (j<k),\ |T_k|\ge\lambda\}.
+\]
+各 $A_k$ 不交，且 $A_k$ 与 $T_k$ 都只依赖前 $k$ 个变量。
+尾和 $T_n-T_k$ 与它们独立，且均值为零，因而
+\begin{align*}
+ \mathbb E[T_n^2\mathbf1_{A_k}]
+ &=\mathbb E[T_k^2\mathbf1_{A_k}]
+   +\mathbb E[(T_n-T_k)^2]\mathbb P(A_k)\\
+ &\ge\lambda^2\mathbb P(A_k).
+\end{align*}
+展开中的交叉项为零正是在这里使用独立性及中心化。
+再求和，并用 $T_n^2$ 非负与
+$\mathbb E T_n^2=\sum_j\mathbb E Z_j^2$，即得所需不等式。
+\end{proof}
+
+与只估计最后一个 $T_n$ 的 Chebyshev 不等式相比，这里同时控制全部中间
+时刻。证明没有在路径上确定一个固定的越界时刻，而是把每一种首次
+越界事件分别估计，再相加。
+
+\subsection{独立随机级数的一个充分条件}
+
+\begin{theorem}[方差可求和的独立级数]
+\label{thm:independent-series-variance}
+设 $Z_n$ 独立、均值为零且有有限二阶矩。若
+$\sum_n\mathbb E Z_n^2<\infty$，则 $\sum_nZ_n$ 几乎必然收敛，
+其部分和也在 $L^2$ 中收敛到同一个极限。
+\end{theorem}
+
+\begin{proof}
+对尾段使用最大不等式，先增大有限的终点，再利用事件的递增连续性，得
+\[
+ \mathbb P\left(\sup_{k>N}\left|\sum_{j=N+1}^kZ_j\right|>\lambda\right)
+ \le\lambda^{-2}\sum_{j>N}\mathbb E Z_j^2.
+\]
+选择递增 $N_r$，使右侧方差尾和不超过 $2^{-3r}$，并令 $\lambda=2^{-r}$。
+越界概率之和有限。由 Borel--Cantelli，几乎每条路径上，对充分大的 $r$，
+所有 $k>N_r$ 都满足 $|T_k-T_{N_r}|\le2^{-r}$。
+于是任意 $k,\ell>N_r$ 的差不超过 $2^{1-r}$，部分和为 Cauchy 列，
+故收敛到有限实数。
+
+另一方面，$\mathbb E|T_n-T_m|^2=\sum_{j=m+1}^n\mathbb E Z_j^2\to0$，
+所以 $L^2$ 完备性给一个 $L^2$ 极限。两种收敛都蕴含依概率收敛，
+极限在 a.s. 意义下唯一，所以它们是同一个变量。
+\end{proof}
+
+这里的方差条件是充分条件，在没有截断时并非必要条件。稀少但幅度很大的
+变量可以使方差和发散，然而几乎每条路径上只有有限个非零项。下一节的
+三列定理将把这种情况包括进来。
+
+\begin{corollary}[方差判据下的强大数定律]
+\label{cor:variance-strong-law}
+若独立变量 $X_n$ 有有限方差，且
+\[
+ \sum_n\frac{\operatorname{Var}(X_n)}{n^2}<\infty,
+\]
+则 $n^{-1}\sum_{k=1}^n(X_k-\mathbb E X_k)\to0$ a.s.。
+\end{corollary}
+
+\begin{proof}
+将前一定理用于 $Z_n=(X_n-\mathbb E X_n)/n$，再逐路径应用
+Kronecker 引理。
+\end{proof}
+
+\section{强大数定律与 Kolmogorov 三列定理}
+\label{sec:strong-law-three-series}
+
+\subsection{只有一阶矩的强大数定律}
+
+\begin{theorem}[Kolmogorov 强大数定律]
+\label{thm:iid-strong-law}
+设 $X_n$ 独立同分布，且 $\mathbb E|X_1|<\infty$。则
+\[
+ \frac1n\sum_{k=1}^nX_k\longrightarrow\mathbb E X_1
+ \quad\text{a.s.}
+\]
+\end{theorem}
+
+\begin{proof}
+令 $Y_n=X_n\mathbf1_{\{|X_n|\le n\}}$。
+由\eqref{eq:tail-sum-integrability}和第一 Borel--Cantelli 引理，
+$X_n=Y_n$ 几乎必然最终成立。由
+引理~\ref{lem:linear-truncation-variance}，
+$\sum_n\operatorname{Var}(Y_n)/n^2<\infty$，故方差强律给
+\[
+ \frac1n\sum_{k=1}^n(Y_k-\mathbb E Y_k)\longrightarrow0\quad\text{a.s.}
+\]
+又 $\mathbb E Y_k\to\mathbb E X_1$，Cesàro 平均给均值项的极限。
+在 $X_k\ne Y_k$ 仅发生有限次的路径上，二者部分和的差从某处起是一个
+固定的有限实数，除以 $n$ 后趋零。这就得到原平均的结论。
+\end{proof}
+
+证明中的三个估计各处理一个不同问题：尾概率可求和排除无穷多次的大
+观测；截断方差和控制中心化的累计误差；均值的控制收敛恢复理论期望。
+只写“截断后应用有限方差结论”还不够，因为截断变量随 $n$ 改变，
+必须验证这一列非同分布变量的方差条件。
+
+强律同时适用于经验频率，也适用于任意可积变换 $h(X_k)$：
+\[
+ \frac1n\sum_{k=1}^nh(X_k)\longrightarrow\mathbb E h(X_1)
+ \quad\text{a.s.},\qquad \mathbb E|h(X_1)|<\infty.
+\]
+对至多可数个指定的 $h$，可以取同一个概率为一的集合。对任意不可数
+函数族，不能直接把各自的例外零集全部并起来。
+
+\begin{proposition}[可积性的必要性]
+\label{prop:iid-finite-average-necessity}
+若独立同分布变量的平均 $S_n/n$ 几乎必然收敛到一个有限实随机变量，
+则 $\mathbb E|X_1|<\infty$，且该极限 a.s. 等于 $\mathbb E X_1$。
+\end{proposition}
+
+\begin{proof}
+平均收敛蕴含
+\[
+ \frac{X_n}{n}=\frac{S_n}{n}
+       -\frac{n-1}{n}\frac{S_{n-1}}{n-1}\longrightarrow0
+\]
+在 $n\ge2$ 时 a.s. 成立。因此独立事件 $\{|X_n|>n\}$ 几乎必然只发生
+有限次。由第二 Borel--Cantelli 引理的逆否命题，
+$\sum_n\mathbb P(|X_1|>n)<\infty$，离散尾积分比较给可积性。
+再用刚才证明的强律，极限便只能是均值。
+\end{proof}
+
+独立性不可省略：若所有 $X_n$ 都等于同一个非退化的可积变量 $Z$，
+则平均始终等于 $Z$，通常不趋于 $\mathbb E Z$。
+也不能仅要求每个变量各自有有限方差而取消其他控制。例如
+$X_n=n\varepsilon_n$，其中 $\varepsilon_n$ 为独立公平符号，则
+$X_n/n=\varepsilon_n$ 不趋零，所以 $S_n/n$ 不可能几乎必然收敛到有限值。
+
+\subsection{有界独立级数的必要条件}
+
+为了得到随机级数的充要判据，先补足一个反向结论。收敛级数的尾和
+很小，若尾和的方差可以不断累积，便会与此矛盾。单用 Chebyshev 的
+上界看不出矛盾；需要一个偏离零的概率下界。
+
+对非负变量 $V$，若 $0<\mathbb E V<\infty$、$\mathbb E V^2<\infty$，
+由 Cauchy--Schwarz 不等式可得
+\begin{equation}
+\label{eq:paley-zygmund-half}
+ \mathbb P(V>\tfrac12\mathbb EV)
+ \ge\frac{(\mathbb EV)^2}{4\mathbb E V^2}.
+\end{equation}
+事实上，$\mathbb E[V\mathbf1_{\{V>\mathbb EV/2\}}]\ge\mathbb EV/2$，
+将这个期望用二阶矩和该事件概率控制即可。
+
+\begin{lemma}
+\label{lem:bounded-independent-series-necessity}
+设独立变量 $Y_n$ 满足 $|Y_n|\le c$ a.s.，其中 $c<\infty$ 固定。
+若 $\sum_nY_n$ a.s. 收敛，则
+\[
+ \sum_n\operatorname{Var}(Y_n)<\infty,
+ \qquad \sum_n\mathbb E Y_n\text{ 收敛}.
+\]
+\end{lemma}
+
+\begin{proof}
+在原概率空间的两份有限乘积上取独立副本 $Y_n'$，令 $Z_n=Y_n-Y_n'$。
+$Z_n$ 相互独立、均值为零、$|Z_n|\le2c$，且其级数 a.s. 收敛。
+给有限尾段 $T=\sum_{j=m}^nZ_j$，记
+$v=\mathbb E T^2=2\sum_{j=m}^n\operatorname{Var}(Y_j)$。
+独立性与零均值使四阶展开中的非配对项消失，得到
+\[
+ \mathbb E T^4
+ =\sum_{j=m}^n\mathbb E Z_j^4
+   +6\sum_{m\le j<k\le n}\mathbb E Z_j^2\mathbb E Z_k^2
+ \le4c^2v+3v^2.
+\]
+若方差和发散，则任给 $m$，可选 $n\ge m$ 使 $v\ge1$。
+对 $V=T^2$ 使用\eqref{eq:paley-zygmund-half}，便有
+\[
+ \mathbb P(|T|>1/\sqrt2)
+ \ge\mathbb P(T^2>v/2)
+ \ge\frac{v}{4(4c^2+3v)}\ge\frac1{4(4c^2+3)}.
+\]
+但一个 a.s. 收敛级数的所有充分晚的尾段应同时很小：
+事件 $\{\sup_{n\ge m\ge N}|\sum_{j=m}^nZ_j|>1/\sqrt2\}$ 随 $N$ 递减，
+其交为零概率事件，故概率趋零。这与统一正下界矛盾。
+因此方差和有限。
+
+由定理~\ref{thm:independent-series-variance}，
+$\sum_n(Y_n-\mathbb E Y_n)$ a.s. 收敛。
+与原级数相减，确定性级数 $\sum_n\mathbb E Y_n$ 也收敛。
+\end{proof}
+
+\subsection{三列定理}
+
+\begin{theorem}[Kolmogorov 三列定理]
+\label{thm:kolmogorov-three-series}
+设 $X_n$ 为独立的有限实随机变量，固定 $c>0$，并记
+$Y_n=X_n\mathbf1_{\{|X_n|\le c\}}$。则 $\sum_nX_n$ 几乎必然收敛，
+当且仅当下列三项同时成立：
+\[
+ \sum_n\mathbb P(|X_n|>c)<\infty,\qquad
+ \sum_n\mathbb E Y_n\text{ 收敛},\qquad
+ \sum_n\operatorname{Var}(Y_n)<\infty.
+\]
+若对某个 $c>0$ 成立，则对每个 $c>0$ 都成立。
+\end{theorem}
+
+\begin{proof}
+先设三项成立。第一项与 Borel--Cantelli 说明 $X_n=Y_n$ a.s. 最终成立；
+第三项使中心化的 $Y_n$ 级数 a.s. 收敛，再加上第二项的确定性级数，
+得到 $\sum_nY_n$ 收敛。有限项的修改不改变级数收敛性，所以原级数也
+a.s. 收敛。
+
+反向设原级数 a.s. 收敛。则 $X_n\to0$ a.s.，所以独立事件
+$\{|X_n|>c\}$ 只能发生有限次。第二 Borel--Cantelli 引理给第一项。
+又 $Y_n$ 级数与原级数只差有限项，故 a.s. 收敛。
+前一引理于是给第二、第三项。该论证可用于任意正阈值 $c$，得到最后
+的阈值无关性。
+\end{proof}
+
+三项分别控制超过截断值的跳跃、截断均值的累积和中心化截断变量的
+波动；第二项只要求通常意义下的级数收敛，不要求绝对收敛。
+例如 $X_n=(-1)^n/n$ 是确定性例子，均值级数条件收敛；而
+$X_n=\varepsilon_n/n$ 时均值为零，方差和有限，故级数 a.s. 收敛，
+但 $\sum_n|X_n|=\sum_n1/n$ 在每条路径上发散。
+
+所有这些结论都先判定收敛，再讨论极限；把随机级数形式上取期望，
+不能代替三项条件的验证。对已经收敛的随机级数，也不能在没有可积性
+控制时断言其和的期望等于期望级数。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{lln-bernoulli-frequency}
+设 $X_n$ 独立且均为 $\operatorname{Bernoulli}(p)$，$p\in[0,1]$。
+给出经验频率偏离 $p$ 超过 $\varepsilon$ 的 Chebyshev 上界，并证明经验
+频率几乎必然趋于 $p$，包括退化参数。
+
+\exerciseitem{lln-uncorrelated-weak}
+设 $X_n$ 两两不相关、有共同均值 $m$，且
+$n^{-2}\sum_{k\le n}\operatorname{Var}(X_k)\to0$。
+证明平均依概率收敛到 $m$。说明在这一步是否使用相互独立。
+
+\exerciseitem{lln-pareto-finite-mean}
+取 $1<\alpha<2$，设独立同分布变量的密度为
+$\alpha x^{-\alpha-1}\mathbf1_{[1,\infty)}(x)$。
+计算均值、二阶矩，并说明样本平均在 $L^1$ 及 a.s. 意义下的极限。
+
+\exerciseitem{lln-tail-sum-scale}
+对非负有限变量 $Z$ 和 $a>0$，证明
+$\mathbb EZ<\infty$ 当且仅当 $\sum_{n\ge1}\mathbb P(Z>an)<\infty$。
+若 $X_n$ 独立同分布且 $\mathbb E|X_1|=\infty$，证明
+$|X_n|>an$ 几乎必然发生无穷多次。
+
+\exerciseitem{lln-kronecker-converse}
+完整证明正文的 Kronecker 引理，并构造实数列 $a_n$，使
+$n^{-1}\sum_{k\le n}a_k\to0$，但 $\sum_na_n/n$ 发散。
+
+\exerciseitem{lln-finite-sparse-modifications}
+证明几乎必然仅修改有限个 $X_n$ 不改变样本平均的有限 a.s. 极限。
+若只要求修改指标集合的自然密度为零，结论是否仍成立？给出确定性例子。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{lln-variance-growth-threshold}
+设独立变量均值为零，且 $\operatorname{Var}(X_n)\le Cn^\alpha$，
+其中 $C<\infty$、$\alpha<1$。证明 $S_n/n\to0$ a.s.。
+构造满足 $\operatorname{Var}(X_n)\le n$ 却没有这个结论的独立变量列。
+
+\exerciseitem{lln-rare-large-series}
+令独立的 $X_n$ 在 $n\ge2$ 时以概率 $1/(2n^2)$ 各取 $n,-n$，其余
+概率取零。证明级数 a.s. 收敛，而 $\sum_n\operatorname{Var}(X_n)=\infty$。
+用三列定理重新验证同一结论。
+
+\exerciseitem{lln-rademacher-series}
+设 $\varepsilon_n$ 为独立公平符号，$a_n$ 为确定实数。
+证明 $\sum_na_n\varepsilon_n$ a.s. 收敛当且仅当 $\sum_na_n^2<\infty$。
+\emph{提示：}必要性先由项趋零推出 $a_n\to0$，再使用固定阈值截断。
+
+\exerciseitem{lln-three-series-separate-conditions}
+分别给出独立变量列，使三列定理的三项条件中恰有一项失败，而另外
+两项成立。确定性变量也视为独立变量。
+
+\exerciseitem{lln-nonidentical-means}
+设独立变量满足 $\sum_n\operatorname{Var}(X_n)/n^2<\infty$，且
+$n^{-1}\sum_{k\le n}\mathbb E X_k\to m$。证明 $S_n/n\to m$ a.s.。
+说明要求每个 $\mathbb E X_n\to m$ 是否必要。
+
+\exerciseitem{lln-empirical-cdf-pointwise}
+设 $X_n$ 独立同分布，分布函数为 $F$，令
+$F_n(t)=n^{-1}\sum_{k\le n}\mathbf1_{\{X_k\le t\}}$。
+证明对每个固定 $t$，$F_n(t)\to F(t)$ a.s.；再证明存在同一个概率为一
+的集合，使这个结论对每个 $t\in\mathbb R$ 同时成立。
+\emph{提示：}除有理点外，把 $F$ 的至多可数个跳跃点也纳入。
+
+\exerciseitem{lln-sample-quantile}
+设 $p\in(0,1)$，实数 $q$ 满足对每个 $\varepsilon>0$ 都有
+$F(q-\varepsilon)<p<F(q+\varepsilon)$。
+定义经验 $p$ 分位数 $Q_n=\inf\{t:F_n(t)\ge p\}$。证明 $Q_n\to q$ a.s.。
+
+\exerciseitem{lln-positive-infinite-mean}
+若独立同分布变量非负且 $\mathbb EX_1=\infty$，证明
+$S_n/n\to+\infty$ a.s.。结论的量词应在一个共同的概率为一的集合上成立。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{lln-weighted-kronecker}
+设 $b_n>0$ 单调不减且趋于无穷。证明若 $\sum_na_n/b_n$ 收敛，则
+$b_n^{-1}\sum_{k\le n}a_k\to0$。据此给出独立中心化变量的相应加权
+强律充分条件。
+
+\exerciseitem{lln-uniform-integrable-averages}
+若 $X_n$ 同分布且可积，证明各平均 $S_n/n$ 一致可积，不要求独立。
+可用凸函数 $(|x|-M)_+$。在独立情形用此结论及强律再推出 $L^1$ 收敛。
+
+\exerciseitem{lln-finite-limit-necessary}
+补全正文有限 a.s. 平均极限推出可积性的证明，并说明此结论只假设
+有限极限存在、尚未假设该极限为常数。
+
+\optionalexerciseitem{lln-random-harmonic-threshold}
+对独立公平符号，判定 $\sum_n\varepsilon_n/n^\alpha$ 在所有实数
+$\alpha$ 下的几乎必然收敛性及绝对收敛性。若不收敛，须说明收敛事件的
+概率为零，而不仅是“不几乎必然收敛”。
+
+\optionalexerciseitem{lln-continuous-cdf-uniform}
+在 $F$ 连续的假设下，证明 $\sup_t|F_n(t)-F(t)|\to0$ a.s.。
+使用有限网格和单调性，不把不可数个零集直接相并。
+
+\projectexerciseitem{lln-empirical-measure-weak}
+设 $X_n$ 为独立同分布的 $\mathbb R^d$ 值变量，分布为 $\mu$。
+证明经验测度 $\nu_n=n^{-1}\sum_{k\le n}\delta_{X_k}$ a.s. 弱收敛到 $\mu$。
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item 对 $C_0(\mathbb R^d)$ 的一个可数稠密族，同时应用强律。
+\item 在同一个概率为一的集合上，证明 $(\nu_n)$ 一致紧；
+可对整数半径球外的示性函数同时应用强律，再处理有限多个初始经验测度。
+\item 从 $C_0$ 上的极限和尾部控制，推出所有 $C_b$ 测试函数的积分收敛。
+\end{enumerate}
+\end{enumerate}

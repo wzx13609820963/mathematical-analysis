@@ -218,6 +218,12 @@
 | \(X_n\to X\ \mathrm{a.s.}\)、\(X_n\xrightarrow{\mathbb P}X\)、\(X_n\xrightarrow dX\) | 分别为几乎必然、依概率、依分布收敛；前两者比较共同空间上的变量，最后一种只比较分布 |
 | \(\mu_n\Rightarrow\mu\) | 概率测度的弱收敛，以全部有界连续函数检验；本轮第110章在有限维欧氏空间中使用 |
 | 一致可积的随机变量族 | 以各自分布的尾积分定义，可在不同空间上讨论；Lp误差收敛则须指定共同空间 |
+| \(\varphi_X(t)=\mathbb E e^{i\langle t,X\rangle}\) | 概率特征函数采用正号且无2π；有密度f时等于 \(\widehat f(-t/(2\pi))\)，反演系数为 \((2\pi)^{-d}\) |
+| \(S_n,\overline X_n,T_n\) | 各章明确的部分和、经验平均、标准化和；n从一开始，零方差不作除法 |
+| \(\Phi\)、\(N_d(m,\Sigma)\) | 标准正态分布函数及d维正态分布；Σ允许半正定。前者没有下标，与局部有限测度累计函数 \(\Phi_\mu\) 区分 |
+| \(s_n^2=\sum_k\mathbb E X_{nk}^2\)、\(L_n(\varepsilon)\) | 中心化三角阵列总方差及归一化尾方差和；须明确每行独立与正总方差 |
+| \(\mathbb E[X\mid\mathcal G]\)、\(\mathbb E[X\mid V]\) | 前者关于子σ代数取条件期望；后者条件于σ(V)。选G可测代表，唯一性为a.s.意义 |
+| \(\operatorname{Var}(X\mid\mathcal G)\)、\(\operatorname{Cov}(X,Y\mid\mathcal G)\) | 本章对L2变量定义的条件方差和条件协方差；它们本身为G可测随机变量 |
 
 ## 稳定交叉引用
 

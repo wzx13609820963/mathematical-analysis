@@ -1,0 +1,542 @@
+\chapter{特征函数}
+\label{chap:characteristic-functions}
+
+独立随机变量的和对应分布的卷积。即使每个变量只有很简单的密度，多次卷积
+也很快变得难以计算；没有密度的分布同样需要研究独立和。Fourier 变换把卷积
+变成乘积，因而适合处理这个问题。这里被变换的对象是概率测度，积分不要求
+存在概率密度。
+
+本章沿用\chapterref{chap:probability-convergence}中以有界连续函数检验的
+分布收敛。指数函数只是其中一类特殊的测试函数。它们能够确定一个分布，
+而且在原点附近满足适当连续性时，还足以判定分布收敛。后一个结论将使
+独立和的极限问题转化为复数乘积的极限。
+
+\section{概率测度的 Fourier 变换}
+\label{sec:characteristic-definition}
+
+\subsection{定义与变换约定}
+
+\begin{definition}
+\label{def:characteristic-function}
+设 $\mu$ 是 $\mathbb R^d$ 上的 Borel 概率测度，其中 $d\ge1$ 为有限整数。
+定义其\term{特征函数}
+\[
+ \varphi_\mu(t)=\int_{\mathbb R^d}e^{i\langle t,x\rangle}\,d\mu(x),
+ \qquad t\in\mathbb R^d.
+\]
+若随机向量 $X$ 的分布为 $\mu$，也记
+$\varphi_X(t)=\mathbb E e^{i\langle t,X\rangle}$。
+\end{definition}
+
+被积函数的模恒为一，因此任何概率测度都有特征函数；这里没有矩条件。
+有相同分布的变量有相同特征函数，即使它们定义在不同的概率空间上。
+按实部、虚部分别积分，上式就是
+\[
+ \varphi_X(t)=\mathbb E\cos\langle t,X\rangle
+       +i\mathbb E\sin\langle t,X\rangle.
+\]
+它通常是复值函数。
+
+\chapterref{chap:l1-fourier-transform}采用指数 $e^{-2\pi i\langle\xi,x\rangle}$。
+概率论的这一约定改变了符号和频率单位，并没有改变变换的性质。若 $X$ 有
+密度 $f$，则
+\[
+ \varphi_X(t)=\widehat f\bigl(-t/(2\pi)\bigr).
+\]
+因此本章反演积分的系数为 $(2\pi)^{-d}$，不能直接抄去此前约定中的常数。
+
+\subsection{基本例子}
+
+若 $X=a$ a.s.，则 $\varphi_X(t)=e^{ita}$。若实变量 $X$ 以概率 $p_j$
+取值 $a_j$，其中指标集至多可数，则
+\[
+ \varphi_X(t)=\sum_jp_je^{ita_j}.
+\]
+该级数在整条实线上绝对且一致收敛，因为 $\sum_jp_j=1$。例如公平符号
+变量的特征函数为 $\cos t$；参数为 $p$ 的 Bernoulli 变量对应
+$1-p+pe^{it}$。
+
+在 $[-a,a]$ 上均匀分布的变量，其中 $a>0$，满足
+\[
+ \varphi_X(t)=\frac{\sin(at)}{at}\quad(t\ne0),\qquad \varphi_X(0)=1.
+\]
+原点的表达式由积分定义给出，并非先允许除以零再赋值。
+
+对标准正态密度
+$g(x)=(2\pi)^{-1/2}e^{-x^2/2}$，由
+命题~\ref{prop:gaussian-fourier}及伸缩公式，得到
+\[
+ \varphi_Z(t)=e^{-t^2/2},\qquad Z\sim N(0,1).
+\]
+于是 $m+\sigma Z$ 的特征函数为
+$\exp(imt-\sigma^2t^2/2)$，其中 $\sigma\ge0$；$\sigma=0$ 给出点质量。
+在 $\mathbb R^d$ 上，标准正态密度和指数核都按坐标分解，因此相应公式为
+$e^{-\|t\|^2/2}$。
+
+\section{特征函数的基本性质和唯一性}
+\label{sec:characteristic-uniqueness}
+
+\subsection{连续性、正定性和模为一的情形}
+
+\begin{proposition}
+\label{prop:characteristic-basic-properties}
+任一概率测度的特征函数满足
+\[
+ \varphi(0)=1,\qquad |\varphi(t)|\le1,\qquad
+ \varphi(-t)=\overline{\varphi(t)},
+\]
+并在 $\mathbb R^d$ 上一致连续。对任意 $r\ge1$、$t_1,\ldots,t_r\in\mathbb R^d$
+和 $c_1,\ldots,c_r\in\mathbb C$，还满足\term{正定性}
+\[
+ \sum_{j,k=1}^r c_j\overline{c_k}\varphi(t_j-t_k)\ge0.
+\]
+\end{proposition}
+
+\begin{proof}
+前三式分别来自总质量一、积分三角不等式和共轭。连续性估计为
+\[
+ |\varphi(t+h)-\varphi(t)|
+ \le\int|e^{i\langle h,x\rangle}-1|\,d\mu(x).
+\]
+右侧不依赖 $t$，被积函数趋于零并由常数二控制，故由控制收敛得到一致
+连续性。正定式的左侧等于
+\[
+ \int\left|\sum_{j=1}^r c_je^{i\langle t_j,x\rangle}\right|^2d\mu(x),
+\]
+所以它是非负实数。
+\end{proof}
+
+连续、模不超过一且在零点等于一，并不足以保证一个函数是特征函数。
+正定性同时约束不同频率上的取值。另一方面，不能要求每个特征函数在
+无穷远消失：点质量的特征函数处处模为一。Riemann--Lebesgue 引理只在
+分布具有 $L^1$ 密度时直接适用。
+
+设 $W=e^{i\langle t,X\rangle}$，则
+\[
+ \mathbb E|W-\mathbb E W|^2=1-|\varphi_X(t)|^2.
+\]
+因此 $|\varphi_X(t)|=1$ 当且仅当 $e^{i\langle t,X\rangle}$ a.s. 为某个
+固定的单位复数。特别地，在实值情形且 $t\ne0$ 时，这等价于 $X$ 的分布
+集中在某个等差点集
+$a+(2\pi/t)\mathbb Z$ 上。不能把这里的结论误读成 $X$ 必为常数：
+例如整数值变量在频率 $2\pi$ 上总有 $\varphi_X(2\pi)=1$。
+
+\subsection{用 Gaussian 卷积恢复测度}
+
+变换的唯一性不能只在密度之间证明。两个分布可能都没有密度，而与一个
+小方差的正态分布卷积之后，它们都有光滑密度。先比较这些密度，再使
+正态扰动趋于零，就可以回到原测度。
+
+记 $\varepsilon>0$，并令
+\[
+ g_\varepsilon(x)=(2\pi\varepsilon^2)^{-d/2}
+             e^{-\|x\|^2/(2\varepsilon^2)}.
+\]
+概率测度 $\mu*g_\varepsilon$ 在这里指卷积
+$\mu*(g_\varepsilon\,dx)$。由 Tonelli 定理，它有密度
+\begin{equation}
+\label{eq:characteristic-gaussian-smoothing}
+ p_{\mu,\varepsilon}(x)
+ =\int g_\varepsilon(x-y)\,d\mu(y)
+ =\frac1{(2\pi)^d}\int e^{-i\langle t,x\rangle}
+        \varphi_\mu(t)e^{-\varepsilon^2\|t\|^2/2}\,dt.
+\end{equation}
+第二个等号使用 Gaussian 的反演公式和 Fubini 定理；交换的二重绝对积分
+不超过 $\int e^{-\varepsilon^2\|t\|^2/2}\,dt<\infty$。
+
+\begin{theorem}[特征函数的唯一性]
+\label{thm:characteristic-uniqueness}
+$\mathbb R^d$ 上两个 Borel 概率测度相等，当且仅当它们的特征函数相等。
+\end{theorem}
+
+\begin{proof}
+只有反向需要证明。若 $\varphi_\mu=\varphi_\nu$，由
+\eqref{eq:characteristic-gaussian-smoothing}，对每个 $\varepsilon>0$ 都有
+$p_{\mu,\varepsilon}=p_{\nu,\varepsilon}$。
+对任意 $h\in C_b(\mathbb R^d)$，换元给
+\[
+ \int h(x)p_{\mu,\varepsilon}(x)\,dx
+ =\iint h(y+\varepsilon z)g_1(z)\,dz\,d\mu(y)
+ \longrightarrow\int h\,d\mu.
+\]
+此极限由连续性和乘积概率测度下的控制收敛得到。对 $\nu$ 有同样的极限，
+故两测度在全部有界连续函数上的积分相同。特别地，它们在 $C_c$ 上相同，
+由 Radon 表示的唯一性得到 $\mu=\nu$。实空间上的有限 Borel 测度是
+Radon 测度，见命题~\ref{prop:radon-second-countable-regular}。
+\end{proof}
+
+因此确定一个分布时，可以寻找具有相同特征函数的已知分布；这一步无需
+先证明未知分布有密度。唯一性针对分布，而非变量的共同实现。
+
+\section{独立和}
+\label{sec:characteristic-independent-sums}
+
+\begin{proposition}
+\label{prop:characteristic-linear-convolution}
+设 $X$ 为 $\mathbb R^d$ 值随机向量，$A$ 为实 $k\times d$ 矩阵，
+$b\in\mathbb R^k$，则
+\[
+ \varphi_{AX+b}(t)=e^{i\langle t,b\rangle}\varphi_X(A^{\mathsf T}t).
+\]
+若 $X,Y$ 是同一空间上独立的 $\mathbb R^d$ 值随机向量，则
+\[
+ \varphi_{X+Y}(t)=\varphi_X(t)\varphi_Y(t).
+\]
+\end{proposition}
+
+\begin{proof}
+第一式把 $\langle t,AX\rangle$ 写成 $\langle A^{\mathsf T}t,X\rangle$。
+第二式中，两个有界可测函数
+$e^{i\langle t,X\rangle}$、$e^{i\langle t,Y\rangle}$ 独立，其乘积期望分解为
+期望之积；对复函数分别处理实部、虚部即可。
+\end{proof}
+
+对任意概率测度，卷积仍有相同的乘法公式，因为可在有限乘积空间上实现
+两个独立坐标。独立的同分布变量 $X_1,\ldots,X_n$ 因而满足
+\[
+ \varphi_{X_1+\cdots+X_n}(t)=\varphi_{X_1}(t)^n,
+ \qquad
+ \varphi_{(X_1+\cdots+X_n)/a}(t)=\varphi_{X_1}(t/a)^n
+ \quad(a\ne0).
+\]
+归一化独立和的分布可以直接由这两个公式研究，不必求出它的卷积密度。
+
+例如参数 $\lambda\ge0$ 的 Poisson 分布满足
+\[
+ \varphi(t)=e^{-\lambda}\sum_{j=0}^{\infty}\frac{\lambda^j e^{itj}}{j!}
+           =\exp\bigl(\lambda(e^{it}-1)\bigr).
+\]
+两个独立 Poisson 变量相加，其特征函数对应参数之和。唯一性定理立即
+确定和的分布。两个正态变量独立相加时，同样得到均值相加、方差相加。
+
+\begin{proposition}[联合特征函数与独立性]
+\label{prop:joint-characteristic-independence}
+实随机向量 $X_1,\ldots,X_r$ 相互独立，当且仅当其联合特征函数满足
+\[
+ \varphi_{(X_1,\ldots,X_r)}(t_1,\ldots,t_r)
+ =\prod_{j=1}^r\varphi_{X_j}(t_j)
+\]
+对所有相应维数的 $t_j$ 成立。
+\end{proposition}
+
+\begin{proof}
+独立性给期望分解。反向构造各边缘分布的有限乘积测度，它的特征函数
+恰为右侧。因此联合分布由唯一性等于边缘的乘积，得到独立性。
+\end{proof}
+
+这里必须检验全部频率向量。只知道和的变换满足乘积公式，通常不能推出
+独立性；和丢失了联合分布中沿不同坐标方向的信息。
+
+\section{Lévy 连续性定理、矩与反演公式}
+\label{sec:levy-moments-inversion}
+
+\subsection{原点附近的变换与尾部概率}
+
+若 $X_n\xrightarrow dX$，直接把 $\cos\langle t,x\rangle$ 和
+$\sin\langle t,x\rangle$ 作为测试函数，就得到每个 $t$ 上
+$\varphi_{X_n}(t)\to\varphi_X(t)$。反向首先要防止概率质量逃向无穷远。
+高频下的振荡未必能控制这个问题；原点附近的平均值却能给出尾部估计。
+
+对实变量 $Y$ 和 $\delta>0$，Fubini 定理给
+\[
+ \frac1{2\delta}\int_{-\delta}^{\delta}(1-\operatorname{Re}\varphi_Y(t))\,dt
+ =\mathbb E\left[1-\frac{\sin(\delta Y)}{\delta Y}\right],
+\]
+括号在 $Y=0$ 时取零。若 $|Y|>2/\delta$，该括号至少为 $1/2$，故
+\begin{equation}
+\label{eq:characteristic-tightness-bound}
+ \mathbb P(|Y|>2/\delta)
+ \le\frac1\delta\int_{-\delta}^{\delta}
+             (1-\operatorname{Re}\varphi_Y(t))\,dt.
+\end{equation}
+这一估计没有矩假设。
+
+下面只建立欧氏空间中本章所需的抽取结果。一般度量空间上的概率紧性
+需要另外的论证，不能从这里直接推广。
+
+\begin{lemma}[欧氏空间中的一致紧序列]
+\label{lem:euclidean-tight-subsequence}
+若 $\mathbb R^d$ 上的概率测度序列 $(\mu_n)$ 一致紧，则它有一个弱收敛
+到概率测度的子列。
+\end{lemma}
+
+\begin{proof}
+$C_0(\mathbb R^d,\mathbb R)$ 在上确界范数下可分。一个具体的可数稠密族
+可由有限有理网格上的分片仿射函数给出：在有理方块中作有理网格，
+将各网格块按固定规则剖成单纯形，顶点取有理值，边界取零，块外延为零。
+仿射插值在每个单纯形上是顶点值的凸组合。
+对紧支撑连续函数，先取包含其
+支撑的更大方块，再用一致连续性选足够细网格，顶点值作有理逼近即可；
+一般 $C_0$ 函数再由紧支撑截断逼近。
+
+记一个可数稠密族为 $(h_j)$。由于各
+$|\int h_j\,d\mu_n|\le\|h_j\|_\infty$，逐次抽取并作对角选择，得到子列
+使每个 $h_j$ 的积分都收敛。对任意 $h\in C_0$，以 $h_j$ 一致逼近，
+两端积分误差均不超过 $\|h-h_j\|_\infty$，所以该子列上 $h$ 的积分也
+收敛。其极限定义一个正线性泛函 $I$，满足 $\|I\|\le1$。
+由推论~\ref{cor:positive-czero-representation}，存在有限正 Radon 测度
+$\mu$ 表示它，且 $\mu(\mathbb R^d)\le1$。
+
+给定 $\eta>0$，一致紧性给一个紧集 $K$，使各 $\mu_n(K)>1-\eta$。
+取 $\chi\in C_c$，满足 $0\le\chi\le1$ 且在 $K$ 上等于一。则
+$\int\chi\,d\mu=\lim\int\chi\,d\mu_n\ge1-\eta$，从而
+$\mu(\mathbb R^d)=1$。积分已在 $C_c$ 上收敛，
+命题~\ref{prop:vague-probability-narrow}把它提升为全部 $C_b$ 上的收敛。
+\end{proof}
+
+\begin{theorem}[Lévy 连续性定理]
+\label{thm:levy-continuity}
+设 $\mu_n$ 是 $\mathbb R^d$ 上的概率测度，特征函数为 $\varphi_n$。
+若 $\varphi_n(t)$ 在每个 $t$ 上收敛到 $\varphi(t)$，且 $\varphi$ 在原点
+连续，则存在唯一概率测度 $\mu$，使
+\[
+ \varphi=\varphi_\mu,\qquad \mu_n\Rightarrow\mu.
+\]
+反之，$\mu_n\Rightarrow\mu$ 蕴含特征函数逐点收敛到 $\varphi_\mu$。
+\end{theorem}
+
+\begin{proof}
+反向已说明。正向有 $\varphi(0)=1$。先考虑第 $j$ 个坐标，在
+\eqref{eq:characteristic-tightness-bound}中使用
+$\varphi_n(te_j)$。对固定 $\delta$ 令 $n\to\infty$，被积函数有界，
+得到相应尾概率的上极限不超过
+\[
+ \frac1\delta\int_{-\delta}^{\delta}
+               (1-\operatorname{Re}\varphi(te_j))\,dt.
+\]
+由原点连续性，当 $\delta\downarrow0$ 时此式趋零。对有限多个坐标取共同
+$\delta$，再用
+$\{\|x\|>R\}\subseteq\bigcup_{j=1}^d\{|x_j|>R/\sqrt d\}$，得到任意小的
+最终一致尾界。剩余有限多个概率测度各自紧，增大半径即可。因此整族
+$(\mu_n)$ 一致紧。
+
+由前一引理抽取弱收敛子列，其极限为某概率测度 $\mu$。沿这个子列以
+指数函数检验，得到 $\varphi_\mu=\varphi$。唯一性定理说明所有可能的
+弱子列极限均相同。任意子列仍一致紧，因而还有弱收敛再子列。如果整列
+不弱收敛到 $\mu$，则某个 $h\in C_b$ 的积分存在与目标值保持正距离的
+子列，与再抽取结论矛盾。
+\end{proof}
+
+定理没有事先假设极限函数是特征函数，这正是存在性结论的一部分。
+原点连续性不能删去。例如 $[-n,n]$ 上均匀分布的特征函数为
+$\sin(nt)/(nt)$，它在 $t\ne0$ 时趋于零，在 $t=0$ 时恒为一。
+极限在零点不连续，相应概率质量不断扩散，没有概率弱极限。
+
+\subsection{矩给出的导数和 Taylor 展开}
+
+\begin{proposition}
+\label{prop:characteristic-moments-taylor}
+设 $X$ 为实随机变量，$m\ge1$ 为整数，且 $\mathbb E|X|^m<\infty$。
+则 $\varphi_X\in C^m(\mathbb R)$，对 $0\le k\le m$ 有
+\[
+ \varphi_X^{(k)}(t)=\mathbb E\bigl[(iX)^ke^{itX}\bigr],\qquad
+ \varphi_X(t)=\sum_{k=0}^m\frac{i^k\mathbb E X^k}{k!}t^k+o(|t|^m).
+\]
+\end{proposition}
+
+\begin{proof}
+低阶绝对矩由 $|x|^k\le1+|x|^m$ 保证。差商估计
+$|(e^{ihX}-1)/h|\le|X|$ 允许逐次在期望号内求导，每一步由相应的
+绝对矩支配；导数连续性再用控制收敛。最后对 $C^m$ 函数使用 Peano
+形式的 Taylor 公式，实部、虚部分别应用即可。
+\end{proof}
+
+特别地，若 $\mathbb E X=0$、$\mathbb E X^2=\sigma^2<\infty$，则
+\begin{equation}
+\label{eq:characteristic-second-order}
+ \varphi_X(t)=1-\frac{\sigma^2t^2}{2}+o(t^2).
+\end{equation}
+独立和把特征函数相乘；当自变量缩小为 $t/\sqrt n$ 时，二次项的总贡献
+仍保持有限。这说明平方根归一化与方差之间的关系。相反，非零均值产生
+一阶相位项，研究这一尺度上的涨落前需要先减去均值。
+
+\begin{proposition}[从变换检验二阶矩]
+\label{prop:characteristic-second-moment-converse}
+对实随机变量 $X$，若
+\[
+ L:=\liminf_{t\to0}\frac{1-\operatorname{Re}\varphi_X(t)}{t^2}<\infty,
+\]
+则 $\mathbb E X^2<\infty$，且上述比值实际趋于 $\mathbb E X^2/2$。
+\end{proposition}
+
+\begin{proof}
+沿实现有限下极限的非零序列 $t_n\to0$ 使用 Fatou 引理：
+\[
+ \frac12\mathbb E X^2
+ \le\liminf_n\mathbb E\frac{1-\cos(t_nX)}{t_n^2}=L.
+\]
+因此二阶矩有限，再用 $1-\cos u\le u^2/2$ 和控制收敛，便得到整个比值
+的极限。特别地，若二阶导数在零点存在，利用
+$\varphi(-t)=\overline{\varphi(t)}$ 的对称二阶差商，可得
+$\mathbb E X^2=-\varphi_X''(0)$。
+\end{proof}
+
+不能把所有阶数的反向结论直接照此写出。尤其一阶导数存在，不一定有
+一阶绝对矩。对称重尾分布的正负部分可以在振荡积分中抵消，尽管通常
+意义下的期望尚不存在；习题给出一个可直接验证的例子。
+
+\subsection{反演与密度}
+
+\begin{theorem}[可积特征函数的反演]
+\label{thm:integrable-characteristic-density}
+若 $\varphi_\mu\in L^1(\mathbb R^d)$，则 $\mu$ 有有界连续密度
+\[
+ f(x)=\frac1{(2\pi)^d}\int e^{-i\langle t,x\rangle}\varphi_\mu(t)\,dt.
+\]
+\end{theorem}
+
+\begin{proof}
+由\eqref{eq:characteristic-gaussian-smoothing}，
+$p_{\mu,\varepsilon}\to f$ 一致，因为误差不超过
+\[
+ \frac1{(2\pi)^d}\int|\varphi_\mu(t)|
+                 |e^{-\varepsilon^2\|t\|^2/2}-1|\,dt\longrightarrow0.
+\]
+$f$ 有界连续且非负。对 $h\in C_c$，一致收敛给
+$\int h p_{\mu,\varepsilon}\,dx\to\int hf\,dx$；另一方面 Gaussian 扰动
+趋零给同一个极限 $\int h\,d\mu$。故两个 Radon 测度 $\mu$ 与 $f\,dx$
+在 $C_c$ 上相同，唯一性给 $\mu=f\,dx$。尤其 $\int f=1$，不必预先
+假设反演积分所得函数的总积分。
+\end{proof}
+
+有密度并不要求特征函数可积。区间均匀分布的变换按 $1/|t|$ 衰减，
+绝对值积分发散；但两个独立区间均匀变量之和的特征函数是其平方，
+这时反演积分便绝对收敛。
+
+没有密度时仍能反演区间概率。对实分布 $\mu$、$a<b$，有
+\begin{equation}
+\label{eq:gaussian-levy-interval-inversion}
+ \lim_{\varepsilon\downarrow0}\frac1{2\pi}\int_{\mathbb R}
+ \frac{e^{-ita}-e^{-itb}}{it}\varphi_\mu(t)e^{-\varepsilon^2t^2/2}\,dt
+ =\mu((a,b))+\frac{\mu(\{a\})+\mu(\{b\})}{2}.
+\end{equation}
+在 $t=0$ 将商定义为 $b-a$。对固定 $\varepsilon$，积分绝对收敛。
+把\eqref{eq:characteristic-gaussian-smoothing}在 $x\in(a,b)$ 上积分，
+左侧成为卷积测度对区间的质量。对原变量取值 $y$，小 Gaussian 扰动落入
+区间的概率趋于内部点处的一、外部点处的零、两个端点处的 $1/2$。
+由控制收敛即得公式。端点的半质量来自所用核的对称性；若端点无原子，
+它就给出通常的区间概率。去掉 Gaussian 因子而采用对称频率截断的
+Lévy 反演公式，在章末作为一个证明项目建立。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{char-affine-transform}
+对实向量的仿射变换证明正文公式。再说明所有一维投影
+$\langle t,X\rangle$ 的分布共同确定 $X$ 的联合分布。
+
+\exerciseitem{char-discrete-families}
+计算 Bernoulli、二项及 Poisson 分布的特征函数，并用唯一性证明相应
+独立和的参数相加公式。对两个正试验次数的二项变量，能否任意采用
+不同的成功概率？另行说明零次试验的情形。
+
+\exerciseitem{char-exponential-laplace}
+计算参数 $\lambda>0$ 的指数密度
+$\lambda e^{-\lambda x}\mathbf1_{(0,\infty)}(x)$ 和双边密度
+$(\lambda/2)e^{-\lambda|x|}$ 的特征函数。
+
+\exerciseitem{char-symmetry-real}
+证明实变量 $X$ 与 $-X$ 同分布当且仅当 $\varphi_X$ 为实值函数。
+若 $X-m$ 对称，写出 $\varphi_X$ 的相应形式。
+
+\exerciseitem{char-lattice-modulus}
+设 $t_0\ne0$。证明 $|\varphi_X(t_0)|=1$ 的等差点集刻画，
+并分别给出 $\varphi_X(t_0)=1$ 与 $|\varphi_X(t_0)|=1$ 而值不为一的非退化例子。
+
+\exerciseitem{char-holder-moment}
+若 $0<\alpha\le1$ 且 $\mathbb E\|X\|^\alpha<\infty$，证明
+\[
+ |\varphi_X(t+h)-\varphi_X(t)|
+ \le 2^{1-\alpha}\|h\|^\alpha\mathbb E\|X\|^\alpha.
+\]
+
+\exerciseitem{char-gaussian-moments}
+由标准正态特征函数求其奇数矩和偶数矩，并说明用变换求矩前如何验证
+所需绝对矩存在。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{char-joint-independence-test}
+证明联合特征函数的乘积分解判据。设 $U,V$ 独立且均为标准正态，
+证明 $U+V$ 与 $U-V$ 独立。
+
+\exerciseitem{char-false-positive-candidate}
+证明 $e^{-t^4}$ 连续、模不超过一、在原点为一，但不是实概率分布的特征函数。
+
+\exerciseitem{char-mass-at-point-average}
+对任意实分布和 $a\in\mathbb R$，证明
+\[
+ \mu(\{a\})=\lim_{T\to\infty}\frac1{2T}\int_{-T}^{T}e^{-ita}\varphi_\mu(t)\,dt.
+\]
+不对分布的原子个数作有限性假设。
+
+\exerciseitem{char-compact-uniform-convergence}
+若 $X_n\xrightarrow dX$ 于 $\mathbb R^d$，证明特征函数在每个紧频率集上
+一致收敛。可先由一致紧性证明这族特征函数等度连续。
+
+\exerciseitem{char-uniform-escape}
+用 $[-n,n]$ 上的均匀分布说明 Lévy 连续性定理的原点连续条件不可删除。
+再说明极限函数即使在每个非零点连续，也不能修复这个缺陷。
+
+\exerciseitem{char-triangular-density}
+设 $U,V$ 独立且均匀分布于 $[-1,1]$。求 $U+V$ 的密度及特征函数，
+验证后者属于 $L^1$，并解释单个均匀分布不能使用同一绝对收敛反演公式的原因。
+
+\exerciseitem{char-cauchy-stability}
+先由对 $e^{-|t|}$ 使用已有的 $L^1$ Fourier 反演，证明
+$[\pi(1+x^2)]^{-1}$ 的特征函数为 $e^{-|t|}$。再证明独立标准 Cauchy
+变量 $X_1,\ldots,X_n$ 的平均仍有标准 Cauchy 分布。
+
+\exerciseitem{char-poisson-rare-events}
+设 $B_n$ 的分布为二项分布 $\operatorname{Bin}(n,p_n)$，其中
+$np_n\to\lambda\in[0,\infty)$。用特征函数证明
+$B_n\xrightarrow d\operatorname{Pois}(\lambda)$。
+
+\exerciseitem{char-cramer-wold}
+对 $\mathbb R^d$ 值变量证明 Cramér--Wold 判据：
+$X_n\xrightarrow dX$ 当且仅当对每个 $a\in\mathbb R^d$，
+$\langle a,X_n\rangle\xrightarrow d\langle a,X\rangle$。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\optionalexerciseitem{char-derivative-without-absolute-moment}
+取密度
+\[
+ f(x)=\frac{c\,\mathbf1_{\{|x|>e\}}}{x^2\log|x|},
+ \qquad c^{-1}=2\int_e^\infty\frac{dx}{x^2\log x}.
+\]
+证明 $\mathbb E|X|=\infty$ 而 $\varphi_X'(0)=0$。
+提示：先把积分截在固定 $M$，再在尾部使用
+$1-\cos(tx)\le\min\{t^2x^2/2,2\}$。
+
+\exerciseitem{char-second-moment-bound}
+若某个非零序列 $t_n\to0$ 满足
+$\sup_n(1-\operatorname{Re}\varphi_X(t_n))/t_n^2<\infty$，证明二阶矩有限。
+据此说明 $\varphi_X(t)=1+o(t^2)$ 迫使 $X=0$ a.s.，而
+$\varphi_X(t)=1+o(|t|)$ 没有这个结论。
+
+\optionalexerciseitem{char-convolution-square-not-independence}
+在有限概率空间上构造相关的 $X,Y\in\{0,1,2\}$，使它们都均匀分布，
+且 $X+Y$ 的分布与两个独立均匀变量之和相同。
+提示：从全部为 $1/9$ 的 $3\times3$ 联合概率表出发，找一个各行、各列
+及各条反对角线的和都为零的非零扰动。
+
+\projectexerciseitem{char-classical-levy-inversion}
+建立实线上的对称截断反演公式。
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item 用分部积分证明 $\int_A^B\sin u/u\,du$ 的绝对值在 $B\ge A>0$ 时
+不超过 $3/A$，并证明 $\int_0^R\sin u/u\,du$ 对全部 $R>0$ 一致有界。
+\item 对 $\eta>0$ 求 $\int_0^\infty e^{-\eta u}\sin u/u\,du$，
+并借助统一尾估计证明 $\int_0^\infty\sin u/u\,du=\pi/2$。
+\item 对任意 $a<b$，证明
+\[
+ \lim_{T\to\infty}\frac1{2\pi}\int_{-T}^{T}
+ \frac{e^{-ita}-e^{-itb}}{it}\varphi_\mu(t)\,dt
+ =\mu((a,b))+\frac{\mu(\{a\})+\mu(\{b\})}{2}.
+\]
+解释为何有限截断可用 Fubini，以及最后对 $\mu$ 使用控制收敛的支配界。
+\end{enumerate}
+\end{enumerate}

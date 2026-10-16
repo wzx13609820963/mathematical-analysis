@@ -1,0 +1,244 @@
+\chapter{特征函数}
+
+\begin{solution}{char-affine-transform}
+由 $\langle t,AX+b\rangle=\langle A^{\mathsf T}t,X\rangle+\langle t,b\rangle$，
+取指数再取期望，便得正文公式。若 $X,Y$ 的所有一维投影同分布，则取
+投影 $\langle t,\cdot\rangle$ 的特征函数在实参数一处的值，得到
+$\varphi_X(t)=\varphi_Y(t)$ 对每个 $t$ 成立。向量形式的唯一性定理于是
+给出联合分布相同。不要求两个向量共同定义。
+\end{solution}
+
+\begin{solution}{char-discrete-families}
+Bernoulli 变量对应 $1-p+pe^{it}$，故 $n$ 个独立同分布 Bernoulli 变量之和
+对应 $(1-p+pe^{it})^n$，这也是二项分布直接求和所得的式子。
+Poisson 分布对应 $\exp(\lambda(e^{it}-1))$。特征函数相乘后，独立的
+$\operatorname{Bin}(n,p)$ 与 $\operatorname{Bin}(m,p)$ 之和为
+$\operatorname{Bin}(n+m,p)$；独立的 Poisson 分布参数相加。
+上述二项参数相加公式采用同一成功概率，正的试验次数可以不同。若成功概率
+不同，乘积一般不能写成同一线性因子的幂；例如两个参数分别为零和一的
+Bernoulli 变量之和恒为一，并非任何非退化的二次二项分布。
+零次试验的分布恒为点质量零，与成功概率无关；它与任何独立变量相加
+都不改变后者的分布。
+\end{solution}
+
+\begin{solution}{char-exponential-laplace}
+指数分布的积分绝对收敛，给出
+\[
+ \int_0^\infty\lambda e^{-(\lambda-it)x}\,dx
+   =\frac{\lambda}{\lambda-it}.
+\]
+双边密度的两半分别给
+\[
+ \frac\lambda2\left(\frac1{\lambda-it}+\frac1{\lambda+it}\right)
+   =\frac{\lambda^2}{\lambda^2+t^2}.
+\]
+两式在 $t=0$ 均为一；第二式为实偶函数，与密度对称相符。
+\end{solution}
+
+\begin{solution}{char-symmetry-real}
+$\varphi_{-X}(t)=\varphi_X(-t)=\overline{\varphi_X(t)}$。
+若分布对称，唯一性及这条公式给 $\varphi_X=\overline{\varphi_X}$。
+反过来，若变换实值，则 $\varphi_{-X}=\varphi_X$，唯一性给 $-X$ 与 $X$
+同分布。若 $X-m$ 对称，令其特征函数为实偶函数 $\psi$，则
+$\varphi_X(t)=e^{imt}\psi(t)$。对称中心不为零时，变换本身不必实值。
+\end{solution}
+
+\begin{solution}{char-lattice-modulus}
+令 $W=e^{it_0X}$。由 $\mathbb E|W-\mathbb EW|^2=1-|\mathbb EW|^2$，
+模为一等价于 $W=z$ a.s.，其中 $|z|=1$。取实数 $a$ 使 $z=e^{it_0a}$，
+就得到 $X-a\in(2\pi/t_0)\mathbb Z$ a.s.，反向直接代入。
+取 $X$ 等概率落在 $0,2\pi/t_0$，则变换值为一且分布非退化。
+再把这两个点都平移 $\pi/t_0$，则变换值为负一、模仍为一。
+\end{solution}
+
+\begin{solution}{char-holder-moment}
+对 $u\in\mathbb R$，有
+$|e^{iu}-1|\le\min(2,|u|)\le2^{1-\alpha}|u|^\alpha$。
+最后一个不等式在 $|u|\le2$ 时由 $|u|^{1-\alpha}\le2^{1-\alpha}$，
+在 $|u|\ge2$ 时由 $2\le2^{1-\alpha}|u|^\alpha$ 得到。
+用 $|\langle h,X\rangle|\le\|h\|\|X\|$，再取期望即可。
+$\alpha=1$ 时特别得到全局 Lipschitz 估计。
+\end{solution}
+
+\begin{solution}{char-gaussian-moments}
+每个多项式乘 $e^{-x^2/2}$ 都可积：充分大时 $|x|^m\le C_me^{x^2/4}$，
+所以尾部由 $C_me^{-x^2/4}$ 支配。故可以用任意阶导数计算矩。
+展开
+\[
+ e^{-t^2/2}=\sum_{r=0}^\infty\frac{(-1)^rt^{2r}}{2^rr!}.
+\]
+奇数阶导数在零点为零；$2r$ 阶导数为
+$(-1)^r(2r)!/(2^rr!)$。除以 $i^{2r}=(-1)^r$，得到
+$\mathbb E Z^{2r}=(2r)!/(2^rr!)$，且 $\mathbb E Z^{2r+1}=0$。
+当 $r=0$ 时偶数矩为一，符合概率归一化。
+\end{solution}
+
+\begin{solution}{char-joint-independence-test}
+独立性给有界指数的期望乘积分解。反向以各边缘的乘积测度为比较对象，
+其变换恰是边缘变换之积，向量唯一性使联合律等于该乘积律。
+对 $A=U+V$、$B=U-V$，
+\[
+ \mathbb E e^{i(sA+tB)}
+ =e^{-(s+t)^2/2}e^{-(s-t)^2/2}
+ =e^{-s^2}e^{-t^2}.
+\]
+这正是两个边缘 $N(0,2)$ 的变换之积，因此 $A,B$ 独立。
+单有协方差为零，在非正态情形不能取代此项计算。
+\end{solution}
+
+\begin{solution}{char-false-positive-candidate}
+若 $\varphi(t)=e^{-t^4}$ 是特征函数，则
+$(1-\operatorname{Re}\varphi(t))/t^2\to0$。
+命题~\ref{prop:characteristic-second-moment-converse}给
+$\mathbb E X^2=0$，所以 $X=0$ a.s.，其变换应恒为一，矛盾。
+其余三个初等条件由指数式直接验证。这个例子说明这些条件并未包含
+特征函数所需的正定性。
+\end{solution}
+
+\begin{solution}{char-mass-at-point-average}
+有限截断中的二重绝对积分至多为 $2T$，故 Fubini 给
+\[
+ \frac1{2T}\int_{-T}^T e^{-ita}\varphi_\mu(t)\,dt
+ =\int\frac{\sin(T(x-a))}{T(x-a)}\,d\mu(x),
+\]
+商在 $x=a$ 处为一。对 $x\ne a$ 它趋于零，且模不超过一。
+控制收敛给极限 $\mu(\{a\})$；这同时涵盖存在其他任意多个原子的情形。
+\end{solution}
+
+\begin{solution}{char-compact-uniform-convergence}
+分布收敛给一致紧性，连同极限分布，任给 $\eta>0$ 可取 $R$，使全部
+球外概率小于 $\eta$。在球内用指数差估计，球外用常数二，得到
+\[
+ |\varphi_n(t+h)-\varphi_n(t)|\le R\|h\|+2\eta.
+\]
+极限特征函数也有同一估计。因此整族等度连续。对紧频率集取有限个
+足够小的球覆盖；在球心上逐点收敛，而同一球内两端函数变化都小。
+三角不等式给紧集上的一致收敛。此论证没有假设一阶矩一致有界。
+\end{solution}
+
+\begin{solution}{char-uniform-escape}
+在 $t\ne0$ 处，$|\sin(nt)/(nt)|\le1/(n|t|)\to0$；在零点恒为一。
+极限在每个非零点连续，但在原点不连续，不可能是特征函数。
+同时对固定 $R>0$，当 $n>R$ 时区间 $[-R,R]$ 的概率为 $R/n\to0$，
+所以分布族不一致紧。若存在弱极限，其特征函数会是上述不连续函数，
+与所有特征函数连续相矛盾。
+\end{solution}
+
+\begin{solution}{char-triangular-density}
+卷积密度是两个区间交集长度的四分之一：
+\[
+ f(x)=\frac{(2-|x|)_+}{4},\qquad
+ \varphi_{U+V}(t)=\left(\frac{\sin t}{t}\right)^2.
+\]
+变换在零点取一，在 $|t|>1$ 上不超过 $t^{-2}$，因而可积。
+单个均匀变换的绝对积分发散：在每个区间
+$[k\pi+\pi/6,k\pi+5\pi/6]$ 上 $|\sin t|\ge1/2$，相应积分下界为
+常数乘 $1/(k+1)$，求和发散。因此单个变量有密度却不满足绝对收敛
+反演定理的充分条件；卷积平方改善了频率衰减。
+\end{solution}
+
+\begin{solution}{char-cauchy-stability}
+令 $q(t)=e^{-|t|}$。按本书此前的 Fourier 约定，直接求积分得
+\[
+ \widehat q(\xi)=2\int_0^\infty e^{-t}\cos(2\pi\xi t)\,dt
+             =\frac2{1+4\pi^2\xi^2}.
+\]
+两者都可积，且 $q$ 连续，故反演并令 $x=2\pi\xi$ 给
+\[
+ e^{-|u|}=\frac1\pi\int_\mathbb R\frac{e^{iux}}{1+x^2}\,dx.
+\]
+这就是标准 Cauchy 密度的特征函数；该密度非负且积分为一。
+独立平均的变换为 $(e^{-|t|/n})^n=e^{-|t|}$，唯一性得到所述分布。
+其一阶绝对矩发散，因此不能把这一结论与有可积性假设的大数定律混淆。
+\end{solution}
+
+\begin{solution}{char-poisson-rare-events}
+变换为 $[1+p_n(e^{it}-1)]^n$。$p_n\to0$ 且 $np_n$ 有界，故
+$np_n^2\to0$。对零点附近的复对数幂级数，
+\[
+ n\log[1+p_n(e^{it}-1)]
+   =np_n(e^{it}-1)+O_t(np_n^2)\longrightarrow\lambda(e^{it}-1).
+\]
+指数后得到 Poisson 变换，在原点连续。由 Lévy 连续性定理得到分布收敛。
+$\lambda=0$ 时极限为点质量零，仍包含在同一证明中。
+\end{solution}
+
+\begin{solution}{char-cramer-wold}
+正向由连续映射定理。反向固定 $t\in\mathbb R^d$，对投影的实特征函数
+在参数一处取值，得到 $\varphi_{X_n}(t)\to\varphi_X(t)$。
+$\varphi_X$ 在原点连续，向量形式的 Lévy 定理即给联合分布收敛。
+只检验坐标方向不够：坐标投影只确定边缘，而这里要求全部实方向。
+\end{solution}
+
+\begin{solution}{char-derivative-without-absolute-moment}
+定义中的常数正且有限，故 $f$ 为对称概率密度。然而
+\[
+ \mathbb E|X|=2c\int_e^\infty\frac{dx}{x\log x}=\infty.
+\]
+由对称性 $\varphi$ 实值且偶。固定 $M>e$，分解
+$1-\varphi(t)=2c\int_e^\infty(1-\cos(tx))/(x^2\log x)\,dx$。
+在 $[e,M]$ 上，其值为 $O_M(t^2)$。在 $[M,\infty)$ 上，
+\[
+ \int_M^\infty\frac{1-\cos(tx)}{x^2\log x}\,dx
+ \le\frac1{\log M}\int_0^\infty\min\{t^2/2,2/x^2\}\,dx
+ \le\frac{C|t|}{\log M},
+\]
+其中 $C$ 为绝对常数，最后在 $x=2/|t|$ 处分段积分。
+先令 $t\to0$，再令 $M\to\infty$，得 $1-\varphi(t)=o(|t|)$，
+所以 $\varphi'(0)=0$。这不是可积期望的计算；两个正负一阶积分均发散。
+\end{solution}
+
+\begin{solution}{char-second-moment-bound}
+Fatou 引理用于非负函数 $(1-\cos(t_nX))/t_n^2$，给二阶矩不超过题设
+上界的两倍。若 $\varphi(t)=1+o(t^2)$，便有 $\mathbb E X^2=0$，
+故 $X=0$ a.s.。后一条件则可由任何非退化的中心化、有限二阶矩变量满足，
+例如公平的 $\pm1$ 变量，其变换 $\cos t=1+O(t^2)=1+o(|t|)$。
+上一题甚至表明后一条件不保证一阶绝对矩有限。
+\end{solution}
+
+\begin{solution}{char-convolution-square-not-independence}
+用行指标为 $X$、列指标为 $Y$，在 $\{0,1,2\}^2$ 上定义联合概率矩阵
+\[
+ P=\frac19\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}
+ +\frac1{18}\begin{pmatrix}0&1&-1\\-1&0&1\\1&-1&0\end{pmatrix}.
+\]
+每项非负，所有行、列的和均为 $1/3$。各条反对角线的扰动和为零，
+故 $X+Y$ 仍以概率 $(1,2,3,2,1)/9$ 取值 $0,1,2,3,4$，与独立时相同。
+但例如 $P(X=0,Y=1)=1/6\ne1/9$，所以不独立。这给出和的变换乘积
+成立，却不能恢复联合独立性的具体例子。
+\end{solution}
+
+\begin{solution}{char-classical-levy-inversion}
+\textup{(i)} 分部积分得
+\[
+ \int_A^B\frac{\sin u}{u}\,du
+ =\left[-\frac{\cos u}{u}\right]_A^B
+       -\int_A^B\frac{\cos u}{u^2}\,du,
+\]
+模至多 $1/A+1/B+1/A-1/B=2/A$，因而也不超过题设的 $3/A$。
+$[0,1]$ 上被积函数有界，而 $[1,R]$ 的积分由此控制，所以全部部分
+积分一致有界。
+
+\textup{(ii)} 用 $\sin u/u=\int_0^1\cos(su)\,ds$ 及绝对可积性换序，
+\[
+ \int_0^\infty e^{-\eta u}\frac{\sin u}{u}\,du
+ =\int_0^1\frac{\eta}{\eta^2+s^2}\,ds=\arctan(1/\eta).
+\]
+在 $[A,\infty)$ 上，$e^{-\eta u}/u$ 正且递减。以 $\sin u$ 的有界原函数
+分部积分，尾积分的模一致地不超过 $C/A$，其中 $C$ 不依赖 $\eta>0$。
+无阻尼尾部也有同一估计。因此先固定 $A$ 在有限区间令 $\eta\downarrow0$，
+再令 $A\to\infty$，得到原反常积分为 $\pi/2$。
+
+\textup{(iii)} 将区间商在 $t=0$ 连续延拓，其模不超过 $b-a$；有限截断
+使二重绝对积分有限，可以换序。对固定原变量值 $y$，内核为
+\[
+ K_T(y)=\frac1\pi\int_0^T
+   \frac{\sin(t(y-a))-\sin(t(y-b))}{t}\,dt.
+\]
+每项在系数非零时作变量替换，由\textup{(ii)}其极限分别为相应系数符号
+的 $\pi/2$，系数为零时积分恒零。故极限在 $(a,b)$ 内为一，区间外为零，
+在端点为 $1/2$。由\textup{(i)}的全部部分积分一致有界性，
+$|K_T(y)|\le C'$ 对所有 $T,y$ 成立。
+概率测度下可用此常数控制，积分极限便得到题设公式。若只知道逐点核
+收敛而未证明这个统一界，最后一步换极限仍不完整。
+\end{solution}

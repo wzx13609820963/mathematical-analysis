@@ -1,0 +1,418 @@
+\chapter{中心极限定理}
+\label{chap:central-limit-theorem}
+
+大数定律确定样本平均的极限，却没有给出它在均值附近如何分布。
+若一次观测的方差为 $\sigma^2$，独立的 $n$ 次观测之和的方差为
+$n\sigma^2$，平均的方差则为 $\sigma^2/n$。因而偏差的自然尺度是
+$1/\sqrt n$。把平均偏差乘以 $\sqrt n$ 后，得到一个不再缩成常数的
+分布极限。这是中心极限定理研究的尺度。
+
+本章先讨论独立同分布的实变量，再允许每一行独立而行间没有任何
+共同假设的三角阵列。分布收敛始终按照有界连续测试函数定义。
+标准正态分布的分布函数记为
+\[
+ \Phi(x)=\frac1{\sqrt{2\pi}}\int_{-\infty}^x e^{-u^2/2}\,du.
+\]
+
+\section{Gaussian 极限和归一化}
+\label{sec:gaussian-normalization}
+
+\subsection{从方差确定尺度}
+
+设 $X_k$ 独立同分布，均值为 $m$，有限方差为 $\sigma^2>0$，
+$S_n=\sum_{k=1}^nX_k$。标准化的和写作
+\[
+ T_n=\frac{S_n-nm}{\sigma\sqrt n}
+     =\frac{\sqrt n(\overline X_n-m)}\sigma,
+ \qquad \overline X_n=S_n/n.
+\]
+它的均值为零、方差为一。中心化和归一化承担不同作用：前者去掉
+确定性的线性增长，后者保持方差不随 $n$ 改变。若 $\sigma=0$，则
+$X_k=m$ a.s.，平均没有随机涨落，不能除以 $\sigma$ 后套用非退化结论。
+
+标准正态分布是一个可以直接核验的例子。若各 $X_k\sim N(m,\sigma^2)$，
+由特征函数的乘积公式，$T_n$ 对每个 $n$ 都恰为标准正态，不需要取极限。
+中心极限定理的内容是：在有限方差等假设下，原观测不必是正态分布，
+标准化独立和仍有相同的极限。
+
+\subsection{平均趋零与标准化和的分布}
+
+强律给 $\overline X_n-m\to0$ a.s.；它与 $T_n$ 有非退化分布极限并不
+冲突，因为乘数 $\sqrt n$ 随 $n$ 增大。不能从一个趋零的量和一个趋于
+无穷的量，单凭两个独立的极限判断它们的乘积。
+
+分布极限也不要求在原空间上存在一个变量 $Z$，使 $T_n\to Z$ a.s.
+或依概率收敛。即使每个 $T_n$ 已经服从标准正态，这两种更强的收敛
+也可能完全没有；章末将用正态部分和给出验证。
+
+\section{Lindeberg--Lévy 定理}
+\label{sec:iid-central-limit-statement}
+
+\begin{theorem}[独立同分布中心极限定理]
+\label{thm:iid-central-limit}
+若 $X_1,X_2,\ldots$ 独立同分布，
+$\mathbb EX_1=m$、$\operatorname{Var}(X_1)=\sigma^2\in(0,\infty)$，则
+\[
+ \frac{S_n-nm}{\sigma\sqrt n}\xrightarrow d Z,
+ \qquad Z\sim N(0,1).
+\]
+等价地，对每个 $x\in\mathbb R$，
+$\mathbb P(T_n\le x)\to\Phi(x)$。
+\end{theorem}
+
+最后的等价性利用正态分布函数处处连续。若 $a<b$，因此有
+\[
+ \mathbb P(a<T_n\le b)\longrightarrow\Phi(b)-\Phi(a).
+\]
+这给出大样本的区间概率近似，但没有单独给出有限样本误差上界。
+没有速率的收敛定理不能自动转成对某个给定 $n$ 的精度保证。
+证明在下一节给出，只使用有限二阶矩产生的 Peano 余项，不要求三阶矩。
+
+对 $0<p<1$ 的 Bernoulli 试验，定理给
+\[
+ \frac{S_n-np}{\sqrt{np(1-p)}}\xrightarrow d N(0,1),
+\]
+即二项分布的正态近似。虽然左侧对每个 $n$ 都是离散变量，它仍可依分布
+趋于连续分布；这里相邻可能取值之间的间距趋于零。
+
+\subsection{用估计的方差标准化}
+
+已知 $\sigma$ 的标准化还可换成由样本计算的方差。令
+\[
+ V_n=\frac1n\sum_{k=1}^n(X_k-\overline X_n)^2
+     =\frac1n\sum_{k=1}^nX_k^2-\overline X_n^2.
+\]
+由 $\mathbb E X_1^2<\infty$，强律分别用于 $X_k$、$X_k^2$，得到
+$V_n\to\sigma^2$ a.s.。Slutsky 定理于是给
+\begin{equation}
+\label{eq:studentized-central-limit}
+ \frac{\sqrt n(\overline X_n-m)}{\sqrt{V_n}}\xrightarrow dN(0,1),
+\end{equation}
+在 $V_n=0$ 时将该商定义为零。此事件的概率趋于零，不影响分布极限。
+分子与方差估计通常相关；这里不要求它们独立。
+
+若 $0<\alpha<1$，取 $z>0$ 使 $\Phi(z)-\Phi(-z)=1-\alpha$，便得到
+随机区间
+\[
+ \left[\overline X_n-z\sqrt{V_n/n},\,
+       \overline X_n+z\sqrt{V_n/n}\right]
+\]
+包含均值 $m$ 的概率趋于 $1-\alpha$。
+这是一条在给定分布假设下的重复抽样概率陈述，并不把固定参数 $m$
+本身定义为随机变量。
+
+\section{特征函数证明}
+\label{sec:characteristic-proof-clt}
+
+\subsection{二阶项的累积}
+
+将观测标准化为 $Y_k=(X_k-m)/\sigma$，于是均值为零、方差为一。
+由\eqref{eq:characteristic-second-order}，对固定 $t$ 有
+\[
+ \varphi_{Y_1}(t/\sqrt n)=1-\frac{t^2}{2n}+o(1/n).
+\]
+独立性给
+$\varphi_{T_n}(t)=[\varphi_{Y_1}(t/\sqrt n)]^n$。
+需要说明为什么每个因子中的小误差在取 $n$ 次乘积后仍可忽略。
+
+在 $|z|<1$ 中取零点附近的对数幂级数
+\[
+ \log(1+z)=z-\frac{z^2}2+\frac{z^3}3-\cdots.
+\]
+当 $|z|\le1/2$ 时，$|\log(1+z)-z|\le2|z|^2$。
+这里始终在包含一的小圆盘内使用这一支对数，不涉及沿整个复平面的
+对数取值问题。逐项求导可验证其导数为 $1/(1+z)$；结合零点值，
+得到 $\exp(\log(1+z))=1+z$，因而下面可用它计算有限乘积。
+
+\begin{proof}[定理~\ref{thm:iid-central-limit}的证明]
+记 $z_n=\varphi_{Y_1}(t/\sqrt n)-1$。则
+$nz_n\to-t^2/2$，且 $n|z_n|^2\to0$。充分大的 $n$ 满足
+$|z_n|\le1/2$，从而
+\[
+ n\log(1+z_n)=nz_n+O(n|z_n|^2)\longrightarrow-t^2/2.
+\]
+取指数得到 $\varphi_{T_n}(t)\to e^{-t^2/2}$，对每个实 $t$ 成立。
+极限是标准正态的特征函数，且在原点连续，
+定理~\ref{thm:levy-continuity}给出所需分布收敛。
+\end{proof}
+
+这个证明使用的余项只需对每个固定 $t$ 成立，不要求在整个频率轴上一致。
+二阶矩同时保证二阶展开和余项估计；若改用三阶 Taylor 公式并把三阶
+矩当作必要前提，就会无故缩小定理的适用范围。
+
+\subsection{有限维向量的情形}
+
+\begin{definition}
+\label{def:gaussian-random-vector}
+若 $\mathbb R^d$ 值随机向量 $X$ 与某个 $m+AZ$ 同分布，其中
+$m\in\mathbb R^d$、$A$ 为实 $d\times r$ 矩阵，$r\ge1$，
+$Z$ 的 $r$ 个坐标为独立标准正态，则称 $X$ 为\term{正态随机向量}。
+对多个坐标或变量组成的向量满足此定义时，也称这些变量\term{联合正态}。
+允许 $A$ 秩不足，包括 $A=0$。
+\end{definition}
+
+由仿射变换公式，正态向量的均值、协方差及特征函数分别为
+\begin{equation}
+\label{eq:gaussian-vector-characteristic}
+ \mathbb EX=m,\qquad \Sigma=AA^{\mathsf T},\qquad
+ \varphi_X(t)=\exp\bigl(i\langle t,m\rangle-t^{\mathsf T}\Sigma t/2\bigr).
+\end{equation}
+所以均值和协方差决定它的分布；任何实对称半正定 $\Sigma$ 都可通过
+平方根矩阵得到这样的分布，记为 $N_d(m,\Sigma)$。
+同一均值、协方差的任意非正态分布不受这个唯一性结论约束。
+
+\begin{proposition}
+\label{prop:gaussian-vector-characteristic}
+随机向量正态，当且仅当它的每个实线性组合都为一维正态变量，允许
+方差为零。正态向量的任意仿射变换仍为正态向量。
+\end{proposition}
+
+\begin{proof}
+对 $m+AZ$，任意投影及仿射变换均保持同一种表示。
+反向，若每个实投影正态，则坐标各有二阶矩，设向量均值为 $m$、
+协方差为 $\Sigma$。投影 $\langle t,X\rangle$ 的均值为
+$\langle t,m\rangle$，方差为 $t^{\mathsf T}\Sigma t$，其一维特征函数
+在参数一处的值给出\eqref{eq:gaussian-vector-characteristic}。
+它与构造的 $m+\Sigma^{1/2}Z$ 有相同变换，所以同分布。
+\end{proof}
+
+\begin{theorem}[向量中心极限定理]
+\label{thm:multivariate-central-limit}
+若 $X_k$ 为独立同分布的 $\mathbb R^d$ 值随机向量，
+$\mathbb E\|X_1\|^2<\infty$，均值向量为 $m$、协方差矩阵为 $\Sigma$，则
+\[
+ \frac1{\sqrt n}\sum_{k=1}^n(X_k-m)\xrightarrow d AZ,
+\]
+其中 $Z$ 的 $d$ 个坐标为独立标准正态，$A$ 是满足
+$AA^{\mathsf T}=\Sigma$ 的实矩阵。允许 $\Sigma$ 奇异。
+\end{theorem}
+
+\begin{proof}
+协方差矩阵实对称半正定，有限维谱分解给所需平方根 $A$。
+固定 $t\in\mathbb R^d$，实变量 $\langle t,X_1-m\rangle$ 均值为零，
+二阶矩为 $t^{\mathsf T}\Sigma t$。同一二阶展开与对数计算得到向量和的
+特征函数趋于
+\[
+ \exp(-t^{\mathsf T}\Sigma t/2)
+ =\mathbb E e^{i\langle t,AZ\rangle}.
+\]
+即使该方向的方差为零，展开和极限仍成立。
+向量形式的 Lévy 定理给结论。
+\end{proof}
+
+若 $\Sigma$ 奇异，极限集中在一个真线性子空间中，因此通常没有相对于
+$d$ 维 Lebesgue 测度的密度。不能把所有正态极限都写成包含
+$\Sigma^{-1}$ 的密度公式。退化正态在此由线性映射 $AZ$ 定义。
+
+\section{三角阵列、Lindeberg 条件与反例}
+\label{sec:lindeberg-arrays}
+
+\subsection{各项的分布可以不同}
+
+对每个正整数 $n$，给一行独立中心化实变量
+$X_{n1},\ldots,X_{nr_n}$，各有有限二阶矩，令
+\[
+ s_n^2=\sum_{k=1}^{r_n}\mathbb E X_{nk}^2>0,
+ \qquad Y_{nk}=X_{nk}/s_n.
+\]
+不要求不同的行之间独立，也不要求不同行定义在同一个空间上。
+每行只需能够定义本行的和。
+
+总方差归一化为一，并不排除它主要来自一个特殊项，或来自极少见的
+大跳跃。\term{Lindeberg 条件}要求，对每个 $\varepsilon>0$，
+\begin{equation}
+\label{eq:lindeberg-condition}
+ L_n(\varepsilon):=\sum_{k=1}^{r_n}
+ \mathbb E\bigl[Y_{nk}^2\mathbf1_{\{|Y_{nk}|>\varepsilon\}}\bigr]
+ \longrightarrow0.
+\end{equation}
+它度量的是超过固定归一化阈值的全部方差贡献，而不只是这些事件的概率。
+
+由分成 $|Y_{nk}|\le\varepsilon$ 和其补集两部分，有
+\begin{equation}
+\label{eq:lindeberg-implies-feller}
+ \max_{k\le r_n}\mathbb E Y_{nk}^2
+ \le\varepsilon^2+L_n(\varepsilon).
+\end{equation}
+先令 $n\to\infty$ 再令 $\varepsilon\downarrow0$，得到最大单项方差趋零，
+这通常称为 Feller 条件。下面的反例说明它本身仍不够。
+
+\begin{theorem}[Lindeberg 中心极限定理]
+\label{thm:lindeberg-central-limit}
+对上述逐行独立的中心化三角阵列，若 Lindeberg 条件成立，则
+\[
+ \frac1{s_n}\sum_{k=1}^{r_n}X_{nk}\xrightarrow dN(0,1).
+\]
+\end{theorem}
+
+\begin{proof}
+固定实频率 $t$。记
+$R(u)=e^{iu}-1-iu+u^2/2$。实变量的积分余项给
+\[
+ |R(u)|\le |u|^3/6,\qquad |R(u)|\le u^2.
+\]
+后者由 $|e^{iu}-1-iu|\le u^2/2$ 得到。
+对固定 $\delta>0$，将 $Y_{nk}$ 按绝对值是否超过 $\delta$ 分开，便有
+\[
+ \sum_k|\mathbb ER(tY_{nk})|
+ \le\frac{|t|^3\delta}6\sum_k\mathbb E Y_{nk}^2
+       +t^2L_n(\delta)
+ =\frac{|t|^3\delta}6+t^2L_n(\delta).
+\]
+先令 $n\to\infty$，再令 $\delta\downarrow0$，余项总和趋零。
+由中心化，令 $w_{nk}=\varphi_{Y_{nk}}(t)-1$，则
+\[
+ \sum_kw_{nk}=-\frac{t^2}2+o(1),\qquad
+ |w_{nk}|\le\frac{t^2}2\mathbb E Y_{nk}^2.
+\]
+由\eqref{eq:lindeberg-implies-feller}，
+$\max_k|w_{nk}|\to0$，且
+\[
+ \sum_k|w_{nk}|^2
+ \le\frac{t^4}4\max_k\mathbb E Y_{nk}^2\longrightarrow0.
+\]
+对充分大的 $n$，全部因子都在同一对数圆盘内，所以
+\[
+ \sum_k\log(1+w_{nk})=\sum_kw_{nk}+o(1)\longrightarrow-t^2/2.
+\]
+行内独立性使和的特征函数为这些因子之积。取指数后再用 Lévy 定理，
+得到标准正态极限。
+\end{proof}
+
+\subsection{Lyapunov 条件与有界阵列}
+
+一个更易检查的充分条件是：存在 $\delta>0$，使
+\[
+ \frac{\sum_k\mathbb E|X_{nk}|^{2+\delta}}{s_n^{2+\delta}}
+ \longrightarrow0.
+\]
+在 $|X_{nk}|>\varepsilon s_n$ 上，用
+$X_{nk}^2\le |X_{nk}|^{2+\delta}/(\varepsilon s_n)^\delta$，可直接得到
+Lindeberg 条件。这称为\term{Lyapunov 条件}，它是方便的充分条件，
+不能因检验方便就把额外高阶矩写进一般中心极限定理。
+
+对独立同分布情形，取 $X_{nk}=X_k-m$，$s_n=\sigma\sqrt n$，则
+\[
+ L_n(\varepsilon)=\frac1{\sigma^2}
+  \mathbb E\bigl[(X_1-m)^2
+       \mathbf1_{\{|X_1-m|>\varepsilon\sigma\sqrt n\}}\bigr]\longrightarrow0.
+\]
+因此三角阵列定理也包含同分布定理，仍只需二阶矩。
+若各行有确定的统一界 $|X_{nk}|\le b_n$ 且 $b_n/s_n\to0$，则每个
+固定阈值的尾部最终为空，Lindeberg 条件直接成立。
+
+\subsection{最大方差小并不排除罕见跳跃}
+
+令每行的 $B_{nk}$ 独立，均服从 $\operatorname{Bernoulli}(1/n)$，
+$1\le k\le n$，并令 $X_{nk}=B_{nk}-1/n$，其中 $n\ge2$。
+则 $s_n^2=1-1/n$，而单项方差占比恰为 $1/n$。然而由 Poisson 极限，
+\[
+ \frac{\sum_{k=1}^nB_{nk}-1}{\sqrt{1-1/n}}
+ \xrightarrow d P-1,\qquad P\sim\operatorname{Pois}(1).
+\]
+这不是正态分布。对充分小的固定 $\varepsilon$，正跳跃的归一化幅度
+趋于一，并携带几乎全部方差，故 $L_n(\varepsilon)\to1$。
+单项方差虽小，但每行累计的少见跳跃没有变成可忽略的量。
+
+反过来，不要求最大单项方差趋零时，Lindeberg 条件也不是正态极限的
+必要条件。每行只取一个标准正态变量，其余取零，行和始终为标准正态，
+但 $L_n(\varepsilon)=\mathbb E[Z^2\mathbf1_{\{|Z|>\varepsilon\}}]>0$。
+本章的 Lindeberg 定理陈述的是充分条件；这两个例子说明判断条件作用
+时还须区分是否允许单个非消失项。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{clt-gaussian-exact-degenerate}
+对独立 $N(m,\sigma^2)$ 变量证明标准化和对每个 $n$ 都恰为 $N(0,1)$，
+其中 $\sigma>0$。另说明 $\sigma=0$ 时正确的结论。
+
+\exerciseitem{clt-binomial-probabilities}
+固定 $0<p<1$，$S_n\sim\operatorname{Bin}(n,p)$。
+给定 $a<b$，求事件
+$a<(S_n-np)/\sqrt{np(1-p)}\le b$ 的概率极限。
+说明整数取值与连续正态极限为何不冲突。
+
+\exerciseitem{clt-poisson-large-parameter}
+设 $P_n\sim\operatorname{Pois}(\lambda_n)$，$\lambda_n>0$ 且
+$\lambda_n\to\infty$。用特征函数证明
+$(P_n-\lambda_n)/\sqrt{\lambda_n}\xrightarrow dN(0,1)$。
+
+\exerciseitem{clt-moving-thresholds}
+设 $T_n\xrightarrow dZ$，$Z$ 的分布函数在 $x$ 连续，而 $x_n\to x$。
+证明 $\mathbb P(T_n\le x_n)\to\mathbb P(Z\le x)$。
+据此处理二项近似中的取整阈值。
+
+\exerciseitem{clt-no-third-moment}
+取 $2<\alpha<3$，密度为
+$\alpha x^{-\alpha-1}\mathbf1_{[1,\infty)}(x)$。
+计算均值与方差，验证第三绝对矩无限，并写出独立样本的正确中心极限。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{clt-studentized-variance}
+在独立同分布中心极限定理假设下，证明正文的 $V_n\to\sigma^2$ a.s.
+及估计方差标准化公式。说明为何不需要四阶矩及分子、分母独立。
+
+\exerciseitem{clt-delta-method}
+设 $g:\mathbb R\to\mathbb R$ 为 Borel 函数，在均值 $m$ 处可微。
+证明 $\sqrt n(g(\overline X_n)-g(m))\xrightarrow dN(0,\sigma^2g'(m)^2)$，
+允许 $g'(m)=0$。须控制 Taylor 余项，而非只形式求导。
+
+\exerciseitem{clt-lyapunov-bounded-moments}
+设逐行独立中心化阵列中，$r_n\to\infty$，
+$\mathbb E X_{nk}^2\ge c>0$，且对某个 $\delta>0$ 有
+$\mathbb E|X_{nk}|^{2+\delta}\le C$，其中 $c,C$ 与 $n,k$ 无关。
+验证 Lyapunov 条件并求标准化行和的极限。
+
+\exerciseitem{clt-lindeberg-feller-bound}
+由 Lindeberg 条件证明最大单项方差占比趋零，继而证明对每个固定
+$\varepsilon>0$，$\max_k\mathbb P(|X_{nk}|>\varepsilon s_n)\to0$。
+不要把后一个概率结论反写成 Lindeberg 条件。
+
+\exerciseitem{clt-bernoulli-arrays}
+每行 $n$ 个变量独立且均为 $\operatorname{Bernoulli}(p_n)$。
+若 $np_n(1-p_n)\to\infty$，证明中心化并除以
+$\sqrt{np_n(1-p_n)}$ 的行和趋于标准正态。允许 $p_n\to0$ 或一；
+有限个零方差初始行的标准化值约定为零。
+
+\exerciseitem{clt-poisson-array-counterexample}
+对正文参数 $1/n$ 的 Bernoulli 阵列，逐项计算 Feller 方差比和
+$L_n(\varepsilon)$ 在 $0<\varepsilon<1/2$ 时的极限，并验证其非正态分布极限。
+
+\exerciseitem{clt-escaping-variance}
+每行给独立的 $n$ 个变量，各以概率 $1/(2n^2)$ 取 $\sqrt n,-\sqrt n$，
+其余取零。证明行和方差恒为一，却依概率趋于零。
+计算 Lindeberg 尾项，解释分布极限的方差为何没有保持为一。
+
+\exerciseitem{clt-singular-vector-gaussian}
+设 $U_k$ 独立同分布，均值零、方差一，令 $X_k=(U_k,2U_k)$。
+求向量标准化和的极限及协方差矩阵，说明该极限为何没有二维密度。
+
+\exerciseitem{clt-square-normal-limit}
+若 $T_n\xrightarrow dN(0,1)$，求 $T_n^2$ 的分布极限，并由一元换元
+求出极限在 $(0,\infty)$ 上的密度。零点是否有原子？
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{clt-gaussian-no-probability-limit}
+设 $X_k$ 为独立标准正态，$T_n=n^{-1/2}\sum_{k\le n}X_k$。
+计算 $T_{2n}-T_n$ 的分布，证明 $(T_n)$ 不依概率收敛到任何变量，
+尽管每个 $T_n$ 都恰为标准正态。
+
+\exerciseitem{clt-cauchy-sqrt-scale}
+对独立标准 Cauchy 变量，证明 $S_n/\sqrt n$ 的分布族不一致紧，
+从而没有实概率分布弱极限。说明它缺少同分布中心极限定理的哪项假设。
+
+\optionalexerciseitem{clt-moments-up-to-two}
+在独立同分布中心极限定理条件下，证明标准化和的平方构成一致可积族，
+并推出对 $0<p\le2$ 有 $\mathbb E|T_n|^p\to\mathbb E|Z|^p$。
+提示：$T_n^2\xrightarrow dZ^2$ 且两边期望都等于一，用连续截断比较尾部。
+
+\optionalexerciseitem{clt-dominant-normal-term}
+构造中心化、总方差一、行和恰为标准正态但不满足 Lindeberg 条件的阵列。
+再把唯一非零项换成公平符号，说明相同方差数据不能确定极限分布。
+\end{enumerate}

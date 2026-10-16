@@ -1,0 +1,198 @@
+\chapter{中心极限定理}
+
+\begin{solution}{clt-gaussian-exact-degenerate}
+每个中心化正态变量的变换为 $e^{-\sigma^2t^2/2}$。
+除以 $\sigma\sqrt n$ 并乘 $n$ 个因子，得到 $e^{-t^2/2}$，
+由唯一性可知每个标准化和都为标准正态。若 $\sigma=0$，各变量 a.s.
+等于 $m$，故中心化和为零，平均为 $m$，不能作分母为零的标准化。
+\end{solution}
+
+\begin{solution}{clt-binomial-probabilities}
+把二项分布实现为 $n$ 个独立 Bernoulli 变量之和，使用同分布中心极限
+定理和连续端点的区间判据，极限为 $\Phi(b)-\Phi(a)$。
+标准化变量的相邻格点间距为 $1/\sqrt{np(1-p)}\to0$；
+依分布收敛只检验有界连续函数和连续点处的分布函数，不要求每一项
+已经具有极限的密度或取值类型。
+\end{solution}
+
+\begin{solution}{clt-poisson-large-parameter}
+标准化后的特征函数为
+\[
+ \exp\left[\lambda_n\left(e^{it/\sqrt{\lambda_n}}-1
+                         -\frac{it}{\sqrt{\lambda_n}}\right)\right].
+\]
+对每个固定 $t$，括号内的指数为 $-t^2/2+O_t(\lambda_n^{-1/2})$。
+因此变换趋于 $e^{-t^2/2}$，Lévy 定理给正态极限。不要求 $\lambda_n$
+为整数，也没有把 Poisson 变量先分成整数个同分布观测。
+\end{solution}
+
+\begin{solution}{clt-moving-thresholds}
+固定 $\eta>0$，充分大的 $n$ 有 $x-\eta<x_n<x+\eta$。
+选择 $x\pm\eta$ 为极限分布的连续点，则分布函数单调性给
+\[
+ F_Z(x-\eta)\le\liminf_n F_{T_n}(x_n)
+ \le\limsup_n F_{T_n}(x_n)\le F_Z(x+\eta).
+\]
+可选一列这样的 $\eta\downarrow0$，由 $x$ 处连续得到结论。
+二项计数阈值取整后，标准化阈值误差至多一个格点间距，趋于零，
+所以可以使用同一结论。若极限分布在 $x$ 有跳跃，这个夹逼不再给唯一值。
+\end{solution}
+
+\begin{solution}{clt-no-third-moment}
+均值为 $m=\alpha/(\alpha-1)$，二阶矩为 $\alpha/(\alpha-2)$，
+方差
+\[
+ \sigma^2=\frac{\alpha}{\alpha-2}
+       -\frac{\alpha^2}{(\alpha-1)^2}
+       =\frac{\alpha}{(\alpha-2)(\alpha-1)^2}>0.
+\]
+三阶矩为 $\alpha\int_1^\infty x^{2-\alpha}dx=\infty$。
+对充分大的 $x$，$|x-m|^3\ge x^3/8$，所以中心化第三绝对矩同样发散。
+但是有限正方差已经足够，故 $(S_n-nm)/(\sigma\sqrt n)\xrightarrow dN(0,1)$。
+\end{solution}
+
+\begin{solution}{clt-studentized-variance}
+强律用于 $X_k$ 和 $X_k^2$，分别得到均值和二阶矩的样本平均收敛。
+恒等式 $V_n=n^{-1}\sum X_k^2-\overline X_n^2$ 因而给
+$V_n\to\mathbb EX_1^2-m^2=\sigma^2$ a.s.。
+它不要求 $X_k^2$ 有方差，所以不需要四阶矩。
+由连续映射，$\sqrt{V_n}\to\sigma$ 依概率；
+将已知正态极限与这一常数极限合用 Slutsky，得到估计方差标准化公式。
+在 $V_n=0$ 时的任意固定赋值只改变概率趋零的事件。
+Slutsky 不要求相关的分子、分母独立。
+\end{solution}
+
+\begin{solution}{clt-delta-method}
+定义 $r(x)$ 使
+$g(x)-g(m)=g'(m)(x-m)+(x-m)r(x)$，$r(m)=0$，则 $r(x)\to0$ 当 $x\to m$。
+大数定律及连续映射的局部版本给 $r(\overline X_n)\to0$ 依概率。
+更直接地，给阈值 $\eta$，可微性给邻域内 $|r|<\eta$，而落在邻域外的
+概率趋零。
+标准化平均 $\sqrt n(\overline X_n-m)$ 的分布收敛使其一致紧，故其与
+$r(\overline X_n)$ 的乘积依概率趋零：先把前者限在 $[-R,R]$，再控制
+后者超过固定阈值的概率。于是余项可忽略，Slutsky 给
+$g'(m)\sigma Z$。导数为零时就是点质量零，仍为允许退化方差的正态律。
+\end{solution}
+
+\begin{solution}{clt-lyapunov-bounded-moments}
+总方差满足 $s_n^2\ge cr_n$，所以
+\[
+ \frac{\sum_k\mathbb E|X_{nk}|^{2+\delta}}{s_n^{2+\delta}}
+ \le\frac{Cr_n}{(cr_n)^{1+\delta/2}}
+ =Cc^{-1-\delta/2}r_n^{-\delta/2}\longrightarrow0.
+\]
+Lyapunov 蕴含 Lindeberg，标准化行和因而趋于 $N(0,1)$。
+条件中统一的下方差界防止总方差比项数增长得过慢。
+\end{solution}
+
+\begin{solution}{clt-lindeberg-feller-bound}
+记 $Y_{nk}=X_{nk}/s_n$。任取 $\eta>0$，有
+$\max_k\mathbb EY_{nk}^2\le\eta^2+L_n(\eta)$。
+先令 $n\to\infty$，再令 $\eta\downarrow0$，得到最大方差趋零。
+Chebyshev 又给
+\[
+ \max_k\mathbb P(|X_{nk}|>\varepsilon s_n)
+ \le\varepsilon^{-2}\max_k\mathbb EY_{nk}^2\longrightarrow0.
+\]
+概率很小的事件仍可能携带较大的平方积分，所以这条概率估计不能
+反推 Lindeberg 尾方差和趋零。
+\end{solution}
+
+\begin{solution}{clt-bernoulli-arrays}
+中心化变量 $X_{nk}=B_{nk}-p_n$ 满足 $|X_{nk}|\le1$，
+总方差 $s_n^2=np_n(1-p_n)\to\infty$。
+充分晚的总方差必为正，有限个零方差初始行的赋值不影响极限。
+所以对每个 $\varepsilon>0$，充分大时 $|X_{nk}|<\varepsilon s_n$ 对
+整行成立，Lindeberg 尾和为零。由阵列定理得到结论。
+成功概率接近端点本身并非障碍，决定这一估计的是总方差趋于无穷。
+\end{solution}
+
+\begin{solution}{clt-poisson-array-counterexample}
+单项方差为 $(1/n)(1-1/n)$，总方差为 $1-1/n$，占比为 $1/n$。
+归一化变量的正值为 $\sqrt{1-1/n}\to1$，负值绝对值为
+$1/[n\sqrt{1-1/n}]\to0$。因此对固定 $0<\varepsilon<1/2$，充分大时
+尾方差只来自正值，
+\[
+ L_n(\varepsilon)
+ =n\frac1n(1-1/n)=1-1/n\longrightarrow1.
+\]
+行计数和为 $\operatorname{Bin}(n,1/n)$，依特征函数的 Poisson 极限
+趋于 $P\sim\operatorname{Pois}(1)$。确定性中心化与缩放再由 Slutsky 给
+$P-1$，其原子概率不可能是连续正态分布。
+\end{solution}
+
+\begin{solution}{clt-escaping-variance}
+每项均值零、方差为 $n/n^2=1/n$，所以行和方差为一。
+但任一项非零的联合概率不超过 $n/n^2=1/n$，故行和依概率趋零。
+总方差归一化已经为一，充分大时每个非零项的幅度 $\sqrt n$ 都超过
+固定 $\varepsilon$，故 $L_n(\varepsilon)=1$。
+极限的方差为零，原变量二阶矩为一，因为平方族不一致可积：少见的
+大幅度携带的平方积分并未消失。弱收敛不单独保证二阶矩收敛。
+\end{solution}
+
+\begin{solution}{clt-singular-vector-gaussian}
+向量均值为零，协方差矩阵为
+$\Sigma=\begin{pmatrix}1&2\\2&4\end{pmatrix}$。
+一维中心极限给 $n^{-1/2}\sum U_k\xrightarrow dZ$，经连续映射得到
+极限 $(Z,2Z)$。矩阵秩为一，极限集中在直线 $y=2x$ 上，该直线的二维
+Lebesgue 测度为零而极限概率为一，所以不可能有二维概率密度。
+\end{solution}
+
+\begin{solution}{clt-square-normal-limit}
+连续映射给 $T_n^2\xrightarrow dZ^2$。
+对 $u>0$，$\mathbb P(Z^2\le u)=\Phi(\sqrt u)-\Phi(-\sqrt u)$，
+求导得密度
+\[
+ f(u)=\frac{e^{-u/2}}{\sqrt{2\pi u}}\mathbf1_{(0,\infty)}(u).
+\]
+原变量在零点无原子，所以平方后在零点也无原子。密度虽在零点附近
+无界，但 $u^{-1/2}$ 可积，这不妨碍它成为概率密度。
+\end{solution}
+
+\begin{solution}{clt-gaussian-no-probability-limit}
+把前后两个长度为 $n$ 的区块写为独立标准正态
+$A_n=S_n/\sqrt n$、$B_n=(S_{2n}-S_n)/\sqrt n$。则
+\[
+ T_{2n}-T_n=(1/\sqrt2-1)A_n+B_n/\sqrt2
+       \sim N(0,2-\sqrt2).
+\]
+因此对某个固定 $\eta>0$，$\mathbb P(|T_{2n}-T_n|>\eta)$ 是严格正的
+常数，不趋零。若 $T_n$ 依概率收敛到某个 $T$，三角不等式会使这些
+差依概率趋零，矛盾。这个例子不否认分布收敛，因为各边缘律原本就固定。
+\end{solution}
+
+\begin{solution}{clt-cauchy-sqrt-scale}
+由 Cauchy 稳定性，$S_n/n$ 仍为标准 Cauchy，故
+$S_n/\sqrt n$ 与 $\sqrt nX$ 同分布。对每个固定 $R$，
+\[
+ \mathbb P(|S_n/\sqrt n|\le R)
+ =\mathbb P(|X|\le R/\sqrt n)\longrightarrow\mathbb P(X=0)=0.
+\]
+因此不存在控制全族大部分质量的紧区间，不一致紧，也不能有概率弱极限。
+它没有有限一阶绝对矩，更没有中心极限定理要求的有限正方差。
+\end{solution}
+
+\begin{solution}{clt-moments-up-to-two}
+令 $Y_n=T_n^2$、$Y=Z^2$。由连续映射 $Y_n\xrightarrow dY$，且
+$\mathbb EY_n=\mathbb EY=1$。对每个 $M>0$，连续有界截断给
+\[
+ \mathbb E(Y_n-M)_+=1-\mathbb E(Y_n\wedge M)
+ \longrightarrow1-\mathbb E(Y\wedge M)=\mathbb E(Y-M)_+.
+\]
+后者随 $M\to\infty$ 趋零。又
+$\mathbb E[Y_n\mathbf1_{\{Y_n>2M\}}]\le2\mathbb E(Y_n-M)_+$。
+先控制充分晚的 $n$，再对有限多个初始可积变量各自控制尾部，得到
+$(Y_n)$ 一致可积。
+对 $p=2$，矩本来都等于一。对 $0<p<2$，统一二阶矩给
+$\mathbb E[|T_n|^p\mathbf1_{\{|T_n|^p>M\}}]\le M^{-(2-p)/p}$，
+所以 $p$ 阶幂也一致可积。连续映射与分布收敛下的期望极限定理给
+所需 $p$ 阶矩收敛。
+\end{solution}
+
+\begin{solution}{clt-dominant-normal-term}
+每行取 $X_{n1}=Z\sim N(0,1)$、其余项恒零。行内独立，总方差为一，
+行和恰为 $Z$；但对每个固定 $\varepsilon>0$，
+$L_n(\varepsilon)=\mathbb E[Z^2\mathbf1_{\{|Z|>\varepsilon\}}]>0$。
+若把唯一非零项换成公平符号 $\varepsilon_1$，方差数组完全相同，行和
+却始终为两点分布。因此方差数据不能代替分布尾部或各项形状的条件。
+\end{solution}

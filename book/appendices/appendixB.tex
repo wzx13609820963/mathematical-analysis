@@ -639,6 +639,35 @@ Stieltjes 测度章的 \(BV(\R)\) 指逐点全实线有限总变差，不额外�
 相关定义和有限乘积构造见\chapterref{chap:probability-spaces}及
 \chapterref{chap:independence}。
 
+\chapterref{chap:characteristic-functions}的特征函数采用
+\[
+ \varphi_X(t)=\mathbb E e^{i\langle t,X\rangle},
+ \qquad \varphi_X(t)=\widehat f(-t/(2\pi))\quad\text{当 }X\text{ 有密度 }f.
+\]
+它与此前的 Fourier 变换在频率单位和符号上有别，反演系数相应为
+$(2\pi)^{-d}$。Lévy 连续性定理只需点态变换极限在原点连续，
+不预先假定极限已有概率密度。
+
+\chapterref{chap:laws-of-large-numbers}的弱律、强律分别使用依概率、
+几乎必然收敛；独立同分布且一阶绝对可积时，样本平均还有 $L^1$ 收敛。
+\chapterref{chap:central-limit-theorem}记 $\Phi$ 为标准正态分布函数，
+$N_d(m,\Sigma)$ 为均值 $m$、协方差 $\Sigma$ 的正态向量分布，
+其中 $\Sigma$ 允许半正定而非正定。归一化 $T_n$ 及阵列总标准差 $s_n$
+依章中具体变量定义；归一化的总方差为零时不作相应除法。
+
+条件期望记为 $\mathbb E[X\mid\mathcal G]$，表示具有
+$\mathcal G$-可测代表、并在全部 $\mathcal G$ 事件上保持原积分的可积变量。
+记号 $\mathbb E[X\mid V]$ 等于 $\mathbb E[X\mid\sigma(V)]$。
+若写成 $g(V)$，$g(v)$ 只在 $V$ 的分布下几乎处处确定。
+条件方差为
+\[
+ \operatorname{Var}(X\mid\mathcal G)
+ =\mathbb E[X^2\mid\mathcal G]-\mathbb E[X\mid\mathcal G]^2,
+ \qquad X\in L^2.
+\]
+塔式性质要求所比较的子 $\sigma$-代数嵌套，详见
+\chapterref{chap:conditional-expectation}。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -926,5 +955,13 @@ Levi--Civita联络、曲率、Laplace--Beltrami算子和测地线变分。
 \chapterref{chap:probability-spaces}将有限总质量的积分语言用于随机变量；
 \chapterref{chap:independence}用生成族与乘积测度建立独立性判据，再证明
 Borel--Cantelli 引理和尾事件的零一律。这些结果不以无限乘积的构造定理为前提。
+
+\chapterref{chap:characteristic-functions}使用此前的 Fourier、Radon 表示和
+有限维紧性工具，证明测度变换的唯一性及 Lévy 连续性定理。
+\chapterref{chap:laws-of-large-numbers}通过最大不等式和截断证明强律及
+三列定理，不预用鞅收敛。
+\chapterref{chap:central-limit-theorem}再用二阶展开和特征函数乘积研究
+归一化独立和。\chapterref{chap:conditional-expectation}则从已有
+Radon--Nikodym定理构造条件期望，并将二阶情形识别为 Hilbert 正交投影。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

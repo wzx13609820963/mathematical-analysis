@@ -1,0 +1,246 @@
+\chapter{条件期望}
+
+\begin{solution}{ce-finite-partition}
+第一块上的平均为 $(0+1+3)/3=4/3$，第二块为八，故条件期望依次取
+$(4/3,4/3,4/3,8)$。
+在第一块的积分为 $(3/4)(4/3)=1$，与原变量在该块上的积分相同；
+在第二块都是二。子 $\sigma$-代数只有这两个块、空集和全空间，
+所以积分刻画全部满足。总期望为 $1+2=3$，也等于 $(0+1+3+8)/4$。
+\end{solution}
+
+\begin{solution}{ce-triangular-density}
+$f_V(v)=2v$ 在 $0<v<1$ 成立，归一化后的 $x$ 密度为
+$v^{-1}\mathbf1_{(0,v)}(x)$。因此
+\[
+ \mathbb E[X\mid V]=V/2,\quad
+ \mathbb E[X^2\mid V]=V^2/3,\quad
+ \operatorname{Var}(X\mid V)=V^2/12.
+\]
+由 $V$ 的密度得 $\mathbb EV=2/3$、$\mathbb EV^2=1/2$。
+所以 $\mathbb EX=1/3$、$\mathbb EX^2=1/6$、$\operatorname{Var}(X)=1/18$。
+全方差右侧为
+$\mathbb E(V^2/12)+\operatorname{Var}(V/2)=1/24+1/72=1/18$，一致。
+\end{solution}
+
+\begin{solution}{ce-extreme-sigma-fields}
+平凡代数下可测实函数为常数，取常数 $\mathbb EX$ 即保持总积分。
+全代数下 $X$ 自身可测，且对每个事件都保持原积分。若 $X$ 有
+$\mathcal G$-可测代表，该代表满足定义，唯一性给 $\mathbb E(X\mid\mathcal G)=X$。
+反向若二者 a.s. 相等，条件期望的 $\mathcal G$-可测代表就是 $X$ 的所需
+代表。这是等价类意义的结论，不要求每一种零集修改都保持逐点可测性。
+\end{solution}
+
+\begin{solution}{ce-conditional-event-probability}
+对 $0\le\mathbf1_A\le1$ 应用保序性，得到条件概率在 $[0,1]$ 内。
+取总期望得到 $\mathbb P(A)$。若 $A\in\mathcal G$，示性函数已经可测，
+所以条件期望等于自身。若取 $\mathcal G=\sigma(A)$ 且
+$0<\mathbb P(A)<1$，所得条件概率是非恒定的 $\mathbf1_A$，说明它通常
+是随机变量，而非无条件概率那样的单个数。
+\end{solution}
+
+\begin{solution}{ce-mean-not-absolute-loss-minimizer}
+平凡代数下条件均值为 $p$。两个绝对误差为
+\[
+ \mathbb E|X-p|=p(1-p)+(1-p)p=2p(1-p),\qquad
+ \mathbb E|X-1|=1-p.
+\]
+由于 $2p>1$，后一误差严格较小。条件期望最小化的是平方误差，
+对绝对误差通常应选择条件中位数，不能在损失函数改变后保留原最优结论。
+\end{solution}
+
+\begin{solution}{ce-mean-independence-insufficient}
+在块 $X^2=1$ 上，$X$ 等概率为正负一，条件均值零；在块 $X^2=0$ 上
+$X=0$。故条件均值为常数零，等于总均值。
+但 $X^2$ 已是 $\mathcal G$-可测，
+$\mathbb E[X^2\mid\mathcal G]=X^2$，不是常数 $\mathbb EX^2=2/3$。
+例如 $\{X=0\}=\{X^2=0\}$ 的概率为 $1/3$，与自身不独立。
+所以一个均值条件无法检验全部联合事件的乘法关系。
+\end{solution}
+
+\begin{solution}{ce-bounded-test-characterization}
+由集合积分刻画，对简单 $\mathcal G$-可测 $H$ 的等式由有限线性组合
+得到。一般有界 $H$ 取一致有界的简单逼近，分别以常数乘 $|X|$、$|Y|$
+控制，使用控制收敛得到等式。反过来，选 $H=\mathbf1_A$ 就恢复每个
+$A\in\mathcal G$ 的积分刻画。可测性和可积性仍是独立的前提，
+不能只保留积分等式而完全不限制候选变量。
+\end{solution}
+
+\begin{solution}{ce-unbounded-pullout}
+令 $Y=\mathbb E(X\mid\mathcal G)$。由模不等式及有界测试公式，
+对 $K_M=|H|\wedge M$ 有
+\[
+ \mathbb E(K_M|Y|)
+ \le\mathbb E[K_M\mathbb E(|X|\mid\mathcal G)]
+ =\mathbb E(K_M|X|).
+\]
+单调收敛给 $\mathbb E|HY|\le\mathbb E|HX|<\infty$。
+令 $H_M=\operatorname{sgn}(H)K_M$，两个乘积分别在 $L^1$ 中趋于
+$HX,HY$。有界版本给 $\mathbb E(H_MX\mid\mathcal G)=H_MY$，
+以算子 $L^1$ 收缩性对左侧取极限，得到无界版本。
+若 $\mathcal G$ 平凡而 $H=X$ 为公平符号，则
+$\mathbb E(HX\mid\mathcal G)=1$，但 $H\mathbb E(X\mid\mathcal G)=0$。
+两乘积都可积，失败仅在因子不可由 $\mathcal G$ 观测。
+\end{solution}
+
+\begin{solution}{ce-nonnested-projections}
+按三点次序写向量，有
+\[
+ \mathbb E(X\mid\mathcal G)=(1/2,1/2,0),\qquad
+ \mathbb E(X\mid\mathcal H)=(1,0,0).
+\]
+再取另一条件期望，得到
+\[
+ \mathbb E[\mathbb E(X\mid\mathcal G)\mid\mathcal H]=(1/2,1/4,1/4),
+ \qquad
+ \mathbb E[\mathbb E(X\mid\mathcal H)\mid\mathcal G]=(1/2,1/2,0).
+\]
+它们不相等；第一式也不是 $\mathbb E(X\mid\mathcal H)$。
+因此不嵌套时既不能任意交换次序，也不能直接删去内层条件。
+\end{solution}
+
+\begin{solution}{ce-subunit-p-failure}
+取 $X\sim\operatorname{Bernoulli}(\theta)$，其中 $0<\theta<1$，
+$\mathcal G$ 平凡。则
+$\mathbb E|\mathbb E(X\mid\mathcal G)|^p=\theta^p>\theta=\mathbb E|X|^p$。
+所有变量都有界，故失败并非可积性造成；$|x|^p$ 在非负半轴的凹性
+与 $p\ge1$ 的凸性不同。正文的 Hölder 测试证明也使用指数 $p>1$，
+不能延伸到这里。
+\end{solution}
+
+\begin{solution}{ce-dominated-and-undominated-limits}
+令 $R_n=\sup_{k\ge n}|X_k-X|\downarrow0$ a.s.，且 $R_n\le2Z$。
+条件期望 $U_n=\mathbb E(R_n\mid\mathcal G)$ 非负递减，
+$\mathbb EU_n=\mathbb ER_n\to0$。其极限非负且期望为零，故 a.s. 为零。
+条件模不等式给
+$|\mathbb E(X_n\mid\mathcal G)-\mathbb E(X\mid\mathcal G)|\le U_n$，
+从而得到 a.s. 收敛。
+在 $(0,1)$ 上，$X_n=n\mathbf1_{(0,1/n)}\to0$ 处处，
+但总期望恒为一，平凡条件代数下的条件期望也恒为一。
+若存在共同可积控制函数，普通控制收敛就会强迫总期望趋零，
+与此矛盾，所以它确实不满足控制假设。
+\end{solution}
+
+\begin{solution}{ce-strict-jensen-equality}
+记 $Y=\mathbb E(X\mid\mathcal G)$。条件 Jensen 给可积非负变量
+$\mathbb E(\phi(X)\mid\mathcal G)-\phi(Y)$。
+题设总期望相等当且仅当这个差 a.s. 为零。
+正文严格凸等号判据于是给 $X=Y$ a.s.，即有 $\mathcal G$-可测代表；
+反向直接成立。
+随机次梯度 $\phi'_-(Y)$ 可以无界，其与 $X-Y$ 的乘积未必可积，
+所以不能直接对未控制的乘积写积分为零。正文先局限到
+$\{|Y|\le M\}$，使次梯度有界，再用可数个 $M$ 覆盖，避免这个缺口。
+\end{solution}
+
+\begin{solution}{ce-total-variance}
+$Y=\mathbb E(X\mid\mathcal G)\in L^2$。因此 $X^2,Y^2$ 可积，
+$XY$ 由 Cauchy--Schwarz 可积。
+无界可测因子公式给 $\mathbb E(XY\mid\mathcal G)=Y^2$，
+所以展开误差平方得到
+$\operatorname{Var}(X\mid\mathcal G)=\mathbb E(X^2\mid\mathcal G)-Y^2$。
+取期望后为 $\mathbb EX^2-\mathbb EY^2$；再加
+$\operatorname{Var}(Y)=\mathbb EY^2-(\mathbb EX)^2$，得到总方差。
+若条件方差为零 a.s.，则
+$\mathbb E(X-Y)^2=0$，故 $X=Y$ a.s.，即该变量已经可由 $\mathcal G$ 表示。
+\end{solution}
+
+\begin{solution}{ce-total-covariance}
+记 $U=\mathbb E(X\mid\mathcal G)$、$V=\mathbb E(Y\mid\mathcal G)$，
+两者都在 $L^2$ 中，故相关乘积可积。
+条件协方差的期望为 $\mathbb E(XY)-\mathbb E(UV)$。
+两个条件均值的协方差为
+$\mathbb E(UV)-\mathbb EU\,\mathbb EV$。
+相加并用总期望保持性，就得到
+$\mathbb E(XY)-\mathbb EX\,\mathbb EY=\operatorname{Cov}(X,Y)$。
+\end{solution}
+
+\begin{solution}{ce-conditional-cauchy-schwarz}
+令 $A=\mathbb E(X^2\mid\mathcal G)$、$B=\mathbb E(XY\mid\mathcal G)$、
+$C=\mathbb E(Y^2\mid\mathcal G)$，均为有限 a.s.，且 $A,C\ge0$。
+对每个有理 $t$，保序性和线性给 $A+2tB+t^2C\ge0$ a.s.。
+可数取交后，对全部有理 $t$ 同时成立，再由多项式连续性对全部实数成立。
+若 $C>0$，二次多项式判别式非正，得 $B^2\le AC$。
+若 $C=0$，一次多项式对所有 $t$ 非负迫使 $B=0$，结论仍成立。
+\end{solution}
+
+\begin{solution}{ce-conditional-holder}
+全局 Hölder 先保证 $XY$ 可积。令
+$A=\mathbb E(|X|^p\mid\mathcal G)$、$B=\mathbb E(|Y|^q\mid\mathcal G)$，
+均有限 a.s.。对每个正有理数 $r$，Young 不等式及保序性给
+\[
+ \mathbb E(|XY|\mid\mathcal G)\le r^pA/p+r^{-q}B/q.
+\]
+在共同的概率为一集合上取所有正有理 $r$ 的下确界。
+若 $A,B>0$，连续优化的极小点满足 $r^{p+q}=B/A$，最小值为
+$A^{1/p}B^{1/q}$；有理稠密性给同一下确界。
+若 $A=0$，令有理 $r\to\infty$；若 $B=0$，令有理 $r\downarrow0$，
+都得到零上界。因此退化情形也包含在不等式中。
+\end{solution}
+
+\begin{solution}{ce-gaussian-regression}
+记 $c=\operatorname{Cov}(X,V)$、$a=c/\sigma_V^2$。
+残差均值零，且
+\[
+ \operatorname{Cov}(R,V)=c-a\sigma_V^2=0,\qquad
+ \tau^2:=\operatorname{Var}(R)
+      =\sigma_X^2-c^2/\sigma_V^2\ge0.
+\]
+线性变换后的 $(R,V-m_V)$ 仍为联合正态，其特征函数为
+$\exp[-(s^2\tau^2+t^2\sigma_V^2)/2]$，分解为边缘之积，所以独立。
+于是条件均值为 $m_X+a(V-m_V)$，条件方差为
+$\mathbb E(R^2\mid V)=\tau^2$。若 $\tau^2=0$，残差恒零，
+$X$ a.s. 为 $V$ 的仿射函数，结论仍成立。
+\end{solution}
+
+\begin{solution}{ce-conditioning-at-null-values}
+可取 $g_1(v)=v^2$，再令
+$g_2(v)=v^2$ 在 $v\ne1/2$ 时成立，$g_2(1/2)=100$。
+二者均 Borel，且 $g_1(V)=g_2(V)=X$ a.s.，因为 $\mathbb P(V=1/2)=0$。
+条件期望唯一性是 $\sigma(V)$-可测变量的 a.s. 唯一性，等价于代表函数
+在 $V$ 的分布下几乎处处唯一，并不指定每个零概率观测值上的点值。
+\end{solution}
+
+\begin{solution}{ce-information-null-completion}
+令 $Y=\mathbb E(X\mid\mathcal G)$，它也有 $\mathcal H$-可测代表。
+对 $A\in\mathcal H$，取题设的 $B\in\mathcal G$。
+因为 $\mathbb P(A\mathbin\triangle B)=0$，两个可积变量在 $A$ 和 $B$ 上
+的积分分别相同。因此
+$\int_A Y=\int_B Y=\int_B X=\int_A X$。
+所以 $Y$ 也满足 $\mathcal H$ 下的积分刻画，唯一性给结论。
+只用了题设中仍属于 $\mathcal F$ 的可测事件，没有自动把任意零集子集
+添加到原空间中。
+\end{solution}
+
+\begin{solution}{ce-nested-error-decomposition}
+记 $U=\mathbb E(X\mid\mathcal G)$、$V=\mathbb E(X\mid\mathcal H)$。
+$V\in L^2(\mathcal G)$，把它代入 $X$ 到 $L^2(\mathcal G)$ 投影的
+Pythagoras 等式，就得到题设分解。
+其第二项非负，故 $\|X-U\|_2\le\|X-V\|_2$。
+也可用塔式性质得到 $\mathbb E(U\mid\mathcal H)=V$，
+从而 $U-V$ 正交于较粗信息子空间。
+\end{solution}
+
+\begin{solution}{ce-conditioning-creates-dependence}
+按 $S=X+Y$ 的三种取值讨论：$S=0$ 时二者都为零，$S=2$ 时都为一，
+$S=1$ 时两个可能结果 $(1,0),(0,1)$ 等概率。因此
+\[
+ \mathbb E(X\mid\mathcal G)=\mathbb E(Y\mid\mathcal G)=S/2,
+ \qquad \mathbb E(XY\mid\mathcal G)=\mathbf1_{\{S=2\}}.
+\]
+在概率为 $1/2$ 的事件 $S=1$ 上，后者为零，前两个条件均值的乘积为
+$1/4$。原来的无条件独立性并不蕴含条件乘积公式。
+\end{solution}
+
+\begin{solution}{ce-fixed-variable-uniform-integrability}
+对任意子代数，令 $Y=\mathbb E(X\mid\mathcal G)$、
+$A=\{|Y|>M\}\in\mathcal G$。Markov 和收缩性给
+$\mathbb P(A)\le\mathbb E|X|/M$，而条件模不等式给
+\[
+ \mathbb E[|Y|\mathbf1_A]
+ \le\mathbb E[\mathbb E(|X|\mid\mathcal G)\mathbf1_A]
+ =\mathbb E[|X|\mathbf1_A].
+\]
+固定可积函数 $|X|$ 的积分绝对连续性说明，最后一项对所有足够小概率
+的事件都一致小。由于 $\mathbb P(A)$ 的上界与子代数无关，
+令 $M\to\infty$ 得到整个条件期望族一致可积。
+$\mathbb E|X|=0$ 时所有变量都为零，结论直接成立。
+\end{solution}

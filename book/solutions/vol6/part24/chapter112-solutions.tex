@@ -1,0 +1,216 @@
+\chapter{大数定律}
+
+\begin{solution}{lln-bernoulli-frequency}
+均值为 $p$、方差为 $p(1-p)$，独立性给
+\[
+ \mathbb P(|S_n/n-p|>\varepsilon)
+ \le\frac{p(1-p)}{n\varepsilon^2}.
+\]
+变量有界，满足可积强律，所以经验频率 a.s. 趋于 $p$。
+当 $p=0$ 或一时，各变量分别 a.s. 恒为零或一；对可数多个例外集取并，
+整列在同一个概率为一的集合上恒定，结论仍成立。
+\end{solution}
+
+\begin{solution}{lln-uncorrelated-weak}
+两两不相关使全部协方差交叉项为零，因此
+\[
+ \mathbb E(S_n/n-m)^2
+ =\frac1{n^2}\sum_{k\le n}\operatorname{Var}(X_k)\longrightarrow0.
+\]
+这实际上先给均方收敛，再由 Chebyshev 给依概率收敛。
+这里没有使用相互独立；但不能据此照搬最大不等式的首次越界证明，
+其中首次越界事件与后续和的独立性是额外要求。
+\end{solution}
+
+\begin{solution}{lln-pareto-finite-mean}
+归一化为 $\alpha\int_1^\infty x^{-\alpha-1}dx=1$。
+均值是 $\alpha\int_1^\infty x^{-\alpha}dx=\alpha/(\alpha-1)$。
+二阶矩为 $\alpha\int_1^\infty x^{1-\alpha}dx=\infty$，因为 $\alpha<2$。
+变量非负且一阶可积，所以样本平均在 $L^1$ 及 a.s. 意义下都趋于
+$\alpha/(\alpha-1)$。不能使用依赖共同有限方差的直接 Chebyshev 估计。
+\end{solution}
+
+\begin{solution}{lln-tail-sum-scale}
+将正文整数阈值比较用于 $Z/a$，得
+\[
+ a\sum_{n\ge1}\mathbb P(Z>an)\le\mathbb EZ
+ \le a+a\sum_{n\ge1}\mathbb P(Z>an).
+\]
+故所述可求和性等价于有限期望。若共同绝对一阶矩无限，尾级数对任意
+$a>0$ 发散。独立事件 $\{|X_n|>an\}$ 由第二 Borel--Cantelli 引理
+几乎必然无穷多次发生。需要同时对所有 $a$ 成立时，可先取正整数 $a$，
+并取可数个概率为一集合的交，再由阈值单调性处理其余正数。
+\end{solution}
+
+\begin{solution}{lln-kronecker-converse}
+令 $s_n=\sum_{k\le n}a_k/k\to s$，Abel 变换给
+$n^{-1}\sum_{k\le n}a_k=s_n-n^{-1}\sum_{k<n}s_k$，
+两项都趋于 $s$，差趋零。
+反向取 $a_n=1/\log(n+1)$。它趋零，所以 Cesàro 平均趋零，
+但 $\sum_n1/[n\log(n+1)]$ 发散；例如对大 $n$ 用
+$\log(n+1)\le2\log n$ 与经典积分判别比较。
+\end{solution}
+
+\begin{solution}{lln-finite-sparse-modifications}
+在只发生有限次修改的一条路径上，$\sum_{k\le n}(Y_k-X_k)$ 最终等于
+某个有限实数，除以 $n$ 后趋零。该逐路径论证对 a.s. 的有限修改同样
+适用，有限次的起点可以随路径变化。
+自然密度为零则不够。取原数列恒零，只在 $n=2^j$，$j\ge1$，
+改为 $Y_{2^j}=4^j$。修改集合的密度为零，但在 $n=2^j$ 处平均至少为
+$4^j/2^j=2^j$，所以不趋零。
+\end{solution}
+
+\begin{solution}{lln-variance-growth-threshold}
+有 $\sum_n\operatorname{Var}(X_n)/n^2\le C\sum_nn^{\alpha-2}<\infty$，
+方差强律即给结论。对临界增长，取相互独立变量，在 $n\ge2$ 时以概率
+$1/(2n)$ 各取 $n,-n$，其余概率取零，令 $X_1=0$。均值为零且方差为 $n$。
+事件 $|X_n|/n=1$ 的概率为 $1/n$，由第二 Borel--Cantelli 无穷多次发生。
+因此 $X_n/n$ 不趋零；若 $S_n/n\to0$，其相邻平均之差公式却会给
+$X_n/n\to0$，矛盾。
+\end{solution}
+
+\begin{solution}{lln-rare-large-series}
+非零概率为 $1/n^2$，其和有限。第一 Borel--Cantelli 说明几乎每条路径
+只有有限个非零项，所以级数甚至逐路径绝对收敛。然而均值为零，
+$\operatorname{Var}(X_n)=n^2/n^2=1$，方差和发散。
+固定截断值 $c=1$ 时，$n\ge2$ 的截断变量恒为零，均值、方差级数均
+为零，大跳跃概率级数可求和，三列定理给出同一结论。
+\end{solution}
+
+\begin{solution}{lln-rademacher-series}
+若平方和有限，独立中心化方差定理给收敛。反向，若随机级数 a.s. 收敛，
+它的项趋于零；由于项的绝对值为确定数 $|a_n|$，必有 $a_n\to0$。
+于是固定截断值一时，仅有限多个项可能被截掉。截断后均值为零，
+最终方差为 $a_n^2$。三列定理的必要方向给平方和有限，有限初始项不
+改变结果。这里没有把无界系数列直接当作统一有界列处理。
+\end{solution}
+
+\begin{solution}{lln-three-series-separate-conditions}
+统一取截断值 $c=1$。
+第一项单独失败：$n\ge2$ 时令独立 $X_n$ 以概率 $1/n$ 取二，其余取零。
+大跳跃级数发散，截断变量恒零，所以后两项成立。
+第二项单独失败：令 $X_n=1/n$ 确定，第一项为零，方差和为零，均值
+调和级数发散。第三项单独失败：令 $X_n$ 为独立公平符号，所有项均
+保留，尾概率级数为零，均值级数为零，但方差和为无穷。
+这些列都不几乎必然收敛；三个例子分别对应不能忽略的三项条件。
+\end{solution}
+
+\begin{solution}{lln-nonidentical-means}
+方差强律给中心化平均 a.s. 趋零，再加上确定性均值平均的极限 $m$。
+不必逐项均值趋于 $m$：取确定性变量 $X_n=m+(-1)^n$，其方差全为零，
+均值不收敛，但平均趋于 $m$。确定性变量相互独立，因为生成的
+$\sigma$-代数都是平凡的。
+\end{solution}
+
+\begin{solution}{lln-empirical-cdf-pointwise}
+固定 $t$ 时，示性变量独立同分布且有界，强律给 $F_n(t)\to F(t)$。
+令 $D$ 为 $F$ 的跳跃点集，它至多可数；对 $D\cup\mathbb Q$ 上各点
+同时取强律成立的概率为一集合。
+在此集合上，若 $t\notin D$，取有理 $r<t<s$，利用
+$F_n(r)\le F_n(t)\le F_n(s)$，先令 $n\to\infty$，再令 $r\uparrow t$、
+$s\downarrow t$，连续性给极限 $F(t)$。若 $t\in D$，它已预先包含在
+可数检验集。因此在同一个概率为一集合上对所有实数 $t$ 成立，
+无需并不可数个零集。
+\end{solution}
+
+\begin{solution}{lln-sample-quantile}
+对每个正整数 $r$，强律使
+$F_n(q-1/r)\to F(q-1/r)<p$ 且
+$F_n(q+1/r)\to F(q+1/r)>p$ 同时成立。
+取这些可数条件的交后，每个 $r$ 都有一个起点，使
+$F_n(q-1/r)<p<F_n(q+1/r)$。
+经验分布的分位数是相应次序统计量，故
+$q-1/r<Q_n\le q+1/r$，从而 $Q_n\to q$。
+这里的严格跨越假设排除了分位数处的平坦区间所造成的非唯一性。
+\end{solution}
+
+\begin{solution}{lln-positive-infinite-mean}
+对每个整数 $M\ge1$，有界变量 $X_k\wedge M$ 满足强律。
+在可数个强律事件的交上，
+\[
+ \liminf_n\frac{S_n}{n}\ge\mathbb E(X_1\wedge M)
+ \quad\text{对每个 }M.
+\]
+单调收敛使右侧随 $M\to\infty$ 趋于无穷。于是任给有限阈值 $A$，
+先选 $M$ 使期望大于 $A$，再由截断平均收敛得到原平均最终大于 $A$。
+这正是同一个概率为一集合上的 $+\infty$ 极限。
+\end{solution}
+
+\begin{solution}{lln-weighted-kronecker}
+令 $s_n=\sum_{k\le n}a_k/b_k\to s$。Abel 变换给
+\[
+ \frac1{b_n}\sum_{k\le n}a_k
+ =s_n-\frac1{b_n}\sum_{k<n}(b_{k+1}-b_k)s_k.
+\]
+第二项趋于 $s$：系数非负，总和为 $1-b_1/b_n\to1$，每个固定前缀的
+总权重趋零，而尾部 $s_k$ 与 $s$ 一致接近。故两项之差趋零。
+因此独立有二阶矩变量若满足
+$\sum_n\operatorname{Var}(X_n)/b_n^2<\infty$，则
+$b_n^{-1}\sum_{k\le n}(X_k-\mathbb E X_k)\to0$ a.s.，
+因为相应加权中心化级数由方差定理收敛。
+\end{solution}
+
+\begin{solution}{lln-uniform-integrable-averages}
+记 $A_n=S_n/n$。$x\mapsto(|x|-M/2)_+$ 为凸函数，故逐点有限 Jensen
+不等式及同分布性给
+\begin{align*}
+ \mathbb E[|A_n|\mathbf1_{\{|A_n|>M\}}]
+ &\le2\mathbb E(|A_n|-M/2)_+\\
+ &\le\frac2n\sum_{k\le n}\mathbb E(|X_k|-M/2)_+\\
+ &\le2\mathbb E[|X_1|\mathbf1_{\{|X_1|>M/2\}}]\longrightarrow0.
+\end{align*}
+右侧与 $n$ 无关，所以平均族一致可积。没有用到独立性。
+独立时强律给 a.s. 收敛到均值，一致可积性及 Vitali 定理又给 $L^1$
+收敛；这与正文先由固定截断得到的直接 $L^1$ 证明相符。
+\end{solution}
+
+\begin{solution}{lln-finite-limit-necessary}
+设 $S_n/n\to L$ a.s.，仅要求 $L$ 有限。对 $n\ge2$，
+$X_n/n=S_n/n-[(n-1)/n][S_{n-1}/(n-1)]\to L-L=0$ a.s.。
+所以 $\{|X_n|>n\}$ 不可能无穷多次发生。由独立性及第二
+Borel--Cantelli，$\sum_n\mathbb P(|X_n|>n)<\infty$；同分布性使它等于
+$\sum_n\mathbb P(|X_1|>n)$，从而一阶绝对矩有限。
+此时再用强律得 $L=\mathbb EX_1$ a.s.。因此常数性是结论，而非必要性
+论证预先加入的假设。
+\end{solution}
+
+\begin{solution}{lln-random-harmonic-threshold}
+平方和 $\sum_nn^{-2\alpha}$ 在且仅在 $\alpha>1/2$ 时收敛，故由
+Rademacher 级数判据，随机级数在这一范围 a.s. 收敛。
+若 $\alpha\le0$，项的绝对值不趋零，任何路径都不收敛。
+若 $0<\alpha\le1/2$，三列定理排除概率一的收敛；级数的收敛事件对
+任意有限前缀的改变不敏感，是尾事件，尾零一律使其概率只能为零或一，
+故必为零。绝对值级数为确定性 $\sum_nn^{-\alpha}$，在且仅在
+$\alpha>1$ 时收敛。因此 $1/2<\alpha\le1$ 给 a.s. 条件收敛。
+\end{solution}
+
+\begin{solution}{lln-continuous-cdf-uniform}
+固定 $\eta>0$，先选 $R$，使 $F(-R)<\eta$ 且 $1-F(R)<\eta$。
+在 $[-R,R]$ 上由一致连续性取有限网格
+$-R=t_0<\cdots<t_m=R$，使 $F(t_{j+1})-F(t_j)<\eta$。
+在网格点的强律事件上，充分大的 $n$ 使全部端点误差小于 $\eta$。
+对每个网格区间由两个分布函数的单调性夹逼，误差不超过 $2\eta$；
+区间外也由两端的尾概率控制，误差不超过 $2\eta$。
+对 $\eta=1/r$ 的可数网格同时取交，得到全实线上的一致收敛。
+\end{solution}
+
+\begin{solution}{lln-empirical-measure-weak}
+\textup{(i)} 取引理~\ref{lem:euclidean-tight-subsequence}证明中构造的
+可数稠密族 $(h_j)\subset C_0(\mathbb R^d,\mathbb R)$。各 $h_j(X_k)$ 有界
+且独立同分布，强律在同一个概率为一集合上给
+$\int h_j\,d\nu_n\to\int h_j\,d\mu$。
+两端测度总质量均为一，一致逼近于是给全部 $C_0$ 函数的积分收敛。
+
+\textup{(ii)} 对整数 $R\ge1$，同时加入球外示性函数的强律事件。
+给 $\eta>0$，先取 $R$ 使 $\mu(\|x\|>R)<\eta/4$，则充分大的 $n$ 有
+$\nu_n(\|x\|>R)<\eta/2$。剩余有限个经验测度各有有限支撑，
+可增大球把这些支撑全部装入。故整个序列的球外质量上确界小于 $\eta$。
+这是逐条路径得到的一致紧性，半径允许依赖路径。
+
+\textup{(iii)} 对 $h\in C_b$，取紧支撑连续截断 $\chi$，在上述高概率球上
+为一，满足 $0\le\chi\le1$。$h\chi\in C_c$ 的积分已经收敛，而两端的
+尾部误差之和不超过 $\|h\|_\infty$ 乘两端球外质量。令尾界趋零，
+得到 $\int h\,d\nu_n\to\int h\,d\mu$。
+这里先固定一个概率为一的事件，再在该事件中对任意 $h$ 作确定性逼近，
+因此不涉及不可数个概率一事件的交。
+\end{solution}
