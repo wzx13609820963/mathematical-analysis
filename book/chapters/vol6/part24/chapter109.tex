@@ -1,0 +1,720 @@
+\chapter{独立性}
+\label{chap:independence}
+
+两个随机变量各自的分布不能决定它们同时取值的方式。例如，两个取值为
+$0,1$ 的变量都可各以概率 $1/2$ 取这两个值；它们可能处处相等，也可能
+在四种取值组合上各占概率 $1/4$。独立性选取后一种乘法关系，并把它推广
+到任意多个事件和随机变量。
+
+本章在\chapterref{chap:probability-spaces}的概率空间、分布和期望语言上
+讨论独立性。有限乘积测度提供独立变量的构造，生成类方法把分布函数上的
+检验延伸到所有 Borel 集。最后研究无穷事件列：可和性控制事件发生的次数，
+独立性则限制不受任何有限段影响的事件的概率。
+除另有说明外，所有事件和随机变量均定义在同一个概率空间
+$(\Omega,\mathcal F,\mathbb P)$ 上；序列下标从 $1$ 开始。
+
+\section{事件族和随机变量的独立性}
+\label{sec:independent-events-variables}
+
+\subsection{有限子族的乘法条件}
+
+若 $\mathbb P(B)>0$，在事件 $B$ 中观察 $A$ 所占的比例是
+$\mathbb P(A\cap B)/\mathbb P(B)$。要求这个比例仍为 $\mathbb P(A)$，
+得到一个不需要除法、也能覆盖零概率事件的条件。
+
+\begin{definition}
+\label{def:independent-events}
+事件 $A,B\in\mathcal F$ 称为\term{独立的}，若
+$\mathbb P(A\cap B)=\mathbb P(A)\mathbb P(B)$。
+事件族 $(A_i)_{i\in I}$ 称为\term{相互独立的}，若对每个有限非空子集
+$J\subseteq I$ 都有
+\[
+ \mathbb P\left(\bigcap_{i\in J}A_i\right)
+ =\prod_{i\in J}\mathbb P(A_i).
+\]
+若只要求任意两个不同指标对应的事件独立，则称为\term{两两独立的}。
+下文未加限定的“独立事件族”均指相互独立。
+\end{definition}
+
+定义对有限子族提出条件，而没有用无穷概率乘积作为定义。即使只有三个事件，
+也须检验三个两两交和三重交；只检验全体事件的交不能替代这些条件。
+概率为 $0$ 或 $1$ 的事件与每个事件独立。另一方面，事件 $A$ 与自身独立
+当且仅当 $\mathbb P(A)=\mathbb P(A)^2$，即概率为 $0$ 或 $1$。
+两个不交且概率都为正的事件不独立。
+
+\begin{example}[两两独立不推出相互独立]
+\label{ex:pairwise-not-mutual}
+令 $\Omega=\{(0,0),(0,1),(1,0),(1,1)\}$，每个点的概率为 $1/4$。
+记 $A=\{(a,b):a=1\}$、$B=\{(a,b):b=1\}$、
+$C=\{(a,b):a\ne b\}$。三个事件的概率均为 $1/2$，每个两两交恰含一个点，
+所以它们两两独立。但 $A\cap B\cap C=\varnothing$，其概率不等于 $1/8$。
+在已经知道前两个坐标的情形下，第三个事件是否发生完全确定。
+\end{example}
+
+取补集不破坏相互独立性。具体地，若在有限个独立事件中只把 $A_j$ 换成
+$A_j^c$，则对其他指标组成的集合 $J$，
+\[
+ \mathbb P\left(A_j^c\cap\bigcap_{i\in J}A_i\right)
+ =\prod_{i\in J}\mathbb P(A_i)
+  -\mathbb P(A_j)\prod_{i\in J}\mathbb P(A_i)
+ =\mathbb P(A_j^c)\prod_{i\in J}\mathbb P(A_i).
+\]
+依次处理有限多个补集，即可得到全部混合取补的乘法公式。对无限指标族，
+每次仍只检查有限子族，所以结论同样成立。
+
+\subsection{由事件到信息所生成的 $\sigma$-代数}
+
+一个实随机变量 $X$ 不只产生一个事件，而产生所有 $\{X\in B\}$，其中
+$B\in\mathcal B(\mathbb R)$。这些事件构成 $\sigma$-代数
+\[
+ \sigma(X):=\{X^{-1}(B):B\in\mathcal B(\mathbb R)\}.
+\]
+它是使 $X$ 可测的最小 $\sigma$-代数。对一族随机变量，$\sigma(X_i:i\in I)$
+表示包含所有这些原像事件的最小 $\sigma$-代数。这里“信息”仅指相应事件族，
+不另行引入数值化的信息量。
+
+\begin{definition}
+\label{def:independent-sigma-fields}
+子 $\sigma$-代数族 $(\mathcal F_i)_{i\in I}$ 称为\term{相互独立的}，若对
+每个有限非空 $J\subseteq I$ 以及任意选择 $A_i\in\mathcal F_i$，均有
+\[
+ \mathbb P\left(\bigcap_{i\in J}A_i\right)
+ =\prod_{i\in J}\mathbb P(A_i).
+\]
+实随机变量族 $(X_i)_{i\in I}$ 称为\term{相互独立的}，若
+$(\sigma(X_i))_{i\in I}$ 相互独立。等价地，可对每个有限子族及任意
+Borel 集 $B_i$ 检验事件 $\{X_i\in B_i\}$ 的乘法公式。
+\end{definition}
+
+随机向量以及一般可测空间值的随机变量采用同一定义，只把 Borel 集换成
+相应值域的可测集。若 $X_i$ 独立，$h_i$ 是各自值域上的可测函数，则
+$h_i(X_i)$ 也独立，因为 $\sigma(h_i(X_i))\subseteq\sigma(X_i)$。
+特别地，独立事件的示性函数独立，独立随机变量各自经过截断、取绝对值或
+其他 Borel 变换后仍独立。后文还需要把一整块变量一起变换；这要先证明
+由独立变量生成的不同信息块仍然独立。
+
+\section{\texorpdfstring{$\pi$--$\lambda$}{pi--lambda} 方法}
+\label{sec:independence-pi-lambda}
+
+直接对所有 Borel 集检验独立性通常不便。实变量的分布可由半直线决定，
+但把半直线上的等式延伸到整个 $\sigma$-代数，必须保留交、补及可数并的
+控制。下面重述\chapterref{chap:outer-measures}中的生成类工具，并给出
+适用于独立性的延伸步骤。
+
+\subsection{生成类的闭包}
+
+一个集合族称为 $\pi$-系统，若对两个集合的交封闭；本身不要求包含
+$\Omega$。一个集合族称为 Dynkin 系统或 $\lambda$-系统，若包含
+$\Omega$，对补集以及两两不交的可数并封闭。Dynkin 系统对嵌套差集封闭：
+若 $B\subseteq A$ 且二者在系统中，则
+$A\setminus B=(B\cup A^c)^c$ 也在其中。一般差集则不能直接这样处理。
+
+\begin{theorem}[$\pi$--$\lambda$ 方法]
+\label{thm:independence-pi-lambda}
+设 $\mathcal P$ 是 $\Omega$ 上的 $\pi$-系统，$\mathcal D$ 是包含
+$\mathcal P$ 的 Dynkin 系统，则 $\sigma(\mathcal P)\subseteq\mathcal D$。
+\end{theorem}
+
+\begin{proof}
+记包含 $\mathcal P$ 的最小 Dynkin 系统为 $\mathcal L$；它存在，因为
+所有这类系统的交仍满足三个封闭条件。关键是证明 $\mathcal L$ 对交封闭。
+先固定 $A\in\mathcal P$，考察
+\[
+ \mathcal D_A=\{B\subseteq\Omega:A\cap B\in\mathcal L\}.
+\]
+由于 $A\in\mathcal L$，有 $\Omega\in\mathcal D_A$；若 $B\in\mathcal D_A$，
+则 $A\cap B^c=A\setminus(A\cap B)\in\mathcal L$；不交可数并条件由分配律
+得到。因此 $\mathcal D_A$ 是 Dynkin 系统。又 $\mathcal P$ 对交封闭，
+故 $\mathcal P\subseteq\mathcal D_A$，从而 $\mathcal L\subseteq\mathcal D_A$。
+
+现在固定任意 $B\in\mathcal L$，令
+$\mathcal E_B=\{A\subseteq\Omega:A\cap B\in\mathcal L\}$。
+前一段给出 $\mathcal P\subseteq\mathcal E_B$。因为 $B\in\mathcal L$，
+同样的单位集、嵌套差集及不交并论证说明 $\mathcal E_B$ 是 Dynkin 系统，
+于是 $\mathcal L\subseteq\mathcal E_B$。这证明了 $\mathcal L$ 对有限交封闭。
+结合补集封闭性，$\mathcal L$ 对有限并和差集也封闭。对于任意
+$A_n\in\mathcal L$，用
+$A_n\setminus\bigcup_{k<n}A_k$ 化为不交并，便知它对任意可数并封闭。
+所以 $\mathcal L$ 是 $\sigma$-代数，必等于 $\sigma(\mathcal P)$。
+而 $\mathcal L\subseteq\mathcal D$，结论成立。
+\end{proof}
+
+两个概率测度若在包含 $\Omega$ 的生成 $\pi$-系统上相等，就在生成的
+$\sigma$-代数上相等：使两测度相等的集合构成 Dynkin 系统。补集这一步
+用到两测度总质量同为 $1$。这一有限测度唯一性原则也解释了下面证明中
+为什么要明确保留单位事件。
+
+\begin{theorem}[独立性的生成类判别]
+\label{thm:independence-generating-classes}
+设对每个 $i\in I$，$\mathcal P_i\subseteq\mathcal F$ 是包含 $\Omega$ 的
+$\pi$-系统。假设对任意有限非空 $J\subseteq I$ 和 $A_i\in\mathcal P_i$，
+都有
+\[
+ \mathbb P\left(\bigcap_{i\in J}A_i\right)
+ =\prod_{i\in J}\mathbb P(A_i).
+\]
+则 $(\sigma(\mathcal P_i))_{i\in I}$ 相互独立。
+\end{theorem}
+
+\begin{proof}
+固定有限子族，重新编号为 $1,\ldots,n$。先固定 $A_i\in\mathcal P_i$
+（$i\ge2$），记 $C=\bigcap_{i=2}^nA_i$ 和
+$c=\prod_{i=2}^n\mathbb P(A_i)$。因可把第一坐标取为 $\Omega$，假设给出
+$\mathbb P(C)=c$。因此
+\[
+ \mathcal D=\{A\in\mathcal F:\mathbb P(A\cap C)=\mathbb P(A)c\}
+\]
+是 Dynkin 系统：单位事件条件正是 $\mathbb P(C)=c$；补集条件由此式相减
+得到；不交并条件由概率的可数可加性得到。它包含 $\mathcal P_1$，故也包含
+$\sigma(\mathcal P_1)$。于是第一坐标可从生成类扩大到生成的 $\sigma$-代数。
+
+接着固定已经扩大的第一坐标及其余坐标，对第二坐标作同一论证。所需的
+单位事件等式由上一阶段在第二坐标取 $\Omega$ 得到。逐一扩大全部坐标，
+便得到 $n$ 个 $\sigma$-代数的独立性。有限子族任意，故结论成立。
+\end{proof}
+
+若原生成类不含 $\Omega$，可以先加入它，但必须同时核验加入单位事件后的
+乘法等式；这等价于没有遗漏任何较小子族的条件。仅知道固定 $n$ 重交的
+某些等式，一般不能无条件完成这一补充。
+
+\begin{corollary}[分布函数判别]
+\label{cor:independence-cdf-test}
+对实随机变量 $X_1,\ldots,X_n$，独立性等价于以下条件：
+对所有实阈值 $t_1,\ldots,t_n$，有
+\[
+ \mathbb P(X_1\le t_1,\ldots,X_n\le t_n)
+ =\prod_{i=1}^n\mathbb P(X_i\le t_i).
+\]
+\end{corollary}
+
+\begin{proof}
+独立性直接给出等式。反之，让部分阈值依次趋于 $+\infty$，由从下连续性
+得到所有较小子族的等式。每族
+$\{\{X_i\le t\}:t\in\mathbb R\}\cup\{\Omega\}$ 是 $\pi$-系统，并生成
+$\sigma(X_i)$，因为半直线生成 $\mathcal B(\mathbb R)$。
+应用生成类判别即得结论。
+\end{proof}
+
+\begin{proposition}[分块独立]
+\label{prop:independent-blocks}
+设 $(\mathcal F_i)_{i\in I}$ 相互独立，$(I_j)_{j\in J}$ 是 $I$ 的两两不交
+子集。则
+\[
+ \mathcal G_j=\sigma\left(\bigcup_{i\in I_j}\mathcal F_i\right),\qquad j\in J,
+\]
+相互独立。空块生成的 $\sigma$-代数约定为 $\{\varnothing,\Omega\}$。
+\end{proposition}
+
+\begin{proof}
+在每个块内取由有限多个 $\mathcal F_i$ 中事件之交组成的族，并加入空交
+$\Omega$。它是生成 $\mathcal G_j$ 的 $\pi$-系统；同一指标出现多次时，
+可先在该 $\sigma$-代数中合成交集。不同块涉及的指标不同，故原独立性
+使有限多个块内交的联合概率等于各块概率之积。生成类判别把这个等式
+推广到各 $\mathcal G_j$，得到结论。
+\end{proof}
+
+因此，不同独立变量块的可测函数仍独立。例如独立的
+$X_1,X_2,X_3,X_4$ 给出独立的 $X_1+X_2$ 与 $X_3X_4$。
+两两独立不足以保证这一结论：例~\ref{ex:pairwise-not-mutual} 中
+$\mathbf 1_C$ 是前两个示性函数的函数，却不能与它们所生成的整个
+$\sigma$-代数独立。
+
+\section{乘积测度和独立随机变量}
+\label{sec:independence-product-laws}
+
+\subsection{联合分布的乘积结构}
+
+\begin{theorem}
+\label{thm:independence-product-law}
+设实随机变量 $X_1,\ldots,X_n$ 的分布分别为 $\mu_1,\ldots,\mu_n$。
+它们独立，当且仅当随机向量 $(X_1,\ldots,X_n)$ 的联合分布为
+$\mu_1\times\cdots\times\mu_n$。
+\end{theorem}
+
+\begin{proof}
+记联合分布为 $\mu$。对 Borel 矩形 $B_1\times\cdots\times B_n$，
+独立性等价于
+\[
+ \mu(B_1\times\cdots\times B_n)=\prod_{i=1}^n\mu_i(B_i).
+\]
+右端正是乘积测度在矩形上的值。Borel 矩形构成包含整个空间的
+$\pi$-系统，生成 $\mathcal B(\mathbb R^n)$；这里用到有限维 Euclid 空间
+具有可数拓扑基，使乘积 Borel $\sigma$-代数与拓扑的 Borel $\sigma$-代数
+相同。概率测度的生成类唯一性给出所求等式。反向由乘积测度的矩形公式
+立刻得到独立性。
+\end{proof}
+
+这一定理也给出有限构造。给定 $\mathbb R$ 上任意概率测度
+$\mu_1,\ldots,\mu_n$，取概率空间
+\[
+ (\mathbb R^n,\mathcal B(\mathbb R^n),\mu_1\times\cdots\times\mu_n),
+\]
+并令 $X_i(x_1,\ldots,x_n)=x_i$。坐标随机变量独立且各有指定分布。
+乘积测度的存在来自\chapterref{chap:product-measure}；概率测度有限，
+所以该章的 $\sigma$-有限性条件全部满足。本章不以这个有限构造代替
+一般无限乘积测度的构造。
+
+\begin{example}[由二进制位构造独立序列]
+\label{ex:independent-binary-digits}
+在 $[0,1)$ 上取 Lebesgue 概率测度，定义
+\[
+ D_k(t)=\lfloor2^kt\rfloor-2\lfloor2^{k-1}t\rfloor,\qquad k\ge1.
+\]
+每个 $D_k$ 都可测且取值于 $\{0,1\}$。对任意 $N\ge1$，前 $N$ 位的
+每个指定排列恰对应一个半开区间
+$[j2^{-N},(j+1)2^{-N})$，其概率为 $2^{-N}$。因此在前 $N$ 位中只指定
+$r$ 个不同位置时，恰有 $2^{N-r}$ 个这样的区间，概率为 $2^{-r}$。
+任意有限多个位置都包含在某个初段中，所以 $(D_k)$ 相互独立，且每位
+以概率 $1/2$ 取 $0$ 或 $1$。
+
+上述取整公式对二进有理数采用末尾全为 $0$ 的展开，不使用末尾全为 $1$
+的另一展开；$1$ 不在样本空间中。因此定义在每一点都是唯一的，不必把
+展开歧义留作未经说明的例外。
+\end{example}
+
+二进制位不仅给出取两个值的序列。把位数分成互不相交的无限块，每一块
+可以组成一个均匀变量，再用分位函数改变它的分布。
+
+\begin{proposition}[指定分布的独立序列]
+\label{prop:independent-sequence-realization}
+给定 $\mathbb R$ 上的任意概率测度列 $(\mu_n)_{n\ge1}$，可在
+$([0,1),\mathcal B([0,1)),m)$ 上构造相互独立的实随机变量 $X_n$，
+使每个 $X_n$ 的分布为 $\mu_n$。
+\end{proposition}
+
+\begin{proof}
+使用上例的二进制位，令
+\[
+ I_n=\{2^{n-1}(2j-1):j\ge1\},\qquad
+ U_n=\sum_{j=1}^{\infty}2^{-j}D_{2^{n-1}(2j-1)}.
+\]
+每个正整数唯一写成二的幂乘以奇数，因而 $I_n$ 两两不交。
+级数单调收敛且不超过一，所以 $U_n$ 是由第 $I_n$ 块生成的
+$\sigma$-代数上的可测函数。命题~\ref{prop:independent-blocks}
+说明这些 $\sigma$-代数相互独立，故 $(U_n)$ 相互独立。
+
+固定 $n$，记级数前 $r$ 项之和为 $S_r$。有限位的独立性说明
+$S_r$ 在 $\{0,2^{-r},\ldots,1-2^{-r}\}$ 上均匀分布，而且逐点有
+$S_r\le U_n\le S_r+2^{-r}$。因此对 $0\le x\le1$，
+\[
+ \mathbb P(S_r\le x-2^{-r})
+ \le\mathbb P(U_n\le x)\le\mathbb P(S_r\le x).
+\]
+左右两端都趋于 $x$，从而 $U_n$ 在 $[0,1]$ 上均匀分布。
+这个夹逼也处理了二进展开的端点；特别地，
+$\mathbb P(U_n\in\{0,1\})=0$。
+
+设 $F_n$ 是 $\mu_n$ 的分布函数，$Q_n$ 是其分位函数。在
+$0<U_n<1$ 时令 $X_n=Q_n(U_n)$，在其余点令 $X_n=0$。
+这是对各自位块可测的实值函数，故仍相互独立。
+定理~\ref{thm:stieltjes-quantile} 给出 $X_n$ 的分布恰为 $\mu_n$；
+端点处的指定值不影响分布。
+\end{proof}
+
+这里在一个已经给定的区间测度空间上逐个定义可测函数，没有给无限维
+空间赋予测度，也没有使用无限乘积的延拓定理。
+
+\subsection{乘积期望与二阶关系}
+
+\begin{theorem}[独立变量的乘积期望]
+\label{thm:independent-product-expectation}
+设 $X_1,\ldots,X_n$ 独立，$h_i:\mathbb R\to\mathbb R$ 为 Borel 函数。
+若各 $h_i\ge0$，则
+\[
+ \mathbb E\prod_{i=1}^nh_i(X_i)=\prod_{i=1}^n\mathbb E h_i(X_i),
+\]
+其中非负扩展实数乘积采用 $0\cdot(+\infty)=0$ 的约定。
+若各 $\mathbb E|h_i(X_i)|<\infty$，则乘积可积，且
+\begin{align*}
+ \mathbb E\left|\prod_{i=1}^nh_i(X_i)\right|
+ &=\prod_{i=1}^n\mathbb E|h_i(X_i)|,\\
+ \mathbb E\prod_{i=1}^nh_i(X_i)&=\prod_{i=1}^n\mathbb E h_i(X_i).
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+由联合分布为乘积测度及按分布求期望的公式，非负情形化为
+\[
+ \int_{\mathbb R^n}\prod_{i=1}^nh_i(x_i)\,
+ d(\mu_1\times\cdots\times\mu_n)
+ =\prod_{i=1}^n\int_{\mathbb R}h_i\,d\mu_i.
+\]
+这由 Tonelli 定理逐次积分得到；也可先对各函数作非负截断，再用单调收敛
+定理。如果某个积分为零，则该因子几乎处处为零，乘积也几乎处处为零，
+这说明上述约定与积分一致。对一般实值 $h_i$，先把非负情形用于 $|h_i|$，
+便得乘积的绝对可积性；再用 Fubini 定理逐次积分，得到第二式。
+\end{proof}
+
+独立性在这里还保证了可积性：两个可积变量若不独立，其乘积可能不可积。
+例如在 $(0,1)$ 上令 $X(t)=Y(t)=t^{-1/2}$，则二者均可积而 $XY=t^{-1}$
+不可积。因此在没有独立性时，不能从 $\mathbb E|X|,\mathbb E|Y|<\infty$
+直接写下 $\mathbb E(XY)$。
+
+若 $X,Y$ 独立且有有限二阶矩，则上一定理给出
+$\operatorname{Cov}(X,Y)=0$。对有限个独立平方可积变量，展开平方并逐项
+取期望得到
+\[
+ \operatorname{Var}\left(\sum_{i=1}^nX_i\right)
+ =\sum_{i=1}^n\operatorname{Var}(X_i).
+\]
+此式只用到两两协方差为零，因而两两独立已经足够。相反，协方差为零
+远弱于独立性。
+
+\begin{example}[不相关但不独立]
+令 $X$ 在 $[-1,1]$ 上均匀分布，$Y=X^2$。对称性给出
+$\mathbb E X=\mathbb E X^3=0$，故 $\operatorname{Cov}(X,Y)=0$。
+但事件 $\{|X|\le1/2\}$ 与 $\{Y\le1/4\}$ 相同，概率为 $1/2$。
+若 $X,Y$ 独立，这个事件应与自身独立，矛盾。因此二阶矩没有记录全部
+联合分布信息。
+\end{example}
+
+\section{独立和的卷积}
+\label{sec:independent-sums-convolution}
+
+\subsection{分布卷积与密度卷积}
+
+两个独立变量的联合分布已知后，求和只需对加法映射作推前。这样的定义
+同时适用于离散、连续以及没有密度的分布。
+
+\begin{definition}
+\label{def:probability-convolution}
+设 $\mu,\nu$ 是 $\mathbb R$ 上的概率测度。令 $s(x,y)=x+y$，称
+\[
+ \mu*\nu:=s_\#(\mu\times\nu)
+\]
+为它们的\term{卷积}。具体地，对 $B\in\mathcal B(\mathbb R)$，
+\[
+ (\mu*\nu)(B)
+ =\int_{\mathbb R}\int_{\mathbb R}\mathbf 1_B(x+y)\,d\mu(x)\,d\nu(y).
+\]
+\end{definition}
+
+加法连续，所以推前测度良定义。若 $X,Y$ 独立且分布分别为 $\mu,\nu$，
+则 $X+Y$ 的分布为 $\mu*\nu$。若没有独立性，只知道边缘分布不能使用
+此公式。例如令 $X=Y$，二者各以概率 $1/2$ 取 $0,1$，则 $X+Y$ 只取
+$0,2$，各占概率 $1/2$；两个边缘分布的卷积却在 $0,1,2$ 上分别取质量
+$1/4,1/2,1/4$。
+
+\begin{proposition}
+\label{prop:convolution-density}
+若 $\mu$ 对 Lebesgue 测度有密度 $f$，则 $\mu*\nu$ 有密度
+\[
+ h(z)=\int_{\mathbb R}f(z-y)\,d\nu(y).
+\]
+这里可选取非负 Borel 版本的 $f$。若 $\nu$ 也有密度 $g$，则
+\[
+ h(z)=(f*g)(z):=\int_{\mathbb R}f(z-y)g(y)\,dy
+\]
+几乎处处成立，且 $h$ 非负、可积并有积分 $1$。
+\end{proposition}
+
+\begin{proof}
+函数 $(z,y)\mapsto f(z-y)$ 非负可测，Tonelli 定理保证 $h$ 可测。
+对任意 Borel 集 $B$，先用 Lebesgue 积分的平移换元，再用 Tonelli 定理，
+得到
+\begin{align*}
+ (\mu*\nu)(B)
+ &=\int_{\mathbb R}\int_{\mathbb R}\mathbf 1_B(x+y)f(x)\,dx\,d\nu(y)\\
+ &=\int_{\mathbb R}\int_{\mathbb R}\mathbf 1_B(z)f(z-y)\,dz\,d\nu(y)
+ =\int_Bh(z)\,dz.
+\end{align*}
+令 $B=\mathbb R$ 可得 $\int h=1$，所以积分定义的 $h$ 虽可能在零测集上
+为 $+\infty$，却几乎处处有限。若 $d\nu(y)=g(y)\,dy$，代入即得通常的
+函数卷积公式。
+\end{proof}
+
+\begin{example}[两个均匀变量的和]
+若 $X,Y$ 独立且都在 $[0,1]$ 上均匀分布，则和的密度为
+\[
+ h(z)=\int\mathbf 1_{[0,1]}(z-y)\mathbf 1_{[0,1]}(y)\,dy
+ =\begin{cases}
+ z,&0\le z\le1,\\
+ 2-z,&1<z\le2,\\
+ 0,&\text{其他情形}.
+ \end{cases}
+\]
+积分计算的是区间 $[0,1]\cap[z-1,z]$ 的长度。密度的三角形形状来自
+满足 $x+y=z$ 的可用区间随 $z$ 改变，而非来自均匀分布的封闭性。
+\end{example}
+
+\subsection{卷积的代数性质}
+
+\begin{proposition}
+\label{prop:probability-convolution-algebra}
+概率测度的卷积交换、结合，并以 $\delta_0$ 为单位元。更一般地，
+$\mu*\delta_a$ 是 $\mu$ 经 $x\mapsto x+a$ 的推前。对有限个独立变量，
+其和的分布是各分布的迭代卷积。
+\end{proposition}
+
+\begin{proof}
+交换性来自乘积积分中交换两个变量。对结合性，在有限乘积概率空间上
+构造分布分别为 $\mu,\nu,\rho$ 的独立变量 $X,Y,Z$。分块独立保证
+$X+Y$ 与 $Z$ 独立，也保证 $X$ 与 $Y+Z$ 独立。因此
+$(\mu*\nu)*\rho$ 和 $\mu*(\nu*\rho)$ 分别是 $(X+Y)+Z$ 与 $X+(Y+Z)$
+的分布；两个随机变量逐点相同，故分布相同。Dirac 测度结论直接由
+卷积定义得到。对更多独立变量，用分块独立及有限归纳即可。
+\end{proof}
+
+例如，独立的 Poisson 变量参数相加。若 $X,Y$ 的参数分别为
+$\lambda,\eta>0$，则对整数 $k\ge0$，离散卷积给出
+\[
+ \mathbb P(X+Y=k)
+ =e^{-(\lambda+\eta)}\sum_{j=0}^k\frac{\lambda^j\eta^{k-j}}{j!(k-j)!}
+ =e^{-(\lambda+\eta)}\frac{(\lambda+\eta)^k}{k!}.
+\]
+参数为零时分布为 $\delta_0$，直接使用 $\delta_0*\mu=\mu$ 即可。
+有限卷积的结构将在后续
+研究独立和的极限时反复出现；此处尚未作任何极限分布断言。
+
+\section{Borel--Cantelli 引理与零一律}
+\label{sec:borel-cantelli-zero-one}
+
+\subsection{事件发生无穷多次}
+
+对事件列 $(A_n)$，事件
+\[
+ \limsup_{n\to\infty}A_n
+ :=\bigcap_{N=1}^{\infty}\bigcup_{n\ge N}A_n
+\]
+表示 $A_n$ 发生无穷多次。它的补集表示从某一项起所有 $A_n$ 都不发生；
+这个起点可以随样本点变化。
+
+\begin{theorem}[Borel--Cantelli 第一引理]
+\label{thm:borel-cantelli-first}
+若 $\sum_{n=1}^{\infty}\mathbb P(A_n)<\infty$，则
+$\mathbb P(\limsup_nA_n)=0$。不要求事件独立。
+\end{theorem}
+
+\begin{proof}
+对任意 $N$，由可数次可加性，
+\[
+ \mathbb P(\limsup_nA_n)
+ \le\mathbb P\left(\bigcup_{n\ge N}A_n\right)
+ \le\sum_{n\ge N}\mathbb P(A_n).
+\]
+收敛级数的尾和趋于零，故左端为零。
+\end{proof}
+
+\begin{theorem}[Borel--Cantelli 第二引理]
+\label{thm:borel-cantelli-second}
+若 $(A_n)$ 相互独立且 $\sum_{n=1}^{\infty}\mathbb P(A_n)=\infty$，则
+$\mathbb P(\limsup_nA_n)=1$。
+\end{theorem}
+
+\begin{proof}
+固定 $N$。由补事件的独立性及 $1-u\le e^{-u}$（$0\le u\le1$），
+对 $M\ge N$ 有
+\[
+ \mathbb P\left(\bigcap_{n=N}^MA_n^c\right)
+ =\prod_{n=N}^M(1-\mathbb P(A_n))
+ \le\exp\left(-\sum_{n=N}^M\mathbb P(A_n)\right).
+\]
+令 $M\to\infty$，右端趋于零；左端由测度的从上连续性趋于
+$\mathbb P(\bigcap_{n\ge N}A_n^c)$。所以从第 $N$ 项起不再发生的概率为零。
+再对 $N$ 作可数并，得到只发生有限次的概率为零。
+\end{proof}
+
+发散本身不足以推出结论：若 $A_n=A$ 且 $0<\mathbb P(A)<1$，则概率级数
+发散，而 $\limsup_nA_n=A$。第二引理的独立性可削弱为两两独立，证明须
+改用二阶矩估计，见\exerciseref{independence-pairwise-borel-cantelli}。
+
+\begin{example}[阈值事件]
+设 $U_n$ 是独立的 $[0,1]$ 上均匀变量，$0\le a_n\le1$。事件
+$A_n=\{U_n\le a_n\}$ 独立且概率为 $a_n$。因此
+\[
+ \mathbb P(U_n\le a_n\text{ 无穷多次})
+ =\begin{cases}0,&\sum_na_n<\infty,\\1,&\sum_na_n=\infty.\end{cases}
+\]
+例如 $a_n=n^{-2}$ 与 $a_n=n^{-1}$ 给出不同答案。这里两个结论都有明确的
+可和性检验，不能仅由 $a_n\to0$ 决定。
+\end{example}
+
+\subsection{尾事件与 Kolmogorov 零一律}
+
+无穷多次发生不受前面有限个事件影响。为描述这种性质，设 $(X_n)$ 是
+实随机变量列，定义其\term{尾 $\sigma$-代数}
+\[
+ \mathcal T:=\bigcap_{n=1}^{\infty}\sigma(X_k:k\ge n).
+\]
+属于 $\mathcal T$ 的事件称为\term{尾事件}。定义使用的是实际生成的
+$\sigma$-代数；以后若把事件改动一个可测零集，其概率结论不变。
+
+\begin{theorem}[Kolmogorov 尾零一律]
+\label{thm:kolmogorov-tail-zero-one}
+若 $(X_n)_{n\ge1}$ 相互独立，则每个 $A\in\mathcal T$ 都满足
+$\mathbb P(A)\in\{0,1\}$。
+\end{theorem}
+
+\begin{proof}
+令 $\mathcal F_n=\sigma(X_1,\ldots,X_n)$，
+$\mathcal F_\infty=\sigma(X_k:k\ge1)$。对每个 $n$，分块独立说明
+$\mathcal F_n$ 与 $\sigma(X_k:k\ge n+1)$ 独立。固定 $A\in\mathcal T$，
+便知 $A$ 与 $\mathcal F_n$ 中每个事件独立。
+
+集合族 $\mathcal P=\bigcup_{n\ge1}\mathcal F_n$ 包含 $\Omega$，并对有限交
+封闭：两个事件都属于足够大的同一个 $\mathcal F_n$。它生成
+$\mathcal F_\infty$。另一方面，
+\[
+ \mathcal D_A=\{B\in\mathcal F_\infty:
+    \mathbb P(A\cap B)=\mathbb P(A)\mathbb P(B)\}
+\]
+是 Dynkin 系统，单位事件、补集和不交并条件分别由总质量为 $1$、减法及
+可数可加性验证。它包含 $\mathcal P$，故包含 $\mathcal F_\infty$。
+由于 $A\in\mathcal T\subseteq\mathcal F_\infty$，可取 $B=A$，得到
+$\mathbb P(A)=\mathbb P(A)^2$，结论成立。
+\end{proof}
+
+证明使用独立性两次所处的层次不同：先由分块独立隔开有限初段和无穷尾段，
+再由生成类方法把“与每个有限初段独立”扩大为“与整列生成的事件独立”。
+无限独立序列在定理中是已给对象；这一证明不需要无限乘积构造或扩张定理。
+
+\begin{example}[随机级数的收敛事件]
+对任意实变量列 $(X_n)$，下述事件是尾事件：
+\[
+ C=\left\{\sum_{n=1}^{\infty}X_n\text{ 在 }\mathbb R\text{ 中收敛}\right\}.
+\]
+事实上，对每个固定 $r\ge1$，实数级数的 Cauchy 准则把它写成
+\[
+ C=\bigcap_{m=1}^{\infty}\bigcup_{N\ge r}
+       \bigcap_{q\ge p\ge N}
+       \left\{\left|\sum_{k=p}^qX_k\right|<\frac1m\right\}.
+\]
+右边只使用 $X_k$（$k\ge r$），并且全是可数集合运算，故属于
+$\sigma(X_k:k\ge r)$。若 $X_n$ 独立，则 $\mathbb P(C)$ 为 $0$ 或 $1$。
+零一律并不判定究竟是哪一个值；确定收敛或发散仍须另作估计。
+\end{example}
+
+独立性的有限维内容由乘积测度描述，无穷维结论则在本章通过有限信息的
+生成和尾段事件的极限得到。Borel--Cantelli 第一引理依赖可和性，第二引理
+另加独立结构；尾零一律只排除中间概率，不提供概率为零或为一的选择规则。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A 组：定义与有限分布}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{independence-complements-atoms}
+设 $A_1,\ldots,A_n$ 相互独立，$p_i=\mathbb P(A_i)$。证明对每个
+$\varepsilon_i\in\{0,1\}$，事件
+$\bigcap_i A_i^{\varepsilon_i}$ 的概率为
+$\prod_i p_i^{\varepsilon_i}(1-p_i)^{1-\varepsilon_i}$，其中
+$A_i^1=A_i,A_i^0=A_i^c$，并按因子选择理解端点的零次幂。
+反之，若全部这些等式成立，证明 $A_i$ 相互独立。
+
+\exerciseitem{independence-finite-table}
+设 $X,Y$ 分别取有限个不同的值 $x_i,y_j$。记联合概率表为
+$p_{ij}=\mathbb P(X=x_i,Y=y_j)$，边缘概率为
+$p_{i\bullet}=\sum_jp_{ij}$、$p_{\bullet j}=\sum_ip_{ij}$。
+证明它们独立当且仅当 $p_{ij}=p_{i\bullet}p_{\bullet j}$。
+若四个二元取值格点的概率依次为 $a,b,c,d$，总和为 $1$，证明独立性等价于
+$ad=bc$，包括边缘概率为零的情形。
+
+\exerciseitem{independence-self-information}
+证明：若 $\sigma$-代数 $\mathcal G$ 与自身独立，则其中每个事件的概率
+为 $0$ 或 $1$。再证明实随机变量 $X$ 与自身独立，当且仅当存在实数 $c$
+使 $X=c$ 几乎必然成立。
+
+\exerciseitem{independence-pairwise-vector-counterexample}
+在例~\ref{ex:pairwise-not-mutual} 的四点空间上，令
+$X=\mathbf 1_A,Y=\mathbf 1_B,Z=\mathbf 1_C$。验证三变量两两独立，
+但 $(X,Y)$ 与 $Z$ 不独立；指出 $Z$ 如何由 $X,Y$ 决定。
+
+\exerciseitem{independence-null-modifications}
+设 $(X_i)_{i\in I}$ 和 $(Y_i)_{i\in I}$ 是同一概率空间上的实随机变量族，
+其中 $(X_i)_{i\in I}$ 相互独立，且对每个 $i$ 有 $X_i=Y_i$ 几乎必然。
+证明 $(Y_i)_{i\in I}$ 也相互独立。若 $I$ 不可数，说明证明为什么不需要
+把全部例外零集取并。
+
+\exerciseitem{independence-bounded-tests}
+证明实随机变量 $X,Y$ 独立，当且仅当对任意有界 Borel 函数 $f,g$ 都有
+\[
+ \mathbb E[f(X)g(Y)]=\mathbb E f(X)\mathbb E g(Y).
+\]
+若仅检验 $f(x)=g(x)=x$ 且二阶矩存在，结论是否仍成立？
+
+\exerciseitem{independence-rational-thresholds}
+证明分布函数独立性判别中，只需检验所有阈值 $t_i$ 都是有理数的情形。
+证明须说明如何取极限，以及概率的哪一种连续性适用。
+\end{enumerate}
+
+\subsection*{B 组：乘积、卷积与事件列}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{independence-joint-density-factorization}
+设 $(X,Y)$ 有联合密度 $h$，边缘密度为 $f,g$。证明 $X,Y$ 独立当且仅当
+$h(x,y)=f(x)g(y)$ 对 Lebesgue 几乎处处 $(x,y)$ 成立。
+
+\exerciseitem{independence-nonlinear-blocks}
+设 $X_1,\ldots,X_6$ 独立。证明
+$X_1+X_2$、$\max(X_3,X_4)$、$X_5X_6$ 相互独立。
+说明仅知六变量两两独立时，分块结论为何不再得到保证。
+
+\exerciseitem{independence-integrable-product-boundary}
+构造两个均可积而乘积不可积的随机变量。再设 $X,Y$ 独立且
+$\mathbb E|X|=\infty$、$0<\mathbb E|Y|<\infty$，证明 $XY$ 不可积。
+若允许 $Y=0$ 几乎必然，后一结论应如何修改？
+
+\exerciseitem{independence-exponential-convolution}
+设 $X,Y$ 独立且都具有密度 $f(x)=\lambda e^{-\lambda x}\mathbf 1_{(0,\infty)}(x)$，
+其中 $\lambda>0$。求 $X+Y$ 的密度，并以积分验证归一化。
+再求 $X-Y$ 的密度。
+
+\exerciseitem{independence-normal-convolution}
+设 $X,Y$ 独立，分别具有正态分布 $N(a,\sigma^2)$、$N(b,\tau^2)$，其中
+$\sigma,\tau>0$。用卷积并配方证明 $X+Y$ 具有
+$N(a+b,\sigma^2+\tau^2)$ 分布，不使用特征函数。
+
+\exerciseitem{independence-minimum-maximum}
+设 $X_1,\ldots,X_n$ 独立，有同一个分布函数 $F$。求最大值和最小值的分布
+函数，允许 $F$ 有跳跃。若共同分布为参数 $\lambda>0$ 的指数分布，求
+最小值的分布。
+
+\exerciseitem{independence-borel-cantelli-failure}
+构造事件列，使概率级数发散而事件只发生有限次几乎必然。
+另构造事件列，使概率级数发散而无穷多次发生的概率严格介于 $0$ 和 $1$
+之间。说明这两个例子各否定哪种无独立性推广。
+
+\exerciseitem{independence-counting-integrability}
+对任意事件列令 $N=\sum_{n\ge1}\mathbf 1_{A_n}$，允许 $N=+\infty$。
+证明 $\mathbb E N=\sum_n\mathbb P(A_n)$，并由此再证 Borel--Cantelli 第一
+引理。构造 $N<\infty$ 几乎必然但 $\mathbb E N=\infty$ 的此类例子。
+
+\exerciseitem{independence-pairwise-borel-cantelli}
+设 $(A_n)$ 两两独立且 $\sum_n\mathbb P(A_n)=\infty$。
+对固定 $N$ 考察 $S_{N,M}=\sum_{n=N}^M\mathbf 1_{A_n}$，证明
+$\operatorname{Var}(S_{N,M})\le\mathbb E S_{N,M}$，再用 Chebyshev 不等式
+证明 $\mathbb P(\limsup_nA_n)=1$。
+\end{enumerate}
+
+\subsection*{C 组：无限独立性与尾事件}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{independence-tail-random-variable}
+设 $X_n$ 独立，$\mathcal T$ 是其尾 $\sigma$-代数。证明每个实值的
+$\mathcal T$-可测随机变量都几乎必然为常数。说明要求实值而非任意扩展实值
+时，常数为什么必为有限实数。
+
+\exerciseitem{independence-tail-series-events}
+设 $X_n$ 独立。分别证明以下事件的概率为 $0$ 或 $1$：
+\[
+ \left\{\sum_n|X_n|<\infty\right\},\qquad
+ \{X_n\to0\},\qquad
+ \left\{\sup_{n\ge1}\left|\sum_{k=1}^nX_k\right|<\infty\right\}.
+\]
+最后一个事件要说明删除任意有限初段不改变部分和是否有界。
+
+\optionalexerciseitem{independence-binary-split-uniforms}
+使用例~\ref{ex:independent-binary-digits} 的独立二进制位，令
+$U=\sum_{j\ge1}2^{-j}D_{2j-1}$、$V=\sum_{j\ge1}2^{-j}D_{2j}$。
+证明 $U,V$ 独立且都在 $[0,1]$ 上均匀分布。须处理二进制展开的端点
+歧义，不能只凭“数字均匀”断言分布。
+
+\optionalexerciseitem{independence-infinite-patterns}
+设 $(D_n)$ 是独立公平二进制位。固定任意有限 $0$--$1$ 字
+$w=(w_1,\ldots,w_r)$，证明它几乎必然在序列中出现无穷多次。
+进一步证明几乎必然每个有限二进制字都出现无穷多次。
+提示：先选取不重叠的长度为 $r$ 的区块。
+
+\exerciseitem{independence-tail-zero-one-limitations}
+在例~\ref{ex:independent-binary-digits} 的 $[0,1)$ 独立公平二进制位空间中，证明
+$A=\{D_1=1\}$ 不是尾事件。再给出一个尾事件，其概率为 $1$ 但它并非
+整个样本空间；以及一个概率为 $0$ 的非空尾事件。
+\end{enumerate}

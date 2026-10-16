@@ -203,6 +203,36 @@
 | 测地线、Jacobi场 | geodesic, Jacobi field | 测地线满足 \(\nabla_{\dot\gamma}\dot\gamma=0\)；Jacobi场来自测地线变分并满足相应二阶方程 |
 | 测地完备 | geodesic completeness | 无边界流形上每条极大测地线定义在整个实轴；不凭局部指数映射直接断言它与距离完备等价 |
 
+## 第二十三编
+
+| 术语 | 英文 | 约定 |
+|---|---|---|
+| Radon测度、正则测度 | Radon measure, regular measure | 前者按本书的紧内正则约定；后者另要求全部Borel集外正则。一般局部紧空间两者有别 |
+| Riesz--Markov表示定理 | Riesz--Markov representation theorem | 正泛函由Radon测度表示；不同于Hilbert空间用内积表示泛函的Riesz定理 |
+| 一致紧的测度族 | uniformly tight family of measures | 同一紧集同时控制全族尾质量；区别于尚未指定拓扑下的紧致性 |
+| 模糊收敛、窄收敛 | vague convergence, narrow convergence | 分别检验紧支撑连续、有界连续函数；概率论常把窄收敛称为弱收敛 |
+| 分位函数 | quantile function | 分布函数的广义逆，右连续分布对应所选左连续分位函数；端点0、1不进入本章定义域 |
+| 奇异连续测度 | singular continuous measure | 相对于Lebesgue测度奇异且无原子的测度；连续分布函数不保证绝对连续 |
+| 推前测度 | pushforward measure | 由可测集的原像定义；一般连续映射不保持局部有限性 |
+| Haar测度、幺模群 | Haar measure, unimodular group | 非零平移不变Radon测度；幺模表示左Haar测度同时右不变，不表示群交换 |
+| 模函数 | modular function | 采用集合右移公式登记的约定；不同文献可能使用其倒数 |
+| 保测、遍历、回归 | measure-preserving, ergodic, recurrent | 三者不同；保测不要求可逆，遍历指模零不变集仅有零或全测度，回归本身不保证遍历 |
+| 余边界函数 | coboundary | 形如 \(g-g\circ T\) 的差分函数；不与拓扑边界或奇异上同调的边界算子混同 |
+| 平均遍历、逐点遍历 | mean ergodic, pointwise ergodic | 本编分别证明Hilbert等距版本和有限测度Birkhoff版本；后者不预用条件期望 |
+
+## 第二十四编已写部分
+
+| 术语 | 英文 | 约定 |
+|---|---|---|
+| 几乎必然、几乎肯定 | almost surely | 本书并用，指性质成立的事件概率为一；不表示逐点必然 |
+| 分布、联合分布、边缘分布 | law, joint law, marginal law | 均是相应取值空间上的推前测度；边缘分布不能决定联合分布 |
+| 相互独立、两两独立 | mutual independence, pairwise independence | 未加限定的独立族指相互独立；两两独立不推出相互独立 |
+| 尾事件 | tail event | 属于尾σ代数的事件；不受任何有限段观测影响。Kolmogorov零一律要求相应变量族独立 |
+| 概率测度卷积 | convolution of probability measures | 独立和的分布；不要求两个分布有密度 |
+| 依概率收敛、依分布收敛 | convergence in probability, convergence in distribution | 后者允许样本空间不同；常数分布极限可推出对该常数的依概率收敛，随机极限一般不行 |
+| 连续映射定理 | continuous mapping theorem | 第110章允许Borel映射在极限分布零测集上不连续；不得仅检查各有限阶段分布的不连续点质量 |
+| Slutsky定理 | Slutsky theorem | 一个分布极限与一个依概率趋于常数的变量组成联合极限，不要求独立；不能随意把常数换成随机变量 |
+
 ## 风格约定
 
 - “真值域”不作为 `range` 的译名；需要强调像时写“像集”。

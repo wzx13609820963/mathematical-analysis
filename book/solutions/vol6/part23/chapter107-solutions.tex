@@ -1,0 +1,368 @@
+\chapter{遍历定理}
+
+\begin{solution}{ergodic-preservation-integrals}
+若 $T$ 保测，对指示函数有
+\[
+ \int_X\mathbf1_E\circ T\,d\mu
+ =\mu(T^{-1}E)=\mu(E)=\int_X\mathbf1_E\,d\mu.
+\]
+有限线性组合给非负简单函数的积分等式。给定非负可测 $f$，取
+$0\le s_j\uparrow f$ 的简单逼近，则 $s_j\circ T\uparrow f\circ T$；
+两次使用单调收敛定理即得积分相等，包括积分为 $+\infty$ 的情形。
+反向仅取 $f=\mathbf1_E$，便恢复保测定义。
+
+对每个 $a\ge0$，有
+\[
+ \mu\{|Uf|>a\}
+ =\mu(T^{-1}\{|f|>a\})=\mu\{|f|>a\}.
+\]
+因此集合 $\{a\ge0:\mu(|Uf|>a)=0\}$ 与
+$\{a\ge0:\mu(|f|>a)=0\}$ 完全相同。对它们取下确界，得到
+$\|Uf\|_\infty=\|f\|_\infty$。这个论证同时处理本质上确界为零或
+$+\infty$ 的情况，并说明为什么无需假定 $T$ 满射。
+\end{solution}
+
+\begin{solution}{ergodic-measure-algebra-complete}
+设 $([E_n])$ 为 Cauchy 列。可递归选出严格递增的 $n_j$，使
+\[
+ \mu(E_{n_{j+1}}\triangle E_{n_j})<2^{-j},\qquad j\ge1.
+\]
+令 $B_j=E_{n_{j+1}}\triangle E_{n_j}$，并令
+$E=\liminf_jE_{n_j}\in\mathcal A$。若 $x\notin\bigcup_{k\ge j}B_k$，
+则从第 $j$ 项开始，指示函数 $\mathbf1_{E_{n_k}}(x)$ 不再改变，因此
+$\mathbf1_E(x)=\mathbf1_{E_{n_j}}(x)$。所以
+\[
+ E_{n_j}\triangle E\subseteq\bigcup_{k\ge j}B_k,
+ \qquad
+ d_\mu([E_{n_j}],[E])\le\sum_{k\ge j}2^{-k}\longrightarrow0.
+\]
+给定 $\varepsilon>0$，由原序列的 Cauchy 性取 $N$ 使
+$d_\mu([E_n],[E_m])<\varepsilon/2$ 对 $n,m\ge N$ 成立，再选
+$n_j\ge N$ 且 $d_\mu([E_{n_j}],[E])<\varepsilon/2$。三角不等式给
+$d_\mu([E_n],[E])<\varepsilon$ 对所有 $n\ge N$ 成立，故原序列也收敛。
+所有集合均由可数并交构造，未使用测度完备性的假设。
+\end{solution}
+
+\begin{solution}{ergodic-finite-permutation}
+在有限均匀测度下，唯一零测集是空集，模零不变就是严格不变。
+若 $T^{-1}E=E$，则 $x\in E$ 当且仅当 $Tx\in E$，所以包含一个点就
+包含其全部循环。反之，各循环的并显然不变。
+
+设 $C=\{x,Tx,\ldots,T^{r-1}x\}$ 是包含 $x$ 的循环，长度为 $r$。
+写 $n=ar+b$，$0\le b<r$，则
+\[
+ A_nf(x)=\frac{ar}{n}\left(\frac1r\sum_{y\in C}f(y)\right)
+       +\frac1n\sum_{k=0}^{b-1}f(T^kx).
+\]
+第二项的模不超过 $r\max_{y\in C}|f(y)|/n$，第一项的系数趋于一，因此
+\[
+ f^*(x)=\frac1r\sum_{y\in C}f(y).
+\]
+对给定 $f$，此极限在全部空间等于全空间平均，当且仅当各循环上的平均
+彼此相同。若要求对所有函数 $f$ 都成立，则必须且只需 $T$ 只有一个循环：
+有两个循环时，取其中一个循环的指示函数便否定结论。
+\end{solution}
+
+\begin{solution}{ergodic-invariant-restriction}
+$\mu_E$ 显然是总测度为一的测度。因 $E=T^{-1}E$ 模零，
+\[
+ \mu_E(T^{-1}B)
+ =\frac{\mu(T^{-1}B\cap E)}{\mu(E)}
+ =\frac{\mu(T^{-1}(B\cap E))}{\mu(E)}
+ =\frac{\mu(B\cap E)}{\mu(E)}=\mu_E(B).
+\]
+中间等式仅忽略一个零测对称差，足以证明 $T$ 保持该测度。
+
+模零不变不保证每个 $x\in E$ 都被送回 $E$。例如在 $[0,1]$ 的 Lebesgue
+空间中，让 $T$ 除 $T(0)=1/2$ 外都为恒等映射。它仍保测，而
+$E=[0,1/2)$ 模零不变，但 $0\in E$、$T(0)\notin E$。
+
+取正文构造的严格不变代表
+$F=\limsup_{k\to\infty}T^{-k}E$。有 $\mu(F\triangle E)=0$ 且
+$T^{-1}F=F$，因此 $T$ 可限制为 $F\to F$。在 $F$ 上使用迹
+$\sigma$-代数及归一化限制测度，就得到严格意义的限制系统；其积分结果
+与使用 $\mu_E$ 完全一致。
+\end{solution}
+
+\begin{solution}{ergodic-rational-rotation-average}
+$T^q=I$。互素性保证每条轨道的长度恰为 $q$：若 $T^rx=x$，则
+$rp/q\in\Z$，故 $q$ 整除 $r$。对 $n=aq+b$，$0\le b<q$，
+\[
+ A_nf(x)=\frac{aq}{n}\left(\frac1q\sum_{j=0}^{q-1}f(T^jx)\right)
+          +\frac1n\sum_{j=0}^{b-1}f(T^jx).
+\]
+对固定 $x$，所涉及的函数值只有有限多个且均有限，故余项趋零，得到处处
+极限
+$f^*(x)=q^{-1}\sum_{j=0}^{q-1}f(x+2\pi pj/q)$。
+这里不需要可积性；可积性只在比较积分时出现。
+
+令 $E=\{x:\cos(qx)>0\}$。由于
+$\cos(q(x+2\pi p/q))=\cos(qx)$，它严格不变且为 Borel 集。
+在 $[0,2\pi)$ 上，$\cos(qx)$ 的每个完整周期中恰有一半长度为正，
+所以 $m(E)=1/2$。这也涵盖 $q=1$ 的恒等转动情形。
+\end{solution}
+
+\begin{solution}{ergodic-recurrence-intersections}
+Poincar\'e 回归定理给出：对几乎所有 $x\in E$，
+\[
+ \sum_{n=1}^\infty\mathbf1_E(T^nx)=+\infty.
+\]
+因为 $\mu(E)>0$，这个非负函数在 $E$ 上的积分为 $+\infty$。
+非负部分和的单调收敛定理给
+\[
+ \sum_{n=1}^\infty\mu(E\cap T^{-n}E)
+ =\int_E\sum_{n=1}^\infty\mathbf1_E(T^nx)\,d\mu=+\infty.
+\]
+每一项不超过 $\mu(E)\le1$；若只有有限多个正项，级数必有限，矛盾。
+因此有无穷多个正整数 $n$ 给正测度的交集。这个结论不要求遍历性。
+\end{solution}
+
+\begin{solution}{ergodic-shift-no-uniform-rate}
+$V$ 是线性等距算子。若 $Vx=x$，比较第零坐标得 $x_0=0$，再逐坐标
+递推得全部坐标为零。因此其不动子空间为 $\{0\}$，平均遍历定理给
+$M_nx\to0$ 对每个 $x\in\ell^2(\N)$ 成立。
+而
+\[
+ M_ne_0=\frac1n(e_0+\cdots+e_{n-1}),\qquad
+ \|M_ne_0\|=n^{-1/2}.
+\]
+
+一般上界是 $\|M_n\|\le1$。固定 $n$，对整数 $m\ge n$ 取单位向量
+\[
+ z_m=\frac1{\sqrt m}\sum_{j=0}^{m-1}e_j.
+\]
+在坐标 $n-1\le j\le m-1$，每个 $V^kz_m$，$0\le k<n$，的第 $j$
+坐标都为 $m^{-1/2}$。故
+\[
+ \|M_nz_m\|^2\ge\frac{m-n+1}{m}.
+\]
+令 $m\to\infty$，得到 $\|M_n\|\ge1$，于是等号成立。
+所以逐个向量的范数收敛不意味着在单位球上一致收敛，也不提供只依赖
+$\|x\|$ 的统一趋零速度。
+\end{solution}
+
+\begin{solution}{ergodic-rotation-uniform-continuous}
+若 $k=0$，平均恒为一。若 $k\ne0$，无理性保证 $e^{ik\alpha}\ne1$，
+有限等比求和给
+\[
+ A_ne^{ikx}
+ =e^{ikx}\frac{1-e^{ink\alpha}}{n(1-e^{ik\alpha})},
+ \qquad
+ \|A_ne^{ikx}\|_\infty
+ \le\frac2{n|1-e^{ik\alpha}|}.
+\]
+因此对三角多项式 $P(x)=\sum_{|k|\le r}c_ke^{ikx}$，
+\[
+ \left\|A_nP-\int P\,dm\right\|_\infty
+ \le\frac2n\sum_{0<|k|\le r}\frac{|c_k|}{|1-e^{ik\alpha}|}
+ \longrightarrow0.
+\]
+给定连续 $f$ 与 $\varepsilon>0$，利用三角多项式的一致稠密性取 $P$
+使 $\|f-P\|_\infty<\varepsilon$。由于 $A_n$ 关于上确界范数为收缩，
+且 $m(\mathbb T)=1$，
+\[
+ \left\|A_nf-\int f\,dm\right\|_\infty
+ \le2\varepsilon+
+       \left\|A_nP-\int P\,dm\right\|_\infty.
+\]
+先令 $n\to\infty$，再令 $\varepsilon\downarrow0$，得到一致收敛。
+这里对每个连续函数都在每个点成立，无需删除例外点；一般 $L^1$ 函数的
+代表元可以在零测集上改变，所以不能由此推广为全部可积函数的处处结论。
+\end{solution}
+
+\begin{solution}{ergodic-maximal-sharp-constant}
+在任意总测度为一的保测系统中取 $f=1$，则
+$\mathcal M_Tf=1$、$\|f\|_1=1$。若常数可替换为 $0\le C<1$，
+选 $C<\lambda<1$，就应有
+\[
+ 1=\mu\{\mathcal M_Tf>\lambda\}\le\frac C\lambda<1,
+\]
+矛盾。因此统一常数不能小于一。负常数显然也不可能成为这种估计的常数。
+\end{solution}
+
+\begin{solution}{ergodic-orbit-endpoint-decay}
+对任意有限 $t\ge0$，满足 $\varepsilon n<t$ 的正整数个数不超过
+$t/\varepsilon$。因而非负级数与积分交换给
+\[
+ \sum_{n=1}^\infty\mu\{|g|>\varepsilon n\}
+ =\int_X\sum_{n=1}^\infty\mathbf1_{\{|g|>\varepsilon n\}}\,d\mu
+ \le\frac{\|g\|_1}{\varepsilon}<\infty.
+\]
+令 $B_n=\{x:|g(T^nx)|>\varepsilon n\}$。保测性给
+$\mu(B_n)=\mu\{|g|>\varepsilon n\}$，所以
+\[
+ \mu(\limsup_nB_n)
+ \le\inf_{N\ge1}\sum_{n\ge N}\mu(B_n)=0.
+\]
+因此几乎处处有 $|g(T^nx)|/n\le\varepsilon$ 对所有充分大的 $n$ 成立。
+取 $\varepsilon=1/j$，$j\in\Npos$，并合并可数个零测例外，便得
+$g(T^nx)/n\to0$ 几乎处处。证明只用可数次可加性和保测性，完全没有
+使用独立性。
+\end{solution}
+
+\begin{solution}{ergodic-integrable-coboundary}
+选择有限可测代表并排除必要的可数个零测原像后，望远镜求和给
+\[
+ A_n(g-g\circ T)(x)=\frac{g(x)-g(T^nx)}n.
+\]
+第一项因 $g(x)$ 有限而趋零，第二项由
+\exerciseref{ergodic-orbit-endpoint-decay}趋零，所以得到几乎处处收敛。
+另一方面，$U$ 在 $L^1$ 中等距，故
+\[
+ \|A_n(g-g\circ T)\|_1\le\frac{2\|g\|_1}{n}\longrightarrow0.
+\]
+一般 $L^1$ 范数收敛只能直接保证存在几乎处处收敛的子列，不能保证整列
+逐点收敛。因此逐点结论需要上一题的尾部可求和估计，或另行引用已经证明的
+逐点遍历定理；仅写范数估计并不足够。
+\end{solution}
+
+\begin{solution}{ergodic-limit-projection}
+由于 $A_n$ 线性且 $A_nf\to P_Tf$ 于 $L^1$，取极限得 $P_T$ 线性。
+收缩估计直接取极限给 $\|P_Tf\|_1\le\|f\|_1$。若 $f\ge0$，
+每个 $A_nf\ge0$，逐点极限遂给 $P_Tf\ge0$ 几乎处处，因此它是正算子。
+
+逐点遍历定理说明 $P_Tf$ 不变；反之，对每个不变 $g\in L^1$，
+$A_ng=g$，所以 $P_Tg=g$。故值域恰为不变函数空间，且
+$P_T^2=P_T$。积分连续性给
+$\int P_Tf\,d\mu=\lim_n\int A_nf\,d\mu=\int f\,d\mu$。
+
+若 $a$ 有界且 $\mathcal I_T$-可测，则 $a\circ T^k=a$ 几乎处处，对
+所有 $k\in\N$ 成立。将这些等式的例外集合并，便有
+\[
+ A_n(af)=aA_nf\qquad\text{几乎处处，对所有 }n.
+\]
+由于乘以 $a$ 是 $L^1$ 上范数不超过 $\|a\|_\infty$ 的有界算子，取
+$L^1$ 极限得 $P_T(af)=aP_Tf$。这是保留不变部分信息的乘法性质。
+\end{solution}
+
+\begin{solution}{ergodic-doubling-adjoint}
+若 $g$ 在零测集 $N$ 上改变，则 $g(y/2)$ 与 $g(y/2+\pi)$ 分别只在
+$2(N\cap[0,\pi))$ 和 $2(N\cap[\pi,2\pi))-2\pi$ 上改变，这两个集合
+仍为零测集。因此 $L$ 与代表元无关。由标量平方凸性及换元，
+\[
+ \|Lg\|_2^2
+ \le\frac1{2\pi}\int_0^{2\pi}
+      \frac{|g(y/2)|^2+|g(y/2+\pi)|^2}{2}\,dy
+ =\|g\|_2^2,
+\]
+所以 $L$ 在 $L^2$ 上有界。
+
+在内积 $\langle f,g\rangle=\int f\overline g\,dm$ 下，将积分分成两个
+半圆并分别令 $y=2x$、$y=2x-2\pi$，得到
+\[
+ \langle Uf,g\rangle
+ =\frac1{2\pi}\int_0^{2\pi}f(y)
+       \frac{\overline{g(y/2)}+\overline{g(y/2+\pi)}}2\,dy
+ =\langle f,Lg\rangle.
+\]
+所以 $L$ 是由该内积等式定义的 Hilbert 伴随算子。直接代入可得
+\[
+ LUf=f,\qquad
+ ULg(x)=\frac{g(x)+g(x+\pi)}2,
+\]
+其中圆周上的加法按 $2\pi$ 取模。
+
+令 $W=\{h:h(x+\pi)=h(x)\text{ 几乎处处}\}$。平移为有界算子，故 $W$
+是闭子空间。上式说明 $ULg\in W$，且对 $h\in W$ 有 $ULh=h$。
+再对任意 $h\in W$ 使用平移换元，
+\[
+ \langle g-ULg,h\rangle
+ =\frac12\int_{\mathbb T}(g(x)-g(x+\pi))\overline{h(x)}\,dm(x)=0.
+\]
+因此 $UL$ 恰为到 $W$ 的正交投影。$LU=I$ 与 $UL\ne I$ 同时成立，
+具体展示了等距但不满射的情形。
+\end{solution}
+
+\begin{solution}{ergodic-no-common-null-set}
+圆周转动可逆，故对每个 $x$，
+$O_x=\{T^kx:k\in\Z\}$ 是至多可数个单点集的并，因而为 Borel 集且
+$m(O_x)=0$。指标平移 $k\mapsto k+1$ 给 $T^{-1}O_x=O_x$，所以它严格
+不变。对每个 $n\ge1$，轨道的前 $n$ 项全部在 $O_x$，因此
+\[
+ A_n\mathbf1_{O_x}(x)=1\ne m(O_x)=0.
+\]
+假如存在满测度集合 $G$，使访问频率公式对每个 $x\in G$ 和每个可测集
+$E$ 同时成立，任选 $x\in G$ 再取 $E=O_x$ 就得到矛盾。
+逐点遍历定理的正确量词顺序是：先固定 $E$，再选择可依赖于 $E$ 的
+零测例外集。本题的 $E$ 随所选点改变，所以不与定理冲突。
+\end{solution}
+
+\begin{solution}{ergodic-disjoint-components}
+对可测 $E\subseteq X$，记 $E_j=\{x:(j,x)\in E\}$。保测性逐圆周成立，
+乘以正权重后相加便说明 $T$ 保持 $\mu$。并且
+\[
+ \mu(T^{-1}E\triangle E)
+ =p\,m(R_{\alpha_0}^{-1}E_0\triangle E_0)
+  +(1-p)m(R_{\alpha_1}^{-1}E_1\triangle E_1).
+\]
+两项非负且权重严格为正，故左侧为零当且仅当各截面模零不变。
+每个无理转动遍历，所以每个 $E_j$ 为零测或满测。因此模零不变集只有
+空集、第一条圆周、第二条圆周和全空间这四类。
+
+若 $f\in L^1(X)$，记 $f_j(x)=f(j,x)$。正权重保证 $f_j\in L^1(m)$。
+分别应用两条圆周上的逐点遍历定理并合并两个零测例外，得到
+\[
+ f^*(j,x)=c_j:=\int_{\mathbb T}f_j\,dm
+ \qquad\text{几乎处处}.
+\]
+全空间积分则为 $pc_0+(1-p)c_1$。除非 $c_0=c_1$，时间平均不会在
+两条圆周上都等于这个全空间平均；它保留了轨道所在的不变部分。
+\end{solution}
+
+\begin{solution}{ergodic-powers-distinction}
+若 $E\in\mathcal I_T$，反复取原像且使用保测性可知
+$T^{-r}E=E$ 模零。因此 $E\in\mathcal I_{T^r}$。
+若 $T^r$ 遍历，就有 $\mu(E)=0$ 或 $1$，所以 $T$ 遍历。
+
+反向不成立。在两个点 $\{0,1\}$ 上取均匀测度，让 $T$ 交换两点。
+它是一个循环，因而遍历；但 $T^2$ 为恒等映射，单点集是不变且测度为
+$1/2$ 的集合，所以 $T^2$ 不遍历。每个点仍在全部正偶数时刻返回自身，
+而在 $T^2$ 系统中每一步都返回。回归只要求反复返回，不要求不变集合
+只有零测与满测两种，因此不存在矛盾。
+\end{solution}
+
+\begin{solution}{ergodic-product-counterexample}
+两个因子 $R_\alpha$ 都由无理性而遍历。对任意非负可测
+$h:\mathbb T^2\to[0,+\infty]$，Tonelli 定理与圆周平移不变性给
+\[
+ \int_{\mathbb T}\int_{\mathbb T}
+ h(x+\alpha,y+\alpha)\,dm(x)\,dm(y)
+ =\int_{\mathbb T}\int_{\mathbb T}h(x,y)\,dm(x)\,dm(y).
+\]
+取指示函数可知 $S$ 保持乘积测度。
+令
+$E=\{(x,y):\cos(x-y)>0\}$。差 $x-y$ 在同时转动下不变，所以 $E$
+严格不变；$E$ 还是开集，从而可测。固定 $y$ 时，满足条件的 $x$ 构成
+长度为 $\pi$ 的半圆，归一化测度为 $1/2$。由 Fubini 或 Tonelli，
+$(m\times m)(E)=1/2$，故 $S$ 不遍历。
+\end{solution}
+
+\begin{solution}{ergodic-maximal-strong-lp}
+记 $h=|f|$，$M_N=\max_{1\le n\le N}A_nh$。首先
+\[
+ 0\le M_N\le\sum_{k=0}^{N-1}h\circ T^k,
+ \qquad\|M_N\|_p\le N\|h\|_p<\infty.
+\]
+因此下面的范数除法在非零情形确实合法。对
+$E_{N,\lambda}=\{M_N>\lambda\}$，有限时局部极大估计给
+\[
+ \lambda\mu(E_{N,\lambda})\le\int_{E_{N,\lambda}}h\,d\mu.
+\]
+使用层蛋糕公式及非负积分的 Tonelli 定理，
+\begin{align*}
+ \|M_N\|_p^p
+ &=p\int_0^\infty\lambda^{p-1}\mu(M_N>\lambda)\,d\lambda\\
+ &\le p\int_0^\infty\lambda^{p-2}
+               \int_{\{M_N>\lambda\}}h\,d\mu\,d\lambda\\
+ &=p\int_Xh(x)\left(\int_0^{M_N(x)}\lambda^{p-2}\,d\lambda\right)d\mu(x)\\
+ &=\frac p{p-1}\int_XhM_N^{p-1}\,d\mu\\
+ &\le\frac p{p-1}\|h\|_p\|M_N\|_p^{p-1}.
+\end{align*}
+最后一行是指数 $p$ 与 $p/(p-1)$ 的 Hölder 不等式。
+若 $\|M_N\|_p=0$，所求估计已经成立；否则约去有限正数
+$\|M_N\|_p^{p-1}$，得
+$\|M_N\|_p\le p\|f\|_p/(p-1)$，与 $N$ 无关。
+因为 $M_N\uparrow\mathcal M_Tf$，对 $M_N^p$ 使用单调收敛定理，
+即可得到题设结论。条件 $p>1$ 正是使零端积分
+$\int_0^a\lambda^{p-2}\,d\lambda$ 有限的条件。
+\end{solution}

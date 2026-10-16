@@ -1,0 +1,666 @@
+\chapter{遍历定理}
+\label{chap:ergodic-theorems}
+
+在圆周上反复转动一个固定角度，沿所得轨道记录函数值，再取前 $n$ 次记录的
+算术平均，这是一个随时间增长的平均过程。测度给出的积分则是在整个空间上
+取平均。两种平均是否相等，首先取决于轨道能否停留在某个具有中间测度的
+不变部分；即使没有这种分割，还须证明时间平均确实收敛。
+
+本章以有限不变测度为背景。除明确另作说明外，固定测度空间
+$(X,\mathcal A,\mu)$ 且 $\mu(X)=1$；这里仅使用总质量为一这一条件，
+不预设概率论中的独立性或条件期望。任意 $0<\mu(X)<\infty$ 的情形可用
+$\mu/\mu(X)$ 归一化。所需前置是 Lebesgue 积分的收敛定理、$L^p$ 逼近
+与 Hilbert 空间的正交投影。所有函数按几乎处处相等识别；涉及轨道取值时，
+另选取有限可测代表。
+上一章紧群上的归一化 Haar 测度及其平移提供一类例子；本章本身
+不要求空间具有拓扑，也不要求变换可逆。
+
+\section{测度代数和不变集合}
+\label{sec:measure-algebra-invariants}
+
+对运动系统来说，保测应当表达“某个可测区域在一步之前所对应的初始状态，
+与该区域具有相同质量”。因此定义使用原像，不需要先假定运动可逆。
+
+\begin{definition}\label{def:measure-preserving-transformation}
+可测映射 $T:X\to X$ 称为\term{保测变换}，如果
+\[
+ \mu(T^{-1}E)=\mu(E)\qquad(E\in\mathcal A).
+\]
+四元组 $(X,\mathcal A,\mu,T)$ 称为保测系统。记 $T^0$ 为恒等映射，
+$T^k$ 为 $k\in\Npos$ 次复合；$T^{-k}E$ 始终表示 $(T^k)^{-1}(E)$。
+\end{definition}
+
+用推前测度的语言，保测等价于 $T_\#\mu=\mu$。它也有积分形式：对非负
+可测函数 $f$，以及对可积的实值或复值函数 $f$，都有
+\begin{equation}\label{eq:ergodic-integral-invariance}
+ \int_X f\circ T\,d\mu=\int_Xf\,d\mu.
+\end{equation}
+证明从 $f=\mathbf1_E$ 开始，对简单函数用线性性，对非负函数用单调简单
+逼近，最后分解正负部和实虚部。反过来，仅在指示函数上成立的积分等式便
+给出保测性。因此它不依赖 $T$ 的单射性，也没有用到变量代换中的 Jacobian。
+
+\begin{example}\label{ex:ergodic-doubling-preservation}
+在 $\mathbb T=\R/(2\pi\Z)$ 上取归一化 Lebesgue 测度
+$dm(x)=dx/(2\pi)$。转动 $R_\alpha x=x+\alpha$ 保测。倍角映射
+$D x=2x\pmod{2\pi}$ 也保测，但它不是单射。事实上，取区间
+$[0,2\pi)$ 作代表，对任意非负可测 $f$ 分成两个半圆换元得
+\[
+ \frac1{2\pi}\int_0^{2\pi}f(Dx)\,dx
+ =\frac1{2\pi}\left(\int_0^\pi f(2x)\,dx
+       +\int_\pi^{2\pi}f(2x-2\pi)\,dx\right)
+ =\frac1{2\pi}\int_0^{2\pi}f(y)\,dy.
+\]
+这些映射也保持 Lebesgue 完备化：Borel 零集的原像仍为零集，零集子集的
+原像因而仍可测且为零测。
+\end{example}
+
+在积分问题中，一个集合加上零测集后不应被视为新的不变部分。定义
+\[
+ E\sim F\quad\Longleftrightarrow\quad\mu(E\mathbin\triangle F)=0,
+ \qquad E,F\in\mathcal A,
+\]
+其中 $\triangle$ 表示对称差。其等价类组成\term{测度代数}
+$\mathfrak A_\mu=\mathcal A/{\sim}$。补、并、交均在代表元上运算。
+例如
+\[
+ \left(\bigcup_jE_j\right)\mathbin\triangle
+ \left(\bigcup_jF_j\right)
+ \subseteq\bigcup_j(E_j\mathbin\triangle F_j)
+\]
+保证可数并与代表元无关。函数 $[E]\mapsto\mu(E)$ 和距离
+\[
+ d_\mu([E],[F])=\mu(E\mathbin\triangle F)
+\]
+也良定义；三角不等式来自对称差的包含关系。取商使零距离对应同一个元素。
+保测变换在此代数上诱导等距映射
+$[E]\mapsto[T^{-1}E]$，它保持补集和可数并；一般不必满射。
+
+\begin{definition}\label{def:ergodic-invariant-sigma-algebra}
+若 $E\in\mathcal A$ 满足 $\mu(T^{-1}E\mathbin\triangle E)=0$，称 $E$
+为模零不变集。它们组成的集合族记为
+\[
+ \mathcal I_T=\{E\in\mathcal A:T^{-1}E=E\ \text{模零}\},
+\]
+称为 $T$ 的\term{不变 $\sigma$-代数}。
+\end{definition}
+
+这里确实得到 $\sigma$-代数：原像保持补集和可数并，而上面的对称差估计
+把可数个零测误差合成零测误差。它包含每个可测零集，但这不意味着原空间
+已经完备。若 $E\in\mathcal I_T$，归纳给
+$T^{-k}E=E$ 模零，对所有 $k\in\N$ 成立。
+
+模零不变还可以选成严格不变。令
+\[
+ F=\limsup_{k\to\infty}T^{-k}E
+   =\bigcap_{r=0}^\infty\bigcup_{k\ge r}T^{-k}E.
+\]
+删去 $\bigcup_{k\ge0}(T^{-k}E\mathbin\triangle E)$ 后，各项指示函数都
+等于 $\mathbf1_E$，故 $F=E$ 模零；而去掉集合列的有限项不改变极限上集，
+所以 $T^{-1}F=F$ 作为集合严格成立。这样的选择在限制系统到不变部分时
+有用，却不应把“模零”在一般定义中省去。
+
+对 $1\le p\le\infty$，定义复合算子
+\[
+ U_Tf=f\circ T.
+\]
+保测性保证零测集的原像仍为零测，因而 $U_T$ 在 $L^p$ 等价类上良定义。
+由\eqref{eq:ergodic-integral-invariance}及超水平集的保测性，
+\begin{equation}\label{eq:ergodic-koopman-isometry}
+ \|U_Tf\|_p=\|f\|_p\qquad(1\le p\le\infty).
+\end{equation}
+它是线性等距算子，称为 $T$ 的 Koopman 算子；以后简记为 $U$。
+若 $T_a(x)=a\cdot x$ 来自上一章的群作用，则这里的 $U_{T_a}$ 等于
+上一章的 $U_{a^{-1}}$：上一章取逆元是为了得到左群表示，这里则固定
+沿 $T$ 的正向轨道取复合。两个约定不应混用。
+等距与满射必须分开。倍角映射的每个 $Ug$ 都满足
+$Ug(x+\pi)=Ug(x)$ 几乎处处，而 $e^{ix}$ 不满足，所以该 $U$ 不满射。
+
+\begin{proposition}\label{prop:ergodic-invariant-functions}
+有限可测实函数 $h$ 满足 $h\circ T=h$ 几乎处处，当且仅当它关于
+$\mathcal I_T$ 可测。复函数对实、虚部作同样解释。
+\end{proposition}
+\begin{proof}
+若 $h\circ T=h$ 几乎处处，则每个实数 $a$ 的超水平集
+$\{h>a\}$ 模零不变，故 $h$ 关于 $\mathcal I_T$ 可测。
+反之，只需取所有有理数 $a$。由这些超水平集的不变性，删去至多可数个
+零测集的并后，$h(Tx)$ 与 $h(x)$ 对每个有理阈值给出同样的大小判断，
+于是二者相等。复值情形分别处理实部和虚部。
+\end{proof}
+
+如果更换函数代表元，轨道平均只可能在
+$\bigcup_{k\ge0}T^{-k}N$ 上改变，其中 $N$ 是代表元差异的可测零集。
+该并仍是零集。这一观察使下文的逐点结论与 $L^p$ 等价类相容。
+
+\section{遍历性}
+\label{sec:ergodicity}
+
+若空间分成两个正测度的不变部分，从某一部分出发的时间记录不必包含另一
+部分的信息。排除这种分割，得到遍历性的定义。
+
+\begin{definition}\label{def:ergodicity}
+保测变换 $T$ 称为\term{遍历的}，如果每个 $E\in\mathcal I_T$ 都满足
+$\mu(E)\in\{0,1\}$。
+\end{definition}
+
+定义中的平凡性是测度代数中的平凡性；不要求 $X$ 只有空集和全集这两个
+严格不变集。特别是零测不变轨道仍然可以存在。
+
+\begin{proposition}\label{prop:ergodicity-fixed-functions}
+对总测度为一的保测系统，以下条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $T$ 遍历；
+ \item 每个几乎处处有限、满足 $h\circ T=h$ 几乎处处的可测实函数都
+ 几乎处处为常数；
+ \item $L^2(\mu)$ 中 $U$ 的不动子空间恰为常数函数空间。
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+先证 (i) 推出 (ii)，并把 $h$ 在其取无穷值的可测零集上置零。对每个
+$q\in\Q$，集合 $\{h\le q\}$ 不变，测度只能是 $0$ 或 $1$。
+因为 $h$ 几乎处处有限，这些集合在 $q\to+\infty$ 时递增到 $X$，在
+$q\to-\infty$ 时递减到空集，故存在有限实数
+\[
+ c=\inf\{q\in\Q:\mu(h\le q)=1\}.
+\]
+有理数 $q<c$ 给 $h>q$ 几乎处处，$q>c$ 给 $h\le q$ 几乎处处。
+对有理数取可数交，得到 $h=c$ 几乎处处。
+将此结论用于复函数的实、虚部即得 (iii)。最后，若 (iii) 成立，
+$E\in\mathcal I_T$ 的指示函数是 $L^2$ 不动向量；它为常数只能表示
+$\mu(E)=0$ 或 $1$，所以 (i) 成立。
+\end{proof}
+
+\begin{example}\label{ex:ergodic-finite-cycle}
+在 $X=\{0,\ldots,q-1\}$ 上取均匀测度，其中 $q\in\Npos$。
+循环 $Tj=j+1\pmod q$ 遍历，因为非空不变集包含某一点便包含其整个
+轨道，即全部 $X$。更一般的置换保测，但若它有至少两个循环，则其中一个
+循环是具有中间测度的不变集。因此保测性本身不蕴含遍历性。
+\end{example}
+
+\begin{example}[圆周转动]\label{ex:ergodic-irrational-rotation}
+在例~\ref{ex:ergodic-doubling-preservation}的圆周上，$R_\alpha$ 遍历当且
+仅当 $\alpha/(2\pi)$ 为无理数。设 $f\in L^2(\mathbb T)$ 且
+$f(x+\alpha)=f(x)$ 几乎处处。按
+\chapterref{chap:l2-fourier-series}的 Fourier 系数约定，变量代换给
+\[
+ \widehat{f\circ R_\alpha}(k)=e^{ik\alpha}\widehat f(k),
+ \qquad k\in\Z.
+\]
+无理性使 $e^{ik\alpha}\ne1$ 对一切 $k\ne0$ 成立，故非零阶系数全部
+消失。由定理~\ref{thm:trigonometric-system-complete}，$f$ 几乎处处等于
+常数 $\widehat f(0)$，上述判据给遍历性。若 $\alpha/(2\pi)=p/q$，
+$p\in\Z,q\in\Npos$，则非恒定函数 $\cos(qx)$ 不变，因而不遍历。
+\end{example}
+
+\begin{example}[不可逆的遍历变换]\label{ex:ergodic-doubling}
+倍角映射 $D$ 也遍历。对 $f\in L^2(\mathbb T)$，将 Fourier 积分分成
+两个半圆并换元，得到
+\[
+ \widehat{f\circ D}(k)
+ =\begin{cases}
+   0,&k\text{ 为奇数},\\
+   \widehat f(k/2),&k\text{ 为偶数}.
+  \end{cases}
+\]
+若 $f\circ D=f$，写非零整数 $k=2^r\ell$，其中 $r\in\N$、$\ell$ 为
+奇数。上式给 $\widehat f(k)=\widehat f(\ell)=0$。三角系统完备性再次
+说明 $f$ 为常数。因此不动函数平凡与 $U$ 满射是两个不同的问题。
+\end{example}
+
+\section{Poincaré 回归定理}
+\label{sec:poincare-recurrence}
+
+在有限体积中，若一批正测度的状态从此永不返回原区域，它们在不同时间
+所对应的原像就会形成无限多个等量而不相交的集合。有限总质量排除了这一
+情形。这个论证只使用原像，因而适用于不可逆系统。
+
+\begin{theorem}[Poincar\'e 回归定理]\label{thm:poincare-recurrence}
+设 $T$ 是有限测度空间 $(X,\mathcal A,\mu)$ 上的保测变换。
+对每个 $E\in\mathcal A$，几乎所有 $x\in E$ 都满足
+\[
+ T^n x\in E\quad\text{对无穷多个 }n\in\Npos\text{ 成立}.
+\]
+不要求 $T$ 可逆，也不要求 $T$ 遍历。
+\end{theorem}
+\begin{proof}
+令 $B$ 为 $E$ 中一步以后永不返回 $E$ 的点集，即
+\[
+ B=E\setminus\bigcup_{n=1}^\infty T^{-n}E.
+\]
+集合 $T^{-j}B$，$j\in\N$，两两不交。否则若 $i<j$ 且
+$x\in T^{-i}B\cap T^{-j}B$，则 $T^ix\in B$，但经过正数 $j-i$ 步
+又落在 $B\subseteq E$，与 $B$ 的定义矛盾。保测性于是给
+\[
+ (N+1)\mu(B)
+ =\mu\!\left(\bigcup_{j=0}^NT^{-j}B\right)
+ \le\mu(X)<\infty\qquad(N\in\N),
+\]
+所以 $\mu(B)=0$。
+
+若 $x\in E$ 只在有限多个非负时刻落入 $E$，这些时刻中有最后一个
+$r\in\N$，此时 $T^rx\in B$。因而全部这种点都属于
+$\bigcup_{r=0}^\infty T^{-r}B$，其测度为零。这也处理了从一开始便不再
+返回的点，并把“一次返回”加强为无穷多次返回。
+\end{proof}
+
+\begin{counterexample}\label{ex:recurrence-infinite-measure}
+在 $(\R,m)$ 上，$Tx=x+1$ 保持 Lebesgue 测度，而且可逆。
+然而 $E=[0,1)$ 中没有一点在正时刻返回 $E$。这里空间总测度无限，
+各个 $T^{-j}E$ 确实可以两两不交且测度均为一。因此不能只凭保测性就把
+回归定理推广到任意无限测度空间。
+\end{counterexample}
+
+回归不要求轨道经过全部状态，也不规定返回间隔。恒等变换中的每个点都
+立即返回，但只要空间含有中间测度的集合，该变换就不遍历。
+
+若 $X$ 另为第二可数拓扑空间，$\mathcal A$ 含全部 Borel 集，回归还有
+一个点态的拓扑推论。取至多可数开基 $(V_j)$，对各 $V_j$ 应用定理并合并
+零测例外；余下每个点 $x$ 对包含自己的每个开邻域都返回无穷多次。
+这是因为可在该邻域内取一个包含 $x$ 的基元素。此处第二可数性负责把所有
+邻域的要求化成可数个条件，不能直接对不可数族分别删去零测例外。
+
+\section{平均遍历定理}
+\label{sec:mean-ergodic-theorem}
+
+对 $n\in\Npos$，定义时间平均
+\begin{equation}\label{eq:ergodic-time-average}
+ A_nf=\frac1n\sum_{k=0}^{n-1}U^kf
+     =\frac1n\sum_{k=0}^{n-1}f\circ T^k.
+\end{equation}
+Minkowski 不等式与\eqref{eq:ergodic-koopman-isometry}给出
+$\|A_nf\|_p\le\|f\|_p$，$1\le p\le\infty$。
+若 $f=h-Uh$，则平均中的中间项相消：
+\begin{equation}\label{eq:ergodic-coboundary-average}
+ A_n(h-Uh)=\frac{h-U^nh}{n}.
+\end{equation}
+这种差分函数称为\term{余边界函数}，也常写作 coboundary。
+不动函数的平均不变，余边界函数的平均则在范数中趋零；下面的正交分解
+说明这两类函数已经决定全部 $L^2$ 平均的极限。
+
+\begin{theorem}[von Neumann 平均遍历定理：等距版本]
+\label{thm:von-neumann-mean-ergodic}
+设 $H$ 是实或复 Hilbert 空间，$V:H\to H$ 为线性等距算子，不要求满射。
+记 $F=\ker(I-V)$，$P_F$ 为到该闭子空间的正交投影。则
+\[
+ \frac1n\sum_{k=0}^{n-1}V^kx\longrightarrow P_Fx
+ \quad\text{于 }H\qquad(x\in H).
+\]
+\end{theorem}
+\begin{proof}
+等距线性算子保持内积，这由实或复极化公式得到。先证明
+\begin{equation}\label{eq:ergodic-hilbert-decomposition}
+ H=F\oplus\overline{(I-V)H}.
+\end{equation}
+若 $y\in F$，对任意 $x\in H$，
+\[
+ \langle Vx,y\rangle=\langle Vx,Vy\rangle=\langle x,y\rangle,
+\]
+所以 $y\perp(I-V)H$。反之，若 $y\perp(I-V)H$，取 $x=y$ 得
+$\langle Vy,y\rangle=\|y\|^2$，于是
+\[
+ \|Vy-y\|^2
+ =\|Vy\|^2+\|y\|^2-2\operatorname{Re}\langle Vy,y\rangle=0.
+\]
+故 $Vy=y$。我们证明了 $((I-V)H)^\perp=F$；由正交投影定理与双正交补
+公式，得到\eqref{eq:ergodic-hilbert-decomposition}。整个论证没有引入
+$V^{-1}$。
+
+记 $M_n=n^{-1}\sum_{k=0}^{n-1}V^k$，则 $\|M_n\|\le1$。
+对 $y\in F$ 有 $M_ny=y$；对 $z=(I-V)x$，望远镜求和给
+$\|M_nz\|\le2\|x\|/n\to0$。若
+$z\in\overline{(I-V)H}$，给定 $\varepsilon>0$，取
+$z_0\in(I-V)H$ 满足 $\|z-z_0\|<\varepsilon$。则
+\[
+ \limsup_{n\to\infty}\|M_nz\|
+ \le\varepsilon+\limsup_{n\to\infty}\|M_nz_0\|=\varepsilon.
+\]
+由 $\varepsilon$ 任意可知 $M_nz\to0$。最后按正交分解处理任意 $x$，
+所得极限恰为 $P_Fx$。
+\end{proof}
+
+将 $V$ 取为 $L^2(\mu)$ 上的 $U$，得到 $A_nf$ 在 $L^2$ 中趋于其不变
+部分。由命题~\ref{prop:ergodic-invariant-functions}，该不动子空间就是
+$\mathcal I_T$-可测的 $L^2$ 函数空间。若 $T$ 遍历，它仅含常数，因
+$\|\mathbf1_X\|_2=1$，正交投影公式给
+\begin{equation}\label{eq:ergodic-ltwo-space-average}
+ A_nf\longrightarrow\left(\int_Xf\,d\mu\right)\mathbf1_X
+ \quad\text{于 }L^2.
+\end{equation}
+一般满足 $0<\mu(X)<\infty$ 的测度下，常数应为
+$\mu(X)^{-1}\int_Xf\,d\mu$；零测度不作这种归一化。
+
+$L^2$ 收敛尚不保证原序列几乎处处收敛；子列原理只能提供一个子列。
+要控制所有时刻的平均，须估计“至少某一时刻偏差很大”的点集。以下的
+极大估计正用于这一缺口。
+
+\section{极大遍历引理}
+\label{sec:maximal-ergodic-lemma}
+
+对实值 $f\in L^1(\mu)$，记部分和
+$S_kf=\sum_{j=0}^{k-1}f\circ T^j$。固定 $N\in\Npos$ 后，
+前 $N$ 个部分和的正的最大值可以递归表示；这一有限恒等式已经包含所需
+的测度估计。
+
+\begin{lemma}[有限时极大遍历引理]\label{lem:finite-maximal-ergodic}
+设 $T$ 保持总测度为一的测度 $\mu$，$f\in L^1(\mu)$ 为实值函数。
+令
+\[
+ E_N=\{x:\max_{1\le k\le N}S_kf(x)>0\}.
+\]
+则 $\int_{E_N}f\,d\mu\ge0$。同样，若
+$E=\{\sup_{k\ge1}S_kf>0\}$，则 $\int_Ef\,d\mu\ge0$。
+\end{lemma}
+\begin{proof}
+设 $F_0=0$，$F_N=\max(0,S_1f,\ldots,S_Nf)$。每个 $F_N$ 非负且可积，
+并且
+\[
+ F_N=(f+F_{N-1}\circ T)^+,
+ \qquad F_N\ge F_{N-1},\qquad E_N=\{F_N>0\}.
+\]
+在 $E_N$ 上有 $f=F_N-F_{N-1}\circ T$；在其补集上 $F_N=0$，故处处
+（或在已选代表的共同满测度集上）都有
+\[
+ f\mathbf1_{E_N}\ge F_N-F_{N-1}\circ T.
+\]
+积分并使用保测性，得到
+\[
+ \int_{E_N}f\,d\mu
+ \ge\int_XF_N\,d\mu-\int_XF_{N-1}\,d\mu\ge0.
+\]
+最后 $E_N\uparrow E$，且 $|f\mathbf1_{E_N}|\le|f|\in L^1$。
+控制收敛定理给出无限时结论。这里没有要求 $E_N$ 是不变集。
+\end{proof}
+
+\begin{theorem}[遍历极大不等式]\label{thm:ergodic-maximal-weak}
+对实值 $f\in L^1(\mu)$、$\lambda>0$，令
+\[
+ E_\lambda=\{\sup_{n\ge1}A_nf>\lambda\}.
+\]
+则
+\begin{equation}\label{eq:ergodic-maximal-local}
+ \lambda\mu(E_\lambda)\le\int_{E_\lambda}f\,d\mu.
+\end{equation}
+对实值或复值 $f\in L^1(\mu)$，定义
+\[
+ \mathcal M_Tf=\sup_{n\ge1}A_n|f|.
+\]
+则
+\begin{equation}\label{eq:ergodic-maximal-weak}
+ \mu\{\mathcal M_Tf>\lambda\}\le\frac{\|f\|_1}{\lambda},
+ \qquad
+ \mu\{\sup_{n\ge1}|A_nf|>\lambda\}
+ \le\frac{\|f\|_1}{\lambda}.
+\end{equation}
+\end{theorem}
+\begin{proof}
+因为总测度有限，$f-\lambda\in L^1$，且
+\[
+ \{\sup_nS_n(f-\lambda)>0\}
+ =\{\sup_nA_nf>\lambda\}=E_\lambda.
+\]
+把极大遍历引理用于 $f-\lambda$，便得
+$\int_{E_\lambda}(f-\lambda)\,d\mu\ge0$，即第一式。
+再以 $|f|$ 代替 $f$，并用
+$|A_nf|\le A_n|f|$，即得两条弱型估计。把上确界限制到 $1\le n\le N$，
+同一证明还给完全相同的有限时版本。
+\end{proof}
+
+弱型估计控制所有时间中的最大偏差，右侧却只需要一个 $L^1$ 误差。
+特别地，令 $\lambda\to\infty$ 可知 $\mathcal M_Tf<\infty$ 几乎处处。
+这个结论不声称 $\mathcal M_Tf$ 一定可积；从弱型 $(1,1)$ 直接积分一般
+会产生对数发散。对 $p>1$ 的强型估计将在习题中从局部形式
+\eqref{eq:ergodic-maximal-local}推出。
+
+\section{Birkhoff 逐点遍历定理}
+\label{sec:birkhoff-ergodic-theorem}
+
+范数逼近本身不能逐点控制全部平均，但极大不等式能把逼近误差转成坏集的
+测度。为此需要一个既稠密又能直接计算时间平均的函数类。
+
+\begin{lemma}\label{lem:ergodic-bounded-coboundary-density}
+在实 $L^1(\mu)$ 中，函数类
+\[
+ \mathcal D=\{h+g-g\circ T:
+       h,g\in L^\infty(\mu;\R),\ h\circ T=h\ \text{几乎处处}\}
+\]
+稠密。对每个 $d=h+g-g\circ T\in\mathcal D$，
+$A_nd\to h$ 几乎处处，且 $\|A_nd-h\|_\infty\le2\|g\|_\infty/n$。
+\end{lemma}
+\begin{proof}
+先在实 $L^2$ 中使用\eqref{eq:ergodic-hilbert-decomposition}。任意元素
+可由 $h+(I-U)g$ 逼近，其中 $h\in L^2$ 不变、$g\in L^2$。
+令 $h_m=\max(-m,\min(h,m))$、$g_m=\max(-m,\min(g,m))$。
+截断保持 $h_m$ 的不变性，控制收敛定理给
+$h_m\to h$、$g_m\to g$ 于 $L^2$，而
+\[
+ \|(I-U)(g_m-g)\|_2\le2\|g_m-g\|_2.
+\]
+因此 $\mathcal D$ 在 $L^2$ 中稠密。总测度为一给
+$\|v\|_1\le\|v\|_2$；再将任意 $L^1$ 函数截断成有界函数，便得到
+$L^1$ 稠密性。
+
+对给定 $h,g$，把不变等式失效和有界估计失效的零集的全部非负次原像
+删去，剩下一个满测度集，在其每条正向轨道上等式和估计同时成立。
+由\eqref{eq:ergodic-coboundary-average}，
+$A_nd=h+(g-g\circ T^n)/n$，于是得到所述结论。
+\end{proof}
+
+\begin{theorem}[Birkhoff 逐点遍历定理：有限测度归一化版本]
+\label{thm:birkhoff-pointwise-ergodic}
+设 $(X,\mathcal A,\mu,T)$ 是总测度为一的保测系统，$f\in L^1(\mu)$
+为实值或复值函数。则 $A_nf$ 几乎处处收敛到一个 $f^*\in L^1(\mu)$，
+并且也在 $L^1$ 中收敛。极限由以下两项唯一确定到几乎处处相等：
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $f^*\circ T=f^*$ 几乎处处，等价地，$f^*$ 关于 $\mathcal I_T$ 可测；
+ \item 对每个 $E\in\mathcal I_T$，有
+ \begin{equation}\label{eq:birkhoff-invariant-integral}
+  \int_Ef^*\,d\mu=\int_Ef\,d\mu.
+ \end{equation}
+\end{enumerate}
+此外 $\|f^*\|_1\le\|f\|_1$。若 $T$ 遍历，则
+\[
+ f^*(x)=\int_Xf\,d\mu\qquad\text{几乎处处}.
+\]
+\end{theorem}
+\begin{proof}
+先证明实值情形的逐点收敛。由极大不等式，
+$\sup_n|A_nf|\le\mathcal M_Tf<\infty$ 几乎处处，所以在满测度集上可定义
+非负有限振荡
+\[
+ \omega_f=\limsup_{n\to\infty}A_nf-\liminf_{n\to\infty}A_nf.
+\]
+在余下的可测零集上把 $\omega_f$ 定为零。对 $d\in\mathcal D$，
+$A_nd$ 几乎处处收敛，故
+\[
+ \omega_f\le2\limsup_n|A_n(f-d)|\le2\mathcal M_T(f-d)
+ \quad\text{几乎处处}.
+\]
+因而对每个 $\varepsilon>0$，
+\[
+ \mu\{\omega_f>2\varepsilon\}
+ \le\frac{\|f-d\|_1}{\varepsilon}.
+\]
+利用 $\mathcal D$ 的稠密性让右端趋零，再取 $\varepsilon=1/j$，
+$j\in\Npos$，便得 $\omega_f=0$ 几乎处处。这证明 $A_nf$ 有有限极限。
+复值情形分别对实部和虚部应用上述结论。令 $f^*$ 在收敛集上等于极限，
+在其可测补集上取零，它是可测函数。由 Fatou 引理和 $A_n$ 的收缩性，
+\[
+ \|f^*\|_1\le\liminf_n\|A_nf\|_1\le\|f\|_1.
+\]
+
+\medskip\noindent\textbf{从逐点收敛到积分收敛。}
+不能直接以 $\mathcal M_Tf$ 作控制函数，因为尚未证明它可积。
+改取 $f_m=f\mathbf1_{\{|f|\le m\}}$，则
+$\|f-f_m\|_1\to0$。已经证明的逐点结论给极限 $f_m^*$。
+由 $|A_nf_m|\le m$ 及有限总测度，控制收敛定理给
+$\|A_nf_m-f_m^*\|_1\to0$。Fatou 引理还给
+\[
+ \|f^*-f_m^*\|_1
+ \le\liminf_n\|A_n(f-f_m)\|_1\le\|f-f_m\|_1.
+\]
+三角不等式于是推出
+\[
+ \limsup_n\|A_nf-f^*\|_1\le2\|f-f_m\|_1.
+\]
+让 $m\to\infty$，便得 $L^1$ 收敛。
+
+\medskip\noindent\textbf{不变性与积分刻画。}
+平均满足
+\[
+ UA_nf-A_nf=\frac{U^nf-f}{n},
+ \qquad\|UA_nf-A_nf\|_1\le\frac{2\|f\|_1}{n}.
+\]
+由 $U$ 在 $L^1$ 中连续，取范数极限得到 $Uf^*=f^*$。
+这避免了未经证明便把单项 $f(T^nx)/n$ 当作逐点趋零。
+若 $E\in\mathcal I_T$，则 $\mathbf1_E\circ T^k=\mathbf1_E$ 几乎处处，故
+\[
+ \int_EU^kf\,d\mu
+ =\int_X(f\mathbf1_E)\circ T^k\,d\mu
+ =\int_Ef\,d\mu.
+\]
+对 $k$ 平均，再利用 $L^1$ 收敛，得到\eqref{eq:birkhoff-invariant-integral}。
+
+最后，若两个实 $L^1$ 函数 $u,v$ 都满足 (i)、(ii)，则
+$E=\{u>v\}\in\mathcal I_T$ 且 $\int_E(u-v)\,d\mu=0$。
+非负可积函数积分为零给 $u\le v$ 几乎处处；交换二者即得相等。
+复值情形分别处理实、虚部。因此极限唯一。若 $T$ 遍历，不变函数判据
+说明 $f^*$ 为常数，而取 $E=X$ 的积分等式确定该常数为 $\int_Xf\,d\mu$。
+\end{proof}
+
+上述积分刻画在不遍历时仍然有效。它要求极限保留每个不变部分上的积分，
+而不是把全部空间压成一个常数。后续条件期望理论将把这类刻画置于更一般的
+子 $\sigma$-代数背景；本定理的存在性和唯一性已经在此独立证明。
+
+\begin{corollary}\label{cor:ergodic-lp-convergence}
+在上述系统中，若 $1\le p<\infty$ 且 $f\in L^p(\mu)$，则
+$f^*\in L^p(\mu)$、$\|f^*\|_p\le\|f\|_p$，并且
+$\|A_nf-f^*\|_p\to0$。
+\end{corollary}
+\begin{proof}
+$L^p\subseteq L^1$ 保证逐点极限存在。对 $|A_nf|^p$ 用 Fatou 引理及
+$L^p$ 收缩性，得范数估计。仍取有界截断 $f_m$；控制收敛定理用于
+$|A_nf_m-f_m^*|^p$，给出其积分趋零，因为被积函数不超过 $(2m)^p$。
+同时 Fatou 给 $\|f^*-f_m^*\|_p\le\|f-f_m\|_p$。
+与上面的三项估计相同，先令 $n\to\infty$，再令 $m\to\infty$ 即得结论。
+\end{proof}
+
+\begin{counterexample}[本质一致收敛的失败]\label{ex:ergodic-no-linfty-convergence}
+对圆周倍角映射取 $f=\mathbf1_{[0,\pi)}$。它遍历，故 $f^*=1/2$。
+但对每个 $n\in\Npos$，若 $0\le x<\pi/2^{n-1}$，则前 $n$ 个轨道点
+都在 $[0,\pi)$，于是 $A_nf(x)=1$。该区间有正测度，所以
+\[
+ \|A_nf-1/2\|_\infty=1/2\qquad(n\in\Npos).
+\]
+上界来自 $0\le A_nf\le1$。因此有限指数的范数收敛不能延伸为
+$L^\infty$ 范数收敛，尽管这里 $f$ 本来就是有界函数。
+\end{counterexample}
+
+\begin{corollary}[访问频率]\label{cor:ergodic-visiting-frequency}
+若 $T$ 遍历，对每个固定可测集 $E$，几乎所有 $x\in X$ 满足
+\[
+ \lim_{n\to\infty}\frac1n
+ \#\{0\le k<n:T^kx\in E\}=\mu(E).
+\]
+对预先给定的至多可数族可测集，可选同一个满测度集，使这些等式同时成立。
+\end{corollary}
+\begin{proof}
+对 $f=\mathbf1_E$ 应用逐点遍历定理。至多可数族的情形取相应满测度集
+的交即可。
+\end{proof}
+
+这里的计数以时刻为单位，轨道即使重复经过同一点，也应重复记录。
+此外，不能未经说明就让同一个满测度集适用于所有可测 $E$；习题将用单条
+零测轨道展示这一量词交换的失败。回归定理保证有限测度中的重复访问，
+逐点遍历定理则进一步给出可积观测量的长期平均；遍历性负责把这个不变
+极限确定为一个空间平均值。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+以下除特别说明外，沿用总测度为一的保测系统 $(X,\mathcal A,\mu,T)$，
+$U f=f\circ T$，$A_nf=n^{-1}\sum_{k=0}^{n-1}U^kf$。
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{ergodic-preservation-integrals}
+证明保测性等价于对每个非负可测 $f$ 有
+$\int f\circ T\,d\mu=\int f\,d\mu$，并由超水平集证明
+$\|Uf\|_\infty=\|f\|_\infty$，而不仅是一个方向的不等式。
+\exerciseitem{ergodic-measure-algebra-complete}
+证明测度代数在距离 $d_\mu([E],[F])=\mu(E\triangle F)$ 下完备。
+提示：从 Cauchy 列中选出相邻对称差测度可求和的子列。
+\exerciseitem{ergodic-finite-permutation}
+设有限集合上取均匀测度，$T$ 是置换。证明其不变集恰为各循环的并，
+求任意函数 $f$ 的时间平均极限，并说明何时等于全空间平均。
+\exerciseitem{ergodic-invariant-restriction}
+若 $E\in\mathcal I_T$ 且 $\mu(E)>0$，定义
+$\mu_E(B)=\mu(B\cap E)/\mu(E)$，$B\in\mathcal A$。
+证明 $T$ 保持 $\mu_E$。为什么若只知模零不变，不能直接把原映射写成
+$T:E\to E$？说明如何用严格不变代表修正。
+\exerciseitem{ergodic-rational-rotation-average}
+在归一化圆周上令 $Tx=x+2\pi p/q$，其中 $p,q$ 互素且 $q\ge1$。
+对任意有限可测 $f$ 逐点求 $A_nf$ 的极限，并构造一个有中间测度的
+严格不变 Borel 集。
+\exerciseitem{ergodic-recurrence-intersections}
+若 $\mu(E)>0$，证明
+$\sum_{n=1}^\infty\mu(E\cap T^{-n}E)=\infty$。
+据此说明有无穷多个正整数 $n$ 满足 $\mu(E\cap T^{-n}E)>0$。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ergodic-shift-no-uniform-rate}
+在 $\ell^2(\N)$ 上令 $V(a_0,a_1,\ldots)=(0,a_0,a_1,\ldots)$，
+$M_n=n^{-1}\sum_{k=0}^{n-1}V^k$。证明 $M_nx\to0$ 对每个 $x$ 成立，
+计算 $\|M_ne_0\|$，并证明每个 $n$ 都有 $\|M_n\|=1$。
+\exerciseitem{ergodic-rotation-uniform-continuous}
+设 $\alpha/(2\pi)$ 无理。先对 $e^{ikx}$ 估计转动 $R_\alpha$ 的
+时间平均，再利用三角多项式的一致稠密性，证明每个连续圆周函数 $f$ 的
+$A_nf$ 一致收敛到 $\int f\,dm$。此结论的例外集与一般 $L^1$ 定理有何不同？
+\exerciseitem{ergodic-maximal-sharp-constant}
+证明\eqref{eq:ergodic-maximal-weak}中第一条不等式的常数 $1$，不能
+替换为一个适用于所有系统、函数及 $\lambda>0$ 的较小常数。
+\exerciseitem{ergodic-orbit-endpoint-decay}
+设 $g\in L^1(\mu)$。证明对每个 $\varepsilon>0$，
+$\sum_{n=1}^\infty\mu\{|g|>\varepsilon n\}<\infty$，并由保测性证明
+$g(T^nx)/n\to0$ 几乎处处。论证不得使用事件独立性。
+\exerciseitem{ergodic-integrable-coboundary}
+若 $g\in L^1(\mu)$，证明 $A_n(g-g\circ T)\to0$ 几乎处处且在 $L^1$
+中收敛。说明为什么不能只凭 $\|U^ng/n\|_1\to0$ 就省去逐点论证。
+\exerciseitem{ergodic-limit-projection}
+记 $P_Tf=f^*$ 为逐点遍历定理给出的 $L^1$ 极限。证明 $P_T$ 是正的线性
+收缩投影，值域为 $L^1$ 不变函数空间，且保持积分。若 $a$ 为有界
+$\mathcal I_T$-可测函数，证明 $P_T(af)=aP_Tf$。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{ergodic-doubling-adjoint}
+对圆周倍角映射，在 $[0,2\pi)$ 上定义
+$(Lg)(y)=\tfrac12[g(y/2)+g(y/2+\pi)]$。证明 $L$ 在 $L^2$ 上良定义，
+$\langle Uf,g\rangle=\langle f,Lg\rangle$，且 $LU=I$。
+求 $ULg$ 并说明它是到 $\pi$-周期函数闭子空间的正交投影。
+\exerciseitem{ergodic-no-common-null-set}
+设 $T$ 为无理圆周转动。证明对每个 $x$，其双向轨道
+$O_x=\{T^kx:k\in\Z\}$ 是零测不变 Borel 集，但
+$A_n\mathbf1_{O_x}(x)=1$。据此严格否定“存在一个满测度集，使访问频率
+公式对其中每个点和所有可测集同时成立”。
+\exerciseitem{ergodic-disjoint-components}
+令 $X=\{0,1\}\times\mathbb T$，两条圆周的测度分别为
+$p\,m$ 和 $(1-p)m$，其中 $0<p<1$。令
+$T(j,x)=(j,x+\alpha_j)$，$\alpha_j/(2\pi)$ 都无理。
+刻画模零不变集，并求任意 $f\in L^1(X)$ 的逐点平均极限。
+\exerciseitem{ergodic-powers-distinction}
+证明若 $T^r$ 对某个 $r\in\Npos$ 遍历，则 $T$ 遍历。
+构造遍历的 $T$ 使 $T^2$ 不遍历，并解释这不与回归定理矛盾。
+\exerciseitem{ergodic-product-counterexample}
+证明两个遍历保测变换的直积未必遍历：在
+$(\mathbb T^2,m\times m)$ 上取
+$S(x,y)=(x+\alpha,y+\alpha)$，其中 $\alpha/(2\pi)$ 无理。
+核对 $S$ 保测，并找出一个中间测度的不变集。
+\optionalexerciseitem{ergodic-maximal-strong-lp}
+设 $1<p<\infty$。从有限时的局部极大不等式证明
+\[
+ \|\mathcal M_Tf\|_p\le\frac p{p-1}\|f\|_p
+ \qquad(f\in L^p(\mu)).
+\]
+提示：先对 $\mathcal M_{T,N}f=\max_{1\le n\le N}A_n|f|$ 使用层蛋糕
+公式，避免在尚未知有限的范数上作除法。
+\end{enumerate}

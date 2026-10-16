@@ -1,0 +1,638 @@
+\chapter{概率收敛}
+\label{chap:probability-convergence}
+
+随机变量是可测函数，因而已经有逐点、依测度和积分意义下的收敛。
+概率论还经常只比较观测值的分布：即使随机变量定义在不同的样本空间上，
+仍可讨论它们的分布是否接近。这种比较丢弃了样本点之间的对应关系，
+所以必须与同一概率空间内的误差控制区分。
+
+\chapterref{chap:modes-of-convergence}、\chapterref{chap:egorov-subsequence}
+及\chapterref{chap:uniform-integrability}已经建立函数收敛、子列原理与
+Vitali 定理。本章使用这些结果，着重讨论分布收敛如何经过映射和随机扰动
+传递，以及何时能够进一步交换极限与期望。随机变量默认有限实值；谈论
+随机向量时，其值域为明确指定的 $\mathbb R^d$，其中 $d\ge1$ 为有限整数，
+$\|\cdot\|$ 表示 Euclid 范数。所有被称为随机变量的对象都预先要求可测，
+不以零集修改自动保证可测性。
+
+\section{几乎必然、依概率和依分布收敛}
+\label{sec:probability-convergence-definitions}
+
+\subsection{同一空间中的路径与误差}
+
+\begin{definition}
+\label{def:almost-sure-probability-convergence}
+设 $X_n,X$ 是同一概率空间上的 $\mathbb R^d$ 值随机向量。
+若
+\[
+ \mathbb P\bigl(\{\omega:\|X_n(\omega)-X(\omega)\|\to0\}\bigr)=1,
+\]
+则称 $X_n$ \term{几乎必然收敛}于 $X$，记为 $X_n\to X$ a.s.。
+若对每个 $\varepsilon>0$，
+\[
+ \mathbb P(\|X_n-X\|>\varepsilon)\longrightarrow0,
+\]
+则称 $X_n$ \term{依概率收敛}于 $X$，记为
+$X_n\xrightarrow{\mathbb P}X$。
+\end{definition}
+
+这里的收敛事件可用可数次集合运算表示，因而确为事件。几乎必然收敛
+要求在一个固定的概率为一的集合上，每条路径都最终接近；依概率收敛
+允许偏差较大的样本点随 $n$ 改变。后者就是测度 $\mathbb P$ 下的依测度
+收敛。有限维时，两种收敛都等价于各坐标分别按同一方式收敛：一向由
+$|x_j|\le\|x\|$，另一向由有限坐标的误差合并得到。
+
+若 $X_n\to X$ a.s.，则 $X_n\xrightarrow{\mathbb P}X$。
+这是有限测度空间的结论；概率总质量为一保证控制收敛定理可用于
+$\mathbf1_{\{\|X_n-X\|>\varepsilon\}}$。依概率极限在几乎必然意义下
+唯一，证明仍是三角不等式的坏集分解。
+
+\begin{proposition}[概率收敛的子列刻画]
+\label{prop:probability-subsequence-characterization}
+对同一空间上的有限维随机向量，$X_n\xrightarrow{\mathbb P}X$ 当且仅当
+每个子列都有一个几乎必然收敛于 $X$ 的再子列。
+\end{proposition}
+
+\begin{proof}
+实值情形是定理~\ref{thm:measure-convergence-subsequence-characterization}。
+有限维时也可直接在任一子列中递归选取 $n_k$，使
+\[
+ \mathbb P(\|X_{n_k}-X\|>2^{-k})<2^{-k}.
+\]
+第一 Borel--Cantelli 引理说明这些坏事件几乎必然只发生有限次，因此
+$X_{n_k}\to X$ a.s.。反之，若不依概率收敛，存在
+$\varepsilon,\eta>0$ 及一个子列，使所有偏差概率都至少为 $\eta$。
+该子列不能再有 a.s. 收敛的子列，因为 a.s. 收敛蕴含依概率收敛。
+\end{proof}
+
+命题要求每个子列都能再抽取。仅存在一个良好子列，不能确定整列的行为。
+例如偶数项恒为零、奇数项恒为一的确定性随机变量列，有收敛到零的子列，
+却不依概率收敛到零。
+
+\subsection{只比较分布}
+
+\begin{definition}
+\label{def:convergence-in-distribution}
+设 $X_n,X$ 是 $\mathbb R^d$ 值随机向量，允许定义在不同概率空间上。
+若其分布 $\mu_{X_n}$ 对所有 $h\in C_b(\mathbb R^d)$ 满足
+\[
+ \int h\,d\mu_{X_n}\longrightarrow\int h\,d\mu_X,
+\]
+则称 $X_n$ \term{依分布收敛}于 $X$，记为 $X_n\xrightarrow{d}X$。
+也写作 $\mu_{X_n}\Rightarrow\mu_X$，称概率测度弱收敛。
+\end{definition}
+
+这里的“弱收敛”是\chapterref{chap:radon-measures}中以 $C_b$ 检验的
+窄收敛，不是仅以 $C_c$ 或 $C_0$ 检验的另一种约定。
+按分布求期望，可将定义写成
+$\mathbb E h(X_n)\to\mathbb E h(X)$；不同空间时，每个期望分别在其
+自身概率测度下计算，式中不出现 $X_n-X$。分布极限唯一是指极限的律
+唯一，并不指极限随机变量逐点或几乎必然唯一。
+
+\begin{proposition}[实线上的分布函数判别]
+\label{prop:probability-cdf-convergence}
+设 $X_n,X$ 为实随机变量，分布函数分别为 $F_n,F$。则
+$X_n\xrightarrow dX$ 当且仅当
+$F_n(t)\to F(t)$ 在 $F$ 的每个连续点 $t$ 成立。
+\end{proposition}
+
+\begin{proof}
+将定理~\ref{thm:stieltjes-cdf-weak} 用于概率测度
+$\mu_{X_n},\mu_X$ 即得结论。该定理的连续点限制和极限分布函数的两端
+归一化在这里都不可省略。
+\end{proof}
+
+例如常数变量 $X_n=1/n$ 依分布收敛到 $0$，但在极限分布的跳跃点 $t=0$
+有 $F_n(0)=0\ne1=F(0)$。相反，$X_n=n$ 的分布函数在每个有限点趋于零，
+却没有实随机变量的分布以恒零函数为分布函数。总质量不能在概率极限中
+消失。
+
+\section{\texorpdfstring{$L^p$}{Lp} 收敛和均方收敛}
+\label{sec:probability-lp-mean-square}
+
+\subsection{平均误差及其阶数}
+
+对同一概率空间上的有限维随机向量，若
+$\mathbb E\|X\|^p<\infty$，记 $X\in L^p$，其中 $0<p<\infty$。
+称 $X_n\to X$ 于 $L^p$，若各 $X_n,X$ 都属于 $L^p$，且
+\[
+ \mathbb E\|X_n-X\|^p\longrightarrow0.
+\]
+当 $p=2$ 时称为\term{均方收敛}。$p\ge1$ 时
+$\|X\|_{L^p}=(\mathbb E\|X\|^p)^{1/p}$ 为范数；$0<p<1$ 时不把它
+称为范数，但上述收敛条件仍有意义。
+
+\begin{proposition}
+\label{prop:probability-lp-relations}
+若 $0<p<q<\infty$，且有限维随机向量 $Z\in L^q$，则
+\[
+ \|Z\|_{L^p}\le\|Z\|_{L^q}.
+\]
+因此 $L^q$ 收敛蕴含 $L^p$ 收敛。对每个 $p>0$，$L^p$ 收敛蕴含依概率
+收敛，且
+\[
+ \mathbb P(\|X_n-X\|>\varepsilon)
+ \le\varepsilon^{-p}\mathbb E\|X_n-X\|^p.
+\]
+\end{proposition}
+
+\begin{proof}
+第一个不等式由 Hölder 不等式用于 $\|Z\|^p\cdot1$ 得到；指数为
+$q/p>1$，而常数一在概率空间上的相应范数为一。
+将其用于误差得到收敛蕴含。后一估计是 Markov 不等式，因而也不要求
+$p\ge1$。这些正是一般有限测度估计在总质量为一时的形式。
+\end{proof}
+
+如果只知道误差积分为零，并不能据此省略变量所属空间的要求。例如
+取一个不可积的实随机变量 $X$ 并令 $X_n=X$，差恒为零，但不能称它为
+$L^1$ 中的收敛列。概率总质量有限并不使所有随机变量可积。
+
+\subsection{均值与二阶矩的稳定性}
+
+\begin{proposition}
+\label{prop:mean-square-moment-continuity}
+对实随机变量，$L^1$ 收敛给出 $\mathbb E X_n\to\mathbb E X$。
+若 $X_n\to X$ 于 $L^2$，则
+\[
+ \mathbb E X_n^2\to\mathbb E X^2,
+ \qquad\operatorname{Var}(X_n)\to\operatorname{Var}(X).
+\]
+若另有 $Y_n\to Y$ 于 $L^2$，则
+$\mathbb E(X_nY_n)\to\mathbb E(XY)$，从而协方差也收敛。
+\end{proposition}
+
+\begin{proof}
+均值估计是
+$|\mathbb E X_n-\mathbb E X|\le\mathbb E|X_n-X|$。
+$L^2$ 收敛使 $\|X_n\|_2$ 有界，故由 Cauchy--Schwarz 不等式，
+\[
+ \mathbb E|X_n^2-X^2|
+ \le\|X_n-X\|_2\bigl(\|X_n\|_2+\|X\|_2\bigr)\longrightarrow0.
+\]
+方差由二阶矩减去均值平方得到。再分解
+$X_nY_n-XY=(X_n-X)Y_n+X(Y_n-Y)$，便有
+\[
+ \mathbb E|X_nY_n-XY|
+ \le\|X_n-X\|_2\|Y_n\|_2+\|X\|_2\|Y_n-Y\|_2\longrightarrow0.
+\]
+所有乘积均由二阶矩保证可积，不需要独立性。
+\end{proof}
+
+均方误差同时控制平均偏差与平均平方偏差；依概率收敛只控制超过固定
+阈值的概率。要从后者恢复矩的收敛，还须控制罕见但幅度很大的观测值。
+
+\section{蕴含关系和反例}
+\label{sec:probability-convergence-relations}
+
+\subsection{从误差控制到分布收敛}
+
+\begin{theorem}
+\label{thm:probability-implies-distribution}
+若同一空间上的 $\mathbb R^d$ 值随机向量满足
+$X_n\xrightarrow{\mathbb P}X$，则 $X_n\xrightarrow dX$。
+\end{theorem}
+
+\begin{proof}
+固定 $h\in C_b(\mathbb R^d)$。任取一个子列，由概率收敛的子列刻画，
+可再抽取 $X_{n_k}\to X$ a.s.。连续性给出 $h(X_{n_k})\to h(X)$ a.s.，
+有界性使控制收敛定理适用，所以
+$\mathbb E h(X_{n_k})\to\mathbb E h(X)$。
+若整列期望不趋于这个值，则存在一个子列与目标值的距离有固定正下界，
+与刚才的再子列结论矛盾。因此每个有界连续测试函数的期望都收敛。
+\end{proof}
+
+于是已有的主要蕴含可写为
+\[
+ \begin{gathered}
+ X_n\to X\text{ a.s.}\quad\Longrightarrow\quad
+ X_n\xrightarrow{\mathbb P}X\quad\Longrightarrow\quad X_n\xrightarrow dX,\\
+ X_n\to X\text{ 于 }L^q\quad\Longrightarrow\quad
+ X_n\to X\text{ 于 }L^p\quad\Longrightarrow\quad
+ X_n\xrightarrow{\mathbb P}X\qquad(0<p<q).
+ \end{gathered}
+\]
+图中 a.s. 收敛与 $L^p$ 收敛之间没有一般蕴含：前述函数收敛章节已给出
+尖峰和 typewriter 反例。下面补充依赖独立性及分布耦合的概率例子。
+
+\begin{example}[依概率收敛但不几乎必然收敛]
+设 $U_n$ 是独立的 $[0,1]$ 上均匀变量。定义
+\[
+ X_n=\mathbf1_{\{U_n\le1/n\}}.
+\]
+命题~\ref{prop:independent-sequence-realization} 已在同一个区间概率
+空间上构造了这样的 $(U_n)$，所以这里确实给出了可同时实现的随机变量列。
+对 $0<\varepsilon<1$，
+$\mathbb P(|X_n|>\varepsilon)=1/n\to0$，且对每个 $p>0$，
+$\mathbb E|X_n|^p=1/n\to0$。但第二 Borel--Cantelli 引理说明
+$X_n=1$ 无穷多次的概率为一，故不几乎必然趋于零。
+事实上 $X_n=0$ 也无穷多次：相应事件独立且概率级数发散。
+因此整列几乎必然不收敛。
+\end{example}
+
+\begin{example}[分布相同而误差不小]
+设 $Z$ 以相等概率取 $-1,1$，令 $X_n=-Z$、$X=Z$。
+各 $X_n$ 与 $X$ 同分布，故 $X_n\xrightarrow dX$，但
+$\mathbb P(|X_n-X|>1)=1$。这个例子还说明分布收敛的结论不随同分布的
+实现方式改变，而依概率收敛会受到同一空间内联合关系的影响。
+\end{example}
+
+\begin{example}[小概率的大幅度]
+在 $(0,1)$ 上取均匀概率，令 $X_n=n\mathbf1_{(0,1/n)}$。
+则 $X_n\to0$ 处处，因而也依概率、依分布趋于零，但
+$\mathbb E X_n=1$。所以即使增加 a.s. 收敛，也不能直接从分布收敛推出
+期望收敛。本例在一致可积性章节已作为尖峰出现；在概率语言中，它描述
+概率趋零的事件仍携带固定的期望贡献。
+\end{example}
+
+\begin{theorem}[常数极限]
+\label{thm:distribution-constant-probability}
+对同一概率空间上的 $\mathbb R^d$ 值随机向量和确定的 $c\in\mathbb R^d$，
+有 $X_n\xrightarrow dc$ 当且仅当 $X_n\xrightarrow{\mathbb P}c$。
+\end{theorem}
+
+\begin{proof}
+一向已证。反向对固定 $\varepsilon>0$，取有界连续函数
+$h(x)=\min\{1,\|x-c\|/\varepsilon\}$。由于 $h(c)=0$，
+\[
+ \mathbb P(\|X_n-c\|>\varepsilon)
+ \le\mathbb E h(X_n)\longrightarrow h(c)=0.
+\]
+这个估计也适用于各 $X_n$ 在不同空间上定义的情形，此时每项都与自身
+空间中的常数 $c$ 比较。
+\end{proof}
+
+\subsection{边缘与联合收敛}
+
+若向量 $(X_n,Y_n)$ 依分布收敛到 $(X,Y)$，把测试函数只取为一个坐标的
+有界连续函数，就得到两个边缘分别收敛。反向一般不成立。
+仍取公平符号 $Z\in\{-1,1\}$，令
+\[
+ (X_n,Y_n)=(Z,(-1)^nZ).
+\]
+两个边缘的分布都固定不变，但取有界连续函数
+\[
+ h(x,y)=\frac{xy}{1+|xy|},\qquad
+ \mathbb E h(X_n,Y_n)=\frac{(-1)^n}{2}.
+\]
+这个期望不收敛，因此联合分布没有弱极限。
+在研究和、积或比值之前，仅知道每个边缘的分布极限并不足够。
+
+\section{连续映射、Slutsky 定理与一致可积性}
+\label{sec:continuous-mapping-slutsky-ui}
+
+\subsection{闭集检验与连续映射}
+
+对处处连续的 $g:\mathbb R^d\to\mathbb R^k$，分布收敛经过 $g$ 保持，
+因为 $h\circ g$ 仍为有界连续函数。常用的比值或示性函数可能有不连续点，
+这时要核对极限分布是否赋予这些点正质量。为此先证明一个集合判据。
+
+\begin{theorem}[闭集与开集判据]
+\label{thm:probability-portmanteau}
+设 $\mu_n,\mu$ 是 $\mathbb R^d$ 上的概率测度。下列条件等价：
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\mu_n\Rightarrow\mu$；
+\item 对每个闭集 $F$，$\limsup_n\mu_n(F)\le\mu(F)$；
+\item 对每个开集 $G$，$\liminf_n\mu_n(G)\ge\mu(G)$。
+\end{enumerate}
+由此，若 Borel 集 $B$ 满足 $\mu(\partial B)=0$，则
+$\mu_n(B)\to\mu(B)$，其中 $\partial B$ 是其边界。
+\end{theorem}
+
+\begin{proof}
+空闭集不必讨论。对非空闭集 $F$，函数
+$h_m(x)=\max\{0,1-m\operatorname{dist}(x,F)\}$ 有界连续，并递减到
+$\mathbf1_F$。若 (i) 成立，则
+\[
+ \limsup_n\mu_n(F)\le\int h_m\,d\mu.
+\]
+令 $m\to\infty$，控制收敛给出 (ii)。(ii) 与 (iii) 由取补集等价。
+
+反过来，设两条集合不等式成立。给 $0\le h\le1$ 的连续函数。除至多
+可数个 $t$ 外，$\mu(h=t)=0$，因为不同正质量水平集两两不交。
+在这些 $t\in(0,1)$ 上，用开集 $\{h>t\}$ 作下界，闭集 $\{h\ge t\}$
+作上界，得到 $\mu_n(h>t)\to\mu(h>t)$。层蛋糕公式及 $dt$ 下的控制
+收敛定理给出
+\[
+ \int h\,d\mu_n=\int_0^1\mu_n(h>t)\,dt
+ \longrightarrow\int_0^1\mu(h>t)\,dt=\int h\,d\mu.
+\]
+一般有界连续实函数经平移、缩放即可化为这种情形，故 (i) 成立。
+最后用 $B^\circ\subseteq B\subseteq\overline B$ 及
+$\overline B\setminus B^\circ=\partial B$，夹逼得到边界零测集的结论。
+\end{proof}
+
+\begin{theorem}[连续映射定理]
+\label{thm:probability-continuous-mapping}
+设 $g:\mathbb R^d\to\mathbb R^k$ 是 Borel 映射，其不连续点集为 $D_g$。
+假设 $\mathbb P(X\in D_g)=0$。
+若 $X_n\xrightarrow dX$，则 $g(X_n)\xrightarrow d g(X)$。
+若各变量在同一空间且 $X_n\xrightarrow{\mathbb P}X$，则
+$g(X_n)\xrightarrow{\mathbb P}g(X)$；a.s. 收敛也有相应结论。
+\end{theorem}
+
+\begin{proof}
+$D_g$ 是 Borel 集。具体地，令
+\[
+ O_m=\bigcup\{U\subseteq\mathbb R^d:U\text{ 开且 }\operatorname{diam}g(U)<1/m\}.
+\]
+每个 $O_m$ 都开，且连续点集恰为 $\bigcap_{m\ge1}O_m$：连续性给出
+像直径任意小的邻域，反向则在包含该点的相应开集内控制函数值之差。
+因此 $D_g$ 是这个可数交的补集。
+对 $\mathbb R^k$ 中闭集 $F$，有
+\[
+ \overline{g^{-1}(F)}\subseteq g^{-1}(F)\cup D_g.
+\]
+事实上，若 $x$ 是左边的点且 $g$ 在 $x$ 连续，从原像中取趋于 $x$ 的
+序列，闭性便给出 $g(x)\in F$。于是闭集判据给出
+\begin{align*}
+ \limsup_n\mathbb P(g(X_n)\in F)
+ &\le\mu_X\bigl(\overline{g^{-1}(F)}\bigr)\\
+ &\le\mathbb P(g(X)\in F)+\mathbb P(X\in D_g)
+ =\mathbb P(g(X)\in F).
+\end{align*}
+再次用闭集判据，得到分布收敛。
+
+在 a.s. 情形，删去原收敛例外集及 $\{X\in D_g\}$ 后，逐点连续性即给
+复合函数收敛。在依概率情形，对任意子列抽取一个 a.s. 收敛再子列，
+应用刚才结论，再用概率收敛的子列刻画。
+\end{proof}
+
+例如 $X_n\xrightarrow dX$ 且 $\mathbb P(X=t)=0$ 时，
+$\mathbf1_{\{X_n\le t\}}\xrightarrow d\mathbf1_{\{X\le t\}}$。
+若极限恰落在不连续点，结论会失败：$X_n=1/n\to0$，而
+$g(x)=\mathbf1_{(0,\infty)}(x)$ 满足 $g(X_n)=1$、$g(0)=0$。
+
+\subsection{小随机扰动与 Slutsky 定理}
+
+为把依概率很小的扰动与一个仅依分布收敛的变量合并，先把后者限制到
+高概率的紧区域。这里所需的一致紧性可以直接从弱收敛证明。
+
+\begin{lemma}
+\label{lem:weak-convergence-uniform-tightness}
+若 $X_n\xrightarrow dX$ 于 $\mathbb R^d$，则对每个 $\eta>0$，存在
+$R<\infty$，使
+\[
+ \sup_n\mathbb P(\|X_n\|>R)<\eta,
+ \qquad\mathbb P(\|X\|>R)<\eta.
+\]
+即这些分布组成一致紧的概率测度族。
+\end{lemma}
+
+\begin{proof}
+球 $\{\|x\|\le R\}$ 随 $R\to\infty$ 覆盖整个空间，故先取 $R_0$，
+使 $\mathbb P(\|X\|\le R_0)>1-\eta/4$。取连续函数 $0\le\chi\le1$，
+在此球上为一，在半径 $R_0+1$ 的球外为零。则
+$\mathbb E\chi(X)>1-\eta/4$，弱收敛使最终
+$\mathbb E\chi(X_n)>1-\eta/2$。因此最终各分布在半径 $R_0+1$ 球外的
+质量小于 $\eta/2$。对剩余有限多个分布，分别用球的递增覆盖选半径，
+使各自的球外质量也小于 $\eta/2$，再取有限最大值 $R\ge R_0+1$。
+于是球外概率的上确界不超过 $\eta/2<\eta$。有限维闭球紧，故这正是一致紧性。
+\end{proof}
+
+此引理只从已有极限推出尾部控制，不声称任意一致紧族存在收敛子列，
+也不使用后续的一般概率紧性定理。
+
+\begin{theorem}[Slutsky]
+\label{thm:slutsky}
+设 $X_n$ 为 $\mathbb R^d$ 值变量，$Y_n$ 为 $\mathbb R^k$ 值变量，
+二者在同一概率空间上。若 $X_n\xrightarrow dX$、
+$Y_n\xrightarrow{\mathbb P}c$，其中 $c\in\mathbb R^k$ 为常数，则
+\[
+ (X_n,Y_n)\xrightarrow d(X,c).
+\]
+不要求 $X_n$ 与 $Y_n$ 独立。特别地，在实值情形，
+\[
+ X_n+Y_n\xrightarrow d X+c,\qquad
+ X_nY_n\xrightarrow d cX.
+\]
+若 $c\ne0$，把 $X_n/Y_n$ 在 $Y_n=0$ 时定义为任意固定实数，则
+$X_n/Y_n\xrightarrow d X/c$。
+\end{theorem}
+
+\begin{proof}
+给定 $h\in C_b(\mathbb R^{d+k})$。函数 $x\mapsto h(x,c)$ 有界连续，故
+$\mathbb E h(X_n,c)\to\mathbb E h(X,c)$。只须证明扰动 $Y_n-c$ 不影响
+测试期望。固定 $\eta>0$，由上一引理取 $R$，使
+$\sup_n\mathbb P(\|X_n\|>R)<\eta$。
+$h$ 在紧集
+$\{\|x\|\le R,\ \|y-c\|\le1\}$ 上一致连续，故可取 $0<\delta<1$，
+使其中 $\|y-c\|\le\delta$ 蕴含
+$|h(x,y)-h(x,c)|<\eta$。于是
+\[
+ |\mathbb E h(X_n,Y_n)-\mathbb E h(X_n,c)|
+ \le\eta+2\|h\|_\infty
+    \bigl(\eta+\mathbb P(\|Y_n-c\|>\delta)\bigr).
+\]
+先令 $n\to\infty$，再令 $\eta\downarrow0$，即得联合收敛。
+和、积由连续映射定理得到。比值映射只在分母为零处可能不连续，而
+极限分母为非零常数，故同一定理适用。零分母上的任意固定定义不会影响
+结论；其概率也不超过
+$\mathbb P(|Y_n-c|\ge|c|/2)\to0$。
+\end{proof}
+
+若第二个极限也随机，单有两个边缘的分布收敛便不够；上一节的交替联合
+分布已给出反例。常数极限使第二坐标的随机波动在概率意义下消失，这是
+Slutsky 定理中不可机械删除的条件。
+
+\subsection{一致可积性与矩的极限}
+
+对一族可积实随机变量 $(Z_i)_{i\in I}$，一致可积性写成
+\[
+ \lim_{M\to\infty}\sup_{i\in I}
+ \mathbb E\bigl[|Z_i|\mathbf1_{\{|Z_i|>M\}}\bigr]=0.
+\]
+这正是\chapterref{chap:uniform-integrability}的定义。各变量可以在同一
+空间，也可以在不同空间；这个条件只涉及各自的分布。若在共同概率空间上，
+有限测度判据说明它等价于 $L^1$ 一致有界加上小概率事件上的积分一致小。
+单有 $L^1$ 有界不够，前面的 $n\mathbf1_{(0,1/n)}$ 就是反例。
+
+\begin{theorem}[概率空间中的 Vitali 判据]
+\label{thm:probability-vitali-lp}
+设 $0<p<\infty$，$X_n,X$ 为同一概率空间上的实随机变量。
+则 $X_n\to X$ 于 $L^p$ 当且仅当
+\[
+ X_n\xrightarrow{\mathbb P}X,
+ \qquad\{|X_n|^p:n\ge1\}\text{ 一致可积}.
+\]
+右侧的一致可积性包含各 $X_n\in L^p$，并自动保证 $X\in L^p$。
+\end{theorem}
+
+\begin{proof}
+先设右侧成立。子列原理及 Fatou 引理给出
+$\mathbb E|X|^p\le\sup_n\mathbb E|X_n|^p<\infty$。令
+$H_n=|X_n-X|^p$，则 $H_n\xrightarrow{\mathbb P}0$，且
+\[
+ H_n\le c_p(|X_n|^p+|X|^p),\qquad c_p=\max\{1,2^{p-1}\}.
+\]
+右侧构成一致可积族：单个可积函数具有积分绝对连续性，而两族的和仍
+满足小集合判据及一致 $L^1$ 界。受其支配的非负族同样如此。
+因此对 $H_n$ 应用定理~\ref{thm:vitali-convergence}，得
+$\mathbb E H_n\to0$。
+
+反向设 $L^p$ 收敛。Markov 不等式给依概率收敛。又
+$H_n\to0$ 于 $L^1$，故由 Vitali 定理反向部分，$(H_n)$ 一致可积。
+用
+$|X_n|^p\le c_p(H_n+|X|^p)$ 及同一小集合判据，得到
+$(|X_n|^p)$ 一致可积。这里 $0<p<1$ 时的估计用的是
+$(u+v)^p\le u^p+v^p$，没有使用不成立的范数三角不等式。
+\end{proof}
+
+一个便于应用的充分条件是更高阶矩一致有界。若 $q>p>0$ 且
+$\sup_n\mathbb E|X_n|^q=C<\infty$，则对 $M>0$，
+\[
+ \mathbb E\bigl[|X_n|^p\mathbf1_{\{|X_n|^p>M\}}\bigr]
+ \le C M^{-(q-p)/p}.
+\]
+所以依概率收敛加上这一矩界即可推出 $L^p$ 收敛。
+
+\begin{theorem}[分布收敛下的期望极限]
+\label{thm:weak-ui-expectations}
+设可积实随机变量 $X_n$ 依分布收敛到实随机变量 $X$，允许定义在不同
+概率空间上。若 $(X_n)$ 一致可积，则 $X$ 可积且
+$\mathbb E X_n\to\mathbb E X$。
+\end{theorem}
+
+\begin{proof}
+一致可积性给 $C=\sup_n\mathbb E|X_n|<\infty$。对有界连续函数
+$|x|\wedge M$ 取分布极限，再令 $M\to\infty$，单调收敛给
+$\mathbb E|X|\le C$。令 $T_M(x)=\max\{-M,\min\{x,M\}\}$，则
+$T_M$ 有界连续，因而其期望收敛。同时
+\begin{align*}
+ |\mathbb E X_n-\mathbb E X|
+ &\le |\mathbb E T_M(X_n)-\mathbb E T_M(X)|\\
+ &\quad+\mathbb E\bigl[|X_n|\mathbf1_{\{|X_n|>M\}}\bigr]
+       +\mathbb E\bigl[|X|\mathbf1_{\{|X|>M\}}\bigr].
+\end{align*}
+先令 $n\to\infty$，再令 $M\to\infty$；后两项分别由一致可积性及 $X$
+可积趋于零。这一证明不需要把各随机变量搬到同一空间上。
+\end{proof}
+
+更一般地，若 $g$ 连续且 $(g(X_n))$ 一致可积，则先用连续映射定理，再用
+上一定理，得到 $\mathbb E g(X_n)\to\mathbb E g(X)$。
+分布收敛控制的是有界连续测试函数；一致可积性在这里负责把截断的有界
+测试恢复为无界的积分。它没有把仅比较分布的收敛自动升级为某个既定
+耦合下的 $L^1$ 收敛。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A 组：定义与关系}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{probconv-bounded-distance}
+对同一空间上的有限维随机向量证明
+$X_n\xrightarrow{\mathbb P}X$ 当且仅当
+$\mathbb E\min\{1,\|X_n-X\|\}\to0$。说明该期望在 a.s. 相等的随机向量
+等价类上定义一个度量。
+
+\exerciseitem{probconv-summable-errors}
+设 $a_n>0$、$a_n\to0$ 且
+$\sum_n\mathbb P(\|X_n-X\|>a_n)<\infty$。证明误差几乎必然最终不超过
+$a_n$。由此证明若 $p>0$、$\sum_n\mathbb E\|X_n-X\|^p<\infty$，则
+$X_n\to X$ a.s.。
+
+\exerciseitem{probconv-separate-spaces}
+令 $X_n$ 在有限概率空间 $\{1,\ldots,n\}$ 上均匀取值为 $k/n$。
+证明 $X_n$ 依分布收敛到 $[0,1]$ 上的均匀变量。说明在未指定共同实现
+之前，为什么不能直接询问 $X_n\to X$ 是否几乎必然成立。
+
+\exerciseitem{probconv-cdf-atom-boundary}
+设 $X_n\xrightarrow dX$，实数 $a<b$ 满足
+$\mathbb P(X=a)=\mathbb P(X=b)=0$。证明
+$\mathbb P(a<X_n\le b)\to\mathbb P(a<X\le b)$。
+给出端点有原子时结论失败的例子。
+
+\exerciseitem{probconv-lp-strict-hierarchy}
+给定 $0<p<q<\infty$，在一个概率空间上构造 $X_n\to0$ 于 $L^p$，但
+$\mathbb E|X_n|^q=1$ 对所有 $n$ 成立。再计算它是否 a.s. 收敛。
+
+\exerciseitem{probconv-mean-square-covariance}
+设同一概率空间上的实变量满足 $X_n\to X$、$Y_n\to Y$ 于 $L^2$。证明
+$\operatorname{Cov}(X_n,Y_n)\to\operatorname{Cov}(X,Y)$。
+若仅把两个 $L^2$ 收敛都换成依概率收敛，构造协方差不收敛的例子，
+且要求每个变量仍有有限二阶矩。
+
+\exerciseitem{probconv-random-limit-coupling}
+在一个概率空间上构造同分布的 $X_n,X$，使
+$\mathbb P(|X_n-X|>1)=1$。再证明若共同分布为某个点质量，则这种失败
+不可能发生。说明分布极限的“唯一”指的是什么。
+\end{enumerate}
+
+\subsection*{B 组：映射、联合分布和随机扰动}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{probconv-tightness-moment-bound}
+若 $\sup_n\mathbb E\|X_n\|^p<\infty$ 对某个 $p>0$ 成立，证明各分布
+一致紧。构造一致紧但一阶绝对矩无界的实变量列；再说明一致紧本身
+为什么不保证整列分布收敛。
+
+\exerciseitem{probconv-portmanteau-boundary}
+设 $X_n\xrightarrow dX$。证明对任意 Borel 集 $B$，
+\[
+ \mathbb P(X\in B^\circ)\le\liminf_n\mathbb P(X_n\in B)
+ \le\limsup_n\mathbb P(X_n\in B)\le\mathbb P(X\in\overline B).
+\]
+给出一个边界具有正极限概率、但其集合概率仍然收敛的例子，说明边界
+零测是充分条件而非必要条件。
+
+\exerciseitem{probconv-discontinuous-map}
+证明 $X_n\xrightarrow{\mathbb P}X$ 且 $\mathbb P(X=t)=0$ 时，
+$\mathbf1_{\{X_n\le t\}}\to\mathbf1_{\{X\le t\}}$ 于每个有限 $L^p$。
+并给出删去无原子条件后失败的确定性例子。
+
+\exerciseitem{probconv-joint-marginals}
+完整验证 $(Z,(-1)^nZ)$ 的两个边缘分布均固定，而联合分布不收敛。
+另证明若 $X_n\xrightarrow{\mathbb P}X$、$Y_n\xrightarrow{\mathbb P}Y$
+在同一空间上成立，则联合向量依概率收敛。
+
+\exerciseitem{probconv-independent-joint-limits}
+设实变量 $X_n,Y_n$ 对每个 $n$ 相互独立，且分别依分布收敛到给定的
+实分布 $\mu,\nu$。在有限乘积空间上取独立的 $X,Y$，其分布为
+$\mu,\nu$。证明 $(X_n,Y_n)\xrightarrow d(X,Y)$。
+可用矩形网格逼近紧方块上的连续函数，不使用特征函数。
+
+\exerciseitem{probconv-slutsky-studentization}
+设同一概率空间上的实变量满足 $T_n\xrightarrow d Z$、
+$V_n\xrightarrow{\mathbb P}\sigma^2$，其中 $\sigma>0$，且 $V_n\ge0$。
+把 $T_n/\sqrt{V_n}$ 在 $V_n=0$ 时定义为零，证明它依分布
+收敛到 $Z/\sigma$。是否需要 $T_n,V_n$ 独立？
+
+\exerciseitem{probconv-vanishing-perturbation}
+设 $X_n,Y_n$ 是同一空间上的 $\mathbb R^d$ 值变量，
+$X_n\xrightarrow dX$ 且 $\|X_n-Y_n\|\xrightarrow{\mathbb P}0$。
+证明 $Y_n\xrightarrow dX$。
+
+\optionalexerciseitem{probconv-delta-method}
+设 $r_n\to\infty$ 为正实数，$\theta\in\mathbb R$，且
+$r_n(X_n-\theta)\xrightarrow dZ$。设 Borel 函数 $g:\mathbb R\to\mathbb R$
+在 $\theta$ 可微。证明
+$r_n(g(X_n)-g(\theta))\xrightarrow d g'(\theta)Z$。
+须说明如何用分布收敛的一致紧性控制 Taylor 余项。
+\end{enumerate}
+
+\subsection*{C 组：一致可积性与矩}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{probconv-ui-higher-moment}
+设 $X_n\xrightarrow{\mathbb P}X$，且对某个 $q>p>0$ 有
+$\sup_n\mathbb E|X_n|^q<\infty$。证明 $X\in L^q$ 且 $X_n\to X$ 于 $L^p$。
+说明一般不能保证 $L^q$ 收敛。
+
+\exerciseitem{probconv-weak-ui-moments}
+设 $X_n\xrightarrow dX$ 且 $(|X_n|^p)$ 一致可积，$p>0$，允许各变量
+在不同空间上。证明 $\mathbb E|X_n|^p\to\mathbb E|X|^p<\infty$。
+若 $p=1$，说明这仍不推出一个预先指定共同实现下的 $L^1$ 收敛。
+
+\exerciseitem{probconv-ui-scheffe}
+设 $X_n,X\ge0$ 是同一空间上的可积随机变量，
+$X_n\xrightarrow{\mathbb P}X$ 且 $\mathbb E X_n\to\mathbb E X$。
+证明 $X_n\to X$ 于 $L^1$，从而 $(X_n)$ 一致可积。
+提示：考虑 $\min(X_n,X)$。
+
+\exerciseitem{probconv-products-uniform-integrability}
+设 $p,q>1$、$1/p+1/q<1$，同一概率空间上的实变量满足
+$X_n\xrightarrow{\mathbb P}X$、$Y_n\xrightarrow{\mathbb P}Y$，
+$\sup_n\mathbb E|X_n|^p<\infty$、$\sup_n\mathbb E|Y_n|^q<\infty$。
+证明 $X_nY_n\to XY$ 于 $L^1$，不假设独立性。
+
+\optionalexerciseitem{probconv-weak-nonnegative-ui}
+设 $X_n,X\ge0$，$X_n\xrightarrow dX$，且
+$\mathbb E X_n\to\mathbb E X<\infty$，各期望均有限。
+证明 $(X_n)$ 一致可积，允许样本空间不同。
+提示：把 $\mathbb E(X_n-M)_+$ 写成均值与有界连续截断期望的差。
+\end{enumerate}

@@ -238,13 +238,68 @@
 - 第101章的Mayer--Vietoris序列须由参数单形上的Lebesgue数、重心细分和保持小链的链同伦建立；不能假定任意奇异单形已经落在覆盖的一员中。第102章的相对光滑逼近以紧像邻域的有限坐标嵌入、法向回缩、单形边界延拓和磨光完成，随后证明连续与光滑奇异链的包含映射是拟同构；不能把它称为链复形同构。良覆盖所需的局部测地线、系数公式和Gauss正交计算在该章独立建立，只调用第45、86章的逆函数与ODE工具，不预用第103章。局部到整体步骤由正文建立的Čech双复形完成，不能只引用局部Poincaré引理。
 - 第103章的Levi--Civita联络由Koszul公式建立；Christoffel符号不是张量。沿参数映射的协变导数及交换式在变分之前定义，不能把变分场直接当作全局向量场。球面任意维曲率由环境微分的切向投影计算，二维共形公式不代替该证明。局部平坦性使用凸坐标球内的分段光滑同伦及交换流。散度定理以密度表述；Jacobi场与指数映射的关系须带明初值和定义区间。
 
+## 第六卷第二十三编
+
+| 章 | 稳定标签 | 直接前置 | 本章建立 |
+|---|---|---|---|
+| 104 Radon测度 | `chap:radon-measures` | 37、39、55、60、67、69、74、77—78 | 局部截断、正则性、Cc/C0、一般LCH上的正泛函表示、有限复测度对偶、模糊与窄收敛 |
+| 105 Stieltjes测度 | `chap:stieltjes-measures` | 54—56、60、62、70—74、104 | 全线局部有限Stieltjes对应、CDF与分位函数、三部分分解、共同跳跃积分、相对密度及矩 |
+| 106 Haar测度 | `chap:haar-measure` | 36—39、42、48、53、62、104 | 拓扑群、推前积分、不变测度、Haar存在唯一性、模函数及Lp平移连续性 |
+| 107 遍历定理 | `chap:ergodic-theorems` | 54、59—60、64—69、80、83、106 | 测度代数、非可逆保测系统、回归、Hilbert平均、极大估计和有限测度逐点遍历 |
+
+本范围的具体依赖与限制：
+
+- 104的截断使用 `thm:urysohn-lemma`，正泛函表示 `thm:riesz-markov-radon`
+  从开集质量、Carathéodory外测度和紧内正则化构造，不预用Haar测度。
+  `ex:radon-not-outer-regular` 解释一般LCH上不能混用两种正则性约定。
+  复对偶 `thm:czero-complex-dual` 通过有限正Radon控制测度与RN密度验证全变差。
+- 105的全线构造调用74已有的有限区间版本；
+  `prop:radon-second-countable-regular` 只在实线这个第二可数LCH空间使用。
+  `prop:bv-measure-ac` 识别绝对连续密度，不能以普通导数恢复奇异质量。
+  分位函数和分布函数收敛直接证明，不预用后面概率论的独立性或弱收敛定理。
+- 106存在性调用 `thm:tychonoff-product` 与104表示定理；紧支撑Fubini先由
+  `thm:real-stone-weierstrass` 保证乘积可测，再调用 `thm:fubini`。
+  一般局部紧群不假定第二可数、σ紧或Haar测度全局σ有限。
+  唯一性先于模函数，不能用未经证明的右移密度反证唯一性。
+- 107的主定理只需测度积分、Lp和Hilbert工具，83章三角系完备性用于圆周
+  转动和倍角的具体例子。`thm:von-neumann-mean-ergodic` 不假定等距算子满射；
+  `thm:birkhoff-pointwise-ergodic` 依次使用有限时极大引理、稠密类、振荡控制和
+  有界截断，不以前向的条件期望为前提。极限的积分刻画到114章才解释为条件期望。
+
+## 第六卷第二十四编已写部分
+
+| 章 | 稳定标签 | 直接前置 | 本章建立 |
+|---|---|---|---|
+| 108 概率空间 | `chap:probability-spaces` | 18、54、58—60、62、67、74、84、104—105 | 概率空间、随机变量及联合分布、期望和矩、协方差、Markov与Chebyshev估计、Jensen不等式 |
+| 109 独立性 | `chap:independence` | 54—55、58—60、62、105、108 | 事件与变量独立、π–λ检验、分块独立、有限乘积和指定分布的独立序列构造、概率测度卷积、两条Borel–Cantelli引理与尾零一律 |
+| 110 概率收敛 | `chap:probability-convergence` | 30—31、59—60、64—67、104—105、108—109 | 依分布收敛、Portmanteau判据、连续映射、直接一致紧性、Slutsky、概率Vitali判据和不同空间的期望极限 |
+
+- 108采用一般概率空间，不默认其完备。联合密度先选择非负Borel代表，
+  再作截面积分；不能从二维Lebesgue可测性直接断言每条截面可测。
+  `thm:expectation-by-law` 由推前积分公式得到，协方差不为独立性的定义。
+  Jensen证明使用18章的 `thm:one-dimensional-subdifferential`；正态密度归一化
+  使用84章已经计算的Gaussian积分。这两处是实际前置，不从概率公式倒推积分值。
+- 109的 `thm:kolmogorov-tail-zero-one` 先把有限段独立性扩张到生成σ代数，
+  再使尾事件与自身独立；不使用后面的鞅收敛。
+  有限独立变量使用第62章乘积测度，独立二进制位直接在[0,1)上构造；
+  `prop:independent-sequence-realization` 由可数个不交位块和分位函数
+  实现给定的一列实分布，为110章的独立均匀变量反例提供实际模型，
+  不提前调用无限乘积概率空间的延拓定理。
+  零集修改的变量族仍须逐个可测，不用全部例外零集的不可数并。
+- 110引用第64—66章已有收敛理论，不重复构建。`thm:probability-portmanteau`
+  用距离函数、集合上下界和层蛋糕公式；`thm:probability-continuous-mapping`
+  先证明不连续点集Borel。`lem:weak-convergence-uniform-tightness` 直接从弱极限
+  用球和截断证明，不调用后续概率紧性定理。`thm:slutsky` 需要共同实现以定义
+  联合变量，但极限的第一个坐标可在另一空间上；第二个极限必须为常数。
+  `thm:weak-ui-expectations` 只用有界连续截断，不使用Skorohod表示或共同耦合。
+
 ## 附录
 
 | 附录 | 稳定标签 | 作用 |
 |---|---|---|
 | A | `chap:appendix-set-theory` | 受限概括、有序对和笛卡儿积、映射与商集的存在性、自然数递归，以及第38章所用选择公理与 Zorn 引理 |
-| B | `chap:appendix-notation-dependencies` | 第0—103章全局记号、同名定理版本及当前章节依赖，包含复分析、流形、上同调与Riemann几何 |
-| C | `chap:appendix-counterexamples` | 第0—103章错误命题、反例、修正条件及反例核对方法 |
+| B | `chap:appendix-notation-dependencies` | 已写章节的主要记号、同名定理版本及依赖；本轮补入Radon、Stieltjes、Haar、遍历理论和概率变量记号，不将索引视为每个符号的穷举 |
+| C | `chap:appendix-counterexamples` | 已写章节的错误命题、反例和修正条件；本轮补入正则性、质量逃逸、CDF、推前局部有限性、左右不变及非遍历系统的反例 |
 
 ## 当前关键无环约束
 

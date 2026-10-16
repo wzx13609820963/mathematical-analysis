@@ -1,0 +1,353 @@
+\chapter{Haar 测度}
+
+\begin{solution}{haar-symmetric-neighborhoods}
+先在 $U$ 内取开邻域。给定任意 $e$ 的开邻域 $W$，乘法连续性给开
+邻域 $W_1,W_2$，使 $W_1W_2\subseteq W$。令
+$V=W_1\cap W_2\cap W_1^{-1}\cap W_2^{-1}$，则 $V$ 对称、开，且
+$V^2\subseteq W$。取整数 $k$ 使 $2^k\ge n$，迭代上述构造 $k$ 次，
+得到对称开邻域 $V$ 使 $V^{2^k}\subseteq U$。因 $e\in V$，
+$V^n\subseteq V^{2^k}$，所求成立。
+
+若 $H$ 为开子群，每个左陪集 $aH$ 都开；不同陪集或相等或不交，且
+全部陪集覆盖 $G$。因此 $G\setminus H$ 是其他开陪集之并，故也开，
+即 $H$ 闭。这里不要求陪集族可数。
+\end{solution}
+
+\begin{solution}{haar-homomorphism-uniformity}
+给定 $H$ 中 $e_H$ 的邻域 $U$，连续性给 $G$ 中 $e_G$ 的邻域 $V$，
+使 $\phi(V)\subseteq U$。若 $x^{-1}y\in V$，则
+\[
+ \phi(x)^{-1}\phi(y)=\phi(x^{-1}y)\in U.
+\]
+所以 $(\phi\times\phi)(E_V^{\mathrm L})\subseteq E_U^{\mathrm L}$，
+这正是左一致连续性。同样，$xy^{-1}\in V$ 蕴含
+$\phi(x)\phi(y)^{-1}\in U$，给出右一致连续性。
+邻域 $V$ 不依赖 $x,y$；同态恒等式把两点的比较统一化为单位元处的
+一个原像条件，这就是只需在单位元处选择邻域的原因。
+\end{solution}
+
+\begin{solution}{haar-left-right-uniformities}
+先设单位元有共轭不变邻域基。取其中的对称邻域 $U$。
+若 $y=xu$、$u\in U$，则 $xy^{-1}=xu^{-1}x^{-1}\in U$，故
+$E_U^{\mathrm L}\subseteq E_U^{\mathrm R}$；交换左右得反向包含。
+这样的基本周围在两种一致结构中相同，所以一致结构相同。
+
+反之，设两种一致结构相同。给定 $e$ 的开邻域 $U$，先缩小为对称
+开邻域，仍记 $U$。存在对称开邻域 $V$ 使
+$E_V^{\mathrm L}\subseteq E_U^{\mathrm R}$。对任意 $x\in G,u\in V$，
+取 $y=xu^{-1}$，便有 $x^{-1}y=u^{-1}\in V$，所以
+$xux^{-1}=xy^{-1}\in U$。于是
+\[
+ W=\bigcup_{x\in G}xVx^{-1}
+\]
+是包含 $e$ 的开集，满足 $W\subseteq U$，且对所有共轭保持不变。
+这构成所需邻域基。
+
+对仿射群取 $U=\{(a,b):1/2<a<2,\ |b|<1\}$。若有共轭不变的
+单位元邻域 $W\subseteq U$，则 $W$ 包含某个 $(1,b)$、$b\ne0$，
+因为单位元的任意开邻域都包含充分小的非零平移。共轭不变性将给
+$(1,ab)\in W$ 对每个 $a>0$ 成立；取 $a>|b|^{-1}$ 与
+$W\subseteq U$ 矛盾。因此两种一致结构不同。
+\end{solution}
+
+\begin{solution}{haar-pushforward-isometry}
+若 $f=g$ 在 $\nu$-几乎处处成立，可取可测零集 $N$ 包含两者不等的
+点；则 $\mu(T^{-1}N)=\nu(N)=0$。故复合不依赖等价类的代表元。
+对 $1\le p<\infty$，推前积分公式给
+\[
+ \|f\circ T\|_{L^p(\mu)}^p
+ =\int_X |f(Tx)|^p\,d\mu(x)
+ =\int_Y|f(y)|^p\,d\nu(y).
+\]
+对 $p=\infty$，任意 $M\ge0$ 满足
+\[
+ \mu(\{|f\circ T|>M\})=\nu(\{|f|>M\}),
+\]
+故本性上确界也相同。线性来自逐点复合，等距性蕴含单射。
+
+在平方映射的例子中，所有像函数 $f(x^2)$ 都是偶函数。
+若有 $f(x^2)=x$ 几乎处处，则存在零集 $N$，使等式在补集成立。
+对 $x\notin N\cup(-N)$，同时有 $f(x^2)=x$ 与 $f(x^2)=-x$，
+于是 $x=0$，与补集具有正测度矛盾。函数 $x$ 属于这里所有
+$L^p$（包括 $p=\infty$），因此这些嵌入都不满射。
+\end{solution}
+
+\begin{solution}{haar-square-probability}
+对 $0\le y\le1$，
+\[
+ (T_\#\mu)([0,y])=\frac12 m([-\sqrt y,\sqrt y])=\sqrt y.
+\]
+因此密度为 $\rho(y)=\frac1{2\sqrt y}\mathbf1_{(0,1)}(y)$，
+其积分为 $1$。原像 $T^{-1}(\{0\})=\{0\}$ 以及
+$T^{-1}(\{1\})=\{-1,1\}$ 均为零测集，故两个端点都无原子。
+对实数 $s$，允许在 $y=0$ 任意指定 $y^s$ 的值，因为该点零测。
+由非负积分公式，
+\[
+ \int_0^1y^s\,d(T_\#\mu)(y)=\frac12\int_0^1 y^{s-1/2}\,dy
+ =\frac1{2s+1}\quad\text{当 }s>-\frac12.
+\]
+当 $s=-1/2$ 时为对数发散；当 $s<-1/2$ 时幂积分发散。因此后两种
+情形的非负积分均为 $+\infty$。
+\end{solution}
+
+\begin{solution}{haar-logarithmic-measure}
+$\log(xy)=\log x+\log y$，且 $\log$ 与其逆 $\exp$ 连续，所以是
+拓扑群同构。已知 $dx/x$ 为乘法群的左 Haar 测度；对任意另一 Haar
+测度，唯一性定理给 $c\,dx/x$，其中 $c>0$。
+由于群交换，无需再区分左右版本。区间的测度为
+\[
+ c\int_r^{ar}\frac{dx}{x}=c\log a,
+\]
+与起点 $r$ 无关。等价地，该区间在 $\log$ 下成为长度为 $\log a$
+的半开区间。
+\end{solution}
+
+\begin{solution}{haar-finite-group-average}
+每个作用映射 $T_a$ 都是同胚，所以 $(T_a)_\#\nu$ 是 Radon 概率测度。
+有限个 Radon 测度的正线性组合仍为 Radon：局部有限性由有限个有限
+邻域的交得到；对一个 Borel 集，分别为每个测度选紧内逼近，再取
+有限并，即可同时控制有限个误差。因此平均是 Radon 概率测度。
+对 $b\in F$，
+\[
+ (T_b)_\#\left(\frac1{|F|}\sum_{a\in F}(T_a)_\#\nu\right)
+ =\frac1{|F|}\sum_{a\in F}(T_{ba})_\#\nu
+\]
+等于原平均。
+
+从 $\delta_{x_0}$ 出发时，所得测度为
+$|F|^{-1}\sum_{a\in F}\delta_{a\cdot x_0}$。令稳定子
+$F_{x_0}=\{a:a\cdot x_0=x_0\}$。对轨道中的任一点 $y=b\cdot x_0$，
+所有把 $x_0$ 送到 $y$ 的元素恰为 $bF_{x_0}$，故该点质量是
+$|F_{x_0}|/|F|=1/|F\cdot x_0|$。仅当稳定子平凡时，它才等于
+$1/|F|$；例如平凡作用的轨道只有一个点，其质量为 $1$。
+\end{solution}
+
+\begin{solution}{haar-affine-action-obstruction}
+令 $c=\mu([0,1))<\infty$。平移不变性及不交可加性给
+$\mu([0,2))=2c$，而缩放不变性给 $\mu([0,2))=c$，因此 $c=0$。
+所有 $[n,n+1)$（$n\in\Z$）都零测且覆盖实直线，故 $\mu=0$。
+
+若只要求缩放不变，可取 $\delta_0$；缩放固定原点，所以这是非零有限
+不变 Radon 测度。若只要求平移不变且总质量有限，每个区间
+$[n,n+1)$ 的质量相同。若公共质量为正，总质量无穷；若为零，则
+可数并给总质量为零。所以非零有限平移不变测度也不存在。
+\end{solution}
+
+\begin{solution}{haar-atoms-discreteness}
+若 $G$ 离散，$\{e\}$ 是非空开集，故其质量为正。反之，设
+$c=\mu(\{e\})>0$。取 $e$ 的紧邻域 $K$，则 $\mu(K)<\infty$。
+由左不变性，每个点的质量均为 $c$；若 $K$ 有任意多个不同点，有限
+可加性将给 $\mu(K)\ge nc$ 对每个正整数 $n$ 成立，矛盾。因此 $K$
+有限。取开集 $e\in U\subseteq K$，从 $U$ 中删去有限个非单位点；
+Hausdorff 性保证单点闭，所得 $\{e\}$ 开。平移后每个单点都开，故
+$G$ 离散。
+
+此时紧集恰为有限集。对任意 $E\subseteq G$，紧内正则性给
+\[
+ \mu(E)=\sup\{\mu(K):K\subseteq E,\ K\text{ 有限}\}
+ =\sup\{c|K|:K\subseteq E,\ K\text{ 有限}\}.
+\]
+有限 $E$ 时为 $c|E|$，无限 $E$ 时为无穷，所以 $\mu=c\,\#$，
+包括不可数群的情形。
+\end{solution}
+
+\begin{solution}{haar-sigma-finite-criterion}
+若 $G=\bigcup_nK_n$、各 $K_n$ 紧，则 $\mu(K_n)<\infty$，所以
+$\mu$ 为 $\sigma$-有限。
+
+先证题目提示的事实。设 $X=\bigcup_n E_n$，$\mu(E_n)<\infty$，且
+$(A_i)_{i\in I}$ 两两不交、各自测度为正。每个 $i$ 都存在 $n,k\ge1$
+使 $\mu(A_i\cap E_n)>1/k$；否则所有 $A_i\cap E_n$ 零测，从而
+$A_i$ 零测。对固定 $n,k$，满足该不等式的指标个数有限，因为任意
+$r$ 个这样的交集的并均包含在 $E_n$ 中，给 $r/k<\mu(E_n)$。
+故 $I$ 包含在可数个有限指标集的并中，至多可数。
+
+现在设 $\mu$ 为 $\sigma$-有限，并取正文的开 $\sigma$-紧子群 $H$。
+每个左陪集 $aH$ 都是非空开 Borel 集，因而有正测度；不同陪集两两
+不交。上述事实说明陪集至多可数，故 $G$ 是至多可数个 $\sigma$-紧
+空间 $aH$ 的并，因此 $\sigma$-紧。
+\end{solution}
+
+\begin{solution}{haar-subgroup-quotient-warning}
+$\Z$ 是离散群，其 Haar 测度为计数测度的正倍数。但 $m(\Z)=0$，
+所以把实直线的 Lebesgue 测度限制在 $\Z$ 上只得到零测度，不是
+$\Z$ 的 Haar 测度。子群自身的不变测度不由环境测度的限制自动给出。
+
+若 $O\subseteq\R/\Z$ 非空且开，则 $q^{-1}(O)$ 为非空开集，并对
+整数平移不变。它包含某个长度 $\ell\in(0,1)$ 的开区间 $I$，从而
+包含所有两两不交的 $I+n$，$n\in\Z$。故
+\[
+ (q_\#m)(O)=m(q^{-1}O)\ge\sum_{n\in\Z}\ell=\infty.
+\]
+于是 $q_\#m$ 甚至不局部有限。
+
+若改取 $m|_{[0,1)}$，再经 $q$ 推前，则总质量为 $1$。它等于
+$m|_{[0,1]}$ 的推前，因为端点质量为零；后一测度在紧区间上为有限
+Radon 测度，故推前也是 Radon。对任意 $1$-周期非负 Borel 函数 $h$，
+任意 $a\in\R$ 的平移满足
+$\int_0^1h(t+a)\,dt=\int_0^1h(t)\,dt$：先把 $a$ 减去整数使
+$0\le a<1$，再将区间在 $1-a$ 处分成两段并换元。用于
+$h=\mathbf1_{q^{-1}B}$ 即得推前的旋转不变性。因此它是圆周群的
+归一化 Haar 测度。基本区间只计每条整数轨道一次，消除了无穷重数。
+\end{solution}
+
+\begin{solution}{haar-automorphism-modulus}
+令 $\nu(E)=\mu(\alpha E)$。这是同胚 $\alpha^{-1}$ 的推前，故为
+Radon 测度，且
+\[
+ \nu(aE)=\mu(\alpha(a)\alpha(E))=\mu(\alpha(E))=\nu(E).
+\]
+非零性也保持，所以 $\nu$ 是左 Haar 测度。唯一性给
+$\nu=c_\alpha\mu$、$c_\alpha>0$。对复合有
+\[
+ \mu(\alpha\beta E)=c_\alpha\mu(\beta E)
+ =c_\alpha c_\beta\mu(E),
+\]
+因比例常数唯一，得 $c_{\alpha\circ\beta}=c_\alpha c_\beta$。
+在加法群 $\R^n$ 中，Haar 测度是 Lebesgue 测度的正倍数；线性体积
+公式给 $c_\alpha=|\det A|$，正倍数的归一化不影响该值。
+\end{solution}
+
+\begin{solution}{haar-compact-quotient-normalization}
+$\phi_\#m_G$ 为 Radon 概率测度。对 $h\in H$，选 $g\in G$ 使
+$\phi(g)=h$。对 Borel 集 $B\subseteq H$，有
+\[
+ \phi^{-1}(hB)=g\phi^{-1}(B).
+\]
+所以 $(\phi_\#m_G)(hB)=(\phi_\#m_G)(B)$。该测度为左 Haar 测度，
+且总质量为 $1$，由唯一性即等于 $m_H$。
+若 $N$ 为紧群 $G$ 的闭正规子群，商群 $G/N$ 紧 Hausdorff，自然商
+映射连续且满，故 $m_{G/N}=q_\#m_G$。这里整个源群总质量有限，
+不存在实直线覆盖圆周时的无穷质量问题。
+\end{solution}
+
+\begin{solution}{haar-inversion-unimodular}
+同态性给 $\Delta_G(e)=1$ 及
+$\Delta_G(a)\Delta_G(a^{-1})=1$。又因目标群交换，
+\[
+ \Delta_G(aba^{-1})
+ =\Delta_G(a)\Delta_G(b)\Delta_G(a)^{-1}=\Delta_G(b).
+\]
+对自同构 $\alpha$，设 $\mu(\alpha E)=c_\alpha\mu(E)$。取
+$0<\mu(E)<\infty$，比较
+\[
+ \mu(\alpha(Ea))=c_\alpha\Delta_G(a)\mu(E)
+\]
+与
+\[
+ \mu(\alpha(E)\alpha(a))
+ =\Delta_G(\alpha(a))c_\alpha\mu(E),
+\]
+得到 $\Delta_G(\alpha(a))=\Delta_G(a)$。
+
+连续应用两次取逆公式时，在第二次代换 $x\mapsto x^{-1}$ 下，原来的
+密度因子 $\Delta_G(x)^{-1}$ 变为
+$\Delta_G(x^{-1})^{-1}=\Delta_G(x)$；它与第二次公式产生的
+$\Delta_G(x)^{-1}$ 抵消。因此所得积分恢复为 $\int f\,d\mu$。
+这也解释了取逆公式中密度必须连同自变量一起代换。
+\end{solution}
+
+\begin{solution}{haar-general-linear-group}
+固定 $A\in\mathrm{GL}_n(\R)$。左乘 $X\mapsto AX$ 对矩阵的每一列
+分别应用 $A$，共有 $n$ 列，所以作为 $n^2$ 维线性变换的 Jacobian
+绝对值为 $|\det A|^n$。同时
+$|\det(AX)|^{-n}=|\det A|^{-n}|\det X|^{-n}$，两因子抵消。
+故对 Borel 集 $E$ 有 $\mu(AE)=\mu(E)$。
+
+右乘 $X\mapsto XA$ 对每一行应用右乘 $A$，每行的 Jacobian 绝对值
+仍是 $|\det A|$，因此总 Jacobian 同为 $|\det A|^n$，再次抵消密度
+变化，得 $\mu(EA)=\mu(E)$。
+
+密度 $|\det X|^{-n}$ 在该开集上连续且严格为正，在每个紧子集上
+有界。由 Lebesgue 测度的正则性及连续密度积分，它给出局部有限、
+紧内正则的 Borel 测度；例如先在相对紧区域上用密度的上下界及简单
+函数逼近验证内正则，再用可数紧穷竭处理全部空间。因此它是非零
+Radon 测度，也是左右 Haar 测度。行列式趋于零时密度可以发散，
+但那发生在群的边界，不妨碍群内局部有限性。
+\end{solution}
+
+\begin{solution}{haar-heisenberg-group}
+对三个元素 $(x,y,t),(x',y',t'),(x'',y'',t'')$，两种结合次序的第三
+坐标分别为
+\[
+ t+t'+t''+xy'+(x+x')y'',
+ \qquad t+t'+t''+x'y''+x(y'+y''),
+\]
+它们相等；前两坐标的结合律来自实数加法。单位元为 $(0,0,0)$，
+逆元为
+\[
+ (x,y,t)^{-1}=(-x,-y,-t+xy),
+\]
+代入左乘与右乘都得到单位元。群运算与取逆均为多项式映射，故连续。
+
+固定 $(a,b,c)$，左乘与右乘分别为
+\[
+ (x,y,t)\mapsto(a+x,b+y,c+t+ay),
+\]
+\[
+ (x,y,t)\mapsto(x+a,y+b,t+c+xb).
+\]
+二者 Jacobian 矩阵均为对角线全为 $1$ 的三角矩阵，故行列式为 $1$。
+因此三维 Lebesgue 测度左右不变，且本来就是 Radon 测度。
+另一方面，$(1,0,0)(0,1,0)=(1,1,1)$，而反向乘积为 $(1,1,0)$，
+所以群不交换。此例是非交换幺模群。
+\end{solution}
+
+\begin{solution}{haar-steinhaus-neighborhood}
+由紧内正则性，取 $K\subseteq A$ 紧且 $0<\mu(K)<\infty$。
+先证
+\[
+ \|L_a\mathbf1_K-\mathbf1_K\|_1\longrightarrow0\quad(a\to e).
+\]
+给定 $\varepsilon>0$，紧集外正则性给包含 $K$ 的相对紧开集 $O$，
+使 $\mu(O\setminus K)<\varepsilon$；相对紧性可通过与一个相对紧
+开邻域相交保证。取 $f\in C_c(G)$，$0\le f\le1$、$f=1$ 于 $K$、
+$\operatorname{supp}f\subseteq O$。则
+$\|f-\mathbf1_K\|_1\le\mu(O\setminus K)<\varepsilon$。
+左平移保持 $L^1$ 范数，所以
+\[
+ \|L_a\mathbf1_K-\mathbf1_K\|_1
+ \le2\varepsilon+\|L_af-f\|_1.
+\]
+当 $a$ 在某个相对紧邻域内时，$L_af-f$ 的支撑包含在共同紧集 $D$
+中，故最后一项不超过 $\mu(D)\|L_af-f\|_\infty$，随 $a\to e$
+趋于零。因 $\varepsilon$ 任意，所需连续性成立。
+
+现在 $L_a\mathbf1_K=\mathbf1_{aK}$，由
+$\mu(aK)=\mu(K)$ 有
+\[
+ \mu(K\cap aK)
+ =\mu(K)-\frac12\mu(K\mathbin{\triangle}aK)
+ =\mu(K)-\frac12\|L_a\mathbf1_K-\mathbf1_K\|_1.
+\]
+故它在 $a$ 充分接近 $e$ 时为正。取 $z\in K\cap aK$，写
+$z=aw$、$w\in K$，得到 $a=zw^{-1}\in KK^{-1}\subseteq AA^{-1}$。
+因此 $AA^{-1}$ 包含单位元邻域。
+
+若 $A=H$ 为正测度 Borel 子群，则 $HH^{-1}=H$，所以 $H$ 包含
+单位元的开邻域 $U$。于是 $H=\bigcup_{h\in H}hU$ 开。
+\end{solution}
+
+\begin{solution}{haar-transitive-compact-action}
+固定 $x_0\in X$，轨道映射 $g\mapsto g\cdot x_0$ 连续且满，所以
+$X$ 是紧群的连续像，因而紧。Hausdorff 性保证它是紧 Hausdorff 空间。
+存在性已由轨道平均得到。
+
+对 $f\in C(X)$，定义
+$Af(x)=\int_G f(g\cdot x)\,dm_G(g)$。若 $x=h\cdot x_0$，则
+\[
+ Af(x)=\int_G f(gh\cdot x_0)\,dm_G(g)
+ =\int_G f(g\cdot x_0)\,dm_G(g)=Af(x_0),
+\]
+其中使用了紧群 Haar 测度的右不变性。因此 $Af$ 为常函数。
+若 $\nu$ 为任意不变 Radon 概率测度，则连续核
+$(g,x)\mapsto f(g\cdot x)$ 定义在紧乘积上，正文紧支撑 Fubini
+引理适用。故
+\[
+ Af(x_0)=\int_X Af\,d\nu
+ =\int_G\left(\int_X f(g\cdot x)\,d\nu(x)\right)dm_G(g)
+ =\int_X f\,d\nu.
+\]
+右端由轨道平均唯一确定，与 $\nu$ 无关。Radon 测度在所有连续函数
+上的积分决定它自身，所以不变 Radon 概率测度唯一。
+\end{solution}

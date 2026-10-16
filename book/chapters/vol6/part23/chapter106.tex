@@ -1,0 +1,770 @@
+\chapter{Haar 测度}
+\label{chap:haar-measure}
+
+Lebesgue 测度把平移前后的集合赋予同样的体积；圆周上的弧长对旋转不变，
+离散群上的计数测度也不因群元素重新排列而改变。这些现象共同涉及两种
+结构：群运算规定允许的变换，拓扑规定局部性和可接受的测度。对一般群，
+左乘与右乘未必产生相同的体积变化，因而必须分别讨论。
+
+本章从拓扑群的基本语言开始，以推前测度表达变量代换，再构造局部紧群上
+的左不变 Radon 测度。构造调用\chapterref{chap:radon-measures}的
+正泛函表示定理；唯一性只使用紧支撑函数上的积分，不假定群第二可数或
+$\sigma$-紧。除特别说明外，拓扑群均为 Hausdorff 群，$e$ 表示单位元。
+
+\section{拓扑群、商群与左右一致结构}
+\label{sec:topological-groups-uniformities}
+
+\subsection{群运算与商拓扑}
+
+\begin{definition}
+一个\term{群}是具有结合乘法的非空集合 $G$，其中有单位元 $e$，且每个
+$x\in G$ 有逆元 $x^{-1}$。若 $G$ 还带有 Hausdorff 拓扑，且映射
+\[
+ G\times G\longrightarrow G,\quad(x,y)\longmapsto xy,
+ \qquad G\longrightarrow G,\quad x\longmapsto x^{-1}
+\]
+连续，则称 $G$ 为\term{拓扑群}。若其拓扑空间局部紧，则称为
+\term{局部紧群}。
+\end{definition}
+
+对固定 $a\in G$，左平移 $x\mapsto ax$、右平移 $x\mapsto xa$ 都是
+同胚，逆映射分别由 $a^{-1}$ 给出。因此单位元处的邻域决定每一点处的
+邻域。若 $U$ 是 $e$ 的开邻域，乘法和取逆的连续性给出对称开邻域
+$V=V^{-1}$，使 $VV\subseteq U$。以后把这种选择写成“取对称邻域并缩小”，
+所使用的是群运算的连续性，而非某个预先给定的距离。
+
+加法群 $\R^n$、$\Z^n$，乘法群
+$\mathbb T=\{z\in\C:|z|=1\}$、$(0,\infty)$，以及矩阵群
+$\mathrm{GL}_n(\R)$ 都是局部紧群。最后一例是 $\R^{n^2}$ 中的开集，
+乘法为多项式映射，取逆由余子式公式连续。任意群取离散拓扑也局部紧，
+不论它是否可数。无限维 Banach 空间的加法群则不是局部紧群。
+
+圆周的两种常用写法通过 $[x]\mapsto e^{ix}$ 给出拓扑群同构
+$\R/(2\pi\Z)\simeq\{z\in\C:|z|=1\}$。沿用 Fourier 章节的约定，
+角度坐标下的归一化弧长是 $dx/(2\pi)$。若改用周期为一的坐标
+$\R/\Z$，同构写成 $[t]\mapsto e^{2\pi it}$，归一化弧长相应为 $dt$。
+
+群之间满足 $\phi(xy)=\phi(x)\phi(y)$ 的映射称为\term{群同态}；
+它自动保持单位元与逆元。兼为同胚的群同态称为\term{拓扑群同构}，
+从群到自身的拓扑群同构称为\term{拓扑群自同构}。对固定 $a$，映射
+$x\mapsto axa^{-1}$ 称为由 $a$ 给出的\term{共轭}，它是拓扑群自同构。
+
+子集 $H\subseteq G$ 若含 $e$ 且对乘法、取逆封闭，称为子群。若还满足
+$aHa^{-1}=H$ 对每个 $a\in G$ 成立，则称为正规子群。对正规子群 $N$，
+陪集的乘法 $(aN)(bN)=abN$ 与代表元选择无关：把 $a,b$ 分别换成
+$an_1,bn_2$ 后，$an_1bn_2=ab(b^{-1}n_1b)n_2\in abN$。
+
+\begin{proposition}[商群]
+\label{prop:topological-quotient-group}
+设 $N$ 是拓扑群 $G$ 的正规子群，$G/N$ 取商拓扑。自然映射
+$q:G\to G/N$ 是开映射，商上的乘法和取逆连续。商空间为 Hausdorff
+空间当且仅当 $N$ 闭。若 $G$ 局部紧且 $N$ 闭，则 $G/N$ 是局部紧群。
+\end{proposition}
+
+\begin{proof}
+对开集 $U\subseteq G$，有 $q^{-1}(q(U))=UN=\bigcup_{n\in N}Un$，
+所以 $q(U)$ 开。映射 $q\times q$ 也是开满射，因而是商映射；由
+$q(xy)=q(x)q(y)$ 以及 $q(x^{-1})=q(x)^{-1}$，商乘法和取逆连续。
+
+若商空间 Hausdorff，则 $N=q^{-1}(\{q(e)\})$ 闭。反之，设 $N$ 闭，
+且 $q(x)\ne q(y)$，于是 $x^{-1}y\notin N$。映射
+$(u,v)\mapsto u^{-1}v$ 连续，可取 $x,y$ 的开邻域 $U,V$ 使
+$U^{-1}V\cap N=\varnothing$。若 $q(U)\cap q(V)$ 非空，就有
+$u\in U,v\in V$ 满足 $u^{-1}v\in N$，矛盾。这给出分离的商邻域。
+最后，$e$ 的紧邻域 $K$ 的像 $q(K)$ 紧，且包含开邻域
+$q(\operatorname{int}K)$，故商群局部紧。
+\end{proof}
+
+若 $H$ 只是闭子群，左陪集空间 $G/H$ 仍可取商拓扑；上面的开映射与
+Hausdorff 证明仍成立，局部紧性也保持，但陪集之间一般没有群乘法。
+群 $G$ 可以在 $G/H$ 上左乘。这一区别影响后面的不变测度问题：不能
+把所有齐性空间都直接当作商群使用 Haar 定理。
+
+\subsection{两种一致结构与紧支撑函数}
+
+对 $e$ 的邻域 $U$，置
+\[
+ E_U^{\mathrm L}=\{(x,y):x^{-1}y\in U\},\qquad
+ E_U^{\mathrm R}=\{(x,y):xy^{-1}\in U\}.
+\]
+它们分别生成\term{左一致结构}与\term{右一致结构}。确实，有限交由
+邻域的交控制，取逆关系由 $U^{-1}$ 控制；若 $VV\subseteq U$，则
+$E_V^{\mathrm L}\circ E_V^{\mathrm L}\subseteq E_U^{\mathrm L}$，
+右边也一样。它们诱导的邻域分别为 $xU$ 与 $U^{-1}x$，都给出原拓扑。
+左一致结构在同时左乘下保持不变，右一致结构在同时右乘下保持不变。
+
+在交换群中两者相同。在非交换群中，$x^{-1}y$ 与 $xy^{-1}$ 的关系
+涉及共轭，所需邻域可能随 $x$ 改变，所以不能仅由拓扑相同推出一致
+结构相同。不过紧支撑连续函数对这两种结构都具有所需的一致控制。
+对 $f\in C_c(G)$，约定
+\[
+ L_af(x)=f(a^{-1}x),\qquad R_af(x)=f(xa).
+\]
+这里 $L_aL_b=L_{ab}$；右平移记号也固定以上公式，不在后文反复改换逆元。
+
+\begin{lemma}[平移的一致连续性]
+\label{lem:haar-translation-continuity}
+若 $G$ 局部紧、$f\in C_c(G)$，则
+\[
+ \lim_{a\to e}\|L_af-f\|_\infty=0,
+ \qquad \lim_{a\to e}\|R_af-f\|_\infty=0.
+\]
+当 $a$ 限制在 $e$ 的某个相对紧邻域内时，这些函数的支撑包含在同一
+紧集中。因此对任意 Radon 测度 $\nu$，$a\mapsto\int R_af\,d\nu$
+及 $a\mapsto\int L_af\,d\nu$ 都连续。
+\end{lemma}
+
+\begin{proof}
+令 $K=\operatorname{supp}f$，取 $e$ 的对称相对紧开邻域 $W$。
+当 $a\in W$ 时，$f$ 和 $R_af$ 的支撑都在紧集
+$D=K\overline W\cup K$ 内。连续函数
+$(x,a)\mapsto f(xa)-f(x)$ 在 $D\times\{e\}$ 上为零。对每个
+$x\in D$，连续性给出 $x$ 的邻域与 $e$ 的邻域，使差的绝对值小于
+$\varepsilon$；有限个前者覆盖 $D$，取相应后者的交，便得同一邻域
+对全部 $x\in D$ 有效。在 $D$ 外两个函数均为零。这证明右平移的
+断言。左平移改用紧集 $\overline W K\cup K$，论证相同。
+
+积分之差不超过 $\nu(D)$ 乘以相应上确界范数，且 $\nu(D)<\infty$。
+在任意 $a_0$ 附近，把平移写成固定平移与趋于单位元的平移的复合，
+即可得到各点的连续性。
+\end{proof}
+
+\section{可测映射和推前测度}
+\label{sec:pushforward-measures}
+
+可测映射只要求可测集的原像可测，不要求像集可测。
+这个方向使测度能够沿任意可测映射运输，无需先解决像集的可测性。
+
+\begin{definition}[推前测度]
+设 $T:(X,\mathcal A)\to(Y,\mathcal B)$ 可测，$\mu$ 是
+$(X,\mathcal A)$ 上的测度。定义 $\mu$ 在 $T$ 下的\term{推前测度}
+\[
+ (T_\#\mu)(B)=\mu(T^{-1}(B)),\qquad B\in\mathcal B.
+\]
+\end{definition}
+
+若 $B_n$ 两两不交，原像 $T^{-1}(B_n)$ 也两两不交，且原像保持并，
+所以 $T_\#\mu$ 可数可加。若 $S:Y\to Z$ 可测，则
+\[
+ (S\circ T)_\#\mu=S_\#(T_\#\mu),\qquad (\mathrm{id}_X)_\#\mu=\mu.
+\]
+推前后的总质量不变；但 $\sigma$-有限性未必保持。例如把实直线的
+Lebesgue 测度经常值映射推到单点，得到该点质量为无穷的测度。
+
+\begin{proposition}[Radon 性的保持]
+\label{prop:proper-pushforward-radon}
+设 $X,Y$ 为局部紧 Hausdorff 空间，$\mu$ 是 $X$ 上的 Radon 测度，
+$T:X\to Y$ 连续。若 $\mu(X)<\infty$，或 $T$ 是\term{固有映射}
+（每个紧集的原像都紧），则 $T_\#\mu$ 是 Radon 测度。
+\end{proposition}
+
+\begin{proof}
+有限测度情形局部有限性直接成立。固有情形，在 $Y$ 中取紧邻域 $D$，有
+\[
+ (T_\#\mu)(D)=\mu(T^{-1}D)<\infty.
+\]
+对任意 Borel 集 $B\subseteq Y$，内正则性给出
+\[
+ \mu(T^{-1}B)=\sup\{\mu(K):K\subseteq T^{-1}B,\ K\text{ 紧}\}.
+\]
+每个 $T(K)$ 都是 $B$ 内的紧集，且
+$(T_\#\mu)(T(K))\ge\mu(K)$，故 $T_\#\mu$ 在 $B$ 上紧内正则。
+\end{proof}
+
+特别地，同胚保持 Radon 性。一般连续映射则不保持局部有限性，上面的
+常值映射已经是反例。本章首先在 Borel $\sigma$-代数上操作，再按需要
+作完备化；不能因为一个映射连续，就断言它对任意指定的完备化
+$\sigma$-代数仍然可测。
+
+\section{抽象变量代换}
+\label{sec:abstract-change-of-variables}
+
+推前测度把变换后的质量写在目标空间上。相应的积分公式既不需要导数，
+也不需要单射；熟悉的 Jacobian 是在两个预先指定的测度之间比较密度时
+才出现的额外信息。
+
+\begin{theorem}[推前积分公式]
+\label{thm:pushforward-integration}
+设 $T:(X,\mathcal A,\mu)\to(Y,\mathcal B)$ 可测。对任意非负可测
+函数 $f:Y\to[0,\infty]$，有
+\begin{equation}
+ \int_Yf\,d(T_\#\mu)=\int_X f\circ T\,d\mu.
+ \label{eq:pushforward-integration}
+\end{equation}
+若 $f$ 为实值或复值可测函数，则 $f\in L^1(T_\#\mu)$ 当且仅当
+$f\circ T\in L^1(\mu)$，此时同一公式成立。
+\end{theorem}
+
+\begin{proof}
+对 $f=\mathbf1_B$，公式就是推前的定义。非负简单函数的情形由有限
+线性组合得到。对一般非负 $f$，取简单函数 $s_n\uparrow f$，则
+$s_n\circ T\uparrow f\circ T$，两边分别用单调收敛定理即可。
+把该结论用于 $|f|$ 得到可积性的等价；再分正负部以及实部、虚部，
+得到可积函数的公式。整个论证不要求 $\sigma$-有限性。
+\end{proof}
+
+若目标空间另有测度 $\nu$，并且已知
+$T_\#\mu=J\nu$，其中 $J\ge0$ 可测，则
+\[
+ \int_X f(Tx)\,d\mu(x)=\int_Y f(y)J(y)\,d\nu(y).
+\]
+这里 $J$ 是推前测度相对于 $\nu$ 的密度。对微分同胚，它与 Jacobian
+联系；对多对一映射，不同分支的质量必须相加。
+
+\begin{example}[乘法尺度]
+令 $T(t)=e^t$，把实直线上的 Lebesgue 测度 $m$ 推到 $(0,\infty)$。
+对 $0<a<b$，
+\[
+ T_\#m((a,b])=\log b-\log a=\int_a^b\frac{dx}{x}.
+\]
+这两个 $\sigma$-有限 Borel 测度在半开区间上一致，由测度延拓唯一性，
+$d(T_\#m)(x)=dx/x$。因此
+$\int_{\R}f(e^t)\,dt=\int_0^\infty f(x)\,dx/x$。乘法缩放
+$x\mapsto ax$ 对应 $t\mapsto t+\log a$，所以 $dx/x$ 对缩放不变。
+\end{example}
+
+\begin{example}[折叠的两个分支]
+令 $T(x)=x^2$，$x\in\R$。对 $0<a<b$，原像是两个区间，故
+\[
+ T_\#m((a,b])=2(\sqrt b-\sqrt a)=\int_a^b y^{-1/2}\,dy.
+\]
+原点的原像只有一个点，质量为零。因此在 $[0,\infty)$ 上
+$T_\#m$ 的密度为 $y^{-1/2}\mathbf1_{(0,\infty)}(y)$。
+若只保留正半轴的反函数导数，就会少计一半质量。
+\end{example}
+
+\section{群作用和不变测度}
+\label{sec:group-actions-invariant-measures}
+
+\begin{definition}
+群 $G$ 在集合 $X$ 上的\term{左作用}是映射 $(a,x)\mapsto a\cdot x$，
+满足 $e\cdot x=x$、$(ab)\cdot x=a\cdot(b\cdot x)$。
+若 $G,X$ 为拓扑空间且此映射连续，称为连续作用。对固定 $a$，记
+$T_a(x)=a\cdot x$。若各 $T_a$ 可测，测度 $\mu$ 称为
+\term{$G$-不变}，如果 $(T_a)_\#\mu=\mu$ 对所有 $a\in G$ 成立。
+\end{definition}
+
+每个 $T_a$ 都有逆映射 $T_{a^{-1}}$，故在连续作用中它是同胚。
+点 $x$ 的\term{轨道}是 $G\cdot x=\{a\cdot x:a\in G\}$；若整个
+$X$ 是一个轨道，称作用\term{传递}。
+不变性等价于 $\mu(a\cdot B)=\mu(B)$。由推前积分公式，它还等价于
+对全部非负可测 $f$ 有
+\[
+ \int_X f(a\cdot x)\,d\mu(x)=\int_X f(x)\,d\mu(x).
+\]
+若 $X$ 局部紧且 $\mu$ 为 Radon 测度，只检验 $f\in C_c(X)$ 就足够：
+同胚推前仍为 Radon 测度，而正泛函表示的唯一性把连续试验函数上的
+积分相等提升为 Borel 测度相等。
+
+不变性还解释了函数空间上的平移。对 $1\le p<\infty$，定义
+$U_af(x)=f(a^{-1}\cdot x)$。零测集的原像仍为零测集，所以该定义不依赖
+$L^p$ 等价类的代表元，且
+\[
+ \|U_af\|_p=\|f\|_p,\qquad U_aU_b=U_{ab},\qquad U_a^{-1}=U_{a^{-1}}.
+\]
+$L^\infty$ 的相同结论由水平集得到。这为以后用算子研究动力系统提供
+了一套不改变积分大小的变换；强连续性是另外的结论，不能仅从等距性推出。
+
+\begin{example}[有限群平均]
+若有限群 $F$ 以可测双射作用在可测空间 $X$ 上，则由任意概率测度
+$\nu$（即总质量为 $1$ 的测度）得到
+\[
+ \overline\nu=\frac1{|F|}\sum_{a\in F}(T_a)_\#\nu.
+\]
+它仍为概率测度。对 $b\in F$，左乘 $a\mapsto ba$ 只是重新排列求和，
+所以 $(T_b)_\#\overline\nu=\overline\nu$。紧群上的平均需要先构造
+Haar 测度，不能在存在性证明之前使用一个尚未定义的“均匀分布”。
+\end{example}
+
+\begin{counterexample}[仿射作用的限制]
+实直线上的非零 Radon 测度不可能同时对所有平移和所有正比例缩放不变。
+事实上，若 $c=\mu([0,1))$，则 $c<\infty$。平移不变性给
+$\mu([0,2))=2c$，而缩放 $x\mapsto2x$ 的不变性给同一数值为 $c$，
+所以 $c=0$。整数平移的 $[0,1)$ 覆盖 $\R$，从而 $\mu(\R)=0$。
+这个反例并不否定仿射群自身存在 Haar 测度；作用空间与作用群是不同对象。
+\end{counterexample}
+
+\section{局部紧群上的 Haar 测度}
+\label{sec:haar-measure-definition}
+
+\begin{definition}
+局部紧群 $G$ 上非零的左平移不变 Radon 测度称为\term{左 Haar 测度}。
+右平移不变的非零 Radon 测度称为\term{右 Haar 测度}。
+本章的 Radon 测度采用\chapterref{chap:radon-measures}的约定：在
+Borel 集上定义，局部有限，且在每个 Borel 集上由紧集内逼近。
+\end{definition}
+
+这个约定保证紧集测度有限，并保证测度由 $C_c(G)$ 上的积分唯一决定。
+在不作 $\sigma$-紧性等附加假设时，不把“所有 Borel 集全局外正则”
+额外塞入定义。一般 Borel 测度若不满足局部有限和正则条件，左不变性
+本身不足以得到下面的唯一性。
+
+\begin{example}[已知的 Haar 测度]
+$\R^n$ 上的 Lebesgue 测度是加法群的左右 Haar 测度；$(0,\infty)$
+上的 $dx/x$ 是乘法群的左右 Haar 测度。任意离散群上的计数测度也满足
+定义：紧集恰为有限集，任意集合的计数测度等于其有限子集测度的上确界。
+因此不可数离散群同样有 Haar 测度，但该测度不是 $\sigma$-有限的。
+\end{example}
+
+\begin{proposition}[正性与总质量]
+\label{prop:haar-positive-open-compact-total}
+若 $\mu$ 为局部紧群 $G$ 的左 Haar 测度，则每个非空开集都有正测度，
+每个非零的 $f\in C_c(G)$、$f\ge0$ 都有正积分；并且
+\[
+ \mu(G)<\infty\quad\Longleftrightarrow\quad G\text{ 紧}.
+\]
+\end{proposition}
+
+\begin{proof}
+由非零性和紧内正则性，可取紧集 $K$ 使 $\mu(K)>0$。给定非空开集
+$U$，所有左平移 $aU$ 覆盖 $K$，有限子覆盖给
+$0<\mu(K)\le n\mu(U)$。若 $f\ge0$ 非零，某个非空开集上有
+$f>\varepsilon>0$，故积分为正。
+
+紧群的总质量由紧集有限性得到。反之，若 $G$ 非紧，取非空相对紧开集
+$U$。可以递归选择 $a_n$，使 $a_nU$ 两两不交：选定前 $n$ 个之后，
+有限个紧集 $a_j\overline U(\overline U)^{-1}$ 的并不覆盖 $G$，
+从其补集中取 $a_{n+1}$。若 $a_{n+1}U$ 与 $a_jU$ 相交，则
+$a_{n+1}\in a_jUU^{-1}$，矛盾。于是
+$\mu(G)\ge\sum_{n\ge1}\mu(U)=\infty$。
+\end{proof}
+
+局部紧群总有一个开且 $\sigma$-紧的子群。取含 $e$ 的对称相对紧开集
+$V$，则
+\[
+ H=\bigcup_{n\ge1}V^n=\bigcup_{n\ge1}(\overline V)^n
+\]
+是子群：第一式保证它开，第二式成立是因为开子群也闭，故包含
+$\overline V$。第二式还说明它 $\sigma$-紧。其左陪集均开且闭。
+这个局部结构有助于把问题限制到 $\sigma$-有限的区域，但不允许把整个
+$G$ 默认为 $\sigma$-紧。
+
+下面直接在紧支撑上使用 Fubini。这里有一个容易忽略的可测性问题：
+一般拓扑空间中 $\mathcal B(X\times Y)$ 未必等于
+$\mathcal B(X)\otimes\mathcal B(Y)$。
+
+\begin{lemma}[紧支撑双重积分]
+\label{lem:haar-compact-fubini}
+设 $X,Y$ 局部紧 Hausdorff，$\mu,\nu$ 分别为其 Radon 测度。
+若 $F\in C_c(X\times Y)$，则两个迭代积分绝对收敛且可交换。
+\end{lemma}
+
+\begin{proof}
+$\operatorname{supp}F$ 的两个投影包含在紧集 $K\subseteq X$、
+$D\subseteq Y$ 中。在紧 Hausdorff 空间 $K\times D$ 上，有限和
+$\sum_i u_i(x)v_i(y)$（$u_i\in C(K)$、$v_i\in C(D)$）组成含常数且
+分离点的代数。由定理\ref{thm:real-stone-weierstrass}，$F$ 的实部和
+虚部都可由这种有限和一致逼近。因此 $F|_{K\times D}$ 对两个 Borel
+$\sigma$-代数的乘积可测；补零后在 $X\times Y$ 上也乘积可测。
+限制测度 $\mu|_K,\nu|_D$ 有限，且 $F$ 有界，故定理\ref{thm:fubini}
+适用。紧矩形外所有截面均为零，所以该有限区域的积分就是所需积分。
+\end{proof}
+
+\section{Haar 测度的存在唯一性与模函数}
+\label{sec:haar-existence-uniqueness-modular}
+
+\subsection{覆盖比与正泛函的构造}
+
+在没有测度之前，仍可比较两个非负紧支撑函数的相对大小。所用比较允许
+把一个函数平移多次，以正系数相加后覆盖另一个函数。这种“覆盖费用”
+具有平移不变性，却通常只有次可加性。构造的关键在于使覆盖函数的支撑
+向单位元收缩，从而让次可加性在极限中变成可加性。
+
+记 $C_c^+(G)=\{f\in C_c(G;\R):f\ge0\}$。对 $g\in C_c^+(G)\setminus\{0\}$
+及 $f\in C_c^+(G)$，定义
+\[
+ (f:g)=\inf\left\{\sum_{j=1}^n c_j:
+ f\le\sum_{j=1}^n c_jL_{a_j}g,\ c_j>0,\ a_j\in G\right\}.
+\]
+约定 $(0:g)=0$。这个量有限：取 $g>\eta>0$ 的非空开集，把
+$\operatorname{supp}f$ 用其有限个左平移覆盖，再用
+$\|f\|_\infty/\eta$ 乘以相应函数之和。若 $f\ne0$，则任何覆盖都给
+$\|f\|_\infty\le\|g\|_\infty\sum_jc_j$，所以 $(f:g)>0$。
+
+定义立即给出单调性、正齐次性以及
+\begin{align*}
+ (L_af:g)&=(f:g),\\
+ (f_1+f_2:g)&\le(f_1:g)+(f_2:g),\\
+ (f:h)&\le(f:g)(g:h)\qquad(g,h\ne0).
+\end{align*}
+最后一个不等式来自把 $g$ 的有限覆盖代入 $f$ 的有限覆盖，并使用
+$L_aL_b=L_{ab}$；令两次覆盖费用分别趋于下确界即可。特别地
+$(f:f)=1$，因为单个系数 $1$ 给上界，上确界范数估计给下界。
+
+\begin{theorem}[Haar 测度的存在性]
+\label{thm:haar-existence}
+每个局部紧 Hausdorff 群都有左 Haar 测度。
+\end{theorem}
+
+\begin{proof}
+固定 $0\ne f_0\in C_c^+(G)$，并对 $0\ne g\in C_c^+(G)$ 置
+\[
+ I_g(f)=\frac{(f:g)}{(f_0:g)}.
+\]
+覆盖的复合不等式给 $0\le I_g(f)\le(f:f_0)$，且 $I_g(f_0)=1$。
+因此全部 $I_g$ 都属于乘积
+\[
+ P=\prod_{f\in C_c^+(G)}[0,(f:f_0)].
+\]
+这是以函数集合为指标的紧空间；紧性来自
+定理\ref{thm:tychonoff-product}，不要求存在可数邻域基。
+
+对 $e$ 的每个开邻域 $U$，令
+\[
+ P_U=\overline{\{I_g:0\ne g\in C_c^+(G),\
+                 \operatorname{supp}g\subseteq U\}}^{\,P}.
+\]
+截断引理\ref{lem:lch-cutoff}保证括号中的集合非空。有限多个邻域的
+交仍是邻域，故闭集族 $P_U$ 具有有限交性质。取
+$I\in\bigcap_U P_U$。坐标上的单调性、齐次性、次可加性、左不变性以及
+$I(f_0)=1$ 都是闭条件，故从 $I_g$ 传给 $I$。
+
+\emph{验证加法。} 固定 $f_1,f_2\in C_c^+(G)$，令 $f=f_1+f_2$。
+取 $k\in C_c^+(G)$，使 $k=1$ 于 $\operatorname{supp}f$。
+给定 $\delta>0$，置
+\[
+ h_i(x)=\frac{f_i(x)}{f(x)+\delta}\quad(i=1,2).
+\]
+则 $h_i\in C_c^+(G)$，$h_1+h_2\le1$，且
+$f_i\le h_if+\delta k$。给定 $\varepsilon>0$，由
+引理\ref{lem:haar-translation-continuity}取 $e$ 的开邻域 $U$，使
+\[
+ |h_i(au)-h_i(a)|<\varepsilon
+ \quad(a\in G,\ u\in U,\ i=1,2).
+\]
+若 $\operatorname{supp}g\subseteq U$ 且
+$f\le\sum_jc_jL_{a_j}g$，则在每个 $L_{a_j}g$ 的非零点处有
+$h_i(x)\le h_i(a_j)+\varepsilon$，所以
+\[
+ f_i\le\sum_jc_j(h_i(a_j)+\varepsilon)L_{a_j}g+\delta k.
+\]
+对这同一个覆盖，次可加性同时给出两项估计。利用
+$h_1(a_j)+h_2(a_j)\le1$，先相加得到
+\[
+ (f_1:g)+(f_2:g)
+ \le (1+2\varepsilon)\sum_jc_j+2\delta(k:g).
+\]
+然后对覆盖 $f$ 的共同费用 $\sum_jc_j$ 取下确界，并除以 $(f_0:g)$，得到
+\[
+ I_g(f_1)+I_g(f_2)
+ \le(1+2\varepsilon)I_g(f)+2\delta I_g(k).
+\]
+这是有限多个坐标上的闭不等式，故对 $I\in P_U$ 也成立。
+先令 $\varepsilon\downarrow0$，再令 $\delta\downarrow0$，得到
+$I(f_1)+I(f_2)\le I(f)$；反向不等式已有，故 $I$ 可加。
+
+\emph{由泛函得到测度。} 对实值 $u\in C_c(G)$，置
+$\Lambda(u)=I(u^+)-I(u^-)$。若 $u=f-g$、$f,g\ge0$，则
+$f+u^-=g+u^+$，加法性保证同一个差值为 $I(f)-I(g)$。由此
+$\Lambda$ 是良定义的正线性泛函，且 $\Lambda(L_au)=\Lambda(u)$。
+根据定理\ref{thm:riesz-markov-radon}，存在唯一 Radon 测度 $\mu$ 使
+$\Lambda(u)=\int u\,d\mu$。因 $\Lambda(f_0)=1$，$\mu$ 非零。
+左平移推前保持 Radon 性，且在全部 $C_c(G)$ 上给出相同积分；表示的
+唯一性遂给 $\mu(aE)=\mu(E)$。因此 $\mu$ 是左 Haar 测度。
+\end{proof}
+
+以上极限不是随意选一列支撑趋小的函数。若单位元没有可数邻域基，一列
+函数未必能同时控制所有邻域。乘积紧致性把每个有限组试验函数所需的
+估计合并起来；加法证明中的 $\delta$ 则消除了 $f_1/(f_1+f_2)$ 在
+共同零点附近可能不连续的问题。
+
+\subsection{唯一性与左右测度的比较}
+
+以下对测度与可积函数简写 $\mu(f)=\int_G f\,d\mu$。这个记号只缩短
+积分表达式，不改变此前以 Borel 集为自变量的测度定义。
+
+\begin{theorem}[Haar 测度的唯一性]
+\label{thm:haar-uniqueness}
+若 $\mu,\nu$ 都是局部紧群 $G$ 的左 Haar 测度，则存在唯一 $c>0$
+使 $\nu=c\mu$。
+\end{theorem}
+
+\begin{proof}
+先取 $f,g\in C_c^+(G)$。核 $f(x)g(x^{-1}y)$ 连续，且支撑包含在
+紧矩形
+$\operatorname{supp}f\times(\operatorname{supp}f\,\operatorname{supp}g)$
+中。由紧支撑 Fubini 引理和两测度的左不变性，
+\begin{align}
+ \mu(f)\nu(g)
+ &=\int_G\!\int_G f(x)g(x^{-1}y)\,d\nu(y)\,d\mu(x)\notag\\
+ &=\int_G\!\int_G f(yz)g(z^{-1})\,d\mu(z)\,d\nu(y)\notag\\
+ &=\int_G g(z^{-1})\nu(R_zf)\,d\mu(z).
+ \label{eq:haar-uniqueness-double-integral}
+\end{align}
+第二行在固定 $y$ 时使用 $x=yz$；最后一次换序的核同样紧支撑，因为
+$z\in(\operatorname{supp}g)^{-1}$ 且
+$y\in\operatorname{supp}f\,\operatorname{supp}g$。
+
+固定 $0\ne f_0\in C_c^+(G)$，令 $c=\nu(f_0)/\mu(f_0)>0$。
+对给定 $f\in C_c^+(G)$ 和 $\varepsilon>0$，由平移积分连续性选取
+$e$ 的对称邻域 $U$，使对 $z\in U$ 有
+\[
+ |\nu(R_zf)-\nu(f)|<\varepsilon,
+ \qquad |\nu(R_zf_0)-\nu(f_0)|<\varepsilon.
+\]
+取 $0\ne g\in C_c^+(G)$，$\operatorname{supp}g\subseteq U$，并置
+\[
+ r=\frac{\nu(g)}{\int_G g(z^{-1})\,d\mu(z)}.
+\]
+分子、分母都正且有限。将式\eqref{eq:haar-uniqueness-double-integral}
+分别用于 $f$ 与 $f_0$，得到
+\[
+ |r\mu(f)-\nu(f)|\le\varepsilon,
+ \qquad |r\mu(f_0)-\nu(f_0)|\le\varepsilon.
+\]
+于是
+$|\nu(f)-c\mu(f)|\le\varepsilon(1+\mu(f)/\mu(f_0))$。
+令 $\varepsilon\downarrow0$，便得所有非负紧支撑连续函数上的积分相等。
+由正负部分解和 Radon 表示的唯一性，$\nu=c\mu$。
+由于 $0<\mu(f_0)<\infty$，比例常数唯一。
+\end{proof}
+
+证明只在两个紧矩形上使用有限测度 Fubini，没有把非 $\sigma$-紧群的
+Haar 测度当成 $\sigma$-有限测度，也没有先假定右平移保持测度。
+取逆映射 $\iota(x)=x^{-1}$ 把左 Haar 测度变成右 Haar 测度：
+\[
+ \check\mu(E):=(\iota_\#\mu)(E)=\mu(E^{-1}),\qquad
+ \check\mu(Ea)=\check\mu(E).
+\]
+因此右 Haar 测度也存在且相差正比例。左右两种测度之间的差别可由一个
+连续的正值函数完整记录。
+
+\begin{theorem}[模函数与取逆公式]
+\label{thm:haar-modular-function}
+局部紧群 $G$ 存在唯一连续群同态
+$\Delta_G:G\to(0,\infty)$，使对任一左 Haar 测度 $\mu$ 有
+\begin{equation}
+ \mu(Ea)=\Delta_G(a)\mu(E)
+ \qquad(E\in\mathcal B(G),\ a\in G).
+ \label{eq:haar-modular-convention}
+\end{equation}
+它称为 $G$ 的\term{模函数}，不依赖 $\mu$ 的归一化。对非负 Borel
+函数或相应可积函数，
+\begin{align}
+ \int_G f(xa)\,d\mu(x)
+ &=\Delta_G(a)^{-1}\int_G f(x)\,d\mu(x),
+ \label{eq:haar-right-translation-integral}\\
+ \int_G f(x^{-1})\,d\mu(x)
+ &=\int_G f(x)\Delta_G(x)^{-1}\,d\mu(x).
+ \label{eq:haar-inversion-integral}
+\end{align}
+\end{theorem}
+
+\begin{proof}
+对固定 $a$，测度 $E\mapsto\mu(Ea)$ 仍为左 Haar 测度。唯一性给出
+正比例因子 $\Delta_G(a)$；比较 $Eab$ 的两种计算得
+$\Delta_G(ab)=\Delta_G(a)\Delta_G(b)$。若 $0<\mu(K)<\infty$，
+则比例因子由 $\mu(Ka)/\mu(K)$ 唯一确定，更换 $\mu$ 的正倍数不改变它。
+对固定 $0\ne f\in C_c^+(G)$，推前积分公式给
+\[
+ \Delta_G(a)^{-1}=\frac{\int_G R_af\,d\mu}{\int_G f\,d\mu}.
+\]
+平移积分的连续性证明 $\Delta_G$ 连续，同时得到
+式\eqref{eq:haar-right-translation-integral}；一般函数的公式由推前
+测度直接得到。
+
+令 $d\lambda(x)=\Delta_G(x)^{-1}\,d\mu(x)$。连续正密度保持局部有限
+及紧内正则性，所以 $\lambda$ 为 Radon 测度。利用右移公式和同态性，
+\[
+ \lambda(Ea)=\Delta_G(a)\int_E\Delta_G(ya)^{-1}\,d\mu(y)
+ =\lambda(E).
+\]
+故 $\lambda$ 为右 Haar 测度，右测度的唯一性给
+$\check\mu=b\lambda$，其中 $b>0$。对带密度测度取逆，推前公式给
+$\check\lambda=\Delta_G\check\mu=b\mu$；再次取逆即有
+$\mu=b\check\lambda=b^2\mu$，故 $b=1$。这证明
+$\check\mu=\Delta_G^{-1}\mu$，也就是式\eqref{eq:haar-inversion-integral}。
+\end{proof}
+
+模函数的约定在文献中可能取倒数，本书固定采用
+式\eqref{eq:haar-modular-convention}。判断具体公式时应同时检查右移
+集合与右移函数两个式子；二者的因子互为倒数。
+
+\begin{proposition}[平移在积分范数中的连续性]
+\label{prop:haar-lp-translation-continuity}
+设 $\mu$ 为左 Haar 测度，$1\le p<\infty$。则对每个 $f\in L^p(\mu)$，
+\[
+ \|L_af-f\|_p\longrightarrow0,\qquad
+ \|R_af-f\|_p\longrightarrow0\quad(a\to e).
+\]
+这里左右平移均在几乎处处等价类上良定义，且
+\[
+ \|L_af\|_p=\|f\|_p,\qquad
+ \|R_af\|_p=\Delta_G(a)^{-1/p}\|f\|_p.
+\]
+\end{proposition}
+\begin{proof}
+平移的测度变换公式保持零测集，并给出两个范数恒等式。
+先取 $g\in C_c(G)$。当 $a$ 位于单位元的一个相对紧邻域时，
+差函数的支撑落在共同紧集 $K$ 中。因此
+\[
+ \|L_ag-g\|_p\le\mu(K)^{1/p}\|L_ag-g\|_\infty\longrightarrow0,
+\]
+右移同理，使用引理\ref{lem:haar-translation-continuity}。
+
+由命题\ref{prop:radon-cc-lp-density}，对任意 $\varepsilon>0$ 可取
+$g\in C_c(G)$ 使 $\|f-g\|_p<\varepsilon$。于是
+\[
+ \|L_af-f\|_p\le2\varepsilon+\|L_ag-g\|_p.
+\]
+令 $a\to e$，再令 $\varepsilon\downarrow0$，得到左移连续性。
+右移时相同估计中的 $2\varepsilon$ 改为
+$(1+\Delta_G(a)^{-1/p})\varepsilon$。因为 $\Delta_G$ 连续且
+$\Delta_G(e)=1$，仍得所需极限。
+\end{proof}
+
+不能在此把 $p<\infty$ 换成 $p=\infty$。例如在加法群 $\R$ 上，
+$f=\mathbf1_{[0,\infty)}$ 满足
+$\|L_af-f\|_\infty=1$ 对每个 $a\ne0$ 成立。原先的紧支撑连续
+函数给出一致估计，而 $L^p$ 稠密性使有限积分范数可以沿用这种估计；
+这种稠密性在全部 $L^\infty$ 中不成立。
+
+\begin{definition}
+若 $\Delta_G\equiv1$，称 $G$ 为\term{幺模群}。这等价于某个、从而
+每个左 Haar 测度同时右不变，也等价于 $\check\mu=\mu$。
+\end{definition}
+
+交换群与离散群都是幺模群。紧群也幺模：$\Delta_G(G)$ 是
+$(0,\infty)$ 中的紧子群，而其中若有 $t\ne1$，它或其逆的正整数次幂
+无界，产生矛盾。紧群的 Haar 测度因此可唯一归一化为总质量 $1$。
+
+\begin{example}[非幺模的仿射群]
+令 $G=\{(a,b):a>0,\ b\in\R\}$，表示变换 $x\mapsto ax+b$，群乘法为
+\[
+ (a,b)(a',b')=(aa',b+ab').
+\]
+左乘 $(\alpha,\beta)$ 的 Jacobian 为 $\alpha^2$，所以
+$d\mu(a,b)=a^{-2}\,da\,db$ 左不变。右乘 $(\alpha,\beta)$ 把
+$(a,b)$ 变成 $(a\alpha,b+a\beta)$，Jacobian 为 $\alpha$，因此
+\[
+ \mu(E(\alpha,\beta))=\alpha^{-1}\mu(E),\qquad
+ \Delta_G(\alpha,\beta)=\alpha^{-1}.
+\]
+右 Haar 测度是 $a^{-1}\,da\,db$。这些密度在每个紧集上有界，
+由欧氏空间上的局部积分给出 Radon 测度；它们并非相差一个常数。
+\end{example}
+
+\begin{corollary}[紧群作用的平均]
+\label{cor:compact-group-orbit-average}
+若紧群 $G$ 连续作用在非空局部紧 Hausdorff 空间 $X$ 上，则对每个
+$x_0\in X$ 都存在支撑在轨道 $G\cdot x_0$ 上的不变 Radon 概率测度。
+\end{corollary}
+
+\begin{proof}
+取归一化 Haar 测度 $m_G$，将它经连续映射 $a\mapsto a\cdot x_0$
+推到 $X$。这是有限 Radon 测度，质量为 $1$，轨道之外的质量为零。
+对 $b\in G$，作用 $T_b$ 对应群中左乘 $a\mapsto ba$，故推前测度
+保持不变。
+\end{proof}
+
+至此，拓扑的紧支撑工具提供存在性，左平移与双重积分提供唯一性，
+右平移所造成的变化由模函数记录。后面的保测变换理论只需不变测度，
+不要求每一个动力系统都来自群自身上的 Haar 测度。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+
+\subsection*{A组　拓扑与测度的运输}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{haar-symmetric-neighborhoods}
+设 $G$ 为拓扑群。证明：任意 $e$ 的邻域 $U$ 与正整数 $n$ 都容许
+对称开邻域 $V$ 使 $V^n\subseteq U$；任意开子群同时是闭集。
+
+\exerciseitem{haar-homomorphism-uniformity}
+设 $\phi:G\to H$ 为连续群同态。证明它对左右一致结构分别一致连续。
+说明证明为什么只需要在单位元处选择邻域。
+
+\exerciseitem{haar-left-right-uniformities}
+证明左右一致结构相同当且仅当 $e$ 有由共轭不变邻域组成的邻域基。
+利用仿射群中的 $(a,0)(1,b)(a,0)^{-1}=(1,ab)$，证明该群的左右
+一致结构不同。
+
+\exerciseitem{haar-pushforward-isometry}
+设 $T:(X,\mathcal A,\mu)\to(Y,\mathcal B)$ 可测，$\nu=T_\#\mu$。
+证明 $f\mapsto f\circ T$ 定义从 $L^p(\nu)$ 到 $L^p(\mu)$ 的线性等距
+嵌入，$1\le p\le\infty$。在 $X=[-1,1]$、$T(x)=x^2$、$\mu$ 为
+Lebesgue 测度的情形，证明该嵌入不满射。
+
+\exerciseitem{haar-square-probability}
+在 $[-1,1]$ 上取概率测度 $d\mu=dx/2$。计算 $x\mapsto x^2$ 的推前
+测度的密度及在 $0,1$ 处的原子，并用所得密度计算
+$\int_0^1y^s\,d(T_\#\mu)(y)$ 对所有实数 $s$ 的有限性及其值。
+
+\exerciseitem{haar-logarithmic-measure}
+证明 $\log:(0,\infty)\to\R$ 是拓扑群同构，其中定义域取乘法、值域
+取加法。利用 Haar 唯一性证明 $(0,\infty)$ 上每个 Haar 测度均为
+$c\,dx/x$，$c>0$；求区间 $(r,ar]$ 的测度，其中 $r>0,a>1$。
+\end{enumerate}
+
+\subsection*{B组　不变性与正则性}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{haar-finite-group-average}
+设有限群 $F$ 连续作用在局部紧 Hausdorff 空间 $X$ 上。证明有限群
+平均保持 Radon 概率测度；若从 $x_0$ 处的点质量出发，求所得测度在
+有限轨道上每个点的质量。是否总等于 $1/|F|$？
+
+\exerciseitem{haar-affine-action-obstruction}
+证明不存在实直线上同时对所有平移与缩放 $x\mapsto2x$ 不变的非零
+Radon 测度。若只要求对缩放不变，给出一个非零有限 Radon 测度；若
+只要求平移不变，说明非零有限测度为何仍不存在。
+
+\exerciseitem{haar-atoms-discreteness}
+设 $\mu$ 为局部紧群 $G$ 的 Haar 测度。证明
+$\mu(\{e\})>0$ 当且仅当 $G$ 离散，并证明此时
+$\mu=c\,\#\,$，其中 $c=\mu(\{e\})$、$\#$ 为计数测度。
+
+\exerciseitem{haar-sigma-finite-criterion}
+证明局部紧群的 Haar 测度为 $\sigma$-有限，当且仅当该群
+$\sigma$-紧。逆向可使用正文构造的开 $\sigma$-紧子群，先证明
+$\sigma$-有限测度空间中两两不交的正测度可测集族至多可数。
+
+\exerciseitem{haar-subgroup-quotient-warning}
+比较 $\Z$ 自身的 Haar 测度与实直线 Lebesgue 测度在 $\Z$ 上的限制。
+再令 $q:\R\to\R/\Z$ 为商映射，证明 $q_\#m$ 在每个非空开集上为
+无穷，故不是圆周群的 Haar 测度；说明限制到一个基本区间后推前为何
+不出现这一问题。
+
+\exerciseitem{haar-automorphism-modulus}
+设 $\alpha:G\to G$ 是拓扑群自同构。证明存在 $c_\alpha>0$ 使
+$\mu(\alpha E)=c_\alpha\mu(E)$，且
+$c_{\alpha\circ\beta}=c_\alpha c_\beta$。计算 $G=\R^n$、
+$\alpha(x)=Ax$（$A$ 可逆）时的 $c_\alpha$。
+\end{enumerate}
+
+\subsection*{C组　结构与典型群}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{haar-compact-quotient-normalization}
+设 $\phi:G\to H$ 为紧群之间的连续满同态。证明归一化 Haar 测度满足
+$\phi_\#m_G=m_H$。特别地，说明紧群对闭正规子群取商时的自然概率测度。
+
+\exerciseitem{haar-inversion-unimodular}
+证明 $\Delta_G(a^{-1})=\Delta_G(a)^{-1}$，并证明
+$\Delta_G(aba^{-1})=\Delta_G(b)$。若 $\alpha$ 是拓扑群自同构，证明
+$\Delta_G\circ\alpha=\Delta_G$。据此检查取逆公式在连续应用两次后
+确实恢复原积分。
+
+\exerciseitem{haar-general-linear-group}
+把 $\mathrm{GL}_n(\R)$ 看成矩阵空间中的开集，证明
+\[
+ d\mu(X)=|\det X|^{-n}\prod_{i,j=1}^n dx_{ij}
+\]
+既左不变又右不变，且为 Radon 测度。必须说明左乘和右乘作为
+$n^2$ 维线性变换的 Jacobian。
+
+\exerciseitem{haar-heisenberg-group}
+在 $\R^3$ 上定义
+$(x,y,t)(x',y',t')=(x+x',y+y',t+t'+xy')$。
+验证群公理，求逆元，并证明三维 Lebesgue 测度为左右 Haar 测度。
+据此说明非交换性不必导致非幺模性。
+
+\optionalexerciseitem{haar-steinhaus-neighborhood}
+设 $A\subseteq G$ 为 Borel 集且 $\mu(A)>0$。证明 $AA^{-1}$ 包含
+$e$ 的一个邻域。可先取正测度紧集 $K\subseteq A$，用紧集的外正则性
+和截断函数在 $L^1$ 中逼近 $\mathbf1_K$，再证明
+$a\mapsto\mu(K\cap aK)$ 在 $e$ 附近为正。推出正测度 Borel 子群是开子群。
+
+\optionalexerciseitem{haar-transitive-compact-action}
+设紧群 $G$ 连续、传递地作用在非空 Hausdorff 空间 $X$ 上。证明 $X$
+紧，并证明它恰有一个 $G$-不变 Radon 概率测度。提示：对 $f\in C(X)$
+考察 $A f(x)=\int_G f(g\cdot x)\,dm_G(g)$，使用紧群的右不变性。
+\end{enumerate}

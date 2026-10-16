@@ -1,0 +1,385 @@
+\chapter{Stieltjes 测度}
+
+\begin{solution}{stieltjes-endpoint-computation}
+由区间增量的线性性以及单点质量公式，
+\(\mu_F=m+2\delta_0+3\delta_1\)。因此所列四个区间的质量依次为
+\[
+ 1+3=4,\qquad 1+2+3=6,\qquad 1,\qquad 1+2=3.
+\]
+长度部分不区分端点，但两个原子部分必须分别核对是否被区间包含。
+例如 \((0,1]\) 不含零点，所以不能把 \(F(0)-F(0-)\) 加入其质量。
+\end{solution}
+
+\begin{solution}{stieltjes-local-versus-finite}
+两函数在每个紧区间上均为 \(C^1\)，由基本定理和区间测度的唯一性，
+\[
+ dF=e^x\,dm(x),\qquad dG=\frac1{1+x^2}\,dm(x).
+\]
+\(\mu_F(\R)=\infty\)，但
+\(\mu_F(({-\infty},x])=\int_{-\infty}^xe^t\,dt=e^x\) 对有限 \(x\)
+仍有限。另一测度总质量为 \(\pi\)，其左半直线质量为
+\(\arctan x+\pi/2\)。两者局部有限，但总质量分别是无穷和
+\(\pi\)，均未归一化为一。第二个测度除以 \(\pi\) 后成为概率
+测度；第一个测度不能通过乘一个正的有限常数使总质量变成一。
+这也说明，半直线质量有限比局部有限更强，却仍不等于概率归一化。
+\end{solution}
+
+\begin{solution}{stieltjes-right-representative}
+设右连续函数 \(f,g\) 几乎处处相等。若某点 \(x_0\) 满足
+\(d=|f(x_0)-g(x_0)|>0\)，由各自的右连续性，可选 \(\delta>0\)，
+使 \(x_0\le x<x_0+\delta\) 时两函数与各自在 \(x_0\) 的值相差
+均小于 \(d/4\)。于是 \(|f(x)-g(x)|>d/2\) 在正长度区间内成立，
+与几乎处处相等矛盾。因此 \(f=g\) 处处。
+
+这已经给出递增函数的结论，且证明并不需要单调性。
+去掉右连续性，可取 \(f=\mathbf1_{[0,\infty)}\)、
+\(g=\mathbf1_{(0,\infty)}\)。两者都递增，仅在零点不同，因而
+几乎处处相等；但 \(g\) 在零点不右连续。
+\end{solution}
+
+\begin{solution}{stieltjes-two-point-quantile}
+直接计算左半直线质量，得到
+\[
+ F(x)=\begin{cases}0,&x<a,\\p,&a\le x<b,\\1,&x\ge b,\end{cases}
+ \qquad
+ Q_F(u)=\begin{cases}a,&0<u\le p,\\b,&p<u<1.\end{cases}
+\]
+在 \(u=p\) 处首次达到水平 \(p\) 的点是 \(a\)，所以
+\(Q_F(p)=a\)，不能取成 \(b\)。用分位函数表示，
+\[
+ \int x\,d\mu=\int_0^p a\,du+\int_p^1b\,du=pa+(1-p)b,
+\]
+二阶矩同理为 \(pa^2+(1-p)b^2\)。这些积分都有限，因为分布
+集中在两个有限点上；质量水平单点 \(p\) 的取值不改变积分。
+\end{solution}
+
+\begin{solution}{stieltjes-affine-image}
+记变换后分布函数为 \(G\)。当 \(a>0\)，
+\(T^{-1}(({-\infty},y])=({-\infty},(y-b)/a]\)，故
+\[
+ G(y)=F((y-b)/a).
+\]
+当 \(a<0\)，不等号方向反转，原像为
+\([(y-b)/a,\infty)\)。记 \(c=(y-b)/a\)，则
+\[
+ G(y)=1-\mu(({-\infty},c))=1-F(c-).
+\]
+被计入的是 \(x=c\) 的质量，因此应减去开半直线而非闭半直线。
+例如 \(\mu=\delta_0\)、\(a=-1,b=0\)，正确公式给 \(G(0)=1\)；
+误写为 \(1-F(0)\) 会得到零。推前本身是概率测度，其累计函数
+必然右连续；这里 \(c\) 随 \(y\) 增大而减小，也与所取左极限配合。
+\end{solution}
+
+\begin{solution}{stieltjes-cdf-normalization}
+令 \(A=H(-\infty)\)、\(B=H(+\infty)\)。有界递增保证两者有限，
+且 \(A\le H(x)\le B\)。不恒定意味着某处有严格正增量，所以
+\(B-A>0\)。因此 \(F=(H-A)/(B-A)\) 递增、右连续、取值于
+\([0,1]\)，两端极限分别为零和一。区间增量给
+\(\mu_F=(B-A)^{-1}\mu_H\)，其总质量为一。
+若 \(B-A=0\)，单调性迫使 \(H\) 处处等于 \(A\)，对应零测度；
+不能通过上述除法把零测度归一化为概率测度。
+\end{solution}
+
+\begin{solution}{stieltjes-quantile-left-continuity}
+固定 \(u\in(0,1)\)，令 \(u_n\uparrow u\)，其中 \(0<u_n<u\)。
+单调性使 \(Q_F(u_n)\) 递增且不超过 \(Q_F(u)\)，其极限 \(q\)
+有限：例如从第一项起已被有限数 \(Q_F(u_1)\) 下界控制。
+对任意 \(x>q\)，有 \(Q_F(u_n)\le x\)，于是由广义逆等价关系，
+\(u_n\le F(x)\)。令 \(n\to\infty\)，得 \(u\le F(x)\)，所以
+\(Q_F(u)\le x\)。再令 \(x\downarrow q\)，有 \(Q_F(u)\le q\)。
+结合反向不等式，得到 \(q=Q_F(u)\)，即左连续。
+
+取 \(\mu=\tfrac12\delta_0+\tfrac12\delta_1\)。其分位函数在
+\(u=1/2\) 取零，而在 \(u>1/2\) 取一，故在该点不右连续。
+\end{solution}
+
+\begin{solution}{stieltjes-lipschitz-density}
+若 \(F\) 为 \(L\)-Lipschitz，则它在每个紧区间绝对连续，
+\(d\mu_F=F'm\)，且在可导点 \(0\le F'\le L\)。所以第三个条件
+成立。若第三个条件成立，则对任意 Borel 集 \(E\)，
+\(\mu_F(E)=\int_Ef\,dm\le Lm(E)\)，即第二个条件。
+反过来，第二个条件用于 \((x,y]\) 给
+\[
+ 0\le F(y)-F(x)=\mu_F((x,y])\le L(y-x)\qquad(x<y),
+\]
+故 \(F\) 为 \(L\)-Lipschitz。三者等价。
+当 \(L=0\) 时三个条件对概率分布函数均不可能成立：它们都会强制
+\(F\) 恒定或 \(\mu_F=0\)，与总质量为一矛盾；等价性仍有效。
+\end{solution}
+
+\begin{solution}{stieltjes-dense-pure-jumps}
+各项在全实线上被 \(2^{-j}\) 控制，故级数一致收敛。各有限部分
+右连续，统一的尾项界与有限和的右连续性保证极限右连续。各项
+递增，故 \(F\) 递增。对 \(x\to\pm\infty\)，在计数指标上应用
+控制收敛，得到两端极限分别为零和 \(\sum_j2^{-j}=1\)，所以它是
+分布函数。
+
+其测度由区间唯一性等于 \(\mu=\sum_j2^{-j}\delta_{q_j}\)。
+任意 \(x<y\) 之间可选 \(q_j\in(x,y)\)，于是
+\(F(y)-F(x)\ge2^{-j}>0\)，即严格递增。
+在 \(q_j\) 的跳跃为 \(2^{-j}\)，在无理点的单点质量为零，
+结合右连续性可知间断点恰为 \(\Q\)。测度集中于长度零集
+\(\Q\)，故 \(F'=0\) 几乎处处。
+
+若 \(F\) 在某个非退化紧区间上绝对连续，Newton--Leibniz 公式
+和几乎处处零导数将使它在那里恒定，与严格递增矛盾。任意非退化
+开区间也包含这样的紧子区间，因此没有非退化区间满足所述性质。
+\end{solution}
+
+\begin{solution}{stieltjes-stochastic-order}
+若 \(F\ge G\)，则
+\(\{x:G(x)\ge u\}\subseteq\{x:F(x)\ge u\}\)，取下确界得
+\(Q_F(u)\le Q_G(u)\)。反向假设分位函数有序。对每个 \(x\)，
+\[
+ \{u:Q_G(u)\le x\}\subseteq\{u:Q_F(u)\le x\}.
+\]
+取 \((0,1)\) 内的长度，得到 \(G(x)\le F(x)\)。
+最后，\(h\) 递增给
+\(h(Q_F(u))\le h(Q_G(u))\)；复合函数 Borel 可测且有界，
+可在 \((0,1)\) 上积分。应用分位函数公式，正好得到所求积分不等式。
+注意分布函数的次序与平均位置的次序反向：累计得更早的质量使递增
+测试函数的积分更小。
+\end{solution}
+
+\begin{solution}{stieltjes-common-jump-integral}
+\(dF=\delta_c\) 在 \((a,b]\) 上成立，\(F(c)=1\)、\(F_-(c)=0\)，
+所以两个 Lebesgue--Stieltjes 积分分别等于一和零。
+取包含 \(c\) 的任意细分割，使 \(c\) 为一个分点。唯一非零的
+增量来自以 \(c\) 为右端点的分段：其左端点的函数值为零，右端点
+的函数值为一。将该段标记取左端点，整份和为零；将标记取 \(c\)，
+整份和为一。分割的网格可以任意小，所以所有标记不可能趋向共同
+极限。由此，任意标记定义的 Riemann--Stieltjes 积分不存在。
+\end{solution}
+
+\begin{solution}{stieltjes-signed-exponential}
+\(H\) 在 \(({-\infty},0]\) 递增，从极限零升到一，在
+\([0,\infty)\) 递减，从一降到零。因此总变差为二：任意分割
+加上零点后，上升部分与下降部分各不超过一；取端点趋于两端
+无穷的分割则使和趋二。
+\(H\) 连续且局部绝对连续，故无原子，并有
+\[
+ dH=\bigl(e^x\mathbf1_{(-\infty,0)}(x)
+       -e^{-x}\mathbf1_{(0,\infty)}(x)\bigr)\,dm(x).
+\]
+正负密度分别集中于不交半直线，所以
+\((dH)^+=e^x\mathbf1_{(-\infty,0)}m\)、
+\((dH)^-=e^{-x}\mathbf1_{(0,\infty)}m\)，
+\(|dH|=e^{-|x|}m\)。因此 \(dH(\R)=1-1=0\)，
+而 \(V_\R(H)=|dH|(\R)=2\)。总增量记录抵消后的变化，全变差
+则把上升和下降都计入。
+\end{solution}
+
+\begin{solution}{stieltjes-jump-square-identity}
+在含共同跳跃的分部积分公式中令 \(F=G=H\)，得到
+\[
+ H(b)^2-H(a)^2
+ =2\int_{(a,b]}H\,dH-\sum_{a<x\le b}(\Delta H(x))^2.
+\]
+移项即为第一式。又
+\(\int(H-H_-)\,dH=\sum(\Delta H)^2\)，所以
+\[
+ \int_{(a,b]}H_-\,dH
+ =\frac12\left(H(b)^2-H(a)^2-
+      \sum_{a<x\le b}(\Delta H(x))^2\right).
+\]
+级数收敛由 \(\sum|\Delta H|\le V_a^b(H)\) 以及
+\(\sup|\Delta H|\le V_a^b(H)\) 保证；符号测度的积分也存在，
+因为 \(H,H_-\) 在该区间有界。
+\end{solution}
+
+\begin{solution}{stieltjes-mixed-radon-nikodym}
+记三分 Cantor 集为 \(K\)。它为闭集，\(m(K)=0\)，
+\(\mu_C(\R\setminus K)=0\)，且 \(\mu_C(\{0\})=0\)。
+可取
+\[
+ h(x)=\begin{cases}
+ 3,&x=0,\\
+ 5,&x\in K\setminus\{0\},\\
+ 2,&x\in[0,1]\setminus K,\\
+ 0,&x\notin[0,1].
+ \end{cases}
+\]
+这是 Borel 函数。三个不交集中集分别承载 \(\delta_0\)、
+\(\mu_C\)、长度限制测度，因此对任意 Borel 集 \(E\)，
+\[
+ \int_Eh\,d\mu
+ =3\delta_0(E)+5\mu_C(E)+2m(E\cap[0,1])=\nu(E).
+\]
+故 \(h=d\nu/d\mu\) 的一个代表。尽管零点属于 Cantor 集，
+\(\mu_C\) 在它的质量为零而 \(\mu(\{0\})=1\)，密度在此必须
+取三。若取五，单点积分就会错误。
+\end{solution}
+
+\begin{solution}{stieltjes-test-derivative-example}
+\(H\) 在 \(a\) 向上跳一，在 \(b\) 向下跳一，其他地方常值，
+且在两点都右连续。所以 \(dH=\delta_a-\delta_b\)。对测试函数，
+\[
+ \int\varphi\,dH=\varphi(a)-\varphi(b)
+ =-\int_a^b\varphi'(x)\,dx=-\int_\R H\varphi'\,dm.
+\]
+选择 \(c\in(a,b)\)，仅将 \(H(c)\) 从一改成二，记新函数为
+\(\widetilde H\)。两者几乎处处相等，所以上述右侧积分不变。
+然而 \(\widetilde H\) 在 \(c\) 不右连续；对足够大的 \(n\)，
+\(\widetilde H(c+1/n)-\widetilde H(c)=-1\)。若有限符号测度
+具有这些区间增量，则在递减到空集的 \((c,c+1/n]\) 上质量始终
+为负一，违背有限符号测度的递减连续性。因此，积分测试只看到
+几乎处处类，而逐点区间重构须选定右连续代表。
+\end{solution}
+
+\begin{solution}{stieltjes-continuous-cdf-uniform}
+固定 \(\varepsilon>0\)。由两端极限，选 \(a<b\)，使
+\(F(a)<\varepsilon\)、\(1-F(b)<\varepsilon\)。
+\(F\) 在 \([a,b]\) 一致连续，可选有限分割
+\(a=t_0<\cdots<t_N=b\)，使
+\(F(t_j)-F(t_{j-1})<\varepsilon\)。在有限多个端点上使用
+逐点收敛，取 \(n\) 充分大使
+\(|F_n(t_j)-F(t_j)|<\varepsilon\) 对所有 \(j\) 成立。
+若 \(t_{j-1}\le x\le t_j\)，单调性给
+\[
+ F(t_{j-1})-\varepsilon\le F_n(x)
+ \le F(t_j)+\varepsilon,
+\]
+所以 \(|F_n(x)-F(x)|<2\varepsilon\)。若 \(x<a\)，两者都在
+\([0,2\varepsilon)\) 内；若 \(x>b\)，两者都在
+\((1-2\varepsilon,1]\) 内。于是全实线上的上确界不超过
+\(2\varepsilon\)，结论成立。
+
+为见连续性不可删，取 \(F_n=\mathbf1_{[-1/n,\infty)}\)、
+\(F=\mathbf1_{[0,\infty)}\)。对每个固定 \(x\)，都有
+\(F_n(x)\to F(x)\)，包括 \(x=0\)；但在
+\([-1/n,0)\) 上两者之差为一，所以一致距离始终为一。
+这个反例甚至满足所有点收敛，而不只是连续点收敛。
+\end{solution}
+
+\begin{solution}{stieltjes-continuous-probability-transform}
+固定 \(0<u<1\)，记 \(q=Q_F(u)\)。广义逆构造已给
+\(F(q)\ge u\)。如果严格大于，由 \(F\) 在 \(q\) 的连续性，
+存在 \(x<q\) 且 \(F(x)>u\)，这与 \(q\) 为首次达到水平的点
+矛盾。因此 \(F(Q_F(u))=u\)。
+
+对任意 Borel 集 \(E\subseteq\R\)，用分位函数积分公式得到
+\[
+ F_\#\mu_F(E)
+ =\int_\R\mathbf1_E(F(x))\,d\mu_F(x)
+ =\int_0^1\mathbf1_E(F(Q_F(u)))\,du
+ =m(E\cap(0,1)).
+\]
+可见不要求 \(F\) 严格递增；平台不会影响结论。
+若 \(F=\mathbf1_{[0,\infty)}\)，则 \(\mu_F=\delta_0\)，
+\(F_\#\mu_F=\delta_1\)，显然不是均匀概率测度。这时
+\(F(Q_F(u))=1\) 对所有 \(0<u<1\) 成立。
+\end{solution}
+
+\begin{solution}{stieltjes-weak-density-collapse}
+对每个 \(h\in C_b(\R)\)，
+\[
+ \left|\int h\,d\mu_n-h(0)\right|
+ \le\sup_{|x|\le1/n}|h(x)-h(0)|\longrightarrow0,
+\]
+所以弱收敛到 \(\delta_0\)。\(\mu_n(\{0\})=0\)，因此
+\(\mu_n\) 与 \(\delta_0\) 互相奇异，\(\mu_n-\mu\) 的 Jordan
+正负部分分别为 \(\mu_n\) 和 \(\delta_0\)。于是
+\(|\mu_n-\mu|(\R)=1+1=2\)。其分布函数是
+\[
+ F_n(x)=\begin{cases}
+ 0,&x<-1/n,\\
+ (nx+1)/2,&-1/n\le x\le1/n,\\
+ 1,&x>1/n.
+ \end{cases}
+\]
+每个 \(F_n\) 连续，极限概率测度的分布函数却为
+\(F=\mathbf1_{[0,\infty)}\)。在 \(x\ne0\) 有 \(F_n(x)\to F(x)\)，
+在零点则 \(F_n(0)=1/2\)，不收敛到 \(F(0)=1\)。
+弱收敛对每个固定连续函数取极限，并不要求对所有有界可测函数
+统一控制。函数 \(\mathbf1_{\{0\}}\) 已给出恒定的积分差，
+但它不连续；全变差能够检测这种单点区别。也可取连续函数
+\(h_n(x)=\max\{1-n^2|x|,0\}\)，则
+\(\int h_n\,d\mu_n=1/(2n)\)、\(\int h_n\,d\mu=1\)。
+这些测试函数随 \(n\) 改变，不被固定测试函数的收敛命题同时控制。
+这里有密度的分布在弱极限中
+形成原子，说明绝对连续性也不由弱收敛保存。
+\end{solution}
+
+\begin{solution}{stieltjes-pareto-moments}
+\(F\) 在 \(x=1\) 的两侧都趋零，故连续；在 \([1,\infty)\)
+递增，且两端极限为零和一，因此是分布函数。它局部绝对连续，
+所以
+\[
+ d\mu_F(x)=\alpha x^{-\alpha-1}\mathbf1_{(1,\infty)}(x)\,dm(x),
+ \qquad Q_F(u)=(1-u)^{-1/\alpha}.
+\]
+密度在单点一的取值无关紧要，且该点没有原子。
+
+分布集中在 \([1,\infty)\)。尾积分给
+\[
+ \int x^p\,d\mu_F
+ =p\int_0^1t^{p-1}\,dt
+   +p\int_1^\infty t^{p-1-\alpha}\,dt
+ =1+p\int_1^\infty t^{p-\alpha-1}\,dt.
+\]
+最后积分当且仅当 \(p<\alpha\) 时有限，此时结果为
+\(1+p/(\alpha-p)=\alpha/(\alpha-p)\)。\(p=\alpha\) 时为
+对数发散，\(p>\alpha\) 时也发散。
+分位函数给第二种计算：
+\[
+ \int x^p\,d\mu_F=\int_0^1(1-u)^{-p/\alpha}\,du,
+\]
+该积分当且仅当 \(p/\alpha<1\) 时有限，有限值为
+\((1-p/\alpha)^{-1}\)，与上述结果相同。
+\end{solution}
+
+\begin{solution}{stieltjes-singular-full-support}
+枚举所有有理端点非空有界开区间为 \(I_j\)，\(j\ge1\)。
+在每个 \(I_j\) 内选择非退化闭区间 \([a_j,b_j]\)，将标准
+Cantor 概率测度经 \(T_j(t)=a_j+(b_j-a_j)t\) 推前，得 \(\nu_j\)。
+它集中在零测紧集 \(K_j=T_j(K)\) 上，且所有单点质量为零。
+定义 \(\mu=\sum_{j\ge1}2^{-j}\nu_j\)。非负级数保证它是测度，
+其总质量为一。
+
+任意单点上所有 \(\nu_j\) 均为零，因此 \(\mu\) 无原子；其
+分布函数 \(F\) 连续。集合 \(N=\bigcup_jK_j\) 为 Borel 零测集，
+而所有 \(\nu_j\) 都集中在 \(N\)，所以 \(\mu(\R\setminus N)=0\)。
+故 \(\mu\perp m\)，进而 \(F'=0\) 几乎处处。
+
+最后，对任意 \(x<y\)，可选有理端点区间
+\(I_j\subset(x,y)\)。于是 \(\mu((x,y])\ge2^{-j}\nu_j(I_j)
+=2^{-j}>0\)，故 \(F(y)>F(x)\)。所得分布函数连续且严格递增，
+同时其全部质量仍集中在一个长度零集上。这说明不仅严格递增，
+即使再加连续性，也不能推出绝对连续性。
+\end{solution}
+
+\begin{solution}{stieltjes-compact-helly}
+若 \(a=b\)，所有测度均为 \(\delta_a\)，结论直接成立。以下
+设 \(a<b\)，记 \(F_n\) 为分布函数。枚举 \(\Q\)，在第一个
+有理点抽取使 \(F_n\) 收敛的子列，再在第二个有理点继续抽取，
+依次进行。各值在紧区间 \([0,1]\) 内，故每一步均可作。
+对角子列记为 \(F_{n_k}\)，使每个 \(q\in\Q\) 上都有极限
+\(g(q)=\lim_kF_{n_k}(q)\)。\(g\) 在有理数上递增，且
+\(q<a\) 时 \(g(q)=0\)，\(q\ge b\) 时 \(g(q)=1\)。
+
+定义
+\[
+ F(x)=\inf\{g(q):q\in\Q,\ q>x\}.
+\]
+它递增，取值于 \([0,1]\)。为证右连续，固定 \(\varepsilon>0\)，
+选有理 \(q>x\) 使 \(g(q)<F(x)+\varepsilon\)。对
+\(x<y<q\)，有 \(F(x)\le F(y)\le g(q)<F(x)+\varepsilon\)，
+故 \(F(y)\to F(x)\) 当 \(y\downarrow x\)。
+若 \(x<a\)，可取 \(x<q<a\)，得 \(F(x)=0\)；若 \(x\ge b\)，
+所有 \(q>x\) 都有 \(g(q)=1\)，故 \(F(x)=1\)。因此 \(F\) 是
+分布函数，对应概率测度 \(\mu\)。这些边界值同时说明 \(\mu\)
+集中在 \([a,b]\)，包括可能在端点的质量。
+
+现证连续点收敛。若有理 \(r<x<q\)，单调性给
+\[
+ g(r)\le\liminf_kF_{n_k}(x)
+ \le\limsup_kF_{n_k}(x)\le g(q).
+\]
+对 \(q>x\) 取下确界，最右端变为 \(F(x)\)。另一方面，给定
+\(y<x\)，选有理数 \(r\in(y,x)\)，则定义给
+\(F(y)\le g(r)\)，所以
+\(F(y)\le\liminf_kF_{n_k}(x)\)。令 \(y\uparrow x\)，若 \(F\)
+在 \(x\) 连续，便得 \(F(x)\le\liminf_kF_{n_k}(x)\)。
+由夹逼，\(F_{n_k}(x)\to F(x)\)。应用分布函数的弱收敛判据，
+得到 \(\mu_{n_k}\) 弱收敛到 \(\mu\)，完成证明。
+\end{solution}

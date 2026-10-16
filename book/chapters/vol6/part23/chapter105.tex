@@ -1,0 +1,719 @@
+\chapter{Stieltjes 测度}
+\label{chap:stieltjes-measures}
+
+把一个区间上的质量沿实线累计，所得函数递增；反过来，递增函数的增量
+也可以规定区间的质量。\chapterref{chap:signed-measures}已经在有限区间上
+建立了这种对应。本章把它推广到全实线，并利用实线的次序辨认原子、密度
+和奇异连续质量。总质量等于一时，累计函数成为分布函数；这使一般测度
+的积分和收敛可以用一元函数表达。
+
+以下 \(m\) 表示实线上的 Lebesgue 测度，所讨论的测度首先定义在
+\(\mathcal B(\R)\) 上。不另作说明时，递增允许相等，函数取有限实值。
+对于右连续且局部有界变差的函数，记
+\(F(x-)=\lim_{t\uparrow x}F(t)\)、\(\Delta F(x)=F(x)-F(x-)\)。
+这些左极限在本章出现的每一点都存在。
+
+\section{单调函数和 Lebesgue--Stieltjes 测度}
+\label{sec:stieltjes-line-construction}
+
+\subsection{从局部增量到全实线测度}
+
+区间增量只使用两个有限端点。即使 \(F(x)=x\)，使实线的总质量无穷，
+每个有界区间仍有有限质量。因此，全实线上的自然条件是局部有限，
+而不是预先要求累计函数有界。
+
+\begin{theorem}[Lebesgue--Stieltjes 对应]
+\label{thm:stieltjes-line-correspondence}
+设 \(F:\R\to\R\) 递增且右连续。存在唯一局部有限正 Borel 测度
+\(\mu_F\)，满足
+\begin{equation}\label{eq:stieltjes-half-open}
+ \mu_F((a,b])=F(b)-F(a)\qquad(a<b).
+\end{equation}
+它是 Radon 测度。反之，每个局部有限正 Borel 测度 \(\mu\) 都有这样的
+表示；对应的 \(F\) 只差一个加法常数。
+\end{theorem}
+\begin{proof}
+对每个 \(k\in\Z\)，将 \(F\) 限制到 \([k,k+1]\)。
+\chapterref{chap:signed-measures}的有限区间构造给出 \((k,k+1]\) 上
+的有限正测度 \(\mu_k\)。对 Borel 集 \(E\subseteq\R\)，定义
+\[
+ \mu(E)=\sum_{k\in\Z}\mu_k(E\cap(k,k+1]).
+\]
+这里各项非负，故可交换两个非负级数，验证可数可加性。
+任意有界半开区间只与有限多个这样的块相交；在整数点分割后，
+增量相加并望远镜消去，得到 \eqref{eq:stieltjes-half-open}。
+每个紧集包含于某个 \((a,b]\)，所以其质量有限。
+
+若另一个局部有限测度有相同增量，则在每个 \((k,k+1]\) 上，
+有限测度的唯一性定理使两者相等。对这些不交块求和，即得全实线上的
+唯一性。由命题~\ref{prop:radon-second-countable-regular}，实线上的
+局部有限 Borel 测度在所有 Borel 集上内、外正则，因而为 Radon 测度。
+
+反向给定 \(\mu\)，以原点为基点定义
+\begin{equation}\label{eq:stieltjes-anchored-primitive}
+ \Phi_\mu(x)=
+ \begin{cases}
+   \mu((0,x]),&x\ge0,\\
+   -\mu((x,0]),&x<0.
+ \end{cases}
+\end{equation}
+局部有限性保证这些值有限。区间相减说明
+\(\Phi_\mu(b)-\Phi_\mu(a)=\mu((a,b])\)，包括 \(a<0\le b\) 的情形。
+所以 \(\Phi_\mu\) 递增。对 \(h\downarrow0\)，区间 \((x,x+h]\)
+递减到空集，并包含于一个有限测度区间；测度的递减连续性给
+\(\Phi_\mu(x+h)-\Phi_\mu(x)\to0\)。最后，若两个函数产生同一测度，
+则它们在任意两点之间的增量相同，其差必为常数。
+\end{proof}
+
+称 \(\mu_F\) 为 \(F\) 的 Lebesgue--Stieltjes 测度，也写作 \(dF\)。
+式 \eqref{eq:stieltjes-anchored-primitive}不使用
+\(\mu(({-\infty},x])\)：后者对长度测度处处无穷，不能用作有限实值的
+累计函数。基点的选择只改变常数，不改变测度。
+
+\begin{example}
+\(F(x)=x\) 产生长度测度；\(F(x)=\mathbf1_{[c,\infty)}(x)\) 产生
+单点质量 \(\delta_c\)。\(F(x)=\lfloor x\rfloor\) 产生
+\(\sum_{k\in\Z}\delta_k\)，因为 \(F(b)-F(a)\) 正好是 \((a,b]\)
+中整数的个数。最后一个测度局部有限而总质量无穷。
+\end{example}
+
+\subsection{端点和连续性约定}
+
+右连续性由半开区间的选择决定。若一个局部有限测度满足
+\eqref{eq:stieltjes-half-open}，则刚才的递减区间论证已经强制 \(F\)
+右连续。例如 \(H=\mathbf1_{(0,\infty)}\) 递增，但若按其增量规定
+质量，就有 \(\mu((0,1/n])=1\) 对每个 \(n\ge1\) 成立，尽管这些
+区间递减到空集。这与局部有限测度的连续性矛盾。
+
+\begin{proposition}\label{prop:stieltjes-endpoints}
+对上述 \(F\) 及任意 \(a<b\)，有
+\[
+ \begin{aligned}
+ \mu_F(\{a\})&=F(a)-F(a-),\\
+ \mu_F([a,b])&=F(b)-F(a-),\\
+ \mu_F((a,b))&=F(b-)-F(a),\\
+ \mu_F([a,b))&=F(b-)-F(a-).
+ \end{aligned}
+\]
+此外，\(\mu_F(\R)<\infty\) 当且仅当 \(F\) 有界，此时
+\(\mu_F(\R)=F(+\infty)-F(-\infty)\)。
+\end{proposition}
+\begin{proof}
+令 \(a_n\uparrow a\)，则 \((a_n,a]\downarrow\{a\}\)；这些区间
+被一个有限测度区间控制，故单点公式来自递减连续性。其余公式由
+\eqref{eq:stieltjes-half-open}加上或减去相应端点质量得到。
+最后令 \(n\to\infty\)，用 \((-n,n]\uparrow\R\) 得
+\(\mu_F(\R)=\lim_n(F(n)-F(-n))\)。若总质量有限，
+\(|F(x)-F(0)|\le\mu_F(\R)\)，故 \(F\) 有界；有界时两端极限
+都是有限数，并给出所述差值。
+\end{proof}
+
+因此，在原子所在点把 \((a,b]\) 换成 \([a,b)\) 会改变结果。
+只有已经知道两个端点均无质量时，才可忽略这种区别。
+如果先给出一个没有指定单侧取值的递增函数，可以取其右极限作为
+代表；此操作保留通常导数的几乎处处信息，却是在选择区间质量的约定。
+
+\subsection{与 Riemann--Stieltjes 积分的比较}
+
+对 Borel 集 \(E\) 和非负 Borel 函数 \(h\)，定义
+\[
+ \int_Eh\,dF:=\int_Eh\,d\mu_F,
+\]
+允许值为无穷。
+对满足 \(\int_E|h|\,d\mu_F<\infty\) 的实函数或复函数，按通常的
+Lebesgue 积分定义。这并不要求 \(h\) 连续。
+
+若 \(h\) 在 \([a,b]\) 连续，则它与
+\chapterref{chap:bounded-variation}中的 Riemann--Stieltjes 积分一致：
+\begin{equation}\label{eq:stieltjes-rs-compatibility}
+ \int_{(a,b]}h\,d\mu_F=\int_a^bh\,dF.
+\end{equation}
+事实上，对分割 \(a=t_0<\cdots<t_N=b\) 和任意标记
+\(\xi_j\in[t_{j-1},t_j]\)，令
+\(h_P=\sum_jh(\xi_j)\mathbf1_{(t_{j-1},t_j]}\)。则
+\[
+ \int_{(a,b]}h_P\,d\mu_F
+ =\sum_jh(\xi_j)(F(t_j)-F(t_{j-1})),
+\]
+而积分误差至多为
+\(\omega_h(|P|)(F(b)-F(a))\to0\)。这里 \(\omega_h\) 是 \(h\)
+的连续模。连续性保证所有标记产生同一极限；不连续时，Lebesgue--Stieltjes
+积分仍可能存在，而任意标记的 Riemann--Stieltjes 和未必收敛。
+
+\section{分布函数与测度}
+\label{sec:stieltjes-distribution-functions}
+
+\subsection{总质量为一的归一化}
+
+实线上的概率测度是满足 \(\mu(\R)=1\) 的正 Borel 测度。
+这一名称目前只涉及质量归一化，不需要随机变量或独立性的概念。
+
+\begin{definition}\label{def:stieltjes-cdf}
+函数 \(F:\R\to[0,1]\) 称为分布函数，若它递增、右连续，并满足
+\[
+ \lim_{x\to-\infty}F(x)=0,\qquad
+ \lim_{x\to+\infty}F(x)=1.
+\]
+\end{definition}
+
+\begin{theorem}\label{thm:stieltjes-cdf-correspondence}
+映射 \(\mu\mapsto F_\mu\)，其中
+\(F_\mu(x)=\mu(({-\infty},x])\)，给出实线上概率测度与分布函数的
+一一对应。其逆映射为 \(F\mapsto\mu_F\)。
+\end{theorem}
+\begin{proof}
+给定概率测度，集合包含关系给出单调性。若 \(x_n\downarrow x\)，
+则 \(({-\infty},x_n]\downarrow({-\infty},x]\)，有限测度的递减
+连续性给出右连续性。两端极限分别来自
+\(({-\infty},-n]\downarrow\varnothing\) 和
+\(({-\infty},n]\uparrow\R\)。
+
+反之，由定理~\ref{thm:stieltjes-line-correspondence}构造 \(\mu_F\)。
+命题~\ref{prop:stieltjes-endpoints}给 \(\mu_F(\R)=1\)。令
+\(a\to-\infty\)，从 \(\mu_F((a,x])=F(x)-F(a)\) 得
+\(\mu_F(({-\infty},x])=F(x)\)。两种操作互为逆映射。
+\end{proof}
+
+归一化排除了加法常数的不唯一性。若只要求递增、右连续及取值于
+\([0,1]\)，却没有两端极限条件，构造出的总质量可能小于一。
+例如常数函数 \(F=1/2\) 产生零测度，不是一个概率分布函数。
+
+\begin{example}
+\([a,b]\) 上的均匀概率测度 \((b-a)^{-1}m|_{[a,b]}\)，其中 \(a<b\)，
+有分布函数
+\[
+ F(x)=
+ \begin{cases}
+ 0,&x<a,\\
+ (x-a)/(b-a),&a\le x<b,\\
+ 1,&x\ge b.
+ \end{cases}
+\]
+对 \(0<p<1\)、\(a<b\)，测度 \(p\delta_a+(1-p)\delta_b\)
+的分布函数在 \(a\) 跳到 \(p\)，在 \(b\) 跳到一。
+两种分布都可由一个函数编码，但前者的质量以密度分布，后者的质量
+集中在两个点上。
+\end{example}
+
+\subsection{广义逆与积分表示}
+
+分布函数可能有平台和跳跃，通常没有普通逆函数。需要的逆操作是：
+给定累计质量水平，寻找首次达到该水平的位置。
+
+\begin{theorem}[分位函数表示]\label{thm:stieltjes-quantile}
+设 \(F\) 为分布函数。对 \(0<u<1\)，定义其广义逆，又称分位函数，
+\[
+ Q_F(u)=\inf\{x\in\R:F(x)\ge u\}.
+\]
+则 \(Q_F\) 有限、递增且 Borel 可测，并满足
+\begin{equation}\label{eq:stieltjes-quantile-equivalence}
+ Q_F(u)\le x\quad\Longleftrightarrow\quad u\le F(x).
+\end{equation}
+长度测度在 \((0,1)\) 上的限制经 \(Q_F\) 推前后等于 \(\mu_F\)。
+特别地，对非负 Borel 函数 \(h\)，有
+\begin{equation}\label{eq:stieltjes-quantile-integral}
+ \int_\R h(x)\,d\mu_F(x)=\int_0^1h(Q_F(u))\,du.
+\end{equation}
+对于 \(\mu_F\)-可积的实值或复值 Borel 函数，同一等式成立。
+\end{theorem}
+\begin{proof}
+因为 \(0<u<1\)，两端极限保证所取下确界的集合非空且有下界。
+记下确界为 \(q\)。由下确界定义和单调性，对每个 \(n\ge1\) 有
+\(F(q+1/n)\ge u\)；右连续性给 \(F(q)\ge u\)。因此下确界取得，
+并由单调性得到 \eqref{eq:stieltjes-quantile-equivalence}。
+随着 \(u\) 增大，所取集合缩小，故 \(Q_F\) 递增；其半直线原像为
+\[
+ \{u\in(0,1):Q_F(u)\le x\}=(0,F(x)]\cap(0,1),
+\]
+因而 Borel 可测。
+
+定义 \(\rho(E)=m(\{u\in(0,1):Q_F(u)\in E\})\)。原像保持不交并，
+故 \(\rho\) 是概率测度；上述等式给
+\(\rho(({-\infty},x])=F(x)\)。由分布函数对应定理，\(\rho=\mu_F\)。
+积分公式先对指示函数成立，再由简单函数逼近和单调收敛推广到非负函数。
+对可积函数分解正负部分或实虚部即可。
+\end{proof}
+
+在分位函数的定义中去掉 \(u=0,1\)，可以避免无穷端点；这两个点本来
+就是长度零集，不影响积分。原子 \(\mu_F(\{c\})>0\) 对应于一段正长度
+的质量水平被 \(Q_F\) 压到同一点 \(c\)。因此，此表示同时适用于离散、
+有密度和奇异连续分布。
+
+\subsection{分布函数判别弱收敛}
+
+\chapterref{chap:radon-measures}以测试函数定义测度收敛。
+对概率测度 \(\mu_n,\mu\)，以下使用有界连续函数的弱收敛，即上章的窄收敛：
+\(\int h\,d\mu_n\to\int h\,d\mu\) 对每个 \(h\in C_b(\R)\) 成立。
+它与只用紧支撑连续函数的模糊收敛有区别。
+
+\begin{theorem}\label{thm:stieltjes-cdf-weak}
+设 \(F_n,F\) 分别为概率测度 \(\mu_n,\mu\) 的分布函数。
+则 \(\mu_n\) 弱收敛到 \(\mu\)，当且仅当
+\(F_n(x)\to F(x)\) 在 \(F\) 的每个连续点成立。
+\end{theorem}
+\begin{proof}
+先设弱收敛。固定 \(F\) 的连续点 \(x\) 和 \(\delta>0\)。用有界连续
+函数 \(l_\delta,r_\delta\) 夹住 \(\mathbf1_{(-\infty,x]}\)：
+\(l_\delta\) 在 \(({-\infty},x-\delta]\) 为一，在 \([x,\infty)\)
+为零，中间线性连接；\(r_\delta\) 在 \(({-\infty},x]\) 为一，在
+\([x+\delta,\infty)\) 为零，中间线性连接。于是
+\[
+ F(x-\delta)\le\int l_\delta\,d\mu
+ \le\liminf_n F_n(x)\le\limsup_n F_n(x)
+ \le\int r_\delta\,d\mu\le F(x+\delta).
+\]
+令 \(\delta\downarrow0\)，连续性给出所需极限。
+
+反向设连续点上的收敛成立。给定 \(\varepsilon>0\)，选 \(F\) 的
+连续点 \(a<b\)，使 \(F(a)<\varepsilon\)、\(1-F(b)<\varepsilon\)。
+单调函数的不连续点至多可数，因此这种选择可作。
+当 \(n\) 充分大时，\(\mu_n\) 在 \((a,b]\) 外的质量小于
+\(4\varepsilon\)，而 \(\mu\) 的相应质量小于 \(2\varepsilon\)。
+
+固定 \(h\in C_b(\R)\)。它在 \([a,b]\) 一致连续，可选分割
+\(a=t_0<\cdots<t_N=b\)，使每个端点都是 \(F\) 的连续点，且
+\(h\) 在每段上的振幅小于 \(\varepsilon\)。取各段一个标记
+\(\xi_j\)。由假设，
+\[
+ \sum_j h(\xi_j)\bigl(F_n(t_j)-F_n(t_{j-1})\bigr)
+ \longrightarrow
+ \sum_j h(\xi_j)\bigl(F(t_j)-F(t_{j-1})\bigr).
+\]
+这两个和与各自在 \((a,b]\) 上的积分之差均不超过
+\(\varepsilon\)，因为两测度的总质量均为一。区间外两个积分之差
+的绝对值不超过 \(6\varepsilon\|h\|_\infty\)。先令 \(n\to\infty\)，
+再令 \(\varepsilon\downarrow0\)，即得弱收敛。
+\end{proof}
+
+例如 \(\delta_{1/n}\) 弱收敛到 \(\delta_0\)，但相应分布函数在
+\(x=0\) 处始终取零，而极限分布函数在那里取一。连续点限制不可删。
+另一方面，\(\delta_n\) 模糊收敛到零测度，其分布函数在每个有限点
+趋零；极限函数不是分布函数，因为正无穷端的归一化丢失了。
+
+\section{跳跃、绝对连续和奇异部分}
+\label{sec:stieltjes-three-components}
+
+\subsection{单点质量和无原子测度}
+
+对局部有限正测度 \(\mu\)，集合
+\(J=\{x\in\R:\mu(\{x\})>0\}\) 至多可数。
+事实上，对每个 \(N,k\in\Npos\)，在 \([-N,N]\) 内单点质量至少
+为 \(1/k\) 的点至多有 \(k\mu([-N,N])\) 个。对 \(N,k\) 取并即可。
+于是纯原子部分有无歧义的表达式
+\[
+ \mu_{\mathrm{pp}}=\mu|_J=\sum_{x\in J}\mu(\{x\})\delta_x.
+\]
+此处求和与枚举顺序无关，并在每个紧集上有有限总质量。
+
+\begin{proposition}\label{prop:stieltjes-no-point-atoms}
+实线上的局部有限正 Borel 测度无原子，当且仅当每个单点的质量为零。
+因此 \(\mu_F\) 无原子，当且仅当 \(F\) 连续。
+\end{proposition}
+\begin{proof}
+单点具有正质量时，它本身就是原子。反向假设所有单点质量为零。
+若 \(E\) 为无限测度 Borel 集，局部有限性和
+\(E\cap[-N,N]\uparrow E\) 保证其中存在正的有限测度子集，故
+\(E\) 不是原子。若 \(0<\mu(E)<\infty\)，考察
+\(H(t)=\mu(E\cap({-\infty},t])\)。有限测度的连续性和单点零质量
+说明 \(H\) 连续，两端极限为零和 \(\mu(E)\)。介值定理给出
+\(t\) 使 \(H(t)=\mu(E)/2\)，仍说明 \(E\) 不是原子。
+最后由 \(\mu_F(\{x\})=\Delta F(x)\) 及 \(F\) 已右连续得到结论。
+\end{proof}
+
+这个结论使用了实线的次序，不能不加说明地把任意可测空间中的
+“无原子”改成“单点零质量”。在这里，累计函数提供了分割正质量集合
+所需的连续参数。
+
+\subsection{三种互相奇异的质量}
+
+\begin{theorem}[Stieltjes 测度的三部分分解]
+\label{thm:stieltjes-three-parts}
+设 \(F\) 递增且右连续，\(\mu_F\) 为相应测度。存在唯一分解
+\begin{equation}\label{eq:stieltjes-three-parts}
+ \mu_F=F'\,m+\sum_{x\in J}\Delta F(x)\delta_x+\mu_{\mathrm{sc}},
+\end{equation}
+其中 \(J=\{x:\Delta F(x)>0\}\)，\(F'\) 在不可导点补零，
+\(\mu_{\mathrm{sc}}\) 是与 \(m\) 奇异的无原子正测度。
+三项两两互相奇异。第一项称绝对连续部分，第二项称纯原子部分，
+第三项称奇异连续部分。
+\end{theorem}
+\begin{proof}
+\(\mu_F\) 与 \(m\) 都是 \(\sigma\)-有限的。Lebesgue 分解定理给
+\(\mu_F=g\,m+\sigma\)，其中 \(g\ge0\)、\(\sigma\perp m\)。
+局部有限性给 \(g\in L^1_{\mathrm{loc}}(\R)\)。在任意有限区间
+\([a,b]\) 上，命题~\ref{prop:bv-measure-ac}识别其绝对连续密度为
+\(F'\)。用可数个这样的区间覆盖实线，得到 \(g=F'\) 几乎处处。
+
+长度测度的单点质量为零，所以 \(\sigma(\{x\})=\Delta F(x)\)。
+将 \(\sigma\) 限制到 \(J\) 和 \(\R\setminus J\)，前者等于所述
+纯原子级数，后者定义为 \(\mu_{\mathrm{sc}}\)。后者的所有单点
+质量为零，由命题~\ref{prop:stieltjes-no-point-atoms}知其无原子。
+两限制的集中集不交，而它们均奇异于 \(m\)，故三项两两互相奇异。
+唯一性先来自 Lebesgue 分解，再来自每一点的质量已由 \(\mu_F\)
+唯一确定；减去纯原子部分后，奇异连续部分也唯一。
+\end{proof}
+
+这里没有在全实线上作 \(\infty-\infty\) 的减法。奇异连续部分直接
+通过测度限制构成；即使每个部分的总质量可能无穷，分解仍有意义。
+连续与绝对连续是不同层次：前者仅排除原子，后者同时排除两种奇异质量。
+
+\subsection{累计函数的相应分解}
+
+将三个正测度分别按 \eqref{eq:stieltjes-anchored-primitive}以零为
+基点累计，得到递增右连续函数 \(F_{\mathrm{ac}},F_{\mathrm{pp}},
+F_{\mathrm{sc}}\)，它们在零点都为零，并且
+\[
+ F=F(0)+F_{\mathrm{ac}}+F_{\mathrm{pp}}+F_{\mathrm{sc}},
+ \qquad F_{\mathrm{ac}}(x)=\int_0^xF'(t)\,dt.
+\]
+其中负向积分采用通常的带符号约定。纯跳跃函数可以写成
+\begin{equation}\label{eq:stieltjes-jump-function}
+ F_{\mathrm{pp}}(x)=\sum_{c\in J}\Delta F(c)
+ \bigl(\mathbf1_{[c,\infty)}(x)-\mathbf1_{[c,\infty)}(0)\bigr).
+\end{equation}
+对 \(x\) 位于一个固定紧区间，只有该区间与原点之间的原子会贡献
+非零项；这些质量之和有限。因此该级数在每个紧区间上绝对一致收敛。
+“纯跳跃”不要求跳点离散，甚至不要求函数在任何开区间上恒定。
+
+\(F_{\mathrm{sc}}\) 连续，并由命题~\ref{prop:bv-measure-ac}有
+\(F_{\mathrm{sc}}'=0\) 几乎处处。纯跳跃部分的测度也奇异于长度，
+故其导数同样几乎处处为零。由此还得到两个判别：
+\[
+ \begin{aligned}
+ \mu_F\ll m
+ &\quad\Longleftrightarrow\quad
+ F\text{ 在每个紧区间上绝对连续},\\
+ \mu_F\perp m
+ &\quad\Longleftrightarrow\quad F'=0\text{ 几乎处处}.
+ \end{aligned}
+\]
+第一条的反向也可直接用各区间上的 Newton--Leibniz 公式及测度唯一性
+验证；正向由局部可积密度的积分表示得到。第二条只是在
+\eqref{eq:stieltjes-three-parts}中判断第一项是否为零。
+
+\begin{example}[同时具有三部分的分布]
+将 Cantor 函数 \(C\) 在 \(({-\infty},0]\) 延拓为零，在 \([1,\infty)\)
+延拓为一，记所得分布函数为 \(\widetilde C\)。其测度 \(\mu_C\)
+集中在三分 Cantor 集上，连续性排除原子；这是奇异连续概率测度。
+设
+\[
+ \mu=\tfrac13\delta_0+\tfrac13m|_{[0,1]}+\tfrac13\mu_C.
+\]
+其分布函数在 \(x<0\) 为零，在 \(x>1\) 为一，而在 \([0,1]\) 为
+\(F(x)=(1+x+C(x))/3\)。它在零点有大小 \(1/3\) 的跳跃，
+在 \((0,1)\) 几乎处处有 \(F'=1/3\)，但导数积分只恢复总质量的
+三分之一。另两个三分之一分别来自一个点和一个无原子的零测集。
+\end{example}
+
+把 \(\Q\) 无重复地枚举为 \(q_1,q_2,\ldots\)，还可取
+\(\mu=\sum_{j\ge1}2^{-j}\delta_{q_j}\)。每个非空开区间包含某个
+\(q_j\)，故其分布函数严格递增；同时它完全是纯跳跃函数，导数几乎
+处处为零。这说明严格递增本身也不保证存在正的长度密度。
+
+\section{全变差、测度导数与概率分布}
+\label{sec:stieltjes-variation-derivative}
+
+\subsection{有限符号测度与全实线 BV 函数}
+
+对 \(H:\R\to\R\)，定义全实线总变差
+\[
+ V_\R(H)=\sup\left\{\sum_{j=1}^N|H(t_j)-H(t_{j-1})|:
+ N\ge1,\ t_0<\cdots<t_N\right\}.
+\]
+若它有限，记 \(H\in BV(\R)\)。这蕴含有界性与有限的两端极限，
+但不要求 \(H\in L^1(\R)\)。两端极限的存在可由下述事实说明：
+若某一端的振幅不趋零，就能依次取向该端排列的互不重叠区间，使每段
+贡献同一个正的变差下界，与总变差有限矛盾。
+
+\begin{theorem}\label{thm:stieltjes-signed-bv}
+每个右连续 \(H\in BV(\R)\) 唯一确定有限实符号测度 \(dH\)，其区间增量为
+\[
+ dH((a,b])=H(b)-H(a)\qquad(a<b).
+\]
+对任意 \(a<b\)，有
+\begin{equation}\label{eq:stieltjes-total-variation}
+ |dH|((a,b])=V_a^b(H),\qquad |dH|(\R)=V_\R(H).
+\end{equation}
+反之，每个有限实符号测度 \(\nu\) 都由右连续 BV 函数
+\(H(x)=\nu(({-\infty},x])\) 产生。一般的原函数满足
+\[
+ H(x)=H(-\infty)+dH(({-\infty},x]).
+\]
+\end{theorem}
+\begin{proof}
+先在一个有限区间 \([a,b]\) 使用已有的右连续 BV 构造。
+任意分割给
+\(\sum_j|H(t_j)-H(t_{j-1})|\le |dH|((a,b])\)，故
+\(V_a^b(H)\le |dH|((a,b])\)。反向使用函数的规范 Jordan 分解
+\(H=H(a)+p-n\)。累计变差右连续，所以 \(dp,dn\) 均存在。
+符号测度 Jordan 分解的最小性给
+\[
+ |dH|((a,b])\le dp((a,b])+dn((a,b])=V_a^b(H).
+\]
+这证明局部等式。
+
+现在在 \((k,k+1]\) 上分别构造 \(\nu_k\)。由变差可加性，
+\(\sum_{k\in\Z}|\nu_k|((k,k+1])\le V_\R(H)\)。因此
+\[
+ \nu(E)=\sum_{k\in\Z}\nu_k(E\cap(k,k+1])
+\]
+绝对收敛，定义有限符号测度；绝对可和性也允许在验证可数可加性时
+交换求和次序。它有要求的区间增量，唯一性在每个有界区间上验证。
+局部全变差等式与 \((-n,n]\uparrow\R\) 给出全局等式，因为任意
+有限分割都包含于某个 \([-n,n]\)。
+
+给定有限符号测度 \(\nu\)，其累计函数由正负测度的连续性而右连续。
+任意分割的变差和不超过 \(|\nu|(\R)\)，所以它属于 BV；增量公式
+直接成立，故所产生的测度就是 \(\nu\)。最后让 \(a\to-\infty\)，
+在增量公式中使用有限符号测度的连续性，得到一般原函数的表达式。
+\end{proof}
+
+如果 \(H\) 只有局部有界变差，同一构造仍在每个有界区间上有效，
+但不能自动给所有 Borel 集赋一个可相减的全局符号质量。例如
+\(H(x)=\sin x\) 的正负变差总量都无穷。本节遇到这种局部情形时，
+仅在有界区间上积分，或对紧支撑函数积分；不书写未定义的
+\(dH(\R)=\infty-\infty\)。
+
+\subsection{有共同跳跃时的分部积分}
+
+经典分部积分在有跳跃时需要记录同一点两次变化的乘积。
+下面采用的单侧值与半开区间约定配合，因而不依赖分割标记。
+
+\begin{theorem}\label{thm:stieltjes-integration-by-parts}
+设 \(F,G\) 在 \([a,b]\) 上 BV，且在 \([a,b)\) 右连续。
+记 \(F_-(x)=F(x-)\)、\(G_-(x)=G(x-)\) 对 \(a<x\le b\)。则
+\begin{align}
+ F(b)G(b)-F(a)G(a)
+ &=\int_{(a,b]}F_-\,dG+\int_{(a,b]}G\,dF,
+ \label{eq:stieltjes-parts-left}\\
+ &=\int_{(a,b]}F\,dG+\int_{(a,b]}G\,dF
+   -\sum_{a<x\le b}\Delta F(x)\Delta G(x).
+ \label{eq:stieltjes-parts-jumps}
+\end{align}
+最后的级数绝对收敛。
+\end{theorem}
+\begin{proof}
+在 \((a,b]\) 上记 \(\alpha=dF\)、\(\beta=dG\)。它们具有有限
+全变差，且
+\(F_-(x)=F(a)+\alpha((a,x))\)、
+\(G(x)=G(a)+\beta((a,x])\)。因此
+\[
+ \begin{aligned}
+ \int F_-\,d\beta
+ &=F(a)(G(b)-G(a))
+   +\iint\mathbf1_{\{s<t\}}\,d\alpha(s)\,d\beta(t),\\
+ \int G\,d\alpha
+ &=G(a)(F(b)-F(a))
+   +\iint\mathbf1_{\{t\le s\}}\,d\alpha(s)\,d\beta(t).
+ \end{aligned}
+\]
+这里两变量都在 \((a,b]\) 中。指示函数有界，而
+\(|\alpha|\times|\beta|\) 有限，所以把正负部分分开后可用 Fubini
+定理。两个三角形不交且覆盖整个正方形，双重积分之和为
+\((F(b)-F(a))(G(b)-G(a))\)。展开即可得到
+\eqref{eq:stieltjes-parts-left}。
+
+又 \(F-F_-=\Delta F\)，只在至多可数个跳点非零，故
+\[
+ \int_{(a,b]}(F-F_-)\,dG
+ =\sum_{a<x\le b}\Delta F(x)\Delta G(x).
+\]
+绝对值之和至多为
+\(\sup_x|\Delta F(x)|\sum_x|\Delta G(x)|
+ \le V_a^b(F)V_a^b(G)\)。代入第一式得第二式。
+\end{proof}
+
+若 \(F,G\) 没有共同跳点，修正项为零。若两者均为
+\(\mathbf1_{[c,b]}\)，其中 \(a<c<b\)，则左端为一，而两个采用
+右连续值的积分都为一，恰需减去共同跳跃的乘积一。
+
+对右连续局部 BV 函数 \(H\) 和 \(\varphi\in C_c^1(\R)\)，选
+\(a,b\) 在 \(\varphi\) 支集外，应用分部积分得到
+\begin{equation}\label{eq:stieltjes-measure-derivative}
+ \int_\R\varphi\,dH=-\int_\R H(x)\varphi'(x)\,dx.
+\end{equation}
+因为 \(\varphi\) 连续，无共同跳跃项；它的 Stieltjes 测度为
+\(\varphi' m\)。这一公式说明，\(dH\) 作为测度导数同时记录普通
+导数、跳跃和奇异连续变化。它与 \(H'\) 的区别正由这些额外质量体现。
+
+\subsection{相对于另一 Stieltjes 测度的导数}
+
+\begin{proposition}\label{prop:stieltjes-relative-density}
+设 \(F,G:\R\to\R\) 递增右连续，且 \(dG\ll dF\)。存在非负
+密度 \(h=dG/dF\)，在 \(dF\)-几乎处处意义下唯一，并有
+\[
+ G(b)-G(a)=\int_{(a,b]}h\,dF.
+\]
+在 \(\Delta F(c)>0\) 的点，密度的取值必满足
+\[
+ h(c)=\frac{\Delta G(c)}{\Delta F(c)}.
+\]
+此外，\(G'=hF'\) 在 \(m\)-几乎处处成立；特别地，在
+\(\{F'>0\}\) 上有 \(h=G'/F'\) 几乎处处。
+\end{proposition}
+\begin{proof}
+两个测度均局部有限，因而 \(\sigma\)-有限。Radon--Nikodym 定理给
+\(dG=h\,dF\)，区间公式和单点公式分别由在 \((a,b]\) 与
+\(\{c\}\) 上积分得到。对 \(dF=F'm+\sigma\)，\(\sigma\perp m\)，
+乘以 \(h\) 后得到
+\(dG=hF'm+h\sigma\)。第二项仍奇异于 \(m\)，第一项局部有限，
+所以 Lebesgue 分解的唯一性及
+定理~\ref{thm:stieltjes-three-parts}给出 \(G'=hF'\) 几乎处处。
+这里在 \(F'=0\) 处将乘积规定为零。
+\end{proof}
+
+密度 \(dG/dF\) 不能在全实线上用普通导数的商代替。取
+\(F=\widetilde C\)、\(G=2\widetilde C\)，则 \(dG/dF=2\)
+在 \(dF\)-几乎处处成立，而 \(F'=G'=0\) 在 \(m\)-几乎处处成立。
+两个“几乎处处”采用不同的测度，普通导数在这里未提供奇异集中集上的
+密度信息。
+
+\subsection{分布的矩与尾积分}
+
+给定分布函数 \(F\)，其概率测度记为 \(\mu_F\)。非负函数的平均
+就是 \(\int h\,d\mu_F\)；如果 \(\int|x|\,d\mu_F<\infty\)，称
+\(\int x\,d\mu_F\) 为该分布的均值。更一般地，\(\int|x|^p\,d\mu_F\)
+是 \(p>0\) 阶绝对矩。分位函数公式可直接计算这些积分，尾积分则给出
+另一种只用分布函数的表达。
+
+\begin{proposition}\label{prop:stieltjes-tail-moments}
+对任意分布函数 \(F\) 和 \(p>0\)，有
+\begin{equation}\label{eq:stieltjes-tail-moment}
+ \int_\R |x|^p\,d\mu_F(x)
+ =p\int_0^\infty t^{p-1}\bigl(1-F(t)+F(-t)\bigr)\,dt,
+\end{equation}
+允许两侧为无穷。若一阶绝对矩有限，则
+\[
+ \int_\R x\,d\mu_F(x)
+ =\int_0^\infty(1-F(t))\,dt-\int_{-\infty}^0F(t)\,dt.
+\]
+\end{proposition}
+\begin{proof}
+逐点写
+\(|x|^p=\int_0^\infty pt^{p-1}\mathbf1_{\{t<|x|\}}\,dt\)。
+Tonelli 定理给积分等于
+\[
+ p\int_0^\infty t^{p-1}
+ \bigl(\mu_F((t,\infty))+\mu_F(({-\infty},-t))\bigr)\,dt.
+\]
+括号内准确等于 \(1-F(t)+F((-t)-)\)。\(F\) 至多在可数个点跳跃，
+所以在关于 \(t\) 的 Lebesgue 积分中可将 \(F((-t)-)\) 替换为
+\(F(-t)\)，得到第一式。分别对 \(x^+\) 与 \(x^-\) 采用 \(p=1\)
+的同一论证；绝对矩有限保证两个结果均有限，允许相减，即得均值公式。
+\end{proof}
+
+端点质量在关于 \(\mu_F\) 的积分中不能丢弃，而在最后关于长度的
+尾积分中，至多可数个端点取值可以改变。这两个层次的区别使上述公式
+同时适用于离散和连续分布，也适用于含有原子及奇异连续部分的混合分布。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{stieltjes-endpoint-computation}
+设 \(F(x)=x+2\mathbf1_{[0,\infty)}(x)+3\mathbf1_{[1,\infty)}(x)\)。
+求 \(\mu_F\)，并分别计算 \((0,1]\)、\([0,1]\)、\((0,1)\)、
+\([0,1)\) 的质量。
+\exerciseitem{stieltjes-local-versus-finite}
+对 \(F(x)=e^x\) 和 \(G(x)=\arctan x\)，求相应 Stieltjes 测度、
+总质量及其在 \(({-\infty},x]\) 上的质量。说明局部有限为何不保证
+累计函数有概率归一化。
+\exerciseitem{stieltjes-right-representative}
+证明：两个右连续函数若在 Lebesgue 几乎处处相等，则处处相等。
+由此说明两个右连续递增函数不能只改动一个点而仍保持同一几乎处处类。
+若去掉右连续性，给出反例。
+\exerciseitem{stieltjes-two-point-quantile}
+设 \(\mu=p\delta_a+(1-p)\delta_b\)，其中 \(a<b\)、\(0<p<1\)。
+写出其分布函数和分位函数，包括质量水平 \(u=p\) 处的取值。
+用分位函数求该分布的均值及二阶矩。
+\exerciseitem{stieltjes-affine-image}
+设 \(\mu\) 的分布函数为 \(F\)，\(T(x)=ax+b\)，\(a\ne0\)。
+求推前测度 \(T_\#\mu(E)=\mu(T^{-1}E)\) 的分布函数，分别讨论
+\(a>0\) 与 \(a<0\)。解释反向仿射变换中为何出现左极限。
+\exerciseitem{stieltjes-cdf-normalization}
+设 \(H:\R\to\R\) 递增右连续、有界且不恒定。证明
+\(F=(H-H(-\infty))/(H(+\infty)-H(-\infty))\) 是分布函数，
+并求其测度。说明分母为零时的情形。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{stieltjes-quantile-left-continuity}
+证明分位函数 \(Q_F\) 在 \((0,1)\) 左连续。给出一个分布函数，
+使其分位函数在某点不右连续。
+\exerciseitem{stieltjes-lipschitz-density}
+设 \(F\) 为分布函数、\(L\ge0\)。证明下列条件等价：
+\(F\) 为 \(L\)-Lipschitz；\(\mu_F(E)\le Lm(E)\) 对每个 Borel
+集成立；\(d\mu_F=f\,dm\)，其中 \(0\le f\le L\) 几乎处处。
+\exerciseitem{stieltjes-dense-pure-jumps}
+将有理数无重复地枚举为 \(q_j\)，令
+\(F(x)=\sum_{j\ge1}2^{-j}\mathbf1_{[q_j,\infty)}(x)\)。
+证明它是严格递增的分布函数，间断点恰为 \(\Q\)，且 \(F'=0\)
+几乎处处。证明它不在任何非退化区间上绝对连续。
+\exerciseitem{stieltjes-stochastic-order}
+设 \(F,G\) 为分布函数。证明
+\(F(x)\ge G(x)\) 对所有 \(x\) 成立，当且仅当
+\(Q_F(u)\le Q_G(u)\) 对所有 \(0<u<1\) 成立。
+在此条件下，对每个有界递增 Borel 函数 \(h\)，证明
+\(\int h\,d\mu_F\le\int h\,d\mu_G\)。
+\exerciseitem{stieltjes-common-jump-integral}
+设 \(a<c<b\)、\(F=\mathbf1_{[c,b]}\)。计算
+\(\int_{(a,b]}F\,dF\) 和 \(\int_{(a,b]}F_-\,dF\)，并证明按
+任意标记分割定义的 Riemann--Stieltjes 积分 \(\int_a^bF\,dF\)
+不存在。
+\exerciseitem{stieltjes-signed-exponential}
+设 \(H(x)=e^{-|x|}\)。证明 \(H\in BV(\R)\)，求 \(dH\)、
+\((dH)^+\)、\((dH)^-\) 及 \(|dH|\)，并核对
+\(dH(\R)\) 与 \(V_\R(H)\) 的不同取值。
+\exerciseitem{stieltjes-jump-square-identity}
+对右连续 \(H\in BV[a,b]\)，证明
+\[
+ \int_{(a,b]}H\,dH
+ =\frac12\left(H(b)^2-H(a)^2+
+       \sum_{a<x\le b}(\Delta H(x))^2\right).
+\]
+再求将被积函数换成 \(H_-\) 后的公式。
+\exerciseitem{stieltjes-mixed-radon-nikodym}
+设 \(\mu_C\) 为 \([0,1]\) 上的 Cantor 概率测度，
+\(\mu=m|_{[0,1]}+\delta_0+\mu_C\)，
+\(\nu=2m|_{[0,1]}+3\delta_0+5\mu_C\)。
+求 \(d\nu/d\mu\) 的一个具体 Borel 代表，并说明端点零的值。
+\exerciseitem{stieltjes-test-derivative-example}
+设 \(a<b\)、\(H=\mathbf1_{[a,b)}\)。求有限符号测度 \(dH\)，
+并直接验证对每个 \(\varphi\in C_c^1(\R)\) 有
+\(\int\varphi\,dH=-\int H\varphi'\,dm\)。
+将 \(H\) 仅在一点的值改变后，说明右侧为何不变，而区间增量公式
+为何可能失效。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{stieltjes-continuous-cdf-uniform}
+若分布函数 \(F_n\) 对连续分布函数 \(F\) 逐点收敛，证明
+\(\sup_{x\in\R}|F_n(x)-F(x)|\to0\)。证明不能删去 \(F\) 连续的
+条件，即使 \(F_n\) 在 \(F\) 的每个连续点收敛到 \(F\)。
+\exerciseitem{stieltjes-continuous-probability-transform}
+设 \(F\) 为连续分布函数。证明 \(F(Q_F(u))=u\) 对每个
+\(0<u<1\) 成立，并推出 \(F_\#\mu_F\) 是 \((0,1)\) 上的长度
+概率测度。给出有跳跃时结论失败的例子。
+\exerciseitem{stieltjes-weak-density-collapse}
+令 \(d\mu_n=(n/2)\mathbf1_{[-1/n,1/n]}\,dm\)、\(\mu=\delta_0\)。
+证明 \(\mu_n\) 弱收敛到 \(\mu\)，但
+\(|\mu_n-\mu|(\R)=2\)。写出其分布函数，说明连续分布函数的
+弱极限可以有跳跃，并解释弱收敛为何不与全变差距离保持为二矛盾。
+\exerciseitem{stieltjes-pareto-moments}
+设 \(\alpha>0\)，\(F(x)=0\) 当 \(x<1\)，
+\(F(x)=1-x^{-\alpha}\) 当 \(x\ge1\)。证明这是分布函数，
+求其密度和分位函数，并分别用尾积分与分位函数证明：对 \(p>0\)，
+其 \(p\) 阶矩有限当且仅当 \(p<\alpha\)，此时等于
+\(\alpha/(\alpha-p)\)。
+\optionalexerciseitem{stieltjes-singular-full-support}
+构造一个连续且严格递增的分布函数 \(F\)，同时满足 \(F'=0\)
+几乎处处。提示：在每个有理端点开区间内放入一个仿射缩放的 Cantor
+概率测度，再作正系数可和的叠加。须核对无原子性、奇异性和严格递增性。
+\optionalexerciseitem{stieltjes-compact-helly}
+设所有概率测度 \(\mu_n\) 都集中在固定紧区间 \([a,b]\) 上。
+证明它们有一个弱收敛子列，且极限仍集中在 \([a,b]\)。
+要求从有理点上的对角抽取及分布函数构造完成证明，不引用一般概率
+测度紧性定理。
+\end{enumerate}

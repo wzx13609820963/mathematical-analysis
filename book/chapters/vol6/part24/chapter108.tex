@@ -1,0 +1,618 @@
+\chapter{概率空间}
+\label{chap:probability-spaces}
+
+在测度论中，一个集合的测度描述其大小；当总质量归一化为一时，同一套
+运算可以描述某个可观察结果发生的概率。新的问题不只是计算集合的质量，
+还包括比较不同观测量的分布、判断同时观测时所保留的关系，以及用少量
+积分信息控制罕见的大偏差。本章在已有测度与积分理论上建立这些语言，
+不重新构造积分，也不预设独立性。
+
+一个概率模型由样本空间、可观察事件和概率测度共同指定。随机变量是这个
+模型上的可测函数，分布则是它在取值空间上产生的测度。区分函数与测度，
+是理解联合分布、期望和协方差所需的第一步。
+
+\section{概率测度和事件}
+\label{sec:probability-events}
+
+\subsection{样本空间与可观察事件}
+
+\begin{definition}\label{def:probability-space}
+概率空间是三元组 \((\Omega,\mathcal F,\mathbb P)\)，其中
+\(\mathcal F\) 是集合 \(\Omega\) 上的 \(\sigma\)-代数，
+\(\mathbb P\) 是其上的正测度，且 \(\mathbb P(\Omega)=1\)。
+\(\Omega\) 称样本空间，\(\omega\in\Omega\) 称样本点，
+\(A\in\mathcal F\) 称事件，\(\mathbb P(A)\) 称其概率。
+\end{definition}
+
+集合 \(A\cup B\)、\(A\cap B\)、\(A^c\) 分别表达至少一个发生、
+同时发生及 \(A\) 不发生。定义只给 \(\mathcal F\) 中的集合赋概率，
+并未要求每个子集都是事件，也未要求空间完备。
+由测度性质立即得到
+\[
+ \mathbb P(A^c)=1-\mathbb P(A),\qquad
+ \mathbb P(A\cup B)=\mathbb P(A)+\mathbb P(B)-\mathbb P(A\cap B).
+\]
+对事件列还有并集上界
+\(\mathbb P(\bigcup_n A_n)\le\sum_n\mathbb P(A_n)\)。
+递增、递减事件列的概率都连续；递减情形不再另加有限性假设，因为
+全部事件的概率不超过一。
+
+\begin{example}
+若 \(\Omega=\{\omega_1,\ldots,\omega_N\}\)、\(N\ge1\)，可取
+\(\mathcal F=2^\Omega\)，给定 \(p_j\ge0\)、\(\sum_jp_j=1\)，并令
+\(\mathbb P(A)=\sum_{\omega_j\in A}p_j\)。各 \(p_j=1/N\) 时为均匀
+模型；样本点个数相同并不意味着各模型都必须取均匀概率。
+在 \((0,1)\) 上，长度测度的总质量为一，取 Borel \(\sigma\)-代数
+或其 Lebesgue 完备化，均得到概率空间。此时每个单点概率为零，
+而所有单点的并是整个空间。可数可加性不能扩张成对任意不可数并求和。
+\end{example}
+
+称一条性质\term{几乎必然}或\term{几乎肯定}成立，若其成立的事件
+概率为一；也记作 \(\mathbb P\)-几乎处处或 a.s.。这不是每个样本点
+都成立。例如在 \((0,1)\) 的均匀模型中，\(\omega\ne1/2\) 几乎
+必然成立，却不在样本点 \(1/2\) 成立。零概率事件并不等于空事件。
+
+\subsection{已知一个正概率事件发生}
+
+若已经限制观测只在事件 \(B\) 中进行，其中 \(\mathbb P(B)>0\)，
+需要把 \(B\) 的质量重新归一化。定义
+\begin{equation}\label{eq:conditional-event-probability}
+ \mathbb P(A\mid B)=\frac{\mathbb P(A\cap B)}{\mathbb P(B)}.
+\end{equation}
+对固定 \(B\)，映射 \(A\mapsto\mathbb P(A\mid B)\) 是
+\((\Omega,\mathcal F)\) 上的概率测度，也可限制到 \(B\) 的迹
+\(\sigma\)-代数。可数可加性来自原测度，总质量为一来自分母的选择。
+若 \(\mathbb P(B)=0\)，上式没有定义；仅凭 \(\mathbb P\) 不能用
+这一比值确定条件概率。
+
+若 \((B_j)\) 是有限或至多可数个两两不交正概率事件，且
+\(\mathbb P(\bigcup_jB_j)=1\)，则分解 \(A\cap B_j\) 给
+\begin{equation}\label{eq:probability-total-bayes}
+ \mathbb P(A)=\sum_j\mathbb P(A\mid B_j)\mathbb P(B_j).
+\end{equation}
+当 \(\mathbb P(A)>0\) 时，进一步有
+\[
+ \mathbb P(B_k\mid A)
+ =\frac{\mathbb P(A\mid B_k)\mathbb P(B_k)}
+        {\sum_j\mathbb P(A\mid B_j)\mathbb P(B_j)}.
+\]
+这就是全概率公式与 Bayes 公式。它们只是同一交集概率按不同条件
+归一化，不包含任何事件之间独立的假设。
+
+\section{随机变量、分布和推前测度}
+\label{sec:random-variables-laws}
+
+\subsection{可测观测量与其分布}
+
+\begin{definition}\label{def:random-variable-law}
+概率空间上的实随机变量是可测映射
+\(X:(\Omega,\mathcal F)\to(\R,\mathcal B(\R))\)。它的分布或律为
+\[
+ \mu_X=X_\#\mathbb P,\qquad
+ \mu_X(B)=\mathbb P(X\in B):=\mathbb P(X^{-1}(B))
+ \quad(B\in\mathcal B(\R)).
+\]
+若 \(\mu_X=\mu_Y\)，称 \(X,Y\) 同分布，记 \(X\overset d=Y\)。
+这里两个随机变量可以定义在不同概率空间上。
+\end{definition}
+
+本章随机变量默认取有限实值。讨论单调极限或非负积分时，也允许
+取值于 \([0,\infty]\) 的可测函数，并明确说明无穷值。
+由于半直线生成 \(\mathcal B(\R)\)，只需核对
+\(\{X\le t\}\in\mathcal F\) 对所有 \(t\in\R\) 成立，便可判定
+\(X\) 可测。连续函数作用于随机变量仍可测；更一般地，若 \(g\)
+为 Borel 函数，则 \(g(X)\) 可测，而且
+\begin{equation}\label{eq:probability-law-composition}
+ \mu_{g(X)}=g_\#\mu_X.
+\end{equation}
+这直接来自原像复合公式，不要求 \(g\) 单射或可微。
+
+\(X\) 的分布函数定义为
+\(F_X(t)=\mathbb P(X\le t)\)。由
+\chapterref{chap:stieltjes-measures}，它递增、右连续、两端极限为零和
+一，并唯一确定 \(\mu_X\)。特别地，
+\[
+ \mathbb P(a<X\le b)=F_X(b)-F_X(a),\qquad
+ \mathbb P(X=a)=F_X(a)-F_X(a-).
+\]
+本章所用分布是 \(\R\) 上的有限 Borel 测度，因而都是 Radon 测度。
+
+\begin{example}[同分布不等于同一观测量]
+在 \(\Omega=(0,1)\) 的均匀模型上令 \(X(\omega)=\omega\)、
+\(Y(\omega)=1-\omega\)。二者都服从 \((0,1)\) 上的均匀分布，
+但 \(X=Y\) 只在 \(\omega=1/2\) 成立，故
+\(\mathbb P(X=Y)=0\)。相反，如果同一空间上 \(X=Y\) 几乎必然，
+则对每个 Borel 集 \(B\)，两个原像的对称差包含于 \(\{X\ne Y\}\)，
+从而 \(\mu_X=\mu_Y\)。
+\end{example}
+
+\subsection{给定分布的实现与密度}
+
+给定任意 \(\R\) 上的概率测度 \(\nu\)，取概率空间
+\((\R,\mathcal B(\R),\nu)\) 和恒等随机变量，就有 \(\mu_X=\nu\)。
+若希望固定样本空间为 \((0,1)\) 的均匀模型，则可用
+定理~\ref{thm:stieltjes-quantile}的分位函数 \(Q_F\)，令
+\(X(\omega)=Q_F(\omega)\)。这说明任意实概率分布都能在该模型上
+实现，但实现方式一般不唯一。
+
+若 \(\mu_X\ll m\)，其 Radon--Nikodym 密度 \(f_X\ge0\) 称为
+\(X\) 的概率密度。本章的密度均选取非负 Borel 代表：在 Borel 测度
+空间上应用 Radon--Nikodym 定理即可作此选择，改变零集上的值不改变
+分布。多维联合密度也采用这一约定。此时
+\[
+ \mathbb P(X\in B)=\int_Bf_X(x)\,dx,\qquad
+ \int_\R f_X(x)\,dx=1.
+\]
+密度只按几乎处处相等确定，\(f_X(x)\) 本身不是单点概率。
+有密度时所有单点概率为零；其逆不成立，Cantor 分布连续无原子而
+奇异于长度测度。若分布集中在至多可数点 \(x_j\) 上，则由质量
+\(p_j=\mathbb P(X=x_j)\) 表示为 \(\sum_jp_j\delta_{x_j}\)，
+称离散分布。一般分布也可同时含原子、密度和奇异连续部分。
+
+\section{随机向量和联合分布}
+\label{sec:random-vectors-joint-laws}
+
+\subsection{同时记录多个观测量}
+
+\begin{definition}\label{def:random-vector-joint-law}
+实随机向量是可测映射
+\(X=(X_1,\ldots,X_d):\Omega\to\R^d\)，其中 \(d\in\Npos\)。
+其分布 \(\mu_X=X_\#\mathbb P\) 称为各分量的联合分布。
+第 \(j\) 个分量的分布 \(\mu_{X_j}\) 称相应的边缘分布。
+\end{definition}
+
+由于 \(\R^d\) 的 Borel \(\sigma\)-代数由开矩形生成，随机向量
+可测当且仅当所有坐标都可测。若 \(\pi_j\) 是坐标投影，则
+\(\mu_{X_j}=(\pi_j)_\#\mu_X\)。例如对两个分量，
+\[
+ \mu_X(A\times B)=\mathbb P(X_1\in A,\ X_2\in B).
+\]
+这里逗号表示事件交。所有这样的矩形质量唯一确定联合分布：有限
+测度在生成 Borel \(\sigma\)-代数的矩形族上的唯一性定理适用。
+
+联合分布函数
+\(F_X(x_1,\ldots,x_d)=\mathbb P(X_1\le x_1,\ldots,X_d\le x_d)\)
+也唯一确定联合分布。以二维为例，半开矩形的质量由容斥给出
+\[
+ \begin{aligned}
+ &\mathbb P(a<X_1\le b,\ c<X_2\le d)\\
+ &\qquad=F_X(b,d)-F_X(a,d)-F_X(b,c)+F_X(a,c).
+ \end{aligned}
+\]
+右侧必须非负。逐坐标递增只是联合分布函数的必要条件，不能代替
+这些矩形质量的相容条件。本章直接从推前测度定义联合分布，因而
+不需要重新建立多维分布函数的测度扩张。
+
+\begin{proposition}\label{prop:joint-density-marginals}
+若二维随机向量 \((X,Y)\) 有联合密度 \(f(x,y)\)，则两个边缘均有
+密度，分别可取
+\[
+ f_X(x)=\int_\R f(x,y)\,dy,\qquad
+ f_Y(y)=\int_\R f(x,y)\,dx.
+\]
+这些函数在几乎处处有限；在无穷值零集上可补成零。
+\end{proposition}
+\begin{proof}
+Tonelli 定理给上述非负函数可测，且两者的积分都等于
+\(\iint f=1\)，所以它们几乎处处有限。对任意 Borel 集 \(A\)，
+\[
+ \mathbb P(X\in A)=\mu_{(X,Y)}(A\times\R)
+ =\int_A\left(\int_\R f(x,y)\,dy\right)dx.
+\]
+这正是第一条密度公式；交换两坐标得到第二条。
+\end{proof}
+
+\subsection{边缘所遗漏的关系}
+
+令 \(U\) 在 \((0,1)\) 上均匀分布。随机向量 \((U,U)\) 与
+\((U,1-U)\) 的两个边缘都均匀，但前者以概率一落在对角线
+\(x=y\) 上，后者落在此线上仅当 \(U=1/2\)，概率为零。
+所以相同的边缘分布不能确定联合分布。
+
+这也给出“边缘有密度但联合没有密度”的例子。对角线的每个竖直截面
+只有一个点，Tonelli 定理给其二维长度为零；\((U,U)\) 的联合分布
+却赋予它质量一，因而不绝对连续于二维长度测度。联合分布可能集中在
+一条曲线，虽然每个坐标的分布都有概率密度。
+
+当要研究 \(X+Y\)、\(XY\) 或 \(X-Y\) 的分布时，一般必须知道
+联合分布，再通过对应的映射推前。只知道两个边缘不足以完成这些
+计算；对联合分布施加额外条件的工作留到下一章。
+
+\section{期望、矩、方差和协方差}
+\label{sec:expectation-moments-covariance}
+
+\subsection{期望就是概率测度下的积分}
+
+\begin{definition}\label{def:expectation}
+对非负随机变量 \(X\)，其期望定义为
+\(\mathbb E X=\int_\Omega X\,d\mathbb P\)，允许为 \(+\infty\)。
+对实随机变量，若 \(\mathbb E X^+\)、\(\mathbb E X^-\) 至少一项
+有限，则以两者之差定义扩充期望；若两者都无穷，期望没有定义。
+称 \(X\) 可积，若 \(\mathbb E|X|<\infty\)。
+\end{definition}
+
+对复随机变量采用 \(\mathbb E|X|<\infty\) 的可积条件，再分别积分
+实部和虚部。以下方差和协方差专论实随机变量。
+指示变量满足 \(\mathbb E\mathbf1_A=\mathbb P(A)\)。积分的线性性
+给可积随机变量的有限和满足
+\(\mathbb E\sum_j a_jX_j=\sum_j a_j\mathbb E X_j\)，不需要各项有
+任何独立关系。单调收敛、Fatou 引理和控制收敛均可直接用于期望；
+每次交换极限与期望仍须核对相应假设。
+
+\begin{theorem}[按分布计算期望]\label{thm:expectation-by-law}
+设 \(X\) 为取值于 \(\R^d\) 的随机向量，\(g:\R^d\to[0,\infty]\)
+为 Borel 函数。则
+\begin{equation}\label{eq:expectation-by-law}
+ \mathbb E[g(X)]=\int_{\R^d}g(x)\,d\mu_X(x).
+\end{equation}
+对实值或复值 Borel 函数 \(g\)，\(g(X)\) 可积当且仅当
+\(g\in L^1(\mu_X)\)，此时同一公式成立。
+\end{theorem}
+\begin{proof}
+当 \(g=\mathbf1_B\) 时，等式是推前测度的定义。对非负简单函数
+用有限线性性，再对非负 Borel 函数取递增简单逼近，两侧使用单调
+收敛定理。将所得结论用于 \(|g|\) 得可积性的等价；再分别积分
+正负部分或实虚部，完成证明。
+\end{proof}
+
+因此，同分布随机变量具有相同的所有已定义的分布积分。若 \(X\)
+离散或有密度，则相应地有
+\[
+ \mathbb E[g(X)]=\sum_jg(x_j)p_j,
+ \qquad\mathbb E[g(X)]=\int_\R g(x)f_X(x)\,dx.
+\]
+两种表达只是同一个公式的特殊情形。
+对一般分布，不能把密度公式当成期望的定义。
+
+对 \(p>0\)，称 \(\mathbb E|X|^p\) 为 \(p\) 阶绝对矩；若
+\(k\in\Npos\) 且 \(\mathbb E|X|^k<\infty\)，则
+\(\mathbb E X^k\) 称 \(k\) 阶矩。有限个矩只记录分布的一部分信息，
+通常不能唯一确定分布。
+
+\subsection{均值附近的二阶波动}
+
+\begin{definition}\label{def:variance-covariance}
+设 \(X,Y\in L^2(\mathbb P)\)。定义
+\[
+ \operatorname{Var}(X)=\mathbb E[(X-\mathbb E X)^2],\qquad
+ \operatorname{Cov}(X,Y)=\mathbb E[(X-\mathbb E X)(Y-\mathbb E Y)].
+\]
+\(\sqrt{\operatorname{Var}(X)}\) 称标准差。
+\end{definition}
+
+这些量均有限：概率空间上 \(L^2\subseteq L^1\)，而两个平方可积
+函数的乘积可积。展开并使用期望线性性，得到
+\begin{equation}\label{eq:variance-covariance-expansion}
+ \operatorname{Var}(X)=\mathbb E X^2-(\mathbb E X)^2,\qquad
+ \operatorname{Cov}(X,Y)=\mathbb E(XY)-\mathbb E X\,\mathbb E Y.
+\end{equation}
+方差为零当且仅当 \(X=\mathbb E X\) 几乎必然，因为非负可积函数
+积分为零当且仅当它几乎处处为零。并且对任意实常数 \(a\)，
+\[
+ \mathbb E[(X-a)^2]=\operatorname{Var}(X)+(a-\mathbb E X)^2.
+\]
+所以均值是均方误差最小的常数，方差是该最小误差。
+
+\begin{proposition}[二阶 Cauchy--Schwarz 不等式]
+\label{prop:probability-cauchy-schwarz}
+若 \(X,Y\in L^2(\mathbb P)\)，则
+\[
+ |\mathbb E(XY)|^2\le\mathbb E X^2\,\mathbb E Y^2,
+ \qquad
+ |\operatorname{Cov}(X,Y)|^2
+ \le\operatorname{Var}(X)\operatorname{Var}(Y).
+\]
+第一式在 \(\mathbb E Y^2>0\) 时取等号，当且仅当存在 \(c\in\R\)
+使 \(X=cY\) 几乎必然。
+\end{proposition}
+\begin{proof}
+乘积的可积性可先由 \(2|XY|\le X^2+Y^2\) 验证。若
+\(\mathbb E Y^2=0\)，则 \(Y=0\) 几乎必然，第一式成立。
+否则在 \(0\le\mathbb E[(X-tY)^2]\) 中取
+\(t=\mathbb E(XY)/\mathbb E Y^2\)，得到
+\[
+ 0\le\mathbb E X^2-\frac{|\mathbb E(XY)|^2}{\mathbb E Y^2}.
+\]
+取等号等价于 \(X-tY=0\) 几乎必然。将第一式用于两个中心化
+随机变量，得到协方差估计。
+\end{proof}
+
+当两个方差都正时，相关系数定义为
+\[
+ \rho(X,Y)=\frac{\operatorname{Cov}(X,Y)}
+ {\sqrt{\operatorname{Var}(X)\operatorname{Var}(Y)}}\in[-1,1].
+\]
+其绝对值为一恰好表示两个中心化变量成非零比例，而不是任意意义上的
+“关系很强”。协方差等于零称不相关，只约束一个二阶积分，并不确定
+联合分布。
+
+\subsection{协方差矩阵}
+
+\begin{proposition}\label{prop:covariance-matrix-positive}
+设 \(X=(X_1,\ldots,X_d)\) 的各分量平方可积，令
+\(\Sigma_{ij}=\operatorname{Cov}(X_i,X_j)\)。则 \(\Sigma\) 是实对称
+半正定矩阵，并且对每个 \(a=(a_1,\ldots,a_d)^{\mathsf T}\)，
+\begin{equation}\label{eq:covariance-quadratic-form}
+ a^{\mathsf T}\Sigma a
+ =\operatorname{Var}\left(\sum_ja_jX_j\right).
+\end{equation}
+这个二次型为零，当且仅当
+\(\sum_ja_j(X_j-\mathbb E X_j)=0\) 几乎必然。
+\end{proposition}
+\begin{proof}
+乘法交换性给对称性。将有限和移入积分并展开，得到
+\[
+ \sum_{i,j}a_ia_j\Sigma_{ij}
+ =\mathbb E\left[\left(\sum_ja_j(X_j-\mathbb E X_j)\right)^2\right]
+ \ge0.
+\]
+这既是半正定性也是方差公式。非负函数积分为零的判别给最后结论。
+\end{proof}
+
+特别地，
+\[
+ \operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)
+                         +2\operatorname{Cov}(X,Y).
+\]
+没有额外条件时不能删掉最后一项。例如 \(Y=X\) 时左端为
+\(4\operatorname{Var}(X)\)，\(Y=-X\) 时则为零；这两种联合关系
+都不能仅从单个变量的方差中读出。
+
+\section{概率不等式、尾积分与典型分布}
+\label{sec:probability-inequalities-distributions}
+
+\subsection{由积分控制尾部}
+
+\begin{theorem}[Markov 与 Chebyshev 不等式]
+\label{thm:probability-markov-chebyshev}
+若 \(X\ge0\)、\(a>0\)，则
+\[
+ \mathbb P(X\ge a)\le\frac{\mathbb E X}{a}.
+\]
+更一般地，对 \(p>0\)，
+\(\mathbb P(|X|\ge a)\le a^{-p}\mathbb E|X|^p\)。
+若 \(X\in L^2\)，则
+\[
+ \mathbb P(|X-\mathbb E X|\ge a)
+ \le\frac{\operatorname{Var}(X)}{a^2}.
+\]
+\end{theorem}
+\begin{proof}
+点态不等式 \(a\mathbf1_{\{X\ge a\}}\le X\) 积分后即为第一式，
+允许右侧无穷。对 \(|X|^p\) 应用第一式得到矩估计，再对
+\((X-\mathbb E X)^2\) 应用它，便得 Chebyshev 不等式。
+\end{proof}
+
+这些上界只使用一个矩，因此适用于很广的分布，但未必精细。
+例如当 \(a\) 很小时，右侧可大于一，此时概率本身不超过一给出
+更好的界。不能由一个上界较大推断实际概率也大。
+
+\begin{theorem}[Jensen 不等式]\label{thm:probability-jensen}
+设 \(X\in L^1(\mathbb P)\)，\(\varphi:\R\to\R\) 为有限值凸函数。
+则 \(\mathbb E\varphi(X)\) 有定义，允许为 \(+\infty\)，并且
+\[
+ \varphi(\mathbb E X)\le\mathbb E\varphi(X).
+\]
+若 \(\varphi\) 严格凸，则取等号当且仅当 \(X\) 几乎必然为常数。
+\end{theorem}
+\begin{proof}
+令 \(b=\mathbb E X\)。由定理~\ref{thm:one-dimensional-subdifferential}，
+存在有限实数 \(c\)，使
+\(\varphi(x)\ge\varphi(b)+c(x-b)\) 对所有实数 \(x\) 成立。
+右侧代入 \(X\) 后可积，所以 \(\varphi(X)^-\) 被一个可积函数
+控制，其期望有定义。对支撑线不等式积分，线性项的期望为零，
+即得结论。
+
+若 \(\varphi\) 严格凸，支撑线除 \(b\) 外不能再与图像相交：
+若在另一点相交，则凸性上界与支撑线下界将迫使二者在整段重合。
+因此非负函数
+\(\varphi(X)-\varphi(b)-c(X-b)\) 仅在 \(X=b\) 处为零。
+等号成立时其积分为零，故 \(X=b\) 几乎必然；反向直接成立。
+\end{proof}
+
+例如 \((\mathbb E X)^2\le\mathbb E X^2\) 表达平方偏差非负，
+\(e^{\mathbb E X}\le\mathbb E e^X\) 则允许右侧无穷。
+积分与非线性函数一般不能交换；凸性给出的是带方向的不等式。
+
+对 \(X\ge0\) 和 \(p>0\)，逐点恒等式及 Tonelli 定理给
+\begin{equation}\label{eq:probability-tail-integral}
+ \mathbb E X^p
+ =p\int_0^\infty t^{p-1}\mathbb P(X>t)\,dt.
+\end{equation}
+这里使用的逐点等式为
+\[
+ X^p=\int_0^\infty pt^{p-1}\mathbf1_{\{t<X\}}\,dt.
+\]
+所有被积量非负，不必预先假定矩有限。这与
+命题~\ref{prop:stieltjes-tail-moments}是同一公式在随机变量上的表达。
+对任意实 \(X\)，将其用于 \(|X|\) 即可判断绝对矩。
+
+\subsection{离散分布}
+
+在离散情形，只需给出非负质量及其和为一。以下分布在此按质量函数
+定义；它们与重复观测、计数机制的联系，需要以后另外核对机制中的
+条件。
+
+\begin{example}[Bernoulli 与二项分布]
+若 \(0\le p\le1\)，Bernoulli 分布在零和一的质量分别为
+\(1-p,p\)。它的均值为 \(p\)，因 \(X^2=X\)，方差为 \(p(1-p)\)。
+对 \(n\in\Npos\)、\(0<p<1\)，二项分布的质量为
+\[
+ \mathbb P(X=k)=\binom nk p^k(1-p)^{n-k},\qquad k=0,\ldots,n.
+\]
+二项式定理保证总和为一。其均值为 \(np\)，方差为 \(np(1-p)\)，
+可直接对二项式展开求导计算，详见习题。
+端点 \(p=0,1\) 分别定义为常数零、常数 \(n\) 的分布，上述矩公式
+仍成立，因而不需要含混的 \(0^0\) 约定。
+\end{example}
+
+\begin{example}[Poisson 分布]
+对 \(\lambda>0\)，给定
+\[
+ \mathbb P(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},\qquad k\in\N.
+\]
+指数级数给总质量一。对非负级数换指标，得到
+\[
+ \mathbb E X=\lambda,\qquad
+ \mathbb E[X(X-1)]=\lambda^2.
+\]
+例如第一式来自
+\(\sum_{k\ge1}ke^{-\lambda}\lambda^k/k!
+ =\lambda e^{-\lambda}\sum_{j\ge0}\lambda^j/j!\)；第二式在
+\(k\ge2\) 上同样消去两个因子。于是
+\(\mathbb E X^2=\lambda^2+\lambda\)，方差为 \(\lambda\)。
+若需 \(\lambda=0\)，单独定义为零点质量。
+\end{example}
+
+几何分布在 \(\Npos\) 上取质量
+\(\mathbb P(X=k)=p(1-p)^{k-1}\)，其中 \(0<p<1\)。
+当 \(p=1\) 时令 \(X=1\)；其余情形由几何级数归一化。
+这里支持从一开始，均值为 \(1/p\)，方差为 \((1-p)/p^2\)。
+若改从零开始，均值会减去一，故使用这一名称时须说明起点。
+
+\subsection{有密度的分布}
+
+\([a,b]\) 上的均匀分布，\(a<b\)，密度为
+\((b-a)^{-1}\mathbf1_{(a,b)}\)，均值和方差分别为
+\((a+b)/2\)、\((b-a)^2/12\)，由长度积分直接算得。
+对 \(\lambda>0\)，指数分布的密度为
+\[
+ f(x)=\lambda e^{-\lambda x}\mathbf1_{(0,\infty)}(x).
+\]
+其尾概率为 \(e^{-\lambda t}\)、\(t\ge0\)。由尾积分公式，
+\(\mathbb E X=1/\lambda\)、\(\mathbb E X^2=2/\lambda^2\)，
+所以方差为 \(1/\lambda^2\)。
+
+\begin{example}[正态分布]
+对 \(a\in\R\)、\(\sigma>0\)，密度
+\[
+ f(x)=\frac1{\sigma\sqrt{2\pi}}
+       \exp\left(-\frac{(x-a)^2}{2\sigma^2}\right)
+\]
+定义正态分布，记为 \(N(a,\sigma^2)\)。
+\chapterref{chap:l1-fourier-transform}中的 Gaussian 积分经伸缩给
+\(\int_\R e^{-z^2/2}\,dz=\sqrt{2\pi}\)，故此密度已归一化。
+标准正态 \(Z\sim N(0,1)\) 的所有绝对矩都有限，因为任意固定幂次
+乘 Gaussian 尾部仍可积。由奇偶性 \(\mathbb E Z=0\)，分部积分给
+\[
+ \mathbb E Z^2
+ =\frac1{\sqrt{2\pi}}\int_\R z^2e^{-z^2/2}\,dz
+ =\frac1{\sqrt{2\pi}}\int_\R e^{-z^2/2}\,dz=1.
+\]
+边界项 \(ze^{-z^2/2}\) 在两端趋零。变量代换说明
+\(a+\sigma Z\sim N(a,\sigma^2)\)，其均值为 \(a\)，方差为
+\(\sigma^2\)。\(\sigma=0\) 时的点质量若需使用，必须另外说明，
+不能代入上述密度。
+\end{example}
+
+\begin{counterexample}[对称分布的期望可能没有定义]
+Cauchy 密度 \(f(x)=1/(\pi(1+x^2))\) 的积分为一，且关于零对称。
+但 \(\int_0^\infty xf(x)\,dx=\infty\)，负半轴上负部的积分也
+为无穷。因此其期望没有定义，而不是零。对称截断
+\(\int_{-R}^Rxf(x)\,dx=0\) 只给一个主值，不能代替 Lebesgue
+期望。判断积分是否存在必须先于使用对称性消去正负部分。
+\end{counterexample}
+
+这些例子表明，密度的存在、各阶矩的有限性与多个观测量之间的关系
+是不同问题。分布确定单个观测量的积分，联合分布确定多个观测量
+同时出现的关系；期望和协方差则只从中提取特定的数值信息。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{probability-intersection-bounds}
+若 \(\mathbb P(A)=p\)、\(\mathbb P(B)=q\)，证明
+\(\max\{0,p+q-1\}\le\mathbb P(A\cap B)\le\min\{p,q\}\)。
+在 \((0,1)\) 的均匀模型上分别实现两个端点。
+\exerciseitem{probability-bayes-mixture}
+两类零件的抽取概率分别为 \(2/5,3/5\)，在两类中出现某种标记
+的条件概率分别为 \(1/4,1/10\)。计算抽到带标记零件的概率，以及
+已知带标记时它来自第一类的条件概率。明确使用的事件分割。
+\exerciseitem{probability-rational-measurability}
+设 \(X:\Omega\to\R\)。证明只要 \(\{X\le q\}\in\mathcal F\)
+对所有 \(q\in\Q\) 成立，\(X\) 就是随机变量。说明只检查单点
+原像可测为什么不够；可在不含全部子集的不可数可测空间上构造反例。
+\exerciseitem{probability-uniform-square-law}
+设 \(U\) 在 \((0,1)\) 上均匀分布。求 \(U^2\) 与 \(\sqrt U\)
+的分布函数和密度，并分别用分布积分及直接在样本空间积分求均值。
+\exerciseitem{probability-atomic-density-map}
+仍取均匀 \(U\)，令 \(X=0\) 当 \(U\le1/2\)，
+\(X=2U-1\) 当 \(U>1/2\)。求其分布、均值及方差，并说明为何
+不能只用一个长度密度描述此分布。
+\exerciseitem{probability-same-law-distinct}
+在四点均匀概率空间上，构造三个都取 \(-1,1\) 且各值概率均为
+\(1/2\) 的随机变量 \(X,Y,Z\)，使 \(Y=-X\) 处处且
+\(\mathbb E(XZ)=0\)。计算三个变量两两的协方差。
+\end{enumerate}
+
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{probability-triangle-joint-density}
+二维随机向量 \((X,Y)\) 的密度为
+\(f(x,y)=2\mathbf1_{\{0<x<y<1\}}\)。核对归一化，求边缘密度、
+均值、方差、\(\mathbb E(XY)\)、协方差和相关系数。
+\exerciseitem{probability-uncorrelated-relation}
+令 \(X\) 在 \(-1,0,1\) 上均匀分布，\(Y=X^2\)。证明
+\(\operatorname{Cov}(X,Y)=0\)，却有
+\(\mathbb P(X=0,Y=0)\ne\mathbb P(X=0)\mathbb P(Y=0)\)。
+说明协方差为零未排除何种关系。
+\exerciseitem{probability-moment-nesting}
+若 \(0<p<q\) 且 \(\mathbb E|X|^q<\infty\)，证明
+\((\mathbb E|X|^p)^{1/p}\le(\mathbb E|X|^q)^{1/q}\)。
+构造一个 \(p\) 阶绝对矩有限但 \(q\) 阶绝对矩无穷的分布。
+\exerciseitem{probability-linear-least-squares}
+若 \(X,Y\in L^2\)、\(\operatorname{Var}(X)>0\)，求使
+\(\mathbb E[(Y-aX-b)^2]\) 最小的实数 \(a,b\)，证明唯一性，
+并求最小值。
+\exerciseitem{probability-chebyshev-sharp}
+给定 \(a\ge\sigma>0\)，构造均值零、方差 \(\sigma^2\) 的
+三点或两点分布，使
+\(\mathbb P(|X|\ge a)=\sigma^2/a^2\)。讨论将事件改为
+\(\{|X|>a\}\) 后这个具体分布的概率。
+\exerciseitem{probability-jensen-absolute-equality}
+设 \(X\in L^1\)。证明 \(|\mathbb E X|\le\mathbb E|X|\)，
+并精确刻画等号情形。给出不恒定却取等号的例子，说明这里不能
+照搬严格凸 Jensen 的等号判据。
+\exerciseitem{probability-integer-tail-moments}
+若 \(N\) 取值于 \(\N\)，证明
+\[
+ \mathbb E N=\sum_{k\ge1}\mathbb P(N\ge k),\qquad
+ \mathbb E N^2=\sum_{k\ge1}(2k-1)\mathbb P(N\ge k).
+\]
+允许值为无穷。用它们求支持在 \(\Npos\) 上的几何分布的均值
+和方差。
+\exerciseitem{probability-binomial-moments}
+不使用独立随机变量表示，从二项式展开直接证明二项分布的均值为
+\(np\)、方差为 \(np(1-p)\)。处理 \(p=0,1\) 的退化情形。
+\end{enumerate}
+
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{probability-exponential-memoryless}
+证明参数 \(\lambda>0\) 的指数分布满足
+\(\mathbb P(X>s+t\mid X>s)=\mathbb P(X>t)\) 对 \(s,t\ge0\) 成立。
+反之，设有限非负随机变量满足 \(\mathbb P(X>0)=1\)、
+\(\mathbb P(X>t)>0\) 对所有 \(t\ge0\) 成立，且满足上述等式，
+证明它必服从某个参数 \(\lambda>0\) 的指数分布。
+\exerciseitem{probability-normal-even-moments}
+若 \(Z\sim N(0,1)\)，证明所有奇数阶矩为零，且对 \(k\ge1\)，
+\(\mathbb E Z^{2k}=(2k-1)(2k-3)\cdots3\cdot1\)。
+须说明各积分有限以及分部积分的边界项消失。
+\exerciseitem{probability-moments-not-law}
+构造两个不同分布，均值均为零、方差均为一，但第四阶矩不同。
+所有分布均要求集中在有限个点上。
+\optionalexerciseitem{probability-covariance-realization}
+给定任意实对称半正定 \(d\times d\) 矩阵 \(A\)，构造有限概率
+空间上的随机向量，使其均值向量为零、协方差矩阵为 \(A\)。
+不得借用独立随机变量的构造。提示：先实现单位矩阵，再作线性变换。
+\optionalexerciseitem{probability-normal-exponential-tail}
+对 \(Z\sim N(0,1)\)，通过配方证明
+\(\mathbb E e^{sZ}=e^{s^2/2}\)，\(s\in\R\)。再对非负随机变量
+\(e^{sZ}\) 使用 Markov 不等式并优化 \(s\ge0\)，证明
+\(\mathbb P(Z\ge t)\le e^{-t^2/2}\) 对 \(t\ge0\) 成立。
+\exerciseitem{probability-continuous-tests-determine-law}
+设实随机变量 \(X,Y\) 可定义在不同概率空间上。证明它们同分布，
+当且仅当对所有 \(g\in C_c(\R)\) 都有
+\(\mathbb E[g(X)]=\mathbb E[g(Y)]\)。说明这里为何没有可积性困难。
+\end{enumerate}

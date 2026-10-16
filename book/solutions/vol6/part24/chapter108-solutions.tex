@@ -1,0 +1,348 @@
+\chapter{概率空间}
+
+\begin{solution}{probability-intersection-bounds}
+由 \(A\cap B\subseteq A,B\)，得上界 \(\min\{p,q\}\)。
+又 \(\mathbb P(A\cup B)=p+q-\mathbb P(A\cap B)\le1\)，
+所以交集概率至少为 \(p+q-1\)；与非负性合并得下界。
+在 \((0,1)\) 上取 \(A=(0,p)\)、\(B=(0,q)\)，交集长度为
+\(\min\{p,q\}\)，实现上端点。取 \(A=(0,p)\)、\(B=(1-q,1)\)，
+交集长度为 \(\max\{0,p+q-1\}\)，实现下端点。\(p\) 或 \(q\)
+等于零或一时同样成立，开端点不影响长度。
+\end{solution}
+
+\begin{solution}{probability-bayes-mixture}
+令 \(B_1,B_2\) 表示来自第一、第二类，\(A\) 表示带有标记。
+两事件 \(B_1,B_2\) 不交且覆盖样本空间，其概率为 \(2/5,3/5\)。
+全概率公式给
+\[
+ \mathbb P(A)=\frac14\frac25+\frac1{10}\frac35
+ =\frac1{10}+\frac3{50}=\frac4{25}.
+\]
+由于这个分母为正，Bayes 公式适用，得到
+\[
+ \mathbb P(B_1\mid A)
+ =\frac{(1/4)(2/5)}{4/25}=\frac58.
+\]
+这里 \(\mathbb P(A\mid B_1)=1/4\) 与
+\(\mathbb P(B_1\mid A)=5/8\) 是不同条件下的概率；不能交换条件
+和事件而保持同一个数值。计算仅用了给定条件概率，没有额外关系假设。
+\end{solution}
+
+\begin{solution}{probability-rational-measurability}
+对任意实数 \(t\)，有
+\[
+ \{X\le t\}=\bigcap_{\substack{q\in\Q\\q>t}}\{X\le q\}.
+\]
+右侧为至多可数交，故可测。于是所有闭半直线的原像可测，
+由它们生成 Borel \(\sigma\)-代数，得到 \(X\) 可测。
+
+反例取 \(\Omega=\R\)，\(\mathcal F\) 为至多可数集及其补集组成的
+\(\sigma\)-代数；在前者上令 \(\mathbb P=0\)，在后者上令
+\(\mathbb P=1\)。这是概率测度：不交集合列中至多有一个余集
+至多可数的成员；若没有这样的成员，其并至多可数，否则其并的
+补集至多可数。两种情况都给可数可加性。
+令 \(X(\omega)=\omega\)。每个单点的原像是单点，属于 \(\mathcal F\)，
+但 \(\{X\le0\}=({-\infty},0]\) 与其补集都不可数，故不属于
+\(\mathcal F\)。因此只检查单点原像不够；单点生成的可测结构
+远小于实线的 Borel \(\sigma\)-代数。
+\end{solution}
+
+\begin{solution}{probability-uniform-square-law}
+记 \(X=U^2\)、\(Y=\sqrt U\)。两者的分布函数在 \(t\le0\)
+为零，在 \(t\ge1\) 为一，而在 \(0<t<1\) 分别为
+\[
+ F_X(t)=\mathbb P(U\le\sqrt t)=\sqrt t,
+ \qquad F_Y(t)=\mathbb P(U\le t^2)=t^2.
+\]
+它们都绝对连续；在 \(0<t<1\) 上密度分别为
+\(f_X(t)=(2\sqrt t)^{-1}\)、\(f_Y(t)=2t\)，在区间外均补成零。
+用密度积分得到
+\[
+ \mathbb E X=\frac12\int_0^1t^{1/2}\,dt=\frac13,
+ \qquad \mathbb E Y=2\int_0^1t^2\,dt=\frac23.
+\]
+直接在均匀样本空间积分则为
+\(\int_0^1u^2\,du=1/3\) 与 \(\int_0^1\sqrt u\,du=2/3\)，
+与按分布的计算一致。密度 \(f_X\) 在零附近无界，但仍可积。
+\end{solution}
+
+\begin{solution}{probability-atomic-density-map}
+当 \(t<0\) 时分布函数为零；当 \(0\le t<1\) 时，
+\[
+ \mathbb P(X\le t)=\mathbb P(U\le1/2)
+       +\mathbb P(1/2<U\le(t+1)/2)=\frac{1+t}{2}.
+\]
+当 \(t\ge1\) 时为一。因此
+\(\mu_X=\tfrac12\delta_0+\tfrac12m|_{(0,1)}\)。
+相应矩为
+\[
+ \mathbb E X=\frac12\int_0^1x\,dx=\frac14,
+ \qquad\mathbb E X^2=\frac12\int_0^1x^2\,dx=\frac16,
+\]
+所以 \(\operatorname{Var}(X)=1/6-1/16=5/48\)。
+长度测度赋予 \(\{0\}\) 质量零，\(\mu_X\) 却赋予它质量
+\(1/2\)，故该分布不绝对连续于长度，不能只写成 \(f(x)dx\)。
+\end{solution}
+
+\begin{solution}{probability-same-law-distinct}
+在四个依次编号的样本点上，取值向量
+\[
+ X=(1,1,-1,-1),\quad Y=(-1,-1,1,1),\quad Z=(1,-1,1,-1).
+\]
+每个变量的两个值都各出现两次，所以都服从等权的两点分布，
+均值零、方差一，且 \(Y=-X\) 处处。
+乘积 \(XZ=(1,-1,-1,1)\) 的平均为零；\(YZ=-XZ\) 的平均
+也为零。因均值均为零，协方差等于乘积期望，故
+\[
+ \operatorname{Cov}(X,Y)=-1,\quad
+ \operatorname{Cov}(X,Z)=0,\quad
+ \operatorname{Cov}(Y,Z)=0.
+\]
+因此同样的三个边缘分布并不强制相同的两两关系。
+\end{solution}
+
+\begin{solution}{probability-triangle-joint-density}
+三角形 \(0<x<y<1\) 的面积为 \(1/2\)，密度为二，故总质量为一。
+对 \(0<x<1\)、\(0<y<1\)，边缘密度分别为
+\[
+ f_X(x)=\int_x^12\,dy=2(1-x),\qquad
+ f_Y(y)=\int_0^y2\,dx=2y,
+\]
+在区间外均为零。因此
+\[
+ \begin{aligned}
+ \mathbb E X&=2\int_0^1x(1-x)\,dx=\frac13,&
+ \mathbb E X^2&=2\int_0^1x^2(1-x)\,dx=\frac16,\\
+ \mathbb E Y&=2\int_0^1y^2\,dy=\frac23,&
+ \mathbb E Y^2&=2\int_0^1y^3\,dy=\frac12.
+ \end{aligned}
+\]
+两个方差均为 \(1/18\)。用联合密度而非两个边缘计算乘积，得到
+\[
+ \mathbb E(XY)=\int_0^1\int_0^y2xy\,dx\,dy
+ =\int_0^1y^3\,dy=\frac14.
+\]
+故协方差为 \(1/4-(1/3)(2/3)=1/36\)，相关系数为
+\((1/36)/(1/18)=1/2\)。所有积分绝对有限，因为变量均在零和一之间。
+\end{solution}
+
+\begin{solution}{probability-uncorrelated-relation}
+三个等权结果给
+\(\mathbb E X=0\)、\(\mathbb E Y=2/3\)，且
+\(XY=X^3\)，所以 \(\mathbb E(XY)=(-1+0+1)/3=0\)。
+因此协方差为零。但 \(X=0\) 与 \(Y=0\) 是同一事件，概率为
+\(1/3\)，从而
+\[
+ \mathbb P(X=0,Y=0)=\frac13
+ \ne\frac19=\mathbb P(X=0)\mathbb P(Y=0).
+\]
+这里 \(Y\) 完全由 \(X\) 决定，只是这种二次关系未被协方差
+检测到。不相关只表示中心化后的乘积积分为零。
+\end{solution}
+
+\begin{solution}{probability-moment-nesting}
+在 Hölder 不等式中取共轭指数 \(q/p\) 和 \(q/(q-p)\)，得到
+\[
+ \mathbb E|X|^p
+ \le(\mathbb E|X|^q)^{p/q}
+       (\mathbb E1)^{1-p/q}=(\mathbb E|X|^q)^{p/q}.
+\]
+两侧取 \(1/p\) 次幂即为所求。该证明也说明总质量为一的作用。
+选 \(p<\alpha<q\)，取密度
+\(f(x)=\alpha x^{-\alpha-1}\) 于 \(x>1\)，其余处为零。
+其积分为一，且对 \(r>0\)，
+\[
+ \mathbb E X^r=\alpha\int_1^\infty x^{r-\alpha-1}\,dx
+\]
+当且仅当 \(r<\alpha\) 时有限。因此它的 \(p\) 阶绝对矩有限，
+而 \(q\) 阶绝对矩无穷。
+\end{solution}
+
+\begin{solution}{probability-linear-least-squares}
+记 \(m_X=\mathbb E X\)、\(m_Y=\mathbb E Y\)，中心化变量为
+\(X_0=X-m_X\)、\(Y_0=Y-m_Y\)。因为中心化部分的期望为零，
+\[
+ \mathbb E[(Y-aX-b)^2]
+ =\mathbb E[(Y_0-aX_0)^2]+(m_Y-am_X-b)^2.
+\]
+对每个固定 \(a\)，唯一最优的 \(b\) 是 \(m_Y-am_X\)。
+第一项展开并配方为
+\[
+ \operatorname{Var}(X)
+ \left(a-\frac{\operatorname{Cov}(X,Y)}{\operatorname{Var}(X)}\right)^2
+ +\operatorname{Var}(Y)
+ -\frac{\operatorname{Cov}(X,Y)^2}{\operatorname{Var}(X)}.
+\]
+由于 \(\operatorname{Var}(X)>0\)，平方项唯一在
+\(a=\operatorname{Cov}(X,Y)/\operatorname{Var}(X)\) 时为零。
+这与对应的 \(b\) 给唯一极小点，最小值为最后两项之差。
+它非负，也可由协方差的 Cauchy--Schwarz 不等式直接验证。
+\end{solution}
+
+\begin{solution}{probability-chebyshev-sharp}
+在 \(-a,0,a\) 处分别放置质量
+\[
+ \frac{\sigma^2}{2a^2},\qquad
+ 1-\frac{\sigma^2}{a^2},\qquad
+ \frac{\sigma^2}{2a^2}.
+\]
+条件 \(a\ge\sigma\) 保证中间质量非负，三者总和为一。
+对称性给均值零，而二阶矩为
+\(a^2(\sigma^2/a^2)=\sigma^2\)，即所需方差。
+只有两端点满足 \(|X|\ge a\)，其概率之和为 \(\sigma^2/a^2\)，
+所以 Chebyshev 的上界达到。当 \(a=\sigma\) 时，中间质量为零，
+实际为两点分布。若事件改为 \(|X|>a\)，没有支持点满足它，
+概率为零。这说明等号构造须精确使用题设的端点约定。
+\end{solution}
+
+\begin{solution}{probability-jensen-absolute-equality}
+令 \(u=\mathbb E X^+\)、\(v=\mathbb E X^-\)，两者都是有限非负数。
+则 \(|\mathbb E X|=|u-v|\le u+v=\mathbb E|X|\)。
+等号当且仅当 \(u=0\) 或 \(v=0\)，也就是 \(X\le0\) 几乎必然
+或 \(X\ge0\) 几乎必然；零变量同时属于两种情形。
+例如 \(U\) 在 \((0,1)\) 均匀分布时不恒定，却有
+\(|\mathbb E U|=\mathbb E|U|=1/2\)。绝对值函数在正半轴和负半轴
+分别为仿射函数，不严格凸，故不能使用严格凸函数的常值等号判据。
+\end{solution}
+
+\begin{solution}{probability-integer-tail-moments}
+对每个整数 \(n\ge0\)，有
+\[
+ n=\sum_{k\ge1}\mathbf1_{\{n\ge k\}},\qquad
+ n^2=\sum_{k\ge1}(2k-1)\mathbf1_{\{n\ge k\}}.
+\]
+第二式来自前 \(n\) 个奇数之和为 \(n^2\)。代入 \(N\)，对
+非负级数应用单调收敛定理，即得两条公式，允许结果无穷。
+
+对从一开始的几何分布，令 \(q=1-p\)。当 \(0<p<1\) 时，
+\(\mathbb P(N\ge k)=q^{k-1}\)，所以
+\[
+ \mathbb E N=\frac1p,\qquad
+ \mathbb E N^2=2\sum_{k\ge1}kq^{k-1}-\sum_{k\ge1}q^{k-1}
+ =\frac2{p^2}-\frac1p.
+\]
+这里 \(\sum kq^{k-1}=(1-q)^{-2}\) 由几何幂级数在收敛圆内
+求导得到。减去均值平方，方差为 \((1-p)/p^2\)。
+当 \(p=1\) 时 \(N=1\)，均值一、方差零，与公式一致。
+\end{solution}
+
+\begin{solution}{probability-binomial-moments}
+先设 \(0<p<1\)，令 \(q=1-p\)。对恒等式
+\((z+q)^n=\sum_{k=0}^n\binom nk z^kq^{n-k}\) 关于 \(z\) 求导，
+再令 \(z=p\) 并乘以 \(p\)，得到
+\[
+ \mathbb E X=np(p+q)^{n-1}=np.
+\]
+当 \(n\ge2\) 时再求一次导数并乘以 \(p^2\)，得到
+\(\mathbb E[X(X-1)]=n(n-1)p^2\)。\(n=1\) 时两侧都为零，
+这一式仍成立。于是
+\[
+ \operatorname{Var}(X)=n(n-1)p^2+np-n^2p^2=np(1-p).
+\]
+当 \(p=0\) 时变量恒为零；当 \(p=1\) 时恒为 \(n\)。
+两种情形都直接满足上述均值和方差公式。整个计算只使用有限多项式，
+没有把变量预先表示为某些独立变量之和。
+\end{solution}
+
+\begin{solution}{probability-exponential-memoryless}
+指数分布的尾函数为 \(S(t)=e^{-\lambda t}\)、\(t\ge0\)。
+因为 \(\{X>s+t\}\subseteq\{X>s\}\)，条件概率等于
+\[
+ \frac{S(s+t)}{S(s)}=e^{-\lambda t}=S(t).
+\]
+反向设题中条件成立。\(S(0)=1\)，且 \(S(t)>0\)，条件概率
+等式等价于 \(S(s+t)=S(s)S(t)\)。令 \(g(t)=-\log S(t)\)，
+则 \(g\) 非负、递增且满足 \(g(s+t)=g(s)+g(t)\)。
+记 \(\lambda=g(1)\)。先用整数倍和分数倍得到
+\(g(r)=\lambda r\) 对所有非负有理数成立。对任意 \(t\ge0\)，
+用从下和从上趋于 \(t\) 的有理数夹住，单调性给
+\(g(t)=\lambda t\)。
+因为 \(X\) 有限，事件 \(\{X>n\}\) 递减到空集，所以
+\(S(n)\to0\)。这排除 \(\lambda=0\)，故 \(\lambda>0\)，
+\(S(t)=e^{-\lambda t}\)。再结合非负性与零点无质量，分布函数
+正是指数分布的分布函数，唯一性完成刻画。
+\end{solution}
+
+\begin{solution}{probability-normal-even-moments}
+对任意非负整数 \(r\)，函数 \(|z|^re^{-z^2/2}\) 在有界区间上
+可积；在充分大的 \(|z|\) 处被 \(e^{-z^2/4}\) 的常数倍控制，
+所以全实线可积。奇数幂乘偶密度为奇函数，绝对可积后才能由
+两半轴换元得到奇数阶矩为零。
+令 \(m_r=\mathbb E Z^r\)。对 \(r\ge2\)，用
+\((e^{-z^2/2})'=-ze^{-z^2/2}\) 在有限区间分部积分，再让端点
+趋于无穷。多项式乘 Gaussian 在两端趋零，得到
+\[
+ m_r=\frac{r-1}{\sqrt{2\pi}}\int_\R z^{r-2}e^{-z^2/2}\,dz
+ =(r-1)m_{r-2}.
+\]
+归一化给 \(m_0=1\)，于是递推得
+\(m_{2k}=(2k-1)(2k-3)\cdots1\)。该论证已经核对了边界项与
+取极限所需的绝对可积性。
+\end{solution}
+
+\begin{solution}{probability-moments-not-law}
+令 \(X\) 在 \(-1,1\) 上各取概率 \(1/2\)；令 \(Y\) 在
+\(-\sqrt3,0,\sqrt3\) 上分别取概率 \(1/6,2/3,1/6\)。
+两者的质量均非负且总和为一。对称性给均值均为零，
+\[
+ \mathbb E X^2=1,\qquad
+ \mathbb E Y^2=3\left(\frac16+\frac16\right)=1,
+\]
+故方差均为一。但
+\(\mathbb E X^4=1\)，而
+\(\mathbb E Y^4=9(1/6+1/6)=3\)。此外 \(Y\) 在零点有质量
+\(2/3\)，\(X\) 在零点没有质量，因而分布确实不同。
+\end{solution}
+
+\begin{solution}{probability-covariance-realization}
+在 \(2d\) 个等概率样本点上，令随机向量 \(Z\) 依次取值
+\(\sqrt d\,e_j\)、\(-\sqrt d\,e_j\)，\(j=1,\ldots,d\)。
+其中 \(e_j\) 为标准基。对称性给 \(\mathbb E Z=0\)，并且
+\[
+ \mathbb E(ZZ^{\mathsf T})
+ =\frac1{2d}\sum_{j=1}^d
+       \bigl(de_je_j^{\mathsf T}+de_je_j^{\mathsf T}\bigr)=I_d.
+\]
+实对称半正定矩阵可正交对角化为
+\(A=Q\operatorname{diag}(\lambda_1,\ldots,\lambda_d)Q^{\mathsf T}\)，
+\(\lambda_j\ge0\)。取
+\(B=Q\operatorname{diag}(\sqrt{\lambda_1},\ldots,\sqrt{\lambda_d})\)，
+则 \(BB^{\mathsf T}=A\)。令 \(X=BZ\)，有限线性性给均值为零，
+协方差矩阵为
+\(\mathbb E(XX^{\mathsf T})=B I_d B^{\mathsf T}=A\)。
+零特征值以及 \(A=0\) 都被这个构造包括，且没有使用独立性。
+\end{solution}
+
+\begin{solution}{probability-normal-exponential-tail}
+配方 \(sz-z^2/2=s^2/2-(z-s)^2/2\) 后，用平移变量代换得
+\[
+ \mathbb E e^{sZ}
+ =\frac{e^{s^2/2}}{\sqrt{2\pi}}
+   \int_\R e^{-(z-s)^2/2}\,dz=e^{s^2/2},
+\]
+同时证明该期望对每个实数 \(s\) 有限。
+对 \(s>0\)，Markov 不等式给
+\[
+ \mathbb P(Z\ge t)=\mathbb P(e^{sZ}\ge e^{st})
+ \le\exp(s^2/2-st).
+\]
+若 \(t>0\)，二次函数 \(s^2/2-st=(s-t)^2/2-t^2/2\)
+在 \(s=t\) 最小，得到所求界。若 \(t=0\)，概率不超过一，
+同样符合右侧 \(e^0=1\)；也可让 \(s\downarrow0\)。
+\end{solution}
+
+\begin{solution}{probability-continuous-tests-determine-law}
+若同分布，按分布计算期望的公式直接给等式。
+反向，假设所有 \(g\in C_c(\R)\) 的期望相同，则
+\[
+ \int_\R g\,d\mu_X=\int_\R g\,d\mu_Y
+ \qquad(g\in C_c(\R)).
+\]
+两者都是实线上的有限 Borel 测度，因而由
+命题~\ref{prop:radon-second-countable-regular}为 Radon 测度。
+\chapterref{chap:radon-measures}中连续紧支撑积分对 Radon 测度
+的唯一性给 \(\mu_X=\mu_Y\)，即同分布。
+这里每个 \(g\) 连续紧支撑，故有界；概率测度总质量为一，所以
+\(\mathbb E|g(X)|\le\|g\|_\infty\) 以及相应的 \(Y\) 估计保证
+全部期望都有限，无需对 \(X,Y\) 本身作矩假设。
+\end{solution}

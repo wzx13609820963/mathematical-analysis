@@ -1,0 +1,696 @@
+\chapter{Radon 测度}
+\label{chap:radon-measures}
+
+设在一个空间上已知所有连续紧支撑函数的积分，却尚未给各个集合指定测度。
+这些积分能否反过来决定集合的大小？在实直线上，窄而高的连续函数可以探测
+一个小区间内的质量；在一般空间中，完成同一工作需要紧集、开邻域以及
+能够分开它们的连续函数。本章将证明，只要这些积分满足线性与正性，
+就能从中恢复一种与拓扑相容的测度。
+
+前面的 Lebesgue 理论从集合出发定义积分，本章还将使用相反的顺序。
+两种顺序相互补充：测度便于限制到集合、作分解和使用收敛定理；
+连续函数上的泛函则便于取极限、施加对称性和应用对偶空间的紧致性。
+所需的拓扑工具是\chapterref{chap:compactifications}的局部紧性与
+\chapterref{chap:separation-metrization}中的连续函数分离。
+
+\section{局部紧 Hausdorff 空间上的 Borel 测度}
+\label{sec:lch-borel-measures}
+
+\subsection{紧邻域与有限质量}
+
+以下 \(X\) 是局部紧 Hausdorff 空间，\(\mathcal B(X)\) 是它的 Borel
+\(\sigma\)-代数。正 Borel 测度取值于 \([0,\infty]\)。称它局部有限，
+若每一点都有测度有限的开邻域。在这里，局部有限等价于每个紧集测度有限：
+一个方向对紧集使用有限子覆盖；另一方向为每个点取相对紧开邻域。
+这一等价性使用了局部紧性。
+
+Lebesgue 测度的总质量无限，但在紧集上有限，因而局部有限。
+离散空间上的计数测度也局部有限，因为单点开。
+同一个集合取不同拓扑，结论便可能改变：实直线上的计数测度不局部有限，
+每个非空开区间都含无穷多个点。这表明局部有限同时涉及测度和拓扑。
+
+有限 Borel 测度当然局部有限；逆命题不成立。后面使用局部有限性时，
+通常先把问题限制到一个紧支撑上，在那里积分估计仍只涉及有限质量。
+
+\subsection{连续截断函数}
+
+函数 \(f:X\to\mathbb K\) 的支撑定义为
+\(\operatorname{supp}f=\overline{\{x:f(x)\ne0\}}\)，其中
+\(\mathbb K=\R\) 或 \(\C\)。记 \(C_c(X,\mathbb K)\) 为连续且支撑紧的函数。
+未特别说明标量域时，正性论证中的函数取实值。
+
+\begin{lemma}[紧集与开集之间的截断]\label{lem:lch-cutoff}
+若 \(K\subset U\subset X\)，\(K\) 紧且 \(U\) 开，则存在 \(h\in C_c(X,\R)\)，
+使 \(0\le h\le1\)、\(h=1\) 于 \(K\)，且 \(\operatorname{supp}h\subset U\)。
+\end{lemma}
+\begin{proof}
+利用相对紧邻域的收缩性质及 \(K\) 的紧致性，可取开集 \(V,W\) 满足
+\[
+ K\subset V\subset\overline V\subset W\subset\overline W\subset U,
+ \qquad \overline W\text{ 紧}.
+\]
+紧 Hausdorff 空间 \(\overline W\) 正规。Urysohn 引理给出其上的连续函数，
+在 \(\overline V\) 上等于一，在 \(\overline W\setminus W\) 上等于零。
+将它在 \(X\setminus\overline W\) 上延拓为零。闭集 \(\overline W\) 与
+\(X\setminus W\) 覆盖 \(X\)，两定义在交集一致，有限闭集粘合保证连续。
+所得支撑包含于 \(\overline W\subset U\)。若 \(K=\varnothing\)，也可直接取零。
+\end{proof}
+
+\begin{lemma}[紧集上的有限单位分解]\label{lem:compact-partition-unity}
+设紧集 \(K\) 被开集 \(U_1,\ldots,U_m\) 覆盖。存在
+\(\psi_j\in C_c(X,\R)\)，使
+\[
+ 0\le\psi_j\le1,\qquad \operatorname{supp}\psi_j\subset U_j,\qquad
+ \sum_{j=1}^m\psi_j=1\ \text{于 }K,\qquad \sum_{j=1}^m\psi_j\le1\ \text{于 }X.
+\]
+\end{lemma}
+\begin{proof}
+在覆盖的每个成员内收缩点的邻域，再取有限子覆盖，得到有限个紧集，
+每个包含于某个 \(U_j\)，它们的内部覆盖 \(K\)。对这些紧集使用前一引理，
+并按所属的 \(U_j\) 分组取最大值，得非负紧支撑函数 \(h_j\)，
+支撑包含于 \(U_j\)，且 \(s=\sum h_j\) 在 \(K\) 上严格为正。
+在开集 \(\{s>0\}\) 内再取截断 \(\chi\)，满足 \(\chi=1\) 于 \(K\)。
+在 \(s>0\) 处令 \(\psi_j=\chi h_j/s\)，其余处令零。
+\(\operatorname{supp}\chi\) 紧含于 \(\{s>0\}\)，所以零延拓连续，
+而 \(\sum\psi_j=\chi\)，所需性质全部成立。
+\end{proof}
+
+这个有限版本不要求 \(X\) 仿紧，也不要求第二可数。
+在积分构造中，只需对给定函数的紧支撑作有限分割。
+
+\section{内正则、外正则和 Radon 测度}
+\label{sec:radon-regularity}
+
+\subsection{采用的约定}
+
+\begin{definition}\label{def:radon-measure}
+正 Borel 测度 \(\mu\) 在 Borel 集 \(E\) 上内正则，是指
+\[
+ \mu(E)=\sup\{\mu(K):K\subset E,\ K\text{ 紧}\}.
+\]
+它在 \(E\) 上外正则，是指
+\[
+ \mu(E)=\inf\{\mu(U):E\subset U,\ U\text{ 开}\}.
+\]
+本书称局部有限、在所有 Borel 集上内正则的正 Borel 测度为 Radon 测度。
+若还在所有 Borel 集上外正则，就称它为正则 Borel 测度。
+\end{definition}
+
+一些著作把“Radon”用于另一组正则性条件。一般局部紧空间上，
+不能省去这种约定差别。本章会同时给出内正则代表和外正则代表的构造，
+说明它们在哪里相同。在 \(\R^d\)、第二可数流形和多数直接计算的空间中，
+下面的命题消除了这一区别。
+
+\begin{proposition}\label{prop:radon-second-countable-regular}
+第二可数局部紧 Hausdorff 空间上的每个局部有限 Borel 测度，
+都在所有 Borel 集上内正则且外正则。
+\end{proposition}
+\begin{proof}
+先说明开集可由至多可数个紧集从内逼近。对开集 \(U\) 中每个点，
+取闭包紧且包含于 \(U\) 的开邻域；第二可数性给出至多可数子覆盖。
+这些闭包的有限并 \(K_n\) 递增且并为 \(U\)，故
+\(\mu(U)=\lim_n\mu(K_n)\)。
+
+先设 \(\mu(X)<\infty\)。记 \(\mathcal R\) 为可以同时从内用紧集、
+从外用开集逼近的 Borel 集类。开集属于 \(\mathcal R\)。
+对 \(E\in\mathcal R\)，内逼近的补集给 \(E^c\) 的外逼近；
+外逼近的补集给 \(E^c\) 的闭集内逼近，再与质量趋于
+\(\mu(X)\) 的紧集相交，就得到紧集内逼近。这里可取前面对 \(X\)
+得到的 \(K_n\)。因此 \(\mathcal R\) 对补集封闭。
+若 \(E=\bigcup_j E_j\)、\(E_j\in\mathcal R\)，给每个 \(E_j\)
+选择外逼近误差小于 \(\varepsilon2^{-j}\) 的开集，其并给 \(E\) 的外逼近。
+由测度的递增连续性，有限并已包含 \(E\) 的绝大部分质量；
+再用各 \(E_j\) 的紧集内逼近，有限个紧集的并给出内逼近。
+于是 \(\mathcal R\) 是包含开集的 \(\sigma\)-代数。
+
+一般情况下，取递增的相对紧开集 \(V_n\) 覆盖 \(X\)。
+测度 \(\mu_n(E)=\mu(E\cap V_n)\) 有限，刚才的论证适用于它。
+在 \(E\cap V_n\) 中取紧集，再令 \(n\to\infty\)，得到 \(\mu\) 的内正则性。
+外正则性只须处理 \(\mu(E)<\infty\)。用 \(\mu_n\) 的外正则性取开集
+\(O_n\supset E\cap V_n\)，使
+\(\mu((O_n\cap V_n)\setminus E)<\varepsilon2^{-n}\)。
+开集 \(O=\bigcup_n(O_n\cap V_n)\) 包含 \(E\)，且
+\(\mu(O\setminus E)<\varepsilon\)，完成证明。
+\end{proof}
+
+\subsection{有限测度与局部化}
+
+有限 Radon 测度自动外正则。事实上，对 \(E^c\) 取紧内逼近 \(K\)，
+则开集 \(X\setminus K\) 包含 \(E\)，而
+\(\mu(X\setminus K)-\mu(E)=\mu(E^c\setminus K)\) 任意小。
+一般 Radon 测度在紧集上也外正则：给紧集 \(K\) 取测度有限的开邻域 \(V\)，
+在 \(V\setminus K\) 中取紧集 \(L\)，使
+\(\mu((V\setminus K)\setminus L)<\varepsilon\)，则
+\(V\setminus L\) 是所需的开外逼近。
+
+若 \(X\) 是 \(\sigma\)-紧的，则可用相对紧开集递增覆盖 \(X\)。
+有限限制测度的上述论证与上一命题的拼接步骤表明，
+每个 Radon 测度都是正则的。这里并未断言任意
+\(\sigma\)-紧空间上的任意 Borel 测度都自动正则。
+
+在不预设 \(\sigma\)-紧时，紧内逼近仍是很有用的要求：它保证任何正质量
+都能在某个紧集中被连续函数检测到。若只知道紧集上有限，却不规定
+内正则性，连续紧支撑函数可能无法恢复所有 Borel 集的测度。
+
+\begin{example}[紧内正则不保证全局外正则]
+\label{ex:radon-not-outer-regular}
+取不可数离散空间 \(D\)，令 \(X=\R\times D\)。这是局部紧 Hausdorff
+空间；每个分支 \(\R\times\{d\}\) 开且闭。对 Borel 集 \(E\subseteq X\)，置
+\[
+ \mu(E)=\sum_{d\in D}m(E_d),\qquad
+ E_d=\{x:(x,d)\in E\},
+\]
+其中非负项的和定义为有限部分和的上确界。交换两个非负求和不改变这个
+上确界，因而 \(\mu\) 可数可加。每一点在自己的分支内都有有限测度邻域。
+
+紧集只能遇到有限多个分支，否则这些分支给出的开覆盖没有有限子覆盖。
+对 \(\mu(E)\) 的任一有限部分和，在每个相关分支内用实线的紧内逼近，
+再取所得有限个紧集的并，就能从 \(E\) 内逼近这个部分和。这对无穷质量
+也成立：先选超过任意给定常数的有限部分和。因此 \(\mu\) 是 Radon 测度。
+
+闭集 \(A=\{0\}\times D\) 满足 \(\mu(A)=0\)。然而每个包含 \(A\)
+的开集 \(U\)，在每个分支都包含原点的一个开区间，所以 \(m(U_d)>0\)。
+不可数个严格正数的和必为无穷：若和有限，则对每个正整数 \(n\)，
+大于 \(1/n\) 的项只有有限个，所有正项就至多可数。故
+\[
+ \inf_{U\supseteq A,\ U\text{ 开}}\mu(U)=\infty\ne\mu(A).
+\]
+失败发生在非紧的闭集 \(A\) 上，不与紧集外正则性冲突。这个例子也说明，
+下文表示定理为什么需要区分外正则构造和紧内正则构造；在第二可数空间中
+两者相同的结论不能无条件搬到一般局部紧空间。
+\end{example}
+
+\section{\texorpdfstring{\(C_c(X)\) 与 \(C_0(X)\)}{Cc(X) 与 C0(X)}}
+\label{sec:cc-czero}
+
+\subsection{在无穷远消失}
+
+\begin{definition}
+连续函数 \(f:X\to\mathbb K\) 属于 \(C_0(X,\mathbb K)\)，若对每个
+\(\varepsilon>0\)，集合 \(\{x:|f(x)|\ge\varepsilon\}\) 紧。
+\end{definition}
+
+这个定义不需要空间中真的有一个“无穷远点”。它表示离开适当紧集后
+函数一致地小。\(C_0(X)\) 中的函数有界：在 \(\{|f|\ge1\}\) 外有界于一，
+在这个紧集上由连续性有界。若 \(X\) 非紧，它也等价于将 \(f\) 在一点紧化
+的新增点处补零后连续。
+
+\begin{proposition}\label{prop:cc-dense-czero}
+\(C_0(X)\) 在上确界范数下是 Banach 空间，且 \(C_c(X)\) 在其中稠密。
+紧空间上 \(C_0(X)=C(X)\)。
+\end{proposition}
+\begin{proof}
+一致极限保持连续。若 \(f_n\in C_0(X)\) 且 \(f_n\to f\) 一致，
+取 \(\|f-f_n\|_\infty<\varepsilon/2\)，则
+\(\{|f|\ge\varepsilon\}\) 是紧集
+\(\{|f_n|\ge\varepsilon/2\}\) 的闭子集。因此 \(C_0(X)\) 是有界连续函数
+Banach 空间的闭子空间。
+对 \(f\in C_0(X)\)，给紧集 \(K=\{|f|\ge\varepsilon\}\) 取截断 \(h\)，
+则 \(hf\in C_c(X)\)，且 \(\|f-hf\|_\infty\le\varepsilon\)。
+紧空间的结论直接由定义得到；空空间采用唯一零函数、范数为零的约定。
+\end{proof}
+
+以离散空间 \(X=\N\) 为例，\(C_c(X)\) 是有限支撑序列，
+\(C_0(X)=c_0\)。实线上的 \(e^{-x^2}\) 属于 \(C_0(\R)\) 而不属于
+\(C_c(\R)\)；常数一属于 \(C_b(\R)\) 而不属于 \(C_0(\R)\)。
+这些差别在测度收敛中会直接对应是否能够检测逃向无穷远的质量。
+
+\subsection{由正则性得到积分逼近}
+
+\begin{proposition}\label{prop:radon-cc-lp-density}
+若 \(\mu\) 为 Radon 测度、\(1\le p<\infty\)，则 \(C_c(X)\) 在
+\(L^p(\mu)\) 中稠密。这里 \(L^p\) 可以取 Borel 测度或其完备化；
+两种解释的等价类自然对应。
+\end{proposition}
+\begin{proof}
+先逼近有限测度 Borel 集 \(E\) 的指标函数。取紧集 \(K\subset E\)，
+使 \(\mu(E\setminus K)<\varepsilon\)，再由紧集的外正则性取开集
+\(U\supset K\)，使 \(\mu(U\setminus K)<\varepsilon\)。
+截断 \(0\le h\le1\)、\(h=1\) 于 \(K\)、\(\operatorname{supp}h\subset U\)
+满足
+\[
+ \int|h-\mathbf1_E|^p\,d\mu
+ \le\mu(E\setminus K)+\mu(U\setminus K)<2\varepsilon.
+\]
+有限测度支撑简单函数在 \(L^p\) 中稠密，故线性组合完成证明。
+对完备化可测函数，简单函数逼近及零集的 Borel 包络给出一个
+Borel 代表，因而同一论证仍成立。
+\end{proof}
+
+\section{正线性泛函和测度}
+\label{sec:positive-radon-functionals}
+
+设 \(I:C_c(X,\R)\to\R\) 线性，且 \(f\ge0\) 蕴含 \(I(f)\ge0\)。
+称这样的泛函为正线性泛函。正性首先给出单调性和
+\[
+ |I(f)|\le I(|f|).
+\]
+若 \(\operatorname{supp}f\subset K\) 且截断 \(h=1\) 于 \(K\)，则
+\[
+ |I(f)|\le I(h)\|f\|_\infty. \tag{*}
+\]
+所以它在每个固定紧支撑上都有一致估计，却未必在整个 \(C_c(X)\)
+上有一个共同的上确界范数界。Lebesgue 积分正是这种例子。
+
+\subsection{先确定开集的质量}
+
+若 \(I(f)=\int f\,d\mu\) 且 \(\mu\) 是 Radon 测度，紧内逼近和截断引理给
+\[
+ \mu(U)=\sup\{I(f):f\in C_c(X,\R),\ 0\le f\le1,\
+                       \operatorname{supp}f\subset U\}.
+\]
+因此右边是恢复测度时可以采用的定义。对任意开集 \(U\)，记右边为
+\(a(U)\)，并允许 \(a(U)=\infty\)。
+
+\begin{lemma}\label{lem:open-mass-properties}
+函数 \(a\) 单调，\(a(\varnothing)=0\)；
+对任意开集列有
+\[
+ a\left(\bigcup_jU_j\right)\le\sum_j a(U_j).
+\]
+若 \(U_j\) 两两不交，则等号成立。每个紧集都有一个 \(a\)-值有限的开邻域。
+\end{lemma}
+\begin{proof}
+设 \(0\le f\le1\) 的紧支撑包含于 \(\bigcup_jU_j\)。
+取有限子覆盖及相应的单位分解，则
+\(f=\sum_j f\psi_j\)，每个 \(f\psi_j\) 都是定义 \(a(U_j)\) 时允许的函数。
+因此 \(I(f)\le\sum_j a(U_j)\)，取上确界即得次可加性。
+若开集不交，有限个允许函数 \(f_j\) 的和仍在零与一之间，
+且支撑在并集中，故 \(a(\bigcup_jU_j)\ge\sum_{j\le N}I(f_j)\)。
+分别取上确界再令 \(N\to\infty\)，得到反向不等式。
+
+对紧集 \(K\)，取相对紧开邻域 \(V\) 和截断 \(h=1\) 于 \(\overline V\)。
+所有用于 \(a(V)\) 的函数都不超过 \(h\)，故 \(a(V)\le I(h)<\infty\)。
+\end{proof}
+
+有限单位分解保证的是“一个连续函数的积分能够分配给覆盖的各部分”。
+这正是把泛函的线性转化成集合次可加性所缺的一步。
+
+\section{Riesz--Markov 表示定理}
+\label{sec:riesz-markov-proof}
+
+\begin{theorem}\label{thm:riesz-markov-radon}
+局部紧 Hausdorff 空间 \(X\) 上的每个正线性泛函
+\(I:C_c(X,\R)\to\R\)，都有唯一正 Radon 测度 \(\mu\) 表示：
+\[
+ I(f)=\int_X f\,d\mu\qquad(f\in C_c(X,\R)).
+\]
+\end{theorem}
+
+\begin{proof}
+\emph{外测度。}
+用前节的开集质量定义
+\[
+ \lambda^*(E)=\inf\{a(U):E\subset U,\ U\text{ 开}\}\qquad(E\subset X).
+\]
+单调性立即成立。若 \(\sum_j\lambda^*(E_j)<\infty\)，分别取开外包络，
+误差分配为 \(\varepsilon2^{-j}\)，由引理
+\ref{lem:open-mass-properties} 得可数次可加性；若右侧无限则无须估计。
+故 \(\lambda^*\) 是外测度，并且对开集 \(U\) 有 \(\lambda^*(U)=a(U)\)。
+还满足
+\begin{equation}\label{eq:open-mass-compact-sup}
+ a(U)=\sup_{K\subset U,\ K\text{ 紧}}\lambda^*(K).
+\end{equation}
+一向由单调性；另一向对定义 \(a(U)\) 的函数 \(f\) 取 \(K=\operatorname{supp}f\)，
+任意包含 \(K\) 的开集 \(V\) 都满足 \(a(V)\ge I(f)\)，故
+\(\lambda^*(K)\ge I(f)\)。
+
+\emph{Borel 可测性。}
+先注意，对紧集 \(K\subset U\) 有
+\begin{equation}\label{eq:compact-open-mass-split}
+ a(U)\ge\lambda^*(K)+a(U\setminus K).
+\end{equation}
+确实，对任意支撑于 \(U\setminus K\) 的允许函数 \(g\)，
+可在 \(U\) 内取 \(K\) 的开邻域 \(V\)，使 \(V\) 与
+\(\operatorname{supp}g\) 不交。将 \(g\) 与 \(V\) 上的允许函数相加，
+得到 \(a(U)\ge a(V)+I(g)\ge\lambda^*(K)+I(g)\)，再对 \(g\) 取上确界。
+
+设 \(O\) 开，\(E\subset X\)，只须考虑 \(\lambda^*(E)<\infty\)。
+取开集 \(U\supset E\) 使 \(a(U)<\lambda^*(E)+\varepsilon\)。
+对每个紧集 \(K\subset U\cap O\)，由上式及 \(E\setminus O\subset U\setminus K\)，
+\[
+ a(U)\ge\lambda^*(K)+\lambda^*(E\setminus O).
+\]
+利用 \eqref{eq:open-mass-compact-sup} 对 \(K\) 取上确界，得到
+\[
+ \lambda^*(E)+\varepsilon
+ \ge a(U\cap O)+\lambda^*(E\setminus O)
+ \ge\lambda^*(E\cap O)+\lambda^*(E\setminus O).
+\]
+令 \(\varepsilon\downarrow0\)，Carathéodory 条件成立。于是所有 Borel 集可测，
+记 \(\lambda=\lambda^*|_{\mathcal B(X)}\)。它外正则、局部有限，
+并在开集上内正则。
+
+\emph{有限质量的内逼近。}
+若 \(E\) Borel 且 \(\lambda(E)<\infty\)，取开集 \(U\supset E\)，
+使 \(\lambda(U)<\infty\)。在 \(U\) 内取紧集 \(K\)，使
+\(\lambda(U\setminus K)<\varepsilon\)；再取开集 \(V\supset U\setminus E\)，
+使 \(\lambda(V)<\lambda(U\setminus E)+\varepsilon\)。
+紧集 \(K\setminus V\subset E\)，且
+\[
+ \lambda(E\setminus(K\setminus V))
+ \le\lambda(U\setminus K)+\lambda(E\cap V)<2\varepsilon.
+\]
+最后一个不等式利用 \(U\setminus E\subset V\) 以及有限质量下的减法。
+所以每个有限 \(\lambda\)-测度 Borel 集都内正则。
+
+\emph{内正则代表。}
+对所有 Borel 集定义
+\[
+ \mu(E)=\sup_{K\subset E,\ K\text{ 紧}}\lambda(K).
+\]
+在 \(\lambda\)-有限集上 \(\mu=\lambda\)，在开集上也相同。
+若 \(E_j\) 两两不交，任意有限组紧集 \(K_j\subset E_j\) 的并紧，
+故 \(\mu(\bigcup_j E_j)\ge\sum_j\mu(E_j)\)。
+反向，对紧集 \(K\subset\bigcup_j E_j\)，各 \(K\cap E_j\) 的
+\(\lambda\)-测度有限，因而
+\[
+ \lambda(K)=\sum_j\lambda(K\cap E_j)
+           =\sum_j\mu(K\cap E_j)\le\sum_j\mu(E_j).
+\]
+对 \(K\) 取上确界，得到可数可加性。\(\mu\) 在紧集上等于 \(\lambda\)，
+故定义本身给出内正则性，局部有限性也已证明。因此它是 Radon 测度。
+
+\emph{积分表示。}
+设 \(f\in C_c(X,\R)\)、\(f\ge0\)，\(M=\|f\|_\infty>0\)。
+取支撑的开邻域 \(V\)，使 \(\mu(V)<\infty\)，令 \(\delta=M/n\)。
+对 \(j=1,\ldots,n\)，允许函数 \(g_j\) 若支撑于 \(\{f>j\delta\}\)，
+则 \(\delta\sum_jg_j\le f\)。由各个上确界的定义，
+\[
+ \delta\sum_{j=1}^{n}\mu(\{f>j\delta\})\le I(f).
+\]
+为给出上界，将 \(f\) 写成连续薄层的和
+\[
+ f=\sum_{j=0}^{n-1}f_j,\qquad
+ f_j=\min\{\delta,(f-j\delta)_+\}.
+\]
+第一层满足 \(I(f_0)\le\delta\mu(V)\)；
+当 \(j\ge1\) 时，
+\(\operatorname{supp}f_j\subset\{f\ge j\delta\}\subset\{f>(j-1)\delta\}\)，
+故 \(I(f_j)\le\delta\mu(\{f>(j-1)\delta\})\)。
+另一方面，对每个 \(x\)，
+\[
+ 0\le f(x)-\delta\sum_{j=1}^n\mathbf1_{\{f>j\delta\}}(x)
+ \le\delta\mathbf1_{\operatorname{supp}f}(x).
+\]
+因此上述下界与 \(\int f\,d\mu\) 的差至多为 \(\delta\mu(V)\)；
+上界与该下界的差至多为 \(3\delta\mu(V)\)。
+令 \(n\to\infty\)，便得 \(I(f)=\int f\,d\mu\)。
+零函数无需处理；一般实函数分为正负部分。
+
+\emph{唯一性。}
+任何表示 \(I\) 的 Radon 测度 \(\nu\)，由紧内逼近和截断满足
+\(\nu(U)=a(U)\)。Radon 测度在紧集上外正则，故
+\(\nu(K)=\inf_{U\supset K}a(U)=\lambda(K)\)。
+最后由所有 Borel 集上的内正则性得到 \(\nu=\mu\)。
+\end{proof}
+
+证明中出现的 \(\lambda\) 与 \(\mu\) 各有明确职责：前者外正则，
+后者在每个 Borel 集上紧内正则；它们在开集、紧集及有限
+\(\lambda\)-测度集上相同。若空间 \(\sigma\)-紧，二者处处相同。
+这一说明也是一般局部紧空间与 \(\R^d\) 情形之间不能略去的区别。
+
+\subsection{总质量与泛函的范数}
+
+\begin{corollary}\label{cor:positive-czero-representation}
+若正泛函 \(I\) 满足
+\(|I(f)|\le C\|f\|_\infty\) 对一切 \(f\in C_c(X)\) 成立，
+其表示测度有限，且 \(I\) 唯一连续延拓到 \(C_0(X)\)，满足
+\[
+ \|I\|=\mu(X).
+\]
+反之，每个有限正 Radon 测度都这样给出 \(C_0(X)\) 上的正有界泛函。
+\end{corollary}
+\begin{proof}
+开集质量公式给 \(\mu(X)\le C\)。积分估计给
+\(|I(f)|\le\mu(X)\|f\|_\infty\)，而同一个开集质量公式又给
+\(\mu(X)=\sup_{0\le f\le1,\ f\in C_c}I(f)\)，所以范数恰等于总质量。
+由命题 \ref{prop:cc-dense-czero} 的稠密性延拓，积分在一致逼近下也收敛，
+故延拓仍由同一测度表示。
+\end{proof}
+
+\section{弱星收敛和测度弱收敛}
+\label{sec:radon-measure-convergences}
+
+\subsection{三类检验函数}
+
+总质量等于一的正测度称为概率测度。此处只使用这一归一化，不引入
+随机变量等概率语言。
+
+先讨论正 Radon 测度。称 \(\mu_\alpha\) 依 \(C_c\) 模糊收敛到 \(\mu\)，若
+\(\int f\,d\mu_\alpha\to\int f\,d\mu\) 对所有 \(f\in C_c(X)\) 成立。
+对有限测度，以 \(C_0(X)\) 的所有函数检验，得到它们作为
+\(C_0(X)^*\) 元素的弱星收敛。若改用所有有界连续函数 \(C_b(X)\)，
+本书称之为窄收敛；概率论中通常把后一种收敛称为概率测度的弱收敛。
+明确写出检验函数类，可以避免“弱”字的不同惯例造成混淆。
+
+在紧空间上三类函数相同。在非紧空间上，常数一不能由 \(C_0(X)\)
+检测，这使总质量可能在弱星极限中减少。例如 \(\mu_n=\delta_n\) 在 \(\R\)
+上模糊、弱星收敛到零，因为 \(f(n)\to0\) 对 \(f\in C_0(\R)\) 成立；
+却不窄收敛到零，因为对常数一的积分恒为一。
+
+\begin{proposition}\label{prop:vague-bounded-czero}
+若有限正 Radon 测度网 \((\mu_\alpha)\) 的总质量有共同上界，且
+模糊收敛到一个有限 Radon 测度 \(\mu\)，则也依 \(C_0\) 弱星收敛。
+\end{proposition}
+\begin{proof}
+给 \(f\in C_0(X)\)，取 \(g\in C_c(X)\) 一致逼近它。设共同上界为 \(M\)，则
+\[
+ \left|\int f\,d\mu_\alpha-\int f\,d\mu\right|
+ \le (M+\mu(X))\|f-g\|_\infty
+       +\left|\int g\,d\mu_\alpha-\int g\,d\mu\right|.
+\]
+先令指标趋于极限，再令一致逼近误差趋零即可。
+\end{proof}
+
+\subsection{紧性与质量逃逸}
+
+有限正 Radon 测度族称为\term{一致紧的}，若对每个 \(\varepsilon>0\) 存在紧集 \(K\)，
+使族中所有测度都满足 \(\mu(X\setminus K)<\varepsilon\)。
+这一条件用同一个紧集同时控制整族测度，尚不是某种拓扑下的紧致性结论。
+
+\begin{proposition}\label{prop:vague-probability-narrow}
+设 \(\mu_\alpha,\mu\) 均为总质量一的 Radon 测度。
+若 \(\mu_\alpha\) 模糊收敛到 \(\mu\)，则它们窄收敛到 \(\mu\)。
+若只预设 \(\mu_\alpha\) 的总质量为一，而其模糊极限 \(\mu\) 未知总质量，
+测度族的一致紧性保证 \(\mu(X)=1\)。
+\end{proposition}
+\begin{proof}
+先设极限总质量也为一。取紧集 \(K\)，使 \(\mu(K)>1-\varepsilon\)，
+并取 \(h\in C_c(X)\)、\(0\le h\le1\)、\(h|_K=1\)。
+模糊收敛使 \(\int h\,d\mu_\alpha>1-2\varepsilon\) 最终成立。
+对任意 \(f\in C_b(X)\)，函数 \(fh\) 紧支撑，而
+\[
+ \left|\int f(1-h)\,d\mu_\alpha\right|\le2\varepsilon\|f\|_\infty,\qquad
+ \left|\int f(1-h)\,d\mu\right|\le\varepsilon\|f\|_\infty.
+\]
+三项误差分解给窄收敛。
+
+第二种情形，任意 \(0\le h\le1\) 的紧支撑函数满足
+\(\int h\,d\mu\le1\)，故开集质量公式给 \(\mu(X)\le1\)。
+由一致紧性取 \(K\)，再取等于一于 \(K\) 的截断 \(h\)。
+于是 \(\int h\,d\mu_\alpha\ge1-\varepsilon\)，取极限得
+\(\mu(X)\ge1-\varepsilon\)。令 \(\varepsilon\downarrow0\)，得到结论。
+\end{proof}
+
+\begin{proposition}\label{prop:radon-positive-ball-compact}
+总质量至多 \(M<\infty\) 的正 Radon 测度构成 \(C_0(X)^*\)
+中的弱星紧集。若 \(C_0(X)\) 可分，其中每个序列都有弱星收敛子列。
+\end{proposition}
+\begin{proof}
+表示定理把这个集合认作对偶闭球中所有正泛函的集合。
+条件 \(I(f)\ge0\)（每个固定 \(f\ge0\)）是弱星闭条件，
+故它是 Banach--Alaoglu 紧球的闭子集。可分时使用
+\theoremref{thm:weakstar-metrizable-ball}。
+\end{proof}
+
+\(\R^d\) 上的 \(C_0\) 可分：先截断到整数大小的盒子，再用有理网格上的
+分片多线性函数一致逼近，并在稍大的盒子边界上取零值后补零到全空间；
+顶点值取有理数，复情形实虚部分别取有理数。
+这些函数构成至多可数稠密族。这里紧性先给子列，
+防止质量逃逸的条件再保证极限仍为概率测度，两步承担不同的任务。
+
+\section{复线性泛函和复测度版本}
+\label{sec:complex-riesz-markov}
+
+\subsection{实泛函的正负部分}
+
+正性不适用于任意连续线性泛函。要将表示定理推广，
+先在实空间 \(C_0(X,\R)\) 上恢复泛函的正负部分。
+
+设 \(L\) 有界且实线性。对 \(f\ge0\)，定义
+\[
+ L^+(f)=\sup\{L(g):g\in C_0(X,\R),\ 0\le g\le f\}.
+\]
+它有限且非负。正齐次性直接成立。为验证可加性，若
+\(0\le g\le f_1+f_2\)，令
+\(g_1=\min(g,f_1)\)、\(g_2=g-g_1\)，则
+\(0\le g_i\le f_i\)，故
+\(L^+(f_1+f_2)\le L^+(f_1)+L^+(f_2)\)。
+反向分别取接近两个上确界的 \(g_i\)，相加即可。
+
+所以 \(L^+\) 可线性延拓到整个实空间：对任意表示
+\(f=u-v\)、\(u,v\ge0\)，令 \(L^+(f)=L^+(u)-L^+(v)\)；
+另一表示满足 \(u+v'=u'+v\)，正锥上的可加性保证定义无关。
+而 \(L^-=L^+-L\) 正，因为对 \(f\ge0\) 可在上确界中取 \(g=f\)。
+估计 \(L^+(f)\le\|L\|\|f\|_\infty\)（\(f\ge0\)）
+与正泛函的绝对值估计证明二者有界。
+分别表示 \(L^+,L^-\)，得到有限正 Radon 测度 \(\mu^+,\mu^-\)，
+于是 \(L(f)=\int f\,d(\mu^+-\mu^-)\)。这里上标表示正泛函的两个
+代表测度；暂不需要断言它们就是差测度的 Jordan 分解。
+下面验证这种差测度的全变差仍然具有 Radon 性。
+
+\subsection{全变差与等距表示}
+
+有限复测度是有限实符号测度的组合 \(\nu=\nu_1+i\nu_2\)。
+它的全变差定义为
+\[
+ |\nu|(E)=\sup_{\{E_j\}}\sum_j|\nu(E_j)|,
+\]
+上确界遍历 \(E\) 的有限 Borel 分割。
+称 \(\nu\) 为有限复 Radon 测度，若 \(|\nu|\) 是有限 Radon 测度；
+有限实符号 Radon 测度采用同一约定。
+
+取正测度 \(\rho=|\nu_1|+|\nu_2|\)。Radon--Nikodym 定理给
+\(d\nu=h\,d\rho\)，\(h\) 复可积，并且
+\begin{equation}\label{eq:complex-variation-density}
+ d|\nu|=|h|\,d\rho.
+\end{equation}
+上界由三角不等式。为证下界，将复平面的方向分成有限个角宽至多
+\(\eta\) 的扇区，按 \(h\) 所在扇区分割 \(E\)；
+在每块选一个单位复数 \(c_j\)，使
+\(\operatorname{Re}(c_jh)\ge(\cos\eta)|h|\)。
+于是
+\[
+ \sum_j|\nu(E_j)|
+ \ge\sum_j\operatorname{Re}\bigl(c_j\nu(E_j)\bigr)
+ \ge(\cos\eta)\int_E|h|\,d\rho.
+\]
+令 \(\eta\downarrow0\)，得到 \eqref{eq:complex-variation-density}。
+这也证明全变差确实是测度。上述论证对任意满足 \(\nu\ll\rho\) 的有限
+正测度 \(\rho\) 都成立，不要求它一定取为两个实部全变差之和。
+若 \(\rho\) 为有限 Radon 测度，则 \(|h|\rho\) 也 Radon：给定 Borel
+集 \(E\)，由积分的绝对连续性先取 \(\delta>0\)，使 \(\rho(B)<\delta\)
+蕴含 \(\int_B|h|\,d\rho<\varepsilon\)，再取紧集 \(K\subseteq E\)
+使 \(\rho(E\setminus K)<\delta\)。这便给出全变差的紧内逼近；
+总质量有限也保证局部有限。
+
+特别地，若实符号测度是两个有限正 Radon 测度之差，可用它们之和作
+\(\rho\)。Radon--Nikodym 定理给出差测度的密度，刚才的公式证明其
+全变差为 Radon 测度。两个这样的实符号测度组合成复测度时，取四个
+正代表测度之和作 \(\rho\)，得到同一结论。有限个正 Radon 测度之和
+仍是 Radon 测度，因为各自的紧内逼近可以用有限并同时实现。
+
+\begin{theorem}\label{thm:czero-complex-dual}
+每个有界复线性泛函 \(L:C_0(X,\C)\to\C\)，都唯一地写成
+\[
+ L(f)=\int_X f\,d\nu,\qquad \|L\|=|\nu|(X),
+\]
+其中 \(\nu\) 是有限复 Radon 测度。反之，每个这样的测度定义一个有界
+复线性泛函。因此 \(C_0(X,\C)^*\) 与有限复 Radon 测度空间等距同构。
+\end{theorem}
+\begin{proof}
+在实值函数上分别对 \(\operatorname{Re}L\)、\(\operatorname{Im}L\)
+使用前面的正负分解，得到两个有限符号 Radon 测度，再组合成 \(\nu\)。
+复线性保证表示对复值函数也成立。若两个表示相同，它们之差
+在 \(C_c\) 上积分为零，利用正负部分及紧内逼近，或下面的密度论证，
+即可得零测度。
+
+积分不等式给 \(\|L\|\le|\nu|(X)\)。由
+\eqref{eq:complex-variation-density}，可写
+\(d\nu=\theta\,d|\nu|\)，其中 \(|\theta|=1\) 几乎处处。
+命题 \ref{prop:radon-cc-lp-density} 给 \(C_c(X,\C)\) 中函数
+在 \(L^1(|\nu|)\) 逼近 \(\overline\theta\)。
+将这些函数逐点作径向截断 \(z\mapsto z/\max(1,|z|)\)，仍连续紧支撑。
+若 \(|w|\le1\)，则截断后的值与 \(w\) 的距离至多为 \(2|z-w|\)：
+当 \(|z|>1\) 时用 \(|z|-1\le|z-w|\)，其余情形没有改变。
+所以逼近误差仍趋零，
+且上确界范数至多一。记所得函数为 \(f_n\)，则
+\[
+ L(f_n)=\int f_n\theta\,d|\nu|\longrightarrow|\nu|(X).
+\]
+所以反向范数不等式成立。同一论证应用于两个表示之差，给出唯一性。
+反向构造由积分线性和全变差估计直接得到。
+\end{proof}
+
+当 \(X\) 紧时，这就是 \(C(X)^*\) 的测度表示；
+当 \(X=\N\) 取离散拓扑时，它回到 \(c_0^*=\ell^1\)。
+此处的 Riesz--Markov 定理与 Hilbert 空间的 Riesz 表示定理是不同结果：
+一个用测度表示连续函数空间上的泛函，另一个用内积中的向量表示泛函。
+它们的适用空间和证明工具均须分别核对。
+
+\section*{习题}
+\addcontentsline{toc}{section}{习题}
+\subsection*{A组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.}]
+\exerciseitem{radon-discrete-counting}
+设 \(X\) 为任意离散空间。证明紧集恰为有限集，计数测度是 Radon 测度；
+说明当 \(X\) 不可数时它不 \(\sigma\)-有限。
+\exerciseitem{radon-czero-level-sets}
+证明 \(C_c(X)\subset C_0(X)\subset C_b(X)\)，并在 \(X=\R\) 上分别给出
+两个真包含的例子。证明常数一属于 \(C_0(X)\) 当且仅当 \(X\) 紧。
+\exerciseitem{radon-cutoff-separates-points}
+设 \(x\ne y\)。构造 \(f\in C_c(X)\)，使 \(f(x)=1,f(y)=0\)，
+并求评价泛函 \(f\mapsto f(x)\) 在 \(C_0(X)\) 上的范数。
+\exerciseitem{radon-locally-bounded-functional}
+证明正泛函在固定紧支撑上的估计，并用 Lebesgue 积分说明局部估计
+不能推出整个 \(C_c(\R)\) 上的上确界范数有界性。
+\exerciseitem{radon-weighted-density}
+设 \(\mu\) Radon，\(w\ge0\) 为 Borel 函数，且在每个紧集上可积。
+证明 \(w\mu\) Radon；不要求 \(w\) 连续或有界。
+\exerciseitem{radon-finite-outer-regular}
+对有限 Radon 测度，详细证明由紧内正则性推出开外正则性，
+并说明直接对无限总质量使用补集相减为何无效。
+\end{enumerate}
+\subsection*{B组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\exerciseitem{radon-positive-monotone-continuity}
+若 \(f_n\in C_c(X,\R)\)、\(f_n\downarrow0\)，证明
+任何正泛函 \(I\) 都满足 \(I(f_n)\downarrow0\)。
+要求先利用紧集上的一致收敛证明，不调用本章表示定理。
+\exerciseitem{radon-measure-determined-cc}
+若两个 Radon 测度在所有 \(C_c\) 函数上的积分相同，直接用开集、
+紧集和内正则性证明二者相同。
+\exerciseitem{radon-atomic-czero-dual}
+当 \(X=\N\) 离散时，从本章定理推出 \(c_0^*=\ell^1\)，
+并写出测度、泛函与序列之间的对应及范数。
+\exerciseitem{radon-dirac-total-variation}
+在 \(\R\) 上证明 \(\delta_{1/n}\) 窄收敛到 \(\delta_0\)，
+而 \(\|\delta_{1/n}-\delta_0\|=2\)，其中范数为全变差范数。
+\exerciseitem{radon-vague-escaping-mixture}
+求 \(\mu_n=\tfrac12\delta_0+\tfrac12\delta_n\) 的模糊与弱星极限；
+证明它没有窄收敛子列。
+\exerciseitem{radon-compact-portmanteau}
+设正 Radon 测度 \(\mu_n\) 模糊收敛到 \(\mu\)。
+证明对任意紧集 \(K\)，\(\limsup_n\mu_n(K)\le\mu(K)\)；
+对任意开集 \(U\)，\(\mu(U)\le\liminf_n\mu_n(U)\)。
+\exerciseitem{radon-czero-convergence-bound}
+若有限复 Radon 测度 \(\nu_n\) 依 \(C_0(X)\) 弱星收敛，证明
+\(\sup_n|\nu_n|(X)<\infty\)。说明证明为何使用 \(C_0(X)\) 完备性，
+并指出本题没有对任意收敛网作同一断言。
+\exerciseitem{radon-finite-continuous-push}
+设 \(T:X\to Y\) 连续，\(\mu\) 为有限 Radon 测度，\(Y\) 局部紧 Hausdorff。
+证明 \(T_\#\mu(E)=\mu(T^{-1}E)\) 是有限 Radon 测度。
+此处不要求 \(T\) 单射；比较无限测度时局部有限性可能失败的情形。
+\end{enumerate}
+\subsection*{C组}
+\begin{enumerate}[label=\textbf{\thechapter.\arabic*.},resume]
+\optionalexerciseitem{radon-local-vague-compactness}
+设 \((\mu_n)\) 是 \(\R^d\) 上的正 Radon 测度，且
+\(\sup_n\mu_n(K)<\infty\) 对每个紧集 \(K\) 成立。
+用紧支撑函数的可数稠密族和对角抽取，证明存在模糊收敛子列。
+须说明极限泛函的定义、正性及对每个 \(C_c\) 函数的收敛。
+\exerciseitem{radon-polar-decomposition}
+设 \(d\nu=h\,d\mu\)，其中 \(\mu\) 为正测度且 \(h\in L^1(\mu,\C)\)。
+证明 \(d|\nu|=|h|d\mu\)，并给出 \(\nu=\theta|\nu|\) 的极分解；
+说明 \(\theta\) 的唯一性按哪一种测度理解。
+\optionalexerciseitem{radon-total-variation-density}
+设 \(K\) 为紧 Hausdorff 空间，\(\mu\) 为有限正 Radon 测度。
+证明由非负连续密度 \(h\,d\mu\) 形成的测度在所有非负
+\(L^1(\mu)\) 密度测度中全变差稠密；再说明若改问对所有正 Radon
+测度稠密，结论一般不成立。
+\projectexerciseitem{radon-probability-tight-subsequence}
+设 \((\mu_n)\) 为 \(\R^d\) 上的一致紧概率 Radon 测度族。
+依次证明可抽出模糊收敛子列、极限质量等于一、该子列窄收敛。
+在证明中区分对偶球紧致性和测度族的一致紧性分别用在何处。
+\end{enumerate}

@@ -1,7 +1,7 @@
 \chapter{符号与定理版本}
 \label{chap:appendix-notation-dependencies}
 
-本附录汇总第一至第五卷已经使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
+本附录汇总已经写成各章使用的全局记号，并区分若干容易因名称相同而混淆的定理版本。它供查阅，不代替正文中的定义和定理陈述。局部记号仍以正文首次定义处为准；若这里的简写没有列出某项假设，应回到正文核对完整版本。
 
 \section{数集与指标}
 
@@ -575,6 +575,70 @@ Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率�
 号差是彼此独立的约定：采用相反曲率号差只改变含 \(R\) 的公式，采用
 \(-\operatorname{div}\operatorname{grad}\) 才改变 Laplacian 的谱符号。
 
+\section{Radon 测度、不变测度与概率记号}
+
+局部紧 Hausdorff 空间上的 \(C_c(X)\) 表示连续紧支撑函数空间，
+\(C_0(X)\) 表示在无穷远消失的连续函数空间；后者的定义是
+\(\{|f|\ge\varepsilon\}\) 对每个 \(\varepsilon>0\) 都紧。
+本书把局部有限、在全部 Borel 集上紧内正则的正测度称为 Radon 测度。
+一般局部紧空间上不由此断言全部 Borel 集外正则；有限 Radon 测度则外正则。
+有限实符号或复 Radon 测度要求其全变差为有限 Radon 测度。
+这些约定见\chapterref{chap:radon-measures}。
+
+测度的模糊收敛以 \(C_c(X)\) 检验；有限测度作为 \(C_0(X)^*\) 元素的
+弱星收敛以 \(C_0(X)\) 检验；窄收敛以 \(C_b(X)\) 检验。
+概率测度的弱收敛在本书中指窄收敛，不是对偶空间自身的弱拓扑收敛。
+推前测度统一记为
+\[
+ T_\#\mu(B)=\mu(T^{-1}B),\qquad
+ \int h\,d(T_\#\mu)=\int h\circ T\,d\mu.
+\]
+这里 \(T\) 可测，积分公式对非负可测函数成立；带符号情形须按积分的存在
+条件使用。一般连续映射的推前不一定局部有限。
+
+\chapterref{chap:stieltjes-measures}的 \(dF\) 表示递增右连续函数给出的
+Stieltjes 测度，满足 \(dF((a,b])=F(b)-F(a)\)。它允许全实线总质量无穷。
+概率分布函数则另外要求
+\(F(-\infty)=0\)、\(F(+\infty)=1\)；其分位函数采用
+\[
+ Q_F(u)=\inf\{x:F(x)\ge u\},\qquad 0<u<1.
+\]
+跳跃记为 \(\Delta F(x)=F(x)-F(x-)\)，等于单点质量。
+Stieltjes 测度章的 \(BV(\R)\) 指逐点全实线有限总变差，不额外要求函数属于 \(L^1\)。
+
+\chapterref{chap:haar-measure}的平移约定为
+\[
+ L_af(x)=f(a^{-1}x),\qquad R_af(x)=f(xa).
+\]
+左 Haar 测度的模函数按 \(\mu(Ea)=\Delta_G(a)\mu(E)\) 定义，因而
+\(\int R_af\,d\mu=\Delta_G(a)^{-1}\int f\,d\mu\)。
+文献也有用倒数定义模函数的惯例，引用公式时须同时核对平移方向。
+圆周采用 \mbox{\(\mathbb T=\R/(2\pi\Z)\)}，归一化 Haar 测度是
+\(dx/(2\pi)\)。若使用 \(\R/\Z\) 的参数，则归一化区间长度为一。
+
+对保测变换 \(T\)，\chapterref{chap:ergodic-theorems}采用
+\[
+ U_Tf=f\circ T,\qquad
+ A_nf=\frac1n\sum_{k=0}^{n-1}f\circ T^k,\qquad n\ge1.
+\]
+\(\mathcal I_T\) 表示模零不变事件组成的 \(\sigma\)-代数。
+保测不要求 \(T\) 可逆；相应的 Koopman 等距算子也未必满射。
+遍历时有限测度空间上的时间平均极限为归一化的空间积分；不遍历时不能
+删除极限函数所保留的不变部分。
+
+概率空间写作 \((\Omega,\mathcal F,\mathbb P)\)，其中
+\(\mathbb P(\Omega)=1\)。随机变量 \(X\) 的分布为
+\(\mu_X=X_\#\mathbb P\)，期望为 \(\mathbb EX=\int X\,d\mathbb P\)。
+“几乎必然”表示例外集的概率为零。同分布只比较推前测度，不保证两个随机
+变量在同一概率空间上相等。实值平方可积随机变量的方差与协方差采用
+\[
+ \operatorname{Var}(X)=\mathbb E(X-\mathbb EX)^2,\qquad
+ \operatorname{Cov}(X,Y)=\mathbb E[(X-\mathbb EX)(Y-\mathbb EY)].
+\]
+独立性要求每个有限子族的事件概率分解；两两独立只检查二元子族，条件较弱。
+相关定义和有限乘积构造见\chapterref{chap:probability-spaces}及
+\chapterref{chap:independence}。
+
 \section{同名结论的版本差别}
 
 \begin{description}[style=nextline,leftmargin=3em]
@@ -701,7 +765,7 @@ Riemann 度量写为 \(g\)，其 Levi--Civita 联络写为 \(\nabla\)，曲率�
 
 \section{当前章节依赖}
 
-第一至第五卷的主要依赖可概括如下：
+已经写成各章的主要依赖可概括如下：
 \[
  \text{数学语言}
  \longrightarrow
@@ -852,5 +916,15 @@ Harnack不等式和圆盘Dirichlet问题。
 配对、光滑奇异链比较和局部到整体论证得到两个上同调理论的同构。
 \chapterref{chap:riemannian-geometry}最后在切空间上加入随点变化的内积，建立
 Levi--Civita联络、曲率、Laplace--Beltrami算子和测地线变分。
+
+\chapterref{chap:radon-measures}把局部紧拓扑与测度积分结合，以截断函数和
+正泛函构造表示测度；\chapterref{chap:stieltjes-measures}再说明实线测度、
+单调函数和分布函数的对应。\chapterref{chap:haar-measure}先建立拓扑群与
+推前积分，随后用紧性和表示定理构造 Haar 测度。
+\chapterref{chap:ergodic-theorems}的平均和逐点定理使用测度积分与 Hilbert
+空间工具，不依赖后面的独立性或条件期望。
+\chapterref{chap:probability-spaces}将有限总质量的积分语言用于随机变量；
+\chapterref{chap:independence}用生成族与乘积测度建立独立性判据，再证明
+Borel--Cantelli 引理和尾事件的零一律。这些结果不以无限乘积的构造定理为前提。
 
 \chapterref{chap:cauchy-construction}可以在第一遍阅读时暂缓：只要接受\chapterref{chap:dedekind-construction}已经构造出一个完备有序域，从\chapterref{chap:sequence-limits}到\chapterref{chap:equivalent-completeness}的数列理论即可继续。若希望比较两种实数构造，则应在完成 Cauchy 准则和完备性等价形式后阅读 Cauchy 构造。任何跨章引用仍以正文中的具体定理和假设为准。

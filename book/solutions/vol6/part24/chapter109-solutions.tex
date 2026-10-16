@@ -1,0 +1,360 @@
+\chapter{独立性}
+
+\begin{solution}{independence-complements-atoms}
+设 $J_1=\{i:\varepsilon_i=1\}$、$J_0=\{i:\varepsilon_i=0\}$。
+对相互独立的有限族，逐个把 $J_0$ 中的事件换成补集；每次由
+\[
+ \mathbb P(B\cap A_i^c)=\mathbb P(B)-\mathbb P(B\cap A_i)
+\]
+把对应因子 $p_i$ 换成 $1-p_i$，其余因子不变。这给出
+$\prod_{i\in J_1}p_i\prod_{i\in J_0}(1-p_i)$。此写法也适用于
+$p_i=0$ 或 $1$，无须单独定义 $0^0$。
+
+反之，给定指标子集 $J$，把 $\bigcap_{i\in J}A_i$ 按其余指标的发生与否
+分成两两不交的原子。有限可加性和题设给出
+\[
+ \mathbb P\left(\bigcap_{i\in J}A_i\right)
+ =\prod_{i\in J}p_i\prod_{i\notin J}\bigl(p_i+(1-p_i)\bigr)
+ =\prod_{i\in J}p_i.
+\]
+这正是全部有限子族的独立性条件。
+\end{solution}
+
+\begin{solution}{independence-finite-table}
+独立性用于单点 Borel 集就得到表格的分解。反之，任意 Borel 事件
+$\{X\in B\}$、$\{Y\in C\}$ 都对应若干行、若干列，因此
+\[
+ \mathbb P(X\in B,Y\in C)
+ =\sum_{x_i\in B}\sum_{y_j\in C}p_{i\bullet}p_{\bullet j}
+ =\mathbb P(X\in B)\mathbb P(Y\in C).
+\]
+于是 $X,Y$ 独立。
+
+将二元表写成 $\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)$。
+若表分解为边缘概率之积，则 $ad=bc$。反之，由总质量等于 $1$，
+\[
+ (a+b)(a+c)-a=bc-ad.
+\]
+所以 $ad=bc$ 时 $a=(a+b)(a+c)$。同样计算可得
+$b=(a+b)(b+d)$、$c=(c+d)(a+c)$、$d=(c+d)(b+d)$。
+全程没有除以边缘概率，故零行、零列等退化情形也包括在内。
+\end{solution}
+
+\begin{solution}{independence-self-information}
+对 $A\in\mathcal G$，自身独立性给出
+$\mathbb P(A)=\mathbb P(A)^2$，所以每个事件概率为 $0$ 或 $1$。
+若 $X$ 与自身独立，则对每个实数 $t$，分布函数
+$F(t)=\mathbb P(X\le t)$ 只能取 $0,1$。由于 $X$ 实值，
+$F(n)\to1$、$F(-n)\to0$；因此既存在取值为 $1$ 的阈值，也存在取值为
+$0$ 的阈值。令
+\[
+ c=\inf\{t\in\mathbb R:F(t)=1\}\in\mathbb R.
+\]
+单调性和下确界的定义给出 $t<c$ 时 $F(t)=0$、$t>c$ 时 $F(t)=1$。
+于是 $\mathbb P(X<c)=\lim_{m\to\infty}F(c-1/m)=0$，而
+$\mathbb P(X\le c)=\lim_{m\to\infty}F(c+1/m)=1$；后一式使用测度的从上
+连续性。故 $\mathbb P(X=c)=1$。
+
+反之，若 $X=c$ 几乎必然，则每个事件 $\{X\in B\}$ 都有概率 $0$ 或 $1$。
+概率为 $0$ 或 $1$ 的事件与任何事件独立，所以 $X$ 与自身独立。
+\end{solution}
+
+\begin{solution}{independence-pairwise-vector-counterexample}
+任取两个变量，其四种取值组合分别对应四点空间中的四个不同点，故每种
+组合概率为 $1/4$，每个边缘的两种值各占 $1/2$。由联合表判别，任意两个
+变量独立。逐点关系为
+\[
+ Z=\mathbf 1_{\{X\ne Y\}}=X+Y-2XY.
+\]
+因此事件 $C=\{Z=1\}$ 同时属于 $\sigma(X,Y)$ 和 $\sigma(Z)$。
+若向量 $(X,Y)$ 与 $Z$ 独立，$C$ 就与自身独立。但
+$\mathbb P(C)=1/2$，不满足 $\mathbb P(C)=\mathbb P(C)^2$，所以它们不独立。
+\end{solution}
+
+\begin{solution}{independence-null-modifications}
+两族变量均可测，所以以下原像都是事件。
+固定任意有限子集 $J\subseteq I$ 和 Borel 集 $B_i$。事件
+$\{X_i\in B_i\}$ 与 $\{Y_i\in B_i\}$ 的对称差包含于 $\{X_i\ne Y_i\}$，
+所以它们概率相同；相应有限交的对称差包含于
+$\bigcup_{i\in J}\{X_i\ne Y_i\}$，也是零概率事件。因此
+\[
+ \mathbb P\left(\bigcap_{i\in J}\{Y_i\in B_i\}\right)
+ =\mathbb P\left(\bigcap_{i\in J}\{X_i\in B_i\}\right)
+ =\prod_{i\in J}\mathbb P(Y_i\in B_i).
+\]
+独立性只检验有限子族，每次仅用有限个例外零集之并；即使 $I$ 不可数，
+也无须形成全部例外集的并，更不需要假定那个并可测或仍为零集。
+\end{solution}
+
+\begin{solution}{independence-bounded-tests}
+若 $X,Y$ 独立，有界 Borel 变换可积，乘积期望定理直接给出所需等式。
+反之，取 $f=\mathbf 1_B$、$g=\mathbf 1_C$，其中 $B,C$ 为任意 Borel 集，
+等式成为
+\[
+ \mathbb P(X\in B,Y\in C)=\mathbb P(X\in B)\mathbb P(Y\in C),
+\]
+即独立性定义。只检验恒等函数不足够，这仅给出协方差为零。
+例如 $X$ 在 $[-1,1]$ 上均匀分布，$Y=X^2$，二者有所有阶矩，且
+$\mathbb E(XY)=\mathbb E X^3=0=\mathbb E X\mathbb E Y$。但
+$\{|X|\le1/2\}=\{Y\le1/4\}$ 的概率为 $1/2$，故二者不独立。
+\end{solution}
+
+\begin{solution}{independence-rational-thresholds}
+给定实阈值 $t_i$，取有理数列 $q_{i,m}\downarrow t_i$，并令每个坐标随
+$m$ 单调下降。则
+\[
+ \bigcap_i\{X_i\le q_{i,m}\}\downarrow\bigcap_i\{X_i\le t_i\}.
+\]
+各单坐标事件也从上递减到对应极限事件。概率测度有限，从上连续性适用，
+故对有理阈值的等式取极限可得
+\[
+ \mathbb P(X_1\le t_1,\ldots,X_n\le t_n)
+ =\prod_i\mathbb P(X_i\le t_i).
+\]
+有限个实数因子的乘积与极限相容。然后应用分布函数判别即可。若错误地
+令有理阈值从下递增，在有原子的阈值处通常只会得到严格不等号的事件。
+\end{solution}
+
+\begin{solution}{independence-joint-density-factorization}
+乘积测度 $\mu_X\times\mu_Y$ 对二维 Lebesgue 测度的密度是 $f(x)g(y)$。
+确实，在每个 Borel 矩形 $B\times C$ 上，Tonelli 定理给出
+\[
+ \int_{B\times C}f(x)g(y)\,dx\,dy
+ =\left(\int_Bf\right)\left(\int_Cg\right),
+\]
+这与乘积测度一致，生成类唯一性把等式推广到所有 Borel 集。
+先在无穷值的零集上把密度改为零，以选取有限的版本。
+若 $X,Y$ 独立，则联合分布等于这个乘积测度，因而其两个密度 $h$ 与 $fg$
+几乎处处相等。密度的唯一性也可直接证明：在 $\{h>fg\}$ 上积分差必须为
+零，把它分成 $\{h-fg\ge1/m\}$ 后可知此集合为零测集；反向同理。
+反之，若两密度几乎处处相等，则联合分布等于边缘乘积测度，由正文定理
+得到独立性。这里要求的是二维几乎处处等式，不是每一点的等式。
+\end{solution}
+
+\begin{solution}{independence-nonlinear-blocks}
+三个不交指标块为 $\{1,2\}$、$\{3,4\}$、$\{5,6\}$。分块独立给出
+$\sigma(X_1,X_2)$、$\sigma(X_3,X_4)$、$\sigma(X_5,X_6)$ 相互独立。
+加法、最大值、乘法都是 Borel 函数，所以题中的三个变量分别对这三个
+$\sigma$-代数可测，从而相互独立。
+
+仅两两独立时可在四点空间取两两独立而不相互独立的公平位 $X,Y,Z$，
+其中 $Z=\mathbf 1_{\{X\ne Y\}}$，并令
+\[
+ X_1=X,\quad X_2=Y,\quad X_3=Z,\quad X_4=X_5=X_6=0.
+\]
+常数与每个变量独立，所以这六个变量两两独立。但前两个块的输出是
+$X+Y$ 和 $Z$，且 $\{X+Y=1\}=\{Z=1\}$ 概率为 $1/2$，故两输出不独立。
+\end{solution}
+
+\begin{solution}{independence-integrable-product-boundary}
+在 $(0,1)$ 上取 Lebesgue 概率，令 $X(t)=Y(t)=t^{-1/2}$。有
+$\mathbb E|X|=\mathbb E|Y|=2$，但
+$\mathbb E|XY|=\int_0^1t^{-1}\,dt=\infty$。
+如果改为独立的 $X,Y$，非负乘积期望公式给出
+\[
+ \mathbb E|XY|=(\mathbb E|X|)(\mathbb E|Y|).
+\]
+在题设的无穷与严格正有限因子下，右端为 $+\infty$，故乘积不可积。
+如果 $Y=0$ 几乎必然，则 $XY=0$ 几乎必然，反而可积。非负积分公式中的
+$0\cdot\infty=0$ 恰好包含这个例外，不能把“正有限”省成“有限”。
+\end{solution}
+
+\begin{solution}{independence-exponential-convolution}
+当 $z>0$ 时，两个密度同时非零的积分范围是 $0<y<z$，因此
+\[
+ f_{X+Y}(z)=\int_0^z\lambda^2e^{-\lambda(z-y)}e^{-\lambda y}\,dy
+ =\lambda^2ze^{-\lambda z}.
+\]
+当 $z\le0$ 时密度为零。分部积分给出
+$\int_0^\infty\lambda^2ze^{-\lambda z}\,dz=1$，边界项
+$ze^{-\lambda z}$ 在两端均为零。
+
+变量 $-Y$ 的密度是 $\lambda e^{\lambda u}\mathbf 1_{(-\infty,0)}(u)$，
+并且它与 $X$ 独立。也可直接写差的密度为
+\[
+ f_{X-Y}(z)=\int_{\max(0,-z)}^\infty
+       \lambda^2e^{-\lambda(z+y)}e^{-\lambda y}\,dy
+ =\frac\lambda2e^{-\lambda|z|}.
+\]
+分别在 $z\ge0$ 与 $z<0$ 代入下限便得到最后的统一表达式，其积分同样为 $1$。
+\end{solution}
+
+\begin{solution}{independence-normal-convolution}
+先对中心化变量求和，最后再平移 $a+b$。令 $s=\sigma^2+\tau^2$。
+卷积密度为
+\[
+ h(z)=\frac1{2\pi\sigma\tau}\int_{\mathbb R}
+  \exp\left(-\frac{(z-y)^2}{2\sigma^2}-\frac{y^2}{2\tau^2}\right)\,dy.
+\]
+配方恒等式是
+\[
+ \frac{(z-y)^2}{\sigma^2}+\frac{y^2}{\tau^2}
+ =\frac{s}{\sigma^2\tau^2}
+    \left(y-\frac{\tau^2z}{s}\right)^2+\frac{z^2}{s}.
+\]
+以 $u=\sqrt{s}(y-\tau^2z/s)/(\sigma\tau)$ 换元，并使用
+$\int_{\mathbb R}e^{-u^2/2}\,du=\sqrt{2\pi}$，可得
+\[
+ h(z)=\frac1{\sqrt{2\pi s}}e^{-z^2/(2s)}.
+\]
+故未中心化的和具有均值 $a+b$、方差 $s$ 的正态分布。独立性用于最初
+把和的分布写成卷积；单有正态边缘并不能保证此计算适用。
+\end{solution}
+
+\begin{solution}{independence-minimum-maximum}
+设 $M=\max_iX_i$、$m=\min_iX_i$。事件恒等式
+$\{M\le t\}=\bigcap_i\{X_i\le t\}$ 及独立性给出
+$F_M(t)=F(t)^n$。对最小值取补，
+\[
+ \mathbb P(m>t)=\prod_i\mathbb P(X_i>t)=(1-F(t))^n,
+ \qquad F_m(t)=1-(1-F(t))^n.
+\]
+使用的严格与非严格不等号互为补集，因此有跳跃时仍然正确，无须把
+$F(t)$ 换成 $F(t-)$。指数情形下，$t\ge0$ 时
+$\mathbb P(m>t)=e^{-n\lambda t}$，$t<0$ 时最小值不小于零，所以 $m$
+具有参数 $n\lambda$ 的指数分布。
+\end{solution}
+
+\begin{solution}{independence-borel-cantelli-failure}
+在 $(0,1)$ 上取 Lebesgue 概率，令 $A_n=(0,1/n)$。其概率为 $1/n$，
+故概率级数发散。但对每个 $t>0$，当 $n>1/t$ 时 $t\notin A_n$，所以
+每个样本点只属于有限多个 $A_n$，从而 $\limsup_nA_n=\varnothing$。
+这否定了不加独立性时“概率级数发散就有无穷多次发生的概率为一”。
+
+仍在 $(0,1)$ 上令每个 $A_n=(0,1/2)$。概率级数发散，且
+$\limsup_nA_n=(0,1/2)$，其概率为 $1/2$。这个例子进一步说明无独立性时，
+该无穷事件的概率也不必为 $0$ 或 $1$。
+\end{solution}
+
+\begin{solution}{independence-counting-integrability}
+部分和 $N_M=\sum_{n=1}^M\mathbf 1_{A_n}$ 非负且递增到 $N$。由单调收敛
+定理和有限积分的线性性，
+\[
+ \mathbb E N=\lim_{M\to\infty}\mathbb E N_M
+ =\lim_{M\to\infty}\sum_{n=1}^M\mathbb P(A_n)
+ =\sum_{n\ge1}\mathbb P(A_n).
+\]
+若右端有限，非负变量 $N$ 必几乎处处有限：否则若
+$\mathbb P(N=\infty)>0$，对所有 $K$ 有
+$\mathbb E N\ge K\mathbb P(N=\infty)$，矛盾。
+事件 $\{N=\infty\}$ 正是 $\limsup_nA_n$，这就再次证明第一引理。
+
+反向不成立。取 $(0,1)$ 上的 $A_n=(0,1/n)$，每个点只属于有限多个事件，
+所以 $N<\infty$ 处处成立；但上式给出
+$\mathbb E N=\sum_n1/n=\infty$。
+\end{solution}
+
+\begin{solution}{independence-pairwise-borel-cantelli}
+记 $p_n=\mathbb P(A_n)$、$m_{N,M}=\sum_{n=N}^Mp_n$。两两独立使不同
+示性函数的协方差为零，因此
+\[
+ \operatorname{Var}(S_{N,M})
+ =\sum_{n=N}^Mp_n(1-p_n)\le m_{N,M}.
+\]
+固定 $N$ 后，$m_{N,M}\to\infty$。对充分大的 $M$，Chebyshev 不等式给出
+\[
+ \mathbb P(S_{N,M}=0)
+ \le\mathbb P(|S_{N,M}-m_{N,M}|\ge m_{N,M})
+ \le\frac1{m_{N,M}}\longrightarrow0.
+\]
+而 $\{S_{N,M}=0\}=\bigcap_{n=N}^MA_n^c$ 从上递减到
+$\bigcap_{n\ge N}A_n^c$，故后者概率为零。对 $N$ 取可数并，得到只发生
+有限次的概率为零。因此 $\mathbb P(\limsup_nA_n)=1$。此证明没有使用任何
+三重以上交的乘法公式。
+\end{solution}
+
+\begin{solution}{independence-tail-random-variable}
+设 $Y$ 实值且对 $\mathcal T$ 可测。每个事件 $\{Y\le t\}$ 都是尾事件，
+零一律说明其概率只能为 $0$ 或 $1$。令
+$F(t)=\mathbb P(Y\le t)$。因为 $Y$ 有限实值，事件 $\{Y\le n\}$ 递增到
+$\Omega$，事件 $\{Y\le-n\}$ 递减到空集，故 $F(n)\to1$、$F(-n)\to0$。
+所以 $c=\inf\{t:F(t)=1\}$ 是有限实数。对 $t<c$ 有 $F(t)=0$，对
+$t>c$ 有 $F(t)=1$。从上、从下连续性给出
+\[
+ \mathbb P(Y<c)=\lim_mF(c-1/m)=0,\qquad
+ \mathbb P(Y\le c)=\lim_mF(c+1/m)=1.
+\]
+于是 $Y=c$ 几乎必然。如果允许扩展实值，取 $Y\equiv+\infty$ 已说明常数
+未必有限；同样的阈值论证只能保证它在扩展实数意义下几乎必然为常数。
+\end{solution}
+
+\begin{solution}{independence-tail-series-events}
+固定任意 $r\ge1$。由于每个 $X_k$ 实值，删除有限初段不改变
+$\sum_n|X_n|$ 是否有限。该事件可写为
+\[
+ \bigcup_{M=1}^{\infty}\bigcap_{q\ge r}
+       \left\{\sum_{k=r}^q|X_k|\le M\right\},
+\]
+所以它属于 $\sigma(X_k:k\ge r)$。事件 $\{X_n\to0\}$ 可写为
+\[
+ \bigcap_{m=1}^{\infty}\bigcup_{N\ge r}\bigcap_{n\ge N}
+       \{|X_n|<1/m\},
+\]
+也属于同一尾段 $\sigma$-代数。
+
+令 $S_n=\sum_{k=1}^nX_k$。对 $n\ge r$，
+$S_n=S_{r-1}+\sum_{k=r}^nX_k$（$S_0=0$）。逐点看来，$S_{r-1}$ 是一个
+有限实数，前 $r-1$ 个部分和也只有有限多个。因此 $(S_n)$ 有界当且仅当
+$(\sum_{k=r}^nX_k)_{n\ge r}$ 有界。第三个事件可写为
+\[
+ \bigcup_{M=1}^{\infty}\bigcap_{n\ge r}
+    \left\{\left|\sum_{k=r}^nX_k\right|\le M\right\}.
+\]
+三个事件对每个 $r$ 都属于对应尾段的 $\sigma$-代数，故都是尾事件。
+独立性与尾零一律分别给出其概率为 $0$ 或 $1$，但不判定具体值。
+\end{solution}
+
+\begin{solution}{independence-binary-split-uniforms}
+级数各项非负且总和不超过 $1$，所以 $U,V$ 定义良好。它们分别对
+以下两个 $\sigma$-代数可测：
+\[
+ \sigma(D_1,D_3,\ldots),\qquad \sigma(D_2,D_4,\ldots).
+\]
+分块独立说明这两个 $\sigma$-代数独立，因此 $U,V$ 独立。
+
+证明 $U$ 均匀时，先处理端点。对任意固定 $m$，奇数位子序列从第 $m$
+位起全为 $1$ 的概率为
+$\lim_{N\to\infty}2^{-(N-m+1)}=0$。对 $m$ 取可数并可知，“从某位起
+全为 $1$”是零概率事件。在其补集上，若前 $k$ 个奇数位组成整数
+$j\in\{0,\ldots,2^k-1\}$，则
+\[
+ j2^{-k}\le U<(j+1)2^{-k}.
+\]
+左端允许以后全为零，右端的等号则已被刚才的例外集排除。
+所以每个二进半开区间 $[j2^{-k},(j+1)2^{-k})$ 的概率为 $2^{-k}$，
+而 $\mathbb P(U=1)=0$。
+
+这些区间以及 $\{1\}$、空集、$[0,1]$ 构成生成 $[0,1]$ 上 Borel 集的
+$\pi$-系统：任意两条二进区间或者不交，或者一条包含另一条。
+每个相对开集都是这个至多可数集合族中若干集合的并，故该族生成 Borel
+$\sigma$-代数。$U$ 的分布与 $[0,1]$ 上 Lebesgue 概率在
+此生成类上一致，因而处处一致。对偶数位完全同样，故 $V$ 也均匀。
+\end{solution}
+
+\begin{solution}{independence-infinite-patterns}
+固定字 $w$，在第 $j$ 个不重叠区块定义事件
+\[
+ A_j=\{D_{(j-1)r+1}=w_1,\ldots,D_{jr}=w_r\}.
+\]
+每个事件的概率是 $2^{-r}$。不同事件属于由不交位块生成的
+$\sigma$-代数，故由分块独立知事件列相互独立。于是
+$\sum_j\mathbb P(A_j)=\infty$，第二 Borel--Cantelli 引理给出这些区块
+匹配 $w$ 无穷多次的概率为 $1$。允许字从任何位置开始时，出现次数
+只可能更多，所以同一结论成立。
+
+所有有限二进制字组成至多可数集：每个长度 $r$ 有 $2^r$ 个字，而长度
+为正整数。对这些字的概率为 $1$ 的事件取可数交，所得事件仍有概率 $1$。
+因此几乎必然每个有限二进制字都出现无穷多次。不能直接假设重叠区块
+相互独立；选取不重叠区块正是避免这个问题的步骤。
+\end{solution}
+
+\begin{solution}{independence-tail-zero-one-limitations}
+取正文的 $[0,1)$ 二进制位构造。事件 $A=\{D_1=1\}$ 的概率为 $1/2$，
+而尾事件的概率只能为 $0$ 或 $1$，所以 $A$ 不是尾事件。
+令 $B=\{D_n=1\text{ 无穷多次}\}$。它属于每个尾段的 $\sigma$-代数，
+故是尾事件。独立性、$\mathbb P(D_n=1)=1/2$ 和第二 Borel--Cantelli
+引理给出 $\mathbb P(B)=1$。但样本点 $t=0$ 的每一位均为零，所以
+$0\notin B$，即 $B$ 不等于整个样本空间。
+其补集 $B^c$ 同样是尾事件，概率为零，却包含样本点 $0$，故非空。
+这说明“几乎必然”与“每个样本点都成立”必须区分。
+\end{solution}

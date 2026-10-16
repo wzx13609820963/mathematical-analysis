@@ -1,0 +1,246 @@
+\chapter{Radon 测度}
+
+\begin{solution}{radon-discrete-counting}
+有限集总紧。反之，离散空间中一个集合的单点族构成开覆盖；
+若集合无限，就没有有限子覆盖，所以它不紧。
+计数测度在单点邻域上有限。任意集合的计数测度等于其有限子集基数的
+上确界，故在全部 Borel 集（即全部子集）上内正则。
+计数测度有限的集合必有限；若它 \(\sigma\)-有限，\(X\) 就是至多可数个
+有限集的并，因此至多可数。这与题设的不可数性矛盾。
+\end{solution}
+
+\begin{solution}{radon-czero-level-sets}
+若 \(f\in C_c(X)\)，则每个正超水平集都是紧支撑中的闭集，所以紧。
+若 \(f\in C_0(X)\)，在紧集 \(\{|f|\ge1\}\) 上连续有界，在其外模小于一，
+故属于 \(C_b(X)\)。
+在实线上，\(e^{-x^2}\) 在无穷远消失而支撑为整个实线；
+常数一有界连续而不在无穷远消失。
+一般地，常数一在阈值 \(1/2\) 处的超水平集就是 \(X\)，
+所以它属于 \(C_0(X)\) 必推出 \(X\) 紧。若 \(X\) 紧，所有连续函数
+的正超水平集均紧，逆命题也成立。
+\end{solution}
+
+\begin{solution}{radon-cutoff-separates-points}
+Hausdorff 性保证 \(\{y\}\) 闭。对紧集 \(\{x\}\) 与开集
+\(X\setminus\{y\}\) 使用截断引理，得到 \(0\le f\le1\)、
+\(f(x)=1\)、\(f(y)=0\)。
+评价泛函 \(e_x(g)=g(x)\) 满足 \(|e_x(g)|\le\|g\|_\infty\)，
+故范数至多一；刚构造的函数取得值一且范数一，故范数恰为一。
+\end{solution}
+
+\begin{solution}{radon-locally-bounded-functional}
+固定紧集 \(K\)，取 \(h\in C_c(X)\) 在 \(K\) 上等于一且非负。
+若 \(\operatorname{supp}f\subset K\)，则
+\(-\|f\|_\infty h\le f\le\|f\|_\infty h\)。
+正性与线性给 \(|I(f)|\le I(h)\|f\|_\infty\)。
+在实线上取连续函数 \(h_n\)，在 \([-n,n]\) 上等于一，
+在 \([-n-1,n+1]\) 外等于零，并在两侧线性连接。
+则 \(\|h_n\|_\infty=1\)，而 \(\int h_n\,dx\ge2n\)。
+不存在对所有支撑同时有效的范数界。
+\end{solution}
+
+\begin{solution}{radon-weighted-density}
+令 \(\nu(E)=\int_Ew\,d\mu\)，单调收敛定理给可数可加性。
+每个点有紧邻域 \(K\)，由假设 \(\nu(K)<\infty\)，所以 \(\nu\) 局部有限。
+为证明内正则，先设 \(s=\sum_{j=1}^m a_j\mathbf1_{E_j}\le w\mathbf1_E\)
+是非负简单函数，其中 \(E_j\) 两两不交，\(a_j>0\)。
+由 \(\mu\) 内正则，\(\int s\,d\mu\) 可由
+\(\sum_j a_j\mu(K_j)\) 从下逼近，\(K_j\subset E_j\) 紧；
+若某一项无限，可使对应紧集上的项超过任何预先给定的有限数。
+有限并 \(K=\bigcup_jK_j\subset E\) 紧，且
+\(\nu(K)\ge\sum_j a_j\mu(K_j)\)。
+对简单函数和紧集依次取上确界，得
+\(\nu(E)\le\sup_{K\subset E}\nu(K)\)；反向由单调性。
+因此 \(\nu\) Radon。证明没有用到 \(w\) 连续或在紧集上有界。
+\end{solution}
+
+\begin{solution}{radon-finite-outer-regular}
+设 \(\mu(X)<\infty\)。给定 Borel 集 \(E\) 和 \(\varepsilon>0\)，
+取紧集 \(K\subset E^c\)，使
+\(\mu(E^c)-\mu(K)<\varepsilon\)。
+令 \(U=X\setminus K\)，则 \(E\subset U\) 且
+\(\mu(U)-\mu(E)=\mu(E^c\setminus K)<\varepsilon\)。
+所有包含 \(E\) 的开集测度都至少为 \(\mu(E)\)，所以确界相等。
+若总质量无限，表达式 \(\mu(X)-\mu(K)-\mu(E)\) 可能包含
+\(\infty-\infty\)，从而这段减法不成立。
+这说明当前证明不能直接使用，并不单凭这一点断言外正则性必然失败。
+\end{solution}
+
+\begin{solution}{radon-positive-monotone-continuity}
+由 \(f_n\downarrow0\)，每个 \(f_n\ge0\) 且
+\(\operatorname{supp}f_n\subset K=\operatorname{supp}f_1\)。
+对任意 \(\varepsilon>0\)，紧集中的闭集
+\(\{x\in K:f_n(x)\ge\varepsilon\}\) 递减且交为空。
+紧致性保证某一项已为空；故 \(f_n\to0\) 一致。
+取 \(h\in C_c(X)\) 在 \(K\) 上等于一，得到
+\[
+ 0\le I(f_n)\le\|f_n\|_\infty I(h)\longrightarrow0.
+\]
+正性也保证这些值递减。这是紧集上的 Dini 论证，不依赖表示定理。
+\end{solution}
+
+\begin{solution}{radon-measure-determined-cc}
+对开集 \(U\)，内正则性及截断引理给
+\[
+ \mu(U)=\sup_{0\le f\le1,\ \operatorname{supp}f\subset U}\int f\,d\mu.
+\]
+上界由 \(f\le\mathbf1_U\)，下界由对每个紧集 \(K\subset U\)
+选择等于一于 \(K\) 的截断得到。对另一个测度 \(\nu\) 同理，
+故假设推出 \(\mu(U)=\nu(U)\)。
+二者在紧集上外正则，因而
+\(\mu(K)=\inf_{U\supset K}\mu(U)=\nu(K)\)。
+最后对任意 Borel 集用紧内逼近，得 \(\mu(E)=\nu(E)\)。
+当测度总质量无限时，不能只从开集相等就不加说明地套用有限测度唯一性定理。
+\end{solution}
+
+\begin{solution}{radon-atomic-czero-dual}
+在离散 \(\N\) 上，\(C_0(\N)=c_0\)。
+每个有限复测度由单点质量 \(a_k=\nu(\{k\})\) 决定：
+可数可加性给 \(\nu(E)=\sum_{k\in E}a_k\)。
+全变差为 \(|\nu|(E)=\sum_{k\in E}|a_k|\)，所以
+\((a_k)\in\ell^1\)。
+本章表示定理于是给
+\[
+ L(x)=\sum_{k\in\N}a_kx_k,\qquad \|L\|=\sum_{k\in\N}|a_k|.
+\]
+反过来，绝对收敛保证任意 \(\ell^1\) 序列给出这样的有界泛函。
+复线性配对这里不加共轭；若用内积式记号，必须同时修改系数约定。
+\end{solution}
+
+\begin{solution}{radon-dirac-total-variation}
+对每个有界连续 \(f\)，连续性给
+\(\int f\,d\delta_{1/n}=f(1/n)\to f(0)\)，即窄收敛。
+但两个单点互异，对集合分割中的 \(\{1/n\}\)、\(\{0\}\)
+分别产生质量一和负一，因此
+\(|\delta_{1/n}-\delta_0|=\delta_{1/n}+\delta_0\)，总质量为二。
+全变差收敛比窄收敛强得多。
+\end{solution}
+
+\begin{solution}{radon-vague-escaping-mixture}
+对 \(f\in C_0(\R)\)，
+\(\int f\,d\mu_n=\tfrac12f(0)+\tfrac12f(n)\to\tfrac12f(0)\)，
+故弱星及模糊极限均为 \(\tfrac12\delta_0\)。
+若某子列窄收敛到有限 Radon 测度 \(\nu\)，则对 \(C_c\) 也收敛，
+由唯一性 \(\nu=\tfrac12\delta_0\)。
+但对常数一取极限会给 \(\nu(\R)=1\)，与其总质量 \(1/2\) 矛盾。
+\end{solution}
+
+\begin{solution}{radon-compact-portmanteau}
+对紧集 \(K\) 及任意 \(\varepsilon>0\)，外正则性给开集
+\(U\supset K\)，满足 \(\mu(U)<\mu(K)+\varepsilon\)。
+取 \(0\le h\le1\)、\(h|_K=1\)、\(\operatorname{supp}h\subset U\)，则
+\[
+ \limsup_n\mu_n(K)
+ \le\lim_n\int h\,d\mu_n
+ =\int h\,d\mu\le\mu(U)<\mu(K)+\varepsilon.
+\]
+令误差趋零。
+对开集 \(U\)，任意允许的 \(0\le h\le1\)、\(\operatorname{supp}h\subset U\)
+满足
+\(\int h\,d\mu=\lim_n\int h\,d\mu_n\le\liminf_n\mu_n(U)\)。
+对这些 \(h\) 取上确界，即得第二式，包括 \(\mu(U)=\infty\) 的情况。
+\end{solution}
+
+\begin{solution}{radon-czero-convergence-bound}
+记 \(L_n(f)=\int f\,d\nu_n\)。弱星收敛说明对每个固定 \(f\in C_0(X)\)，
+数列 \((L_n(f))\) 收敛，因而有界。
+\(C_0(X)\) 是 Banach 空间，一致有界原理给
+\(\sup_n\|L_n\|<\infty\)；等距表示给
+\(\|L_n\|=|\nu_n|(X)\)。
+若换成任意有向集上的网，收敛并不保证全部取值有界，
+因为一个最终部分以外可能仍有无穷多个指标；
+所以不能从收敛网直接得到本题所用的逐点有界前提。
+例如在实线上，以 \(\N\times\N\) 按逐坐标次序为有向集，令
+\[
+ \nu_{(n,k)}=
+ \begin{cases}k\delta_0,&n=0,\\0,&n\ge1.\end{cases}
+\]
+在指标 \((1,0)\) 之后所有测度均为零，所以这个网甚至最终恒为零，当然
+弱星收敛到零；但全部指标上的总质量仍无界。问题不在极限尾部，而在
+网的一个非最终区域可以含无穷多个取值。
+\end{solution}
+
+\begin{solution}{radon-finite-continuous-push}
+连续性保证 Borel 集的原像 Borel，可数可加性由原像保持不交并得到。
+总质量为 \(\mu(X)<\infty\)，故局部有限。
+对 \(E\in\mathcal B(Y)\)，在 \(T^{-1}E\) 内取紧集 \(K\)，
+使 \(\mu(T^{-1}E\setminus K)<\varepsilon\)。
+则 \(T(K)\subset E\) 紧，且
+\[
+ (T_\#\mu)(T(K))
+ =\mu(T^{-1}T(K))\ge\mu(K)>
+ (T_\#\mu)(E)-\varepsilon.
+\]
+因此推前测度内正则。证明没有使用单射性。
+若 \(X=\R\)、\(\mu\) 是长度测度、\(T\) 为到单点空间的常值映射，
+推前测度在该单点取值无穷，不局部有限。
+\end{solution}
+
+\begin{solution}{radon-local-vague-compactness}
+令 \(K_m=[-m,m]^d\)，\(m\ge1\)。空间
+\[
+ E_m=\{f\in C_c(\R^d):\operatorname{supp}f\subset K_m\}
+\]
+在上确界范数下可分：将其限制到 \(K_m\)，它是可分空间 \(C(K_m)\)
+的子空间；后者可用有理网格分片多线性函数得到可分性。
+对每个 \(m\) 取可数稠密族 \(\mathcal D_m\)。
+每个 \(g\in\bigcup_m\mathcal D_m\) 的积分列有界，因为
+\[
+ \left|\int g\,d\mu_n\right|
+ \le\|g\|_\infty\sup_n\mu_n(K_m)
+\]
+对包含其支撑的 \(K_m\) 成立。
+对这一个至多可数函数族作对角抽取，得到子列 \((\mu_{n_k})\)，
+使每个族中函数的积分收敛。
+
+任意 \(f\in C_c\) 属于某个 \(E_m\)。以 \(\mathcal D_m\) 一致逼近，
+利用共同界 \(\sup_n\mu_n(K_m)\)，可证
+\((\int f\,d\mu_{n_k})_k\) 是 Cauchy 列。
+记极限为 \(I(f)\)。它由实际积分极限定义，故不依赖逼近函数或盒子的选择；
+取极限保持线性和正性。
+Riesz--Markov 定理给唯一 Radon 测度 \(\mu\)，使
+\(I(f)=\int f\,d\mu\)。构造已证明对每个 \(C_c\) 函数的积分收敛，
+这正是模糊收敛。这里没有要求总质量统一有界。
+\end{solution}
+
+\begin{solution}{radon-polar-decomposition}
+对有限可测分割，三角不等式给
+\(\sum_j|\int_{E_j}h\,d\mu|\le\int_E|h|\,d\mu\)。
+反向，将 \(h\ne0\) 的方向分成角宽至多 \(\eta\) 的有限扇区，
+对每块选单位复数 \(c_j\)，使
+\(\operatorname{Re}(c_jh)\ge\cos\eta\,|h|\)。
+按这些可测扇区作分割，得
+\(\sum_j|\nu(E_j)|\ge\cos\eta\int_E|h|\,d\mu\)。
+令 \(\eta\to0\) 得 \(|\nu|(E)=\int_E|h|\,d\mu\)。
+令 \(\theta=h/|h|\) 于 \(h\ne0\)，在其余处任取单位值，例如一，
+则 \(d\nu=\theta\,d|\nu|\) 且 \(|\theta|=1\)。
+唯一性是 \(|\nu|\)-几乎处处唯一；在 \(h=0\) 而 \(\mu\) 质量非零的集合上，
+\(\theta\) 的值不影响 \(\nu\)，不能说它总是 \(\mu\)-几乎处处唯一。
+\end{solution}
+
+\begin{solution}{radon-total-variation-density}
+给 \(w\ge0\)、\(w\in L^1(\mu)\)，由连续函数的 \(L^1\) 稠密性选实连续
+\(g_n\to w\) 于 \(L^1\)。令 \(h_n=(g_n)_+\)，则
+\(|h_n-w|\le|g_n-w|\)，所以仍在 \(L^1\) 中收敛。
+由全变差的密度公式，
+\[
+ |h_n\mu-w\mu|(K)=\int_K|h_n-w|\,d\mu\longrightarrow0.
+\]
+但对 \(K=[0,1]\) 和长度测度 \(\mu\)，任何 \(h\mu\) 都给单点
+\(\{0\}\) 零质量，而 \(\delta_0(\{0\})=1\)。
+因此 \(|h\mu-\delta_0|(K)\ge1\)，不可能全变差逼近 \(\delta_0\)。
+\end{solution}
+
+\begin{solution}{radon-probability-tight-subsequence}
+所有 \(\mu_n\) 作为 \(C_0(\R^d)^*\) 中的正泛函都具有范数一。
+该空间 \(C_0(\R^d)\) 可分，故正对偶单位球的弱星紧致性和度量化
+给弱星收敛子列，其极限仍是正泛函，范数至多一。
+由表示定理写为 Radon 测度 \(\mu\)，总质量至多一。
+弱星收敛蕴含模糊收敛。
+题设测度族一致紧，故对任意 \(\varepsilon>0\)，存在紧集 \(K\) 使
+\(\mu_n(K)>1-\varepsilon\) 对全部 \(n\) 成立。
+取等于一于 \(K\) 的截断 \(h\)，有
+\(\int h\,d\mu\ge1-\varepsilon\)，于是 \(\mu(\R^d)=1\)。
+命题 \ref{prop:vague-probability-narrow} 再给子列窄收敛。
+对偶球紧致性提供收敛子列；测度族的一致紧性防止其极限丢失质量。
+\end{solution}

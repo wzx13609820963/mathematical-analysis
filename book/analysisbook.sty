@@ -244,6 +244,10 @@
 \newcommand{\opendo}{\textcolor{AnalysisGray}{\bfseries [开放]}\nobreakspace}
 
 \makeatletter
+% Reserve room for four-digit contents page numbers; keep the existing 1em
+% gap between a dotted entry's text margin and its page-number box.
+\renewcommand{\@pnumwidth}{2.5em}
+\renewcommand{\@tocrmarg}{3.5em}
 \providecommand*{\toclevel@volume}{-2}
 \newcommand*\l@volume{\@dottedtocline{-1}{0em}{0em}}
 % The verso inserted solely to restore recto opening should carry no running

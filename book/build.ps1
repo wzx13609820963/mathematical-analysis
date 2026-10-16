@@ -47,7 +47,7 @@ try {
         }
     }
 
-    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-第一至五卷-附录A至C.pdf'
+    $candidatePath = Join-Path $candidateDirectory '从高等数学到数学分析-第0至110章-附录A至C.pdf'
     $builtPdf = Join-Path $PSScriptRoot 'main.pdf'
     if (-not (Test-Path -LiteralPath $builtPdf)) {
         throw 'LuaLaTeX did not produce main.pdf.'
@@ -56,8 +56,8 @@ try {
 
     $outputDirectory = Join-Path $repositoryRoot 'output\pdf'
     New-Item -ItemType Directory -Force -Path $outputDirectory | Out-Null
-    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-第一至五卷-附录A至C.pdf'
-    $linkTargetPath = Join-Path $outputDirectory 'analysis-vol1-5-appA-C.pdf'
+    $releasePath = Join-Path $outputDirectory '从高等数学到数学分析-第0至110章-附录A至C.pdf'
+    $linkTargetPath = Join-Path $outputDirectory 'analysis-ch0-110-appA-C.pdf'
     try {
         Copy-Item -LiteralPath $candidatePath -Destination $releasePath -Force
         Copy-Item -LiteralPath $candidatePath -Destination $linkTargetPath -Force
@@ -82,6 +82,12 @@ finally {
     }
     Pop-Location
     if (-not $retainTaskDirectory -and (Test-Path -LiteralPath $taskDirectory)) {
-        Remove-Item -LiteralPath $taskDirectory -Recurse -Force
+        $resolvedTask = [System.IO.Path]::GetFullPath($taskDirectory)
+        $allowedTaskRoot = [System.IO.Path]::GetFullPath((Join-Path $repositoryRoot 'tmp\tasks')) + [System.IO.Path]::DirectorySeparatorChar
+        if (-not $resolvedTask.StartsWith($allowedTaskRoot, [System.StringComparison]::OrdinalIgnoreCase) -or
+            (Split-Path $resolvedTask -Leaf) -ne $taskId) {
+            throw "拒绝清理任务目录以外的路径：$resolvedTask"
+        }
+        Remove-Item -LiteralPath $resolvedTask -Recurse -Force
     }
 }
